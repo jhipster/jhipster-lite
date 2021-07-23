@@ -14,4 +14,12 @@ You will only need to run this command when dependencies change in [package.json
 npm install
 ```
 
+## Maven
+
+To launch tests:
+
+```
+./mvnw clean test
+```
+
 <!-- jhipster-needle-readme -->

@@ -1,5 +1,7 @@
 # JHipster Forge
 
+[![Build Status][github-actions-jhforge-image]][github-actions-url]
+
 ## Node.js and NPM
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
@@ -21,5 +23,8 @@ To launch tests:
 ```
 ./mvnw clean test
 ```
+
+[github-actions-jhforge-image]: https://github.com/pascalgrimaud/jhipster-forge/workflows/Application%20CI/badge.svg
+[github-actions-url]: https://github.com/pascalgrimaud/jhipster-forge/actions
 
 <!-- jhipster-needle-readme -->

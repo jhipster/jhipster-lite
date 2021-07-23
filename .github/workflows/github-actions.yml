@@ -14,16 +14,25 @@ jobs:
       NG_CLI_ANALYTICS: false
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: 'Setup: Node.js'
+        uses: actions/setup-node@v1
         with:
           node-version: 14.17.1
-      - uses: actions/setup-java@v2
+      - name: 'Setup: Java'
+        uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '11.x'
-      - name: Install Node.js packages
+      - name: 'Init: cache local Maven repository'
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: 'Init: install Node.js packages'
         run: npm install
-      - name: Run backend test
+      - name: 'Test: run backend test'
         run: |
           chmod +x mvnw
           ./mvnw clean test

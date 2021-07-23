@@ -36,4 +36,4 @@ jobs:
       - name: 'Test: run backend test'
         run: |
           chmod +x mvnw
-          ./mvnw clean test
+          ./mvnw clean verify

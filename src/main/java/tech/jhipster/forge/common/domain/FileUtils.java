@@ -14,6 +14,8 @@ public class FileUtils {
 
   private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
 
+  private FileUtils() {}
+
   public static boolean exists(String path) {
     Assert.notBlank("path", path);
 

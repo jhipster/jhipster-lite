@@ -17,6 +17,18 @@ class JhforgeAppIT {
   }
 
   @Test
+  void shouldMainWithServerSslKeyStore() {
+    System.setProperty("server.ssl.key-store", "https://localhost");
+    assertThatCode(() -> JhforgeApp.main(new String[] {})).doesNotThrowAnyException();
+  }
+
+  @Test
+  void shouldMainWithContextPath() {
+    System.setProperty("server.servlet.context-path", "/chips");
+    assertThatCode(() -> JhforgeApp.main(new String[] {})).doesNotThrowAnyException();
+  }
+
+  @Test
   void shouldMainWithoutHostAddress() {
     try (MockedStatic<InetAddress> inetAddress = Mockito.mockStatic(InetAddress.class)) {
       inetAddress.when(InetAddress::getLocalHost).thenThrow(new UnknownHostException());

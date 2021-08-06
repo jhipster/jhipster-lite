@@ -1,8 +1,9 @@
 package tech.jhipster.forge.common.secondary;
 
-import static tech.jhipster.forge.common.domain.Constants.RESOURCES;
+import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
 
-import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,9 +28,21 @@ public class ProjectRepository implements Projects {
   public void add(Project project, String source, String file) {
     try {
       log.info("Adding file '{}'", file);
-      Files.copy(Path.of(RESOURCES + source + File.separator + file), Path.of(project.getPath() + File.separator + file));
+      Path sourcePath = FileUtils.getPathOf(MAIN_RESOURCES, source, file);
+      Path destinationPath = FileUtils.getPathOf(project.getPath(), file);
+      Files.copy(sourcePath, destinationPath);
     } catch (IOException ex) {
       log.error("Can't add file '{}':", file, ex);
+    }
+  }
+
+  @Override
+  public void template(Project project, String source, String file) throws IOException {
+    String result = MustacheUtils.template(FileUtils.getPath(MAIN_RESOURCES, source, file), project);
+
+    String destinationPath = FileUtils.getPath(project.getPath(), file.replaceAll(".mustache", ""));
+    try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(destinationPath))) {
+      bufferedWriter.write(result);
     }
   }
 }

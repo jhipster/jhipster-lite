@@ -38,6 +38,7 @@
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <jacoco.version>0.8.6</jacoco.version>
+    <mustache.version>0.9.10</mustache.version>
 
     <!-- jhipster-needle-maven-property -->
   </properties>
@@ -71,6 +72,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.spullara.mustache.java</groupId>
+      <artifactId>compiler</artifactId>
+      <version>${mustache.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

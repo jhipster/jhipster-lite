@@ -2,7 +2,9 @@ package tech.jhipster.forge.common.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
@@ -58,13 +60,28 @@ class FileUtilsTest {
   @Test
   void shouldNotCreateFolderWhenItsAFile() throws Exception {
     String path = FileUtils.tmpDirForTest();
-
+    String destinationFile = FileUtils.getPath(path, "chips");
     assertThat(FileUtils.exists(path)).isFalse();
-
     assertThat(FileUtils.createFolder(path)).isTrue();
     assertThat(FileUtils.exists(path)).isTrue();
+    Files.createFile(FileUtils.getPathOf(destinationFile));
 
-    Files.createFile(Paths.get(path + "/chips"));
-    assertThat(FileUtils.createFolder(path + "/chips")).isFalse();
+    boolean result = FileUtils.createFolder(destinationFile);
+
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  void shouldGetPath() {
+    String result = FileUtils.getPath("chips", "beer");
+
+    assertThat(result).isEqualTo("chips" + File.separator + "beer");
+  }
+
+  @Test
+  void shouldGetPathOf() {
+    Path result = FileUtils.getPathOf("chips", "beer");
+
+    assertThat(result).isEqualTo(Path.of("chips" + File.separator + "beer"));
   }
 }

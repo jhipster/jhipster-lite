@@ -47,6 +47,27 @@ class ProjectRepositoryTest {
     Project project = Project.builder().path(path).build();
     repository.create(project);
 
-    assertThatCode(() -> repository.add(project, "common", UUID.randomUUID().toString())).doesNotThrowAnyException();
+    assertThatCode(() -> repository.add(project, "template/common", UUID.randomUUID().toString())).doesNotThrowAnyException();
+  }
+
+  @Test
+  void shouldTemplate() throws Exception {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+    repository.create(project);
+
+    repository.template(project, "common", "README.md.mustache");
+
+    assertThat(FileUtils.exists(project.getPath() + File.separator + "README.md")).isTrue();
+  }
+
+  @Test
+  void shouldNotTemplate() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    repository.template(project, "common", "README.md.mustache");
+
+    assertThat(FileUtils.exists(project.getPath() + File.separator + "README.md")).isFalse();
   }
 }

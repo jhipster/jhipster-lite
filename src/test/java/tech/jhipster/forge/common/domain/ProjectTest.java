@@ -105,4 +105,24 @@ class ProjectTest {
     project.addConfig("projectName", "chips");
     assertThat(project.getConfig("projectName")).contains("JHipster Forge");
   }
+
+  @Test
+  void shouldAddDefaultConfig() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    project.addDefaultConfig("baseName");
+
+    assertThat(project.getConfig("baseName")).contains("jhipster");
+  }
+
+  @Test
+  void shouldNotAddDefaultConfig() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    project.addDefaultConfig("apero");
+
+    assertThat(project.getConfig("apero")).isEmpty();
+  }
 }

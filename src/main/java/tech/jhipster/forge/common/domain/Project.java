@@ -42,6 +42,10 @@ public class Project {
     config.putIfAbsent(key, value);
   }
 
+  public void addDefaultConfig(String key) {
+    DefaultConfig.get(key).ifPresent(value -> addConfig(key, value));
+  }
+
   public static class ProjectBuilder {
 
     private String path;

@@ -47,11 +47,11 @@ class ProjectRepositoryTest {
     Project project = Project.builder().path(path).build();
     repository.create(project);
 
-    assertThatCode(() -> repository.add(project, "template/common", UUID.randomUUID().toString())).doesNotThrowAnyException();
+    assertThatCode(() -> repository.add(project, "common", UUID.randomUUID().toString())).doesNotThrowAnyException();
   }
 
   @Test
-  void shouldTemplate() throws Exception {
+  void shouldTemplate() {
     String path = FileUtils.tmpDirForTest();
     Project project = Project.builder().path(path).build();
     repository.create(project);

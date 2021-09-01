@@ -60,14 +60,15 @@ class FileUtilsTest {
   @Test
   void shouldNotCreateFolderWhenItsAFile() throws Exception {
     String path = FileUtils.tmpDirForTest();
-
+    String destinationFile = FileUtils.getPath(path, "chips");
     assertThat(FileUtils.exists(path)).isFalse();
-
     assertThat(FileUtils.createFolder(path)).isTrue();
     assertThat(FileUtils.exists(path)).isTrue();
+    Files.createFile(FileUtils.getPathOf(destinationFile));
 
-    Files.createFile(Paths.get(path + "/chips"));
-    assertThat(FileUtils.createFolder(path + "/chips")).isFalse();
+    boolean result = FileUtils.createFolder(destinationFile);
+
+    assertThat(result).isFalse();
   }
 
   @Test

@@ -1,10 +1,9 @@
 package tech.jhipster.forge.common.secondary;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
-import com.github.mustachejava.MustacheNotFoundException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +47,7 @@ class ProjectRepositoryTest {
     Project project = Project.builder().path(path).build();
     repository.create(project);
 
-    assertThatCode(() -> repository.add(project, "common", UUID.randomUUID().toString())).doesNotThrowAnyException();
+    assertThatCode(() -> repository.add(project, "template/common", UUID.randomUUID().toString())).doesNotThrowAnyException();
   }
 
   @Test
@@ -67,7 +66,7 @@ class ProjectRepositoryTest {
     String path = FileUtils.tmpDirForTest();
     Project project = Project.builder().path(path).build();
 
-    assertThatThrownBy(() -> repository.template(project, "common", "README.md.mustache")).isExactlyInstanceOf(FileNotFoundException.class);
+    repository.template(project, "common", "README.md.mustache");
 
     assertThat(FileUtils.exists(project.getPath() + File.separator + "README.md")).isFalse();
   }

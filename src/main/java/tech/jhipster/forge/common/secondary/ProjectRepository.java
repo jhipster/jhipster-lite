@@ -1,6 +1,6 @@
 package tech.jhipster.forge.common.secondary;
 
-import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.forge.common.domain.Constants.TEMPLATE_RESOURCES;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -28,7 +28,7 @@ public class ProjectRepository implements Projects {
   public void add(Project project, String source, String file) {
     try {
       log.info("Adding file '{}'", file);
-      Path sourcePath = FileUtils.getPathOf(MAIN_RESOURCES, source, file);
+      Path sourcePath = FileUtils.getPathOf(TEMPLATE_RESOURCES, source, file);
       Path destinationPath = FileUtils.getPathOf(project.getPath(), file);
       Files.copy(sourcePath, destinationPath);
     } catch (IOException ex) {
@@ -37,12 +37,16 @@ public class ProjectRepository implements Projects {
   }
 
   @Override
-  public void template(Project project, String source, String file) throws IOException {
-    String result = MustacheUtils.template(FileUtils.getPath(MAIN_RESOURCES, source, file), project);
+  public void template(Project project, String source, String file) {
+    try {
+      String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, file), project);
 
-    String destinationPath = FileUtils.getPath(project.getPath(), file.replaceAll(".mustache", ""));
-    try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(destinationPath))) {
-      bufferedWriter.write(result);
+      String destination = FileUtils.getPath(project.getPath(), file.replaceAll(".mustache", ""));
+      try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(destination))) {
+        bufferedWriter.write(result);
+      }
+    } catch (IOException ex) {
+      log.error("Can't template file '{}':", file, ex);
     }
   }
 }

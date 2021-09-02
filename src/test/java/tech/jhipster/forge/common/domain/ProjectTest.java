@@ -65,6 +65,14 @@ class ProjectTest {
   }
 
   @Test
+  void shouldGetDefaultConfigWithKey() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    assertThat(project.getConfig("baseName")).contains("jhipster");
+  }
+
+  @Test
   void shouldAddConfigInEmptyConfig() {
     String path = FileUtils.tmpDirForTest();
     Project project = Project.builder().path(path).build();

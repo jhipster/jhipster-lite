@@ -30,7 +30,7 @@ To launch tests and integration tests:
 ./mvnw clean verify
 ```
 
-[github-actions-jhforge-image]: https://github.com/pascalgrimaud/jhipster-forge/workflows/Application%20CI/badge.svg
+[github-actions-jhforge-image]: https://github.com/pascalgrimaud/jhipster-forge/workflows/build/badge.svg
 [github-actions-url]: https://github.com/pascalgrimaud/jhipster-forge/actions
 
 <!-- jhipster-needle-readme -->

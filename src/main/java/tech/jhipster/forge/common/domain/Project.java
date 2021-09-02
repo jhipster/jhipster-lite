@@ -31,7 +31,11 @@ public class Project {
   }
 
   public Optional<String> getConfig(String key) {
-    return Optional.ofNullable(config.get(key));
+    Optional<String> value = Optional.ofNullable(config.get(key));
+    if (value.isEmpty()) {
+      return DefaultConfig.get(key);
+    }
+    return value;
   }
 
   public void addConfig(String key, String value) {

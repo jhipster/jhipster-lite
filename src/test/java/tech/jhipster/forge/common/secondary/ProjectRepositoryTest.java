@@ -81,7 +81,7 @@ class ProjectRepositoryTest {
 
     repository.template(project, "common", "README.md.mustache");
 
-    assertThat(FileUtils.exists(project.getPath() + File.separator + "README.md")).isTrue();
+    assertThat(FileUtils.exists(getPath(project.getPath(), "README.md"))).isTrue();
   }
 
   @Test
@@ -89,8 +89,30 @@ class ProjectRepositoryTest {
     String path = FileUtils.tmpDirForTest();
     Project project = Project.builder().path(path).build();
 
-    repository.template(project, "common", "README.md.mustache");
+    repository.template(project, "common", "README.md.wrong.mustache");
 
-    assertThat(FileUtils.exists(project.getPath() + File.separator + "README.md")).isFalse();
+    assertThat(FileUtils.exists(getPath(project.getPath(), "README.md"))).isFalse();
+  }
+
+  @Test
+  void shouldTemplateWithDestination() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+    repository.create(project);
+
+    repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"));
+
+    assertThat(FileUtils.exists(getPath(project.getPath(), "src", "main", "resources", "README.md"))).isTrue();
+  }
+
+  @Test
+  void shouldTemplateWithDestinationAndDestinationFilename() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+    repository.create(project);
+
+    repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"), "FINAL-README.md");
+
+    assertThat(FileUtils.exists(getPath(project.getPath(), "src", "main", "resources", "FINAL-README.md"))).isTrue();
   }
 }

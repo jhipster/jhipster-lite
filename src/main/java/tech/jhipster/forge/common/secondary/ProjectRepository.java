@@ -2,6 +2,7 @@ package tech.jhipster.forge.common.secondary;
 
 import static tech.jhipster.forge.common.domain.Constants.TEMPLATE_RESOURCES;
 
+import com.github.mustachejava.MustacheException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class ProjectRepository implements Projects {
 
   @Override
   public void add(Project project, String source, String sourceFilename) {
-    add(project, source, sourceFilename, ".", sourceFilename);
+    add(project, source, sourceFilename, ".");
   }
 
   @Override
@@ -51,16 +52,30 @@ public class ProjectRepository implements Projects {
   }
 
   @Override
-  public void template(Project project, String source, String file) {
-    try {
-      String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, file), project);
+  public void template(Project project, String source, String filename) {
+    template(project, source, filename, ".");
+  }
 
-      String destination = FileUtils.getPath(project.getPath(), file.replaceAll(".mustache", ""));
-      try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(destination))) {
+  @Override
+  public void template(Project project, String source, String filename, String destination) {
+    template(project, source, filename, destination, filename.replaceAll(".mustache", ""));
+  }
+
+  @Override
+  public void template(Project project, String source, String filename, String destination, String destinationFilename) {
+    try {
+      String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, filename), project.getConfig());
+
+      String destinationFolder = FileUtils.getPath(project.getPath(), destination);
+      FileUtils.createFolder(destinationFolder);
+
+      String destinationTarget = FileUtils.getPath(destinationFolder, destinationFilename);
+      try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(destinationTarget))) {
         bufferedWriter.write(result);
       }
-    } catch (IOException ex) {
-      log.error("Can't template file '{}':", file, ex);
+      log.info("Adding file '{}'", destinationFilename);
+    } catch (IOException | MustacheException ex) {
+      log.error("Can't template file '{}':", destinationFilename, ex);
     }
   }
 }

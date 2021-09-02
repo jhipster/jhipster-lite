@@ -7,5 +7,7 @@ public interface Projects {
   void add(Project project, String source, String filename, String destination);
   void add(Project project, String source, String filename, String destination, String destinationFilename);
 
-  void template(Project project, String source, String file);
+  void template(Project project, String source, String filename);
+  void template(Project project, String source, String filename, String destination);
+  void template(Project project, String source, String filename, String destination, String destinationFilename);
 }

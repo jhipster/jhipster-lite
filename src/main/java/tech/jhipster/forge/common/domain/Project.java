@@ -1,5 +1,6 @@
 package tech.jhipster.forge.common.domain;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import tech.jhipster.forge.error.domain.Assert;
@@ -33,10 +34,14 @@ public class Project {
     return Optional.ofNullable(config.get(key));
   }
 
+  public void addConfig(String key, String value) {
+    config.putIfAbsent(key, value);
+  }
+
   public static class ProjectBuilder {
 
     private String path;
-    private Map<String, String> config = Map.of();
+    private Map<String, String> config = new HashMap<>();
 
     public Project build() {
       return new Project(this);

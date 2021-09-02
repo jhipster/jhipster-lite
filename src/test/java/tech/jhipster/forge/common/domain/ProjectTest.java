@@ -3,6 +3,7 @@ package tech.jhipster.forge.common.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
@@ -61,5 +62,39 @@ class ProjectTest {
 
     assertThat(project.getConfig("projectname")).isEmpty();
     assertThat(project.getConfig("test")).isEmpty();
+  }
+
+  @Test
+  void shouldAddConfigInEmptyConfig() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    assertThat(project.getConfig("apero")).isEmpty();
+
+    project.addConfig("apero", "beer");
+    assertThat(project.getConfig("apero")).contains("beer");
+
+    project.addConfig("apero", "chips");
+    assertThat(project.getConfig("apero")).contains("beer");
+  }
+
+  @Test
+  void shouldAddConfigInExistingConfig() {
+    // Given
+    String path = FileUtils.tmpDirForTest();
+    Map<String, String> config = new HashMap<>();
+    config.putIfAbsent("projectName", "JHipster Forge");
+    Project project = Project.builder().path(path).config(config).build();
+
+    assertThat(project.getConfig("projectName")).contains("JHipster Forge");
+    assertThat(project.getConfig("apero")).isEmpty();
+
+    // When + Then
+    project.addConfig("apero", "beer");
+    assertThat(project.getConfig("apero")).contains("beer");
+
+    // When + Then
+    project.addConfig("projectName", "chips");
+    assertThat(project.getConfig("projectName")).contains("JHipster Forge");
   }
 }

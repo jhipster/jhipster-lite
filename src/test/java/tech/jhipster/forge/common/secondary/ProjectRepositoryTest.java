@@ -2,6 +2,7 @@ package tech.jhipster.forge.common.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 
 import java.io.File;
 import java.util.UUID;
@@ -48,6 +49,28 @@ class ProjectRepositoryTest {
     repository.create(project);
 
     assertThatCode(() -> repository.add(project, "common", UUID.randomUUID().toString())).doesNotThrowAnyException();
+  }
+
+  @Test
+  void shouldAddWithDestination() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+    repository.create(project);
+
+    repository.add(project, "common", "README.md", getPath("src", "main", "resources"));
+
+    assertThat(FileUtils.exists(getPath(project.getPath(), "src", "main", "resources", "README.md"))).isTrue();
+  }
+
+  @Test
+  void shouldAddWithDestinationAndDestinationFilename() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+    repository.create(project);
+
+    repository.add(project, "common", "README.md", getPath("src", "main", "resources"), "FINAL-README.md");
+
+    assertThat(FileUtils.exists(getPath(project.getPath(), "src", "main", "resources", "FINAL-README.md"))).isTrue();
   }
 
   @Test

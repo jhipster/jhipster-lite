@@ -1,4 +1,4 @@
-# JHipster Forge
+# JHipster Forge ⚔🛡
 
 [![Build Status][github-actions-jhforge-image]][github-actions-url]
 

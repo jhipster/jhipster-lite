@@ -1,10 +1,10 @@
 package tech.jhipster.forge.common.secondary;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static tech.jhipster.forge.TestUtils.assertFileExist;
+import static tech.jhipster.forge.TestUtils.assertFileNotExist;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 
-import java.io.File;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ class ProjectRepositoryTest {
 
     repository.create(project);
 
-    assertThat(FileUtils.exists(project.getPath())).isTrue();
+    assertFileExist(project.getPath());
   }
 
   @Test
@@ -39,7 +39,7 @@ class ProjectRepositoryTest {
 
     repository.add(project, "common", "README.md");
 
-    assertThat(FileUtils.exists(project.getPath() + File.separator + "README.md")).isTrue();
+    assertFileExist(project, "README.md");
   }
 
   @Test
@@ -59,7 +59,7 @@ class ProjectRepositoryTest {
 
     repository.add(project, "common", "README.md", getPath("src", "main", "resources"));
 
-    assertThat(FileUtils.exists(getPath(project.getPath(), "src", "main", "resources", "README.md"))).isTrue();
+    assertFileExist(project, "src", "main", "resources", "README.md");
   }
 
   @Test
@@ -70,7 +70,7 @@ class ProjectRepositoryTest {
 
     repository.add(project, "common", "README.md", getPath("src", "main", "resources"), "FINAL-README.md");
 
-    assertThat(FileUtils.exists(getPath(project.getPath(), "src", "main", "resources", "FINAL-README.md"))).isTrue();
+    assertFileExist(project, "src", "main", "resources", "FINAL-README.md");
   }
 
   @Test
@@ -81,7 +81,7 @@ class ProjectRepositoryTest {
 
     repository.template(project, "common", "README.md.mustache");
 
-    assertThat(FileUtils.exists(getPath(project.getPath(), "README.md"))).isTrue();
+    assertFileExist(project, "README.md");
   }
 
   @Test
@@ -91,7 +91,7 @@ class ProjectRepositoryTest {
 
     repository.template(project, "common", "README.md.wrong.mustache");
 
-    assertThat(FileUtils.exists(getPath(project.getPath(), "README.md"))).isFalse();
+    assertFileNotExist(project, "README.md");
   }
 
   @Test
@@ -102,7 +102,7 @@ class ProjectRepositoryTest {
 
     repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"));
 
-    assertThat(FileUtils.exists(getPath(project.getPath(), "src", "main", "resources", "README.md"))).isTrue();
+    assertFileExist(project, "src", "main", "resources", "README.md");
   }
 
   @Test
@@ -113,6 +113,6 @@ class ProjectRepositoryTest {
 
     repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"), "FINAL-README.md");
 
-    assertThat(FileUtils.exists(getPath(project.getPath(), "src", "main", "resources", "FINAL-README.md"))).isTrue();
+    assertFileExist(project, "src", "main", "resources", "FINAL-README.md");
   }
 }

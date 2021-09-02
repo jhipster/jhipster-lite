@@ -1,6 +1,9 @@
 package tech.jhipster.forge.common.domain;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tech.jhipster.forge.TestUtils.assertFileNotExist;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -27,7 +30,7 @@ class FileUtilsTest {
   void shouldExists() {
     String tmp = FileUtils.tmpDir();
 
-    assertThat(FileUtils.exists(tmp)).isTrue();
+    assertTrue(FileUtils.exists(tmp));
   }
 
   @Test
@@ -48,27 +51,30 @@ class FileUtilsTest {
   void shouldCreateFolderOnlyOnceTime() {
     String path = FileUtils.tmpDirForTest();
 
-    assertThat(FileUtils.exists(path)).isFalse();
+    assertFileNotExist(path);
 
-    assertThat(FileUtils.createFolder(path)).isTrue();
-    assertThat(FileUtils.exists(path)).isTrue();
+    assertTrue(FileUtils.createFolder(path));
+    assertTrue(FileUtils.exists(path));
 
-    assertThat(FileUtils.createFolder(path)).isTrue();
-    assertThat(FileUtils.exists(path)).isTrue();
+    boolean result = FileUtils.createFolder(path);
+
+    assertTrue(result);
+    assertTrue(FileUtils.exists(path));
   }
 
   @Test
   void shouldNotCreateFolderWhenItsAFile() throws Exception {
     String path = FileUtils.tmpDirForTest();
     String destinationFile = FileUtils.getPath(path, "chips");
-    assertThat(FileUtils.exists(path)).isFalse();
-    assertThat(FileUtils.createFolder(path)).isTrue();
-    assertThat(FileUtils.exists(path)).isTrue();
+
+    assertFalse(FileUtils.exists(path));
+    assertTrue(FileUtils.createFolder(path));
+    assertTrue(FileUtils.exists(path));
     Files.createFile(FileUtils.getPathOf(destinationFile));
 
     boolean result = FileUtils.createFolder(destinationFile);
 
-    assertThat(result).isFalse();
+    assertFalse(result);
   }
 
   @Test

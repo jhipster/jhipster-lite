@@ -39,7 +39,7 @@ public class FileUtils {
   }
 
   public static String tmpDirForTest() {
-    return new StringBuilder().append(tmpDir()).append(File.separator).append("jhforge-test-").append(UUID.randomUUID()).toString();
+    return getPath(tmpDir(), "jhforge-test-" + UUID.randomUUID());
   }
 
   public static String getPath(String... paths) {

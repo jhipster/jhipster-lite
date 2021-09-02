@@ -1,15 +1,20 @@
 package tech.jhipster.forge.common.domain;
 
+import java.util.Map;
+import java.util.Optional;
 import tech.jhipster.forge.error.domain.Assert;
 
 public class Project {
 
   private final String path;
+  private final Map<String, String> config;
 
   private Project(ProjectBuilder builder) {
     Assert.notBlank("path", builder.path);
+    Assert.notNull("config", builder.config);
 
     this.path = builder.path;
+    this.config = builder.config;
   }
 
   public static ProjectBuilder builder() {
@@ -20,9 +25,18 @@ public class Project {
     return path;
   }
 
+  public Map<String, String> getConfig() {
+    return config;
+  }
+
+  public Optional<String> getConfig(String key) {
+    return Optional.ofNullable(config.get(key));
+  }
+
   public static class ProjectBuilder {
 
     private String path;
+    private Map<String, String> config = Map.of();
 
     public Project build() {
       return new Project(this);
@@ -30,6 +44,13 @@ public class Project {
 
     public ProjectBuilder path(String path) {
       this.path = path;
+      return this;
+    }
+
+    public ProjectBuilder config(Map<String, String> config) {
+      if (config != null) {
+        this.config = config;
+      }
       return this;
     }
   }

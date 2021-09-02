@@ -25,14 +25,28 @@ public class ProjectRepository implements Projects {
   }
 
   @Override
-  public void add(Project project, String source, String file) {
+  public void add(Project project, String source, String sourceFilename) {
+    add(project, source, sourceFilename, ".", sourceFilename);
+  }
+
+  @Override
+  public void add(Project project, String source, String sourceFilename, String destination) {
+    add(project, source, sourceFilename, destination, sourceFilename);
+  }
+
+  @Override
+  public void add(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
     try {
-      log.info("Adding file '{}'", file);
-      Path sourcePath = FileUtils.getPathOf(TEMPLATE_RESOURCES, source, file);
-      Path destinationPath = FileUtils.getPathOf(project.getPath(), file);
+      log.info("Adding file '{}'", destinationFilename);
+      Path sourcePath = FileUtils.getPathOf(TEMPLATE_RESOURCES, source, sourceFilename);
+
+      String destinationFolder = FileUtils.getPath(project.getPath(), destination);
+      FileUtils.createFolder(destinationFolder);
+
+      Path destinationPath = FileUtils.getPathOf(destinationFolder, destinationFilename);
       Files.copy(sourcePath, destinationPath);
     } catch (IOException ex) {
-      log.error("Can't add file '{}':", file, ex);
+      log.error("Can't add file '{}':", destinationFilename, ex);
     }
   }
 

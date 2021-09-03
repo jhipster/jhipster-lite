@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public class DefaultConfig {
 
-  static Map<String, String> defaultMap = Map.of("baseName", "jhipster", "projectName", "JHipster Project");
+  static Map<String, String> defaultMap = Map.of("baseName", "jhipster", "projectName", "JHipster Project", "nodeVersion", "14.17.6");
 
   private DefaultConfig() {}
 

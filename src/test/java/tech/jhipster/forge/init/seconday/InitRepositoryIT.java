@@ -1,0 +1,124 @@
+package tech.jhipster.forge.init.seconday;
+
+import static tech.jhipster.forge.TestUtils.assertFileExist;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import tech.jhipster.forge.IntegrationTest;
+import tech.jhipster.forge.common.domain.FileUtils;
+import tech.jhipster.forge.common.domain.Project;
+
+@IntegrationTest
+class InitRepositoryIT {
+
+  @Autowired
+  InitRepository initRepository;
+
+  @Test
+  void shouldInitWithConfig() {
+    String path = FileUtils.tmpDirForTest();
+    Map<String, String> config = new HashMap<>();
+    config.putAll(Map.of("baseName", "jhipsterForge"));
+    config.putAll(Map.of("projectName", "JHipster Forge"));
+    config.putAll(Map.of("prettierDefaultIndent", "4"));
+    config.putAll(Map.of("prettierJavaIndent", "4"));
+    Project project = Project.builder().path(path).config(config).build();
+
+    initRepository.init(project);
+
+    assertFileExist(project, "README.md");
+
+    assertFileExist(project, ".gitignore");
+    assertFileExist(project, ".gitattributes");
+
+    assertFileExist(project, ".editorconfig");
+    assertFileExist(project, ".eslintignore");
+
+    assertFileExist(project, ".huskyrc");
+    assertFileExist(project, ".lintstagedrc.js");
+    assertFileExist(project, ".prettierignore");
+    assertFileExist(project, ".prettierrc");
+
+    assertFileExist(project, "package.json");
+  }
+
+  @Test
+  void shouldInitWithDefaultConfig() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    initRepository.init(project);
+
+    assertFileExist(project, "README.md");
+
+    assertFileExist(project, ".gitignore");
+    assertFileExist(project, ".gitattributes");
+
+    assertFileExist(project, ".editorconfig");
+    assertFileExist(project, ".eslintignore");
+
+    assertFileExist(project, ".huskyrc");
+    assertFileExist(project, ".lintstagedrc.js");
+    assertFileExist(project, ".prettierignore");
+    assertFileExist(project, ".prettierrc");
+
+    assertFileExist(project, "package.json");
+  }
+
+  @Test
+  void shouldAddPackageJson() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    initRepository.addPackageJson(project);
+
+    assertFileExist(project, "package.json");
+  }
+
+  @Test
+  void shouldAddReadme() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    initRepository.addReadme(project);
+
+    assertFileExist(project, "README.md");
+  }
+
+  @Test
+  void shouldAddGitConfiguration() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    initRepository.addGitConfiguration(project);
+
+    assertFileExist(project, ".gitignore");
+    assertFileExist(project, ".gitattributes");
+  }
+
+  @Test
+  void shouldAddEditorConfiguration() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    initRepository.addEditorConfiguration(project);
+
+    assertFileExist(project, ".editorconfig");
+    assertFileExist(project, ".eslintignore");
+  }
+
+  @Test
+  void shouldAddPrettier() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+
+    initRepository.addPrettier(project);
+
+    assertFileExist(project, ".huskyrc");
+    assertFileExist(project, ".lintstagedrc.js");
+    assertFileExist(project, ".prettierignore");
+    assertFileExist(project, ".prettierrc");
+  }
+}

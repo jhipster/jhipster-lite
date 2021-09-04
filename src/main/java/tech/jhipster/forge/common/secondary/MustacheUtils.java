@@ -8,6 +8,8 @@ import java.io.StringWriter;
 
 public class MustacheUtils {
 
+  public static final String EXT = ".mustache";
+
   private MustacheUtils() {}
 
   public static String template(String file, Object object) throws IOException {

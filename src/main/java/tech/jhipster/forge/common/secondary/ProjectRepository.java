@@ -52,18 +52,20 @@ public class ProjectRepository implements Projects {
   }
 
   @Override
-  public void template(Project project, String source, String filename) {
-    template(project, source, filename, ".");
+  public void template(Project project, String source, String sourceFilename) {
+    template(project, source, sourceFilename, ".");
   }
 
   @Override
-  public void template(Project project, String source, String filename, String destination) {
-    template(project, source, filename, destination, filename.replaceAll(".mustache", ""));
+  public void template(Project project, String source, String sourceFilename, String destination) {
+    template(project, source, sourceFilename, destination, sourceFilename.replaceAll(".mustache", ""));
   }
 
   @Override
-  public void template(Project project, String source, String filename, String destination, String destinationFilename) {
+  public void template(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
     try {
+      String filename = addMustacheExtension(sourceFilename);
+
       String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, filename), project.getConfig());
 
       String destinationFolder = FileUtils.getPath(project.getPath(), destination);
@@ -77,5 +79,13 @@ public class ProjectRepository implements Projects {
     } catch (IOException | MustacheException ex) {
       log.error("Can't template file '{}':", destinationFilename, ex);
     }
+  }
+
+  private String addMustacheExtension(String filename) {
+    String result = filename;
+    if (!filename.endsWith(MustacheUtils.EXT)) {
+      result += MustacheUtils.EXT;
+    }
+    return result;
   }
 }

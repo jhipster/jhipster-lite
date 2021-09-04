@@ -37,9 +37,9 @@ class ProjectRepositoryTest {
     Project project = Project.builder().path(path).build();
     repository.create(project);
 
-    repository.add(project, "common", "README.md");
+    repository.add(project, "common", "README.txt");
 
-    assertFileExist(project, "README.md");
+    assertFileExist(project, "README.txt");
   }
 
   @Test
@@ -57,9 +57,9 @@ class ProjectRepositoryTest {
     Project project = Project.builder().path(path).build();
     repository.create(project);
 
-    repository.add(project, "common", "README.md", getPath("src", "main", "resources"));
+    repository.add(project, "common", "README.txt", getPath("src", "main", "resources"));
 
-    assertFileExist(project, "src", "main", "resources", "README.md");
+    assertFileExist(project, "src", "main", "resources", "README.txt");
   }
 
   @Test
@@ -68,13 +68,24 @@ class ProjectRepositoryTest {
     Project project = Project.builder().path(path).build();
     repository.create(project);
 
-    repository.add(project, "common", "README.md", getPath("src", "main", "resources"), "FINAL-README.md");
+    repository.add(project, "common", "README.txt", getPath("src", "main", "resources"), "FINAL-README.txt");
 
-    assertFileExist(project, "src", "main", "resources", "FINAL-README.md");
+    assertFileExist(project, "src", "main", "resources", "FINAL-README.txt");
   }
 
   @Test
   void shouldTemplate() {
+    String path = FileUtils.tmpDirForTest();
+    Project project = Project.builder().path(path).build();
+    repository.create(project);
+
+    repository.template(project, "common", "README.md");
+
+    assertFileExist(project, "README.md");
+  }
+
+  @Test
+  void shouldTemplateWithExtension() {
     String path = FileUtils.tmpDirForTest();
     Project project = Project.builder().path(path).build();
     repository.create(project);

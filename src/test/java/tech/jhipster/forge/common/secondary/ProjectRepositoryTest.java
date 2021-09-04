@@ -1,8 +1,7 @@
 package tech.jhipster.forge.common.secondary;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static tech.jhipster.forge.TestUtils.assertFileExist;
-import static tech.jhipster.forge.TestUtils.assertFileNotExist;
+import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 
 import java.util.UUID;
@@ -23,8 +22,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldCreate() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
 
     repository.create(project);
 
@@ -33,8 +31,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldAdd() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
     repository.create(project);
 
     repository.add(project, "common", "README.txt");
@@ -44,8 +41,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldNotAdd() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
     repository.create(project);
 
     assertThatCode(() -> repository.add(project, "common", UUID.randomUUID().toString())).doesNotThrowAnyException();
@@ -53,8 +49,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldAddWithDestination() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
     repository.create(project);
 
     repository.add(project, "common", "README.txt", getPath("src", "main", "resources"));
@@ -64,8 +59,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldAddWithDestinationAndDestinationFilename() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
     repository.create(project);
 
     repository.add(project, "common", "README.txt", getPath("src", "main", "resources"), "FINAL-README.txt");
@@ -75,8 +69,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldTemplate() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
     repository.create(project);
 
     repository.template(project, "common", "README.md");
@@ -86,8 +79,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldTemplateWithExtension() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
     repository.create(project);
 
     repository.template(project, "common", "README.md.mustache");
@@ -97,8 +89,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldNotTemplate() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
 
     repository.template(project, "common", "README.md.wrong.mustache");
 
@@ -107,8 +98,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldTemplateWithDestination() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
     repository.create(project);
 
     repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"));
@@ -118,8 +108,7 @@ class ProjectRepositoryTest {
 
   @Test
   void shouldTemplateWithDestinationAndDestinationFilename() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
     repository.create(project);
 
     repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"), "FINAL-README.md");

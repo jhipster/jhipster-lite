@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.forge.common.domain.FileUtils.exists;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 
+import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.Project;
 
 public class TestUtils {
@@ -23,5 +24,13 @@ public class TestUtils {
 
   public static void assertFileNotExist(String... paths) {
     assertFalse(exists(getPath(paths)), "The file '" + getPath(paths) + "' should not exist.");
+  }
+
+  public static Project.ProjectBuilder tmpProjectBuilder() {
+    return Project.builder().path(FileUtils.tmpDirForTest());
+  }
+
+  public static Project tmpProject() {
+    return tmpProjectBuilder().build();
   }
 }

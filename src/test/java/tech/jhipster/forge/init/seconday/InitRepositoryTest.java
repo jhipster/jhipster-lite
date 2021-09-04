@@ -1,6 +1,6 @@
 package tech.jhipster.forge.init.seconday;
 
-import static tech.jhipster.forge.TestUtils.assertFileExist;
+import static tech.jhipster.forge.TestUtils.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.Project;
 
 @UnitTest
@@ -21,11 +20,10 @@ class InitRepositoryTest {
 
   @Test
   void shouldInitWithConfig() {
-    String path = FileUtils.tmpDirForTest();
     Map<String, String> config = new HashMap<>(
       Map.of("baseName", "jhipsterForge", "projectName", "JHipster Forge", "prettierDefaultIndent", "4", "prettierJavaIndent", "4")
     );
-    Project project = Project.builder().path(path).config(config).build();
+    Project project = tmpProjectBuilder().config(config).build();
 
     initRepository.init(project);
 
@@ -47,8 +45,7 @@ class InitRepositoryTest {
 
   @Test
   void shouldInitWithDefaultConfig() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
 
     initRepository.init(project);
 
@@ -70,8 +67,7 @@ class InitRepositoryTest {
 
   @Test
   void shouldAddPackageJson() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
 
     initRepository.addPackageJson(project);
 
@@ -80,8 +76,7 @@ class InitRepositoryTest {
 
   @Test
   void shouldAddReadme() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
 
     initRepository.addReadme(project);
 
@@ -90,8 +85,7 @@ class InitRepositoryTest {
 
   @Test
   void shouldAddGitConfiguration() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
 
     initRepository.addGitConfiguration(project);
 
@@ -101,8 +95,7 @@ class InitRepositoryTest {
 
   @Test
   void shouldAddEditorConfiguration() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
 
     initRepository.addEditorConfiguration(project);
 
@@ -112,8 +105,7 @@ class InitRepositoryTest {
 
   @Test
   void shouldAddPrettier() {
-    String path = FileUtils.tmpDirForTest();
-    Project project = Project.builder().path(path).build();
+    Project project = tmpProject();
 
     initRepository.addPrettier(project);
 

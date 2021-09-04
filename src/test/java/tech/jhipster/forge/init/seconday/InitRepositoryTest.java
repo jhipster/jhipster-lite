@@ -22,11 +22,9 @@ class InitRepositoryTest {
   @Test
   void shouldInitWithConfig() {
     String path = FileUtils.tmpDirForTest();
-    Map<String, String> config = new HashMap<>();
-    config.putAll(Map.of("baseName", "jhipsterForge"));
-    config.putAll(Map.of("projectName", "JHipster Forge"));
-    config.putAll(Map.of("prettierDefaultIndent", "4"));
-    config.putAll(Map.of("prettierJavaIndent", "4"));
+    Map<String, String> config = new HashMap<>(
+      Map.of("baseName", "jhipsterForge", "projectName", "JHipster Forge", "prettierDefaultIndent", "4", "prettierJavaIndent", "4")
+    );
     Project project = Project.builder().path(path).config(config).build();
 
     initRepository.init(project);

@@ -29,14 +29,14 @@ public class InitRepository extends ProjectRepository implements Inits {
     String baseName = project.getConfig("baseName").orElse("");
     project.addConfig("dasherizedBaseName", getDasherized(baseName));
 
-    template(project, SOURCE, "package.json.mustache", ".", "package.json");
+    template(project, SOURCE, "package.json");
   }
 
   @Override
   public void addReadme(Project project) {
     project.addDefaultConfig("projectName");
 
-    template(project, SOURCE, "README.md.mustache");
+    template(project, SOURCE, "README.md");
   }
 
   @Override
@@ -50,17 +50,17 @@ public class InitRepository extends ProjectRepository implements Inits {
     project.addDefaultConfig("prettierDefaultIndent");
     project.addDefaultConfig("prettierJavaIndent");
 
-    template(project, SOURCE, ".editorconfig.mustache", ".", ".editorconfig");
-    add(project, SOURCE, ".eslintignore", ".", ".eslintignore");
+    template(project, SOURCE, ".editorconfig");
+    add(project, SOURCE, ".eslintignore");
   }
 
   @Override
   public void addPrettier(Project project) {
-    add(project, SOURCE, ".lintstagedrc.js", ".", ".lintstagedrc.js");
-    add(project, SOURCE, ".prettierignore", ".", ".prettierignore");
-    add(project, SOURCE, ".huskyrc", ".", ".huskyrc");
+    add(project, SOURCE, ".lintstagedrc.js");
+    add(project, SOURCE, ".prettierignore");
+    add(project, SOURCE, ".huskyrc");
 
-    template(project, SOURCE, ".prettierrc.mustache", ".", ".prettierrc");
+    template(project, SOURCE, ".prettierrc");
   }
 
   private String getDasherized(String value) {

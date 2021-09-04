@@ -5,15 +5,20 @@ import static tech.jhipster.forge.TestUtils.assertFileExist;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.forge.IntegrationTest;
+import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.Project;
 
-@IntegrationTest
-class InitRepositoryIT {
+@UnitTest
+@ExtendWith(SpringExtension.class)
+class InitRepositoryTest {
 
-  @Autowired
+  @InjectMocks
   InitRepository initRepository;
 
   @Test

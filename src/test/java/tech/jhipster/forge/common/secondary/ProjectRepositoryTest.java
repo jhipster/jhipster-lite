@@ -32,7 +32,6 @@ class ProjectRepositoryTest {
   @Test
   void shouldAdd() {
     Project project = tmpProject();
-    repository.create(project);
 
     repository.add(project, "common", "README.txt");
 
@@ -42,7 +41,6 @@ class ProjectRepositoryTest {
   @Test
   void shouldNotAdd() {
     Project project = tmpProject();
-    repository.create(project);
 
     assertThatCode(() -> repository.add(project, "common", UUID.randomUUID().toString())).doesNotThrowAnyException();
   }
@@ -50,7 +48,6 @@ class ProjectRepositoryTest {
   @Test
   void shouldAddWithDestination() {
     Project project = tmpProject();
-    repository.create(project);
 
     repository.add(project, "common", "README.txt", getPath("src", "main", "resources"));
 
@@ -60,7 +57,6 @@ class ProjectRepositoryTest {
   @Test
   void shouldAddWithDestinationAndDestinationFilename() {
     Project project = tmpProject();
-    repository.create(project);
 
     repository.add(project, "common", "README.txt", getPath("src", "main", "resources"), "FINAL-README.txt");
 
@@ -70,7 +66,6 @@ class ProjectRepositoryTest {
   @Test
   void shouldTemplate() {
     Project project = tmpProject();
-    repository.create(project);
 
     repository.template(project, "common", "README.md");
 
@@ -80,7 +75,6 @@ class ProjectRepositoryTest {
   @Test
   void shouldTemplateWithExtension() {
     Project project = tmpProject();
-    repository.create(project);
 
     repository.template(project, "common", "README.md.mustache");
 
@@ -99,7 +93,6 @@ class ProjectRepositoryTest {
   @Test
   void shouldTemplateWithDestination() {
     Project project = tmpProject();
-    repository.create(project);
 
     repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"));
 
@@ -109,7 +102,6 @@ class ProjectRepositoryTest {
   @Test
   void shouldTemplateWithDestinationAndDestinationFilename() {
     Project project = tmpProject();
-    repository.create(project);
 
     repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"), "FINAL-README.md");
 

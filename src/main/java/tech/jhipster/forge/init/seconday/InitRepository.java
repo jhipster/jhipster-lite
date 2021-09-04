@@ -1,5 +1,7 @@
 package tech.jhipster.forge.init.seconday;
 
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
+
 import com.google.common.base.CaseFormat;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.forge.common.domain.Project;
@@ -58,7 +60,7 @@ public class InitRepository extends ProjectRepository implements Inits {
   public void addPrettier(Project project) {
     add(project, SOURCE, ".lintstagedrc.js");
     add(project, SOURCE, ".prettierignore");
-    add(project, SOURCE, ".huskyrc");
+    add(project, getPath(SOURCE, ".husky"), "pre-commit", ".husky");
 
     template(project, SOURCE, ".prettierrc");
   }

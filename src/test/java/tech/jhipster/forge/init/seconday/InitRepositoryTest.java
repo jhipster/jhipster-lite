@@ -37,7 +37,7 @@ class InitRepositoryTest {
     assertFileExist(project, ".editorconfig");
     assertFileExist(project, ".eslintignore");
 
-    assertFileExist(project, ".huskyrc");
+    assertFileExist(project, ".husky", "pre-commit");
     assertFileExist(project, ".lintstagedrc.js");
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");
@@ -60,7 +60,7 @@ class InitRepositoryTest {
     assertFileExist(project, ".editorconfig");
     assertFileExist(project, ".eslintignore");
 
-    assertFileExist(project, ".huskyrc");
+    assertFileExist(project, ".husky", "pre-commit");
     assertFileExist(project, ".lintstagedrc.js");
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");
@@ -117,7 +117,7 @@ class InitRepositoryTest {
 
     initRepository.addPrettier(project);
 
-    assertFileExist(project, ".huskyrc");
+    assertFileExist(project, ".husky", "pre-commit");
     assertFileExist(project, ".lintstagedrc.js");
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");

@@ -1,4 +1,4 @@
-package tech.jhipster.forge.init.seconday;
+package tech.jhipster.forge.init.secondary;
 
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 

@@ -4,6 +4,7 @@ import tech.jhipster.forge.common.domain.Project;
 
 public interface Inits {
   void init(Project project);
+
   void addPackageJson(Project project);
   void addReadme(Project project);
   void addGitConfiguration(Project project);

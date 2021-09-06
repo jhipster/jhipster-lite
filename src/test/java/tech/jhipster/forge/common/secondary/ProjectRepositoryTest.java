@@ -1,17 +1,26 @@
 package tech.jhipster.forge.common.secondary;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static tech.jhipster.forge.TestUtils.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static tech.jhipster.forge.TestUtils.assertFileExist;
+import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 
+import com.github.mustachejava.MustacheNotFoundException;
+import java.io.IOException;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.error.domain.GeneratorException;
 
 @UnitTest
 @ExtendWith(SpringExtension.class)
@@ -30,6 +39,17 @@ class ProjectRepositoryTest {
   }
 
   @Test
+  void shouldNotCreate() {
+    Project project = tmpProject();
+
+    try (MockedStatic<FileUtils> fileUtils = Mockito.mockStatic(FileUtils.class)) {
+      fileUtils.when(() -> FileUtils.createFolder(anyString())).thenThrow(new IOException());
+
+      assertThatThrownBy(() -> repository.create(project)).isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
+
+  @Test
   void shouldAdd() {
     Project project = tmpProject();
 
@@ -41,8 +61,9 @@ class ProjectRepositoryTest {
   @Test
   void shouldNotAdd() {
     Project project = tmpProject();
+    String randomString = UUID.randomUUID().toString();
 
-    assertThatCode(() -> repository.add(project, "common", UUID.randomUUID().toString())).doesNotThrowAnyException();
+    assertThatThrownBy(() -> repository.add(project, "common", randomString)).isInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -73,21 +94,31 @@ class ProjectRepositoryTest {
   }
 
   @Test
+  void shouldNotTemplate() {
+    Project project = Project.builder().path(FileUtils.tmpDirForTest()).build();
+
+    try (MockedStatic<MustacheUtils> mustacheUtils = Mockito.mockStatic(MustacheUtils.class)) {
+      mustacheUtils.when(() -> MustacheUtils.template(anyString(), any())).thenThrow(new IOException());
+
+      assertThatThrownBy(() -> repository.template(project, "common", "README.md")).isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
+
+  @Test
+  void shouldNotTemplateWithNonExistingFile() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> repository.template(project, "common", "README.md.wrong.mustache"))
+      .isInstanceOf(MustacheNotFoundException.class);
+  }
+
+  @Test
   void shouldTemplateWithExtension() {
     Project project = tmpProject();
 
     repository.template(project, "common", "README.md.mustache");
 
     assertFileExist(project, "README.md");
-  }
-
-  @Test
-  void shouldNotTemplate() {
-    Project project = tmpProject();
-
-    repository.template(project, "common", "README.md.wrong.mustache");
-
-    assertFileNotExist(project, "README.md");
   }
 
   @Test

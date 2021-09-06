@@ -2,7 +2,6 @@ package tech.jhipster.forge.common.secondary;
 
 import static tech.jhipster.forge.common.domain.Constants.TEMPLATE_RESOURCES;
 
-import com.github.mustachejava.MustacheException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.Projects;
+import tech.jhipster.forge.error.domain.GeneratorException;
 
 @Repository
 public class ProjectRepository implements Projects {
@@ -22,7 +22,11 @@ public class ProjectRepository implements Projects {
 
   @Override
   public void create(Project project) {
-    FileUtils.createFolder(project.getPath());
+    try {
+      FileUtils.createFolder(project.getPath());
+    } catch (IOException ex) {
+      throw new GeneratorException("The folder can't be created");
+    }
   }
 
   @Override
@@ -37,17 +41,17 @@ public class ProjectRepository implements Projects {
 
   @Override
   public void add(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
-    try {
-      log.info("Adding file '{}'", destinationFilename);
-      Path sourcePath = FileUtils.getPathOf(TEMPLATE_RESOURCES, source, sourceFilename);
+    log.info("Adding file '{}'", destinationFilename);
+    Path sourcePath = FileUtils.getPathOf(TEMPLATE_RESOURCES, source, sourceFilename);
 
+    try {
       String destinationFolder = FileUtils.getPath(project.getPath(), destination);
       FileUtils.createFolder(destinationFolder);
 
       Path destinationPath = FileUtils.getPathOf(destinationFolder, destinationFilename);
       Files.copy(sourcePath, destinationPath);
     } catch (IOException ex) {
-      log.error("Can't add file '{}':", destinationFilename, ex);
+      throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
     }
   }
 
@@ -64,8 +68,8 @@ public class ProjectRepository implements Projects {
   @Override
   public void template(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
     try {
+      log.info("Adding file '{}'", destinationFilename);
       String filename = addMustacheExtension(sourceFilename);
-
       String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, filename), project.getConfig());
 
       String destinationFolder = FileUtils.getPath(project.getPath(), destination);
@@ -75,9 +79,8 @@ public class ProjectRepository implements Projects {
       try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(destinationTarget))) {
         bufferedWriter.write(result);
       }
-      log.info("Adding file '{}'", destinationFilename);
-    } catch (IOException | MustacheException ex) {
-      log.error("Can't template file '{}':", destinationFilename, ex);
+    } catch (IOException ex) {
+      throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
     }
   }
 

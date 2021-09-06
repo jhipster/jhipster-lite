@@ -6,13 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import tech.jhipster.forge.error.domain.Assert;
 
 public class FileUtils {
-
-  private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
 
   private FileUtils() {}
 
@@ -22,16 +18,10 @@ public class FileUtils {
     return Files.exists(Path.of(path));
   }
 
-  public static boolean createFolder(String path) {
+  public static void createFolder(String path) throws IOException {
     Assert.notBlank("path", path);
 
-    try {
-      Files.createDirectories(Paths.get(path));
-      return true;
-    } catch (IOException ex) {
-      log.error("Can't create directory {}", Paths.get(path), ex);
-    }
-    return false;
+    Files.createDirectories(Paths.get(path));
   }
 
   public static String tmpDir() {

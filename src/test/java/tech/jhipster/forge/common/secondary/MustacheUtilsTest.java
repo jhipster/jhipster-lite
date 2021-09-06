@@ -34,7 +34,10 @@ class MustacheUtilsTest {
   }
 
   @Test
-  void shouldNotTemplateWithNonExistingFile() throws Exception {
+  void shouldNotTemplate() {}
+
+  @Test
+  void shouldNotTemplateWithNonExistingFile() {
     String file = FileUtils.getPath(TEST_TEMPLATE_RESOURCES, "common", "README.md.bad.mustache");
 
     Chips chips = new Chips("chips");

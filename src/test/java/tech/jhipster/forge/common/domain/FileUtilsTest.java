@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.forge.TestUtils.assertFileNotExist;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
@@ -53,12 +53,10 @@ class FileUtilsTest {
 
     assertFileNotExist(path);
 
-    assertTrue(FileUtils.createFolder(path));
+    assertThatCode(() -> FileUtils.createFolder(path)).doesNotThrowAnyException();
     assertTrue(FileUtils.exists(path));
 
-    boolean result = FileUtils.createFolder(path);
-
-    assertTrue(result);
+    assertThatCode(() -> FileUtils.createFolder(path)).doesNotThrowAnyException();
     assertTrue(FileUtils.exists(path));
   }
 
@@ -68,13 +66,11 @@ class FileUtilsTest {
     String destinationFile = FileUtils.getPath(path, "chips");
 
     assertFalse(FileUtils.exists(path));
-    assertTrue(FileUtils.createFolder(path));
+    assertThatCode(() -> FileUtils.createFolder(path)).doesNotThrowAnyException();
     assertTrue(FileUtils.exists(path));
     Files.createFile(FileUtils.getPathOf(destinationFile));
 
-    boolean result = FileUtils.createFolder(destinationFile);
-
-    assertFalse(result);
+    assertThatThrownBy(() -> FileUtils.createFolder(destinationFile)).isInstanceOf(IOException.class);
   }
 
   @Test

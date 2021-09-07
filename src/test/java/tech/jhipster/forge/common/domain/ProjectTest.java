@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
+import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
 
 @UnitTest

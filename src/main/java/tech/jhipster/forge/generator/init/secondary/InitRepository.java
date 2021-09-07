@@ -1,6 +1,6 @@
 package tech.jhipster.forge.generator.init.secondary;
 
-import static tech.jhipster.forge.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
 import com.google.common.base.CaseFormat;
 import org.springframework.stereotype.Repository;

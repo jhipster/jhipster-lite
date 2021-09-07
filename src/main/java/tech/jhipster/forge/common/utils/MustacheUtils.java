@@ -1,4 +1,4 @@
-package tech.jhipster.forge.common.secondary;
+package tech.jhipster.forge.common.utils;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;

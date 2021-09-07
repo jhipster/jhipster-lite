@@ -1,4 +1,4 @@
-package tech.jhipster.forge.common.secondary;
+package tech.jhipster.forge.common.utils;
 
 import java.io.File;
 import org.eclipse.jgit.api.Git;

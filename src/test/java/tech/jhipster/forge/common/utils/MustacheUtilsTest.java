@@ -1,4 +1,4 @@
-package tech.jhipster.forge.common.secondary;
+package tech.jhipster.forge.common.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -8,7 +8,8 @@ import com.github.mustachejava.MustacheNotFoundException;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.common.domain.FileUtils;
+import tech.jhipster.forge.common.utils.FileUtils;
+import tech.jhipster.forge.common.utils.MustacheUtils;
 
 @UnitTest
 class MustacheUtilsTest {

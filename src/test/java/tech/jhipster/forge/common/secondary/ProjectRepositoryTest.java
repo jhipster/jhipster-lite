@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static tech.jhipster.forge.TestUtils.assertFileExist;
 import static tech.jhipster.forge.TestUtils.tmpProject;
-import static tech.jhipster.forge.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.io.IOException;
@@ -17,8 +17,9 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.common.utils.FileUtils;
+import tech.jhipster.forge.common.utils.MustacheUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 
 @UnitTest

@@ -2,11 +2,11 @@ package tech.jhipster.forge;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tech.jhipster.forge.common.domain.FileUtils.exists;
-import static tech.jhipster.forge.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.utils.FileUtils.exists;
+import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
-import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.common.utils.FileUtils;
 
 public class TestUtils {
 

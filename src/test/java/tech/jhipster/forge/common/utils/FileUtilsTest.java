@@ -1,4 +1,4 @@
-package tech.jhipster.forge.common.domain;
+package tech.jhipster.forge.common.utils;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
+import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
 
 @UnitTest

@@ -10,9 +10,10 @@ import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.Projects;
+import tech.jhipster.forge.common.utils.FileUtils;
+import tech.jhipster.forge.common.utils.MustacheUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 
 @Repository

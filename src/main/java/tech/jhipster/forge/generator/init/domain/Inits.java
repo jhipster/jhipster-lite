@@ -1,4 +1,4 @@
-package tech.jhipster.forge.init.domain;
+package tech.jhipster.forge.generator.init.domain;
 
 import tech.jhipster.forge.common.domain.Project;
 

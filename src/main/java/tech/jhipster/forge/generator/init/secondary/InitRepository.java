@@ -1,4 +1,4 @@
-package tech.jhipster.forge.init.secondary;
+package tech.jhipster.forge.generator.init.secondary;
 
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 
@@ -6,7 +6,7 @@ import com.google.common.base.CaseFormat;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.secondary.ProjectRepository;
-import tech.jhipster.forge.init.domain.Inits;
+import tech.jhipster.forge.generator.init.domain.Inits;
 
 @Repository
 public class InitRepository extends ProjectRepository implements Inits {

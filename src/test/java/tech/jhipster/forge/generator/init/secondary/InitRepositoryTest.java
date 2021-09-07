@@ -1,4 +1,4 @@
-package tech.jhipster.forge.init.secondary;
+package tech.jhipster.forge.generator.init.secondary;
 
 import static tech.jhipster.forge.TestUtils.*;
 

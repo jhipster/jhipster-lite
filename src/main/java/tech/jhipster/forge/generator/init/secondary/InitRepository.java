@@ -2,10 +2,10 @@ package tech.jhipster.forge.generator.init.secondary;
 
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
-import com.google.common.base.CaseFormat;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.secondary.ProjectRepository;
+import tech.jhipster.forge.common.utils.WordUtils;
 import tech.jhipster.forge.generator.init.domain.Inits;
 
 @Repository
@@ -29,7 +29,7 @@ public class InitRepository extends ProjectRepository implements Inits {
     project.addDefaultConfig("baseName");
 
     String baseName = project.getConfig("baseName").orElse("");
-    project.addConfig("dasherizedBaseName", getDasherized(baseName));
+    project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
     template(project, SOURCE, "package.json");
   }
@@ -63,9 +63,5 @@ public class InitRepository extends ProjectRepository implements Inits {
     add(project, getPath(SOURCE, ".husky"), "pre-commit", ".husky");
 
     template(project, SOURCE, ".prettierrc");
-  }
-
-  private String getDasherized(String value) {
-    return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, value);
   }
 }

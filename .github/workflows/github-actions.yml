@@ -39,5 +39,9 @@ jobs:
         run: |
           chmod +x mvnw
           ./mvnw clean verify
-      - name: 'Codecov'
-        run: bash <(curl -s https://codecov.io/bash)
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: ./target/jacoco/jacoco.xml
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (

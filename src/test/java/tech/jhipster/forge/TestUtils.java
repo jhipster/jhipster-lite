@@ -30,8 +30,8 @@ public class TestUtils {
     assertFalse(exists(getPath(paths)), "The file '" + getPath(paths) + "' should not exist.");
   }
 
-  public static void assertFileContent(String filename, String value) {
-    assertTrue(FileUtils.contains(filename, value), "The value '" + value + "' was not found");
+  public static void assertFileContent(Project project, String filename, String value) {
+    assertTrue(FileUtils.contains(getPath(project.getPath(), filename), value), "The value '" + value + "' was not found");
   }
 
   public static Project.ProjectBuilder tmpProjectBuilder() {

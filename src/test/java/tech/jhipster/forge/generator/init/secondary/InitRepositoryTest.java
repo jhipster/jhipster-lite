@@ -28,6 +28,7 @@ class InitRepositoryTest {
     initRepository.init(project);
 
     assertFileExist(project, "README.md");
+    assertFileContent(project, "README.md", "JHipster Forge");
 
     assertFileExist(project, ".gitignore");
     assertFileExist(project, ".gitattributes");
@@ -39,8 +40,10 @@ class InitRepositoryTest {
     assertFileExist(project, ".lintstagedrc.js");
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");
+    assertFileContent(project, ".prettierrc", "tabWidth: 4");
 
     assertFileExist(project, "package.json");
+    assertFileContent(project, "package.json", "jhipster-forge");
   }
 
   @Test
@@ -50,6 +53,7 @@ class InitRepositoryTest {
     initRepository.init(project);
 
     assertFileExist(project, "README.md");
+    assertFileContent(project, "README.md", "JHipster Project");
 
     assertFileExist(project, ".gitignore");
     assertFileExist(project, ".gitattributes");
@@ -61,8 +65,10 @@ class InitRepositoryTest {
     assertFileExist(project, ".lintstagedrc.js");
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");
+    assertFileContent(project, ".prettierrc", "tabWidth: 2");
 
     assertFileExist(project, "package.json");
+    assertFileContent(project, "package.json", "jhipster");
   }
 
   @Test

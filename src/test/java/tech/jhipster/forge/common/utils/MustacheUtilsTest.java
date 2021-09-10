@@ -8,8 +8,6 @@ import com.github.mustachejava.MustacheNotFoundException;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.common.utils.FileUtils;
-import tech.jhipster.forge.common.utils.MustacheUtils;
 
 @UnitTest
 class MustacheUtilsTest {
@@ -33,9 +31,6 @@ class MustacheUtilsTest {
 
     assertThat(result).isEqualTo("The apero can start when there is some chips\n");
   }
-
-  @Test
-  void shouldNotTemplate() {}
 
   @Test
   void shouldNotTemplateWithNonExistingFile() {

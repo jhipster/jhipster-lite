@@ -1,6 +1,8 @@
 package tech.jhipster.forge.common.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.slf4j.Logger;
@@ -28,5 +30,11 @@ public class GitUtils {
   public static void commit(Git git, String dir, String message) throws GitAPIException {
     log.debug("Commiting all files to repository {}", dir);
     git.commit().setCommitter(USERNAME, EMAIL).setMessage(message).call();
+  }
+
+  public static void apply(Git git, String dir) throws GitAPIException, IOException {
+    log.debug("Apply patch {}", dir);
+    FileInputStream fileInputStream = new FileInputStream(new File(dir));
+    git.apply().setPatch(fileInputStream).call();
   }
 }

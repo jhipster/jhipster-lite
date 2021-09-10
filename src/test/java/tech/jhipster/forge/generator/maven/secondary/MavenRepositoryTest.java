@@ -1,7 +1,6 @@
 package tech.jhipster.forge.generator.maven.secondary;
 
-import static tech.jhipster.forge.TestUtils.assertFileExist;
-import static tech.jhipster.forge.TestUtils.tmpProject;
+import static tech.jhipster.forge.TestUtils.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +23,8 @@ class MavenRepositoryTest {
     mavenRepository.initPomXml(project);
 
     assertFileExist(project, "pom.xml");
+    assertFileContent(project, "pom.xml", "<name>jhipster</name>");
+    assertFileContent(project, "pom.xml", "<description>JHipster Project</description>");
   }
 
   @Test

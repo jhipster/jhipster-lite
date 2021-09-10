@@ -63,14 +63,14 @@ public class ProjectRepository implements Projects {
 
   @Override
   public void template(Project project, String source, String sourceFilename, String destination) {
-    template(project, source, sourceFilename, destination, sourceFilename.replaceAll(".mustache", ""));
+    template(project, source, sourceFilename, destination, MustacheUtils.withoutExt(sourceFilename));
   }
 
   @Override
   public void template(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
     try {
       log.info("Adding file '{}'", destinationFilename);
-      String filename = addMustacheExtension(sourceFilename);
+      String filename = MustacheUtils.withExt(sourceFilename);
       String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, filename), project.getConfig());
 
       String destinationFolder = FileUtils.getPath(project.getPath(), destination);
@@ -83,13 +83,5 @@ public class ProjectRepository implements Projects {
     } catch (IOException ex) {
       throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
     }
-  }
-
-  private String addMustacheExtension(String filename) {
-    String result = filename;
-    if (!filename.endsWith(MustacheUtils.EXT)) {
-      result += MustacheUtils.EXT;
-    }
-    return result;
   }
 }

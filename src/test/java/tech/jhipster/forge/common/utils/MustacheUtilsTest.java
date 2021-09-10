@@ -40,6 +40,26 @@ class MustacheUtilsTest {
     assertThatThrownBy(() -> MustacheUtils.template(file, chips)).isExactlyInstanceOf(MustacheNotFoundException.class);
   }
 
+  @Test
+  void shouldWithExtWhenNoExt() {
+    assertThat(MustacheUtils.withExt("chips")).isEqualTo("chips.mustache");
+  }
+
+  @Test
+  void shouldWithExtWhenAlreadyExt() {
+    assertThat(MustacheUtils.withExt("chips.mustache")).isEqualTo("chips.mustache");
+  }
+
+  @Test
+  void shouldWithoutExtWhenNoExt() {
+    assertThat(MustacheUtils.withoutExt("chips")).isEqualTo("chips");
+  }
+
+  @Test
+  void shouldWithoutExtWhenAlreadyExt() {
+    assertThat(MustacheUtils.withoutExt("chips.mustache")).isEqualTo("chips");
+  }
+
   static class Chips {
 
     private final String name;

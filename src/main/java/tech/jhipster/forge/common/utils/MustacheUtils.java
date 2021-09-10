@@ -21,4 +21,18 @@ public class MustacheUtils {
 
     return writer.toString();
   }
+
+  public static String withExt(String value) {
+    if (!value.endsWith(MustacheUtils.EXT)) {
+      return value + MustacheUtils.EXT;
+    }
+    return value;
+  }
+
+  public static String withoutExt(String value) {
+    if (value.endsWith(MustacheUtils.EXT)) {
+      return value.replaceAll(EXT, "");
+    }
+    return value;
+  }
 }

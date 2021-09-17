@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 import static tech.jhipster.forge.common.utils.FileUtils.getPathOf;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
@@ -27,19 +27,14 @@ public class MavenTest {
 
   @Test
   void shouldBeMavenProject() throws Exception {
-    Project project = tmpProject();
-    String destinationFile = getPath(project.getPath(), "pom.xml");
-    FileUtils.createFolder(project.getPath());
-    Files.createFile(FileUtils.getPathOf(destinationFile));
+    Project project = initProjectWithPomXml();
 
     assertTrue(Maven.isMavenProject(project));
   }
 
   @Test
   void shouldAddParent() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
-    Files.copy(getPathOf("src/test/resources/template/maven/pom.xml"), getPathOf(project.getPath(), "pom.xml"));
+    Project project = initProjectWithPomXml();
 
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
     Maven.addParent(project, parent);
@@ -62,9 +57,7 @@ public class MavenTest {
 
   @Test
   void shouldAddDependency() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
-    Files.copy(getPathOf("src/test/resources/template/maven/pom.xml"), getPathOf(project.getPath(), "pom.xml"));
+    Project project = initProjectWithPomXml();
 
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
     Maven.addDependency(project, dependency);
@@ -80,5 +73,32 @@ public class MavenTest {
 
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
     assertThatThrownBy(() -> Maven.addDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddPlugin() throws Exception {
+    Project project = initProjectWithPomXml();
+
+    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+    Maven.addPlugin(project, plugin);
+
+    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
+    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-maven-plugin</artifactId>");
+  }
+
+  @Test
+  void shouldNotAddPluginWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getPath());
+
+    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+    assertThatThrownBy(() -> Maven.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  private Project initProjectWithPomXml() throws IOException {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getPath());
+    Files.copy(getPathOf("src/test/resources/template/maven/pom.xml"), getPathOf(project.getPath(), "pom.xml"));
+    return project;
   }
 }

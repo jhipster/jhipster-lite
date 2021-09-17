@@ -21,9 +21,10 @@ public class Maven {
 
   public static void addParent(Project project, Parent parent) {
     try {
+      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
       String locationPomXml = getPath(project.getPath(), POM_XML);
       String currentPomXml = read(locationPomXml);
-      String updatedPomXml = FileUtils.replace(currentPomXml, Parent.NEEDLE, parent.get());
+      String updatedPomXml = FileUtils.replace(currentPomXml, Parent.NEEDLE, parent.get(indent));
       Files.write(getPathOf(locationPomXml), updatedPomXml.getBytes());
     } catch (IOException e) {
       throw new GeneratorException("Error when adding parent");
@@ -32,10 +33,24 @@ public class Maven {
 
   public static void addDependency(Project project, Dependency dependency) {
     try {
+      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
       String locationPomXml = getPath(project.getPath(), POM_XML);
       String currentPomXml = read(locationPomXml);
-      String dependencyWithNeedle = dependency.get() + System.lineSeparator() + indent(2, 2) + Dependency.NEEDLE;
+      String dependencyWithNeedle = dependency.get(indent) + System.lineSeparator() + indent(2, indent) + Dependency.NEEDLE;
       String updatedPomXml = FileUtils.replace(currentPomXml, Dependency.NEEDLE, dependencyWithNeedle);
+      Files.write(getPathOf(locationPomXml), updatedPomXml.getBytes());
+    } catch (IOException e) {
+      throw new GeneratorException("Error when adding dependency");
+    }
+  }
+
+  public static void addPlugin(Project project, Plugin plugin) {
+    try {
+      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
+      String locationPomXml = getPath(project.getPath(), POM_XML);
+      String currentPomXml = read(locationPomXml);
+      String pluginWithNeedle = plugin.get(indent) + System.lineSeparator() + indent(3, indent) + Plugin.NEEDLE;
+      String updatedPomXml = FileUtils.replace(currentPomXml, Plugin.NEEDLE, pluginWithNeedle);
       Files.write(getPathOf(locationPomXml), updatedPomXml.getBytes());
     } catch (IOException e) {
       throw new GeneratorException("Error when adding dependency");

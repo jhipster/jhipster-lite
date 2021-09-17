@@ -41,6 +41,35 @@ class WordUtilsTest {
   }
 
   @Nested
+  class UpperFirst {
+
+    @Test
+    void shouldUpperFirst() {
+      assertThat(WordUtils.upperFirst("jhipsterForge")).isEqualTo("JhipsterForge");
+    }
+
+    @Test
+    void shouldUpperFirstOneLetter() {
+      assertThat(WordUtils.upperFirst("j")).isEqualTo("J");
+    }
+
+    @Test
+    void shouldUpperFirstTwoLetters() {
+      assertThat(WordUtils.upperFirst("jh")).isEqualTo("Jh");
+    }
+
+    @Test
+    void shouldNotUpperFirstWithNull() {
+      assertThatThrownBy(() -> WordUtils.upperFirst(null)).isExactlyInstanceOf(MissingMandatoryValueException.class);
+    }
+
+    @Test
+    void shouldNotUpperFirstWithBlank() {
+      assertThatThrownBy(() -> WordUtils.upperFirst(" ")).isExactlyInstanceOf(MissingMandatoryValueException.class);
+    }
+  }
+
+  @Nested
   class Indent {
 
     @Test

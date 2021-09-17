@@ -15,6 +15,15 @@ public class WordUtils {
     return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, value);
   }
 
+  public static String upperFirst(String value) {
+    Assert.notBlank("value", value);
+
+    StringBuilder result = new StringBuilder();
+    result.append(value.substring(0, 1).toUpperCase());
+    result.append(value.substring(1));
+    return result.toString();
+  }
+
   public static String indent(int times) {
     return indent(times, DEFAULT_INDENTATION);
   }

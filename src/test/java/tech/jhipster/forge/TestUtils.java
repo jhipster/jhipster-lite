@@ -34,6 +34,10 @@ public class TestUtils {
     assertTrue(FileUtils.containsInLine(getPath(project.getPath(), filename), value), "The value '" + value + "' was not found");
   }
 
+  public static void assertFileNoContent(Project project, String filename, String value) {
+    assertFalse(FileUtils.containsInLine(getPath(project.getPath(), filename), value), "The value '" + value + "' was found");
+  }
+
   public static Project.ProjectBuilder tmpProjectBuilder() {
     return Project.builder().path(FileUtils.tmpDirForTest());
   }

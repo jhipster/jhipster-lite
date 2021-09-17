@@ -47,7 +47,7 @@ public class MavenTest {
     void shouldGetParent() {
       // @formatter:off
       String expected =
-        "  <parent>" + System.lineSeparator() +
+        "<parent>" + System.lineSeparator() +
         "    <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
         "    <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
         "    <version>2.5.3</version>" + System.lineSeparator() +
@@ -64,7 +64,7 @@ public class MavenTest {
     void shouldGetParentWith4Indentations() {
       // @formatter:off
       String expected =
-        "    <parent>" + System.lineSeparator() +
+        "<parent>" + System.lineSeparator() +
         "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
         "        <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
         "        <version>2.5.3</version>" + System.lineSeparator() +
@@ -127,7 +127,7 @@ public class MavenTest {
     void shouldGetDependencies() {
       // @formatter:off
       String expected =
-        "    <dependency>" + System.lineSeparator() +
+        "<dependency>" + System.lineSeparator() +
         "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
         "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
         "    </dependency>" + System.lineSeparator();
@@ -142,7 +142,7 @@ public class MavenTest {
     void shouldGetDependenciesWithScopeTest() {
       // @formatter:off
       String expected =
-        "    <dependency>" + System.lineSeparator() +
+        "<dependency>" + System.lineSeparator() +
         "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
         "      <artifactId>spring-boot-starter-test</artifactId>" + System.lineSeparator() +
         "      <scope>test</scope>" + System.lineSeparator() +
@@ -158,7 +158,7 @@ public class MavenTest {
     void shouldGetDependenciesWith4Indentations() {
       // @formatter:off
       String expected =
-        "        <dependency>" + System.lineSeparator() +
+        "<dependency>" + System.lineSeparator() +
         "            <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
         "            <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
         "        </dependency>" + System.lineSeparator();

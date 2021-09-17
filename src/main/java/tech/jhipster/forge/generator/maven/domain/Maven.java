@@ -27,7 +27,6 @@ public class Maven {
     Assert.notBlank("version", version);
 
     StringBuilder result = new StringBuilder()
-      .append(indent(1, indentation))
       .append("<parent>")
       .append(System.lineSeparator())
       .append(indent(2, indentation))
@@ -72,7 +71,6 @@ public class Maven {
     Assert.notBlank("artifactId", artifactId);
 
     StringBuilder result = new StringBuilder()
-      .append(indent(2, indentation))
       .append("<dependency>")
       .append(System.lineSeparator())
       .append(indent(3, indentation))

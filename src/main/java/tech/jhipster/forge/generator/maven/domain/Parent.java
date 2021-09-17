@@ -7,6 +7,8 @@ import tech.jhipster.forge.error.domain.Assert;
 
 public class Parent {
 
+  public static String NEEDLE = "<!-- jhipster-needle-maven-parent -->";
+
   private final String groupId;
   private final String artifactId;
   private final String version;
@@ -64,8 +66,7 @@ public class Parent {
       .append("<relativePath/>")
       .append(System.lineSeparator())
       .append(indent(1, indentation))
-      .append("</parent>")
-      .append(System.lineSeparator());
+      .append("</parent>");
 
     return result.toString();
   }

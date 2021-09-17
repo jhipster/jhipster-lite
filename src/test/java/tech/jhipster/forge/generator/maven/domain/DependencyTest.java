@@ -101,7 +101,7 @@ class DependencyTest {
       "<dependency>" + System.lineSeparator() +
         "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
         "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
-        "    </dependency>" + System.lineSeparator();
+        "    </dependency>";
     // @formatter:on
 
     Dependency dependency = minimalBuilder().build();
@@ -118,7 +118,7 @@ class DependencyTest {
       "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
       "      <version>2.5.3</version>" + System.lineSeparator() +
       "      <scope>test</scope>" + System.lineSeparator() +
-      "    </dependency>" + System.lineSeparator();
+      "    </dependency>";
     // @formatter:on
 
     Dependency dependency = fullBuilder().build();
@@ -135,7 +135,7 @@ class DependencyTest {
       "            <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
       "            <version>2.5.3</version>" + System.lineSeparator() +
       "            <scope>test</scope>" + System.lineSeparator() +
-      "        </dependency>" + System.lineSeparator();
+      "        </dependency>";
     // @formatter:on
 
     Dependency dependency = fullBuilder().build();

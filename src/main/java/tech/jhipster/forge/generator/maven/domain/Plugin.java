@@ -7,6 +7,8 @@ import tech.jhipster.forge.error.domain.Assert;
 
 public class Plugin {
 
+  public static String NEEDLE = "<!-- jhipster-needle-maven-add-plugin -->";
+
   private final String groupId;
   private final String artifactId;
 

@@ -64,7 +64,7 @@ class ParentTest {
         "    <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
         "    <version>2.5.3</version>" + System.lineSeparator() +
         "    <relativePath/>" + System.lineSeparator() +
-        "  </parent>" + System.lineSeparator();
+        "  </parent>";
     // @formatter:on
     Parent parent = fullBuilder().build();
 
@@ -80,7 +80,7 @@ class ParentTest {
         "        <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
         "        <version>2.5.3</version>" + System.lineSeparator() +
         "        <relativePath/>" + System.lineSeparator() +
-        "    </parent>" + System.lineSeparator();
+        "    </parent>";
     // @formatter:on
     Parent parent = fullBuilder().build();
 

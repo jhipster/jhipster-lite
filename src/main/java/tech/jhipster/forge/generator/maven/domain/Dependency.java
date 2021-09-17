@@ -8,6 +8,8 @@ import tech.jhipster.forge.error.domain.Assert;
 
 public class Dependency {
 
+  public static String NEEDLE = "<!-- jhipster-needle-maven-add-dependency -->";
+
   private final String groupId;
   private final String artifactId;
   private final Optional<String> version;
@@ -77,7 +79,7 @@ public class Dependency {
       result.append(indent(3, indentation)).append("<scope>").append(scope).append("</scope>").append(System.lineSeparator())
     );
 
-    result.append(indent(2, indentation)).append("</dependency>").append(System.lineSeparator());
+    result.append(indent(2, indentation)).append("</dependency>");
 
     return result.toString();
   }

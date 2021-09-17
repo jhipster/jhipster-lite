@@ -211,10 +211,10 @@ class FileUtilsTest {
   class Replace {
 
     @Test
-    void shouldReplace() throws Exception {
+    void shouldReplaceInFile() throws Exception {
       String filename = getPath("src/test/resources/template/utils/readme-short.md");
 
-      String result = FileUtils.replace(filename, "powered by JHipster \uD83E\uDD13", "Hello JHipster Forge");
+      String result = FileUtils.replaceInFile(filename, "powered by JHipster \uD83E\uDD13", "Hello JHipster Forge");
 
       String lineSeparator = System.lineSeparator();
       String expectedResult = new StringBuilder()
@@ -229,10 +229,11 @@ class FileUtilsTest {
     }
 
     @Test
-    void shouldNotReplaceWhenFileNotExist() {
+    void shouldNotReplaceInFileWhenFileNotExist() {
       String filename = getPath("src/test/resources/template/utils/unknown.md");
 
-      assertThatThrownBy(() -> FileUtils.replace(filename, "powered by JHipster", "Hello JHipster Forge")).isInstanceOf(IOException.class);
+      assertThatThrownBy(() -> FileUtils.replaceInFile(filename, "powered by JHipster", "Hello JHipster Forge"))
+        .isInstanceOf(IOException.class);
     }
   }
 }

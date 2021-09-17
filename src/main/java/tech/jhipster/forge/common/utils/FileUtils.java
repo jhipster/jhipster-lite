@@ -76,8 +76,12 @@ public class FileUtils {
     return findValue;
   }
 
-  public static String replace(String filename, String regexp, String replacement) throws IOException {
+  public static String replaceInFile(String filename, String regexp, String replacement) throws IOException {
     String text = read(filename);
+    return replace(text, regexp, replacement);
+  }
+
+  public static String replace(String text, String regexp, String replacement) {
     return Pattern.compile(regexp).matcher(text).replaceAll(replacement);
   }
 }

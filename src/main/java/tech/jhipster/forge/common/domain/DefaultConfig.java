@@ -10,7 +10,8 @@ public class DefaultConfig {
     "baseName", "jhipster",
     "projectName", "JHipster Project",
     "nodeVersion", "14.17.6",
-    "packageName", "com.mycompany.myapp"
+    "packageName", "com.mycompany.myapp",
+    "prettierDefaultIndent", "2"
   );
 
   private DefaultConfig() {}

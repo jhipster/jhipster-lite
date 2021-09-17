@@ -49,7 +49,7 @@ class PluginTest {
       "<plugin>" + System.lineSeparator() +
       "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
       "        <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
-      "      </plugin>" + System.lineSeparator();
+      "      </plugin>";
     // @formatter:on
     Plugin plugin = fullBuilder().build();
 
@@ -63,7 +63,7 @@ class PluginTest {
       "<plugin>" + System.lineSeparator() +
       "                <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
       "                <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
-      "            </plugin>" + System.lineSeparator();
+      "            </plugin>";
     // @formatter:on
     Plugin plugin = fullBuilder().build();
 

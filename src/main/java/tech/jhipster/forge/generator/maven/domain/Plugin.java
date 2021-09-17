@@ -51,8 +51,7 @@ public class Plugin {
       .append("</artifactId>")
       .append(System.lineSeparator())
       .append(indent(3, indentation))
-      .append("</plugin>")
-      .append(System.lineSeparator());
+      .append("</plugin>");
 
     return result.toString();
   }

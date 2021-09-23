@@ -50,7 +50,7 @@ public class TestUtils {
   public static Project tmpProjectWithPomXml() throws IOException {
     Project project = tmpProject();
     FileUtils.createFolder(project.getPath());
-    Files.copy(getPathOf("src/test/resources/template/maven/pom.xml"), getPathOf(project.getPath(), "pom.xml"));
+    Files.copy(getPathOf("src/test/resources/template/maven/pom.test.xml"), getPathOf(project.getPath(), "pom.xml"));
     return project;
   }
 }

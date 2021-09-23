@@ -1,104 +1,134 @@
 package tech.jhipster.forge.generator.maven.domain;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tech.jhipster.forge.TestUtils.assertFileContent;
-import static tech.jhipster.forge.TestUtils.tmpProject;
-import static tech.jhipster.forge.common.utils.FileUtils.getPathOf;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.utils.FileUtils;
-import tech.jhipster.forge.error.domain.GeneratorException;
+import tech.jhipster.forge.generator.shared.domain.Dependency;
+import tech.jhipster.forge.generator.shared.domain.Parent;
+import tech.jhipster.forge.generator.shared.domain.Plugin;
 
 @UnitTest
-public class MavenTest {
+class MavenTest {
 
   @Test
-  void shouldNotBeMavenProject() {
-    Project project = tmpProject();
-
-    assertFalse(Maven.isMavenProject(project));
-  }
-
-  @Test
-  void shouldBeMavenProject() throws Exception {
-    Project project = initProjectWithPomXml();
-
-    assertTrue(Maven.isMavenProject(project));
-  }
-
-  @Test
-  void shouldAddParent() throws Exception {
-    Project project = initProjectWithPomXml();
-
+  void shouldGetParent() {
+    // @formatter:off
+    String expected =
+      "<parent>" + System.lineSeparator() +
+      "    <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "    <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
+      "    <version>2.5.3</version>" + System.lineSeparator() +
+      "    <relativePath/>" + System.lineSeparator() +
+      "  </parent>";
+    // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
-    Maven.addParent(project, parent);
 
-    assertFileContent(project, "pom.xml", "<parent>");
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-parent</artifactId>");
-    assertFileContent(project, "pom.xml", "<version>2.5.3</version>");
-    assertFileContent(project, "pom.xml", "</parent>");
+    assertThat(Maven.getParent(parent)).isEqualTo(expected);
   }
 
   @Test
-  void shouldNotAddParentWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
-
+  void shouldGetParentWith4Indentations() {
+    // @formatter:off
+    String expected =
+      "<parent>" + System.lineSeparator() +
+      "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "        <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
+      "        <version>2.5.3</version>" + System.lineSeparator() +
+      "        <relativePath/>" + System.lineSeparator() +
+      "    </parent>";
+    // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
-    assertThatThrownBy(() -> Maven.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
+
+    assertThat(Maven.getParent(parent, 4)).isEqualTo(expected);
   }
 
   @Test
-  void shouldAddDependency() throws Exception {
-    Project project = initProjectWithPomXml();
+  void shouldGetDependencyMinimal() {
+    // @formatter:off
+    String expected =
+      "<dependency>" + System.lineSeparator() +
+      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
+      "    </dependency>";
+    // @formatter:on
 
-    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
-    Maven.addDependency(project, dependency);
+    Dependency dependency = minimalDependencyBuilder().build();
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter</artifactId>");
+    assertThat(Maven.getDependency(dependency)).isEqualTo(expected);
   }
 
   @Test
-  void shouldNotAddDependencyWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
+  void shouldGetDependencyFull() {
+    // @formatter:off
+    String expected =
+      "<dependency>" + System.lineSeparator() +
+      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
+      "      <version>2.5.3</version>" + System.lineSeparator() +
+      "      <scope>test</scope>" + System.lineSeparator() +
+      "    </dependency>";
+    // @formatter:on
 
-    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
-    assertThatThrownBy(() -> Maven.addDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
+    Dependency dependency = fullDependencyBuilder().build();
+
+    assertThat(Maven.getDependency(dependency)).isEqualTo(expected);
   }
 
   @Test
-  void shouldAddPlugin() throws Exception {
-    Project project = initProjectWithPomXml();
+  void shouldGetDependencyFullWith4Indentations() {
+    // @formatter:off
+    String expected =
+      "<dependency>" + System.lineSeparator() +
+      "            <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "            <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
+      "            <version>2.5.3</version>" + System.lineSeparator() +
+      "            <scope>test</scope>" + System.lineSeparator() +
+      "        </dependency>";
+    // @formatter:on
 
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-    Maven.addPlugin(project, plugin);
+    Dependency dependency = fullDependencyBuilder().build();
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-maven-plugin</artifactId>");
+    assertThat(Maven.getDependency(dependency, 4)).isEqualTo(expected);
+  }
+
+  private Dependency.DependencyBuilder minimalDependencyBuilder() {
+    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter");
+  }
+
+  private Dependency.DependencyBuilder fullDependencyBuilder() {
+    return minimalDependencyBuilder().version("2.5.3").scope("test");
   }
 
   @Test
-  void shouldNotAddPluginWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
+  void shouldGetPlugin() {
+    // @formatter:off
+    String expected =
+      "<plugin>" + System.lineSeparator() +
+      "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "        <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
+      "      </plugin>";
+    // @formatter:on
+    Plugin plugin = fullPluginBuilder().build();
 
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-    assertThatThrownBy(() -> Maven.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
+    assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
   }
 
-  private Project initProjectWithPomXml() throws IOException {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
-    Files.copy(getPathOf("src/test/resources/template/maven/pom.xml"), getPathOf(project.getPath(), "pom.xml"));
-    return project;
+  @Test
+  void shouldGetPluginWith4Indentations() {
+    // @formatter:off
+    String expected =
+      "<plugin>" + System.lineSeparator() +
+      "                <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "                <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
+      "            </plugin>";
+    // @formatter:on
+    Plugin plugin = fullPluginBuilder().build();
+
+    assertThat(Maven.getPlugin(plugin, 4)).isEqualTo(expected);
+  }
+
+  private Plugin.PluginBuilder fullPluginBuilder() {
+    return Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin");
   }
 }

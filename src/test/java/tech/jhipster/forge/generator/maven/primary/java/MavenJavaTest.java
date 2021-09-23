@@ -2,6 +2,7 @@ package tech.jhipster.forge.generator.maven.primary.java;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
 
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,24 @@ class MavenJavaTest {
 
   @InjectMocks
   MavenJava mavenJava;
+
+  @Test
+  void shouldInitPomXml() {
+    Project project = tmpProject();
+
+    mavenJava.initPomXml(project);
+
+    verify(mavenApplicationService).initPomXml(any(Project.class));
+  }
+
+  @Test
+  void shouldAddMavenWrapper() {
+    Project project = tmpProject();
+
+    mavenJava.addMavenWrapper(project);
+
+    verify(mavenApplicationService).addMavenWrapper(any(Project.class));
+  }
 
   @Test
   void shouldAddParent() throws Exception {

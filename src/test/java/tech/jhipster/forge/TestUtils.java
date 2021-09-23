@@ -2,9 +2,10 @@ package tech.jhipster.forge;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tech.jhipster.forge.common.utils.FileUtils.exists;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.common.utils.FileUtils.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.forge.common.domain.Project;
@@ -44,5 +45,12 @@ public class TestUtils {
 
   public static Project tmpProject() {
     return tmpProjectBuilder().build();
+  }
+
+  public static Project tmpProjectWithPomXml() throws IOException {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getPath());
+    Files.copy(getPathOf("src/test/resources/template/maven/pom.xml"), getPathOf(project.getPath(), "pom.xml"));
+    return project;
   }
 }

@@ -1,59 +1,109 @@
 package tech.jhipster.forge.generator.maven.domain;
 
-import static tech.jhipster.forge.common.utils.FileUtils.*;
 import static tech.jhipster.forge.common.utils.WordUtils.indent;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.utils.FileUtils;
-import tech.jhipster.forge.error.domain.GeneratorException;
+import tech.jhipster.forge.common.utils.WordUtils;
+import tech.jhipster.forge.generator.shared.domain.Dependency;
+import tech.jhipster.forge.generator.shared.domain.Parent;
+import tech.jhipster.forge.generator.shared.domain.Plugin;
 
 public class Maven {
 
-  public static final String POM_XML = "pom.xml";
+  public static String NEEDLE_PARENT = "<!-- jhipster-needle-maven-parent -->";
+  public static String NEEDLE_DEPENDENCY = "<!-- jhipster-needle-maven-add-dependency -->";
+  public static String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
 
   private Maven() {}
 
-  public static boolean isMavenProject(Project project) {
-    return FileUtils.exists(getPath(project.getPath(), POM_XML));
+  public static String getParent(Parent parent) {
+    return getParent(parent, WordUtils.DEFAULT_INDENTATION);
   }
 
-  public static void addParent(Project project, Parent parent) {
-    try {
-      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
-      String locationPomXml = getPath(project.getPath(), POM_XML);
-      String currentPomXml = read(locationPomXml);
-      String updatedPomXml = FileUtils.replace(currentPomXml, Parent.NEEDLE, parent.get(indent));
-      Files.write(getPathOf(locationPomXml), updatedPomXml.getBytes());
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding parent");
-    }
+  public static String getParent(Parent parent, int indentation) {
+    StringBuilder result = new StringBuilder()
+      .append("<parent>")
+      .append(System.lineSeparator())
+      .append(indent(2, indentation))
+      .append("<groupId>")
+      .append(parent.getGroupId())
+      .append("</groupId>")
+      .append(System.lineSeparator())
+      .append(indent(2, indentation))
+      .append("<artifactId>")
+      .append(parent.getArtifactId())
+      .append("</artifactId>")
+      .append(System.lineSeparator())
+      .append(indent(2, indentation))
+      .append("<version>")
+      .append(parent.getVersion())
+      .append("</version>")
+      .append(System.lineSeparator())
+      .append(indent(2, indentation))
+      .append("<relativePath/>")
+      .append(System.lineSeparator())
+      .append(indent(1, indentation))
+      .append("</parent>");
+
+    return result.toString();
   }
 
-  public static void addDependency(Project project, Dependency dependency) {
-    try {
-      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
-      String locationPomXml = getPath(project.getPath(), POM_XML);
-      String currentPomXml = read(locationPomXml);
-      String dependencyWithNeedle = dependency.get(indent) + System.lineSeparator() + indent(2, indent) + Dependency.NEEDLE;
-      String updatedPomXml = FileUtils.replace(currentPomXml, Dependency.NEEDLE, dependencyWithNeedle);
-      Files.write(getPathOf(locationPomXml), updatedPomXml.getBytes());
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding dependency");
-    }
+  public static String getDependency(Dependency dependency) {
+    return getDependency(dependency, WordUtils.DEFAULT_INDENTATION);
   }
 
-  public static void addPlugin(Project project, Plugin plugin) {
-    try {
-      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
-      String locationPomXml = getPath(project.getPath(), POM_XML);
-      String currentPomXml = read(locationPomXml);
-      String pluginWithNeedle = plugin.get(indent) + System.lineSeparator() + indent(3, indent) + Plugin.NEEDLE;
-      String updatedPomXml = FileUtils.replace(currentPomXml, Plugin.NEEDLE, pluginWithNeedle);
-      Files.write(getPathOf(locationPomXml), updatedPomXml.getBytes());
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding dependency");
-    }
+  public static String getDependency(Dependency dependency, int indentation) {
+    StringBuilder result = new StringBuilder()
+      .append("<dependency>")
+      .append(System.lineSeparator())
+      .append(indent(3, indentation))
+      .append("<groupId>")
+      .append(dependency.getGroupId())
+      .append("</groupId>")
+      .append(System.lineSeparator())
+      .append(indent(3, indentation))
+      .append("<artifactId>")
+      .append(dependency.getArtifactId())
+      .append("</artifactId>")
+      .append(System.lineSeparator());
+
+    dependency
+      .getVersion()
+      .ifPresent(version ->
+        result.append(indent(3, indentation)).append("<version>").append(version).append("</version>").append(System.lineSeparator())
+      );
+
+    dependency
+      .getScope()
+      .ifPresent(scope ->
+        result.append(indent(3, indentation)).append("<scope>").append(scope).append("</scope>").append(System.lineSeparator())
+      );
+
+    result.append(indent(2, indentation)).append("</dependency>");
+
+    return result.toString();
+  }
+
+  public static String getPlugin(Plugin plugin) {
+    return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION);
+  }
+
+  public static String getPlugin(Plugin plugin, int indentation) {
+    StringBuilder result = new StringBuilder()
+      .append("<plugin>")
+      .append(System.lineSeparator())
+      .append(indent(4, indentation))
+      .append("<groupId>")
+      .append(plugin.getGroupId())
+      .append("</groupId>")
+      .append(System.lineSeparator())
+      .append(indent(4, indentation))
+      .append("<artifactId>")
+      .append(plugin.getArtifactId())
+      .append("</artifactId>")
+      .append(System.lineSeparator())
+      .append(indent(3, indentation))
+      .append("</plugin>");
+
+    return result.toString();
   }
 }

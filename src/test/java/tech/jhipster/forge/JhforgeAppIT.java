@@ -49,7 +49,7 @@ class JhforgeAppIT {
 
   @Test
   void shouldGetHost() {
-    assertThatCode(() -> JhforgeApp.getHostAddress()).doesNotThrowAnyException();
+    assertThatCode(JhforgeApp::getHostAddress).doesNotThrowAnyException();
   }
 
   @Test

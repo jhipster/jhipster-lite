@@ -12,7 +12,7 @@ import tech.jhipster.forge.generator.shared.domain.Dependency;
 import tech.jhipster.forge.generator.shared.domain.Parent;
 import tech.jhipster.forge.generator.shared.domain.Plugin;
 
-public class SpringBootDomainService {
+public class SpringBootDomainService implements SpringBootService {
 
   public static final String SOURCE = "springboot";
 
@@ -24,6 +24,7 @@ public class SpringBootDomainService {
     this.mavenService = mavenService;
   }
 
+  @Override
   public void addSpringBoot(Project project) {
     addSpringBootParent(project);
     addSpringBootDependencies(project);
@@ -32,6 +33,7 @@ public class SpringBootDomainService {
     addApplicationProperties(project);
   }
 
+  @Override
   public void addSpringBootParent(Project project) {
     project.addConfig("springBootVersion", SpringBoot.getVersion());
 
@@ -45,6 +47,7 @@ public class SpringBootDomainService {
     mavenService.addParent(project, parent);
   }
 
+  @Override
   public void addSpringBootDependencies(Project project) {
     Dependency springBootStarterDependency = Dependency
       .builder()
@@ -65,11 +68,13 @@ public class SpringBootDomainService {
     mavenService.addDependency(project, springBootStarterTestDependency);
   }
 
+  @Override
   public void addSpringBootMavenPlugin(Project project) {
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
     mavenService.addPlugin(project, plugin);
   }
 
+  @Override
   public void addMainApp(Project project) {
     project.addDefaultConfig("packageName");
     project.addDefaultConfig("baseName");
@@ -85,6 +90,7 @@ public class SpringBootDomainService {
     projectRepository.template(project, SOURCE, "MainAppIT.java", getPath(TEST_JAVA, pathPackageName), className + "AppIT.java");
   }
 
+  @Override
   public void addApplicationProperties(Project project) {
     project.addDefaultConfig("baseName");
 

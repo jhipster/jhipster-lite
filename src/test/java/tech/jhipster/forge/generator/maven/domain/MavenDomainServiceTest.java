@@ -6,10 +6,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.forge.TestUtils.tmpProject;
-import static tech.jhipster.forge.common.utils.FileUtils.getPathOf;
+import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,7 +56,7 @@ class MavenDomainServiceTest {
 
   @Test
   void shouldAddParent() throws Exception {
-    Project project = initProjectWithPomXml();
+    Project project = tmpProjectWithPomXml();
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
     mavenDomainService.addParent(project, parent);
@@ -77,7 +75,7 @@ class MavenDomainServiceTest {
 
   @Test
   void shouldAddDependency() throws Exception {
-    Project project = initProjectWithPomXml();
+    Project project = tmpProjectWithPomXml();
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
 
     mavenDomainService.addDependency(project, dependency);
@@ -96,7 +94,7 @@ class MavenDomainServiceTest {
 
   @Test
   void shouldAddPlugin() throws Exception {
-    Project project = initProjectWithPomXml();
+    Project project = tmpProjectWithPomXml();
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
 
     mavenDomainService.addPlugin(project, plugin);
@@ -111,12 +109,5 @@ class MavenDomainServiceTest {
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
 
     assertThatThrownBy(() -> mavenDomainService.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  private Project initProjectWithPomXml() throws IOException {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
-    Files.copy(getPathOf("src/test/resources/template/maven/pom.xml"), getPathOf(project.getPath(), "pom.xml"));
-    return project;
   }
 }

@@ -2,39 +2,38 @@ package tech.jhipster.forge.generator.init.application;
 
 import org.springframework.stereotype.Component;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.domain.ProjectRepository;
-import tech.jhipster.forge.generator.init.domain.InitDomainService;
+import tech.jhipster.forge.generator.init.domain.InitService;
 
 @Component
 public class InitApplicationService {
 
-  private final InitDomainService initFactory;
+  private final InitService initService;
 
-  public InitApplicationService(ProjectRepository projectRepository) {
-    this.initFactory = new InitDomainService(projectRepository);
+  public InitApplicationService(InitService initService) {
+    this.initService = initService;
   }
 
   public void init(Project project) {
-    initFactory.init(project);
+    initService.init(project);
   }
 
   public void addPackageJson(Project project) {
-    initFactory.addPackageJson(project);
+    initService.addPackageJson(project);
   }
 
   public void addReadme(Project project) {
-    initFactory.addReadme(project);
+    initService.addReadme(project);
   }
 
   public void addGitConfiguration(Project project) {
-    initFactory.addGitConfiguration(project);
+    initService.addGitConfiguration(project);
   }
 
   public void addEditorConfiguration(Project project) {
-    initFactory.addEditorConfiguration(project);
+    initService.addEditorConfiguration(project);
   }
 
   public void addPrettier(Project project) {
-    initFactory.addPrettier(project);
+    initService.addPrettier(project);
   }
 }

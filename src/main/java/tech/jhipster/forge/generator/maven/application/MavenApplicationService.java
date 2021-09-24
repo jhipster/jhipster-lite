@@ -2,8 +2,7 @@ package tech.jhipster.forge.generator.maven.application;
 
 import org.springframework.stereotype.Component;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.domain.ProjectRepository;
-import tech.jhipster.forge.generator.maven.domain.MavenDomainService;
+import tech.jhipster.forge.generator.maven.domain.MavenService;
 import tech.jhipster.forge.generator.shared.domain.Dependency;
 import tech.jhipster.forge.generator.shared.domain.Parent;
 import tech.jhipster.forge.generator.shared.domain.Plugin;
@@ -11,29 +10,29 @@ import tech.jhipster.forge.generator.shared.domain.Plugin;
 @Component
 public class MavenApplicationService {
 
-  private final MavenDomainService mavenDomainService;
+  private final MavenService mavenService;
 
-  public MavenApplicationService(ProjectRepository projectRepository) {
-    this.mavenDomainService = new MavenDomainService(projectRepository);
+  public MavenApplicationService(MavenService mavenService) {
+    this.mavenService = mavenService;
   }
 
   public void initPomXml(Project project) {
-    mavenDomainService.initPomXml(project);
+    mavenService.initPomXml(project);
   }
 
   public void addMavenWrapper(Project project) {
-    mavenDomainService.addMavenWrapper(project);
+    mavenService.addMavenWrapper(project);
   }
 
   public void addParent(Project project, Parent parent) {
-    mavenDomainService.addParent(project, parent);
+    mavenService.addParent(project, parent);
   }
 
   public void addDependency(Project project, Dependency dependency) {
-    mavenDomainService.addDependency(project, dependency);
+    mavenService.addDependency(project, dependency);
   }
 
   public void addPlugin(Project project, Plugin plugin) {
-    mavenDomainService.addPlugin(project, plugin);
+    mavenService.addPlugin(project, plugin);
   }
 }

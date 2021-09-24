@@ -71,9 +71,9 @@ public class MavenDomainService implements MavenService {
       int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
       String locationPomXml = getPath(project.getPath(), POM_XML);
       String currentPomXml = read(locationPomXml);
-      String dependencyWithNeedle =
-        Maven.getDependency(dependency, indent) + System.lineSeparator() + indent(2, indent) + NEEDLE_DEPENDENCY;
-      String updatedPomXml = FileUtils.replace(currentPomXml, NEEDLE_DEPENDENCY, dependencyWithNeedle);
+      String needle = dependency.getScope().orElse("").equals("test") ? NEEDLE_DEPENDENCY_TEST : NEEDLE_DEPENDENCY;
+      String dependencyWithNeedle = Maven.getDependency(dependency, indent) + System.lineSeparator() + indent(2, indent) + needle;
+      String updatedPomXml = FileUtils.replace(currentPomXml, needle, dependencyWithNeedle);
 
       projectRepository.write(project, updatedPomXml, ".", "pom.xml");
     } catch (IOException e) {

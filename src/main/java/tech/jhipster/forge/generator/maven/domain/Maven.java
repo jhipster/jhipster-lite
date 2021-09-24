@@ -11,6 +11,7 @@ public class Maven {
 
   public static String NEEDLE_PARENT = "<!-- jhipster-needle-maven-parent -->";
   public static String NEEDLE_DEPENDENCY = "<!-- jhipster-needle-maven-add-dependency -->";
+  public static String NEEDLE_DEPENDENCY_TEST = "<!-- jhipster-needle-maven-add-dependency-test -->";
   public static String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
 
   private Maven() {}

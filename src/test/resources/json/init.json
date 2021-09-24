@@ -1,0 +1,9 @@
+{
+  "path": "/tmp/jhforge-test/chips",
+  "generator-jhipster": {
+    "projectName": "Chips Project",
+    "baseName": "chips",
+    "prettierDefaultIndent": "4",
+    "prettierJavaIndent": "4"
+  }
+}

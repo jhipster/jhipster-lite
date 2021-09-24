@@ -66,6 +66,22 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddDependencyWithScopeTest() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Dependency dependency = Dependency
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-starter-test")
+      .scope("test")
+      .build();
+    mavenApplicationService.addDependency(project, dependency);
+
+    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
+    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-test</artifactId>");
+  }
+
+  @Test
   void shouldAddPlugin() throws Exception {
     Project project = tmpProjectWithPomXml();
 

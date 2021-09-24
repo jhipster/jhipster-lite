@@ -84,6 +84,21 @@ class MavenDomainServiceTest {
   }
 
   @Test
+  void shouldAddDependencyWithScopeTest() throws Exception {
+    Project project = tmpProjectWithPomXml();
+    Dependency dependency = Dependency
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-starter-test")
+      .scope("test")
+      .build();
+
+    mavenDomainService.addDependency(project, dependency);
+
+    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
   void shouldNotAddDependencyWhenNoPomXml() throws Exception {
     Project project = tmpProject();
     FileUtils.createFolder(project.getPath());

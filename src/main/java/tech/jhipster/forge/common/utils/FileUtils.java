@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -64,6 +65,29 @@ public class FileUtils {
       }
     }
     return -1;
+  }
+
+  public static boolean containsLines(String filename, List<String> lines) {
+    Assert.notBlank("filename", filename);
+    Assert.notEmpty("lines", lines);
+
+    File file = new File(filename);
+    int lineNumberToCheck = 0;
+    try (Scanner scanner = new Scanner(file)) {
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+        if (!line.contains(lines.get(lineNumberToCheck))) {
+          lineNumberToCheck = 0;
+        } else if (lineNumberToCheck >= lines.size() - 1) {
+          return true;
+        } else {
+          lineNumberToCheck++;
+        }
+      }
+    } catch (IOException ex) {
+      log.error("The file {} does not exist", filename);
+    }
+    return false;
   }
 
   public static boolean containsInLine(String filename, String value) {

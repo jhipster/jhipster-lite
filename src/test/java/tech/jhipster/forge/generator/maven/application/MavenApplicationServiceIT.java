@@ -2,6 +2,7 @@ package tech.jhipster.forge.generator.maven.application;
 
 import static tech.jhipster.forge.TestUtils.*;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
@@ -47,11 +48,18 @@ class MavenApplicationServiceIT {
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
     mavenApplicationService.addParent(project, parent);
 
-    assertFileContent(project, "pom.xml", "<parent>");
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-parent</artifactId>");
-    assertFileContent(project, "pom.xml", "<version>2.5.3</version>");
-    assertFileContent(project, "pom.xml", "</parent>");
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<parent>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-starter-parent</artifactId>",
+        "<version>2.5.3</version>",
+        "<relativePath/>",
+        "</parent>"
+      )
+    );
   }
 
   @Test
@@ -61,8 +69,16 @@ class MavenApplicationServiceIT {
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
     mavenApplicationService.addDependency(project, dependency);
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter</artifactId>");
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-starter</artifactId>",
+        "</dependency>"
+      )
+    );
   }
 
   @Test
@@ -77,8 +93,17 @@ class MavenApplicationServiceIT {
       .build();
     mavenApplicationService.addDependency(project, dependency);
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-test</artifactId>");
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-starter-test</artifactId>",
+        "<scope>test</scope>",
+        "</dependency>"
+      )
+    );
   }
 
   @Test
@@ -88,7 +113,10 @@ class MavenApplicationServiceIT {
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
     mavenApplicationService.addPlugin(project, plugin);
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-maven-plugin</artifactId>");
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of("<plugin>", "<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-maven-plugin</artifactId>", "</plugin>")
+    );
   }
 }

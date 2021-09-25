@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.util.List;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
@@ -204,6 +205,79 @@ class FileUtilsTest {
       String filename = getPath("src", "test", "resources", "template", "utils", "unknown.md");
 
       assertFalse(FileUtils.containsInLine(filename, "apero with beers"));
+    }
+  }
+
+  @Nested
+  class ContainsLines {
+
+    @Test
+    void shouldContainsLinesSingle() {
+      String filename = getPath("src/test/resources/template/maven/pom.test.xml");
+      List<String> lines = List.of("<dependency>");
+
+      assertTrue(FileUtils.containsLines(filename, lines));
+    }
+
+    @Test
+    void shouldContainsLines() {
+      String filename = getPath("src/test/resources/template/maven/pom.test.xml");
+      List<String> lines = List.of(
+        "<dependency>",
+        "<groupId>org.junit.jupiter</groupId>",
+        "<artifactId>junit-jupiter-engine</artifactId>",
+        "<version>${junit.version}</version>",
+        "<scope>test</scope>",
+        "</dependency>"
+      );
+
+      assertTrue(FileUtils.containsLines(filename, lines));
+    }
+
+    @Test
+    void shouldNotContainsLines() {
+      String filename = getPath("src/test/resources/template/maven/pom.test.xml");
+      List<String> lines = List.of(
+        "<dependency>",
+        "<groupId>org.junit.jupiter</groupId>",
+        "<artifactId>junit-jupiter-engine</artifactId>",
+        "<version>${junit.version}</version>",
+        "<scope>WRONG_SCOPE</scope>",
+        "</dependency>"
+      );
+
+      assertFalse(FileUtils.containsLines(filename, lines));
+    }
+
+    @Test
+    void shouldNotContainsLinesWhenFileNotExist() {
+      String filename = getPath("chips.txt");
+      List<String> lines = List.of("chips");
+
+      assertFalse(FileUtils.containsLines(filename, lines));
+    }
+
+    @Test
+    void shouldNotContainsLinesWithNullFilename() {
+      assertThatThrownBy(() -> FileUtils.containsLines(null, List.of()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotContainsLinesWithBlankFilename() {
+      assertThatThrownBy(() -> FileUtils.containsLines(" ", List.of()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotContainsLinesWithEmptyLines() {
+      String filename = getPath("src/test/resources/template/maven/pom.test.xml");
+
+      assertThatThrownBy(() -> FileUtils.containsLines(filename, List.of()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("lines");
     }
   }
 

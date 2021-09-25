@@ -3,6 +3,7 @@ package tech.jhipster.forge.generator.init.application;
 import static tech.jhipster.forge.TestUtils.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,16 @@ class InitApplicationServiceIT {
 
   @Test
   void shouldInitWithConfig() {
+    // @formatter:off
     Map<String, String> config = new HashMap<>(
-      Map.of("baseName", "jhipsterForge", "projectName", "JHipster Forge", "prettierDefaultIndent", "4", "prettierJavaIndent", "4")
+      Map.of(
+        "baseName", "jhipsterForge",
+        "projectName", "JHipster Forge",
+        "prettierDefaultIndent", "2",
+        "prettierJavaIndent", "4"
+      )
     );
+    // @formatter:on
     Project project = tmpProjectBuilder().config(config).build();
 
     initApplicationService.init(project);
@@ -37,7 +45,17 @@ class InitApplicationServiceIT {
     assertFileExist(project, ".lintstagedrc.js");
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");
-    assertFileContent(project, ".prettierrc", "tabWidth: 4");
+    assertFileContent(project, ".prettierrc", "tabWidth: 2");
+    // @formatter:off
+    assertFileContent(project, ".prettierrc",
+      List.of(
+        "overrides:",
+        "- files: \"*.java\"",
+        "options:",
+        "tabWidth: 4"
+      )
+    );
+    // @formatter:on
 
     assertFileExist(project, "package.json");
     assertFileContent(project, "package.json", "jhipster-forge");

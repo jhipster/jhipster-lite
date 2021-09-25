@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -54,6 +55,14 @@ public class TestUtils {
 
   public static void assertFileNoContent(Project project, String filename, String value) {
     assertFalse(FileUtils.containsInLine(getPath(project.getPath(), filename), value), "The value '" + value + "' was found");
+  }
+
+  public static void assertFileContent(Project project, String filename, List<String> lines) {
+    assertTrue(FileUtils.containsLines(getPath(project.getPath(), filename), lines), "The lines '" + lines + "' were not found");
+  }
+
+  public static void assertFileNoContent(Project project, String filename, List<String> lines) {
+    assertFalse(FileUtils.containsLines(getPath(project.getPath(), filename), lines), "The lines '" + lines + "' were found");
   }
 
   public static Project.ProjectBuilder tmpProjectBuilder() {

@@ -32,11 +32,44 @@ class CheckConfigTest {
 
   @Test
   void shouldNotValidBaseNameWithNull() {
-    assertThatThrownBy(() -> CheckConfig.validBaseName(null)).isExactlyInstanceOf(MissingMandatoryValueException.class);
+    assertThatThrownBy(() -> CheckConfig.validBaseName(null))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("baseName");
   }
 
   @Test
   void shouldNotValidBaseNameWithBlank() {
-    assertThatThrownBy(() -> CheckConfig.validBaseName(" ")).isExactlyInstanceOf(MissingMandatoryValueException.class);
+    assertThatThrownBy(() -> CheckConfig.validBaseName(" "))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("baseName");
+  }
+
+  @Test
+  void shouldValidPackageName() {
+    assertThatCode(() -> CheckConfig.validPackageName("tech.jhipster.forge")).doesNotThrowAnyException();
+  }
+
+  @Test
+  void shouldNotValidPackageNameWithSpace() {
+    assertThatThrownBy(() -> CheckConfig.validPackageName("tech jhipster forge")).isExactlyInstanceOf(UnauthorizedValueException.class);
+  }
+
+  @Test
+  void shouldNotValidPackageNameWithDotAtBeginning() {
+    assertThatThrownBy(() -> CheckConfig.validPackageName(".tech.jhipster.forge")).isExactlyInstanceOf(UnauthorizedValueException.class);
+  }
+
+  @Test
+  void shouldNotValidPackageNameWithNull() {
+    assertThatThrownBy(() -> CheckConfig.validPackageName(null))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("packageName");
+  }
+
+  @Test
+  void shouldNotValidPackageNameWithBlank() {
+    assertThatThrownBy(() -> CheckConfig.validPackageName(" "))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("packageName");
   }
 }

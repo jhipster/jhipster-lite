@@ -11,7 +11,8 @@ public class DefaultConfig {
     "projectName", "JHipster Project",
     "nodeVersion", "14.17.6",
     "packageName", "com.mycompany.myapp",
-    "prettierDefaultIndent", "2"
+    "prettierDefaultIndent", "2",
+    "prettierJavaIndent", "2"
   );
 
   private DefaultConfig() {}

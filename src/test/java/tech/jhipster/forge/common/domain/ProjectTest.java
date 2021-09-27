@@ -1,14 +1,16 @@
 package tech.jhipster.forge.common.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.forge.TestUtils.tmpProject;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
+import tech.jhipster.forge.error.domain.UnauthorizedValueException;
 
 @UnitTest
 class ProjectTest {
@@ -125,5 +127,32 @@ class ProjectTest {
     project.addDefaultConfig("apero");
 
     assertThat(project.getConfig("apero")).isEmpty();
+  }
+
+  @Nested
+  class ValidateConfig {
+
+    @Test
+    void shouldValidateConfig() {
+      Project project = tmpProject();
+
+      assertThatCode(project::validateConfig).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateConfigWithBadBaseName() {
+      Project project = tmpProject();
+      project.addConfig("baseName", "jhipster app");
+
+      assertThatThrownBy(project::validateConfig).isExactlyInstanceOf(UnauthorizedValueException.class).hasMessageContaining("baseName");
+    }
+
+    @Test
+    void shouldNotValidateConfigWithBadPackageName() {
+      Project project = tmpProject();
+      project.addConfig("packageName", "tech jhipster forge");
+
+      assertThatThrownBy(project::validateConfig).isExactlyInstanceOf(UnauthorizedValueException.class).hasMessageContaining("packageName");
+    }
   }
 }

@@ -16,6 +16,8 @@ public class Project {
 
     this.path = builder.path;
     this.config = builder.config;
+
+    validateConfig();
   }
 
   public static ProjectBuilder builder() {
@@ -44,6 +46,11 @@ public class Project {
 
   public void addDefaultConfig(String key) {
     DefaultConfig.get(key).ifPresent(value -> addConfig(key, value));
+  }
+
+  public void validateConfig() {
+    getConfig("baseName").ifPresent(CheckConfig::validBaseName);
+    getConfig("packageName").ifPresent(CheckConfig::validPackageName);
   }
 
   public static class ProjectBuilder {

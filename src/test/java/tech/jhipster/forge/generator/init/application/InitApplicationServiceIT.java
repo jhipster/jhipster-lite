@@ -1,6 +1,7 @@
 package tech.jhipster.forge.generator.init.application;
 
 import static tech.jhipster.forge.TestUtils.*;
+import static tech.jhipster.forge.common.domain.DefaultConfig.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +20,11 @@ class InitApplicationServiceIT {
   @Test
   void shouldInitWithConfig() {
     // @formatter:off
-    Map<String, String> config = new HashMap<>(
+    Map<String, Object> config = new HashMap<>(
       Map.of(
-        "baseName", "jhipsterForge",
-        "projectName", "JHipster Forge",
-        "prettierDefaultIndent", "2",
-        "prettierJavaIndent", "4"
+        BASE_NAME, "jhipsterForge",
+        PROJECT_NAME, "JHipster Forge",
+        PRETTIER_DEFAULT_INDENT, 4
       )
     );
     // @formatter:on
@@ -45,7 +45,7 @@ class InitApplicationServiceIT {
     assertFileExist(project, ".lintstagedrc.js");
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");
-    assertFileContent(project, ".prettierrc", "tabWidth: 2");
+    assertFileContent(project, ".prettierrc", "tabWidth: 4");
     // @formatter:off
     assertFileContent(project, ".prettierrc",
       List.of(
@@ -81,6 +81,16 @@ class InitApplicationServiceIT {
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");
     assertFileContent(project, ".prettierrc", "tabWidth: 2");
+    // @formatter:off
+    assertFileContent(project, ".prettierrc",
+      List.of(
+        "overrides:",
+        "- files: \"*.java\"",
+        "options:",
+        "tabWidth: 2"
+      )
+    );
+    // @formatter:on
 
     assertFileExist(project, "package.json");
     assertFileContent(project, "package.json", "jhipster");

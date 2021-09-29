@@ -1,5 +1,6 @@
 package tech.jhipster.forge.generator.maven.domain;
 
+import static tech.jhipster.forge.common.domain.DefaultConfig.*;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 import static tech.jhipster.forge.common.utils.FileUtils.read;
 import static tech.jhipster.forge.common.utils.WordUtils.indent;
@@ -28,11 +29,11 @@ public class MavenDomainService implements MavenService {
 
   @Override
   public void initPomXml(Project project) {
-    project.addDefaultConfig("packageName");
-    project.addDefaultConfig("projectName");
-    project.addDefaultConfig("baseName");
+    project.addDefaultConfig(PACKAGE_NAME);
+    project.addDefaultConfig(PROJECT_NAME);
+    project.addDefaultConfig(BASE_NAME);
 
-    String baseName = project.getConfig("baseName").orElse("");
+    String baseName = project.getBaseName().orElse("");
     project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
     projectRepository.template(project, SOURCE, "pom.xml");
@@ -54,7 +55,8 @@ public class MavenDomainService implements MavenService {
   @Override
   public void addParent(Project project, Parent parent) {
     try {
-      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
+      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+      int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
       String locationPomXml = getPath(project.getPath(), POM_XML);
       String currentPomXml = read(locationPomXml);
       String updatedPomXml = FileUtils.replace(currentPomXml, NEEDLE_PARENT, Maven.getParent(parent, indent));
@@ -68,7 +70,8 @@ public class MavenDomainService implements MavenService {
   @Override
   public void addDependency(Project project, Dependency dependency) {
     try {
-      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
+      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+      int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
       String locationPomXml = getPath(project.getPath(), POM_XML);
       String currentPomXml = read(locationPomXml);
       String needle = dependency.getScope().orElse("").equals("test") ? NEEDLE_DEPENDENCY_TEST : NEEDLE_DEPENDENCY;
@@ -84,7 +87,8 @@ public class MavenDomainService implements MavenService {
   @Override
   public void addPlugin(Project project, Plugin plugin) {
     try {
-      int indent = Integer.parseInt(project.getConfig("prettierDefaultIndent").orElse("2"));
+      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+      int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
       String locationPomXml = getPath(project.getPath(), POM_XML);
       String currentPomXml = read(locationPomXml);
       String pluginWithNeedle = Maven.getPlugin(plugin, indent) + System.lineSeparator() + indent(3, indent) + NEEDLE_PLUGIN;

@@ -4,11 +4,17 @@ import static tech.jhipster.forge.common.domain.Constants.*;
 import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.common.utils.FileUtils.read;
+import static tech.jhipster.forge.generator.springboot.domain.SpringBoot.APPLICATION_PROPERTIES;
+import static tech.jhipster.forge.generator.springboot.domain.SpringBoot.NEEDLE_APPLICATION_PROPERTIES;
 
 import java.io.File;
+import java.io.IOException;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.ProjectRepository;
+import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.common.utils.WordUtils;
+import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.maven.domain.MavenService;
 import tech.jhipster.forge.generator.shared.domain.Dependency;
 import tech.jhipster.forge.generator.shared.domain.Parent;
@@ -97,5 +103,22 @@ public class SpringBootDomainService implements SpringBootService {
     project.addDefaultConfig(BASE_NAME);
 
     projectRepository.template(project, SOURCE, "application.properties", getPath(MAIN_RESOURCES, "config"));
+  }
+
+  @Override
+  public void addProperties(Project project, String key, Object value) {
+    try {
+      String currentApplicationProperties = read(getPath(project.getPath(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES));
+      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + NEEDLE_APPLICATION_PROPERTIES;
+      String updatedApplicationProperties = FileUtils.replace(
+        currentApplicationProperties,
+        NEEDLE_APPLICATION_PROPERTIES,
+        propertiesWithNeedle
+      );
+
+      projectRepository.write(project, updatedApplicationProperties, getPath(MAIN_RESOURCES, "config"), APPLICATION_PROPERTIES);
+    } catch (IOException e) {
+      throw new GeneratorException("Error when adding properties");
+    }
   }
 }

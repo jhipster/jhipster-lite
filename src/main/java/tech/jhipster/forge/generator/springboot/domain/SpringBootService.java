@@ -9,4 +9,6 @@ public interface SpringBootService {
   void addSpringBootMavenPlugin(Project project);
   void addMainApp(Project project);
   void addApplicationProperties(Project project);
+
+  void addProperties(Project project, String key, Object value);
 }

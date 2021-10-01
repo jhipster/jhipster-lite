@@ -2,6 +2,8 @@ package tech.jhipster.forge.generator.springboot.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.*;
+import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,5 +141,49 @@ class SpringBootApplicationServiceIT {
     springBootApplicationService.addApplicationProperties(project);
 
     assertFileExist(project, "src/main/resources/config/application.properties");
+  }
+
+  @Test
+  void shouldAddPropertiesWithInteger() {
+    Project project = tmpProject();
+    springBootApplicationService.addApplicationProperties(project);
+
+    springBootApplicationService.addProperties(project, "server.port", 8080);
+
+    String applicationProperties = getPath(MAIN_RESOURCES, "config/application.properties");
+    assertFileContent(project, applicationProperties, "server.port=8080");
+    assertFileContent(project, applicationProperties, "# jhipster-needle-application-properties");
+  }
+
+  @Test
+  void shouldAddPropertiesWithBoolean() {
+    Project project = tmpProject();
+    springBootApplicationService.addApplicationProperties(project);
+
+    springBootApplicationService.addProperties(project, "spring.jmx.enabled", false);
+
+    String applicationProperties = getPath(MAIN_RESOURCES, "config/application.properties");
+    assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
+    assertFileContent(project, applicationProperties, "# jhipster-needle-application-properties");
+  }
+
+  @Test
+  void shouldAddPropertiesWithString() {
+    Project project = tmpProject();
+    springBootApplicationService.addApplicationProperties(project);
+
+    springBootApplicationService.addProperties(project, "jhipster.application", "jhforge");
+
+    String applicationProperties = getPath(MAIN_RESOURCES, "config/application.properties");
+    assertFileContent(project, applicationProperties, "jhipster.application=jhforge");
+    assertFileContent(project, applicationProperties, "# jhipster-needle-application-properties");
+  }
+
+  @Test
+  void shouldNotAddPropertiesWhenNoApplicationProperties() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> springBootApplicationService.addProperties(project, "jhipster.application", "jhforge"))
+      .isExactlyInstanceOf(GeneratorException.class);
   }
 }

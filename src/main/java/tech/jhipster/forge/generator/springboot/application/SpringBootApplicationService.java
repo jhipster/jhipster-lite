@@ -36,4 +36,12 @@ public class SpringBootApplicationService {
   public void addApplicationProperties(Project project) {
     springBootService.addApplicationProperties(project);
   }
+
+  public void addProperties(Project project, String key, Object value) {
+    springBootService.addProperties(project, key, value);
+  }
+
+  public void addProperties(Project project, String key, boolean value) {
+    springBootService.addProperties(project, key, value);
+  }
 }

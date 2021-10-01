@@ -1,14 +1,18 @@
 package tech.jhipster.forge.common.domain;
 
+import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import tech.jhipster.forge.error.domain.Assert;
+import tech.jhipster.forge.error.domain.UnauthorizedValueException;
 
 public class Project {
 
   private final String path;
-  private final Map<String, String> config;
+  private final Map<String, Object> config;
 
   private Project(ProjectBuilder builder) {
     Assert.notBlank("path", builder.path);
@@ -28,35 +32,50 @@ public class Project {
     return path;
   }
 
-  public Map<String, String> getConfig() {
+  public Map<String, Object> getConfig() {
     return config;
   }
 
-  public Optional<String> getConfig(String key) {
-    Optional<String> value = Optional.ofNullable(config.get(key));
-    if (value.isEmpty()) {
-      return DefaultConfig.get(key);
-    }
-    return value;
+  public Optional<Object> getConfig(String key) {
+    return Optional.ofNullable(config.get(key));
   }
 
-  public void addConfig(String key, String value) {
+  public void addConfig(String key, Object value) {
     config.putIfAbsent(key, value);
+    validateConfig();
   }
 
   public void addDefaultConfig(String key) {
     DefaultConfig.get(key).ifPresent(value -> addConfig(key, value));
   }
 
-  public void validateConfig() {
-    getConfig("baseName").ifPresent(CheckConfig::validBaseName);
-    getConfig("packageName").ifPresent(CheckConfig::validPackageName);
+  public Optional<String> getBaseName() {
+    return getStringConfig(BASE_NAME);
+  }
+
+  public Optional<String> getPackageName() {
+    return getStringConfig(PACKAGE_NAME);
+  }
+
+  public Optional<String> getStringConfig(String key) {
+    Object value = config.get(key);
+    if (value == null) {
+      return Optional.empty();
+    } else if (value instanceof String) {
+      return Optional.of((String) value);
+    }
+    throw new UnauthorizedValueException("The " + key + " is not valid");
+  }
+
+  private void validateConfig() {
+    getBaseName().ifPresent(CheckConfig::validBaseName);
+    getPackageName().ifPresent(CheckConfig::validPackageName);
   }
 
   public static class ProjectBuilder {
 
     private String path;
-    private Map<String, String> config = new HashMap<>();
+    private Map<String, Object> config = new HashMap<>();
 
     public Project build() {
       return new Project(this);
@@ -67,7 +86,7 @@ public class Project {
       return this;
     }
 
-    public ProjectBuilder config(Map<String, String> config) {
+    public ProjectBuilder config(Map<String, Object> config) {
       if (config != null) {
         this.config = config;
       }

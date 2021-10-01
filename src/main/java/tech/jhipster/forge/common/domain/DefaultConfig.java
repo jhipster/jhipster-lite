@@ -5,19 +5,22 @@ import java.util.Optional;
 
 public class DefaultConfig {
 
+  public static String BASE_NAME = "baseName";
+  public static String PROJECT_NAME = "projectName";
+  public static String PACKAGE_NAME = "packageName";
+  public static String PRETTIER_DEFAULT_INDENT = "prettierDefaultIndent";
+
   // prettier-ignore
-  static Map<String, String> defaultMap = Map.of(
-    "baseName", "jhipster",
-    "projectName", "JHipster Project",
-    "nodeVersion", "14.17.6",
-    "packageName", "com.mycompany.myapp",
-    "prettierDefaultIndent", "2",
-    "prettierJavaIndent", "2"
+  public static Map<String, Object> defaultMap = Map.of(
+    BASE_NAME, "jhipster",
+    PROJECT_NAME, "JHipster Project",
+    PACKAGE_NAME, "com.mycompany.myapp",
+    PRETTIER_DEFAULT_INDENT, 2
   );
 
   private DefaultConfig() {}
 
-  public static Optional<String> get(String key) {
+  public static Optional<Object> get(String key) {
     return Optional.ofNullable(defaultMap.get(key));
   }
 }

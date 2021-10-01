@@ -1,5 +1,6 @@
 package tech.jhipster.forge.generator.init.domain;
 
+import static tech.jhipster.forge.common.domain.DefaultConfig.*;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
 import tech.jhipster.forge.common.domain.Project;
@@ -27,11 +28,12 @@ public class InitDomainService implements InitService {
 
   @Override
   public void addPackageJson(Project project) {
-    project.addDefaultConfig("nodeVersion");
-    project.addDefaultConfig("projectName");
-    project.addDefaultConfig("baseName");
+    project.addDefaultConfig(PROJECT_NAME);
+    project.addDefaultConfig(BASE_NAME);
 
-    String baseName = project.getConfig("baseName").orElse("");
+    project.addConfig("nodeVersion", Init.getNodeVersion());
+
+    String baseName = project.getBaseName().orElse("");
     project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
     projectRepository.template(project, SOURCE, "package.json");
@@ -39,7 +41,7 @@ public class InitDomainService implements InitService {
 
   @Override
   public void addReadme(Project project) {
-    project.addDefaultConfig("projectName");
+    project.addDefaultConfig(PROJECT_NAME);
 
     projectRepository.template(project, SOURCE, "README.md");
   }
@@ -52,8 +54,7 @@ public class InitDomainService implements InitService {
 
   @Override
   public void addEditorConfiguration(Project project) {
-    project.addDefaultConfig("prettierDefaultIndent");
-    project.addDefaultConfig("prettierJavaIndent");
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
     projectRepository.template(project, SOURCE, ".editorconfig");
     projectRepository.add(project, SOURCE, ".eslintignore");

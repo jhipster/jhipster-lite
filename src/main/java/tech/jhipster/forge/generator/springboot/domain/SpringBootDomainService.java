@@ -1,6 +1,8 @@
 package tech.jhipster.forge.generator.springboot.domain;
 
 import static tech.jhipster.forge.common.domain.Constants.*;
+import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
 import java.io.File;
@@ -41,7 +43,7 @@ public class SpringBootDomainService implements SpringBootService {
       .builder()
       .groupId("org.springframework.boot")
       .artifactId("spring-boot-starter-parent")
-      .version(project.getConfig("springBootVersion").orElse(SpringBoot.SPRING_BOOT_VERSION))
+      .version((String) project.getConfig("springBootVersion").orElse(SpringBoot.SPRING_BOOT_VERSION))
       .build();
 
     mavenService.addParent(project, parent);
@@ -76,11 +78,11 @@ public class SpringBootDomainService implements SpringBootService {
 
   @Override
   public void addMainApp(Project project) {
-    project.addDefaultConfig("packageName");
-    project.addDefaultConfig("baseName");
+    project.addDefaultConfig(PACKAGE_NAME);
+    project.addDefaultConfig(BASE_NAME);
 
-    String baseName = project.getConfig("baseName").orElse("jhipster");
-    String packageName = project.getConfig("packageName").orElse("com.mycompany.myapp");
+    String baseName = project.getBaseName().orElse("jhipster");
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
     String className = WordUtils.upperFirst(baseName);
     project.addConfig("mainClass", className);
 
@@ -92,7 +94,7 @@ public class SpringBootDomainService implements SpringBootService {
 
   @Override
   public void addApplicationProperties(Project project) {
-    project.addDefaultConfig("baseName");
+    project.addDefaultConfig(BASE_NAME);
 
     projectRepository.template(project, SOURCE, "application.properties", getPath(MAIN_RESOURCES, "config"));
   }

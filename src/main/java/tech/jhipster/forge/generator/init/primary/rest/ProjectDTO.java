@@ -16,13 +16,13 @@ public class ProjectDTO {
 
   @JsonProperty("generator-jhipster")
   @ApiModelProperty(value = "generator-jhipster configuration", required = true)
-  private Map<String, String> generatorJhipster;
+  private Map<String, Object> generatorJhipster;
 
   public String getPath() {
     return path;
   }
 
-  public Map<String, String> getGeneratorJhipster() {
+  public Map<String, Object> getGeneratorJhipster() {
     return generatorJhipster;
   }
 
@@ -37,7 +37,7 @@ public class ProjectDTO {
     return this;
   }
 
-  public ProjectDTO generatorJhipster(Map<String, String> generatorJhipster) {
+  public ProjectDTO generatorJhipster(Map<String, Object> generatorJhipster) {
     this.generatorJhipster = generatorJhipster;
     return this;
   }

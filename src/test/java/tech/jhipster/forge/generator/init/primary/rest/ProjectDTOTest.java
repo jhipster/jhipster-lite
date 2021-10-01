@@ -2,6 +2,7 @@ package tech.jhipster.forge.generator.init.primary.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ class ProjectDTOTest {
     ProjectDTO projectDTO = buildProjectDTO();
 
     assertThat(projectDTO.getPath()).isEqualTo("/tmp/chips");
-    assertThat(projectDTO.getGeneratorJhipster()).containsEntry("baseName", "chips");
+    assertThat(projectDTO.getGeneratorJhipster()).containsEntry(BASE_NAME, "chips");
   }
 
   @Test
@@ -28,7 +29,7 @@ class ProjectDTOTest {
 
     assertThat(project).isNotNull();
     assertThat(project.getPath()).isEqualTo("/tmp/chips");
-    assertThat(project.getConfig()).containsEntry("baseName", "chips");
+    assertThat(project.getConfig()).containsEntry(BASE_NAME, "chips");
   }
 
   @Test
@@ -48,6 +49,6 @@ class ProjectDTOTest {
   }
 
   private ProjectDTO buildProjectDTO() {
-    return new ProjectDTO().path("/tmp/chips").generatorJhipster(Map.of("baseName", "chips"));
+    return new ProjectDTO().path("/tmp/chips").generatorJhipster(Map.of(BASE_NAME, "chips"));
   }
 }

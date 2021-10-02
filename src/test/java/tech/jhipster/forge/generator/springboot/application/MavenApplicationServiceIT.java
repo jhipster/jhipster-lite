@@ -97,6 +97,23 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldInit() {
+    Project project = tmpProject();
+
+    mavenApplicationService.init(project);
+
+    assertFileExist(project, "pom.xml");
+    assertFileContent(project, "pom.xml", "<name>jhipster</name>");
+    assertFileContent(project, "pom.xml", "<description>JHipster Project</description>");
+
+    assertFileExist(project, "mvnw");
+    assertFileExist(project, "mvnw.cmd");
+    assertFileExist(project, ".mvn/wrapper/MavenWrapperDownloader.java");
+    assertFileExist(project, ".mvn/wrapper/maven-wrapper.jar");
+    assertFileExist(project, ".mvn/wrapper/maven-wrapper.properties");
+  }
+
+  @Test
   void shouldAddPomXml() {
     Project project = tmpProject();
 
@@ -115,8 +132,8 @@ class MavenApplicationServiceIT {
 
     assertFileExist(project, "mvnw");
     assertFileExist(project, "mvnw.cmd");
-    assertFileExist(project, ".mvn", "wrapper", "MavenWrapperDownloader.java");
-    assertFileExist(project, ".mvn", "wrapper", "maven-wrapper.jar");
-    assertFileExist(project, ".mvn", "wrapper", "maven-wrapper.properties");
+    assertFileExist(project, ".mvn/wrapper/MavenWrapperDownloader.java");
+    assertFileExist(project, ".mvn/wrapper/maven-wrapper.jar");
+    assertFileExist(project, ".mvn/wrapper/maven-wrapper.properties");
   }
 }

@@ -24,6 +24,28 @@ class MavenResourceIT {
   MockMvc mockMvc;
 
   @Test
+  void shouldInit() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/maven.json", ProjectDTO.class);
+    if (projectDTO == null) {
+      throw new GeneratorException("Error when reading file");
+    }
+    projectDTO.path(FileUtils.tmpDirForTest());
+
+    mockMvc
+      .perform(post("/api/maven/init").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+
+    String projectPath = projectDTO.getPath();
+    assertFileExist(projectPath, "pom.xml");
+    assertFileContent(projectPath, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
+    assertFileExist(projectPath, "mvnw");
+    assertFileExist(projectPath, "mvnw.cmd");
+    assertFileExist(projectPath, ".mvn/wrapper/MavenWrapperDownloader.java");
+    assertFileExist(projectPath, ".mvn/wrapper/maven-wrapper.jar");
+    assertFileExist(projectPath, ".mvn/wrapper/maven-wrapper.properties");
+  }
+
+  @Test
   void shouldAddPomXml() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/maven.json", ProjectDTO.class);
     if (projectDTO == null) {

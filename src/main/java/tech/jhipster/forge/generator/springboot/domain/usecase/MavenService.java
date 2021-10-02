@@ -10,6 +10,7 @@ public interface MavenService {
   void addDependency(Project project, Dependency dependency);
   void addPlugin(Project project, Plugin plugin);
 
+  void init(Project project);
   void addPomXml(Project project);
   void addMavenWrapper(Project project);
 }

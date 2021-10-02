@@ -28,6 +28,10 @@ public class MavenApplicationService {
     mavenService.addPlugin(project, plugin);
   }
 
+  public void init(Project project) {
+    mavenService.init(project);
+  }
+
   public void addPomXml(Project project) {
     mavenService.addPomXml(project);
   }

@@ -16,14 +16,6 @@ public class MavenJava {
     this.mavenApplicationService = mavenApplicationService;
   }
 
-  public void initPomXml(Project project) {
-    mavenApplicationService.initPomXml(project);
-  }
-
-  public void addMavenWrapper(Project project) {
-    mavenApplicationService.addMavenWrapper(project);
-  }
-
   public void addParent(Project project, Parent parent) {
     mavenApplicationService.addParent(project, parent);
   }
@@ -34,5 +26,13 @@ public class MavenJava {
 
   public void addPlugin(Project project, Plugin plugin) {
     mavenApplicationService.addPlugin(project, plugin);
+  }
+
+  public void initPomXml(Project project) {
+    mavenApplicationService.initPomXml(project);
+  }
+
+  public void addMavenWrapper(Project project) {
+    mavenApplicationService.addMavenWrapper(project);
   }
 }

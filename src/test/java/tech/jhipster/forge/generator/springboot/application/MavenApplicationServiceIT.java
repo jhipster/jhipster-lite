@@ -18,30 +18,6 @@ class MavenApplicationServiceIT {
   MavenApplicationService mavenApplicationService;
 
   @Test
-  void shouldInitPomXml() {
-    Project project = tmpProject();
-
-    mavenApplicationService.initPomXml(project);
-
-    assertFileExist(project, "pom.xml");
-    assertFileContent(project, "pom.xml", "<name>jhipster</name>");
-    assertFileContent(project, "pom.xml", "<description>JHipster Project</description>");
-  }
-
-  @Test
-  void shouldAddMavenWrapper() {
-    Project project = tmpProject();
-
-    mavenApplicationService.addMavenWrapper(project);
-
-    assertFileExist(project, "mvnw");
-    assertFileExist(project, "mvnw.cmd");
-    assertFileExist(project, ".mvn", "wrapper", "MavenWrapperDownloader.java");
-    assertFileExist(project, ".mvn", "wrapper", "maven-wrapper.jar");
-    assertFileExist(project, ".mvn", "wrapper", "maven-wrapper.properties");
-  }
-
-  @Test
   void shouldAddParent() throws Exception {
     Project project = tmpProjectWithPomXml();
 
@@ -118,5 +94,29 @@ class MavenApplicationServiceIT {
       "pom.xml",
       List.of("<plugin>", "<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-maven-plugin</artifactId>", "</plugin>")
     );
+  }
+
+  @Test
+  void shouldInitPomXml() {
+    Project project = tmpProject();
+
+    mavenApplicationService.initPomXml(project);
+
+    assertFileExist(project, "pom.xml");
+    assertFileContent(project, "pom.xml", "<name>jhipster</name>");
+    assertFileContent(project, "pom.xml", "<description>JHipster Project</description>");
+  }
+
+  @Test
+  void shouldAddMavenWrapper() {
+    Project project = tmpProject();
+
+    mavenApplicationService.addMavenWrapper(project);
+
+    assertFileExist(project, "mvnw");
+    assertFileExist(project, "mvnw.cmd");
+    assertFileExist(project, ".mvn", "wrapper", "MavenWrapperDownloader.java");
+    assertFileExist(project, ".mvn", "wrapper", "maven-wrapper.jar");
+    assertFileExist(project, ".mvn", "wrapper", "maven-wrapper.properties");
   }
 }

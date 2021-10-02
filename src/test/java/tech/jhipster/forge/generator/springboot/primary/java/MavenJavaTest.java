@@ -28,24 +28,6 @@ class MavenJavaTest {
   MavenJava mavenJava;
 
   @Test
-  void shouldInitPomXml() {
-    Project project = tmpProject();
-
-    mavenJava.initPomXml(project);
-
-    verify(mavenApplicationService).initPomXml(any(Project.class));
-  }
-
-  @Test
-  void shouldAddMavenWrapper() {
-    Project project = tmpProject();
-
-    mavenJava.addMavenWrapper(project);
-
-    verify(mavenApplicationService).addMavenWrapper(any(Project.class));
-  }
-
-  @Test
   void shouldAddParent() throws Exception {
     Project project = tmpProjectWithPomXml();
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
@@ -73,5 +55,23 @@ class MavenJavaTest {
     mavenJava.addPlugin(project, plugin);
 
     verify(mavenApplicationService).addPlugin(any(Project.class), any(Plugin.class));
+  }
+
+  @Test
+  void shouldInitPomXml() {
+    Project project = tmpProject();
+
+    mavenJava.initPomXml(project);
+
+    verify(mavenApplicationService).initPomXml(any(Project.class));
+  }
+
+  @Test
+  void shouldAddMavenWrapper() {
+    Project project = tmpProject();
+
+    mavenJava.addMavenWrapper(project);
+
+    verify(mavenApplicationService).addMavenWrapper(any(Project.class));
   }
 }

@@ -31,7 +31,7 @@ class SpringBootWebApplicationServiceIT {
   void shouldAddSpringBootWeb() {
     Project project = tmpProject();
     initApplicationService.init(project);
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
     springBootApplicationService.addSpringBoot(project);
 
     springBootWebApplicationService.addSpringBootWeb(project);

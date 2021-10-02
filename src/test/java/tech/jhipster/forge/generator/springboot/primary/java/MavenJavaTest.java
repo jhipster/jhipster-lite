@@ -58,12 +58,12 @@ class MavenJavaTest {
   }
 
   @Test
-  void shouldInitPomXml() {
+  void shouldAddPomXml() {
     Project project = tmpProject();
 
-    mavenJava.initPomXml(project);
+    mavenJava.addPomXml(project);
 
-    verify(mavenApplicationService).initPomXml(any(Project.class));
+    verify(mavenApplicationService).addPomXml(any(Project.class));
   }
 
   @Test

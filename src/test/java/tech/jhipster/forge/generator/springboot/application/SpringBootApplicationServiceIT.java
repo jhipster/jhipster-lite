@@ -29,7 +29,7 @@ class SpringBootApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig("springBootVersion", "2.5.3");
     initJava.init(project);
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
     mavenApplicationService.addMavenWrapper(project);
 
     springBootApplicationService.addSpringBoot(project);
@@ -57,7 +57,7 @@ class SpringBootApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig("springBootVersion", "2.5.3");
     initJava.init(project);
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addSpringBootParent(project);
     assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-parent</artifactId>");
@@ -81,7 +81,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddSpringBootDependencies() {
     Project project = tmpProject();
     initJava.init(project);
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addSpringBootDependencies(project);
 
@@ -105,7 +105,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddSpringBootPlugin() {
     Project project = tmpProject();
     initJava.init(project);
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addSpringBootMavenPlugin(project);
 
@@ -124,7 +124,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddMainApp() {
     Project project = tmpProject();
     initJava.init(project);
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addMainApp(project);
 

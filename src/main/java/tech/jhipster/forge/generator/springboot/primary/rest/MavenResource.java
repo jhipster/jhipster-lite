@@ -27,7 +27,7 @@ public class MavenResource {
   @PostMapping("/pom-xml")
   public void addPomXml(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
   }
 
   @ApiOperation("Add Maven Wrapper")

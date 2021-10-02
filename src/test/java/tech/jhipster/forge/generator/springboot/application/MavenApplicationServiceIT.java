@@ -97,10 +97,10 @@ class MavenApplicationServiceIT {
   }
 
   @Test
-  void shouldInitPomXml() {
+  void shouldAddPomXml() {
     Project project = tmpProject();
 
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
 
     assertFileExist(project, "pom.xml");
     assertFileContent(project, "pom.xml", "<name>jhipster</name>");

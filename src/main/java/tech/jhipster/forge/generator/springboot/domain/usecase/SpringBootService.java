@@ -7,8 +7,8 @@ public interface SpringBootService {
   void addSpringBootParent(Project project);
   void addSpringBootDependencies(Project project);
   void addSpringBootMavenPlugin(Project project);
+  void addProperties(Project project, String key, Object value);
+
   void addMainApp(Project project);
   void addApplicationProperties(Project project);
-
-  void addProperties(Project project, String key, Object value);
 }

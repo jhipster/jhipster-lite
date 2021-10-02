@@ -29,31 +29,6 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
-  public void initPomXml(Project project) {
-    project.addDefaultConfig(PACKAGE_NAME);
-    project.addDefaultConfig(PROJECT_NAME);
-    project.addDefaultConfig(BASE_NAME);
-
-    String baseName = project.getBaseName().orElse("");
-    project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
-
-    projectRepository.template(project, SOURCE, "pom.xml");
-  }
-
-  @Override
-  public void addMavenWrapper(Project project) {
-    projectRepository.add(project, SOURCE, "mvnw");
-    projectRepository.add(project, SOURCE, "mvnw.cmd");
-
-    String sourceWrapper = getPath(SOURCE, ".mvn", "wrapper");
-    String destinationWrapper = getPath(".mvn", "wrapper");
-
-    projectRepository.add(project, sourceWrapper, "MavenWrapperDownloader.java", destinationWrapper);
-    projectRepository.add(project, sourceWrapper, "maven-wrapper.jar", destinationWrapper);
-    projectRepository.add(project, sourceWrapper, "maven-wrapper.properties", destinationWrapper);
-  }
-
-  @Override
   public void addParent(Project project, Parent parent) {
     try {
       project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
@@ -99,5 +74,30 @@ public class MavenDomainService implements MavenService {
     } catch (IOException e) {
       throw new GeneratorException("Error when adding dependency");
     }
+  }
+
+  @Override
+  public void initPomXml(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    project.addDefaultConfig(PROJECT_NAME);
+    project.addDefaultConfig(BASE_NAME);
+
+    String baseName = project.getBaseName().orElse("");
+    project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
+
+    projectRepository.template(project, SOURCE, "pom.xml");
+  }
+
+  @Override
+  public void addMavenWrapper(Project project) {
+    projectRepository.add(project, SOURCE, "mvnw");
+    projectRepository.add(project, SOURCE, "mvnw.cmd");
+
+    String sourceWrapper = getPath(SOURCE, ".mvn", "wrapper");
+    String destinationWrapper = getPath(".mvn", "wrapper");
+
+    projectRepository.add(project, sourceWrapper, "MavenWrapperDownloader.java", destinationWrapper);
+    projectRepository.add(project, sourceWrapper, "maven-wrapper.jar", destinationWrapper);
+    projectRepository.add(project, sourceWrapper, "maven-wrapper.properties", destinationWrapper);
   }
 }

@@ -21,7 +21,6 @@ import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.springboot.domain.model.Dependency;
 import tech.jhipster.forge.generator.springboot.domain.model.Parent;
 import tech.jhipster.forge.generator.springboot.domain.model.Plugin;
-import tech.jhipster.forge.generator.springboot.domain.service.MavenDomainService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -35,24 +34,6 @@ class MavenDomainServiceTest {
   @BeforeEach
   void setUp() {
     mavenDomainService = new MavenDomainService(projectRepository);
-  }
-
-  @Test
-  void shouldInitPomXml() {
-    Project project = tmpProject();
-
-    mavenDomainService.initPomXml(project);
-
-    verify(projectRepository).template(any(Project.class), anyString(), anyString());
-  }
-
-  @Test
-  void shouldAddMavenWrapper() {
-    Project project = tmpProject();
-
-    mavenDomainService.addMavenWrapper(project);
-
-    verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -125,5 +106,23 @@ class MavenDomainServiceTest {
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
 
     assertThatThrownBy(() -> mavenDomainService.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldInitPomXml() {
+    Project project = tmpProject();
+
+    mavenDomainService.initPomXml(project);
+
+    verify(projectRepository).template(any(Project.class), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddMavenWrapper() {
+    Project project = tmpProject();
+
+    mavenDomainService.addMavenWrapper(project);
+
+    verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString(), anyString());
   }
 }

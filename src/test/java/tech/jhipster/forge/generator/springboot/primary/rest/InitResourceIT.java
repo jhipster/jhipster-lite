@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.TestUtils;
 import tech.jhipster.forge.common.utils.FileUtils;
-import tech.jhipster.forge.generator.springboot.primary.rest.ProjectDTO;
+import tech.jhipster.forge.error.domain.GeneratorException;
 
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -24,7 +24,11 @@ class InitResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/init.json", ProjectDTO.class).path(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/init.json", ProjectDTO.class);
+    if (projectDTO == null) {
+      throw new GeneratorException("Error when reading file");
+    }
+    projectDTO.path(FileUtils.tmpDirForTest());
 
     mockMvc
       .perform(post("/api/init").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))

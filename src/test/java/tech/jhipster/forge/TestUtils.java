@@ -61,6 +61,10 @@ public class TestUtils {
     assertTrue(FileUtils.containsLines(getPath(project.getPath(), filename), lines), "The lines '" + lines + "' were not found");
   }
 
+  public static void assertFileContent(String path, String filename, List<String> lines) {
+    assertTrue(FileUtils.containsLines(getPath(path, filename), lines), "The lines '" + lines + "' were not found");
+  }
+
   public static void assertFileNoContent(Project project, String filename, List<String> lines) {
     assertFalse(FileUtils.containsLines(getPath(project.getPath(), filename), lines), "The lines '" + lines + "' were found");
   }

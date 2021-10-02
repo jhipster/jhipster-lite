@@ -121,8 +121,7 @@ public class TestUtils {
     try {
       return mapper.readValue(stringObject, valueType);
     } catch (JsonProcessingException e) {
-      log.error("Can't readValue", e);
-      throw new GeneratorException("Can't readValue");
+      throw new GeneratorException("Can't readValue", e);
     }
   }
 }

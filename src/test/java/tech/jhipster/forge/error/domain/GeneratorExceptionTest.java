@@ -13,4 +13,11 @@ class GeneratorExceptionTest {
     GeneratorException exception = new GeneratorException("apero");
     assertThat(exception.getMessage()).isEqualTo("apero");
   }
+
+  @Test
+  void shouldGetGeneratorExceptionWithCause() {
+    NullPointerException nullPointerException = new NullPointerException();
+    GeneratorException exception = new GeneratorException("apero", nullPointerException);
+    assertThat(exception.getMessage()).isEqualTo("apero");
+  }
 }

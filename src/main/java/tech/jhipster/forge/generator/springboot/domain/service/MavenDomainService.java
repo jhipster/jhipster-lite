@@ -77,7 +77,13 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
-  public void initPomXml(Project project) {
+  public void init(Project project) {
+    addPomXml(project);
+    addMavenWrapper(project);
+  }
+
+  @Override
+  public void addPomXml(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
     project.addDefaultConfig(PROJECT_NAME);
     project.addDefaultConfig(BASE_NAME);

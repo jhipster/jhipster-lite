@@ -22,12 +22,20 @@ public class MavenResource {
     this.mavenApplicationService = mavenApplicationService;
   }
 
+  @ApiOperation("Init Maven project with pom.xml and wrapper")
+  @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
+  @PostMapping("/init")
+  public void init(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    mavenApplicationService.init(project);
+  }
+
   @ApiOperation("Add pom.xml")
   @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
   @PostMapping("/pom-xml")
   public void addPomXml(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    mavenApplicationService.initPomXml(project);
+    mavenApplicationService.addPomXml(project);
   }
 
   @ApiOperation("Add Maven Wrapper")

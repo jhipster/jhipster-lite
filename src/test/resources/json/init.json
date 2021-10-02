@@ -3,7 +3,6 @@
   "generator-jhipster": {
     "projectName": "Chips Project",
     "baseName": "chips",
-    "prettierDefaultIndent": "4",
-    "prettierJavaIndent": "4"
+    "prettierDefaultIndent": 4
   }
 }

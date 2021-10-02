@@ -3,9 +3,9 @@ package tech.jhipster.forge.generator.springboot.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.forge.common.domain.ProjectRepository;
-import tech.jhipster.forge.generator.maven.domain.MavenService;
-import tech.jhipster.forge.generator.springboot.domain.SpringBootDomainService;
-import tech.jhipster.forge.generator.springboot.domain.SpringBootService;
+import tech.jhipster.forge.generator.springboot.domain.service.SpringBootDomainService;
+import tech.jhipster.forge.generator.springboot.domain.usecase.MavenService;
+import tech.jhipster.forge.generator.springboot.domain.usecase.SpringBootService;
 
 @Configuration
 public class SpringBootServiceBeanConfiguration {

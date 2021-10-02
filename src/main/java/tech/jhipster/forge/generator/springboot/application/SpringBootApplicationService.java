@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.springboot.application;
 
 import org.springframework.stereotype.Component;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.generator.springboot.domain.SpringBootService;
+import tech.jhipster.forge.generator.springboot.domain.usecase.SpringBootService;
 
 @Component
 public class SpringBootApplicationService {

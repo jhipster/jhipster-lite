@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.init.primary.java.InitJava;
-import tech.jhipster.forge.generator.maven.application.MavenApplicationService;
+import tech.jhipster.forge.generator.springboot.primary.java.InitJava;
 
 @IntegrationTest
 class SpringBootApplicationServiceIT {

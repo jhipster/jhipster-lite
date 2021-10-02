@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.springboot.primary.rest;
+package tech.jhipster.forge.generator.springboot.primary;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.springboot.primary.java.InitJava;
 
 @IntegrationTest
 class SpringBootApplicationServiceIT {
 
   @Autowired
-  InitJava initJava;
+  InitApplicationService initApplicationService;
 
   @Autowired
   MavenApplicationService mavenApplicationService;
@@ -28,7 +27,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddSpringBoot() {
     Project project = tmpProject();
     project.addConfig("springBootVersion", "2.5.3");
-    initJava.init(project);
+    initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     mavenApplicationService.addMavenWrapper(project);
 
@@ -56,7 +55,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddSpringBootParent() {
     Project project = tmpProject();
     project.addConfig("springBootVersion", "2.5.3");
-    initJava.init(project);
+    initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addSpringBootParent(project);
@@ -80,7 +79,7 @@ class SpringBootApplicationServiceIT {
   @Test
   void shouldAddSpringBootDependencies() {
     Project project = tmpProject();
-    initJava.init(project);
+    initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addSpringBootDependencies(project);
@@ -104,7 +103,7 @@ class SpringBootApplicationServiceIT {
   @Test
   void shouldAddSpringBootPlugin() {
     Project project = tmpProject();
-    initJava.init(project);
+    initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addSpringBootMavenPlugin(project);
@@ -123,7 +122,7 @@ class SpringBootApplicationServiceIT {
   @Test
   void shouldAddMainApp() {
     Project project = tmpProject();
-    initJava.init(project);
+    initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addMainApp(project);
@@ -135,7 +134,7 @@ class SpringBootApplicationServiceIT {
   @Test
   void shouldAddApplicationProperties() {
     Project project = tmpProject();
-    initJava.init(project);
+    initApplicationService.init(project);
 
     springBootApplicationService.addApplicationProperties(project);
 

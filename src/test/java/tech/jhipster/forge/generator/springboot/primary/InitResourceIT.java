@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.springboot.primary.rest;
+package tech.jhipster.forge.generator.springboot.primary;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

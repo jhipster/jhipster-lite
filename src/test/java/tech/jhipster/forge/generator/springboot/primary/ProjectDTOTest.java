@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.springboot.primary.rest;
+package tech.jhipster.forge.generator.springboot.primary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
-import tech.jhipster.forge.generator.springboot.primary.rest.ProjectDTO;
 
 @UnitTest
 class ProjectDTOTest {

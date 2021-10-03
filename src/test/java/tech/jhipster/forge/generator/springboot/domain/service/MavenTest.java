@@ -2,12 +2,12 @@ package tech.jhipster.forge.generator.springboot.domain.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.generator.springboot.domain.model.Dependency;
 import tech.jhipster.forge.generator.springboot.domain.model.Parent;
 import tech.jhipster.forge.generator.springboot.domain.model.Plugin;
-import tech.jhipster.forge.generator.springboot.domain.service.Maven;
 
 @UnitTest
 class MavenTest {
@@ -91,6 +91,72 @@ class MavenTest {
     Dependency dependency = fullDependencyBuilder().build();
 
     assertThat(Maven.getDependency(dependency, 4)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetDependencyWithExclusions() {
+    // @formatter:off
+    String expected =
+      "<dependency>" + System.lineSeparator() +
+      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "      <artifactId>spring-boot-starter-web</artifactId>" + System.lineSeparator() +
+      "      <exclusions>" + System.lineSeparator() +
+      "        <exclusion>" + System.lineSeparator() +
+      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
+      "        </exclusion>" + System.lineSeparator() +
+      "      </exclusions>" + System.lineSeparator() +
+      "    </dependency>";
+    // @formatter:on
+
+    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
+    Dependency dependencyToExclude = Dependency
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-starter-tomcat")
+      .build();
+
+    assertThat(Maven.getDependency(dependency, 2, List.of(dependencyToExclude))).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetExclusion() {
+    // @formatter:off
+    String expected =
+      "<exclusion>" + System.lineSeparator() +
+      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
+      "        </exclusion>";
+    // @formatter:off
+
+    Dependency dependencyToExclude = Dependency
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-starter-tomcat")
+      .build();
+
+    assertThat(Maven.getExclusion(dependencyToExclude)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetExclusions() {
+    // @formatter:off
+    String expected =
+      "<exclusions>" + System.lineSeparator() +
+      "        <exclusion>" + System.lineSeparator() +
+      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
+      "        </exclusion>" + System.lineSeparator() +
+      "      </exclusions>";
+    // @formatter:off
+
+    Dependency dependencyToExclude = Dependency
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-starter-tomcat")
+      .build();
+
+    assertThat(Maven.getExclusions(List.of(dependencyToExclude))).isEqualTo(expected);
   }
 
   private Dependency.DependencyBuilder minimalDependencyBuilder() {

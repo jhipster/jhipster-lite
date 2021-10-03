@@ -2,6 +2,7 @@ package tech.jhipster.forge.generator.springboot.domain.service;
 
 import static tech.jhipster.forge.common.utils.WordUtils.indent;
 
+import java.util.List;
 import tech.jhipster.forge.common.utils.WordUtils;
 import tech.jhipster.forge.generator.springboot.domain.model.Dependency;
 import tech.jhipster.forge.generator.springboot.domain.model.Parent;
@@ -49,10 +50,14 @@ public class Maven {
   }
 
   public static String getDependency(Dependency dependency) {
-    return getDependency(dependency, WordUtils.DEFAULT_INDENTATION);
+    return getDependency(dependency, WordUtils.DEFAULT_INDENTATION, List.of());
   }
 
   public static String getDependency(Dependency dependency, int indentation) {
+    return getDependency(dependency, indentation, List.of());
+  }
+
+  public static String getDependency(Dependency dependency, int indentation, List<Dependency> exclusions) {
     StringBuilder result = new StringBuilder()
       .append("<dependency>")
       .append(System.lineSeparator())
@@ -79,8 +84,47 @@ public class Maven {
         result.append(indent(3, indentation)).append("<scope>").append(scope).append("</scope>").append(System.lineSeparator())
       );
 
+    if (exclusions.size() > 0) {
+      result.append(indent(3, indentation)).append(getExclusions(exclusions)).append(System.lineSeparator());
+    }
+
     result.append(indent(2, indentation)).append("</dependency>");
 
+    return result.toString();
+  }
+
+  public static String getExclusion(Dependency exclusion) {
+    return getExclusion(exclusion, WordUtils.DEFAULT_INDENTATION);
+  }
+
+  public static String getExclusion(Dependency exclusion, int indentation) {
+    StringBuilder result = new StringBuilder()
+      .append("<exclusion>")
+      .append(System.lineSeparator())
+      .append(indent(5, indentation))
+      .append("<groupId>")
+      .append(exclusion.getGroupId())
+      .append("</groupId>")
+      .append(System.lineSeparator())
+      .append(indent(5, indentation))
+      .append("<artifactId>")
+      .append(exclusion.getArtifactId())
+      .append("</artifactId>")
+      .append(System.lineSeparator())
+      .append(indent(4, indentation))
+      .append("</exclusion>");
+    return result.toString();
+  }
+
+  public static String getExclusions(List<Dependency> exclusions) {
+    return getExclusions(exclusions, WordUtils.DEFAULT_INDENTATION);
+  }
+
+  public static String getExclusions(List<Dependency> exclusions, int indentation) {
+    StringBuilder result = new StringBuilder().append("<exclusions>");
+
+    exclusions.forEach(exclusion -> result.append(System.lineSeparator()).append(indent(4, indentation)).append(getExclusion(exclusion)));
+    result.append(System.lineSeparator()).append(indent(3, indentation)).append("</exclusions>");
     return result.toString();
   }
 

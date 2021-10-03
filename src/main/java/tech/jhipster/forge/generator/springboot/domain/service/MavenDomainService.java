@@ -7,6 +7,7 @@ import static tech.jhipster.forge.common.utils.WordUtils.indent;
 import static tech.jhipster.forge.generator.springboot.domain.service.Maven.*;
 
 import java.io.IOException;
+import java.util.List;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.ProjectRepository;
 import tech.jhipster.forge.common.utils.FileUtils;
@@ -45,13 +46,19 @@ public class MavenDomainService implements MavenService {
 
   @Override
   public void addDependency(Project project, Dependency dependency) {
+    addDependency(project, dependency, List.of());
+  }
+
+  @Override
+  public void addDependency(Project project, Dependency dependency, List<Dependency> exclusions) {
     try {
       project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
       int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
       String locationPomXml = getPath(project.getPath(), POM_XML);
       String currentPomXml = read(locationPomXml);
       String needle = dependency.getScope().orElse("").equals("test") ? NEEDLE_DEPENDENCY_TEST : NEEDLE_DEPENDENCY;
-      String dependencyWithNeedle = Maven.getDependency(dependency, indent) + System.lineSeparator() + indent(2, indent) + needle;
+      String dependencyWithNeedle =
+        Maven.getDependency(dependency, indent, exclusions) + System.lineSeparator() + indent(2, indent) + needle;
       String updatedPomXml = FileUtils.replace(currentPomXml, needle, dependencyWithNeedle);
 
       projectRepository.write(project, updatedPomXml, ".", "pom.xml");

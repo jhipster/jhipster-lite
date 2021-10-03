@@ -1,7 +1,6 @@
 package tech.jhipster.forge.generator.springboot.domain.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
 import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
@@ -51,6 +50,22 @@ class SpringBootWebDomainServiceTest {
 
     springBootWebDomainService.addSpringBootWeb(project);
 
+    verify(mavenService).addDependency(any(Project.class), any(Dependency.class));
+    verify(springBootService).addProperties(any(Project.class), anyString(), any());
+  }
+
+  @Test
+  void shouldAddSpringBootUndertow() throws Exception {
+    Project project = tmpProjectWithPomXml();
+    FileUtils.createFolder(getPath(project.getPath(), MAIN_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "template/springboot/application.test.properties"),
+      getPathOf(project.getPath(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
+    );
+
+    springBootWebDomainService.addSpringBootUndertow(project);
+
+    verify(mavenService).addDependency(any(Project.class), any(Dependency.class), anyList());
     verify(mavenService).addDependency(any(Project.class), any(Dependency.class));
     verify(springBootService).addProperties(any(Project.class), anyString(), any());
   }

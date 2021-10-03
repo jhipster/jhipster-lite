@@ -16,4 +16,8 @@ public class SpringBootWebApplicationService {
   public void addSpringBootWeb(Project project) {
     springBootWebService.addSpringBootWeb(project);
   }
+
+  public void addSpringBootUndertow(Project project) {
+    springBootWebService.addSpringBootUndertow(project);
+  }
 }

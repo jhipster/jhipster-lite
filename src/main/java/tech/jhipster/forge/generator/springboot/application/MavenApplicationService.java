@@ -1,5 +1,6 @@
 package tech.jhipster.forge.generator.springboot.application;
 
+import java.util.List;
 import org.springframework.stereotype.Component;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.springboot.domain.model.Dependency;
@@ -22,6 +23,10 @@ public class MavenApplicationService {
 
   public void addDependency(Project project, Dependency dependency) {
     mavenService.addDependency(project, dependency);
+  }
+
+  public void addDependency(Project project, Dependency dependency, List<Dependency> exclusions) {
+    mavenService.addDependency(project, dependency, exclusions);
   }
 
   public void addPlugin(Project project, Plugin plugin) {

@@ -83,6 +83,36 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddDependencyWithExclusions() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
+    Dependency dependencyToExclude = Dependency
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-starter-tomcat")
+      .build();
+    mavenApplicationService.addDependency(project, dependency, List.of(dependencyToExclude));
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-starter-web</artifactId>",
+        "<exclusions>",
+        "<exclusion>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-starter-tomcat</artifactId>",
+        "</exclusion>",
+        "</exclusions>",
+        "</dependency>"
+      )
+    );
+  }
+
+  @Test
   void shouldAddPlugin() throws Exception {
     Project project = tmpProjectWithPomXml();
 

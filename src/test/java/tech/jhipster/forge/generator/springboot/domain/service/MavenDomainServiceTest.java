@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
 
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -76,6 +77,21 @@ class MavenDomainServiceTest {
       .build();
 
     mavenDomainService.addDependency(project, dependency);
+
+    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddDependencyWithExclusions() throws Exception {
+    Project project = tmpProjectWithPomXml();
+    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
+    Dependency dependencyToExclude = Dependency
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-starter-tomcat")
+      .build();
+
+    mavenDomainService.addDependency(project, dependency, List.of(dependencyToExclude));
 
     verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
   }

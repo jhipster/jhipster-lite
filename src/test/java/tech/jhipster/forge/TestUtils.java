@@ -16,8 +16,6 @@ import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -27,8 +25,6 @@ import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 
 public class TestUtils {
-
-  private static final Logger log = LoggerFactory.getLogger(TestUtils.class);
 
   public static void assertFileExist(Project project, String... paths) {
     assertFileExist(getPath(project.getPath(), getPath(paths)));

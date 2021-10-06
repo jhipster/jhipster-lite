@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.ProjectRepository;
-import tech.jhipster.forge.generator.springboot.domain.service.InitDomainService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

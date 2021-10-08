@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.generator.springboot.application.InitApplicationService;
 
 @IntegrationTest
 class InitApplicationServiceIT {

@@ -45,4 +45,39 @@ class SpringBootWebApplicationServiceIT {
     assertFileContent(project, "pom.xml", dependency);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
   }
+
+  @Test
+  void shouldAddSpringBootUndertow() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.addSpringBoot(project);
+
+    springBootWebApplicationService.addSpringBootUndertow(project);
+
+    List<String> dependency = List.of(
+      "<dependency>",
+      "<groupId>org.springframework.boot</groupId>",
+      "<artifactId>spring-boot-starter-web</artifactId>",
+      "<exclusions>",
+      "<exclusion>",
+      "<groupId>org.springframework.boot</groupId>",
+      "<artifactId>spring-boot-starter-tomcat</artifactId>",
+      "</exclusion>",
+      "</exclusions>",
+      "</dependency>"
+    );
+    assertFileContent(project, "pom.xml", dependency);
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-starter-undertow</artifactId>",
+        "</dependency>"
+      )
+    );
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
+  }
 }

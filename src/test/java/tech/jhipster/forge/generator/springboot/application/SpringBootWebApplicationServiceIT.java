@@ -36,13 +36,35 @@ class SpringBootWebApplicationServiceIT {
 
     springBootWebApplicationService.addSpringBootWeb(project);
 
-    List<String> dependency = List.of(
-      "<dependency>",
-      "<groupId>org.springframework.boot</groupId>",
-      "<artifactId>spring-boot-starter-web</artifactId>",
-      "</dependency>"
-    );
-    assertFileContent(project, "pom.xml", dependency);
+    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
+  }
+
+  @Test
+  void shouldAddSpringBootWebWithServerPort() {
+    Project project = tmpProject();
+    project.addConfig("serverPort", 7419);
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.addSpringBoot(project);
+
+    springBootWebApplicationService.addSpringBootWeb(project);
+
+    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=7419");
+  }
+
+  @Test
+  void shouldAddSpringBootWebWithInvalidServerPort() {
+    Project project = tmpProject();
+    project.addConfig("serverPort", "chips");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.addSpringBoot(project);
+
+    springBootWebApplicationService.addSpringBootWeb(project);
+
+    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
   }
 
@@ -55,7 +77,46 @@ class SpringBootWebApplicationServiceIT {
 
     springBootWebApplicationService.addSpringBootUndertow(project);
 
-    List<String> dependency = List.of(
+    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
+    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
+  }
+
+  @Test
+  void shouldAddSpringBootUndertowWithServerPort() {
+    Project project = tmpProject();
+    project.addConfig("serverPort", 1664);
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.addSpringBoot(project);
+
+    springBootWebApplicationService.addSpringBootUndertow(project);
+
+    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
+    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=1664");
+  }
+
+  private List<String> springBootStarterWebDependency() {
+    return List.of(
+      "<dependency>",
+      "<groupId>org.springframework.boot</groupId>",
+      "<artifactId>spring-boot-starter-web</artifactId>",
+      "</dependency>"
+    );
+  }
+
+  private List<String> springBootStarterUndertowDependency() {
+    return List.of(
+      "<dependency>",
+      "<groupId>org.springframework.boot</groupId>",
+      "<artifactId>spring-boot-starter-undertow</artifactId>",
+      "</dependency>"
+    );
+  }
+
+  private List<String> springBootStarterWebWithoutTomcat() {
+    return List.of(
       "<dependency>",
       "<groupId>org.springframework.boot</groupId>",
       "<artifactId>spring-boot-starter-web</artifactId>",
@@ -67,17 +128,5 @@ class SpringBootWebApplicationServiceIT {
       "</exclusions>",
       "</dependency>"
     );
-    assertFileContent(project, "pom.xml", dependency);
-    assertFileContent(
-      project,
-      "pom.xml",
-      List.of(
-        "<dependency>",
-        "<groupId>org.springframework.boot</groupId>",
-        "<artifactId>spring-boot-starter-undertow</artifactId>",
-        "</dependency>"
-      )
-    );
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
   }
 }

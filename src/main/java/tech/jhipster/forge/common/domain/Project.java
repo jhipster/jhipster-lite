@@ -67,6 +67,16 @@ public class Project {
     throw new UnauthorizedValueException("The " + key + " is not valid");
   }
 
+  public Optional<Integer> getIntegerConfig(String key) {
+    Object value = config.get(key);
+    if (value == null) {
+      return Optional.empty();
+    } else if (value instanceof Integer) {
+      return Optional.of((Integer) value);
+    }
+    throw new UnauthorizedValueException("The " + key + " is not valid");
+  }
+
   private void validateConfig() {
     getBaseName().ifPresent(CheckConfig::validBaseName);
     getPackageName().ifPresent(CheckConfig::validPackageName);

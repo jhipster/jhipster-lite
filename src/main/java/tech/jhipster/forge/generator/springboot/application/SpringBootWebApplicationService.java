@@ -1,10 +1,10 @@
 package tech.jhipster.forge.generator.springboot.application;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.springboot.domain.usecase.SpringBootWebService;
 
-@Component
+@Service
 public class SpringBootWebApplicationService {
 
   private final SpringBootWebService springBootWebService;

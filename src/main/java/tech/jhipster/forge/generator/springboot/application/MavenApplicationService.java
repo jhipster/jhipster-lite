@@ -1,14 +1,14 @@
 package tech.jhipster.forge.generator.springboot.application;
 
 import java.util.List;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.springboot.domain.model.Dependency;
 import tech.jhipster.forge.generator.springboot.domain.model.Parent;
 import tech.jhipster.forge.generator.springboot.domain.model.Plugin;
 import tech.jhipster.forge.generator.springboot.domain.usecase.MavenService;
 
-@Component
+@Service
 public class MavenApplicationService {
 
   private final MavenService mavenService;

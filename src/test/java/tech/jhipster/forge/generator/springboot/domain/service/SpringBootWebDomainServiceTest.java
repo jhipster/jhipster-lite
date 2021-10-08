@@ -55,6 +55,22 @@ class SpringBootWebDomainServiceTest {
   }
 
   @Test
+  void shouldAddSpringBootWebWithInvalidServerPort() throws Exception {
+    Project project = tmpProjectWithPomXml();
+    FileUtils.createFolder(getPath(project.getPath(), MAIN_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "template/springboot/application.test.properties"),
+      getPathOf(project.getPath(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
+    );
+    project.addConfig("serverPort", "chips");
+
+    springBootWebDomainService.addSpringBootWeb(project);
+
+    verify(mavenService).addDependency(any(Project.class), any(Dependency.class));
+    verify(springBootService).addProperties(any(Project.class), anyString(), any());
+  }
+
+  @Test
   void shouldAddSpringBootUndertow() throws Exception {
     Project project = tmpProjectWithPomXml();
     FileUtils.createFolder(getPath(project.getPath(), MAIN_RESOURCES, "config"));

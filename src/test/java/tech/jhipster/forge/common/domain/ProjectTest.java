@@ -224,4 +224,35 @@ class ProjectTest {
         .hasMessageContaining("apero");
     }
   }
+
+  @Nested
+  class GetIntegerConfig {
+
+    @Test
+    void shouldGetIntegerConfig() {
+      Project project = tmpProject();
+
+      project.addConfig("serverPort", 1337);
+
+      assertThat(project.getIntegerConfig("serverPort")).contains(1337);
+    }
+
+    @Test
+    void shouldGetIntegerConfigWithEmpty() {
+      Project project = tmpProject();
+
+      assertThat(project.getIntegerConfig("serverPort")).isEmpty();
+    }
+
+    @Test
+    void shouldNotGetIntegerConfig() {
+      Project project = tmpProject();
+
+      project.addConfig("serverPort", List.of(1337));
+
+      assertThatThrownBy(() -> project.getIntegerConfig("serverPort"))
+        .isExactlyInstanceOf(UnauthorizedValueException.class)
+        .hasMessageContaining("serverPort");
+    }
+  }
 }

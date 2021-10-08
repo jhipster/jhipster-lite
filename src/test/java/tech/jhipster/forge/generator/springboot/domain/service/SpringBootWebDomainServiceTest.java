@@ -40,6 +40,21 @@ class SpringBootWebDomainServiceTest {
   }
 
   @Test
+  void shouldInit() throws Exception {
+    Project project = tmpProjectWithPomXml();
+    FileUtils.createFolder(getPath(project.getPath(), MAIN_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "template/springboot/application.test.properties"),
+      getPathOf(project.getPath(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
+    );
+
+    springBootWebDomainService.init(project);
+
+    verify(mavenService).addDependency(any(Project.class), any(Dependency.class));
+    verify(springBootService).addProperties(any(Project.class), anyString(), any());
+  }
+
+  @Test
   void shouldAddSpringBootWeb() throws Exception {
     Project project = tmpProjectWithPomXml();
     FileUtils.createFolder(getPath(project.getPath(), MAIN_RESOURCES, "config"));

@@ -23,6 +23,11 @@ public class SpringBootWebDomainService implements SpringBootWebService {
   }
 
   @Override
+  public void init(Project project) {
+    addSpringBootWeb(project);
+  }
+
+  @Override
   public void addSpringBootWeb(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
     mavenService.addDependency(project, dependency);

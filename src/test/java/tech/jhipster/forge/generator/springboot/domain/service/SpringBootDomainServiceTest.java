@@ -50,7 +50,7 @@ class SpringBootDomainServiceTest {
   void shouldAddSpringBoot() throws Exception {
     Project project = tmpProjectWithPomXml();
 
-    springBootDomainService.addSpringBoot(project);
+    springBootDomainService.init(project);
 
     verify(mavenService).addParent(any(Project.class), any(Parent.class));
     verify(mavenService, times(3)).addDependency(any(Project.class), any(Dependency.class));

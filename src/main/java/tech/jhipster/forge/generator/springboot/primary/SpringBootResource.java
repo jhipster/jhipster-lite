@@ -33,7 +33,7 @@ public class SpringBootResource {
   @PostMapping("/init")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
   }
 
   @ApiOperation("Add Spring Boot Web (MVC)")

@@ -34,7 +34,7 @@ class PostgreSQLApplicationServiceIT {
     Project project = tmpProject();
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     postgreSQLApplicationService.init(project);
 
@@ -136,7 +136,7 @@ class PostgreSQLApplicationServiceIT {
     project.addConfig(BASE_NAME, "chips");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     postgreSQLApplicationService.addProperties(project);
 

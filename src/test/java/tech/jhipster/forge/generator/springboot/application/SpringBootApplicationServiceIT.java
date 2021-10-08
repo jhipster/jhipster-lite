@@ -24,14 +24,14 @@ class SpringBootApplicationServiceIT {
   SpringBootApplicationService springBootApplicationService;
 
   @Test
-  void shouldAddSpringBoot() {
+  void shouldInit() {
     Project project = tmpProject();
     project.addConfig("springBootVersion", "2.5.3");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     mavenApplicationService.addMavenWrapper(project);
 
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-parent</artifactId>");
     assertFileContent(project, "pom.xml", "<version>2.5.3</version>");

@@ -69,7 +69,7 @@ class SpringBootResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     mockMvc
       .perform(post("/api/spring-boot/web").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))

@@ -13,6 +13,10 @@ public class PostgreSQLApplicationService {
     this.postgreSQLService = postgreSQLService;
   }
 
+  public void init(Project project) {
+    postgreSQLService.init(project);
+  }
+
   public void addSpringDataJpa(Project project) {
     postgreSQLService.addSpringDataJpa(project);
   }
@@ -39,9 +43,5 @@ public class PostgreSQLApplicationService {
 
   public void addProperties(Project project) {
     postgreSQLService.addProperties(project);
-  }
-
-  public void init(Project project) {
-    postgreSQLService.init(project);
   }
 }

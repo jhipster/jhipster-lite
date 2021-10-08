@@ -13,6 +13,7 @@ public interface MavenService {
   void addPlugin(Project project, Plugin plugin);
 
   void init(Project project);
+
   void addPomXml(Project project);
   void addMavenWrapper(Project project);
 }

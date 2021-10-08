@@ -13,8 +13,16 @@ public class SpringBootApplicationService {
     this.springBootService = springBootService;
   }
 
-  public void addSpringBoot(Project project) {
-    springBootService.addSpringBoot(project);
+  public void addProperties(Project project, String key, Object value) {
+    springBootService.addProperties(project, key, value);
+  }
+
+  public void addProperties(Project project, String key, boolean value) {
+    springBootService.addProperties(project, key, value);
+  }
+
+  public void init(Project project) {
+    springBootService.init(project);
   }
 
   public void addSpringBootParent(Project project) {
@@ -35,13 +43,5 @@ public class SpringBootApplicationService {
 
   public void addApplicationProperties(Project project) {
     springBootService.addApplicationProperties(project);
-  }
-
-  public void addProperties(Project project, String key, Object value) {
-    springBootService.addProperties(project, key, value);
-  }
-
-  public void addProperties(Project project, String key, boolean value) {
-    springBootService.addProperties(project, key, value);
   }
 }

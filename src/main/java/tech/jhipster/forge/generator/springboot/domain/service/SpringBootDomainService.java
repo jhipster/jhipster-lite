@@ -34,7 +34,24 @@ public class SpringBootDomainService implements SpringBootService {
   }
 
   @Override
-  public void addSpringBoot(Project project) {
+  public void addProperties(Project project, String key, Object value) {
+    try {
+      String currentApplicationProperties = read(getPath(project.getPath(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES));
+      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + NEEDLE_APPLICATION_PROPERTIES;
+      String updatedApplicationProperties = FileUtils.replace(
+        currentApplicationProperties,
+        NEEDLE_APPLICATION_PROPERTIES,
+        propertiesWithNeedle
+      );
+
+      projectRepository.write(project, updatedApplicationProperties, getPath(MAIN_RESOURCES, "config"), APPLICATION_PROPERTIES);
+    } catch (IOException e) {
+      throw new GeneratorException("Error when adding properties");
+    }
+  }
+
+  @Override
+  public void init(Project project) {
     addSpringBootParent(project);
     addSpringBootDependencies(project);
     addSpringBootMavenPlugin(project);
@@ -104,22 +121,5 @@ public class SpringBootDomainService implements SpringBootService {
     project.addDefaultConfig(BASE_NAME);
 
     projectRepository.template(project, SOURCE, "application.properties", getPath(MAIN_RESOURCES, "config"));
-  }
-
-  @Override
-  public void addProperties(Project project, String key, Object value) {
-    try {
-      String currentApplicationProperties = read(getPath(project.getPath(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES));
-      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + NEEDLE_APPLICATION_PROPERTIES;
-      String updatedApplicationProperties = FileUtils.replace(
-        currentApplicationProperties,
-        NEEDLE_APPLICATION_PROPERTIES,
-        propertiesWithNeedle
-      );
-
-      projectRepository.write(project, updatedApplicationProperties, getPath(MAIN_RESOURCES, "config"), APPLICATION_PROPERTIES);
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding properties");
-    }
   }
 }

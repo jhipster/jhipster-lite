@@ -28,11 +28,24 @@ class SpringBootWebApplicationServiceIT {
   SpringBootWebApplicationService springBootWebApplicationService;
 
   @Test
+  void shouldInit() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    springBootWebApplicationService.init(project);
+
+    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
+  }
+
+  @Test
   void shouldAddSpringBootWeb() {
     Project project = tmpProject();
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     springBootWebApplicationService.addSpringBootWeb(project);
 
@@ -46,7 +59,7 @@ class SpringBootWebApplicationServiceIT {
     project.addConfig("serverPort", 7419);
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     springBootWebApplicationService.addSpringBootWeb(project);
 
@@ -60,7 +73,7 @@ class SpringBootWebApplicationServiceIT {
     project.addConfig("serverPort", "chips");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     springBootWebApplicationService.addSpringBootWeb(project);
 
@@ -73,7 +86,7 @@ class SpringBootWebApplicationServiceIT {
     Project project = tmpProject();
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     springBootWebApplicationService.addSpringBootUndertow(project);
 
@@ -88,7 +101,7 @@ class SpringBootWebApplicationServiceIT {
     project.addConfig("serverPort", 1664);
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addSpringBoot(project);
+    springBootApplicationService.init(project);
 
     springBootWebApplicationService.addSpringBootUndertow(project);
 

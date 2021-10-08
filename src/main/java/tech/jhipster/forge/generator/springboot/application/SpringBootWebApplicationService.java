@@ -13,6 +13,10 @@ public class SpringBootWebApplicationService {
     this.springBootWebService = springBootWebService;
   }
 
+  public void init(Project project) {
+    this.springBootWebService.init(project);
+  }
+
   public void addSpringBootWeb(Project project) {
     springBootWebService.addSpringBootWeb(project);
   }

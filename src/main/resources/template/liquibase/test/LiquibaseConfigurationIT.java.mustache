@@ -1,0 +1,41 @@
+package {{packageName}}.technical.secondary.liquibase;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import liquibase.integration.spring.SpringLiquibase;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+
+@SpringBootTest
+class LiquibaseConfigurationIT {
+
+  @Autowired
+  ApplicationContext applicationContext;
+
+  @Nested
+  @SpringBootTest(properties = { "application.liquibase.async=true" })
+  class Async {
+
+    @Test
+    void shouldGetLiquibaseAsync() {
+      SpringLiquibase springLiquibase = (SpringLiquibase) applicationContext.getBean("liquibase");
+
+      assertThat(springLiquibase).isNotNull();
+    }
+  }
+
+  @Nested
+  @SpringBootTest(properties = { "application.liquibase.async=false" })
+  class Sync {
+
+    @Test
+    void shouldGetLiquibaseSync() {
+      SpringLiquibase springLiquibase = (SpringLiquibase) applicationContext.getBean("liquibase");
+
+      assertThat(springLiquibase).isNotNull();
+    }
+  }
+}

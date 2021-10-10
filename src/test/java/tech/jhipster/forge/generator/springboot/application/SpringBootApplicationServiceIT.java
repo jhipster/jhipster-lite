@@ -142,6 +142,16 @@ class SpringBootApplicationServiceIT {
   }
 
   @Test
+  void shouldAddApplicationTestProperties() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+
+    springBootApplicationService.addApplicationTestProperties(project);
+
+    assertFileExist(project, "src/test/resources/config/application.properties");
+  }
+
+  @Test
   void shouldAddPropertiesWithInteger() {
     Project project = tmpProject();
     springBootApplicationService.addApplicationProperties(project);

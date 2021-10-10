@@ -44,4 +44,8 @@ public class SpringBootApplicationService {
   public void addApplicationProperties(Project project) {
     springBootService.addApplicationProperties(project);
   }
+
+  public void addApplicationTestProperties(Project project) {
+    springBootService.addApplicationTestProperties(project);
+  }
 }

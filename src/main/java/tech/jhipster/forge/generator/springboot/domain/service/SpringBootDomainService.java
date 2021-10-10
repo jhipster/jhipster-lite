@@ -122,4 +122,11 @@ public class SpringBootDomainService implements SpringBootService {
 
     projectRepository.template(project, SOURCE, "application.properties", getPath(MAIN_RESOURCES, "config"));
   }
+
+  @Override
+  public void addApplicationTestProperties(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+
+    projectRepository.template(project, SOURCE, "application-test.properties", getPath(TEST_RESOURCES, "config"), "application.properties");
+  }
 }

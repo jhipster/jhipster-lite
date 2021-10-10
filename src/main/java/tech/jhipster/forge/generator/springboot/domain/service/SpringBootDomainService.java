@@ -5,8 +5,7 @@ import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 import static tech.jhipster.forge.common.utils.FileUtils.read;
-import static tech.jhipster.forge.generator.springboot.domain.service.SpringBoot.APPLICATION_PROPERTIES;
-import static tech.jhipster.forge.generator.springboot.domain.service.SpringBoot.NEEDLE_APPLICATION_PROPERTIES;
+import static tech.jhipster.forge.generator.springboot.domain.service.SpringBoot.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,12 +50,30 @@ public class SpringBootDomainService implements SpringBootService {
   }
 
   @Override
+  public void addPropertiesTest(Project project, String key, Object value) {
+    try {
+      String currentApplicationProperties = read(getPath(project.getPath(), TEST_RESOURCES, "config", APPLICATION_PROPERTIES));
+      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + NEEDLE_APPLICATION_TEST_PROPERTIES;
+      String updatedApplicationProperties = FileUtils.replace(
+        currentApplicationProperties,
+        NEEDLE_APPLICATION_TEST_PROPERTIES,
+        propertiesWithNeedle
+      );
+
+      projectRepository.write(project, updatedApplicationProperties, getPath(TEST_RESOURCES, "config"), APPLICATION_PROPERTIES);
+    } catch (IOException e) {
+      throw new GeneratorException("Error when adding properties");
+    }
+  }
+
+  @Override
   public void init(Project project) {
     addSpringBootParent(project);
     addSpringBootDependencies(project);
     addSpringBootMavenPlugin(project);
     addMainApp(project);
     addApplicationProperties(project);
+    addApplicationTestProperties(project);
   }
 
   @Override

@@ -4,6 +4,7 @@ import tech.jhipster.forge.common.domain.Project;
 
 public interface SpringBootService {
   void addProperties(Project project, String key, Object value);
+  void addPropertiesTest(Project project, String key, Object value);
 
   void init(Project project);
 

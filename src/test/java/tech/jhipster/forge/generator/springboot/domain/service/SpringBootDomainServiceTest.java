@@ -47,7 +47,7 @@ class SpringBootDomainServiceTest {
   }
 
   @Test
-  void shouldAddSpringBoot() throws Exception {
+  void shouldInit() throws Exception {
     Project project = tmpProjectWithPomXml();
 
     springBootDomainService.init(project);
@@ -55,6 +55,11 @@ class SpringBootDomainServiceTest {
     verify(mavenService).addParent(any(Project.class), any(Parent.class));
     verify(mavenService, times(3)).addDependency(any(Project.class), any(Dependency.class));
     verify(mavenService).addPlugin(any(Project.class), any(Plugin.class));
+
+    // for application.properties
+    verify(projectRepository, times(1)).template(any(Project.class), anyString(), anyString(), anyString());
+    // for main class + test
+    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -103,6 +108,28 @@ class SpringBootDomainServiceTest {
     Project project = tmpProject();
 
     assertThatThrownBy(() -> springBootDomainService.addProperties(project, "server.port", 8080))
+      .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddPropertiesTest() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getPath(), TEST_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "template/springboot/application.test.properties"),
+      getPathOf(project.getPath(), TEST_RESOURCES, "config", APPLICATION_PROPERTIES)
+    );
+
+    springBootDomainService.addPropertiesTest(project, "server.port", 8080);
+
+    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldNotAddPropertiesTest() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> springBootDomainService.addPropertiesTest(project, "server.port", 8080))
       .isExactlyInstanceOf(GeneratorException.class);
   }
 }

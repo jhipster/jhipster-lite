@@ -21,6 +21,14 @@ public class SpringBootApplicationService {
     springBootService.addProperties(project, key, value);
   }
 
+  public void addPropertiesTest(Project project, String key, Object value) {
+    springBootService.addPropertiesTest(project, key, value);
+  }
+
+  public void addPropertiesTest(Project project, String key, boolean value) {
+    springBootService.addPropertiesTest(project, key, value);
+  }
+
   public void init(Project project) {
     springBootService.init(project);
   }
@@ -43,5 +51,9 @@ public class SpringBootApplicationService {
 
   public void addApplicationProperties(Project project) {
     springBootService.addApplicationProperties(project);
+  }
+
+  public void addApplicationTestProperties(Project project) {
+    springBootService.addApplicationTestProperties(project);
   }
 }

@@ -14,6 +14,7 @@ public class Maven {
   public static String NEEDLE_DEPENDENCY = "<!-- jhipster-needle-maven-add-dependency -->";
   public static String NEEDLE_DEPENDENCY_TEST = "<!-- jhipster-needle-maven-add-dependency-test -->";
   public static String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
+  public static String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
 
   private Maven() {}
 
@@ -150,5 +151,17 @@ public class Maven {
       .append("</plugin>");
 
     return result.toString();
+  }
+
+  public static String getProperty(String key, String version) {
+    return new StringBuilder()
+      .append("<")
+      .append(key)
+      .append(".version>")
+      .append(version)
+      .append("</")
+      .append(key)
+      .append(".version>")
+      .toString();
   }
 }

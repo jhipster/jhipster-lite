@@ -125,6 +125,24 @@ class MavenDomainServiceTest {
   }
 
   @Test
+  void shouldAddProperty() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    mavenDomainService.addProperty(project, "testcontainers", "1.16.0");
+
+    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldNotAddPropertyWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getPath());
+
+    assertThatThrownBy(() -> mavenDomainService.addProperty(project, "testcontainers", "1.16.0"))
+      .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldInit() {
     Project project = tmpProject();
 

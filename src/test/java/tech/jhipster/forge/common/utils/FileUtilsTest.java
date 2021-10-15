@@ -226,7 +226,7 @@ class FileUtilsTest {
         "<dependency>",
         "<groupId>org.junit.jupiter</groupId>",
         "<artifactId>junit-jupiter-engine</artifactId>",
-        "<version>${junit.version}</version>",
+        "<version>${junit-jupiter.version}</version>",
         "<scope>test</scope>",
         "</dependency>"
       );
@@ -241,7 +241,7 @@ class FileUtilsTest {
         "<dependency>",
         "<groupId>org.junit.jupiter</groupId>",
         "<artifactId>junit-jupiter-engine</artifactId>",
-        "<version>${junit.version}</version>",
+        "<version>${junit-jupiter.version}</version>",
         "<scope>WRONG_SCOPE</scope>",
         "</dependency>"
       );

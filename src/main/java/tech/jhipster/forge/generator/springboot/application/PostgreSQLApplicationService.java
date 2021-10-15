@@ -44,4 +44,8 @@ public class PostgreSQLApplicationService {
   public void addProperties(Project project) {
     postgreSQLService.addProperties(project);
   }
+
+  public void addTestContainers(Project project) {
+    postgreSQLService.addTestcontainers(project);
+  }
 }

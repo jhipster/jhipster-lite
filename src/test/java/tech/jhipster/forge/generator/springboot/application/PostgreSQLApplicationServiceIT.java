@@ -5,6 +5,7 @@ import static tech.jhipster.forge.common.domain.Constants.*;
 import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.generator.springboot.domain.service.MavenDomainService.POM_XML;
 import static tech.jhipster.forge.generator.springboot.domain.service.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.util.List;
@@ -162,6 +163,27 @@ class PostgreSQLApplicationServiceIT {
     );
   }
 
+  @Test
+  void shouldAddTestcontainers() {
+    Project project = tmpProject();
+    project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");
+    project.addConfig(BASE_NAME, "chips");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.addApplicationTestProperties(project);
+
+    postgreSQLApplicationService.addTestContainers(project);
+
+    assertFileContent(project, POM_XML, "<testcontainers.version>");
+    assertFileContent(project, POM_XML, "</testcontainers.version>");
+    assertFileContent(project, POM_XML, testcontainers());
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, "config/application.properties"),
+      List.of("spring.datasource.url=jdbc:tc:postgresql:13.4:///chips?TC_TMPFS=/testtmpfs:rw", "spring.datasource.username=chips")
+    );
+  }
+
   private List<String> springBootStarterDataJpa() {
     return List.of(
       "<dependency>",
@@ -181,5 +203,16 @@ class PostgreSQLApplicationServiceIT {
 
   private List<String> hibernateCore() {
     return List.of("<dependency>", "<groupId>org.hibernate</groupId>", "<artifactId>hibernate-core</artifactId>", "</dependency>");
+  }
+
+  private List<String> testcontainers() {
+    return List.of(
+      "<dependency>",
+      "<groupId>org.testcontainers</groupId>",
+      "<artifactId>postgresql</artifactId>",
+      "<version>${testcontainers.version}</version>",
+      "<scope>test</scope>",
+      "</dependency>"
+    );
   }
 }

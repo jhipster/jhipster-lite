@@ -195,6 +195,14 @@ class MavenTest {
     assertThat(Maven.getPlugin(plugin, 4)).isEqualTo(expected);
   }
 
+  @Test
+  void shouldGetProperty() {
+    String key = "testcontainers";
+    String version = "1.16.0";
+
+    assertThat(Maven.getProperty(key, version)).isEqualTo("<testcontainers.version>1.16.0</testcontainers.version>");
+  }
+
   private Plugin.PluginBuilder fullPluginBuilder() {
     return Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin");
   }

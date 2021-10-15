@@ -84,6 +84,22 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
+  public void addProperty(Project project, String key, String version) {
+    try {
+      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+      int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+      String locationPomXml = getPath(project.getPath(), POM_XML);
+      String currentPomXml = read(locationPomXml);
+      String propertyWithNeedle = Maven.getProperty(key, version) + System.lineSeparator() + indent(2, indent) + NEEDLE_PROPERTIES;
+      String updatedPomXml = FileUtils.replace(currentPomXml, NEEDLE_PROPERTIES, propertyWithNeedle);
+
+      projectRepository.write(project, updatedPomXml, ".", "pom.xml");
+    } catch (IOException e) {
+      throw new GeneratorException("Error when adding dependency");
+    }
+  }
+
+  @Override
   public void init(Project project) {
     addPomXml(project);
     addMavenWrapper(project);

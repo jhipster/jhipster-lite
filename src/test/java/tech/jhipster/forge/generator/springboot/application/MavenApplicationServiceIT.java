@@ -127,6 +127,16 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddProperty() throws Exception {
+    Project project = tmpProject();
+    mavenApplicationService.addPomXml(project);
+
+    mavenApplicationService.addProperty(project, "testcontainers", "1.16.0");
+
+    assertFileContent(project, "pom.xml", "    <testcontainers.version>1.16.0</testcontainers.version>");
+  }
+
+  @Test
   void shouldInit() {
     Project project = tmpProject();
 

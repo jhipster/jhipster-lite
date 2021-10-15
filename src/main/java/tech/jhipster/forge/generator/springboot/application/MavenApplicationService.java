@@ -33,6 +33,10 @@ public class MavenApplicationService {
     mavenService.addPlugin(project, plugin);
   }
 
+  public void addProperty(Project project, String key, String version) {
+    mavenService.addProperty(project, key, version);
+  }
+
   public void init(Project project) {
     mavenService.init(project);
   }

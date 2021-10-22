@@ -2,6 +2,7 @@ package tech.jhipster.forge.generator.springboot.application;
 
 import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.common.domain.DefaultConfig.*;
+import static tech.jhipster.forge.generator.springboot.application.InitAssertFiles.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,19 +33,9 @@ class InitApplicationServiceIT {
 
     initApplicationService.init(project);
 
-    assertFileExist(project, "README.md");
+    assertFilesInit(project);
     assertFileContent(project, "README.md", "JHipster Forge");
-
-    assertFileExist(project, ".gitignore");
-    assertFileExist(project, ".gitattributes");
-
-    assertFileExist(project, ".editorconfig");
-    assertFileExist(project, ".eslintignore");
-
-    assertFileExist(project, ".husky", "pre-commit");
-    assertFileExist(project, ".lintstagedrc.js");
-    assertFileExist(project, ".prettierignore");
-    assertFileExist(project, ".prettierrc");
+    assertFileContent(project, "package.json", "jhipster-forge");
     assertFileContent(project, ".prettierrc", "tabWidth: 4");
     // @formatter:off
     assertFileContent(project, ".prettierrc",
@@ -56,9 +47,6 @@ class InitApplicationServiceIT {
       )
     );
     // @formatter:on
-
-    assertFileExist(project, "package.json");
-    assertFileContent(project, "package.json", "jhipster-forge");
   }
 
   @Test
@@ -67,19 +55,9 @@ class InitApplicationServiceIT {
 
     initApplicationService.init(project);
 
-    assertFileExist(project, "README.md");
+    assertFilesInit(project);
     assertFileContent(project, "README.md", "JHipster Project");
-
-    assertFileExist(project, ".gitignore");
-    assertFileExist(project, ".gitattributes");
-
-    assertFileExist(project, ".editorconfig");
-    assertFileExist(project, ".eslintignore");
-
-    assertFileExist(project, ".husky", "pre-commit");
-    assertFileExist(project, ".lintstagedrc.js");
-    assertFileExist(project, ".prettierignore");
-    assertFileExist(project, ".prettierrc");
+    assertFileContent(project, "package.json", "jhipster");
     assertFileContent(project, ".prettierrc", "tabWidth: 2");
     // @formatter:off
     assertFileContent(project, ".prettierrc",
@@ -91,9 +69,6 @@ class InitApplicationServiceIT {
       )
     );
     // @formatter:on
-
-    assertFileExist(project, "package.json");
-    assertFileContent(project, "package.json", "jhipster");
   }
 
   @Test
@@ -102,7 +77,7 @@ class InitApplicationServiceIT {
 
     initApplicationService.addPackageJson(project);
 
-    assertFileExist(project, "package.json");
+    assertFilesPackageJson(project);
   }
 
   @Test
@@ -111,7 +86,7 @@ class InitApplicationServiceIT {
 
     initApplicationService.addReadme(project);
 
-    assertFileExist(project, "README.md");
+    assertFilesReadme(project);
   }
 
   @Test
@@ -120,8 +95,7 @@ class InitApplicationServiceIT {
 
     initApplicationService.addGitConfiguration(project);
 
-    assertFileExist(project, ".gitignore");
-    assertFileExist(project, ".gitattributes");
+    assertFilesConfiguration(project);
   }
 
   @Test
@@ -130,8 +104,7 @@ class InitApplicationServiceIT {
 
     initApplicationService.addEditorConfiguration(project);
 
-    assertFileExist(project, ".editorconfig");
-    assertFileExist(project, ".eslintignore");
+    assertFilesEditorConfiguration(project);
   }
 
   @Test
@@ -140,9 +113,6 @@ class InitApplicationServiceIT {
 
     initApplicationService.addPrettier(project);
 
-    assertFileExist(project, ".husky", "pre-commit");
-    assertFileExist(project, ".lintstagedrc.js");
-    assertFileExist(project, ".prettierignore");
-    assertFileExist(project, ".prettierrc");
+    assertFilesPrettier(project);
   }
 }

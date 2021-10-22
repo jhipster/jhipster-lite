@@ -1,8 +1,8 @@
 package tech.jhipster.forge.common.domain;
 
-import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.forge.common.domain.DefaultConfig.*;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -55,6 +55,10 @@ public class Project {
 
   public Optional<String> getPackageName() {
     return getStringConfig(PACKAGE_NAME);
+  }
+
+  public Optional<String> getPackageNamePath() {
+    return getPackageName().map(packageName -> packageName.replaceAll("\\.", File.separator));
   }
 
   public Optional<String> getStringConfig(String key) {

@@ -57,6 +57,14 @@ class PsqlApplicationServiceIT {
       getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
       "spring.datasource.url=jdbc:postgresql://localhost:5432/jhipster"
     );
+    assertFileContent(project, POM_XML, "<testcontainers.version>");
+    assertFileContent(project, POM_XML, "</testcontainers.version>");
+    assertFileContent(project, POM_XML, testcontainers());
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, "config/application.properties"),
+      List.of("spring.datasource.url=jdbc:tc:postgresql:13.4:///jhipster?TC_TMPFS=/testtmpfs:rw", "spring.datasource.username=jhipster")
+    );
   }
 
   @Test

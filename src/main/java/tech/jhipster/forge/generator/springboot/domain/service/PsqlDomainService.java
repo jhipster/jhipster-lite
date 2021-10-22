@@ -38,6 +38,7 @@ public class PsqlDomainService implements PsqlService {
     addDockerCompose(project);
     addDialectJava(project);
     addProperties(project);
+    addTestcontainers(project);
   }
 
   @Override

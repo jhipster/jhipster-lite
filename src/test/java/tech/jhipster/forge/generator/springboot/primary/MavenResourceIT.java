@@ -3,7 +3,7 @@ package tech.jhipster.forge.generator.springboot.primary;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
-import static tech.jhipster.forge.TestUtils.assertFileExist;
+import static tech.jhipster.forge.generator.springboot.application.MavenAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.TestUtils;
+import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 
@@ -35,14 +36,9 @@ class MavenResourceIT {
       .perform(post("/api/maven/init").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getPath();
-    assertFileExist(projectPath, "pom.xml");
-    assertFileContent(projectPath, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
-    assertFileExist(projectPath, "mvnw");
-    assertFileExist(projectPath, "mvnw.cmd");
-    assertFileExist(projectPath, ".mvn/wrapper/MavenWrapperDownloader.java");
-    assertFileExist(projectPath, ".mvn/wrapper/maven-wrapper.jar");
-    assertFileExist(projectPath, ".mvn/wrapper/maven-wrapper.properties");
+    Project project = ProjectDTO.toProject(projectDTO);
+    assertFilesMaven(project);
+    assertFileContent(project, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
   }
 
   @Test
@@ -57,10 +53,9 @@ class MavenResourceIT {
       .perform(post("/api/maven/pom-xml").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getPath();
-
-    assertFileExist(projectPath, "pom.xml");
-    assertFileContent(projectPath, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
+    Project project = ProjectDTO.toProject(projectDTO);
+    assertFilesPomXml(project);
+    assertFileContent(project, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
   }
 
   @Test
@@ -75,12 +70,7 @@ class MavenResourceIT {
       .perform(post("/api/maven/wrapper").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getPath();
-
-    assertFileExist(projectPath, "mvnw");
-    assertFileExist(projectPath, "mvnw.cmd");
-    assertFileExist(projectPath, ".mvn/wrapper/MavenWrapperDownloader.java");
-    assertFileExist(projectPath, ".mvn/wrapper/maven-wrapper.jar");
-    assertFileExist(projectPath, ".mvn/wrapper/maven-wrapper.properties");
+    Project project = ProjectDTO.toProject(projectDTO);
+    assertFilesMavenWrapper(project);
   }
 }

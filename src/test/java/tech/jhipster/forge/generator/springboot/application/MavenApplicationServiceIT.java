@@ -1,6 +1,7 @@
 package tech.jhipster.forge.generator.springboot.application;
 
 import static tech.jhipster.forge.TestUtils.*;
+import static tech.jhipster.forge.generator.springboot.application.MavenAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -142,15 +143,9 @@ class MavenApplicationServiceIT {
 
     mavenApplicationService.init(project);
 
-    assertFileExist(project, "pom.xml");
+    assertFilesMaven(project);
     assertFileContent(project, "pom.xml", "<name>jhipster</name>");
     assertFileContent(project, "pom.xml", "<description>JHipster Project</description>");
-
-    assertFileExist(project, "mvnw");
-    assertFileExist(project, "mvnw.cmd");
-    assertFileExist(project, ".mvn/wrapper/MavenWrapperDownloader.java");
-    assertFileExist(project, ".mvn/wrapper/maven-wrapper.jar");
-    assertFileExist(project, ".mvn/wrapper/maven-wrapper.properties");
   }
 
   @Test
@@ -159,7 +154,7 @@ class MavenApplicationServiceIT {
 
     mavenApplicationService.addPomXml(project);
 
-    assertFileExist(project, "pom.xml");
+    assertFilesPomXml(project);
     assertFileContent(project, "pom.xml", "<name>jhipster</name>");
     assertFileContent(project, "pom.xml", "<description>JHipster Project</description>");
   }
@@ -170,10 +165,6 @@ class MavenApplicationServiceIT {
 
     mavenApplicationService.addMavenWrapper(project);
 
-    assertFileExist(project, "mvnw");
-    assertFileExist(project, "mvnw.cmd");
-    assertFileExist(project, ".mvn/wrapper/MavenWrapperDownloader.java");
-    assertFileExist(project, ".mvn/wrapper/maven-wrapper.jar");
-    assertFileExist(project, ".mvn/wrapper/maven-wrapper.properties");
+    assertFilesMavenWrapper(project);
   }
 }

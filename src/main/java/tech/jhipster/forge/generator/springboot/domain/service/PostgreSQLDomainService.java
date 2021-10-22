@@ -107,6 +107,23 @@ public class PostgreSQLDomainService implements PostgreSQLService {
     springProperties(baseName, packageName).forEach((k, v) -> springBootService.addProperties(project, k, v));
   }
 
+  @Override
+  public void addTestcontainers(Project project) {
+    String baseName = project.getBaseName().orElse("jhipster");
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    Dependency dependency = Dependency
+      .builder()
+      .groupId("org.testcontainers")
+      .artifactId("postgresql")
+      .version("\\${testcontainers.version}")
+      .scope("test")
+      .build();
+    mavenService.addProperty(project, "testcontainers", PostgreSQL.getTestcontainersVersion());
+    mavenService.addDependency(project, dependency);
+
+    springPropertiesForTest(baseName, packageName).forEach((k, v) -> springBootService.addPropertiesTest(project, k, v));
+  }
+
   private Map<String, Object> springProperties(String baseName, String packageName) {
     TreeMap<String, Object> result = new TreeMap<>();
     result.put("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
@@ -133,6 +150,19 @@ public class PostgreSQLDomainService implements PostgreSQLService {
     result.put("spring.jpa.hibernate.ddl-auto", "none");
     result.put("spring.jpa.hibernate.naming.physical-strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
     result.put("spring.jpa.hibernate.naming.implicit-strategy", "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy");
+    return result;
+  }
+
+  private Map<String, Object> springPropertiesForTest(String baseName, String packageName) {
+    TreeMap<String, Object> result = new TreeMap<>();
+    result.put("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
+    result.put("spring.datasource.driver-class-name", "org.testcontainers.jdbc.ContainerDatabaseDriver");
+    result.put("spring.datasource.url", "jdbc:tc:postgresql:13.4:///" + baseName + "?TC_TMPFS=/testtmpfs:rw");
+    result.put("spring.datasource.username", baseName);
+    result.put("spring.datasource.password", "");
+    result.put("spring.datasource.hikari.poolName", "Hikari");
+    result.put("spring.datasource.hikari.auto-commit", false);
+    result.put("spring.jpa.database-platform", packageName + ".technical.secondary.postgresql.FixedPostgreSQL10Dialect");
     return result;
   }
 }

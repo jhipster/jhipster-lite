@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 
 @UnitTest
-class PostgreSQLTest {
+class PsqlTest {
 
   @Test
   void shouldGetTestcontainersVersion() {
-    assertThat(PostgreSQL.getTestcontainersVersion()).isEqualTo("1.16.0");
+    assertThat(Psql.getTestcontainersVersion()).isEqualTo("1.16.0");
   }
 }

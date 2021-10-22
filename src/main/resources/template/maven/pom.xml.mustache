@@ -24,6 +24,9 @@
   <properties>
     <java.version>11</java.version>
 
+    <maven.version>3.8.3</maven.version>
+    <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
+
     <junit-jupiter.version>5.8.1</junit-jupiter.version>
     <assertj.version>3.18.1</assertj.version>
     <mockito.version>3.6.28</mockito.version>
@@ -193,6 +196,44 @@
               </configuration>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>enforce-versions</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>enforce-dependencyConvergence</id>
+              <configuration>
+                <rules>
+                  <DependencyConvergence/>
+                </rules>
+                <fail>false</fail>
+              </configuration>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <rules>
+              <requireMavenVersion>
+                <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}
+                </message>
+                <version>[${maven.version},)</version>
+              </requireMavenVersion>
+              <requireJavaVersion>
+                <message>You are running an incompatible version of Java. JHipster supports JDK 11 to 17.</message>
+                <version>[11,12),[12,13),[13,14),[14,15),[15,16),[16,17),[17,18)</version>
+              </requireJavaVersion>
+            </rules>
+          </configuration>
         </plugin>
         <!-- jhipster-needle-maven-add-plugin-management -->
       </plugins>

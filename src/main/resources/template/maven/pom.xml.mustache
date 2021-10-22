@@ -22,17 +22,17 @@
   </pluginRepositories>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
 
     <maven.version>3.8.3</maven.version>
     <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
 
     <junit-jupiter.version>5.8.1</junit-jupiter.version>
     <assertj.version>3.18.1</assertj.version>
-    <mockito.version>3.6.28</mockito.version>
+    <mockito.version>3.11.2</mockito.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-    <jacoco.version>0.8.6</jacoco.version>
+    <jacoco.version>0.8.7</jacoco.version>
     <!-- jhipster-needle-maven-property -->
   </properties>
 
@@ -229,8 +229,8 @@
                 <version>[${maven.version},)</version>
               </requireMavenVersion>
               <requireJavaVersion>
-                <message>You are running an incompatible version of Java. JHipster supports JDK 11 to 17.</message>
-                <version>[11,12),[12,13),[13,14),[14,15),[15,16),[16,17),[17,18)</version>
+                <message>You are running an incompatible version of Java. JHipster supports JDK 17.</message>
+                <version>[17,18)</version>
               </requireJavaVersion>
             </rules>
           </configuration>

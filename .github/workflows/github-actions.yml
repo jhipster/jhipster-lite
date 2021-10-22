@@ -11,14 +11,14 @@ jobs:
       - name: 'Setup: Node.js'
         uses: actions/setup-node@v1
         with:
-          node-version: 14.17.1
+          node-version: 14.18.1
       - name: 'Setup: update npm'
         run: npm install -g npm
       - name: 'Setup: Java'
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
-          java-version: '11.x'
+          distribution: 'temurin'
+          java-version: '17.x'
       - name: 'Setup: check tools'
         run: |
           node -v

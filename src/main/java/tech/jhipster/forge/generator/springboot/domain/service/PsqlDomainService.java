@@ -6,7 +6,6 @@ import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
-import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.forge.common.domain.Project;
@@ -78,23 +77,21 @@ public class PsqlDomainService implements PsqlService {
   public void addDialectJava(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
     project.addDefaultConfig(BASE_NAME);
-
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
-    String pathPackageName = packageName.replaceAll("\\.", File.separator);
-    String pathDialect = "technical/secondary/postgresql";
+    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String dialectPath = "technical/secondary/postgresql";
 
     projectRepository.template(
       project,
       SOURCE,
       "FixedPostgreSQL10Dialect.java",
-      getPath(MAIN_JAVA, pathPackageName, pathDialect),
+      getPath(MAIN_JAVA, packageNamePath, dialectPath),
       "FixedPostgreSQL10Dialect.java"
     );
     projectRepository.template(
       project,
       SOURCE,
       "FixedPostgreSQL10DialectTest.java",
-      getPath(TEST_JAVA, pathPackageName, pathDialect),
+      getPath(TEST_JAVA, packageNamePath, dialectPath),
       "FixedPostgreSQL10DialectTest.java"
     );
   }

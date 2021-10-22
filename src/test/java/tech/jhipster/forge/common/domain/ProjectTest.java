@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.common.domain.DefaultConfig.*;
+import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
 import java.util.HashMap;
 import java.util.List;
@@ -191,6 +192,22 @@ class ProjectTest {
       Project project = tmpProject();
 
       assertThat(project.getPackageName()).isEmpty();
+    }
+
+    @Test
+    void shouldGetPackageNamePath() {
+      Project project = tmpProject();
+
+      project.addConfig(PACKAGE_NAME, "tech.jhipster.forge");
+
+      assertThat(project.getPackageNamePath()).contains(getPath("tech/jhipster/forge"));
+    }
+
+    @Test
+    void shouldNotGetPackageNamePathForDefault() {
+      Project project = tmpProject();
+
+      assertThat(project.getPackageNamePath()).isEmpty();
     }
   }
 

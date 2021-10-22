@@ -16,10 +16,10 @@ import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
 
 @IntegrationTest
-class PostgreSQLApplicationServiceIT {
+class PsqlApplicationServiceIT {
 
   @Autowired
-  PostgreSQLApplicationService postgreSQLApplicationService;
+  PsqlApplicationService psqlApplicationService;
 
   @Autowired
   InitApplicationService initApplicationService;
@@ -37,7 +37,7 @@ class PostgreSQLApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    postgreSQLApplicationService.init(project);
+    psqlApplicationService.init(project);
 
     assertFileContent(project, "pom.xml", springBootStarterDataJpa());
     assertFileContent(project, "pom.xml", postgreSQLDriver());
@@ -65,7 +65,7 @@ class PostgreSQLApplicationServiceIT {
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
-    postgreSQLApplicationService.addSpringDataJpa(project);
+    psqlApplicationService.addSpringDataJpa(project);
 
     assertFileContent(project, "pom.xml", springBootStarterDataJpa());
   }
@@ -77,7 +77,7 @@ class PostgreSQLApplicationServiceIT {
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
-    postgreSQLApplicationService.addPostgreSQLDriver(project);
+    psqlApplicationService.addPostgreSQLDriver(project);
 
     assertFileContent(project, "pom.xml", postgreSQLDriver());
   }
@@ -88,7 +88,7 @@ class PostgreSQLApplicationServiceIT {
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
-    postgreSQLApplicationService.addHikari(project);
+    psqlApplicationService.addHikari(project);
 
     assertFileContent(project, "pom.xml", hikari());
   }
@@ -99,7 +99,7 @@ class PostgreSQLApplicationServiceIT {
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
-    postgreSQLApplicationService.addHibernateCore(project);
+    psqlApplicationService.addHibernateCore(project);
 
     assertFileContent(project, "pom.xml", hibernateCore());
   }
@@ -109,7 +109,7 @@ class PostgreSQLApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "chips");
 
-    postgreSQLApplicationService.addDockerCompose(project);
+    psqlApplicationService.addDockerCompose(project);
 
     assertFileExist(project, "src/main/docker/postgresql.yml");
     assertFileContent(project, "src/main/docker/postgresql.yml", "POSTGRES_USER=chips");
@@ -121,7 +121,7 @@ class PostgreSQLApplicationServiceIT {
     project.addConfig(BASE_NAME, "chips");
     project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");
 
-    postgreSQLApplicationService.addDialectJava(project);
+    psqlApplicationService.addDialectJava(project);
 
     assertFileExist(project, getPath(MAIN_JAVA, "tech/jhipster/chips", "/technical/secondary/postgresql/FixedPostgreSQL10Dialect.java"));
     assertFileExist(
@@ -139,7 +139,7 @@ class PostgreSQLApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    postgreSQLApplicationService.addProperties(project);
+    psqlApplicationService.addProperties(project);
 
     assertFileContent(
       project,
@@ -172,7 +172,7 @@ class PostgreSQLApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.addApplicationTestProperties(project);
 
-    postgreSQLApplicationService.addTestContainers(project);
+    psqlApplicationService.addTestContainers(project);
 
     assertFileContent(project, POM_XML, "<testcontainers.version>");
     assertFileContent(project, POM_XML, "</testcontainers.version>");

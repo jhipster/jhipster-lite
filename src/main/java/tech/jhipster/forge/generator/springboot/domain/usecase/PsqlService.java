@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.springboot.domain.usecase;
 
 import tech.jhipster.forge.common.domain.Project;
 
-public interface PostgreSQLService {
+public interface PsqlService {
   void init(Project project);
 
   void addSpringDataJpa(Project project);

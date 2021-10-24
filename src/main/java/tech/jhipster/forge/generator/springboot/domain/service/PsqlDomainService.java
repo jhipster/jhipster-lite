@@ -119,7 +119,7 @@ public class PsqlDomainService implements PsqlService {
     mavenService.addProperty(project, "testcontainers", Psql.getTestcontainersVersion());
     mavenService.addDependency(project, dependency);
 
-    springPropertiesForTest(baseName, packageName).forEach((k, v) -> springBootService.addPropertiesTest(project, k, v));
+    springPropertiesForTest(baseName).forEach((k, v) -> springBootService.addPropertiesTest(project, k, v));
   }
 
   private Map<String, Object> springProperties(String baseName, String packageName) {
@@ -151,16 +151,12 @@ public class PsqlDomainService implements PsqlService {
     return result;
   }
 
-  private Map<String, Object> springPropertiesForTest(String baseName, String packageName) {
+  private Map<String, Object> springPropertiesForTest(String baseName) {
     TreeMap<String, Object> result = new TreeMap<>();
-    result.put("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
     result.put("spring.datasource.driver-class-name", "org.testcontainers.jdbc.ContainerDatabaseDriver");
     result.put("spring.datasource.url", "jdbc:tc:postgresql:13.4:///" + baseName + "?TC_TMPFS=/testtmpfs:rw");
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
-    result.put("spring.datasource.hikari.poolName", "Hikari");
-    result.put("spring.datasource.hikari.auto-commit", false);
-    result.put("spring.jpa.database-platform", packageName + ".technical.secondary.postgresql.FixedPostgreSQL10Dialect");
     return result;
   }
 }

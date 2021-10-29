@@ -6,7 +6,6 @@ import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.ProjectRepository;
 import tech.jhipster.forge.common.utils.WordUtils;
-import tech.jhipster.forge.springboot.domain.service.Init;
 
 public class InitDomainService implements InitService {
 

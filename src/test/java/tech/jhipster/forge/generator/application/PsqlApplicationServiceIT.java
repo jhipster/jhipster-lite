@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.application;
+package tech.jhipster.forge.generator.application;
 
 import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.common.domain.Constants.*;
@@ -14,9 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.generator.application.InitApplicationService;
-import tech.jhipster.forge.generator.application.MavenApplicationService;
-import tech.jhipster.forge.generator.application.SpringBootApplicationService;
 
 @IntegrationTest
 class PsqlApplicationServiceIT {

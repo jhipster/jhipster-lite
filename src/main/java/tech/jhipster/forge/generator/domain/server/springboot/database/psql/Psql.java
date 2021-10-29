@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.service;
+package tech.jhipster.forge.generator.domain.server.springboot.database.psql;
 
 public class Psql {
 

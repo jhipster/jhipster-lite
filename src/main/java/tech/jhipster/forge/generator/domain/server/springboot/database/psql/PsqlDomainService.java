@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.service;
+package tech.jhipster.forge.generator.domain.server.springboot.database.psql;
 
 import static tech.jhipster.forge.common.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.forge.common.domain.Constants.TEST_JAVA;
@@ -13,7 +13,6 @@ import tech.jhipster.forge.common.domain.ProjectRepository;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
 import tech.jhipster.forge.generator.domain.server.springboot.core.SpringBootService;
 import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.usecase.PsqlService;
 
 public class PsqlDomainService implements PsqlService {
 

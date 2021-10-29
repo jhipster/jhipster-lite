@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.primary;
+package tech.jhipster.forge.generator.infrastructure.primary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

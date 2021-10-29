@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.primary;
+package tech.jhipster.forge.generator.infrastructure.primary;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.springboot.application.ErrorApplicationService;
+import tech.jhipster.forge.generator.application.ErrorApplicationService;
 
 @RestController
 @RequestMapping("/api/error")

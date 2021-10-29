@@ -1,8 +1,8 @@
-package tech.jhipster.forge.springboot.application;
+package tech.jhipster.forge.generator.application;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.springboot.domain.usecase.ErrorService;
+import tech.jhipster.forge.generator.domain.server.tool.error.ErrorService;
 
 @Service
 public class ErrorApplicationService {

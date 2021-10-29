@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.service;
+package tech.jhipster.forge.generator.domain.server.tool.error;
 
 import static tech.jhipster.forge.common.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.forge.common.domain.Constants.TEST_JAVA;
@@ -7,7 +7,6 @@ import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.ProjectRepository;
-import tech.jhipster.forge.springboot.domain.usecase.ErrorService;
 
 public class ErrorDomainService implements ErrorService {
 

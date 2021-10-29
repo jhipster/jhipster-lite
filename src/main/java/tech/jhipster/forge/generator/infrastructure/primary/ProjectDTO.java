@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.primary;
+package tech.jhipster.forge.generator.infrastructure.primary;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;

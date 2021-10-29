@@ -18,7 +18,6 @@ import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.application.InitApplicationService;
 import tech.jhipster.forge.generator.application.MavenApplicationService;
 import tech.jhipster.forge.generator.application.SpringBootApplicationService;
-import tech.jhipster.forge.springboot.primary.ProjectDTO;
 
 @IntegrationTest
 @AutoConfigureMockMvc

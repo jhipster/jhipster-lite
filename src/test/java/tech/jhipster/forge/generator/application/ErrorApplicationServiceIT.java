@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.application;
+package tech.jhipster.forge.generator.application;
 
 import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;

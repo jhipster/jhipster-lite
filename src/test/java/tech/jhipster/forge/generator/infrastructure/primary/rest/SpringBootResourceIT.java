@@ -45,7 +45,7 @@ class SpringBootResourceIT {
 
     mockMvc
       .perform(
-        post("api/servers/spring-boot").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/servers/spring-boot").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 
@@ -74,7 +74,7 @@ class SpringBootResourceIT {
 
     mockMvc
       .perform(
-        post("api/servers/spring-boot/web").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/servers/spring-boot/web").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

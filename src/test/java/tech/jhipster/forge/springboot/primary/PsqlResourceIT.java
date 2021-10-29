@@ -19,7 +19,7 @@ import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.application.InitApplicationService;
 import tech.jhipster.forge.generator.application.MavenApplicationService;
-import tech.jhipster.forge.springboot.application.SpringBootApplicationService;
+import tech.jhipster.forge.generator.application.SpringBootApplicationService;
 
 @IntegrationTest
 @AutoConfigureMockMvc

@@ -7,7 +7,7 @@ import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.forge.common.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 import static tech.jhipster.forge.common.utils.FileUtils.getPathOf;
-import static tech.jhipster.forge.springboot.domain.service.SpringBoot.APPLICATION_PROPERTIES;
+import static tech.jhipster.forge.generator.domain.server.springboot.core.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.nio.file.Files;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,8 +19,8 @@ import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
+import tech.jhipster.forge.generator.domain.server.springboot.core.SpringBootService;
 import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.usecase.SpringBootService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

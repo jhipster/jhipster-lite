@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.service;
+package tech.jhipster.forge.generator.domain.server.springboot.core;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -11,7 +11,7 @@ import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.forge.common.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 import static tech.jhipster.forge.common.utils.FileUtils.getPathOf;
-import static tech.jhipster.forge.springboot.domain.service.SpringBoot.APPLICATION_PROPERTIES;
+import static tech.jhipster.forge.generator.domain.server.springboot.core.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.nio.file.Files;
 import org.junit.jupiter.api.BeforeEach;

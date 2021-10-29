@@ -4,7 +4,7 @@ import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
-import static tech.jhipster.forge.springboot.domain.service.SpringBoot.APPLICATION_PROPERTIES;
+import static tech.jhipster.forge.generator.domain.server.springboot.core.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -13,6 +13,7 @@ import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.application.InitApplicationService;
 import tech.jhipster.forge.generator.application.MavenApplicationService;
+import tech.jhipster.forge.generator.application.SpringBootApplicationService;
 
 @IntegrationTest
 class SpringBootWebApplicationServiceIT {

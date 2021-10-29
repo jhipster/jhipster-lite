@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.usecase;
+package tech.jhipster.forge.generator.domain.server.springboot.core;
 
 import tech.jhipster.forge.common.domain.Project;
 

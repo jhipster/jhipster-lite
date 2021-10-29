@@ -1,11 +1,11 @@
-package tech.jhipster.forge.springboot.domain.service;
+package tech.jhipster.forge.generator.domain.server.springboot.core;
 
 import static tech.jhipster.forge.common.domain.Constants.*;
 import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 import static tech.jhipster.forge.common.utils.FileUtils.read;
-import static tech.jhipster.forge.springboot.domain.service.SpringBoot.*;
+import static tech.jhipster.forge.generator.domain.server.springboot.core.SpringBoot.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,6 @@ import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
 import tech.jhipster.forge.springboot.domain.model.Dependency;
 import tech.jhipster.forge.springboot.domain.model.Parent;
 import tech.jhipster.forge.springboot.domain.model.Plugin;
-import tech.jhipster.forge.springboot.domain.usecase.SpringBootService;
 
 public class SpringBootDomainService implements SpringBootService {
 

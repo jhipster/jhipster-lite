@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
+import tech.jhipster.forge.generator.domain.server.springboot.core.SpringBootService;
 import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.usecase.SpringBootService;
 import tech.jhipster.forge.springboot.domain.usecase.SpringBootWebService;
 
 public class SpringBootWebDomainService implements SpringBootWebService {

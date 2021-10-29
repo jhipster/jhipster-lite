@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
+import tech.jhipster.forge.generator.domain.server.springboot.core.SpringBootService;
 import tech.jhipster.forge.springboot.domain.usecase.PsqlService;
-import tech.jhipster.forge.springboot.domain.usecase.SpringBootService;
 
 @IntegrationTest
 class LiquibaseApplicationServiceIT {

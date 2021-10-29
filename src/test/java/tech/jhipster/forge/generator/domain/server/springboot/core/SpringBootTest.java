@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.service;
+package tech.jhipster.forge.generator.domain.server.springboot.core;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

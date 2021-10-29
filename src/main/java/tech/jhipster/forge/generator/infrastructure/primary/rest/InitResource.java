@@ -13,7 +13,7 @@ import tech.jhipster.forge.generator.domain.core.Project;
 import tech.jhipster.forge.generator.infrastructure.primary.dto.ProjectDTO;
 
 @RestController
-@RequestMapping("/api/init")
+@RequestMapping("/api/projects")
 @Api(tags = "Init")
 public class InitResource {
 

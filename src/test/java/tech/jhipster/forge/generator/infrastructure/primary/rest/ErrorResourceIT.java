@@ -34,7 +34,9 @@ class ErrorResourceIT {
     projectDTO.path(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/error").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/servers/java/error").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     String pathMain = getPath(projectDTO.getPath(), MAIN_JAVA, "tech/jhipster/chips/error/domain");

@@ -14,7 +14,7 @@ import tech.jhipster.forge.generator.domain.core.Project;
 import tech.jhipster.forge.generator.infrastructure.primary.dto.ProjectDTO;
 
 @RestController
-@RequestMapping("/api/spring-boot")
+@RequestMapping("/api/servers/spring-boot")
 @Api(tags = "Spring Boot")
 public class SpringBootResource {
 
@@ -31,7 +31,7 @@ public class SpringBootResource {
 
   @ApiOperation("Init Spring Boot project with dependencies, App, and properties")
   @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
-  @PostMapping("/init")
+  @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootApplicationService.init(project);

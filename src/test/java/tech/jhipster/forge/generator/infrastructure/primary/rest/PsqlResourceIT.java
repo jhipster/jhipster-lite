@@ -51,7 +51,7 @@ class PsqlResourceIT {
     springBootApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/psql/init").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/databases/psql").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getPath();

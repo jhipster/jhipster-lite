@@ -13,7 +13,7 @@ import tech.jhipster.forge.generator.domain.core.Project;
 import tech.jhipster.forge.generator.infrastructure.primary.dto.ProjectDTO;
 
 @RestController
-@RequestMapping("/api/psql")
+@RequestMapping("/api/databases/psql")
 @Api(tags = "PostgreSQL")
 public class PsqlResource {
 
@@ -25,7 +25,7 @@ public class PsqlResource {
 
   @ApiOperation("Add PostgreSQL drivers and dependencies, with testcontainers")
   @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
-  @PostMapping("/init")
+  @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     psqlApplicationService.init(project);

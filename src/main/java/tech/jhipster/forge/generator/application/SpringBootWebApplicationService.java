@@ -1,7 +1,7 @@
 package tech.jhipster.forge.generator.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.generator.domain.core.Project;
 import tech.jhipster.forge.generator.domain.server.springboot.web.SpringBootWebService;
 
 @Service

@@ -1,6 +1,6 @@
 package tech.jhipster.forge.generator.domain.init;
 
-import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.generator.domain.core.Project;
 
 public interface InitService {
   void init(Project project);

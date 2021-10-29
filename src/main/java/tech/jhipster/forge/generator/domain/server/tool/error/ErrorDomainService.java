@@ -1,12 +1,12 @@
 package tech.jhipster.forge.generator.domain.server.tool.error;
 
-import static tech.jhipster.forge.common.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.forge.common.domain.Constants.TEST_JAVA;
-import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.Constants.MAIN_JAVA;
+import static tech.jhipster.forge.generator.domain.core.Constants.TEST_JAVA;
+import static tech.jhipster.forge.generator.domain.core.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
 
-import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.domain.ProjectRepository;
+import tech.jhipster.forge.generator.domain.core.Project;
+import tech.jhipster.forge.generator.domain.core.ProjectRepository;
 
 public class ErrorDomainService implements ErrorService {
 

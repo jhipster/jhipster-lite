@@ -1,6 +1,6 @@
 package tech.jhipster.forge.generator.domain.server.springboot.database.psql;
 
-import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.generator.domain.core.Project;
 
 public interface PsqlService {
   void init(Project project);

@@ -1,12 +1,12 @@
 package tech.jhipster.forge.generator.domain.buildtool.maven;
 
-import static tech.jhipster.forge.common.utils.WordUtils.indent;
+import static tech.jhipster.forge.generator.domain.core.WordUtils.indent;
 
 import java.util.List;
-import tech.jhipster.forge.common.utils.WordUtils;
 import tech.jhipster.forge.generator.domain.buildtool.Dependency;
 import tech.jhipster.forge.generator.domain.buildtool.Parent;
 import tech.jhipster.forge.generator.domain.buildtool.Plugin;
+import tech.jhipster.forge.generator.domain.core.WordUtils;
 
 public class Maven {
 

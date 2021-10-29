@@ -1,6 +1,6 @@
 package tech.jhipster.forge.generator.domain.server.springboot.core;
 
-import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.generator.domain.core.Project;
 
 public interface SpringBootService {
   void addProperties(Project project, String key, Object value);

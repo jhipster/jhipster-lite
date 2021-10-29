@@ -2,16 +2,16 @@ package tech.jhipster.forge.generator.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.forge.common.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.Constants.MAIN_RESOURCES;
+import static tech.jhipster.forge.generator.domain.core.Constants.TEST_RESOURCES;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.error.domain.GeneratorException;
+import tech.jhipster.forge.generator.domain.core.Project;
 
 @IntegrationTest
 class SpringBootApplicationServiceIT {

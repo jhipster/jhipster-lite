@@ -2,15 +2,15 @@ package tech.jhipster.forge.generator.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
-import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.Constants.MAIN_RESOURCES;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
 import static tech.jhipster.forge.generator.domain.server.springboot.core.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.generator.domain.core.Project;
 
 @IntegrationTest
 class SpringBootWebApplicationServiceIT {

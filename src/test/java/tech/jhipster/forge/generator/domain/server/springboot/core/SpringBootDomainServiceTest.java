@@ -7,10 +7,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
-import static tech.jhipster.forge.common.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.forge.common.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
-import static tech.jhipster.forge.common.utils.FileUtils.getPathOf;
+import static tech.jhipster.forge.generator.domain.core.Constants.MAIN_RESOURCES;
+import static tech.jhipster.forge.generator.domain.core.Constants.TEST_RESOURCES;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPathOf;
 import static tech.jhipster.forge.generator.domain.server.springboot.core.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.nio.file.Files;
@@ -20,14 +20,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.domain.ProjectRepository;
-import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.domain.buildtool.Dependency;
 import tech.jhipster.forge.generator.domain.buildtool.Parent;
 import tech.jhipster.forge.generator.domain.buildtool.Plugin;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
+import tech.jhipster.forge.generator.domain.core.FileUtils;
+import tech.jhipster.forge.generator.domain.core.Project;
+import tech.jhipster.forge.generator.domain.core.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

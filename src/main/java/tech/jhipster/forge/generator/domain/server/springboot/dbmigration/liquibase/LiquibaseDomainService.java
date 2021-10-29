@@ -1,12 +1,12 @@
 package tech.jhipster.forge.generator.domain.server.springboot.dbmigration.liquibase;
 
-import static tech.jhipster.forge.common.domain.Constants.*;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.Constants.*;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
 
-import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.domain.ProjectRepository;
 import tech.jhipster.forge.generator.domain.buildtool.Dependency;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
+import tech.jhipster.forge.generator.domain.core.Project;
+import tech.jhipster.forge.generator.domain.core.ProjectRepository;
 import tech.jhipster.forge.generator.domain.server.springboot.core.SpringBootService;
 
 public class LiquibaseDomainService implements LiquibaseService {

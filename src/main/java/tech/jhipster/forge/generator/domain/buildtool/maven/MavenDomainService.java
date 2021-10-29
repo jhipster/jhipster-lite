@@ -1,21 +1,21 @@
 package tech.jhipster.forge.generator.domain.buildtool.maven;
 
-import static tech.jhipster.forge.common.domain.DefaultConfig.*;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
-import static tech.jhipster.forge.common.utils.FileUtils.read;
-import static tech.jhipster.forge.common.utils.WordUtils.indent;
 import static tech.jhipster.forge.generator.domain.buildtool.maven.Maven.*;
+import static tech.jhipster.forge.generator.domain.core.DefaultConfig.*;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.read;
+import static tech.jhipster.forge.generator.domain.core.WordUtils.indent;
 
 import java.io.IOException;
 import java.util.List;
-import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.domain.ProjectRepository;
-import tech.jhipster.forge.common.utils.FileUtils;
-import tech.jhipster.forge.common.utils.WordUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.domain.buildtool.Dependency;
 import tech.jhipster.forge.generator.domain.buildtool.Parent;
 import tech.jhipster.forge.generator.domain.buildtool.Plugin;
+import tech.jhipster.forge.generator.domain.core.FileUtils;
+import tech.jhipster.forge.generator.domain.core.Project;
+import tech.jhipster.forge.generator.domain.core.ProjectRepository;
+import tech.jhipster.forge.generator.domain.core.WordUtils;
 
 public class MavenDomainService implements MavenService {
 

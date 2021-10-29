@@ -3,10 +3,10 @@ package tech.jhipster.forge.generator.domain.server.springboot.web;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
 import tech.jhipster.forge.generator.domain.buildtool.Dependency;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
+import tech.jhipster.forge.generator.domain.core.Project;
 import tech.jhipster.forge.generator.domain.server.springboot.core.SpringBootService;
 
 public class SpringBootWebDomainService implements SpringBootWebService {

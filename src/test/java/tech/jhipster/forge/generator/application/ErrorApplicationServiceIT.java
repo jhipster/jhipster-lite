@@ -1,13 +1,13 @@
 package tech.jhipster.forge.generator.application;
 
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.generator.domain.core.Project;
 
 @IntegrationTest
 class ErrorApplicationServiceIT {

@@ -1,17 +1,17 @@
 package tech.jhipster.forge.generator.domain.server.springboot.database.psql;
 
-import static tech.jhipster.forge.common.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.forge.common.domain.Constants.TEST_JAVA;
-import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.Constants.MAIN_JAVA;
+import static tech.jhipster.forge.generator.domain.core.Constants.TEST_JAVA;
+import static tech.jhipster.forge.generator.domain.core.DefaultConfig.BASE_NAME;
+import static tech.jhipster.forge.generator.domain.core.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.common.domain.ProjectRepository;
 import tech.jhipster.forge.generator.domain.buildtool.Dependency;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
+import tech.jhipster.forge.generator.domain.core.Project;
+import tech.jhipster.forge.generator.domain.core.ProjectRepository;
 import tech.jhipster.forge.generator.domain.server.springboot.core.SpringBootService;
 
 public class PsqlDomainService implements PsqlService {

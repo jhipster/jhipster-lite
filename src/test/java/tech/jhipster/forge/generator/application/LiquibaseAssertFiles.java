@@ -1,10 +1,10 @@
 package tech.jhipster.forge.generator.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileExist;
-import static tech.jhipster.forge.common.domain.Constants.*;
-import static tech.jhipster.forge.common.utils.FileUtils.getPath;
+import static tech.jhipster.forge.generator.domain.core.Constants.*;
+import static tech.jhipster.forge.generator.domain.core.FileUtils.getPath;
 
-import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.generator.domain.core.Project;
 
 public class LiquibaseAssertFiles {
 

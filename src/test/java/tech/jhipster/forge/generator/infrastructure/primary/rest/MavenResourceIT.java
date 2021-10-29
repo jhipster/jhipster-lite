@@ -34,7 +34,9 @@ class MavenResourceIT {
     projectDTO.path(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/maven/init").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/build-tools/maven").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);
@@ -51,7 +53,11 @@ class MavenResourceIT {
     projectDTO.path(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/maven/pom-xml").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/build-tools/maven/pom-xml")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);
@@ -68,7 +74,11 @@ class MavenResourceIT {
     projectDTO.path(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/maven/wrapper").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/build-tools/maven/wrapper")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);

@@ -13,7 +13,7 @@ import tech.jhipster.forge.generator.domain.core.Project;
 import tech.jhipster.forge.generator.infrastructure.primary.dto.ProjectDTO;
 
 @RestController
-@RequestMapping("/api/maven")
+@RequestMapping("/api/build-tools/maven")
 @Api(tags = "Maven")
 public class MavenResource {
 
@@ -25,7 +25,7 @@ public class MavenResource {
 
   @ApiOperation("Init Maven project with pom.xml and wrapper")
   @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
-  @PostMapping("/init")
+  @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     mavenApplicationService.init(project);

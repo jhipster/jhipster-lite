@@ -2,16 +2,16 @@ package tech.jhipster.forge.springboot.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
+import static tech.jhipster.forge.generator.domain.buildtool.maven.MavenDomainService.POM_XML;
 import static tech.jhipster.forge.springboot.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.forge.springboot.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
-import static tech.jhipster.forge.springboot.domain.service.MavenDomainService.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.springboot.domain.usecase.MavenService;
+import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
 import tech.jhipster.forge.springboot.domain.usecase.PsqlService;
 import tech.jhipster.forge.springboot.domain.usecase.SpringBootService;
 

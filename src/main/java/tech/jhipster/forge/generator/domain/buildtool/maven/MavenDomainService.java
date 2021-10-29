@@ -1,10 +1,10 @@
-package tech.jhipster.forge.springboot.domain.service;
+package tech.jhipster.forge.generator.domain.buildtool.maven;
 
 import static tech.jhipster.forge.common.domain.DefaultConfig.*;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 import static tech.jhipster.forge.common.utils.FileUtils.read;
 import static tech.jhipster.forge.common.utils.WordUtils.indent;
-import static tech.jhipster.forge.springboot.domain.service.Maven.*;
+import static tech.jhipster.forge.generator.domain.buildtool.maven.Maven.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +16,6 @@ import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.springboot.domain.model.Dependency;
 import tech.jhipster.forge.springboot.domain.model.Parent;
 import tech.jhipster.forge.springboot.domain.model.Plugin;
-import tech.jhipster.forge.springboot.domain.usecase.MavenService;
 
 public class MavenDomainService implements MavenService {
 

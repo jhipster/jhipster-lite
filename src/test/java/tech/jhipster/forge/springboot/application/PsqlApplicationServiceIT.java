@@ -5,7 +5,7 @@ import static tech.jhipster.forge.common.domain.Constants.*;
 import static tech.jhipster.forge.common.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.common.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.common.utils.FileUtils.getPath;
-import static tech.jhipster.forge.springboot.domain.service.MavenDomainService.POM_XML;
+import static tech.jhipster.forge.generator.domain.buildtool.maven.MavenDomainService.POM_XML;
 import static tech.jhipster.forge.springboot.domain.service.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.util.List;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.application.InitApplicationService;
+import tech.jhipster.forge.generator.application.MavenApplicationService;
 
 @IntegrationTest
 class PsqlApplicationServiceIT {

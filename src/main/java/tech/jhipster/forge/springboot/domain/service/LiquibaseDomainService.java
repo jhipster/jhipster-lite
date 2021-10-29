@@ -5,9 +5,9 @@ import static tech.jhipster.forge.common.utils.FileUtils.getPath;
 
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.ProjectRepository;
+import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
 import tech.jhipster.forge.springboot.domain.model.Dependency;
 import tech.jhipster.forge.springboot.domain.usecase.LiquibaseService;
-import tech.jhipster.forge.springboot.domain.usecase.MavenService;
 import tech.jhipster.forge.springboot.domain.usecase.SpringBootService;
 
 public class LiquibaseDomainService implements LiquibaseService {

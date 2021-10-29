@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.ProjectRepository;
+import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
 import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.usecase.MavenService;
 import tech.jhipster.forge.springboot.domain.usecase.PsqlService;
 import tech.jhipster.forge.springboot.domain.usecase.SpringBootService;
 

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.application.InitApplicationService;
+import tech.jhipster.forge.generator.application.MavenApplicationService;
 
 @IntegrationTest
 class SpringBootWebApplicationServiceIT {

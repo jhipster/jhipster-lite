@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.service;
+package tech.jhipster.forge.generator.domain.buildtool.maven;
 
 import static tech.jhipster.forge.common.utils.WordUtils.indent;
 

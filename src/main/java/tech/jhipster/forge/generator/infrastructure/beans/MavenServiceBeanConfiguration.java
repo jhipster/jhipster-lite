@@ -1,10 +1,10 @@
-package tech.jhipster.forge.springboot.config;
+package tech.jhipster.forge.generator.infrastructure.beans;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.forge.common.domain.ProjectRepository;
-import tech.jhipster.forge.springboot.domain.service.MavenDomainService;
-import tech.jhipster.forge.springboot.domain.usecase.MavenService;
+import tech.jhipster.forge.generator.domain.buildtool.maven.MavenDomainService;
+import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
 
 @Configuration
 public class MavenServiceBeanConfiguration {

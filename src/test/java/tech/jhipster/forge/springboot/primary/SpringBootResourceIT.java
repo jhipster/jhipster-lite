@@ -16,7 +16,7 @@ import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.TestUtils;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.generator.application.InitApplicationService;
-import tech.jhipster.forge.springboot.application.MavenApplicationService;
+import tech.jhipster.forge.generator.application.MavenApplicationService;
 import tech.jhipster.forge.springboot.application.SpringBootApplicationService;
 
 @IntegrationTest

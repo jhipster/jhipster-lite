@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.model;
+package tech.jhipster.forge.generator.domain.buildtool;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
+import tech.jhipster.forge.generator.domain.buildtool.Dependency;
 
 @UnitTest
 class DependencyTest {

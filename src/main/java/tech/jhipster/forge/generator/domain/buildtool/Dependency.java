@@ -1,4 +1,4 @@
-package tech.jhipster.forge.springboot.domain.model;
+package tech.jhipster.forge.generator.domain.buildtool;
 
 import java.util.Optional;
 import tech.jhipster.forge.error.domain.Assert;

@@ -1,10 +1,10 @@
-package tech.jhipster.forge.springboot.application;
+package tech.jhipster.forge.generator.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
+import static tech.jhipster.forge.generator.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
+import static tech.jhipster.forge.generator.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
 import static tech.jhipster.forge.generator.domain.buildtool.maven.MavenDomainService.POM_XML;
-import static tech.jhipster.forge.springboot.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
-import static tech.jhipster.forge.springboot.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;

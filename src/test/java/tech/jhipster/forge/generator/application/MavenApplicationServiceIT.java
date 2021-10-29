@@ -1,16 +1,16 @@
 package tech.jhipster.forge.generator.application;
 
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.springboot.application.MavenAssertFiles.*;
+import static tech.jhipster.forge.generator.application.MavenAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.model.Parent;
-import tech.jhipster.forge.springboot.domain.model.Plugin;
+import tech.jhipster.forge.generator.domain.buildtool.Dependency;
+import tech.jhipster.forge.generator.domain.buildtool.Parent;
+import tech.jhipster.forge.generator.domain.buildtool.Plugin;
 
 @IntegrationTest
 class MavenApplicationServiceIT {

@@ -5,9 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.model.Parent;
-import tech.jhipster.forge.springboot.domain.model.Plugin;
+import tech.jhipster.forge.generator.domain.buildtool.Dependency;
+import tech.jhipster.forge.generator.domain.buildtool.Parent;
+import tech.jhipster.forge.generator.domain.buildtool.Plugin;
 
 @UnitTest
 class MavenTest {

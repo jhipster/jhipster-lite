@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.forge.common.domain.Project;
 import tech.jhipster.forge.common.domain.ProjectRepository;
+import tech.jhipster.forge.generator.domain.buildtool.Dependency;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
 import tech.jhipster.forge.generator.domain.server.springboot.core.SpringBootService;
-import tech.jhipster.forge.springboot.domain.model.Dependency;
 
 public class PsqlDomainService implements PsqlService {
 

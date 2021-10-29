@@ -2,9 +2,9 @@ package tech.jhipster.forge.generator.domain.buildtool.maven;
 
 import java.util.List;
 import tech.jhipster.forge.common.domain.Project;
-import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.model.Parent;
-import tech.jhipster.forge.springboot.domain.model.Plugin;
+import tech.jhipster.forge.generator.domain.buildtool.Dependency;
+import tech.jhipster.forge.generator.domain.buildtool.Parent;
+import tech.jhipster.forge.generator.domain.buildtool.Plugin;
 
 public interface MavenService {
   void addParent(Project project, Parent parent);

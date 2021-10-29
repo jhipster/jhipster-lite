@@ -3,10 +3,10 @@ package tech.jhipster.forge.generator.application;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import tech.jhipster.forge.common.domain.Project;
+import tech.jhipster.forge.generator.domain.buildtool.Dependency;
+import tech.jhipster.forge.generator.domain.buildtool.Parent;
+import tech.jhipster.forge.generator.domain.buildtool.Plugin;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
-import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.model.Parent;
-import tech.jhipster.forge.springboot.domain.model.Plugin;
 
 @Service
 public class MavenApplicationService {

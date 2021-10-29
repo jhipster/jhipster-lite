@@ -14,10 +14,10 @@ import tech.jhipster.forge.common.domain.ProjectRepository;
 import tech.jhipster.forge.common.utils.FileUtils;
 import tech.jhipster.forge.common.utils.WordUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
+import tech.jhipster.forge.generator.domain.buildtool.Dependency;
+import tech.jhipster.forge.generator.domain.buildtool.Parent;
+import tech.jhipster.forge.generator.domain.buildtool.Plugin;
 import tech.jhipster.forge.generator.domain.buildtool.maven.MavenService;
-import tech.jhipster.forge.springboot.domain.model.Dependency;
-import tech.jhipster.forge.springboot.domain.model.Parent;
-import tech.jhipster.forge.springboot.domain.model.Plugin;
 
 public class SpringBootDomainService implements SpringBootService {
 

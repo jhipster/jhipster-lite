@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.application;
 
 import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.common.domain.DefaultConfig.*;
-import static tech.jhipster.forge.springboot.application.InitAssertFiles.*;
+import static tech.jhipster.forge.generator.application.InitAssertFiles.*;
 
 import java.util.HashMap;
 import java.util.List;

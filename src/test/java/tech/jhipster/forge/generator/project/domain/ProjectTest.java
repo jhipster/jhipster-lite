@@ -6,7 +6,7 @@ import static tech.jhipster.forge.generator.project.domain.Language.JAVA;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.generator.domain.core.FileUtils;
+import tech.jhipster.forge.generator.refacto.domain.core.FileUtils;
 
 @UnitTest
 class ProjectTest {

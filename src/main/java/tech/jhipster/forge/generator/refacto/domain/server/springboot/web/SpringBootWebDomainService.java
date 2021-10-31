@@ -4,8 +4,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
-import tech.jhipster.forge.generator.buildtool.domain.Dependency;
 import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
+import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.refacto.domain.core.Project;
 import tech.jhipster.forge.generator.refacto.domain.server.springboot.core.SpringBootService;
 

@@ -3,8 +3,8 @@ package tech.jhipster.forge.generator.refacto.domain.server.springboot.dbmigrati
 import static tech.jhipster.forge.generator.refacto.domain.core.Constants.*;
 import static tech.jhipster.forge.generator.refacto.domain.core.FileUtils.getPath;
 
-import tech.jhipster.forge.generator.buildtool.domain.Dependency;
 import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
+import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.refacto.domain.core.Project;
 import tech.jhipster.forge.generator.refacto.domain.core.ProjectRepository;
 import tech.jhipster.forge.generator.refacto.domain.server.springboot.core.SpringBootService;

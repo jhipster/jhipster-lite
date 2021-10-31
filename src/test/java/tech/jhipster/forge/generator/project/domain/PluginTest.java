@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.buildtool.domain;
+package tech.jhipster.forge.generator.project.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
-import tech.jhipster.forge.generator.buildtool.domain.Plugin;
 
 @UnitTest
 class PluginTest {

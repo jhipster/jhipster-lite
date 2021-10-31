@@ -8,8 +8,8 @@ import static tech.jhipster.forge.generator.refacto.domain.core.FileUtils.getPat
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.forge.generator.buildtool.domain.Dependency;
 import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
+import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.refacto.domain.core.Project;
 import tech.jhipster.forge.generator.refacto.domain.core.ProjectRepository;
 import tech.jhipster.forge.generator.refacto.domain.server.springboot.core.SpringBootService;

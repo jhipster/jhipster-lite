@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.buildtool.domain;
+package tech.jhipster.forge.generator.project.domain;
 
 import tech.jhipster.forge.error.domain.Assert;
 

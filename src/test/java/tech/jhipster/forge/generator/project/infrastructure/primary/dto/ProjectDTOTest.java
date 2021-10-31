@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.refacto.infrastructure.primary.dto;
+package tech.jhipster.forge.generator.project.infrastructure.primary.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -8,7 +8,6 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
-import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.forge.generator.refacto.domain.core.Project;
 
 @UnitTest

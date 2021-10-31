@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.refacto.infrastructure.secondary;
+package tech.jhipster.forge.generator.project.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,8 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
-import tech.jhipster.forge.generator.project.infrastructure.secondary.MustacheUtils;
-import tech.jhipster.forge.generator.project.infrastructure.secondary.ProjectLocalRepository;
 import tech.jhipster.forge.generator.refacto.domain.core.FileUtils;
 import tech.jhipster.forge.generator.refacto.domain.core.Project;
 

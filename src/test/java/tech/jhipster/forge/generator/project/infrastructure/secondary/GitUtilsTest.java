@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.refacto.infrastructure.secondary;
+package tech.jhipster.forge.generator.project.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.assertFileExist;

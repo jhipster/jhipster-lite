@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.refacto.domain.init;
+package tech.jhipster.forge.generator.init.domain;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.generator.init.domain.InitDomainService;
 import tech.jhipster.forge.generator.refacto.domain.core.Project;
 import tech.jhipster.forge.generator.refacto.domain.core.ProjectRepository;
 

@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.refacto.infrastructure.primary.rest;
+package tech.jhipster.forge.generator.init.infrastructure.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

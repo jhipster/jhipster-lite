@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.refacto.application;
+package tech.jhipster.forge.generator.init.application;
 
 import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.generator.refacto.application.InitAssertFiles.*;
@@ -10,7 +10,6 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.generator.init.application.InitApplicationService;
 import tech.jhipster.forge.generator.refacto.domain.core.Project;
 
 @IntegrationTest

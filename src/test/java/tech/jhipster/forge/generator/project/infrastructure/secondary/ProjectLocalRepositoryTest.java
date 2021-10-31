@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.refacto.domain.core.FileUtils.getPath;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.io.IOException;
@@ -18,8 +18,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
-import tech.jhipster.forge.generator.refacto.domain.core.FileUtils;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @UnitTest
 @ExtendWith(SpringExtension.class)
@@ -34,7 +34,7 @@ class ProjectLocalRepositoryTest {
 
     repository.create(project);
 
-    assertFileExist(project.getPath());
+    assertFileExist(project.getFolder());
   }
 
   @Test
@@ -94,7 +94,7 @@ class ProjectLocalRepositoryTest {
 
   @Test
   void shouldNotTemplate() {
-    Project project = Project.builder().path(FileUtils.tmpDirForTest()).build();
+    Project project = Project.builder().folder(FileUtils.tmpDirForTest()).build();
 
     try (MockedStatic<MustacheUtils> mustacheUtils = Mockito.mockStatic(MustacheUtils.class)) {
       mustacheUtils.when(() -> MustacheUtils.template(anyString(), any())).thenThrow(new IOException());

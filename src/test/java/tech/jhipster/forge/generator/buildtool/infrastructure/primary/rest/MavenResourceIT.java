@@ -3,7 +3,7 @@ package tech.jhipster.forge.generator.buildtool.infrastructure.primary.rest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
-import static tech.jhipster.forge.generator.refacto.application.MavenAssertFiles.*;
+import static tech.jhipster.forge.generator.server.application.MavenAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -15,8 +15,8 @@ import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.TestUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.forge.generator.refacto.domain.core.FileUtils;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @IntegrationTest
 @AutoConfigureMockMvc

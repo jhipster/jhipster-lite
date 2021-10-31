@@ -4,7 +4,7 @@ import java.util.List;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Parent;
 import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 public interface MavenService {
   void addParent(Project project, Parent parent);

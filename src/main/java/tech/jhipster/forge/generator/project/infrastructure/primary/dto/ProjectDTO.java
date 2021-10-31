@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import tech.jhipster.forge.error.domain.Assert;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @ApiModel(value = "ProjectDTO", description = "Project DTO")
 public class ProjectDTO {
@@ -29,7 +29,7 @@ public class ProjectDTO {
   public static Project toProject(ProjectDTO projectDTO) {
     Assert.notNull("projectDTO", projectDTO);
 
-    return Project.builder().path(projectDTO.getPath()).config(projectDTO.getGeneratorJhipster()).build();
+    return Project.builder().folder(projectDTO.getPath()).config(projectDTO.getGeneratorJhipster()).build();
   }
 
   public ProjectDTO path(String path) {

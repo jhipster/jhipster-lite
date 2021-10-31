@@ -6,7 +6,7 @@ import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Parent;
 import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @Service
 public class MavenApplicationService {

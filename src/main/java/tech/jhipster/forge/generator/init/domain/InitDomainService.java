@@ -1,11 +1,11 @@
 package tech.jhipster.forge.generator.init.domain;
 
-import static tech.jhipster.forge.generator.refacto.domain.core.DefaultConfig.*;
-import static tech.jhipster.forge.generator.refacto.domain.core.FileUtils.getPath;
+import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
-import tech.jhipster.forge.generator.refacto.domain.core.ProjectRepository;
-import tech.jhipster.forge.generator.refacto.domain.core.WordUtils;
+import tech.jhipster.forge.generator.project.domain.Project;
+import tech.jhipster.forge.generator.project.domain.ProjectRepository;
+import tech.jhipster.forge.generator.common.domain.WordUtils;
 
 public class InitDomainService implements InitService {
 

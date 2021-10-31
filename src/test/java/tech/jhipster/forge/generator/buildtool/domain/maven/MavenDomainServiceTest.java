@@ -19,9 +19,9 @@ import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Parent;
 import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.refacto.domain.core.FileUtils;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
-import tech.jhipster.forge.generator.refacto.domain.core.ProjectRepository;
+import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.generator.project.domain.Project;
+import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -50,7 +50,7 @@ class MavenDomainServiceTest {
   @Test
   void shouldNotAddParentWhenNoPomXml() throws Exception {
     Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
+    FileUtils.createFolder(project.getFolder());
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
     assertThatThrownBy(() -> mavenDomainService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
@@ -99,7 +99,7 @@ class MavenDomainServiceTest {
   @Test
   void shouldNotAddDependencyWhenNoPomXml() throws Exception {
     Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
+    FileUtils.createFolder(project.getFolder());
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
 
     assertThatThrownBy(() -> mavenDomainService.addDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
@@ -118,7 +118,7 @@ class MavenDomainServiceTest {
   @Test
   void shouldNotAddPluginWhenNoPomXml() throws Exception {
     Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
+    FileUtils.createFolder(project.getFolder());
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
 
     assertThatThrownBy(() -> mavenDomainService.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
@@ -136,7 +136,7 @@ class MavenDomainServiceTest {
   @Test
   void shouldNotAddPropertyWhenNoPomXml() throws Exception {
     Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
+    FileUtils.createFolder(project.getFolder());
 
     assertThatThrownBy(() -> mavenDomainService.addProperty(project, "testcontainers", "1.16.0"))
       .isExactlyInstanceOf(GeneratorException.class);

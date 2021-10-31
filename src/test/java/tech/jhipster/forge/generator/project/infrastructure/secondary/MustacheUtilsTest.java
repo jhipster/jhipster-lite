@@ -2,14 +2,13 @@ package tech.jhipster.forge.generator.project.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.forge.generator.refacto.domain.core.Constants.TEST_TEMPLATE_RESOURCES;
+import static tech.jhipster.forge.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.generator.project.infrastructure.secondary.MustacheUtils;
-import tech.jhipster.forge.generator.refacto.domain.core.FileUtils;
+import tech.jhipster.forge.generator.common.domain.FileUtils;
 
 @UnitTest
 class MustacheUtilsTest {

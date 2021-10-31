@@ -2,13 +2,13 @@ package tech.jhipster.forge.generator.project.infrastructure.primary.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.forge.generator.refacto.domain.core.DefaultConfig.BASE_NAME;
+import static tech.jhipster.forge.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @UnitTest
 class ProjectDTOTest {
@@ -28,7 +28,7 @@ class ProjectDTOTest {
     Project project = ProjectDTO.toProject(projectDTO);
 
     assertThat(project).isNotNull();
-    assertThat(project.getPath()).isEqualTo("/tmp/chips");
+    assertThat(project.getFolder()).isEqualTo("/tmp/chips");
     assertThat(project.getConfig()).containsEntry(BASE_NAME, "chips");
   }
 
@@ -40,12 +40,12 @@ class ProjectDTOTest {
   }
 
   @Test
-  void shouldToProjectWithNullPath() {
+  void shouldToProjectWithNullFolder() {
     ProjectDTO projectDTO = buildProjectDTO().path(null);
 
     assertThatThrownBy(() -> ProjectDTO.toProject(projectDTO))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
-      .hasMessageContaining("path");
+      .hasMessageContaining("folder");
   }
 
   private ProjectDTO buildProjectDTO() {

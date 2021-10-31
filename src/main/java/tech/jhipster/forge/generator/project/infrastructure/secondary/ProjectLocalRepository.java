@@ -1,8 +1,8 @@
 package tech.jhipster.forge.generator.project.infrastructure.secondary;
 
-import static tech.jhipster.forge.generator.refacto.domain.core.Constants.TEMPLATE_RESOURCES;
-import static tech.jhipster.forge.generator.refacto.domain.core.FileUtils.getPath;
-import static tech.jhipster.forge.generator.refacto.domain.core.FileUtils.getPathOf;
+import static tech.jhipster.forge.generator.project.domain.Constants.TEMPLATE_RESOURCES;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPathOf;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.forge.error.domain.Assert;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.refacto.domain.core.FileUtils;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
-import tech.jhipster.forge.generator.refacto.domain.core.ProjectRepository;
+import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.generator.project.domain.Project;
+import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 
 @Repository
 public class ProjectLocalRepository implements ProjectRepository {
@@ -26,7 +26,7 @@ public class ProjectLocalRepository implements ProjectRepository {
   @Override
   public void create(Project project) {
     try {
-      FileUtils.createFolder(project.getPath());
+      FileUtils.createFolder(project.getFolder());
     } catch (IOException ex) {
       throw new GeneratorException("The folder can't be created");
     }
@@ -48,7 +48,7 @@ public class ProjectLocalRepository implements ProjectRepository {
     Path sourcePath = FileUtils.getPathOf(TEMPLATE_RESOURCES, source, sourceFilename);
 
     try {
-      String destinationFolder = FileUtils.getPath(project.getPath(), destination);
+      String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
       FileUtils.createFolder(destinationFolder);
 
       Path destinationPath = FileUtils.getPathOf(destinationFolder, destinationFilename);
@@ -75,7 +75,7 @@ public class ProjectLocalRepository implements ProjectRepository {
       String filename = MustacheUtils.withExt(sourceFilename);
       String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, filename), project.getConfig());
 
-      String destinationFolder = FileUtils.getPath(project.getPath(), destination);
+      String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
       FileUtils.createFolder(destinationFolder);
 
       String destinationTarget = FileUtils.getPath(destinationFolder, destinationFilename);
@@ -91,7 +91,7 @@ public class ProjectLocalRepository implements ProjectRepository {
   public void write(Project project, String text, String destination, String destinationFilename) {
     Assert.notNull("text", text);
 
-    String projectDestination = getPath(project.getPath(), destination);
+    String projectDestination = getPath(project.getFolder(), destination);
     String projectDestinationFilename = getPath(projectDestination, destinationFilename);
 
     try {

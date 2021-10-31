@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.forge.generator.buildtool.domain.maven.MavenDomainService;
 import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
-import tech.jhipster.forge.generator.refacto.domain.core.ProjectRepository;
+import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 
 @Configuration
 public class MavenServiceBeanConfiguration {

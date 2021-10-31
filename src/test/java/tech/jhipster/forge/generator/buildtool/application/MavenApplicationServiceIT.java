@@ -1,7 +1,7 @@
 package tech.jhipster.forge.generator.buildtool.application;
 
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.refacto.application.MavenAssertFiles.*;
+import static tech.jhipster.forge.generator.server.application.MavenAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Parent;
 import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @IntegrationTest
 class MavenApplicationServiceIT {

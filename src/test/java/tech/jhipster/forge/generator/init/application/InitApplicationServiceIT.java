@@ -1,8 +1,8 @@
 package tech.jhipster.forge.generator.init.application;
 
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.refacto.application.InitAssertFiles.*;
-import static tech.jhipster.forge.generator.refacto.domain.core.DefaultConfig.*;
+import static tech.jhipster.forge.generator.server.application.InitAssertFiles.*;
+import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @IntegrationTest
 class InitApplicationServiceIT {

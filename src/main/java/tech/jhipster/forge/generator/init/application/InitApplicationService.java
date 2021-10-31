@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.init.application;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.forge.generator.init.domain.InitService;
-import tech.jhipster.forge.generator.refacto.domain.core.Project;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @Service
 public class InitApplicationService {

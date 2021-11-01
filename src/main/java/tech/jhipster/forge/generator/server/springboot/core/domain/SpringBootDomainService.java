@@ -1,23 +1,23 @@
 package tech.jhipster.forge.generator.server.springboot.core.domain;
 
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.read;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.read;
 import static tech.jhipster.forge.generator.server.springboot.core.domain.SpringBoot.*;
 
 import java.io.File;
 import java.io.IOException;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
+import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.generator.common.domain.WordUtils;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Parent;
 import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.common.domain.FileUtils;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
-import tech.jhipster.forge.generator.common.domain.WordUtils;
 
 public class SpringBootDomainService implements SpringBootService {
 

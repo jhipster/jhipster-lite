@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.forge.generator.server.javatool.error.application.ErrorApplicationService;
-import tech.jhipster.forge.generator.project.domain.Project;
 
 @RestController
 @RequestMapping("/api/servers/java/error")

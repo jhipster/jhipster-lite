@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.forge.generator.buildtool.application.MavenApplicationService;
-import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.forge.generator.project.domain.Project;
+import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
 
 @RestController
 @RequestMapping("/api/build-tools/maven")

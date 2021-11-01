@@ -1,10 +1,10 @@
 package tech.jhipster.forge.generator.server.springboot.database.psql.domain;
 
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.forge.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 
 import java.util.Map;
 import java.util.TreeMap;

@@ -2,8 +2,8 @@ package tech.jhipster.forge.generator.project.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.assertFileExist;
-import static tech.jhipster.forge.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 
 import java.io.File;
 import java.io.FileNotFoundException;

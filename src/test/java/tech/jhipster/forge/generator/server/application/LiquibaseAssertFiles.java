@@ -1,8 +1,8 @@
 package tech.jhipster.forge.generator.server.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileExist;
-import static tech.jhipster.forge.generator.project.domain.Constants.*;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.project.domain.Constants.*;
 
 import tech.jhipster.forge.generator.project.domain.Project;
 

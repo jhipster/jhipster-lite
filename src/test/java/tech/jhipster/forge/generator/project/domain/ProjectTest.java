@@ -3,10 +3,10 @@ package tech.jhipster.forge.generator.project.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.tmpProjectDomain;
-import static tech.jhipster.forge.generator.project.domain.BuildToolType.MAVEN;
-import static tech.jhipster.forge.generator.project.domain.Language.JAVA;
-import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.project.domain.BuildToolType.MAVEN;
+import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.forge.generator.project.domain.Language.JAVA;
 
 import java.util.HashMap;
 import java.util.List;

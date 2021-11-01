@@ -1,8 +1,8 @@
 package tech.jhipster.forge.generator.server.javatool.error.application;
 
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

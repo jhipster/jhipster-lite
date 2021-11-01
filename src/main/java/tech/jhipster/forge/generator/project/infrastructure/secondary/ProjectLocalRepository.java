@@ -1,8 +1,8 @@
 package tech.jhipster.forge.generator.project.infrastructure.secondary;
 
-import static tech.jhipster.forge.generator.project.domain.Constants.TEMPLATE_RESOURCES;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.forge.generator.project.domain.Constants.TEMPLATE_RESOURCES;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

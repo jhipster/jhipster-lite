@@ -1,8 +1,8 @@
 package tech.jhipster.forge.generator.init.application;
 
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.server.application.InitAssertFiles.*;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.forge.generator.server.application.InitAssertFiles.*;
 
 import java.util.HashMap;
 import java.util.List;

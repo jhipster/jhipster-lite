@@ -14,9 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.TestUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.forge.generator.common.domain.FileUtils;
 import tech.jhipster.forge.generator.project.domain.Project;
+import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
 
 @IntegrationTest
 @AutoConfigureMockMvc

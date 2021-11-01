@@ -1,6 +1,5 @@
 package tech.jhipster.forge.generator.project.domain;
 
-
 public interface ProjectRepository {
   void create(Project project);
 

@@ -2,10 +2,10 @@ package tech.jhipster.forge.generator.server.springboot.database.psql.applicatio
 
 import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.generator.buildtool.domain.maven.MavenDomainService.POM_XML;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.util.List;

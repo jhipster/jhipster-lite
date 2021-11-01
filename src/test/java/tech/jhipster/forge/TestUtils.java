@@ -3,7 +3,7 @@ package tech.jhipster.forge;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tech.jhipster.forge.generator.domain.core.FileUtils.*;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.*;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,13 +21,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.FileCopyUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.domain.core.FileUtils;
-import tech.jhipster.forge.generator.domain.core.Project;
+import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 public class TestUtils {
 
   public static void assertFileExist(Project project, String... paths) {
-    assertFileExist(getPath(project.getPath(), getPath(paths)));
+    assertFileExist(getPath(project.getFolder(), getPath(paths)));
   }
 
   public static void assertFileExist(String... paths) {
@@ -35,7 +35,7 @@ public class TestUtils {
   }
 
   public static void assertFileNotExist(Project project, String... paths) {
-    assertFileNotExist(getPath(project.getPath(), getPath(paths)));
+    assertFileNotExist(getPath(project.getFolder(), getPath(paths)));
   }
 
   public static void assertFileNotExist(String... paths) {
@@ -43,7 +43,7 @@ public class TestUtils {
   }
 
   public static void assertFileContent(Project project, String filename, String value) {
-    assertTrue(FileUtils.containsInLine(getPath(project.getPath(), filename), value), "The value '" + value + "' was not found");
+    assertTrue(FileUtils.containsInLine(getPath(project.getFolder(), filename), value), "The value '" + value + "' was not found");
   }
 
   public static void assertFileContent(String path, String filename, String value) {
@@ -51,11 +51,11 @@ public class TestUtils {
   }
 
   public static void assertFileNoContent(Project project, String filename, String value) {
-    assertFalse(FileUtils.containsInLine(getPath(project.getPath(), filename), value), "The value '" + value + "' was found");
+    assertFalse(FileUtils.containsInLine(getPath(project.getFolder(), filename), value), "The value '" + value + "' was found");
   }
 
   public static void assertFileContent(Project project, String filename, List<String> lines) {
-    assertTrue(FileUtils.containsLines(getPath(project.getPath(), filename), lines), "The lines '" + lines + "' were not found");
+    assertTrue(FileUtils.containsLines(getPath(project.getFolder(), filename), lines), "The lines '" + lines + "' were not found");
   }
 
   public static void assertFileContent(String path, String filename, List<String> lines) {
@@ -63,21 +63,25 @@ public class TestUtils {
   }
 
   public static void assertFileNoContent(Project project, String filename, List<String> lines) {
-    assertFalse(FileUtils.containsLines(getPath(project.getPath(), filename), lines), "The lines '" + lines + "' were found");
+    assertFalse(FileUtils.containsLines(getPath(project.getFolder(), filename), lines), "The lines '" + lines + "' were found");
   }
 
   public static Project.ProjectBuilder tmpProjectBuilder() {
-    return Project.builder().path(FileUtils.tmpDirForTest());
+    return Project.builder().folder(FileUtils.tmpDirForTest());
   }
 
   public static Project tmpProject() {
     return tmpProjectBuilder().build();
   }
 
+  public static tech.jhipster.forge.generator.project.domain.Project tmpProjectDomain() {
+    return tech.jhipster.forge.generator.project.domain.Project.builder().folder(FileUtils.tmpDirForTest()).build();
+  }
+
   public static Project tmpProjectWithPomXml() throws IOException {
     Project project = tmpProject();
-    FileUtils.createFolder(project.getPath());
-    Files.copy(getPathOf("src/test/resources/template/maven/pom.test.xml"), getPathOf(project.getPath(), "pom.xml"));
+    FileUtils.createFolder(project.getFolder());
+    Files.copy(getPathOf("src/test/resources/template/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
     return project;
   }
 

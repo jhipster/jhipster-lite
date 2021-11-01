@@ -1,12 +1,10 @@
-package tech.jhipster.forge.generator.project.domain;
+package tech.jhipster.forge.generator.server.domain.core;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.forge.TestUtils.tmpProjectDomain;
+import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
-import static tech.jhipster.forge.generator.project.domain.BuildToolType.MAVEN;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
-import static tech.jhipster.forge.generator.project.domain.Language.JAVA;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,59 +15,54 @@ import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
 import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.generator.project.domain.Project;
 
 @UnitTest
 class ProjectTest {
 
-  @Test
-  void shouldBuildMinimalProject() {
-    String folder = FileUtils.tmpDir();
+  @Nested
+  class Build {
 
-    Project project = Project.builder().folder(folder).build();
+    @Test
+    void shouldBuild() {
+      String path = FileUtils.tmpDirForTest();
+      Project project = Project.builder().folder(path).build();
 
-    assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getFolder()).isEqualTo(path);
+      assertThat(project.getConfig()).isEqualTo(Map.of());
+    }
 
-    assertThat(project.getLanguage()).isEmpty();
-    assertThat(project.getBuildTool()).isEmpty();
-    assertThat(project.getServer()).isEmpty();
-    assertThat(project.getClient()).isEmpty();
-    assertThat(project.getConfig()).isEmpty();
-  }
+    @Test
+    void shouldBuildWithConfig() {
+      String path = FileUtils.tmpDirForTest();
+      Project project = Project.builder().folder(path).config(Map.of(PROJECT_NAME, "JHipster Forge")).build();
 
-  @Test
-  void shouldBuildFullProject() {
-    String folder = FileUtils.tmpDir();
+      assertThat(project.getFolder()).isEqualTo(path);
+      assertThat(project.getConfig()).isEqualTo(Map.of(PROJECT_NAME, "JHipster Forge"));
+    }
 
-    Project project = Project
-      .builder()
-      .folder(folder)
-      .language(JAVA)
-      .buildTool(MAVEN)
-      .server(new Server(ServerFramework.SPRING))
-      .client(new Client(ClientFramework.ANGULAR))
-      .config(Map.of(PROJECT_NAME, "JHipster Forge"))
-      .build();
+    @Test
+    void shouldBuildWithNullConfig() {
+      String path = FileUtils.tmpDirForTest();
+      Project project = Project.builder().folder(path).config(null).build();
 
-    assertThat(project.getFolder()).isEqualTo(folder);
-    assertThat(project.getLanguage()).contains(JAVA);
-    assertThat(project.getBuildTool()).contains(MAVEN);
-    assertThat(project.getServer()).contains(new Server(ServerFramework.SPRING));
-    assertThat(project.getClient()).contains(new Client(ClientFramework.ANGULAR));
-    assertThat(project.getConfig()).isEqualTo(Map.of(PROJECT_NAME, "JHipster Forge"));
-  }
+      assertThat(project.getFolder()).isEqualTo(path);
+      assertThat(project.getConfig()).isEqualTo(Map.of());
+    }
 
-  @Test
-  void shouldNotBuildWithNullFolder() {
-    Project.ProjectBuilder builder = Project.builder().folder(null);
+    @Test
+    void shouldNotBuildWithNullPath() {
+      Project.ProjectBuilder builder = Project.builder().folder(null);
 
-    assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
-  }
+      assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
+    }
 
-  @Test
-  void shouldNotBuildWithBlankPath() {
-    Project.ProjectBuilder builder = Project.builder().folder(" ");
+    @Test
+    void shouldNotBuildWithBlankPath() {
+      Project.ProjectBuilder builder = Project.builder().folder(" ");
 
-    assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
+      assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
+    }
   }
 
   @Nested
@@ -126,7 +119,7 @@ class ProjectTest {
 
     @Test
     void shouldNotAddConfigWithBadBaseName() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThatThrownBy(() -> project.addConfig(BASE_NAME, "jhipster with space"))
         .isExactlyInstanceOf(UnauthorizedValueException.class)
@@ -135,7 +128,7 @@ class ProjectTest {
 
     @Test
     void shouldNotAddConfigWithBadPackageName() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThatThrownBy(() -> project.addConfig(PACKAGE_NAME, "tech jhipster forge"))
         .isExactlyInstanceOf(UnauthorizedValueException.class)
@@ -164,11 +157,31 @@ class ProjectTest {
   }
 
   @Nested
+  class BaseName {
+
+    @Test
+    void shouldGetBaseName() {
+      Project project = tmpProject();
+
+      project.addConfig(BASE_NAME, "JHipster");
+
+      assertThat(project.getBaseName()).contains("JHipster");
+    }
+
+    @Test
+    void shouldNotGetBaseNameWithEmpty() {
+      Project project = tmpProject();
+
+      assertThat(project.getBaseName()).isEmpty();
+    }
+  }
+
+  @Nested
   class PackageName {
 
     @Test
     void shouldGetPackageName() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig(PACKAGE_NAME, "tech.jhipster.forge");
 
@@ -177,14 +190,14 @@ class ProjectTest {
 
     @Test
     void shouldNotGetPackageNameWithEmpty() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThat(project.getPackageName()).isEmpty();
     }
 
     @Test
     void shouldGetPackageNamePath() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig(PACKAGE_NAME, "tech.jhipster.forge");
 
@@ -193,7 +206,7 @@ class ProjectTest {
 
     @Test
     void shouldNotGetPackageNamePathForDefault() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThat(project.getPackageNamePath()).isEmpty();
     }
@@ -204,7 +217,7 @@ class ProjectTest {
 
     @Test
     void shouldGetStringConfig() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig("apero", "beer");
 
@@ -213,14 +226,14 @@ class ProjectTest {
 
     @Test
     void shouldGetStringConfigWithEmpty() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThat(project.getStringConfig("apero")).isEmpty();
     }
 
     @Test
     void shouldNotGetStringConfig() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig("apero", List.of("beer"));
 
@@ -235,7 +248,7 @@ class ProjectTest {
 
     @Test
     void shouldGetIntegerConfig() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig("serverPort", 1337);
 
@@ -244,14 +257,14 @@ class ProjectTest {
 
     @Test
     void shouldGetIntegerConfigWithEmpty() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThat(project.getIntegerConfig("serverPort")).isEmpty();
     }
 
     @Test
     void shouldNotGetIntegerConfig() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig("serverPort", List.of(1337));
 

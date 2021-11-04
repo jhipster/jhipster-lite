@@ -1,7 +1,7 @@
-package tech.jhipster.forge.generator.buildtool.application;
+package tech.jhipster.forge.generator.buildtool.maven.application;
 
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.buildtool.application.MavenAssertFiles.*;
+import static tech.jhipster.forge.generator.buildtool.maven.application.MavenAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;

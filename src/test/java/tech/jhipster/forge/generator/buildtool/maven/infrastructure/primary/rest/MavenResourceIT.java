@@ -1,9 +1,9 @@
-package tech.jhipster.forge.generator.buildtool.infrastructure.primary.rest;
+package tech.jhipster.forge.generator.buildtool.maven.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
-import static tech.jhipster.forge.generator.buildtool.application.MavenAssertFiles.*;
+import static tech.jhipster.forge.generator.buildtool.maven.application.MavenAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;

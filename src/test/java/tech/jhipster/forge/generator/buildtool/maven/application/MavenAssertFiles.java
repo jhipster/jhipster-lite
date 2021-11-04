@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.buildtool.application;
+package tech.jhipster.forge.generator.buildtool.maven.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileExist;
 

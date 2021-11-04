@@ -1,7 +1,7 @@
 package tech.jhipster.forge.generator.server.springboot.database.psql.application;
 
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.buildtool.domain.maven.MavenDomainService.POM_XML;
+import static tech.jhipster.forge.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.BASE_NAME;
@@ -13,11 +13,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.generator.buildtool.application.MavenApplicationService;
+import tech.jhipster.forge.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.forge.generator.init.application.InitApplicationService;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.server.springboot.core.application.SpringBootApplicationService;
-import tech.jhipster.forge.generator.server.springboot.database.psql.application.PsqlApplicationService;
 
 @IntegrationTest
 class PsqlApplicationServiceIT {

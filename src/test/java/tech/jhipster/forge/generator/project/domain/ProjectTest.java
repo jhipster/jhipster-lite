@@ -3,18 +3,19 @@ package tech.jhipster.forge.generator.project.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.tmpProjectDomain;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.*;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.tmpDirForTest;
 import static tech.jhipster.forge.generator.project.domain.BuildToolType.GRADLE;
 import static tech.jhipster.forge.generator.project.domain.BuildToolType.MAVEN;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.forge.generator.project.domain.Language.JAVA;
 
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import tech.jhipster.forge.TestUtils;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
@@ -279,8 +280,7 @@ class ProjectTest {
   @Test
   void shouldBeMavenProject() throws Exception {
     Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(MAVEN).build();
-    FileUtils.createFolder(project.getFolder());
-    Files.copy(getPathOf("src/test/resources/template/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
+    TestUtils.copyPomXml(project);
 
     assertThat(project.isMavenProject()).isTrue();
   }
@@ -302,8 +302,7 @@ class ProjectTest {
   @Test
   void shouldBeGradleProject() throws Exception {
     Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(GRADLE).build();
-    FileUtils.createFolder(project.getFolder());
-    Files.copy(getPathOf("src/test/resources/template/gradle/build.test.gradle"), getPathOf(project.getFolder(), "build.gradle"));
+    TestUtils.copyBuildGradle(project);
 
     assertThat(project.isGradleProject()).isTrue();
   }

@@ -14,7 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.TestUtils;
-import tech.jhipster.forge.generator.buildtool.application.MavenApplicationService;
+import tech.jhipster.forge.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.forge.generator.init.application.InitApplicationService;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;

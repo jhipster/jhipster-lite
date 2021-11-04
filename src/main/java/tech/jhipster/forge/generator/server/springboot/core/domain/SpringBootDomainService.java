@@ -10,7 +10,7 @@ import static tech.jhipster.forge.generator.server.springboot.core.domain.Spring
 import java.io.File;
 import java.io.IOException;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
+import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.forge.generator.common.domain.FileUtils;
 import tech.jhipster.forge.generator.common.domain.WordUtils;
 import tech.jhipster.forge.generator.project.domain.Dependency;

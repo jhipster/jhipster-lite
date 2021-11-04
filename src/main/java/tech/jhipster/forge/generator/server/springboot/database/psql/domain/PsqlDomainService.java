@@ -8,7 +8,7 @@ import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
+import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;

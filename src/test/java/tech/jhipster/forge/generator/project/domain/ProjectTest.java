@@ -3,11 +3,13 @@ package tech.jhipster.forge.generator.project.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.tmpProjectDomain;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.common.domain.FileUtils.*;
+import static tech.jhipster.forge.generator.project.domain.BuildToolType.GRADLE;
 import static tech.jhipster.forge.generator.project.domain.BuildToolType.MAVEN;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.forge.generator.project.domain.Language.JAVA;
 
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -272,5 +274,51 @@ class ProjectTest {
         .isExactlyInstanceOf(UnauthorizedValueException.class)
         .hasMessageContaining("serverPort");
     }
+  }
+
+  @Test
+  void shouldBeMavenProject() throws Exception {
+    Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(MAVEN).build();
+    FileUtils.createFolder(project.getFolder());
+    Files.copy(getPathOf("src/test/resources/template/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
+
+    assertThat(project.isMavenProject()).isTrue();
+  }
+
+  @Test
+  void shouldNotBeMavenProjectWithGradle() {
+    Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(GRADLE).build();
+
+    assertThat(project.isMavenProject()).isFalse();
+  }
+
+  @Test
+  void shouldNotBeMavenProjectWithoutBuildTool() {
+    Project project = Project.builder().folder(tmpDirForTest()).build();
+
+    assertThat(project.isMavenProject()).isFalse();
+  }
+
+  @Test
+  void shouldBeGradleProject() throws Exception {
+    Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(GRADLE).build();
+    FileUtils.createFolder(project.getFolder());
+    Files.copy(getPathOf("src/test/resources/template/gradle/build.test.gradle"), getPathOf(project.getFolder(), "build.gradle"));
+
+    assertThat(project.isGradleProject()).isTrue();
+  }
+
+  @Test
+  void shouldNotBeGradleProjectWithMaven() {
+    Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(MAVEN).build();
+
+    assertThat(project.isGradleProject()).isFalse();
+  }
+
+  @Test
+  void shouldNotBeGradleProjectWithoutBuildTool() {
+    Project project = Project.builder().folder(tmpDirForTest()).build();
+
+    assertThat(project.isGradleProject()).isFalse();
   }
 }

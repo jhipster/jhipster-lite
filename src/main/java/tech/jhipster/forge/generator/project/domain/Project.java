@@ -1,5 +1,6 @@
 package tech.jhipster.forge.generator.project.domain;
 
+import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import tech.jhipster.forge.error.domain.Assert;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
+import tech.jhipster.forge.generator.common.domain.FileUtils;
 
 public class Project {
 
@@ -107,6 +109,14 @@ public class Project {
   private void validateConfig() {
     getBaseName().ifPresent(CheckConfig::validBaseName);
     getPackageName().ifPresent(CheckConfig::validPackageName);
+  }
+
+  public boolean isMavenProject() {
+    return FileUtils.exists(getPath(getFolder(), "pom.xml"));
+  }
+
+  public boolean isGradleProject() {
+    return FileUtils.exists(getPath(getFolder(), "build.gradle"));
   }
 
   public static class ProjectBuilder {

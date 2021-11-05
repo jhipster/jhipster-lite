@@ -18,9 +18,6 @@ class DependencyAddedConsumerIT {
   @Autowired
   ApplicationEventPublisher publisher;
 
-  @Autowired
-  DependencyAddedConsumer consumer;
-
   @Test
   void shouldAddDependency() throws Exception {
     // Given

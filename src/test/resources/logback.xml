@@ -13,6 +13,9 @@
   <logger name="org.apache.catalina" level="ERROR"/>
   <logger name="springfox" level="WARN"/>
   <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="INFO"/>
+  <logger name="Validator" level="INFO"/>
+  <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="INFO"/>
+  <logger name="org.apache.tomcat.util.IntrospectionUtils" level="INFO"/>
 
   <root>
     <level>WARN</level>

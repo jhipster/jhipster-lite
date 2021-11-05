@@ -74,8 +74,8 @@ public class TestUtils {
     return tmpProjectBuilder().build();
   }
 
-  public static tech.jhipster.forge.generator.project.domain.Project tmpProjectDomain() {
-    return tech.jhipster.forge.generator.project.domain.Project.builder().folder(FileUtils.tmpDirForTest()).build();
+  public static Project tmpProjectDomain() {
+    return Project.builder().folder(FileUtils.tmpDirForTest()).build();
   }
 
   public static Project tmpProjectWithPomXml() throws IOException {

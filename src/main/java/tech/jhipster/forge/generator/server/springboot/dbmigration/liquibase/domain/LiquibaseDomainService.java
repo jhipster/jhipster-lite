@@ -3,7 +3,7 @@ package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.do
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
 
-import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
+import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;

@@ -80,9 +80,24 @@ public class TestUtils {
 
   public static Project tmpProjectWithPomXml() throws IOException {
     Project project = tmpProject();
+    copyPomXml(project);
+    return project;
+  }
+
+  public static Project tmpProjectWithBuildGradle() throws IOException {
+    Project project = tmpProject();
+    copyBuildGradle(project);
+    return project;
+  }
+
+  public static void copyPomXml(Project project) throws IOException {
     FileUtils.createFolder(project.getFolder());
     Files.copy(getPathOf("src/test/resources/template/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
-    return project;
+  }
+
+  public static void copyBuildGradle(Project project) throws IOException {
+    FileUtils.createFolder(project.getFolder());
+    Files.copy(getPathOf("src/test/resources/template/gradle/build.test.gradle"), getPathOf(project.getFolder(), "build.gradle"));
   }
 
   private static final ObjectMapper mapper = createObjectMapper();

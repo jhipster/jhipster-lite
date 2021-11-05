@@ -1,9 +1,9 @@
-package tech.jhipster.forge.generator.buildtool.infrastructure.beans;
+package tech.jhipster.forge.generator.buildtool.maven.infrastructure.beans;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.forge.generator.buildtool.domain.maven.MavenDomainService;
-import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
+import tech.jhipster.forge.generator.buildtool.maven.domain.MavenDomainService;
+import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 
 @Configuration

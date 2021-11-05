@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.buildtool.domain.maven;
+package tech.jhipster.forge.generator.buildtool.maven.domain.maven;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.GeneratorException;
+import tech.jhipster.forge.generator.buildtool.maven.domain.MavenDomainService;
 import tech.jhipster.forge.generator.common.domain.FileUtils;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Parent;

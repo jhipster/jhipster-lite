@@ -1,10 +1,11 @@
-package tech.jhipster.forge.generator.buildtool.domain.maven;
+package tech.jhipster.forge.generator.buildtool.maven.domain.maven;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
+import tech.jhipster.forge.generator.buildtool.maven.domain.Maven;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Parent;
 import tech.jhipster.forge.generator.project.domain.Plugin;

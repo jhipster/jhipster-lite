@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.project.domain.event;
+package tech.jhipster.forge.generator.project.domain.added;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;

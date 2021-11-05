@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.project.domain.event;
+package tech.jhipster.forge.generator.project.domain.added;
 
 import java.util.List;
 import tech.jhipster.forge.error.domain.Assert;

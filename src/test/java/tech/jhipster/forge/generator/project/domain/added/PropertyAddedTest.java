@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.project.domain.event;
+package tech.jhipster.forge.generator.project.domain.added;
 
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.forge.TestUtils.tmpProject;

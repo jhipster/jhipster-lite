@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.server.application;
+package tech.jhipster.forge.generator.server.springboot.web.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
@@ -14,7 +14,6 @@ import tech.jhipster.forge.generator.buildtool.application.MavenApplicationServi
 import tech.jhipster.forge.generator.init.application.InitApplicationService;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.server.springboot.core.application.SpringBootApplicationService;
-import tech.jhipster.forge.generator.server.springboot.web.application.SpringBootWebApplicationService;
 
 @IntegrationTest
 class SpringBootWebApplicationServiceIT {

@@ -21,55 +21,68 @@ import tech.jhipster.forge.generator.common.domain.FileUtils;
 @UnitTest
 class ProjectTest {
 
-  @Test
-  void shouldBuildMinimalProject() {
-    String folder = FileUtils.tmpDir();
+  @Nested
+  class Build {
 
-    Project project = Project.builder().folder(folder).build();
+    @Test
+    void shouldBuildMinimalProject() {
+      String folder = FileUtils.tmpDir();
 
-    assertThat(project.getFolder()).isEqualTo(folder);
+      Project project = Project.builder().folder(folder).build();
 
-    assertThat(project.getLanguage()).isEmpty();
-    assertThat(project.getBuildTool()).isEmpty();
-    assertThat(project.getServer()).isEmpty();
-    assertThat(project.getClient()).isEmpty();
-    assertThat(project.getConfig()).isEmpty();
-  }
+      assertThat(project.getFolder()).isEqualTo(folder);
 
-  @Test
-  void shouldBuildFullProject() {
-    String folder = FileUtils.tmpDir();
+      assertThat(project.getLanguage()).isEmpty();
+      assertThat(project.getBuildTool()).isEmpty();
+      assertThat(project.getServer()).isEmpty();
+      assertThat(project.getClient()).isEmpty();
+      assertThat(project.getConfig()).isEmpty();
+    }
 
-    Project project = Project
-      .builder()
-      .folder(folder)
-      .language(JAVA)
-      .buildTool(MAVEN)
-      .server(new Server(ServerFramework.SPRING))
-      .client(new Client(ClientFramework.ANGULAR))
-      .config(Map.of(PROJECT_NAME, "JHipster Forge"))
-      .build();
+    @Test
+    void shouldBuildWithNullConfig() {
+      String path = FileUtils.tmpDirForTest();
+      Project project = Project.builder().folder(path).config(null).build();
 
-    assertThat(project.getFolder()).isEqualTo(folder);
-    assertThat(project.getLanguage()).contains(JAVA);
-    assertThat(project.getBuildTool()).contains(MAVEN);
-    assertThat(project.getServer()).contains(new Server(ServerFramework.SPRING));
-    assertThat(project.getClient()).contains(new Client(ClientFramework.ANGULAR));
-    assertThat(project.getConfig()).isEqualTo(Map.of(PROJECT_NAME, "JHipster Forge"));
-  }
+      assertThat(project.getFolder()).isEqualTo(path);
+      assertThat(project.getConfig()).isEqualTo(Map.of());
+    }
 
-  @Test
-  void shouldNotBuildWithNullFolder() {
-    Project.ProjectBuilder builder = Project.builder().folder(null);
+    @Test
+    void shouldBuildFullProject() {
+      String folder = FileUtils.tmpDir();
 
-    assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
-  }
+      Project project = Project
+        .builder()
+        .folder(folder)
+        .language(JAVA)
+        .buildTool(MAVEN)
+        .server(new Server(ServerFramework.SPRING))
+        .client(new Client(ClientFramework.ANGULAR))
+        .config(Map.of(PROJECT_NAME, "JHipster Forge"))
+        .build();
 
-  @Test
-  void shouldNotBuildWithBlankPath() {
-    Project.ProjectBuilder builder = Project.builder().folder(" ");
+      assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getLanguage()).contains(JAVA);
+      assertThat(project.getBuildTool()).contains(MAVEN);
+      assertThat(project.getServer()).contains(new Server(ServerFramework.SPRING));
+      assertThat(project.getClient()).contains(new Client(ClientFramework.ANGULAR));
+      assertThat(project.getConfig()).isEqualTo(Map.of(PROJECT_NAME, "JHipster Forge"));
+    }
 
-    assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
+    @Test
+    void shouldNotBuildWithNullFolder() {
+      Project.ProjectBuilder builder = Project.builder().folder(null);
+
+      assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
+    }
+
+    @Test
+    void shouldNotBuildWithBlankPath() {
+      Project.ProjectBuilder builder = Project.builder().folder(" ");
+
+      assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
+    }
   }
 
   @Nested

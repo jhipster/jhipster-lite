@@ -3,7 +3,7 @@ package tech.jhipster.forge.generator.init.infrastructure.primary.rest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
-import static tech.jhipster.forge.generator.server.application.InitAssertFiles.assertFilesInit;
+import static tech.jhipster.forge.generator.init.application.InitAssertFiles.assertFilesInit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

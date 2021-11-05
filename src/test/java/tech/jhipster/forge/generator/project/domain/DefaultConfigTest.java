@@ -1,12 +1,11 @@
-package tech.jhipster.forge.generator.server.domain.core;
+package tech.jhipster.forge.generator.project.domain;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PROJECT_NAME;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.generator.project.domain.DefaultConfig;
 
 @UnitTest
 class DefaultConfigTest {

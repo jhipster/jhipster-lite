@@ -1,0 +1,83 @@
+package tech.jhipster.forge.generator.project.infrastructure.secondary;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static tech.jhipster.forge.TestUtils.tmpProject;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import tech.jhipster.forge.UnitTest;
+import tech.jhipster.forge.generator.project.domain.Dependency;
+import tech.jhipster.forge.generator.project.domain.Parent;
+import tech.jhipster.forge.generator.project.domain.Plugin;
+import tech.jhipster.forge.generator.project.domain.added.DependencyAdded;
+import tech.jhipster.forge.generator.project.domain.added.ParentAdded;
+import tech.jhipster.forge.generator.project.domain.added.PluginAdded;
+import tech.jhipster.forge.generator.project.domain.added.PropertyAdded;
+
+@UnitTest
+@ExtendWith(SpringExtension.class)
+class BuildToolProducerTest {
+
+  @Mock
+  ApplicationEventPublisher publisher;
+
+  @InjectMocks
+  BuildToolProducer buildToolProducer;
+
+  @Test
+  void shouldAddParent() {
+    buildToolProducer.addParent(tmpProject(), getParent());
+
+    verify(publisher).publishEvent(any(ParentAdded.class));
+  }
+
+  @Test
+  void shouldAddDependency() {
+    buildToolProducer.addDependency(tmpProject(), getDependency());
+
+    verify(publisher).publishEvent(any(DependencyAdded.class));
+  }
+
+  @Test
+  void shouldAddDependencyWithExclusions() {
+    buildToolProducer.addDependency(tmpProject(), getDependency(), getExclusions());
+
+    verify(publisher).publishEvent(any(DependencyAdded.class));
+  }
+
+  @Test
+  void shouldAddPlugin() {
+    buildToolProducer.addPlugin(tmpProject(), getPlugin());
+
+    verify(publisher).publishEvent(any(PluginAdded.class));
+  }
+
+  @Test
+  void shouldAddProperty() {
+    buildToolProducer.addProperty(tmpProject(), "testcontainers", "1.16.0");
+
+    verify(publisher).publishEvent(any(PropertyAdded.class));
+  }
+
+  private Parent getParent() {
+    return Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+  }
+
+  private Dependency getDependency() {
+    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
+  }
+
+  private List<Dependency> getExclusions() {
+    return List.of(Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-tomcat").build());
+  }
+
+  private Plugin getPlugin() {
+    return Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+  }
+}

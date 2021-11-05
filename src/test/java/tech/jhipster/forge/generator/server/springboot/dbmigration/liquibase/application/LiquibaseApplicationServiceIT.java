@@ -3,8 +3,8 @@ package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.ap
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.generator.buildtool.domain.maven.MavenDomainService.POM_XML;
-import static tech.jhipster.forge.generator.server.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
-import static tech.jhipster.forge.generator.server.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
+import static tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
+import static tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,6 @@ import tech.jhipster.forge.generator.buildtool.domain.maven.MavenService;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
 import tech.jhipster.forge.generator.server.springboot.database.psql.domain.PsqlService;
-import tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application.LiquibaseApplicationService;
 
 @IntegrationTest
 class LiquibaseApplicationServiceIT {

@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.server.application;
+package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileExist;
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;

@@ -32,11 +32,11 @@ class AnnotationArchTest {
 
   @Test
   void shouldHaveIntegrationTestAnnotation() {
-    JavaClasses importedClasses = new ClassFileImporter().importPackages("com.araxxe.ump.shared");
+    JavaClasses importedClasses = new ClassFileImporter().importPackages("tech.jhipster.forge");
 
     ArchRule rule = classes()
       .that()
-      .resideInAnyPackage("com.araxxe.ump.shared..")
+      .resideInAnyPackage("tech.jhipster.forge..")
       .and()
       .haveSimpleNameEndingWith("IT")
       .should()

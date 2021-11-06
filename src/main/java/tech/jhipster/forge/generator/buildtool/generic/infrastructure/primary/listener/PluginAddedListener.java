@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.buildtool.generic.infrastructure.primary.consumer;
+package tech.jhipster.forge.generator.buildtool.generic.infrastructure.primary.listener;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.PayloadApplicationEvent;
@@ -7,11 +7,11 @@ import tech.jhipster.forge.generator.buildtool.generic.application.BuildToolAppl
 import tech.jhipster.forge.generator.project.domain.added.PluginAdded;
 
 @Component
-public class PluginAddedConsumer implements ApplicationListener<PayloadApplicationEvent<PluginAdded>> {
+public class PluginAddedListener implements ApplicationListener<PayloadApplicationEvent<PluginAdded>> {
 
   private final BuildToolApplicationService buildToolApplicationService;
 
-  public PluginAddedConsumer(BuildToolApplicationService buildToolApplicationService) {
+  public PluginAddedListener(BuildToolApplicationService buildToolApplicationService) {
     this.buildToolApplicationService = buildToolApplicationService;
   }
 

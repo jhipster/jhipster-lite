@@ -1,10 +1,10 @@
-package tech.jhipster.forge.generator.common.domain;
+package tech.jhipster.forge.common.domain;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.forge.TestUtils.assertFileNotExist;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 
 import java.io.File;
 import java.io.IOException;

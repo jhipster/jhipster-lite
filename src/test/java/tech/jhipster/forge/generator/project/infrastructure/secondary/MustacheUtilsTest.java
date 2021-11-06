@@ -8,7 +8,7 @@ import com.github.mustachejava.MustacheNotFoundException;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.common.domain.FileUtils;
 
 @UnitTest
 class MustacheUtilsTest {

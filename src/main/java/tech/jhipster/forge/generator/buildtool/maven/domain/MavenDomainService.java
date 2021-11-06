@@ -1,16 +1,16 @@
 package tech.jhipster.forge.generator.buildtool.maven.domain;
 
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.read;
+import static tech.jhipster.forge.common.domain.WordUtils.indent;
 import static tech.jhipster.forge.generator.buildtool.maven.domain.Maven.*;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.read;
-import static tech.jhipster.forge.generator.common.domain.WordUtils.indent;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
 
 import java.io.IOException;
 import java.util.List;
+import tech.jhipster.forge.common.domain.FileUtils;
+import tech.jhipster.forge.common.domain.WordUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.common.domain.FileUtils;
-import tech.jhipster.forge.generator.common.domain.WordUtils;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Parent;
 import tech.jhipster.forge.generator.project.domain.Plugin;

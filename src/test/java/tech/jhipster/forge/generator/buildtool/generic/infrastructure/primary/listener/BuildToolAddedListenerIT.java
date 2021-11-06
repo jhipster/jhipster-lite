@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.generator.project.domain.BuildToolType;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.added.BuildToolAdded;

@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.common.domain;
+package tech.jhipster.forge.common.domain;
 
 import java.io.File;
 import java.io.IOException;

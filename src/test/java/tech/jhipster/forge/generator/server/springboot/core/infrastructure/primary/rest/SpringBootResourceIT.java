@@ -4,7 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.assertFileExist;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.forge.common.domain.FileUtils.tmpDirForTest;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;

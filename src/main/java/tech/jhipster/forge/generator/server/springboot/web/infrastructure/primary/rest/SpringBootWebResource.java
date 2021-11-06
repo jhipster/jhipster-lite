@@ -15,7 +15,7 @@ import tech.jhipster.forge.generator.server.springboot.web.application.SpringBoo
 @RestController
 @RequestMapping("/api/servers/spring-boot/web")
 @Api(tags = "Spring Boot Web")
-public class SpringBootWebResource {
+class SpringBootWebResource {
 
   private final SpringBootWebApplicationService springBootWebApplicationService;
 

@@ -15,7 +15,7 @@ import tech.jhipster.forge.generator.server.springboot.core.application.SpringBo
 @RestController
 @RequestMapping("/api/servers/spring-boot")
 @Api(tags = "Spring Boot")
-public class SpringBootResource {
+class SpringBootResource {
 
   private final SpringBootApplicationService springBootApplicationService;
 

@@ -15,7 +15,7 @@ import tech.jhipster.forge.generator.server.springboot.database.psql.application
 @RestController
 @RequestMapping("/api/databases/psql")
 @Api(tags = "PostgreSQL")
-public class PsqlResource {
+class PsqlResource {
 
   private final PsqlApplicationService psqlApplicationService;
 

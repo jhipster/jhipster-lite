@@ -21,13 +21,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.forge.generator.common.domain.FileUtils;
-import tech.jhipster.forge.generator.project.domain.Dependency;
-import tech.jhipster.forge.generator.project.domain.Parent;
-import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.project.domain.Project;
-import tech.jhipster.forge.generator.project.domain.ProjectRepository;
+import tech.jhipster.forge.generator.project.domain.*;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -37,13 +32,13 @@ class SpringBootDomainServiceTest {
   ProjectRepository projectRepository;
 
   @Mock
-  MavenService mavenService;
+  BuildToolRepository buildToolRepository;
 
   SpringBootDomainService springBootDomainService;
 
   @BeforeEach
   void setUp() {
-    springBootDomainService = new SpringBootDomainService(projectRepository, mavenService);
+    springBootDomainService = new SpringBootDomainService(projectRepository, buildToolRepository);
   }
 
   @Test
@@ -52,9 +47,9 @@ class SpringBootDomainServiceTest {
 
     springBootDomainService.init(project);
 
-    verify(mavenService).addParent(any(Project.class), any(Parent.class));
-    verify(mavenService, times(3)).addDependency(any(Project.class), any(Dependency.class));
-    verify(mavenService).addPlugin(any(Project.class), any(Plugin.class));
+    verify(buildToolRepository).addParent(any(Project.class), any(Parent.class));
+    verify(buildToolRepository, times(3)).addDependency(any(Project.class), any(Dependency.class));
+    verify(buildToolRepository).addPlugin(any(Project.class), any(Plugin.class));
 
     // for application.properties
     verify(projectRepository, times(1)).template(any(Project.class), anyString(), anyString(), anyString());
@@ -68,7 +63,7 @@ class SpringBootDomainServiceTest {
 
     springBootDomainService.addSpringBootParent(project);
 
-    verify(mavenService).addParent(any(Project.class), any(Parent.class));
+    verify(buildToolRepository).addParent(any(Project.class), any(Parent.class));
   }
 
   @Test
@@ -77,7 +72,7 @@ class SpringBootDomainServiceTest {
 
     springBootDomainService.addSpringBootDependencies(project);
 
-    verify(mavenService, times(3)).addDependency(any(Project.class), any(Dependency.class));
+    verify(buildToolRepository, times(3)).addDependency(any(Project.class), any(Dependency.class));
   }
 
   @Test
@@ -86,7 +81,7 @@ class SpringBootDomainServiceTest {
 
     springBootDomainService.addSpringBootMavenPlugin(project);
 
-    verify(mavenService).addPlugin(any(Project.class), any(Plugin.class));
+    verify(buildToolRepository).addPlugin(any(Project.class), any(Plugin.class));
   }
 
   @Test

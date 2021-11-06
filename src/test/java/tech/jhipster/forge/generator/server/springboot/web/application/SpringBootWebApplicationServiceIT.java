@@ -4,10 +4,10 @@ import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.forge.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.forge.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 import static tech.jhipster.forge.generator.server.springboot.web.application.SpringBootWebAssertFiles.*;
 
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
@@ -55,6 +55,7 @@ class SpringBootWebApplicationServiceIT {
 
     assertFileContent(project, "pom.xml", springBootStarterWebDependency());
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
   }
 
   @Test
@@ -69,6 +70,7 @@ class SpringBootWebApplicationServiceIT {
 
     assertFileContent(project, "pom.xml", springBootStarterWebDependency());
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=7419");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
   }
 
   @Test
@@ -83,6 +85,7 @@ class SpringBootWebApplicationServiceIT {
 
     assertFileContent(project, "pom.xml", springBootStarterWebDependency());
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
   }
 
   @Test
@@ -97,6 +100,7 @@ class SpringBootWebApplicationServiceIT {
     assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
     assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
   }
 
   @Test
@@ -112,5 +116,6 @@ class SpringBootWebApplicationServiceIT {
     assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
     assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=1664");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
   }
 }

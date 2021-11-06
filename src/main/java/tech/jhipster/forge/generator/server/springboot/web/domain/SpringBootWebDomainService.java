@@ -30,7 +30,8 @@ public class SpringBootWebDomainService implements SpringBootWebService {
   public void addSpringBootWeb(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
     buildToolRepository.addDependency(project, dependency);
-    springBootService.addProperties(project, "server.port", getServerPort(project));
+    addServerPort(project);
+    addServerPortInTest(project);
   }
 
   @Override
@@ -41,7 +42,16 @@ public class SpringBootWebDomainService implements SpringBootWebService {
 
     buildToolRepository.addDependency(project, dependency, List.of(tomcat));
     buildToolRepository.addDependency(project, undertow);
+    addServerPort(project);
+    addServerPortInTest(project);
+  }
+
+  private void addServerPort(Project project) {
     springBootService.addProperties(project, "server.port", getServerPort(project));
+  }
+
+  private void addServerPortInTest(Project project) {
+    springBootService.addPropertiesTest(project, "server.port", 0);
   }
 
   private int getServerPort(Project project) {

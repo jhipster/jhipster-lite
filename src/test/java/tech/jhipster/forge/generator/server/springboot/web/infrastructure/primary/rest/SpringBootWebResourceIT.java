@@ -1,10 +1,12 @@
-package tech.jhipster.forge.generator.server.springboot.core.infrastructure.primary.rest;
+package tech.jhipster.forge.generator.server.springboot.web.infrastructure.primary.rest;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.assertFileExist;
 import static tech.jhipster.forge.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.forge.generator.server.springboot.web.application.SpringBootWebAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,7 @@ import tech.jhipster.forge.generator.server.springboot.core.application.SpringBo
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class SpringBootResourceIT {
+class SpringBootWebResourceIT {
 
   @Autowired
   InitApplicationService initApplicationService;
@@ -37,30 +39,54 @@ class SpringBootResourceIT {
   MockMvc mockMvc;
 
   @Test
-  void shouldAddSpringBoot() throws Exception {
+  void shouldAddSpringBootWeb() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).path(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/servers/spring-boot/web/tomcat")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getPath();
     assertFileExist(projectPath, "pom.xml");
-    assertFileContent(projectPath, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
     assertFileContent(
       projectPath,
       "pom.xml",
-      List.of("<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-starter</artifactId>")
+      List.of("<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-starter-web</artifactId>")
     );
+    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
 
-    assertFileExist(project, "src/main/java/tech/jhipster/chips/ChipsApp.java");
-    assertFileExist(project, "src/test/java/tech/jhipster/chips/ChipsAppIT.java");
+    assertFileContent(projectPath, "src/main/resources/config/application.properties", "server.port=8080");
+  }
 
-    assertFileExist(project, "src/main/resources/config/application.properties");
+  @Test
+  void shouldAddSpringBootUndertow() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).path(tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/web/undertow")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    String projectPath = projectDTO.getPath();
+    assertFileExist(projectPath, "pom.xml");
+    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
+    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+
+    assertFileContent(projectPath, "src/main/resources/config/application.properties", "server.port=8080");
   }
 }

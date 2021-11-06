@@ -9,12 +9,16 @@ import tech.jhipster.forge.generator.project.domain.Project;
 public class LiquibaseAssertFiles {
 
   public static void assertFilesLiquibaseJava(Project project) {
-    String liquibasePath = getPath(MAIN_JAVA, "com/mycompany/myapp/technical/secondary/liquibase");
+    String liquibasePath = getPath(MAIN_JAVA, project.getPackageNamePath().orElse("com/mycompany/myapp"), "technical/secondary/liquibase");
     assertFileExist(project, getPath(liquibasePath, "AsyncSpringLiquibase.java"));
     assertFileExist(project, getPath(liquibasePath, "LiquibaseConfiguration.java"));
     assertFileExist(project, getPath(liquibasePath, "SpringLiquibaseUtil.java"));
 
-    String liquibaseTestPath = getPath(TEST_JAVA, "com/mycompany/myapp/technical/secondary/liquibase");
+    String liquibaseTestPath = getPath(
+      TEST_JAVA,
+      project.getPackageNamePath().orElse("com/mycompany/myapp"),
+      "technical/secondary/liquibase"
+    );
     assertFileExist(project, getPath(liquibaseTestPath, "AsyncSpringLiquibaseTest.java"));
     assertFileExist(project, getPath(liquibaseTestPath, "LiquibaseConfigurationIT.java"));
     assertFileExist(project, getPath(liquibaseTestPath, "LogbackRecorder.java"));

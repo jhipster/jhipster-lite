@@ -37,8 +37,11 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   @Override
   public void addLiquibase(Project project) {
-    Dependency dependency = Dependency.builder().groupId("org.liquibase").artifactId("liquibase-core").build();
-    buildToolRepository.addDependency(project, dependency);
+    Dependency liquibaseDependency = Dependency.builder().groupId("org.liquibase").artifactId("liquibase-core").build();
+    buildToolRepository.addDependency(project, liquibaseDependency);
+
+    Dependency h2dependency = Dependency.builder().groupId("com.h2database").artifactId("h2").scope("test").build();
+    buildToolRepository.addDependency(project, h2dependency);
   }
 
   @Override

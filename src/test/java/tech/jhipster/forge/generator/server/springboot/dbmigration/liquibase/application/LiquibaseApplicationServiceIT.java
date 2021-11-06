@@ -44,6 +44,11 @@ class LiquibaseApplicationServiceIT {
       POM_XML,
       List.of("<dependency>", "<groupId>org.liquibase</groupId>", "<artifactId>liquibase-core</artifactId>", "</dependency>")
     );
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of("<dependency>", "<groupId>com.h2database</groupId>", "<artifactId>h2</artifactId>", "<scope>test</scope>", "</dependency>")
+    );
     assertFilesLiquibaseChangelogMasterXml(project);
     assertFilesLiquibaseJava(project);
   }

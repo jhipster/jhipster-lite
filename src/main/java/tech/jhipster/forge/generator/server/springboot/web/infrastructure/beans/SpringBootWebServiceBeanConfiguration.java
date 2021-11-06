@@ -2,7 +2,6 @@ package tech.jhipster.forge.generator.server.springboot.web.infrastructure.beans
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
 import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
 import tech.jhipster.forge.generator.server.springboot.web.domain.SpringBootWebDomainService;

@@ -10,11 +10,11 @@ import tech.jhipster.forge.generator.project.domain.added.PluginAdded;
 import tech.jhipster.forge.generator.project.domain.added.PropertyAdded;
 
 @Component
-public class BuildToolProducer implements BuildToolRepository {
+public class BuildToolPublisher implements BuildToolRepository {
 
   private final ApplicationEventPublisher publisher;
 
-  public BuildToolProducer(ApplicationEventPublisher publisher) {
+  public BuildToolPublisher(ApplicationEventPublisher publisher) {
     this.publisher = publisher;
   }
 

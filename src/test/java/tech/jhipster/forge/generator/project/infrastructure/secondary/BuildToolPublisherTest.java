@@ -22,45 +22,45 @@ import tech.jhipster.forge.generator.project.domain.added.PropertyAdded;
 
 @UnitTest
 @ExtendWith(SpringExtension.class)
-class BuildToolProducerTest {
+class BuildToolPublisherTest {
 
   @Mock
   ApplicationEventPublisher publisher;
 
   @InjectMocks
-  BuildToolProducer buildToolProducer;
+  BuildToolPublisher buildToolPublisher;
 
   @Test
   void shouldAddParent() {
-    buildToolProducer.addParent(tmpProject(), getParent());
+    buildToolPublisher.addParent(tmpProject(), getParent());
 
     verify(publisher).publishEvent(any(ParentAdded.class));
   }
 
   @Test
   void shouldAddDependency() {
-    buildToolProducer.addDependency(tmpProject(), getDependency());
+    buildToolPublisher.addDependency(tmpProject(), getDependency());
 
     verify(publisher).publishEvent(any(DependencyAdded.class));
   }
 
   @Test
   void shouldAddDependencyWithExclusions() {
-    buildToolProducer.addDependency(tmpProject(), getDependency(), getExclusions());
+    buildToolPublisher.addDependency(tmpProject(), getDependency(), getExclusions());
 
     verify(publisher).publishEvent(any(DependencyAdded.class));
   }
 
   @Test
   void shouldAddPlugin() {
-    buildToolProducer.addPlugin(tmpProject(), getPlugin());
+    buildToolPublisher.addPlugin(tmpProject(), getPlugin());
 
     verify(publisher).publishEvent(any(PluginAdded.class));
   }
 
   @Test
   void shouldAddProperty() {
-    buildToolProducer.addProperty(tmpProject(), "testcontainers", "1.16.0");
+    buildToolPublisher.addProperty(tmpProject(), "testcontainers", "1.16.0");
 
     verify(publisher).publishEvent(any(PropertyAdded.class));
   }

@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.in
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
+import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
 import tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.domain.LiquibaseDomainService;
@@ -12,21 +12,21 @@ import tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.dom
 public class LiquibaseServiceBeanConfiguration {
 
   public final ProjectRepository projectRepository;
-  public final MavenService mavenService;
+  public final BuildToolRepository buildToolRepository;
   public final SpringBootService springBootService;
 
   public LiquibaseServiceBeanConfiguration(
     ProjectRepository projectRepository,
-    MavenService mavenService,
+    BuildToolRepository buildToolRepository,
     SpringBootService springBootService
   ) {
     this.projectRepository = projectRepository;
-    this.mavenService = mavenService;
+    this.buildToolRepository = buildToolRepository;
     this.springBootService = springBootService;
   }
 
   @Bean
   public LiquibaseService liquibaseService() {
-    return new LiquibaseDomainService(projectRepository, mavenService, springBootService);
+    return new LiquibaseDomainService(projectRepository, buildToolRepository, springBootService);
   }
 }

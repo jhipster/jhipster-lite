@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.server.springboot.web.infrastructure.beans
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
+import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
 import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
 import tech.jhipster.forge.generator.server.springboot.web.domain.SpringBootWebDomainService;
 import tech.jhipster.forge.generator.server.springboot.web.domain.SpringBootWebService;
@@ -10,16 +10,16 @@ import tech.jhipster.forge.generator.server.springboot.web.domain.SpringBootWebS
 @Configuration
 public class SpringBootWebServiceBeanConfiguration {
 
-  public final MavenService mavenService;
+  public final BuildToolRepository buildToolRepository;
   public final SpringBootService springBootService;
 
-  public SpringBootWebServiceBeanConfiguration(MavenService mavenService, SpringBootService springBootService) {
-    this.mavenService = mavenService;
+  public SpringBootWebServiceBeanConfiguration(BuildToolRepository buildToolRepository, SpringBootService springBootService) {
+    this.buildToolRepository = buildToolRepository;
     this.springBootService = springBootService;
   }
 
   @Bean
   public SpringBootWebService springBootWebService() {
-    return new SpringBootWebDomainService(mavenService, springBootService);
+    return new SpringBootWebDomainService(buildToolRepository, springBootService);
   }
 }

@@ -10,25 +10,20 @@ import static tech.jhipster.forge.generator.server.springboot.core.domain.Spring
 import java.io.File;
 import java.io.IOException;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.forge.generator.common.domain.FileUtils;
 import tech.jhipster.forge.generator.common.domain.WordUtils;
-import tech.jhipster.forge.generator.project.domain.Dependency;
-import tech.jhipster.forge.generator.project.domain.Parent;
-import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.project.domain.Project;
-import tech.jhipster.forge.generator.project.domain.ProjectRepository;
+import tech.jhipster.forge.generator.project.domain.*;
 
 public class SpringBootDomainService implements SpringBootService {
 
   public static final String SOURCE = "springboot";
 
   private final ProjectRepository projectRepository;
-  private final MavenService mavenService;
+  private final BuildToolRepository buildToolRepository;
 
-  public SpringBootDomainService(ProjectRepository projectRepository, MavenService mavenService) {
+  public SpringBootDomainService(ProjectRepository projectRepository, BuildToolRepository buildToolRepository) {
     this.projectRepository = projectRepository;
-    this.mavenService = mavenService;
+    this.buildToolRepository = buildToolRepository;
   }
 
   @Override
@@ -86,7 +81,7 @@ public class SpringBootDomainService implements SpringBootService {
       .version((String) project.getConfig("springBootVersion").orElse(SpringBoot.SPRING_BOOT_VERSION))
       .build();
 
-    mavenService.addParent(project, parent);
+    buildToolRepository.addParent(project, parent);
   }
 
   @Override
@@ -96,10 +91,10 @@ public class SpringBootDomainService implements SpringBootService {
       .groupId("org.springframework.boot")
       .artifactId("spring-boot-starter")
       .build();
-    mavenService.addDependency(project, springBootStarterDependency);
+    buildToolRepository.addDependency(project, springBootStarterDependency);
 
     Dependency commonLangDependency = Dependency.builder().groupId("org.apache.commons").artifactId("commons-lang3").build();
-    mavenService.addDependency(project, commonLangDependency);
+    buildToolRepository.addDependency(project, commonLangDependency);
 
     Dependency springBootStarterTestDependency = Dependency
       .builder()
@@ -107,13 +102,13 @@ public class SpringBootDomainService implements SpringBootService {
       .artifactId("spring-boot-starter-test")
       .scope("test")
       .build();
-    mavenService.addDependency(project, springBootStarterTestDependency);
+    buildToolRepository.addDependency(project, springBootStarterTestDependency);
   }
 
   @Override
   public void addSpringBootMavenPlugin(Project project) {
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-    mavenService.addPlugin(project, plugin);
+    buildToolRepository.addPlugin(project, plugin);
   }
 
   @Override

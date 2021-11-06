@@ -3,7 +3,7 @@ package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.do
 import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
 
-import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
+import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
@@ -15,12 +15,16 @@ public class LiquibaseDomainService implements LiquibaseService {
   public static final String LIQUIBASE_PATH = "technical/secondary/liquibase";
 
   public final ProjectRepository projectRepository;
-  public final MavenService mavenService;
+  public final BuildToolRepository buildToolRepository;
   public final SpringBootService springBootService;
 
-  public LiquibaseDomainService(ProjectRepository projectRepository, MavenService mavenService, SpringBootService springBootService) {
+  public LiquibaseDomainService(
+    ProjectRepository projectRepository,
+    BuildToolRepository buildToolRepository,
+    SpringBootService springBootService
+  ) {
     this.projectRepository = projectRepository;
-    this.mavenService = mavenService;
+    this.buildToolRepository = buildToolRepository;
     this.springBootService = springBootService;
   }
 
@@ -34,7 +38,7 @@ public class LiquibaseDomainService implements LiquibaseService {
   @Override
   public void addLiquibase(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.liquibase").artifactId("liquibase-core").build();
-    mavenService.addDependency(project, dependency);
+    buildToolRepository.addDependency(project, dependency);
   }
 
   @Override

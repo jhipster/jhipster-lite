@@ -8,7 +8,7 @@ import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
+import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
 import tech.jhipster.forge.generator.project.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
@@ -19,12 +19,16 @@ public class PsqlDomainService implements PsqlService {
   public static final String SOURCE = "psql";
 
   private final ProjectRepository projectRepository;
-  private final MavenService mavenService;
+  private final BuildToolRepository buildToolRepository;
   private final SpringBootService springBootService;
 
-  public PsqlDomainService(ProjectRepository projectRepository, MavenService mavenService, SpringBootService springBootService) {
+  public PsqlDomainService(
+    ProjectRepository projectRepository,
+    BuildToolRepository buildToolRepository,
+    SpringBootService springBootService
+  ) {
     this.projectRepository = projectRepository;
-    this.mavenService = mavenService;
+    this.buildToolRepository = buildToolRepository;
     this.springBootService = springBootService;
   }
 
@@ -44,28 +48,28 @@ public class PsqlDomainService implements PsqlService {
   public void addSpringDataJpa(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-data-jpa").build();
 
-    mavenService.addDependency(project, dependency);
+    buildToolRepository.addDependency(project, dependency);
   }
 
   @Override
   public void addPostgreSQLDriver(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.postgresql").artifactId("postgresql").build();
 
-    mavenService.addDependency(project, dependency);
+    buildToolRepository.addDependency(project, dependency);
   }
 
   @Override
   public void addHikari(Project project) {
     Dependency dependency = Dependency.builder().groupId("com.zaxxer").artifactId("HikariCP").build();
 
-    mavenService.addDependency(project, dependency);
+    buildToolRepository.addDependency(project, dependency);
   }
 
   @Override
   public void addHibernateCore(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.hibernate").artifactId("hibernate-core").build();
 
-    mavenService.addDependency(project, dependency);
+    buildToolRepository.addDependency(project, dependency);
   }
 
   @Override
@@ -115,8 +119,8 @@ public class PsqlDomainService implements PsqlService {
       .version("\\${testcontainers.version}")
       .scope("test")
       .build();
-    mavenService.addProperty(project, "testcontainers", Psql.getTestcontainersVersion());
-    mavenService.addDependency(project, dependency);
+    buildToolRepository.addProperty(project, "testcontainers", Psql.getTestcontainersVersion());
+    buildToolRepository.addDependency(project, dependency);
 
     springPropertiesForTest(baseName).forEach((k, v) -> springBootService.addPropertiesTest(project, k, v));
   }

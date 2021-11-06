@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.io.IOException;
@@ -16,9 +16,9 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.forge.UnitTest;
+import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
-import tech.jhipster.forge.generator.common.domain.FileUtils;
 import tech.jhipster.forge.generator.project.domain.Project;
 
 @UnitTest

@@ -1,9 +1,9 @@
 package tech.jhipster.forge.generator.init.domain;
 
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
 
-import tech.jhipster.forge.generator.common.domain.WordUtils;
+import tech.jhipster.forge.common.domain.WordUtils;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 

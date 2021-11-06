@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.common.domain;
+package tech.jhipster.forge.common.domain;
 
 import com.google.common.base.CaseFormat;
 import tech.jhipster.forge.error.domain.Assert;

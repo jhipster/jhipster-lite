@@ -1,7 +1,7 @@
 package tech.jhipster.forge.generator.project.infrastructure.secondary;
 
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.forge.generator.project.domain.Constants.TEMPLATE_RESOURCES;
 
 import java.io.BufferedWriter;
@@ -12,9 +12,9 @@ import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.error.domain.Assert;
 import tech.jhipster.forge.error.domain.GeneratorException;
-import tech.jhipster.forge.generator.common.domain.FileUtils;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 

@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.server.springboot.core.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.*;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.forge.generator.project.domain.Constants.TEST_RESOURCES;
 

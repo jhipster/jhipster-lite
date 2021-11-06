@@ -3,8 +3,8 @@ package tech.jhipster.forge.generator.project.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.forge.TestUtils.tmpProjectDomain;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.tmpDirForTest;
 import static tech.jhipster.forge.generator.project.domain.BuildToolType.GRADLE;
 import static tech.jhipster.forge.generator.project.domain.BuildToolType.MAVEN;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.TestUtils;
 import tech.jhipster.forge.UnitTest;
+import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
-import tech.jhipster.forge.generator.common.domain.FileUtils;
 
 @UnitTest
 class ProjectTest {

@@ -1,6 +1,6 @@
 package tech.jhipster.forge.generator.server.javatool.error.domain;
 
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.forge.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;

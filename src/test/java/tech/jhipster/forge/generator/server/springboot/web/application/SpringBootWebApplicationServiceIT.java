@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.server.springboot.web.application;
 
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProject;
-import static tech.jhipster.forge.generator.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.forge.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 

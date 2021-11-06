@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.forge.UnitTest;
-import tech.jhipster.forge.generator.common.domain.FileUtils;
+import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.generator.project.domain.*;
 import tech.jhipster.forge.generator.project.domain.added.*;
 

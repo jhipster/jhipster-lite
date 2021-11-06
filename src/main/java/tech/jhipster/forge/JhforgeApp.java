@@ -29,8 +29,8 @@ public class JhforgeApp {
     log.info(
       "\n----------------------------------------------------------\n\t" +
       "Application '{}' is running! Access URLs:\n\t" +
-      "Local: \t\t{}://localhost:{}{}\n\t" +
-      "External: \t{}://{}:{}{}\n\t" +
+      "Local: \t\t{}://localhost:{}{}swagger-ui/\n\t" +
+      "External: \t{}://{}:{}{}swagger-ui/\n\t" +
       "Profile(s): \t{}\n----------------------------------------------------------",
       env.getProperty("spring.application.name"),
       protocol,

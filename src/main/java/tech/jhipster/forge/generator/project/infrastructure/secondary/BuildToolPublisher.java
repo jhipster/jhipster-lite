@@ -3,11 +3,9 @@ package tech.jhipster.forge.generator.project.infrastructure.secondary;
 import java.util.List;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import tech.jhipster.forge.error.domain.Assert;
 import tech.jhipster.forge.generator.project.domain.*;
-import tech.jhipster.forge.generator.project.domain.added.DependencyAdded;
-import tech.jhipster.forge.generator.project.domain.added.ParentAdded;
-import tech.jhipster.forge.generator.project.domain.added.PluginAdded;
-import tech.jhipster.forge.generator.project.domain.added.PropertyAdded;
+import tech.jhipster.forge.generator.project.domain.added.*;
 
 @Component
 public class BuildToolPublisher implements BuildToolRepository {
@@ -41,5 +39,10 @@ public class BuildToolPublisher implements BuildToolRepository {
   @Override
   public void addProperty(Project project, String key, String version) {
     publisher.publishEvent(PropertyAdded.of(project, key, version));
+  }
+
+  @Override
+  public void init(Project project) {
+    publisher.publishEvent(BuildToolAdded.of(project, project.getBuildTool().orElse(null)));
   }
 }

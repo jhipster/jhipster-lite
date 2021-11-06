@@ -71,6 +71,11 @@ class BuildToolDomainServiceTest {
       assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "1.16.0"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
+
+    @Test
+    void shouldNotInit() {
+      assertThatThrownBy(() -> buildToolDomainService.init(tmpProject())).isExactlyInstanceOf(GeneratorException.class);
+    }
   }
 
   @Nested
@@ -84,12 +89,6 @@ class BuildToolDomainServiceTest {
       buildToolDomainService.addParent(project, parent);
 
       verify(mavenService).addParent(project, parent);
-    }
-
-    private Project getMavenProject() throws IOException {
-      Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
-      TestUtils.copyPomXml(project);
-      return project;
     }
 
     @Test
@@ -134,6 +133,21 @@ class BuildToolDomainServiceTest {
       buildToolDomainService.addProperty(project, "testcontainers", "1.16.0");
 
       verify(mavenService).addProperty(project, "testcontainers", "1.16.0");
+    }
+
+    @Test
+    void shouldInit() {
+      Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
+
+      buildToolDomainService.init(project);
+
+      verify(mavenService).init(project);
+    }
+
+    private Project getMavenProject() throws IOException {
+      Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
+      TestUtils.copyPomXml(project);
+      return project;
     }
   }
 

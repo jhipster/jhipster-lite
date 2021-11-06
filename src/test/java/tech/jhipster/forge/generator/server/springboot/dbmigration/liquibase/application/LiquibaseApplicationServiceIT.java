@@ -1,7 +1,6 @@
 package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application;
 
-import static tech.jhipster.forge.TestUtils.assertFileContent;
-import static tech.jhipster.forge.TestUtils.tmpProject;
+import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
@@ -10,7 +9,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
+import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.project.domain.BuildToolType;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
 import tech.jhipster.forge.generator.server.springboot.database.psql.domain.PsqlService;
@@ -19,7 +19,7 @@ import tech.jhipster.forge.generator.server.springboot.database.psql.domain.Psql
 class LiquibaseApplicationServiceIT {
 
   @Autowired
-  MavenService mavenService;
+  BuildToolRepository buildToolRepository;
 
   @Autowired
   SpringBootService springBootService;
@@ -32,8 +32,8 @@ class LiquibaseApplicationServiceIT {
 
   @Test
   void shouldInit() {
-    Project project = tmpProject();
-    mavenService.init(project);
+    Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
+    buildToolRepository.init(project);
     springBootService.init(project);
     psqlService.init(project);
 
@@ -50,8 +50,8 @@ class LiquibaseApplicationServiceIT {
 
   @Test
   void shouldAddLiquibase() {
-    Project project = tmpProject();
-    mavenService.init(project);
+    Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
+    buildToolRepository.init(project);
 
     liquibaseApplicationService.addLiquibase(project);
 

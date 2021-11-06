@@ -36,4 +36,8 @@ public class BuildToolApplicationService {
   public void addProperty(Project project, String key, String version) {
     buildToolService.addProperty(project, key, version);
   }
+
+  public void init(Project project) {
+    buildToolService.init(project);
+  }
 }

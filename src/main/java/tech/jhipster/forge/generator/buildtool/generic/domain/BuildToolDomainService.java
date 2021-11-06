@@ -3,10 +3,7 @@ package tech.jhipster.forge.generator.buildtool.generic.domain;
 import java.util.List;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
-import tech.jhipster.forge.generator.project.domain.Dependency;
-import tech.jhipster.forge.generator.project.domain.Parent;
-import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.project.domain.Project;
+import tech.jhipster.forge.generator.project.domain.*;
 
 public class BuildToolDomainService implements BuildToolService {
 
@@ -52,6 +49,15 @@ public class BuildToolDomainService implements BuildToolService {
   public void addProperty(Project project, String key, String version) {
     if (project.isMavenProject()) {
       mavenService.addProperty(project, key, version);
+    } else {
+      throw new GeneratorException("No build tool");
+    }
+  }
+
+  @Override
+  public void init(Project project) {
+    if (BuildToolType.MAVEN == project.getBuildTool().orElse(null)) {
+      mavenService.init(project);
     } else {
       throw new GeneratorException("No build tool");
     }

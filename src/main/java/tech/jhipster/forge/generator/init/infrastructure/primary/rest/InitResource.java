@@ -15,7 +15,7 @@ import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectD
 @RestController
 @RequestMapping("/api/projects")
 @Api(tags = "Init")
-public class InitResource {
+class InitResource {
 
   private final InitApplicationService initApplicationService;
 

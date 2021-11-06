@@ -5,6 +5,7 @@ import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.forge.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
+import static tech.jhipster.forge.generator.server.springboot.web.application.SpringBootWebAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -111,38 +112,5 @@ class SpringBootWebApplicationServiceIT {
     assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
     assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=1664");
-  }
-
-  private List<String> springBootStarterWebDependency() {
-    return List.of(
-      "<dependency>",
-      "<groupId>org.springframework.boot</groupId>",
-      "<artifactId>spring-boot-starter-web</artifactId>",
-      "</dependency>"
-    );
-  }
-
-  private List<String> springBootStarterUndertowDependency() {
-    return List.of(
-      "<dependency>",
-      "<groupId>org.springframework.boot</groupId>",
-      "<artifactId>spring-boot-starter-undertow</artifactId>",
-      "</dependency>"
-    );
-  }
-
-  private List<String> springBootStarterWebWithoutTomcat() {
-    return List.of(
-      "<dependency>",
-      "<groupId>org.springframework.boot</groupId>",
-      "<artifactId>spring-boot-starter-web</artifactId>",
-      "<exclusions>",
-      "<exclusion>",
-      "<groupId>org.springframework.boot</groupId>",
-      "<artifactId>spring-boot-starter-tomcat</artifactId>",
-      "</exclusion>",
-      "</exclusions>",
-      "</dependency>"
-    );
   }
 }

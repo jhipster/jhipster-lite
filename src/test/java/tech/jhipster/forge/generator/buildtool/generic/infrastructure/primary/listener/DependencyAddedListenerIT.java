@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.buildtool.generic.infrastructure.primary.consumer;
+package tech.jhipster.forge.generator.buildtool.generic.infrastructure.primary.listener;
 
 import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
@@ -13,7 +13,7 @@ import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.added.DependencyAdded;
 
 @IntegrationTest
-class DependencyAddedConsumerIT {
+class DependencyAddedListenerIT {
 
   @Autowired
   ApplicationEventPublisher publisher;

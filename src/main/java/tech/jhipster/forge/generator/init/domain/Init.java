@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.init.domain;
 
 public class Init {
 
-  public static final String NODE_VERSION = "14.18.1";
+  public static final String NODE_VERSION = "16.13.0";
 
   private Init() {}
 

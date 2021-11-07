@@ -92,12 +92,12 @@ public class TestUtils {
 
   public static void copyPomXml(Project project) throws IOException {
     FileUtils.createFolder(project.getFolder());
-    Files.copy(getPathOf("src/test/resources/template/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
+    Files.copy(getPathOf("src/test/resources/template/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
   }
 
   public static void copyBuildGradle(Project project) throws IOException {
     FileUtils.createFolder(project.getFolder());
-    Files.copy(getPathOf("src/test/resources/template/gradle/build.test.gradle"), getPathOf(project.getFolder(), "build.gradle"));
+    Files.copy(getPathOf("src/test/resources/template/buildtool/gradle/build.test.gradle"), getPathOf(project.getFolder(), "build.gradle"));
   }
 
   private static final ObjectMapper mapper = createObjectMapper();

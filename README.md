@@ -3,7 +3,20 @@
 [![Build Status][github-actions-jhforge-image]][github-actions-url]
 [![Coverage Status][codecov-image]][codecov-url]
 
-## Node.js and NPM
+## Description
+
+JHipster Forge will help you to start your project:
+
+- init the project
+- add Maven as Build Tool
+- add Spring Boot as Server Framework
+- add Tomcat or Undertow as Server
+- add PostgreSQL as Database
+- add Liquibase as Database Migration Tool
+
+## Prerequisites
+
+### Node.js and NPM
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
 
@@ -17,7 +30,13 @@ You will only need to run this command when dependencies change in [package.json
 npm install
 ```
 
-## Maven
+### Java
+
+You need to have Java 17 :
+
+- [JDK 17](https://openjdk.java.net/projects/jdk/17/)
+
+## Test the project
 
 To launch tests:
 
@@ -30,6 +49,28 @@ To launch tests and integration tests:
 ```
 ./mvnw clean verify
 ```
+
+## Run the project
+
+You can run the project using Maven:
+
+```
+./mvnw spring-boot:run
+```
+
+Or, first, you can package as jar:
+
+```
+./mvnw package
+```
+
+Then, run:
+
+```
+java -jar target/*.jar
+```
+
+Then navigate to http://localhost:8080/swagger-ui/ in your browser.
 
 [github-actions-jhforge-image]: https://github.com/pascalgrimaud/jhipster-forge/workflows/build/badge.svg
 [github-actions-url]: https://github.com/pascalgrimaud/jhipster-forge/actions

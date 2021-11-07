@@ -11,7 +11,7 @@ import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootSer
 
 public class LiquibaseDomainService implements LiquibaseService {
 
-  public static final String SOURCE = "liquibase";
+  public static final String SOURCE = "server/springboot/dbmigration/liquibase";
   public static final String LIQUIBASE_PATH = "technical/secondary/liquibase";
 
   public final ProjectRepository projectRepository;

@@ -1,9 +1,0 @@
-{
-  "folder": "/tmp/jhforge-test/chips",
-  "generator-jhipster": {
-    "projectName": "Chips Project",
-    "baseName": "chips",
-    "prettierDefaultIndent": 2,
-    "packageName": "tech.jhipster.chips"
-  }
-}

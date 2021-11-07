@@ -26,7 +26,7 @@ class InitResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/init.json", ProjectDTO.class);
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
@@ -39,7 +39,7 @@ class InitResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
     assertFilesInit(project);
     assertFileContent(project, "README.md", "Chips Project");
-    assertFileContent(project, ".prettierrc", "tabWidth: 4");
+    assertFileContent(project, ".prettierrc", "tabWidth: 2");
     assertFileContent(project, "package.json", "chips");
   }
 }

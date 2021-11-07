@@ -40,7 +40,7 @@ class PsqlResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/maven.json", ProjectDTO.class);
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }

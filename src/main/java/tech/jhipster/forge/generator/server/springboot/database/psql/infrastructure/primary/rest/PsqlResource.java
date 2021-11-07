@@ -13,7 +13,7 @@ import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectD
 import tech.jhipster.forge.generator.server.springboot.database.psql.application.PsqlApplicationService;
 
 @RestController
-@RequestMapping("/api/databases/psql")
+@RequestMapping("/api/servers/spring-boot/databases/psql")
 @Api(tags = "PostgreSQL")
 class PsqlResource {
 

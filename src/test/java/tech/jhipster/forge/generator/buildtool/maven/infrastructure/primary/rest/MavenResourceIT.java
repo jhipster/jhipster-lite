@@ -31,7 +31,7 @@ class MavenResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.path(FileUtils.tmpDirForTest());
+    projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
       .perform(
@@ -50,7 +50,7 @@ class MavenResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.path(FileUtils.tmpDirForTest());
+    projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
       .perform(
@@ -71,7 +71,7 @@ class MavenResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.path(FileUtils.tmpDirForTest());
+    projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
       .perform(

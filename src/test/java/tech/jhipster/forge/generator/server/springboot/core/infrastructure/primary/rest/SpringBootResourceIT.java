@@ -38,7 +38,7 @@ class SpringBootResourceIT {
 
   @Test
   void shouldAddSpringBoot() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).path(tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
@@ -49,7 +49,7 @@ class SpringBootResourceIT {
       )
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getPath();
+    String projectPath = projectDTO.getFolder();
     assertFileExist(projectPath, "pom.xml");
     assertFileContent(projectPath, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
     assertFileContent(

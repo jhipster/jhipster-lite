@@ -30,7 +30,7 @@ class InitResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.path(FileUtils.tmpDirForTest());
+    projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
       .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))

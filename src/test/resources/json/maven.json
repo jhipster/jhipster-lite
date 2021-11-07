@@ -1,5 +1,5 @@
 {
-  "path": "/tmp/jhforge-test/chips",
+  "folder": "/tmp/jhforge-test/chips",
   "generator-jhipster": {
     "projectName": "Chips Project",
     "baseName": "chips",

@@ -1,6 +1,5 @@
 package tech.jhipster.forge.generator.server.springboot.web.infrastructure.primary.rest;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
@@ -40,7 +39,7 @@ class SpringBootWebResourceIT {
 
   @Test
   void shouldAddSpringBootWeb() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).path(tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
@@ -54,7 +53,7 @@ class SpringBootWebResourceIT {
       )
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getPath();
+    String projectPath = projectDTO.getFolder();
     assertFileExist(projectPath, "pom.xml");
     assertFileContent(
       projectPath,
@@ -68,7 +67,7 @@ class SpringBootWebResourceIT {
 
   @Test
   void shouldAddSpringBootUndertow() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).path(tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
@@ -82,7 +81,7 @@ class SpringBootWebResourceIT {
       )
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getPath();
+    String projectPath = projectDTO.getFolder();
     assertFileExist(projectPath, "pom.xml");
     assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
     assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());

@@ -39,7 +39,7 @@ class SpringBootWebResourceIT {
 
   @Test
   void shouldAddSpringBootWeb() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).folder(tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
@@ -67,7 +67,7 @@ class SpringBootWebResourceIT {
 
   @Test
   void shouldAddSpringBootUndertow() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/springboot.json", ProjectDTO.class).folder(tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);

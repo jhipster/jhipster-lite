@@ -89,7 +89,7 @@ class SpringBootDomainServiceTest {
     Project project = tmpProject();
     FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
     Files.copy(
-      getPathOf(TEST_RESOURCES, "template/springboot/application.test.properties"),
+      getPathOf(TEST_RESOURCES, "template/server/springboot/core/application.test.properties"),
       getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
     );
 
@@ -111,7 +111,7 @@ class SpringBootDomainServiceTest {
     Project project = tmpProject();
     FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
     Files.copy(
-      getPathOf(TEST_RESOURCES, "template/springboot/application.test.properties"),
+      getPathOf(TEST_RESOURCES, "template/server/springboot/core/application.test.properties"),
       getPathOf(project.getFolder(), TEST_RESOURCES, "config", APPLICATION_PROPERTIES)
     );
 

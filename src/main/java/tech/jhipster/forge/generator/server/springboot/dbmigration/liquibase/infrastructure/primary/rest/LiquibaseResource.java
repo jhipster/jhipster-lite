@@ -13,7 +13,7 @@ import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectD
 import tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application.LiquibaseApplicationService;
 
 @RestController
-@RequestMapping("/api/servers/springboot/dbmigration/liquibase")
+@RequestMapping("/api/servers/spring-boot/dbmigration/liquibase")
 @Api(tags = "Liquibase")
 class LiquibaseResource {
 

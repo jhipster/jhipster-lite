@@ -33,7 +33,7 @@ class InitResourceIT {
     projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/projects/init").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);

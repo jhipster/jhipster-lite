@@ -31,7 +31,7 @@ class ErrorResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.path(FileUtils.tmpDirForTest());
+    projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
       .perform(
@@ -39,12 +39,12 @@ class ErrorResourceIT {
       )
       .andExpect(status().isOk());
 
-    String pathMain = getPath(projectDTO.getPath(), MAIN_JAVA, "tech/jhipster/chips/error/domain");
+    String pathMain = getPath(projectDTO.getFolder(), MAIN_JAVA, "tech/jhipster/chips/error/domain");
     assertFileExist(getPath(pathMain, "Assert.java"));
     assertFileExist(getPath(pathMain, "MissingMandatoryValueException.java"));
     assertFileExist(getPath(pathMain, "UnauthorizedValueException.java"));
 
-    String pathTest = getPath(projectDTO.getPath(), TEST_JAVA, "tech/jhipster/chips/error/domain");
+    String pathTest = getPath(projectDTO.getFolder(), TEST_JAVA, "tech/jhipster/chips/error/domain");
     assertFileExist(getPath(pathTest, "AssertTest.java"));
     assertFileExist(getPath(pathTest, "MissingMandatoryValueExceptionTest.java"));
     assertFileExist(getPath(pathTest, "UnauthorizedValueExceptionTest.java"));

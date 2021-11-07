@@ -72,6 +72,22 @@ java -jar target/*.jar
 
 Then navigate to http://localhost:8080/swagger-ui/ in your browser.
 
+You can use this JSON to generate project:
+
+<!-- prettier-ignore-start -->
+```yaml
+{
+  "folder": "/tmp/beer",
+  "generator-jhipster": {
+    "projectName": "Beer Project",
+    "baseName": "beer",
+    "prettierDefaultIndent": 2,
+    "packageName": "tech.jhipster.beer"
+  }
+}
+```
+<!-- prettier-ignore-end -->
+
 [github-actions-jhforge-image]: https://github.com/pascalgrimaud/jhipster-forge/workflows/build/badge.svg
 [github-actions-url]: https://github.com/pascalgrimaud/jhipster-forge/actions
 [codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-forge/branch/main/graph/badge.svg?token=TGYTFIF15C

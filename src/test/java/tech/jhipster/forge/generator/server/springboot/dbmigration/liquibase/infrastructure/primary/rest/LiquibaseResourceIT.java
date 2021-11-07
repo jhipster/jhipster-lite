@@ -49,7 +49,7 @@ class LiquibaseResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.path(FileUtils.tmpDirForTest());
+    projectDTO.folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);

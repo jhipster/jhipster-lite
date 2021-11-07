@@ -17,7 +17,7 @@ class ProjectDTOTest {
   void shouldBuild() {
     ProjectDTO projectDTO = buildProjectDTO();
 
-    assertThat(projectDTO.getPath()).isEqualTo("/tmp/chips");
+    assertThat(projectDTO.getFolder()).isEqualTo("/tmp/chips");
     assertThat(projectDTO.getGeneratorJhipster()).containsEntry(BASE_NAME, "chips");
   }
 
@@ -41,7 +41,7 @@ class ProjectDTOTest {
 
   @Test
   void shouldToProjectWithNullFolder() {
-    ProjectDTO projectDTO = buildProjectDTO().path(null);
+    ProjectDTO projectDTO = buildProjectDTO().folder(null);
 
     assertThatThrownBy(() -> ProjectDTO.toProject(projectDTO))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
@@ -49,6 +49,6 @@ class ProjectDTOTest {
   }
 
   private ProjectDTO buildProjectDTO() {
-    return new ProjectDTO().path("/tmp/chips").generatorJhipster(Map.of(BASE_NAME, "chips"));
+    return new ProjectDTO().folder("/tmp/chips").generatorJhipster(Map.of(BASE_NAME, "chips"));
   }
 }

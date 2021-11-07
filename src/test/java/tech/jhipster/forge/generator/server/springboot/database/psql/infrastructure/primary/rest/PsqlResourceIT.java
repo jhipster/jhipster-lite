@@ -44,7 +44,7 @@ class PsqlResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.path(FileUtils.tmpDirForTest());
+    projectDTO.folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
@@ -54,7 +54,7 @@ class PsqlResourceIT {
       .perform(post("/api/databases/psql").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getPath();
+    String projectPath = projectDTO.getFolder();
     assertFileExist(projectPath, getPath(MAIN_JAVA, "tech/jhipster/chips/technical/secondary/postgresql/FixedPostgreSQL10Dialect.java"));
     assertFileExist(
       projectPath,

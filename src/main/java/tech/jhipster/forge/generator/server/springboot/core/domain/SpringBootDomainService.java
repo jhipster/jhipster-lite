@@ -16,7 +16,7 @@ import tech.jhipster.forge.generator.project.domain.*;
 
 public class SpringBootDomainService implements SpringBootService {
 
-  public static final String SOURCE = "springboot";
+  public static final String SOURCE = "server/springboot/core";
 
   private final ProjectRepository projectRepository;
   private final BuildToolRepository buildToolRepository;

@@ -40,7 +40,7 @@
     <jacoco.version>0.8.7</jacoco.version>
     <mustache.version>0.9.10</mustache.version>
     <guava.version>30.1.1-jre</guava.version>
-    <jgit.version>5.12.0.202106070339-r</jgit.version>
+    <jgit.version>5.13.0.202109080827-r</jgit.version>
     <archunit-junit5.version>0.17.0</archunit-junit5.version>
     <springfox.version>3.0.0</springfox.version>
     <!-- jhipster-needle-maven-property -->

@@ -19,7 +19,7 @@ import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 
 public class MavenDomainService implements MavenService {
 
-  public static final String SOURCE = "maven";
+  public static final String SOURCE = "buildtool/maven";
   public static final String POM_XML = "pom.xml";
 
   private final ProjectRepository projectRepository;

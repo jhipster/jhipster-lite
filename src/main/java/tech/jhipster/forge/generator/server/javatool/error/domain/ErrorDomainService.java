@@ -10,7 +10,7 @@ import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 
 public class ErrorDomainService implements ErrorService {
 
-  public static final String SOURCE = "error";
+  public static final String SOURCE = "server/javatool/error";
 
   private final ProjectRepository projectRepository;
 

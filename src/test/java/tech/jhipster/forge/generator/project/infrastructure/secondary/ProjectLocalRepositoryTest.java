@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
+import static tech.jhipster.forge.generator.project.domain.Constants.MAIN_RESOURCES;
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.io.IOException;
@@ -52,7 +53,7 @@ class ProjectLocalRepositoryTest {
   void shouldAdd() {
     Project project = tmpProject();
 
-    repository.add(project, "common", "README.txt");
+    repository.add(project, "mustache", "README.txt");
 
     assertFileExist(project, "README.txt");
   }
@@ -69,25 +70,25 @@ class ProjectLocalRepositoryTest {
   void shouldAddWithDestination() {
     Project project = tmpProject();
 
-    repository.add(project, "common", "README.txt", getPath("src", "main", "resources"));
+    repository.add(project, "mustache", "README.txt", getPath(MAIN_RESOURCES));
 
-    assertFileExist(project, "src", "main", "resources", "README.txt");
+    assertFileExist(project, MAIN_RESOURCES, "README.txt");
   }
 
   @Test
   void shouldAddWithDestinationAndDestinationFilename() {
     Project project = tmpProject();
 
-    repository.add(project, "common", "README.txt", getPath("src", "main", "resources"), "FINAL-README.txt");
+    repository.add(project, "mustache", "README.txt", getPath(MAIN_RESOURCES), "FINAL-README.txt");
 
-    assertFileExist(project, "src", "main", "resources", "FINAL-README.txt");
+    assertFileExist(project, MAIN_RESOURCES, "FINAL-README.txt");
   }
 
   @Test
   void shouldTemplate() {
     Project project = tmpProject();
 
-    repository.template(project, "common", "README.md");
+    repository.template(project, "mustache", "README.md");
 
     assertFileExist(project, "README.md");
   }
@@ -99,7 +100,7 @@ class ProjectLocalRepositoryTest {
     try (MockedStatic<MustacheUtils> mustacheUtils = Mockito.mockStatic(MustacheUtils.class)) {
       mustacheUtils.when(() -> MustacheUtils.template(anyString(), any())).thenThrow(new IOException());
 
-      assertThatThrownBy(() -> repository.template(project, "common", "README.md")).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(() -> repository.template(project, "mustache", "README.md")).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 
@@ -107,7 +108,7 @@ class ProjectLocalRepositoryTest {
   void shouldNotTemplateWithNonExistingFile() {
     Project project = tmpProject();
 
-    assertThatThrownBy(() -> repository.template(project, "common", "README.md.wrong.mustache"))
+    assertThatThrownBy(() -> repository.template(project, "mustache", "README.md.wrong.mustache"))
       .isInstanceOf(MustacheNotFoundException.class);
   }
 
@@ -115,7 +116,7 @@ class ProjectLocalRepositoryTest {
   void shouldTemplateWithExtension() {
     Project project = tmpProject();
 
-    repository.template(project, "common", "README.md.mustache");
+    repository.template(project, "mustache", "README.md.mustache");
 
     assertFileExist(project, "README.md");
   }
@@ -124,18 +125,18 @@ class ProjectLocalRepositoryTest {
   void shouldTemplateWithDestination() {
     Project project = tmpProject();
 
-    repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"));
+    repository.template(project, "mustache", "README.md.mustache", getPath(MAIN_RESOURCES));
 
-    assertFileExist(project, "src", "main", "resources", "README.md");
+    assertFileExist(project, "src/main/resources/README.md");
   }
 
   @Test
   void shouldTemplateWithDestinationAndDestinationFilename() {
     Project project = tmpProject();
 
-    repository.template(project, "common", "README.md.mustache", getPath("src", "main", "resources"), "FINAL-README.md");
+    repository.template(project, "mustache", "README.md.mustache", getPath(MAIN_RESOURCES), "FINAL-README.md");
 
-    assertFileExist(project, "src", "main", "resources", "FINAL-README.md");
+    assertFileExist(project, MAIN_RESOURCES, "FINAL-README.md");
   }
 
   @Test

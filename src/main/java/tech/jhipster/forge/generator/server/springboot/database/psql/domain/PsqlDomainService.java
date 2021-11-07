@@ -16,7 +16,7 @@ import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootSer
 
 public class PsqlDomainService implements PsqlService {
 
-  public static final String SOURCE = "psql";
+  public static final String SOURCE = "server/springboot/database/psql";
 
   private final ProjectRepository projectRepository;
   private final BuildToolRepository buildToolRepository;

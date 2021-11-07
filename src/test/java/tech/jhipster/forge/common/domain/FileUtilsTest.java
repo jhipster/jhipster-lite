@@ -213,7 +213,7 @@ class FileUtilsTest {
 
     @Test
     void shouldContainsLinesSingle() {
-      String filename = getPath("src/test/resources/template/maven/pom.test.xml");
+      String filename = getPath("src/test/resources/template/buildtool/maven/pom.test.xml");
       List<String> lines = List.of("<dependency>");
 
       assertTrue(FileUtils.containsLines(filename, lines));
@@ -221,7 +221,7 @@ class FileUtilsTest {
 
     @Test
     void shouldContainsLines() {
-      String filename = getPath("src/test/resources/template/maven/pom.test.xml");
+      String filename = getPath("src/test/resources/template/buildtool/maven/pom.test.xml");
       List<String> lines = List.of(
         "<dependency>",
         "<groupId>org.junit.jupiter</groupId>",
@@ -236,7 +236,7 @@ class FileUtilsTest {
 
     @Test
     void shouldNotContainsLines() {
-      String filename = getPath("src/test/resources/template/maven/pom.test.xml");
+      String filename = getPath("src/test/resources/template/buildtool/maven/pom.test.xml");
       List<String> lines = List.of(
         "<dependency>",
         "<groupId>org.junit.jupiter</groupId>",
@@ -273,7 +273,7 @@ class FileUtilsTest {
 
     @Test
     void shouldNotContainsLinesWithEmptyLines() {
-      String filename = getPath("src/test/resources/template/maven/pom.test.xml");
+      String filename = getPath("src/test/resources/template/buildtool/maven/pom.test.xml");
 
       assertThatThrownBy(() -> FileUtils.containsLines(filename, List.of()))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)

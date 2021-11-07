@@ -11,7 +11,7 @@ jobs:
       - name: 'Setup: Node.js'
         uses: actions/setup-node@v1
         with:
-          node-version: 14.18.1
+          node-version: 16.13.0
       - name: 'Setup: update npm'
         run: npm install -g npm
       - name: 'Setup: Java'
@@ -32,7 +32,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: 'Init: install Node.js packages'
-        run: npm install
+        run: npm ci
       - name: 'Check: prettier'
         run: npm run prettier:check
       - name: 'Test: run backend tests'

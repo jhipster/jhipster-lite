@@ -155,4 +155,50 @@ class SpringLiquibaseUtilTest {
       .hasFieldOrPropertyWithValue("username", "sa")
       .hasFieldOrPropertyWithValue("password", "password");
   }
+
+  @Test
+  void shouldNotCreateAsyncSpringLiquibaseFromLiquibasePropertiesWithNullUser() {
+    DataSource liquibaseDatasource = null;
+    LiquibaseProperties liquibaseProperties = new LiquibaseProperties();
+    liquibaseProperties.setUrl("jdbc:h2:mem:liquibase");
+    liquibaseProperties.setUser(null);
+    DataSource normalDataSource = null;
+    DataSourceProperties dataSourceProperties = new DataSourceProperties();
+    dataSourceProperties.setPassword("password");
+
+    assertThatThrownBy(() ->
+        SpringLiquibaseUtil.createAsyncSpringLiquibase(
+          null,
+          null,
+          liquibaseDatasource,
+          liquibaseProperties,
+          normalDataSource,
+          dataSourceProperties
+        )
+      )
+      .isExactlyInstanceOf(NullPointerException.class);
+  }
+
+  @Test
+  void shouldNotCreateAsyncSpringLiquibaseFromLiquibasePropertiesWithNullUrl() {
+    DataSource liquibaseDatasource = null;
+    LiquibaseProperties liquibaseProperties = new LiquibaseProperties();
+    liquibaseProperties.setUrl(null);
+    liquibaseProperties.setUser("sa");
+    DataSource normalDataSource = null;
+    DataSourceProperties dataSourceProperties = new DataSourceProperties();
+    dataSourceProperties.setPassword("password");
+
+    assertThatThrownBy(() ->
+        SpringLiquibaseUtil.createAsyncSpringLiquibase(
+          null,
+          null,
+          liquibaseDatasource,
+          liquibaseProperties,
+          normalDataSource,
+          dataSourceProperties
+        )
+      )
+      .isExactlyInstanceOf(NullPointerException.class);
+  }
 }

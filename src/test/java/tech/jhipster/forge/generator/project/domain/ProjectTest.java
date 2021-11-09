@@ -1,8 +1,7 @@
 package tech.jhipster.forge.generator.project.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.forge.TestUtils.tmpProjectDomain;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.common.domain.FileUtils.tmpDirForTest;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.*;
@@ -15,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.TestUtils;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.common.domain.FileUtils;
+import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
 
@@ -299,5 +299,23 @@ class ProjectTest {
     Project project = Project.builder().folder(tmpDirForTest()).build();
 
     assertThat(project.isGradleProject()).isFalse();
+  }
+
+  @Test
+  void shouldCheckBuildToolWithException() {
+    Project project = tmpProject();
+    assertThatThrownBy(project::checkBuildTool).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldCheckBuildToolWithMaven() throws Exception {
+    Project project = tmpProjectWithPomXml();
+    assertThatCode(project::checkBuildTool).doesNotThrowAnyException();
+  }
+
+  @Test
+  void shouldCheckBuildToolWithGradle() throws Exception {
+    Project project = tmpProjectWithBuildGradle();
+    assertThatCode(project::checkBuildTool).doesNotThrowAnyException();
   }
 }

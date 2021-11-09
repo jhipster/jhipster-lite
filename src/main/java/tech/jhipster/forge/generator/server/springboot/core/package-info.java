@@ -1,2 +1,2 @@
-@tech.jhipster.forge.SharedKernel
+@tech.jhipster.forge.BusinessContext
 package tech.jhipster.forge.generator.server.springboot.core;

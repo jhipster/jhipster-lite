@@ -1,9 +1,9 @@
 package tech.jhipster.forge.generator.buildtool.maven.domain;
 
 import java.util.List;
-import tech.jhipster.forge.generator.project.domain.Dependency;
-import tech.jhipster.forge.generator.project.domain.Parent;
-import tech.jhipster.forge.generator.project.domain.Plugin;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Parent;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.forge.generator.project.domain.Project;
 
 public interface MavenService {

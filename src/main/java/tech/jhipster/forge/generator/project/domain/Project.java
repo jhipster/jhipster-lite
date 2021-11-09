@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.error.domain.Assert;
+import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
 
 public class Project {
@@ -93,6 +94,12 @@ public class Project {
 
   public boolean isGradleProject() {
     return FileUtils.exists(getPath(getFolder(), "build.gradle"));
+  }
+
+  public void checkBuildTool() {
+    if (!isMavenProject() && !isGradleProject()) {
+      throw new GeneratorException("No build tool");
+    }
   }
 
   public static class ProjectBuilder {

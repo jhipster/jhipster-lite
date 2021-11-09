@@ -7,9 +7,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.forge.IntegrationTest;
-import tech.jhipster.forge.generator.project.domain.Dependency;
-import tech.jhipster.forge.generator.project.domain.Parent;
-import tech.jhipster.forge.generator.project.domain.Plugin;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Parent;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.forge.generator.project.domain.Project;
 
 @IntegrationTest

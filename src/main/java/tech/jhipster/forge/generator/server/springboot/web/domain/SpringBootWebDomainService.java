@@ -4,21 +4,21 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
-import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
-import tech.jhipster.forge.generator.project.domain.Dependency;
+import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
-import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
+import tech.jhipster.forge.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class SpringBootWebDomainService implements SpringBootWebService {
 
   private final Logger log = LoggerFactory.getLogger(SpringBootWebDomainService.class);
 
   public final BuildToolRepository buildToolRepository;
-  public final SpringBootService springBootService;
+  public final SpringBootPropertiesService springBootPropertiesService;
 
-  public SpringBootWebDomainService(BuildToolRepository buildToolRepository, SpringBootService springBootService) {
+  public SpringBootWebDomainService(BuildToolRepository buildToolRepository, SpringBootPropertiesService springBootPropertiesService) {
     this.buildToolRepository = buildToolRepository;
-    this.springBootService = springBootService;
+    this.springBootPropertiesService = springBootPropertiesService;
   }
 
   @Override
@@ -47,11 +47,11 @@ public class SpringBootWebDomainService implements SpringBootWebService {
   }
 
   private void addServerPort(Project project) {
-    springBootService.addProperties(project, "server.port", getServerPort(project));
+    springBootPropertiesService.addProperties(project, "server.port", getServerPort(project));
   }
 
   private void addServerPortInTest(Project project) {
-    springBootService.addPropertiesTest(project, "server.port", 0);
+    springBootPropertiesService.addPropertiesTest(project, "server.port", 0);
   }
 
   private int getServerPort(Project project) {

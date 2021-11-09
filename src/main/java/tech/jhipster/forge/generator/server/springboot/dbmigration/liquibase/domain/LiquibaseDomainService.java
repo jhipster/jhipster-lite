@@ -3,11 +3,11 @@ package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.do
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
 
-import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
-import tech.jhipster.forge.generator.project.domain.Dependency;
+import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
-import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
+import tech.jhipster.forge.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class LiquibaseDomainService implements LiquibaseService {
 
@@ -16,16 +16,16 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   public final ProjectRepository projectRepository;
   public final BuildToolRepository buildToolRepository;
-  public final SpringBootService springBootService;
+  public final SpringBootPropertiesService springBootPropertiesService;
 
   public LiquibaseDomainService(
     ProjectRepository projectRepository,
     BuildToolRepository buildToolRepository,
-    SpringBootService springBootService
+    SpringBootPropertiesService springBootPropertiesService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolRepository = buildToolRepository;
-    this.springBootService = springBootService;
+    this.springBootPropertiesService = springBootPropertiesService;
   }
 
   @Override

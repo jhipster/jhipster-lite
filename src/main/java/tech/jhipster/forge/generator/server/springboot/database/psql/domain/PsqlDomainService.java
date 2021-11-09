@@ -8,11 +8,11 @@ import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.forge.generator.project.domain.BuildToolRepository;
-import tech.jhipster.forge.generator.project.domain.Dependency;
+import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
-import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
+import tech.jhipster.forge.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class PsqlDomainService implements PsqlService {
 
@@ -20,16 +20,16 @@ public class PsqlDomainService implements PsqlService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolRepository buildToolRepository;
-  private final SpringBootService springBootService;
+  private final SpringBootPropertiesService springBootPropertiesService;
 
   public PsqlDomainService(
     ProjectRepository projectRepository,
     BuildToolRepository buildToolRepository,
-    SpringBootService springBootService
+    SpringBootPropertiesService springBootPropertiesService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolRepository = buildToolRepository;
-    this.springBootService = springBootService;
+    this.springBootPropertiesService = springBootPropertiesService;
   }
 
   @Override
@@ -105,7 +105,7 @@ public class PsqlDomainService implements PsqlService {
     String baseName = project.getBaseName().orElse("jhipster");
     String packageName = project.getPackageName().orElse("com.mycompany.myapp");
 
-    springProperties(baseName, packageName).forEach((k, v) -> springBootService.addProperties(project, k, v));
+    springProperties(baseName, packageName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
   }
 
   @Override
@@ -122,7 +122,7 @@ public class PsqlDomainService implements PsqlService {
     buildToolRepository.addProperty(project, "testcontainers", Psql.getTestcontainersVersion());
     buildToolRepository.addDependency(project, dependency);
 
-    springPropertiesForTest(baseName).forEach((k, v) -> springBootService.addPropertiesTest(project, k, v));
+    springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
   }
 
   private Map<String, Object> springProperties(String baseName, String packageName) {

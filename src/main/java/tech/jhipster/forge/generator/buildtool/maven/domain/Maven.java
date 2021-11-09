@@ -4,9 +4,9 @@ import static tech.jhipster.forge.common.domain.WordUtils.indent;
 
 import java.util.List;
 import tech.jhipster.forge.common.domain.WordUtils;
-import tech.jhipster.forge.generator.project.domain.Dependency;
-import tech.jhipster.forge.generator.project.domain.Parent;
-import tech.jhipster.forge.generator.project.domain.Plugin;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Parent;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Plugin;
 
 public class Maven {
 

@@ -1,17 +1,16 @@
 package tech.jhipster.forge.generator.server.springboot.core.domain;
 
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
-import static tech.jhipster.forge.common.domain.FileUtils.read;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.forge.generator.server.springboot.core.domain.SpringBoot.*;
 
 import java.io.File;
-import java.io.IOException;
-import tech.jhipster.forge.common.domain.FileUtils;
 import tech.jhipster.forge.common.domain.WordUtils;
-import tech.jhipster.forge.error.domain.GeneratorException;
+import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Parent;
+import tech.jhipster.forge.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.forge.generator.project.domain.*;
 
 public class SpringBootDomainService implements SpringBootService {
@@ -24,40 +23,6 @@ public class SpringBootDomainService implements SpringBootService {
   public SpringBootDomainService(ProjectRepository projectRepository, BuildToolRepository buildToolRepository) {
     this.projectRepository = projectRepository;
     this.buildToolRepository = buildToolRepository;
-  }
-
-  @Override
-  public void addProperties(Project project, String key, Object value) {
-    try {
-      String currentApplicationProperties = read(getPath(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES));
-      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + NEEDLE_APPLICATION_PROPERTIES;
-      String updatedApplicationProperties = FileUtils.replace(
-        currentApplicationProperties,
-        NEEDLE_APPLICATION_PROPERTIES,
-        propertiesWithNeedle
-      );
-
-      projectRepository.write(project, updatedApplicationProperties, getPath(MAIN_RESOURCES, "config"), APPLICATION_PROPERTIES);
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding properties");
-    }
-  }
-
-  @Override
-  public void addPropertiesTest(Project project, String key, Object value) {
-    try {
-      String currentApplicationProperties = read(getPath(project.getFolder(), TEST_RESOURCES, "config", APPLICATION_PROPERTIES));
-      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + NEEDLE_APPLICATION_TEST_PROPERTIES;
-      String updatedApplicationProperties = FileUtils.replace(
-        currentApplicationProperties,
-        NEEDLE_APPLICATION_TEST_PROPERTIES,
-        propertiesWithNeedle
-      );
-
-      projectRepository.write(project, updatedApplicationProperties, getPath(TEST_RESOURCES, "config"), APPLICATION_PROPERTIES);
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding properties");
-    }
   }
 
   @Override

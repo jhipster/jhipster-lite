@@ -13,7 +13,7 @@ import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepositor
 import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolType;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
-import tech.jhipster.forge.generator.server.springboot.database.psql.domain.PsqlService;
+import tech.jhipster.forge.generator.server.springboot.database.postgresql.domain.PostgresqlService;
 
 @IntegrationTest
 class LiquibaseApplicationServiceIT {
@@ -25,7 +25,7 @@ class LiquibaseApplicationServiceIT {
   SpringBootService springBootService;
 
   @Autowired
-  PsqlService psqlService;
+  PostgresqlService postgresqlService;
 
   @Autowired
   LiquibaseApplicationService liquibaseApplicationService;
@@ -35,7 +35,7 @@ class LiquibaseApplicationServiceIT {
     Project project = tmpProjectBuilder().build();
     buildToolRepository.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
-    psqlService.init(project);
+    postgresqlService.init(project);
 
     liquibaseApplicationService.init(project);
 

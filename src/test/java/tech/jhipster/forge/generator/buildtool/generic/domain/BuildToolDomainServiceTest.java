@@ -74,7 +74,7 @@ class BuildToolDomainServiceTest {
 
     @Test
     void shouldNotInit() {
-      assertThatThrownBy(() -> buildToolDomainService.init(tmpProject())).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(() -> buildToolDomainService.init(tmpProject(), null)).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 
@@ -137,15 +137,15 @@ class BuildToolDomainServiceTest {
 
     @Test
     void shouldInit() {
-      Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
+      Project project = tmpProjectBuilder().build();
 
-      buildToolDomainService.init(project);
+      buildToolDomainService.init(project, BuildToolType.MAVEN);
 
       verify(mavenService).init(project);
     }
 
     private Project getMavenProject() throws IOException {
-      Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
+      Project project = tmpProjectBuilder().build();
       TestUtils.copyPomXml(project);
       return project;
     }

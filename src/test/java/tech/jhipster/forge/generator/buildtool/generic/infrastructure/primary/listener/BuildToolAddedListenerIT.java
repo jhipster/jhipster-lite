@@ -19,7 +19,7 @@ class BuildToolAddedListenerIT {
 
   @Test
   void shouldInit() {
-    Project project = Project.builder().folder(FileUtils.tmpDirForTest()).buildTool(BuildToolType.MAVEN).build();
+    Project project = Project.builder().folder(FileUtils.tmpDirForTest()).build();
     BuildToolAdded buildToolAdded = BuildToolAdded.of(project, BuildToolType.MAVEN);
 
     publisher.publishEvent(buildToolAdded);

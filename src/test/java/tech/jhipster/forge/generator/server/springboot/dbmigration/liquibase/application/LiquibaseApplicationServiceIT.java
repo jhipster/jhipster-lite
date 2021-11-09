@@ -32,8 +32,8 @@ class LiquibaseApplicationServiceIT {
 
   @Test
   void shouldInit() {
-    Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
-    buildToolRepository.init(project);
+    Project project = tmpProjectBuilder().build();
+    buildToolRepository.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
     psqlService.init(project);
 
@@ -55,8 +55,8 @@ class LiquibaseApplicationServiceIT {
 
   @Test
   void shouldAddLiquibase() {
-    Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
-    buildToolRepository.init(project);
+    Project project = tmpProjectBuilder().build();
+    buildToolRepository.init(project, BuildToolType.MAVEN);
 
     liquibaseApplicationService.addLiquibase(project);
 

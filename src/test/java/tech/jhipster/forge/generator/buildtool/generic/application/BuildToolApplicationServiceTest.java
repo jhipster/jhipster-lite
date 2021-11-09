@@ -80,7 +80,7 @@ class BuildToolApplicationServiceTest {
   }
 
   private Project getMavenProject() throws IOException {
-    Project project = tmpProjectBuilder().buildTool(BuildToolType.MAVEN).build();
+    Project project = tmpProjectBuilder().build();
     TestUtils.copyPomXml(project);
     return project;
   }

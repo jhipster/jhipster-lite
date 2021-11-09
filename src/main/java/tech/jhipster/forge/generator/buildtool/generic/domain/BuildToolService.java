@@ -1,10 +1,7 @@
 package tech.jhipster.forge.generator.buildtool.generic.domain;
 
 import java.util.List;
-import tech.jhipster.forge.generator.project.domain.Dependency;
-import tech.jhipster.forge.generator.project.domain.Parent;
-import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.project.domain.Project;
+import tech.jhipster.forge.generator.project.domain.*;
 
 public interface BuildToolService {
   void addParent(Project project, Parent parent);
@@ -13,5 +10,5 @@ public interface BuildToolService {
   void addPlugin(Project project, Plugin plugin);
   void addProperty(Project project, String key, String version);
 
-  void init(Project project);
+  void init(Project project, BuildToolType buildTool);
 }

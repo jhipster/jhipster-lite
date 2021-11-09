@@ -34,11 +34,6 @@ class ProjectTest {
       Project project = Project.builder().folder(folder).build();
 
       assertThat(project.getFolder()).isEqualTo(folder);
-
-      assertThat(project.getLanguage()).isEmpty();
-      assertThat(project.getBuildTool()).isEmpty();
-      assertThat(project.getServer()).isEmpty();
-      assertThat(project.getClient()).isEmpty();
       assertThat(project.getConfig()).isEmpty();
     }
 
@@ -55,21 +50,9 @@ class ProjectTest {
     void shouldBuildFullProject() {
       String folder = FileUtils.tmpDir();
 
-      Project project = Project
-        .builder()
-        .folder(folder)
-        .language(JAVA)
-        .buildTool(MAVEN)
-        .server(new Server(ServerFramework.SPRING))
-        .client(new Client(ClientFramework.ANGULAR))
-        .config(Map.of(PROJECT_NAME, "JHipster Forge"))
-        .build();
+      Project project = Project.builder().folder(folder).config(Map.of(PROJECT_NAME, "JHipster Forge")).build();
 
       assertThat(project.getFolder()).isEqualTo(folder);
-      assertThat(project.getLanguage()).contains(JAVA);
-      assertThat(project.getBuildTool()).contains(MAVEN);
-      assertThat(project.getServer()).contains(new Server(ServerFramework.SPRING));
-      assertThat(project.getClient()).contains(new Client(ClientFramework.ANGULAR));
       assertThat(project.getConfig()).isEqualTo(Map.of(PROJECT_NAME, "JHipster Forge"));
     }
 
@@ -279,7 +262,7 @@ class ProjectTest {
 
   @Test
   void shouldBeMavenProject() throws Exception {
-    Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(MAVEN).build();
+    Project project = Project.builder().folder(tmpDirForTest()).build();
     TestUtils.copyPomXml(project);
 
     assertThat(project.isMavenProject()).isTrue();
@@ -287,7 +270,7 @@ class ProjectTest {
 
   @Test
   void shouldNotBeMavenProjectWithGradle() {
-    Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(GRADLE).build();
+    Project project = Project.builder().folder(tmpDirForTest()).build();
 
     assertThat(project.isMavenProject()).isFalse();
   }
@@ -301,7 +284,7 @@ class ProjectTest {
 
   @Test
   void shouldBeGradleProject() throws Exception {
-    Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(GRADLE).build();
+    Project project = Project.builder().folder(tmpDirForTest()).build();
     TestUtils.copyBuildGradle(project);
 
     assertThat(project.isGradleProject()).isTrue();
@@ -309,7 +292,7 @@ class ProjectTest {
 
   @Test
   void shouldNotBeGradleProjectWithMaven() {
-    Project project = Project.builder().folder(tmpDirForTest()).language(JAVA).buildTool(MAVEN).build();
+    Project project = Project.builder().folder(tmpDirForTest()).build();
 
     assertThat(project.isGradleProject()).isFalse();
   }

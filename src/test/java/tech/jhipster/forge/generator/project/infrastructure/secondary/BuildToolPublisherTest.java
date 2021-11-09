@@ -63,8 +63,8 @@ class BuildToolPublisherTest {
 
   @Test
   void shouldInit() {
-    Project project = Project.builder().folder(FileUtils.tmpDirForTest()).buildTool(BuildToolType.MAVEN).build();
-    buildToolPublisher.init(project);
+    Project project = Project.builder().folder(FileUtils.tmpDirForTest()).build();
+    buildToolPublisher.init(project, BuildToolType.MAVEN);
 
     verify(publisher).publishEvent(any(BuildToolAdded.class));
   }

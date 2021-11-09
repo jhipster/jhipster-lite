@@ -18,6 +18,6 @@ public class BuildToolAddedListener implements ApplicationListener<PayloadApplic
   @Override
   public void onApplicationEvent(PayloadApplicationEvent<BuildToolAdded> event) {
     BuildToolAdded buildToolAdded = event.getPayload();
-    buildToolApplicationService.init(buildToolAdded.project());
+    buildToolApplicationService.init(buildToolAdded.project(), buildToolAdded.buildTool());
   }
 }

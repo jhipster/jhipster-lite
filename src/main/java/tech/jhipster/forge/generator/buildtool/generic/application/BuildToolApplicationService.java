@@ -3,10 +3,7 @@ package tech.jhipster.forge.generator.buildtool.generic.application;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.forge.generator.project.domain.Dependency;
-import tech.jhipster.forge.generator.project.domain.Parent;
-import tech.jhipster.forge.generator.project.domain.Plugin;
-import tech.jhipster.forge.generator.project.domain.Project;
+import tech.jhipster.forge.generator.project.domain.*;
 
 @Component
 public class BuildToolApplicationService {
@@ -37,7 +34,7 @@ public class BuildToolApplicationService {
     buildToolService.addProperty(project, key, version);
   }
 
-  public void init(Project project) {
-    buildToolService.init(project);
+  public void init(Project project, BuildToolType buildTool) {
+    buildToolService.init(project, buildTool);
   }
 }

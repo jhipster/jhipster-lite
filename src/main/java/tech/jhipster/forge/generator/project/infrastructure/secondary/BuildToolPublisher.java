@@ -3,7 +3,6 @@ package tech.jhipster.forge.generator.project.infrastructure.secondary;
 import java.util.List;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
-import tech.jhipster.forge.error.domain.Assert;
 import tech.jhipster.forge.generator.project.domain.*;
 import tech.jhipster.forge.generator.project.domain.added.*;
 
@@ -42,7 +41,7 @@ public class BuildToolPublisher implements BuildToolRepository {
   }
 
   @Override
-  public void init(Project project) {
-    publisher.publishEvent(BuildToolAdded.of(project, project.getBuildTool().orElse(null)));
+  public void init(Project project, BuildToolType buildTool) {
+    publisher.publishEvent(BuildToolAdded.of(project, buildTool));
   }
 }

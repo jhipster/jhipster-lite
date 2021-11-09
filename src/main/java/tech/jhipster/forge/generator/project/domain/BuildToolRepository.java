@@ -9,5 +9,5 @@ public interface BuildToolRepository {
   void addPlugin(Project project, Plugin plugin);
   void addProperty(Project project, String key, String version);
 
-  void init(Project project);
+  void init(Project project, BuildToolType buildTool);
 }

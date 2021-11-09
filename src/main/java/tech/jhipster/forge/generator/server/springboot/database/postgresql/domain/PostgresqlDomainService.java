@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.server.springboot.database.psql.domain;
+package tech.jhipster.forge.generator.server.springboot.database.postgresql.domain;
 
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.MAIN_JAVA;
@@ -14,15 +14,15 @@ import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 import tech.jhipster.forge.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
-public class PsqlDomainService implements PsqlService {
+public class PostgresqlDomainService implements PostgresqlService {
 
-  public static final String SOURCE = "server/springboot/database/psql";
+  public static final String SOURCE = "server/springboot/database/postgresql";
 
   private final ProjectRepository projectRepository;
   private final BuildToolRepository buildToolRepository;
   private final SpringBootPropertiesService springBootPropertiesService;
 
-  public PsqlDomainService(
+  public PostgresqlDomainService(
     ProjectRepository projectRepository,
     BuildToolRepository buildToolRepository,
     SpringBootPropertiesService springBootPropertiesService
@@ -119,7 +119,7 @@ public class PsqlDomainService implements PsqlService {
       .version("\\${testcontainers.version}")
       .scope("test")
       .build();
-    buildToolRepository.addProperty(project, "testcontainers", Psql.getTestcontainersVersion());
+    buildToolRepository.addProperty(project, "testcontainers", Postgresql.getTestcontainersVersion());
     buildToolRepository.addDependency(project, dependency);
 
     springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));

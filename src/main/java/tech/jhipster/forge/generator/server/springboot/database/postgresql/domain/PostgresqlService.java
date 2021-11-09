@@ -1,8 +1,8 @@
-package tech.jhipster.forge.generator.server.springboot.database.psql.domain;
+package tech.jhipster.forge.generator.server.springboot.database.postgresql.domain;
 
 import tech.jhipster.forge.generator.project.domain.Project;
 
-public interface PsqlService {
+public interface PostgresqlService {
   void init(Project project);
 
   void addSpringDataJpa(Project project);

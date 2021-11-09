@@ -22,7 +22,7 @@ import tech.jhipster.forge.generator.init.application.InitApplicationService;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.forge.generator.server.springboot.core.application.SpringBootApplicationService;
-import tech.jhipster.forge.generator.server.springboot.database.psql.application.PsqlApplicationService;
+import tech.jhipster.forge.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
 
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -38,7 +38,7 @@ class LiquibaseResourceIT {
   SpringBootApplicationService springBootApplicationService;
 
   @Autowired
-  PsqlApplicationService psqlApplicationService;
+  PostgresqlApplicationService postgresqlApplicationService;
 
   @Autowired
   MockMvc mockMvc;
@@ -54,7 +54,7 @@ class LiquibaseResourceIT {
     initApplicationService.init(project);
     mavenApplicationService.init(project);
     springBootApplicationService.init(project);
-    psqlApplicationService.init(project);
+    postgresqlApplicationService.init(project);
 
     mockMvc
       .perform(

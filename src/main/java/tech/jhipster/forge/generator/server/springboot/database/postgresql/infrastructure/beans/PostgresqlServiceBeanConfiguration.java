@@ -1,21 +1,21 @@
-package tech.jhipster.forge.generator.server.springboot.database.psql.infrastructure.beans;
+package tech.jhipster.forge.generator.server.springboot.database.postgresql.infrastructure.beans;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
-import tech.jhipster.forge.generator.server.springboot.database.psql.domain.PsqlDomainService;
-import tech.jhipster.forge.generator.server.springboot.database.psql.domain.PsqlService;
+import tech.jhipster.forge.generator.server.springboot.database.postgresql.domain.PostgresqlDomainService;
+import tech.jhipster.forge.generator.server.springboot.database.postgresql.domain.PostgresqlService;
 import tech.jhipster.forge.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 @Configuration
-public class PsqlServiceBeanConfiguration {
+public class PostgresqlServiceBeanConfiguration {
 
   public final ProjectRepository projectRepository;
   public final BuildToolRepository buildToolRepository;
   public final SpringBootPropertiesService springBootPropertiesService;
 
-  public PsqlServiceBeanConfiguration(
+  public PostgresqlServiceBeanConfiguration(
     ProjectRepository projectRepository,
     BuildToolRepository buildToolRepository,
     SpringBootPropertiesService springBootPropertiesService
@@ -26,7 +26,7 @@ public class PsqlServiceBeanConfiguration {
   }
 
   @Bean
-  public PsqlService psqlService() {
-    return new PsqlDomainService(projectRepository, buildToolRepository, springBootPropertiesService);
+  public PostgresqlService postgresqlService() {
+    return new PostgresqlDomainService(projectRepository, buildToolRepository, springBootPropertiesService);
   }
 }

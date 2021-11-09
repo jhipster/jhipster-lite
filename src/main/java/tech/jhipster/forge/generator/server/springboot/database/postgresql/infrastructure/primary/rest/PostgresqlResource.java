@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.server.springboot.database.psql.infrastructure.primary.rest;
+package tech.jhipster.forge.generator.server.springboot.database.postgresql.infrastructure.primary.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.forge.generator.server.springboot.database.psql.application.PsqlApplicationService;
+import tech.jhipster.forge.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/databases/psql")
+@RequestMapping("/api/servers/spring-boot/databases/postgresql")
 @Api(tags = "PostgreSQL")
-class PsqlResource {
+class PostgresqlResource {
 
-  private final PsqlApplicationService psqlApplicationService;
+  private final PostgresqlApplicationService postgresqlApplicationService;
 
-  public PsqlResource(PsqlApplicationService psqlApplicationService) {
-    this.psqlApplicationService = psqlApplicationService;
+  public PostgresqlResource(PostgresqlApplicationService postgresqlApplicationService) {
+    this.postgresqlApplicationService = postgresqlApplicationService;
   }
 
   @ApiOperation("Add PostgreSQL drivers and dependencies, with testcontainers")
@@ -28,6 +28,6 @@ class PsqlResource {
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    psqlApplicationService.init(project);
+    postgresqlApplicationService.init(project);
   }
 }

@@ -1,4 +1,4 @@
-package tech.jhipster.forge.generator.server.springboot.database.psql.infrastructure.primary.rest;
+package tech.jhipster.forge.generator.server.springboot.database.postgresql.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,7 +24,7 @@ import tech.jhipster.forge.generator.server.springboot.core.application.SpringBo
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class PsqlResourceIT {
+class PostgresqlResourceIT {
 
   @Autowired
   InitApplicationService initApplicationService;
@@ -52,7 +52,7 @@ class PsqlResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/databases/psql")
+        post("/api/servers/spring-boot/databases/postgresql")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

@@ -3,8 +3,7 @@ package tech.jhipster.forge.generator.buildtool.generic.domain;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
-import static tech.jhipster.forge.TestUtils.tmpProject;
-import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
+import static tech.jhipster.forge.TestUtils.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Nested;
@@ -83,10 +82,39 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldNotInitWhenAlreadyMaven() {
+    void shouldInit() {
       Project project = tmpProjectWithPomXml();
 
-      assertThatThrownBy(() -> buildToolDomainService.init(project, BuildToolType.MAVEN)).isExactlyInstanceOf(GeneratorException.class);
+      buildToolDomainService.init(project, BuildToolType.MAVEN);
+
+      verify(mavenService).init(project);
+    }
+
+    @Test
+    void shouldInitWihoutExistingPomXml() {
+      Project project = tmpProject();
+
+      buildToolDomainService.init(project, BuildToolType.MAVEN);
+
+      verify(mavenService).init(project);
+    }
+  }
+
+  @Nested
+  class Gradle {
+
+    @Test
+    void shouldNotInit() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> buildToolDomainService.init(project, BuildToolType.GRADLE)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotInitWithExistingGradle() {
+      Project project = tmpProjectWithBuildGradle();
+
+      assertThatThrownBy(() -> buildToolDomainService.init(project, BuildToolType.GRADLE)).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 
@@ -138,22 +166,6 @@ class BuildToolDomainServiceTest {
 
       assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "1.16.0"))
         .isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
-    void shouldInitWithMaven() {
-      Project project = tmpProject();
-
-      buildToolDomainService.init(project, BuildToolType.MAVEN);
-
-      verify(mavenService).init(project);
-    }
-
-    @Test
-    void shouldInitWithGradle() {
-      Project project = tmpProject();
-
-      assertThatCode(() -> buildToolDomainService.init(project, BuildToolType.GRADLE)).doesNotThrowAnyException();
     }
   }
 

@@ -7,11 +7,11 @@ import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 
 @Configuration
-public class MavenServiceBeanConfiguration {
+public class MavenBeanConfiguration {
 
   private final ProjectRepository projectRepository;
 
-  public MavenServiceBeanConfiguration(ProjectRepository projectRepository) {
+  public MavenBeanConfiguration(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
   }
 

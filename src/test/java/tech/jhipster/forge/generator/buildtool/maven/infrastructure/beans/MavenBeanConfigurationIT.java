@@ -9,7 +9,7 @@ import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.generator.buildtool.maven.domain.MavenDomainService;
 
 @IntegrationTest
-class MavenServiceBeanConfigurationIT {
+class MavenBeanConfigurationIT {
 
   @Autowired
   ApplicationContext applicationContext;

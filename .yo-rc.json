@@ -1,11 +1,11 @@
 {
   "generator-jhipster": {
     "jhipsterVersion": "7.1.0",
-    "projectName": "JHipster Forge",
-    "baseName": "jhforge",
+    "projectName": "JHipster Light",
+    "baseName": "jhlight",
     "prettierDefaultIndent": 2,
     "prettierJavaIndent": 2,
-    "packageName": "tech.jhipster.forge",
+    "packageName": "tech.jhipster.light",
     "buildTool": "maven"
   }
 }

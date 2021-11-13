@@ -1,11 +1,11 @@
-# JHipster Forge 🗡🛡
+# JHipster Light ⚡
 
-[![Build Status][github-actions-jhforge-image]][github-actions-url]
+[![Build Status][github-actions-jhlight-image]][github-actions-url]
 [![Coverage Status][codecov-image]][codecov-url]
 
 ## Description
 
-JHipster Forge will help you to start your project:
+JHipster Light will help you to start your project:
 
 - init the project
 - add Maven as Build Tool
@@ -70,7 +70,7 @@ Then, run:
 java -jar target/*.jar
 ```
 
-Then navigate to http://localhost:7470/swagger-ui/ in your browser.
+Then navigate to http://localhost:7471/swagger-ui/ in your browser.
 
 You can use this JSON to generate project:
 
@@ -88,9 +88,9 @@ You can use this JSON to generate project:
 ```
 <!-- prettier-ignore-end -->
 
-[github-actions-jhforge-image]: https://github.com/pascalgrimaud/jhipster-forge/workflows/build/badge.svg
-[github-actions-url]: https://github.com/pascalgrimaud/jhipster-forge/actions
-[codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-forge/branch/main/graph/badge.svg?token=TGYTFIF15C
-[codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-forge
+[github-actions-jhlight-image]: https://github.com/pascalgrimaud/jhipster-light/workflows/build/badge.svg
+[github-actions-url]: https://github.com/pascalgrimaud/jhipster-light/actions
+[codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-light/branch/main/graph/badge.svg?token=TGYTFIF15C
+[codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-light
 
 <!-- jhipster-needle-readme -->

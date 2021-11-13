@@ -4,11 +4,10 @@ import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.forge.generator.project.domain.Constants.TEMPLATE_RESOURCES;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -52,7 +51,7 @@ public class ProjectLocalRepository implements ProjectRepository {
       FileUtils.createFolder(destinationFolder);
 
       Path destinationPath = FileUtils.getPathOf(destinationFolder, destinationFilename);
-      Files.copy(sourcePath, destinationPath);
+      Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
     } catch (IOException ex) {
       throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
     }
@@ -75,13 +74,7 @@ public class ProjectLocalRepository implements ProjectRepository {
       String filename = MustacheUtils.withExt(sourceFilename);
       String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, filename), project.getConfig());
 
-      String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
-      FileUtils.createFolder(destinationFolder);
-
-      String destinationTarget = FileUtils.getPath(destinationFolder, destinationFilename);
-      try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(destinationTarget))) {
-        bufferedWriter.write(result);
-      }
+      write(project, result, destination, destinationFilename);
     } catch (IOException ex) {
       throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
     }

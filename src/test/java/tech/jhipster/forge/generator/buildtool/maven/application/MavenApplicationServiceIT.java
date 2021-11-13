@@ -19,7 +19,7 @@ class MavenApplicationServiceIT {
   MavenApplicationService mavenApplicationService;
 
   @Test
-  void shouldAddParent() throws Exception {
+  void shouldAddParent() {
     Project project = tmpProjectWithPomXml();
 
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
@@ -40,7 +40,7 @@ class MavenApplicationServiceIT {
   }
 
   @Test
-  void shouldAddDependency() throws Exception {
+  void shouldAddDependency() {
     Project project = tmpProjectWithPomXml();
 
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
@@ -59,7 +59,7 @@ class MavenApplicationServiceIT {
   }
 
   @Test
-  void shouldAddDependencyWithScopeTest() throws Exception {
+  void shouldAddDependencyWithScopeTest() {
     Project project = tmpProjectWithPomXml();
 
     Dependency dependency = Dependency
@@ -84,7 +84,7 @@ class MavenApplicationServiceIT {
   }
 
   @Test
-  void shouldAddDependencyWithExclusions() throws Exception {
+  void shouldAddDependencyWithExclusions() {
     Project project = tmpProjectWithPomXml();
 
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
@@ -114,7 +114,7 @@ class MavenApplicationServiceIT {
   }
 
   @Test
-  void shouldAddPlugin() throws Exception {
+  void shouldAddPlugin() {
     Project project = tmpProjectWithPomXml();
 
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
@@ -128,9 +128,8 @@ class MavenApplicationServiceIT {
   }
 
   @Test
-  void shouldAddProperty() throws Exception {
-    Project project = tmpProject();
-    mavenApplicationService.addPomXml(project);
+  void shouldAddProperty() {
+    Project project = tmpProjectWithPomXml();
 
     mavenApplicationService.addProperty(project, "testcontainers", "1.16.0");
 

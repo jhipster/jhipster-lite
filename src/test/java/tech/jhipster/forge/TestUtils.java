@@ -73,34 +73,37 @@ public class TestUtils {
     return tmpProjectBuilder().build();
   }
 
-  public static Project tmpProjectDomain() {
-    return Project.builder().folder(FileUtils.tmpDirForTest()).build();
-  }
-
   public static Project tmpProjectWithPomXml() {
     Project project = tmpProject();
-    try {
-      copyPomXml(project);
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
+    copyPomXml(project);
     return project;
   }
 
-  public static Project tmpProjectWithBuildGradle() throws IOException {
+  public static Project tmpProjectWithBuildGradle() {
     Project project = tmpProject();
     copyBuildGradle(project);
     return project;
   }
 
-  public static void copyPomXml(Project project) throws IOException {
-    FileUtils.createFolder(project.getFolder());
-    Files.copy(getPathOf("src/test/resources/template/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
+  public static void copyPomXml(Project project) {
+    try {
+      FileUtils.createFolder(project.getFolder());
+      Files.copy(getPathOf("src/test/resources/template/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
   }
 
-  public static void copyBuildGradle(Project project) throws IOException {
-    FileUtils.createFolder(project.getFolder());
-    Files.copy(getPathOf("src/test/resources/template/buildtool/gradle/build.test.gradle"), getPathOf(project.getFolder(), "build.gradle"));
+  public static void copyBuildGradle(Project project) {
+    try {
+      FileUtils.createFolder(project.getFolder());
+      Files.copy(
+        getPathOf("src/test/resources/template/buildtool/gradle/build.test.gradle"),
+        getPathOf(project.getFolder(), "build.gradle")
+      );
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
   }
 
   private static final ObjectMapper mapper = createObjectMapper();

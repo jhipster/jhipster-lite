@@ -140,7 +140,7 @@ class ProjectTest {
 
     @Test
     void shouldNotAddConfigWithBadBaseName() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThatThrownBy(() -> project.addConfig(BASE_NAME, "jhipster with space"))
         .isExactlyInstanceOf(UnauthorizedValueException.class)
@@ -149,7 +149,7 @@ class ProjectTest {
 
     @Test
     void shouldNotAddConfigWithBadPackageName() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThatThrownBy(() -> project.addConfig(PACKAGE_NAME, "tech jhipster forge"))
         .isExactlyInstanceOf(UnauthorizedValueException.class)
@@ -182,7 +182,7 @@ class ProjectTest {
 
     @Test
     void shouldGetPackageName() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig(PACKAGE_NAME, "tech.jhipster.forge");
 
@@ -191,14 +191,14 @@ class ProjectTest {
 
     @Test
     void shouldNotGetPackageNameWithEmpty() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThat(project.getPackageName()).isEmpty();
     }
 
     @Test
     void shouldGetPackageNamePath() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig(PACKAGE_NAME, "tech.jhipster.forge");
 
@@ -207,7 +207,7 @@ class ProjectTest {
 
     @Test
     void shouldNotGetPackageNamePathForDefault() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThat(project.getPackageNamePath()).isEmpty();
     }
@@ -218,7 +218,7 @@ class ProjectTest {
 
     @Test
     void shouldGetStringConfig() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig("apero", "beer");
 
@@ -227,14 +227,14 @@ class ProjectTest {
 
     @Test
     void shouldGetStringConfigWithEmpty() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThat(project.getStringConfig("apero")).isEmpty();
     }
 
     @Test
     void shouldNotGetStringConfig() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig("apero", List.of("beer"));
 
@@ -249,7 +249,7 @@ class ProjectTest {
 
     @Test
     void shouldGetIntegerConfig() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig("serverPort", 1337);
 
@@ -258,14 +258,14 @@ class ProjectTest {
 
     @Test
     void shouldGetIntegerConfigWithEmpty() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       assertThat(project.getIntegerConfig("serverPort")).isEmpty();
     }
 
     @Test
     void shouldNotGetIntegerConfig() {
-      Project project = tmpProjectDomain();
+      Project project = tmpProject();
 
       project.addConfig("serverPort", List.of(1337));
 
@@ -326,7 +326,7 @@ class ProjectTest {
   }
 
   @Test
-  void shouldCheckBuildToolWithMaven() throws Exception {
+  void shouldCheckBuildToolWithMaven() {
     Project project = tmpProjectWithPomXml();
     assertThatCode(project::checkBuildTool).doesNotThrowAnyException();
   }

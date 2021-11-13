@@ -9,6 +9,7 @@ import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
@@ -28,15 +29,11 @@ class SpringBootDomainServiceTest {
   @Mock
   BuildToolService buildToolService;
 
+  @InjectMocks
   SpringBootDomainService springBootDomainService;
 
-  @BeforeEach
-  void setUp() {
-    springBootDomainService = new SpringBootDomainService(projectRepository, buildToolService);
-  }
-
   @Test
-  void shouldInit() throws Exception {
+  void shouldInit() {
     Project project = tmpProjectWithPomXml();
 
     springBootDomainService.init(project);
@@ -52,7 +49,7 @@ class SpringBootDomainServiceTest {
   }
 
   @Test
-  void shouldAddSpringBootParent() throws Exception {
+  void shouldAddSpringBootParent() {
     Project project = tmpProjectWithPomXml();
 
     springBootDomainService.addSpringBootParent(project);
@@ -61,7 +58,7 @@ class SpringBootDomainServiceTest {
   }
 
   @Test
-  void shouldAddSpringBootDependencies() throws Exception {
+  void shouldAddSpringBootDependencies() {
     Project project = tmpProjectWithPomXml();
 
     springBootDomainService.addSpringBootDependencies(project);
@@ -70,7 +67,7 @@ class SpringBootDomainServiceTest {
   }
 
   @Test
-  void shouldAddSpringBootPlugin() throws Exception {
+  void shouldAddSpringBootPlugin() {
     Project project = tmpProjectWithPomXml();
 
     springBootDomainService.addSpringBootMavenPlugin(project);

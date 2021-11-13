@@ -35,7 +35,7 @@ class MavenDomainServiceTest {
   MavenDomainService mavenDomainService;
 
   @Test
-  void shouldAddParent() throws Exception {
+  void shouldAddParent() {
     Project project = tmpProjectWithPomXml();
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
@@ -54,7 +54,7 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldAddDependency() throws Exception {
+  void shouldAddDependency() {
     Project project = tmpProjectWithPomXml();
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
 
@@ -64,7 +64,7 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldAddDependencyWithScopeTest() throws Exception {
+  void shouldAddDependencyWithScopeTest() {
     Project project = tmpProjectWithPomXml();
     Dependency dependency = Dependency
       .builder()
@@ -79,7 +79,7 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldAddDependencyWithExclusions() throws Exception {
+  void shouldAddDependencyWithExclusions() {
     Project project = tmpProjectWithPomXml();
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
     Dependency dependencyToExclude = Dependency
@@ -103,7 +103,7 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldAddPlugin() throws Exception {
+  void shouldAddPlugin() {
     Project project = tmpProjectWithPomXml();
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
 
@@ -122,7 +122,7 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldAddProperty() throws Exception {
+  void shouldAddProperty() {
     Project project = tmpProjectWithPomXml();
 
     mavenDomainService.addProperty(project, "testcontainers", "1.16.0");

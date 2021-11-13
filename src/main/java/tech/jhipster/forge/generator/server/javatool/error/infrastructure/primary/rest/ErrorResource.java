@@ -14,7 +14,7 @@ import tech.jhipster.forge.generator.server.javatool.error.application.ErrorAppl
 
 @RestController
 @RequestMapping("/api/servers/java/error")
-@Api(tags = "Error")
+@Api(tags = "Java")
 class ErrorResource {
 
   private final ErrorApplicationService errorApplicationService;

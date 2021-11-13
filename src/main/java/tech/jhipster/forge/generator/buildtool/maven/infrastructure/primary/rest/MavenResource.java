@@ -14,7 +14,7 @@ import tech.jhipster.forge.generator.project.infrastructure.primary.dto.ProjectD
 
 @RestController
 @RequestMapping("/api/build-tools/maven")
-@Api(tags = "Maven")
+@Api(tags = "Build Tool")
 class MavenResource {
 
   private final MavenApplicationService mavenApplicationService;

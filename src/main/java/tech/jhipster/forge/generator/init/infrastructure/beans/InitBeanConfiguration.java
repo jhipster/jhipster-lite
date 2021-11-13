@@ -7,11 +7,11 @@ import tech.jhipster.forge.generator.init.domain.InitService;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 
 @Configuration
-public class InitServiceBeanConfiguration {
+public class InitBeanConfiguration {
 
   private final ProjectRepository projectRepository;
 
-  public InitServiceBeanConfiguration(ProjectRepository projectRepository) {
+  public InitBeanConfiguration(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
   }
 

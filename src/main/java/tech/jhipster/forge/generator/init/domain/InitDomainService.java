@@ -30,7 +30,6 @@ public class InitDomainService implements InitService {
   public void addPackageJson(Project project) {
     project.addDefaultConfig(PROJECT_NAME);
     project.addDefaultConfig(BASE_NAME);
-
     project.addConfig("nodeVersion", Init.getNodeVersion());
 
     String baseName = project.getBaseName().orElse("");
@@ -65,7 +64,6 @@ public class InitDomainService implements InitService {
     projectRepository.add(project, SOURCE, ".lintstagedrc.js");
     projectRepository.add(project, SOURCE, ".prettierignore");
     projectRepository.add(project, getPath(SOURCE, ".husky"), "pre-commit", ".husky");
-
     projectRepository.template(project, SOURCE, ".prettierrc");
   }
 }

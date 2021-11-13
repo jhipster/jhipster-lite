@@ -9,7 +9,7 @@ import tech.jhipster.forge.IntegrationTest;
 import tech.jhipster.forge.generator.init.domain.InitDomainService;
 
 @IntegrationTest
-class InitServiceBeanConfigurationIT {
+class InitBeanConfigurationIT {
 
   @Autowired
   ApplicationContext applicationContext;

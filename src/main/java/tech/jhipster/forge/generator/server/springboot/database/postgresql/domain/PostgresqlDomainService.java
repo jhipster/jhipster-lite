@@ -111,7 +111,6 @@ public class PostgresqlDomainService implements PostgresqlService {
   @Override
   public void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
     Dependency dependency = Dependency
       .builder()
       .groupId("org.testcontainers")

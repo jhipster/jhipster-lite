@@ -7,9 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.forge.TestUtils.tmpProject;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
@@ -23,12 +23,8 @@ class InitDomainServiceTest {
   @Mock
   private ProjectRepository projectRepository;
 
+  @InjectMocks
   private InitDomainService initDomainService;
-
-  @BeforeEach
-  void setUp() {
-    initDomainService = new InitDomainService(projectRepository);
-  }
 
   @Test
   void shouldInit() {

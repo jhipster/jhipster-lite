@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.MissingMandatoryValueException;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
-import tech.jhipster.forge.generator.project.domain.CheckConfig;
 
 @UnitTest
 class CheckConfigTest {

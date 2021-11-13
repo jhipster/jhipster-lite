@@ -21,7 +21,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.FileCopyUtils;
 import tech.jhipster.forge.common.domain.FileUtils;
-import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.project.domain.Project;
 
 public class TestUtils {
@@ -136,7 +135,7 @@ public class TestUtils {
     try {
       return mapper.readValue(stringObject, valueType);
     } catch (JsonProcessingException e) {
-      throw new GeneratorException("Can't readValue", e);
+      throw new AssertionError("Can't read value");
     }
   }
 }

@@ -9,9 +9,9 @@ import static tech.jhipster.forge.TestUtils.tmpProject;
 import static tech.jhipster.forge.TestUtils.tmpProjectWithPomXml;
 
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
@@ -31,12 +31,8 @@ class MavenDomainServiceTest {
   @Mock
   ProjectRepository projectRepository;
 
+  @InjectMocks
   MavenDomainService mavenDomainService;
-
-  @BeforeEach
-  void setUp() {
-    mavenDomainService = new MavenDomainService(projectRepository);
-  }
 
   @Test
   void shouldAddParent() throws Exception {

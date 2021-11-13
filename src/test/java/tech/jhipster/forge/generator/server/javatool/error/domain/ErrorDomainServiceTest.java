@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
-import tech.jhipster.forge.generator.server.javatool.error.domain.ErrorDomainService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

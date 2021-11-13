@@ -3,6 +3,8 @@ package tech.jhipster.forge.generator.buildtool.maven.infrastructure.primary.res
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.forge.TestUtils.assertFileContent;
+import static tech.jhipster.forge.TestUtils.readFileToObject;
+import static tech.jhipster.forge.common.domain.FileUtils.tmpDirForTest;
 import static tech.jhipster.forge.generator.buildtool.maven.application.MavenAssertFiles.*;
 
 import java.util.List;
@@ -27,11 +29,7 @@ class MavenResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
 
     mockMvc
       .perform(
@@ -46,11 +44,7 @@ class MavenResourceIT {
 
   @Test
   void shouldAddPomXml() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
 
     mockMvc
       .perform(
@@ -67,11 +61,7 @@ class MavenResourceIT {
 
   @Test
   void shouldAddMavenWrapper() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
 
     mockMvc
       .perform(

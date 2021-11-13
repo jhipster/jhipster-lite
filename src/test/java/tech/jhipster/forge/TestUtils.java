@@ -77,9 +77,13 @@ public class TestUtils {
     return Project.builder().folder(FileUtils.tmpDirForTest()).build();
   }
 
-  public static Project tmpProjectWithPomXml() throws IOException {
+  public static Project tmpProjectWithPomXml() {
     Project project = tmpProject();
-    copyPomXml(project);
+    try {
+      copyPomXml(project);
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
     return project;
   }
 

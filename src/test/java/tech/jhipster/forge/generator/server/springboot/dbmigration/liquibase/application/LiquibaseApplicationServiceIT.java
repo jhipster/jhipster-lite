@@ -2,6 +2,7 @@ package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.ap
 
 import static tech.jhipster.forge.TestUtils.*;
 import static tech.jhipster.forge.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
+import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
 
@@ -79,6 +80,16 @@ class LiquibaseApplicationServiceIT {
   @Test
   void shouldAddConfigurationJava() {
     Project project = tmpProject();
+
+    liquibaseApplicationService.addConfigurationJava(project);
+
+    assertFilesLiquibaseJava(project);
+  }
+
+  @Test
+  void shouldAddConfigurationJavaWithPackageName() {
+    Project project = tmpProject();
+    project.addConfig(PACKAGE_NAME, "tech.jhipster.forge");
 
     liquibaseApplicationService.addConfigurationJava(project);
 

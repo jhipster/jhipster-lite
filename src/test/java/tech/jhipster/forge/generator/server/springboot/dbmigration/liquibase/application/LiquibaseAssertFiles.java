@@ -1,5 +1,6 @@
 package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.application;
 
+import static tech.jhipster.forge.TestUtils.assertFileContent;
 import static tech.jhipster.forge.TestUtils.assertFileExist;
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
@@ -9,10 +10,15 @@ import tech.jhipster.forge.generator.project.domain.Project;
 public class LiquibaseAssertFiles {
 
   public static void assertFilesLiquibaseJava(Project project) {
+    String liquibasePackage = project.getPackageName().orElse("com.mycompany.myapp") + ".technical.secondary.liquibase";
     String liquibasePath = getPath(MAIN_JAVA, project.getPackageNamePath().orElse("com/mycompany/myapp"), "technical/secondary/liquibase");
     assertFileExist(project, getPath(liquibasePath, "AsyncSpringLiquibase.java"));
     assertFileExist(project, getPath(liquibasePath, "LiquibaseConfiguration.java"));
     assertFileExist(project, getPath(liquibasePath, "SpringLiquibaseUtil.java"));
+
+    assertFileContent(project, getPath(liquibasePath, "AsyncSpringLiquibase.java"), "package " + liquibasePackage);
+    assertFileContent(project, getPath(liquibasePath, "LiquibaseConfiguration.java"), "package " + liquibasePackage);
+    assertFileContent(project, getPath(liquibasePath, "SpringLiquibaseUtil.java"), "package " + liquibasePackage);
 
     String liquibaseTestPath = getPath(
       TEST_JAVA,
@@ -23,6 +29,11 @@ public class LiquibaseAssertFiles {
     assertFileExist(project, getPath(liquibaseTestPath, "LiquibaseConfigurationIT.java"));
     assertFileExist(project, getPath(liquibaseTestPath, "LogbackRecorder.java"));
     assertFileExist(project, getPath(liquibaseTestPath, "SpringLiquibaseUtilTest.java"));
+
+    assertFileContent(project, getPath(liquibaseTestPath, "AsyncSpringLiquibaseTest.java"), "package " + liquibasePackage);
+    assertFileContent(project, getPath(liquibaseTestPath, "LiquibaseConfigurationIT.java"), "package " + liquibasePackage);
+    assertFileContent(project, getPath(liquibaseTestPath, "LogbackRecorder.java"), "package " + liquibasePackage);
+    assertFileContent(project, getPath(liquibaseTestPath, "SpringLiquibaseUtilTest.java"), "package " + liquibasePackage);
   }
 
   public static void assertFilesLiquibaseChangelogMasterXml(Project project) {

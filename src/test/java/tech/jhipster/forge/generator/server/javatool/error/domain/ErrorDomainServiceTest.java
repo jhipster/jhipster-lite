@@ -6,9 +6,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.forge.TestUtils.tmpProject;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
@@ -22,12 +22,8 @@ class ErrorDomainServiceTest {
   @Mock
   ProjectRepository projectRepository;
 
+  @InjectMocks
   ErrorDomainService errorDomainService;
-
-  @BeforeEach
-  void setUp() {
-    errorDomainService = new ErrorDomainService(projectRepository);
-  }
 
   @Test
   void shouldInit() {

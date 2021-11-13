@@ -118,6 +118,16 @@ class PostgresqlApplicationServiceIT {
   @Test
   void shouldAddDockerCompose() {
     Project project = tmpProject();
+
+    postgresqlApplicationService.addDockerCompose(project);
+
+    assertFileExist(project, "src/main/docker/postgresql.yml");
+    assertFileContent(project, "src/main/docker/postgresql.yml", "POSTGRES_USER=jhipster");
+  }
+
+  @Test
+  void shouldAddDockerComposeWithBaseName() {
+    Project project = tmpProject();
     project.addConfig(BASE_NAME, "chips");
 
     postgresqlApplicationService.addDockerCompose(project);

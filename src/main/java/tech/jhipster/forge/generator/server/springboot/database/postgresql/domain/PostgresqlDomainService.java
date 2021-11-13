@@ -74,6 +74,7 @@ public class PostgresqlDomainService implements PostgresqlService {
 
   @Override
   public void addDockerCompose(Project project) {
+    project.addDefaultConfig(BASE_NAME);
     projectRepository.template(project, SOURCE, "postgresql.yml", "src/main/docker", "postgresql.yml");
   }
 

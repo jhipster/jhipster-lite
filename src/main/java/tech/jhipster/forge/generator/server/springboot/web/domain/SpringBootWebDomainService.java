@@ -4,7 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.forge.error.domain.UnauthorizedValueException;
-import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.server.springboot.properties.domain.SpringBootPropertiesService;
@@ -13,11 +13,11 @@ public class SpringBootWebDomainService implements SpringBootWebService {
 
   private final Logger log = LoggerFactory.getLogger(SpringBootWebDomainService.class);
 
-  public final BuildToolRepository buildToolRepository;
+  public final BuildToolService buildToolService;
   public final SpringBootPropertiesService springBootPropertiesService;
 
-  public SpringBootWebDomainService(BuildToolRepository buildToolRepository, SpringBootPropertiesService springBootPropertiesService) {
-    this.buildToolRepository = buildToolRepository;
+  public SpringBootWebDomainService(BuildToolService buildToolService, SpringBootPropertiesService springBootPropertiesService) {
+    this.buildToolService = buildToolService;
     this.springBootPropertiesService = springBootPropertiesService;
   }
 
@@ -29,7 +29,7 @@ public class SpringBootWebDomainService implements SpringBootWebService {
   @Override
   public void addSpringBootWeb(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
-    buildToolRepository.addDependency(project, dependency);
+    buildToolService.addDependency(project, dependency);
     addServerPort(project);
     addServerPortInTest(project);
   }
@@ -40,8 +40,8 @@ public class SpringBootWebDomainService implements SpringBootWebService {
     Dependency tomcat = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-tomcat").build();
     Dependency undertow = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-undertow").build();
 
-    buildToolRepository.addDependency(project, dependency, List.of(tomcat));
-    buildToolRepository.addDependency(project, undertow);
+    buildToolService.addDependency(project, dependency, List.of(tomcat));
+    buildToolService.addDependency(project, undertow);
     addServerPort(project);
     addServerPortInTest(project);
   }

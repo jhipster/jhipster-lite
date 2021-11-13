@@ -1,6 +1,7 @@
 package tech.jhipster.forge.generator.buildtool.generic.domain;
 
 import java.util.List;
+import tech.jhipster.forge.generator.project.domain.BuildToolType;
 import tech.jhipster.forge.generator.project.domain.Project;
 
 public interface BuildToolService {

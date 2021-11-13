@@ -1,10 +1,11 @@
 package tech.jhipster.forge.generator.buildtool.generic.domain;
 
-import static tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolType.MAVEN;
+import static tech.jhipster.forge.generator.project.domain.BuildToolType.MAVEN;
 
 import java.util.List;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
+import tech.jhipster.forge.generator.project.domain.BuildToolType;
 import tech.jhipster.forge.generator.project.domain.Project;
 
 public class BuildToolDomainService implements BuildToolService {

@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.forge.UnitTest;
 import tech.jhipster.forge.error.domain.GeneratorException;
 import tech.jhipster.forge.generator.buildtool.maven.domain.MavenService;
+import tech.jhipster.forge.generator.project.domain.BuildToolType;
 import tech.jhipster.forge.generator.project.domain.Project;
 
 @UnitTest

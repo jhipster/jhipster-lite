@@ -3,7 +3,7 @@ package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.do
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
 
-import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
@@ -15,16 +15,16 @@ public class LiquibaseDomainService implements LiquibaseService {
   public static final String LIQUIBASE_PATH = "technical/secondary/liquibase";
 
   public final ProjectRepository projectRepository;
-  public final BuildToolRepository buildToolRepository;
+  public final BuildToolService buildToolService;
   public final SpringBootPropertiesService springBootPropertiesService;
 
   public LiquibaseDomainService(
     ProjectRepository projectRepository,
-    BuildToolRepository buildToolRepository,
+    BuildToolService buildToolService,
     SpringBootPropertiesService springBootPropertiesService
   ) {
     this.projectRepository = projectRepository;
-    this.buildToolRepository = buildToolRepository;
+    this.buildToolService = buildToolService;
     this.springBootPropertiesService = springBootPropertiesService;
   }
 
@@ -38,10 +38,10 @@ public class LiquibaseDomainService implements LiquibaseService {
   @Override
   public void addLiquibase(Project project) {
     Dependency liquibaseDependency = Dependency.builder().groupId("org.liquibase").artifactId("liquibase-core").build();
-    buildToolRepository.addDependency(project, liquibaseDependency);
+    buildToolService.addDependency(project, liquibaseDependency);
 
     Dependency h2dependency = Dependency.builder().groupId("com.h2database").artifactId("h2").scope("test").build();
-    buildToolRepository.addDependency(project, h2dependency);
+    buildToolService.addDependency(project, h2dependency);
   }
 
   @Override

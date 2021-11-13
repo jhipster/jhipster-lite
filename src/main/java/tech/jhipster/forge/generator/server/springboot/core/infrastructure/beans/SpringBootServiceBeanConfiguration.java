@@ -2,7 +2,7 @@ package tech.jhipster.forge.generator.server.springboot.core.infrastructure.bean
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
 import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootDomainService;
 import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootService;
@@ -11,15 +11,15 @@ import tech.jhipster.forge.generator.server.springboot.core.domain.SpringBootSer
 public class SpringBootServiceBeanConfiguration {
 
   private final ProjectRepository projectRepository;
-  private final BuildToolRepository buildToolRepository;
+  private final BuildToolService buildToolService;
 
-  public SpringBootServiceBeanConfiguration(ProjectRepository projectRepository, BuildToolRepository buildToolRepository) {
+  public SpringBootServiceBeanConfiguration(ProjectRepository projectRepository, BuildToolService buildToolService) {
     this.projectRepository = projectRepository;
-    this.buildToolRepository = buildToolRepository;
+    this.buildToolService = buildToolService;
   }
 
   @Bean
   public SpringBootService springBootService() {
-    return new SpringBootDomainService(projectRepository, buildToolRepository);
+    return new SpringBootDomainService(projectRepository, buildToolService);
   }
 }

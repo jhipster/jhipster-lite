@@ -8,7 +8,7 @@ import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolRepository;
+import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.forge.generator.project.domain.Project;
 import tech.jhipster.forge.generator.project.domain.ProjectRepository;
@@ -19,16 +19,16 @@ public class PostgresqlDomainService implements PostgresqlService {
   public static final String SOURCE = "server/springboot/database/postgresql";
 
   private final ProjectRepository projectRepository;
-  private final BuildToolRepository buildToolRepository;
+  private final BuildToolService buildToolService;
   private final SpringBootPropertiesService springBootPropertiesService;
 
   public PostgresqlDomainService(
     ProjectRepository projectRepository,
-    BuildToolRepository buildToolRepository,
+    BuildToolService buildToolService,
     SpringBootPropertiesService springBootPropertiesService
   ) {
     this.projectRepository = projectRepository;
-    this.buildToolRepository = buildToolRepository;
+    this.buildToolService = buildToolService;
     this.springBootPropertiesService = springBootPropertiesService;
   }
 
@@ -48,28 +48,28 @@ public class PostgresqlDomainService implements PostgresqlService {
   public void addSpringDataJpa(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-data-jpa").build();
 
-    buildToolRepository.addDependency(project, dependency);
+    buildToolService.addDependency(project, dependency);
   }
 
   @Override
   public void addPostgreSQLDriver(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.postgresql").artifactId("postgresql").build();
 
-    buildToolRepository.addDependency(project, dependency);
+    buildToolService.addDependency(project, dependency);
   }
 
   @Override
   public void addHikari(Project project) {
     Dependency dependency = Dependency.builder().groupId("com.zaxxer").artifactId("HikariCP").build();
 
-    buildToolRepository.addDependency(project, dependency);
+    buildToolService.addDependency(project, dependency);
   }
 
   @Override
   public void addHibernateCore(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.hibernate").artifactId("hibernate-core").build();
 
-    buildToolRepository.addDependency(project, dependency);
+    buildToolService.addDependency(project, dependency);
   }
 
   @Override
@@ -118,8 +118,8 @@ public class PostgresqlDomainService implements PostgresqlService {
       .version("\\${testcontainers.version}")
       .scope("test")
       .build();
-    buildToolRepository.addProperty(project, "testcontainers", Postgresql.getTestcontainersVersion());
-    buildToolRepository.addDependency(project, dependency);
+    buildToolService.addProperty(project, "testcontainers", Postgresql.getTestcontainersVersion());
+    buildToolService.addDependency(project, dependency);
 
     springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
   }

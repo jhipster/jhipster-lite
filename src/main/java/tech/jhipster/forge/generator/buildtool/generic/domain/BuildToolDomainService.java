@@ -63,11 +63,10 @@ public class BuildToolDomainService implements BuildToolService {
 
   @Override
   public void init(Project project, BuildToolType buildTool) {
-    if (project.isMavenProject()) {
-      throw new GeneratorException("Already existing build tool");
-    }
     if (buildTool == MAVEN) {
       mavenService.init(project);
+    } else {
+      throw new GeneratorException("No build tool");
     }
   }
 }

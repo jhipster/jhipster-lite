@@ -1,7 +1,7 @@
 {
   "generator-jhipster:7.1.0": {
     "promptValues": {
-      "packageName": "tech.jhipster.forge"
+      "packageName": "tech.jhipster.light"
     }
   }
 }

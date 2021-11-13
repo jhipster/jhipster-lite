@@ -1,8 +1,8 @@
 {
-  "name": "jhforge",
+  "name": "jhlight",
   "version": "0.0.0",
   "private": true,
-  "description": "JHipster Forge",
+  "description": "JHipster Light",
   "license": "UNLICENSED",
   "scripts": {
     "prepare": "husky install",

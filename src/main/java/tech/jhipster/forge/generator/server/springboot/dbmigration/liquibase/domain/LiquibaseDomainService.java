@@ -2,6 +2,7 @@ package tech.jhipster.forge.generator.server.springboot.dbmigration.liquibase.do
 
 import static tech.jhipster.forge.common.domain.FileUtils.getPath;
 import static tech.jhipster.forge.generator.project.domain.Constants.*;
+import static tech.jhipster.forge.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
 import tech.jhipster.forge.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.forge.generator.buildtool.generic.domain.Dependency;
@@ -51,6 +52,7 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   @Override
   public void addConfigurationJava(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
 
     templateToLiquibase(project, packageNamePath, "src", "AsyncSpringLiquibase.java", MAIN_JAVA);

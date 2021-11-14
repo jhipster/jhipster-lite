@@ -2,7 +2,9 @@ package tech.jhipster.light.generator.server.springboot.core.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.light.TestUtils.*;
+import static tech.jhipster.light.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.light.IntegrationTest;
@@ -108,8 +110,19 @@ class SpringBootApplicationServiceIT {
 
     springBootApplicationService.addSpringBootMavenPlugin(project);
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-maven-plugin</artifactId>");
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<plugin>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-maven-plugin</artifactId>",
+        "<version>${spring-boot.version}</version>",
+        "</plugin>"
+      )
+    );
+    assertFileContent(project, POM_XML, "<spring-boot.version>");
+    assertFileContent(project, POM_XML, "</spring-boot.version>");
   }
 
   @Test

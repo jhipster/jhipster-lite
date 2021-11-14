@@ -13,7 +13,7 @@
     "husky": "7.0.4",
     "lint-staged": "11.2.3",
     "prettier": "2.4.1",
-    "prettier-plugin-java": "1.5.0",
+    "prettier-plugin-java": "1.6.0",
     "prettier-plugin-packagejson": "2.2.15"
   },
   "engines": {

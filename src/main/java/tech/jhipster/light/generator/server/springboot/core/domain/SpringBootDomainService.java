@@ -72,7 +72,13 @@ public class SpringBootDomainService implements SpringBootService {
 
   @Override
   public void addSpringBootMavenPlugin(Project project) {
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+    Plugin plugin = Plugin
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-maven-plugin")
+      .version("\\${spring-boot.version}")
+      .build();
+    buildToolService.addProperty(project, "spring-boot", SpringBoot.getVersion());
     buildToolService.addPlugin(project, plugin);
   }
 

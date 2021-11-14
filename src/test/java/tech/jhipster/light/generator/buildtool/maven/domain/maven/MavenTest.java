@@ -177,6 +177,21 @@ class MavenTest {
       "        <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
       "      </plugin>";
     // @formatter:on
+    Plugin plugin = minimalPluginBuilder().build();
+
+    assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetPluginWithVersion() {
+    // @formatter:off
+    String expected =
+      "<plugin>" + System.lineSeparator() +
+      "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
+      "        <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
+      "        <version>2.5.6</version>" + System.lineSeparator() +
+      "      </plugin>";
+    // @formatter:on
     Plugin plugin = fullPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
@@ -191,7 +206,7 @@ class MavenTest {
       "                <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
       "            </plugin>";
     // @formatter:on
-    Plugin plugin = fullPluginBuilder().build();
+    Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin, 4)).isEqualTo(expected);
   }
@@ -204,7 +219,11 @@ class MavenTest {
     assertThat(Maven.getProperty(key, version)).isEqualTo("<testcontainers.version>1.16.0</testcontainers.version>");
   }
 
-  private Plugin.PluginBuilder fullPluginBuilder() {
+  private Plugin.PluginBuilder minimalPluginBuilder() {
     return Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin");
+  }
+
+  private Plugin.PluginBuilder fullPluginBuilder() {
+    return minimalPluginBuilder().version("2.5.6");
   }
 }

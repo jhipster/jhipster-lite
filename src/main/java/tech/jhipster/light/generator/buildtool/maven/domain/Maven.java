@@ -146,9 +146,15 @@ public class Maven {
       .append("<artifactId>")
       .append(plugin.getArtifactId())
       .append("</artifactId>")
-      .append(System.lineSeparator())
-      .append(indent(3, indentation))
-      .append("</plugin>");
+      .append(System.lineSeparator());
+
+    plugin
+      .getVersion()
+      .ifPresent(version ->
+        result.append(indent(4, indentation)).append("<version>").append(version).append("</version>").append(System.lineSeparator())
+      );
+
+    result.append(indent(3, indentation)).append("</plugin>");
 
     return result.toString();
   }

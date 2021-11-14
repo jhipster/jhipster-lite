@@ -6,7 +6,7 @@ updates:
       interval: 'daily'
     open-pull-requests-limit: 15
     labels:
-      - 'theme: jhipster-internals'
+      - 'area: enhancement :wrench:'
       - 'theme: dependencies'
 
   - package-ecosystem: 'github-actions'
@@ -15,7 +15,7 @@ updates:
       interval: 'daily'
     open-pull-requests-limit: 10
     labels:
-      - 'theme: jhipster-internals'
+      - 'area: enhancement :wrench:'
       - 'theme: dependencies'
 
   - package-ecosystem: 'npm'
@@ -24,5 +24,5 @@ updates:
       interval: 'daily'
     open-pull-requests-limit: 10
     labels:
-      - 'theme: jhipster-internals'
+      - 'area: enhancement :wrench:'
       - 'theme: dependencies'

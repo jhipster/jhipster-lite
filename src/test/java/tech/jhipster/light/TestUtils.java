@@ -4,6 +4,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.light.common.domain.FileUtils.*;
+import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.light.generator.project.domain.Constants.TEST_RESOURCES;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -85,6 +87,12 @@ public class TestUtils {
     return project;
   }
 
+  public static Project tmpProjectWithSpringBootProperties() {
+    Project project = tmpProject();
+    copySpringBootProperties(project);
+    return project;
+  }
+
   public static void copyPomXml(Project project) {
     try {
       FileUtils.createFolder(project.getFolder());
@@ -100,6 +108,23 @@ public class TestUtils {
       Files.copy(
         getPathOf("src/test/resources/template/buildtool/gradle/build.test.gradle"),
         getPathOf(project.getFolder(), "build.gradle")
+      );
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public static void copySpringBootProperties(Project project) {
+    try {
+      FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
+      FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
+      Files.copy(
+        getPathOf("src/test/resources/template/server/springboot/core/application.src.properties"),
+        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application.properties")
+      );
+      Files.copy(
+        getPathOf("src/test/resources/template/server/springboot/core/application.test.properties"),
+        getPathOf(project.getFolder(), TEST_RESOURCES, "config/application.properties")
       );
     } catch (IOException e) {
       throw new AssertionError(e);

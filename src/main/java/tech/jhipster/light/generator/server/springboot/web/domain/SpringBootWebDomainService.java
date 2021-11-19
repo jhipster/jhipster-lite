@@ -30,7 +30,9 @@ public class SpringBootWebDomainService implements SpringBootWebService {
   public void addSpringBootWeb(Project project) {
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
     buildToolService.addDependency(project, dependency);
+    addMvcPathmatch(project);
     addServerPort(project);
+    addMvcPathmatchInTest(project);
     addServerPortInTest(project);
   }
 
@@ -42,8 +44,18 @@ public class SpringBootWebDomainService implements SpringBootWebService {
 
     buildToolService.addDependency(project, dependency, List.of(tomcat));
     buildToolService.addDependency(project, undertow);
+    addMvcPathmatch(project);
     addServerPort(project);
+    addMvcPathmatchInTest(project);
     addServerPortInTest(project);
+  }
+
+  private void addMvcPathmatch(Project project) {
+    springBootPropertiesService.addProperties(project, "spring.mvc.pathmatch.matching-strategy", "ant_path_matcher");
+  }
+
+  private void addMvcPathmatchInTest(Project project) {
+    springBootPropertiesService.addPropertiesTest(project, "spring.mvc.pathmatch.matching-strategy", "ant_path_matcher");
   }
 
   private void addServerPort(Project project) {

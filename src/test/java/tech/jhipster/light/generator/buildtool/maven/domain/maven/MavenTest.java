@@ -189,7 +189,7 @@ class MavenTest {
       "<plugin>" + System.lineSeparator() +
       "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
       "        <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
-      "        <version>2.5.6</version>" + System.lineSeparator() +
+      "        <version>2.6.0</version>" + System.lineSeparator() +
       "      </plugin>";
     // @formatter:on
     Plugin plugin = fullPluginBuilder().build();
@@ -224,6 +224,6 @@ class MavenTest {
   }
 
   private Plugin.PluginBuilder fullPluginBuilder() {
-    return minimalPluginBuilder().version("2.5.6");
+    return minimalPluginBuilder().version("2.6.0");
   }
 }

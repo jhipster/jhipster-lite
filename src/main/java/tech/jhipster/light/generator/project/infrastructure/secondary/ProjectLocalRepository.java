@@ -45,9 +45,8 @@ public class ProjectLocalRepository implements ProjectRepository {
   @Override
   public void add(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
     log.info("Adding file '{}'", destinationFilename);
-    Path sourcePath = FileUtils.getPathOf(TEMPLATE_RESOURCES, source, sourceFilename);
-
     try {
+      Path sourcePath = FileUtils.getFromClasspath(TEMPLATE_FOLDER, source, sourceFilename);
       String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
       FileUtils.createFolder(destinationFolder);
 

@@ -15,6 +15,7 @@ import java.util.List;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.light.UnitTest;
+import tech.jhipster.light.error.domain.GeneratorException;
 import tech.jhipster.light.error.domain.MissingMandatoryValueException;
 
 @UnitTest
@@ -118,6 +119,19 @@ class FileUtilsTest {
       Path result = FileUtils.getPathOf("chips", "beer");
 
       assertThat(result).isEqualTo(Path.of("chips" + File.separator + "beer"));
+    }
+
+    @Test
+    void shouldGetFromClasspath() {
+      Path result = FileUtils.getFromClasspath("template/mustache/README.txt");
+
+      assertThat(result).isNotNull();
+      assertThat(result.toString()).contains(getPath("/template/mustache/README.txt"));
+    }
+
+    @Test
+    void shouldNotGetFromClasspath() {
+      assertThatThrownBy(() -> FileUtils.getFromClasspath("template/mustache/chips.txt")).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 

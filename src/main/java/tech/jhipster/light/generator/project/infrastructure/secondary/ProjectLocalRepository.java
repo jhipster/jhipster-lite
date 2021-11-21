@@ -5,6 +5,7 @@ import static tech.jhipster.light.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.light.generator.project.domain.Constants.TEMPLATE_FOLDER;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -45,12 +46,13 @@ public class ProjectLocalRepository implements ProjectRepository {
   public void add(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
     log.info("Adding file '{}'", destinationFilename);
     try {
-      Path sourcePath = FileUtils.getFromClasspath(TEMPLATE_FOLDER, source, sourceFilename);
-      String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
-      FileUtils.createFolder(destinationFolder);
+      InputStream in = FileUtils.getInputStream(TEMPLATE_FOLDER, source, sourceFilename);
 
+      String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
       Path destinationPath = FileUtils.getPathOf(destinationFolder, destinationFilename);
-      Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+      FileUtils.createFolder(destinationFolder);
+      Files.copy(in, destinationPath, StandardCopyOption.REPLACE_EXISTING);
     } catch (IOException ex) {
       throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
     }

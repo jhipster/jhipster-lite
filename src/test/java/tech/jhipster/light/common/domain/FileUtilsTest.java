@@ -8,6 +8,7 @@ import static tech.jhipster.light.common.domain.FileUtils.getPath;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -122,16 +123,15 @@ class FileUtilsTest {
     }
 
     @Test
-    void shouldGetFromClasspath() {
-      Path result = FileUtils.getFromClasspath("template/mustache/README.txt");
+    void shouldGetInputStream() {
+      InputStream in = FileUtils.getInputStream("template/mustache/README.txt");
 
-      assertThat(result).isNotNull();
-      assertThat(result.toString()).contains(getPath("/template/mustache/README.txt"));
+      assertThat(in).isNotNull();
     }
 
     @Test
-    void shouldNotGetFromClasspath() {
-      assertThatThrownBy(() -> FileUtils.getFromClasspath("template/mustache/chips.txt")).isExactlyInstanceOf(GeneratorException.class);
+    void shouldNotGetInputStream() {
+      assertThatThrownBy(() -> FileUtils.getInputStream("template/mustache/chips.txt")).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 

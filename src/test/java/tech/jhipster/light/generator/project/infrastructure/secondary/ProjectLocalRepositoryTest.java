@@ -9,6 +9,7 @@ import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOUR
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -74,7 +75,7 @@ class ProjectLocalRepositoryTest {
     Project project = tmpProject();
 
     try (MockedStatic<Files> files = Mockito.mockStatic(Files.class)) {
-      files.when(() -> Files.copy(any(Path.class), any(Path.class), any(CopyOption.class))).thenThrow(new IOException());
+      files.when(() -> Files.copy(any(InputStream.class), any(Path.class), any(CopyOption.class))).thenThrow(new IOException());
 
       assertThatThrownBy(() -> repository.add(project, "mustache", "README.txt")).isInstanceOf(GeneratorException.class);
     }

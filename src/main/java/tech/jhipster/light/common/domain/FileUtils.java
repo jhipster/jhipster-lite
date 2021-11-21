@@ -2,6 +2,8 @@ package tech.jhipster.light.common.domain;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +15,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.light.error.domain.Assert;
+import tech.jhipster.light.error.domain.GeneratorException;
 
 public class FileUtils {
 
@@ -46,6 +49,14 @@ public class FileUtils {
 
   public static Path getPathOf(String... paths) {
     return Path.of(getPath(paths));
+  }
+
+  public static InputStream getInputStream(String... paths) {
+    InputStream in = FileUtils.class.getResourceAsStream(File.separator + getPath(paths));
+    if (in == null) {
+      throw new GeneratorException("File not found in classpath");
+    }
+    return in;
   }
 
   public static String read(String filename) throws IOException {

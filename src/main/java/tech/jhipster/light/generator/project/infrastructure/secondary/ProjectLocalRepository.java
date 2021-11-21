@@ -2,9 +2,10 @@ package tech.jhipster.light.generator.project.infrastructure.secondary;
 
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.common.domain.FileUtils.getPathOf;
-import static tech.jhipster.light.generator.project.domain.Constants.TEMPLATE_RESOURCES;
+import static tech.jhipster.light.generator.project.domain.Constants.TEMPLATE_FOLDER;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -44,14 +45,14 @@ public class ProjectLocalRepository implements ProjectRepository {
   @Override
   public void add(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
     log.info("Adding file '{}'", destinationFilename);
-    Path sourcePath = FileUtils.getPathOf(TEMPLATE_RESOURCES, source, sourceFilename);
-
     try {
-      String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
-      FileUtils.createFolder(destinationFolder);
+      InputStream in = FileUtils.getInputStream(TEMPLATE_FOLDER, source, sourceFilename);
 
+      String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
       Path destinationPath = FileUtils.getPathOf(destinationFolder, destinationFilename);
-      Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+      FileUtils.createFolder(destinationFolder);
+      Files.copy(in, destinationPath, StandardCopyOption.REPLACE_EXISTING);
     } catch (IOException ex) {
       throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
     }
@@ -72,7 +73,7 @@ public class ProjectLocalRepository implements ProjectRepository {
     try {
       log.info("Adding file '{}'", destinationFilename);
       String filename = MustacheUtils.withExt(sourceFilename);
-      String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, filename), project.getConfig());
+      String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_FOLDER, source, filename), project.getConfig());
 
       write(project, result, destination, destinationFilename);
     } catch (IOException ex) {

@@ -9,6 +9,10 @@ import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOUR
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -64,6 +68,17 @@ class ProjectLocalRepositoryTest {
     String randomString = UUID.randomUUID().toString();
 
     assertThatThrownBy(() -> repository.add(project, "common", randomString)).isInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldNotAddWhenErrorOnCopy() {
+    Project project = tmpProject();
+
+    try (MockedStatic<Files> files = Mockito.mockStatic(Files.class)) {
+      files.when(() -> Files.copy(any(InputStream.class), any(Path.class), any(CopyOption.class))).thenThrow(new IOException());
+
+      assertThatThrownBy(() -> repository.add(project, "mustache", "README.txt")).isInstanceOf(GeneratorException.class);
+    }
   }
 
   @Test

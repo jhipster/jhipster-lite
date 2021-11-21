@@ -24,6 +24,16 @@ class MustacheUtilsTest {
   }
 
   @Test
+  void shouldTemplateInClassPath() throws Exception {
+    String file = FileUtils.getPath("template/common/README.md.mustache");
+
+    Chips chips = new Chips("chips");
+    String result = MustacheUtils.template(file, chips);
+
+    assertThat(result).isEqualTo("The apero can start when there is some chips\n");
+  }
+
+  @Test
   void shouldTemplateWithMap() throws Exception {
     String file = FileUtils.getPath(TEST_TEMPLATE_RESOURCES, "common", "README.md.mustache");
 

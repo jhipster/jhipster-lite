@@ -8,6 +8,7 @@ import static tech.jhipster.light.common.domain.FileUtils.getPath;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -15,6 +16,7 @@ import java.util.List;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.light.UnitTest;
+import tech.jhipster.light.error.domain.GeneratorException;
 import tech.jhipster.light.error.domain.MissingMandatoryValueException;
 
 @UnitTest
@@ -118,6 +120,18 @@ class FileUtilsTest {
       Path result = FileUtils.getPathOf("chips", "beer");
 
       assertThat(result).isEqualTo(Path.of("chips" + File.separator + "beer"));
+    }
+
+    @Test
+    void shouldGetInputStream() {
+      InputStream in = FileUtils.getInputStream("template/mustache/README.txt");
+
+      assertThat(in).isNotNull();
+    }
+
+    @Test
+    void shouldNotGetInputStream() {
+      assertThatThrownBy(() -> FileUtils.getInputStream("template/mustache/chips.txt")).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 

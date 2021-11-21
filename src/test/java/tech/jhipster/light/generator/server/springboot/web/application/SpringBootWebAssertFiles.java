@@ -36,4 +36,14 @@ public class SpringBootWebAssertFiles {
       "</dependency>"
     );
   }
+
+  public static List<String> springFoxDependency() {
+    return List.of(
+      "<dependency>",
+      "<groupId>io.springfox</groupId>",
+      "<artifactId>springfox-boot-starter</artifactId>",
+      "<version>${springfox.version}</version>",
+      "</dependency>"
+    );
+  }
 }

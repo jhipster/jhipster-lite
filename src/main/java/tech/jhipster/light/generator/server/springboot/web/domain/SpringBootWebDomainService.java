@@ -1,11 +1,12 @@
 package tech.jhipster.light.generator.server.springboot.web.domain;
 
+import static tech.jhipster.light.generator.server.springboot.web.domain.SpringBootWeb.*;
+
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.light.error.domain.UnauthorizedValueException;
 import tech.jhipster.light.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.light.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.light.generator.project.domain.Project;
 import tech.jhipster.light.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
@@ -28,41 +29,35 @@ public class SpringBootWebDomainService implements SpringBootWebService {
 
   @Override
   public void addSpringBootWeb(Project project) {
-    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
-    buildToolService.addDependency(project, dependency);
-    addMvcPathmatch(project);
-    addServerPort(project);
-    addMvcPathmatchInTest(project);
-    addServerPortInTest(project);
+    buildToolService.addDependency(project, springBootStarterWebDependency());
+    addSpringfoxDependencyAndProperty(project);
+
+    addMvcPathmatchInProperties(project);
+    addServerPortInProperties(project);
   }
 
   @Override
   public void addSpringBootUndertow(Project project) {
-    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
-    Dependency tomcat = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-tomcat").build();
-    Dependency undertow = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-undertow").build();
+    buildToolService.addDependency(project, springBootStarterWebDependency(), List.of(tomcatDependency()));
+    buildToolService.addDependency(project, undertowDependency());
+    addSpringfoxDependencyAndProperty(project);
 
-    buildToolService.addDependency(project, dependency, List.of(tomcat));
-    buildToolService.addDependency(project, undertow);
-    addMvcPathmatch(project);
-    addServerPort(project);
-    addMvcPathmatchInTest(project);
-    addServerPortInTest(project);
+    addMvcPathmatchInProperties(project);
+    addServerPortInProperties(project);
   }
 
-  private void addMvcPathmatch(Project project) {
+  private void addSpringfoxDependencyAndProperty(Project project) {
+    buildToolService.addDependency(project, springfoxDependency());
+    buildToolService.addProperty(project, "springfox", springfoxVersion());
+  }
+
+  private void addMvcPathmatchInProperties(Project project) {
     springBootPropertiesService.addProperties(project, "spring.mvc.pathmatch.matching-strategy", "ant_path_matcher");
-  }
-
-  private void addMvcPathmatchInTest(Project project) {
     springBootPropertiesService.addPropertiesTest(project, "spring.mvc.pathmatch.matching-strategy", "ant_path_matcher");
   }
 
-  private void addServerPort(Project project) {
+  private void addServerPortInProperties(Project project) {
     springBootPropertiesService.addProperties(project, "server.port", getServerPort(project));
-  }
-
-  private void addServerPortInTest(Project project) {
     springBootPropertiesService.addPropertiesTest(project, "server.port", 0);
   }
 

@@ -40,10 +40,10 @@ class SpringBootWebApplicationServiceIT {
 
     springBootWebApplicationService.init(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertTomcat(project);
+    assertSpringFox(project);
 
     assertMvcPathmatch(project);
-
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
   }
@@ -57,10 +57,10 @@ class SpringBootWebApplicationServiceIT {
 
     springBootWebApplicationService.addSpringBootWeb(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertTomcat(project);
+    assertSpringFox(project);
 
     assertMvcPathmatch(project);
-
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
   }
@@ -75,12 +75,16 @@ class SpringBootWebApplicationServiceIT {
 
     springBootWebApplicationService.addSpringBootWeb(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertTomcat(project);
+    assertSpringFox(project);
 
     assertMvcPathmatch(project);
-
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=7419");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+  }
+
+  private void assertTomcat(Project project) {
+    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
   }
 
   @Test
@@ -93,10 +97,9 @@ class SpringBootWebApplicationServiceIT {
 
     springBootWebApplicationService.addSpringBootWeb(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertTomcat(project);
 
     assertMvcPathmatch(project);
-
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
   }
@@ -110,13 +113,17 @@ class SpringBootWebApplicationServiceIT {
 
     springBootWebApplicationService.addSpringBootUndertow(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
-    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+    assertUndertow(project);
 
     assertMvcPathmatch(project);
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+  }
+
+  private void assertUndertow(Project project) {
+    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
+    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
   }
 
   @Test
@@ -129,13 +136,18 @@ class SpringBootWebApplicationServiceIT {
 
     springBootWebApplicationService.addSpringBootUndertow(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
-    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+    assertUndertow(project);
+    assertSpringFox(project);
 
     assertMvcPathmatch(project);
-
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=1664");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+  }
+
+  private void assertSpringFox(Project project) {
+    assertFileContent(project, "pom.xml", "<springfox.version>");
+    assertFileContent(project, "pom.xml", "</springfox.version>");
+    assertFileContent(project, "pom.xml", springFoxDependency());
   }
 
   private void assertMvcPathmatch(Project project) {

@@ -2,6 +2,7 @@ package tech.jhipster.light.generator.project.infrastructure.secondary;
 
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.light.generator.project.domain.Constants.TEMPLATE_FOLDER;
 import static tech.jhipster.light.generator.project.domain.Constants.TEMPLATE_RESOURCES;
 
 import java.io.IOException;
@@ -72,7 +73,7 @@ public class ProjectLocalRepository implements ProjectRepository {
     try {
       log.info("Adding file '{}'", destinationFilename);
       String filename = MustacheUtils.withExt(sourceFilename);
-      String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_RESOURCES, source, filename), project.getConfig());
+      String result = MustacheUtils.template(FileUtils.getPath(TEMPLATE_FOLDER, source, filename), project.getConfig());
 
       write(project, result, destination, destinationFilename);
     } catch (IOException ex) {

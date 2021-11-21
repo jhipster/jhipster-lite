@@ -3,7 +3,6 @@ package tech.jhipster.light.generator.project.infrastructure.secondary;
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.light.generator.project.domain.Constants.TEMPLATE_FOLDER;
-import static tech.jhipster.light.generator.project.domain.Constants.TEMPLATE_RESOURCES;
 
 import java.io.IOException;
 import java.nio.file.Files;

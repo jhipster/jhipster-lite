@@ -17,6 +17,10 @@ public class SpringBootPropertiesApplicationService {
     springBootPropertiesService.addProperties(project, key, value);
   }
 
+  public void addPropertiesFast(Project project, String key, Object value) {
+    springBootPropertiesService.addPropertiesFast(project, key, value);
+  }
+
   public void addPropertiesTest(Project project, String key, Object value) {
     springBootPropertiesService.addPropertiesTest(project, key, value);
   }

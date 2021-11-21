@@ -123,6 +123,10 @@ public class TestUtils {
         getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application.properties")
       );
       Files.copy(
+        getPathOf("src/test/resources/template/server/springboot/core/application.src.fast.properties"),
+        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application-fast.properties")
+      );
+      Files.copy(
         getPathOf("src/test/resources/template/server/springboot/core/application.test.properties"),
         getPathOf(project.getFolder(), TEST_RESOURCES, "config/application.properties")
       );

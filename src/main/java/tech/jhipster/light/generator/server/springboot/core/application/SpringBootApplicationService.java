@@ -37,6 +37,10 @@ public class SpringBootApplicationService {
     springBootService.addApplicationProperties(project);
   }
 
+  public void addApplicationFastProperties(Project project) {
+    springBootService.addApplicationFastProperties(project);
+  }
+
   public void addApplicationTestProperties(Project project) {
     springBootService.addApplicationTestProperties(project);
   }

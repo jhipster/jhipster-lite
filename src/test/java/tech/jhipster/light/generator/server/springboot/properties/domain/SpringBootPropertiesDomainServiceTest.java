@@ -9,6 +9,7 @@ import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.light.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.light.generator.server.springboot.core.domain.SpringBoot.APPLICATION_FAST_PROPERTIES;
 import static tech.jhipster.light.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.nio.file.Files;
@@ -38,7 +39,7 @@ class SpringBootPropertiesDomainServiceTest {
     Project project = tmpProject();
     FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
     Files.copy(
-      getPathOf(TEST_RESOURCES, "template/server/springboot/core/application.test.properties"),
+      getPathOf(TEST_RESOURCES, "template/server/springboot/core/application.src.properties"),
       getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
     );
 
@@ -52,6 +53,28 @@ class SpringBootPropertiesDomainServiceTest {
     Project project = tmpProject();
 
     assertThatThrownBy(() -> springBootPropertiesDomainService.addProperties(project, "server.port", 8080))
+      .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddPropertiesFast() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "template/server/springboot/core/application.src.fast.properties"),
+      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_FAST_PROPERTIES)
+    );
+
+    springBootPropertiesDomainService.addPropertiesFast(project, "specific.config.fast", "chips");
+
+    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldNotAddPropertiesFast() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> springBootPropertiesDomainService.addPropertiesFast(project, "specific.config.fast", "chips"))
       .isExactlyInstanceOf(GeneratorException.class);
   }
 

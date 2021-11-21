@@ -10,5 +10,6 @@ public interface SpringBootService {
   void addSpringBootMavenPlugin(Project project);
   void addMainApp(Project project);
   void addApplicationProperties(Project project);
+  void addApplicationFastProperties(Project project);
   void addApplicationTestProperties(Project project);
 }

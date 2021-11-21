@@ -65,6 +65,51 @@ class SpringBootPropertiesApplicationServiceIT {
   }
 
   @Nested
+  class FastProperties {
+
+    @Test
+    void shouldAddPropertiesFastWithInteger() {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootPropertiesApplicationService.addPropertiesFast(project, "server.port", 8080);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      assertFileContent(project, applicationProperties, "server.port=8080");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-fast-properties");
+    }
+
+    @Test
+    void shouldAddPropertiesFastWithBoolean() {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootPropertiesApplicationService.addPropertiesFast(project, "spring.jmx.enabled", false);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-fast-properties");
+    }
+
+    @Test
+    void shouldAddPropertiesFastWithString() {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootPropertiesApplicationService.addPropertiesFast(project, "jhipster.application", "jhlight");
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      assertFileContent(project, applicationProperties, "jhipster.application=jhlight");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-fast-properties");
+    }
+
+    @Test
+    void shouldNotAddPropertiesFastWhenNoApplicationProperties() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootPropertiesApplicationService.addPropertiesFast(project, "jhipster.application", "jhlight"))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
+
+  @Nested
   class TestProperties {
 
     @Test

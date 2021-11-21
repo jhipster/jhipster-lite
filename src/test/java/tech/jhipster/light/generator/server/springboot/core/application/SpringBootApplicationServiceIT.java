@@ -2,7 +2,10 @@ package tech.jhipster.light.generator.server.springboot.core.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.light.TestUtils.*;
+import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
+import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.light.generator.project.domain.Constants.TEST_RESOURCES;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -50,7 +53,9 @@ class SpringBootApplicationServiceIT {
     assertFileExist(project, "src/main/java/com/mycompany/myapp/JhipsterApp.java");
     assertFileExist(project, "src/test/java/com/mycompany/myapp/JhipsterAppIT.java");
 
-    assertFileExist(project, "src/main/resources/config/application.properties");
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application.properties"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"));
+    assertFileExist(project, getPath(TEST_RESOURCES, "config/application.properties"));
   }
 
   @Test
@@ -151,7 +156,17 @@ class SpringBootApplicationServiceIT {
 
     springBootApplicationService.addApplicationProperties(project);
 
-    assertFileExist(project, "src/main/resources/config/application.properties");
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application.properties"));
+  }
+
+  @Test
+  void shouldAddApplicationFastProperties() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+
+    springBootApplicationService.addApplicationFastProperties(project);
+
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"));
   }
 
   @Test
@@ -161,6 +176,6 @@ class SpringBootApplicationServiceIT {
 
     springBootApplicationService.addApplicationTestProperties(project);
 
-    assertFileExist(project, "src/test/resources/config/application.properties");
+    assertFileExist(project, getPath(TEST_RESOURCES, "config/application.properties"));
   }
 }

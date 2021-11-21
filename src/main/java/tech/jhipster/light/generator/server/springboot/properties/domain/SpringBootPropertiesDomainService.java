@@ -22,33 +22,33 @@ public class SpringBootPropertiesDomainService implements SpringBootPropertiesSe
 
   @Override
   public void addProperties(Project project, String key, Object value) {
-    try {
-      String currentApplicationProperties = read(getPath(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES));
-      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + NEEDLE_APPLICATION_PROPERTIES;
-      String updatedApplicationProperties = FileUtils.replace(
-        currentApplicationProperties,
-        NEEDLE_APPLICATION_PROPERTIES,
-        propertiesWithNeedle
-      );
+    addKeyValueToProperties(project, key, value, MAIN_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_PROPERTIES);
+  }
 
-      projectRepository.write(project, updatedApplicationProperties, getPath(MAIN_RESOURCES, "config"), APPLICATION_PROPERTIES);
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding properties");
-    }
+  @Override
+  public void addPropertiesFast(Project project, String key, Object value) {
+    addKeyValueToProperties(project, key, value, MAIN_RESOURCES, APPLICATION_FAST_PROPERTIES, NEEDLE_APPLICATION_FAST_PROPERTIES);
   }
 
   @Override
   public void addPropertiesTest(Project project, String key, Object value) {
-    try {
-      String currentApplicationProperties = read(getPath(project.getFolder(), TEST_RESOURCES, "config", APPLICATION_PROPERTIES));
-      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + NEEDLE_APPLICATION_TEST_PROPERTIES;
-      String updatedApplicationProperties = FileUtils.replace(
-        currentApplicationProperties,
-        NEEDLE_APPLICATION_TEST_PROPERTIES,
-        propertiesWithNeedle
-      );
+    addKeyValueToProperties(project, key, value, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
+  }
 
-      projectRepository.write(project, updatedApplicationProperties, getPath(TEST_RESOURCES, "config"), APPLICATION_PROPERTIES);
+  private void addKeyValueToProperties(
+    Project project,
+    String key,
+    Object value,
+    String folderProperties,
+    String fileProperties,
+    String needleProperties
+  ) {
+    try {
+      String currentApplicationProperties = read(getPath(project.getFolder(), folderProperties, "config", fileProperties));
+      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + needleProperties;
+      String updatedApplicationProperties = FileUtils.replace(currentApplicationProperties, needleProperties, propertiesWithNeedle);
+
+      projectRepository.write(project, updatedApplicationProperties, getPath(folderProperties, "config"), fileProperties);
     } catch (IOException e) {
       throw new GeneratorException("Error when adding properties");
     }

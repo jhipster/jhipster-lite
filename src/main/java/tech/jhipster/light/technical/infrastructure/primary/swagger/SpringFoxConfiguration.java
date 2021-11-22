@@ -1,4 +1,4 @@
-package tech.jhipster.light.technical.config.api;
+package tech.jhipster.light.technical.infrastructure.primary.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

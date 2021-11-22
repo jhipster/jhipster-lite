@@ -8,3 +8,6 @@ java \
   -jar *.jar \
   --logging.level.ROOT=OFF & > /dev/null
 echo $! > .pid-jhlight
+
+echo "Waiting 5sec..."
+sleep 5

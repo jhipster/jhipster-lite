@@ -79,6 +79,13 @@ jobs:
           node -v
           npm -v
           java -version
+      - name: 'Init: cache local Maven repository'
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: 'Artifact: download JAR'
         uses: actions/download-artifact@v2
         with:
@@ -88,9 +95,7 @@ jobs:
           mv *.jar tests/
           cd tests/
           ./start.sh
-          sleep 5
           ./generate.sh
-          sleep 5
           ls -al /tmp/beer/
           ./stop.sh
       - name: 'Test: Beer project'
@@ -98,7 +103,6 @@ jobs:
           cd /tmp/beer/
           chmod +x mvnw
           ./mvnw clean verify
-
   codecov:
     needs: generation
     name: codecov

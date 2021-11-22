@@ -5,6 +5,7 @@
 /target/classes/static/**
 /src/test/javascript/coverage/
 /src/test/java/tech/jhipster/light/PersonalProjectIT.java
+/tests/.pid-jhlight
 
 ######################
 # Node

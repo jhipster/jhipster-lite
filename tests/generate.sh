@@ -17,6 +17,3 @@ callApi beer.json "/api/servers/spring-boot/banner/jhipster-v7"
 callApi beer.json "/api/servers/spring-boot/web/tomcat"
 callApi beer.json "/api/servers/spring-boot/databases/postgresql"
 callApi beer.json "/api/servers/spring-boot/databases/migration/liquibase"
-
-cd /tmp/beer
-./mvnw clean verify

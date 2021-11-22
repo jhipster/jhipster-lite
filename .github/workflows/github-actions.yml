@@ -83,10 +83,22 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: jar
-      - name: 'Debug'
+      - name: 'Generation: generate Beer project'
         run: |
-          ls -al
-          ls -al tests/
+          mv *.jar tests/
+          cd tests/
+          ./start.sh
+          sleep 5
+          ./generate.sh
+          sleep 5
+          ls -al /tmp/beer/
+          ./stop.sh
+      - name: 'Test: Beer project'
+        run: |
+          cd /tmp/beer/
+          chmod +x mvnw
+          ./mvnw clean verify
+
   codecov:
     needs: generation
     name: codecov

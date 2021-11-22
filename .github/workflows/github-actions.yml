@@ -56,8 +56,6 @@ jobs:
     name: codecov
     runs-on: ubuntu-latest
     steps:
-      - name: 'Setup: checkout project'
-        uses: actions/checkout@v2
       - name: 'Artifact: download JaCoCo report'
         uses: actions/download-artifact@v2
         with:

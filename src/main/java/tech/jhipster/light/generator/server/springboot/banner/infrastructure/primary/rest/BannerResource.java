@@ -1,9 +1,9 @@
 package tech.jhipster.light.generator.server.springboot.banner.infrastructure.primary.rest;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import tech.jhipster.light.generator.server.springboot.banner.application.Banner
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/banner")
-@Api(tags = "Spring Boot")
+@Tag(name = "Spring Boot")
 class BannerResource {
 
   private final BannerApplicationService bannerApplicationService;
@@ -23,40 +23,40 @@ class BannerResource {
     this.bannerApplicationService = bannerApplicationService;
   }
 
-  @ApiOperation("Add banner JHipster v7 for Angular")
-  @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
+  @Operation(summary = "Add banner JHipster v7 for Angular")
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
   @PostMapping("/jhipster-v7")
   public void addBannerJHipsterV7(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV7(project);
   }
 
-  @ApiOperation("Add banner JHipster v7 for React")
-  @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
+  @Operation(summary = "Add banner JHipster v7 for React")
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
   @PostMapping("/jhipster-v7-react")
   public void addBannerJHipsterV7React(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV7React(project);
   }
 
-  @ApiOperation("Add banner JHipster v7 for Vue")
-  @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
+  @Operation(summary = "Add banner JHipster v7 for Vue")
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
   @PostMapping("/jhipster-v7-vue")
   public void addBannerJHipsterV7Vue(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV7Vue(project);
   }
 
-  @ApiOperation("Add banner JHipster v2")
-  @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
+  @Operation(summary = "Add banner JHipster v2")
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
   @PostMapping("/jhipster-v2")
   public void addBannerJHipsterV2(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV2(project);
   }
 
-  @ApiOperation("Add banner JHipster v3")
-  @ApiResponses({ @ApiResponse(code = 500, message = "An error occurred while initializing project") })
+  @Operation(summary = "Add banner JHipster v3")
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
   @PostMapping("/jhipster-v3")
   public void addBannerJHipsterV3(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

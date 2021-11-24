@@ -1,21 +1,20 @@
 package tech.jhipster.light.generator.project.infrastructure.primary.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Map;
 import tech.jhipster.light.error.domain.Assert;
 import tech.jhipster.light.generator.project.domain.Project;
 
-@ApiModel(value = "ProjectDTO", description = "Project DTO")
+@Schema(description = "Project DTO")
 public class ProjectDTO {
 
   @JsonProperty("folder")
-  @ApiModelProperty(value = "path", example = "/tmp/jhlight/jhipster", required = true)
+  @Schema(description = "folder", example = "/tmp/jhlight/jhipster", required = true)
   private String folder;
 
   @JsonProperty("generator-jhipster")
-  @ApiModelProperty(value = "generator-jhipster configuration", required = true)
+  @Schema(description = "generator-jhipster configuration", required = true)
   private Map<String, Object> generatorJhipster;
 
   public String getFolder() {

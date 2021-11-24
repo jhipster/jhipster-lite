@@ -70,7 +70,7 @@ Then, run:
 java -jar target/*.jar
 ```
 
-Then navigate to http://localhost:7471/swagger-ui/ in your browser.
+Then navigate to http://localhost:7471/swagger-ui.html in your browser.
 
 You can use this JSON to generate project:
 

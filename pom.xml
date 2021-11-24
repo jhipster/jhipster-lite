@@ -43,7 +43,7 @@
     <guava.version>31.0.1-jre</guava.version>
     <jgit.version>5.13.0.202109080827-r</jgit.version>
     <archunit-junit5.version>0.22.0</archunit-junit5.version>
-    <springfox.version>3.0.0</springfox.version>
+    <springdoc-openapi-ui.version>1.5.12</springdoc-openapi-ui.version>
     <!-- jhipster-needle-maven-property -->
   </properties>
 
@@ -76,14 +76,9 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-boot-starter</artifactId>
-      <version>${springfox.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>${springfox.version}</version>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc-openapi-ui.version}</version>
     </dependency>
     <!-- jhipster-needle-maven-add-dependency -->
 

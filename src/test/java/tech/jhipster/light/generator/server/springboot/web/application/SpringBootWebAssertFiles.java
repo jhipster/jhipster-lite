@@ -37,6 +37,25 @@ public class SpringBootWebAssertFiles {
     );
   }
 
+  public static List<String> zalandoProblemDependency() {
+    return List.of(
+      "<dependency>",
+      "<groupId>org.zalando</groupId>",
+      "<artifactId>problem-spring-web</artifactId>",
+      "<version>${problem-spring-web.version}</version>",
+      "</dependency>"
+    );
+  }
+
+  public static List<String> springBootStarterValidationDependency() {
+    return List.of(
+      "<dependency>",
+      "<groupId>org.springframework.boot</groupId>",
+      "<artifactId>spring-boot-starter-validation</artifactId>",
+      "</dependency>"
+    );
+  }
+
   public static List<String> springFoxDependency() {
     return List.of(
       "<dependency>",

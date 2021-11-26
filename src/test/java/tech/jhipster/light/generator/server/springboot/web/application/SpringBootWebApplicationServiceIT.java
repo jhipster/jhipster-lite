@@ -1,13 +1,12 @@
 package tech.jhipster.light.generator.server.springboot.web.application;
 
-import static tech.jhipster.light.TestUtils.assertFileContent;
-import static tech.jhipster.light.TestUtils.tmpProject;
+import static tech.jhipster.light.TestUtils.*;
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
-import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.light.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.light.generator.project.domain.Constants.*;
 import static tech.jhipster.light.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 import static tech.jhipster.light.generator.server.springboot.web.application.SpringBootWebAssertFiles.*;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.light.IntegrationTest;
@@ -46,6 +45,8 @@ class SpringBootWebApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+
+    assertExceptionHandler(project);
   }
 
   @Test
@@ -63,6 +64,8 @@ class SpringBootWebApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+
+    assertExceptionHandler(project);
   }
 
   @Test
@@ -81,10 +84,8 @@ class SpringBootWebApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=7419");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
-  }
 
-  private void assertTomcat(Project project) {
-    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertExceptionHandler(project);
   }
 
   @Test
@@ -102,6 +103,8 @@ class SpringBootWebApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+
+    assertExceptionHandler(project);
   }
 
   @Test
@@ -119,11 +122,8 @@ class SpringBootWebApplicationServiceIT {
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
-  }
 
-  private void assertUndertow(Project project) {
-    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
-    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+    assertExceptionHandler(project);
   }
 
   @Test
@@ -142,6 +142,47 @@ class SpringBootWebApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=1664");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+
+    assertExceptionHandler(project);
+  }
+
+  @Test
+  void shouldAddExceptionHandler() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    springBootWebApplicationService.addExceptionHandler(project);
+
+    assertExceptionHandler(project);
+  }
+
+  private void assertExceptionHandler(Project project) {
+    assertFileContent(project, "pom.xml", "<problem-spring.version>");
+    assertFileContent(project, "pom.xml", "<problem-spring-web.version>");
+
+    assertZalandoProblem(project);
+    assertSpringBootStarterValidation(project);
+    assertExceptionHandlerProperties(project);
+    assertExceptionHandlerFiles(project);
+  }
+
+  private void assertTomcat(Project project) {
+    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+  }
+
+  private void assertUndertow(Project project) {
+    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
+    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+  }
+
+  private void assertZalandoProblem(Project project) {
+    assertFileContent(project, "pom.xml", zalandoProblemDependency());
+  }
+
+  private void assertSpringBootStarterValidation(Project project) {
+    assertFileContent(project, "pom.xml", springBootStarterValidationDependency());
   }
 
   private void assertSpringFox(Project project) {
@@ -161,5 +202,40 @@ class SpringBootWebApplicationServiceIT {
       getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES),
       "spring.mvc.pathmatch.matching-strategy=ant_path_matcher"
     );
+  }
+
+  private void assertExceptionHandlerProperties(Project project) {
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, "/config/application.properties"),
+      List.of(
+        "application.exception.details=false",
+        "application.exception.package=org.,java.,net.,javax.,com.,io.,de.,com.mycompany.myapp"
+      )
+    );
+    assertFileContent(project, getPath(TEST_RESOURCES, "/config/application.properties"), "application.exception.package=org.,java.");
+  }
+
+  private void assertExceptionHandlerFiles(Project project) {
+    String packagePath = "com/mycompany/myapp/technical/primary/exception";
+    List<String> listClass = List.of(
+      "BadRequestAlertException.java",
+      "ErrorConstants.java",
+      "ExceptionTranslator.java",
+      "FieldErrorDTO.java",
+      "HeaderUtil.java",
+      "ProblemConfiguration.java"
+    );
+    listClass.forEach(javaClass -> assertFileExist(project, getPath(MAIN_JAVA, packagePath), javaClass));
+
+    List<String> listTestClass = List.of(
+      "BadRequestAlertExceptionTest.java",
+      "ExceptionTranslatorIT.java",
+      "ExceptionTranslatorTest.java",
+      "ExceptionTranslatorTestController.java",
+      "FieldErrorDTOTest.java",
+      "HeaderUtilTest.java"
+    );
+    listTestClass.forEach(testClass -> assertFileExist(project, getPath(TEST_JAVA, packagePath), testClass));
   }
 }

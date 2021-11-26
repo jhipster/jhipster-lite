@@ -24,4 +24,8 @@ public class SpringBootWebApplicationService {
   public void addSpringBootUndertow(Project project) {
     springBootWebService.addSpringBootUndertow(project);
   }
+
+  public void addExceptionHandler(Project project) {
+    springBootWebService.addExceptionHandler(project);
+  }
 }

@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static tech.jhipster.light.TestUtils.tmpProject;
 import static tech.jhipster.light.TestUtils.tmpProjectWithPomXml;
 
 import org.junit.jupiter.api.Test;
@@ -41,8 +42,8 @@ class SpringBootDomainServiceTest {
     verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
     verify(buildToolService).addPlugin(any(Project.class), any(Plugin.class));
 
-    // for application.properties and application-fast.properties
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
+    // for application.properties, application-fast.properties, Integration Test annotation
+    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
     // for main class + test + application.properties in test
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }

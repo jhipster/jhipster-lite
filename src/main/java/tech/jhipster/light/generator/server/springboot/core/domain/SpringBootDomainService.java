@@ -89,14 +89,14 @@ public class SpringBootDomainService implements SpringBootService {
     project.addDefaultConfig(BASE_NAME);
 
     String baseName = project.getBaseName().orElse("jhipster");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
     String className = WordUtils.upperFirst(baseName);
     project.addConfig("mainClass", className);
 
-    String pathPackageName = packageName.replaceAll("\\.", File.separator);
+    String packageNamePath = project.getPackageNamePath().orElse("com/mycompany/myapp");
 
-    projectRepository.template(project, SOURCE, "MainApp.java", getPath(MAIN_JAVA, pathPackageName), className + "App.java");
-    projectRepository.template(project, SOURCE, "MainAppIT.java", getPath(TEST_JAVA, pathPackageName), className + "AppIT.java");
+    projectRepository.template(project, SOURCE, "MainApp.java", getPath(MAIN_JAVA, packageNamePath), className + "App.java");
+    projectRepository.template(project, SOURCE, "MainAppIT.java", getPath(TEST_JAVA, packageNamePath), className + "AppIT.java");
+    projectRepository.template(project, SOURCE, "IntegrationTest.java", getPath(TEST_JAVA, packageNamePath));
   }
 
   @Override

@@ -4,8 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.light.TestUtils.*;
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
-import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.light.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.light.generator.project.domain.Constants.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -50,8 +49,9 @@ class SpringBootApplicationServiceIT {
     assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
     assertFileContent(project, "pom.xml", "<artifactId>spring-boot-maven-plugin</artifactId>");
 
-    assertFileExist(project, "src/main/java/com/mycompany/myapp/JhipsterApp.java");
-    assertFileExist(project, "src/test/java/com/mycompany/myapp/JhipsterAppIT.java");
+    assertFileExist(project, getPath(MAIN_JAVA, "com/mycompany/myapp/JhipsterApp.java"));
+    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp/JhipsterAppIT.java"));
+    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp", "IntegrationTest.java"));
 
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/application.properties"));
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"));

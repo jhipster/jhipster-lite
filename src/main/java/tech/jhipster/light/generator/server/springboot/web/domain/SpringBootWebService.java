@@ -7,4 +7,5 @@ public interface SpringBootWebService {
 
   void addSpringBootWeb(Project project);
   void addSpringBootUndertow(Project project);
+  void addExceptionHandler(Project project);
 }

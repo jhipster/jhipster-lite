@@ -15,6 +15,11 @@ class SpringBootWebTest {
   }
 
   @Test
+  void shouldGetProblemSpringVersion() {
+    assertThat(SpringBootWeb.problemSpringVersion()).isEqualTo("0.27.0");
+  }
+
+  @Test
   void shouldSpringBootStarterWebDependency() {
     Dependency dependency = SpringBootWeb.springBootStarterWebDependency();
 
@@ -51,6 +56,26 @@ class SpringBootWebTest {
     assertThat(dependency.getGroupId()).isEqualTo("io.springfox");
     assertThat(dependency.getArtifactId()).isEqualTo("springfox-boot-starter");
     assertThat(dependency.getVersion()).contains("\\${springfox.version}");
+    assertThat(dependency.getScope()).isEmpty();
+  }
+
+  @Test
+  void shouldProblemSpringDependency() {
+    Dependency dependency = SpringBootWeb.problemSpringDependency();
+
+    assertThat(dependency.getGroupId()).isEqualTo("org.zalando");
+    assertThat(dependency.getArtifactId()).isEqualTo("problem-spring-web");
+    assertThat(dependency.getVersion()).contains("\\${problem-spring-web.version}");
+    assertThat(dependency.getScope()).isEmpty();
+  }
+
+  @Test
+  void shouldSpringBootStarterValidation() {
+    Dependency dependency = SpringBootWeb.springBootStarterValidation();
+
+    assertThat(dependency.getGroupId()).isEqualTo("org.springframework.boot");
+    assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-starter-validation");
+    assertThat(dependency.getVersion()).isEmpty();
     assertThat(dependency.getScope()).isEmpty();
   }
 }

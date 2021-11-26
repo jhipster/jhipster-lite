@@ -26,6 +26,9 @@ class ErrorApplicationServiceIT {
     assertFileExist(project, getPath(pathMain, "MissingMandatoryValueException.java"));
     assertFileExist(project, getPath(pathMain, "UnauthorizedValueException.java"));
 
+    assertFileExist(project, getPath("src/test/java/com/mycompany/myapp", "UnitTest.java"));
+    assertFileExist(project, getPath("src/test/java/com/mycompany/myapp", "ReplaceCamelCase.java"));
+
     String pathTest = "src/test/java/com/mycompany/myapp/error/domain";
     assertFileExist(project, getPath(pathTest, "AssertTest.java"));
     assertFileExist(project, getPath(pathTest, "MissingMandatoryValueExceptionTest.java"));
@@ -50,6 +53,9 @@ class ErrorApplicationServiceIT {
 
     assertFileExist(project, getPath(pathMain, "UnauthorizedValueException.java"));
     assertFileContent(project, getPath(pathMain, "UnauthorizedValueException.java"), packageResult);
+
+    assertFileExist(project, getPath("src/test/java/tech/jhipster/chips", "UnitTest.java"));
+    assertFileExist(project, getPath("src/test/java/tech/jhipster/chips", "ReplaceCamelCase.java"));
 
     String pathTest = "src/test/java/tech/jhipster/chips/error/domain";
     assertFileExist(project, getPath(pathTest, "AssertTest.java"));

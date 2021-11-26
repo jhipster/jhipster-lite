@@ -31,6 +31,6 @@ class ErrorDomainServiceTest {
 
     errorDomainService.init(project);
 
-    verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

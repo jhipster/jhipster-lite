@@ -33,6 +33,9 @@ public class ErrorDomainService implements ErrorService {
     );
     projectRepository.template(project, SOURCE, "UnauthorizedValueException.java", getPath(MAIN_JAVA, packageNamePath, errorDomainPath));
 
+    projectRepository.template(project, SOURCE, "UnitTest.java", getPath(TEST_JAVA, packageNamePath));
+    projectRepository.template(project, SOURCE, "ReplaceCamelCase.java", getPath(TEST_JAVA, packageNamePath));
+
     projectRepository.template(project, SOURCE, "AssertTest.java", getPath(TEST_JAVA, packageNamePath, errorDomainPath));
     projectRepository.template(
       project,

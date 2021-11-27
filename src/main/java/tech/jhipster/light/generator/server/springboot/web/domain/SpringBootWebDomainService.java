@@ -3,6 +3,7 @@ package tech.jhipster.light.generator.server.springboot.web.domain;
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.light.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.light.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.light.generator.server.springboot.web.domain.SpringBootWeb.*;
 
 import java.util.List;
@@ -63,6 +64,8 @@ public class SpringBootWebDomainService implements SpringBootWebService {
 
   @Override
   public void addExceptionHandler(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+
     buildToolService.addProperty(project, "problem-spring", SpringBootWeb.problemSpringVersion());
     buildToolService.addProperty(project, "problem-spring-web", "\\${problem-spring.version}");
 

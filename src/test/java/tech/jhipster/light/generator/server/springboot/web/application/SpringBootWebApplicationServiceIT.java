@@ -217,7 +217,7 @@ class SpringBootWebApplicationServiceIT {
   }
 
   private void assertExceptionHandlerFiles(Project project) {
-    String packagePath = "com/mycompany/myapp/technical/primary/exception";
+    String packagePath = "com/mycompany/myapp/technical/infrastructure/primary/exception";
     List<String> listClass = List.of(
       "BadRequestAlertException.java",
       "ErrorConstants.java",
@@ -227,6 +227,11 @@ class SpringBootWebApplicationServiceIT {
       "ProblemConfiguration.java"
     );
     listClass.forEach(javaClass -> assertFileExist(project, getPath(MAIN_JAVA, packagePath), javaClass));
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, "com/mycompany/myapp/technical/infrastructure/primary/exception/ExceptionTranslator.java"),
+      "package com.mycompany.myapp.technical.infrastructure.primary.exception;"
+    );
 
     List<String> listTestClass = List.of(
       "BadRequestAlertExceptionTest.java",

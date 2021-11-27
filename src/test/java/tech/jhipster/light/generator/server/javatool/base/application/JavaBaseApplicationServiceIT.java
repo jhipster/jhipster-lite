@@ -1,4 +1,4 @@
-package tech.jhipster.light.generator.server.javatool.error.application;
+package tech.jhipster.light.generator.server.javatool.base.application;
 
 import static tech.jhipster.light.TestUtils.*;
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
@@ -10,16 +10,16 @@ import tech.jhipster.light.IntegrationTest;
 import tech.jhipster.light.generator.project.domain.Project;
 
 @IntegrationTest
-class ErrorApplicationServiceIT {
+class JavaBaseApplicationServiceIT {
 
   @Autowired
-  ErrorApplicationService errorApplicationService;
+  JavaBaseApplicationService javaBaseApplicationService;
 
   @Test
   void shouldInit() {
     Project project = tmpProject();
 
-    errorApplicationService.init(project);
+    javaBaseApplicationService.init(project);
 
     String pathMain = "src/main/java/com/mycompany/myapp/error/domain";
     assertFileExist(project, getPath(pathMain, "Assert.java"));
@@ -40,7 +40,7 @@ class ErrorApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");
 
-    errorApplicationService.init(project);
+    javaBaseApplicationService.init(project);
 
     String packageResult = "package tech.jhipster.chips.error.domain;";
 

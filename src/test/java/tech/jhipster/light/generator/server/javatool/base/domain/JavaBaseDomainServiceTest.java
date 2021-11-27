@@ -1,4 +1,4 @@
-package tech.jhipster.light.generator.server.javatool.error.domain;
+package tech.jhipster.light.generator.server.javatool.base.domain;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -17,19 +17,19 @@ import tech.jhipster.light.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class ErrorDomainServiceTest {
+class JavaBaseDomainServiceTest {
 
   @Mock
   ProjectRepository projectRepository;
 
   @InjectMocks
-  ErrorDomainService errorDomainService;
+  JavaBaseDomainService javaBaseDomainService;
 
   @Test
   void shouldInit() {
     Project project = tmpProject();
 
-    errorDomainService.init(project);
+    javaBaseDomainService.init(project);
 
     verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
   }

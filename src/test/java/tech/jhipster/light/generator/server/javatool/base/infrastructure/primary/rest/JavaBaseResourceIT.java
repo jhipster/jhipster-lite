@@ -1,4 +1,4 @@
-package tech.jhipster.light.generator.server.javatool.error.infrastructure.primary.rest;
+package tech.jhipster.light.generator.server.javatool.base.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,7 +20,7 @@ import tech.jhipster.light.generator.project.infrastructure.primary.dto.ProjectD
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class ErrorResourceIT {
+class JavaBaseResourceIT {
 
   @Autowired
   MockMvc mockMvc;
@@ -35,7 +35,7 @@ class ErrorResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/java/error").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/servers/java/base").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

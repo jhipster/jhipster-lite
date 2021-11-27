@@ -1,4 +1,4 @@
-package tech.jhipster.light.generator.server.javatool.error.domain;
+package tech.jhipster.light.generator.server.javatool.base.domain;
 
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.generator.project.domain.Constants.MAIN_JAVA;
@@ -8,13 +8,13 @@ import static tech.jhipster.light.generator.project.domain.DefaultConfig.PACKAGE
 import tech.jhipster.light.generator.project.domain.Project;
 import tech.jhipster.light.generator.project.domain.ProjectRepository;
 
-public class ErrorDomainService implements ErrorService {
+public class JavaBaseDomainService implements JavaBaseService {
 
-  public static final String SOURCE = "server/javatool/error";
+  public static final String SOURCE = "server/javatool/base";
 
   private final ProjectRepository projectRepository;
 
-  public ErrorDomainService(ProjectRepository projectRepository) {
+  public JavaBaseDomainService(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
   }
 

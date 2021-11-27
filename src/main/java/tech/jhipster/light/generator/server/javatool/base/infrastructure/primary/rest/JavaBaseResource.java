@@ -1,4 +1,4 @@
-package tech.jhipster.light.generator.server.javatool.error.infrastructure.primary.rest;
+package tech.jhipster.light.generator.server.javatool.base.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.light.generator.project.domain.Project;
 import tech.jhipster.light.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.light.generator.server.javatool.error.application.ErrorApplicationService;
+import tech.jhipster.light.generator.server.javatool.base.application.JavaBaseApplicationService;
 
 @RestController
-@RequestMapping("/api/servers/java/error")
+@RequestMapping("/api/servers/java/base")
 @Tag(name = "Java")
-class ErrorResource {
+class JavaBaseResource {
 
-  private final ErrorApplicationService errorApplicationService;
+  private final JavaBaseApplicationService javaBaseApplicationService;
 
-  public ErrorResource(ErrorApplicationService errorApplicationService) {
-    this.errorApplicationService = errorApplicationService;
+  public JavaBaseResource(JavaBaseApplicationService javaBaseApplicationService) {
+    this.javaBaseApplicationService = javaBaseApplicationService;
   }
 
-  @Operation(summary = "Add Error domain to project")
+  @Operation(summary = "Add Base classes and Error domain to project")
   @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    errorApplicationService.init(project);
+    javaBaseApplicationService.init(project);
   }
 }

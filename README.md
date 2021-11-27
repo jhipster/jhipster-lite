@@ -9,6 +9,7 @@ JHipster Light will help you to start your project:
 
 - init the project
 - add Maven as Build Tool
+- add Base classes and Domain Error
 - add Spring Boot as Server Framework
 - add Tomcat or Undertow as Server
 - add PostgreSQL as Database

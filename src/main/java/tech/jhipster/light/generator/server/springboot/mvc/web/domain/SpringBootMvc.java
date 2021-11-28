@@ -1,13 +1,13 @@
-package tech.jhipster.light.generator.server.springboot.web.domain;
+package tech.jhipster.light.generator.server.springboot.mvc.web.domain;
 
 import tech.jhipster.light.generator.buildtool.generic.domain.Dependency;
 
-public class SpringBootWeb {
+public class SpringBootMvc {
 
   private static final String SPRINGFOX_VERSION = "3.0.0";
   private static final String PROBLEM_SPRING_VERSION = "0.27.0";
 
-  private SpringBootWeb() {}
+  private SpringBootMvc() {}
 
   public static String springfoxVersion() {
     return SPRINGFOX_VERSION;

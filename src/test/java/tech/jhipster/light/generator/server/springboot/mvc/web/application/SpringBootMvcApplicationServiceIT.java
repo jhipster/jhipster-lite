@@ -1,10 +1,10 @@
-package tech.jhipster.light.generator.server.springboot.web.application;
+package tech.jhipster.light.generator.server.springboot.mvc.web.application;
 
 import static tech.jhipster.light.TestUtils.*;
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.generator.project.domain.Constants.*;
 import static tech.jhipster.light.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
-import static tech.jhipster.light.generator.server.springboot.web.application.SpringBootWebAssertFiles.*;
+import static tech.jhipster.light.generator.server.springboot.mvc.web.application.SpringBootMvcAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import tech.jhipster.light.generator.project.domain.Project;
 import tech.jhipster.light.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest
-class SpringBootWebApplicationServiceIT {
+class SpringBootMvcApplicationServiceIT {
 
   @Autowired
   InitApplicationService initApplicationService;
@@ -28,7 +28,7 @@ class SpringBootWebApplicationServiceIT {
   SpringBootApplicationService springBootApplicationService;
 
   @Autowired
-  SpringBootWebApplicationService springBootWebApplicationService;
+  SpringBootMvcApplicationService springBootMvcApplicationService;
 
   @Test
   void shouldInit() {
@@ -37,7 +37,7 @@ class SpringBootWebApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    springBootWebApplicationService.init(project);
+    springBootMvcApplicationService.init(project);
 
     assertTomcat(project);
     assertSpringFox(project);
@@ -50,13 +50,13 @@ class SpringBootWebApplicationServiceIT {
   }
 
   @Test
-  void shouldAddSpringBootWeb() {
+  void shouldAddSpringBootMvc() {
     Project project = tmpProject();
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    springBootWebApplicationService.addSpringBootWeb(project);
+    springBootMvcApplicationService.addSpringBootMvc(project);
 
     assertTomcat(project);
     assertSpringFox(project);
@@ -69,14 +69,14 @@ class SpringBootWebApplicationServiceIT {
   }
 
   @Test
-  void shouldAddSpringBootWebWithServerPort() {
+  void shouldAddSpringBootMvcWithServerPort() {
     Project project = tmpProject();
     project.addConfig("serverPort", 7419);
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    springBootWebApplicationService.addSpringBootWeb(project);
+    springBootMvcApplicationService.addSpringBootMvc(project);
 
     assertTomcat(project);
     assertSpringFox(project);
@@ -89,14 +89,14 @@ class SpringBootWebApplicationServiceIT {
   }
 
   @Test
-  void shouldAddSpringBootWebWithInvalidServerPort() {
+  void shouldAddSpringBootMvcWithInvalidServerPort() {
     Project project = tmpProject();
     project.addConfig("serverPort", "chips");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    springBootWebApplicationService.addSpringBootWeb(project);
+    springBootMvcApplicationService.addSpringBootMvc(project);
 
     assertTomcat(project);
 
@@ -114,7 +114,7 @@ class SpringBootWebApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    springBootWebApplicationService.addSpringBootUndertow(project);
+    springBootMvcApplicationService.addSpringBootUndertow(project);
 
     assertUndertow(project);
 
@@ -134,7 +134,7 @@ class SpringBootWebApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    springBootWebApplicationService.addSpringBootUndertow(project);
+    springBootMvcApplicationService.addSpringBootUndertow(project);
 
     assertUndertow(project);
     assertSpringFox(project);
@@ -153,7 +153,7 @@ class SpringBootWebApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
-    springBootWebApplicationService.addExceptionHandler(project);
+    springBootMvcApplicationService.addExceptionHandler(project);
 
     assertExceptionHandler(project);
   }

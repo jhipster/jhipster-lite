@@ -1,8 +1,8 @@
-package tech.jhipster.light.generator.server.springboot.web.application;
+package tech.jhipster.light.generator.server.springboot.mvc.web.application;
 
 import java.util.List;
 
-public class SpringBootWebAssertFiles {
+public class SpringBootMvcAssertFiles {
 
   public static List<String> springBootStarterWebDependency() {
     return List.of(

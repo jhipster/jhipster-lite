@@ -1,4 +1,4 @@
-package tech.jhipster.light.generator.server.springboot.web.domain;
+package tech.jhipster.light.generator.server.springboot.mvc.web.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -7,21 +7,21 @@ import tech.jhipster.light.UnitTest;
 import tech.jhipster.light.generator.buildtool.generic.domain.Dependency;
 
 @UnitTest
-class SpringBootWebTest {
+class SpringBootMvcTest {
 
   @Test
   void shouldGetSpringfoxVersionVersion() {
-    assertThat(SpringBootWeb.springfoxVersion()).isEqualTo("3.0.0");
+    assertThat(SpringBootMvc.springfoxVersion()).isEqualTo("3.0.0");
   }
 
   @Test
   void shouldGetProblemSpringVersion() {
-    assertThat(SpringBootWeb.problemSpringVersion()).isEqualTo("0.27.0");
+    assertThat(SpringBootMvc.problemSpringVersion()).isEqualTo("0.27.0");
   }
 
   @Test
   void shouldSpringBootStarterWebDependency() {
-    Dependency dependency = SpringBootWeb.springBootStarterWebDependency();
+    Dependency dependency = SpringBootMvc.springBootStarterWebDependency();
 
     assertThat(dependency.getGroupId()).isEqualTo("org.springframework.boot");
     assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-starter-web");
@@ -31,7 +31,7 @@ class SpringBootWebTest {
 
   @Test
   void shouldTomcatDependency() {
-    Dependency dependency = SpringBootWeb.tomcatDependency();
+    Dependency dependency = SpringBootMvc.tomcatDependency();
 
     assertThat(dependency.getGroupId()).isEqualTo("org.springframework.boot");
     assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-starter-tomcat");
@@ -41,7 +41,7 @@ class SpringBootWebTest {
 
   @Test
   void shouldUndertowDependency() {
-    Dependency dependency = SpringBootWeb.undertowDependency();
+    Dependency dependency = SpringBootMvc.undertowDependency();
 
     assertThat(dependency.getGroupId()).isEqualTo("org.springframework.boot");
     assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-starter-undertow");
@@ -51,7 +51,7 @@ class SpringBootWebTest {
 
   @Test
   void shouldSpringfoxDependency() {
-    Dependency dependency = SpringBootWeb.springfoxDependency();
+    Dependency dependency = SpringBootMvc.springfoxDependency();
 
     assertThat(dependency.getGroupId()).isEqualTo("io.springfox");
     assertThat(dependency.getArtifactId()).isEqualTo("springfox-boot-starter");
@@ -61,7 +61,7 @@ class SpringBootWebTest {
 
   @Test
   void shouldProblemSpringDependency() {
-    Dependency dependency = SpringBootWeb.problemSpringDependency();
+    Dependency dependency = SpringBootMvc.problemSpringDependency();
 
     assertThat(dependency.getGroupId()).isEqualTo("org.zalando");
     assertThat(dependency.getArtifactId()).isEqualTo("problem-spring-web");
@@ -71,7 +71,7 @@ class SpringBootWebTest {
 
   @Test
   void shouldSpringBootStarterValidation() {
-    Dependency dependency = SpringBootWeb.springBootStarterValidation();
+    Dependency dependency = SpringBootMvc.springBootStarterValidation();
 
     assertThat(dependency.getGroupId()).isEqualTo("org.springframework.boot");
     assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-starter-validation");

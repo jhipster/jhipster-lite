@@ -11,7 +11,7 @@ JHipster Light will help you to start your project:
 - add Maven as Build Tool
 - add Base classes and Domain Error
 - add Spring Boot as Server Framework
-- add Tomcat or Undertow as Server
+- add Spring Boot MVC with Tomcat or Undertow
 - add PostgreSQL as Database
 - add Liquibase as Database Migration Tool
 

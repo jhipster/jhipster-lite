@@ -1,0 +1,20 @@
+diff --git a/src/test/java/{{packageNamePath}}/technical/infrastructure/primary/exception/ExceptionTranslatorIT.java b/src/test/java/{{packageNamePath}}/technical/infrastructure/primary/exception/ExceptionTranslatorIT.java
+index 42f0c99..426c3e1 100644
+--- a/src/test/java/{{packageNamePath}}/technical/infrastructure/primary/exception/ExceptionTranslatorIT.java
++++ b/src/test/java/{{packageNamePath}}/technical/infrastructure/primary/exception/ExceptionTranslatorIT.java
+@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+ import org.springframework.http.MediaType;
++import org.springframework.security.test.context.support.WithMockUser;
+ import org.springframework.test.util.ReflectionTestUtils;
+ import org.springframework.test.web.servlet.MockMvc;
+ import {{packageName}}.IntegrationTest;
+@@ -18,6 +19,7 @@ import {{packageName}}.IntegrationTest;
+  */
+ @IntegrationTest
+ @AutoConfigureMockMvc
++@WithMockUser
+ class ExceptionTranslatorIT {
+
+   @Autowired

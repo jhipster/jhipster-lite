@@ -24,7 +24,7 @@ class PostgresqlResource {
   }
 
   @Operation(summary = "Add PostgreSQL drivers and dependencies, with testcontainers")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding PostgreSQL") })
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

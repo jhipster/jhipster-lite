@@ -24,7 +24,9 @@ class JavaBaseResource {
   }
 
   @Operation(summary = "Add Base classes and Error domain to project")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
+  @ApiResponses(
+    { @ApiResponse(responseCode = "500", description = "An error occurred while adding base classes and error domain to project") }
+  )
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

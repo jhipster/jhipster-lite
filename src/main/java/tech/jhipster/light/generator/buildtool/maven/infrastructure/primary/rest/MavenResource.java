@@ -24,7 +24,7 @@ class MavenResource {
   }
 
   @Operation(summary = "Init", description = "Init Maven project with pom.xml and wrapper")
-  @ApiResponse(responseCode = "500", description = "An error occurred while initializing project")
+  @ApiResponse(responseCode = "500", description = "An error occurred while initializing Maven project")
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -32,7 +32,7 @@ class MavenResource {
   }
 
   @Operation(summary = "Add pom.xml")
-  @ApiResponse(responseCode = "500", description = "An error occurred while initializing project")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding pom.xml to project")
   @PostMapping("/pom-xml")
   public void addPomXml(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -40,7 +40,7 @@ class MavenResource {
   }
 
   @Operation(summary = "Add Maven Wrapper")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Maven Wrapper to project") })
   @PostMapping("/wrapper")
   public void addMavenWrapper(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

@@ -24,7 +24,7 @@ class LiquibaseResource {
   }
 
   @Operation(summary = "Add Liquibase")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Liquibase") })
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

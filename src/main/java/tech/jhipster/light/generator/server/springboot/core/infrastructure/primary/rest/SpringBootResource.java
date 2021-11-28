@@ -24,7 +24,7 @@ class SpringBootResource {
   }
 
   @Operation(summary = "Init Spring Boot project with dependencies, App, and properties")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
+  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot") })
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

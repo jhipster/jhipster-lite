@@ -20,7 +20,7 @@ public class SpringBootWebDomainService implements SpringBootWebService {
   private final Logger log = LoggerFactory.getLogger(SpringBootWebDomainService.class);
 
   public static final String SOURCE = "server/springboot/web/";
-  public static final String EXCEPTION_HANDLER_PATH = "technical/primary/exception";
+  public static final String EXCEPTION_HANDLER_PATH = "technical/infrastructure/primary/exception";
 
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;

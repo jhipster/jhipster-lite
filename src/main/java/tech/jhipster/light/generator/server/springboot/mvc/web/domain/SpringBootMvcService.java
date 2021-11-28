@@ -1,11 +1,11 @@
-package tech.jhipster.light.generator.server.springboot.web.domain;
+package tech.jhipster.light.generator.server.springboot.mvc.web.domain;
 
 import tech.jhipster.light.generator.project.domain.Project;
 
-public interface SpringBootWebService {
+public interface SpringBootMvcService {
   void init(Project project);
 
-  void addSpringBootWeb(Project project);
+  void addSpringBootMvc(Project project);
   void addSpringBootUndertow(Project project);
   void addExceptionHandler(Project project);
 }

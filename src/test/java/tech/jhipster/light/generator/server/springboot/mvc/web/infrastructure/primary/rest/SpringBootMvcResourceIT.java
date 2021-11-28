@@ -1,11 +1,11 @@
-package tech.jhipster.light.generator.server.springboot.web.infrastructure.primary.rest;
+package tech.jhipster.light.generator.server.springboot.mvc.web.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.light.TestUtils.assertFileContent;
 import static tech.jhipster.light.TestUtils.assertFileExist;
 import static tech.jhipster.light.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.light.generator.server.springboot.web.application.SpringBootWebAssertFiles.*;
+import static tech.jhipster.light.generator.server.springboot.mvc.web.application.SpringBootMvcAssertFiles.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import tech.jhipster.light.generator.server.springboot.core.application.SpringBo
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class SpringBootWebResourceIT {
+class SpringBootMvcResourceIT {
 
   @Autowired
   InitApplicationService initApplicationService;
@@ -38,7 +38,7 @@ class SpringBootWebResourceIT {
   MockMvc mockMvc;
 
   @Test
-  void shouldAddSpringBootWeb() throws Exception {
+  void shouldAddSpringBootMvc() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
@@ -47,7 +47,7 @@ class SpringBootWebResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/web/tomcat")
+        post("/api/servers/spring-boot/mvc/web/tomcat")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -75,7 +75,7 @@ class SpringBootWebResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/web/undertow")
+        post("/api/servers/spring-boot/mvc/web/undertow")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

@@ -1,10 +1,10 @@
-package tech.jhipster.light.generator.server.springboot.web.domain;
+package tech.jhipster.light.generator.server.springboot.mvc.web.domain;
 
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.light.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.light.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.light.generator.server.springboot.web.domain.SpringBootWeb.*;
+import static tech.jhipster.light.generator.server.springboot.mvc.web.domain.SpringBootMvc.*;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -15,9 +15,9 @@ import tech.jhipster.light.generator.project.domain.Project;
 import tech.jhipster.light.generator.project.domain.ProjectRepository;
 import tech.jhipster.light.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
-public class SpringBootWebDomainService implements SpringBootWebService {
+public class SpringBootMvcDomainService implements SpringBootMvcService {
 
-  private final Logger log = LoggerFactory.getLogger(SpringBootWebDomainService.class);
+  private final Logger log = LoggerFactory.getLogger(SpringBootMvcDomainService.class);
 
   public static final String SOURCE = "server/springboot/web/";
   public static final String EXCEPTION_HANDLER_PATH = "technical/infrastructure/primary/exception";
@@ -26,7 +26,7 @@ public class SpringBootWebDomainService implements SpringBootWebService {
   public final BuildToolService buildToolService;
   public final SpringBootPropertiesService springBootPropertiesService;
 
-  public SpringBootWebDomainService(
+  public SpringBootMvcDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootPropertiesService springBootPropertiesService
@@ -38,11 +38,11 @@ public class SpringBootWebDomainService implements SpringBootWebService {
 
   @Override
   public void init(Project project) {
-    addSpringBootWeb(project);
+    addSpringBootMvc(project);
   }
 
   @Override
-  public void addSpringBootWeb(Project project) {
+  public void addSpringBootMvc(Project project) {
     buildToolService.addDependency(project, springBootStarterWebDependency());
     addSpringfoxDependencyAndProperty(project);
 
@@ -66,7 +66,7 @@ public class SpringBootWebDomainService implements SpringBootWebService {
   public void addExceptionHandler(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
 
-    buildToolService.addProperty(project, "problem-spring", SpringBootWeb.problemSpringVersion());
+    buildToolService.addProperty(project, "problem-spring", SpringBootMvc.problemSpringVersion());
     buildToolService.addProperty(project, "problem-spring-web", "\\${problem-spring.version}");
 
     buildToolService.addDependency(project, problemSpringDependency());

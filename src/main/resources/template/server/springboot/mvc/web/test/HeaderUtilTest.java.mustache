@@ -1,16 +1,15 @@
 package {{packageName}}.technical.infrastructure.primary.exception;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.http.HttpHeaders;
 import {{packageName}}.UnitTest;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
 
 @UnitTest
 class HeaderUtilTest {

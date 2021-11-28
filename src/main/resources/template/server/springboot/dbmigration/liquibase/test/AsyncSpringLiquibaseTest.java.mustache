@@ -19,8 +19,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.mock.env.MockEnvironment;
+import {{packageName}}.UnitTest;
 import {{packageName}}.technical.secondary.liquibase.LogbackRecorder.Event;
 
+@UnitTest
 class AsyncSpringLiquibaseTest {
 
   private LiquibaseException exception = new LiquibaseException("Eek");

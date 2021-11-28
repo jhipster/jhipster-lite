@@ -19,7 +19,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
 
   private final Logger log = LoggerFactory.getLogger(SpringBootMvcDomainService.class);
 
-  public static final String SOURCE = "server/springboot/web/";
+  public static final String SOURCE = "server/springboot/mvc/web/";
   public static final String EXCEPTION_HANDLER_PATH = "technical/infrastructure/primary/exception";
 
   public final ProjectRepository projectRepository;

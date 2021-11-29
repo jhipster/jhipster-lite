@@ -46,6 +46,7 @@ class SpringBootMvcApplicationServiceIT {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
 
+    assertTestUtil(project);
     assertExceptionHandler(project);
   }
 
@@ -65,6 +66,7 @@ class SpringBootMvcApplicationServiceIT {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
 
+    assertTestUtil(project);
     assertExceptionHandler(project);
   }
 
@@ -85,6 +87,7 @@ class SpringBootMvcApplicationServiceIT {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=7419");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
 
+    assertTestUtil(project);
     assertExceptionHandler(project);
   }
 
@@ -104,6 +107,7 @@ class SpringBootMvcApplicationServiceIT {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
 
+    assertTestUtil(project);
     assertExceptionHandler(project);
   }
 
@@ -123,6 +127,7 @@ class SpringBootMvcApplicationServiceIT {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
 
+    assertTestUtil(project);
     assertExceptionHandler(project);
   }
 
@@ -143,6 +148,7 @@ class SpringBootMvcApplicationServiceIT {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=1664");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
 
+    assertTestUtil(project);
     assertExceptionHandler(project);
   }
 
@@ -155,6 +161,7 @@ class SpringBootMvcApplicationServiceIT {
 
     springBootMvcApplicationService.addExceptionHandler(project);
 
+    assertTestUtil(project);
     assertExceptionHandler(project);
   }
 
@@ -242,5 +249,9 @@ class SpringBootMvcApplicationServiceIT {
       "HeaderUtilTest.java"
     );
     listTestClass.forEach(testClass -> assertFileExist(project, getPath(TEST_JAVA, packagePath), testClass));
+  }
+
+  private void assertTestUtil(Project project) {
+    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp"), "TestUtil.java");
   }
 }

@@ -19,7 +19,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
 
   private final Logger log = LoggerFactory.getLogger(SpringBootMvcDomainService.class);
 
-  public static final String SOURCE = "server/springboot/mvc/web/";
+  public static final String SOURCE = "server/springboot/mvc/web";
   public static final String EXCEPTION_HANDLER_PATH = "technical/infrastructure/primary/exception";
 
   public final ProjectRepository projectRepository;
@@ -95,6 +95,8 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     templateToExceptionHandler(project, packageNamePath, "test", "ExceptionTranslatorTestController.java", TEST_JAVA);
     templateToExceptionHandler(project, packageNamePath, "test", "FieldErrorDTOTest.java", TEST_JAVA);
     templateToExceptionHandler(project, packageNamePath, "test", "HeaderUtilTest.java", TEST_JAVA);
+
+    projectRepository.template(project, getPath(SOURCE, "test"), "TestUtil.java", getPath(TEST_JAVA, packageNamePath));
   }
 
   private void templateToExceptionHandler(Project project, String source, String type, String sourceFilename, String destination) {

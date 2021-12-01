@@ -73,6 +73,7 @@ class JwtSecurityTest {
   void shouldJwtSecurityFiles() {
     List<String> javaFiles = List.of(
       "AuthoritiesConstants.java",
+      "SecurityUtils.java",
       "ApplicationSecurityDefaults.java",
       "ApplicationSecurityProperties.java",
       "CorsFilterConfiguration.java",
@@ -87,5 +88,20 @@ class JwtSecurityTest {
     );
 
     assertThat(JwtSecurity.jwtSecurityFiles().keySet()).containsExactlyInAnyOrderElementsOf(javaFiles);
+  }
+
+  @Test
+  void shouldJwtTestSecurityFiles() {
+    List<String> javaTestFiles = List.of(
+      "SecurityUtilsTest.java",
+      "ApplicationSecurityPropertiesTest.java",
+      "CorsFilterConfigurationIT.java",
+      "JWTFilterTest.java",
+      "TokenProviderTest.java",
+      "AuthenticationResourceIT.java",
+      "LoginDTOTest.java"
+    );
+
+    assertThat(JwtSecurity.jwtTestSecurityFiles().keySet()).containsExactlyInAnyOrderElementsOf(javaTestFiles);
   }
 }

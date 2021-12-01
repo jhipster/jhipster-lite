@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static tech.jhipster.light.TestUtils.tmpProject;
 import static tech.jhipster.light.TestUtils.tmpProjectWithPomXml;
 
 import org.junit.jupiter.api.Test;

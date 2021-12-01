@@ -41,17 +41,21 @@ public class JwtSecurityAssertFiles {
     );
 
     String jwtPath = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), SECURITY_JWT_PATH);
+    String applicationConfigPath = getPath(jwtPath, "application");
     String domainConfigPath = getPath(jwtPath, "domain");
     String infrastructureConfigPath = getPath(jwtPath, "infrastructure/config");
     String infrastructureRestPath = getPath(jwtPath, "/infrastructure/primary/rest");
 
     // main java files
+    assertFileExist(project, getPath(MAIN_JAVA, applicationConfigPath, "SecurityUtils.java"));
     assertFileExist(project, getPath(MAIN_JAVA, domainConfigPath, "AuthoritiesConstants.java"));
     infrastructureConfigJavaFiles.forEach(javaFile -> assertFileExist(project, getPath(MAIN_JAVA, infrastructureConfigPath, javaFile)));
     assertFileExist(project, getPath(MAIN_JAVA, infrastructureRestPath, "AuthenticationResource.java"));
     assertFileExist(project, getPath(MAIN_JAVA, infrastructureRestPath, "LoginDTO.java"));
 
     // test java files
+    assertFileExist(project, getPath(TEST_JAVA, applicationConfigPath, "SecurityUtilsTest.java"));
+
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "ApplicationSecurityPropertiesTest.java"));
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "CorsFilterConfigurationIT.java"));
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "JWTFilterTest.java"));

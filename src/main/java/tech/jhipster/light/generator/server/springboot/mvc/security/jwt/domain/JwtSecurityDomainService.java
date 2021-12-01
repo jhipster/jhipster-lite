@@ -6,15 +6,11 @@ import static tech.jhipster.light.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.light.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.light.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.*;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import tech.jhipster.light.error.domain.GeneratorException;
 import tech.jhipster.light.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.light.generator.project.domain.Project;
 import tech.jhipster.light.generator.project.domain.ProjectRepository;
-import tech.jhipster.light.generator.project.infrastructure.secondary.GitUtils;
 import tech.jhipster.light.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class JwtSecurityDomainService implements JwtSecurityService {

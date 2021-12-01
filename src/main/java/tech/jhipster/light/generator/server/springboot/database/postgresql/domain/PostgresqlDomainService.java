@@ -83,7 +83,7 @@ public class PostgresqlDomainService implements PostgresqlService {
     project.addDefaultConfig(PACKAGE_NAME);
     project.addDefaultConfig(BASE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    String dialectPath = "technical/secondary/postgresql";
+    String dialectPath = "technical/infrastructure/secondary/postgresql";
 
     projectRepository.template(
       project,
@@ -136,7 +136,7 @@ public class PostgresqlDomainService implements PostgresqlService {
     result.put("spring.datasource.hikari.auto-commit", false);
 
     result.put("spring.data.jpa.repositories.bootstrap-mode", "deferred");
-    result.put("spring.jpa.database-platform", packageName + ".technical.secondary.postgresql.FixedPostgreSQL10Dialect");
+    result.put("spring.jpa.database-platform", packageName + ".technical.infrastructure.secondary.postgresql.FixedPostgreSQL10Dialect");
     result.put("spring.jpa.properties.hibernate.jdbc.time_zone", "UTC");
     result.put("spring.jpa.open-in-view", false);
     result.put("spring.jpa.properties.hibernate.id.new_generator_mappings", "true");

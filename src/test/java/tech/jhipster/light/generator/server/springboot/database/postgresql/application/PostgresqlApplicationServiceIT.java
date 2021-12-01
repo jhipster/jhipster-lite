@@ -50,10 +50,13 @@ class PostgresqlApplicationServiceIT {
     assertFileExist(project, "src/main/docker/postgresql.yml");
     assertFileContent(project, "src/main/docker/postgresql.yml", "POSTGRES_USER=jhipster");
 
-    assertFileExist(project, getPath(MAIN_JAVA, "com/mycompany/myapp", "/technical/secondary/postgresql/FixedPostgreSQL10Dialect.java"));
     assertFileExist(
       project,
-      getPath(TEST_JAVA, "com/mycompany/myapp", "/technical/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
+      getPath(MAIN_JAVA, "com/mycompany/myapp", "/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10Dialect.java")
+    );
+    assertFileExist(
+      project,
+      getPath(TEST_JAVA, "com/mycompany/myapp", "/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
     );
     assertFileContent(
       project,
@@ -144,10 +147,13 @@ class PostgresqlApplicationServiceIT {
 
     postgresqlApplicationService.addDialectJava(project);
 
-    assertFileExist(project, getPath(MAIN_JAVA, "tech/jhipster/chips", "/technical/secondary/postgresql/FixedPostgreSQL10Dialect.java"));
     assertFileExist(
       project,
-      getPath(TEST_JAVA, "tech/jhipster/chips", "/technical/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
+      getPath(MAIN_JAVA, "tech/jhipster/chips", "/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10Dialect.java")
+    );
+    assertFileExist(
+      project,
+      getPath(TEST_JAVA, "tech/jhipster/chips", "/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
     );
   }
 
@@ -173,14 +179,14 @@ class PostgresqlApplicationServiceIT {
         "spring.datasource.type=com.zaxxer.hikari.HikariDataSource",
         "spring.datasource.url=jdbc:postgresql://localhost:5432/chips",
         "spring.datasource.username=chips",
-        "spring.jpa.database-platform=tech.jhipster.chips.technical.secondary.postgresql.FixedPostgreSQL10Dialect"
+        "spring.jpa.database-platform=tech.jhipster.chips.technical.infrastructure.secondary.postgresql.FixedPostgreSQL10Dialect"
       )
     );
 
     assertFileContent(
       project,
       getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
-      List.of("spring.jpa.database-platform=tech.jhipster.chips.technical.secondary.postgresql.FixedPostgreSQL10Dialect")
+      List.of("spring.jpa.database-platform=tech.jhipster.chips.technical.infrastructure.secondary.postgresql.FixedPostgreSQL10Dialect")
     );
   }
 

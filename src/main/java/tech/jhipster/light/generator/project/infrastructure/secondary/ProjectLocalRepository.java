@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -93,6 +94,33 @@ public class ProjectLocalRepository implements ProjectRepository {
       Files.write(getPathOf(projectDestinationFilename), text.getBytes());
     } catch (IOException e) {
       throw new GeneratorException("Error when writing text to '" + projectDestinationFilename + "'");
+    }
+  }
+
+  @Override
+  public void gitInit(Project project) {
+    try {
+      GitUtils.init(project.getFolder());
+    } catch (GitAPIException e) {
+      throw new GeneratorException("Error when git init", e);
+    }
+  }
+
+  @Override
+  public void gitAddAndCommit(Project project, String message) {
+    try {
+      GitUtils.addAndCommit(project.getFolder(), message);
+    } catch (GitAPIException | IOException e) {
+      throw new GeneratorException("Error when git add and commit", e);
+    }
+  }
+
+  @Override
+  public void gitApplyPatch(Project project, String patchFilename) {
+    try {
+      GitUtils.apply(project.getFolder(), patchFilename);
+    } catch (GitAPIException | IOException e) {
+      throw new GeneratorException("Error when git apply patch", e);
     }
   }
 }

@@ -1,7 +1,6 @@
 package tech.jhipster.light.generator.server.springboot.mvc.security.jwt.application;
 
 import static tech.jhipster.light.TestUtils.*;
-import static tech.jhipster.light.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.light.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.*;
 
 import org.junit.jupiter.api.Test;

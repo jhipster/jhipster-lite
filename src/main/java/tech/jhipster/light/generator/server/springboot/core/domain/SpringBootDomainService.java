@@ -5,7 +5,6 @@ import static tech.jhipster.light.generator.project.domain.Constants.*;
 import static tech.jhipster.light.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.light.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
-import java.io.File;
 import tech.jhipster.light.common.domain.WordUtils;
 import tech.jhipster.light.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.light.generator.buildtool.generic.domain.Dependency;

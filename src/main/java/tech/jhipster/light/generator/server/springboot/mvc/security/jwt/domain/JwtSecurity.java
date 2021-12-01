@@ -53,6 +53,8 @@ public class JwtSecurity {
 
     map.put("AuthoritiesConstants.java", "domain");
 
+    map.put("SecurityUtils.java", "application");
+
     map.put("ApplicationSecurityDefaults.java", infrastructureConfig);
     map.put("ApplicationSecurityProperties.java", infrastructureConfig);
     map.put("CorsFilterConfiguration.java", infrastructureConfig);
@@ -71,6 +73,8 @@ public class JwtSecurity {
 
   public static Map<String, String> jwtTestSecurityFiles() {
     Map<String, String> map = new HashMap<>();
+
+    map.put("SecurityUtilsTest.java", "application");
 
     map.put("ApplicationSecurityPropertiesTest.java", infrastructureConfig);
     map.put("CorsFilterConfigurationIT.java", infrastructureConfig);

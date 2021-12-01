@@ -46,8 +46,8 @@ class JwtSecurityDomainServiceTest {
     verify(buildToolService).addProperty(any(Project.class), anyString(), anyString());
     verify(buildToolService, times(6)).addDependency(any(Project.class), any(Dependency.class));
 
-    // 12 classes + 6 tests + 1 patch
-    verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
+    // 14 classes + 6 tests + 1 patch
+    verify(projectRepository, times(21)).template(any(Project.class), anyString(), anyString(), anyString());
 
     // 1 patch
     verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString(), anyString());

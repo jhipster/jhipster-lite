@@ -59,10 +59,13 @@ class PostgresqlResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, getPath(MAIN_JAVA, "tech/jhipster/chips/technical/secondary/postgresql/FixedPostgreSQL10Dialect.java"));
     assertFileExist(
       projectPath,
-      getPath(TEST_JAVA, "tech/jhipster/chips/technical/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
+      getPath(MAIN_JAVA, "tech/jhipster/chips/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10Dialect.java")
+    );
+    assertFileExist(
+      projectPath,
+      getPath(TEST_JAVA, "tech/jhipster/chips/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
     );
 
     assertFileExist(projectPath, "src/main/docker/postgresql.yml");

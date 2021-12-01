@@ -10,8 +10,12 @@ import tech.jhipster.light.generator.project.domain.Project;
 public class LiquibaseAssertFiles {
 
   public static void assertFilesLiquibaseJava(Project project) {
-    String liquibasePackage = project.getPackageName().orElse("com.mycompany.myapp") + ".technical.secondary.liquibase";
-    String liquibasePath = getPath(MAIN_JAVA, project.getPackageNamePath().orElse("com/mycompany/myapp"), "technical/secondary/liquibase");
+    String liquibasePackage = project.getPackageName().orElse("com.mycompany.myapp") + ".technical.infrastructure.secondary.liquibase";
+    String liquibasePath = getPath(
+      MAIN_JAVA,
+      project.getPackageNamePath().orElse("com/mycompany/myapp"),
+      "technical/infrastructure/secondary/liquibase"
+    );
     assertFileExist(project, getPath(liquibasePath, "AsyncSpringLiquibase.java"));
     assertFileExist(project, getPath(liquibasePath, "LiquibaseConfiguration.java"));
     assertFileExist(project, getPath(liquibasePath, "SpringLiquibaseUtil.java"));
@@ -23,7 +27,7 @@ public class LiquibaseAssertFiles {
     String liquibaseTestPath = getPath(
       TEST_JAVA,
       project.getPackageNamePath().orElse("com/mycompany/myapp"),
-      "technical/secondary/liquibase"
+      "technical/infrastructure/secondary/liquibase"
     );
     assertFileExist(project, getPath(liquibaseTestPath, "AsyncSpringLiquibaseTest.java"));
     assertFileExist(project, getPath(liquibaseTestPath, "LiquibaseConfigurationIT.java"));

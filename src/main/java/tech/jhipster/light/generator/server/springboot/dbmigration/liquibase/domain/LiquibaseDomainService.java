@@ -13,7 +13,7 @@ import tech.jhipster.light.generator.server.springboot.properties.domain.SpringB
 public class LiquibaseDomainService implements LiquibaseService {
 
   public static final String SOURCE = "server/springboot/dbmigration/liquibase";
-  public static final String LIQUIBASE_PATH = "technical/secondary/liquibase";
+  public static final String LIQUIBASE_PATH = "technical/infrastructure/secondary/liquibase";
 
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;

@@ -12,4 +12,8 @@ public interface ProjectRepository {
   void template(Project project, String source, String sourceFilename, String destination, String destinationFilename);
 
   void write(Project project, String text, String destination, String destinationFilename);
+
+  void gitInit(Project project);
+  void gitAddAndCommit(Project project, String message);
+  void gitApplyPatch(Project project, String patchFilename);
 }

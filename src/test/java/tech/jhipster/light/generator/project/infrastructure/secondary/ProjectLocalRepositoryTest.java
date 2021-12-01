@@ -6,14 +6,19 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static tech.jhipster.light.TestUtils.*;
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.light.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 
 import com.github.mustachejava.MustacheNotFoundException;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidConfigurationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -180,5 +185,73 @@ class ProjectLocalRepositoryTest {
     assertThatThrownBy(() -> repository.write(project, null, null, null))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("text");
+  }
+
+  @Test
+  void shouldGitInit() {
+    Project project = tmpProject();
+
+    repository.gitInit(project);
+
+    assertFileExist(project, ".git/config");
+  }
+
+  @Test
+  void shouldNotGitInit() {
+    Project project = tmpProject();
+
+    try (MockedStatic<GitUtils> gitUtils = Mockito.mockStatic(GitUtils.class)) {
+      gitUtils.when(() -> GitUtils.init(anyString())).thenThrow(new InvalidConfigurationException("error"));
+
+      assertThatThrownBy(() -> repository.gitInit(project)).isExactlyInstanceOf(GeneratorException.class);
+      assertFileNotExist(project, ".git/config");
+    }
+  }
+
+  @Test
+  void shouldInitThenAddAndCommit() throws Exception {
+    Project project = tmpProject();
+
+    repository.gitInit(project);
+    File file = File.createTempFile("hello", ".world", new File(project.getFolder()));
+    repository.gitAddAndCommit(project, "1st commit");
+
+    assertFileExist(project, ".git");
+    assertFileExist(project, file.getName());
+  }
+
+  @Test
+  void shouldNotAddAndCommit() {
+    Project project = tmpProject();
+
+    try (MockedStatic<GitUtils> gitUtils = Mockito.mockStatic(GitUtils.class)) {
+      gitUtils.when(() -> GitUtils.addAndCommit(anyString(), anyString())).thenThrow(new InvalidConfigurationException("error"));
+
+      assertThatThrownBy(() -> repository.gitAddAndCommit(project, "1st commit")).isExactlyInstanceOf(GeneratorException.class);
+      assertFileNotExist(project, ".git/config");
+    }
+  }
+
+  @Test
+  void shouldGitApplyPatch() {
+    Project project = tmpProject();
+
+    repository.gitInit(project);
+    repository.gitApplyPatch(project, getPath(TEST_TEMPLATE_RESOURCES, "utils", "example.patch"));
+
+    assertFileExist(project, "example.md");
+  }
+
+  @Test
+  void shouldNotApplyPatch() {
+    Project project = tmpProject();
+
+    try (MockedStatic<GitUtils> gitUtils = Mockito.mockStatic(GitUtils.class)) {
+      gitUtils.when(() -> GitUtils.apply(anyString(), anyString())).thenThrow(new InvalidConfigurationException("error"));
+
+      assertThatThrownBy(() -> repository.gitApplyPatch(project, getPath(TEST_TEMPLATE_RESOURCES, "utils", "example.patch")))
+        .isExactlyInstanceOf(GeneratorException.class);
+      assertFileNotExist(project, "example.md");
+    }
   }
 }

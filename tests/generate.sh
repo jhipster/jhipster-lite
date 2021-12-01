@@ -15,6 +15,7 @@ callApi beer.json "/api/servers/java/base"
 callApi beer.json "/api/servers/spring-boot"
 callApi beer.json "/api/servers/spring-boot/banner/jhipster-v7"
 callApi beer.json "/api/servers/spring-boot/mvc/web/tomcat"
+callApi beer.json "/api/servers/spring-boot/mvc/security/jwt"
 callApi beer.json "/api/servers/spring-boot/databases/postgresql"
 callApi beer.json "/api/servers/spring-boot/databases/migration/liquibase"
 

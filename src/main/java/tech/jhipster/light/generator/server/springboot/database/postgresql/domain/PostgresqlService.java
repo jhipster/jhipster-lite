@@ -10,7 +10,7 @@ public interface PostgresqlService {
   void addHikari(Project project);
   void addHibernateCore(Project project);
   void addDockerCompose(Project project);
-  void addDialectJava(Project project);
+  void addJavaFiles(Project project);
   void addProperties(Project project);
   void addTestcontainers(Project project);
 }

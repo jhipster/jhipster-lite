@@ -50,14 +50,11 @@ class PostgresqlApplicationServiceIT {
     assertFileExist(project, "src/main/docker/postgresql.yml");
     assertFileContent(project, "src/main/docker/postgresql.yml", "POSTGRES_USER=jhipster");
 
-    assertFileExist(
-      project,
-      getPath(MAIN_JAVA, "com/mycompany/myapp", "/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10Dialect.java")
-    );
-    assertFileExist(
-      project,
-      getPath(TEST_JAVA, "com/mycompany/myapp", "/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
-    );
+    String postgresqlPath = getPath("com/mycompany/myapp/technical/infrastructure/secondary/postgresql");
+    assertFileExist(project, getPath(MAIN_JAVA, postgresqlPath, "DatabaseConfiguration.java"));
+    assertFileExist(project, getPath(MAIN_JAVA, postgresqlPath, "FixedPostgreSQL10Dialect.java"));
+    assertFileExist(project, getPath(TEST_JAVA, postgresqlPath, "FixedPostgreSQL10DialectTest.java"));
+
     assertFileContent(
       project,
       getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),

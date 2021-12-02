@@ -38,7 +38,7 @@ public class PostgresqlApplicationService {
   }
 
   public void addDialectJava(Project project) {
-    postgresqlService.addDialectJava(project);
+    postgresqlService.addJavaFiles(project);
   }
 
   public void addProperties(Project project) {

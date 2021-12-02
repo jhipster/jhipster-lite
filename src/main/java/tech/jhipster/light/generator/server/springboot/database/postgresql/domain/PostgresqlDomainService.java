@@ -39,7 +39,7 @@ public class PostgresqlDomainService implements PostgresqlService {
     addHikari(project);
     addHibernateCore(project);
     addDockerCompose(project);
-    addDialectJava(project);
+    addJavaFiles(project);
     addProperties(project);
     addTestcontainers(project);
   }
@@ -79,26 +79,16 @@ public class PostgresqlDomainService implements PostgresqlService {
   }
 
   @Override
-  public void addDialectJava(Project project) {
+  public void addJavaFiles(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
     project.addDefaultConfig(BASE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    String dialectPath = "technical/infrastructure/secondary/postgresql";
+    String postgresqlPath = "technical/infrastructure/secondary/postgresql";
 
-    projectRepository.template(
-      project,
-      SOURCE,
-      "FixedPostgreSQL10Dialect.java",
-      getPath(MAIN_JAVA, packageNamePath, dialectPath),
-      "FixedPostgreSQL10Dialect.java"
-    );
-    projectRepository.template(
-      project,
-      SOURCE,
-      "FixedPostgreSQL10DialectTest.java",
-      getPath(TEST_JAVA, packageNamePath, dialectPath),
-      "FixedPostgreSQL10DialectTest.java"
-    );
+    projectRepository.template(project, SOURCE, "DatabaseConfiguration.java", getPath(MAIN_JAVA, packageNamePath, postgresqlPath));
+    projectRepository.template(project, SOURCE, "FixedPostgreSQL10Dialect.java", getPath(MAIN_JAVA, packageNamePath, postgresqlPath));
+
+    projectRepository.template(project, SOURCE, "FixedPostgreSQL10DialectTest.java", getPath(TEST_JAVA, packageNamePath, postgresqlPath));
   }
 
   @Override

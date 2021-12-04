@@ -92,8 +92,8 @@ jobs:
           name: jar
       - name: 'Generation: generate Beer project'
         run: |
-          mv *.jar tests/
-          cd tests/
+          mv *.jar tests-ci/
+          cd tests-ci/
           ./start.sh
           ./generate.sh
           ls -al /tmp/beer/

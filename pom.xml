@@ -161,7 +161,7 @@
         <version>${jacoco.version}</version>
         <configuration>
           <excludes>
-            <exclude>**/template/buildtool/maven/.mvn/wrapper/*</exclude>
+            <exclude>**/generator/buildtool/maven/.mvn/wrapper/*</exclude>
           </excludes>
         </configuration>
       </plugin>

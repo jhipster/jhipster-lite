@@ -158,4 +158,4 @@ Desktop.ini
 # Templates
 ######################
 
-!/src/main/resources/template/buildtool/maven/.mvn/wrapper/maven-wrapper.jar
+!/src/main/resources/generator/buildtool/maven/.mvn/wrapper/maven-wrapper.jar

@@ -25,7 +25,7 @@ class MustacheUtilsTest {
 
   @Test
   void shouldTemplateInClassPath() throws Exception {
-    String file = FileUtils.getPath("template/common/README.md.mustache");
+    String file = FileUtils.getPath("generator/common/README.md.mustache");
 
     Chips chips = new Chips("chips");
     String result = MustacheUtils.template(file, chips);

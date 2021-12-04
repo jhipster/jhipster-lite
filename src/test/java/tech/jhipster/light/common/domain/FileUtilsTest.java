@@ -124,14 +124,14 @@ class FileUtilsTest {
 
     @Test
     void shouldGetInputStream() {
-      InputStream in = FileUtils.getInputStream("template/mustache/README.txt");
+      InputStream in = FileUtils.getInputStream("generator/mustache/README.txt");
 
       assertThat(in).isNotNull();
     }
 
     @Test
     void shouldNotGetInputStream() {
-      assertThatThrownBy(() -> FileUtils.getInputStream("template/mustache/chips.txt")).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(() -> FileUtils.getInputStream("generator/mustache/chips.txt")).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 
@@ -140,7 +140,7 @@ class FileUtilsTest {
 
     @Test
     void shouldRead() throws Exception {
-      String filename = getPath("src/test/resources/template/utils/readme-short.md");
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
       String result = FileUtils.read(filename);
 
@@ -158,7 +158,7 @@ class FileUtilsTest {
 
     @Test
     void shouldNotReadWhenFileNotExist() {
-      String filename = getPath("src/test/resources/template/utils/unknown.md");
+      String filename = getPath("src/test/resources/generator/utils/unknown.md");
 
       assertThatThrownBy(() -> FileUtils.read(filename)).isExactlyInstanceOf(NoSuchFileException.class);
     }
@@ -169,7 +169,7 @@ class FileUtilsTest {
 
     @Test
     void shouldGetLine() throws Exception {
-      String filename = getPath("src/test/resources/template/utils/readme-short.md");
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
       assertThat(FileUtils.getLine(filename, "used for unit tests")).isEqualTo(2);
       assertThat(FileUtils.getLine(filename, "JHipster")).isEqualTo(3);
@@ -177,21 +177,21 @@ class FileUtilsTest {
 
     @Test
     void shouldNotGetLineAsCaseSensitive() throws Exception {
-      String filename = getPath("src/test/resources/template/utils/readme-short.md");
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
       assertThat(FileUtils.getLine(filename, "jhipster")).isEqualTo(-1);
     }
 
     @Test
     void shouldNotGetLineForAnotherText() throws Exception {
-      String filename = getPath("src/test/resources/template/utils/readme-short.md");
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
       assertThat(FileUtils.getLine(filename, "beer")).isEqualTo(-1);
     }
 
     @Test
     void shouldNotGetLineWhenFileNotExist() {
-      String filename = getPath("src/test/resources/template/utils/unknown.md");
+      String filename = getPath("src/test/resources/generator/utils/unknown.md");
 
       assertThatThrownBy(() -> FileUtils.getLine(filename, "beer")).isInstanceOf(IOException.class);
     }
@@ -202,21 +202,21 @@ class FileUtilsTest {
 
     @Test
     void shouldContainsInLine() {
-      String filename = getPath("src", "test", "resources", "template", "utils", "example-readme.md");
+      String filename = getPath("src", "test", "resources", "generator", "utils", "example-readme.md");
 
       assertTrue(FileUtils.containsInLine(filename, "Before you can build this project"));
     }
 
     @Test
     void shouldNotContainsInLine() {
-      String filename = getPath("src", "test", "resources", "template", "utils", "example-readme.md");
+      String filename = getPath("src", "test", "resources", "generator", "utils", "example-readme.md");
 
       assertFalse(FileUtils.containsInLine(filename, "apero with beers"));
     }
 
     @Test
     void shouldNotContainsInLineWhenFilenameNotExist() {
-      String filename = getPath("src", "test", "resources", "template", "utils", "unknown.md");
+      String filename = getPath("src", "test", "resources", "generator", "utils", "unknown.md");
 
       assertFalse(FileUtils.containsInLine(filename, "apero with beers"));
     }
@@ -227,7 +227,7 @@ class FileUtilsTest {
 
     @Test
     void shouldContainsLinesSingle() {
-      String filename = getPath("src/test/resources/template/buildtool/maven/pom.test.xml");
+      String filename = getPath("src/test/resources/generator/buildtool/maven/pom.test.xml");
       List<String> lines = List.of("<dependency>");
 
       assertTrue(FileUtils.containsLines(filename, lines));
@@ -235,7 +235,7 @@ class FileUtilsTest {
 
     @Test
     void shouldContainsLines() {
-      String filename = getPath("src/test/resources/template/buildtool/maven/pom.test.xml");
+      String filename = getPath("src/test/resources/generator/buildtool/maven/pom.test.xml");
       List<String> lines = List.of(
         "<dependency>",
         "<groupId>org.junit.jupiter</groupId>",
@@ -250,7 +250,7 @@ class FileUtilsTest {
 
     @Test
     void shouldNotContainsLines() {
-      String filename = getPath("src/test/resources/template/buildtool/maven/pom.test.xml");
+      String filename = getPath("src/test/resources/generator/buildtool/maven/pom.test.xml");
       List<String> lines = List.of(
         "<dependency>",
         "<groupId>org.junit.jupiter</groupId>",
@@ -287,7 +287,7 @@ class FileUtilsTest {
 
     @Test
     void shouldNotContainsLinesWithEmptyLines() {
-      String filename = getPath("src/test/resources/template/buildtool/maven/pom.test.xml");
+      String filename = getPath("src/test/resources/generator/buildtool/maven/pom.test.xml");
 
       assertThatThrownBy(() -> FileUtils.containsLines(filename, List.of()))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
@@ -300,7 +300,7 @@ class FileUtilsTest {
 
     @Test
     void shouldReplaceInFile() throws Exception {
-      String filename = getPath("src/test/resources/template/utils/readme-short.md");
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
       String result = FileUtils.replaceInFile(filename, "powered by JHipster \uD83E\uDD13", "Hello JHipster Light");
 
@@ -318,7 +318,7 @@ class FileUtilsTest {
 
     @Test
     void shouldNotReplaceInFileWhenFileNotExist() {
-      String filename = getPath("src/test/resources/template/utils/unknown.md");
+      String filename = getPath("src/test/resources/generator/utils/unknown.md");
 
       assertThatThrownBy(() -> FileUtils.replaceInFile(filename, "powered by JHipster", "Hello JHipster Light"))
         .isInstanceOf(IOException.class);

@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.mycompany.myapp</groupId>
-  <artifactId>jhipster</artifactId>
+  <groupId>{{packageName}}{{^packageName}}com.mycompany.myapp{{/packageName}}</groupId>
+  <artifactId>{{dasherizedBaseName}}{{^dasherizedBaseName}}jhipster{{/dasherizedBaseName}}</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>jhipster</name>
-  <description>JHipster Project</description>
+  <name>{{baseName}}{{^baseName}}jhipster{{/baseName}}</name>
+  <description>{{projectName}}{{^projectName}}JHipster Project{{/projectName}}</description>
   <packaging>jar</packaging>
 
   <!-- jhipster-needle-maven-parent -->
@@ -27,9 +27,9 @@
     <maven.version>3.8.3</maven.version>
     <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
 
-    <junit-jupiter.version>5.8.1</junit-jupiter.version>
+    <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <assertj.version>3.21.0</assertj.version>
-    <mockito.version>4.0.0</mockito.version>
+    <mockito.version>4.1.0</mockito.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <jacoco.version>0.8.7</jacoco.version>
@@ -53,6 +53,12 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-inline</artifactId>
       <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
@@ -87,11 +93,6 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.version}</version>
-        <configuration>
-          <excludes>
-            <exclude>**/template/maven/.mvn/wrapper/*</exclude>
-          </excludes>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

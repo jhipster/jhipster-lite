@@ -96,7 +96,7 @@ public class TestUtils {
   public static void copyPomXml(Project project) {
     try {
       FileUtils.createFolder(project.getFolder());
-      Files.copy(getPathOf("src/test/resources/template/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
+      Files.copy(getPathOf("src/test/resources/generator/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
     } catch (IOException e) {
       throw new AssertionError(e);
     }
@@ -106,7 +106,7 @@ public class TestUtils {
     try {
       FileUtils.createFolder(project.getFolder());
       Files.copy(
-        getPathOf("src/test/resources/template/buildtool/gradle/build.test.gradle"),
+        getPathOf("src/test/resources/generator/buildtool/gradle/build.test.gradle"),
         getPathOf(project.getFolder(), "build.gradle")
       );
     } catch (IOException e) {
@@ -119,15 +119,15 @@ public class TestUtils {
       FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
       FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
       Files.copy(
-        getPathOf("src/test/resources/template/server/springboot/core/application.src.properties"),
+        getPathOf("src/test/resources/generator/server/springboot/core/application.src.properties"),
         getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application.properties")
       );
       Files.copy(
-        getPathOf("src/test/resources/template/server/springboot/core/application.src.fast.properties"),
+        getPathOf("src/test/resources/generator/server/springboot/core/application.src.fast.properties"),
         getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application-fast.properties")
       );
       Files.copy(
-        getPathOf("src/test/resources/template/server/springboot/core/application.test.properties"),
+        getPathOf("src/test/resources/generator/server/springboot/core/application.test.properties"),
         getPathOf(project.getFolder(), TEST_RESOURCES, "config/application.properties")
       );
     } catch (IOException e) {

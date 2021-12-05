@@ -8,18 +8,27 @@
 JHipster Light will help you to start your project:
 
 - init the project
-- add Maven as Build Tool
-- add Base classes and Domain Error
+- add Maven Java as Build Tool
+- add Java Base classes and Domain Error
 - add Spring Boot as Server Framework
-- add Spring Boot MVC with Tomcat or Undertow
-- add PostgreSQL as Database
-- add Liquibase as Database Migration Tool
+  - add Spring Boot MVC
+    - add Tomcat or Undertow
+    - add Spring Security with JWT
+  - add Database
+    - add PostgreSQL
+    - add Liquibase as Database Migration Tool
 
 ## Prerequisites
 
+### Java
+
+You need to have Java 17 :
+
+- [JDK 17](https://openjdk.java.net/projects/jdk/17/)
+
 ### Node.js and NPM
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+This part is needed if you want to contribute to the project.
 
 1. [Node.js](https://nodejs.org/): We use Node to run a development web server and build the project.
    Depending on your system, you can install Node either from source or as a pre-packaged bundle.
@@ -30,12 +39,6 @@ You will only need to run this command when dependencies change in [package.json
 ```
 npm install
 ```
-
-### Java
-
-You need to have Java 17 :
-
-- [JDK 17](https://openjdk.java.net/projects/jdk/17/)
 
 ## Test the project
 
@@ -73,6 +76,8 @@ java -jar target/*.jar
 
 Then navigate to http://localhost:7471/swagger-ui.html in your browser.
 
+## Generate your project
+
 You can use this JSON to generate project:
 
 <!-- prettier-ignore-start -->
@@ -88,6 +93,45 @@ You can use this JSON to generate project:
 }
 ```
 <!-- prettier-ignore-end -->
+
+### Init your project
+
+Use the `Init` API.
+
+It will generate the default files, needed by all projects:
+
+- `.editorconfig`
+- `.gitattributes`
+- `.gitignore`
+- `package.json` with prettier configuration
+- etc
+
+### Maven
+
+Then, you can use `Maven` API to add Maven with Java:
+
+- default `pom.xml` with Java
+- Maven Wrapper
+
+### Java Base
+
+This API is needed as it will contain all classes used by other following options. It will create `error/domain` package.
+
+### Spring Boot
+
+This API will add Spring Boot to your project:
+
+- dependencies
+- main class
+- properties
+
+### Spring Boot MVC
+
+To be completed
+
+### Database
+
+To be completed
 
 [github-actions-jhlight-image]: https://github.com/pascalgrimaud/jhipster-light/workflows/build/badge.svg
 [github-actions-url]: https://github.com/pascalgrimaud/jhipster-light/actions

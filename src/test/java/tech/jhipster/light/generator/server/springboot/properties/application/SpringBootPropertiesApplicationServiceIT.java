@@ -17,16 +17,23 @@ import tech.jhipster.light.generator.project.domain.Project;
 class SpringBootPropertiesApplicationServiceIT {
 
   @Autowired
-  SpringBootPropertiesApplicationService springBootPropertiesApplicationService;
+  SpringBootPropertiesApplicationService service;
 
   @Nested
   class Properties {
 
     @Test
+    void shouldNotAddProperties() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addProperties(project, "server.port", 8080)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
     void shouldAddPropertiesWithInteger() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addProperties(project, "server.port", 8080);
+      service.addProperties(project, "server.port", 8080);
 
       String applicationProperties = getPath(MAIN_RESOURCES, "config/application.properties");
       assertFileContent(project, applicationProperties, "server.port=8080");
@@ -37,7 +44,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldAddPropertiesWithBoolean() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addProperties(project, "spring.jmx.enabled", false);
+      service.addProperties(project, "spring.jmx.enabled", false);
 
       String applicationProperties = getPath(MAIN_RESOURCES, "config/application.properties");
       assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
@@ -48,7 +55,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldAddPropertiesWithString() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addProperties(project, "jhipster.application", "jhlight");
+      service.addProperties(project, "jhipster.application", "jhlight");
 
       String applicationProperties = getPath(MAIN_RESOURCES, "config/application.properties");
       assertFileContent(project, applicationProperties, "jhipster.application=jhlight");
@@ -59,7 +66,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldNotAddPropertiesWhenNoApplicationProperties() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> springBootPropertiesApplicationService.addProperties(project, "jhipster.application", "jhlight"))
+      assertThatThrownBy(() -> service.addProperties(project, "jhipster.application", "jhlight"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
   }
@@ -68,10 +75,18 @@ class SpringBootPropertiesApplicationServiceIT {
   class FastProperties {
 
     @Test
+    void shouldNotAddPropertiesFast() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addPropertiesFast(project, "specific.config.fast", "chips"))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
     void shouldAddPropertiesFastWithInteger() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addPropertiesFast(project, "server.port", 8080);
+      service.addPropertiesFast(project, "server.port", 8080);
 
       String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
       assertFileContent(project, applicationProperties, "server.port=8080");
@@ -82,7 +97,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldAddPropertiesFastWithBoolean() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addPropertiesFast(project, "spring.jmx.enabled", false);
+      service.addPropertiesFast(project, "spring.jmx.enabled", false);
 
       String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
       assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
@@ -93,7 +108,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldAddPropertiesFastWithString() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addPropertiesFast(project, "jhipster.application", "jhlight");
+      service.addPropertiesFast(project, "jhipster.application", "jhlight");
 
       String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
       assertFileContent(project, applicationProperties, "jhipster.application=jhlight");
@@ -104,7 +119,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldNotAddPropertiesFastWhenNoApplicationProperties() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> springBootPropertiesApplicationService.addPropertiesFast(project, "jhipster.application", "jhlight"))
+      assertThatThrownBy(() -> service.addPropertiesFast(project, "jhipster.application", "jhlight"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
   }
@@ -113,10 +128,17 @@ class SpringBootPropertiesApplicationServiceIT {
   class TestProperties {
 
     @Test
+    void shouldNotAddPropertiesTest() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addPropertiesTest(project, "server.port", 8080)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
     void shouldAddPropertiesTestWithInteger() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addPropertiesTest(project, "server.port", 8080);
+      service.addPropertiesTest(project, "server.port", 8080);
 
       String applicationProperties = getPath(TEST_RESOURCES, "config/application.properties");
       assertFileContent(project, applicationProperties, "server.port=8080");
@@ -127,7 +149,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldAddPropertiesTestWithBoolean() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addPropertiesTest(project, "spring.jmx.enabled", false);
+      service.addPropertiesTest(project, "spring.jmx.enabled", false);
 
       String applicationProperties = getPath(TEST_RESOURCES, "config/application.properties");
       assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
@@ -138,7 +160,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldAddPropertiesTestWithString() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootPropertiesApplicationService.addPropertiesTest(project, "jhipster.application", "jhlight");
+      service.addPropertiesTest(project, "jhipster.application", "jhlight");
 
       String applicationProperties = getPath(TEST_RESOURCES, "config/application.properties");
       assertFileContent(project, applicationProperties, "jhipster.application=jhlight");
@@ -149,7 +171,7 @@ class SpringBootPropertiesApplicationServiceIT {
     void shouldNotAddPropertiesTestWhenNoApplicationProperties() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> springBootPropertiesApplicationService.addPropertiesTest(project, "jhipster.application", "jhlight"))
+      assertThatThrownBy(() -> service.addPropertiesTest(project, "jhipster.application", "jhlight"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
   }

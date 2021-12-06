@@ -1,14 +1,10 @@
 package tech.jhipster.light.generator.server.springboot.properties.domain;
 
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
-import static tech.jhipster.light.common.domain.FileUtils.read;
 import static tech.jhipster.light.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.light.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.light.generator.server.springboot.core.domain.SpringBoot.*;
 
-import java.io.IOException;
-import tech.jhipster.light.common.domain.FileUtils;
-import tech.jhipster.light.error.domain.GeneratorException;
 import tech.jhipster.light.generator.project.domain.Project;
 import tech.jhipster.light.generator.project.domain.ProjectRepository;
 
@@ -43,14 +39,7 @@ public class SpringBootPropertiesDomainService implements SpringBootPropertiesSe
     String fileProperties,
     String needleProperties
   ) {
-    try {
-      String currentApplicationProperties = read(getPath(project.getFolder(), folderProperties, "config", fileProperties));
-      String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + needleProperties;
-      String updatedApplicationProperties = FileUtils.replace(currentApplicationProperties, needleProperties, propertiesWithNeedle);
-
-      projectRepository.write(project, updatedApplicationProperties, getPath(folderProperties, "config"), fileProperties);
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding properties");
-    }
+    String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + needleProperties;
+    projectRepository.replaceText(project, getPath(folderProperties, "config"), fileProperties, needleProperties, propertiesWithNeedle);
   }
 }

@@ -45,15 +45,7 @@ class SpringBootPropertiesDomainServiceTest {
 
     springBootPropertiesDomainService.addProperties(project, "server.port", 8080);
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldNotAddProperties() {
-    Project project = tmpProject();
-
-    assertThatThrownBy(() -> springBootPropertiesDomainService.addProperties(project, "server.port", 8080))
-      .isExactlyInstanceOf(GeneratorException.class);
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -67,15 +59,7 @@ class SpringBootPropertiesDomainServiceTest {
 
     springBootPropertiesDomainService.addPropertiesFast(project, "specific.config.fast", "chips");
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldNotAddPropertiesFast() {
-    Project project = tmpProject();
-
-    assertThatThrownBy(() -> springBootPropertiesDomainService.addPropertiesFast(project, "specific.config.fast", "chips"))
-      .isExactlyInstanceOf(GeneratorException.class);
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -89,14 +73,6 @@ class SpringBootPropertiesDomainServiceTest {
 
     springBootPropertiesDomainService.addPropertiesTest(project, "server.port", 8080);
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldNotAddPropertiesTest() {
-    Project project = tmpProject();
-
-    assertThatThrownBy(() -> springBootPropertiesDomainService.addPropertiesTest(project, "server.port", 8080))
-      .isExactlyInstanceOf(GeneratorException.class);
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 }

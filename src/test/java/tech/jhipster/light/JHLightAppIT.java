@@ -10,46 +10,46 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 @IntegrationTest
-class JhlightAppIT {
+class JHLightAppIT {
 
   @Test
   void shouldMain() {
-    assertThatCode(() -> JhlightApp.main(new String[] {})).doesNotThrowAnyException();
+    assertThatCode(() -> JHLightApp.main(new String[] {})).doesNotThrowAnyException();
   }
 
   @Test
   void shouldGetProtocol() {
-    assertThat(JhlightApp.getProtocol(null)).isEqualTo("http");
+    assertThat(JHLightApp.getProtocol(null)).isEqualTo("http");
   }
 
   @Test
   void shouldGetProtocolForBlank() {
-    assertThat(JhlightApp.getProtocol(" ")).isEqualTo("https");
+    assertThat(JHLightApp.getProtocol(" ")).isEqualTo("https");
   }
 
   @Test
   void shouldGetProtocolForValue() {
-    assertThat(JhlightApp.getProtocol("https")).isEqualTo("https");
+    assertThat(JHLightApp.getProtocol("https")).isEqualTo("https");
   }
 
   @Test
   void shouldGetContextPath() {
-    assertThat(JhlightApp.getContextPath("/chips")).isEqualTo("/chips");
+    assertThat(JHLightApp.getContextPath("/chips")).isEqualTo("/chips");
   }
 
   @Test
   void shouldGetContextPathForNull() {
-    assertThat(JhlightApp.getContextPath(null)).isEqualTo("/");
+    assertThat(JHLightApp.getContextPath(null)).isEqualTo("/");
   }
 
   @Test
   void shouldGetContextPathForBlank() {
-    assertThat(JhlightApp.getContextPath(" ")).isEqualTo("/");
+    assertThat(JHLightApp.getContextPath(" ")).isEqualTo("/");
   }
 
   @Test
   void shouldGetHost() {
-    assertThatCode(JhlightApp::getHostAddress).doesNotThrowAnyException();
+    assertThatCode(JHLightApp::getHostAddress).doesNotThrowAnyException();
   }
 
   @Test
@@ -57,7 +57,7 @@ class JhlightAppIT {
     try (MockedStatic<InetAddress> inetAddress = Mockito.mockStatic(InetAddress.class)) {
       inetAddress.when(InetAddress::getLocalHost).thenThrow(new UnknownHostException());
 
-      String result = JhlightApp.getHostAddress();
+      String result = JHLightApp.getHostAddress();
 
       assertThat(result).isEqualTo("localhost");
     }

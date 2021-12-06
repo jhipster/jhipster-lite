@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @DisplayNameGeneration(ReplaceCamelCase.class)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = { JhlightApp.class })
+@SpringBootTest(classes = { JHLightApp.class })
 @Target(ElementType.TYPE)
 public @interface IntegrationTest {
 }

@@ -41,15 +41,30 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addProperties(project);
     addGitPatch(project);
     applyGitPatchAnnotationProcessor(project);
-    applyGitPatchExceptionTranslator(project);
+
+    updateExceptionTranslator(project);
   }
 
   private void applyGitPatchAnnotationProcessor(Project project) {
     projectRepository.gitApplyPatch(project, getPath(project.getFolder(), ".jhipster", annotationProcessorPatch));
   }
 
-  private void applyGitPatchExceptionTranslator(Project project) {
-    projectRepository.gitApplyPatch(project, getPath(project.getFolder(), ".jhipster", exceptionTranslatorPatch));
+  private void updateExceptionTranslator(Project project) {
+    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String exceptionPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+
+    String oldImport = "import org.springframework.test.util.ReflectionTestUtils;";
+    String newImport =
+      """
+      import org.springframework.security.test.context.support.WithMockUser;
+      import org.springframework.test.util.ReflectionTestUtils;""";
+    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport, newImport);
+
+    String oldAnnotation = "@AutoConfigureMockMvc";
+    String newAnnotation = """
+      @AutoConfigureMockMvc
+      @WithMockUser""";
+    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldAnnotation, newAnnotation);
   }
 
   private void addGitPatch(Project project) {
@@ -58,7 +73,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     project.addConfig("packageNamePath", packageNamePath);
 
     projectRepository.add(project, SOURCE, annotationProcessorPatch, ".jhipster");
-    projectRepository.template(project, SOURCE, exceptionTranslatorPatch, ".jhipster");
   }
 
   private void addPropertyAndDependency(Project project) {

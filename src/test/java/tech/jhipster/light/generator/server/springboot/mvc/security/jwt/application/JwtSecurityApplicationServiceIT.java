@@ -1,6 +1,8 @@
 package tech.jhipster.light.generator.server.springboot.mvc.security.jwt.application;
 
 import static tech.jhipster.light.TestUtils.*;
+import static tech.jhipster.light.common.domain.FileUtils.getPath;
+import static tech.jhipster.light.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.light.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.*;
 
 import org.junit.jupiter.api.Test;
@@ -46,5 +48,13 @@ class JwtSecurityApplicationServiceIT {
     assertJwtSecurityFilesExists(project);
     assertJwtSecurityProperties(project);
     assertGitPatch(project);
+
+    String exceptionTranslatorIT = "com/mycompany/myapp/technical/infrastructure/primary/exception/ExceptionTranslatorIT.java";
+    assertFileContent(
+      project,
+      getPath(TEST_JAVA, exceptionTranslatorIT),
+      "import org.springframework.security.test.context.support.WithMockUser;"
+    );
+    assertFileContent(project, getPath(TEST_JAVA, exceptionTranslatorIT), "@WithMockUser");
   }
 }

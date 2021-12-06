@@ -11,12 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
-public class JhlightApp {
+public class JHLightApp {
 
-  private static final Logger log = LoggerFactory.getLogger(JhlightApp.class);
+  private static final Logger log = LoggerFactory.getLogger(JHLightApp.class);
 
   public static void main(String[] args) {
-    SpringApplication app = new SpringApplication(JhlightApp.class);
+    SpringApplication app = new SpringApplication(JHLightApp.class);
     Environment env = app.run(args).getEnvironment();
     logApplicationStartup(env);
   }
@@ -27,11 +27,14 @@ public class JhlightApp {
     String contextPath = getContextPath(env.getProperty("server.servlet.context-path"));
     String hostAddress = getHostAddress();
     log.info(
-      "\n----------------------------------------------------------\n\t" +
-      "Application '{}' is running! Access URLs:\n\t" +
-      "Local: \t\t{}://localhost:{}{}swagger-ui.html\n\t" +
-      "External: \t{}://{}:{}{}swagger-ui.html\n\t" +
-      "Profile(s): \t{}\n----------------------------------------------------------",
+      """
+      \n----------------------------------------------------------
+        Application '{}' is running! Access URLs:
+        Local: \t{}://localhost:{}{}swagger-ui.html
+        External: \t{}://{}:{}{}swagger-ui.html
+        Profile(s): \t{}
+      ----------------------------------------------------------
+      """,
       env.getProperty("spring.application.name"),
       protocol,
       serverPort,

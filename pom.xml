@@ -8,7 +8,7 @@
   <artifactId>jhlight</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Jhlight</name>
-  <description>JHipster Light generated with generator-jhipster@7.1.0</description>
+  <description>JHipster Light</description>
   <packaging>jar</packaging>
 
   <parent>

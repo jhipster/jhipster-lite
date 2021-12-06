@@ -6,6 +6,7 @@ import static tech.jhipster.light.common.domain.FileUtils.getPath;
 import static tech.jhipster.light.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.light.generator.project.domain.Constants.*;
 import static tech.jhipster.light.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.light.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.annotationProcessorPatch;
 import static tech.jhipster.light.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.exceptionTranslatorPatch;
 import static tech.jhipster.light.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 
@@ -23,8 +24,7 @@ public class JwtSecurityAssertFiles {
   }
 
   public static void assertGitPatch(Project project) {
-    assertFileExist(project, ".jhipster", exceptionTranslatorPatch);
-    assertFileExist(project, ".jhipster", exceptionTranslatorPatch);
+    assertFileExist(project, ".jhipster", annotationProcessorPatch);
   }
 
   public static void assertJwtSecurityFilesExists(Project project) {

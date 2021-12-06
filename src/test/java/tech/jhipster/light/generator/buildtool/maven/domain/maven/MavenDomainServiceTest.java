@@ -1,6 +1,5 @@
 package tech.jhipster.light.generator.buildtool.maven.domain.maven;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -15,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.light.UnitTest;
-import tech.jhipster.light.common.domain.FileUtils;
-import tech.jhipster.light.error.domain.GeneratorException;
 import tech.jhipster.light.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.light.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.light.generator.buildtool.generic.domain.Plugin;
@@ -41,16 +38,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.addParent(project, parent);
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldNotAddParentWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
-
-    assertThatThrownBy(() -> mavenDomainService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -60,7 +48,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.addDependency(project, dependency);
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -75,7 +63,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.addDependency(project, dependency);
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -90,16 +78,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.addDependency(project, dependency, List.of(dependencyToExclude));
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldNotAddDependencyWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
-
-    assertThatThrownBy(() -> mavenDomainService.addDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -109,16 +88,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.addPlugin(project, plugin);
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldNotAddPluginWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-
-    assertThatThrownBy(() -> mavenDomainService.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -127,16 +97,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.addProperty(project, "testcontainers", "1.16.0");
 
-    verify(projectRepository).write(any(Project.class), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldNotAddPropertyWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-
-    assertThatThrownBy(() -> mavenDomainService.addProperty(project, "testcontainers", "1.16.0"))
-      .isExactlyInstanceOf(GeneratorException.class);
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test

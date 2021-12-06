@@ -1,5 +1,6 @@
 package tech.jhipster.light.generator.buildtool.maven.application;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.light.TestUtils.*;
 import static tech.jhipster.light.generator.buildtool.maven.application.MavenAssertFiles.*;
 
@@ -7,6 +8,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.light.IntegrationTest;
+import tech.jhipster.light.common.domain.FileUtils;
+import tech.jhipster.light.error.domain.GeneratorException;
 import tech.jhipster.light.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.light.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.light.generator.buildtool.generic.domain.Plugin;
@@ -40,6 +43,15 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldNotAddParentWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+
+    assertThatThrownBy(() -> mavenApplicationService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldAddDependency() {
     Project project = tmpProjectWithPomXml();
 
@@ -56,6 +68,15 @@ class MavenApplicationServiceIT {
         "</dependency>"
       )
     );
+  }
+
+  @Test
+  void shouldNotAddDependencyWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
+
+    assertThatThrownBy(() -> mavenApplicationService.addDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -128,12 +149,30 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldNotAddPluginWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+
+    assertThatThrownBy(() -> mavenApplicationService.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldAddProperty() {
     Project project = tmpProjectWithPomXml();
 
     mavenApplicationService.addProperty(project, "testcontainers", "1.16.0");
 
     assertFileContent(project, "pom.xml", "    <testcontainers.version>1.16.0</testcontainers.version>");
+  }
+
+  @Test
+  void shouldNotAddPropertyWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+
+    assertThatThrownBy(() -> mavenApplicationService.addProperty(project, "testcontainers", "1.16.0"))
+      .isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

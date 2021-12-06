@@ -1,16 +1,12 @@
 package tech.jhipster.light.generator.buildtool.maven.domain;
 
 import static tech.jhipster.light.common.domain.FileUtils.getPath;
-import static tech.jhipster.light.common.domain.FileUtils.read;
 import static tech.jhipster.light.common.domain.WordUtils.indent;
 import static tech.jhipster.light.generator.buildtool.maven.domain.Maven.*;
 import static tech.jhipster.light.generator.project.domain.DefaultConfig.*;
 
-import java.io.IOException;
 import java.util.List;
-import tech.jhipster.light.common.domain.FileUtils;
 import tech.jhipster.light.common.domain.WordUtils;
-import tech.jhipster.light.error.domain.GeneratorException;
 import tech.jhipster.light.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.light.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.light.generator.buildtool.generic.domain.Plugin;
@@ -30,17 +26,10 @@ public class MavenDomainService implements MavenService {
 
   @Override
   public void addParent(Project project, Parent parent) {
-    try {
-      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-      int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
-      String locationPomXml = getPath(project.getFolder(), POM_XML);
-      String currentPomXml = read(locationPomXml);
-      String updatedPomXml = FileUtils.replace(currentPomXml, NEEDLE_PARENT, Maven.getParent(parent, indent));
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
-      projectRepository.write(project, updatedPomXml, ".", "pom.xml");
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding parent");
-    }
+    projectRepository.replaceText(project, "", POM_XML, NEEDLE_PARENT, Maven.getParent(parent, indent));
   }
 
   @Override
@@ -50,52 +39,33 @@ public class MavenDomainService implements MavenService {
 
   @Override
   public void addDependency(Project project, Dependency dependency, List<Dependency> exclusions) {
-    try {
-      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-      int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
-      String locationPomXml = getPath(project.getFolder(), POM_XML);
-      String currentPomXml = read(locationPomXml);
-      String needle = dependency.getScope().orElse("").equals("test") ? NEEDLE_DEPENDENCY_TEST : NEEDLE_DEPENDENCY;
-      String dependencyWithNeedle =
-        Maven.getDependency(dependency, indent, exclusions) + System.lineSeparator() + indent(2, indent) + needle;
-      String updatedPomXml = FileUtils.replace(currentPomXml, needle, dependencyWithNeedle);
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
-      projectRepository.write(project, updatedPomXml, ".", "pom.xml");
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding dependency");
-    }
+    String needle = dependency.getScope().orElse("").equals("test") ? NEEDLE_DEPENDENCY_TEST : NEEDLE_DEPENDENCY;
+    String dependencyWithNeedle = Maven.getDependency(dependency, indent, exclusions) + System.lineSeparator() + indent(2, indent) + needle;
+
+    projectRepository.replaceText(project, "", POM_XML, needle, dependencyWithNeedle);
   }
 
   @Override
   public void addPlugin(Project project, Plugin plugin) {
-    try {
-      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-      int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
-      String locationPomXml = getPath(project.getFolder(), POM_XML);
-      String currentPomXml = read(locationPomXml);
-      String pluginWithNeedle = Maven.getPlugin(plugin, indent) + System.lineSeparator() + indent(3, indent) + NEEDLE_PLUGIN;
-      String updatedPomXml = FileUtils.replace(currentPomXml, NEEDLE_PLUGIN, pluginWithNeedle);
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
-      projectRepository.write(project, updatedPomXml, ".", "pom.xml");
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding dependency");
-    }
+    String pluginWithNeedle = Maven.getPlugin(plugin, indent) + System.lineSeparator() + indent(3, indent) + NEEDLE_PLUGIN;
+
+    projectRepository.replaceText(project, "", POM_XML, NEEDLE_PLUGIN, pluginWithNeedle);
   }
 
   @Override
   public void addProperty(Project project, String key, String version) {
-    try {
-      project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-      int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
-      String locationPomXml = getPath(project.getFolder(), POM_XML);
-      String currentPomXml = read(locationPomXml);
-      String propertyWithNeedle = Maven.getProperty(key, version) + System.lineSeparator() + indent(2, indent) + NEEDLE_PROPERTIES;
-      String updatedPomXml = FileUtils.replace(currentPomXml, NEEDLE_PROPERTIES, propertyWithNeedle);
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
-      projectRepository.write(project, updatedPomXml, ".", "pom.xml");
-    } catch (IOException e) {
-      throw new GeneratorException("Error when adding dependency");
-    }
+    String propertyWithNeedle = Maven.getProperty(key, version) + System.lineSeparator() + indent(2, indent) + NEEDLE_PROPERTIES;
+
+    projectRepository.replaceText(project, "", POM_XML, NEEDLE_PROPERTIES, propertyWithNeedle);
   }
 
   @Override

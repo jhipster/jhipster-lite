@@ -1,7 +1,6 @@
 package tech.jhipster.light.generator.project.infrastructure.secondary;
 
-import static tech.jhipster.light.common.domain.FileUtils.getPath;
-import static tech.jhipster.light.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.light.common.domain.FileUtils.*;
 import static tech.jhipster.light.generator.project.domain.Constants.TEMPLATE_FOLDER;
 
 import java.io.IOException;
@@ -79,6 +78,17 @@ public class ProjectLocalRepository implements ProjectRepository {
       write(project, result, destination, destinationFilename);
     } catch (IOException ex) {
       throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
+    }
+  }
+
+  @Override
+  public void replaceText(Project project, String source, String sourceFilename, String oldText, String newText) {
+    try {
+      String currentText = read(getPath(project.getFolder(), source, sourceFilename));
+      String updatedText = FileUtils.replace(currentText, oldText, newText);
+      write(project, updatedText, source, sourceFilename);
+    } catch (IOException e) {
+      throw new GeneratorException("Error when writing text to '" + sourceFilename + "'");
     }
   }
 

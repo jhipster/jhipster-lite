@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.UUID;
 import org.eclipse.jgit.api.errors.InvalidConfigurationException;
 import org.junit.jupiter.api.Test;
@@ -155,6 +156,36 @@ class ProjectLocalRepositoryTest {
     repository.template(project, "mustache", "README.md.mustache", getPath(MAIN_RESOURCES), "FINAL-README.md");
 
     assertFileExist(project, MAIN_RESOURCES, "FINAL-README.md");
+  }
+
+  @Test
+  void shouldReplaceText() {
+    Project project = tmpProjectWithPomXml();
+    String oldText = """
+      <name>jhipster</name>
+        <description>JHipster Project</description>""";
+    String newText = """
+      <name>chips</name>
+
+        <description>Chips Project</description>""";
+
+    repository.replaceText(project, "", "pom.xml", oldText, newText);
+
+    assertFileContent(project, "pom.xml", List.of("<name>chips</name>", "", "<description>Chips Project</description>"));
+  }
+
+  @Test
+  void shouldNotReplaceText() {
+    Project project = tmpProject();
+    String oldText = """
+      <name>jhipster</name>
+        <description>JHipster Project</description>""";
+    String newText = """
+      <name>chips</name>
+        <description>Chips Project</description>""";
+
+    assertThatThrownBy(() -> repository.replaceText(project, "", "pom.xml", oldText, newText))
+      .isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

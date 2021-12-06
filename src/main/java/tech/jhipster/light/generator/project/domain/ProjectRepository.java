@@ -11,6 +11,7 @@ public interface ProjectRepository {
   void template(Project project, String source, String sourceFilename, String destination);
   void template(Project project, String source, String sourceFilename, String destination, String destinationFilename);
 
+  void replaceText(Project project, String source, String sourceFilename, String oldText, String newText);
   void write(Project project, String text, String destination, String destinationFilename);
 
   void gitInit(Project project);

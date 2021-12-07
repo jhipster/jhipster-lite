@@ -1,3 +1,5 @@
+[![Logo][jhipster-image]][jhipster-url]
+
 # JHipster Light ⚡
 
 [![Build Status][github-actions-jhlight-image]][github-actions-url]
@@ -5,18 +7,9 @@
 
 ## Description
 
-JHipster Light will help you to start your project:
+JHipster is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
 
-- init the project
-- add Maven Java as Build Tool
-- add Java Base classes and Domain Error
-- add Spring Boot as Server Framework
-  - add Spring Boot MVC
-    - add Tomcat or Undertow
-    - add Spring Security with JWT
-  - add Database
-    - add PostgreSQL
-    - add Liquibase as Database Migration Tool
+**JHipster Light** will help you to start your project, by generating step by step what you need.
 
 ## Prerequisites
 
@@ -30,14 +23,14 @@ You need to have Java 17 :
 
 This part is needed if you want to contribute to the project.
 
-1. [Node.js](https://nodejs.org/): We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+- [Node.js](https://nodejs.org/): we use Node to run a prettier as code formatter.
+  Depending on your system, you can install Node either from source or as a pre-packaged bundle.
 
 After installing Node, you should be able to run the following command to install development tools.
 You will only need to run this command when dependencies change in [package.json](package.json).
 
 ```
-npm install
+npm ci
 ```
 
 ## Test the project
@@ -78,7 +71,7 @@ Then navigate to http://localhost:7471/swagger-ui.html in your browser.
 
 ## Generate your project
 
-You can use this JSON to generate project:
+You can use this JSON to generate a project:
 
 <!-- prettier-ignore-start -->
 ```yaml
@@ -94,48 +87,24 @@ You can use this JSON to generate project:
 ```
 <!-- prettier-ignore-end -->
 
-### Init your project
+You can use different API to:
 
-Use the `Init` API.
-
-It will generate the default files, needed by all projects:
-
-- `.editorconfig`
-- `.gitattributes`
-- `.gitignore`
-- `package.json` with prettier configuration
-- etc
-
-### Maven
-
-Then, you can use `Maven` API to add Maven with Java:
-
-- default `pom.xml` with Java
-- Maven Wrapper
-
-### Java Base
-
-This API is needed as it will contain all classes used by other following options. It will create `error/domain` package.
-
-### Spring Boot
-
-This API will add Spring Boot to your project:
-
-- dependencies
-- main class
-- properties
-
-### Spring Boot MVC
-
-To be completed
-
-### Database
-
-To be completed
+- init the project
+- add Maven Java as Build Tool
+- add Java Base classes and Domain Error
+- add Spring Boot as Server Framework
+  - add Spring Boot MVC
+    - add Tomcat or Undertow
+    - add Spring Security with JWT
+  - add Database
+    - add PostgreSQL
+    - add Liquibase as Database Migration Tool
 
 [github-actions-jhlight-image]: https://github.com/pascalgrimaud/jhipster-light/workflows/build/badge.svg
 [github-actions-url]: https://github.com/pascalgrimaud/jhipster-light/actions
 [codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-light/branch/main/graph/badge.svg?token=TGYTFIF15C
 [codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-light
+[jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/JHipster%20RGB-small100x25px.png
+[jhipster-url]: https://www.jhipster.tech/
 
 <!-- jhipster-needle-readme -->

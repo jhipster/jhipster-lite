@@ -6,6 +6,8 @@
 /src/test/javascript/coverage/
 /src/test/java/tech/jhipster/light/PersonalProjectIT.java
 /tests-ci/.pid-jhlight
+/roadmap/*.png
+!/roadmap/spring_boot_project.png
 
 ######################
 # Node

@@ -1,7 +1,14 @@
 package tech.jhipster.lite.generator.init.application;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.PosixFilePermission;
+import java.util.Set;
+import org.assertj.core.api.Assertions;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class InitAssertFiles {
@@ -26,6 +33,12 @@ public class InitAssertFiles {
 
   public static void assertFilesPrettier(Project project) {
     assertFileExist(project, ".husky", "pre-commit");
+    try {
+      Set<PosixFilePermission> posixFilePermissions = Files.getPosixFilePermissions(getPathOf(project.getFolder(), ".husky", "pre-commit"));
+      assertThat(posixFilePermissions).contains(PosixFilePermission.OWNER_EXECUTE);
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
     assertFileExist(project, ".lintstagedrc.js");
     assertFileExist(project, ".prettierignore");
     assertFileExist(project, ".prettierrc");

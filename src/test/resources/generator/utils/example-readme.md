@@ -31,9 +31,9 @@ To launch tests and integration tests:
 ./mvnw clean verify
 ```
 
-[github-actions-jhlite-image]: https://github.com/pascalgrimaud/jhipster-lite/workflows/build/badge.svg
-[github-actions-url]: https://github.com/pascalgrimaud/jhipster-lite/actions
-[codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C
-[codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-lite
+[github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/workflows/build/badge.svg
+[github-actions-url]: https://github.com/jhipster/jhipster-lite/actions
+[codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C
+[codecov-url]: https://codecov.io/gh/jhipster/jhipster-lite
 
 <!-- jhipster-needle-readme -->

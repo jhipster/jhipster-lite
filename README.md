@@ -1,15 +1,15 @@
 [![Logo][jhipster-image]][jhipster-url]
 
-# JHipster Light ⚡
+# JHipster Lite ⚡
 
-[![Build Status][github-actions-jhlight-image]][github-actions-url]
+[![Build Status][github-actions-jhlite-image]][github-actions-url]
 [![Coverage Status][codecov-image]][codecov-url]
 
 ## Description
 
 JHipster is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
 
-**JHipster Light** will help you to start your project, by generating step by step what you need.
+**JHipster Lite** will help you to start your project, by generating step by step what you need.
 
 ## Prerequisites
 
@@ -100,10 +100,10 @@ You can use different API to:
     - add PostgreSQL
     - add Liquibase as Database Migration Tool
 
-[github-actions-jhlight-image]: https://github.com/pascalgrimaud/jhipster-light/workflows/build/badge.svg
-[github-actions-url]: https://github.com/pascalgrimaud/jhipster-light/actions
-[codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-light/branch/main/graph/badge.svg?token=TGYTFIF15C
-[codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-light
+[github-actions-jhlite-image]: https://github.com/pascalgrimaud/jhipster-lite/workflows/build/badge.svg
+[github-actions-url]: https://github.com/pascalgrimaud/jhipster-lite/actions
+[codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C
+[codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-lite
 [jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/JHipster%20RGB-small100x25px.png
 [jhipster-url]: https://www.jhipster.tech/
 

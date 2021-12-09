@@ -4,8 +4,8 @@
 /src/main/webapp/content/css/main.css
 /target/classes/static/**
 /src/test/javascript/coverage/
-/src/test/java/tech/jhipster/light/PersonalProjectIT.java
-/tests-ci/.pid-jhlight
+/src/test/java/tech/jhipster/lite/PersonalProjectIT.java
+/tests-ci/.pid-jhlite
 /roadmap/*.png
 !/roadmap/spring_boot_project.png
 

@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>tech.jhipster.light</groupId>
-  <artifactId>jhlight</artifactId>
+  <groupId>tech.jhipster.lite</groupId>
+  <artifactId>jhlite</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Jhlight</name>
-  <description>JHipster Light</description>
+  <name>jhlite</name>
+  <description>JHipster Lite</description>
   <packaging>jar</packaging>
 
   <parent>

@@ -1,8 +1,8 @@
 {
-  "name": "jhlight",
+  "name": "jhlite",
   "version": "0.0.0",
   "private": true,
-  "description": "JHipster Light",
+  "description": "JHipster Lite",
   "license": "UNLICENSED",
   "scripts": {
     "prepare": "husky install",

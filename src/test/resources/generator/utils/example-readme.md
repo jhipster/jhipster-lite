@@ -1,6 +1,6 @@
-# JHipster Light ⚔🛡
+# JHipster Lite ⚡
 
-[![Build Status][github-actions-jhlight-image]][github-actions-url]
+[![Build Status][github-actions-jhlite-image]][github-actions-url]
 [![Coverage Status][codecov-image]][codecov-url]
 
 ## Node.js and NPM
@@ -31,9 +31,9 @@ To launch tests and integration tests:
 ./mvnw clean verify
 ```
 
-[github-actions-jhlight-image]: https://github.com/pascalgrimaud/jhipster-light/workflows/build/badge.svg
-[github-actions-url]: https://github.com/pascalgrimaud/jhipster-light/actions
-[codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-light/branch/main/graph/badge.svg?token=TGYTFIF15C
-[codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-light
+[github-actions-jhlite-image]: https://github.com/pascalgrimaud/jhipster-lite/workflows/build/badge.svg
+[github-actions-url]: https://github.com/pascalgrimaud/jhipster-lite/actions
+[codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C
+[codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-lite
 
 <!-- jhipster-needle-readme -->

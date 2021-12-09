@@ -79,5 +79,6 @@ class InitDomainServiceTest {
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString());
     verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString(), anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
+    verify(projectRepository).setExecutable(any(Project.class), anyString(), anyString());
   }
 }

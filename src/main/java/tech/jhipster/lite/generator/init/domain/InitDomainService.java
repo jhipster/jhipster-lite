@@ -64,6 +64,7 @@ public class InitDomainService implements InitService {
     projectRepository.add(project, SOURCE, ".lintstagedrc.js");
     projectRepository.add(project, SOURCE, ".prettierignore");
     projectRepository.add(project, getPath(SOURCE, ".husky"), "pre-commit", ".husky");
+    projectRepository.setExecutable(project, ".husky", "pre-commit");
     projectRepository.template(project, SOURCE, ".prettierrc");
   }
 }

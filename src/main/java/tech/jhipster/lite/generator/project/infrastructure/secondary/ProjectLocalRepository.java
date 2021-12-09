@@ -3,11 +3,15 @@ package tech.jhipster.lite.generator.project.infrastructure.secondary;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.PosixFilePermission;
+import java.util.HashSet;
+import java.util.Set;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,6 +108,28 @@ public class ProjectLocalRepository implements ProjectRepository {
       Files.write(getPathOf(projectDestinationFilename), text.getBytes());
     } catch (IOException e) {
       throw new GeneratorException("Error when writing text to '" + projectDestinationFilename + "'");
+    }
+  }
+
+  @Override
+  public void setExecutable(Project project, String source, String sourceFilename) {
+    Set<PosixFilePermission> perms = new HashSet<>();
+    perms.add(PosixFilePermission.OWNER_READ);
+    perms.add(PosixFilePermission.OWNER_WRITE);
+    perms.add(PosixFilePermission.OWNER_EXECUTE);
+
+    perms.add(PosixFilePermission.GROUP_READ);
+    perms.add(PosixFilePermission.GROUP_WRITE);
+    perms.add(PosixFilePermission.GROUP_EXECUTE);
+
+    perms.add(PosixFilePermission.OTHERS_READ);
+    perms.add(PosixFilePermission.OTHERS_EXECUTE);
+
+    File file = new File(getPath(project.getFolder(), source, sourceFilename));
+    try {
+      Files.setPosixFilePermissions(file.toPath(), perms);
+    } catch (IOException e) {
+      throw new GeneratorException("Can't change file permission for " + sourceFilename, e);
     }
   }
 

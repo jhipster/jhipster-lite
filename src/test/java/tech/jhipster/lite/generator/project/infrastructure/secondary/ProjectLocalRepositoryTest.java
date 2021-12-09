@@ -1,10 +1,12 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 
@@ -15,7 +17,9 @@ import java.io.InputStream;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import org.eclipse.jgit.api.errors.InvalidConfigurationException;
 import org.junit.jupiter.api.Test;
@@ -205,6 +209,24 @@ class ProjectLocalRepositoryTest {
 
     assertThatThrownBy(() -> repository.write(project, "another hello world", "hello", "hello.world"))
       .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldSetExecutable() throws IOException {
+    Project project = tmpProjectWithPomXml();
+    String pomXmlFolder = getPath(project.getFolder(), "pom.xml");
+    Set<PosixFilePermission> posixFilePermissions = Files.getPosixFilePermissions(getPathOf(pomXmlFolder));
+    assertThat(posixFilePermissions).doesNotContain(PosixFilePermission.OWNER_EXECUTE);
+
+    repository.setExecutable(project, "", "pom.xml");
+
+    posixFilePermissions = Files.getPosixFilePermissions(getPathOf(pomXmlFolder));
+    assertThat(posixFilePermissions).contains(PosixFilePermission.OWNER_EXECUTE);
+  }
+
+  @Test
+  void shouldNotSetExecutable() {
+    assertThatThrownBy(() -> repository.setExecutable(tmpProject(), "", "pom.xml")).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

@@ -14,6 +14,8 @@ public interface ProjectRepository {
   void replaceText(Project project, String source, String sourceFilename, String oldText, String newText);
   void write(Project project, String text, String destination, String destinationFilename);
 
+  void setExecutable(Project project, String source, String sourceFilename);
+
   void gitInit(Project project);
   void gitAddAndCommit(Project project, String message);
   void gitApplyPatch(Project project, String patchFilename);

@@ -89,7 +89,10 @@ public class MavenDomainService implements MavenService {
   @Override
   public void addMavenWrapper(Project project) {
     projectRepository.add(project, SOURCE, "mvnw");
+    projectRepository.setExecutable(project, "", "mvnw");
+
     projectRepository.add(project, SOURCE, "mvnw.cmd");
+    projectRepository.setExecutable(project, "", "mvnw.cmd");
 
     String sourceWrapper = getPath(SOURCE, ".mvn", "wrapper");
     String destinationWrapper = getPath(".mvn", "wrapper");

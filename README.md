@@ -100,10 +100,10 @@ You can use different API to:
     - add PostgreSQL
     - add Liquibase as Database Migration Tool
 
-[github-actions-jhlite-image]: https://github.com/pascalgrimaud/jhipster-lite/workflows/build/badge.svg
-[github-actions-url]: https://github.com/pascalgrimaud/jhipster-lite/actions
-[codecov-image]: https://codecov.io/gh/pascalgrimaud/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C
-[codecov-url]: https://codecov.io/gh/pascalgrimaud/jhipster-lite
+[github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/workflows/build/badge.svg
+[github-actions-url]: https://github.com/jhipster/jhipster-lite/actions
+[codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C
+[codecov-url]: https://codecov.io/gh/jhipster/jhipster-lite
 [jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/JHipster%20RGB-small100x25px.png
 [jhipster-url]: https://www.jhipster.tech/
 

@@ -98,7 +98,7 @@ class FileUtilsTest {
     void shouldGetPath() {
       String result = getPath("chips", "beer");
 
-      assertThat(result).isEqualTo("chips" + File.separator + "beer");
+      assertThat(result).isEqualTo("chips/beer");
     }
 
     @Test

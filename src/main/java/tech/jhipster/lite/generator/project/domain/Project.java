@@ -108,7 +108,7 @@ public class Project {
   }
 
   public Optional<String> getPackageNamePath() {
-    return getPackageName().map(packageName -> packageName.replaceAll("\\.", File.separator));
+    return getPackageName().map(packageName -> packageName.replaceAll("\\.", "/"));
   }
 
   public Optional<String> getStringConfig(String key) {

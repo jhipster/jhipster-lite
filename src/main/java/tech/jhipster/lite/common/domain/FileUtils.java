@@ -19,6 +19,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 public class FileUtils {
 
   private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
+  private static final CharSequence FILE_SEPARATOR = "/";
 
   private FileUtils() {}
 
@@ -43,7 +44,7 @@ public class FileUtils {
   }
 
   public static String getPath(String... paths) {
-    return String.join(File.separator, paths).replaceAll("/", File.separator).replaceAll("\\\\", File.separator);
+    return String.join(FILE_SEPARATOR, paths);
   }
 
   public static Path getPathOf(String... paths) {
@@ -51,7 +52,7 @@ public class FileUtils {
   }
 
   public static InputStream getInputStream(String... paths) {
-    InputStream in = FileUtils.class.getResourceAsStream(File.separator + getPath(paths));
+    InputStream in = FileUtils.class.getResourceAsStream(FILE_SEPARATOR + getPath(paths));
     if (in == null) {
       throw new GeneratorException("File not found in classpath");
     }

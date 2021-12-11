@@ -6,6 +6,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOL
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -26,6 +27,8 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class ProjectLocalRepository implements ProjectRepository {
 
   private final Logger log = LoggerFactory.getLogger(ProjectLocalRepository.class);
+
+  private final boolean isPosix = FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
 
   @Override
   public void create(Project project) {
@@ -113,6 +116,9 @@ public class ProjectLocalRepository implements ProjectRepository {
 
   @Override
   public void setExecutable(Project project, String source, String sourceFilename) {
+    if (!isPosix) {
+      return;
+    }
     Set<PosixFilePermission> perms = new HashSet<>();
     perms.add(PosixFilePermission.OWNER_READ);
     perms.add(PosixFilePermission.OWNER_WRITE);

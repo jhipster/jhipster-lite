@@ -215,7 +215,10 @@ class ProjectLocalRepositoryTest {
   @Test
   void shouldNotSetExecutableForNonPosix() {
     Project project = tmpProjectWithPomXml();
-    try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class); MockedStatic<Files> filesMock = Mockito.mockStatic(Files.class)) {
+    try (
+      MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class);
+      MockedStatic<Files> filesMock = Mockito.mockStatic(Files.class)
+    ) {
       fileUtilsMock.when(() -> FileUtils.getPath(Mockito.any(String.class))).thenReturn(project.getFolder());
       fileUtilsMock.when(FileUtils::isPosix).thenReturn(false);
 

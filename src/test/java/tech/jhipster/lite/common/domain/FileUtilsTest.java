@@ -334,15 +334,14 @@ class FileUtilsTest {
 
     @Test
     @EnabledOnOs(OS.WINDOWS)
-    void shouldReturnPosixFalseForWindows(){
-       assertFalse(isPosix());
+    void shouldReturnPosixFalseForWindows() {
+      assertFalse(isPosix());
     }
 
     @Test
     @DisabledOnOs(OS.WINDOWS)
-    void shouldReturnPosixTrueForNonWindows(){
+    void shouldReturnPosixTrueForNonWindows() {
       assertTrue(isPosix());
     }
-
   }
 }

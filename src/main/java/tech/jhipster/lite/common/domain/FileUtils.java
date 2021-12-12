@@ -124,5 +124,4 @@ public class FileUtils {
   public static boolean isPosix() {
     return FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
   }
-
 }

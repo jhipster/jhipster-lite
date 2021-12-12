@@ -49,6 +49,19 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
+  public void deleteDependency(Project project, Dependency dependency) {
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+    Dependency dependencyToDelete = Dependency.builder().groupId(dependency.getGroupId()).artifactId(dependency.getArtifactId()).build();
+
+    String dependencyNode = Maven.getDependency(dependencyToDelete, indent) + System.lineSeparator();
+    String endNode = indent(2, indent) + "</dependency>";
+    String dependencyNodeRegExp = "(?s)" + indent(2, indent) + dependencyNode.replace(endNode, ".*" + endNode);
+
+    projectRepository.replaceInFile(project, "", POM_XML, dependencyNodeRegExp, "");
+  }
+
+  @Override
   public void addPlugin(Project project, Plugin plugin) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);

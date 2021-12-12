@@ -135,6 +135,36 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldDeleteDependency() {
+    Project project = tmpProjectWithPomXml();
+
+    Dependency dependency = Dependency.builder().groupId("org.junit.jupiter").artifactId("junit-jupiter-engine").build();
+    mavenApplicationService.deleteDependency(project, dependency);
+
+    assertFileNoContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.junit.jupiter</groupId>",
+        "<artifactId>junit-jupiter-engine</artifactId>",
+        "<version>${junit-jupiter.version}</version>",
+        "<scope>test</scope>",
+        "</dependency>"
+      )
+    );
+  }
+
+  @Test
+  void shouldNotDeleteDependencyWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
+
+    assertThatThrownBy(() -> mavenApplicationService.deleteDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldAddPlugin() {
     Project project = tmpProjectWithPomXml();
 

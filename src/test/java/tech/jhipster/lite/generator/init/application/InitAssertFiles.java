@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.Set;
-import org.assertj.core.api.Assertions;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class InitAssertFiles {

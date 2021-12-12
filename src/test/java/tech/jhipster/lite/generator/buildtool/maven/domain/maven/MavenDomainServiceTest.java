@@ -82,6 +82,16 @@ class MavenDomainServiceTest {
   }
 
   @Test
+  void shouldDeleteDependency() {
+    Project project = tmpProjectWithPomXml();
+    Dependency dependency = Dependency.builder().groupId("org.junit.jupiter").artifactId("junit-jupiter-engine").build();
+
+    mavenDomainService.deleteDependency(project, dependency);
+
+    verify(projectRepository).replaceInFile(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
   void shouldAddPlugin() {
     Project project = tmpProjectWithPomXml();
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
@@ -96,6 +106,15 @@ class MavenDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     mavenDomainService.addProperty(project, "testcontainers", "1.16.0");
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldDeleteProperty() {
+    Project project = tmpProjectWithPomXml();
+
+    mavenDomainService.deleteProperty(project, "java");
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }

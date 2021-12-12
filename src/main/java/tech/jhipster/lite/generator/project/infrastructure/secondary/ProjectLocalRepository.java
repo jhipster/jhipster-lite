@@ -97,6 +97,17 @@ public class ProjectLocalRepository implements ProjectRepository {
   }
 
   @Override
+  public void replaceInFile(Project project, String source, String sourceFilename, String regexpText, String newText) {
+    try {
+      String sourcePath = getPath(project.getFolder(), source, sourceFilename);
+      String updatedText = FileUtils.replaceInFile(sourcePath, regexpText, newText);
+      write(project, updatedText, source, sourceFilename);
+    } catch (IOException e) {
+      throw new GeneratorException("Error when writing text to '" + sourceFilename + "'");
+    }
+  }
+
+  @Override
   public void write(Project project, String text, String destination, String destinationFilename) {
     Assert.notNull("text", text);
 

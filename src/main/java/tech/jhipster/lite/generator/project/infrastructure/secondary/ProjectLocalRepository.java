@@ -97,7 +97,7 @@ public class ProjectLocalRepository implements ProjectRepository {
   }
 
   @Override
-  public void replaceInFile(Project project, String source, String sourceFilename, String regexpText, String newText) {
+  public void replaceRegexp(Project project, String source, String sourceFilename, String regexpText, String newText) {
     try {
       String sourcePath = getPath(project.getFolder(), source, sourceFilename);
       String updatedText = FileUtils.replaceInFile(sourcePath, regexpText, newText);

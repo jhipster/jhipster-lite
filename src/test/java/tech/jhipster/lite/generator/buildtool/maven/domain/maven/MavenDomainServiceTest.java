@@ -88,7 +88,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.deleteDependency(project, dependency);
 
-    verify(projectRepository).replaceInFile(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    verify(projectRepository).replaceRegexp(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test

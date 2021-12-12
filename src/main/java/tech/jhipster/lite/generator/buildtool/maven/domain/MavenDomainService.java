@@ -58,7 +58,7 @@ public class MavenDomainService implements MavenService {
     String endNode = indent(2, indent) + "</dependency>";
     String dependencyNodeRegExp = "(?s)" + indent(2, indent) + dependencyNode.replace(endNode, ".*" + endNode);
 
-    projectRepository.replaceInFile(project, "", POM_XML, dependencyNodeRegExp, "");
+    projectRepository.replaceRegexp(project, "", POM_XML, dependencyNodeRegExp, "");
   }
 
   @Override

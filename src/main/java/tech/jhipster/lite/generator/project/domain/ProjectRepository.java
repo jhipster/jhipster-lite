@@ -12,7 +12,7 @@ public interface ProjectRepository {
   void template(Project project, String source, String sourceFilename, String destination, String destinationFilename);
 
   void replaceText(Project project, String source, String sourceFilename, String oldText, String newText);
-  void replaceInFile(Project project, String source, String sourceFilename, String regexpText, String newText);
+  void replaceRegexp(Project project, String source, String sourceFilename, String regexpText, String newText);
   void write(Project project, String text, String destination, String destinationFilename);
 
   void setExecutable(Project project, String source, String sourceFilename);

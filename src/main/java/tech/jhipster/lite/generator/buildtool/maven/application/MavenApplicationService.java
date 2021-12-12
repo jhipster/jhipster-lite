@@ -29,12 +29,20 @@ public class MavenApplicationService {
     mavenService.addDependency(project, dependency, exclusions);
   }
 
+  public void deleteDependency(Project project, Dependency dependency) {
+    mavenService.deleteDependency(project, dependency);
+  }
+
   public void addPlugin(Project project, Plugin plugin) {
     mavenService.addPlugin(project, plugin);
   }
 
   public void addProperty(Project project, String key, String version) {
     mavenService.addProperty(project, key, version);
+  }
+
+  public void deleteProperty(Project project, String key) {
+    mavenService.deleteProperty(project, key);
   }
 
   public void init(Project project) {

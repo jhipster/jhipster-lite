@@ -49,6 +49,19 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
+  public void deleteDependency(Project project, Dependency dependency) {
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+    Dependency dependencyToDelete = Dependency.builder().groupId(dependency.getGroupId()).artifactId(dependency.getArtifactId()).build();
+
+    String dependencyNode = Maven.getDependency(dependencyToDelete, indent) + System.lineSeparator();
+    String endNode = indent(2, indent) + "</dependency>";
+    String dependencyNodeRegExp = "(?s)" + indent(2, indent) + dependencyNode.replace(endNode, ".*" + endNode);
+
+    projectRepository.replaceRegexp(project, "", POM_XML, dependencyNodeRegExp, "");
+  }
+
+  @Override
   public void addPlugin(Project project, Plugin plugin) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
@@ -66,6 +79,15 @@ public class MavenDomainService implements MavenService {
     String propertyWithNeedle = Maven.getProperty(key, version) + System.lineSeparator() + indent(2, indent) + NEEDLE_PROPERTIES;
 
     projectRepository.replaceText(project, "", POM_XML, NEEDLE_PROPERTIES, propertyWithNeedle);
+  }
+
+  @Override
+  public void deleteProperty(Project project, String key) {
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+
+    String propertyNode = Maven.getProperty(key, ".*") + System.lineSeparator();
+
+    projectRepository.replaceText(project, "", POM_XML, propertyNode, "");
   }
 
   @Override

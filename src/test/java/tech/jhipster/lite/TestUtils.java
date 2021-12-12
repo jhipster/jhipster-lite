@@ -1,6 +1,7 @@
 package tech.jhipster.lite;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
@@ -57,6 +58,14 @@ public class TestUtils {
 
   public static void assertFileContent(Project project, String filename, List<String> lines) {
     assertTrue(FileUtils.containsLines(getPath(project.getFolder(), filename), lines), "The lines '" + lines + "' were not found");
+  }
+
+  public static void assertFileContentManyTimes(Project project, String filename, String regexp, int times) throws Exception {
+    assertEquals(
+      times,
+      FileUtils.countsRegexp(getPath(project.getFolder(), filename), FileUtils.REGEXP_PREFIX_MULTILINE + regexp),
+      "The regexp '" + regexp + "' were found in the incorrect count"
+    );
   }
 
   public static void assertFileContent(String path, String filename, List<String> lines) {

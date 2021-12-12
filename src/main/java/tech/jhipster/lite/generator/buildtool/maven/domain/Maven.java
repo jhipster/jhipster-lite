@@ -22,7 +22,11 @@ public class Maven {
     return getParent(parent, WordUtils.DEFAULT_INDENTATION);
   }
 
-  public static String getParent(Parent parent, int indentation) {
+  public static String getParentHeader(Parent parent) {
+    return getParentHeader(parent, WordUtils.DEFAULT_INDENTATION);
+  }
+
+  public static String getParentHeader(Parent parent, int indentation) {
     StringBuilder result = new StringBuilder()
       .append("<parent>")
       .append(System.lineSeparator())
@@ -35,7 +39,13 @@ public class Maven {
       .append("<artifactId>")
       .append(parent.getArtifactId())
       .append("</artifactId>")
-      .append(System.lineSeparator())
+      .append(System.lineSeparator());
+    return result.toString();
+  }
+
+  public static String getParent(Parent parent, int indentation) {
+    StringBuilder result = new StringBuilder()
+      .append(getParentHeader(parent, indentation))
       .append(indent(2, indentation))
       .append("<version>")
       .append(parent.getVersion())
@@ -58,7 +68,11 @@ public class Maven {
     return getDependency(dependency, indentation, List.of());
   }
 
-  public static String getDependency(Dependency dependency, int indentation, List<Dependency> exclusions) {
+  public static String getDependencyHeader(Dependency dependency) {
+    return getDependencyHeader(dependency, WordUtils.DEFAULT_INDENTATION);
+  }
+
+  public static String getDependencyHeader(Dependency dependency, int indentation) {
     StringBuilder result = new StringBuilder()
       .append("<dependency>")
       .append(System.lineSeparator())
@@ -72,6 +86,11 @@ public class Maven {
       .append(dependency.getArtifactId())
       .append("</artifactId>")
       .append(System.lineSeparator());
+    return result.toString();
+  }
+
+  public static String getDependency(Dependency dependency, int indentation, List<Dependency> exclusions) {
+    StringBuilder result = new StringBuilder().append(getDependencyHeader(dependency, indentation));
 
     dependency
       .getVersion()
@@ -133,7 +152,11 @@ public class Maven {
     return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION);
   }
 
-  public static String getPlugin(Plugin plugin, int indentation) {
+  public static String getPluginHeader(Plugin plugin) {
+    return getPluginHeader(plugin, WordUtils.DEFAULT_INDENTATION);
+  }
+
+  public static String getPluginHeader(Plugin plugin, int indentation) {
     StringBuilder result = new StringBuilder()
       .append("<plugin>")
       .append(System.lineSeparator())
@@ -147,6 +170,11 @@ public class Maven {
       .append(plugin.getArtifactId())
       .append("</artifactId>")
       .append(System.lineSeparator());
+    return result.toString();
+  }
+
+  public static String getPlugin(Plugin plugin, int indentation) {
+    StringBuilder result = new StringBuilder().append(getPluginHeader(plugin, indentation));
 
     plugin
       .getVersion()

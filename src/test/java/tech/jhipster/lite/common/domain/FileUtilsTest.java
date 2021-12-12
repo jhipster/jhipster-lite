@@ -112,7 +112,7 @@ class FileUtilsTest {
     void shouldGetPathForWindows() {
       String result = getPath("C:\\chips\\beer");
 
-      assertThat(result).isEqualTo("C:" + File.separator + "chips" + File.separator + "beer");
+      assertThat(result).isEqualTo("C:/chips/beer");
     }
 
     @Test

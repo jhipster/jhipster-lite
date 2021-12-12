@@ -19,7 +19,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 public class FileUtils {
 
   private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
-  private static final CharSequence FILE_SEPARATOR = "/";
+  private static final String FILE_SEPARATOR = "/";
 
   private FileUtils() {}
 
@@ -44,7 +44,7 @@ public class FileUtils {
   }
 
   public static String getPath(String... paths) {
-    return String.join(FILE_SEPARATOR, paths);
+    return String.join(FILE_SEPARATOR, paths).replaceAll("\\\\", FILE_SEPARATOR);
   }
 
   public static Path getPathOf(String... paths) {

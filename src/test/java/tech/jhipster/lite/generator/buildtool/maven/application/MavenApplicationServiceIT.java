@@ -176,6 +176,23 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldDeleteProperty() {
+    Project project = tmpProjectWithPomXml();
+
+    mavenApplicationService.deleteProperty(project, "java");
+
+    assertFileNoContent(project, "pom.xml", "    <java.version>17</java.version>");
+  }
+
+  @Test
+  void shouldNotDeletePropertyWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+
+    assertThatThrownBy(() -> mavenApplicationService.deleteProperty(project, "java")).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldInit() {
     Project project = tmpProject();
 

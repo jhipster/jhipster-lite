@@ -37,6 +37,10 @@ public class MavenApplicationService {
     mavenService.addProperty(project, key, version);
   }
 
+  public void deleteProperty(Project project, String key) {
+    mavenService.deleteProperty(project, key);
+  }
+
   public void init(Project project) {
     mavenService.init(project);
   }

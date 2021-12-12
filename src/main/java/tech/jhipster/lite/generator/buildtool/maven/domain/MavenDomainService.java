@@ -69,6 +69,15 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
+  public void deleteProperty(Project project, String key) {
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+
+    String propertyNode = Maven.getProperty(key, ".*") + System.lineSeparator();
+
+    projectRepository.replaceText(project, "", POM_XML, propertyNode, "");
+  }
+
+  @Override
   public void init(Project project) {
     addPomXml(project);
     addMavenWrapper(project);

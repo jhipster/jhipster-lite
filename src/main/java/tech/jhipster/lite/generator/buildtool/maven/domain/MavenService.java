@@ -12,6 +12,7 @@ public interface MavenService {
   void addDependency(Project project, Dependency dependency, List<Dependency> exclusions);
   void addPlugin(Project project, Plugin plugin);
   void addProperty(Project project, String key, String version);
+  void deleteProperty(Project project, String key);
 
   void init(Project project);
 

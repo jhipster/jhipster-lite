@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.lite.TestUtils.assertFileNotExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.isPosix;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,9 @@ import java.nio.file.Path;
 import java.util.List;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
@@ -323,5 +327,22 @@ class FileUtilsTest {
       assertThatThrownBy(() -> FileUtils.replaceInFile(filename, "powered by JHipster", "Hello JHipster Lite"))
         .isInstanceOf(IOException.class);
     }
+  }
+
+  @Nested
+  class FileSystem {
+
+    @Test
+    @EnabledOnOs(OS.WINDOWS)
+    void shouldReturnPosixFalseForWindows(){
+       assertFalse(isPosix());
+    }
+
+    @Test
+    @DisabledOnOs(OS.WINDOWS)
+    void shouldReturnPosixTrueForNonWindows(){
+      assertTrue(isPosix());
+    }
+
   }
 }

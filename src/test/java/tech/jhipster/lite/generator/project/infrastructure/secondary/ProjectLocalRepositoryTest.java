@@ -4,9 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 
@@ -209,6 +210,18 @@ class ProjectLocalRepositoryTest {
 
     assertThatThrownBy(() -> repository.write(project, "another hello world", "hello", "hello.world"))
       .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldNotSetExecutableForNonPosix() {
+    Project project = tmpProjectWithPomXml();
+    try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class); MockedStatic<Files> filesMock = Mockito.mockStatic(Files.class)) {
+      fileUtilsMock.when(() -> FileUtils.getPath(Mockito.any(String.class))).thenReturn(project.getFolder());
+      fileUtilsMock.when(FileUtils::isPosix).thenReturn(false);
+
+      repository.setExecutable(project, "", "pom.xml");
+      filesMock.verify(() -> Files.setPosixFilePermissions(Mockito.any(), Mockito.any()), never());
+    }
   }
 
   @Test

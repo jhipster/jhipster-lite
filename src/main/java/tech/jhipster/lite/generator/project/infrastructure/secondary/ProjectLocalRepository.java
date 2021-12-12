@@ -28,8 +28,6 @@ public class ProjectLocalRepository implements ProjectRepository {
 
   private final Logger log = LoggerFactory.getLogger(ProjectLocalRepository.class);
 
-  private final boolean isPosix = FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
-
   @Override
   public void create(Project project) {
     try {
@@ -116,7 +114,7 @@ public class ProjectLocalRepository implements ProjectRepository {
 
   @Override
   public void setExecutable(Project project, String source, String sourceFilename) {
-    if (!isPosix) {
+    if (!FileUtils.isPosix()) {
       return;
     }
     Set<PosixFilePermission> perms = new HashSet<>();
@@ -130,7 +128,7 @@ public class ProjectLocalRepository implements ProjectRepository {
 
     perms.add(PosixFilePermission.OTHERS_READ);
     perms.add(PosixFilePermission.OTHERS_EXECUTE);
-
+    System.out.println(getPath(project.getFolder()));
     File file = new File(getPath(project.getFolder(), source, sourceFilename));
     try {
       Files.setPosixFilePermissions(file.toPath(), perms);

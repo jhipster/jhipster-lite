@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -119,4 +120,9 @@ public class FileUtils {
   public static String replace(String text, String regexp, String replacement) {
     return Pattern.compile(regexp).matcher(text).replaceAll(replacement);
   }
+
+  public static boolean isPosix() {
+    return FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
+  }
+
 }

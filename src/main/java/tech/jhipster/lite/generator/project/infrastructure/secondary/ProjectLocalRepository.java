@@ -6,6 +6,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOL
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -113,6 +114,9 @@ public class ProjectLocalRepository implements ProjectRepository {
 
   @Override
   public void setExecutable(Project project, String source, String sourceFilename) {
+    if (!FileUtils.isPosix()) {
+      return;
+    }
     Set<PosixFilePermission> perms = new HashSet<>();
     perms.add(PosixFilePermission.OWNER_READ);
     perms.add(PosixFilePermission.OWNER_WRITE);
@@ -124,7 +128,6 @@ public class ProjectLocalRepository implements ProjectRepository {
 
     perms.add(PosixFilePermission.OTHERS_READ);
     perms.add(PosixFilePermission.OTHERS_EXECUTE);
-
     File file = new File(getPath(project.getFolder(), source, sourceFilename));
     try {
       Files.setPosixFilePermissions(file.toPath(), perms);

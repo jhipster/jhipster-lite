@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,6 +20,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 public class FileUtils {
 
   private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
+  private static final String FILE_SEPARATOR = "/";
 
   private FileUtils() {}
 
@@ -43,7 +45,7 @@ public class FileUtils {
   }
 
   public static String getPath(String... paths) {
-    return String.join(File.separator, paths).replaceAll("/", File.separator).replaceAll("\\\\", File.separator);
+    return String.join(FILE_SEPARATOR, paths).replaceAll("\\\\", FILE_SEPARATOR);
   }
 
   public static Path getPathOf(String... paths) {
@@ -51,7 +53,7 @@ public class FileUtils {
   }
 
   public static InputStream getInputStream(String... paths) {
-    InputStream in = FileUtils.class.getResourceAsStream(File.separator + getPath(paths));
+    InputStream in = FileUtils.class.getResourceAsStream(FILE_SEPARATOR + getPath(paths));
     if (in == null) {
       throw new GeneratorException("File not found in classpath");
     }
@@ -117,5 +119,9 @@ public class FileUtils {
 
   public static String replace(String text, String regexp, String replacement) {
     return Pattern.compile(regexp).matcher(text).replaceAll(replacement);
+  }
+
+  public static boolean isPosix() {
+    return FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
   }
 }

@@ -12,4 +12,9 @@ class MySQLTest {
   void shouldGetTestcontainersVersion() {
     assertThat(MySQL.getTestcontainersVersion()).isEqualTo("1.16.0");
   }
+
+  @Test
+  void shouldGetDockerImageName() {
+    assertThat(MySQL.getDockerImageName()).isEqualTo("mysql:8.0.27");
+  }
 }

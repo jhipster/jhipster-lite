@@ -17,6 +17,7 @@ import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplication
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
+import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL;
 
 @IntegrationTest
 class MySQLApplicationServiceIT {
@@ -163,7 +164,6 @@ class MySQLApplicationServiceIT {
       project,
       getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
       List.of(
-        "spring.datasource.driver-class-name=com.mysql.jdbc.Driver",
         "spring.datasource.hikari.auto-commit=false",
         "spring.datasource.hikari.poolName=Hikari",
         "spring.datasource.password=",
@@ -191,7 +191,7 @@ class MySQLApplicationServiceIT {
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, "config/application.properties"),
-      List.of("spring.datasource.url=jdbc:tc:mysql:8.0.27:///chips", "spring.datasource.username=chips")
+      List.of("spring.datasource.url=jdbc:tc:" + MySQL.getDockerImageName() + ":///chips", "spring.datasource.username=chips")
     );
   }
 

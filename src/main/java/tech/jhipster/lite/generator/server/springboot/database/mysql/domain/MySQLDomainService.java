@@ -75,6 +75,7 @@ public class MySQLDomainService implements MySQLService {
   @Override
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
+    project.addConfig("dockerImageName", MySQL.getDockerImageName());
     projectRepository.template(project, SOURCE, "mysql.yml", "src/main/docker", "mysql.yml");
   }
 
@@ -118,12 +119,10 @@ public class MySQLDomainService implements MySQLService {
     result.put("spring.datasource.url", "jdbc:mysql://localhost:3306/" + baseName);
     result.put("spring.datasource.username", "root");
     result.put("spring.datasource.password", "");
-    result.put("spring.datasource.driver-class-name", "com.mysql.jdbc.Driver");
     result.put("spring.datasource.hikari.poolName", "Hikari");
     result.put("spring.datasource.hikari.auto-commit", false);
 
     result.put("spring.data.jpa.repositories.bootstrap-mode", "deferred");
-    result.put("spring.jpa.properties.hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
     result.put("spring.jpa.properties.hibernate.jdbc.time_zone", "UTC");
     result.put("spring.jpa.open-in-view", false);
     result.put("spring.jpa.properties.hibernate.id.new_generator_mappings", "true");
@@ -144,7 +143,7 @@ public class MySQLDomainService implements MySQLService {
   private Map<String, Object> springPropertiesForTest(String baseName) {
     TreeMap<String, Object> result = new TreeMap<>();
     result.put("spring.datasource.driver-class-name", "org.testcontainers.jdbc.ContainerDatabaseDriver");
-    result.put("spring.datasource.url", "jdbc:tc:mysql:8.0.27:///" + baseName);
+    result.put("spring.datasource.url", "jdbc:tc:" + MySQL.getDockerImageName() + ":///" + baseName);
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
     return result;

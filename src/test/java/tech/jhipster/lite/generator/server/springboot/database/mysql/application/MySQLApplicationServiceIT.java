@@ -65,7 +65,7 @@ class MySQLApplicationServiceIT {
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, "config/application.properties"),
-      List.of("spring.datasource.url=jdbc:tc:mysql:8.0.27:///jhipster", "spring.datasource.username=jhipster")
+      List.of("spring.datasource.url=jdbc:tc:" + MySQL.getDockerImageName() + ":///jhipster", "spring.datasource.username=jhipster")
     );
   }
 

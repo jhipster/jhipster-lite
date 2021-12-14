@@ -135,6 +135,20 @@ class MySQLApplicationServiceIT {
   }
 
   @Test
+  void shouldAddJavaFiles() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "chips");
+    project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");
+
+    mysqlApplicationService.addJavaFiles(project);
+
+    assertFileExist(
+      project,
+      getPath(MAIN_JAVA, "tech/jhipster/chips", "/technical/infrastructure/secondary/mysql/DatabaseConfiguration.java")
+    );
+  }
+
+  @Test
   void shouldAddProperties() {
     Project project = tmpProject();
     project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");

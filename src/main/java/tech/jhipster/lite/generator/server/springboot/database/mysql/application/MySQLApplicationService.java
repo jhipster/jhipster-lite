@@ -37,7 +37,7 @@ public class MySQLApplicationService {
     mysqlService.addDockerCompose(project);
   }
 
-  public void addDialectJava(Project project) {
+  public void addJavaFiles(Project project) {
     mysqlService.addJavaFiles(project);
   }
 

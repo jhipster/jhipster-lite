@@ -119,7 +119,13 @@ public class MavenDomainService implements MavenService {
     String sourceWrapper = getPath(SOURCE, ".mvn", "wrapper");
     String destinationWrapper = getPath(".mvn", "wrapper");
 
-    projectRepository.add(project, sourceWrapper, "MavenWrapperDownloader.java", destinationWrapper);
+    projectRepository.add(
+      project,
+      sourceWrapper,
+      "MavenWrapperDownloader.java.mustache",
+      destinationWrapper,
+      "MavenWrapperDownloader.java"
+    );
     projectRepository.add(project, sourceWrapper, "maven-wrapper.jar", destinationWrapper);
     projectRepository.add(project, sourceWrapper, "maven-wrapper.properties", destinationWrapper);
   }

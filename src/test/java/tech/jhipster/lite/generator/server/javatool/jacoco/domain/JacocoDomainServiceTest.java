@@ -30,6 +30,7 @@ class JacocoDomainServiceTest {
 
     jacocoDomainService.addCheckMinimumCoverage(project);
 
+    verify(projectRepository).gitInit(any(Project.class));
     verify(projectRepository).add(any(Project.class), anyString(), anyString(), anyString());
     verify(projectRepository).gitApplyPatch(any(Project.class), anyString());
   }

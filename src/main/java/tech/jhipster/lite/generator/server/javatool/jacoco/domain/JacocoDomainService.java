@@ -17,6 +17,7 @@ public class JacocoDomainService implements JacocoService {
 
   @Override
   public void addCheckMinimumCoverage(Project project) {
+    projectRepository.gitInit(project);
     projectRepository.add(project, SOURCE, PATCH, ".jhipster");
     projectRepository.gitApplyPatch(project, FileUtils.getPath(project.getFolder(), ".jhipster", PATCH));
   }

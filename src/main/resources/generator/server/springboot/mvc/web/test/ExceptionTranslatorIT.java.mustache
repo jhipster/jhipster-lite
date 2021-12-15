@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,10 +22,17 @@ import {{packageName}}.IntegrationTest;
 class ExceptionTranslatorIT {
 
   @Autowired
-  ExceptionTranslator exceptionTranslator;
+  ApplicationContext applicationContext;
 
   @Autowired
   private MockMvc mockMvc;
+
+  ExceptionTranslator exceptionTranslator;
+
+  @BeforeEach
+  void setUp() {
+    exceptionTranslator = (ExceptionTranslator) applicationContext.getBean("securityExceptionTranslator");
+  }
 
   @Test
   void shouldHandleMethodArgumentNotValid() throws Exception {

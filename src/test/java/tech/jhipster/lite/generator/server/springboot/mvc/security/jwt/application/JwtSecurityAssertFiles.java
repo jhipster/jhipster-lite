@@ -7,7 +7,6 @@ import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainSer
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.annotationProcessorPatch;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.exceptionTranslatorPatch;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 
 import java.util.List;

@@ -44,4 +44,12 @@ public class SpringBootApplicationService {
   public void addApplicationTestProperties(Project project) {
     springBootService.addApplicationTestProperties(project);
   }
+
+  public void addLoggingConfiguration(Project project) {
+    springBootService.addLoggingConfiguration(project);
+  }
+
+  public void addLoggingTestConfiguration(Project project) {
+    springBootService.addLoggingTestConfiguration(project);
+  }
 }

@@ -13,6 +13,7 @@ import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class SpringBootMvcDomainService implements SpringBootMvcService {
@@ -25,15 +26,18 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;
   public final SpringBootPropertiesService springBootPropertiesService;
+  public final SpringBootLoggingService springBootLoggingService;
 
   public SpringBootMvcDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootPropertiesService springBootPropertiesService,
+    SpringBootLoggingService springBootLoggingService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootLoggingService = springBootLoggingService;
   }
 
   @Override
@@ -49,6 +53,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addMvcPathmatchInProperties(project);
     addServerPortInProperties(project);
     addExceptionHandler(project);
+    addLoggerInConfiguration(project);
   }
 
   @Override
@@ -116,6 +121,11 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   private void addServerPortInProperties(Project project) {
     springBootPropertiesService.addProperties(project, "server.port", getServerPort(project));
     springBootPropertiesService.addPropertiesTest(project, "server.port", 0);
+  }
+
+  private void addLoggerInConfiguration(Project project) {
+    springBootLoggingService.addLogger(project, "org.springframework.web", "WARN");
+    springBootLoggingService.addLogger(project, "org.springframework.web", "WARN");
   }
 
   private int getServerPort(Project project) {

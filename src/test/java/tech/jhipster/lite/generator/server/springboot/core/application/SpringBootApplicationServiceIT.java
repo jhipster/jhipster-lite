@@ -178,4 +178,24 @@ class SpringBootApplicationServiceIT {
 
     assertFileExist(project, getPath(TEST_RESOURCES, "config/application.properties"));
   }
+
+  @Test
+  void shouldAddLoggingConfiguration() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+
+    springBootApplicationService.addLoggingConfiguration(project);
+
+    assertFileExist(project, getPath(MAIN_RESOURCES, "logback-spring.xml"));
+  }
+
+  @Test
+  void shouldAddLoggingTestConfiguration() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+
+    springBootApplicationService.addLoggingTestConfiguration(project);
+
+    assertFileExist(project, getPath(TEST_RESOURCES, "logback-test.xml"));
+  }
 }

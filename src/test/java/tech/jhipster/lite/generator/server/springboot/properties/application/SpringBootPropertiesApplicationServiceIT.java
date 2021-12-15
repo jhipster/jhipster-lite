@@ -20,7 +20,7 @@ class SpringBootPropertiesApplicationServiceIT {
   SpringBootPropertiesApplicationService service;
 
   @Nested
-  class Properties {
+  class PropertiesIT {
 
     @Test
     void shouldNotAddProperties() {
@@ -72,7 +72,7 @@ class SpringBootPropertiesApplicationServiceIT {
   }
 
   @Nested
-  class FastProperties {
+  class FastPropertiesIT {
 
     @Test
     void shouldNotAddPropertiesFast() {
@@ -125,7 +125,7 @@ class SpringBootPropertiesApplicationServiceIT {
   }
 
   @Nested
-  class TestProperties {
+  class TestPropertiesIT {
 
     @Test
     void shouldNotAddPropertiesTest() {

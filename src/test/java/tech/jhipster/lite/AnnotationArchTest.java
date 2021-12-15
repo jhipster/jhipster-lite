@@ -8,6 +8,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.lang.ArchRule;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @UnitTest
@@ -25,7 +26,9 @@ class AnnotationArchTest {
       .and()
       .haveSimpleNameEndingWith("Test")
       .should()
-      .beAnnotatedWith(UnitTest.class);
+      .beAnnotatedWith(UnitTest.class)
+      .orShould()
+      .beAnnotatedWith(Nested.class);
 
     rule.check(importedClasses);
   }
@@ -40,7 +43,9 @@ class AnnotationArchTest {
       .and()
       .haveSimpleNameEndingWith("IT")
       .should()
-      .beAnnotatedWith(IntegrationTest.class);
+      .beAnnotatedWith(IntegrationTest.class)
+      .orShould()
+      .beAnnotatedWith(Nested.class);
 
     rule.check(importedClasses);
   }

@@ -28,7 +28,7 @@ class BuildToolDomainServiceTest {
   BuildToolDomainService buildToolDomainService;
 
   @Nested
-  class Maven {
+  class MavenTest {
 
     @Test
     void shouldAddParent() {
@@ -100,7 +100,7 @@ class BuildToolDomainServiceTest {
   }
 
   @Nested
-  class Gradle {
+  class GradleTest {
 
     @Test
     void shouldNotInit() {
@@ -118,7 +118,7 @@ class BuildToolDomainServiceTest {
   }
 
   @Nested
-  class NoBuildTool {
+  class NoBuildToolTest {
 
     @Test
     void shouldNotAddParent() {

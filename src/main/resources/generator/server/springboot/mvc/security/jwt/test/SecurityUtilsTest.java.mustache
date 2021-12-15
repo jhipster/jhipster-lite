@@ -87,6 +87,13 @@ class SecurityUtilsTest {
     boolean isAuthenticated = SecurityUtils.isAuthenticated();
     assertThat(isAuthenticated).isTrue();
   }
+  
+  @Test
+  void shouldNotBeAuthenticatedWithNull() {
+    SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());
+    boolean isAuthenticated = SecurityUtils.isAuthenticated();
+    assertThat(isAuthenticated).isFalse();
+  }
 
   @Test
   void shouldAnonymousIsNotAuthenticated() {
@@ -121,6 +128,13 @@ class SecurityUtilsTest {
 
     assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)).isTrue();
     assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.ANONYMOUS, AuthoritiesConstants.ADMIN)).isFalse();
+  }
+
+  @Test
+  void shouldNotHaveCurrentUserAnyOfAuthoritiesForNull() {
+    SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());
+
+    assertThat(SecurityUtils.hasCurrentUserAnyOfAuthorities(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)).isFalse();
   }
 
   @Test

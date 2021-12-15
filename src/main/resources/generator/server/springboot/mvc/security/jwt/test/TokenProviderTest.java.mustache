@@ -13,6 +13,7 @@ import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -110,6 +111,14 @@ class TokenProviderTest {
     assertThat(key).isNotNull().isEqualTo(Keys.hmacShaKeyFor(Decoders.BASE64.decode(base64Secret)));
   }
 
+  @Test
+  void shouldGetAuthenticationWithoutAuthorities() {
+    Authentication authentication = tokenProvider.getAuthentication(createTokenWithoutAuthorities());
+
+    assertThat(authentication).isNotNull();
+    assertThat(authentication.getAuthorities()).isEmpty();
+  }
+
   private Authentication createAuthentication() {
     Collection<GrantedAuthority> authorities = new ArrayList<>();
     authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ANONYMOUS));
@@ -131,5 +140,14 @@ class TokenProviderTest {
       .signWith(otherKey, SignatureAlgorithm.HS512)
       .setExpiration(new Date(new Date().getTime() + ONE_MINUTE))
       .compact();
+  }
+
+  private String createTokenWithoutAuthorities() {
+    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+      "test-user",
+      "test-password",
+      List.of()
+    );
+    return tokenProvider.createToken(authentication, false);
   }
 }

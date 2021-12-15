@@ -12,6 +12,7 @@ callApi() {
 callApi beer.json "/api/projects/init"
 callApi beer.json "/api/build-tools/maven"
 callApi beer.json "/api/servers/java/base"
+callApi beer.json "/api/servers/java/jacoco-minimum-coverage"
 callApi beer.json "/api/servers/spring-boot"
 callApi beer.json "/api/servers/spring-boot/banner/jhipster-v7"
 callApi beer.json "/api/servers/spring-boot/mvc/web/tomcat"

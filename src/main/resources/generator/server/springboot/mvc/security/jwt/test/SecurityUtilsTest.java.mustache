@@ -88,6 +88,14 @@ class SecurityUtilsTest {
     assertThat(isAuthenticated).isTrue();
   }
 
+  
+  @Test
+  void shouldNotBeAuthenticatedWithNull() {
+    SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());
+    boolean isAuthenticated = SecurityUtils.isAuthenticated();
+    assertThat(isAuthenticated).isFalse();
+  }
+
   @Test
   void shouldAnonymousIsNotAuthenticated() {
     SecurityContext securityContext = SecurityContextHolder.createEmptyContext();

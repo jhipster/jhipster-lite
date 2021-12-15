@@ -22,7 +22,7 @@ import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 class ProjectTest {
 
   @Nested
-  class Build {
+  class BuildTest {
 
     @Test
     void shouldBuildMinimalProject() {
@@ -87,7 +87,7 @@ class ProjectTest {
   }
 
   @Nested
-  class GetConfig {
+  class GetConfigTest {
 
     @Test
     void shouldGetConfig() {
@@ -103,7 +103,7 @@ class ProjectTest {
   }
 
   @Nested
-  class AddConfig {
+  class AddConfigTest {
 
     @Test
     void shouldAddConfigInEmptyConfig() {
@@ -178,7 +178,7 @@ class ProjectTest {
   }
 
   @Nested
-  class PackageName {
+  class PackageNameTest {
 
     @Test
     void shouldGetPackageName() {
@@ -214,7 +214,7 @@ class ProjectTest {
   }
 
   @Nested
-  class GetStringConfig {
+  class GetStringConfigTest {
 
     @Test
     void shouldGetStringConfig() {
@@ -245,7 +245,7 @@ class ProjectTest {
   }
 
   @Nested
-  class GetIntegerConfig {
+  class GetIntegerConfigTest {
 
     @Test
     void shouldGetIntegerConfig() {

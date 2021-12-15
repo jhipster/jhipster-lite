@@ -13,7 +13,7 @@ import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 class WordUtilsTest {
 
   @Nested
-  class KebabCase {
+  class KebabCaseTest {
 
     @Test
     void shouldKebabCase() {
@@ -41,7 +41,7 @@ class WordUtilsTest {
   }
 
   @Nested
-  class UpperFirst {
+  class UpperFirstTest {
 
     @Test
     void shouldUpperFirst() {
@@ -70,7 +70,7 @@ class WordUtilsTest {
   }
 
   @Nested
-  class Indent {
+  class IndentTest {
 
     @Test
     void shouldIndent1Time() {
@@ -99,7 +99,7 @@ class WordUtilsTest {
   }
 
   @Nested
-  class IdentWithSpace {
+  class IdentWithSpaceTest {
 
     @Test
     void shouldIndent1TimeWith4spaces() {

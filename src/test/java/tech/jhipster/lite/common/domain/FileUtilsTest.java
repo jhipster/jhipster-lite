@@ -27,7 +27,7 @@ import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 class FileUtilsTest {
 
   @Nested
-  class Exists {
+  class ExistsTest {
 
     @Test
     void shouldExists() {
@@ -52,7 +52,7 @@ class FileUtilsTest {
   }
 
   @Nested
-  class CreateFolder {
+  class CreateFolderTest {
 
     @Test
     void shouldNotCreateFolderForNull() {
@@ -96,7 +96,7 @@ class FileUtilsTest {
   }
 
   @Nested
-  class GetPath {
+  class GetPathTest {
 
     @Test
     void shouldGetPath() {
@@ -140,7 +140,7 @@ class FileUtilsTest {
   }
 
   @Nested
-  class Read {
+  class ReadTest {
 
     @Test
     void shouldRead() throws Exception {
@@ -169,7 +169,7 @@ class FileUtilsTest {
   }
 
   @Nested
-  class GetLine {
+  class GetLineTest {
 
     @Test
     void shouldGetLine() throws Exception {
@@ -202,7 +202,7 @@ class FileUtilsTest {
   }
 
   @Nested
-  class ContainsInLine {
+  class ContainsInLineTest {
 
     @Test
     void shouldContainsInLine() {
@@ -227,7 +227,7 @@ class FileUtilsTest {
   }
 
   @Nested
-  class ContainsLines {
+  class ContainsLinesTest {
 
     @Test
     void shouldContainsLinesSingle() {
@@ -300,7 +300,7 @@ class FileUtilsTest {
   }
 
   @Nested
-  class Replace {
+  class ReplaceTest {
 
     @Test
     void shouldReplaceInFile() throws Exception {
@@ -330,7 +330,7 @@ class FileUtilsTest {
   }
 
   @Nested
-  class FileSystem {
+  class FileSystemTest {
 
     @Test
     @EnabledOnOs(OS.WINDOWS)

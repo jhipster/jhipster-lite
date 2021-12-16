@@ -29,7 +29,12 @@ class HexagonalArchTest {
 
   private static final Collection<String> businessContexts = buildBusinessContexts();
 
-  private static final Collection<String> commonPackages = Arrays.asList("java..", "org.slf4j..", "org.apache.commons.lang3..");
+  private static final Collection<String> commonPackages = Arrays.asList(
+    "java..",
+    "org.slf4j..",
+    "org.apache.commons.lang3..",
+    "ch.qos.logback.."
+  );
 
   private static final Collection<String> sharedKernelsPackages = buildSharedKernelsPackages();
 

@@ -45,6 +45,7 @@ class SpringBootMvcApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\"/>");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -65,6 +66,7 @@ class SpringBootMvcApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\"/>");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -86,6 +88,7 @@ class SpringBootMvcApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=7419");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\"/>");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -106,6 +109,7 @@ class SpringBootMvcApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\"/>");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -126,6 +130,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+    assertLoggingConfiguration(project, "<logger name=\"io.undertow\" level=\"WARN\"/>");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -147,6 +152,7 @@ class SpringBootMvcApplicationServiceIT {
     assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=1664");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
+    assertLoggingConfiguration(project, "<logger name=\"io.undertow\" level=\"WARN\"/>");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -253,5 +259,10 @@ class SpringBootMvcApplicationServiceIT {
 
   private void assertTestUtil(Project project) {
     assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp"), "TestUtil.java");
+  }
+
+  public void assertLoggingConfiguration(Project project, String loggerEntry) {
+    assertFileContent(project, getPath(MAIN_RESOURCES, "logback-spring.xml"), loggerEntry);
+    assertFileContent(project, getPath(TEST_RESOURCES, "logback-test.xml"), loggerEntry);
   }
 }

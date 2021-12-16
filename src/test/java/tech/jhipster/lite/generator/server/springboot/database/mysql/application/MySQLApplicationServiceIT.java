@@ -6,7 +6,7 @@ import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainSer
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -67,6 +67,7 @@ class MySQLApplicationServiceIT {
       getPath(TEST_RESOURCES, "config/application.properties"),
       List.of("spring.datasource.url=jdbc:tc:" + MySQL.getDockerImageName() + ":///jhipster", "spring.datasource.username=jhipster")
     );
+    assertLoggerInConfig(project);
   }
 
   @Test
@@ -170,6 +171,42 @@ class MySQLApplicationServiceIT {
         "spring.datasource.type=com.zaxxer.hikari.HikariDataSource",
         "spring.datasource.url=jdbc:mysql://localhost:3306/chips",
         "spring.datasource.username=root"
+      )
+    );
+  }
+
+  @Test
+  void shouldAddLoggingConfiguration() {
+    Project project = tmpProject();
+    project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");
+    project.addConfig(BASE_NAME, "chips");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    mysqlApplicationService.addLogger(project);
+
+    assertLoggerInConfig(project);
+  }
+
+  private void assertLoggerInConfig(Project project) {
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, LOGGING_CONFIGURATION),
+      List.of(
+        "<logger name=\"org.hibernate.validator\" level=\"WARN\"/>",
+        "<logger name=\"org.hibernate\" level=\"WARN\"/>",
+        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>"
+      )
+    );
+
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
+      List.of(
+        "<logger name=\"org.hibernate.validator\" level=\"WARN\"/>",
+        "<logger name=\"org.hibernate\" level=\"WARN\"/>",
+        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>"
       )
     );
   }

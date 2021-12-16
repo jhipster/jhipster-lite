@@ -6,12 +6,15 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
+import ch.qos.logback.classic.Level;
 import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.logging.application.SpringBootLoggingApplicationService;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class PostgresqlDomainService implements PostgresqlService {
@@ -21,15 +24,18 @@ public class PostgresqlDomainService implements PostgresqlService {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootLoggingService springBootLoggingService;
 
   public PostgresqlDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootPropertiesService springBootPropertiesService,
+    SpringBootLoggingService springBootLoggingService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootLoggingService = springBootLoggingService;
   }
 
   @Override
@@ -42,6 +48,7 @@ public class PostgresqlDomainService implements PostgresqlService {
     addJavaFiles(project);
     addProperties(project);
     addTestcontainers(project);
+    addLoggerInConfiguration(project);
   }
 
   @Override
@@ -151,5 +158,18 @@ public class PostgresqlDomainService implements PostgresqlService {
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
     return result;
+  }
+
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    addLogger(project, "org.postgresql", Level.WARN);
+    addLogger(project, "org.hibernate.validator", Level.WARN);
+    addLogger(project, "org.hibernate", Level.WARN);
+    addLogger(project, "org.hibernate.ejb.HibernatePersistence", Level.OFF);
+  }
+
+  public void addLogger(Project project, String packageName, Level level) {
+    springBootLoggingService.addLogger(project, packageName, level);
+    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 }

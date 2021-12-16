@@ -45,6 +45,10 @@ public class MySQLApplicationService {
     mysqlService.addProperties(project);
   }
 
+  public void addLogger(Project project) {
+    mysqlService.addLoggerInConfiguration(project);
+  }
+
   public void addTestContainers(Project project) {
     mysqlService.addTestcontainers(project);
   }

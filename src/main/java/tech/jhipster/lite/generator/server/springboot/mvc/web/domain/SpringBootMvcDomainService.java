@@ -54,7 +54,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addMvcPathmatchInProperties(project);
     addServerPortInProperties(project);
     addExceptionHandler(project);
-    addLoggerConfiguration(project);
+    addLoggerInConfiguration(project, "org.springframework.web", Level.WARN);
   }
 
   @Override
@@ -66,6 +66,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addMvcPathmatchInProperties(project);
     addServerPortInProperties(project);
     addExceptionHandler(project);
+    addLoggerInConfiguration(project, "io.undertow", Level.WARN);
   }
 
   @Override
@@ -124,9 +125,9 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     springBootPropertiesService.addPropertiesTest(project, "server.port", 0);
   }
 
-  private void addLoggerConfiguration(Project project) {
-    springBootLoggingService.addLogger(project, "org.springframework.web", Level.WARN);
-    springBootLoggingService.addLogger(project, "org.springframework.web", Level.WARN);
+  private void addLoggerInConfiguration(Project project, String packageName, Level level) {
+    springBootLoggingService.addLogger(project, packageName, level);
+    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 
   private int getServerPort(Project project) {

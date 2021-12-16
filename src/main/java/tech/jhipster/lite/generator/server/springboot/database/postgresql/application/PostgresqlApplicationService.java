@@ -45,6 +45,10 @@ public class PostgresqlApplicationService {
     postgresqlService.addProperties(project);
   }
 
+  public void addLogger(Project project) {
+    postgresqlService.addLoggerInConfiguration(project);
+  }
+
   public void addTestContainers(Project project) {
     postgresqlService.addTestcontainers(project);
   }

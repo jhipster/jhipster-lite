@@ -69,7 +69,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('/tmp/beer/pom.xml') }}
+          key: ${{ runner.os }}-maven-generation
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: 'Test: Beer project'

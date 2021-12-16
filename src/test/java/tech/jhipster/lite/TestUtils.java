@@ -93,6 +93,12 @@ public class TestUtils {
     return project;
   }
 
+  public static Project tmpProjectWithSpringBootLoggingConfiguration() {
+    Project project = tmpProject();
+    copySpringBootLogConfigurationFiles(project);
+    return project;
+  }
+
   public static void copyPomXml(Project project) {
     try {
       FileUtils.createFolder(project.getFolder());
@@ -129,6 +135,23 @@ public class TestUtils {
       Files.copy(
         getPathOf("src/test/resources/generator/server/springboot/core/application.test.properties"),
         getPathOf(project.getFolder(), TEST_RESOURCES, "config/application.properties")
+      );
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public static void copySpringBootLogConfigurationFiles(Project project) {
+    try {
+      FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES));
+      FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES));
+      Files.copy(
+        getPathOf("src/test/resources/generator/server/springboot/core/logback-spring.xml"),
+        getPathOf(project.getFolder(), MAIN_RESOURCES, "logback-spring.xml")
+      );
+      Files.copy(
+        getPathOf("src/test/resources/generator/server/springboot/core/logback-test.xml"),
+        getPathOf(project.getFolder(), TEST_RESOURCES, "logback-test.xml")
       );
     } catch (IOException e) {
       throw new AssertionError(e);

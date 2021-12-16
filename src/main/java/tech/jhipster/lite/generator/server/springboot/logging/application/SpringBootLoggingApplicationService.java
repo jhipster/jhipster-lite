@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.logging.application;
 
+import ch.qos.logback.classic.Level;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
@@ -13,11 +14,11 @@ public class SpringBootLoggingApplicationService {
     this.springBootLoggingService = springBootLoggingService;
   }
 
-  public void addLog(Project project, String packageName, String level) {
+  public void addLogger(Project project, String packageName, Level level) {
     springBootLoggingService.addLogger(project, packageName, level);
   }
 
-  public void addLogTest(Project project, String packageName, String level) {
+  public void addLoggerTest(Project project, String packageName, Level level) {
     springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 }

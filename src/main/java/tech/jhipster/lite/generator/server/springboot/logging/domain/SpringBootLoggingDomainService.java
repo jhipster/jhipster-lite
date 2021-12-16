@@ -5,6 +5,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURC
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
+import ch.qos.logback.classic.Level;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -17,25 +18,25 @@ public class SpringBootLoggingDomainService implements SpringBootLoggingService 
   }
 
   @Override
-  public void addLogger(Project project, String packageName, String level) {
+  public void addLogger(Project project, String packageName, Level level) {
     addLoggerToConfiguration(project, packageName, level, MAIN_RESOURCES, LOGGING_CONFIGURATION, NEEDLE_LOGBACK_LOGGER);
   }
 
   @Override
-  public void addLoggerTest(Project project, String packageName, String level) {
+  public void addLoggerTest(Project project, String packageName, Level level) {
     addLoggerToConfiguration(project, packageName, level, TEST_RESOURCES, LOGGING_TEST_CONFIGURATION, NEEDLE_LOGBACK_LOGGER);
   }
 
   private void addLoggerToConfiguration(
     Project project,
     String packageName,
-    String level,
+    Level level,
     String folderConfig,
     String fileLoggingConfig,
     String needleLogger
   ) {
     String loggerWithNeedle =
-      String.format("<logger name=\"%s\" level=\"%s\"/>", packageName, level) + System.lineSeparator() + needleLogger;
+      String.format("<logger name=\"%s\" level=\"%s\"/>", packageName, level.toString()) + System.lineSeparator() + needleLogger;
     projectRepository.replaceText(project, getPath(folderConfig), fileLoggingConfig, needleLogger, loggerWithNeedle);
   }
 }

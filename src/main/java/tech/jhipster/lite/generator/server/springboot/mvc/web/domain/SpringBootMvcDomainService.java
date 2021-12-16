@@ -6,6 +6,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.*;
 
+import ch.qos.logback.classic.Level;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +54,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addMvcPathmatchInProperties(project);
     addServerPortInProperties(project);
     addExceptionHandler(project);
-    addLoggerInConfiguration(project);
+    addLoggerConfiguration(project);
   }
 
   @Override
@@ -123,9 +124,9 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     springBootPropertiesService.addPropertiesTest(project, "server.port", 0);
   }
 
-  private void addLoggerInConfiguration(Project project) {
-    springBootLoggingService.addLogger(project, "org.springframework.web", "WARN");
-    springBootLoggingService.addLogger(project, "org.springframework.web", "WARN");
+  private void addLoggerConfiguration(Project project) {
+    springBootLoggingService.addLogger(project, "org.springframework.web", Level.WARN);
+    springBootLoggingService.addLogger(project, "org.springframework.web", Level.WARN);
   }
 
   private int getServerPort(Project project) {

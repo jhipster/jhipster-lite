@@ -28,4 +28,8 @@ public class LiquibaseApplicationService {
   void addConfigurationJava(Project project) {
     liquibaseService.addConfigurationJava(project);
   }
+
+  void addLoggerInConfiguration(Project project) {
+    liquibaseService.addLoggerInConfiguration(project);
+  }
 }

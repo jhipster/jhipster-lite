@@ -14,22 +14,9 @@ jobs:
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2
-      - name: 'Setup: Node.js'
-        uses: actions/setup-node@v2.5.0
-        with:
-          node-version: 16.13.0
-      - name: 'Setup: update npm'
-        run: npm install -g npm
-      - name: 'Setup: Java 17'
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: '17.x'
-      - name: 'Setup: check tools'
-        run: |
-          node -v
-          npm -v
-          java -version
+      - name: 'Setup: environment'
+        id: setup
+        uses: ./.github/actions/setup
       - name: 'Init: cache local Maven repository'
         uses: actions/cache@v2
         with:
@@ -63,29 +50,9 @@ jobs:
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2
-      - name: 'Setup: Node.js'
-        uses: actions/setup-node@v2.5.0
-        with:
-          node-version: 16.13.0
-      - name: 'Setup: update npm'
-        run: npm install -g npm
-      - name: 'Setup: Java 17'
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: '17.x'
-      - name: 'Setup: check tools'
-        run: |
-          node -v
-          npm -v
-          java -version
-      - name: 'Init: cache local Maven repository'
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      - name: 'Setup: environment'
+        id: setup
+        uses: ./.github/actions/setup
       - name: 'Artifact: download JAR'
         uses: actions/download-artifact@v2
         with:
@@ -98,6 +65,13 @@ jobs:
           ./generate.sh
           ls -al /tmp/beer/
           ./stop.sh
+      - name: 'Init: cache local Maven repository'
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: 'Test: Beer project'
         run: |
           cd /tmp/beer/

@@ -39,7 +39,7 @@ categories:
   - title: 📝 Documentation
     label: 'area: documentation:books:'
   - title: 📦 Dependency updates
-    label: 'theme: dependencies'
+    label: 'area: dependencies'
   - title: 💩 Spam/Invalid
     labels:
       - 'area: spam'

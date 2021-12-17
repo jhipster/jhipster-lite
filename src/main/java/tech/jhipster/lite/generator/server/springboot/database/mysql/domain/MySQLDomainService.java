@@ -11,6 +11,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class MySQLDomainService implements MySQLService {
@@ -20,15 +22,18 @@ public class MySQLDomainService implements MySQLService {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootLoggingService springBootLoggingService;
 
   public MySQLDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootPropertiesService springBootPropertiesService,
+    SpringBootLoggingService springBootLoggingService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootLoggingService = springBootLoggingService;
   }
 
   @Override
@@ -40,6 +45,7 @@ public class MySQLDomainService implements MySQLService {
     addDockerCompose(project);
     addJavaFiles(project);
     addProperties(project);
+    addLoggerInConfiguration(project);
     addTestcontainers(project);
   }
 
@@ -94,6 +100,20 @@ public class MySQLDomainService implements MySQLService {
     String packageName = project.getPackageName().orElse("com.mycompany.myapp");
 
     springProperties(baseName, packageName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+  }
+
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    addLogger(project, "org.hibernate.validator", Level.WARN);
+    addLogger(project, "org.hibernate", Level.WARN);
+    addLogger(project, "org.hibernate.ejb.HibernatePersistence", Level.OFF);
+    springBootLoggingService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
+    springBootLoggingService.addLoggerTest(project, "org.testcontainers", Level.WARN);
+  }
+
+  public void addLogger(Project project, String packageName, Level level) {
+    springBootLoggingService.addLogger(project, packageName, level);
+    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 
   @Override

@@ -13,4 +13,5 @@ public interface PostgresqlService {
   void addJavaFiles(Project project);
   void addProperties(Project project);
   void addTestcontainers(Project project);
+  void addLoggerInConfiguration(Project project);
 }

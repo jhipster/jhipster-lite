@@ -12,4 +12,6 @@ public interface SpringBootService {
   void addApplicationProperties(Project project);
   void addApplicationFastProperties(Project project);
   void addApplicationTestProperties(Project project);
+  void addLoggingConfiguration(Project project);
+  void addLoggingTestConfiguration(Project project);
 }

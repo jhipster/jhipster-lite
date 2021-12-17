@@ -8,6 +8,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class LiquibaseDomainService implements LiquibaseService {
@@ -18,15 +20,18 @@ public class LiquibaseDomainService implements LiquibaseService {
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;
   public final SpringBootPropertiesService springBootPropertiesService;
+  public final SpringBootLoggingService springBootLoggingService;
 
   public LiquibaseDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootPropertiesService springBootPropertiesService,
+    SpringBootLoggingService springBootLoggingService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootLoggingService = springBootLoggingService;
   }
 
   @Override
@@ -34,6 +39,7 @@ public class LiquibaseDomainService implements LiquibaseService {
     addLiquibase(project);
     addChangelogMasterXml(project);
     addConfigurationJava(project);
+    addLoggerInConfiguration(project);
   }
 
   @Override
@@ -63,6 +69,17 @@ public class LiquibaseDomainService implements LiquibaseService {
     templateToLiquibase(project, packageNamePath, "test", "LiquibaseConfigurationIT.java", TEST_JAVA);
     templateToLiquibase(project, packageNamePath, "test", "LogbackRecorder.java", TEST_JAVA);
     templateToLiquibase(project, packageNamePath, "test", "SpringLiquibaseUtilTest.java", TEST_JAVA);
+  }
+
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    addLogger(project, "liquibase", Level.WARN);
+    addLogger(project, "LiquibaseSchemaResolver", Level.INFO);
+  }
+
+  public void addLogger(Project project, String packageName, Level level) {
+    springBootLoggingService.addLogger(project, packageName, level);
+    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 
   private void templateToLiquibase(Project project, String source, String type, String sourceFilename, String destination) {

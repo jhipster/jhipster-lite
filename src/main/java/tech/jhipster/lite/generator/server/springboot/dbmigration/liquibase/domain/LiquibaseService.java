@@ -8,4 +8,5 @@ public interface LiquibaseService {
   void addLiquibase(Project project);
   void addChangelogMasterXml(Project project);
   void addConfigurationJava(Project project);
+  void addLoggerInConfiguration(Project project);
 }

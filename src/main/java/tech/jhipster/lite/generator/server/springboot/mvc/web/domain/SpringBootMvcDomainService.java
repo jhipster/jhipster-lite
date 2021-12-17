@@ -13,6 +13,8 @@ import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class SpringBootMvcDomainService implements SpringBootMvcService {
@@ -25,15 +27,18 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;
   public final SpringBootPropertiesService springBootPropertiesService;
+  public final SpringBootLoggingService springBootLoggingService;
 
   public SpringBootMvcDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootPropertiesService springBootPropertiesService,
+    SpringBootLoggingService springBootLoggingService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootLoggingService = springBootLoggingService;
   }
 
   @Override
@@ -49,6 +54,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addMvcPathmatchInProperties(project);
     addServerPortInProperties(project);
     addExceptionHandler(project);
+    addLoggerInConfiguration(project, "org.springframework.web", Level.WARN);
   }
 
   @Override
@@ -60,6 +66,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addMvcPathmatchInProperties(project);
     addServerPortInProperties(project);
     addExceptionHandler(project);
+    addLoggerInConfiguration(project, "io.undertow", Level.WARN);
   }
 
   @Override
@@ -116,6 +123,11 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   private void addServerPortInProperties(Project project) {
     springBootPropertiesService.addProperties(project, "server.port", getServerPort(project));
     springBootPropertiesService.addPropertiesTest(project, "server.port", 0);
+  }
+
+  private void addLoggerInConfiguration(Project project, String packageName, Level level) {
+    springBootLoggingService.addLogger(project, packageName, level);
+    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 
   private int getServerPort(Project project) {

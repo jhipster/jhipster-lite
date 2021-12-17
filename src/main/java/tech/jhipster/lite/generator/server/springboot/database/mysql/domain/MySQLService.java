@@ -12,5 +12,6 @@ public interface MySQLService {
   void addDockerCompose(Project project);
   void addJavaFiles(Project project);
   void addProperties(Project project);
+  void addLoggerInConfiguration(Project project);
   void addTestcontainers(Project project);
 }

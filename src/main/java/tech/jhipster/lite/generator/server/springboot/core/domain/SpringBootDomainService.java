@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
@@ -33,6 +34,8 @@ public class SpringBootDomainService implements SpringBootService {
     addApplicationProperties(project);
     addApplicationFastProperties(project);
     addApplicationTestProperties(project);
+    addLoggingConfiguration(project);
+    addLoggingTestConfiguration(project);
   }
 
   @Override
@@ -117,5 +120,19 @@ public class SpringBootDomainService implements SpringBootService {
     project.addDefaultConfig(BASE_NAME);
 
     projectRepository.template(project, SOURCE, "application-test.properties", getPath(TEST_RESOURCES, "config"), "application.properties");
+  }
+
+  @Override
+  public void addLoggingConfiguration(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+
+    projectRepository.template(project, SOURCE, LOGGING_CONFIGURATION, getPath(MAIN_RESOURCES));
+  }
+
+  @Override
+  public void addLoggingTestConfiguration(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+
+    projectRepository.template(project, SOURCE, LOGGING_TEST_CONFIGURATION, getPath(TEST_RESOURCES));
   }
 }

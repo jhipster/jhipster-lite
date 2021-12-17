@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.logging.application;
 
-import ch.qos.logback.classic.Level;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 
 @Service

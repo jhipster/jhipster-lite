@@ -6,13 +6,13 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 
-import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
 
 @IntegrationTest
 class SpringBootLoggingApplicationServiceIT {
@@ -38,7 +38,7 @@ class SpringBootLoggingApplicationServiceIT {
 
       String applicationProperties = getPath(MAIN_RESOURCES, "logback-spring.xml");
       assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\"/>");
-      assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-logger -->");
+      assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-log -->");
     }
   }
 
@@ -59,9 +59,9 @@ class SpringBootLoggingApplicationServiceIT {
 
       service.addLoggerTest(project, "tech.jhipster.web", Level.DEBUG);
 
-      String applicationProperties = getPath(TEST_RESOURCES, "logback-test.xml");
+      String applicationProperties = getPath(TEST_RESOURCES, "logback.xml");
       assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\"/>");
-      assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-logger -->");
+      assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-log -->");
     }
   }
 }

@@ -263,6 +263,6 @@ class SpringBootMvcApplicationServiceIT {
 
   public void assertLoggingConfiguration(Project project, String loggerEntry) {
     assertFileContent(project, getPath(MAIN_RESOURCES, "logback-spring.xml"), loggerEntry);
-    assertFileContent(project, getPath(TEST_RESOURCES, "logback-test.xml"), loggerEntry);
+    assertFileContent(project, getPath(TEST_RESOURCES, "logback.xml"), loggerEntry);
   }
 }

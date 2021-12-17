@@ -6,7 +6,6 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
-import ch.qos.logback.classic.Level;
 import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
@@ -14,6 +13,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.logging.application.SpringBootLoggingApplicationService;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 

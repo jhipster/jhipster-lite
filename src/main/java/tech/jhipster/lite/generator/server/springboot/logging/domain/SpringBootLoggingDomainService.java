@@ -5,7 +5,6 @@ import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURC
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
-import ch.qos.logback.classic.Level;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 

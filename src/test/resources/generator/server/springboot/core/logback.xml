@@ -27,18 +27,19 @@
   </root>
   -->
 
-  <logger name="{{packageName}}" level="INFO"/>
+  <logger name="tech.jhipster.sample" level="INFO"/>
 
   <logger name="ch.qos.logback" level="WARN"/>
   <logger name="com.sun" level="WARN"/>
   <logger name="org.springframework" level="WARN"/>
+  <logger name="com.github.dockerjava" level="WARN"/>
+  <logger name="org.testcontainers" level="WARN"/>
+  <logger name="com.tngtech.archunit.core.importer" level="ERROR"/>
   <!-- jhipster-needle-logback-add-log -->
 
-  <!-- https://logback.qos.ch/manual/configuration.html#shutdownHook and https://jira.qos.ch/browse/LOGBACK-1090 -->
-  <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
-
-  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-    <resetJUL>true</resetJUL>
-  </contextListener>
+  <root>
+    <level>WARN</level>
+    <appender-ref ref="CONSOLE"/>
+  </root>
 
 </configuration>

@@ -56,6 +56,8 @@ class SpringBootApplicationServiceIT {
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/application.properties"));
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"));
     assertFileExist(project, getPath(TEST_RESOURCES, "config/application.properties"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "logback-spring.xml"));
+    assertFileExist(project, getPath(TEST_RESOURCES, "logback.xml"));
   }
 
   @Test
@@ -196,6 +198,6 @@ class SpringBootApplicationServiceIT {
 
     springBootApplicationService.addLoggingTestConfiguration(project);
 
-    assertFileExist(project, getPath(TEST_RESOURCES, "logback-test.xml"));
+    assertFileExist(project, getPath(TEST_RESOURCES, "logback.xml"));
   }
 }

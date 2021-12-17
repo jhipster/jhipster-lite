@@ -4,11 +4,11 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
-import ch.qos.logback.classic.Level;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 

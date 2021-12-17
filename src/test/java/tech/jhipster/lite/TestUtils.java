@@ -150,8 +150,8 @@ public class TestUtils {
         getPathOf(project.getFolder(), MAIN_RESOURCES, "logback-spring.xml")
       );
       Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/core/logback-test.xml"),
-        getPathOf(project.getFolder(), TEST_RESOURCES, "logback-test.xml")
+        getPathOf("src/test/resources/generator/server/springboot/core/logback.xml"),
+        getPathOf(project.getFolder(), TEST_RESOURCES, "logback.xml")
       );
     } catch (IOException e) {
       throw new AssertionError(e);

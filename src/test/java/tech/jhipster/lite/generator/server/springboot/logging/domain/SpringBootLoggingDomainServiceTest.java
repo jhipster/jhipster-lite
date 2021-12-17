@@ -5,7 +5,6 @@ import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithSpringBootLoggingConfiguration;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
-import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

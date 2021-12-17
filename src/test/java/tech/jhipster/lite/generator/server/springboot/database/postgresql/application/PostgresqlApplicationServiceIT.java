@@ -221,7 +221,9 @@ class PostgresqlApplicationServiceIT {
         "<logger name=\"org.postgresql\" level=\"WARN\"/>",
         "<logger name=\"org.hibernate.validator\" level=\"WARN\"/>",
         "<logger name=\"org.hibernate\" level=\"WARN\"/>",
-        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>"
+        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>",
+        "<logger name=\"com.github.dockerjava\" level=\"WARN\"/>",
+        "<logger name=\"org.testcontainers\" level=\"WARN\"/>"
       )
     );
   }

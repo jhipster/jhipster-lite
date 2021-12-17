@@ -107,6 +107,8 @@ public class MySQLDomainService implements MySQLService {
     addLogger(project, "org.hibernate.validator", Level.WARN);
     addLogger(project, "org.hibernate", Level.WARN);
     addLogger(project, "org.hibernate.ejb.HibernatePersistence", Level.OFF);
+    springBootLoggingService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
+    springBootLoggingService.addLoggerTest(project, "org.testcontainers", Level.WARN);
   }
 
   public void addLogger(Project project, String packageName, Level level) {

@@ -2,6 +2,7 @@
 
 # JHipster Lite ⚡
 
+[![JHipster Lite version][jhipster-lite-release-version]][jhipster-lite-release-url]
 [![Build Status][github-actions-jhlite-image]][github-actions-url]
 [![Coverage Status][codecov-image]][codecov-url]
 
@@ -100,6 +101,8 @@ You can use different API to:
     - add PostgreSQL
     - add Liquibase as Database Migration Tool
 
+[jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
+[jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases
 [github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/workflows/build/badge.svg
 [github-actions-url]: https://github.com/jhipster/jhipster-lite/actions
 [codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C

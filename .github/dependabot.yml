@@ -6,8 +6,7 @@ updates:
       interval: 'daily'
     open-pull-requests-limit: 15
     labels:
-      - 'area: enhancement :wrench:'
-      - 'theme: dependencies'
+      - 'area: dependencies'
 
   - package-ecosystem: 'github-actions'
     directory: '/'
@@ -15,8 +14,7 @@ updates:
       interval: 'daily'
     open-pull-requests-limit: 10
     labels:
-      - 'area: enhancement :wrench:'
-      - 'theme: dependencies'
+      - 'area: dependencies'
 
   - package-ecosystem: 'npm'
     directory: '/'
@@ -24,5 +22,4 @@ updates:
       interval: 'daily'
     open-pull-requests-limit: 10
     labels:
-      - 'area: enhancement :wrench:'
-      - 'theme: dependencies'
+      - 'area: dependencies'

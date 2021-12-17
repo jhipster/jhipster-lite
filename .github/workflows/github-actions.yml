@@ -7,6 +7,9 @@ on:
     branches:
       - main
 jobs:
+  #--------------------------------------------------
+  # Build and Tests the project
+  #--------------------------------------------------
   tests:
     name: tests
     runs-on: ubuntu-latest
@@ -44,6 +47,9 @@ jobs:
           name: jar
           path: '${{ github.workspace }}/target/*.jar'
           retention-days: 1
+  #--------------------------------------------------
+  # Tests generated projects
+  #--------------------------------------------------
   generation:
     needs: tests
     runs-on: ubuntu-latest
@@ -77,6 +83,9 @@ jobs:
           cd /tmp/beer/
           chmod +x mvnw
           ./mvnw clean verify
+  #--------------------------------------------------
+  # Send analysis to Codecov
+  #--------------------------------------------------
   codecov:
     needs: generation
     name: codecov
@@ -88,7 +97,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: jacoco
-      - name: 'Codecov: sending analyzis...'
+      - name: 'Codecov: sending analysis...'
         uses: codecov/codecov-action@v2
         with:
           files: jacoco.xml

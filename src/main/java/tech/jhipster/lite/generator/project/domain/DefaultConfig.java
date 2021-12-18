@@ -5,10 +5,10 @@ import java.util.Optional;
 
 public class DefaultConfig {
 
-  public static String BASE_NAME = "baseName";
-  public static String PROJECT_NAME = "projectName";
-  public static String PACKAGE_NAME = "packageName";
-  public static String PRETTIER_DEFAULT_INDENT = "prettierDefaultIndent";
+  public static final String BASE_NAME = "baseName";
+  public static final String PROJECT_NAME = "projectName";
+  public static final String PACKAGE_NAME = "packageName";
+  public static final String PRETTIER_DEFAULT_INDENT = "prettierDefaultIndent";
 
   // prettier-ignore
   public static Map<String, Object> defaultMap = Map.of(

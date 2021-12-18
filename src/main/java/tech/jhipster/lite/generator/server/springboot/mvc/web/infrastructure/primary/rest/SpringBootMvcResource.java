@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.mvc.web.infrastructure.pr
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ class SpringBootMvcResource {
   }
 
   @Operation(summary = "Add Spring Boot MVC with Tomcat")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot MVC with Tomcat") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot MVC with Tomcat")
   @PostMapping("/tomcat")
   public void addSpringBootMvc(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -32,7 +31,7 @@ class SpringBootMvcResource {
   }
 
   @Operation(summary = "Add Spring Boot MVC with Undertow")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot MVC with Undertow") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot MVC with Undertow")
   @PostMapping("/undertow")
   public void addSpringBootUndertow(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

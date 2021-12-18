@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.database.mysql.infrastruc
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ class MySQLResource {
   }
 
   @Operation(summary = "Add MySQL drivers and dependencies, with testcontainers")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding MySQL") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding MySQL")
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

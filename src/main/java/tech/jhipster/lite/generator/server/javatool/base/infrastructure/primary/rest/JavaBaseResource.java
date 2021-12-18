@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.javatool.base.infrastructure.primary
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +23,7 @@ class JavaBaseResource {
   }
 
   @Operation(summary = "Add Base classes and Error domain to project")
-  @ApiResponses(
-    { @ApiResponse(responseCode = "500", description = "An error occurred while adding base classes and error domain to project") }
-  )
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding base classes and error domain to project")
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

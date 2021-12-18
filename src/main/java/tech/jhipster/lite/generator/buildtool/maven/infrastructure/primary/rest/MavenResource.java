@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.buildtool.maven.infrastructure.primary.rest
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +39,7 @@ class MavenResource {
   }
 
   @Operation(summary = "Add Maven Wrapper")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Maven Wrapper to project") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Maven Wrapper to project")
   @PostMapping("/wrapper")
   public void addMavenWrapper(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

@@ -89,6 +89,7 @@ jobs:
   codecov:
     needs: generation
     name: codecov
+    if: github.repository == 'jhipster/jhipster-lite'
     runs-on: ubuntu-latest
     steps:
       - name: 'Setup: checkout project'

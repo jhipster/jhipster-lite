@@ -40,9 +40,7 @@ class SpringBootMvcApplicationServiceIT {
     springBootMvcApplicationService.init(project);
 
     assertTomcat(project);
-    assertSpringFox(project);
 
-    assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
     assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\"/>");
@@ -61,9 +59,7 @@ class SpringBootMvcApplicationServiceIT {
     springBootMvcApplicationService.addSpringBootMvc(project);
 
     assertTomcat(project);
-    assertSpringFox(project);
 
-    assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
     assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\"/>");
@@ -83,9 +79,7 @@ class SpringBootMvcApplicationServiceIT {
     springBootMvcApplicationService.addSpringBootMvc(project);
 
     assertTomcat(project);
-    assertSpringFox(project);
 
-    assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=7419");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
     assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\"/>");
@@ -106,7 +100,6 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTomcat(project);
 
-    assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
     assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\"/>");
@@ -125,8 +118,6 @@ class SpringBootMvcApplicationServiceIT {
     springBootMvcApplicationService.addSpringBootUndertow(project);
 
     assertUndertow(project);
-
-    assertMvcPathmatch(project);
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
@@ -147,9 +138,7 @@ class SpringBootMvcApplicationServiceIT {
     springBootMvcApplicationService.addSpringBootUndertow(project);
 
     assertUndertow(project);
-    assertSpringFox(project);
 
-    assertMvcPathmatch(project);
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=1664");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
     assertLoggingConfiguration(project, "<logger name=\"io.undertow\" level=\"WARN\"/>");
@@ -196,25 +185,6 @@ class SpringBootMvcApplicationServiceIT {
 
   private void assertSpringBootStarterValidation(Project project) {
     assertFileContent(project, "pom.xml", springBootStarterValidationDependency());
-  }
-
-  private void assertSpringFox(Project project) {
-    assertFileContent(project, "pom.xml", "<springfox.version>");
-    assertFileContent(project, "pom.xml", "</springfox.version>");
-    assertFileContent(project, "pom.xml", springFoxDependency());
-  }
-
-  private void assertMvcPathmatch(Project project) {
-    assertFileContent(
-      project,
-      getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
-      "spring.mvc.pathmatch.matching-strategy=ant_path_matcher"
-    );
-    assertFileContent(
-      project,
-      getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES),
-      "spring.mvc.pathmatch.matching-strategy=ant_path_matcher"
-    );
   }
 
   private void assertExceptionHandlerProperties(Project project) {

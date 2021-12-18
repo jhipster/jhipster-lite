@@ -10,11 +10,6 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 class SpringBootMvcTest {
 
   @Test
-  void shouldGetSpringfoxVersionVersion() {
-    assertThat(SpringBootMvc.springfoxVersion()).isEqualTo("3.0.0");
-  }
-
-  @Test
   void shouldGetProblemSpringVersion() {
     assertThat(SpringBootMvc.problemSpringVersion()).isEqualTo("0.27.0");
   }

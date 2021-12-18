@@ -49,9 +49,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   @Override
   public void addSpringBootMvc(Project project) {
     buildToolService.addDependency(project, springBootStarterWebDependency());
-    addSpringfoxDependencyAndProperty(project);
 
-    addMvcPathmatchInProperties(project);
     addServerPortInProperties(project);
     addExceptionHandler(project);
     addLoggerInConfiguration(project, "org.springframework.web", Level.WARN);
@@ -61,9 +59,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public void addSpringBootUndertow(Project project) {
     buildToolService.addDependency(project, springBootStarterWebDependency(), List.of(tomcatDependency()));
     buildToolService.addDependency(project, undertowDependency());
-    addSpringfoxDependencyAndProperty(project);
 
-    addMvcPathmatchInProperties(project);
     addServerPortInProperties(project);
     addExceptionHandler(project);
     addLoggerInConfiguration(project, "io.undertow", Level.WARN);
@@ -107,16 +103,6 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
 
   private void templateToExceptionHandler(Project project, String source, String type, String sourceFilename, String destination) {
     projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, EXCEPTION_HANDLER_PATH));
-  }
-
-  private void addSpringfoxDependencyAndProperty(Project project) {
-    buildToolService.addDependency(project, springfoxDependency());
-    buildToolService.addProperty(project, "springfox", springfoxVersion());
-  }
-
-  private void addMvcPathmatchInProperties(Project project) {
-    springBootPropertiesService.addProperties(project, "spring.mvc.pathmatch.matching-strategy", "ant_path_matcher");
-    springBootPropertiesService.addPropertiesTest(project, "spring.mvc.pathmatch.matching-strategy", "ant_path_matcher");
   }
 
   private void addServerPortInProperties(Project project) {

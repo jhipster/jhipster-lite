@@ -16,6 +16,10 @@ public class SpringBootMvc {
     return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
   }
 
+  public static Dependency springBootActuatorDependency() {
+    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-actuator").build();
+  }
+
   public static Dependency tomcatDependency() {
     return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-tomcat").build();
   }

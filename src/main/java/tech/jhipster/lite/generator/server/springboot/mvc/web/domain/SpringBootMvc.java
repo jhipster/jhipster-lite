@@ -4,14 +4,9 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class SpringBootMvc {
 
-  private static final String SPRINGFOX_VERSION = "3.0.0";
   private static final String PROBLEM_SPRING_VERSION = "0.27.0";
 
   private SpringBootMvc() {}
-
-  public static String springfoxVersion() {
-    return SPRINGFOX_VERSION;
-  }
 
   public static String problemSpringVersion() {
     return PROBLEM_SPRING_VERSION;

@@ -135,9 +135,6 @@ public class ProjectLocalRepository implements ProjectRepository {
     perms.add(PosixFilePermission.GROUP_READ);
     perms.add(PosixFilePermission.GROUP_WRITE);
     perms.add(PosixFilePermission.GROUP_EXECUTE);
-
-    perms.add(PosixFilePermission.OTHERS_READ);
-    perms.add(PosixFilePermission.OTHERS_EXECUTE);
     File file = new File(getPath(project.getFolder(), source, sourceFilename));
     try {
       Files.setPosixFilePermissions(file.toPath(), perms);

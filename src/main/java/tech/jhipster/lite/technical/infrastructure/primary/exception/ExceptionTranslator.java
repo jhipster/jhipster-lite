@@ -32,7 +32,7 @@ public class ExceptionTranslator implements ProblemHandling {
   private static final String PATH_KEY = "path";
   private static final String VIOLATIONS_KEY = "violations";
 
-  @Value("spring.application.name:jhlite")
+  @Value("${spring.application.name:jhlite}")
   private String applicationName;
 
   @Value("${application.exception.details:false}")

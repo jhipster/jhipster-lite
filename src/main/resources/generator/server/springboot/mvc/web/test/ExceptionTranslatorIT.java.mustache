@@ -42,7 +42,11 @@ class ExceptionTranslatorIT {
 
   @BeforeEach
   void setUp() {
-    exceptionTranslator = (ExceptionTranslator) applicationContext.getBean("securityExceptionTranslator");
+    if (applicationContext.containsBean("securityExceptionTranslator")) {
+      exceptionTranslator = (ExceptionTranslator) applicationContext.getBean("securityExceptionTranslator");
+    } else {
+      exceptionTranslator = (ExceptionTranslator) applicationContext.getBean("exceptionTranslator");
+    }
   }
 
   @Test

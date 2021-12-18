@@ -13,6 +13,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.maven.domain.Maven;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
@@ -49,6 +50,17 @@ class MavenApplicationServiceIT {
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
     assertThatThrownBy(() -> mavenApplicationService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddParentOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    mavenApplicationService.addParent(project, parent);
+    mavenApplicationService.addParent(project, parent);
+
+    assertFileContentManyTimes(project, "pom.xml", Maven.getParentHeader(parent), 1);
   }
 
   @Test
@@ -135,6 +147,17 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddDependencyOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
+    mavenApplicationService.addDependency(project, dependency);
+    mavenApplicationService.addDependency(project, dependency);
+
+    assertFileContentManyTimes(project, "pom.xml", Maven.getDependencyHeader(dependency), 1);
+  }
+
+  @Test
   void shouldDeleteDependency() {
     Project project = tmpProjectWithPomXml();
 
@@ -188,6 +211,17 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddPluginOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+    mavenApplicationService.addPlugin(project, plugin);
+    mavenApplicationService.addPlugin(project, plugin);
+
+    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 1);
+  }
+
+  @Test
   void shouldAddProperty() {
     Project project = tmpProjectWithPomXml();
 
@@ -203,6 +237,18 @@ class MavenApplicationServiceIT {
 
     assertThatThrownBy(() -> mavenApplicationService.addProperty(project, "testcontainers", "1.16.0"))
       .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddPropertyOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    String key = "testcontainers";
+    String version = "1.16.0";
+    mavenApplicationService.addProperty(project, key, version);
+    mavenApplicationService.addProperty(project, key, version);
+
+    assertFileContentManyTimes(project, "pom.xml", Maven.getProperty(key, ".*"), 1);
   }
 
   @Test

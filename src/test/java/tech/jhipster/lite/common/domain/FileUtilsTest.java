@@ -1,6 +1,9 @@
 package tech.jhipster.lite.common.domain;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.lite.TestUtils.assertFileNotExist;
@@ -326,6 +329,166 @@ class FileUtilsTest {
 
       assertThatThrownBy(() -> FileUtils.replaceInFile(filename, "powered by JHipster", "Hello JHipster Lite"))
         .isInstanceOf(IOException.class);
+    }
+  }
+
+  @Nested
+  class ContainsRegexpTest {
+
+    @Test
+    void shouldContainOneLineTextOneLineRegexp() {
+      String text = "Hello JHipster Lite";
+
+      assertTrue(FileUtils.containsRegexp(text, "JH.*ite"));
+    }
+
+    @Test
+    void shouldNotContainOneLineTextOneLineRegexp() {
+      String text = "Hello JHipster Lite";
+
+      assertFalse(FileUtils.containsRegexp(text, "jh.*ite"));
+    }
+
+    @Test
+    void shouldContainMultiLineTextOneLineRegexp() {
+      String lineSeparator = System.lineSeparator();
+      String text = new StringBuilder()
+        .append("this is a short readme")
+        .append(lineSeparator)
+        .append("used for unit tests")
+        .append(lineSeparator)
+        .append("Hello JHipster Lite")
+        .append(lineSeparator)
+        .toString();
+
+      assertTrue(FileUtils.containsRegexp(text, FileUtils.REGEXP_PREFIX_DOTALL + "short.*for unit"));
+    }
+
+    @Test
+    void shouldNotContainMultiLineTextOneLineRegexp() {
+      String lineSeparator = System.lineSeparator();
+      String text = new StringBuilder()
+        .append("this is a short readme")
+        .append(lineSeparator)
+        .append("used for unit tests")
+        .append(lineSeparator)
+        .append("Hello JHipster Lite")
+        .append(lineSeparator)
+        .toString();
+
+      assertFalse(FileUtils.containsRegexp(text, FileUtils.REGEXP_PREFIX_DOTALL + "JHipster.*for unit"));
+    }
+
+    @Test
+    void shouldContainMultiLineTextMultiLineRegexp() {
+      String lineSeparator = System.lineSeparator();
+      String text = new StringBuilder()
+        .append("this is a short readme")
+        .append(lineSeparator)
+        .append("used for unit tests")
+        .append(lineSeparator)
+        .append("Hello JHipster Lite")
+        .append(lineSeparator)
+        .toString();
+      String regexp = new StringBuilder().append("used for unit tests").append(lineSeparator).append("Hello J.* Lite").toString();
+
+      assertTrue(FileUtils.containsRegexp(text, FileUtils.REGEXP_PREFIX_DOTALL + regexp));
+    }
+
+    @Test
+    void shouldNotContainMultiLineTextMultiLineRegexp() {
+      String lineSeparator = System.lineSeparator();
+      String text = new StringBuilder()
+        .append("this is a short readme")
+        .append(lineSeparator)
+        .append("used for unit tests")
+        .append(lineSeparator)
+        .append("Hello JHipster Lite")
+        .append(lineSeparator)
+        .toString();
+      String regexp = new StringBuilder().append("used for unit tests").append(lineSeparator).append("Hello W.* Lite").toString();
+
+      assertFalse(FileUtils.containsRegexp(text, FileUtils.REGEXP_PREFIX_DOTALL + regexp));
+    }
+
+    @Test
+    void shouldContainMultiLineTextMultiLineText() {
+      String lineSeparator = System.lineSeparator();
+      String text = new StringBuilder()
+        .append("this is a short readme")
+        .append(lineSeparator)
+        .append("used for unit tests")
+        .append(lineSeparator)
+        .append("Hello JHipster Lite")
+        .append(lineSeparator)
+        .toString();
+      String searchText = new StringBuilder()
+        .append("used for unit tests")
+        .append(lineSeparator)
+        .append("Hello JHipster Lite")
+        .append(lineSeparator)
+        .toString();
+
+      assertTrue(FileUtils.containsRegexp(text, FileUtils.REGEXP_PREFIX_MULTILINE + searchText));
+    }
+
+    @Test
+    void shouldNotContainMultiLineTextMultiLineText() {
+      String lineSeparator = System.lineSeparator();
+      String text = new StringBuilder()
+        .append("this is a short readme")
+        .append(lineSeparator)
+        .append("used for unit tests")
+        .append(lineSeparator)
+        .append("Hello JHipster Lite")
+        .append(lineSeparator)
+        .toString();
+      String searchText = new StringBuilder()
+        .append("this is a short readme")
+        .append(lineSeparator)
+        .append("Hello JHipster Lite")
+        .append(lineSeparator)
+        .toString();
+
+      assertFalse(FileUtils.containsRegexp(text, FileUtils.REGEXP_PREFIX_MULTILINE + searchText));
+    }
+  }
+
+  @Nested
+  class CountsRegexpTest {
+
+    @Test
+    void shouldCountManyItemOneLineRegexp() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/example-readme.md");
+
+      assertEquals(9, FileUtils.countsRegexp(filename, "jhi.?ster"));
+    }
+
+    @Test
+    void shouldCountNoItemOneLineRegexp() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/example-readme.md");
+
+      assertEquals(0, FileUtils.countsRegexp(filename, "Hel.* world"));
+    }
+
+    @Test
+    void shouldCountManyItemMultiLineRegexp() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/example-readme.md");
+
+      String lineSeparator = System.lineSeparator();
+      String regexp = new StringBuilder().append("```").append(lineSeparator).append("./mv.?w clean").toString();
+
+      assertEquals(2, FileUtils.countsRegexp(filename, FileUtils.REGEXP_PREFIX_DOTALL + regexp));
+    }
+
+    @Test
+    void shouldCountNoItemMultiLineRegexp() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/example-readme.md");
+
+      String lineSeparator = System.lineSeparator();
+      String regexp = new StringBuilder().append("```").append(lineSeparator).append("np.? ci").toString();
+
+      assertEquals(0, FileUtils.countsRegexp(filename, FileUtils.REGEXP_PREFIX_DOTALL + regexp));
     }
   }
 

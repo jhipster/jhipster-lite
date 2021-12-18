@@ -86,6 +86,16 @@ public class ProjectLocalRepository implements ProjectRepository {
   }
 
   @Override
+  public boolean containsRegexp(Project project, String source, String sourceFilename, String regexp) {
+    try {
+      String text = read(getPath(project.getFolder(), source, sourceFilename));
+      return FileUtils.containsRegexp(text, regexp);
+    } catch (IOException e) {
+      throw new GeneratorException("Error when reading text from '" + sourceFilename + "'");
+    }
+  }
+
+  @Override
   public void replaceText(Project project, String source, String sourceFilename, String oldText, String newText) {
     try {
       String currentText = read(getPath(project.getFolder(), source, sourceFilename));

@@ -249,7 +249,6 @@ class SpringBootMvcApplicationServiceIT {
     List<String> listTestClass = List.of(
       "BadRequestAlertExceptionTest.java",
       "ExceptionTranslatorIT.java",
-      "ExceptionTranslatorTest.java",
       "ExceptionTranslatorTestController.java",
       "FieldErrorDTOTest.java",
       "HeaderUtilTest.java"

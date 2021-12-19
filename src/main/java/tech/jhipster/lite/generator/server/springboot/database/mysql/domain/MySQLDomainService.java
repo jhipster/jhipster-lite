@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
@@ -88,7 +89,7 @@ public class MySQLDomainService implements MySQLService {
   public void addJavaFiles(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
     project.addDefaultConfig(BASE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     String mysqlPath = "technical/infrastructure/secondary/mysql";
 
     projectRepository.template(project, SOURCE, "DatabaseConfiguration.java", getPath(MAIN_JAVA, packageNamePath, mysqlPath));
@@ -97,9 +98,8 @@ public class MySQLDomainService implements MySQLService {
   @Override
   public void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
 
-    springProperties(baseName, packageName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springProperties(baseName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
   }
 
   @Override
@@ -132,7 +132,7 @@ public class MySQLDomainService implements MySQLService {
     springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
   }
 
-  private Map<String, Object> springProperties(String baseName, String packageName) {
+  private Map<String, Object> springProperties(String baseName) {
     TreeMap<String, Object> result = new TreeMap<>();
     result.put("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
     result.put("spring.datasource.url", "jdbc:mysql://localhost:3306/" + baseName);

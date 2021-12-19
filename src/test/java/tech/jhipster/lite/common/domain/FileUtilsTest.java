@@ -280,14 +280,16 @@ class FileUtilsTest {
 
     @Test
     void shouldNotContainsLinesWithNullFilename() {
-      assertThatThrownBy(() -> FileUtils.containsLines(null, List.of()))
+      List<String> list = List.of();
+      assertThatThrownBy(() -> FileUtils.containsLines(null, list))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("filename");
     }
 
     @Test
     void shouldNotContainsLinesWithBlankFilename() {
-      assertThatThrownBy(() -> FileUtils.containsLines(" ", List.of()))
+      List<String> list = List.of();
+      assertThatThrownBy(() -> FileUtils.containsLines(" ", list))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("filename");
     }
@@ -295,8 +297,8 @@ class FileUtilsTest {
     @Test
     void shouldNotContainsLinesWithEmptyLines() {
       String filename = getPath("src/test/resources/generator/buildtool/maven/pom.test.xml");
-
-      assertThatThrownBy(() -> FileUtils.containsLines(filename, List.of()))
+      List<String> list = List.of();
+      assertThatThrownBy(() -> FileUtils.containsLines(filename, list))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("lines");
     }

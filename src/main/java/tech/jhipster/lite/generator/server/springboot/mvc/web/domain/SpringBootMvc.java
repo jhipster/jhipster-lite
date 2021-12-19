@@ -5,6 +5,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 public class SpringBootMvc {
 
   private static final String PROBLEM_SPRING_VERSION = "0.27.0";
+  public static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
 
   private SpringBootMvc() {}
 
@@ -13,19 +14,19 @@ public class SpringBootMvc {
   }
 
   public static Dependency springBootStarterWebDependency() {
-    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
+    return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-web").build();
   }
 
   public static Dependency springBootActuatorDependency() {
-    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-actuator").build();
+    return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-actuator").build();
   }
 
   public static Dependency tomcatDependency() {
-    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-tomcat").build();
+    return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-tomcat").build();
   }
 
   public static Dependency undertowDependency() {
-    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-undertow").build();
+    return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-undertow").build();
   }
 
   public static Dependency problemSpringDependency() {
@@ -33,6 +34,6 @@ public class SpringBootMvc {
   }
 
   public static Dependency springBootStarterValidation() {
-    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-validation").build();
+    return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-validation").build();
   }
 }

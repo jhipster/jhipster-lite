@@ -12,10 +12,15 @@ categories:
   - title: ⭐ Important fixes and improvements
     labels:
       - 'theme: important'
-  - title: 💎 Features & Enhancements
+  - title: 💎 Features
+    labels:
+      - 'area: feature request :bulb:'
+  - title: 🔧 Enhancements
     labels:
       - 'area: enhancement :wrench:'
-      - 'area: feature request :bulb:'
+  - title: 🔨 Refactoring
+    labels:
+      - 'area: refactoring'
   - title: 🐞 Bug Fixes
     labels:
       - 'area: bug :bug:'
@@ -27,7 +32,7 @@ categories:
   - title: 🍃 Spring Boot
     labels:
       - 'server: spring boot'
-  - title: 🔒 Authentication/Security
+  - title: 🔒 Security
     labels:
       - 'theme: security'
   - title: 🪶 Maven

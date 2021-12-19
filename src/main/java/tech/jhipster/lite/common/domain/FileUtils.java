@@ -48,7 +48,7 @@ public class FileUtils {
   }
 
   public static String getPath(String... paths) {
-    return String.join(FILE_SEPARATOR, paths).replaceAll("\\\\", FILE_SEPARATOR);
+    return String.join(FILE_SEPARATOR, paths).replace("\\", FILE_SEPARATOR);
   }
 
   public static Path getPathOf(String... paths) {

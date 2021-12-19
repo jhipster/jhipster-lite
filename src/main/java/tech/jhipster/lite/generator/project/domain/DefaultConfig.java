@@ -18,6 +18,8 @@ public class DefaultConfig {
     PRETTIER_DEFAULT_INDENT, 2
   );
 
+  public static final String PACKAGE_PATH = "com/mycompany/myapp";
+
   private DefaultConfig() {}
 
   public static Optional<Object> get(String key) {

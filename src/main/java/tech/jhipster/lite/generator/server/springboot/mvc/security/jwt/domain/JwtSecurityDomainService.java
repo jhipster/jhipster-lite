@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.*;
 
 import java.util.LinkedHashMap;
@@ -50,7 +51,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   }
 
   private void updateExceptionTranslator(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     String exceptionPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
 
     String oldImport = "import org.springframework.test.util.ReflectionTestUtils;";
@@ -69,7 +70,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   private void addGitPatch(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig("packageNamePath", packageNamePath);
 
     projectRepository.add(project, SOURCE, ANNOTATION_PROCESSOR_PATCH, ".jhipster");
@@ -92,7 +93,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
     String sourceSrc = getPath(SOURCE, "src");
     String sourceTest = getPath(SOURCE, "test");
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     String destinationSrc = getPath(MAIN_JAVA, packageNamePath, SECURITY_JWT_PATH);
     String destinationTest = getPath(TEST_JAVA, packageNamePath, SECURITY_JWT_PATH);
 

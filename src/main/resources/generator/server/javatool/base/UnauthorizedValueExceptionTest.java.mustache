@@ -48,7 +48,7 @@ class UnauthorizedValueExceptionTest {
   void shouldGetExceptionForUnequalValue() {
     UnauthorizedValueException exception = UnauthorizedValueException.forUnequalValues("field1", "field2", 2, 3);
     assertThat(exception.getMessage())
-      .isEqualTo("The field \"field2\" was given an unauthorized value (not equal with field \"field1\" : 2)");
+      .isEqualTo("The field \"field2\" was given an unauthorized value (3 not equal with field \"field1\" : 2)");
   }
 
   @Test

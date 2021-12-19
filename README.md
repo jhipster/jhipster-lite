@@ -91,21 +91,19 @@ You can use this JSON to generate a project:
 You can use different API to:
 
 - init the project
-- add Maven Java as Build Tool
+- add Build Tool: Maven
 - add Java Base classes and Domain Error
 - add Spring Boot as Server Framework
-  - add Spring Boot MVC
-    - add Tomcat or Undertow
+  - add Spring Boot MVC: Tomcat or Undertow
     - add Spring Security with JWT
-  - add Database
-    - add PostgreSQL
+  - add Database: PostgreSQL or MySQL
     - add Liquibase as Database Migration Tool
 
 [jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
 [jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases
 [github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/workflows/build/badge.svg
 [github-actions-url]: https://github.com/jhipster/jhipster-lite/actions
-[codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C
+[codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/jhipster/jhipster-lite
 [jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/JHipster%20RGB-small100x25px.png
 [jhipster-url]: https://www.jhipster.tech/

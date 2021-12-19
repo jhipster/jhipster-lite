@@ -99,7 +99,7 @@ public class MySQLDomainService implements MySQLService {
     String baseName = project.getBaseName().orElse("jhipster");
     String packageName = project.getPackageName().orElse("com.mycompany.myapp");
 
-    springProperties(baseName, packageName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springProperties(baseName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
   }
 
   @Override
@@ -132,7 +132,7 @@ public class MySQLDomainService implements MySQLService {
     springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
   }
 
-  private Map<String, Object> springProperties(String baseName, String packageName) {
+  private Map<String, Object> springProperties(String baseName) {
     TreeMap<String, Object> result = new TreeMap<>();
     result.put("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
     result.put("spring.datasource.url", "jdbc:mysql://localhost:3306/" + baseName);

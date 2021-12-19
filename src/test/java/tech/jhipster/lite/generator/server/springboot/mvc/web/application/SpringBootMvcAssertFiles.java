@@ -22,6 +22,15 @@ public class SpringBootMvcAssertFiles {
     );
   }
 
+  public static List<String> springBootStarterActuatorDependency() {
+    return List.of(
+      "<dependency>",
+      "<groupId>org.springframework.boot</groupId>",
+      "<artifactId>spring-boot-starter-actuator</artifactId>",
+      "</dependency>"
+    );
+  }
+
   public static List<String> springBootStarterWebWithoutTomcat() {
     return List.of(
       "<dependency>",

@@ -45,6 +45,16 @@ class SpringBootMvcTest {
   }
 
   @Test
+  void shouldActuatorDependency() {
+    Dependency dependency = SpringBootMvc.springBootActuatorDependency();
+
+    assertThat(dependency.getGroupId()).isEqualTo("org.springframework.boot");
+    assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-starter-actuator");
+    assertThat(dependency.getVersion()).isEmpty();
+    assertThat(dependency.getScope()).isEmpty();
+  }
+
+  @Test
   void shouldSpringfoxDependency() {
     Dependency dependency = SpringBootMvc.springfoxDependency();
 

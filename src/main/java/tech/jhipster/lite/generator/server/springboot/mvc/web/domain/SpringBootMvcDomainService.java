@@ -66,6 +66,21 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   @Override
+  public void addSpringBootActuator(Project project) {
+    buildToolService.addDependency(project, springBootActuatorDependency());
+
+    springBootPropertiesService.addProperties(project, "management.endpoints.web.base-path", "/management");
+    springBootPropertiesService.addProperties(
+      project,
+      "management.endpoints.web.exposure.include",
+      "configprops, env, health, info, logfile, loggers, threaddump"
+    );
+    springBootPropertiesService.addProperties(project, "management.endpoint.health.probes.enabled", "true");
+    springBootPropertiesService.addProperties(project, "management.endpoint.health.group.liveness.include", "livenessState");
+    springBootPropertiesService.addProperties(project, "management.endpoint.health.group.readiness.include", "readinessState");
+  }
+
+  @Override
   public void addExceptionHandler(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
 

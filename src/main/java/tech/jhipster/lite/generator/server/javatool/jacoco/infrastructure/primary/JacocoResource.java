@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.javatool.jacoco.infrastructure.prima
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ class JacocoResource {
   }
 
   @Operation(summary = "Add JaCoCo configuration to check minimum coverage")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding JaCoco configuration") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding JaCoco configuration")
   @PostMapping
   public void addCheckMinimumCoverage(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

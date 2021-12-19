@@ -28,7 +28,8 @@ public class JHLiteApp {
     String hostAddress = getHostAddress();
     log.info(
       """
-      \n----------------------------------------------------------
+      
+      ----------------------------------------------------------
         Application '{}' is running! Access URLs:
         Local: \t{}://localhost:{}{}swagger-ui.html
         External: \t{}://{}:{}{}swagger-ui.html

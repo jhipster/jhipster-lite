@@ -10,11 +10,11 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 
 public class Maven {
 
-  public static String NEEDLE_PARENT = "<!-- jhipster-needle-maven-parent -->";
-  public static String NEEDLE_DEPENDENCY = "<!-- jhipster-needle-maven-add-dependency -->";
-  public static String NEEDLE_DEPENDENCY_TEST = "<!-- jhipster-needle-maven-add-dependency-test -->";
-  public static String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
-  public static String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
+  public static final String NEEDLE_PARENT = "<!-- jhipster-needle-maven-parent -->";
+  public static final String NEEDLE_DEPENDENCY = "<!-- jhipster-needle-maven-add-dependency -->";
+  public static final String NEEDLE_DEPENDENCY_TEST = "<!-- jhipster-needle-maven-add-dependency-test -->";
+  public static final String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
+  public static final String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
 
   private Maven() {}
 

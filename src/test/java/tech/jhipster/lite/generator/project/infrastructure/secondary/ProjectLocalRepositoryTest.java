@@ -241,7 +241,8 @@ class ProjectLocalRepositoryTest {
 
   @Test
   void shouldNotSetExecutable() {
-    assertThatThrownBy(() -> repository.setExecutable(tmpProject(), "", "pom.xml")).isExactlyInstanceOf(GeneratorException.class);
+    Project project = tmpProject();
+    assertThatThrownBy(() -> repository.setExecutable(project, "", "pom.xml")).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -314,9 +315,8 @@ class ProjectLocalRepositoryTest {
 
     try (MockedStatic<GitUtils> gitUtils = Mockito.mockStatic(GitUtils.class)) {
       gitUtils.when(() -> GitUtils.apply(anyString(), anyString())).thenThrow(new InvalidConfigurationException("error"));
-
-      assertThatThrownBy(() -> repository.gitApplyPatch(project, getPath(TEST_TEMPLATE_RESOURCES, "utils", "example.patch")))
-        .isExactlyInstanceOf(GeneratorException.class);
+      String path = getPath(TEST_TEMPLATE_RESOURCES, "utils", "example.patch");
+      assertThatThrownBy(() -> repository.gitApplyPatch(project, path)).isExactlyInstanceOf(GeneratorException.class);
       assertFileNotExist(project, "example.md");
     }
   }

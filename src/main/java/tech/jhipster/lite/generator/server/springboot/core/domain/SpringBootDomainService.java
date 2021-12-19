@@ -16,6 +16,7 @@ import tech.jhipster.lite.generator.project.domain.*;
 public class SpringBootDomainService implements SpringBootService {
 
   public static final String SOURCE = "server/springboot/core";
+  public static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -44,7 +45,7 @@ public class SpringBootDomainService implements SpringBootService {
 
     Parent parent = Parent
       .builder()
-      .groupId("org.springframework.boot")
+      .groupId(SPRINGBOOT_PACKAGE)
       .artifactId("spring-boot-starter-parent")
       .version((String) project.getConfig("springBootVersion").orElse(SpringBoot.SPRING_BOOT_VERSION))
       .build();
@@ -54,11 +55,7 @@ public class SpringBootDomainService implements SpringBootService {
 
   @Override
   public void addSpringBootDependencies(Project project) {
-    Dependency springBootStarterDependency = Dependency
-      .builder()
-      .groupId("org.springframework.boot")
-      .artifactId("spring-boot-starter")
-      .build();
+    Dependency springBootStarterDependency = Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter").build();
     buildToolService.addDependency(project, springBootStarterDependency);
 
     Dependency commonLangDependency = Dependency.builder().groupId("org.apache.commons").artifactId("commons-lang3").build();
@@ -66,7 +63,7 @@ public class SpringBootDomainService implements SpringBootService {
 
     Dependency springBootStarterTestDependency = Dependency
       .builder()
-      .groupId("org.springframework.boot")
+      .groupId(SPRINGBOOT_PACKAGE)
       .artifactId("spring-boot-starter-test")
       .scope("test")
       .build();
@@ -77,7 +74,7 @@ public class SpringBootDomainService implements SpringBootService {
   public void addSpringBootMavenPlugin(Project project) {
     Plugin plugin = Plugin
       .builder()
-      .groupId("org.springframework.boot")
+      .groupId(SPRINGBOOT_PACKAGE)
       .artifactId("spring-boot-maven-plugin")
       .version("\\${spring-boot.version}")
       .build();

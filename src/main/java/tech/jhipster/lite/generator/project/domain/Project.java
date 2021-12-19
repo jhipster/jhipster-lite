@@ -114,8 +114,8 @@ public class Project {
     Object value = config.get(key);
     if (value == null) {
       return Optional.empty();
-    } else if (value instanceof String) {
-      return Optional.of((String) value);
+    } else if (value instanceof String stringValue) {
+      return Optional.of(stringValue);
     }
     throw new UnauthorizedValueException("The " + key + " is not valid");
   }
@@ -124,8 +124,8 @@ public class Project {
     Object value = config.get(key);
     if (value == null) {
       return Optional.empty();
-    } else if (value instanceof Integer) {
-      return Optional.of((Integer) value);
+    } else if (value instanceof Integer integerValue) {
+      return Optional.of(integerValue);
     }
     throw new UnauthorizedValueException("The " + key + " is not valid");
   }

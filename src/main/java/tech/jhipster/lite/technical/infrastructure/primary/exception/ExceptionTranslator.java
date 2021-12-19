@@ -2,7 +2,6 @@ package tech.jhipster.lite.technical.infrastructure.primary.exception;
 
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
@@ -86,7 +85,7 @@ public class ExceptionTranslator implements ProblemHandling {
       .getFieldErrors()
       .stream()
       .map(f -> new FieldErrorDTO(f.getObjectName().replaceFirst("DTO$", ""), f.getField(), getMessage(f)))
-      .collect(Collectors.toList());
+      .toList();
 
     Problem problem = Problem
       .builder()

@@ -46,7 +46,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   }
 
   private void applyGitPatchAnnotationProcessor(Project project) {
-    projectRepository.gitApplyPatch(project, getPath(project.getFolder(), ".jhipster", annotationProcessorPatch));
+    projectRepository.gitApplyPatch(project, getPath(project.getFolder(), ".jhipster", ANNOTATION_PROCESSOR_PATCH));
   }
 
   private void updateExceptionTranslator(Project project) {
@@ -72,7 +72,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
     project.addConfig("packageNamePath", packageNamePath);
 
-    projectRepository.add(project, SOURCE, annotationProcessorPatch, ".jhipster");
+    projectRepository.add(project, SOURCE, ANNOTATION_PROCESSOR_PATCH, ".jhipster");
   }
 
   private void addPropertyAndDependency(Project project) {

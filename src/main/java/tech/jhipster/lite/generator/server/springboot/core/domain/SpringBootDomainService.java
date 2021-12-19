@@ -17,6 +17,7 @@ public class SpringBootDomainService implements SpringBootService {
 
   public static final String SOURCE = "server/springboot/core";
   public static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
+  public static final String CONFIG_FOLDER = "config";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -102,21 +103,27 @@ public class SpringBootDomainService implements SpringBootService {
   public void addApplicationProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE, "application.properties", getPath(MAIN_RESOURCES, "config"));
+    projectRepository.template(project, SOURCE, "application.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
   }
 
   @Override
   public void addApplicationFastProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE, "application-fast.properties", getPath(MAIN_RESOURCES, "config"));
+    projectRepository.template(project, SOURCE, "application-fast.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
   }
 
   @Override
   public void addApplicationTestProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE, "application-test.properties", getPath(TEST_RESOURCES, "config"), "application.properties");
+    projectRepository.template(
+      project,
+      SOURCE,
+      "application-test.properties",
+      getPath(TEST_RESOURCES, CONFIG_FOLDER),
+      "application.properties"
+    );
   }
 
   @Override

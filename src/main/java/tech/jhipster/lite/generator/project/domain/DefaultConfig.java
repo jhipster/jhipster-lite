@@ -11,12 +11,14 @@ public class DefaultConfig {
   public static final String PRETTIER_DEFAULT_INDENT = "prettierDefaultIndent";
 
   // prettier-ignore
-  public static Map<String, Object> defaultMap = Map.of(
+  public static final Map<String, Object> defaultMap = Map.of(
     BASE_NAME, "jhipster",
     PROJECT_NAME, "JHipster Project",
     PACKAGE_NAME, "com.mycompany.myapp",
     PRETTIER_DEFAULT_INDENT, 2
   );
+
+  public static final String PACKAGE_PATH = "com/mycompany/myapp";
 
   private DefaultConfig() {}
 

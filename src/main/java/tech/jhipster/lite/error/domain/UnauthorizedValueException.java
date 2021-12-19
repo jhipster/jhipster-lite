@@ -30,7 +30,7 @@ public class UnauthorizedValueException extends RuntimeException {
 
   public static UnauthorizedValueException forUnequalValues(String field1, String field2, Object input1, Object input2) {
     return new UnauthorizedValueException(
-      new RuntimeException(defaultMessage(field2) + " (not equal with field \"" + field1 + "\" : " + input1.toString() + ")")
+      new RuntimeException(defaultMessage(field2) + " (" + input2 + " not equal with field \"" + field1 + "\" : " + input1.toString() + ")")
     );
   }
 

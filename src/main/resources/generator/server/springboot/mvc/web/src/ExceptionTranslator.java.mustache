@@ -63,8 +63,8 @@ public class ExceptionTranslator implements ProblemHandling {
       .withTitle(problem.getTitle())
       .with(PATH_KEY, requestUri);
 
-    if (problem instanceof ConstraintViolationProblem) {
-      builder.with(VIOLATIONS_KEY, ((ConstraintViolationProblem) problem).getViolations()).with(MESSAGE_KEY, ErrorConstants.ERR_VALIDATION);
+    if (problem instanceof ConstraintViolationProblem constraintViolationProblem) {
+      builder.with(VIOLATIONS_KEY, constraintViolationProblem.getViolations()).with(MESSAGE_KEY, ErrorConstants.ERR_VALIDATION);
     } else {
       builder.withCause(((DefaultProblem) problem).getCause()).withDetail(problem.getDetail()).withInstance(problem.getInstance());
       problem.getParameters().forEach(builder::with);

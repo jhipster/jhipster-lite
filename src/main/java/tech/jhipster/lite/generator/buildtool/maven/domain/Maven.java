@@ -131,7 +131,7 @@ public class Maven {
         result.append(indent(3, indentation)).append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append(System.lineSeparator())
       );
 
-    if (exclusions.size() > 0) {
+    if (!exclusions.isEmpty()) {
       result.append(indent(3, indentation)).append(getExclusions(exclusions)).append(System.lineSeparator());
     }
 

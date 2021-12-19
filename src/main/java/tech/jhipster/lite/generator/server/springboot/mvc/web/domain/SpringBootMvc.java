@@ -38,6 +38,6 @@ public class SpringBootMvc {
   }
 
   public static Dependency springBootStarterValidation() {
-    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-validation").build();
+    return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-validation").build();
   }
 }

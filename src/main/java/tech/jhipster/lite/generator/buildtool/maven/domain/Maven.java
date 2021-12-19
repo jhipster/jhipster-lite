@@ -16,6 +16,33 @@ public class Maven {
   public static final String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
   public static final String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
 
+  public static final String PARENT_BEGIN = "<parent>";
+  public static final String PARENT_END = "</parent>";
+
+  public static final String DEPENDENCY_BEGIN = "<dependency>";
+  public static final String DEPENDENCY_END = "</dependency>";
+
+  public static final String GROUP_ID_BEGIN = "<groupId>";
+  public static final String GROUP_ID_END = "</groupId>";
+
+  public static final String PLUGIN_BEGIN = "<plugin>";
+  public static final String PLUGIN_END = "</plugin>";
+
+  public static final String ARTIFACT_ID_BEGIN = "<artifactId>";
+  public static final String ARTIFACT_ID_END = "</artifactId>";
+
+  public static final String VERSION_BEGIN = "<version>";
+  public static final String VERSION_END = "</version>";
+
+  public static final String SCOPE_BEGIN = "<scope>";
+  public static final String SCOPE_END = "</scope>";
+
+  public static final String EXCLUSIONS_BEGIN = "<exclusions>";
+  public static final String EXCLUSIONS_END = "</exclusions>";
+
+  public static final String EXCLUSION_BEGIN = "<exclusion>";
+  public static final String EXCLUSION_END = "</exclusion>";
+
   private Maven() {}
 
   public static String getParent(Parent parent) {
@@ -28,17 +55,17 @@ public class Maven {
 
   public static String getParentHeader(Parent parent, int indentation) {
     StringBuilder result = new StringBuilder()
-      .append("<parent>")
+      .append(PARENT_BEGIN)
       .append(System.lineSeparator())
       .append(indent(2, indentation))
-      .append("<groupId>")
+      .append(GROUP_ID_BEGIN)
       .append(parent.getGroupId())
-      .append("</groupId>")
+      .append(GROUP_ID_END)
       .append(System.lineSeparator())
       .append(indent(2, indentation))
-      .append("<artifactId>")
+      .append(ARTIFACT_ID_BEGIN)
       .append(parent.getArtifactId())
-      .append("</artifactId>")
+      .append(ARTIFACT_ID_END)
       .append(System.lineSeparator());
     return result.toString();
   }
@@ -47,15 +74,15 @@ public class Maven {
     StringBuilder result = new StringBuilder()
       .append(getParentHeader(parent, indentation))
       .append(indent(2, indentation))
-      .append("<version>")
+      .append(VERSION_BEGIN)
       .append(parent.getVersion())
-      .append("</version>")
+      .append(VERSION_END)
       .append(System.lineSeparator())
       .append(indent(2, indentation))
       .append("<relativePath/>")
       .append(System.lineSeparator())
       .append(indent(1, indentation))
-      .append("</parent>");
+      .append(PARENT_END);
 
     return result.toString();
   }
@@ -74,17 +101,17 @@ public class Maven {
 
   public static String getDependencyHeader(Dependency dependency, int indentation) {
     StringBuilder result = new StringBuilder()
-      .append("<dependency>")
+      .append(DEPENDENCY_BEGIN)
       .append(System.lineSeparator())
       .append(indent(3, indentation))
-      .append("<groupId>")
+      .append(GROUP_ID_BEGIN)
       .append(dependency.getGroupId())
-      .append("</groupId>")
+      .append(GROUP_ID_END)
       .append(System.lineSeparator())
       .append(indent(3, indentation))
-      .append("<artifactId>")
+      .append(ARTIFACT_ID_BEGIN)
       .append(dependency.getArtifactId())
-      .append("</artifactId>")
+      .append(ARTIFACT_ID_END)
       .append(System.lineSeparator());
     return result.toString();
   }
@@ -95,20 +122,20 @@ public class Maven {
     dependency
       .getVersion()
       .ifPresent(version ->
-        result.append(indent(3, indentation)).append("<version>").append(version).append("</version>").append(System.lineSeparator())
+        result.append(indent(3, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(System.lineSeparator())
       );
 
     dependency
       .getScope()
       .ifPresent(scope ->
-        result.append(indent(3, indentation)).append("<scope>").append(scope).append("</scope>").append(System.lineSeparator())
+        result.append(indent(3, indentation)).append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append(System.lineSeparator())
       );
 
     if (exclusions.size() > 0) {
       result.append(indent(3, indentation)).append(getExclusions(exclusions)).append(System.lineSeparator());
     }
 
-    result.append(indent(2, indentation)).append("</dependency>");
+    result.append(indent(2, indentation)).append(DEPENDENCY_END);
 
     return result.toString();
   }
@@ -119,20 +146,20 @@ public class Maven {
 
   public static String getExclusion(Dependency exclusion, int indentation) {
     StringBuilder result = new StringBuilder()
-      .append("<exclusion>")
+      .append(EXCLUSION_BEGIN)
       .append(System.lineSeparator())
       .append(indent(5, indentation))
-      .append("<groupId>")
+      .append(GROUP_ID_BEGIN)
       .append(exclusion.getGroupId())
-      .append("</groupId>")
+      .append(GROUP_ID_END)
       .append(System.lineSeparator())
       .append(indent(5, indentation))
-      .append("<artifactId>")
+      .append(ARTIFACT_ID_BEGIN)
       .append(exclusion.getArtifactId())
-      .append("</artifactId>")
+      .append(ARTIFACT_ID_END)
       .append(System.lineSeparator())
       .append(indent(4, indentation))
-      .append("</exclusion>");
+      .append(EXCLUSION_END);
     return result.toString();
   }
 
@@ -141,10 +168,10 @@ public class Maven {
   }
 
   public static String getExclusions(List<Dependency> exclusions, int indentation) {
-    StringBuilder result = new StringBuilder().append("<exclusions>");
+    StringBuilder result = new StringBuilder().append(EXCLUSIONS_BEGIN);
 
     exclusions.forEach(exclusion -> result.append(System.lineSeparator()).append(indent(4, indentation)).append(getExclusion(exclusion)));
-    result.append(System.lineSeparator()).append(indent(3, indentation)).append("</exclusions>");
+    result.append(System.lineSeparator()).append(indent(3, indentation)).append(EXCLUSIONS_END);
     return result.toString();
   }
 
@@ -158,17 +185,17 @@ public class Maven {
 
   public static String getPluginHeader(Plugin plugin, int indentation) {
     StringBuilder result = new StringBuilder()
-      .append("<plugin>")
+      .append(PLUGIN_BEGIN)
       .append(System.lineSeparator())
       .append(indent(4, indentation))
-      .append("<groupId>")
+      .append(GROUP_ID_BEGIN)
       .append(plugin.getGroupId())
-      .append("</groupId>")
+      .append(GROUP_ID_END)
       .append(System.lineSeparator())
       .append(indent(4, indentation))
-      .append("<artifactId>")
+      .append(ARTIFACT_ID_BEGIN)
       .append(plugin.getArtifactId())
-      .append("</artifactId>")
+      .append(ARTIFACT_ID_END)
       .append(System.lineSeparator());
     return result.toString();
   }
@@ -179,10 +206,10 @@ public class Maven {
     plugin
       .getVersion()
       .ifPresent(version ->
-        result.append(indent(4, indentation)).append("<version>").append(version).append("</version>").append(System.lineSeparator())
+        result.append(indent(4, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(System.lineSeparator())
       );
 
-    result.append(indent(3, indentation)).append("</plugin>");
+    result.append(indent(3, indentation)).append(PLUGIN_END);
 
     return result.toString();
   }

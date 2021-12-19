@@ -55,16 +55,6 @@ class SpringBootMvcTest {
   }
 
   @Test
-  void shouldSpringfoxDependency() {
-    Dependency dependency = SpringBootMvc.springfoxDependency();
-
-    assertThat(dependency.getGroupId()).isEqualTo("io.springfox");
-    assertThat(dependency.getArtifactId()).isEqualTo("springfox-boot-starter");
-    assertThat(dependency.getVersion()).contains("\\${springfox.version}");
-    assertThat(dependency.getScope()).isEmpty();
-  }
-
-  @Test
   void shouldProblemSpringDependency() {
     Dependency dependency = SpringBootMvc.problemSpringDependency();
 

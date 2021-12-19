@@ -28,10 +28,6 @@ public class SpringBootMvc {
     return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-undertow").build();
   }
 
-  public static Dependency springfoxDependency() {
-    return Dependency.builder().groupId("io.springfox").artifactId("springfox-boot-starter").version("\\${springfox.version}").build();
-  }
-
   public static Dependency problemSpringDependency() {
     return Dependency.builder().groupId("org.zalando").artifactId("problem-spring-web").version("\\${problem-spring-web.version}").build();
   }

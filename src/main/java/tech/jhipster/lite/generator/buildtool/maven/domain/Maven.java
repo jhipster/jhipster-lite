@@ -15,6 +15,7 @@ public class Maven {
   public static final String NEEDLE_DEPENDENCY_TEST = "<!-- jhipster-needle-maven-add-dependency-test -->";
   public static final String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
   public static final String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
+  public static final String NEEDLE_PLUGIN_MANAGEMENT = "<!-- jhipster-needle-maven-add-plugin-management -->";
 
   public static final String PARENT_BEGIN = "<parent>";
   public static final String PARENT_END = "</parent>";
@@ -27,6 +28,8 @@ public class Maven {
 
   public static final String PLUGIN_BEGIN = "<plugin>";
   public static final String PLUGIN_END = "</plugin>";
+
+  public static final String PLUGIN_MANAGEMENT_BEGIN = "<pluginManagement>";
 
   public static final String ARTIFACT_ID_BEGIN = "<artifactId>";
   public static final String ARTIFACT_ID_END = "</artifactId>";
@@ -207,6 +210,13 @@ public class Maven {
       .getVersion()
       .ifPresent(version ->
         result.append(indent(4, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(System.lineSeparator())
+      );
+
+    //replaceAll '\n' to make the multi-line additionalConfiguration platform specific
+    plugin
+      .getAdditionalElements()
+      .ifPresent(additionalElements ->
+        result.append(plugin.getAdditionalElements().get().indent(4 * indentation).replaceAll("\n", System.lineSeparator()))
       );
 
     result.append(indent(3, indentation)).append(PLUGIN_END);

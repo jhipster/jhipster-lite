@@ -18,6 +18,7 @@ public class MavenDomainService implements MavenService {
 
   public static final String SOURCE = "buildtool/maven";
   public static final String POM_XML = "pom.xml";
+  public static final String DOT_STAR_REGEX = ".*";
 
   private final ProjectRepository projectRepository;
 
@@ -81,12 +82,36 @@ public class MavenDomainService implements MavenService {
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
     String pluginNodeNode = Maven.getPluginHeader(plugin, indent);
-    String pluginRegexp = FileUtils.REGEXP_PREFIX_MULTILINE + pluginNodeNode;
+
+    //Checking for plugin declaration in <plugin> section
+    String pluginRegexp = FileUtils.REGEXP_PREFIX_DOTALL + PLUGIN_BEGIN + DOT_STAR_REGEX + pluginNodeNode + DOT_STAR_REGEX + NEEDLE_PLUGIN;
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
       String pluginWithNeedle = Maven.getPlugin(plugin, indent) + System.lineSeparator() + indent(3, indent) + NEEDLE_PLUGIN;
 
       projectRepository.replaceText(project, "", POM_XML, NEEDLE_PLUGIN, pluginWithNeedle);
+    }
+  }
+
+  @Override
+  public void addPluginManagement(Project project, Plugin plugin) {
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+
+    String pluginNodeNode = Maven.getPluginHeader(plugin, indent);
+    //Checking for plugin declaration in <pluginManagement> section
+    String pluginRegexp =
+      FileUtils.REGEXP_PREFIX_DOTALL +
+      PLUGIN_MANAGEMENT_BEGIN +
+      DOT_STAR_REGEX +
+      pluginNodeNode +
+      DOT_STAR_REGEX +
+      NEEDLE_PLUGIN_MANAGEMENT;
+
+    if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
+      String pluginWithNeedle = Maven.getPlugin(plugin, indent) + System.lineSeparator() + indent(3, indent) + NEEDLE_PLUGIN_MANAGEMENT;
+
+      projectRepository.replaceText(project, "", POM_XML, NEEDLE_PLUGIN_MANAGEMENT, pluginWithNeedle);
     }
   }
 

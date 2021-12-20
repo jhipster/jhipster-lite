@@ -141,7 +141,8 @@ public class JwtSecurityAssertFiles {
     String baseName = project.getBaseName().orElse("jhipster");
     List<String> properties = List.of(
       "spring.security.user.name=admin",
-      "spring.security.user.password=$2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
+      "spring.security.user.password=$2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O",
+      "spring.security.user.roles=ADMIN"
     );
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), properties);

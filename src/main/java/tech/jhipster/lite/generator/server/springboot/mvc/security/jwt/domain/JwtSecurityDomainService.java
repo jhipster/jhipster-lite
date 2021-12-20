@@ -135,12 +135,15 @@ public class JwtSecurityDomainService implements JwtSecurityService {
       "spring.security.user.password",
       "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
     );
+    springBootPropertiesService.addProperties(project, "spring.security.user.roles", "ADMIN");
+
     springBootPropertiesService.addPropertiesTest(project, "spring.security.user.name", "admin");
     springBootPropertiesService.addPropertiesTest(
       project,
       "spring.security.user.password",
       "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
     );
+    springBootPropertiesService.addPropertiesTest(project, "spring.security.user.roles", "ADMIN");
   }
 
   private void addProperties(Project project) {

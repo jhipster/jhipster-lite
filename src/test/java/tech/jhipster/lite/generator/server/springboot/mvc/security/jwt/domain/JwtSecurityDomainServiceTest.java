@@ -66,7 +66,7 @@ class JwtSecurityDomainServiceTest {
     jwtSecurityDomainService.addBasicAuth(project);
 
     verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
-    verify(springBootPropertiesService, times(2)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootPropertiesService, times(2)).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootPropertiesService, times(3)).addProperties(any(Project.class), anyString(), any());
+    verify(springBootPropertiesService, times(3)).addPropertiesTest(any(Project.class), anyString(), any());
   }
 }

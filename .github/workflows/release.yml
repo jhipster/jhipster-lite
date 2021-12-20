@@ -35,7 +35,7 @@ jobs:
       - name: 'Artifact: upload JAR'
         uses: actions/upload-artifact@v2
         with:
-          name: jar
+          name: jhlite-jar
           path: '${{ github.workspace }}/target/*.jar'
           retention-days: 1
   #--------------------------------------------------
@@ -53,7 +53,7 @@ jobs:
       - name: 'Artifact: download JAR'
         uses: actions/download-artifact@v2
         with:
-          name: jar
+          name: jhlite-jar
           path: ./target/
       - name: 'Release: get variables from artifact'
         id: artifact_variables

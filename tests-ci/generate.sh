@@ -28,6 +28,7 @@ if [[ $filename == 'tomcat-postgresql' ]]; then
   callApi "/api/servers/spring-boot/banner/jhipster-v7"
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
   callApi "/api/servers/spring-boot/mvc/security/jwt"
+  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
 
@@ -40,6 +41,7 @@ elif [[ $filename == 'undertow-mysql' ]]; then
   callApi "/api/servers/spring-boot/banner/jhipster-v3"
   callApi "/api/servers/spring-boot/mvc/web/undertow"
   callApi "/api/servers/spring-boot/mvc/security/jwt"
+  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
 

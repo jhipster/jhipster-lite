@@ -13,7 +13,11 @@ public class JwtSecurityApplicationService {
     this.jwtSecurityService = jwtSecurityService;
   }
 
-  public void initBasicAuth(Project project) {
-    jwtSecurityService.initBasicAuth(project);
+  public void init(Project project) {
+    jwtSecurityService.init(project);
+  }
+
+  public void addBasicAuth(Project project) {
+    jwtSecurityService.addBasicAuth(project);
   }
 }

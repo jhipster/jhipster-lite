@@ -76,15 +76,20 @@ jobs:
           ./start.sh
           ./generate.sh ${{ matrix.app }}
           ./stop.sh
+      - name: 'Test: list ${{ matrix.app }}'
+        id: cache_md5sum
+        run: |
+          ls -al /tmp/jhlite/${{ matrix.app }}
+          MD5SUM_POM_XML=$(md5sum /tmp/jhlite/${{ matrix.app }}/pom.xml | cut -d ' ' -f 1)
+          echo $MD5SUM_POM_XML
+          echo ::set-output name=md5sum_pom_xml::${MD5SUM_POM_XML}
       - name: 'Init: cache local Maven repository'
         uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-maven-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: 'Test: list ${{ matrix.app }}'
-        run: ls -al /tmp/jhlite/${{ matrix.app }}
       - name: 'Test: verify ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |

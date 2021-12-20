@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - matrix-builds # to remove
   pull_request:
     branches:
       - main

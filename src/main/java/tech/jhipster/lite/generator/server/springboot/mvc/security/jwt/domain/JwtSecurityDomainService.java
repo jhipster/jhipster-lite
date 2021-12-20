@@ -121,8 +121,10 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     String destinationTest = getPath(TEST_JAVA, packageNamePath, "account/infrastructure/primary/rest");
 
     projectRepository.template(project, sourceSrc, "AuthenticationResource.java", getPath(destinationSrc));
+    projectRepository.template(project, sourceSrc, "AccountResource.java", getPath(destinationSrc));
     projectRepository.template(project, sourceSrc, "LoginDTO.java", getPath(destinationSrc));
     projectRepository.template(project, sourceTest, "AuthenticationResourceIT.java", getPath(destinationTest));
+    projectRepository.template(project, sourceTest, "AccountResourceIT.java", getPath(destinationTest));
     projectRepository.template(project, sourceTest, "LoginDTOTest.java", getPath(destinationTest));
   }
 

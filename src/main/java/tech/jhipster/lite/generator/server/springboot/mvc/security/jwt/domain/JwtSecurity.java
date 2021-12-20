@@ -78,9 +78,6 @@ public class JwtSecurity {
     map.put("SecurityExceptionTranslator.java", INFRASTRUCTURE_CONFIG);
     map.put("TokenProvider.java", INFRASTRUCTURE_CONFIG);
 
-    map.put("AuthenticationResource.java", INFRASTRUCTURE_PRIMARY_REST);
-    map.put("LoginDTO.java", INFRASTRUCTURE_PRIMARY_REST);
-
     return map;
   }
 
@@ -93,9 +90,6 @@ public class JwtSecurity {
     map.put("CorsFilterConfigurationIT.java", INFRASTRUCTURE_CONFIG);
     map.put("JWTFilterTest.java", INFRASTRUCTURE_CONFIG);
     map.put("TokenProviderTest.java", INFRASTRUCTURE_CONFIG);
-
-    map.put("AuthenticationResourceIT.java", INFRASTRUCTURE_PRIMARY_REST);
-    map.put("LoginDTOTest.java", INFRASTRUCTURE_PRIMARY_REST);
 
     return map;
   }

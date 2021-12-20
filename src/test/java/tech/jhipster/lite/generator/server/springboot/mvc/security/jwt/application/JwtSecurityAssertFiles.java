@@ -128,10 +128,12 @@ public class JwtSecurityAssertFiles {
 
     // main java files
     assertFileExist(project, getPath(MAIN_JAVA, accountPath, "AuthenticationResource.java"));
+    assertFileExist(project, getPath(MAIN_JAVA, accountPath, "AccountResource.java"));
     assertFileExist(project, getPath(MAIN_JAVA, accountPath, "LoginDTO.java"));
 
     // test java files
     assertFileExist(project, getPath(TEST_JAVA, accountPath, "AuthenticationResourceIT.java"));
+    assertFileExist(project, getPath(TEST_JAVA, accountPath, "AccountResourceIT.java"));
     assertFileExist(project, getPath(TEST_JAVA, accountPath, "LoginDTOTest.java"));
   }
 

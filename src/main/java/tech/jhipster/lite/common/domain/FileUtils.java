@@ -24,6 +24,7 @@ public class FileUtils {
 
   public static final String REGEXP_PREFIX_MULTILINE = "(?m)";
   public static final String REGEXP_PREFIX_DOTALL = "(?s)";
+  public static final String DOT_STAR_REGEX = ".*";
 
   private FileUtils() {}
 

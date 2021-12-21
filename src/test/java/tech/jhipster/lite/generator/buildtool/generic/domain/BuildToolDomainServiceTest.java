@@ -72,6 +72,16 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
+    void shouldAddPluginManagement() {
+      Project project = tmpProjectWithPomXml();
+      Plugin plugin = getPlugin();
+
+      buildToolDomainService.addPluginManagement(project, plugin);
+
+      verify(mavenService).addPluginManagement(project, plugin);
+    }
+
+    @Test
     void shouldAddProperty() {
       Project project = tmpProjectWithPomXml();
 
@@ -157,6 +167,14 @@ class BuildToolDomainServiceTest {
       Plugin plugin = getPlugin();
 
       assertThatThrownBy(() -> buildToolDomainService.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotAddPluginManagement() {
+      Project project = tmpProject();
+      Plugin plugin = getPlugin();
+
+      assertThatThrownBy(() -> buildToolDomainService.addPluginManagement(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test

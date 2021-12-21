@@ -212,6 +212,69 @@ class MavenTest {
   }
 
   @Test
+  void shouldGetPluginWithAdditionalElements() {
+    // @formatter:off
+    String expected = """
+      <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+              <version>2.6.0</version>
+              <executions>
+                <execution>
+                  <id>default-war</id>
+                  <goals>
+                    <goal>war</goal>
+                  </goals>
+                  <phase>package</phase>
+                </execution>
+              </executions>
+              <configuration>
+                <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+                <failOnMissingWebXml>false</failOnMissingWebXml>
+                <warSourceDirectory>target/classes/static/</warSourceDirectory>
+                <webResources>
+                  <resource>
+                    <directory>src/main/webapp</directory>
+                    <includes>
+                      <include>WEB-INF/**</include>
+                    </includes>
+                  </resource>
+                </webResources>
+              </configuration>
+            </plugin>""".replaceAll("\n", System.lineSeparator());
+    // @formatter:on
+    Plugin plugin = fullPluginBuilder()
+      .additionalElements(
+        """
+        <executions>
+          <execution>
+            <id>default-war</id>
+            <goals>
+              <goal>war</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <warSourceDirectory>target/classes/static/</warSourceDirectory>
+          <webResources>
+            <resource>
+              <directory>src/main/webapp</directory>
+              <includes>
+                <include>WEB-INF/**</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>"""
+      )
+      .build();
+
+    assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
+  }
+
+  @Test
   void shouldGetProperty() {
     String key = "testcontainers";
     String version = "1.16.0";

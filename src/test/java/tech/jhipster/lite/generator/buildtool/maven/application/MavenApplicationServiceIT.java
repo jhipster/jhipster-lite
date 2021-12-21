@@ -202,6 +202,95 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddPluginWithAdditionalElements() {
+    Project project = tmpProjectWithPomXml();
+
+    Plugin plugin = Plugin
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-maven-plugin")
+      .additionalElements("""
+      <executions>
+        <execution>
+          <goal>clean</goal>
+        </execution>
+      </executions>""")
+      .build();
+    mavenApplicationService.addPlugin(project, plugin);
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<plugin>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-maven-plugin</artifactId>",
+        "<executions>",
+        "<execution>",
+        "<goal>clean</goal>",
+        "</execution>",
+        "</executions>",
+        "</plugin>"
+      )
+    );
+  }
+
+  @Test
+  void shouldAddPluginInPluginManagement() {
+    Project project = tmpProjectWithPomXml();
+
+    Plugin plugin = Plugin
+      .builder()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-maven-plugin")
+      .additionalElements("""
+      <executions>
+        <execution>
+          <goal>clean</goal>
+        </execution>
+      </executions>""")
+      .build();
+    mavenApplicationService.addPluginManagement(project, plugin);
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<plugin>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-maven-plugin</artifactId>",
+        "<executions>",
+        "<execution>",
+        "<goal>clean</goal>",
+        "</execution>",
+        "</executions>",
+        "</plugin>",
+        Maven.NEEDLE_PLUGIN_MANAGEMENT
+      )
+    );
+  }
+
+  @Test
+  void shouldAddPluginInPluginManagementWithAdditonalElements() {
+    Project project = tmpProjectWithPomXml();
+
+    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+    mavenApplicationService.addPluginManagement(project, plugin);
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<plugin>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-maven-plugin</artifactId>",
+        "</plugin>",
+        Maven.NEEDLE_PLUGIN_MANAGEMENT
+      )
+    );
+  }
+
+  @Test
   void shouldNotAddPluginWhenNoPomXml() throws Exception {
     Project project = tmpProject();
     FileUtils.createFolder(project.getFolder());
@@ -219,6 +308,29 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPlugin(project, plugin);
 
     assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 1);
+  }
+
+  @Test
+  void shouldAddPluginManagementOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+    mavenApplicationService.addPluginManagement(project, plugin);
+    mavenApplicationService.addPluginManagement(project, plugin);
+
+    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 1);
+  }
+
+  @Test
+  void shouldAddPluginManagementWithExistingPlugin() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+    mavenApplicationService.addPlugin(project, plugin);
+
+    mavenApplicationService.addPluginManagement(project, plugin);
+
+    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 2);
   }
 
   @Test

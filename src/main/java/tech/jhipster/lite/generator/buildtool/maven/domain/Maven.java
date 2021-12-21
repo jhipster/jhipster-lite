@@ -213,7 +213,7 @@ public class Maven {
         result.append(indent(4, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(System.lineSeparator())
       );
 
-    //replaceAll '\n' to make the multi-line additionalConfiguration platform specific
+    //replace '\n' to make the multi-line additionalConfiguration platform specific
     plugin
       .getAdditionalElements()
       .ifPresent(additionalElements ->

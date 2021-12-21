@@ -93,9 +93,11 @@ You can use different API to:
 - init the project
 - add Build Tool: Maven
 - add Java Base classes and Domain Error
+- add JaCoCo config for minimum coverage
 - add Spring Boot as Server Framework
   - add Spring Boot MVC: Tomcat or Undertow
     - add Spring Security with JWT
+      - add Basic Auth
   - add Database: PostgreSQL or MySQL
     - add Liquibase as Database Migration Tool
 

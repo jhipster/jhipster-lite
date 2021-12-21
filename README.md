@@ -6,6 +6,15 @@
 [![Build Status][github-actions-jhlite-image]][github-actions-url]
 [![Coverage Status][codecov-image]][codecov-url]
 
+[![sonarcloud-quality-gate][sonarcloud-quality-gate]][sonarcloud-url]
+[![sonarcloud-maintainability][sonarcloud-maintainability]][sonarcloud-url]
+
+[![sonarcloud-bugs][sonarcloud-bugs]][sonarcloud-url]
+[![sonarcloud-vulnerabilities][sonarcloud-vulnerabilities]][sonarcloud-url]
+[![sonarcloud-security][sonarcloud-security]][sonarcloud-url]
+[![sonarcloud-code-smells][sonarcloud-code-smells]][sonarcloud-url]
+[![sonarcloud-coverage][sonarcloud-coverage]][sonarcloud-url]
+
 ## Description
 
 JHipster is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
@@ -109,5 +118,13 @@ You can use different API to:
 [codecov-url]: https://codecov.io/gh/jhipster/jhipster-lite
 [jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/JHipster%20RGB-small100x25px.png
 [jhipster-url]: https://www.jhipster.tech/
+[sonarcloud-url]: https://sonarcloud.io/project/overview?id=jhipster_jhipster-lite
+[sonarcloud-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=alert_status
+[sonarcloud-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=sqale_rating
+[sonarcloud-bugs]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=bugs
+[sonarcloud-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=vulnerabilities
+[sonarcloud-security]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=security_rating
+[sonarcloud-code-smells]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=code_smells
+[sonarcloud-coverage]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=coverage
 
 <!-- jhipster-needle-readme -->

@@ -30,6 +30,7 @@ public class Maven {
   public static final String PLUGIN_END = "</plugin>";
 
   public static final String PLUGIN_MANAGEMENT_BEGIN = "<pluginManagement>";
+  public static final String PLUGIN_MANAGEMENT_END = "</pluginManagement>";
 
   public static final String ARTIFACT_ID_BEGIN = "<artifactId>";
   public static final String ARTIFACT_ID_END = "</artifactId>";

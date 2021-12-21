@@ -214,57 +214,58 @@ class MavenTest {
   @Test
   void shouldGetPluginWithAdditionalElements() {
     // @formatter:off
-    String expected = "<plugin>" + System.lineSeparator() +
-      "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "        <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
-      "        <version>2.6.0</version>" + System.lineSeparator() +
-      "        <executions>" + System.lineSeparator() +
-      "          <execution>" + System.lineSeparator() +
-      "              <id>default-war</id>" + System.lineSeparator() +
-      "              <goals>" + System.lineSeparator() +
-      "                  <goal>war</goal>" + System.lineSeparator() +
-      "              </goals>" + System.lineSeparator() +
-      "              <phase>package</phase>" + System.lineSeparator() +
-      "          </execution>" + System.lineSeparator() +
-      "        </executions>" + System.lineSeparator() +
-      "        <configuration>" + System.lineSeparator() +
-      "            <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>" + System.lineSeparator() +
-      "            <failOnMissingWebXml>false</failOnMissingWebXml>" + System.lineSeparator() +
-      "            <warSourceDirectory>target/classes/static/</warSourceDirectory>" + System.lineSeparator() +
-      "            <webResources>" + System.lineSeparator() +
-      "                <resource>" + System.lineSeparator() +
-      "                    <directory>src/main/webapp</directory>" + System.lineSeparator() +
-      "                    <includes>" + System.lineSeparator() +
-      "                        <include>WEB-INF/**</include>" + System.lineSeparator() +
-      "                    </includes>" + System.lineSeparator() +
-      "                </resource>" + System.lineSeparator() +
-      "            </webResources>" + System.lineSeparator() +
-      "      </plugin>";
+    String expected = """
+      <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+              <version>2.6.0</version>
+              <executions>
+                <execution>
+                    <id>default-war</id>
+                    <goals>
+                        <goal>war</goal>
+                    </goals>
+                    <phase>package</phase>
+                </execution>
+              </executions>
+              <configuration>
+                  <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+                  <failOnMissingWebXml>false</failOnMissingWebXml>
+                  <warSourceDirectory>target/classes/static/</warSourceDirectory>
+                  <webResources>
+                      <resource>
+                          <directory>src/main/webapp</directory>
+                          <includes>
+                              <include>WEB-INF/**</include>
+                          </includes>
+                      </resource>
+                  </webResources>
+            </plugin>""".replaceAll("\n", System.lineSeparator());
     // @formatter:on
     Plugin plugin = fullPluginBuilder()
       .additionalElements(
         """
-      <executions>
-        <execution>
-            <id>default-war</id>
-            <goals>
-                <goal>war</goal>
-            </goals>
-            <phase>package</phase>
-        </execution>
-      </executions>
-      <configuration>
-          <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-          <warSourceDirectory>target/classes/static/</warSourceDirectory>
-          <webResources>
-              <resource>
-                  <directory>src/main/webapp</directory>
-                  <includes>
-                      <include>WEB-INF/**</include>
-                  </includes>
-              </resource>
-          </webResources>"""
+        <executions>
+          <execution>
+              <id>default-war</id>
+              <goals>
+                  <goal>war</goal>
+              </goals>
+              <phase>package</phase>
+          </execution>
+        </executions>
+        <configuration>
+            <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+            <warSourceDirectory>target/classes/static/</warSourceDirectory>
+            <webResources>
+                <resource>
+                    <directory>src/main/webapp</directory>
+                    <includes>
+                        <include>WEB-INF/**</include>
+                    </includes>
+                </resource>
+            </webResources>"""
       )
       .build();
 

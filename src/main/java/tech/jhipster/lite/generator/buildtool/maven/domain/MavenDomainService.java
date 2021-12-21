@@ -82,7 +82,7 @@ public class MavenDomainService implements MavenService {
 
     String pluginNodeNode = Maven.getPluginHeader(plugin, indent);
 
-    //Checking for plugin declaration in <plugin> section
+    //Checking for plugin declaration between <plugin> section and needle (not </plugin> as it can conflict with <plugin> section in <pluginManagement>)
     String pluginRegexp =
       FileUtils.REGEXP_PREFIX_DOTALL + PLUGIN_BEGIN + FileUtils.DOT_STAR_REGEX + pluginNodeNode + FileUtils.DOT_STAR_REGEX + NEEDLE_PLUGIN;
 
@@ -106,7 +106,7 @@ public class MavenDomainService implements MavenService {
       FileUtils.DOT_STAR_REGEX +
       pluginNodeNode +
       FileUtils.DOT_STAR_REGEX +
-      NEEDLE_PLUGIN_MANAGEMENT;
+      PLUGIN_MANAGEMENT_END;
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
       String pluginWithNeedle = Maven.getPlugin(plugin, indent) + System.lineSeparator() + indent(3, indent) + NEEDLE_PLUGIN_MANAGEMENT;

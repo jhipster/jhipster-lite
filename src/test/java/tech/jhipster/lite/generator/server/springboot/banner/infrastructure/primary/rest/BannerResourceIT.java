@@ -6,8 +6,8 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
@@ -26,9 +26,17 @@ class BannerResourceIT {
   @Autowired
   MockMvc mockMvc;
 
-  @Test
-  @DisplayName("should add banner JHipster v7")
-  void shouldAddBannerJHipsterV7() throws Exception {
+  @ParameterizedTest
+  @ValueSource(
+    strings = {
+      "/api/servers/spring-boot/banner/jhipster-v7",
+      "/api/servers/spring-boot/banner/jhipster-v7-react",
+      "/api/servers/spring-boot/banner/jhipster-v7-vue",
+      "/api/servers/spring-boot/banner/jhipster-v2",
+      "/api/servers/spring-boot/banner/jhipster-v3",
+    }
+  )
+  void shouldAddBanner(String url) throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
@@ -36,95 +44,7 @@ class BannerResourceIT {
     projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(
-        post("/api/servers/spring-boot/banner/jhipster-v7")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-      )
-      .andExpect(status().isOk());
-
-    Project project = ProjectDTO.toProject(projectDTO);
-    assertFileExist(project, getPath(MAIN_RESOURCES, "banner.txt"));
-  }
-
-  @Test
-  @DisplayName("should add banner JHipster v7 for React")
-  void shouldAddBannerJHipsterV7React() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
-
-    mockMvc
-      .perform(
-        post("/api/servers/spring-boot/banner/jhipster-v7-react")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-      )
-      .andExpect(status().isOk());
-
-    Project project = ProjectDTO.toProject(projectDTO);
-    assertFileExist(project, getPath(MAIN_RESOURCES, "banner.txt"));
-  }
-
-  @Test
-  @DisplayName("should add banner JHipster v7 for Vue")
-  void shouldAddBannerJHipsterV7Vue() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
-
-    mockMvc
-      .perform(
-        post("/api/servers/spring-boot/banner/jhipster-v7-vue")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-      )
-      .andExpect(status().isOk());
-
-    Project project = ProjectDTO.toProject(projectDTO);
-    assertFileExist(project, getPath(MAIN_RESOURCES, "banner.txt"));
-  }
-
-  @Test
-  @DisplayName("should add banner JHipster v2")
-  void shouldAddBannerJHipsterV2() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
-
-    mockMvc
-      .perform(
-        post("/api/servers/spring-boot/banner/jhipster-v2")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-      )
-      .andExpect(status().isOk());
-
-    Project project = ProjectDTO.toProject(projectDTO);
-    assertFileExist(project, getPath(MAIN_RESOURCES, "banner.txt"));
-  }
-
-  @Test
-  @DisplayName("should add banner JHipster v3")
-  void shouldAddBannerJHipsterV3() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
-
-    mockMvc
-      .perform(
-        post("/api/servers/spring-boot/banner/jhipster-v3")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-      )
+      .perform(post(url).contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);

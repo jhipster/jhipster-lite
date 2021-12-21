@@ -17,7 +17,6 @@ import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBo
 public class JwtSecurityDomainService implements JwtSecurityService {
 
   public static final String SOURCE = "server/springboot/mvc/security/jwt";
-  public static final String SOURCE_ACCOUNT = SOURCE + "/account";
   public static final String SECURITY_JWT_PATH = "security/jwt";
 
   private final ProjectRepository projectRepository;

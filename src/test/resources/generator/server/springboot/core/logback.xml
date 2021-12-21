@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration>
-
 <configuration scan="true">
-  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+  <include resource="org/springframework/boot/logging/logback/base.xml" />
 
   <!-- The FILE and ASYNC appenders are here as examples for a production configuration -->
   <!--
@@ -27,19 +26,19 @@
   </root>
   -->
 
-  <logger name="tech.jhipster.sample" level="INFO"/>
+  <logger name="tech.jhipster.sample" level="INFO" />
 
-  <logger name="ch.qos.logback" level="WARN"/>
-  <logger name="com.sun" level="WARN"/>
-  <logger name="org.springframework" level="WARN"/>
-  <logger name="com.github.dockerjava" level="WARN"/>
-  <logger name="org.testcontainers" level="WARN"/>
-  <logger name="com.tngtech.archunit.core.importer" level="ERROR"/>
+  <logger name="ch.qos.logback" level="WARN" />
+  <logger name="com.sun" level="WARN" />
+  <logger name="org.springframework" level="WARN" />
+  <logger name="com.github.dockerjava" level="WARN" />
+  <logger name="org.testcontainers" level="WARN" />
+  <logger name="com.tngtech.archunit.core.importer" level="ERROR" />
   <!-- jhipster-needle-logback-add-log -->
 
   <root>
     <level>WARN</level>
-    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="CONSOLE" />
   </root>
 
 </configuration>

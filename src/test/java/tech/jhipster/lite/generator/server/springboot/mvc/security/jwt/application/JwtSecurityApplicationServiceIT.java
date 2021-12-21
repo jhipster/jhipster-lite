@@ -34,7 +34,7 @@ class JwtSecurityApplicationServiceIT {
   JwtSecurityApplicationService jwtSecurityApplicationService;
 
   @Test
-  void shouldInitBasicAuth() throws Exception {
+  void shouldInit() throws Exception {
     Project project = tmpProject();
     GitUtils.init(project.getFolder());
     mavenService.addPomXml(project);
@@ -42,7 +42,7 @@ class JwtSecurityApplicationServiceIT {
     springBootService.init(project);
     springBootMvcService.init(project);
 
-    jwtSecurityApplicationService.initBasicAuth(project);
+    jwtSecurityApplicationService.init(project);
 
     assertPomXmlProperties(project);
     assertJwtSecurityFilesExists(project);
@@ -56,5 +56,21 @@ class JwtSecurityApplicationServiceIT {
       "import org.springframework.security.test.context.support.WithMockUser;"
     );
     assertFileContent(project, getPath(TEST_JAVA, exceptionTranslatorIT), "@WithMockUser");
+  }
+
+  @Test
+  void shouldAddBasicAuth() throws Exception {
+    Project project = tmpProject();
+    GitUtils.init(project.getFolder());
+    mavenService.addPomXml(project);
+    javaBaseApplicationService.init(project);
+    springBootService.init(project);
+    springBootMvcService.init(project);
+    jwtSecurityApplicationService.init(project);
+
+    jwtSecurityApplicationService.addBasicAuth(project);
+
+    assertBasicAuthJavaFiles(project);
+    assertBasicAuthProperties(project);
   }
 }

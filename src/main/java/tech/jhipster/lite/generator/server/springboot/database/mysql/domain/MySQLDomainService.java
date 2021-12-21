@@ -4,11 +4,13 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL.*;
 
 import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
@@ -58,23 +60,17 @@ public class MySQLDomainService implements MySQLService {
 
   @Override
   public void addMySQLDriver(Project project) {
-    Dependency dependency = Dependency.builder().groupId("mysql").artifactId("mysql-connector-java").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, mysqlConnectorJava());
   }
 
   @Override
   public void addHikari(Project project) {
-    Dependency dependency = Dependency.builder().groupId("com.zaxxer").artifactId("HikariCP").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, mysqlHikari());
   }
 
   @Override
   public void addHibernateCore(Project project) {
-    Dependency dependency = Dependency.builder().groupId("org.hibernate").artifactId("hibernate-core").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, mysqlHibernateCore());
   }
 
   @Override
@@ -88,7 +84,7 @@ public class MySQLDomainService implements MySQLService {
   public void addJavaFiles(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
     project.addDefaultConfig(BASE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     String mysqlPath = "technical/infrastructure/secondary/mysql";
 
     projectRepository.template(project, SOURCE, "DatabaseConfiguration.java", getPath(MAIN_JAVA, packageNamePath, mysqlPath));
@@ -97,9 +93,8 @@ public class MySQLDomainService implements MySQLService {
   @Override
   public void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
 
-    springProperties(baseName, packageName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springProperties(baseName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
   }
 
   @Override
@@ -107,13 +102,9 @@ public class MySQLDomainService implements MySQLService {
     addLogger(project, "org.hibernate.validator", Level.WARN);
     addLogger(project, "org.hibernate", Level.WARN);
     addLogger(project, "org.hibernate.ejb.HibernatePersistence", Level.OFF);
+
     springBootLoggingService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
     springBootLoggingService.addLoggerTest(project, "org.testcontainers", Level.WARN);
-  }
-
-  public void addLogger(Project project, String packageName, Level level) {
-    springBootLoggingService.addLogger(project, packageName, level);
-    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 
   @Override
@@ -132,7 +123,7 @@ public class MySQLDomainService implements MySQLService {
     springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
   }
 
-  private Map<String, Object> springProperties(String baseName, String packageName) {
+  private Map<String, Object> springProperties(String baseName) {
     TreeMap<String, Object> result = new TreeMap<>();
     result.put("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
     result.put("spring.datasource.url", "jdbc:mysql://localhost:3306/" + baseName);
@@ -166,5 +157,10 @@ public class MySQLDomainService implements MySQLService {
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
     return result;
+  }
+
+  public void addLogger(Project project, String packageName, Level level) {
+    springBootLoggingService.addLogger(project, packageName, level);
+    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 }

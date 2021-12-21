@@ -88,4 +88,43 @@ class SpringBootMvcResourceIT {
 
     assertFileContent(projectPath, "src/main/resources/config/application.properties", "server.port=8080");
   }
+
+  @Test
+  void shouldAddSpringBootActuator() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/mvc/web/actuator")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    String projectPath = projectDTO.getFolder();
+    assertFileExist(projectPath, "pom.xml");
+    assertFileContent(project, "pom.xml", springBootStarterActuatorDependency());
+
+    assertFileContent(projectPath, "src/main/resources/config/application.properties", "management.endpoints.web.base-path=/management");
+    assertFileContent(
+      projectPath,
+      "src/main/resources/config/application.properties",
+      "management.endpoints.web.exposure.include=configprops, env, health, info, logfile, loggers, threaddump"
+    );
+    assertFileContent(projectPath, "src/main/resources/config/application.properties", "management.endpoint.health.probes.enabled=true");
+    assertFileContent(
+      projectPath,
+      "src/main/resources/config/application.properties",
+      "management.endpoint.health.group.liveness.include=livenessState"
+    );
+    assertFileContent(
+      projectPath,
+      "src/main/resources/config/application.properties",
+      "management.endpoint.health.group.readiness.include=readinessState"
+    );
+  }
 }

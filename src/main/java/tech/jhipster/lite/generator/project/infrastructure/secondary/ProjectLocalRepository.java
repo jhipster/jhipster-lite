@@ -86,13 +86,23 @@ public class ProjectLocalRepository implements ProjectRepository {
   }
 
   @Override
+  public boolean containsRegexp(Project project, String source, String sourceFilename, String regexp) {
+    try {
+      String text = read(getPath(project.getFolder(), source, sourceFilename));
+      return FileUtils.containsRegexp(text, regexp);
+    } catch (IOException e) {
+      throw new GeneratorException("Error when reading text from '" + sourceFilename + "'");
+    }
+  }
+
+  @Override
   public void replaceText(Project project, String source, String sourceFilename, String oldText, String newText) {
     try {
       String currentText = read(getPath(project.getFolder(), source, sourceFilename));
       String updatedText = FileUtils.replace(currentText, oldText, newText);
       write(project, updatedText, source, sourceFilename);
     } catch (IOException e) {
-      throw new GeneratorException("Error when writing text to '" + sourceFilename + "'");
+      throw new GeneratorException(getErrorWritingMessage(sourceFilename));
     }
   }
 
@@ -103,7 +113,7 @@ public class ProjectLocalRepository implements ProjectRepository {
       String updatedText = FileUtils.replaceInFile(sourcePath, regexpText, newText);
       write(project, updatedText, source, sourceFilename);
     } catch (IOException e) {
-      throw new GeneratorException("Error when writing text to '" + sourceFilename + "'");
+      throw new GeneratorException(getErrorWritingMessage(sourceFilename));
     }
   }
 
@@ -118,7 +128,7 @@ public class ProjectLocalRepository implements ProjectRepository {
       FileUtils.createFolder(projectDestination);
       Files.write(getPathOf(projectDestinationFilename), text.getBytes());
     } catch (IOException e) {
-      throw new GeneratorException("Error when writing text to '" + projectDestinationFilename + "'");
+      throw new GeneratorException(getErrorWritingMessage(projectDestinationFilename));
     }
   }
 
@@ -168,5 +178,9 @@ public class ProjectLocalRepository implements ProjectRepository {
     } catch (GitAPIException | IOException e) {
       throw new GeneratorException("Error when git apply patch", e);
     }
+  }
+
+  private String getErrorWritingMessage(String filename) {
+    return "Error when writing text to '" + filename + "'";
   }
 }

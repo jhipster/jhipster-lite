@@ -35,6 +35,12 @@ jobs:
         run: |
           chmod +x mvnw
           ./mvnw clean verify
+      - name: 'Analysis: SonarCloud'
+        if: github.repository == 'jhipster/jhipster-lite' && github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./mvnw initialize sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster_jhipster-lite -Dsonar.organization=jhipster
       - name: 'Artifact: upload JaCoCo report'
         uses: actions/upload-artifact@v2
         with:
@@ -44,7 +50,7 @@ jobs:
       - name: 'Artifact: upload JAR'
         uses: actions/upload-artifact@v2
         with:
-          name: jar
+          name: jhlite-jar
           path: '${{ github.workspace }}/target/*.jar'
           retention-days: 1
   #--------------------------------------------------
@@ -53,6 +59,11 @@ jobs:
   generation:
     needs: tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app:
+          - tomcat-postgresql
+          - undertow-mysql
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2
@@ -62,25 +73,31 @@ jobs:
       - name: 'Artifact: download JAR'
         uses: actions/download-artifact@v2
         with:
-          name: jar
-      - name: 'Generation: generate Beer project'
+          name: jhlite-jar
+          path: ./tests-ci/
+      - name: 'Generation: generate ${{ matrix.app }}'
+        working-directory: ./tests-ci/
         run: |
-          mv *.jar tests-ci/
-          cd tests-ci/
           ./start.sh
-          ./generate.sh
-          ls -al /tmp/beer/
+          ./generate.sh ${{ matrix.app }}
           ./stop.sh
+      - name: 'Test: list ${{ matrix.app }}'
+        id: cache_md5sum
+        run: |
+          ls -al /tmp/jhlite/${{ matrix.app }}
+          MD5SUM_POM_XML=$(md5sum /tmp/jhlite/${{ matrix.app }}/pom.xml | cut -d ' ' -f 1)
+          echo $MD5SUM_POM_XML
+          echo ::set-output name=md5sum_pom_xml::${MD5SUM_POM_XML}
       - name: 'Init: cache local Maven repository'
         uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-maven-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: 'Test: Beer project'
+      - name: 'Test: verify ${{ matrix.app }}'
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          cd /tmp/beer/
           chmod +x mvnw
           ./mvnw clean verify
   #--------------------------------------------------

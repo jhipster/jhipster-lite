@@ -22,6 +22,10 @@ public class FileUtils {
   private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
   private static final String FILE_SEPARATOR = "/";
 
+  public static final String REGEXP_PREFIX_MULTILINE = "(?m)";
+  public static final String REGEXP_PREFIX_DOTALL = "(?s)";
+  public static final String DOT_STAR_REGEX = ".*";
+
   private FileUtils() {}
 
   public static boolean exists(String path) {
@@ -45,7 +49,7 @@ public class FileUtils {
   }
 
   public static String getPath(String... paths) {
-    return String.join(FILE_SEPARATOR, paths).replaceAll("\\\\", FILE_SEPARATOR);
+    return String.join(FILE_SEPARATOR, paths).replace("\\", FILE_SEPARATOR);
   }
 
   public static Path getPathOf(String... paths) {
@@ -110,6 +114,15 @@ public class FileUtils {
       log.error("The file {} does not exist", filename);
     }
     return findValue;
+  }
+
+  public static boolean containsRegexp(String text, String regexp) {
+    return Pattern.compile(regexp).matcher(text).find();
+  }
+
+  public static long countsRegexp(String filename, String regexp) throws IOException {
+    String text = read(filename);
+    return Pattern.compile(regexp).matcher(text).results().count();
   }
 
   public static String replaceInFile(String filename, String regexp, String replacement) throws IOException {

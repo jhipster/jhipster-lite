@@ -6,6 +6,15 @@
 [![Build Status][github-actions-jhlite-image]][github-actions-url]
 [![Coverage Status][codecov-image]][codecov-url]
 
+[![sonarcloud-quality-gate][sonarcloud-quality-gate]][sonarcloud-url]
+[![sonarcloud-maintainability][sonarcloud-maintainability]][sonarcloud-url]
+
+[![sonarcloud-bugs][sonarcloud-bugs]][sonarcloud-url]
+[![sonarcloud-vulnerabilities][sonarcloud-vulnerabilities]][sonarcloud-url]
+[![sonarcloud-security][sonarcloud-security]][sonarcloud-url]
+[![sonarcloud-code-smells][sonarcloud-code-smells]][sonarcloud-url]
+[![sonarcloud-coverage][sonarcloud-coverage]][sonarcloud-url]
+
 ## Description
 
 JHipster is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
@@ -91,23 +100,31 @@ You can use this JSON to generate a project:
 You can use different API to:
 
 - init the project
-- add Maven Java as Build Tool
+- add Build Tool: Maven
 - add Java Base classes and Domain Error
+- add JaCoCo config for minimum coverage
 - add Spring Boot as Server Framework
-  - add Spring Boot MVC
-    - add Tomcat or Undertow
+  - add Spring Boot MVC: Tomcat or Undertow
     - add Spring Security with JWT
-  - add Database
-    - add PostgreSQL
+      - add Basic Auth
+  - add Database: PostgreSQL or MySQL
     - add Liquibase as Database Migration Tool
 
 [jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
 [jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases
 [github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/workflows/build/badge.svg
 [github-actions-url]: https://github.com/jhipster/jhipster-lite/actions
-[codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg?token=TGYTFIF15C
+[codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/jhipster/jhipster-lite
 [jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/JHipster%20RGB-small100x25px.png
 [jhipster-url]: https://www.jhipster.tech/
+[sonarcloud-url]: https://sonarcloud.io/project/overview?id=jhipster_jhipster-lite
+[sonarcloud-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=alert_status
+[sonarcloud-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=sqale_rating
+[sonarcloud-bugs]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=bugs
+[sonarcloud-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=vulnerabilities
+[sonarcloud-security]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=security_rating
+[sonarcloud-code-smells]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=code_smells
+[sonarcloud-coverage]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=coverage
 
 <!-- jhipster-needle-readme -->

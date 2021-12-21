@@ -5,18 +5,20 @@ import java.util.Optional;
 
 public class DefaultConfig {
 
-  public static String BASE_NAME = "baseName";
-  public static String PROJECT_NAME = "projectName";
-  public static String PACKAGE_NAME = "packageName";
-  public static String PRETTIER_DEFAULT_INDENT = "prettierDefaultIndent";
+  public static final String BASE_NAME = "baseName";
+  public static final String PROJECT_NAME = "projectName";
+  public static final String PACKAGE_NAME = "packageName";
+  public static final String PRETTIER_DEFAULT_INDENT = "prettierDefaultIndent";
 
   // prettier-ignore
-  public static Map<String, Object> defaultMap = Map.of(
+  public static final Map<String, Object> defaultMap = Map.of(
     BASE_NAME, "jhipster",
     PROJECT_NAME, "JHipster Project",
     PACKAGE_NAME, "com.mycompany.myapp",
     PRETTIER_DEFAULT_INDENT, 2
   );
+
+  public static final String PACKAGE_PATH = "com/mycompany/myapp";
 
   private DefaultConfig() {}
 

@@ -29,6 +29,39 @@ class PluginTest {
   }
 
   @Test
+  void shouldMinimalBuildWithConfiguration() {
+    Plugin result = minimalBuilder()
+      .additionalElements("""
+      <executions>
+        <execution>
+          <goal>clean</goal>
+        </execution>
+      </executions>""")
+      .build();
+
+    assertThat(result.getGroupId()).isEqualTo("org.springframework.boot");
+    assertThat(result.getArtifactId()).isEqualTo("spring-boot-maven-plugin");
+    assertThat(result.getVersion()).isEmpty();
+    assertThat(result.getAdditionalElements())
+      .contains("""
+      <executions>
+        <execution>
+          <goal>clean</goal>
+        </execution>
+      </executions>""");
+  }
+
+  @Test
+  void shouldMinimalBuildWithBlankConfiguration() {
+    Plugin result = minimalBuilder().additionalElements("").build();
+
+    assertThat(result.getGroupId()).isEqualTo("org.springframework.boot");
+    assertThat(result.getArtifactId()).isEqualTo("spring-boot-maven-plugin");
+    assertThat(result.getVersion()).isEmpty();
+    assertThat(result.getAdditionalElements()).isEmpty();
+  }
+
+  @Test
   void shouldFullBuild() {
     Plugin result = fullBuilder().build();
 

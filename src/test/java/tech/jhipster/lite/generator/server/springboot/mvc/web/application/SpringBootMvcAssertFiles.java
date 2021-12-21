@@ -22,6 +22,15 @@ public class SpringBootMvcAssertFiles {
     );
   }
 
+  public static List<String> springBootStarterActuatorDependency() {
+    return List.of(
+      "<dependency>",
+      "<groupId>org.springframework.boot</groupId>",
+      "<artifactId>spring-boot-starter-actuator</artifactId>",
+      "</dependency>"
+    );
+  }
+
   public static List<String> springBootStarterWebWithoutTomcat() {
     return List.of(
       "<dependency>",
@@ -52,16 +61,6 @@ public class SpringBootMvcAssertFiles {
       "<dependency>",
       "<groupId>org.springframework.boot</groupId>",
       "<artifactId>spring-boot-starter-validation</artifactId>",
-      "</dependency>"
-    );
-  }
-
-  public static List<String> springFoxDependency() {
-    return List.of(
-      "<dependency>",
-      "<groupId>io.springfox</groupId>",
-      "<artifactId>springfox-boot-starter</artifactId>",
-      "<version>${springfox.version}</version>",
       "</dependency>"
     );
   }

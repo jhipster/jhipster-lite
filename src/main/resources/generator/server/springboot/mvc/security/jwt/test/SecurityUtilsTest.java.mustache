@@ -29,23 +29,31 @@ class SecurityUtilsTest {
   }
 
   @Test
+  void shouldNotGetAuthorities() {
+    assertThat(SecurityUtils.getAuthorities()).isEmpty();
+  }
+
+  @Test
   void shouldNotGetCurrentUserLoginForNull() {
     SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
     securityContext.setAuthentication(null);
     SecurityContextHolder.setContext(securityContext);
     Optional<String> login = SecurityUtils.getCurrentUserLogin();
     assertThat(login).isEmpty();
+
+    assertThat(SecurityUtils.getAuthorities()).isEmpty();
   }
 
   @Test
   void shouldNotGetCurrentUserLoginForAnotherInstance() {
     SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-    Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
     securityContext.setAuthentication(new TestingAuthenticationToken(null, null));
     SecurityContextHolder.setContext(securityContext);
+
     Optional<String> login = SecurityUtils.getCurrentUserLogin();
     assertThat(login).isEmpty();
+
+    assertThat(SecurityUtils.getAuthorities()).isEmpty();
   }
 
   @Test
@@ -55,18 +63,22 @@ class SecurityUtilsTest {
     SecurityContextHolder.setContext(securityContext);
     Optional<String> login = SecurityUtils.getCurrentUserLogin();
     assertThat(login).contains("admin");
+
+    assertThat(SecurityUtils.getAuthorities()).isEmpty();
   }
 
   @Test
   void shouldGetCurrentUserLoginWithUserDetails() {
     SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
     Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
     User user = new User("admin", "admin", authorities);
-    securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(user, "admin"));
+    securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(user, "admin", authorities));
     SecurityContextHolder.setContext(securityContext);
     Optional<String> login = SecurityUtils.getCurrentUserLogin();
     assertThat(login).contains("admin");
+
+    assertThat(SecurityUtils.getAuthorities()).contains(AuthoritiesConstants.ADMIN);
   }
 
   @Test
@@ -87,7 +99,7 @@ class SecurityUtilsTest {
     boolean isAuthenticated = SecurityUtils.isAuthenticated();
     assertThat(isAuthenticated).isTrue();
   }
-  
+
   @Test
   void shouldNotBeAuthenticatedWithNull() {
     SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());

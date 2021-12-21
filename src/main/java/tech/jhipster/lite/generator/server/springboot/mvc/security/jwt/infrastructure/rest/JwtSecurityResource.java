@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.infrastr
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -20,11 +19,19 @@ class JwtSecurityResource {
     this.jwtSecurityApplicationService = jwtSecurityApplicationService;
   }
 
-  @Operation(summary = "Add Spring Security JWT with Basic Auth")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security JWT with Basic Auth") })
+  @Operation(summary = "Add Spring Security JWT")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security JWT")
   @PostMapping("/jwt")
-  public void initBasicAuth(@RequestBody ProjectDTO projectDTO) {
+  public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    jwtSecurityApplicationService.initBasicAuth(project);
+    jwtSecurityApplicationService.init(project);
+  }
+
+  @Operation(summary = "Add Basic Auth for Spring Security JWT")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Basic Auth for Spring Security JWT")
+  @PostMapping("/jwt/basic-auth")
+  public void addBasicAuth(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    jwtSecurityApplicationService.addBasicAuth(project);
   }
 }

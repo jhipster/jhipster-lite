@@ -10,6 +10,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class InitDomainService implements InitService {
 
   public static final String SOURCE = "init";
+  public static final String HUSKY_FOLDER = ".husky";
 
   private final ProjectRepository projectRepository;
 
@@ -63,8 +64,8 @@ public class InitDomainService implements InitService {
   public void addPrettier(Project project) {
     projectRepository.add(project, SOURCE, ".lintstagedrc.js");
     projectRepository.add(project, SOURCE, ".prettierignore");
-    projectRepository.add(project, getPath(SOURCE, ".husky"), "pre-commit", ".husky");
-    projectRepository.setExecutable(project, ".husky", "pre-commit");
+    projectRepository.add(project, getPath(SOURCE, HUSKY_FOLDER), "pre-commit", HUSKY_FOLDER);
+    projectRepository.setExecutable(project, HUSKY_FOLDER, "pre-commit");
     projectRepository.template(project, SOURCE, ".prettierrc");
   }
 }

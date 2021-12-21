@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.init.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ class InitResource {
   }
 
   @Operation(summary = "Init project")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while initializing project") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while initializing project")
   @PostMapping("/init")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

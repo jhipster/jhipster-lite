@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.banner.infrastructure.pri
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ class BannerResource {
   }
 
   @Operation(summary = "Add banner JHipster v7 for Angular")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding banner") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7")
   public void addBannerJHipsterV7(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -32,7 +31,7 @@ class BannerResource {
   }
 
   @Operation(summary = "Add banner JHipster v7 for React")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding banner") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7-react")
   public void addBannerJHipsterV7React(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -40,7 +39,7 @@ class BannerResource {
   }
 
   @Operation(summary = "Add banner JHipster v7 for Vue")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding banner") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7-vue")
   public void addBannerJHipsterV7Vue(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -48,7 +47,7 @@ class BannerResource {
   }
 
   @Operation(summary = "Add banner JHipster v2")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding banner") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v2")
   public void addBannerJHipsterV2(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -56,7 +55,7 @@ class BannerResource {
   }
 
   @Operation(summary = "Add banner JHipster v3")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding banner") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v3")
   public void addBannerJHipsterV3(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

@@ -10,6 +10,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 
 public class BuildToolDomainService implements BuildToolService {
 
+  public static final String EXCEPTION_NO_BUILD_TOOL = "No build tool";
   private final MavenService mavenService;
 
   public BuildToolDomainService(MavenService mavenService) {
@@ -21,7 +22,7 @@ public class BuildToolDomainService implements BuildToolService {
     if (project.isMavenProject()) {
       mavenService.addParent(project, parent);
     } else {
-      throw new GeneratorException("No build tool");
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }
   }
 
@@ -30,7 +31,7 @@ public class BuildToolDomainService implements BuildToolService {
     if (project.isMavenProject()) {
       mavenService.addDependency(project, dependency);
     } else {
-      throw new GeneratorException("No build tool");
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }
   }
 
@@ -39,7 +40,7 @@ public class BuildToolDomainService implements BuildToolService {
     if (project.isMavenProject()) {
       mavenService.addDependency(project, dependency, exclusions);
     } else {
-      throw new GeneratorException("No build tool");
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }
   }
 
@@ -48,7 +49,16 @@ public class BuildToolDomainService implements BuildToolService {
     if (project.isMavenProject()) {
       mavenService.addPlugin(project, plugin);
     } else {
-      throw new GeneratorException("No build tool");
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
+    }
+  }
+
+  @Override
+  public void addPluginManagement(Project project, Plugin plugin) {
+    if (project.isMavenProject()) {
+      mavenService.addPluginManagement(project, plugin);
+    } else {
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }
   }
 
@@ -57,7 +67,7 @@ public class BuildToolDomainService implements BuildToolService {
     if (project.isMavenProject()) {
       mavenService.addProperty(project, key, version);
     } else {
-      throw new GeneratorException("No build tool");
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }
   }
 
@@ -66,7 +76,7 @@ public class BuildToolDomainService implements BuildToolService {
     if (buildTool == MAVEN) {
       mavenService.init(project);
     } else {
-      throw new GeneratorException("No build tool");
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }
   }
 }

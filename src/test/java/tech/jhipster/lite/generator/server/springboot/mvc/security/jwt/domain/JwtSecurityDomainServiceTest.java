@@ -37,25 +37,36 @@ class JwtSecurityDomainServiceTest {
   JwtSecurityDomainService jwtSecurityDomainService;
 
   @Test
-  void shouldInitBasicAuth() throws GitAPIException {
+  void shouldInit() throws GitAPIException {
     Project project = tmpProjectWithPomXml();
     GitUtils.init(project.getFolder());
 
-    jwtSecurityDomainService.initBasicAuth(project);
+    jwtSecurityDomainService.init(project);
 
     verify(buildToolService).addProperty(any(Project.class), anyString(), anyString());
     verify(buildToolService, times(6)).addDependency(any(Project.class), any(Dependency.class));
 
-    // 14 classes + 6 tests
-    verify(projectRepository, times(20)).template(any(Project.class), anyString(), anyString(), anyString());
+    // 12 classes + 4 tests
+    verify(projectRepository, times(16)).template(any(Project.class), anyString(), anyString(), anyString());
 
     // 1 patch
     verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString(), anyString());
 
-    verify(springBootPropertiesService, times(11)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootPropertiesService, times(11)).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootPropertiesService, times(9)).addProperties(any(Project.class), anyString(), any());
+    verify(springBootPropertiesService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
 
-    // 2 git patchs
+    // 1 git patch
     verify(projectRepository, times(1)).gitApplyPatch(any(Project.class), anyString());
+  }
+
+  @Test
+  void shouldAddBasicAuth() {
+    Project project = tmpProjectWithPomXml();
+
+    jwtSecurityDomainService.addBasicAuth(project);
+
+    verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(springBootPropertiesService, times(3)).addProperties(any(Project.class), anyString(), any());
+    verify(springBootPropertiesService, times(3)).addPropertiesTest(any(Project.class), anyString(), any());
   }
 }

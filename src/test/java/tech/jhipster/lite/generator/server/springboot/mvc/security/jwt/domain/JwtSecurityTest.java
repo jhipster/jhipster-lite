@@ -82,9 +82,7 @@ class JwtSecurityTest {
       "JWTFilter.java",
       "SecurityConfiguration.java",
       "SecurityExceptionTranslator.java",
-      "TokenProvider.java",
-      "AuthenticationResource.java",
-      "LoginDTO.java"
+      "TokenProvider.java"
     );
 
     assertThat(JwtSecurity.jwtSecurityFiles().keySet()).containsExactlyInAnyOrderElementsOf(javaFiles);
@@ -97,9 +95,7 @@ class JwtSecurityTest {
       "ApplicationSecurityPropertiesTest.java",
       "CorsFilterConfigurationIT.java",
       "JWTFilterTest.java",
-      "TokenProviderTest.java",
-      "AuthenticationResourceIT.java",
-      "LoginDTOTest.java"
+      "TokenProviderTest.java"
     );
 
     assertThat(JwtSecurity.jwtTestSecurityFiles().keySet()).containsExactlyInAnyOrderElementsOf(javaTestFiles);

@@ -109,7 +109,8 @@ class AssertTest {
 
   @Test
   void shouldNotValidateEmptyCollection() {
-    assertThatThrownBy(() -> Assert.notEmpty("field", List.of()))
+    List<String> list = List.of();
+    assertThatThrownBy(() -> Assert.notEmpty("field", list))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("empty");
   }

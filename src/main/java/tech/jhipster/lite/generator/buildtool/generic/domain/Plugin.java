@@ -8,6 +8,7 @@ public class Plugin {
   private final String groupId;
   private final String artifactId;
   private final Optional<String> version;
+  private final Optional<String> additionalElements;
 
   private Plugin(PluginBuilder builder) {
     Assert.notBlank("groupId", builder.groupId);
@@ -16,6 +17,7 @@ public class Plugin {
     this.groupId = builder.groupId;
     this.artifactId = builder.artifactId;
     this.version = optionalNotBlank(builder.version);
+    this.additionalElements = optionalNotBlank(builder.additionalElements);
   }
 
   private Optional<String> optionalNotBlank(String value) {
@@ -41,11 +43,16 @@ public class Plugin {
     return version;
   }
 
+  public Optional<String> getAdditionalElements() {
+    return additionalElements;
+  }
+
   public static class PluginBuilder {
 
     private String groupId;
     private String artifactId;
     private String version;
+    private String additionalElements;
 
     public PluginBuilder groupId(String groupId) {
       this.groupId = groupId;
@@ -59,6 +66,11 @@ public class Plugin {
 
     public PluginBuilder version(String version) {
       this.version = version;
+      return this;
+    }
+
+    public PluginBuilder additionalElements(String additionalElements) {
+      this.additionalElements = additionalElements;
       return this;
     }
 

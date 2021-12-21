@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.*;
 
 import java.util.LinkedHashMap;
@@ -33,7 +34,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   }
 
   @Override
-  public void initBasicAuth(Project project) {
+  public void init(Project project) {
     projectRepository.gitInit(project);
 
     addPropertyAndDependency(project);
@@ -45,12 +46,18 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     updateExceptionTranslator(project);
   }
 
+  @Override
+  public void addBasicAuth(Project project) {
+    addBasicAuthJavaFiles(project);
+    addBasicAuthProperties(project);
+  }
+
   private void applyGitPatchAnnotationProcessor(Project project) {
-    projectRepository.gitApplyPatch(project, getPath(project.getFolder(), ".jhipster", annotationProcessorPatch));
+    projectRepository.gitApplyPatch(project, getPath(project.getFolder(), ".jhipster", ANNOTATION_PROCESSOR_PATCH));
   }
 
   private void updateExceptionTranslator(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     String exceptionPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
 
     String oldImport = "import org.springframework.test.util.ReflectionTestUtils;";
@@ -69,10 +76,10 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   private void addGitPatch(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig("packageNamePath", packageNamePath);
 
-    projectRepository.add(project, SOURCE, annotationProcessorPatch, ".jhipster");
+    projectRepository.add(project, SOURCE, ANNOTATION_PROCESSOR_PATCH, ".jhipster");
   }
 
   private void addPropertyAndDependency(Project project) {
@@ -92,7 +99,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
     String sourceSrc = getPath(SOURCE, "src");
     String sourceTest = getPath(SOURCE, "test");
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     String destinationSrc = getPath(MAIN_JAVA, packageNamePath, SECURITY_JWT_PATH);
     String destinationTest = getPath(TEST_JAVA, packageNamePath, SECURITY_JWT_PATH);
 
@@ -101,6 +108,41 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
     jwtTestSecurityFiles()
       .forEach((javaFile, destination) -> projectRepository.template(project, sourceTest, javaFile, getPath(destinationTest, destination)));
+  }
+
+  private void addBasicAuthJavaFiles(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String sourceSrc = getPath(SOURCE, "src/account");
+    String sourceTest = getPath(SOURCE, "test/account");
+
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String destinationSrc = getPath(MAIN_JAVA, packageNamePath, "account/infrastructure/primary/rest");
+    String destinationTest = getPath(TEST_JAVA, packageNamePath, "account/infrastructure/primary/rest");
+
+    projectRepository.template(project, sourceSrc, "AuthenticationResource.java", getPath(destinationSrc));
+    projectRepository.template(project, sourceSrc, "AccountResource.java", getPath(destinationSrc));
+    projectRepository.template(project, sourceSrc, "LoginDTO.java", getPath(destinationSrc));
+    projectRepository.template(project, sourceTest, "AuthenticationResourceIT.java", getPath(destinationTest));
+    projectRepository.template(project, sourceTest, "AccountResourceIT.java", getPath(destinationTest));
+    projectRepository.template(project, sourceTest, "LoginDTOTest.java", getPath(destinationTest));
+  }
+
+  private void addBasicAuthProperties(Project project) {
+    springBootPropertiesService.addProperties(project, "spring.security.user.name", "admin");
+    springBootPropertiesService.addProperties(
+      project,
+      "spring.security.user.password",
+      "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
+    );
+    springBootPropertiesService.addProperties(project, "spring.security.user.roles", "ADMIN");
+
+    springBootPropertiesService.addPropertiesTest(project, "spring.security.user.name", "admin");
+    springBootPropertiesService.addPropertiesTest(
+      project,
+      "spring.security.user.password",
+      "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
+    );
+    springBootPropertiesService.addPropertiesTest(project, "spring.security.user.roles", "ADMIN");
   }
 
   private void addProperties(Project project) {
@@ -115,8 +157,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   private Map<String, Object> jwtProperties(String baseName) {
     Map<String, Object> result = new LinkedHashMap<>();
-    result.put("spring.security.user.name", "admin");
-    result.put("spring.security.user.password", "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O");
     result.put(
       "application.security.authentication.jwt.base64-secret",
       "bXktc2VjcmV0LWtleS13aGljaC1zaG91bGQtYmUtY2hhbmdlZC1pbi1wcm9kdWN0aW9uLWFuZC1iZS1iYXNlNjQtZW5jb2RlZAo="

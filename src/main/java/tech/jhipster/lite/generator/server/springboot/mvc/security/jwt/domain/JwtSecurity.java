@@ -8,7 +8,6 @@ public class JwtSecurity {
 
   private static final String JJWT_VERSION = "0.11.2";
   private static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
-  private static final String INFRASTRUCTURE_PRIMARY_REST = "infrastructure/primary/rest";
 
   public static final String ANNOTATION_PROCESSOR_PATCH = "jwt-security-annotation-processor.patch";
   public static final String JSONWEBTOKEN_PACKAGE = "io.jsonwebtoken";

@@ -217,7 +217,7 @@ public class Maven {
     plugin
       .getAdditionalElements()
       .ifPresent(additionalElements ->
-        result.append(plugin.getAdditionalElements().get().indent(4 * indentation).replaceAll("\n", System.lineSeparator()))
+        result.append(plugin.getAdditionalElements().get().indent(4 * indentation).replace("\n", System.lineSeparator()))
       );
 
     result.append(indent(3, indentation)).append(PLUGIN_END);

@@ -221,25 +221,26 @@ class MavenTest {
               <version>2.6.0</version>
               <executions>
                 <execution>
-                    <id>default-war</id>
-                    <goals>
-                        <goal>war</goal>
-                    </goals>
-                    <phase>package</phase>
+                  <id>default-war</id>
+                  <goals>
+                    <goal>war</goal>
+                  </goals>
+                  <phase>package</phase>
                 </execution>
               </executions>
               <configuration>
-                  <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
-                  <failOnMissingWebXml>false</failOnMissingWebXml>
-                  <warSourceDirectory>target/classes/static/</warSourceDirectory>
-                  <webResources>
-                      <resource>
-                          <directory>src/main/webapp</directory>
-                          <includes>
-                              <include>WEB-INF/**</include>
-                          </includes>
-                      </resource>
-                  </webResources>
+                <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+                <failOnMissingWebXml>false</failOnMissingWebXml>
+                <warSourceDirectory>target/classes/static/</warSourceDirectory>
+                <webResources>
+                  <resource>
+                    <directory>src/main/webapp</directory>
+                    <includes>
+                      <include>WEB-INF/**</include>
+                    </includes>
+                  </resource>
+                </webResources>
+              </configuration>
             </plugin>""".replaceAll("\n", System.lineSeparator());
     // @formatter:on
     Plugin plugin = fullPluginBuilder()
@@ -247,25 +248,26 @@ class MavenTest {
         """
         <executions>
           <execution>
-              <id>default-war</id>
-              <goals>
-                  <goal>war</goal>
-              </goals>
-              <phase>package</phase>
+            <id>default-war</id>
+            <goals>
+              <goal>war</goal>
+            </goals>
+            <phase>package</phase>
           </execution>
         </executions>
         <configuration>
-            <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
-            <failOnMissingWebXml>false</failOnMissingWebXml>
-            <warSourceDirectory>target/classes/static/</warSourceDirectory>
-            <webResources>
-                <resource>
-                    <directory>src/main/webapp</directory>
-                    <includes>
-                        <include>WEB-INF/**</include>
-                    </includes>
-                </resource>
-            </webResources>"""
+          <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <warSourceDirectory>target/classes/static/</warSourceDirectory>
+          <webResources>
+            <resource>
+              <directory>src/main/webapp</directory>
+              <includes>
+                <include>WEB-INF/**</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>"""
       )
       .build();
 

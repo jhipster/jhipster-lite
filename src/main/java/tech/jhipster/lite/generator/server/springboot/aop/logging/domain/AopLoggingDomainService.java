@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBo
 public class AopLoggingDomainService implements AopLoggingService {
 
   public static final String SOURCE = "server/springboot/aop/logging";
-  private static final String LOGGING_PROPERTY_FIELDS = "spring.aop.logging";
+  private static final String LOGGING_PROPERTY_FIELDS = "application.aop.logging";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;

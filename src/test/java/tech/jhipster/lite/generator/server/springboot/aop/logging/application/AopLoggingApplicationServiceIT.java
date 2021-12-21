@@ -53,9 +53,9 @@ class AopLoggingApplicationServiceIT {
       getPath(MAIN_JAVA, "com/mycompany/myapp/technical/infrastructure/secondary/aop/logging/LoggingAspectConfiguration.java")
     );
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "spring.aop.logging=false");
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "spring.aop.logging=true");
-    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "spring.aop.logging=true");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "application.aop.logging=false");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "application.aop.logging=true");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "application.aop.logging=true");
   }
 
   @Test
@@ -108,9 +108,9 @@ class AopLoggingApplicationServiceIT {
 
     aopLoggingApplicationService.addProperties(project);
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "spring.aop.logging=false");
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "spring.aop.logging=true");
-    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "spring.aop.logging=true");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "application.aop.logging=false");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "application.aop.logging=true");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "application.aop.logging=true");
   }
 
   @Test

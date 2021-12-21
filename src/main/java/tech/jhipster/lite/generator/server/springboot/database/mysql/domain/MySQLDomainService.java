@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL.*;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -59,23 +60,17 @@ public class MySQLDomainService implements MySQLService {
 
   @Override
   public void addMySQLDriver(Project project) {
-    Dependency dependency = Dependency.builder().groupId("mysql").artifactId("mysql-connector-java").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, mysqlConnectorJava());
   }
 
   @Override
   public void addHikari(Project project) {
-    Dependency dependency = Dependency.builder().groupId("com.zaxxer").artifactId("HikariCP").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, mysqlHikari());
   }
 
   @Override
   public void addHibernateCore(Project project) {
-    Dependency dependency = Dependency.builder().groupId("org.hibernate").artifactId("hibernate-core").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, mysqlHibernateCore());
   }
 
   @Override
@@ -107,13 +102,9 @@ public class MySQLDomainService implements MySQLService {
     addLogger(project, "org.hibernate.validator", Level.WARN);
     addLogger(project, "org.hibernate", Level.WARN);
     addLogger(project, "org.hibernate.ejb.HibernatePersistence", Level.OFF);
+
     springBootLoggingService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
     springBootLoggingService.addLoggerTest(project, "org.testcontainers", Level.WARN);
-  }
-
-  public void addLogger(Project project, String packageName, Level level) {
-    springBootLoggingService.addLogger(project, packageName, level);
-    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 
   @Override
@@ -166,5 +157,10 @@ public class MySQLDomainService implements MySQLService {
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
     return result;
+  }
+
+  public void addLogger(Project project, String packageName, Level level) {
+    springBootLoggingService.addLogger(project, packageName, level);
+    springBootLoggingService.addLoggerTest(project, packageName, level);
   }
 }

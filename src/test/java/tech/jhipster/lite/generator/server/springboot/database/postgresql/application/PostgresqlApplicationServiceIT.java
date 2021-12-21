@@ -176,8 +176,7 @@ class PostgresqlApplicationServiceIT {
         "spring.datasource.password=",
         "spring.datasource.type=com.zaxxer.hikari.HikariDataSource",
         "spring.datasource.url=jdbc:postgresql://localhost:5432/chips",
-        "spring.datasource.username=chips",
-        "spring.jpa.database-platform=tech.jhipster.chips.technical.infrastructure.secondary.postgresql.FixedPostgreSQL10Dialect"
+        "spring.datasource.username=chips"
       )
     );
 
@@ -207,10 +206,10 @@ class PostgresqlApplicationServiceIT {
       project,
       getPath(MAIN_RESOURCES, LOGGING_CONFIGURATION),
       List.of(
-        "<logger name=\"org.postgresql\" level=\"WARN\"/>",
         "<logger name=\"org.hibernate.validator\" level=\"WARN\"/>",
         "<logger name=\"org.hibernate\" level=\"WARN\"/>",
-        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>"
+        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>",
+        "<logger name=\"org.postgresql\" level=\"WARN\"/>"
       )
     );
 
@@ -218,10 +217,10 @@ class PostgresqlApplicationServiceIT {
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
       List.of(
-        "<logger name=\"org.postgresql\" level=\"WARN\"/>",
         "<logger name=\"org.hibernate.validator\" level=\"WARN\"/>",
         "<logger name=\"org.hibernate\" level=\"WARN\"/>",
         "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>",
+        "<logger name=\"org.postgresql\" level=\"WARN\"/>",
         "<logger name=\"com.github.dockerjava\" level=\"WARN\"/>",
         "<logger name=\"org.testcontainers\" level=\"WARN\"/>"
       )

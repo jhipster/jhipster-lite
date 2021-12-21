@@ -5,6 +5,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql.*;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -59,23 +60,17 @@ public class PostgresqlDomainService implements PostgresqlService {
 
   @Override
   public void addPostgreSQLDriver(Project project) {
-    Dependency dependency = Dependency.builder().groupId("org.postgresql").artifactId("postgresql").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, psqlDriver());
   }
 
   @Override
   public void addHikari(Project project) {
-    Dependency dependency = Dependency.builder().groupId("com.zaxxer").artifactId("HikariCP").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, psqlHikari());
   }
 
   @Override
   public void addHibernateCore(Project project) {
-    Dependency dependency = Dependency.builder().groupId("org.hibernate").artifactId("hibernate-core").build();
-
-    buildToolService.addDependency(project, dependency);
+    buildToolService.addDependency(project, psqlHibernateCore());
   }
 
   @Override
@@ -102,7 +97,10 @@ public class PostgresqlDomainService implements PostgresqlService {
     String baseName = project.getBaseName().orElse("jhipster");
     String packageName = project.getPackageName().orElse("com.mycompany.myapp");
 
-    springProperties(baseName, packageName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springPropertiesDatasource(baseName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springPropertiesJpaPart1(packageName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springPropertiesJpaPart2().forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springPropertiesHibernate().forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
   }
 
   @Override
@@ -121,8 +119,20 @@ public class PostgresqlDomainService implements PostgresqlService {
     springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
   }
 
-  private Map<String, Object> springProperties(String baseName, String packageName) {
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    addLogger(project, "org.hibernate.validator", Level.WARN);
+    addLogger(project, "org.hibernate", Level.WARN);
+    addLogger(project, "org.hibernate.ejb.HibernatePersistence", Level.OFF);
+    addLogger(project, "org.postgresql", Level.WARN);
+
+    springBootLoggingService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
+    springBootLoggingService.addLoggerTest(project, "org.testcontainers", Level.WARN);
+  }
+
+  private Map<String, Object> springPropertiesDatasource(String baseName) {
     TreeMap<String, Object> result = new TreeMap<>();
+
     result.put("spring.datasource.type", "com.zaxxer.hikari.HikariDataSource");
     result.put("spring.datasource.url", "jdbc:postgresql://localhost:5432/" + baseName);
     result.put("spring.datasource.username", baseName);
@@ -130,6 +140,12 @@ public class PostgresqlDomainService implements PostgresqlService {
     result.put("spring.datasource.driver-class-name", "org.postgresql.Driver");
     result.put("spring.datasource.hikari.poolName", "Hikari");
     result.put("spring.datasource.hikari.auto-commit", false);
+
+    return result;
+  }
+
+  private Map<String, Object> springPropertiesJpaPart1(String packageName) {
+    TreeMap<String, Object> result = new TreeMap<>();
 
     result.put("spring.data.jpa.repositories.bootstrap-mode", "deferred");
     result.put("spring.jpa.database-platform", packageName + ".technical.infrastructure.secondary.postgresql.FixedPostgreSQL10Dialect");
@@ -139,14 +155,28 @@ public class PostgresqlDomainService implements PostgresqlService {
     result.put("spring.jpa.properties.hibernate.connection.provider_disables_autocommit", "true");
     result.put("spring.jpa.properties.hibernate.generate_statistics", false);
 
+    return result;
+  }
+
+  private Map<String, Object> springPropertiesJpaPart2() {
+    TreeMap<String, Object> result = new TreeMap<>();
+
     result.put("spring.jpa.properties.hibernate.jdbc.batch_size", "25");
     result.put("spring.jpa.properties.hibernate.order_inserts", "true");
     result.put("spring.jpa.properties.hibernate.order_updates", "true");
     result.put("spring.jpa.properties.hibernate.query.fail_on_pagination_over_collection_fetch", "true");
     result.put("spring.jpa.properties.hibernate.query.in_clause_parameter_padding", "true");
+
+    return result;
+  }
+
+  private Map<String, Object> springPropertiesHibernate() {
+    TreeMap<String, Object> result = new TreeMap<>();
+
     result.put("spring.jpa.hibernate.ddl-auto", "none");
     result.put("spring.jpa.hibernate.naming.physical-strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
     result.put("spring.jpa.hibernate.naming.implicit-strategy", "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy");
+
     return result;
   }
 
@@ -157,16 +187,6 @@ public class PostgresqlDomainService implements PostgresqlService {
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
     return result;
-  }
-
-  @Override
-  public void addLoggerInConfiguration(Project project) {
-    addLogger(project, "org.postgresql", Level.WARN);
-    addLogger(project, "org.hibernate.validator", Level.WARN);
-    addLogger(project, "org.hibernate", Level.WARN);
-    addLogger(project, "org.hibernate.ejb.HibernatePersistence", Level.OFF);
-    springBootLoggingService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
-    springBootLoggingService.addLoggerTest(project, "org.testcontainers", Level.WARN);
   }
 
   public void addLogger(Project project, String packageName, Level level) {

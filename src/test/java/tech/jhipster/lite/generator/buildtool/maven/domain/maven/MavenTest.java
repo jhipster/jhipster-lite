@@ -241,7 +241,7 @@ class MavenTest {
                   </resource>
                 </webResources>
               </configuration>
-            </plugin>""".replaceAll("\n", System.lineSeparator());
+            </plugin>""".replace("\n", System.lineSeparator());
     // @formatter:on
     Plugin plugin = fullPluginBuilder()
       .additionalElements(

@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBo
 public class AopLoggingDomainService implements AopLoggingService {
 
   public static final String SOURCE = "server/springboot/aop/logging";
-  private static final String LOGGING_PROPERTY_FIELDS = "application.aop.logging";
+  private static final String LOGGING_PROPERTY_FIELD = "application.aop.logging";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -45,9 +45,15 @@ public class AopLoggingDomainService implements AopLoggingService {
 
   @Override
   public void addProperties(Project project) {
-    springBootPropertiesService.addProperties(project, LOGGING_PROPERTY_FIELDS, "false");
-    springBootPropertiesService.addPropertiesFast(project, LOGGING_PROPERTY_FIELDS, "true");
-    springBootPropertiesService.addPropertiesTest(project, LOGGING_PROPERTY_FIELDS, "true");
+    String packageName = project.getPackageName().orElse(getPath("com/mycompany/myapp"));
+    String loggingProperty = "logging.level." + packageName;
+
+    springBootPropertiesService.addProperties(project, LOGGING_PROPERTY_FIELD, "false");
+    springBootPropertiesService.addProperties(project, loggingProperty, "INFO");
+    springBootPropertiesService.addPropertiesFast(project, LOGGING_PROPERTY_FIELD, "true");
+    springBootPropertiesService.addPropertiesFast(project, loggingProperty, "DEBUG");
+    springBootPropertiesService.addPropertiesTest(project, LOGGING_PROPERTY_FIELD, "true");
+    springBootPropertiesService.addPropertiesTest(project, loggingProperty, "INFO");
   }
 
   @Override

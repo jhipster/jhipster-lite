@@ -43,9 +43,9 @@ class AopLoggingDomainServiceTest {
     // Java files
     verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
     // Properties modifications
-    verify(springBootPropertiesService).addProperties(any(Project.class), anyString(), anyString());
-    verify(springBootPropertiesService).addPropertiesFast(any(Project.class), anyString(), anyString());
-    verify(springBootPropertiesService).addPropertiesTest(any(Project.class), anyString(), anyString());
+    verify(springBootPropertiesService, times(2)).addProperties(any(Project.class), anyString(), anyString());
+    verify(springBootPropertiesService, times(2)).addPropertiesFast(any(Project.class), anyString(), anyString());
+    verify(springBootPropertiesService, times(2)).addPropertiesTest(any(Project.class), anyString(), anyString());
     // Maven dependency
     verify(buildToolService).addDependency(any(Project.class), any(Dependency.class));
   }
@@ -64,9 +64,9 @@ class AopLoggingDomainServiceTest {
 
     aopLoggingDomainService.addProperties(project);
 
-    verify(springBootPropertiesService).addProperties(any(Project.class), anyString(), anyString());
-    verify(springBootPropertiesService).addPropertiesFast(any(Project.class), anyString(), anyString());
-    verify(springBootPropertiesService).addPropertiesTest(any(Project.class), anyString(), anyString());
+    verify(springBootPropertiesService, times(2)).addProperties(any(Project.class), anyString(), anyString());
+    verify(springBootPropertiesService, times(2)).addPropertiesFast(any(Project.class), anyString(), anyString());
+    verify(springBootPropertiesService, times(2)).addPropertiesTest(any(Project.class), anyString(), anyString());
   }
 
   @Test

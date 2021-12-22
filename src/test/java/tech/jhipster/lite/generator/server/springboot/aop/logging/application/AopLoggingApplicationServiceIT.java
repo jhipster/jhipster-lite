@@ -54,8 +54,11 @@ class AopLoggingApplicationServiceIT {
     );
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "application.aop.logging=false");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "logging.level.com.mycompany.myapp=INFO");
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "application.aop.logging=true");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "logging.level.com.mycompany.myapp=DEBUG");
     assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "application.aop.logging=true");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "logging.level.com.mycompany.myapp=INFO");
   }
 
   @Test
@@ -109,8 +112,11 @@ class AopLoggingApplicationServiceIT {
     aopLoggingApplicationService.addProperties(project);
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "application.aop.logging=false");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "logging.level.com.mycompany.myapp=INFO");
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "application.aop.logging=true");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "logging.level.com.mycompany.myapp=DEBUG");
     assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "application.aop.logging=true");
+    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "logging.level.com.mycompany.myapp=INFO");
   }
 
   @Test

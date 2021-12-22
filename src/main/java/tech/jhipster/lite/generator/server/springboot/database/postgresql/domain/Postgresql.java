@@ -6,7 +6,7 @@ public class Postgresql {
 
   public static final String TESTCONTAINERS_VERSION = "1.16.0";
 
-  public static final String POSTGRESQL_DOCKER_VERSION = "13.5";
+  public static final String POSTGRESQL_DOCKER_VERSION = "14.1";
 
   public static final String POSTGRESQL_DOCKER_IMAGE = "postgresql:" + POSTGRESQL_DOCKER_VERSION;
 

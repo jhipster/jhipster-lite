@@ -16,3 +16,6 @@ overrides:
   - files: "*.java"
     options:
       tabWidth: 2
+
+# xml rules:
+xmlWhitespaceSensitivity: ignore

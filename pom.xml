@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>tech.jhipster.lite</groupId>
@@ -15,7 +17,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.6.1</version>
-    <relativePath/>
+    <relativePath />
   </parent>
 
   <repositories>
@@ -265,8 +267,7 @@
               </goals>
               <configuration>
                 <fileSets>
-                  <fileSet
-                    implementation="org.apache.maven.shared.model.fileset.FileSet">
+                  <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
                     <directory>${project.basedir}</directory>
                     <includes>
                       <include>**/*.exec</include>
@@ -304,7 +305,7 @@
               <id>enforce-dependencyConvergence</id>
               <configuration>
                 <rules>
-                  <DependencyConvergence/>
+                  <DependencyConvergence />
                 </rules>
                 <fail>false</fail>
               </configuration>
@@ -316,8 +317,7 @@
           <configuration>
             <rules>
               <requireMavenVersion>
-                <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}
-                </message>
+                <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
                 <version>[${maven.version},)</version>
               </requireMavenVersion>
               <requireJavaVersion>

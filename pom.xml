@@ -317,8 +317,7 @@
           <configuration>
             <rules>
               <requireMavenVersion>
-                <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}
-                </message>
+                <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
                 <version>[${maven.version},)</version>
               </requireMavenVersion>
               <requireJavaVersion>

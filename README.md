@@ -1,4 +1,4 @@
-[![Logo Jhipster Lite][jhipster-image]][jhipster-url]
+[![Logo JHipster Lite][jhipster-image]][jhipster-url]
 
 # JHipster Lite ⚡
 

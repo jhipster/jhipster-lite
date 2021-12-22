@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.sonar.infrastructure.primary;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ class SonarResource {
   }
 
   @Operation(summary = "Add Sonar configuration to inspect code quality")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration")
   @PostMapping
   public void addSonar(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

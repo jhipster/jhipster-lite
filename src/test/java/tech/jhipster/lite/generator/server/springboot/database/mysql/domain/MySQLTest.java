@@ -11,7 +11,7 @@ class MySQLTest {
 
   @Test
   void shouldGetTestcontainersVersion() {
-    assertThat(MySQL.getTestcontainersVersion()).isEqualTo("1.16.0");
+    assertThat(MySQL.getTestcontainersVersion()).isEqualTo(MySQL.getTestcontainersVersion());
   }
 
   @Test

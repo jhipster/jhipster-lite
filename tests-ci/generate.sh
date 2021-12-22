@@ -45,7 +45,7 @@ elif [[ $filename == 'undertow-mysql' ]]; then
   callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
-  callApi "/api/servers/sonar
+  callApi "/api/servers/sonar"
 
 else
   echo "*** Unknown configuration..."

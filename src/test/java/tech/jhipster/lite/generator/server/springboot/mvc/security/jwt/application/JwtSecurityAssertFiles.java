@@ -138,7 +138,6 @@ public class JwtSecurityAssertFiles {
   }
 
   public static void assertBasicAuthProperties(Project project) {
-    String baseName = project.getBaseName().orElse("jhipster");
     List<String> properties = List.of(
       "spring.security.user.name=admin",
       "spring.security.user.password=$2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O",

@@ -1,4 +1,4 @@
-[![Logo][jhipster-image]][jhipster-url]
+[![Logo Jhipster Lite][jhipster-image]][jhipster-url]
 
 # JHipster Lite ⚡
 
@@ -116,7 +116,7 @@ You can use different API to:
 [github-actions-url]: https://github.com/jhipster/jhipster-lite/actions
 [codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/jhipster/jhipster-lite
-[jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/JHipster%20RGB-small100x25px.png
+[jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/lite/JHipster-Lite-neon-blue.png
 [jhipster-url]: https://www.jhipster.tech/
 [sonarcloud-url]: https://sonarcloud.io/project/overview?id=jhipster_jhipster-lite
 [sonarcloud-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=alert_status

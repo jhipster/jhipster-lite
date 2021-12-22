@@ -11,7 +11,17 @@ class PostgresqlTest {
 
   @Test
   void shouldGetTestcontainersVersion() {
-    assertThat(Postgresql.getTestcontainersVersion()).isEqualTo("1.16.0");
+    assertThat(Postgresql.getTestcontainersVersion()).isEqualTo(Postgresql.TESTCONTAINERS_VERSION);
+  }
+
+  @Test
+  void shouldGetPostgresqlDockerVersion() {
+    assertThat(Postgresql.getPostgresqlDockerVersion()).isEqualTo(Postgresql.POSTGRESQL_DOCKER_VERSION);
+  }
+
+  @Test
+  void shouldGetPostgresqlDockerImage() {
+    assertThat(Postgresql.getPostgresqlDockerImage()).isEqualTo(Postgresql.POSTGRESQL_DOCKER_IMAGE);
   }
 
   @Test

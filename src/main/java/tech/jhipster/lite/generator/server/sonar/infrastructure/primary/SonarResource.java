@@ -24,7 +24,7 @@ class SonarResource {
   }
 
   @Operation(summary = "Add Sonar configuration to inspect code quality")
-  @ApiResponses({ @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration") })
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration")
   @PostMapping
   public void addSonar(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

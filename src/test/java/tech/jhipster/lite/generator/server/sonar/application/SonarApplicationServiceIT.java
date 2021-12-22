@@ -55,7 +55,7 @@ class SonarApplicationServiceIT {
     sonarApplicationService.addDockerCompose(project);
 
     assertFileExist(project, "src/main/docker/sonar.yml");
-    assertFileContent(project, "src/main/docker/sonar.yml", "image: sonarqube:" + Sonar.SONARQUBE_DOCKER_VERSION);
+    assertFileContent(project, "src/main/docker/sonar.yml", "image: " + Sonar.SONARQUBE_DOCKER_IMAGE);
   }
 
   @Test

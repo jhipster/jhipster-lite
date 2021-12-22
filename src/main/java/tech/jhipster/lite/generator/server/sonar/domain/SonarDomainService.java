@@ -8,8 +8,6 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot;
-import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL;
 
 public class SonarDomainService implements SonarService {
 
@@ -42,15 +40,15 @@ public class SonarDomainService implements SonarService {
         """
         <executions>
           <execution>
-          <phase>initialize</phase>
-          <goals>
-            <goal>read-project-properties</goal>
-          </goals>
-          <configuration>
-            <files>
-              <file>sonar-project.properties</file>
-            </files>
-          </configuration>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>sonar-project.properties</file>
+              </files>
+            </configuration>
           </execution>
         </executions>"""
       )

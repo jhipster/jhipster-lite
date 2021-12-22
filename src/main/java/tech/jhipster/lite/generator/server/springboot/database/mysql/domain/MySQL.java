@@ -4,7 +4,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class MySQL {
 
-  public static final String TESTCONTAINERS_VERSION = "1.16.0";
+  public static final String TESTCONTAINERS_VERSION = "1.16.2";
 
   public static final String DOCKER_IMAGE_NAME = "mysql:8.0.27";
 

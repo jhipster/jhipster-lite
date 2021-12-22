@@ -4,7 +4,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class Postgresql {
 
-  public static final String TESTCONTAINERS_VERSION = "1.16.0";
+  public static final String TESTCONTAINERS_VERSION = "1.16.2";
 
   public static final String POSTGRESQL_DOCKER_VERSION = "14.1";
 

@@ -76,6 +76,7 @@ public class PostgresqlDomainService implements PostgresqlService {
   @Override
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
+    project.addConfig("postgresqlDockerImage", Postgresql.getPostgresqlDockerImage());
     projectRepository.template(project, SOURCE, "postgresql.yml", "src/main/docker", "postgresql.yml");
   }
 
@@ -183,7 +184,10 @@ public class PostgresqlDomainService implements PostgresqlService {
   private Map<String, Object> springPropertiesForTest(String baseName) {
     TreeMap<String, Object> result = new TreeMap<>();
     result.put("spring.datasource.driver-class-name", "org.testcontainers.jdbc.ContainerDatabaseDriver");
-    result.put("spring.datasource.url", "jdbc:tc:postgresql:13.4:///" + baseName + "?TC_TMPFS=/testtmpfs:rw");
+    result.put(
+      "spring.datasource.url",
+      "jdbc:tc:postgresql:" + Postgresql.getPostgresqlDockerVersion() + ":///" + baseName + "?TC_TMPFS=/testtmpfs:rw"
+    );
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
     return result;

@@ -17,6 +17,7 @@ import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplication
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
+import tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql;
 
 @IntegrationTest
 class PostgresqlApplicationServiceIT {
@@ -66,7 +67,10 @@ class PostgresqlApplicationServiceIT {
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, "config/application.properties"),
-      List.of("spring.datasource.url=jdbc:tc:postgresql:13.4:///jhipster?TC_TMPFS=/testtmpfs:rw", "spring.datasource.username=jhipster")
+      List.of(
+        "spring.datasource.url=jdbc:tc:postgresql:" + Postgresql.getPostgresqlDockerVersion() + ":///jhipster?TC_TMPFS=/testtmpfs:rw",
+        "spring.datasource.username=jhipster"
+      )
     );
     assertLoggerInConfig(project);
   }
@@ -244,7 +248,10 @@ class PostgresqlApplicationServiceIT {
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, "config/application.properties"),
-      List.of("spring.datasource.url=jdbc:tc:postgresql:13.4:///chips?TC_TMPFS=/testtmpfs:rw", "spring.datasource.username=chips")
+      List.of(
+        "spring.datasource.url=jdbc:tc:postgresql:" + Postgresql.getPostgresqlDockerVersion() + ":///chips?TC_TMPFS=/testtmpfs:rw",
+        "spring.datasource.username=chips"
+      )
     );
   }
 

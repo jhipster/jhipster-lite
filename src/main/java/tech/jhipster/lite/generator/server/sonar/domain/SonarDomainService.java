@@ -81,7 +81,7 @@ public class SonarDomainService implements SonarService {
   @Override
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    project.addConfig("dockerImageName", Sonar.getSonarqubeDockerVersion());
+    project.addConfig("sonarqubeDockerImage", Sonar.getSonarqubeDockerImage());
     projectRepository.template(project, SOURCE, "sonar.yml", "src/main/docker", "sonar.yml");
   }
 }

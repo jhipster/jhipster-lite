@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 
 @UnitTest
-public class SonarTest {
+class SonarTest {
 
   @Test
   void shouldGetMavenPluginVersion() {

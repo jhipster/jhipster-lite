@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.sonar.application.SonarApplicationSer
 
 @RestController
 @RequestMapping("/api/servers/sonar")
-@Tag(name = "Server")
+@Tag(name = "Sonar")
 class SonarResource {
 
   private final SonarApplicationService sonarApplicationService;

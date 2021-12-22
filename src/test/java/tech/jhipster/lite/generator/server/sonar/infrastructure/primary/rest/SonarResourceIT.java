@@ -38,11 +38,7 @@ class SonarResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);

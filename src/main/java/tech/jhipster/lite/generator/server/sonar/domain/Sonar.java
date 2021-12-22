@@ -3,7 +3,7 @@ package tech.jhipster.lite.generator.server.sonar.domain;
 public class Sonar {
 
   public static final String SONARSOURCE_MAVEN_PLUGIN_VERSION = "3.9.1.2184";
-  public static final String SONARQUBE_DOCKER_VERSION = "9.2.4-community";
+  public static final String SONARQUBE_DOCKER_IMAGE = "sonarqube:9.2.4-community";
 
   private Sonar() {}
 
@@ -11,7 +11,7 @@ public class Sonar {
     return SONARSOURCE_MAVEN_PLUGIN_VERSION;
   }
 
-  public static String getSonarqubeDockerVersion() {
-    return SONARQUBE_DOCKER_VERSION;
+  public static String getSonarqubeDockerImage() {
+    return SONARQUBE_DOCKER_IMAGE;
   }
 }

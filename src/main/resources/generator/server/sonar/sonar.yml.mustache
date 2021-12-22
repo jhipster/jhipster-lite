@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   sonar:
-    image: sonarqube:{{dockerImageName}}
+    image: sonarqube:{{sonarqubeDockerImage}}
     # Authentication is turned off for out of the box experience while trying out SonarQube
     # For real use cases delete sonar.forceAuthentication variable or set sonar.forceAuthentication=true
     environment:

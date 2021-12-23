@@ -239,6 +239,7 @@ class AsyncSpringLiquibaseTest {
     }
 
     @Override
+    @SuppressWarnings("java:S2925")
     protected void performUpdate(Liquibase liquibase) {
       long sleep = getSleep();
       if (sleep > 0) {
@@ -288,6 +289,7 @@ class AsyncSpringLiquibaseTest {
     }
 
     @Override
+    @SuppressWarnings("java:S2925")
     protected void performUpdate(Liquibase liquibase) {
       long sleep = getSleep();
       if (sleep > 0) {

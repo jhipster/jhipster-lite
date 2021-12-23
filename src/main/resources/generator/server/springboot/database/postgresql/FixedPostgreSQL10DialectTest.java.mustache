@@ -40,7 +40,7 @@ class FixedPostgreSQL10DialectTest {
 
   @Test
   void testBlobTypeRegister() {
-    assertThat(registered.get(Types.BLOB)).isEqualTo("bytea");
+    assertThat(registered.get(Types.BLOB)).contains("bytea");
   }
 
   @Test

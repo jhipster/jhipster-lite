@@ -8,7 +8,7 @@ public class Postgresql {
 
   public static final String POSTGRESQL_DOCKER_VERSION = "14.1";
 
-  public static final String POSTGRESQL_DOCKER_IMAGE = "postgresql:" + POSTGRESQL_DOCKER_VERSION;
+  public static final String POSTGRESQL_DOCKER_IMAGE = "postgres:" + POSTGRESQL_DOCKER_VERSION;
 
   private Postgresql() {}
 

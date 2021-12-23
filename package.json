@@ -1,9 +1,18 @@
 {
   "name": "jhlite",
   "version": "0.0.3-SNAPSHOT",
-  "private": true,
   "description": "JHipster Lite",
-  "license": "UNLICENSED",
+  "homepage": "https://www.jhipster.tech/",
+  "bugs": "https://github.com/jhipster/jhipster-lite/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jhipster/jhipster-lite.git"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/generator-jhipster"
+  },
+  "license": "Apache-2.0",
   "scripts": {
     "prepare": "husky install",
     "prettier:check": "prettier --check \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\"",

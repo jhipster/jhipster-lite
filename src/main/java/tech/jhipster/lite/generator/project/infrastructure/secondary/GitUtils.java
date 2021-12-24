@@ -29,7 +29,7 @@ public class GitUtils {
 
   public static void commit(String dir, String message) throws GitAPIException, IOException {
     Git git = getGit(dir);
-    git.commit().setCommitter(USERNAME, EMAIL).setMessage(message).call();
+    git.commit().setCommitter(USERNAME, EMAIL).setMessage(message).setSign(false).call();
   }
 
   public static void apply(String dir, String patch) throws GitAPIException, IOException {

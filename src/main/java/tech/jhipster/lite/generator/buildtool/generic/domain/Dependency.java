@@ -7,6 +7,7 @@ public class Dependency {
 
   private final String groupId;
   private final String artifactId;
+  private final boolean optional;
   private final Optional<String> version;
   private final Optional<String> scope;
 
@@ -16,6 +17,7 @@ public class Dependency {
 
     this.groupId = builder.groupId;
     this.artifactId = builder.artifactId;
+    this.optional = builder.optional;
     this.version = optionalNotBlank(builder.version);
     this.scope = optionalNotBlank(builder.scope);
   }
@@ -39,6 +41,10 @@ public class Dependency {
     return artifactId;
   }
 
+  public boolean isOptional() {
+    return optional;
+  }
+
   public Optional<String> getVersion() {
     return version;
   }
@@ -51,6 +57,7 @@ public class Dependency {
 
     private String groupId;
     private String artifactId;
+    private boolean optional;
     private String version;
     private String scope;
 
@@ -61,6 +68,11 @@ public class Dependency {
 
     public Dependency.DependencyBuilder artifactId(String artifactId) {
       this.artifactId = artifactId;
+      return this;
+    }
+
+    public Dependency.DependencyBuilder optional() {
+      this.optional = true;
       return this;
     }
 

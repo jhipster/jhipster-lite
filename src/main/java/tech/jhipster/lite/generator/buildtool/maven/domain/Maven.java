@@ -35,6 +35,8 @@ public class Maven {
   public static final String ARTIFACT_ID_BEGIN = "<artifactId>";
   public static final String ARTIFACT_ID_END = "</artifactId>";
 
+  public static final String OPTIONAL = "<optional>true</optional>";
+
   public static final String VERSION_BEGIN = "<version>";
   public static final String VERSION_END = "</version>";
 
@@ -122,6 +124,10 @@ public class Maven {
 
   public static String getDependency(Dependency dependency, int indentation, List<Dependency> exclusions) {
     StringBuilder result = new StringBuilder().append(getDependencyHeader(dependency, indentation));
+
+    if (dependency.isOptional()) {
+      result.append(indent(3, indentation)).append(OPTIONAL).append(System.lineSeparator());
+    }
 
     dependency
       .getVersion()

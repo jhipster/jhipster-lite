@@ -1,5 +1,6 @@
 package tech.jhipster.lite.technical.infrastructure.primary.exception;
 
+import java.io.Serial;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.zalando.problem.Status;
 @SuppressWarnings("squid:MaximumInheritanceDepth")
 public class BadRequestAlertException extends AbstractThrowableProblem {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private final String entityName;

@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.aop.logging.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
@@ -60,5 +61,6 @@ public class AopLoggingDomainService implements AopLoggingService {
 
     projectRepository.template(project, SOURCE, "LoggingAspectConfiguration.java", getPath(MAIN_JAVA, packageNamePath, aopLoggingPath));
     projectRepository.template(project, SOURCE, "LoggingAspect.java", getPath(MAIN_JAVA, packageNamePath, aopLoggingPath));
+    projectRepository.template(project, SOURCE, "LoggingAspectTest.java", getPath(TEST_JAVA, packageNamePath, aopLoggingPath));
   }
 }

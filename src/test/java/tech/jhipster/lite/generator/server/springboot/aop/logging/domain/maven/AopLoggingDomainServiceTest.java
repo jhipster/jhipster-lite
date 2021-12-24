@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
@@ -41,7 +42,7 @@ class AopLoggingDomainServiceTest {
 
     aopLoggingDomainService.init(project);
     // Java files
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
     // Properties modifications
     verify(springBootPropertiesService).addProperties(any(Project.class), anyString(), anyString());
     verify(springBootPropertiesService).addPropertiesFast(any(Project.class), anyString(), anyString());
@@ -55,7 +56,7 @@ class AopLoggingDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     aopLoggingDomainService.addJavaFiles(project);
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test

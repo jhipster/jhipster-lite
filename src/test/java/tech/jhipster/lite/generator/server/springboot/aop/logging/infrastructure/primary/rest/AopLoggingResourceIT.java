@@ -11,6 +11,7 @@ import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainSer
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -68,6 +69,7 @@ class AopLoggingResourceIT {
       project,
       getPath(MAIN_JAVA, "tech/jhipster/chips/technical/infrastructure/secondary/aop/logging/LoggingAspectConfiguration.java")
     );
+    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp/technical/infrastructure/secondary/aop/logging/LoggingAspectTest.java"));
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "application.aop.logging=false");
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "application.aop.logging=true");

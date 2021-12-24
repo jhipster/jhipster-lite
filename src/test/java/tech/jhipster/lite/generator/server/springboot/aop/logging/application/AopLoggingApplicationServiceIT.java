@@ -73,6 +73,7 @@ class AopLoggingApplicationServiceIT {
       project,
       getPath(MAIN_JAVA, "com/mycompany/myapp/technical/infrastructure/secondary/aop/logging/LoggingAspectConfiguration.java")
     );
+    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp/technical/infrastructure/secondary/aop/logging/LoggingAspectTest.java"));
   }
 
   @Test
@@ -135,5 +136,6 @@ class AopLoggingApplicationServiceIT {
       project,
       getPath(MAIN_JAVA, "com/mycompany/myapp/technical/infrastructure/secondary/aop/logging/LoggingAspectConfiguration.java")
     );
+    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp/technical/infrastructure/secondary/aop/logging/LoggingAspectTest.java"));
   }
 }

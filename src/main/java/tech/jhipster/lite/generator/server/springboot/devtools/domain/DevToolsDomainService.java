@@ -34,14 +34,15 @@ public class DevToolsDomainService implements DevToolsService {
 
   @Override
   public void addProperties(Project project) {
-    springPropertiesDevTools().forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springPropertiesDevTools(false).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springPropertiesDevTools(true).forEach((k, v) -> springBootPropertiesService.addPropertiesFast(project, k, v));
   }
 
-  private Map<String, Object> springPropertiesDevTools() {
+  private Map<String, Object> springPropertiesDevTools(boolean fast) {
     TreeMap<String, Object> result = new TreeMap<>();
 
-    result.put("spring.devtools.livereload.enabled", true);
-    result.put("spring.devtools.restart.enabled", true);
+    result.put("spring.devtools.livereload.enabled", fast);
+    result.put("spring.devtools.restart.enabled", fast);
 
     return result;
   }

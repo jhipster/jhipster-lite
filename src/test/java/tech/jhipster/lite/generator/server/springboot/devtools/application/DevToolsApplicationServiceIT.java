@@ -6,6 +6,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_FAST_PROPERTIES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.util.List;
@@ -89,6 +90,11 @@ class DevToolsApplicationServiceIT {
     assertFileContent(
       project,
       getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
+      List.of("spring.devtools.livereload.enabled=false", "spring.devtools.restart.enabled=false")
+    );
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, "config", APPLICATION_FAST_PROPERTIES),
       List.of("spring.devtools.livereload.enabled=true", "spring.devtools.restart.enabled=true")
     );
   }

@@ -55,7 +55,7 @@ public class LoggingAspect {
     * @param joinPoint join point we want the logger for.
     * @return {@link Logger} associated to the given {@link JoinPoint}.
     */
-  private Logger logger(JoinPoint joinPoint) {
+  protected Logger logger(JoinPoint joinPoint) {
     return LoggerFactory.getLogger(joinPoint.getSignature().getDeclaringTypeName());
   }
 

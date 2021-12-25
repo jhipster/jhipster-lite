@@ -39,6 +39,8 @@ public class Project {
     this.databaseMigration = Optional.ofNullable(builder.databaseMigration);
     this.cache = Optional.ofNullable(builder.cache);
     this.security = Optional.ofNullable(builder.security);
+
+    validateProject();
   }
 
   public static ProjectBuilder builder() {
@@ -146,6 +148,16 @@ public class Project {
   public void checkBuildTool() {
     if (!isMavenProject() && !isGradleProject()) {
       throw new GeneratorException("No build tool");
+    }
+  }
+
+  public void validateProject() {
+    checkFolder();
+  }
+
+  public void checkFolder() {
+    if ("/".equals(folder)) {
+      throw new UnauthorizedValueException("The generation folder shall not be set to '/'");
     }
   }
 

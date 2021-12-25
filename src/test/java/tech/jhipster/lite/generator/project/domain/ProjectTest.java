@@ -79,6 +79,13 @@ class ProjectTest {
     }
 
     @Test
+    void shouldNotBuildWithRootFolder() {
+      Project.ProjectBuilder builder = Project.builder().folder("/");
+
+      assertThatThrownBy(builder::build).isExactlyInstanceOf(UnauthorizedValueException.class).hasMessageContaining("generation folder");
+    }
+
+    @Test
     void shouldNotBuildWithBlankPath() {
       Project.ProjectBuilder builder = Project.builder().folder(" ");
 

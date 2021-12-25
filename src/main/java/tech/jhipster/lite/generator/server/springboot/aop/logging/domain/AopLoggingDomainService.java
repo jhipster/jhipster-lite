@@ -46,7 +46,6 @@ public class AopLoggingDomainService implements AopLoggingService {
 
   @Override
   public void addProperties(Project project) {
-
     springBootPropertiesService.addProperties(project, LOGGING_PROPERTY_FIELD, "false");
     springBootPropertiesService.addPropertiesFast(project, LOGGING_PROPERTY_FIELD, "true");
     springBootPropertiesService.addPropertiesTest(project, LOGGING_PROPERTY_FIELD, "true");

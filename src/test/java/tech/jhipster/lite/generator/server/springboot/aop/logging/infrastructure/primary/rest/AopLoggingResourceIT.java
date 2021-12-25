@@ -71,7 +71,7 @@ class AopLoggingResourceIT {
     );
     assertFileExist(
       project,
-      getPath(TEST_JAVA, "com/mycompany/myapp/technical/infrastructure/secondary/aop/logging/LoggingAspectTest.java")
+      getPath(TEST_JAVA, "tech/jhipster/chips/technical/infrastructure/secondary/aop/logging/LoggingAspectTest.java")
     );
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "application.aop.logging=false");

@@ -23,7 +23,7 @@ class AopLoggingResource {
   }
 
   @Operation(summary = "Add AOP logging")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Springbot APO logging")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding AOP logging")
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

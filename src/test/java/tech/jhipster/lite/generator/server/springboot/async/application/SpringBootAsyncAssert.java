@@ -22,12 +22,15 @@ public class SpringBootAsyncAssert {
     assertFileExist(project, getPath(asyncPath, "AsyncConfiguration.java"));
     assertFileExist(project, getPath(asyncPath, "ExceptionHandlingAsyncTaskExecutor.java"));
 
+    assertFileExist(project, getPath(TEST_JAVA, basePath, "LogbackRecorder.java"));
     assertFileExist(project, getPath(asyncTestPath, "AsyncConfigurationIT.java"));
+    assertFileExist(project, getPath(asyncTestPath, "ExceptionHandlingAsyncTaskExecutorTest.java"));
 
     assertFileContent(project, getPath(asyncPath, "AsyncConfiguration.java"), "package " + asyncPackage);
     assertFileContent(project, getPath(asyncPath, "ExceptionHandlingAsyncTaskExecutor.java"), "package " + asyncPackage);
 
     assertFileContent(project, getPath(asyncTestPath, "AsyncConfigurationIT.java"), "package " + asyncPackage);
+    assertFileContent(project, getPath(asyncTestPath, "ExceptionHandlingAsyncTaskExecutorTest.java"), "package " + asyncPackage);
   }
 
   public static void assertProperties(Project project) {

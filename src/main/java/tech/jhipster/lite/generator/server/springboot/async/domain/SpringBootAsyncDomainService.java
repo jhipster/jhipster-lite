@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class SpringBootAsyncDomainService implements SpringBootAsyncService {
@@ -19,10 +20,16 @@ public class SpringBootAsyncDomainService implements SpringBootAsyncService {
   public static final String ASYNC_PATH = "technical/infrastructure/secondary/async";
 
   private final ProjectRepository projectRepository;
+  private final SpringBootCommonService springBootCommonService;
   private final SpringBootPropertiesService springBootPropertiesService;
 
-  public SpringBootAsyncDomainService(ProjectRepository projectRepository, SpringBootPropertiesService springBootPropertiesService) {
+  public SpringBootAsyncDomainService(
+    ProjectRepository projectRepository,
+    SpringBootCommonService springBootCommonService,
+    SpringBootPropertiesService springBootPropertiesService
+  ) {
     this.projectRepository = projectRepository;
+    this.springBootCommonService = springBootCommonService;
     this.springBootPropertiesService = springBootPropertiesService;
   }
 
@@ -41,7 +48,9 @@ public class SpringBootAsyncDomainService implements SpringBootAsyncService {
     templateToAsync(project, packageNamePath, "src", "AsyncConfiguration.java", MAIN_JAVA);
     templateToAsync(project, packageNamePath, "src", "ExceptionHandlingAsyncTaskExecutor.java", MAIN_JAVA);
 
+    springBootCommonService.addTestLogbackRecorder(project);
     templateToAsync(project, packageNamePath, "test", "AsyncConfigurationIT.java", TEST_JAVA);
+    templateToAsync(project, packageNamePath, "test", "ExceptionHandlingAsyncTaskExecutorTest.java", TEST_JAVA);
   }
 
   @Override

@@ -24,6 +24,8 @@ public class LiquibaseAssertFiles {
     assertFileContent(project, getPath(liquibasePath, "LiquibaseConfiguration.java"), "package " + liquibasePackage);
     assertFileContent(project, getPath(liquibasePath, "SpringLiquibaseUtil.java"), "package " + liquibasePackage);
 
+    assertFileExist(project, getPath(TEST_JAVA, project.getPackageNamePath().orElse("com/mycompany/myapp"), "LogbackRecorder.java"));
+
     String liquibaseTestPath = getPath(
       TEST_JAVA,
       project.getPackageNamePath().orElse("com/mycompany/myapp"),
@@ -31,12 +33,10 @@ public class LiquibaseAssertFiles {
     );
     assertFileExist(project, getPath(liquibaseTestPath, "AsyncSpringLiquibaseTest.java"));
     assertFileExist(project, getPath(liquibaseTestPath, "LiquibaseConfigurationIT.java"));
-    assertFileExist(project, getPath(liquibaseTestPath, "LogbackRecorder.java"));
     assertFileExist(project, getPath(liquibaseTestPath, "SpringLiquibaseUtilTest.java"));
 
     assertFileContent(project, getPath(liquibaseTestPath, "AsyncSpringLiquibaseTest.java"), "package " + liquibasePackage);
     assertFileContent(project, getPath(liquibaseTestPath, "LiquibaseConfigurationIT.java"), "package " + liquibasePackage);
-    assertFileContent(project, getPath(liquibaseTestPath, "LogbackRecorder.java"), "package " + liquibasePackage);
     assertFileContent(project, getPath(liquibaseTestPath, "SpringLiquibaseUtilTest.java"), "package " + liquibasePackage);
   }
 

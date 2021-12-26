@@ -8,29 +8,29 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class LiquibaseDomainService implements LiquibaseService {
 
   public static final String SOURCE = "server/springboot/dbmigration/liquibase";
   public static final String LIQUIBASE_PATH = "technical/infrastructure/secondary/liquibase";
 
-  public final ProjectRepository projectRepository;
-  public final BuildToolService buildToolService;
-  public final SpringBootPropertiesService springBootPropertiesService;
-  public final SpringBootLoggingService springBootLoggingService;
+  private final ProjectRepository projectRepository;
+  private final BuildToolService buildToolService;
+  private final SpringBootCommonService springBootCommonService;
+  private final SpringBootLoggingService springBootLoggingService;
 
   public LiquibaseDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService,
+    SpringBootCommonService springBootCommonService,
     SpringBootLoggingService springBootLoggingService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
     this.springBootLoggingService = springBootLoggingService;
   }
 
@@ -65,9 +65,9 @@ public class LiquibaseDomainService implements LiquibaseService {
     templateToLiquibase(project, packageNamePath, "src", "LiquibaseConfiguration.java", MAIN_JAVA);
     templateToLiquibase(project, packageNamePath, "src", "SpringLiquibaseUtil.java", MAIN_JAVA);
 
+    springBootCommonService.addTestLogbackRecorder(project);
     templateToLiquibase(project, packageNamePath, "test", "AsyncSpringLiquibaseTest.java", TEST_JAVA);
     templateToLiquibase(project, packageNamePath, "test", "LiquibaseConfigurationIT.java", TEST_JAVA);
-    templateToLiquibase(project, packageNamePath, "test", "LogbackRecorder.java", TEST_JAVA);
     templateToLiquibase(project, packageNamePath, "test", "SpringLiquibaseUtilTest.java", TEST_JAVA);
   }
 

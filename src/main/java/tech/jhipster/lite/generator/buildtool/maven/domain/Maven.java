@@ -186,23 +186,47 @@ public class Maven {
   }
 
   public static String getPlugin(Plugin plugin) {
-    return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION);
+    return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION, 3);
+  }
+
+  public static String getPlugin(Plugin plugin, int indentation) {
+    return getPlugin(plugin, indentation, 3);
   }
 
   public static String getPluginHeader(Plugin plugin) {
-    return getPluginHeader(plugin, WordUtils.DEFAULT_INDENTATION);
+    return getPluginHeader(plugin, WordUtils.DEFAULT_INDENTATION, 3);
   }
 
   public static String getPluginHeader(Plugin plugin, int indentation) {
+    return getPluginHeader(plugin, indentation, 3);
+  }
+
+  public static String getPluginManagement(Plugin plugin) {
+    return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION, 4);
+  }
+
+  public static String getPluginManagement(Plugin plugin, int indentation) {
+    return getPlugin(plugin, indentation, 4);
+  }
+
+  public static String getPluginManagementHeader(Plugin plugin) {
+    return getPluginHeader(plugin, WordUtils.DEFAULT_INDENTATION, 4);
+  }
+
+  public static String getPluginManagementHeader(Plugin plugin, int indentation) {
+    return getPluginHeader(plugin, indentation, 4);
+  }
+
+  public static String getPluginHeader(Plugin plugin, int indentation, int initialIndentation) {
     StringBuilder result = new StringBuilder()
       .append(PLUGIN_BEGIN)
       .append(System.lineSeparator())
-      .append(indent(4, indentation))
+      .append(indent(initialIndentation + 1, indentation))
       .append(GROUP_ID_BEGIN)
       .append(plugin.getGroupId())
       .append(GROUP_ID_END)
       .append(System.lineSeparator())
-      .append(indent(4, indentation))
+      .append(indent(initialIndentation + 1, indentation))
       .append(ARTIFACT_ID_BEGIN)
       .append(plugin.getArtifactId())
       .append(ARTIFACT_ID_END)
@@ -210,23 +234,30 @@ public class Maven {
     return result.toString();
   }
 
-  public static String getPlugin(Plugin plugin, int indentation) {
-    StringBuilder result = new StringBuilder().append(getPluginHeader(plugin, indentation));
+  public static String getPlugin(Plugin plugin, int indentation, int initialIndentation) {
+    StringBuilder result = new StringBuilder().append(getPluginHeader(plugin, indentation, initialIndentation));
 
     plugin
       .getVersion()
       .ifPresent(version ->
-        result.append(indent(4, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(System.lineSeparator())
+        result
+          .append(indent(initialIndentation + 1, indentation))
+          .append(VERSION_BEGIN)
+          .append(version)
+          .append(VERSION_END)
+          .append(System.lineSeparator())
       );
 
     //replace '\n' to make the multi-line additionalConfiguration platform specific
     plugin
       .getAdditionalElements()
       .ifPresent(additionalElements ->
-        result.append(plugin.getAdditionalElements().get().indent(4 * indentation).replace("\n", System.lineSeparator()))
+        result.append(
+          plugin.getAdditionalElements().get().indent((initialIndentation + 1) * indentation).replace("\n", System.lineSeparator())
+        )
       );
 
-    result.append(indent(3, indentation)).append(PLUGIN_END);
+    result.append(indent(initialIndentation, indentation)).append(PLUGIN_END);
 
     return result.toString();
   }

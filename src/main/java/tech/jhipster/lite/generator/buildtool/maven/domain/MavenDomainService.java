@@ -98,7 +98,7 @@ public class MavenDomainService implements MavenService {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
-    String pluginNodeNode = Maven.getPluginHeader(plugin, indent);
+    String pluginNodeNode = Maven.getPluginManagementHeader(plugin, indent);
     //Checking for plugin declaration in <pluginManagement> section
     String pluginRegexp =
       FileUtils.REGEXP_PREFIX_DOTALL +
@@ -109,7 +109,8 @@ public class MavenDomainService implements MavenService {
       PLUGIN_MANAGEMENT_END;
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
-      String pluginWithNeedle = Maven.getPlugin(plugin, indent) + System.lineSeparator() + indent(3, indent) + NEEDLE_PLUGIN_MANAGEMENT;
+      String pluginWithNeedle =
+        Maven.getPluginManagement(plugin, indent) + System.lineSeparator() + indent(4, indent) + NEEDLE_PLUGIN_MANAGEMENT;
 
       projectRepository.replaceText(project, "", POM_XML, NEEDLE_PLUGIN_MANAGEMENT, pluginWithNeedle);
     }

@@ -318,19 +318,19 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPluginManagement(project, plugin);
     mavenApplicationService.addPluginManagement(project, plugin);
 
-    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 1);
+    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginManagementHeader(plugin), 1);
   }
 
   @Test
   void shouldAddPluginManagementWithExistingPlugin() throws Exception {
     Project project = tmpProjectWithPomXml();
-
     Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-    mavenApplicationService.addPlugin(project, plugin);
 
+    mavenApplicationService.addPlugin(project, plugin);
     mavenApplicationService.addPluginManagement(project, plugin);
 
-    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 2);
+    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 1);
+    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginManagementHeader(plugin), 1);
   }
 
   @Test

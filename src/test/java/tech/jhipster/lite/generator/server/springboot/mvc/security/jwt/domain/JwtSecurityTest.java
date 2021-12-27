@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -22,15 +22,6 @@ class JwtSecurityTest {
     assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-starter-security");
     assertThat(dependency.getVersion()).isEmpty();
     assertThat(dependency.getScope()).isEmpty();
-  }
-
-  @Test
-  void shouldSpringBootConfigurationProcessor() {
-    Dependency dependency = JwtSecurity.springBootConfigurationProcessor();
-    assertThat(dependency.getGroupId()).isEqualTo("org.springframework.boot");
-    assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-configuration-processor");
-    assertThat(dependency.getVersion()).isEmpty();
-    assertThat(dependency.getScope()).contains("provided");
   }
 
   @Test

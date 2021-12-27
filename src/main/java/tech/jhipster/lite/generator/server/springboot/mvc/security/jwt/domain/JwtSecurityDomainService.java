@@ -41,7 +41,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addJavaFiles(project);
     addProperties(project);
     addGitPatch(project);
-    applyGitPatchAnnotationProcessor(project);
 
     updateExceptionTranslator(project);
   }
@@ -50,10 +49,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   public void addBasicAuth(Project project) {
     addBasicAuthJavaFiles(project);
     addBasicAuthProperties(project);
-  }
-
-  private void applyGitPatchAnnotationProcessor(Project project) {
-    projectRepository.gitApplyPatch(project, getPath(project.getFolder(), ".jhipster", ANNOTATION_PROCESSOR_PATCH));
   }
 
   private void updateExceptionTranslator(Project project) {
@@ -78,15 +73,12 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig("packageNamePath", packageNamePath);
-
-    projectRepository.add(project, SOURCE, ANNOTATION_PROCESSOR_PATCH, ".jhipster");
   }
 
   private void addPropertyAndDependency(Project project) {
     buildToolService.addProperty(project, "jjwt", jjwtVersion());
 
     buildToolService.addDependency(project, springBootStarterSecurityDependency());
-    buildToolService.addDependency(project, springBootConfigurationProcessor());
     buildToolService.addDependency(project, jjwtApiDependency());
     buildToolService.addDependency(project, jjwtImplDependency());
     buildToolService.addDependency(project, jjwtJacksonDependency());

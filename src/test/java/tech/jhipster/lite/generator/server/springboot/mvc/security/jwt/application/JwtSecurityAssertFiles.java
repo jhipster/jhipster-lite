@@ -5,8 +5,6 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.ANNOTATION_PROCESSOR_PATCH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 
 import java.util.List;
@@ -20,10 +18,6 @@ public class JwtSecurityAssertFiles {
     assertFileContent(project, POM_XML, "<jjwt.version>");
     assertFileContent(project, POM_XML, jwtSecurityDependencies());
     assertFileContent(project, POM_XML, jwtSecurityTestDependency());
-  }
-
-  public static void assertGitPatch(Project project) {
-    assertFileExist(project, ".jhipster", ANNOTATION_PROCESSOR_PATCH);
   }
 
   public static void assertJwtSecurityFilesExists(Project project) {
@@ -87,11 +81,6 @@ public class JwtSecurityAssertFiles {
       "<dependency>",
       "<groupId>org.springframework.boot</groupId>",
       "<artifactId>spring-boot-starter-security</artifactId>",
-      "</dependency>",
-      "<dependency>",
-      "<groupId>org.springframework.boot</groupId>",
-      "<artifactId>spring-boot-configuration-processor</artifactId>",
-      "<scope>provided</scope>",
       "</dependency>",
       "<dependency>",
       "<groupId>io.jsonwebtoken</groupId>",

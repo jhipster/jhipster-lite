@@ -4,14 +4,16 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_CONFIGURATION;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
 
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
-import tech.jhipster.lite.generator.project.domain.*;
+import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class SpringBootDomainService implements SpringBootService {
 
@@ -58,6 +60,14 @@ public class SpringBootDomainService implements SpringBootService {
   public void addSpringBootDependencies(Project project) {
     Dependency springBootStarterDependency = Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter").build();
     buildToolService.addDependency(project, springBootStarterDependency);
+
+    Dependency springBootConfigurationProcessor = Dependency
+      .builder()
+      .groupId(SPRINGBOOT_PACKAGE)
+      .artifactId("spring-boot-configuration-processor")
+      .optional()
+      .build();
+    buildToolService.addDependency(project, springBootConfigurationProcessor);
 
     Dependency commonLangDependency = Dependency.builder().groupId("org.apache.commons").artifactId("commons-lang3").build();
     buildToolService.addDependency(project, commonLangDependency);

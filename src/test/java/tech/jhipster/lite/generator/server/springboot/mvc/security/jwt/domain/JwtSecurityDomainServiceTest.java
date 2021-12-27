@@ -44,19 +44,13 @@ class JwtSecurityDomainServiceTest {
     jwtSecurityDomainService.init(project);
 
     verify(buildToolService).addProperty(any(Project.class), anyString(), anyString());
-    verify(buildToolService, times(6)).addDependency(any(Project.class), any(Dependency.class));
+    verify(buildToolService, times(5)).addDependency(any(Project.class), any(Dependency.class));
 
     // 12 classes + 4 tests
     verify(projectRepository, times(16)).template(any(Project.class), anyString(), anyString(), anyString());
 
-    // 1 patch
-    verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString(), anyString());
-
     verify(springBootPropertiesService, times(9)).addProperties(any(Project.class), anyString(), any());
     verify(springBootPropertiesService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
-
-    // 1 git patch
-    verify(projectRepository, times(1)).gitApplyPatch(any(Project.class), anyString());
   }
 
   @Test

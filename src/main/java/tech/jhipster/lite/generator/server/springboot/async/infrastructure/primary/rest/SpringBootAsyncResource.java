@@ -13,7 +13,7 @@ import tech.jhipster.lite.generator.server.springboot.async.application.SpringBo
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/async")
-@Tag(name = "Spring Boot - Async")
+@Tag(name = "Spring Boot")
 class SpringBootAsyncResource {
 
   private final SpringBootAsyncApplicationService springBootAsyncApplicationService;

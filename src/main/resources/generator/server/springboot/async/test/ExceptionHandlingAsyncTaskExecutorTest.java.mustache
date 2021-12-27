@@ -4,8 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.*;
 
-import com.mycompany.myapp.LogbackRecorder;
-import com.mycompany.myapp.LogbackRecorder.Event;
+import {{packageName}}.LogbackRecorder;
+import {{packageName}}.LogbackRecorder.Event;
+import {{packageName}}.UnitTest;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
+@UnitTest
 class ExceptionHandlingAsyncTaskExecutorTest {
 
   private static final RuntimeException exception = new RuntimeException("Eek");

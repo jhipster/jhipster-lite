@@ -170,13 +170,11 @@ class MavenTest {
 
   @Test
   void shouldGetPlugin() {
-    // @formatter:off
-    String expected =
-      "<plugin>" + System.lineSeparator() +
-      "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "        <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
-      "      </plugin>";
-    // @formatter:on
+    String expected = """
+      <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>""";
     Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
@@ -184,14 +182,12 @@ class MavenTest {
 
   @Test
   void shouldGetPluginWithVersion() {
-    // @formatter:off
-    String expected =
-      "<plugin>" + System.lineSeparator() +
-      "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "        <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
-      "        <version>2.6.0</version>" + System.lineSeparator() +
-      "      </plugin>";
-    // @formatter:on
+    String expected = """
+      <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+              <version>2.6.0</version>
+            </plugin>""";
     Plugin plugin = fullPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
@@ -199,13 +195,11 @@ class MavenTest {
 
   @Test
   void shouldGetPluginWith4Indentations() {
-    // @formatter:off
-    String expected =
-      "<plugin>" + System.lineSeparator() +
-      "                <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "                <artifactId>spring-boot-maven-plugin</artifactId>" + System.lineSeparator() +
-      "            </plugin>";
-    // @formatter:on
+    String expected = """
+      <plugin>
+                      <groupId>org.springframework.boot</groupId>
+                      <artifactId>spring-boot-maven-plugin</artifactId>
+                  </plugin>""";
     Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin, 4)).isEqualTo(expected);
@@ -216,32 +210,32 @@ class MavenTest {
     // @formatter:off
     String expected = """
       <plugin>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-maven-plugin</artifactId>
-              <version>2.6.0</version>
-              <executions>
-                <execution>
-                  <id>default-war</id>
-                  <goals>
-                    <goal>war</goal>
-                  </goals>
-                  <phase>package</phase>
-                </execution>
-              </executions>
-              <configuration>
-                <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
-                <failOnMissingWebXml>false</failOnMissingWebXml>
-                <warSourceDirectory>target/classes/static/</warSourceDirectory>
-                <webResources>
-                  <resource>
-                    <directory>src/main/webapp</directory>
-                    <includes>
-                      <include>WEB-INF/**</include>
-                    </includes>
-                  </resource>
-                </webResources>
-              </configuration>
-            </plugin>""".replace("\n", System.lineSeparator());
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.6.0</version>
+                <executions>
+                  <execution>
+                    <id>default-war</id>
+                    <goals>
+                      <goal>war</goal>
+                    </goals>
+                    <phase>package</phase>
+                  </execution>
+                </executions>
+                <configuration>
+                  <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+                  <failOnMissingWebXml>false</failOnMissingWebXml>
+                  <warSourceDirectory>target/classes/static/</warSourceDirectory>
+                  <webResources>
+                    <resource>
+                      <directory>src/main/webapp</directory>
+                      <includes>
+                        <include>WEB-INF/**</include>
+                      </includes>
+                    </resource>
+                  </webResources>
+                </configuration>
+              </plugin>""".replace("\n", System.lineSeparator());
     // @formatter:on
     Plugin plugin = fullPluginBuilder()
       .additionalElements(
@@ -271,7 +265,7 @@ class MavenTest {
       )
       .build();
 
-    assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
+    assertThat(Maven.getPluginManagement(plugin)).isEqualTo(expected);
   }
 
   @Test

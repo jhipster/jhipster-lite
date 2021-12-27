@@ -90,6 +90,12 @@ public class TestUtils {
     return project;
   }
 
+  public static Project tmpProjectWithPackageJson() {
+    Project project = tmpProject();
+    copyPackageJson(project);
+    return project;
+  }
+
   public static Project tmpProjectWithBuildGradle() {
     Project project = tmpProject();
     copyBuildGradle(project);
@@ -124,6 +130,15 @@ public class TestUtils {
         getPathOf("src/test/resources/generator/buildtool/gradle/build.test.gradle"),
         getPathOf(project.getFolder(), "build.gradle")
       );
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public static void copyPackageJson(Project project) {
+    try {
+      FileUtils.createFolder(project.getFolder());
+      Files.copy(getPathOf("src/test/resources/generator/command/package-test.json"), getPathOf(project.getFolder(), "package.json"));
     } catch (IOException e) {
       throw new AssertionError(e);
     }

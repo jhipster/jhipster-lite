@@ -33,6 +33,7 @@ if [[ $filename == 'tomcat-postgresql' ]]; then
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
   callApi "/api/servers/spring-boot/aop/logging"
+  callApi "/api/servers/spring-boot/logging/logstash/tcp"
   callApi "/api/servers/spring-boot/async"
   callApi "/api/servers/sonar"
 
@@ -50,6 +51,7 @@ elif [[ $filename == 'undertow-mysql' ]]; then
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
   callApi "/api/servers/spring-boot/aop/logging"
+  callApi "/api/servers/spring-boot/logging/logstash/tcp"
   callApi "/api/servers/spring-boot/async"
   callApi "/api/servers/sonar"
 

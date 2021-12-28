@@ -20,6 +20,14 @@ public class EhcacheAssert {
     assertProperties(project);
   }
 
+  public static void assertInitXmlConfiguration(Project project) {
+    assertDependencies(project);
+    assertXmlDependencies(project);
+    assertEnableCaching(project);
+    assertEhcacheXml(project);
+    assertXmlProperty(project);
+  }
+
   public static void assertDependencies(Project project) {
     SpringBootJCacheAssert.assertDependencies(project);
 
@@ -27,6 +35,25 @@ public class EhcacheAssert {
       project,
       "pom.xml",
       List.of("<dependency>", "<groupId>org.ehcache</groupId>", "<artifactId>ehcache</artifactId>", "</dependency>")
+    );
+  }
+
+  public static void assertXmlDependencies(Project project) {
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of("<dependency>", "<groupId>jakarta.xml.bind</groupId>", "<artifactId>jakarta.xml.bind-api</artifactId>", "</dependency>")
+    );
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.glassfish.jaxb</groupId>",
+        "<artifactId>jaxb-runtime</artifactId>",
+        "<scope>runtime</scope>",
+        "</dependency>"
+      )
     );
   }
 
@@ -63,6 +90,18 @@ public class EhcacheAssert {
       project,
       getPath(MAIN_RESOURCES, "config/application.properties"),
       List.of("application.cache.ehcache.max-entries=100", "application.cache.ehcache.time-to-live-seconds=3600")
+    );
+  }
+
+  public static void assertEhcacheXml(Project project) {
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/ehcache/ehcache.xml"));
+  }
+
+  public static void assertXmlProperty(Project project) {
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, "config/application.properties"),
+      List.of("spring.cache.jcache.config=classpath:config/ehcache/ehcache.xml")
     );
   }
 }

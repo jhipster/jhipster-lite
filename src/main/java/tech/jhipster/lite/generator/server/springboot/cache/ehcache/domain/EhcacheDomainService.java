@@ -1,8 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.cache.ehcache.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
@@ -43,14 +42,39 @@ public class EhcacheDomainService implements EhcacheService {
   }
 
   @Override
+  public void initXmlConfiguration(Project project) {
+    addDependencies(project);
+    addXmlDependencies(project);
+    addEnableCaching(project);
+    addEhcacheXml(project);
+    addXmlProperty(project);
+  }
+
+  @Override
   public void addDependencies(Project project) {
     springBootJCacheService.addDependencies(project);
     buildToolService.addDependency(project, Ehcache.ehcacheDependency());
   }
 
   @Override
+  public void addXmlDependencies(Project project) {
+    buildToolService.addDependency(project, Ehcache.jakartaXmlBindApi());
+    buildToolService.addDependency(project, Ehcache.glassfishJaxbRuntime());
+  }
+
+  @Override
   public void addEnableCaching(Project project) {
     springBootJCacheService.addEnableCaching(project);
+  }
+
+  @Override
+  public void addEhcacheXml(Project project) {
+    projectRepository.add(project, getPath(SOURCE, "resources"), "ehcache.xml", getPath(MAIN_RESOURCES, "config/ehcache"));
+  }
+
+  @Override
+  public void addXmlProperty(Project project) {
+    springBootPropertiesService.addProperties(project, "spring.cache.jcache.config", "classpath:config/ehcache/ehcache.xml");
   }
 
   @Override

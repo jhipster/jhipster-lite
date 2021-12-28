@@ -42,6 +42,19 @@ class SpringBootApplicationServiceIT {
 
     assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
     assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter</artifactId>");
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-configuration-processor</artifactId>",
+        "<optional>true</optional>",
+        "</dependency>"
+      )
+    );
+
     assertFileContent(project, "pom.xml", "<groupId>org.apache.commons</groupId>");
     assertFileContent(project, "pom.xml", "<artifactId>commons-lang3</artifactId>");
     assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-test</artifactId>");

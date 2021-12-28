@@ -16,7 +16,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
-import tech.jhipster.lite.generator.project.domain.*;
+import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +39,7 @@ class SpringBootDomainServiceTest {
     springBootDomainService.init(project);
 
     verify(buildToolService).addParent(any(Project.class), any(Parent.class));
-    verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
+    verify(buildToolService, times(4)).addDependency(any(Project.class), any(Dependency.class));
     verify(buildToolService).addPlugin(any(Project.class), any(Plugin.class));
 
     // for application.properties, application-fast.properties, Integration Test annotation, Logging config and logging test config
@@ -62,7 +63,7 @@ class SpringBootDomainServiceTest {
 
     springBootDomainService.addSpringBootDependencies(project);
 
-    verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
+    verify(buildToolService, times(4)).addDependency(any(Project.class), any(Dependency.class));
   }
 
   @Test

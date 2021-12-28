@@ -9,7 +9,6 @@ public class JwtSecurity {
   private static final String JJWT_VERSION = "0.11.2";
   private static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
 
-  public static final String ANNOTATION_PROCESSOR_PATCH = "jwt-security-annotation-processor.patch";
   public static final String JSONWEBTOKEN_PACKAGE = "io.jsonwebtoken";
   public static final String JJWT_VERSION_PROPERTY = "\\${jjwt.version}";
 
@@ -21,15 +20,6 @@ public class JwtSecurity {
 
   public static Dependency springBootStarterSecurityDependency() {
     return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-security").build();
-  }
-
-  public static Dependency springBootConfigurationProcessor() {
-    return Dependency
-      .builder()
-      .groupId("org.springframework.boot")
-      .artifactId("spring-boot-configuration-processor")
-      .scope("provided")
-      .build();
   }
 
   public static Dependency jjwtApiDependency() {

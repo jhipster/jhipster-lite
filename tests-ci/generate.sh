@@ -36,7 +36,7 @@ if [[ $filename == 'tomcat-postgresql' ]]; then
   callApi "/api/servers/spring-boot/async"
   callApi "/api/servers/sonar"
 
-elif [[ $filename == 'undertow-mysql' ]]; then
+elif [[ $filename == 'undertow-mysql-simplecache' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
   callApi "/api/servers/java/base"
@@ -51,6 +51,7 @@ elif [[ $filename == 'undertow-mysql' ]]; then
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
   callApi "/api/servers/spring-boot/aop/logging"
   callApi "/api/servers/spring-boot/async"
+  callApi "/api/servers/spring-boot/cache/simple"
   callApi "/api/servers/sonar"
 
 else

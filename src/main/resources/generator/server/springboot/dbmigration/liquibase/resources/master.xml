@@ -13,4 +13,6 @@
   <property name="uuidType" value="uuid" dbms="h2, postgresql" />
   <property name="datetimeType" value="datetime(6)" dbms="mysql, mariadb" />
   <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2" />
+
+  <!-- jhipster-needle-liquibase-add-changelog -->
 </databaseChangeLog>

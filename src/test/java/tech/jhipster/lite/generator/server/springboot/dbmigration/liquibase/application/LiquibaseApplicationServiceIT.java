@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
@@ -15,6 +16,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -81,6 +83,39 @@ class LiquibaseApplicationServiceIT {
     liquibaseApplicationService.addChangelogMasterXml(project);
 
     assertFilesLiquibaseChangelogMasterXml(project);
+  }
+
+  @Test
+  void shouldAddChangelog() {
+    Project project = tmpProject();
+
+    liquibaseApplicationService.addChangelogMasterXml(project);
+    liquibaseApplicationService.addChangelogXml(project, "v1", "master.xml");
+
+    String expected = "  <include file=\"config/liquibase/changelog/v1/master.xml\" relativeToChangelogFile=\"false\"/>";
+
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), expected);
+  }
+
+  @Test
+  void shouldAddChangelogOnlyOneTime() throws Exception {
+    Project project = tmpProject();
+
+    liquibaseApplicationService.addChangelogMasterXml(project);
+    liquibaseApplicationService.addChangelogXml(project, "v1", "master.xml");
+    liquibaseApplicationService.addChangelogXml(project, "v1", "master.xml");
+
+    String expected = "  <include file=\"config/liquibase/changelog/v1/master.xml\" relativeToChangelogFile=\"false\"/>";
+
+    assertFileContentManyTimes(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), expected, 1);
+  }
+
+  @Test
+  void shouldNotAddChangelogWhenNoMasterXml() throws Exception {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> liquibaseApplicationService.addChangelogXml(project, "v1", "master.xml"))
+      .isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

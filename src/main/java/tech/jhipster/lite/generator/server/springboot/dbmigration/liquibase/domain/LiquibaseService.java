@@ -7,6 +7,7 @@ public interface LiquibaseService {
 
   void addLiquibase(Project project);
   void addChangelogMasterXml(Project project);
+  void addChangelogXml(Project project, String path, String fileName);
   void addConfigurationJava(Project project);
   void addLoggerInConfiguration(Project project);
 }

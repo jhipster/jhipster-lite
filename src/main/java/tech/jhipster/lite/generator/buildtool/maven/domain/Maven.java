@@ -12,6 +12,7 @@ public class Maven {
 
   public static final String NEEDLE_PARENT = "<!-- jhipster-needle-maven-parent -->";
   public static final String NEEDLE_DEPENDENCY = "<!-- jhipster-needle-maven-add-dependency -->";
+  public static final String NEEDLE_DEPENDENCY_MANAGEMENT = "<!-- jhipster-needle-maven-add-dependency-management -->";
   public static final String NEEDLE_DEPENDENCY_TEST = "<!-- jhipster-needle-maven-add-dependency-test -->";
   public static final String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
   public static final String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
@@ -141,7 +142,7 @@ public class Maven {
         result.append(indent(3, indentation)).append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append(System.lineSeparator())
       );
 
-    if (!exclusions.isEmpty()) {
+    if (exclusions != null && !exclusions.isEmpty()) {
       result.append(indent(3, indentation)).append(getExclusions(exclusions)).append(System.lineSeparator());
     }
 

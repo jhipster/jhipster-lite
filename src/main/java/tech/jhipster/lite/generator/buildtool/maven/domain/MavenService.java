@@ -9,8 +9,9 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public interface MavenService {
   void addParent(Project project, Parent parent);
   void addDependency(Project project, Dependency dependency);
-  void deleteDependency(Project project, Dependency dependency);
   void addDependency(Project project, Dependency dependency, List<Dependency> exclusions);
+  void addDependencyManagement(Project project, Dependency dependency);
+  void deleteDependency(Project project, Dependency dependency);
   void addPlugin(Project project, Plugin plugin);
   void addPluginManagement(Project project, Plugin plugin);
   void addProperty(Project project, String key, String version);

@@ -41,11 +41,25 @@ public class MavenDomainService implements MavenService {
 
   @Override
   public void addDependency(Project project, Dependency dependency) {
-    addDependency(project, dependency, List.of());
+    addDependency(project, dependency, null);
   }
 
   @Override
   public void addDependency(Project project, Dependency dependency, List<Dependency> exclusions) {
+    addDependency(
+      project,
+      dependency,
+      exclusions,
+      dependency.getScope().filter(s -> s.equals("test")).map(s -> NEEDLE_DEPENDENCY_TEST).orElse(NEEDLE_DEPENDENCY)
+    );
+  }
+
+  @Override
+  public void addDependencyManagement(Project project, Dependency dependency) {
+    addDependency(project, dependency, null, NEEDLE_DEPENDENCY_MANAGEMENT);
+  }
+
+  private void addDependency(Project project, Dependency dependency, List<Dependency> exclusions, String needle) {
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
     String dependencyNodeNode = Maven.getDependencyHeader(dependency, indent);
@@ -54,7 +68,6 @@ public class MavenDomainService implements MavenService {
     if (!projectRepository.containsRegexp(project, "", POM_XML, dependencyRegexp)) {
       project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
-      String needle = dependency.getScope().orElse("").equals("test") ? NEEDLE_DEPENDENCY_TEST : NEEDLE_DEPENDENCY;
       String dependencyWithNeedle =
         Maven.getDependency(dependency, indent, exclusions) + System.lineSeparator() + indent(2, indent) + needle;
 

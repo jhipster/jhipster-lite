@@ -50,7 +50,7 @@ class ConsulResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/cloud/consul")
+        post("/api/servers/spring-boot/spring-cloud/consul")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

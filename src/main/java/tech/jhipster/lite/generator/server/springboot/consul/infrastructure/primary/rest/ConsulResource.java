@@ -12,7 +12,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.generator.server.springboot.consul.application.ConsulApplicationService;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/cloud/consul")
+@RequestMapping("/api/servers/spring-boot/spring-cloud/consul")
 @Tag(name = "Spring Boot - Cloud")
 class ConsulResource {
 

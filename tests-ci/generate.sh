@@ -91,7 +91,7 @@ elif [[ $filename == 'undertow-consul' ]]; then
   callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/mvc/security/jwt"
   callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/cloud/consul"
+  callApi "/api/servers/spring-boot/spring-cloud/consul"
   callApi "/api/servers/sonar"
 
 else

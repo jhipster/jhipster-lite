@@ -79,6 +79,21 @@ elif [[ $filename == 'undertow-mysql-simplecache' ]]; then
   callApi "/api/servers/spring-boot/cache/simple"
   callApi "/api/servers/sonar"
 
+elif [[ $filename == 'undertow-consul' ]]; then
+  callApi "/api/projects/init"
+  callApi "/api/build-tools/maven"
+  callApi "/api/servers/java/base"
+  callApi "/api/servers/java/jacoco-minimum-coverage"
+  callApi "/api/servers/spring-boot"
+  callApi "/api/servers/spring-boot/devtools"
+  callApi "/api/servers/spring-boot/banner/jhipster-v3"
+  callApi "/api/servers/spring-boot/mvc/web/undertow"
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/mvc/security/jwt"
+  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/cloud/consul"
+  callApi "/api/servers/sonar"
+
 else
   echo "*** Unknown configuration..."
   exit 1

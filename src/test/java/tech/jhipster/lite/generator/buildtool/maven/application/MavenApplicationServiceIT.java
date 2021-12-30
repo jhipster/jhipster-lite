@@ -158,6 +158,31 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddDependencyManagement() {
+    Project project = tmpProjectWithPomXml();
+
+    Dependency dependency = Dependency
+      .builder()
+      .groupId("org.springframework.cloud")
+      .artifactId("spring-cloud-starter-bootstrap")
+      .version("\\${spring-cloud.version}")
+      .build();
+    mavenApplicationService.addDependencyManagement(project, dependency);
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.springframework.cloud</groupId>",
+        "<artifactId>spring-cloud-starter-bootstrap</artifactId>",
+        "<version>${spring-cloud.version}</version>",
+        "</dependency>"
+      )
+    );
+  }
+
+  @Test
   void shouldDeleteDependency() {
     Project project = tmpProjectWithPomXml();
 

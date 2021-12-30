@@ -29,6 +29,10 @@ public class MavenApplicationService {
     mavenService.addDependency(project, dependency, exclusions);
   }
 
+  public void addDependencyManagement(Project project, Dependency dependency) {
+    mavenService.addDependencyManagement(project, dependency);
+  }
+
   public void deleteDependency(Project project, Dependency dependency) {
     mavenService.deleteDependency(project, dependency);
   }

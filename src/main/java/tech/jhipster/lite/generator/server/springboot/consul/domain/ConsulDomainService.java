@@ -55,7 +55,7 @@ public class ConsulDomainService implements ConsulService {
   private Map<String, Object> properties() {
     TreeMap<String, Object> result = new TreeMap<>();
 
-    result.put("spring.cloud.consul.config.enabled", "true");
+    result.put("spring.cloud.consul.discovery.health-check-path", "/management/health");
     result.put("spring.cloud.consul.host", "localhost");
     result.put("spring.cloud.consul.port", 8500);
 

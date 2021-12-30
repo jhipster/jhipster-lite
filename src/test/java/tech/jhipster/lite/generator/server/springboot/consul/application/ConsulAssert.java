@@ -55,7 +55,7 @@ public class ConsulAssert {
       project,
       getPath(MAIN_RESOURCES, "config/bootstrap.properties"),
       List.of(
-        "spring.cloud.consul.config.enabled=true",
+        "spring.cloud.consul.discovery.health-check-path=/management/health",
         "spring.cloud.consul.host=localhost",
         "spring.cloud.consul.port=8500"
         // TODO other properties

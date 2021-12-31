@@ -20,6 +20,7 @@ public class LiquibaseDomainService implements LiquibaseService {
   public static final String SOURCE = "server/springboot/dbmigration/liquibase";
   public static final String LIQUIBASE_PATH = "technical/infrastructure/secondary/liquibase";
   public static final String MASTER_XML = "master.xml";
+  public static final String CONFIG_LIQUIBASE = "config/liquibase";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -57,7 +58,7 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   @Override
   public void addChangelogMasterXml(Project project) {
-    projectRepository.add(project, getPath(SOURCE, "resources"), MASTER_XML, getPath(MAIN_RESOURCES, "config/liquibase"));
+    projectRepository.add(project, getPath(SOURCE, "resources"), MASTER_XML, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE));
   }
 
   @Override
@@ -70,8 +71,8 @@ public class LiquibaseDomainService implements LiquibaseService {
       .append(NEEDLE_LIQUIBASE)
       .toString();
 
-    if (!projectRepository.containsRegexp(project, getPath(MAIN_RESOURCES, "config/liquibase"), MASTER_XML, includeLine)) {
-      projectRepository.replaceText(project, getPath(MAIN_RESOURCES, "config/liquibase"), MASTER_XML, NEEDLE_LIQUIBASE, includeLine);
+    if (!projectRepository.containsRegexp(project, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE), MASTER_XML, includeLine)) {
+      projectRepository.replaceText(project, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE), MASTER_XML, NEEDLE_LIQUIBASE, includeLine);
     }
   }
 

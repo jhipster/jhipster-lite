@@ -92,6 +92,26 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddDependencyOptional() {
+    Project project = tmpProjectWithPomXml();
+
+    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-devtools").optional().build();
+    mavenApplicationService.addDependency(project, dependency);
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-devtools</artifactId>",
+        "<optional>true</optional>",
+        "</dependency>"
+      )
+    );
+  }
+
+  @Test
   void shouldAddDependencyWithScopeTest() {
     Project project = tmpProjectWithPomXml();
 

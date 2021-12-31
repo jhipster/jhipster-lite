@@ -20,6 +20,7 @@ import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
 import tech.jhipster.lite.generator.server.javatool.base.application.JavaBaseApplicationService;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityApplicationService;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Provider;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infrastructure.primary.dto.OAuth2ClientDTO;
 import tech.jhipster.lite.generator.server.springboot.mvc.web.application.SpringBootMvcApplicationService;
 
@@ -90,6 +91,8 @@ class OAuth2SecurityResourceIT {
 
     OAuth2ClientDTO oAuth2ClientDTO = new OAuth2ClientDTO();
     oAuth2ClientDTO.setProject(projectDTO);
+    oAuth2ClientDTO.setProvider(OAuth2Provider.OTHER);
+    oAuth2ClientDTO.setIssuerUri("https://my-private-issuer-uri");
 
     mockMvc
       .perform(

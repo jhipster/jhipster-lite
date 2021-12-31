@@ -70,30 +70,15 @@ public class ConsulAssert {
       getPath(MAIN_RESOURCES, "config/bootstrap.properties"),
       List.of(
         "spring.cloud.consul.discovery.health-check-path=/management/health",
+        "spring.cloud.consul.discovery.tags[0]=version=@project.version@",
+        "spring.cloud.consul.discovery.tags[1]=context-path=${server.servlet.context-path:}",
         "spring.cloud.consul.host=localhost",
         "spring.cloud.consul.port=8500"
-        // TODO other properties
       )
     );
 
-    assertFileContent(
-      project,
-      getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"),
-      List.of(
-        "spring.cloud.consul.config.enabled=false",
-        "spring.cloud.consul.discovery.enabled=false",
-        "spring.cloud.consul.enabled=false"
-      )
-    );
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"), "spring.cloud.consul.enabled=false");
 
-    assertFileContent(
-      project,
-      getPath(TEST_RESOURCES, "config/bootstrap.properties"),
-      List.of(
-        "spring.cloud.consul.config.enabled=false",
-        "spring.cloud.consul.discovery.enabled=false",
-        "spring.cloud.consul.enabled=false"
-      )
-    );
+    assertFileContent(project, getPath(TEST_RESOURCES, "config/bootstrap.properties"), "spring.cloud.consul.enabled=false");
   }
 }

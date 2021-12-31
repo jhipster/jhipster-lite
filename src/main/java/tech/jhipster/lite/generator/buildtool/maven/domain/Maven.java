@@ -44,6 +44,9 @@ public class Maven {
   public static final String SCOPE_BEGIN = "<scope>";
   public static final String SCOPE_END = "</scope>";
 
+  public static final String TYPE_BEGIN = "<type>";
+  public static final String TYPE_END = "</type>";
+
   public static final String EXCLUSIONS_BEGIN = "<exclusions>";
   public static final String EXCLUSIONS_END = "</exclusions>";
 
@@ -140,6 +143,12 @@ public class Maven {
       .getScope()
       .ifPresent(scope ->
         result.append(indent(3, indentation)).append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append(System.lineSeparator())
+      );
+
+    dependency
+      .getType()
+      .ifPresent(type ->
+        result.append(indent(3, indentation)).append(TYPE_BEGIN).append(type).append(TYPE_END).append(System.lineSeparator())
       );
 
     if (exclusions != null && !exclusions.isEmpty()) {

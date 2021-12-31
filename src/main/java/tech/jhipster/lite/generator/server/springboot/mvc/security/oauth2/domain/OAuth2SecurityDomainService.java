@@ -29,10 +29,10 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   }
 
   @Override
-  public void init(Project project, String issuerUri) {
+  public void init(Project project, OAuth2Provider provider, String issuerUri) {
     projectRepository.gitInit(project);
     addOAuth2ClientDependencies(project);
-    addOAuth2ClientProperties(project, issuerUri);
+    addOAuth2ClientProperties(project, provider, issuerUri);
   }
 
   @Override
@@ -64,21 +64,30 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     buildToolService.addDependency(project, springSecurityTestDependency());
   }
 
-  private void addOAuth2ClientProperties(Project project, String issuerUri) {
-    oauth2ClientProperties(issuerUri)
+  private void addOAuth2ClientProperties(Project project, OAuth2Provider provider, String issuerUri) {
+    oauth2ClientProperties(provider, issuerUri)
       .forEach((k, v) -> {
         springBootPropertiesService.addProperties(project, k, v);
         springBootPropertiesService.addPropertiesTest(project, k, v);
       });
   }
 
-  private Map<String, Object> oauth2ClientProperties(String issuerUri) {
+  private Map<String, Object> oauth2ClientProperties(OAuth2Provider provider, String issuerUri) {
     Map<String, Object> result = new LinkedHashMap<>();
 
-    result.put("spring.security.oauth2.client.provider.oidc.issuer-uri", Optional.ofNullable(issuerUri).orElse(DEFAULT_ISSUER_URI));
-    result.put("spring.security.oauth2.client.registration.oidc.client-id", "jhipster");
-    result.put("spring.security.oauth2.client.registration.oidc.client-secret", "jhipster");
-    result.put("spring.security.oauth2.client.registration.oidc.scope", "openid,profile,email");
+    OAuth2Provider providerFallback = Optional.ofNullable(provider).orElse(OAuth2Provider.KEYCLOAK);
+    String providerId = providerFallback.name().toLowerCase();
+
+    if (providerFallback.isCustom()) {
+      String issuerUriFallback = Optional.ofNullable(issuerUri).orElse(providerFallback.getDefaultIssuerUri());
+      result.put("spring.security.oauth2.client.provider." + providerId + ".issuer-uri", issuerUriFallback);
+    }
+    if (!providerFallback.isBuiltIn()) {
+      result.put("spring.security.oauth2.client.registration." + providerId + ".client-name", providerId);
+    }
+    result.put("spring.security.oauth2.client.registration." + providerId + ".client-id", "web_app");
+    result.put("spring.security.oauth2.client.registration." + providerId + ".client-secret", "web_app");
+    result.put("spring.security.oauth2.client.registration." + providerId + ".scope", "openid,profile,email");
 
     return result;
   }

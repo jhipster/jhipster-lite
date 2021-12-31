@@ -23,12 +23,12 @@ class OAuth2SecurityResource {
     this.oauth2SecurityApplicationService = oauth2SecurityApplicationService;
   }
 
-  @Operation(summary = "Add Spring Security OAuth2-OIDC Client")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security OAuth2-OIDC Client")
+  @Operation(summary = "Add a Spring Security OAuth2-OIDC Client")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding a Spring Security OAuth2-OIDC Client")
   @PostMapping("/oauth2")
   public void init(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
     Project project = ProjectDTO.toProject(oAuth2ClientDTO.getProjectDTO());
-    oauth2SecurityApplicationService.init(project, oAuth2ClientDTO.getIssuerUri());
+    oauth2SecurityApplicationService.init(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
   }
 
   @Operation(summary = "Add Spring Security default login with OAuth2")

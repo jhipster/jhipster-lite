@@ -4,8 +4,6 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class OAuth2Security {
 
-  public static final String DEFAULT_ISSUER_URI = "http://localhost:9080/auth/realms/jhipster";
-
   private static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
 
   private static final String STARTER_SECURITY = "spring-boot-starter-security";

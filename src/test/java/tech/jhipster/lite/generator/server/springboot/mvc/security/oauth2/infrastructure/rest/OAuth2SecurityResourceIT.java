@@ -62,7 +62,6 @@ class OAuth2SecurityResourceIT {
 
     OAuth2ClientDTO oAuth2ClientDTO = new OAuth2ClientDTO();
     oAuth2ClientDTO.setProjectDTO(projectDTO);
-    oAuth2ClientDTO.setIssuerUri("https://my/issuer/uri");
 
     mockMvc
       .perform(
@@ -74,7 +73,7 @@ class OAuth2SecurityResourceIT {
 
     assertSecurityDependencies(project);
     assertOAuth2ClientDependencies(project);
-    assertOAuth2ClientProperties(project, oAuth2ClientDTO.getIssuerUri());
+    assertOAuth2ClientProperties(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
   }
 
   @Test

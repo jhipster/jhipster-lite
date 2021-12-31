@@ -62,6 +62,16 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
+    void shouldAddDependencyManagement() {
+      Project project = tmpProjectWithPomXml();
+      Dependency dependency = getDependency();
+
+      buildToolDomainService.addDependencyManagement(project, dependency);
+
+      verify(mavenService).addDependencyManagement(project, dependency);
+    }
+
+    @Test
     void shouldAddPlugin() {
       Project project = tmpProjectWithPomXml();
       Plugin plugin = getPlugin();
@@ -158,6 +168,15 @@ class BuildToolDomainServiceTest {
       List<Dependency> exclusions = getExclusions();
 
       assertThatThrownBy(() -> buildToolDomainService.addDependency(project, dependency, exclusions))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotAddDependencyManagement() {
+      Project project = tmpProject();
+      Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
+
+      assertThatThrownBy(() -> buildToolDomainService.addDependencyManagement(project, dependency))
         .isExactlyInstanceOf(GeneratorException.class);
     }
 

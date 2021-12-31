@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.filter.CorsFilter;
 import {{packageName}}.IntegrationTest;
 
@@ -14,7 +13,7 @@ import {{packageName}}.IntegrationTest;
 class CorsFilterConfigurationIT {
 
   @Nested
-  @SpringBootTest(
+  @IntegrationTest(
     properties = {
       "application.cors.allowed-origins=http://localhost:8100,http://localhost:9000", "application.cors.allowed-origin-patterns=",
     }
@@ -31,7 +30,7 @@ class CorsFilterConfigurationIT {
   }
 
   @Nested
-  @SpringBootTest(properties = { "application.cors.allowed-origins=", "application.cors.allowed-origin-patterns=" })
+  @IntegrationTest(properties = { "application.cors.allowed-origins=", "application.cors.allowed-origin-patterns=" })
   class CorsFilterEmpty {
 
     @Autowired
@@ -44,7 +43,7 @@ class CorsFilterConfigurationIT {
   }
 
   @Nested
-  @SpringBootTest(
+  @IntegrationTest(
     properties = {
       "application.cors.allowed-origins=", "application.cors.allowed-origin-patterns=http://localhost:8100,http://localhost:9000",
     }

@@ -6,7 +6,6 @@ import liquibase.integration.spring.SpringLiquibase;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import {{packageName}}.IntegrationTest;
 
@@ -17,7 +16,7 @@ class LiquibaseConfigurationIT {
   ApplicationContext applicationContext;
 
   @Nested
-  @SpringBootTest(properties = { "application.liquibase.async=true" })
+  @IntegrationTest(properties = { "application.liquibase.async=true" })
   class Async {
 
     @Test
@@ -29,7 +28,7 @@ class LiquibaseConfigurationIT {
   }
 
   @Nested
-  @SpringBootTest(properties = { "application.liquibase.async=false" })
+  @IntegrationTest(properties = { "application.liquibase.async=false" })
   class Sync {
 
     @Test

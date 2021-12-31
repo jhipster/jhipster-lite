@@ -7,7 +7,6 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.encoder.Encoder;
-import {{packageName}}.IntegrationTest;
 import java.net.InetSocketAddress;
 import net.logstash.logback.appender.LogstashTcpSocketAppender;
 import net.logstash.logback.encoder.LogstashEncoder;
@@ -17,14 +16,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import {{packageName}}.IntegrationTest;
 
 @IntegrationTest
 class LogstashTcpConfigurationIT {
 
   @Nested
-  @SpringBootTest(
+  @IntegrationTest(
     properties = {
       "spring.application.name=lite",
       "server.port=8080",
@@ -69,7 +68,7 @@ class LogstashTcpConfigurationIT {
   }
 
   @Nested
-  @SpringBootTest(properties = { "application.logging.logstash.tcp.enabled=false" })
+  @IntegrationTest(properties = { "application.logging.logstash.tcp.enabled=false" })
   class Disabled {
 
     @Autowired

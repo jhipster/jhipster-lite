@@ -172,6 +172,15 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
+    void shouldNotAddDependencyManagement() {
+      Project project = tmpProject();
+      Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
+
+      assertThatThrownBy(() -> buildToolDomainService.addDependencyManagement(project, dependency))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
     void shouldNotAddPlugin() {
       Project project = tmpProject();
       Plugin plugin = getPlugin();

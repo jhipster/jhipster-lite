@@ -49,7 +49,7 @@ class OAuth2SecurityResourceIT {
   MockMvc mockMvc;
 
   @Test
-  void shouldInit() throws Exception {
+  void shouldAddClient() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
     projectDTO.folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
@@ -65,7 +65,7 @@ class OAuth2SecurityResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/security/oauth2")
+        post("/api/servers/spring-boot/security/oauth2/add-client")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(oAuth2ClientDTO))
       )
@@ -88,79 +88,20 @@ class OAuth2SecurityResourceIT {
     springBootApplicationService.init(project);
     springBootMvcApplicationService.init(project);
 
+    OAuth2ClientDTO oAuth2ClientDTO = new OAuth2ClientDTO();
+    oAuth2ClientDTO.setProject(projectDTO);
+
     mockMvc
       .perform(
         post("/api/servers/spring-boot/security/oauth2/default")
           .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+          .content(TestUtils.convertObjectToJsonBytes(oAuth2ClientDTO))
       )
       .andExpect(status().isOk());
-    // TODO
-  }
 
-  @Test
-  void shouldAddJwt() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    projectDTO.folder(FileUtils.tmpDirForTest());
-    Project project = ProjectDTO.toProject(projectDTO);
-    GitUtils.init(project.getFolder());
-    initApplicationService.init(project);
-    mavenApplicationService.init(project);
-    javaBaseApplicationService.init(project);
-    springBootApplicationService.init(project);
-    springBootMvcApplicationService.init(project);
-
-    mockMvc
-      .perform(
-        post("/api/servers/spring-boot/security/oauth2/jwt")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-      )
-      .andExpect(status().isOk());
-    // TODO
-  }
-
-  @Test
-  void shouldAddOpaqueToken() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    projectDTO.folder(FileUtils.tmpDirForTest());
-    Project project = ProjectDTO.toProject(projectDTO);
-    GitUtils.init(project.getFolder());
-    initApplicationService.init(project);
-    mavenApplicationService.init(project);
-    javaBaseApplicationService.init(project);
-    springBootApplicationService.init(project);
-    springBootMvcApplicationService.init(project);
-
-    mockMvc
-      .perform(
-        post("/api/servers/spring-boot/security/oauth2/opaque-token")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-      )
-      .andExpect(status().isOk());
-    // TODO
-  }
-
-  @Test
-  void shouldAddAccount() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    projectDTO.folder(FileUtils.tmpDirForTest());
-    Project project = ProjectDTO.toProject(projectDTO);
-    GitUtils.init(project.getFolder());
-    initApplicationService.init(project);
-    mavenApplicationService.init(project);
-    javaBaseApplicationService.init(project);
-    springBootApplicationService.init(project);
-    springBootMvcApplicationService.init(project);
-
-    mockMvc
-      .perform(
-        post("/api/servers/spring-boot/security/oauth2/account")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-      )
-      .andExpect(status().isOk());
-    // TODO
+    assertSecurityDependencies(project);
+    assertOAuth2ClientDependencies(project);
+    assertOAuth2ClientProperties(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
+    // TODO assert default security configuration
   }
 }

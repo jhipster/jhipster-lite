@@ -29,32 +29,16 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   }
 
   @Override
-  public void init(Project project, OAuth2Provider provider, String issuerUri) {
-    projectRepository.gitInit(project);
+  public void addClient(Project project, OAuth2Provider provider, String issuerUri) {
     addOAuth2ClientDependencies(project);
     addOAuth2ClientProperties(project, provider, issuerUri);
   }
 
   @Override
-  public void addDefault(Project project) {
-    // TODO default
-  }
-
-  @Override
-  public void addJwt(Project project) {
-    addOAuth2ResourceServerDependency(project);
-    // TODO JWT
-  }
-
-  @Override
-  public void addOpaqueToken(Project project) {
-    addOAuth2ResourceServerDependency(project);
-    // TODO opaque token
-  }
-
-  @Override
-  public void addAccount(Project project) {
-    // TODO account
+  public void addDefault(Project project, OAuth2Provider provider, String issuerUri) {
+    addOAuth2ClientDependencies(project);
+    addOAuth2ClientProperties(project, provider, issuerUri);
+    // TODO default security configuration
   }
 
   private void addOAuth2ClientDependencies(Project project) {
@@ -90,9 +74,5 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     result.put("spring.security.oauth2.client.registration." + providerId + ".scope", "openid,profile,email");
 
     return result;
-  }
-
-  private void addOAuth2ResourceServerDependency(Project project) {
-    buildToolService.addDependency(project, springBootStarterOAuth2ResourceServerDependency());
   }
 }

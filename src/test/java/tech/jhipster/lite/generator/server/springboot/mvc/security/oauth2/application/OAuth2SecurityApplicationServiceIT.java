@@ -33,52 +33,53 @@ class OAuth2SecurityApplicationServiceIT {
   OAuth2SecurityApplicationService oAuth2SecurityApplicationService;
 
   @Test
-  void shouldInitDefaultProvider() throws Exception {
-    init(null, null);
+  void shouldAddClientDefault() throws Exception {
+    shouldAddClient(null, null);
   }
 
   @Test
-  void shouldInitGoogle() throws Exception {
-    init(OAuth2Provider.GOOGLE, null);
+  void shouldAddClientGoogle() throws Exception {
+    shouldAddClient(OAuth2Provider.GOOGLE, null);
   }
 
   @Test
-  void shouldInitFacebook() throws Exception {
-    init(OAuth2Provider.FACEBOOK, null);
+  void shouldAddClientFacebook() throws Exception {
+    shouldAddClient(OAuth2Provider.FACEBOOK, null);
   }
 
   @Test
-  void shouldInitGithub() throws Exception {
-    init(OAuth2Provider.GITHUB, null);
+  void shouldAddClientGithub() throws Exception {
+    shouldAddClient(OAuth2Provider.GITHUB, null);
   }
 
   @Test
-  void shouldInitOkta() throws Exception {
-    init(OAuth2Provider.OKTA, null);
+  void shouldAddClientOkta() throws Exception {
+    shouldAddClient(OAuth2Provider.OKTA, null);
   }
 
   @Test
-  void shouldInitKeycloak() throws Exception {
-    init(OAuth2Provider.KEYCLOAK, null);
+  void shouldAddClientKeycloak() throws Exception {
+    shouldAddClient(OAuth2Provider.KEYCLOAK, null);
   }
 
   @Test
-  void shouldInitAuth0() throws Exception {
-    init(OAuth2Provider.AUTHO0, null);
+  void shouldAddClientAuth0() throws Exception {
+    shouldAddClient(OAuth2Provider.AUTHO0, null);
   }
 
   @Test
-  void shouldInitOther() throws Exception {
-    init(OAuth2Provider.OTHER, null);
+  void shouldAddClientOther() throws Exception {
+    shouldAddClient(OAuth2Provider.OTHER, null);
   }
 
   @Test
-  void shouldInitOtherWithCustomIssuerUri() throws Exception {
+  void shouldAddClientOtherWithCustomIssuerUri() throws Exception {
     String issuerUri = "https://my/issuer/uri";
-    init(OAuth2Provider.OTHER, issuerUri);
+    shouldAddClient(OAuth2Provider.OTHER, issuerUri);
   }
 
-  private void init(OAuth2Provider provider, String issuerUri) throws Exception {
+  @Test
+  void shouldAddDefault() throws Exception {
     Project project = tmpProject();
 
     GitUtils.init(project.getFolder());
@@ -87,14 +88,27 @@ class OAuth2SecurityApplicationServiceIT {
     springBootService.init(project);
     springBootMvcService.init(project);
 
-    oAuth2SecurityApplicationService.init(project, provider, issuerUri);
+    oAuth2SecurityApplicationService.addClient(project, null, null);
+
+    assertSecurityDependencies(project);
+    assertOAuth2ClientDependencies(project);
+    assertOAuth2ClientProperties(project, null, null);
+    // TODO assert default security configuration
+  }
+
+  private void shouldAddClient(OAuth2Provider provider, String issuerUri) throws Exception {
+    Project project = tmpProject();
+
+    GitUtils.init(project.getFolder());
+    mavenService.addPomXml(project);
+    javaBaseApplicationService.init(project);
+    springBootService.init(project);
+    springBootMvcService.init(project);
+
+    oAuth2SecurityApplicationService.addClient(project, provider, issuerUri);
 
     assertSecurityDependencies(project);
     assertOAuth2ClientDependencies(project);
     assertOAuth2ClientProperties(project, provider, issuerUri);
   }
-  // TODO test default
-  // TODO test jwt
-  // TODO test opaque-token
-  // TODO test account
 }

@@ -25,41 +25,17 @@ class OAuth2SecurityResource {
 
   @Operation(summary = "Add a Spring Security OAuth2-OIDC Client")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding a Spring Security OAuth2-OIDC Client")
-  @PostMapping("/oauth2")
-  public void init(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
+  @PostMapping("/oauth2/add-client")
+  public void addClient(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
     Project project = ProjectDTO.toProject(oAuth2ClientDTO.getProject());
-    oauth2SecurityApplicationService.init(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
+    oauth2SecurityApplicationService.addClient(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
   }
 
   @Operation(summary = "Add Spring Security default login with OAuth2")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security default login with OAuth2")
   @PostMapping("/oauth2/default")
-  public void addDefault(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-    oauth2SecurityApplicationService.addDefault(project);
-  }
-
-  @Operation(summary = "Add Spring Security JWT over OAuth2")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security JWT over OAuth2")
-  @PostMapping("/oauth2/jwt")
-  public void addJwt(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-    oauth2SecurityApplicationService.addJwt(project);
-  }
-
-  @Operation(summary = "Add Spring Security opaque token over OAuth2")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security opaque token over OAuth2")
-  @PostMapping("/oauth2/opaque-token")
-  public void addOpaqueToken(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-    oauth2SecurityApplicationService.addOpaqueToken(project);
-  }
-
-  @Operation(summary = "Add Account Management")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding account management")
-  @PostMapping("/oauth2/account")
-  public void addAccount(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-    oauth2SecurityApplicationService.addAccount(project);
+  public void addDefault(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
+    Project project = ProjectDTO.toProject(oAuth2ClientDTO.getProject());
+    oauth2SecurityApplicationService.addDefault(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
   }
 }

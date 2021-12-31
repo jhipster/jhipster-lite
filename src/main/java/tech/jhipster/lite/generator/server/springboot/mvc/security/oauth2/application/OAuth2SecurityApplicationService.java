@@ -14,23 +14,11 @@ public class OAuth2SecurityApplicationService {
     this.oauth2SecurityService = oauth2SecurityService;
   }
 
-  public void init(Project project, OAuth2Provider provider, String issuerUri) {
-    oauth2SecurityService.init(project, provider, issuerUri);
+  public void addDefault(Project project, OAuth2Provider provider, String issuerUri) {
+    oauth2SecurityService.addDefault(project, provider, issuerUri);
   }
 
-  public void addDefault(Project project) {
-    oauth2SecurityService.addDefault(project);
-  }
-
-  public void addJwt(Project project) {
-    oauth2SecurityService.addJwt(project);
-  }
-
-  public void addOpaqueToken(Project project) {
-    oauth2SecurityService.addOpaqueToken(project);
-  }
-
-  public void addAccount(Project project) {
-    oauth2SecurityService.addAccount(project);
+  public void addClient(Project project, OAuth2Provider provider, String issuerUri) {
+    oauth2SecurityService.addClient(project, provider, issuerUri);
   }
 }

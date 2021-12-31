@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 
@@ -160,6 +161,32 @@ class ProjectLocalRepositoryTest {
     repository.template(project, "mustache", "README.md.mustache", getPath(MAIN_RESOURCES), "FINAL-README.md");
 
     assertFileExist(project, MAIN_RESOURCES, "FINAL-README.md");
+  }
+
+  @Test
+  void shouldContainsRegexp() {
+    Project project = tmpProjectWithPomXml();
+
+    boolean result = repository.containsRegexp(project, ".", POM_XML, "<artifactId>jhipster</artifactId>");
+
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  void shouldNotContainsRegexp() {
+    Project project = tmpProjectWithPomXml();
+
+    boolean result = repository.containsRegexp(project, ".", POM_XML, "<artifactId>chips</artifactId>");
+
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  void shouldNotContainsRegexpWithoutExistingFile() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> repository.containsRegexp(project, ".", POM_XML, "<artifactId>chips</artifactId>"))
+      .isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

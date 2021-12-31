@@ -109,6 +109,7 @@ class FileUtilsTest {
     }
 
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     void shouldGetPathForLinux() {
       String result = getPath("/home/chips/beer");
 
@@ -116,6 +117,7 @@ class FileUtilsTest {
     }
 
     @Test
+    @EnabledOnOs({OS.WINDOWS})
     void shouldGetPathForWindows() {
       String result = getPath("C:\\chips\\beer");
 

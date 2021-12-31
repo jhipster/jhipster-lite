@@ -156,6 +156,7 @@ public class MySQLDomainService implements MySQLService {
     result.put("spring.datasource.url", "jdbc:tc:" + MySQL.getDockerImageName() + ":///" + baseName);
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
+    result.put("spring.datasource.hikari.maximum-pool-size", 2);
     return result;
   }
 

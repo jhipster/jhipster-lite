@@ -190,6 +190,7 @@ public class PostgresqlDomainService implements PostgresqlService {
     );
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
+    result.put("spring.datasource.hikari.maximum-pool-size", 2);
     return result;
   }
 

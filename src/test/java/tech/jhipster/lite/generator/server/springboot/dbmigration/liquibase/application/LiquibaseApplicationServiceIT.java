@@ -11,6 +11,7 @@ import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringB
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -94,7 +95,7 @@ class LiquibaseApplicationServiceIT {
 
     String expected = "  <include file=\"config/liquibase/changelog/v1/master.xml\" relativeToChangelogFile=\"false\"/>";
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), expected);
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), List.of(expected, NEEDLE_LIQUIBASE));
   }
 
   @Test

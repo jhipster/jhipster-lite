@@ -13,12 +13,24 @@ public class Consul {
 
   private static final String SPRING_CLOUD = "org.springframework.cloud";
 
-  // TODO
-  // currently hard-coded in pom template - move to commons cloud?
-  // private static final String SPRING_CLOUD_VERSION = "2021.0.0";
-  // public static String getSpringCloudVersion() {
-  //  return SPRING_CLOUD_VERSION;
-  //}
+  private static final String SPRING_CLOUD_VERSION = "2021.0.0";
+
+  private Consul() {}
+
+  public static String getSpringCloudVersion() {
+    return SPRING_CLOUD_VERSION;
+  }
+
+  public static Dependency springCloudDependencyManagement() {
+    return Dependency
+      .builder()
+      .groupId(SPRING_CLOUD)
+      .artifactId("spring-cloud-dependencies")
+      .version("\\${spring-cloud.version}")
+      .type("pom")
+      .scope("import")
+      .build();
+  }
 
   public static Dependency springCloudBootstrapDependency() {
     return Dependency.builder().groupId(SPRING_CLOUD).artifactId("spring-cloud-starter-bootstrap").build();

@@ -5,6 +5,7 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.server.springboot.consul.domain.Consul.getSpringCloudVersion;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -12,8 +13,21 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class ConsulAssert {
 
   public static void assertDependencies(Project project) {
-    // TODO test dependency management for spring-cloud
+    assertFileContent(project, "pom.xml", "<spring-cloud.version>" + getSpringCloudVersion() + "</spring-cloud.version>");
 
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>org.springframework.cloud</groupId>",
+        "<artifactId>spring-cloud-dependencies</artifactId>",
+        "<version>${spring-cloud.version}</version>",
+        "<scope>import</scope>",
+        "<type>pom</type>",
+        "</dependency>"
+      )
+    );
     assertFileContent(
       project,
       "pom.xml",

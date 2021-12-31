@@ -33,9 +33,11 @@ public class ConsulDomainService implements ConsulService {
 
   @Override
   public void addDependencies(Project project) {
-    buildToolService.addDependency(project, Consul.springCloudBootstrapDependency());
-    buildToolService.addDependency(project, Consul.springCloudConsulConfigDependency());
-    buildToolService.addDependency(project, Consul.springCloudConsulDiscoveryDependency());
+    buildToolService.addProperty(project, "spring-cloud", getSpringCloudVersion());
+    buildToolService.addDependencyManagement(project, springCloudDependencyManagement());
+    buildToolService.addDependency(project, springCloudBootstrapDependency());
+    buildToolService.addDependency(project, springCloudConsulConfigDependency());
+    buildToolService.addDependency(project, springCloudConsulDiscoveryDependency());
   }
 
   @Override

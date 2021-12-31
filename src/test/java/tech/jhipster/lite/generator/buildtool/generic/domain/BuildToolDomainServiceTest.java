@@ -62,6 +62,16 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
+    void shouldAddDependencyManagement() {
+      Project project = tmpProjectWithPomXml();
+      Dependency dependency = getDependency();
+
+      buildToolDomainService.addDependencyManagement(project, dependency);
+
+      verify(mavenService).addDependencyManagement(project, dependency);
+    }
+
+    @Test
     void shouldAddPlugin() {
       Project project = tmpProjectWithPomXml();
       Plugin plugin = getPlugin();

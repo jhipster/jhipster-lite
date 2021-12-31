@@ -10,7 +10,7 @@ public class OAuth2ClientDTO {
 
   @JsonProperty("project")
   @Schema(description = "project", required = true)
-  private ProjectDTO projectDTO;
+  private ProjectDTO project;
 
   @JsonProperty(value = "provider", defaultValue = "KEYCLOAK")
   @Schema(description = "OAuth2-OIDC provider", nullable = true, defaultValue = "KEYCLOAK")
@@ -20,12 +20,12 @@ public class OAuth2ClientDTO {
   @Schema(description = "your custom issuer URI for KEYCLOAK, OKTA, AUTH0 or OTHER", nullable = true)
   private String issuerUri;
 
-  public ProjectDTO getProjectDTO() {
-    return projectDTO;
+  public ProjectDTO getProject() {
+    return project;
   }
 
-  public void setProjectDTO(ProjectDTO projectDTO) {
-    this.projectDTO = projectDTO;
+  public void setProject(ProjectDTO project) {
+    this.project = project;
   }
 
   public OAuth2Provider getProvider() {

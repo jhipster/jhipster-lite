@@ -27,7 +27,7 @@ class OAuth2SecurityResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding a Spring Security OAuth2-OIDC Client")
   @PostMapping("/oauth2")
   public void init(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
-    Project project = ProjectDTO.toProject(oAuth2ClientDTO.getProjectDTO());
+    Project project = ProjectDTO.toProject(oAuth2ClientDTO.getProject());
     oauth2SecurityApplicationService.init(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
   }
 

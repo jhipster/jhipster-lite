@@ -61,7 +61,7 @@ class OAuth2SecurityResourceIT {
     springBootMvcApplicationService.init(project);
 
     OAuth2ClientDTO oAuth2ClientDTO = new OAuth2ClientDTO();
-    oAuth2ClientDTO.setProjectDTO(projectDTO);
+    oAuth2ClientDTO.setProject(projectDTO);
 
     mockMvc
       .perform(

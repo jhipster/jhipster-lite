@@ -8,9 +8,9 @@ public class Dependency {
   private final String groupId;
   private final String artifactId;
   private final boolean optional;
-  private final String version;
-  private final String scope;
-  private final String type;
+  private final Optional<String> version;
+  private final Optional<String> scope;
+  private final Optional<String> type;
 
   private Dependency(Dependency.DependencyBuilder builder) {
     Assert.notBlank("groupId", builder.groupId);
@@ -19,16 +19,16 @@ public class Dependency {
     this.groupId = builder.groupId;
     this.artifactId = builder.artifactId;
     this.optional = builder.optional;
-    this.version = notBlank(builder.version);
-    this.scope = notBlank(builder.scope);
-    this.type = notBlank(builder.type);
+    this.version = optionalNotBlank(builder.version);
+    this.scope = optionalNotBlank(builder.scope);
+    this.type = optionalNotBlank(builder.type);
   }
 
-  private String notBlank(String value) {
-    if (value != null && value.isBlank()) {
-      return null;
+  private Optional<String> optionalNotBlank(String value) {
+    if (value == null || value.isBlank()) {
+      return Optional.empty();
     }
-    return value;
+    return Optional.of(value);
   }
 
   public static Dependency.DependencyBuilder builder() {
@@ -48,15 +48,15 @@ public class Dependency {
   }
 
   public Optional<String> getVersion() {
-    return Optional.ofNullable(version);
+    return version;
   }
 
   public Optional<String> getScope() {
-    return Optional.ofNullable(scope);
+    return scope;
   }
 
   public Optional<String> getType() {
-    return Optional.ofNullable(type);
+    return type;
   }
 
   public static class DependencyBuilder {

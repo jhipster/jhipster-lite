@@ -25,6 +25,10 @@ public class LiquibaseApplicationService {
     liquibaseService.addChangelogMasterXml(project);
   }
 
+  void addChangelogXml(Project project, String path, String fileName) {
+    liquibaseService.addChangelogXml(project, path, fileName);
+  }
+
   void addConfigurationJava(Project project) {
     liquibaseService.addConfigurationJava(project);
   }

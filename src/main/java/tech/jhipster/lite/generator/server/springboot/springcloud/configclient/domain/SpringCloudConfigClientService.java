@@ -1,0 +1,11 @@
+package tech.jhipster.lite.generator.server.springboot.springcloud.configclient.domain;
+
+import tech.jhipster.lite.generator.project.domain.Project;
+
+public interface SpringCloudConfigClientService {
+  void init(Project project);
+
+  void addDockerCompose(Project project);
+
+  void addCloudConfigDependencies(Project project);
+}

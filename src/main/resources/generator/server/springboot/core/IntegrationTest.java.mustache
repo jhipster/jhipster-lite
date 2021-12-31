@@ -12,4 +12,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = { {{mainClass}}App.class })
 @Target(ElementType.TYPE)
 public @interface IntegrationTest {
+  public String[] properties() default {};
 }

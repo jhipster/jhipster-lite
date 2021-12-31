@@ -186,17 +186,41 @@ class MavenApplicationServiceIT {
   void shouldDeleteDependency() {
     Project project = tmpProjectWithPomXml();
 
-    Dependency dependency = Dependency.builder().groupId("org.junit.jupiter").artifactId("junit-jupiter-engine").build();
-    mavenApplicationService.deleteDependency(project, dependency);
+    Dependency dependencyToAdd = Dependency
+      .builder()
+      .groupId("my.group.id")
+      .artifactId("my-dependency")
+      .version("\\${my-dependency.version}")
+      .scope("test")
+      .build();
+
+    mavenApplicationService.addDependency(project, dependencyToAdd);
+
+    assertFileContent(
+      project,
+      "pom.xml",
+      List.of(
+        "<dependency>",
+        "<groupId>my.group.id</groupId>",
+        "<artifactId>my-dependency</artifactId>",
+        "<version>${my-dependency.version}</version>",
+        "<scope>test</scope>",
+        "</dependency>"
+      )
+    );
+
+    Dependency dependencyToDelete = Dependency.builder().groupId("my.group.id").artifactId("my-dependency").build();
+
+    mavenApplicationService.deleteDependency(project, dependencyToDelete);
 
     assertFileNoContent(
       project,
       "pom.xml",
       List.of(
         "<dependency>",
-        "<groupId>org.junit.jupiter</groupId>",
-        "<artifactId>junit-jupiter-engine</artifactId>",
-        "<version>${junit-jupiter.version}</version>",
+        "<groupId>my.group.id</groupId>",
+        "<artifactId>my-dependency</artifactId>",
+        "<version>${my-dependency.version}</version>",
         "<scope>test</scope>",
         "</dependency>"
       )
@@ -392,9 +416,13 @@ class MavenApplicationServiceIT {
   void shouldDeleteProperty() {
     Project project = tmpProjectWithPomXml();
 
-    mavenApplicationService.deleteProperty(project, "java");
+    mavenApplicationService.addProperty(project, "my-key", "1.0");
 
-    assertFileNoContent(project, "pom.xml", "    <java.version>17</java.version>");
+    assertFileContent(project, "pom.xml", "    <my-key.version>1.0</my-key.version>");
+
+    mavenApplicationService.deleteProperty(project, "my-key");
+
+    assertFileNoContent(project, "pom.xml", "    <my-key.version>1.0</my-key.version>");
   }
 
   @Test

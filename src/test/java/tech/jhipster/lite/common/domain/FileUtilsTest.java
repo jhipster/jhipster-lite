@@ -117,7 +117,7 @@ class FileUtilsTest {
     }
 
     @Test
-    @EnabledOnOs({ OS.WINDOWS })
+    @EnabledOnOs(OS.WINDOWS)
     void shouldGetPathForWindows() {
       String result = getPath("C:\\chips\\beer");
 

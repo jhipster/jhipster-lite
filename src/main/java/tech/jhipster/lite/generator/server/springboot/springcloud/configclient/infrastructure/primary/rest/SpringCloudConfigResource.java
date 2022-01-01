@@ -25,7 +25,7 @@ class SpringCloudConfigResource {
 
   @Operation(summary = "Add Spring Cloud Config Client")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Cloud Config Client")
-  @PostMapping("/tomcat")
+  @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springCloudConfigClientApplicationService.init(project);

@@ -9,15 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import {{packageName}}.IntegrationTest;
 
-@IntegrationTest
 class LiquibaseConfigurationIT {
-
-  @Autowired
-  ApplicationContext applicationContext;
 
   @Nested
   @IntegrationTest(properties = { "application.liquibase.async=true" })
   class Async {
+
+    @Autowired
+    ApplicationContext applicationContext;
 
     @Test
     void shouldGetLiquibaseAsync() {
@@ -30,6 +29,9 @@ class LiquibaseConfigurationIT {
   @Nested
   @IntegrationTest(properties = { "application.liquibase.async=false" })
   class Sync {
+
+    @Autowired
+    ApplicationContext applicationContext;
 
     @Test
     void shouldGetLiquibaseSync() {

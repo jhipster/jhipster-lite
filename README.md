@@ -100,15 +100,27 @@ You can use this JSON to generate a project:
 You can use different API to:
 
 - init the project
-- add Build Tool: Maven
-- add Java Base classes and Domain Error
-- add JaCoCo config for minimum coverage
-- add Spring Boot as Server Framework
-  - add Spring Boot MVC: Tomcat or Undertow
-    - add Spring Security with JWT
-      - add Basic Auth
-  - add Database: PostgreSQL or MySQL
-    - add Liquibase as Database Migration Tool
+
+Then, you can add:
+
+- Maven as Build Tool
+- Java Base classes and Domain Error
+- JaCoCo config for minimum coverage
+- Sonar configuration
+- Spring Boot as Server Framework
+  - Spring Boot Actuator
+  - Tomcat or Undertow as Spring Boot MVC
+    - Spring Security with JWT
+      - Basic Auth
+  - PostgreSQL or MySQL as Database
+    - Liquibase as Database Migration Tool
+  - AOP Logging
+  - Asynchronous execution and scheduling configuration
+  - Spring Cache
+    - Simple
+    - Ehcache
+  - Developer Tools
+  - Logstach TCP appender
 
 [jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
 [jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases

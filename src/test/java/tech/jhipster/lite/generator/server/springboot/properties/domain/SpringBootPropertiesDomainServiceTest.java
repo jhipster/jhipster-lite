@@ -8,8 +8,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_FAST_PROPERTIES;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
 import java.nio.file.Files;
 import org.junit.jupiter.api.Test;
@@ -51,8 +50,8 @@ class SpringBootPropertiesDomainServiceTest {
     Project project = tmpProject();
     FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
     Files.copy(
-      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.properties"),
-      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/springcloud/bootstrap.src.properties"),
+      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", BOOTSTRAP_PROPERTIES)
     );
 
     springBootPropertiesDomainService.addBootstrapProperties(project, "server.port", 8080);
@@ -65,11 +64,25 @@ class SpringBootPropertiesDomainServiceTest {
     Project project = tmpProject();
     FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
     Files.copy(
-      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.properties"),
-      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/springcloud/bootstrap.src.properties"),
+      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", BOOTSTRAP_FAST_PROPERTIES)
     );
 
-    springBootPropertiesDomainService.addProperties(project, "server.port", 8080);
+    springBootPropertiesDomainService.addBootstrapPropertiesFast(project, "server.port", 8080);
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddBootstrapPropertiesTest() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/springcloud/bootstrap.src.properties"),
+      getPathOf(project.getFolder(), TEST_RESOURCES, "config", BOOTSTRAP_PROPERTIES)
+    );
+
+    springBootPropertiesDomainService.addBootstrapPropertiesTest(project, "server.port", 8080);
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }

@@ -24,4 +24,16 @@ public class SpringBootPropertiesApplicationService {
   public void addPropertiesTest(Project project, String key, Object value) {
     springBootPropertiesService.addPropertiesTest(project, key, value);
   }
+
+  public void addBootstrapProperties(Project project, String key, Object value) {
+    springBootPropertiesService.addBootstrapProperties(project, key, value);
+  }
+
+  public void addBootstrapPropertiesFast(Project project, String key, Object value) {
+    springBootPropertiesService.addBootstrapPropertiesFast(project, key, value);
+  }
+
+  public void addBootstrapPropertiesTest(Project project, String key, Object value) {
+    springBootPropertiesService.addBootstrapPropertiesTest(project, key, value);
+  }
 }

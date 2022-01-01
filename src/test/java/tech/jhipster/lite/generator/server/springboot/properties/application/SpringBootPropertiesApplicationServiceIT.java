@@ -175,4 +175,162 @@ class SpringBootPropertiesApplicationServiceIT {
         .isExactlyInstanceOf(GeneratorException.class);
     }
   }
+
+  @Nested
+  class BootstrapPropertiesIT {
+
+    @Test
+    void shouldNotAddBootstrapProperties() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addBootstrapProperties(project, "server.port", 8080)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddBootstrapPropertiesWithInteger() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapProperties(project, "server.port", 8080);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/bootstrap.properties");
+      assertFileContent(project, applicationProperties, "server.port=8080");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-properties");
+    }
+
+    @Test
+    void shouldAddBootstrapPropertiesWithBoolean() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapProperties(project, "spring.jmx.enabled", false);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/bootstrap.properties");
+      assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-properties");
+    }
+
+    @Test
+    void shouldAddBootstrapPropertiesWithString() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapProperties(project, "jhipster.application", "jhlite");
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/bootstrap.properties");
+      assertFileContent(project, applicationProperties, "jhipster.application=jhlite");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-properties");
+    }
+
+    @Test
+    void shouldNotAddBootstrapPropertiesWhenNoApplicationProperties() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addBootstrapProperties(project, "jhipster.application", "jhlite"))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
+
+  @Nested
+  class BootstrapFastPropertiesIT {
+
+    @Test
+    void shouldNotAddBootstrapFastProperties() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addBootstrapPropertiesFast(project, "server.port", 8080))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddBootstrapFastPropertiesWithInteger() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapPropertiesFast(project, "server.port", 8080);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties");
+      assertFileContent(project, applicationProperties, "server.port=8080");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-fast-properties");
+    }
+
+    @Test
+    void shouldAddBootstrapFastPropertiesWithBoolean() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapPropertiesFast(project, "spring.jmx.enabled", false);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties");
+      assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-fast-properties");
+    }
+
+    @Test
+    void shouldAddBootstrapFastPropertiesWithString() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapPropertiesFast(project, "jhipster.application", "jhlite");
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties");
+      assertFileContent(project, applicationProperties, "jhipster.application=jhlite");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-fast-properties");
+    }
+
+    @Test
+    void shouldNotAddBootstrapFastPropertiesWhenNoApplicationProperties() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addBootstrapPropertiesFast(project, "jhipster.application", "jhlite"))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
+
+  @Nested
+  class BootstrapPropertiesTestIT {
+
+    @Test
+    void shouldNotAddBootstrapPropertiesTest() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addBootstrapPropertiesTest(project, "server.port", 8080))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddBootstrapPropertiesTestWithInteger() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapPropertiesTest(project, "server.port", 8080);
+
+      String applicationProperties = getPath(TEST_RESOURCES, "config/bootstrap.properties");
+      assertFileContent(project, applicationProperties, "server.port=8080");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-test-properties");
+    }
+
+    @Test
+    void shouldAddBootstrapPropertiesTestWithBoolean() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapPropertiesTest(project, "spring.jmx.enabled", false);
+
+      String applicationProperties = getPath(TEST_RESOURCES, "config/bootstrap.properties");
+      assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-test-properties");
+    }
+
+    @Test
+    void shouldAddBootstrapPropertiesTestWithString() {
+      Project project = tmpProjectWithSpringCloudBootstrapProperties();
+
+      service.addBootstrapPropertiesTest(project, "jhipster.application", "jhlite");
+
+      String applicationProperties = getPath(TEST_RESOURCES, "config/bootstrap.properties");
+      assertFileContent(project, applicationProperties, "jhipster.application=jhlite");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-bootstrap-test-properties");
+    }
+
+    @Test
+    void shouldNotAddBootstrapPropertiesTestWhenNoApplicationProperties() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> service.addBootstrapPropertiesTest(project, "jhipster.application", "jhlite"))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
 }

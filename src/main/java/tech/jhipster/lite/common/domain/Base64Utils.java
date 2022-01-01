@@ -3,9 +3,9 @@ package tech.jhipster.lite.common.domain;
 import java.util.Random;
 import org.apache.tomcat.util.codec.binary.Base64;
 
-public class Base64Util {
+public class Base64Utils {
 
-  private Base64Util() {}
+  private Base64Utils() {}
 
   public static String getBase64Secret() {
     return getBase64Secret(null);
@@ -19,7 +19,7 @@ public class Base64Util {
     return Base64.encodeBase64String(value != null ? value.getBytes() : getRandomHexString(length).getBytes());
   }
 
-  private static String getRandomHexString(int length) {
+  public static String getRandomHexString(int length) {
     Random random = new Random();
     StringBuffer stringBuilder = new StringBuffer();
     while (stringBuilder.length() < length) {

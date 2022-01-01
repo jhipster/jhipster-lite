@@ -2,13 +2,14 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.configclient.
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootDomainService.CONFIG_FOLDER;
 import static tech.jhipster.lite.generator.server.springboot.springcloud.configclient.domain.SpringCloudConfig.*;
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.lite.common.domain.Base64Util;
+import tech.jhipster.lite.common.domain.Base64Utils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -46,7 +47,7 @@ public class SpringCloudConfigClientDomainService implements SpringCloudConfigCl
     project.addConfig("jhipsterRegistryPassword", getJhipsterRegistryPassword());
     projectRepository.template(project, SOURCE, "jhipster-registry.yml", "src/main/docker", "jhipster-registry.yml");
 
-    project.addConfig("base64JwtSecret", Base64Util.getBase64Secret());
+    project.addConfig("base64JwtSecret", Base64Utils.getBase64Secret());
     projectRepository.template(
       project,
       SOURCE,
@@ -56,23 +57,27 @@ public class SpringCloudConfigClientDomainService implements SpringCloudConfigCl
     );
   }
 
-  private void addProperties(Project project) {
+  @Override
+  public void addProperties(Project project) {
     projectRepository.template(project, getPath(SOURCE, "src"), "bootstrap.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
     projectRepository.template(project, getPath(SOURCE, "src"), "bootstrap-fast.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
+    projectRepository.template(project, getPath(SOURCE, "src", "test"), "bootstrap.properties", getPath(TEST_RESOURCES, CONFIG_FOLDER));
 
     String baseName = project.getBaseName().orElse("jhipster");
     cloudConfigProperties(baseName).forEach((k, v) -> springBootPropertiesService.addBootstrapProperties(project, k, v));
-    springBootPropertiesService.addBootstrapProperties(project, "spring.cloud.config.fail-fast", false);
-    springBootPropertiesService.addBootstrapProperties(project, "spring.cloud.config.profile", "dev");
+    springBootPropertiesService.addBootstrapProperties(project, "spring.cloud.config.fail-fast", true);
+    springBootPropertiesService.addBootstrapProperties(project, "spring.cloud.config.profile", "prod");
 
     cloudConfigProperties(baseName).forEach((k, v) -> springBootPropertiesService.addBootstrapPropertiesFast(project, k, v));
-    springBootPropertiesService.addBootstrapPropertiesFast(project, "spring.cloud.config.fail-fast", true);
-    springBootPropertiesService.addBootstrapPropertiesFast(project, "spring.cloud.config.profile", "prod");
+    springBootPropertiesService.addBootstrapPropertiesFast(project, "spring.cloud.config.fail-fast", false);
+    springBootPropertiesService.addBootstrapPropertiesFast(project, "spring.cloud.config.profile", "dev");
+
+    springBootPropertiesService.addBootstrapPropertiesTest(project, "spring.cloud.config.enabled", false);
   }
 
   @Override
   public void addCloudConfigDependencies(Project project) {
-    this.buildToolService.addProperty(project, "spring-cloud.version", getSpringCloudVersion());
+    this.buildToolService.addProperty(project, "spring-cloud", getSpringCloudVersion());
     this.buildToolService.addDependencyManagement(project, springCloudDependencies());
     this.buildToolService.addDependency(project, springCloudBootstrap());
     this.buildToolService.addDependency(project, springCloudConfigClient());

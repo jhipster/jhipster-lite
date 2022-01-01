@@ -7,5 +7,7 @@ public interface SpringCloudConfigClientService {
 
   void addDockerCompose(Project project);
 
+  void addProperties(Project project);
+
   void addCloudConfigDependencies(Project project);
 }

@@ -8,6 +8,7 @@ public class SpringBoot {
   public static final String NEEDLE_APPLICATION_TEST_PROPERTIES = "# jhipster-needle-application-test-properties";
   public static final String NEEDLE_BOOTSTRAP_PROPERTIES = "# jhipster-needle-bootstrap-properties";
   public static final String NEEDLE_BOOTSTRAP_FAST_PROPERTIES = "# jhipster-needle-bootstrap-fast-properties";
+  public static final String NEEDLE_BOOTSTRAP_TEST_PROPERTIES = "# jhipster-needle-bootstrap-test-properties";
   public static final String NEEDLE_LOGBACK_LOGGER = "<!-- jhipster-needle-logback-add-log -->";
 
   public static final String APPLICATION_PROPERTIES = "application.properties";

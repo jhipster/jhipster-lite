@@ -16,4 +16,16 @@ public class SpringCloudConfigClientApplicationService {
   public void init(Project project) {
     this.springCloudConfigClientService.init(project);
   }
+
+  public void addDependencies(Project project) {
+    this.springCloudConfigClientService.addCloudConfigDependencies(project);
+  }
+
+  public void addDockerCompose(Project project) {
+    this.springCloudConfigClientService.addDockerCompose(project);
+  }
+
+  public void addProperties(Project project) {
+    this.springCloudConfigClientService.addProperties(project);
+  }
 }

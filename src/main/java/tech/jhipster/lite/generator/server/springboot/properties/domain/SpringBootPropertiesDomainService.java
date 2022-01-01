@@ -27,6 +27,11 @@ public class SpringBootPropertiesDomainService implements SpringBootPropertiesSe
   }
 
   @Override
+  public void addPropertiesTest(Project project, String key, Object value) {
+    addKeyValueToProperties(project, key, value, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
+  }
+
+  @Override
   public void addBootstrapProperties(Project project, String key, Object value) {
     addKeyValueToProperties(project, key, value, MAIN_RESOURCES, BOOTSTRAP_PROPERTIES, NEEDLE_BOOTSTRAP_PROPERTIES);
   }
@@ -37,8 +42,8 @@ public class SpringBootPropertiesDomainService implements SpringBootPropertiesSe
   }
 
   @Override
-  public void addPropertiesTest(Project project, String key, Object value) {
-    addKeyValueToProperties(project, key, value, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
+  public void addBootstrapPropertiesTest(Project project, String key, Object value) {
+    addKeyValueToProperties(project, key, value, TEST_RESOURCES, BOOTSTRAP_PROPERTIES, NEEDLE_BOOTSTRAP_TEST_PROPERTIES);
   }
 
   private void addKeyValueToProperties(

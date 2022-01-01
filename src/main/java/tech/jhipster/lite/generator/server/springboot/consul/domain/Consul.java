@@ -7,10 +7,6 @@ public class Consul {
   public static final String BOOTSTRAP_PROPERTIES = "bootstrap.properties";
   public static final String BOOTSTRAP_FAST_PROPERTIES = "bootstrap-fast.properties";
 
-  public static final String NEEDLE_BOOTSTRAP_PROPERTIES = "# jhipster-needle-bootstrap-properties";
-  public static final String NEEDLE_BOOTSTRAP_FAST_PROPERTIES = "# jhipster-needle-bootstrap-fast-properties";
-  public static final String NEEDLE_BOOTSTRAP_TEST_PROPERTIES = "# jhipster-needle-bootstrap-test-properties";
-
   private static final String SPRING_CLOUD = "org.springframework.cloud";
 
   private static final String SPRING_CLOUD_VERSION = "2021.0.0";

@@ -62,7 +62,8 @@ class OAuth2SecurityResourceIT {
     springBootMvcApplicationService.init(project);
 
     OAuth2ClientDTO oAuth2ClientDTO = new OAuth2ClientDTO();
-    oAuth2ClientDTO.setProject(projectDTO);
+    oAuth2ClientDTO.folder(projectDTO.getFolder());
+    oAuth2ClientDTO.generatorJhipster(projectDTO.getGeneratorJhipster());
 
     mockMvc
       .perform(
@@ -90,9 +91,10 @@ class OAuth2SecurityResourceIT {
     springBootMvcApplicationService.init(project);
 
     OAuth2ClientDTO oAuth2ClientDTO = new OAuth2ClientDTO();
-    oAuth2ClientDTO.setProject(projectDTO);
-    oAuth2ClientDTO.setProvider(OAuth2Provider.OTHER);
-    oAuth2ClientDTO.setIssuerUri("https://my-private-issuer-uri");
+    oAuth2ClientDTO.folder(projectDTO.getFolder());
+    oAuth2ClientDTO.generatorJhipster(projectDTO.getGeneratorJhipster());
+    oAuth2ClientDTO.provider(OAuth2Provider.OTHER);
+    oAuth2ClientDTO.issuerUri("https://my-private-issuer-uri");
 
     mockMvc
       .perform(

@@ -57,6 +57,20 @@ elif [[ $filename == 'tomcat-postgresql-ehcachexml' ]]; then
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
   callApi "/api/servers/sonar"
 
+elif [[ $filename == 'undertow-oauth2' ]]; then
+  callApi "/api/projects/init"
+  callApi "/api/build-tools/maven"
+  callApi "/api/servers/java/base"
+  callApi "/api/servers/java/jacoco-minimum-coverage"
+  callApi "/api/servers/spring-boot"
+  callApi "/api/servers/spring-boot/devtools"
+  callApi "/api/servers/spring-boot/banner/jhipster-v3"
+  callApi "/api/servers/spring-boot/mvc/web/undertow"
+  callApi "/api/servers/spring-boot/security/oauth2/default"
+  callApi "/api/servers/spring-boot/aop/logging"
+  callApi "/api/servers/spring-boot/async"
+  callApi "/api/servers/sonar"
+
 elif [[ $filename == 'undertow-mysql-simplecache' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"

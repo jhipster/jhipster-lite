@@ -7,20 +7,27 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.common.domain.OSUtils;
 
 @UnitTest
 public class NpmTest {
 
   @Test
-  @EnabledOnOs(OS.WINDOWS)
   void shouldReturnWindowsTrueForWindows() {
-    assertEquals(Npm.getExecutableCommand(), "npm.cmd");
+    try (MockedStatic<OSUtils> osUtils = Mockito.mockStatic(OSUtils.class)) {
+      Mockito.when(OSUtils.isWindows()).thenReturn(true);
+      assertEquals(Npm.getExecutableCommand(), "npm.cmd");
+    }
   }
 
   @Test
-  @DisabledOnOs(OS.WINDOWS)
   void shouldReturnWindowsFalseForNonWindows() {
-    assertEquals(Npm.getExecutableCommand(), "npm");
+    try (MockedStatic<OSUtils> osUtils = Mockito.mockStatic(OSUtils.class)) {
+      Mockito.when(OSUtils.isWindows()).thenReturn(false);
+      assertEquals(Npm.getExecutableCommand(), "npm");
+    }
   }
 }

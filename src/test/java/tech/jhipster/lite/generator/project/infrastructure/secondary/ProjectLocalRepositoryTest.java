@@ -7,8 +7,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 
 import com.github.mustachejava.MustacheNotFoundException;

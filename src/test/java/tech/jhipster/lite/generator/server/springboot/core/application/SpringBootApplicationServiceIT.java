@@ -3,8 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.core.application;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;

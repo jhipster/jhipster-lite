@@ -7,9 +7,9 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 

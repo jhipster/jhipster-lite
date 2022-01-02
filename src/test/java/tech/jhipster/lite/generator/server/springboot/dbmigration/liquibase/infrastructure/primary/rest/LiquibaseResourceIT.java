@@ -3,7 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.inf
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
 

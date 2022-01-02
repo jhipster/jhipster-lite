@@ -4,13 +4,13 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.DEFAULT_PROVIDER;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.getDockerKeycloakImage;
 
 import java.util.List;
 import java.util.Optional;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Provider;
 
@@ -18,7 +18,6 @@ public class OAuth2SecurityAssert {
 
   private OAuth2SecurityAssert() {}
 
-  // TODO security commons
   public static void assertSecurityDependencies(Project project) {
     assertFileContent(project, POM_XML, securityDependency());
     assertFileContent(project, POM_XML, securityTestDependency());
@@ -74,7 +73,25 @@ public class OAuth2SecurityAssert {
     assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), properties);
   }
 
-  // TODO security commons
+  public static void assertUpdateExceptionTranslatorIT(Project project) {
+    String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
+    String exceptionPackage = basePackage + ".technical.infrastructure.primary.exception";
+
+    String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
+    String exceptionTestPath = getPath(TEST_JAVA, basePath, "technical/infrastructure/primary/exception");
+
+    assertFileExist(project, getPath(exceptionTestPath, "ExceptionTranslatorTestConfiguration.java"));
+
+    assertFileContent(project, getPath(exceptionTestPath, "ExceptionTranslatorTestConfiguration.java"), "package " + exceptionPackage);
+
+    assertFileContent(
+      project,
+      getPath(exceptionTestPath, "ExceptionTranslatorIT.java"),
+      "@Import(ExceptionTranslatorTestConfiguration.class)"
+    );
+    assertFileContent(project, getPath(exceptionTestPath, "ExceptionTranslatorIT.java"), "@WithMockUser");
+  }
+
   public static List<String> securityDependency() {
     return List.of(
       "<dependency>",
@@ -84,7 +101,6 @@ public class OAuth2SecurityAssert {
     );
   }
 
-  // TODO security commons
   public static List<String> securityTestDependency() {
     return List.of(
       "<dependency>",

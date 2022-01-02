@@ -93,6 +93,7 @@ class OAuth2SecurityApplicationServiceIT {
     assertSecurityDependencies(project);
     assertOAuth2ClientDependencies(project);
     assertOAuth2ClientProperties(project, null, null);
+    assertUpdateExceptionTranslatorIT(project);
     // TODO assert default security configuration
   }
 
@@ -110,6 +111,7 @@ class OAuth2SecurityApplicationServiceIT {
     assertSecurityDependencies(project);
     assertOAuth2ClientDependencies(project);
     assertOAuth2ClientProperties(project, provider, issuerUri);
+    assertUpdateExceptionTranslatorIT(project);
     if (provider == null || provider == OAuth2Provider.KEYCLOAK) {
       assertDockerKeycloak(project);
     }

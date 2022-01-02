@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 
 import java.util.LinkedHashMap;
@@ -65,6 +67,7 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     addOAuth2ClientDependencies(project);
     OAuth2Provider providerFallback = fallbackToDefault(provider);
     addOAuth2ClientProperties(project, providerFallback, issuerUri);
+    updateExceptionTranslator(project);
     if (providerFallback == OAuth2Provider.KEYCLOAK) {
       addKeycloakDocker(project);
     }
@@ -106,5 +109,39 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     result.put("spring.security.oauth2.client.registration." + providerId + ".scope", "openid,profile,email");
 
     return result;
+  }
+
+  private void updateExceptionTranslator(Project project) {
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String exceptionPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+
+    // create ExceptionTranslatorTestConfiguration to disable csrf
+    projectRepository.template(project, getPath(SOURCE, "test"), "ExceptionTranslatorTestConfiguration.java", exceptionPath);
+
+    // import @Import
+    String oldImport1 = "import org.springframework.context.ApplicationContext;";
+    String newImport1 =
+      """
+
+        import org.springframework.context.ApplicationContext;
+        import org.springframework.context.annotation.Import;""";
+    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport1, newImport1);
+
+    // import @WithMockUser
+    String oldImport2 = "import org.springframework.test.util.ReflectionTestUtils;";
+    String newImport2 =
+      """
+
+      import org.springframework.security.test.context.support.WithMockUser;
+      import org.springframework.test.util.ReflectionTestUtils;""";
+    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport2, newImport2);
+
+    // add annotations
+    String oldAnnotation = "@AutoConfigureMockMvc";
+    String newAnnotation = """
+      @AutoConfigureMockMvc
+      @Import(ExceptionTranslatorTestConfiguration.class)
+      @WithMockUser""";
+    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldAnnotation, newAnnotation);
   }
 }

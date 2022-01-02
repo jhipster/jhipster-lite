@@ -24,12 +24,10 @@ public class OAuth2Security {
     return DOCKER_KEYCLOAK_VERSION;
   }
 
-  // TODO security commons
   public static Dependency springBootStarterSecurityDependency() {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId(STARTER_SECURITY).build();
   }
 
-  // TODO security commons
   public static Dependency springSecurityTestDependency() {
     return Dependency.builder().groupId("org.springframework.security").artifactId("spring-security-test").scope("test").build();
   }

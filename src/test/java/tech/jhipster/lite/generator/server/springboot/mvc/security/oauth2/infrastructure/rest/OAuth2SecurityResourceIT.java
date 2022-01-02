@@ -76,6 +76,7 @@ class OAuth2SecurityResourceIT {
     assertSecurityDependencies(project);
     assertOAuth2ClientDependencies(project);
     assertOAuth2ClientProperties(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
+    assertUpdateExceptionTranslatorIT(project);
   }
 
   @Test
@@ -107,6 +108,7 @@ class OAuth2SecurityResourceIT {
     assertSecurityDependencies(project);
     assertOAuth2ClientDependencies(project);
     assertOAuth2ClientProperties(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
+    assertUpdateExceptionTranslatorIT(project);
     // TODO assert default security configuration
   }
 }

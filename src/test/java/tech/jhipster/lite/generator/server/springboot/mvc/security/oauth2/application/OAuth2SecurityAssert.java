@@ -5,6 +5,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.DEFAULT_PROVIDER;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +26,8 @@ public class OAuth2SecurityAssert {
     assertFileContent(project, POM_XML, oauth2ClientDependency());
   }
 
-  public static void assertOAuth2ResourceServerDependencies(Project project) {
-    assertFileContent(project, POM_XML, oauth2ResourceServerDependency());
-  }
-
   public static void assertOAuth2ClientProperties(Project project, OAuth2Provider provider, String issuerUri) {
-    OAuth2Provider providerFallback = Optional.ofNullable(provider).orElse(OAuth2Provider.KEYCLOAK);
+    OAuth2Provider providerFallback = Optional.ofNullable(provider).orElse(DEFAULT_PROVIDER);
     String issuerUriFallback = Optional.ofNullable(issuerUri).orElse(providerFallback.getDefaultIssuerUri());
 
     List<String> properties =
@@ -93,15 +90,6 @@ public class OAuth2SecurityAssert {
       "<dependency>",
       "<groupId>org.springframework.boot</groupId>",
       "<artifactId>spring-boot-starter-oauth2-client</artifactId>",
-      "</dependency>"
-    );
-  }
-
-  public static List<String> oauth2ResourceServerDependency() {
-    return List.of(
-      "<dependency>",
-      "<groupId>org.springframework.boot</groupId>",
-      "<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>",
       "</dependency>"
     );
   }

@@ -40,6 +40,7 @@ class ConsulApplicationServiceIT {
 
     consulApplicationService.init(project);
 
+    assertDependencies(project);
     assertProperties(project);
   }
 

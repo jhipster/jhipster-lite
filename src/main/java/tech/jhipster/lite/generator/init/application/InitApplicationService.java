@@ -36,12 +36,4 @@ public class InitApplicationService {
   public void addPrettier(Project project) {
     initService.addPrettier(project);
   }
-
-  public void install(Project project) {
-    initService.install(project);
-  }
-
-  public void prettify(Project project) {
-    initService.prettify(project);
-  }
 }

@@ -4,7 +4,6 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import tech.jhipster.lite.common.domain.WordUtils;
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -14,11 +13,9 @@ public class InitDomainService implements InitService {
   public static final String HUSKY_FOLDER = ".husky";
 
   private final ProjectRepository projectRepository;
-  private final CommandRepository commandRepository;
 
-  public InitDomainService(ProjectRepository projectRepository, CommandRepository commandRepository) {
+  public InitDomainService(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
-    this.commandRepository = commandRepository;
   }
 
   @Override
@@ -70,15 +67,5 @@ public class InitDomainService implements InitService {
     projectRepository.add(project, getPath(SOURCE, HUSKY_FOLDER), "pre-commit", HUSKY_FOLDER);
     projectRepository.setExecutable(project, HUSKY_FOLDER, "pre-commit");
     projectRepository.template(project, SOURCE, ".prettierrc");
-  }
-
-  @Override
-  public void install(Project project) {
-    this.commandRepository.npmInstall(project);
-  }
-
-  @Override
-  public void prettify(Project project) {
-    this.commandRepository.npmPrettierFormat(project);
   }
 }

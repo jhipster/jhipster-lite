@@ -11,7 +11,7 @@ import org.junit.jupiter.api.condition.OS;
 import tech.jhipster.lite.UnitTest;
 
 @UnitTest
-public class OSUtilsTest {
+class OSUtilsTest {
 
   @Test
   @EnabledOnOs(OS.WINDOWS)

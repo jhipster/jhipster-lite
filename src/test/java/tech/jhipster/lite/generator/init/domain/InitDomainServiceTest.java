@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -26,9 +25,6 @@ class InitDomainServiceTest {
 
   @InjectMocks
   private InitDomainService initDomainService;
-
-  @Mock
-  private CommandRepository commandRepository;
 
   @Test
   void shouldInit() {
@@ -84,21 +80,5 @@ class InitDomainServiceTest {
     verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString(), anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
     verify(projectRepository).setExecutable(any(Project.class), anyString(), anyString());
-  }
-
-  @Test
-  void shouldNpmInstall() {
-    Project project = tmpProject();
-    assertThatCode(() -> initDomainService.install(project)).doesNotThrowAnyException();
-
-    verify(commandRepository).npmInstall(any(Project.class));
-  }
-
-  @Test
-  void shouldPrettify() {
-    Project project = tmpProject();
-    assertThatCode(() -> initDomainService.prettify(project)).doesNotThrowAnyException();
-
-    verify(commandRepository).npmPrettierFormat(any(Project.class));
   }
 }

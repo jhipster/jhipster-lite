@@ -1,7 +1,5 @@
 package tech.jhipster.lite.generator.init.application;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
@@ -121,21 +119,5 @@ class InitApplicationServiceIT {
     initApplicationService.addPrettier(project);
 
     assertFilesPrettier(project);
-  }
-
-  @Test
-  void shouldNpmInstall() {
-    Project project = tmpProjectWithPackageJson();
-    initApplicationService.install(project);
-
-    assertFileExist(project, "node_modules");
-  }
-
-  @Test
-  void shouldPrettify() {
-    Project project = tmpProjectWithPackageJson();
-    initApplicationService.prettify(project);
-
-    verify(commandRepository).npmPrettierFormat(any(Project.class));
   }
 }

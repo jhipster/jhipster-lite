@@ -6,5 +6,3 @@ package-lock.json
 .mvn
 gradle
 .gradle
-
-src/test/resources/generator/init/TestClass.java

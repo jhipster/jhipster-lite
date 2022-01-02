@@ -108,12 +108,6 @@ public class TestUtils {
     return project;
   }
 
-  public static Project tmpProjectWithSpringCloudBootstrapProperties() {
-    Project project = tmpProject();
-    copySpringCloudBootstrapProperties(project);
-    return project;
-  }
-
   public static Project tmpProjectWithSpringBootLoggingConfiguration() {
     Project project = tmpProject();
     copySpringBootLogConfigurationFiles(project);
@@ -165,27 +159,6 @@ public class TestUtils {
       Files.copy(
         getPathOf("src/test/resources/generator/server/springboot/core/application.test.properties"),
         getPathOf(project.getFolder(), TEST_RESOURCES, "config/application.properties")
-      );
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  private static void copySpringCloudBootstrapProperties(Project project) {
-    try {
-      FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
-      FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/springcloud/bootstrap.src.properties"),
-        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/bootstrap.properties")
-      );
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/springcloud/bootstrap.src.fast.properties"),
-        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/bootstrap-fast.properties")
-      );
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/springcloud/bootstrap.test.properties"),
-        getPathOf(project.getFolder(), TEST_RESOURCES, "config/bootstrap.properties")
       );
     } catch (IOException e) {
       throw new AssertionError(e);

@@ -7,10 +7,6 @@ public class Npm {
   private Npm() {}
 
   public static String getExecutableCommand() {
-    if (isWindows()) {
-      return "npm.cmd";
-    } else {
-      return "npm";
-    }
+    return isWindows() ? "npm.cmd" : "npm";
   }
 }

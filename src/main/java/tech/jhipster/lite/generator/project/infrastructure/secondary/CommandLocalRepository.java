@@ -34,6 +34,7 @@ public class CommandLocalRepository implements CommandRepository {
     try {
       this.runProcess(project, Npm.getExecutableCommand(), "install");
     } catch (IOException e) {
+      e.printStackTrace();
       throw new GeneratorException("Error when running \"npm install\"");
     }
   }

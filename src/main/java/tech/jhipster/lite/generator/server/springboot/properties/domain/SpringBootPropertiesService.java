@@ -8,10 +8,4 @@ public interface SpringBootPropertiesService {
   void addPropertiesFast(Project project, String key, Object value);
 
   void addPropertiesTest(Project project, String key, Object value);
-
-  void addBootstrapProperties(Project project, String key, Object value);
-
-  void addBootstrapPropertiesFast(Project project, String key, Object value);
-
-  void addBootstrapPropertiesTest(Project project, String key, Object value);
 }

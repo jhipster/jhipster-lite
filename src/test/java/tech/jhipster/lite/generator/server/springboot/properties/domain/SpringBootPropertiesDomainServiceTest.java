@@ -46,48 +46,6 @@ class SpringBootPropertiesDomainServiceTest {
   }
 
   @Test
-  void shouldAddBootstrapProperties() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
-    Files.copy(
-      getPathOf(TEST_RESOURCES, "generator/server/springboot/springcloud/bootstrap.src.properties"),
-      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", BOOTSTRAP_PROPERTIES)
-    );
-
-    springBootPropertiesDomainService.addBootstrapProperties(project, "server.port", 8080);
-
-    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldAddBootstrapPropertiesFast() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
-    Files.copy(
-      getPathOf(TEST_RESOURCES, "generator/server/springboot/springcloud/bootstrap.src.properties"),
-      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", BOOTSTRAP_FAST_PROPERTIES)
-    );
-
-    springBootPropertiesDomainService.addBootstrapPropertiesFast(project, "server.port", 8080);
-
-    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldAddBootstrapPropertiesTest() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
-    Files.copy(
-      getPathOf(TEST_RESOURCES, "generator/server/springboot/springcloud/bootstrap.src.properties"),
-      getPathOf(project.getFolder(), TEST_RESOURCES, "config", BOOTSTRAP_PROPERTIES)
-    );
-
-    springBootPropertiesDomainService.addBootstrapPropertiesTest(project, "server.port", 8080);
-
-    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
-  }
-
-  @Test
   void shouldAddPropertiesFast() throws Exception {
     Project project = tmpProject();
     FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));

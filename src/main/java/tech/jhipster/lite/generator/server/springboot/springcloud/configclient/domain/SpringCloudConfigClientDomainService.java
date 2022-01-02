@@ -59,20 +59,12 @@ public class SpringCloudConfigClientDomainService implements SpringCloudConfigCl
 
   @Override
   public void addProperties(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+    project.addConfig("jhipsterRegistryPassword", getJhipsterRegistryPassword());
+
     projectRepository.template(project, getPath(SOURCE, "src"), "bootstrap.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
     projectRepository.template(project, getPath(SOURCE, "src"), "bootstrap-fast.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
     projectRepository.template(project, getPath(SOURCE, "src", "test"), "bootstrap.properties", getPath(TEST_RESOURCES, CONFIG_FOLDER));
-
-    String baseName = project.getBaseName().orElse("jhipster");
-    cloudConfigProperties(baseName).forEach((k, v) -> springBootPropertiesService.addBootstrapProperties(project, k, v));
-    springBootPropertiesService.addBootstrapProperties(project, "spring.cloud.config.fail-fast", true);
-    springBootPropertiesService.addBootstrapProperties(project, "spring.cloud.config.profile", "prod");
-
-    cloudConfigProperties(baseName).forEach((k, v) -> springBootPropertiesService.addBootstrapPropertiesFast(project, k, v));
-    springBootPropertiesService.addBootstrapPropertiesFast(project, "spring.cloud.config.fail-fast", false);
-    springBootPropertiesService.addBootstrapPropertiesFast(project, "spring.cloud.config.profile", "dev");
-
-    springBootPropertiesService.addBootstrapPropertiesTest(project, "spring.cloud.config.enabled", false);
   }
 
   @Override
@@ -81,17 +73,5 @@ public class SpringCloudConfigClientDomainService implements SpringCloudConfigCl
     this.buildToolService.addDependencyManagement(project, springCloudDependencies());
     this.buildToolService.addDependency(project, springCloudBootstrap());
     this.buildToolService.addDependency(project, springCloudConfigClient());
-  }
-
-  private Map<String, Object> cloudConfigProperties(String baseName) {
-    TreeMap<String, Object> result = new TreeMap<>();
-    result.put("spring.cloud.config.retry.initial-interval", 1000);
-    result.put("spring.cloud.config.retry.max-interval", 2000);
-    result.put("spring.cloud.config.retry.max-attempts", 100);
-    result.put("spring.cloud.config.uri", "http://admin:" + getJhipsterRegistryPassword() + "@localhost:8761/config");
-    result.put("spring.cloud.config.name", baseName);
-    result.put("spring.cloud.config.label", "main");
-    result.put("jhipster.registry.password", getJhipsterRegistryPassword());
-    return result;
   }
 }

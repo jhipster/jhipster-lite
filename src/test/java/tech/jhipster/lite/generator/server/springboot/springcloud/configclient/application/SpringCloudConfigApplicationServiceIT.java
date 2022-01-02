@@ -139,7 +139,7 @@ class SpringCloudConfigApplicationServiceIT {
     properties.add("spring.cloud.config.retry.initial-interval=1000");
     properties.add("spring.cloud.config.retry.max-attempts=100");
     properties.add("spring.cloud.config.retry.max-interval=2000");
-    properties.add("spring.cloud.config.uri=http://admin:" + getJhipsterRegistryPassword() + "@localhost:8761/config");
+    properties.add("spring.cloud.config.uri=http://admin:${jhipster.registry.password}@localhost:8761/config");
     return properties;
   }
 

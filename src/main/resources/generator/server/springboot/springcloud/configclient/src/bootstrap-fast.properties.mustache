@@ -1,6 +1,16 @@
 #====================================================================
-# Spring Cloud Consul Config bootstrap configuration
+# Spring Cloud Config bootstrap configuration
 #====================================================================
 
 spring.application.name={{baseName}}
-# jhipster-needle-bootstrap-fast-properties
+
+jhipster.registry.password={{jhipsterRegistryPassword}}
+spring.cloud.config.label=main
+spring.cloud.config.name={{baseName}}
+spring.cloud.config.retry.initial-interval=1000
+spring.cloud.config.retry.max-attempts=100
+spring.cloud.config.retry.max-interval=2000
+spring.cloud.config.uri=http://admin:${jhipster.registry.password}@localhost:8761/config
+spring.cloud.config.fail-fast=false
+spring.cloud.config.profile=dev
+

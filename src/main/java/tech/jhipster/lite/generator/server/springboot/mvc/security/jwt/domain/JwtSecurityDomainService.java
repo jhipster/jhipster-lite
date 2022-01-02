@@ -40,7 +40,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addPropertyAndDependency(project);
     addJavaFiles(project);
     addProperties(project);
-    addGitPatch(project);
 
     updateExceptionTranslator(project);
   }
@@ -67,12 +66,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
       @AutoConfigureMockMvc
       @WithMockUser""";
     projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldAnnotation, newAnnotation);
-  }
-
-  private void addGitPatch(Project project) {
-    project.addDefaultConfig(PACKAGE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    project.addConfig("packageNamePath", packageNamePath);
   }
 
   private void addPropertyAndDependency(Project project) {

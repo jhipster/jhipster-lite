@@ -10,4 +10,6 @@ public interface InitService {
   void addGitConfiguration(Project project);
   void addEditorConfiguration(Project project);
   void addPrettier(Project project);
+  void install(Project project);
+  void prettify(Project project);
 }

@@ -29,4 +29,13 @@ class InitResource {
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
   }
+
+  @Operation(summary = "Install project")
+  @ApiResponse(responseCode = "500", description = "An error occurred while installing project")
+  @PostMapping("/init/install")
+  public void install(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.install(project);
+    initApplicationService.prettify(project);
+  }
 }

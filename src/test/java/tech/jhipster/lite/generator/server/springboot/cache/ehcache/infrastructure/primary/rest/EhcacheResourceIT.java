@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.cache.ehcache.infrastruct
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertInitJavaConfiguration;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertInitXmlConfiguration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ class EhcacheResourceIT {
   MockMvc mockMvc;
 
   @Test
-  void shouldAddEhcache() throws Exception {
+  void shouldAddEhcacheJava() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
@@ -56,5 +57,28 @@ class EhcacheResourceIT {
       .andExpect(status().isOk());
 
     assertInitJavaConfiguration(project);
+  }
+
+  @Test
+  void shouldAddEhcacheXml() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
+    if (projectDTO == null) {
+      throw new GeneratorException("Error when reading file");
+    }
+    projectDTO.folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/cache/ehcache/xml-configuration")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    assertInitXmlConfiguration(project);
   }
 }

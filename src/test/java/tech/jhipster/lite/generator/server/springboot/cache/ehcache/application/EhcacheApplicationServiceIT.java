@@ -29,7 +29,7 @@ class EhcacheApplicationServiceIT {
   SpringBootApplicationService springBootApplicationService;
 
   @Test
-  void shouldInit() {
+  void shouldInitJavaConfiguration() {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "foo");
 
@@ -44,6 +44,21 @@ class EhcacheApplicationServiceIT {
   }
 
   @Test
+  void shouldInitXmlConfiguration() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "foo");
+
+    initApplicationService.init(project);
+
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    ehcacheApplicationService.initXmlConfiguration(project);
+
+    assertInitXmlConfiguration(project);
+  }
+
+  @Test
   void shouldAddDependencies() {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "bar");
@@ -54,6 +69,19 @@ class EhcacheApplicationServiceIT {
     ehcacheApplicationService.addDependencies(project);
 
     assertDependencies(project);
+  }
+
+  @Test
+  void shouldAddXmlDependencies() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "bar");
+    project.addConfig(PACKAGE_NAME, "tech.jhipster.baz");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+
+    ehcacheApplicationService.addXmlDependencies(project);
+
+    assertXmlDependencies(project);
   }
 
   @Test
@@ -95,5 +123,30 @@ class EhcacheApplicationServiceIT {
     ehcacheApplicationService.addJavaProperties(project);
 
     assertProperties(project);
+  }
+
+  @Test
+  void shouldAddEhcacheXml() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "bar");
+    project.addConfig(PACKAGE_NAME, "tech.jhipster.baz");
+    initApplicationService.init(project);
+
+    ehcacheApplicationService.addEhcacheXml(project);
+
+    assertEhcacheXml(project);
+  }
+
+  @Test
+  void shouldAddXmlProperty() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "bar");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    ehcacheApplicationService.addXmlProperty(project);
+
+    assertXmlProperty(project);
   }
 }

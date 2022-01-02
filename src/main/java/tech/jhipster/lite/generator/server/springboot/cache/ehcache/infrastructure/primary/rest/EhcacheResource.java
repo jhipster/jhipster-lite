@@ -22,11 +22,19 @@ class EhcacheResource {
     this.ehcacheApplicationService = ehcacheApplicationService;
   }
 
-  @Operation(summary = "Add Ehcache")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Ehcache")
+  @Operation(summary = "Add Ehcache with Java configuration")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Ehcache with Java configuration")
   @PostMapping("java-configuration")
   public void initJavaConfiguration(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     ehcacheApplicationService.initJavaConfiguration(project);
+  }
+
+  @Operation(summary = "Add Ehcache with XML configuration")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Ehcache with XML configuration")
+  @PostMapping("xml-configuration")
+  public void initXmlConfiguration(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    ehcacheApplicationService.initXmlConfiguration(project);
   }
 }

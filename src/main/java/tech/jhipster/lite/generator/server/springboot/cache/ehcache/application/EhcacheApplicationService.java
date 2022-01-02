@@ -13,12 +13,20 @@ public class EhcacheApplicationService {
     this.ehcacheService = ehcacheService;
   }
 
+  public void initXmlConfiguration(Project project) {
+    ehcacheService.initXmlConfiguration(project);
+  }
+
   public void initJavaConfiguration(Project project) {
     ehcacheService.initJavaConfiguration(project);
   }
 
   public void addDependencies(Project project) {
     ehcacheService.addDependencies(project);
+  }
+
+  public void addXmlDependencies(Project project) {
+    ehcacheService.addXmlDependencies(project);
   }
 
   public void addEnableCaching(Project project) {
@@ -31,5 +39,13 @@ public class EhcacheApplicationService {
 
   public void addJavaProperties(Project project) {
     ehcacheService.addJavaProperties(project);
+  }
+
+  public void addEhcacheXml(Project project) {
+    ehcacheService.addEhcacheXml(project);
+  }
+
+  public void addXmlProperty(Project project) {
+    ehcacheService.addXmlProperty(project);
   }
 }

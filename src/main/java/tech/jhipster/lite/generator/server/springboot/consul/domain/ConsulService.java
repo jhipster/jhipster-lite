@@ -7,4 +7,5 @@ public interface ConsulService {
 
   void addDependencies(Project project);
   void addProperties(Project project);
+  void addDockerConsul(Project project);
 }

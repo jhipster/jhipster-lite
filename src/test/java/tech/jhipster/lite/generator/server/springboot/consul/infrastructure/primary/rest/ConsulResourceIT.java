@@ -2,8 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.consul.infrastructure.pri
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.consul.application.ConsulAssert.assertDependencies;
-import static tech.jhipster.lite.generator.server.springboot.consul.application.ConsulAssert.assertProperties;
+import static tech.jhipster.lite.generator.server.springboot.consul.application.ConsulAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +57,6 @@ class ConsulResourceIT {
 
     assertDependencies(project);
     assertProperties(project);
+    assertDockerConsul(project);
   }
 }

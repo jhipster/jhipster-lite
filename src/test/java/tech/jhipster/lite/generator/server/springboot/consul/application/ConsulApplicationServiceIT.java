@@ -2,8 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.consul.application;
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.consul.application.ConsulAssert.assertDependencies;
-import static tech.jhipster.lite.generator.server.springboot.consul.application.ConsulAssert.assertProperties;
+import static tech.jhipster.lite.generator.server.springboot.consul.application.ConsulAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +41,7 @@ class ConsulApplicationServiceIT {
 
     assertDependencies(project);
     assertProperties(project);
+    assertDockerConsul(project);
   }
 
   @Test
@@ -66,5 +66,18 @@ class ConsulApplicationServiceIT {
     consulApplicationService.addProperties(project);
 
     assertProperties(project);
+  }
+
+  @Test
+  void shouldAddDockerConsul() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "bar");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    consulApplicationService.addDockerConsul(project);
+
+    assertDockerConsul(project);
   }
 }

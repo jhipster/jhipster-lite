@@ -25,6 +25,7 @@ public class ConsulDomainService implements ConsulService {
   public void init(Project project) {
     addDependencies(project);
     addProperties(project);
+    addDockerConsul(project);
   }
 
   @Override
@@ -43,5 +44,11 @@ public class ConsulDomainService implements ConsulService {
     projectRepository.template(project, getPath(SOURCE, "src"), BOOTSTRAP_PROPERTIES, getPath(MAIN_RESOURCES, CONFIG_FOLDER));
     projectRepository.template(project, getPath(SOURCE, "src"), BOOTSTRAP_FAST_PROPERTIES, getPath(MAIN_RESOURCES, CONFIG_FOLDER));
     projectRepository.template(project, getPath(SOURCE, "test"), BOOTSTRAP_PROPERTIES, getPath(TEST_RESOURCES, CONFIG_FOLDER));
+  }
+
+  @Override
+  public void addDockerConsul(Project project) {
+    project.addConfig("dockerConsulImage", getDockerConsulImage());
+    projectRepository.template(project, getPath(SOURCE, "src"), "consul.yml", "src/main/docker", "consul.yml");
   }
 }

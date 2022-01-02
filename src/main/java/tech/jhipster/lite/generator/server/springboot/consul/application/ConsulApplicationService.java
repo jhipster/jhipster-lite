@@ -24,4 +24,8 @@ public class ConsulApplicationService {
   public void addProperties(Project project) {
     consulService.addProperties(project);
   }
+
+  public void addDockerConsul(Project project) {
+    consulService.addDockerConsul(project);
+  }
 }

@@ -5,6 +5,7 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.server.springboot.consul.domain.Consul.getDockerConsulImage;
 import static tech.jhipster.lite.generator.server.springboot.consul.domain.Consul.getSpringCloudVersion;
 
 import java.util.List;
@@ -80,5 +81,11 @@ public class ConsulAssert {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"), "spring.cloud.consul.config.fail-fast=false");
 
     assertFileContent(project, getPath(TEST_RESOURCES, "config/bootstrap.properties"), "spring.cloud.consul.enabled=false");
+  }
+
+  public static void assertDockerConsul(Project project) {
+    assertFileExist(project, "src/main/docker/consul.yml");
+
+    assertFileContent(project, "src/main/docker/consul.yml", getDockerConsulImage());
   }
 }

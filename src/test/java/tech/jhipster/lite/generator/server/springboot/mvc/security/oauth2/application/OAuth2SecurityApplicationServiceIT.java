@@ -110,5 +110,8 @@ class OAuth2SecurityApplicationServiceIT {
     assertSecurityDependencies(project);
     assertOAuth2ClientDependencies(project);
     assertOAuth2ClientProperties(project, provider, issuerUri);
+    if (provider == null || provider == OAuth2Provider.KEYCLOAK) {
+      assertDockerKeycloak(project);
+    }
   }
 }

@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 
 import java.util.LinkedHashMap;
@@ -12,7 +13,7 @@ import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBo
 
 public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
-  public static final String SOURCE = "server/springboot/mvc/security/oauth2";
+  public static final String SOURCE = "server/springboot/security/oauth2";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -30,15 +31,47 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
   @Override
   public void addClient(Project project, OAuth2Provider provider, String issuerUri) {
-    addOAuth2ClientDependencies(project);
-    addOAuth2ClientProperties(project, provider, issuerUri);
+    addCommons(project, provider, issuerUri);
   }
 
   @Override
   public void addDefault(Project project, OAuth2Provider provider, String issuerUri) {
-    addOAuth2ClientDependencies(project);
-    addOAuth2ClientProperties(project, provider, issuerUri);
+    addCommons(project, provider, issuerUri);
     // TODO default security configuration
+  }
+
+  @Override
+  public void addKeycloakDocker(Project project) {
+    project.addConfig("dockerKeycloakImage", getDockerKeycloakImage());
+    project.addConfig("dockerKeycloakVersion", getDockerKeycloakVersion());
+    projectRepository.template(project, getPath(SOURCE, "src"), "keycloak.yml", "src/main/docker", "keycloak.yml");
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src"),
+      "jhipster-realm.json.mustache",
+      "src/main/docker/keycloak-realm-config",
+      "jhipster-realm.json"
+    );
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src"),
+      "jhipster-users-0.json.mustache",
+      "src/main/docker/keycloak-realm-config",
+      "jhipster-users-0.json"
+    );
+  }
+
+  private void addCommons(Project project, OAuth2Provider provider, String issuerUri) {
+    addOAuth2ClientDependencies(project);
+    OAuth2Provider providerFallback = fallbackToDefault(provider);
+    addOAuth2ClientProperties(project, providerFallback, issuerUri);
+    if (providerFallback == OAuth2Provider.KEYCLOAK) {
+      addKeycloakDocker(project);
+    }
+  }
+
+  private OAuth2Provider fallbackToDefault(OAuth2Provider provider) {
+    return Optional.ofNullable(provider).orElse(DEFAULT_PROVIDER);
   }
 
   private void addOAuth2ClientDependencies(Project project) {
@@ -59,14 +92,13 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   private Map<String, Object> oauth2ClientProperties(OAuth2Provider provider, String issuerUri) {
     Map<String, Object> result = new LinkedHashMap<>();
 
-    OAuth2Provider providerFallback = Optional.ofNullable(provider).orElse(OAuth2Provider.KEYCLOAK);
-    String providerId = providerFallback.name().toLowerCase();
+    String providerId = provider.name().toLowerCase();
 
-    if (providerFallback.isCustom()) {
-      String issuerUriFallback = Optional.ofNullable(issuerUri).orElse(providerFallback.getDefaultIssuerUri());
+    if (provider.isCustom()) {
+      String issuerUriFallback = Optional.ofNullable(issuerUri).orElse(provider.getDefaultIssuerUri());
       result.put("spring.security.oauth2.client.provider." + providerId + ".issuer-uri", issuerUriFallback);
     }
-    if (!providerFallback.isBuiltIn()) {
+    if (!provider.isBuiltIn()) {
       result.put("spring.security.oauth2.client.registration." + providerId + ".client-name", providerId);
     }
     result.put("spring.security.oauth2.client.registration." + providerId + ".client-id", "web_app");

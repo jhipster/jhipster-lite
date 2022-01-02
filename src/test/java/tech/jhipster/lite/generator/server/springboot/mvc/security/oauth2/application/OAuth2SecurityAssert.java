@@ -1,11 +1,13 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application;
 
 import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.DEFAULT_PROVIDER;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.getDockerKeycloakImage;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,14 @@ public class OAuth2SecurityAssert {
 
   public static void assertOAuth2ClientDependencies(Project project) {
     assertFileContent(project, POM_XML, oauth2ClientDependency());
+  }
+
+  public static void assertDockerKeycloak(Project project) {
+    assertFileExist(project, "src/main/docker/keycloak.yml");
+    assertFileExist(project, "src/main/docker/keycloak-realm-config/jhipster-realm.json");
+    assertFileExist(project, "src/main/docker/keycloak-realm-config/jhipster-users-0.json");
+
+    assertFileContent(project, "src/main/docker/keycloak.yml", getDockerKeycloakImage());
   }
 
   public static void assertOAuth2ClientProperties(Project project, OAuth2Provider provider, String issuerUri) {

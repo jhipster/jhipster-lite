@@ -48,8 +48,6 @@ public class CommandLocalRepository implements CommandRepository {
   }
 
   private void runProcess(Project project, String... command) throws IOException {
-    log.info("Running command: \"{}\" in directory: \"{}\"", command, project.getFolder());
-
     File workingDir = new File(project.getFolder());
     String line;
     ProcessBuilder processBuilder = new ProcessBuilder()

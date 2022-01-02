@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary.executables;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -15,7 +15,7 @@ class NpmTest {
   void shouldReturnWindowsTrueForWindows() {
     try (MockedStatic<OSUtils> osUtils = Mockito.mockStatic(OSUtils.class)) {
       Mockito.when(OSUtils.isWindows()).thenReturn(true);
-      assertEquals(Npm.getExecutableCommand(), "npm.cmd");
+      assertThat(Npm.getExecutableCommand()).isEqualTo("npm.cmd");
     }
   }
 
@@ -23,7 +23,7 @@ class NpmTest {
   void shouldReturnWindowsFalseForNonWindows() {
     try (MockedStatic<OSUtils> osUtils = Mockito.mockStatic(OSUtils.class)) {
       Mockito.when(OSUtils.isWindows()).thenReturn(false);
-      assertEquals(Npm.getExecutableCommand(), "npm");
+      assertThat(Npm.getExecutableCommand()).isEqualTo("npm");
     }
   }
 }

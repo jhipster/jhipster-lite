@@ -77,7 +77,7 @@ public class ConsulAssert {
       )
     );
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"), "spring.cloud.consul.enabled=false");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"), "spring.cloud.consul.config.fail-fast=false");
 
     assertFileContent(project, getPath(TEST_RESOURCES, "config/bootstrap.properties"), "spring.cloud.consul.enabled=false");
   }

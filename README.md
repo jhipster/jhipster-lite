@@ -120,7 +120,7 @@ Then, you can add:
     - Simple
     - Ehcache
   - Developer Tools
-  - Logstach TCP appender
+  - Logstash TCP appender
 
 [jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
 [jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases

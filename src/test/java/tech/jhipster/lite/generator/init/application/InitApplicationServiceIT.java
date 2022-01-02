@@ -1,5 +1,7 @@
 package tech.jhipster.lite.generator.init.application;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
@@ -9,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.generator.project.domain.CommandRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
@@ -17,6 +21,9 @@ class InitApplicationServiceIT {
 
   @Autowired
   InitApplicationService initApplicationService;
+
+  @SpyBean
+  CommandRepository commandRepository;
 
   @Test
   void shouldInitWithConfig() {
@@ -114,5 +121,21 @@ class InitApplicationServiceIT {
     initApplicationService.addPrettier(project);
 
     assertFilesPrettier(project);
+  }
+
+  @Test
+  void shouldNpmInstall() {
+    Project project = tmpProjectWithPackageJson();
+    initApplicationService.install(project);
+
+    assertFileExist(project, "node_modules");
+  }
+
+  @Test
+  void shouldPrettify() {
+    Project project = tmpProjectWithPackageJson();
+    initApplicationService.prettify(project);
+
+    verify(commandRepository).npmPrettierFormat(any(Project.class));
   }
 }

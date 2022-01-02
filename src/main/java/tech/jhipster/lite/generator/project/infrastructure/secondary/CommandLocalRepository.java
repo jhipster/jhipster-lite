@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.project.domain.CommandRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.infrastructure.secondary.executables.Npm;
 
 @Repository
 public class CommandLocalRepository implements CommandRepository {
@@ -31,7 +32,7 @@ public class CommandLocalRepository implements CommandRepository {
   @Override
   public void npmInstall(Project project) {
     try {
-      this.runProcess(project, "npm", "install");
+      this.runProcess(project, Npm.getExecutableCommand(), "install");
     } catch (IOException e) {
       throw new GeneratorException("Error when running \"npm install\"");
     }
@@ -40,7 +41,7 @@ public class CommandLocalRepository implements CommandRepository {
   @Override
   public void npmPrettierFormat(Project project) {
     try {
-      this.runProcess(project, "npm", "run", "prettier:format");
+      this.runProcess(project, Npm.getExecutableCommand(), "run", "prettier:format");
     } catch (IOException e) {
       throw new GeneratorException("Error when running \"npm run prettier:format\"");
     }

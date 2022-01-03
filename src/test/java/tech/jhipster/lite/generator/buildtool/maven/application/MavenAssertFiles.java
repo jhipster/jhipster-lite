@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.buildtool.maven.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +14,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class MavenAssertFiles {
 
   public static void assertFilesPomXml(Project project) {
-    assertFileExist(project, "pom.xml");
+    assertFileExist(project, POM_XML);
   }
 
   public static void assertFilesMavenWrapper(Project project) {

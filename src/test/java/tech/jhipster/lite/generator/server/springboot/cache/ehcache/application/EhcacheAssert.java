@@ -33,7 +33,7 @@ public class EhcacheAssert {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of("<dependency>", "<groupId>org.ehcache</groupId>", "<artifactId>ehcache</artifactId>", "</dependency>")
     );
   }
@@ -41,12 +41,12 @@ public class EhcacheAssert {
   public static void assertXmlDependencies(Project project) {
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of("<dependency>", "<groupId>jakarta.xml.bind</groupId>", "<artifactId>jakarta.xml.bind-api</artifactId>", "</dependency>")
     );
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>org.glassfish.jaxb</groupId>",

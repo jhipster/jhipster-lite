@@ -43,10 +43,10 @@ class MySQLApplicationServiceIT {
 
     mysqlApplicationService.init(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterDataJpa());
-    assertFileContent(project, "pom.xml", mySQLDriver());
-    assertFileContent(project, "pom.xml", hikari());
-    assertFileContent(project, "pom.xml", hibernateCore());
+    assertFileContent(project, POM_XML, springBootStarterDataJpa());
+    assertFileContent(project, POM_XML, mySQLDriver());
+    assertFileContent(project, POM_XML, hikari());
+    assertFileContent(project, POM_XML, hibernateCore());
 
     assertFileExist(project, "src/main/docker/mysql.yml");
     assertFileContent(project, "src/main/docker/mysql.yml", "MYSQL_DATABASE=jhipster");
@@ -78,7 +78,7 @@ class MySQLApplicationServiceIT {
 
     mysqlApplicationService.addSpringDataJpa(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterDataJpa());
+    assertFileContent(project, POM_XML, springBootStarterDataJpa());
   }
 
   @Test
@@ -90,7 +90,7 @@ class MySQLApplicationServiceIT {
 
     mysqlApplicationService.addMySQLDriver(project);
 
-    assertFileContent(project, "pom.xml", mySQLDriver());
+    assertFileContent(project, POM_XML, mySQLDriver());
   }
 
   @Test
@@ -101,7 +101,7 @@ class MySQLApplicationServiceIT {
 
     mysqlApplicationService.addHikari(project);
 
-    assertFileContent(project, "pom.xml", hikari());
+    assertFileContent(project, POM_XML, hikari());
   }
 
   @Test
@@ -112,7 +112,7 @@ class MySQLApplicationServiceIT {
 
     mysqlApplicationService.addHibernateCore(project);
 
-    assertFileContent(project, "pom.xml", hibernateCore());
+    assertFileContent(project, POM_XML, hibernateCore());
   }
 
   @Test

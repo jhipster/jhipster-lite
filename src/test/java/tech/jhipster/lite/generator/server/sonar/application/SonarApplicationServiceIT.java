@@ -41,9 +41,9 @@ class SonarApplicationServiceIT {
     assertFileContent(project, POM_XML, "<sonar-maven-plugin.version>");
     assertFileContent(project, POM_XML, "</sonar-maven-plugin.version>");
 
-    assertFileContent(project, "pom.xml", sonarSourcePlugin());
+    assertFileContent(project, POM_XML, sonarSourcePlugin());
 
-    assertFileContent(project, "pom.xml", propertiesPlugin());
+    assertFileContent(project, POM_XML, propertiesPlugin());
   }
 
   @Test
@@ -81,7 +81,7 @@ class SonarApplicationServiceIT {
     assertFileContent(project, POM_XML, "<properties-maven-plugin.version>");
     assertFileContent(project, POM_XML, "</properties-maven-plugin.version>");
 
-    assertFileContent(project, "pom.xml", propertiesPlugin());
+    assertFileContent(project, POM_XML, propertiesPlugin());
   }
 
   @Test
@@ -94,7 +94,7 @@ class SonarApplicationServiceIT {
 
     assertFileContent(project, POM_XML, "<sonar-maven-plugin.version>");
     assertFileContent(project, POM_XML, "</sonar-maven-plugin.version>");
-    assertFileContent(project, "pom.xml", sonarSourcePlugin());
+    assertFileContent(project, POM_XML, sonarSourcePlugin());
   }
 
   private List<String> propertiesPlugin() {

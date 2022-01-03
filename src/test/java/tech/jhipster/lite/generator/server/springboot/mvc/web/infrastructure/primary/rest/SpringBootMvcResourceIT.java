@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.application.SpringBootMvcAssertFiles.*;
 
 import java.util.List;
@@ -54,13 +55,13 @@ class SpringBootMvcResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, "pom.xml");
+    assertFileExist(projectPath, POM_XML);
     assertFileContent(
       projectPath,
-      "pom.xml",
+      POM_XML,
       List.of("<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-starter-web</artifactId>")
     );
-    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertFileContent(project, POM_XML, springBootStarterWebDependency());
 
     assertFileContent(projectPath, "src/main/resources/config/application.properties", "server.port=8080");
   }
@@ -82,9 +83,9 @@ class SpringBootMvcResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, "pom.xml");
-    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
-    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+    assertFileExist(projectPath, POM_XML);
+    assertFileContent(project, POM_XML, springBootStarterWebWithoutTomcat());
+    assertFileContent(project, POM_XML, springBootStarterUndertowDependency());
 
     assertFileContent(projectPath, "src/main/resources/config/application.properties", "server.port=8080");
   }
@@ -106,8 +107,8 @@ class SpringBootMvcResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, "pom.xml");
-    assertFileContent(project, "pom.xml", springBootStarterActuatorDependency());
+    assertFileExist(projectPath, POM_XML);
+    assertFileContent(project, POM_XML, springBootStarterActuatorDependency());
 
     assertFileContent(projectPath, "src/main/resources/config/application.properties", "management.endpoints.web.base-path=/management");
     assertFileContent(

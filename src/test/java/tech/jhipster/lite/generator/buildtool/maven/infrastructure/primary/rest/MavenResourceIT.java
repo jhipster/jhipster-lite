@@ -6,6 +6,7 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
 import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class MavenResourceIT {
 
     Project project = ProjectDTO.toProject(projectDTO);
     assertFilesMaven(project);
-    assertFileContent(project, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
+    assertFileContent(project, POM_XML, List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
   }
 
   @Test
@@ -54,7 +55,7 @@ class MavenResourceIT {
 
     Project project = ProjectDTO.toProject(projectDTO);
     assertFilesPomXml(project);
-    assertFileContent(project, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
+    assertFileContent(project, POM_XML, List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
   }
 
   @Test

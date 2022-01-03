@@ -15,12 +15,12 @@ public class LogstashAssert {
   public static void assertDependencies(Project project) {
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of("<logstash-logback-encoder.version>" + Logstash.getLogstashLogbackEncoderVersion() + "</logstash-logback-encoder.version>")
     );
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>net.logstash.logback</groupId>",

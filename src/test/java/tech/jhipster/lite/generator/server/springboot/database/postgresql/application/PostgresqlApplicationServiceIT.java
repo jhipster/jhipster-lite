@@ -43,10 +43,10 @@ class PostgresqlApplicationServiceIT {
 
     postgresqlApplicationService.init(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterDataJpa());
-    assertFileContent(project, "pom.xml", postgreSQLDriver());
-    assertFileContent(project, "pom.xml", hikari());
-    assertFileContent(project, "pom.xml", hibernateCore());
+    assertFileContent(project, POM_XML, springBootStarterDataJpa());
+    assertFileContent(project, POM_XML, postgreSQLDriver());
+    assertFileContent(project, POM_XML, hikari());
+    assertFileContent(project, POM_XML, hibernateCore());
 
     assertFileExist(project, "src/main/docker/postgresql.yml");
     assertFileContent(project, "src/main/docker/postgresql.yml", "POSTGRES_USER=jhipster");
@@ -83,7 +83,7 @@ class PostgresqlApplicationServiceIT {
 
     postgresqlApplicationService.addSpringDataJpa(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterDataJpa());
+    assertFileContent(project, POM_XML, springBootStarterDataJpa());
   }
 
   @Test
@@ -95,7 +95,7 @@ class PostgresqlApplicationServiceIT {
 
     postgresqlApplicationService.addPostgreSQLDriver(project);
 
-    assertFileContent(project, "pom.xml", postgreSQLDriver());
+    assertFileContent(project, POM_XML, postgreSQLDriver());
   }
 
   @Test
@@ -106,7 +106,7 @@ class PostgresqlApplicationServiceIT {
 
     postgresqlApplicationService.addHikari(project);
 
-    assertFileContent(project, "pom.xml", hikari());
+    assertFileContent(project, POM_XML, hikari());
   }
 
   @Test
@@ -117,7 +117,7 @@ class PostgresqlApplicationServiceIT {
 
     postgresqlApplicationService.addHibernateCore(project);
 
-    assertFileContent(project, "pom.xml", hibernateCore());
+    assertFileContent(project, POM_XML, hibernateCore());
   }
 
   @Test

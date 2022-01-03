@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -46,6 +47,6 @@ class JacocoResourceIT {
       )
       .andExpect(status().isOk());
 
-    assertFileContent(project, "pom.xml", List.of("<counter>LINE</counter>", "<value>COVEREDRATIO</value>", "<minimum>1.00</minimum>"));
+    assertFileContent(project, POM_XML, List.of("<counter>LINE</counter>", "<value>COVEREDRATIO</value>", "<minimum>1.00</minimum>"));
   }
 }

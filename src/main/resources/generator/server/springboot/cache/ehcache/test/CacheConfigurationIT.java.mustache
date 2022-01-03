@@ -1,10 +1,7 @@
-package {{packageName}}.technical.infrastructure.secondary.cache.ehcache;
+package {{packageName}}.technical.infrastructure.secondary.cache;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import {{packageName}}.IntegrationTest;
-import {{packageName}}.technical.infrastructure.secondary.cache.JCacheConfigurer;
-import {{packageName}}.technical.infrastructure.secondary.cache.JCacheCreator;
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 import org.ehcache.config.CacheRuntimeConfiguration;
@@ -12,30 +9,24 @@ import org.ehcache.config.ResourceType;
 import org.ehcache.jsr107.Eh107Configuration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import {{packageName}}.IntegrationTest;
 
-@IntegrationTest
-@SpringBootTest(properties = { "application.cache.ehcache.max-entries=1000", "application.cache.ehcache.time-to-live-seconds=86400" })
-class EhcacheConfigurationIT {
+@IntegrationTest(properties = { "application.cache.ehcache.max-entries=1000", "application.cache.ehcache.time-to-live-seconds=86400" })
+class CacheConfigurationIT {
 
   @Autowired
   ApplicationContext applicationContext;
 
   @Autowired
-  CacheManager cm;
+  CacheConfiguration cacheConfiguration;
 
   @Autowired
-  JCacheCreator jCacheCreator;
-
-  @Test
-  void shouldEhcacheConfigurer() {
-    assertThat(applicationContext.getBean(JCacheConfigurer.class)).isInstanceOf(EhcacheConfigurer.class);
-  }
+  CacheManager cm;
 
   @Test
   void shouldApplyProperties() {
-    jCacheCreator.createEntityCache(cm, "shouldApplyProperties");
+    cacheConfiguration.createCache(cm, "shouldApplyProperties");
 
     Cache<Object, Object> cache = cm.getCache("shouldApplyProperties");
 

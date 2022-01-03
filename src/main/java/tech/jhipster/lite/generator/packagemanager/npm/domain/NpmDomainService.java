@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import tech.jhipster.lite.generator.project.domain.CommandRepository;
@@ -26,14 +27,14 @@ public class NpmDomainService implements NpmService {
     String newText = needle + System.lineSeparator() + indent(2, indent) + "\"" + dependency + "\": \"" + version + "\"";
 
     String devDependenciesNeedle = "\"devDependencies\": \\{";
-    if (!projectRepository.containsRegexp(project, "", "package.json", needle)) {
+    if (!projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle)) {
       newText =
         newText + System.lineSeparator() + indent(1, indent) + "\\}," + System.lineSeparator() + indent(1, indent) + devDependenciesNeedle;
-      projectRepository.replaceText(project, "", "package.json", devDependenciesNeedle, newText);
-    } else if (projectRepository.containsRegexp(project, "", "package.json", needle + "\\}")) {
-      projectRepository.replaceText(project, "", "package.json", needle, newText + System.lineSeparator() + indent(1, indent));
+      projectRepository.replaceText(project, "", PACKAGE_JSON, devDependenciesNeedle, newText);
+    } else if (projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle + "\\}")) {
+      projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + System.lineSeparator() + indent(1, indent));
     } else {
-      projectRepository.replaceText(project, "", "package.json", needle, newText + ",");
+      projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + ",");
     }
   }
 

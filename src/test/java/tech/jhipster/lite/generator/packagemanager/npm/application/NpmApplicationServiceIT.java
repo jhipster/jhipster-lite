@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.packagemanager.npm.application;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class NpmApplicationServiceIT {
 
     npmApplicationService.addDependency(project, dependency, version);
 
-    assertFileContent(project, "package.json", List.of("\"dependencies\": {", "\"husky\": \"7.0.4\"", "},", "\"devDependencies\": {"));
+    assertFileContent(project, PACKAGE_JSON, List.of("\"dependencies\": {", "\"husky\": \"7.0.4\"", "},", "\"devDependencies\": {"));
   }
 
   @Test
@@ -40,8 +41,8 @@ class NpmApplicationServiceIT {
 
     npmApplicationService.addDependency(project, dependency, version);
 
-    assertFileContent(project, "package.json", List.of("\"dependencies\": {", "\"husky\": \"7.0.4\""));
-    assertFileNoContent(project, "package.json", List.of("\"dependencies\": {", "\"husky\": \"7.0.4\","));
+    assertFileContent(project, PACKAGE_JSON, List.of("\"dependencies\": {", "\"husky\": \"7.0.4\""));
+    assertFileNoContent(project, PACKAGE_JSON, List.of("\"dependencies\": {", "\"husky\": \"7.0.4\","));
   }
 
   @Test
@@ -52,7 +53,7 @@ class NpmApplicationServiceIT {
 
     npmApplicationService.addDependency(project, dependency, version);
 
-    assertFileContent(project, "package.json", List.of("\"dependencies\": {", "\"husky\": \"7.0.4\","));
+    assertFileContent(project, PACKAGE_JSON, List.of("\"dependencies\": {", "\"husky\": \"7.0.4\","));
   }
 
   @Test

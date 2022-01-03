@@ -164,7 +164,7 @@ public class TestUtils {
   public static void copyPackageJsonByName(Project project, String packageJsonFilename) {
     try {
       FileUtils.createFolder(project.getFolder());
-      Files.copy(getPathOf("src/test/resources/generator/command/", packageJsonFilename), getPathOf(project.getFolder(), "package.json"));
+      Files.copy(getPathOf("src/test/resources/generator/command/", packageJsonFilename), getPathOf(project.getFolder(), PACKAGE_JSON));
     } catch (IOException e) {
       throw new AssertionError(e);
     }

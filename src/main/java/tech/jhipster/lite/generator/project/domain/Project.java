@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.project.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
@@ -138,7 +139,7 @@ public class Project {
   }
 
   public boolean isMavenProject() {
-    return FileUtils.exists(getPath(getFolder(), "pom.xml"));
+    return FileUtils.exists(getPath(getFolder(), POM_XML));
   }
 
   public boolean isGradleProject() {

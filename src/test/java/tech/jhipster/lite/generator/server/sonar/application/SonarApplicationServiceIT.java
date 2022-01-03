@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.sonar.application;
 
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -41,9 +41,9 @@ class SonarApplicationServiceIT {
     assertFileContent(project, POM_XML, "<sonar-maven-plugin.version>");
     assertFileContent(project, POM_XML, "</sonar-maven-plugin.version>");
 
-    assertFileContent(project, "pom.xml", sonarSourcePlugin());
+    assertFileContent(project, POM_XML, sonarSourcePlugin());
 
-    assertFileContent(project, "pom.xml", propertiesPlugin());
+    assertFileContent(project, POM_XML, propertiesPlugin());
   }
 
   @Test
@@ -81,7 +81,7 @@ class SonarApplicationServiceIT {
     assertFileContent(project, POM_XML, "<properties-maven-plugin.version>");
     assertFileContent(project, POM_XML, "</properties-maven-plugin.version>");
 
-    assertFileContent(project, "pom.xml", propertiesPlugin());
+    assertFileContent(project, POM_XML, propertiesPlugin());
   }
 
   @Test
@@ -94,7 +94,7 @@ class SonarApplicationServiceIT {
 
     assertFileContent(project, POM_XML, "<sonar-maven-plugin.version>");
     assertFileContent(project, POM_XML, "</sonar-maven-plugin.version>");
-    assertFileContent(project, "pom.xml", sonarSourcePlugin());
+    assertFileContent(project, POM_XML, sonarSourcePlugin());
   }
 
   private List<String> propertiesPlugin() {

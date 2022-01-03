@@ -156,7 +156,7 @@ class SpringBootMvcApplicationServiceIT {
 
     springBootMvcApplicationService.addSpringBootActuator(project);
 
-    assertFileContent(project, "pom.xml", springBootStarterActuatorDependency());
+    assertFileContent(project, POM_XML, springBootStarterActuatorDependency());
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "management.endpoints.web.base-path=/management");
     assertFileContent(
@@ -191,8 +191,8 @@ class SpringBootMvcApplicationServiceIT {
   }
 
   private void assertExceptionHandler(Project project) {
-    assertFileContent(project, "pom.xml", "<problem-spring.version>");
-    assertFileContent(project, "pom.xml", "<problem-spring-web.version>");
+    assertFileContent(project, POM_XML, "<problem-spring.version>");
+    assertFileContent(project, POM_XML, "<problem-spring-web.version>");
 
     assertZalandoProblem(project);
     assertSpringBootStarterValidation(project);
@@ -201,20 +201,20 @@ class SpringBootMvcApplicationServiceIT {
   }
 
   private void assertTomcat(Project project) {
-    assertFileContent(project, "pom.xml", springBootStarterWebDependency());
+    assertFileContent(project, POM_XML, springBootStarterWebDependency());
   }
 
   private void assertUndertow(Project project) {
-    assertFileContent(project, "pom.xml", springBootStarterWebWithoutTomcat());
-    assertFileContent(project, "pom.xml", springBootStarterUndertowDependency());
+    assertFileContent(project, POM_XML, springBootStarterWebWithoutTomcat());
+    assertFileContent(project, POM_XML, springBootStarterUndertowDependency());
   }
 
   private void assertZalandoProblem(Project project) {
-    assertFileContent(project, "pom.xml", zalandoProblemDependency());
+    assertFileContent(project, POM_XML, zalandoProblemDependency());
   }
 
   private void assertSpringBootStarterValidation(Project project) {
-    assertFileContent(project, "pom.xml", springBootStarterValidationDependency());
+    assertFileContent(project, POM_XML, springBootStarterValidationDependency());
   }
 
   private void assertExceptionHandlerProperties(Project project) {

@@ -5,8 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -117,7 +116,7 @@ public class TestUtils {
   public static void copyPomXml(Project project) {
     try {
       FileUtils.createFolder(project.getFolder());
-      Files.copy(getPathOf("src/test/resources/generator/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
+      Files.copy(getPathOf("src/test/resources/generator/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), POM_XML));
     } catch (IOException e) {
       throw new AssertionError(e);
     }

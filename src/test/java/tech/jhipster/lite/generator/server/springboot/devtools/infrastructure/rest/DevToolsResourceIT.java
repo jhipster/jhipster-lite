@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.devtools.infrastructure.r
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -56,7 +57,7 @@ class DevToolsResourceIT {
       )
       .andExpect(status().isOk());
 
-    assertFileContent(project, "pom.xml", springBootDevTools());
+    assertFileContent(project, POM_XML, springBootDevTools());
   }
 
   private List<String> springBootDevTools() {

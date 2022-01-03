@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.buildtool.maven.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.util.List;
@@ -17,7 +18,6 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class MavenDomainService implements MavenService {
 
   public static final String SOURCE = "buildtool/maven";
-  public static final String POM_XML = "pom.xml";
 
   private final ProjectRepository projectRepository;
 

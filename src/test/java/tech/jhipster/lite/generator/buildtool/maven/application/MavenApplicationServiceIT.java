@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.buildtool.maven.application;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<parent>",
         "<groupId>org.springframework.boot</groupId>",
@@ -60,7 +61,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addParent(project, parent);
     mavenApplicationService.addParent(project, parent);
 
-    assertFileContentManyTimes(project, "pom.xml", Maven.getParentHeader(parent), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getParentHeader(parent), 1);
   }
 
   @Test
@@ -72,7 +73,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>org.springframework.boot</groupId>",
@@ -100,7 +101,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>org.springframework.boot</groupId>",
@@ -125,7 +126,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>org.springframework.boot</groupId>",
@@ -150,7 +151,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>org.springframework.boot</groupId>",
@@ -174,7 +175,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addDependency(project, dependency);
     mavenApplicationService.addDependency(project, dependency);
 
-    assertFileContentManyTimes(project, "pom.xml", Maven.getDependencyHeader(dependency), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getDependencyHeader(dependency), 1);
   }
 
   @Test
@@ -193,7 +194,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>org.springframework.cloud</groupId>",
@@ -222,7 +223,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>my.group.id</groupId>",
@@ -239,7 +240,7 @@ class MavenApplicationServiceIT {
 
     assertFileNoContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>my.group.id</groupId>",
@@ -269,7 +270,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of("<plugin>", "<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-maven-plugin</artifactId>", "</plugin>")
     );
   }
@@ -293,7 +294,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<plugin>",
         "<groupId>org.springframework.boot</groupId>",
@@ -327,7 +328,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<plugin>",
         "<groupId>org.springframework.boot</groupId>",
@@ -352,7 +353,7 @@ class MavenApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<plugin>",
         "<groupId>org.springframework.boot</groupId>",
@@ -380,7 +381,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPlugin(project, plugin);
     mavenApplicationService.addPlugin(project, plugin);
 
-    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin), 1);
   }
 
   @Test
@@ -391,7 +392,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPluginManagement(project, plugin);
     mavenApplicationService.addPluginManagement(project, plugin);
 
-    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginManagementHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginManagementHeader(plugin), 1);
   }
 
   @Test
@@ -402,8 +403,8 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPlugin(project, plugin);
     mavenApplicationService.addPluginManagement(project, plugin);
 
-    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginHeader(plugin), 1);
-    assertFileContentManyTimes(project, "pom.xml", Maven.getPluginManagementHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginManagementHeader(plugin), 1);
   }
 
   @Test
@@ -412,7 +413,7 @@ class MavenApplicationServiceIT {
 
     mavenApplicationService.addProperty(project, "testcontainers", "1.16.0");
 
-    assertFileContent(project, "pom.xml", "    <testcontainers.version>1.16.0</testcontainers.version>");
+    assertFileContent(project, POM_XML, "    <testcontainers.version>1.16.0</testcontainers.version>");
   }
 
   @Test
@@ -433,7 +434,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addProperty(project, key, version);
     mavenApplicationService.addProperty(project, key, version);
 
-    assertFileContentManyTimes(project, "pom.xml", Maven.getProperty(key, ".*"), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getProperty(key, ".*"), 1);
   }
 
   @Test
@@ -442,11 +443,11 @@ class MavenApplicationServiceIT {
 
     mavenApplicationService.addProperty(project, "my-key", "1.0");
 
-    assertFileContent(project, "pom.xml", "    <my-key.version>1.0</my-key.version>");
+    assertFileContent(project, POM_XML, "    <my-key.version>1.0</my-key.version>");
 
     mavenApplicationService.deleteProperty(project, "my-key");
 
-    assertFileNoContent(project, "pom.xml", "    <my-key.version>1.0</my-key.version>");
+    assertFileNoContent(project, POM_XML, "    <my-key.version>1.0</my-key.version>");
   }
 
   @Test
@@ -464,8 +465,8 @@ class MavenApplicationServiceIT {
     mavenApplicationService.init(project);
 
     assertFilesMaven(project);
-    assertFileContent(project, "pom.xml", "<name>jhipster</name>");
-    assertFileContent(project, "pom.xml", "<description>JHipster Project</description>");
+    assertFileContent(project, POM_XML, "<name>jhipster</name>");
+    assertFileContent(project, POM_XML, "<description>JHipster Project</description>");
   }
 
   @Test
@@ -475,8 +476,8 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
 
     assertFilesPomXml(project);
-    assertFileContent(project, "pom.xml", "<name>jhipster</name>");
-    assertFileContent(project, "pom.xml", "<description>JHipster Project</description>");
+    assertFileContent(project, POM_XML, "<name>jhipster</name>");
+    assertFileContent(project, POM_XML, "<description>JHipster Project</description>");
   }
 
   @Test

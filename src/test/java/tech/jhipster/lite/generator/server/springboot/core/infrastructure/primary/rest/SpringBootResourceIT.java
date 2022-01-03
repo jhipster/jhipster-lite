@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -50,11 +51,11 @@ class SpringBootResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, "pom.xml");
-    assertFileContent(projectPath, "pom.xml", List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
+    assertFileExist(projectPath, POM_XML);
+    assertFileContent(projectPath, POM_XML, List.of("<groupId>tech.jhipster.chips</groupId>", "<artifactId>chips</artifactId>"));
     assertFileContent(
       projectPath,
-      "pom.xml",
+      POM_XML,
       List.of("<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-starter</artifactId>")
     );
 

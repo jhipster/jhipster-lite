@@ -13,4 +13,6 @@ public class Constants {
   public static final String TEST_JAVA = String.join(File.separator, "src", "test", "java");
   public static final String TEST_RESOURCES = String.join(File.separator, "src", "test", "resources");
   public static final String TEST_TEMPLATE_RESOURCES = String.join(File.separator, TEST_RESOURCES, TEMPLATE_FOLDER);
+
+  public static final String POM_XML = "pom.xml";
 }

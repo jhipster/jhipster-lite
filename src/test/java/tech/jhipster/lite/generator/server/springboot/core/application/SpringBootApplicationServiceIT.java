@@ -3,8 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.core.application;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -37,15 +37,15 @@ class SpringBootApplicationServiceIT {
 
     springBootApplicationService.init(project);
 
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-parent</artifactId>");
-    assertFileContent(project, "pom.xml", "<version>2.5.3</version>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
+    assertFileContent(project, POM_XML, "<version>2.5.3</version>");
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter</artifactId>");
+    assertFileContent(project, POM_XML, "<groupId>org.springframework.boot</groupId>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter</artifactId>");
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>org.springframework.boot</groupId>",
@@ -55,12 +55,12 @@ class SpringBootApplicationServiceIT {
       )
     );
 
-    assertFileContent(project, "pom.xml", "<groupId>org.apache.commons</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>commons-lang3</artifactId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-test</artifactId>");
+    assertFileContent(project, POM_XML, "<groupId>org.apache.commons</groupId>");
+    assertFileContent(project, POM_XML, "<artifactId>commons-lang3</artifactId>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-test</artifactId>");
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-maven-plugin</artifactId>");
+    assertFileContent(project, POM_XML, "<groupId>org.springframework.boot</groupId>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-maven-plugin</artifactId>");
 
     assertFileExist(project, getPath(MAIN_JAVA, "com/mycompany/myapp/JhipsterApp.java"));
     assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp/JhipsterAppIT.java"));
@@ -81,14 +81,14 @@ class SpringBootApplicationServiceIT {
     mavenApplicationService.addPomXml(project);
 
     springBootApplicationService.addSpringBootParent(project);
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-parent</artifactId>");
-    assertFileContent(project, "pom.xml", "<version>2.5.3</version>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
+    assertFileContent(project, POM_XML, "<version>2.5.3</version>");
 
     // add again the parent, with wrong version
     project.addConfig("springBootVersion", "X.X.X");
     springBootApplicationService.addSpringBootParent(project);
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-parent</artifactId>");
-    assertFileNoContent(project, "pom.xml", "<version>X.X.X</version>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
+    assertFileNoContent(project, POM_XML, "<version>X.X.X</version>");
   }
 
   @Test
@@ -106,13 +106,13 @@ class SpringBootApplicationServiceIT {
 
     springBootApplicationService.addSpringBootDependencies(project);
 
-    assertFileContent(project, "pom.xml", "<groupId>org.springframework.boot</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter</artifactId>");
+    assertFileContent(project, POM_XML, "<groupId>org.springframework.boot</groupId>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter</artifactId>");
 
-    assertFileContent(project, "pom.xml", "<groupId>org.apache.commons</groupId>");
-    assertFileContent(project, "pom.xml", "<artifactId>commons-lang3</artifactId>");
+    assertFileContent(project, POM_XML, "<groupId>org.apache.commons</groupId>");
+    assertFileContent(project, POM_XML, "<artifactId>commons-lang3</artifactId>");
 
-    assertFileContent(project, "pom.xml", "<artifactId>spring-boot-starter-test</artifactId>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-test</artifactId>");
   }
 
   @Test
@@ -132,7 +132,7 @@ class SpringBootApplicationServiceIT {
 
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<plugin>",
         "<groupId>org.springframework.boot</groupId>",

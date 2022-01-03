@@ -7,8 +7,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
 
 import com.github.mustachejava.MustacheNotFoundException;
@@ -200,9 +200,9 @@ class ProjectLocalRepositoryTest {
 
         <description>Chips Project</description>""";
 
-    repository.replaceText(project, "", "pom.xml", oldText, newText);
+    repository.replaceText(project, "", POM_XML, oldText, newText);
 
-    assertFileContent(project, "pom.xml", List.of("<name>chips</name>", "", "<description>Chips Project</description>"));
+    assertFileContent(project, POM_XML, List.of("<name>chips</name>", "", "<description>Chips Project</description>"));
   }
 
   @Test
@@ -215,8 +215,7 @@ class ProjectLocalRepositoryTest {
       <name>chips</name>
         <description>Chips Project</description>""";
 
-    assertThatThrownBy(() -> repository.replaceText(project, "", "pom.xml", oldText, newText))
-      .isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> repository.replaceText(project, "", POM_XML, oldText, newText)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -248,7 +247,7 @@ class ProjectLocalRepositoryTest {
       fileUtilsMock.when(() -> FileUtils.getPath(Mockito.any(String.class))).thenReturn(project.getFolder());
       fileUtilsMock.when(FileUtils::isPosix).thenReturn(false);
 
-      repository.setExecutable(project, "", "pom.xml");
+      repository.setExecutable(project, "", POM_XML);
       filesMock.verify(() -> Files.setPosixFilePermissions(Mockito.any(), Mockito.any()), never());
     }
   }
@@ -256,11 +255,11 @@ class ProjectLocalRepositoryTest {
   @Test
   void shouldSetExecutable() throws IOException {
     Project project = tmpProjectWithPomXml();
-    String pomXmlFolder = getPath(project.getFolder(), "pom.xml");
+    String pomXmlFolder = getPath(project.getFolder(), POM_XML);
     Set<PosixFilePermission> posixFilePermissions = Files.getPosixFilePermissions(getPathOf(pomXmlFolder));
     assertThat(posixFilePermissions).doesNotContain(PosixFilePermission.OWNER_EXECUTE);
 
-    repository.setExecutable(project, "", "pom.xml");
+    repository.setExecutable(project, "", POM_XML);
 
     posixFilePermissions = Files.getPosixFilePermissions(getPathOf(pomXmlFolder));
     assertThat(posixFilePermissions).contains(PosixFilePermission.OWNER_EXECUTE);
@@ -269,7 +268,7 @@ class ProjectLocalRepositoryTest {
   @Test
   void shouldNotSetExecutable() {
     Project project = tmpProject();
-    assertThatThrownBy(() -> repository.setExecutable(project, "", "pom.xml")).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> repository.setExecutable(project, "", POM_XML)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

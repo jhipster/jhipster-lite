@@ -4,6 +4,7 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
@@ -15,7 +16,7 @@ public class SpringBootCacheAssert {
   public static void assertDependencies(Project project) {
     assertFileContent(
       project,
-      "pom.xml",
+      POM_XML,
       List.of(
         "<dependency>",
         "<groupId>org.springframework.boot</groupId>",

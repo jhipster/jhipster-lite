@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.init.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import tech.jhipster.lite.common.domain.WordUtils;
@@ -36,7 +37,7 @@ public class InitDomainService implements InitService {
     String baseName = project.getBaseName().orElse("");
     project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
-    projectRepository.template(project, SOURCE, "package.json");
+    projectRepository.template(project, SOURCE, PACKAGE_JSON);
   }
 
   @Override

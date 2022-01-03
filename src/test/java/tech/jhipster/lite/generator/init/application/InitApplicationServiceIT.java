@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.init.application;
 
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.util.HashMap;
@@ -40,7 +41,7 @@ class InitApplicationServiceIT {
 
     assertFilesInit(project);
     assertFileContent(project, "README.md", "JHipster Lite");
-    assertFileContent(project, "package.json", "jhipster-lite");
+    assertFileContent(project, PACKAGE_JSON, "jhipster-lite");
     assertFileContent(project, ".prettierrc", "tabWidth: 4");
     // @formatter:off
     assertFileContent(project, ".prettierrc",
@@ -62,7 +63,7 @@ class InitApplicationServiceIT {
 
     assertFilesInit(project);
     assertFileContent(project, "README.md", "JHipster Project");
-    assertFileContent(project, "package.json", "jhipster");
+    assertFileContent(project, PACKAGE_JSON, "jhipster");
     assertFileContent(project, ".prettierrc", "tabWidth: 2");
     // @formatter:off
     assertFileContent(project, ".prettierrc",

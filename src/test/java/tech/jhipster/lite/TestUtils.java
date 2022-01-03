@@ -137,7 +137,7 @@ public class TestUtils {
   public static void copyPackageJson(Project project) {
     try {
       FileUtils.createFolder(project.getFolder());
-      Files.copy(getPathOf("src/test/resources/generator/command/package-test.json"), getPathOf(project.getFolder(), "package.json"));
+      Files.copy(getPathOf("src/test/resources/generator/command/package-test.json"), getPathOf(project.getFolder(), PACKAGE_JSON));
     } catch (IOException e) {
       throw new AssertionError(e);
     }

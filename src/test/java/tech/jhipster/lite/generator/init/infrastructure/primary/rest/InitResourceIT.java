@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,6 @@ class InitResourceIT {
     assertFilesInit(project);
     assertFileContent(project, "README.md", "Chips Project");
     assertFileContent(project, ".prettierrc", "tabWidth: 2");
-    assertFileContent(project, "package.json", "chips");
+    assertFileContent(project, PACKAGE_JSON, "chips");
   }
 }

@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.init.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +14,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class InitAssertFiles {
 
   public static void assertFilesPackageJson(Project project) {
-    assertFileExist(project, "package.json");
+    assertFileExist(project, PACKAGE_JSON);
   }
 
   public static void assertFilesReadme(Project project) {

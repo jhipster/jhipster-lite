@@ -2,6 +2,7 @@ package tech.jhipster.lite;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +16,8 @@ public class JHLiteApp {
 
   private static final Logger log = LoggerFactory.getLogger(JHLiteApp.class);
 
+  private static String SEPARATOR = "----------------------------------------------------------";
+
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(JHLiteApp.class);
     Environment env = app.run(args).getEnvironment();
@@ -26,26 +29,48 @@ public class JHLiteApp {
     String serverPort = env.getProperty("server.port");
     String contextPath = getContextPath(env.getProperty("server.servlet.context-path"));
     String hostAddress = getHostAddress();
-    log.info(
-      """
-      
-      ----------------------------------------------------------
-        Application '{}' is running! Access URLs:
-        Local: \t{}://localhost:{}{}swagger-ui.html
-        External: \t{}://{}:{}{}swagger-ui.html
-        Profile(s): \t{}
-      ----------------------------------------------------------
-      """,
-      env.getProperty("spring.application.name"),
-      protocol,
-      serverPort,
-      contextPath,
-      protocol,
-      hostAddress,
-      serverPort,
-      contextPath,
-      env.getActiveProfiles()
-    );
+
+    StringBuilder welcomeMessage = new StringBuilder()
+      .append("\n")
+      .append(SEPARATOR)
+      .append("\n")
+      .append(applicationRunning(env.getProperty("spring.application.name")))
+      .append(accessUrlLocal(protocol, serverPort, contextPath))
+      .append(accessUrlExternal(protocol, hostAddress, serverPort, contextPath))
+      .append(profile(Arrays.toString(env.getActiveProfiles())))
+      .append(SEPARATOR)
+      .append(configServer(env.getProperty("configserver.status")));
+
+    log.info(welcomeMessage.toString());
+  }
+
+  public static String applicationRunning(String value) {
+    return String.format("  Application '%s' is running!", value) + "\n";
+  }
+
+  public static String accessUrlLocal(String protocol, String serverPort, String contextPath) {
+    if (StringUtils.isBlank(serverPort)) {
+      return "";
+    }
+    return String.format("  Local: \t%s://localhost:%s%sswagger-ui.html", protocol, serverPort, contextPath) + "\n";
+  }
+
+  public static String accessUrlExternal(String protocol, String hostAddress, String serverPort, String contextPath) {
+    if (StringUtils.isBlank(serverPort)) {
+      return "";
+    }
+    return String.format("  External: \t%s://%s:%s%sswagger-ui.html", protocol, hostAddress, serverPort, contextPath) + "\n";
+  }
+
+  public static String profile(String profiles) {
+    return String.format("  Profile(s): \t%s", profiles) + "\n";
+  }
+
+  public static String configServer(String configServerStatus) {
+    if (StringUtils.isBlank(configServerStatus)) {
+      return "";
+    }
+    return "\n" + String.format("  Config Server: %s", configServerStatus) + "\n" + SEPARATOR + "\n";
   }
 
   public static String getProtocol(String value) {

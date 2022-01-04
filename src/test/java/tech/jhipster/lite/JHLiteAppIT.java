@@ -18,6 +18,60 @@ class JHLiteAppIT {
   }
 
   @Test
+  void shouldApplicationRunning() {
+    String result = JHLiteApp.applicationRunning("jhlite");
+    assertThat(result).isEqualTo("  Application 'jhlite' is running!\n");
+  }
+
+  @Test
+  void shouldAccessUrlLocalWithoutServerPort() {
+    String result = JHLiteApp.accessUrlLocal(null, null, null);
+    assertThat(result).isEmpty();
+  }
+
+  @Test
+  void shouldAccessUrlLocalWithoutContextPath() {
+    String result = JHLiteApp.accessUrlLocal("http", "8080", "/");
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/swagger-ui.html\n");
+  }
+
+  @Test
+  void shouldAccessUrlLocalWithContextPath() {
+    String result = JHLiteApp.accessUrlLocal("http", "8080", "/lite/");
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/lite/swagger-ui.html\n");
+  }
+
+  @Test
+  void shouldAccessUrlExternalWithoutServerPort() {
+    String result = JHLiteApp.accessUrlExternal(null, null, null, null);
+    assertThat(result).isEmpty();
+  }
+
+  @Test
+  void shouldAccessUrlExternalWithoutContextPath() {
+    String result = JHLiteApp.accessUrlExternal("http", "127.0.1.1", "8080", "/");
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/swagger-ui.html\n");
+  }
+
+  @Test
+  void shouldAccessUrlExternalWithContextPath() {
+    String result = JHLiteApp.accessUrlExternal("http", "127.0.1.1", "8080", "/lite/");
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/lite/swagger-ui.html\n");
+  }
+
+  @Test
+  void shouldConfigServerWithoutConfigServerStatus() {
+    String result = JHLiteApp.configServer(null);
+    assertThat(result).isEmpty();
+  }
+
+  @Test
+  void shouldConfigServer() {
+    String result = JHLiteApp.configServer("Connected to the JHipster Registry running in Docker");
+    assertThat(result).contains("Config Server: Connected to the JHipster Registry running in Docker");
+  }
+
+  @Test
   void shouldGetProtocol() {
     assertThat(JHLiteApp.getProtocol(null)).isEqualTo("http");
   }

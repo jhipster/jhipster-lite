@@ -1,8 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
-import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
@@ -29,10 +28,11 @@ public class MavenDomainService implements MavenService {
   @Override
   public void addParent(Project project, Parent parent) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
-    String parentNode = Maven.getParent(parent, indent);
-    String parentHeaderNode = Maven.getParentHeader(parent, indent);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
+
+    String parentNode = Maven.getParent(parent, indent).replace(LF, project.getEndOfLine());
+    String parentHeaderNode = Maven.getParentHeader(parent, indent).replace(LF, project.getEndOfLine());
     String parentHeaderRegexp = FileUtils.REGEXP_PREFIX_MULTILINE + parentHeaderNode;
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, parentHeaderRegexp)) {
@@ -61,17 +61,20 @@ public class MavenDomainService implements MavenService {
   }
 
   private void addDependency(Project project, Dependency dependency, List<Dependency> exclusions, String needle) {
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
+
     int level = NEEDLE_DEPENDENCY_MANAGEMENT.equals(needle) ? 3 : 2;
 
     String dependencyNode = Maven.getDependencyHeader(dependency, indent).indent(2 * indent);
-    String dependencyRegexp = (FileUtils.REGEXP_PREFIX_MULTILINE + dependencyNode).replace("\n", System.lineSeparator());
+    String dependencyRegexp = (FileUtils.REGEXP_PREFIX_MULTILINE + dependencyNode).replace(LF, project.getEndOfLine());
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, dependencyRegexp)) {
       project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
       String newDependencyNode = Maven.getDependency(dependency, indent, exclusions).indent(level * indent);
-      String dependencyWithNeedle = (newDependencyNode + indent(level, indent) + needle).replace("\n", System.lineSeparator());
+      String dependencyWithNeedle = (newDependencyNode + indent(level, indent) + needle).replace(LF, project.getEndOfLine());
 
       projectRepository.replaceText(project, "", POM_XML, "[ \t]*" + needle, dependencyWithNeedle);
     }
@@ -80,12 +83,14 @@ public class MavenDomainService implements MavenService {
   @Override
   public void deleteDependency(Project project, Dependency dependency) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
+
     Dependency dependencyToDelete = Dependency.builder().groupId(dependency.getGroupId()).artifactId(dependency.getArtifactId()).build();
 
     String dependencyNode = Maven.getDependency(dependencyToDelete, indent).indent(2 * indent);
     String endNode = indent(2, indent) + "</dependency>";
-    String dependencyNodeRegExp = ("(?s)" + dependencyNode.replace(endNode, ".*" + endNode)).replace("\n", System.lineSeparator());
+    String dependencyNodeRegExp = ("(?s)" + dependencyNode.replace(endNode, ".*" + endNode)).replace(LF, project.getEndOfLine());
 
     projectRepository.replaceRegexp(project, "", POM_XML, dependencyNodeRegExp, "");
   }
@@ -93,7 +98,8 @@ public class MavenDomainService implements MavenService {
   @Override
   public void addPlugin(Project project, Plugin plugin) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
 
     String pluginNodeNode = Maven.getPluginHeader(plugin, indent);
 
@@ -102,7 +108,7 @@ public class MavenDomainService implements MavenService {
       FileUtils.REGEXP_PREFIX_DOTALL + PLUGIN_BEGIN + FileUtils.DOT_STAR_REGEX + pluginNodeNode + FileUtils.DOT_STAR_REGEX + NEEDLE_PLUGIN;
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
-      String pluginWithNeedle = Maven.getPlugin(plugin, indent) + System.lineSeparator() + indent(3, indent) + NEEDLE_PLUGIN;
+      String pluginWithNeedle = Maven.getPlugin(plugin, indent) + project.getEndOfLine() + indent(3, indent) + NEEDLE_PLUGIN;
 
       projectRepository.replaceText(project, "", POM_XML, NEEDLE_PLUGIN, pluginWithNeedle);
     }
@@ -111,7 +117,8 @@ public class MavenDomainService implements MavenService {
   @Override
   public void addPluginManagement(Project project, Plugin plugin) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
 
     String pluginNodeNode = Maven.getPluginManagementHeader(plugin, indent);
     //Checking for plugin declaration in <pluginManagement> section
@@ -125,7 +132,7 @@ public class MavenDomainService implements MavenService {
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
       String pluginWithNeedle =
-        Maven.getPluginManagement(plugin, indent) + System.lineSeparator() + indent(4, indent) + NEEDLE_PLUGIN_MANAGEMENT;
+        Maven.getPluginManagement(plugin, indent) + project.getEndOfLine() + indent(4, indent) + NEEDLE_PLUGIN_MANAGEMENT;
 
       projectRepository.replaceText(project, "", POM_XML, NEEDLE_PLUGIN_MANAGEMENT, pluginWithNeedle);
     }
@@ -134,12 +141,13 @@ public class MavenDomainService implements MavenService {
   @Override
   public void addProperty(Project project, String key, String version) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
 
     String pluginRegexp = Maven.getProperty(key, ".*");
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
-      String propertyWithNeedle = Maven.getProperty(key, version) + System.lineSeparator() + indent(2, indent) + NEEDLE_PROPERTIES;
+      String propertyWithNeedle = Maven.getProperty(key, version) + project.getEndOfLine() + indent(2, indent) + NEEDLE_PROPERTIES;
 
       projectRepository.replaceText(project, "", POM_XML, NEEDLE_PROPERTIES, propertyWithNeedle);
     }
@@ -149,7 +157,7 @@ public class MavenDomainService implements MavenService {
   public void deleteProperty(Project project, String key) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
-    String propertyNode = Maven.getProperty(key, ".*") + System.lineSeparator();
+    String propertyNode = Maven.getProperty(key, ".*") + project.getEndOfLine();
 
     projectRepository.replaceText(project, "", POM_XML, propertyNode, "");
   }

@@ -4,8 +4,14 @@ import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +36,7 @@ class ProjectTest {
       Project project = minimalBuilder(folder).build();
 
       assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getEndOfLine()).isEqualTo(LF);
       assertThat(project.getConfig()).isEmpty();
 
       assertThat(project.getLanguage()).isEmpty();
@@ -49,6 +56,7 @@ class ProjectTest {
       Project project = minimalBuilder(folder).config(null).build();
 
       assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getEndOfLine()).isEqualTo(LF);
       assertThat(project.getConfig()).isEmpty();
     }
 
@@ -58,6 +66,7 @@ class ProjectTest {
       Project project = fullBuilder(folder).config(Map.of(PROJECT_NAME, "JHipster Lite")).build();
 
       assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getEndOfLine()).isEqualTo(LF);
       assertThat(project.getConfig()).isEqualTo(Map.of(PROJECT_NAME, "JHipster Lite"));
 
       assertThat(project.getLanguage()).contains(LanguageType.JAVA);
@@ -90,6 +99,59 @@ class ProjectTest {
       Project.ProjectBuilder builder = Project.builder().folder(" ");
 
       assertThatThrownBy(builder::build).isExactlyInstanceOf(MissingMandatoryValueException.class).hasMessageContaining("folder");
+    }
+  }
+
+  @Nested
+  class DetectEndOfLineTest {
+
+    @Test
+    void shouldBuildProjectCrlf() throws IOException {
+      String folder = tmpDirForTest();
+
+      Files.createDirectory(Path.of(folder));
+      Files.writeString(Path.of(folder, "file.txt"), "my file with \r\ncrlf", StandardOpenOption.CREATE);
+
+      Project project = minimalBuilder(folder).build();
+
+      assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getEndOfLine()).isEqualTo(CRLF);
+    }
+
+    @Test
+    void shouldBuildProjectLf() throws IOException {
+      String folder = tmpDirForTest();
+
+      Files.createDirectory(Path.of(folder));
+      Files.writeString(Path.of(folder, "file.txt"), "my file with \nlf", StandardOpenOption.CREATE);
+
+      Project project = minimalBuilder(folder).build();
+
+      assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getEndOfLine()).isEqualTo(LF);
+    }
+
+    @Test
+    void shouldBuildProjectNoNewline() throws IOException {
+      String folder = tmpDirForTest();
+
+      Files.createDirectory(Path.of(folder));
+      Files.writeString(Path.of(folder, "file.txt"), "my file with only 1 line", StandardOpenOption.CREATE);
+
+      Project project = minimalBuilder(folder).build();
+
+      assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getEndOfLine()).isEqualTo(LF);
+    }
+
+    @Test
+    void shouldBuildProjectDefault() {
+      String folder = tmpDirForTest();
+
+      Project project = minimalBuilder(folder).build();
+
+      assertThat(project.getFolder()).isEqualTo(folder);
+      assertThat(project.getEndOfLine()).isEqualTo(LF);
     }
   }
 

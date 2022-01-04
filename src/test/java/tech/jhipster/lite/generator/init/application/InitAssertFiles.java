@@ -21,7 +21,7 @@ public class InitAssertFiles {
     assertFileExist(project, "README.md");
   }
 
-  public static void assertFilesConfiguration(Project project) {
+  public static void assertFilesGitConfiguration(Project project) {
     assertFileExist(project, ".gitignore");
     assertFileExist(project, ".gitattributes");
   }
@@ -47,7 +47,7 @@ public class InitAssertFiles {
   public static void assertFilesInit(Project project) {
     assertFilesPackageJson(project);
     assertFilesReadme(project);
-    assertFilesConfiguration(project);
+    assertFilesGitConfiguration(project);
     assertFilesEditorConfiguration(project);
     assertFilesPrettier(project);
   }

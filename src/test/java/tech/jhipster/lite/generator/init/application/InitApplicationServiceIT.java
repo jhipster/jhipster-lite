@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.init.application;
 
 import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
@@ -35,14 +36,15 @@ class InitApplicationServiceIT {
       )
     );
     // @formatter:on
-    Project project = tmpProjectBuilder().config(config).build();
+    Project project = tmpProjectBuilder().endOfLine(CRLF).config(config).build();
 
     initApplicationService.init(project);
 
     assertFilesInit(project);
     assertFileContent(project, "README.md", "JHipster Lite");
     assertFileContent(project, PACKAGE_JSON, "jhipster-lite");
-    assertFileContent(project, ".prettierrc", "tabWidth: 4");
+    assertFileContent(project, ".editorconfig", "end_of_line = crlf");
+    assertFileContent(project, ".prettierrc", "endOfLine: \"crlf\"");
     // @formatter:off
     assertFileContent(project, ".prettierrc",
       List.of(
@@ -64,7 +66,8 @@ class InitApplicationServiceIT {
     assertFilesInit(project);
     assertFileContent(project, "README.md", "JHipster Project");
     assertFileContent(project, PACKAGE_JSON, "jhipster");
-    assertFileContent(project, ".prettierrc", "tabWidth: 2");
+    assertFileContent(project, ".editorconfig", "end_of_line = lf");
+    assertFileContent(project, ".prettierrc", "endOfLine: \"lf\"");
     // @formatter:off
     assertFileContent(project, ".prettierrc",
       List.of(
@@ -101,7 +104,7 @@ class InitApplicationServiceIT {
 
     initApplicationService.addGitConfiguration(project);
 
-    assertFilesConfiguration(project);
+    assertFilesGitConfiguration(project);
   }
 
   @Test

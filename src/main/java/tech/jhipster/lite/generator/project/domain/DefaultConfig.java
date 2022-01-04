@@ -1,5 +1,7 @@
 package tech.jhipster.lite.generator.project.domain;
 
+import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,7 +17,7 @@ public class DefaultConfig {
     BASE_NAME, "jhipster",
     PROJECT_NAME, "JHipster Project",
     PACKAGE_NAME, "com.mycompany.myapp",
-    PRETTIER_DEFAULT_INDENT, 2
+    PRETTIER_DEFAULT_INDENT, DEFAULT_INDENTATION
   );
 
   public static final String PACKAGE_PATH = "com/mycompany/myapp";

@@ -64,9 +64,10 @@ public class LiquibaseDomainService implements LiquibaseService {
   @Override
   public void addChangelogXml(Project project, String path, String fileName) {
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+
     String includeLine = new StringBuilder()
       .append(Liquibase.getIncludeLine(path, fileName))
-      .append(System.lineSeparator())
+      .append(project.getEndOfLine())
       .append(indent(1, indent))
       .append(NEEDLE_LIQUIBASE)
       .toString();

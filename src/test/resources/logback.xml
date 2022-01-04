@@ -3,7 +3,7 @@
 <configuration scan="true">
   <include resource="org/springframework/boot/logging/logback/base.xml" />
 
-  <logger name="tech.jhipster.lite" level="WARN" />
+  <logger name="tech.jhipster.lite" level="OFF" />
   <logger name="org.springframework" level="WARN" />
   <logger name="org.springframework.web" level="WARN" />
   <logger name="org.springframework.security" level="WARN" />
@@ -12,8 +12,14 @@
   <logger name="org.apache.catalina" level="ERROR" />
   <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="INFO" />
   <logger name="Validator" level="INFO" />
-  <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="INFO" />
   <logger name="org.apache.tomcat.util.IntrospectionUtils" level="INFO" />
+  <logger name="org.hibernate" level="WARN" />
+  <logger name="org.hibernate.validator" level="WARN" />
+  <logger name="com.jackson" level="WARN" />
+  <logger name="com.jayway" level="WARN" />
+  <logger name="org.zalando" level="OFF" />
+  <logger name="org.zalando.problem.spring.common.AdviceTraits" level="OFF" />
+  <logger name="com.tngtech.archunit.ArchConfiguration" level="WARN" />
 
   <root>
     <level>WARN</level>

@@ -174,7 +174,7 @@ class MavenTest {
       <plugin>
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>""";
+            </plugin>""".replace("\n", System.lineSeparator());
     Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
@@ -187,7 +187,7 @@ class MavenTest {
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-maven-plugin</artifactId>
               <version>2.6.0</version>
-            </plugin>""";
+            </plugin>""".replace("\n", System.lineSeparator());
     Plugin plugin = fullPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
@@ -199,7 +199,7 @@ class MavenTest {
       <plugin>
                       <groupId>org.springframework.boot</groupId>
                       <artifactId>spring-boot-maven-plugin</artifactId>
-                  </plugin>""";
+                  </plugin>""".replace("\n", System.lineSeparator());
     Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin, 4)).isEqualTo(expected);

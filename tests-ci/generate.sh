@@ -86,7 +86,20 @@ elif [[ $filename == 'tomcat-configserver' ]]; then
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/spring-cloud/config-client"
+  callApi "/api/servers/sonar"
+
+elif [[ $filename == 'undertow-consul' ]]; then
+  callApi "/api/projects/init"
+  callApi "/api/build-tools/maven"
+  callApi "/api/servers/java/base"
+  callApi "/api/servers/java/jacoco-minimum-coverage"
+  callApi "/api/servers/spring-boot"
+  callApi "/api/servers/spring-boot/mvc/web/undertow"
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/spring-cloud/consul"
+  callApi "/api/servers/sonar"
 
 else
   echo "*** Unknown configuration..."

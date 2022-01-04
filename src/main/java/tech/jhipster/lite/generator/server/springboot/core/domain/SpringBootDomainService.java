@@ -19,7 +19,6 @@ public class SpringBootDomainService implements SpringBootService {
 
   public static final String SOURCE = "server/springboot/core";
   public static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
-  public static final String CONFIG_FOLDER = "config";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;

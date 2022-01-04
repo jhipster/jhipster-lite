@@ -66,6 +66,7 @@ jobs:
           - tomcat-postgresql-ehcachexml
           - undertow-mysql-simplecache
           - tomcat-configserver
+          - undertow-consul
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2

@@ -1,0 +1,10 @@
+#====================================================================
+# Spring Cloud Consul Config bootstrap configuration
+#====================================================================
+
+spring.application.name={{baseName}}
+spring.cloud.consul.discovery.health-check-path=/management/health
+spring.cloud.consul.discovery.tags[0]=version=@project.version@
+spring.cloud.consul.discovery.tags[1]=context-path=${server.servlet.context-path:}
+spring.cloud.consul.host=localhost
+spring.cloud.consul.port=8500

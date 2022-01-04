@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
@@ -60,30 +61,31 @@ public class MavenDomainService implements MavenService {
   }
 
   private void addDependency(Project project, Dependency dependency, List<Dependency> exclusions, String needle) {
-    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
+    int level = NEEDLE_DEPENDENCY_MANAGEMENT.equals(needle) ? 3 : 2;
 
-    String dependencyNodeNode = Maven.getDependencyHeader(dependency, indent);
-    String dependencyRegexp = FileUtils.REGEXP_PREFIX_MULTILINE + dependencyNodeNode;
+    String dependencyNode = Maven.getDependencyHeader(dependency, indent).indent(2 * indent);
+    String dependencyRegexp = (FileUtils.REGEXP_PREFIX_MULTILINE + dependencyNode).replace("\n", System.lineSeparator());
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, dependencyRegexp)) {
       project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
-      String dependencyWithNeedle =
-        Maven.getDependency(dependency, indent, exclusions) + System.lineSeparator() + indent(2, indent) + needle;
+      String newDependencyNode = Maven.getDependency(dependency, indent, exclusions).indent(level * indent);
+      String dependencyWithNeedle = (newDependencyNode + indent(level, indent) + needle).replace("\n", System.lineSeparator());
 
-      projectRepository.replaceText(project, "", POM_XML, needle, dependencyWithNeedle);
+      projectRepository.replaceText(project, "", POM_XML, "[ \t]*" + needle, dependencyWithNeedle);
     }
   }
 
   @Override
   public void deleteDependency(Project project, Dependency dependency) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
     Dependency dependencyToDelete = Dependency.builder().groupId(dependency.getGroupId()).artifactId(dependency.getArtifactId()).build();
 
-    String dependencyNode = Maven.getDependency(dependencyToDelete, indent) + System.lineSeparator();
+    String dependencyNode = Maven.getDependency(dependencyToDelete, indent).indent(2 * indent);
     String endNode = indent(2, indent) + "</dependency>";
-    String dependencyNodeRegExp = "(?s)" + indent(2, indent) + dependencyNode.replace(endNode, ".*" + endNode);
+    String dependencyNodeRegExp = ("(?s)" + dependencyNode.replace(endNode, ".*" + endNode)).replace("\n", System.lineSeparator());
 
     projectRepository.replaceRegexp(project, "", POM_XML, dependencyNodeRegExp, "");
   }

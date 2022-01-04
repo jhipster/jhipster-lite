@@ -175,7 +175,12 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addDependency(project, dependency);
     mavenApplicationService.addDependency(project, dependency);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getDependencyHeader(dependency), 1);
+    assertFileContentManyTimes(
+      project,
+      POM_XML,
+      Maven.getDependencyHeader(dependency, 2).indent(4).replace("\n", System.lineSeparator()),
+      1
+    );
   }
 
   @Test

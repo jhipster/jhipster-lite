@@ -46,47 +46,50 @@ class MavenTest {
   }
 
   @Test
-  void shouldGetDependencyMinimal() {
+  void shouldGetDependencyMinimalWith2Indentations() {
     // @formatter:off
     String expected =
-      "<dependency>" + System.lineSeparator() +
-      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
-      "    </dependency>";
+      """
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+        </dependency>""";
     // @formatter:on
 
     Dependency dependency = minimalDependencyBuilder().build();
 
-    assertThat(Maven.getDependency(dependency)).isEqualTo(expected);
+    assertThat(Maven.getDependency(dependency, 2)).isEqualTo(expected);
   }
 
   @Test
-  void shouldGetDependencyFull() {
+  void shouldGetDependencyFullWith2Indentations() {
     // @formatter:off
     String expected =
-      "<dependency>" + System.lineSeparator() +
-      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
-      "      <version>2.5.3</version>" + System.lineSeparator() +
-      "      <scope>test</scope>" + System.lineSeparator() +
-      "    </dependency>";
+      """
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+          <version>2.5.3</version>
+          <scope>test</scope>
+        </dependency>""";
     // @formatter:on
 
     Dependency dependency = fullDependencyBuilder().build();
 
-    assertThat(Maven.getDependency(dependency)).isEqualTo(expected);
+    assertThat(Maven.getDependency(dependency, 2)).isEqualTo(expected);
   }
 
   @Test
   void shouldGetDependencyFullWith4Indentations() {
     // @formatter:off
     String expected =
-      "<dependency>" + System.lineSeparator() +
-      "            <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "            <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
-      "            <version>2.5.3</version>" + System.lineSeparator() +
-      "            <scope>test</scope>" + System.lineSeparator() +
-      "        </dependency>";
+      """
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>2.5.3</version>
+            <scope>test</scope>
+        </dependency>""";
     // @formatter:on
 
     Dependency dependency = fullDependencyBuilder().build();
@@ -98,16 +101,17 @@ class MavenTest {
   void shouldGetDependencyWithExclusions() {
     // @formatter:off
     String expected =
-      "<dependency>" + System.lineSeparator() +
-      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "      <artifactId>spring-boot-starter-web</artifactId>" + System.lineSeparator() +
-      "      <exclusions>" + System.lineSeparator() +
-      "        <exclusion>" + System.lineSeparator() +
-      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
-      "        </exclusion>" + System.lineSeparator() +
-      "      </exclusions>" + System.lineSeparator() +
-      "    </dependency>";
+      """
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+          <exclusions>
+            <exclusion>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-tomcat</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>""";
     // @formatter:on
 
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
@@ -121,13 +125,14 @@ class MavenTest {
   }
 
   @Test
-  void shouldGetExclusion() {
+  void shouldGetExclusionWith2Indentations() {
     // @formatter:off
     String expected =
-      "<exclusion>" + System.lineSeparator() +
-      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
-      "        </exclusion>";
+      """
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>""";
     // @formatter:off
 
     Dependency dependencyToExclude = Dependency
@@ -136,19 +141,20 @@ class MavenTest {
       .artifactId("spring-boot-starter-tomcat")
       .build();
 
-    assertThat(Maven.getExclusion(dependencyToExclude)).isEqualTo(expected);
+    assertThat(Maven.getExclusion(dependencyToExclude, 2)).isEqualTo(expected);
   }
 
   @Test
-  void shouldGetExclusions() {
+  void shouldGetExclusionsWith2Indentations() {
     // @formatter:off
     String expected =
-      "<exclusions>" + System.lineSeparator() +
-      "        <exclusion>" + System.lineSeparator() +
-      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
-      "        </exclusion>" + System.lineSeparator() +
-      "      </exclusions>";
+      """
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+          </exclusion>
+        </exclusions>""";
     // @formatter:off
 
     Dependency dependencyToExclude = Dependency
@@ -157,7 +163,7 @@ class MavenTest {
       .artifactId("spring-boot-starter-tomcat")
       .build();
 
-    assertThat(Maven.getExclusions(List.of(dependencyToExclude))).isEqualTo(expected);
+    assertThat(Maven.getExclusions(List.of(dependencyToExclude), 2)).isEqualTo(expected);
   }
 
   private Dependency.DependencyBuilder minimalDependencyBuilder() {

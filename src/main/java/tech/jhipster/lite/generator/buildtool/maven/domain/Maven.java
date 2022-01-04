@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.buildtool.maven.domain;
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
@@ -97,102 +98,82 @@ public class Maven {
     return result.toString();
   }
 
-  public static String getDependency(Dependency dependency) {
-    return getDependency(dependency, WordUtils.DEFAULT_INDENTATION, List.of());
-  }
-
   public static String getDependency(Dependency dependency, int indentation) {
     return getDependency(dependency, indentation, List.of());
   }
 
-  public static String getDependencyHeader(Dependency dependency) {
-    return getDependencyHeader(dependency, WordUtils.DEFAULT_INDENTATION);
-  }
-
   public static String getDependencyHeader(Dependency dependency, int indentation) {
-    StringBuilder result = new StringBuilder()
-      .append(DEPENDENCY_BEGIN)
-      .append(System.lineSeparator())
-      .append(indent(3, indentation))
+    String begin = DEPENDENCY_BEGIN + "\n";
+
+    String content = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(dependency.getGroupId())
       .append(GROUP_ID_END)
-      .append(System.lineSeparator())
-      .append(indent(3, indentation))
+      .append("\n")
       .append(ARTIFACT_ID_BEGIN)
       .append(dependency.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(System.lineSeparator());
-    return result.toString();
+      .append("\n")
+      .toString()
+      .indent(indentation);
+
+    return begin + content;
   }
 
   public static String getDependency(Dependency dependency, int indentation, List<Dependency> exclusions) {
-    StringBuilder result = new StringBuilder().append(getDependencyHeader(dependency, indentation));
+    String header = getDependencyHeader(dependency, indentation);
+
+    StringBuilder additionalBodyBuilder = new StringBuilder();
 
     if (dependency.isOptional()) {
-      result.append(indent(3, indentation)).append(OPTIONAL).append(System.lineSeparator());
+      additionalBodyBuilder.append(OPTIONAL).append("\n");
     }
 
     dependency
       .getVersion()
-      .ifPresent(version ->
-        result.append(indent(3, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(System.lineSeparator())
-      );
+      .ifPresent(version -> additionalBodyBuilder.append(VERSION_BEGIN).append(version).append(VERSION_END).append("\n"));
 
-    dependency
-      .getScope()
-      .ifPresent(scope ->
-        result.append(indent(3, indentation)).append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append(System.lineSeparator())
-      );
+    dependency.getScope().ifPresent(scope -> additionalBodyBuilder.append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append("\n"));
 
-    dependency
-      .getType()
-      .ifPresent(type ->
-        result.append(indent(3, indentation)).append(TYPE_BEGIN).append(type).append(TYPE_END).append(System.lineSeparator())
-      );
+    dependency.getType().ifPresent(type -> additionalBodyBuilder.append(TYPE_BEGIN).append(type).append(TYPE_END).append("\n"));
 
     if (exclusions != null && !exclusions.isEmpty()) {
-      result.append(indent(3, indentation)).append(getExclusions(exclusions)).append(System.lineSeparator());
+      additionalBodyBuilder.append(getExclusions(exclusions, indentation)).append("\n");
     }
 
-    result.append(indent(2, indentation)).append(DEPENDENCY_END);
+    String additionalBody = additionalBodyBuilder.toString().indent(indentation);
 
-    return result.toString();
-  }
-
-  public static String getExclusion(Dependency exclusion) {
-    return getExclusion(exclusion, WordUtils.DEFAULT_INDENTATION);
+    return header + additionalBody + DEPENDENCY_END;
   }
 
   public static String getExclusion(Dependency exclusion, int indentation) {
-    StringBuilder result = new StringBuilder()
-      .append(EXCLUSION_BEGIN)
-      .append(System.lineSeparator())
-      .append(indent(5, indentation))
+    String begin = EXCLUSION_BEGIN + "\n";
+
+    String body = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(exclusion.getGroupId())
       .append(GROUP_ID_END)
-      .append(System.lineSeparator())
-      .append(indent(5, indentation))
+      .append("\n")
       .append(ARTIFACT_ID_BEGIN)
       .append(exclusion.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(System.lineSeparator())
-      .append(indent(4, indentation))
-      .append(EXCLUSION_END);
-    return result.toString();
-  }
+      .append("\n")
+      .toString()
+      .indent(indentation);
 
-  public static String getExclusions(List<Dependency> exclusions) {
-    return getExclusions(exclusions, WordUtils.DEFAULT_INDENTATION);
+    return begin + body + EXCLUSION_END;
   }
 
   public static String getExclusions(List<Dependency> exclusions, int indentation) {
-    StringBuilder result = new StringBuilder().append(EXCLUSIONS_BEGIN);
+    String begin = EXCLUSIONS_BEGIN + "\n";
 
-    exclusions.forEach(exclusion -> result.append(System.lineSeparator()).append(indent(4, indentation)).append(getExclusion(exclusion)));
-    result.append(System.lineSeparator()).append(indent(3, indentation)).append(EXCLUSIONS_END);
-    return result.toString();
+    String body = exclusions
+      .stream()
+      .map(exclusion -> getExclusion(exclusion, indentation))
+      .collect(Collectors.joining("\n"))
+      .indent(indentation);
+
+    return begin + body + EXCLUSIONS_END;
   }
 
   public static String getPlugin(Plugin plugin) {

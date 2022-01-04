@@ -14,7 +14,6 @@ import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplication
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
-import tech.jhipster.lite.generator.server.springboot.springcloud.configclient.domain.SpringCloudConfig;
 
 @IntegrationTest
 class SpringCloudConfigApplicationServiceIT {
@@ -105,11 +104,7 @@ class SpringCloudConfigApplicationServiceIT {
       bootstrapProperties(project.getBaseName().orElse("jhipster"))
     );
 
-    assertFileContent(
-      project,
-      getPath(MAIN_RESOURCES, "config/bootstrap.properties"),
-      List.of("spring.cloud.config.fail-fast=true", "spring.cloud.config.profile=prod")
-    );
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap.properties"), List.of("spring.cloud.config.fail-fast=true"));
 
     assertFileContent(
       project,
@@ -117,11 +112,7 @@ class SpringCloudConfigApplicationServiceIT {
       bootstrapProperties(project.getBaseName().orElse("jhipster"))
     );
 
-    assertFileContent(
-      project,
-      getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"),
-      List.of("spring.cloud.config.fail-fast=false", "spring.cloud.config.profile=dev")
-    );
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"), List.of("spring.cloud.config.fail-fast=false"));
 
     assertFileContent(project, getPath(TEST_RESOURCES, "config/bootstrap.properties"), "spring.cloud.config.enabled=false");
   }

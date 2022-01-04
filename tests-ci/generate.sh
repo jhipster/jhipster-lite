@@ -85,14 +85,7 @@ elif [[ $filename == 'tomcat-configserver' ]]; then
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
-  callApi "/api/servers/spring-boot/devtools"
-  callApi "/api/servers/spring-boot/banner/jhipster-v7"
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
-  callApi "/api/servers/spring-boot/mvc/security/jwt"
-  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/aop/logging"
-  callApi "/api/servers/spring-boot/logging/logstash/tcp"
-  callApi "/api/servers/sonar"
   callApi "/api/servers/spring-boot/spring-cloud/config-client"
 
 else

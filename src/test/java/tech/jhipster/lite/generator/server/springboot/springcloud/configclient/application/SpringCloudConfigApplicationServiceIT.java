@@ -4,7 +4,6 @@ import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.configclient.domain.SpringCloudConfig.getJhipsterRegistryPassword;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,12 +94,8 @@ class SpringCloudConfigApplicationServiceIT {
 
   private void assertDockerCompose(Project project) {
     assertFileExist(project, "src/main/docker/jhipster-registry.yml");
-    assertFileContent(
-      project,
-      "src/main/docker/jhipster-registry.yml",
-      "JHIPSTER_REGISTRY_PASSWORD=" + SpringCloudConfig.getJhipsterRegistryPassword()
-    );
-    assertFileExist(project, "src/main/docker/central-server-config/localhost-config/application.yml");
+    assertFileContent(project, "src/main/docker/jhipster-registry.yml", "JHIPSTER_REGISTRY_PASSWORD=admin");
+    assertFileExist(project, "src/main/docker/central-server-config/localhost-config/application.properties");
   }
 
   private void assertProperties(Project project) {
@@ -133,7 +128,7 @@ class SpringCloudConfigApplicationServiceIT {
 
   private List<String> bootstrapProperties(String baseName) {
     List<String> properties = new ArrayList<>();
-    properties.add("jhipster.registry.password=" + getJhipsterRegistryPassword());
+    properties.add("jhipster.registry.password=admin");
     properties.add("spring.cloud.config.label=main");
     properties.add("spring.cloud.config.name=" + baseName);
     properties.add("spring.cloud.config.retry.initial-interval=1000");

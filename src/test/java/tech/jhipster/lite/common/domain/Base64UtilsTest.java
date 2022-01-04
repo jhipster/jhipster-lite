@@ -11,13 +11,13 @@ import org.mockito.invocation.InvocationOnMock;
 import tech.jhipster.lite.UnitTest;
 
 @UnitTest
-public class Base64UtilsTest {
+class Base64UtilsTest {
 
   @Test
   void shouldReturnBase64StringWithoutValue() {
     try (MockedStatic<Base64Utils> utilities = Mockito.mockStatic(Base64Utils.class, InvocationOnMock::callRealMethod)) {
       assertNotNull(Base64Utils.getBase64Secret());
-      utilities.verify(() -> Base64Utils.getRandomHexString(50), times(1));
+      utilities.verify(() -> Base64Utils.getRandomHexString(64), times(1));
     }
   }
 

@@ -6,7 +6,7 @@ public class SpringCloudConfig {
 
   private static final String SPRING_CLOUD_VERSION = "2021.0.0";
   private static final String JHIPSTER_REGISTRY_DOCKER_IMAGE = "jhipster/jhipster-registry:v7.1.0";
-  private static final String JHIPSTER_REGISTRY_PASSWORD = "admin";
+  private static final String SPRING_CLOUD_GROUP_ID = "org.springframework.cloud";
 
   private SpringCloudConfig() {}
 
@@ -17,7 +17,7 @@ public class SpringCloudConfig {
   public static Dependency springCloudDependencies() {
     return Dependency
       .builder()
-      .groupId("org.springframework.cloud")
+      .groupId(SPRING_CLOUD_GROUP_ID)
       .artifactId("spring-cloud-dependencies")
       .version("\\${spring-cloud.version}")
       .type("pom")
@@ -26,18 +26,14 @@ public class SpringCloudConfig {
   }
 
   public static Dependency springCloudBootstrap() {
-    return Dependency.builder().groupId("org.springframework.cloud").artifactId("spring-cloud-starter-bootstrap").build();
+    return Dependency.builder().groupId(SPRING_CLOUD_GROUP_ID).artifactId("spring-cloud-starter-bootstrap").build();
   }
 
   public static Dependency springCloudConfigClient() {
-    return Dependency.builder().groupId("org.springframework.cloud").artifactId("spring-cloud-starter-config").build();
+    return Dependency.builder().groupId(SPRING_CLOUD_GROUP_ID).artifactId("spring-cloud-starter-config").build();
   }
 
   public static String getJhipsterRegistryDockerImage() {
     return JHIPSTER_REGISTRY_DOCKER_IMAGE;
-  }
-
-  public static String getJhipsterRegistryPassword() {
-    return JHIPSTER_REGISTRY_PASSWORD;
   }
 }

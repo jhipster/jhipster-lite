@@ -20,11 +20,6 @@ class SpringCloudConfigTest {
   }
 
   @Test
-  void shouldGetJhipsterRegistryPassword() {
-    assertThat(SpringCloudConfig.getJhipsterRegistryPassword()).isEqualTo(SpringCloudConfig.getJhipsterRegistryPassword());
-  }
-
-  @Test
   void shouldGetSpringCloudBootstrap() {
     Dependency dependency = SpringCloudConfig.springCloudBootstrap();
 

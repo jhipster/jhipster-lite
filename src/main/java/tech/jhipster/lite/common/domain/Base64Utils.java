@@ -1,9 +1,11 @@
 package tech.jhipster.lite.common.domain;
 
-import java.util.Random;
+import java.security.SecureRandom;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 public class Base64Utils {
+
+  private static SecureRandom random = new SecureRandom();
 
   private Base64Utils() {}
 
@@ -12,7 +14,7 @@ public class Base64Utils {
   }
 
   public static String getBase64Secret(String value) {
-    return getBase64Secret(value, 50);
+    return getBase64Secret(value, 64);
   }
 
   public static String getBase64Secret(String value, int length) {
@@ -20,11 +22,10 @@ public class Base64Utils {
   }
 
   public static String getRandomHexString(int length) {
-    Random random = new Random();
-    StringBuffer stringBuilder = new StringBuffer();
+    StringBuilder stringBuilder = new StringBuilder();
     while (stringBuilder.length() < length) {
       stringBuilder.append(Integer.toHexString(random.nextInt()));
     }
-    return stringBuilder.toString().substring(0, length);
+    return stringBuilder.substring(0, length);
   }
 }

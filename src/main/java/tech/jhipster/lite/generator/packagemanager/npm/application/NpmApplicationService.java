@@ -9,6 +9,10 @@ public class NpmApplicationService {
 
   private final NpmService npmService;
 
+  public void addDependency(Project project, String dependency, String version) {
+    this.npmService.addDependency(project, dependency, version);
+  }
+
   public NpmApplicationService(NpmService npmService) {
     this.npmService = npmService;
   }

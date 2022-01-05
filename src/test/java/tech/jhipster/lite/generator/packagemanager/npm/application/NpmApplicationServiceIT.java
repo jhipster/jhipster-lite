@@ -3,7 +3,9 @@ package tech.jhipster.lite.generator.packagemanager.npm.application;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -19,6 +21,40 @@ class NpmApplicationServiceIT {
 
   @SpyBean
   CommandRepository commandRepository;
+
+  @Test
+  void shouldAddDependencyWhenNoDependencyEntry() {
+    Project project = tmpProjectWithPackageJsonNoDependencies();
+    String dependency = "husky";
+    String version = "7.0.4";
+
+    npmApplicationService.addDependency(project, dependency, version);
+
+    assertFileContent(project, PACKAGE_JSON, List.of("\"dependencies\": {", "\"husky\": \"7.0.4\"", "},", "\"devDependencies\": {"));
+  }
+
+  @Test
+  void shouldAddDependencyWhenDependencyEmpty() {
+    Project project = tmpProjectWithPackageJsonEmpty();
+    String dependency = "husky";
+    String version = "7.0.4";
+
+    npmApplicationService.addDependency(project, dependency, version);
+
+    assertFileContent(project, PACKAGE_JSON, List.of("\"dependencies\": {", "\"husky\": \"7.0.4\""));
+    assertFileNoContent(project, PACKAGE_JSON, List.of("\"dependencies\": {", "\"husky\": \"7.0.4\","));
+  }
+
+  @Test
+  void shouldAddDependency() {
+    Project project = tmpProjectWithPackageJsonComplete();
+    String dependency = "husky";
+    String version = "7.0.4";
+
+    npmApplicationService.addDependency(project, dependency, version);
+
+    assertFileContent(project, PACKAGE_JSON, List.of("\"dependencies\": {", "\"husky\": \"7.0.4\","));
+  }
 
   @Test
   void shouldNpmInstall() {

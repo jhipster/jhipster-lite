@@ -6,6 +6,10 @@ import tech.jhipster.lite.error.domain.Assert;
 public class WordUtils {
 
   public static final int DEFAULT_INDENTATION = 2;
+  public static final String DQ = "\"";
+
+  public static final String OB = "\\{";
+  public static final String CB = "\\}";
 
   private WordUtils() {}
 

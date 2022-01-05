@@ -37,7 +37,7 @@ class SpringBootLoggingApplicationServiceIT {
       service.addLogger(project, "tech.jhipster.web", Level.DEBUG);
 
       String applicationProperties = getPath(MAIN_RESOURCES, "logback-spring.xml");
-      assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\"/>");
+      assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\" />");
       assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-log -->");
     }
   }
@@ -60,7 +60,7 @@ class SpringBootLoggingApplicationServiceIT {
       service.addLoggerTest(project, "tech.jhipster.web", Level.DEBUG);
 
       String applicationProperties = getPath(TEST_RESOURCES, "logback.xml");
-      assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\"/>");
+      assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\" />");
       assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-log -->");
     }
   }

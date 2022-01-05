@@ -90,7 +90,7 @@ public class Maven {
       .append(VERSION_END)
       .append(System.lineSeparator())
       .append(indent(2, indentation))
-      .append("<relativePath/>")
+      .append("<relativePath />")
       .append(System.lineSeparator())
       .append(indent(1, indentation))
       .append(PARENT_END);

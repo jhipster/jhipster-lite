@@ -21,7 +21,7 @@ class MavenTest {
       "    <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
       "    <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
       "    <version>2.5.3</version>" + System.lineSeparator() +
-      "    <relativePath/>" + System.lineSeparator() +
+      "    <relativePath />" + System.lineSeparator() +
       "  </parent>";
     // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
@@ -37,7 +37,7 @@ class MavenTest {
       "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
       "        <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
       "        <version>2.5.3</version>" + System.lineSeparator() +
-      "        <relativePath/>" + System.lineSeparator() +
+      "        <relativePath />" + System.lineSeparator() +
       "    </parent>";
     // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();

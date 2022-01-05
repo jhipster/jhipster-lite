@@ -210,10 +210,10 @@ class PostgresqlApplicationServiceIT {
       project,
       getPath(MAIN_RESOURCES, LOGGING_CONFIGURATION),
       List.of(
-        "<logger name=\"org.hibernate.validator\" level=\"WARN\"/>",
-        "<logger name=\"org.hibernate\" level=\"WARN\"/>",
-        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>",
-        "<logger name=\"org.postgresql\" level=\"WARN\"/>"
+        "<logger name=\"org.hibernate.validator\" level=\"WARN\" />",
+        "<logger name=\"org.hibernate\" level=\"WARN\" />",
+        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\" />",
+        "<logger name=\"org.postgresql\" level=\"WARN\" />"
       )
     );
 
@@ -221,12 +221,12 @@ class PostgresqlApplicationServiceIT {
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
       List.of(
-        "<logger name=\"org.hibernate.validator\" level=\"WARN\"/>",
-        "<logger name=\"org.hibernate\" level=\"WARN\"/>",
-        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>",
-        "<logger name=\"org.postgresql\" level=\"WARN\"/>",
-        "<logger name=\"com.github.dockerjava\" level=\"WARN\"/>",
-        "<logger name=\"org.testcontainers\" level=\"WARN\"/>"
+        "<logger name=\"org.hibernate.validator\" level=\"WARN\" />",
+        "<logger name=\"org.hibernate\" level=\"WARN\" />",
+        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\" />",
+        "<logger name=\"org.postgresql\" level=\"WARN\" />",
+        "<logger name=\"com.github.dockerjava\" level=\"WARN\" />",
+        "<logger name=\"org.testcontainers\" level=\"WARN\" />"
       )
     );
   }

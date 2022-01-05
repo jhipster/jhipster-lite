@@ -18,6 +18,60 @@ class {{mainClass}}AppIT {
   }
 
   @Test
+  void shouldApplicationRunning() {
+    String result = {{mainClass}}App.applicationRunning("jhlite");
+    assertThat(result).isEqualTo("  Application 'jhlite' is running!\n");
+  }
+
+  @Test
+  void shouldAccessUrlLocalWithoutServerPort() {
+    String result = {{mainClass}}App.accessUrlLocal(null, null, null);
+    assertThat(result).isEmpty();
+  }
+
+  @Test
+  void shouldAccessUrlLocalWithoutContextPath() {
+    String result = {{mainClass}}App.accessUrlLocal("http", "8080", "/");
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/\n");
+  }
+
+  @Test
+  void shouldAccessUrlLocalWithContextPath() {
+    String result = {{mainClass}}App.accessUrlLocal("http", "8080", "/lite/");
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/lite/\n");
+  }
+
+  @Test
+  void shouldAccessUrlExternalWithoutServerPort() {
+    String result = {{mainClass}}App.accessUrlExternal(null, null, null, null);
+    assertThat(result).isEmpty();
+  }
+
+  @Test
+  void shouldAccessUrlExternalWithoutContextPath() {
+    String result = {{mainClass}}App.accessUrlExternal("http", "127.0.1.1", "8080", "/");
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/\n");
+  }
+
+  @Test
+  void shouldAccessUrlExternalWithContextPath() {
+    String result = {{mainClass}}App.accessUrlExternal("http", "127.0.1.1", "8080", "/lite/");
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/lite/\n");
+  }
+
+  @Test
+  void shouldConfigServerWithoutConfigServerStatus() {
+    String result = {{mainClass}}App.configServer(null);
+    assertThat(result).isEmpty();
+  }
+
+  @Test
+  void shouldConfigServer() {
+    String result = {{mainClass}}App.configServer("Connected to the JHipster Registry running in Docker");
+    assertThat(result).contains("Config Server: Connected to the JHipster Registry running in Docker");
+  }
+
+  @Test
   void shouldGetProtocol() {
     assertThat({{mainClass}}App.getProtocol(null)).isEqualTo("http");
   }

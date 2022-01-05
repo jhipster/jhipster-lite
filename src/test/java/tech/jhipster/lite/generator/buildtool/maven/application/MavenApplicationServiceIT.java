@@ -38,7 +38,7 @@ class MavenApplicationServiceIT {
         "<groupId>org.springframework.boot</groupId>",
         "<artifactId>spring-boot-starter-parent</artifactId>",
         "<version>2.5.3</version>",
-        "<relativePath/>",
+        "<relativePath />",
         "</parent>"
       )
     );

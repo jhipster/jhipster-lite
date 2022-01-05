@@ -16,7 +16,7 @@ public class JHLiteApp {
 
   private static final Logger log = LoggerFactory.getLogger(JHLiteApp.class);
 
-  private static String SEPARATOR = "----------------------------------------------------------";
+  private static final String SEPARATOR = "----------------------------------------------------------";
 
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(JHLiteApp.class);
@@ -30,7 +30,7 @@ public class JHLiteApp {
     String contextPath = getContextPath(env.getProperty("server.servlet.context-path"));
     String hostAddress = getHostAddress();
 
-    StringBuilder welcomeMessage = new StringBuilder()
+    String welcomeMessage = new StringBuilder()
       .append("\n")
       .append(SEPARATOR)
       .append("\n")
@@ -39,9 +39,10 @@ public class JHLiteApp {
       .append(accessUrlExternal(protocol, hostAddress, serverPort, contextPath))
       .append(profile(Arrays.toString(env.getActiveProfiles())))
       .append(SEPARATOR)
-      .append(configServer(env.getProperty("configserver.status")));
+      .append(configServer(env.getProperty("configserver.status")))
+      .toString();
 
-    log.info(welcomeMessage.toString());
+    log.info(welcomeMessage);
   }
 
   public static String applicationRunning(String value) {

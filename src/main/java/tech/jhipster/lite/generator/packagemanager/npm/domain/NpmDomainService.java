@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
-import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
@@ -9,6 +9,10 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class NpmDomainService implements NpmService {
+
+  public static final String DEPENDENCIES = DQ + "dependencies" + DQ;
+  public static final String DEV_DEPENDENCIES = DQ + "devDependencies" + DQ;
+  public static final String SCRIPTS = DQ + "scripts" + DQ;
 
   private final CommandRepository commandRepository;
   private final ProjectRepository projectRepository;
@@ -23,15 +27,22 @@ public class NpmDomainService implements NpmService {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
-    String needle = "\"dependencies\": \\{";
-    String newText = needle + System.lineSeparator() + indent(2, indent) + "\"" + dependency + "\": \"" + version + "\"";
+    String needle = DEPENDENCIES + ": " + OB;
+    String newText = needle + System.lineSeparator() + indent(2, indent) + DQ + dependency + DQ + ": " + DQ + version + DQ;
 
-    String devDependenciesNeedle = "\"devDependencies\": \\{";
+    String devDependenciesNeedle = DEV_DEPENDENCIES + ": " + OB;
     if (!projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle)) {
       newText =
-        newText + System.lineSeparator() + indent(1, indent) + "\\}," + System.lineSeparator() + indent(1, indent) + devDependenciesNeedle;
+        newText +
+        System.lineSeparator() +
+        indent(1, indent) +
+        CB +
+        "," +
+        System.lineSeparator() +
+        indent(1, indent) +
+        devDependenciesNeedle;
       projectRepository.replaceText(project, "", PACKAGE_JSON, devDependenciesNeedle, newText);
-    } else if (projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle + "\\}")) {
+    } else if (projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle + CB)) {
       projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + System.lineSeparator() + indent(1, indent));
     } else {
       projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + ",");

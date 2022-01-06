@@ -2,6 +2,7 @@ package tech.jhipster.lite;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static tech.jhipster.lite.JHLiteApp.LF;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -20,7 +21,7 @@ class JHLiteAppIT {
   @Test
   void shouldApplicationRunning() {
     String result = JHLiteApp.applicationRunning("jhlite");
-    assertThat(result).isEqualTo("  Application 'jhlite' is running!\n");
+    assertThat(result).isEqualTo("  Application 'jhlite' is running!" + LF);
   }
 
   @Test
@@ -32,13 +33,13 @@ class JHLiteAppIT {
   @Test
   void shouldAccessUrlLocalWithoutContextPath() {
     String result = JHLiteApp.accessUrlLocal("http", "8080", "/");
-    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/swagger-ui.html\n");
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/swagger-ui.html" + LF);
   }
 
   @Test
   void shouldAccessUrlLocalWithContextPath() {
     String result = JHLiteApp.accessUrlLocal("http", "8080", "/lite/");
-    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/lite/swagger-ui.html\n");
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/lite/swagger-ui.html" + LF);
   }
 
   @Test
@@ -50,13 +51,13 @@ class JHLiteAppIT {
   @Test
   void shouldAccessUrlExternalWithoutContextPath() {
     String result = JHLiteApp.accessUrlExternal("http", "127.0.1.1", "8080", "/");
-    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/swagger-ui.html\n");
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/swagger-ui.html" + LF);
   }
 
   @Test
   void shouldAccessUrlExternalWithContextPath() {
     String result = JHLiteApp.accessUrlExternal("http", "127.0.1.1", "8080", "/lite/");
-    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/lite/swagger-ui.html\n");
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/lite/swagger-ui.html" + LF);
   }
 
   @Test

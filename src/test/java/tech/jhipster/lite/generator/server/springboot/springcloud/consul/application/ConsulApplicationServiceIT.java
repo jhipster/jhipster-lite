@@ -1,8 +1,8 @@
-package tech.jhipster.lite.generator.server.springboot.consul.application;
+package tech.jhipster.lite.generator.server.springboot.springcloud.consul.application;
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.consul.application.ConsulAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

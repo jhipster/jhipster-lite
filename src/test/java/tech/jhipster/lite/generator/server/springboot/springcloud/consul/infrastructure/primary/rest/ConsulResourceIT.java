@@ -1,8 +1,8 @@
-package tech.jhipster.lite.generator.server.springboot.consul.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.server.springboot.springcloud.consul.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.consul.application.ConsulAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

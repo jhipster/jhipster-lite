@@ -1,11 +1,11 @@
-package tech.jhipster.lite.generator.server.springboot.consul.infrastructure.config;
+package tech.jhipster.lite.generator.server.springboot.springcloud.consul.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.consul.domain.ConsulDomainService;
-import tech.jhipster.lite.generator.server.springboot.consul.domain.ConsulService;
+import tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.ConsulDomainService;
+import tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.ConsulService;
 
 @Configuration
 public class ConsulBeanConfiguration {

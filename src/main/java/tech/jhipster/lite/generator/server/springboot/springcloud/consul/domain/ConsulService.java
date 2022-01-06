@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.consul.domain;
+package tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain;
 
 import tech.jhipster.lite.generator.project.domain.Project;
 

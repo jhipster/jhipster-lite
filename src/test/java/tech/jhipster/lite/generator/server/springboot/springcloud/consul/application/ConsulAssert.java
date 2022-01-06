@@ -85,7 +85,7 @@ public class ConsulAssert {
 
   public static void assertDockerConsul(Project project) {
     assertFileExist(project, "src/main/docker/consul.yml");
-
     assertFileContent(project, "src/main/docker/consul.yml", getDockerConsulImage());
+    assertFileExist(project, "src/main/docker/central-server-config/application.yml");
   }
 }

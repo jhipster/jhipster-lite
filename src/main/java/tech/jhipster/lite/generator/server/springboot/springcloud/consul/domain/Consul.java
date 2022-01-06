@@ -8,6 +8,7 @@ public class Consul {
   public static final String BOOTSTRAP_FAST_PROPERTIES = "bootstrap-fast.properties";
 
   private static final String DOCKER_CONSUL_IMAGE = "consul:1.11.1";
+  private static final String DOCKER_CONSUL_CONFIG_LOADER_IMAGE = "jhipster/consul-config-loader:v0.4.1";
   private static final String SPRING_CLOUD = "org.springframework.cloud";
   private static final String SPRING_CLOUD_VERSION = "2021.0.0";
 
@@ -19,6 +20,10 @@ public class Consul {
 
   public static String getSpringCloudVersion() {
     return SPRING_CLOUD_VERSION;
+  }
+
+  public static String getDockerConsulConfigLoaderImage() {
+    return DOCKER_CONSUL_CONFIG_LOADER_IMAGE;
   }
 
   public static Dependency springCloudDependencyManagement() {

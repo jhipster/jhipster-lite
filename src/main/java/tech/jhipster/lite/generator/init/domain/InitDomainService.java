@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.init.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
@@ -57,7 +58,9 @@ public class InitDomainService implements InitService {
   public void addEditorConfiguration(Project project) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
+    project.addConfig("editorConfigEndOfLine", CRLF.equals(project.getEndOfLine()) ? "crlf" : "lf");
     projectRepository.template(project, SOURCE, ".editorconfig");
+
     projectRepository.add(project, SOURCE, ".eslintignore");
   }
 
@@ -67,6 +70,8 @@ public class InitDomainService implements InitService {
     projectRepository.add(project, SOURCE, ".prettierignore");
     projectRepository.add(project, getPath(SOURCE, HUSKY_FOLDER), "pre-commit", HUSKY_FOLDER);
     projectRepository.setExecutable(project, HUSKY_FOLDER, "pre-commit");
+
+    project.addConfig("prettierEndOfLine", CRLF.equals(project.getEndOfLine()) ? "crlf" : "lf");
     projectRepository.template(project, SOURCE, ".prettierrc");
   }
 }

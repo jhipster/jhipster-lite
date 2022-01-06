@@ -1,14 +1,21 @@
 package tech.jhipster.lite.generator.project.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.detectEndOfLine;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.UnauthorizedValueException;
@@ -16,6 +23,7 @@ import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 public class Project {
 
   private final String folder;
+  private final String endOfLine;
   private final Map<String, Object> config;
   private final Optional<LanguageType> language;
   private final Optional<BuildToolType> buildTool;
@@ -31,6 +39,7 @@ public class Project {
     Assert.notNull("config", builder.config);
 
     this.folder = builder.folder;
+    this.endOfLine = Optional.ofNullable(builder.endOfLine).orElseGet(this::detectEndOfLineOrDefault);
     this.config = builder.config;
     this.language = Optional.ofNullable(builder.language);
     this.buildTool = Optional.ofNullable(builder.buildTool);
@@ -50,6 +59,10 @@ public class Project {
 
   public String getFolder() {
     return folder;
+  }
+
+  public String getEndOfLine() {
+    return endOfLine;
   }
 
   public Map<String, Object> getConfig() {
@@ -162,9 +175,33 @@ public class Project {
     }
   }
 
+  /**
+   * Attempts detection of end-of-line characters by reading files at the root of the project folder or defaults to \n.
+   * Non-UTF-8 files can lead to unexpected results.
+   *
+   * @return "\r\n" if found or "\n" otherwise
+   * @see FileUtils#detectEndOfLine(String)
+   */
+  public String detectEndOfLineOrDefault() {
+    Optional<String> eol = Optional.empty();
+    try (Stream<Path> paths = Files.list(Path.of(this.folder)).filter(Files::isRegularFile)) {
+      List<String> filenames = paths.map(Path::toString).toList();
+      for (String filename : filenames) {
+        eol = detectEndOfLine(filename);
+        if (eol.isPresent()) {
+          break;
+        }
+      }
+    } catch (IOException ignored) {
+      // defaults to LF
+    }
+    return eol.orElse(WordUtils.LF);
+  }
+
   public static class ProjectBuilder {
 
     private String folder;
+    private String endOfLine;
     private Map<String, Object> config = new HashMap<>();
     private LanguageType language;
     private BuildToolType buildTool;
@@ -181,6 +218,11 @@ public class Project {
 
     public ProjectBuilder folder(String folder) {
       this.folder = folder;
+      return this;
+    }
+
+    public ProjectBuilder endOfLine(String endOfLine) {
+      this.endOfLine = endOfLine;
       return this;
     }
 

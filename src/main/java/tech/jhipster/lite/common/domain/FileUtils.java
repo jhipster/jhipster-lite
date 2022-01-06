@@ -1,14 +1,13 @@
 package tech.jhipster.lite.common.domain;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -136,5 +135,24 @@ public class FileUtils {
 
   public static boolean isPosix() {
     return FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
+  }
+
+  public static Optional<String> detectEndOfLine(String filename) throws IOException {
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8))) {
+      char previousChar = 0;
+      char currentChar;
+      int read;
+      while ((read = reader.read()) != -1) {
+        currentChar = (char) read;
+        if (currentChar == '\n') {
+          if (previousChar == '\r') {
+            return Optional.of(WordUtils.CRLF);
+          }
+          return Optional.of(WordUtils.LF);
+        }
+        previousChar = currentChar;
+      }
+    }
+    return Optional.empty();
   }
 }

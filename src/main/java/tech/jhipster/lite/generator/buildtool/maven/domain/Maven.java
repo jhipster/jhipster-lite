@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
 
 import java.util.List;
@@ -67,17 +68,17 @@ public class Maven {
   public static String getParentHeader(Parent parent, int indentation) {
     StringBuilder result = new StringBuilder()
       .append(PARENT_BEGIN)
-      .append(System.lineSeparator())
+      .append(LF)
       .append(indent(2, indentation))
       .append(GROUP_ID_BEGIN)
       .append(parent.getGroupId())
       .append(GROUP_ID_END)
-      .append(System.lineSeparator())
+      .append(LF)
       .append(indent(2, indentation))
       .append(ARTIFACT_ID_BEGIN)
       .append(parent.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(System.lineSeparator());
+      .append(LF);
     return result.toString();
   }
 
@@ -88,10 +89,10 @@ public class Maven {
       .append(VERSION_BEGIN)
       .append(parent.getVersion())
       .append(VERSION_END)
-      .append(System.lineSeparator())
+      .append(LF)
       .append(indent(2, indentation))
       .append("<relativePath />")
-      .append(System.lineSeparator())
+      .append(LF)
       .append(indent(1, indentation))
       .append(PARENT_END);
 
@@ -103,17 +104,17 @@ public class Maven {
   }
 
   public static String getDependencyHeader(Dependency dependency, int indentation) {
-    String begin = DEPENDENCY_BEGIN + "\n";
+    String begin = DEPENDENCY_BEGIN + LF;
 
     String content = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(dependency.getGroupId())
       .append(GROUP_ID_END)
-      .append("\n")
+      .append(LF)
       .append(ARTIFACT_ID_BEGIN)
       .append(dependency.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append("\n")
+      .append(LF)
       .toString()
       .indent(indentation);
 
@@ -126,19 +127,19 @@ public class Maven {
     StringBuilder additionalBodyBuilder = new StringBuilder();
 
     if (dependency.isOptional()) {
-      additionalBodyBuilder.append(OPTIONAL).append("\n");
+      additionalBodyBuilder.append(OPTIONAL).append(LF);
     }
 
     dependency
       .getVersion()
-      .ifPresent(version -> additionalBodyBuilder.append(VERSION_BEGIN).append(version).append(VERSION_END).append("\n"));
+      .ifPresent(version -> additionalBodyBuilder.append(VERSION_BEGIN).append(version).append(VERSION_END).append(LF));
 
-    dependency.getScope().ifPresent(scope -> additionalBodyBuilder.append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append("\n"));
+    dependency.getScope().ifPresent(scope -> additionalBodyBuilder.append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append(LF));
 
-    dependency.getType().ifPresent(type -> additionalBodyBuilder.append(TYPE_BEGIN).append(type).append(TYPE_END).append("\n"));
+    dependency.getType().ifPresent(type -> additionalBodyBuilder.append(TYPE_BEGIN).append(type).append(TYPE_END).append(LF));
 
     if (exclusions != null && !exclusions.isEmpty()) {
-      additionalBodyBuilder.append(getExclusions(exclusions, indentation)).append("\n");
+      additionalBodyBuilder.append(getExclusions(exclusions, indentation)).append(LF);
     }
 
     String additionalBody = additionalBodyBuilder.toString().indent(indentation);
@@ -147,17 +148,17 @@ public class Maven {
   }
 
   public static String getExclusion(Dependency exclusion, int indentation) {
-    String begin = EXCLUSION_BEGIN + "\n";
+    String begin = EXCLUSION_BEGIN + LF;
 
     String body = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(exclusion.getGroupId())
       .append(GROUP_ID_END)
-      .append("\n")
+      .append(LF)
       .append(ARTIFACT_ID_BEGIN)
       .append(exclusion.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append("\n")
+      .append(LF)
       .toString()
       .indent(indentation);
 
@@ -165,12 +166,12 @@ public class Maven {
   }
 
   public static String getExclusions(List<Dependency> exclusions, int indentation) {
-    String begin = EXCLUSIONS_BEGIN + "\n";
+    String begin = EXCLUSIONS_BEGIN + LF;
 
     String body = exclusions
       .stream()
       .map(exclusion -> getExclusion(exclusion, indentation))
-      .collect(Collectors.joining("\n"))
+      .collect(Collectors.joining(LF))
       .indent(indentation);
 
     return begin + body + EXCLUSIONS_END;
@@ -211,17 +212,17 @@ public class Maven {
   public static String getPluginHeader(Plugin plugin, int indentation, int initialIndentation) {
     StringBuilder result = new StringBuilder()
       .append(PLUGIN_BEGIN)
-      .append(System.lineSeparator())
+      .append(LF)
       .append(indent(initialIndentation + 1, indentation))
       .append(GROUP_ID_BEGIN)
       .append(plugin.getGroupId())
       .append(GROUP_ID_END)
-      .append(System.lineSeparator())
+      .append(LF)
       .append(indent(initialIndentation + 1, indentation))
       .append(ARTIFACT_ID_BEGIN)
       .append(plugin.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(System.lineSeparator());
+      .append(LF);
     return result.toString();
   }
 
@@ -231,22 +232,13 @@ public class Maven {
     plugin
       .getVersion()
       .ifPresent(version ->
-        result
-          .append(indent(initialIndentation + 1, indentation))
-          .append(VERSION_BEGIN)
-          .append(version)
-          .append(VERSION_END)
-          .append(System.lineSeparator())
+        result.append(indent(initialIndentation + 1, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(LF)
       );
 
     //replace '\n' to make the multi-line additionalConfiguration platform specific
     plugin
       .getAdditionalElements()
-      .ifPresent(additionalElements ->
-        result.append(
-          plugin.getAdditionalElements().get().indent((initialIndentation + 1) * indentation).replace("\n", System.lineSeparator())
-        )
-      );
+      .ifPresent(additionalElements -> result.append(plugin.getAdditionalElements().get().indent((initialIndentation + 1) * indentation)));
 
     result.append(indent(initialIndentation, indentation)).append(PLUGIN_END);
 

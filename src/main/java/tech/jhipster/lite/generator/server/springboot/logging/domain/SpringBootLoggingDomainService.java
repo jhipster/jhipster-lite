@@ -35,7 +35,7 @@ public class SpringBootLoggingDomainService implements SpringBootLoggingService 
     String needleLogger
   ) {
     String loggerWithNeedle =
-      String.format("<logger name=\"%s\" level=\"%s\" />", packageName, level.toString()) + System.lineSeparator() + "  " + needleLogger;
+      String.format("<logger name=\"%s\" level=\"%s\" />", packageName, level.toString()) + project.getEndOfLine() + "  " + needleLogger;
     projectRepository.replaceText(project, getPath(folderConfig), fileLoggingConfig, needleLogger, loggerWithNeedle);
   }
 }

@@ -17,12 +17,13 @@ class MavenTest {
   void shouldGetParent() {
     // @formatter:off
     String expected =
-      "<parent>" + System.lineSeparator() +
-      "    <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "    <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
-      "    <version>2.5.3</version>" + System.lineSeparator() +
-      "    <relativePath />" + System.lineSeparator() +
-      "  </parent>";
+      """
+        <parent>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.5.3</version>
+            <relativePath />
+          </parent>""";
     // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
@@ -33,12 +34,13 @@ class MavenTest {
   void shouldGetParentWith4Indentations() {
     // @formatter:off
     String expected =
-      "<parent>" + System.lineSeparator() +
-      "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "        <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
-      "        <version>2.5.3</version>" + System.lineSeparator() +
-      "        <relativePath />" + System.lineSeparator() +
-      "    </parent>";
+      """
+        <parent>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>2.5.3</version>
+                <relativePath />
+            </parent>""";
     // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
@@ -180,7 +182,7 @@ class MavenTest {
       <plugin>
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>""".replace("\n", System.lineSeparator());
+            </plugin>""";
     Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
@@ -193,7 +195,7 @@ class MavenTest {
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-maven-plugin</artifactId>
               <version>2.6.0</version>
-            </plugin>""".replace("\n", System.lineSeparator());
+            </plugin>""";
     Plugin plugin = fullPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
@@ -205,7 +207,7 @@ class MavenTest {
       <plugin>
                       <groupId>org.springframework.boot</groupId>
                       <artifactId>spring-boot-maven-plugin</artifactId>
-                  </plugin>""".replace("\n", System.lineSeparator());
+                  </plugin>""";
     Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin, 4)).isEqualTo(expected);
@@ -241,7 +243,7 @@ class MavenTest {
                     </resource>
                   </webResources>
                 </configuration>
-              </plugin>""".replace("\n", System.lineSeparator());
+              </plugin>""";
     // @formatter:on
     Plugin plugin = fullPluginBuilder()
       .additionalElements(

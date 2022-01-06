@@ -39,7 +39,7 @@ public class SpringBootPropertiesDomainService implements SpringBootPropertiesSe
     String fileProperties,
     String needleProperties
   ) {
-    String propertiesWithNeedle = key + "=" + value + System.lineSeparator() + needleProperties;
+    String propertiesWithNeedle = key + "=" + value + project.getEndOfLine() + needleProperties;
     projectRepository.replaceText(project, getPath(folderProperties, "config"), fileProperties, needleProperties, propertiesWithNeedle);
   }
 }

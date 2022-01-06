@@ -3,8 +3,22 @@
 #====================================================================
 
 spring.application.name={{baseName}}
+
+spring.cloud.consul.host=localhost
+spring.cloud.consul.port=8500
+
+spring.cloud.consul.config.format=yaml
+spring.cloud.consul.config.profile-separator=-
+spring.cloud.consul.config.watch.enabled=false
+
 spring.cloud.consul.discovery.health-check-path=/management/health
 spring.cloud.consul.discovery.tags[0]=version=@project.version@
 spring.cloud.consul.discovery.tags[1]=context-path=${server.servlet.context-path:}
-spring.cloud.consul.host=localhost
-spring.cloud.consul.port=8500
+spring.cloud.consul.discovery.tags[2]=profile=${spring.profiles.active:}
+spring.cloud.consul.discovery.tags[3]=git-version=${git.commit.id.describe:}
+spring.cloud.consul.discovery.tags[4]=git-commit=${git.commit.id.abbrev:}
+spring.cloud.consul.discovery.tags[5]=git-branch=${git.branch:}
+
+spring.cloud.consul.discovery.instance-id={{baseName}}:${spring.application.instance-id:${random.value}}
+spring.cloud.consul.discovery.service-name={{baseName}}
+spring.cloud.consul.discovery.prefer-ip-address=true

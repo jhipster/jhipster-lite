@@ -73,8 +73,10 @@ public class ConsulAssert {
         "spring.cloud.consul.discovery.health-check-path=/management/health",
         "spring.cloud.consul.discovery.tags[0]=version=@project.version@",
         "spring.cloud.consul.discovery.tags[1]=context-path=${server.servlet.context-path:}",
-        "spring.cloud.consul.host=localhost",
-        "spring.cloud.consul.port=8500"
+        "spring.cloud.consul.discovery.tags[2]=profile=${spring.profiles.active:}",
+        "spring.cloud.consul.discovery.tags[3]=git-version=${git.commit.id.describe:}",
+        "spring.cloud.consul.discovery.tags[4]=git-commit=${git.commit.id.abbrev:}",
+        "spring.cloud.consul.discovery.tags[5]=git-branch=${git.branch:}"
       )
     );
 
@@ -85,7 +87,7 @@ public class ConsulAssert {
 
   public static void assertDockerConsul(Project project) {
     assertFileExist(project, "src/main/docker/consul.yml");
-
     assertFileContent(project, "src/main/docker/consul.yml", getDockerConsulImage());
+    assertFileExist(project, "src/main/docker/central-server-config/application.yml");
   }
 }

@@ -5,6 +5,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.*;
 
+import tech.jhipster.lite.common.domain.Base64Utils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -49,6 +50,17 @@ public class ConsulDomainService implements ConsulService {
   @Override
   public void addDockerConsul(Project project) {
     project.addConfig("dockerConsulImage", getDockerConsulImage());
+    project.addConfig("dockerConsulConfigLoaderImage", getDockerConsulConfigLoaderImage());
+
     projectRepository.template(project, getPath(SOURCE, "src"), "consul.yml", "src/main/docker", "consul.yml");
+
+    project.addConfig("base64JwtSecret", Base64Utils.getBase64Secret());
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "docker"),
+      "application.config.yml",
+      "src/main/docker/central-server-config/",
+      "application.yml"
+    );
   }
 }

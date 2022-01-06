@@ -25,30 +25,31 @@ public class NpmDomainService implements NpmService {
 
   @Override
   public void addDependency(Project project, String dependency, String version) {
-    addInformationToPackageJson(project, dependency, version, DEPENDENCIES);
+    addInformationToPackageJson(project, DEPENDENCIES, dependency, version);
   }
 
   @Override
   public void addDevDependency(Project project, String dependency, String version) {
-    addInformationToPackageJson(project, dependency, version, DEV_DEPENDENCIES);
+    addInformationToPackageJson(project, DEV_DEPENDENCIES, dependency, version);
   }
 
   @Override
   public void addScript(Project project, String name, String cmd) {
-    addInformationToPackageJson(project, name, cmd, SCRIPTS);
+    addInformationToPackageJson(project, SCRIPTS, name, cmd);
   }
 
-  private void addInformationToPackageJson(Project project, String dependency, String version, String key) {
+  private void addInformationToPackageJson(Project project, String section, String key, String value) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
-    String needle = key + ": " + OB;
-    String newText = needle + LF + indent(2, indent) + DQ + dependency + DQ + ": " + DQ + version + DQ;
+    String needle = section + ": " + OB;
+    String newText = needle + LF + indent(2, indent) + DQ + key + DQ + ": " + DQ + value + DQ;
 
-    String versionNeedle = VERSION;
+    // no section in package.json
     if (!projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle)) {
-      newText = newText + LF + indent(1, indent) + CB + "," + LF + indent(1, indent) + versionNeedle;
-      projectRepository.replaceText(project, "", PACKAGE_JSON, versionNeedle, newText);
+      newText = newText + LF + indent(1, indent) + CB + "," + LF + indent(1, indent) + VERSION;
+      projectRepository.replaceText(project, "", PACKAGE_JSON, VERSION, newText);
+      // section empty
     } else if (projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle + CB)) {
       projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + LF + indent(1, indent));
     } else {

@@ -1,7 +1,6 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
 import static tech.jhipster.lite.common.domain.WordUtils.LF;
-import static tech.jhipster.lite.common.domain.WordUtils.indent;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,37 +65,36 @@ public class Maven {
   }
 
   public static String getParentHeader(Parent parent, int indentation) {
-    StringBuilder result = new StringBuilder()
-      .append(PARENT_BEGIN)
-      .append(LF)
-      .append(indent(2, indentation))
+    String begin = PARENT_BEGIN + LF;
+
+    String content = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(parent.getGroupId())
       .append(GROUP_ID_END)
       .append(LF)
-      .append(indent(2, indentation))
       .append(ARTIFACT_ID_BEGIN)
       .append(parent.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(LF);
-    return result.toString();
+      .append(LF)
+      .toString()
+      .indent(indentation);
+
+    return begin + content;
   }
 
   public static String getParent(Parent parent, int indentation) {
-    StringBuilder result = new StringBuilder()
-      .append(getParentHeader(parent, indentation))
-      .append(indent(2, indentation))
+    String header = getParentHeader(parent, indentation);
+
+    String additionalContent = new StringBuilder()
       .append(VERSION_BEGIN)
       .append(parent.getVersion())
       .append(VERSION_END)
       .append(LF)
-      .append(indent(2, indentation))
       .append("<relativePath />")
-      .append(LF)
-      .append(indent(1, indentation))
-      .append(PARENT_END);
+      .toString()
+      .indent(indentation);
 
-    return result.toString();
+    return header + additionalContent + PARENT_END;
   }
 
   public static String getDependency(Dependency dependency, int indentation) {
@@ -177,72 +175,35 @@ public class Maven {
     return begin + body + EXCLUSIONS_END;
   }
 
-  public static String getPlugin(Plugin plugin) {
-    return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION, 3);
-  }
-
-  public static String getPlugin(Plugin plugin, int indentation) {
-    return getPlugin(plugin, indentation, 3);
-  }
-
-  public static String getPluginHeader(Plugin plugin) {
-    return getPluginHeader(plugin, WordUtils.DEFAULT_INDENTATION, 3);
-  }
-
   public static String getPluginHeader(Plugin plugin, int indentation) {
-    return getPluginHeader(plugin, indentation, 3);
-  }
+    String begin = PLUGIN_BEGIN + LF;
 
-  public static String getPluginManagement(Plugin plugin) {
-    return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION, 4);
-  }
-
-  public static String getPluginManagement(Plugin plugin, int indentation) {
-    return getPlugin(plugin, indentation, 4);
-  }
-
-  public static String getPluginManagementHeader(Plugin plugin) {
-    return getPluginHeader(plugin, WordUtils.DEFAULT_INDENTATION, 4);
-  }
-
-  public static String getPluginManagementHeader(Plugin plugin, int indentation) {
-    return getPluginHeader(plugin, indentation, 4);
-  }
-
-  public static String getPluginHeader(Plugin plugin, int indentation, int initialIndentation) {
-    StringBuilder result = new StringBuilder()
-      .append(PLUGIN_BEGIN)
-      .append(LF)
-      .append(indent(initialIndentation + 1, indentation))
+    String content = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(plugin.getGroupId())
       .append(GROUP_ID_END)
       .append(LF)
-      .append(indent(initialIndentation + 1, indentation))
       .append(ARTIFACT_ID_BEGIN)
       .append(plugin.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(LF);
-    return result.toString();
+      .toString()
+      .indent(indentation);
+
+    return begin + content;
   }
 
-  public static String getPlugin(Plugin plugin, int indentation, int initialIndentation) {
-    StringBuilder result = new StringBuilder().append(getPluginHeader(plugin, indentation, initialIndentation));
+  public static String getPlugin(Plugin plugin, int indentation) {
+    String header = getPluginHeader(plugin, indentation);
 
-    plugin
-      .getVersion()
-      .ifPresent(version ->
-        result.append(indent(initialIndentation + 1, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(LF)
-      );
+    StringBuilder additionalBodyBuilder = new StringBuilder();
 
-    //replace '\n' to make the multi-line additionalConfiguration platform specific
-    plugin
-      .getAdditionalElements()
-      .ifPresent(additionalElements -> result.append(plugin.getAdditionalElements().get().indent((initialIndentation + 1) * indentation)));
+    plugin.getVersion().ifPresent(version -> additionalBodyBuilder.append(VERSION_BEGIN).append(version).append(VERSION_END).append(LF));
 
-    result.append(indent(initialIndentation, indentation)).append(PLUGIN_END);
+    plugin.getAdditionalElements().ifPresent(additionalBodyBuilder::append);
 
-    return result.toString();
+    String additionalBody = additionalBodyBuilder.toString().indent(indentation);
+
+    return header + additionalBody + PLUGIN_END;
   }
 
   public static String getProperty(String key, String version) {

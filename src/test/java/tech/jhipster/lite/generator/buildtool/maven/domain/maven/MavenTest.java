@@ -19,11 +19,11 @@ class MavenTest {
     String expected =
       """
         <parent>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-parent</artifactId>
-            <version>2.5.3</version>
-            <relativePath />
-          </parent>""";
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-parent</artifactId>
+          <version>2.5.3</version>
+          <relativePath />
+        </parent>""";
     // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
@@ -36,11 +36,11 @@ class MavenTest {
     String expected =
       """
         <parent>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>2.5.3</version>
-                <relativePath />
-            </parent>""";
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.5.3</version>
+            <relativePath />
+        </parent>""";
     // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
@@ -180,34 +180,34 @@ class MavenTest {
   void shouldGetPlugin() {
     String expected = """
       <plugin>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>""";
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>""";
     Plugin plugin = minimalPluginBuilder().build();
 
-    assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
+    assertThat(Maven.getPlugin(plugin, 2)).isEqualTo(expected);
   }
 
   @Test
   void shouldGetPluginWithVersion() {
     String expected = """
       <plugin>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-maven-plugin</artifactId>
-              <version>2.6.0</version>
-            </plugin>""";
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.6.0</version>
+      </plugin>""";
     Plugin plugin = fullPluginBuilder().build();
 
-    assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
+    assertThat(Maven.getPlugin(plugin, 2)).isEqualTo(expected);
   }
 
   @Test
   void shouldGetPluginWith4Indentations() {
     String expected = """
       <plugin>
-                      <groupId>org.springframework.boot</groupId>
-                      <artifactId>spring-boot-maven-plugin</artifactId>
-                  </plugin>""";
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>""";
     Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin, 4)).isEqualTo(expected);
@@ -218,32 +218,32 @@ class MavenTest {
     // @formatter:off
     String expected = """
       <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.6.0</version>
-                <executions>
-                  <execution>
-                    <id>default-war</id>
-                    <goals>
-                      <goal>war</goal>
-                    </goals>
-                    <phase>package</phase>
-                  </execution>
-                </executions>
-                <configuration>
-                  <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
-                  <failOnMissingWebXml>false</failOnMissingWebXml>
-                  <warSourceDirectory>target/classes/static/</warSourceDirectory>
-                  <webResources>
-                    <resource>
-                      <directory>src/main/webapp</directory>
-                      <includes>
-                        <include>WEB-INF/**</include>
-                      </includes>
-                    </resource>
-                  </webResources>
-                </configuration>
-              </plugin>""";
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.6.0</version>
+        <executions>
+          <execution>
+            <id>default-war</id>
+            <goals>
+              <goal>war</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <warSourceDirectory>target/classes/static/</warSourceDirectory>
+          <webResources>
+            <resource>
+              <directory>src/main/webapp</directory>
+              <includes>
+                <include>WEB-INF/**</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>""";
     // @formatter:on
     Plugin plugin = fullPluginBuilder()
       .additionalElements(
@@ -273,7 +273,7 @@ class MavenTest {
       )
       .build();
 
-    assertThat(Maven.getPluginManagement(plugin)).isEqualTo(expected);
+    assertThat(Maven.getPlugin(plugin, 2)).isEqualTo(expected);
   }
 
   @Test

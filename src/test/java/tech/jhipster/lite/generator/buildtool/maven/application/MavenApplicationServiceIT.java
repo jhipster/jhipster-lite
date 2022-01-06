@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.buildtool.maven.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
 import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
@@ -61,7 +62,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addParent(project, parent);
     mavenApplicationService.addParent(project, parent);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getParentHeader(parent), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getParentHeader(parent).indent(DEFAULT_INDENTATION), 1);
   }
 
   @Test
@@ -175,7 +176,12 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addDependency(project, dependency);
     mavenApplicationService.addDependency(project, dependency);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getDependencyHeader(dependency, 2).indent(4), 1);
+    assertFileContentManyTimes(
+      project,
+      POM_XML,
+      Maven.getDependencyHeader(dependency, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
+      1
+    );
   }
 
   @Test
@@ -381,7 +387,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPlugin(project, plugin);
     mavenApplicationService.addPlugin(project, plugin);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION), 1);
   }
 
   @Test
@@ -392,7 +398,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPluginManagement(project, plugin);
     mavenApplicationService.addPluginManagement(project, plugin);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginManagementHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(4 * DEFAULT_INDENTATION), 1);
   }
 
   @Test
@@ -403,8 +409,8 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPlugin(project, plugin);
     mavenApplicationService.addPluginManagement(project, plugin);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin), 1);
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginManagementHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(4 * DEFAULT_INDENTATION), 1);
   }
 
   @Test

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.consul.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.server.springboot.springcloud.consul.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.server.springboot.consul.application.ConsulApplicationService;
+import tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulApplicationService;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/spring-cloud/consul")
-@Tag(name = "Spring Boot - Cloud")
+@Tag(name = "Spring Boot - Spring Cloud")
 class ConsulResource {
 
   private final ConsulApplicationService consulApplicationService;

@@ -29,6 +29,7 @@ class SpringBootUserResource {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootUserApplicationService.addJavaUsers(project);
     springBootUserApplicationService.addJavaAuthority(project);
+    springBootUserApplicationService.addJavaAuditEntity(project);
     springBootUserApplicationService.addLiquibaseConfiguration(project);
   }
 }

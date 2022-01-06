@@ -21,6 +21,10 @@ public class SpringbootUserApplicationService {
     springBootUserService.addJavaAuthority(project);
   }
 
+  public void addJavaAuditEntity(Project project) {
+    springBootUserService.addJavaAuditEntity(project);
+  }
+
   public void addLiquibaseConfiguration(Project project) {
     springBootUserService.addLiquibaseConfiguration(project);
   }

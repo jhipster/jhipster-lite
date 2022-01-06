@@ -12,7 +12,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
 
   public static final String SOURCE = "server/springboot/user";
   public static final String TARGET_JAVA = "technical/infrastructure/secondary/user";
-  public static final String TARGET_RESOURCE = "config/liquibase/users";
+  public static final String TARGET_RESOURCE = "config/liquibase/changelog/users";
 
   private final ProjectRepository projectRepository;
   private final LiquibaseDomainService liquibaseDomainService;
@@ -40,16 +40,24 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
     String userPath = "technical/infrastructure/secondary/user";
-    String userDomainPath = userPath + "/domain";
 
     projectRepository.template(project, SOURCE, "AuthorityRepository.java", getPath(MAIN_JAVA, packageNamePath, userPath));
     projectRepository.template(project, SOURCE, "AuthorityRepository.java", getPath(MAIN_JAVA, packageNamePath, userPath));
   }
 
   @Override
+  public void addJavaAuditEntity(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String userPath = "technical/infrastructure/secondary/entity";
+
+    projectRepository.template(project, SOURCE, "AbstractAuditingEntity.java", getPath(MAIN_JAVA, packageNamePath, userPath));
+  }
+
+  @Override
   public void addLiquibaseConfiguration(Project project) {
     // Update liquibase master file
-    liquibaseDomainService.addChangelogXml(project, "users", "users.xml");
+    liquibaseDomainService.addChangelogXml(project, "users", "user.xml");
 
     // Copy liquibase files
     projectRepository.add(project, SOURCE, "user.xml", getPath(MAIN_RESOURCES, TARGET_RESOURCE));

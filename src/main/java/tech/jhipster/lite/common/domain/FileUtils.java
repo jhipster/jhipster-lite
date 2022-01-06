@@ -23,7 +23,8 @@ public class FileUtils {
 
   public static final String REGEXP_PREFIX_MULTILINE = "(?m)";
   public static final String REGEXP_PREFIX_DOTALL = "(?s)";
-  public static final String DOT_STAR_REGEX = ".*";
+  public static final String REGEXP_DOT_STAR = ".*";
+  public static final String REGEXP_SPACE_STAR = "[ \t]*";
 
   private FileUtils() {}
 

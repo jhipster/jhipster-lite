@@ -26,7 +26,6 @@ public class TypescriptDomainService implements TypescriptService {
     npmService.addDependency(project, "eslint-plugin-import", "^2.22.1");
     npmService.addDependency(project, "eslint-plugin-prettier", "^3.3.1");
     npmService.addDependency(project, "jest", "^26.6.3");
-    npmService.addDependency(project, "prettier", "^2.2.1");
     npmService.addDependency(project, "ts-jest", "^26.5.4");
     npmService.addDependency(project, "typescript", "^4.2.4");
 
@@ -36,8 +35,8 @@ public class TypescriptDomainService implements TypescriptService {
     npmService.addScript(project, "eslint:ci", "eslint './**/*.{ts,js}'");
     npmService.addScript(project, "eslint", "eslint './**/*.{ts,js}' --fix");
 
-    projectRepository.add(project, SOURCE, "tsconfig.json");
-    projectRepository.add(project, SOURCE, "jest.config.js");
     projectRepository.add(project, SOURCE, ".eslintrc.js");
+    projectRepository.add(project, SOURCE, "jest.config.js");
+    projectRepository.add(project, SOURCE, "tsconfig.json");
   }
 }

@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -25,6 +26,9 @@ class TypescriptDomainServiceTest {
   @Mock
   NpmService npmService;
 
+  @Mock
+  ProjectRepository projectRepository;
+
   @Test
   void shouldInit() {
     Project project = tmpProject();
@@ -33,5 +37,7 @@ class TypescriptDomainServiceTest {
 
     verify(npmService, times(10)).addDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(5)).addScript(any(Project.class), anyString(), anyString());
+
+    verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString());
   }
 }

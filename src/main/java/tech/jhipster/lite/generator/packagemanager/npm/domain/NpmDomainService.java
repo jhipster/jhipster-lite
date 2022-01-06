@@ -10,6 +10,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class NpmDomainService implements NpmService {
 
+  public static final String VERSION = DQ + "version" + DQ;
   public static final String DEPENDENCIES = DQ + "dependencies" + DQ;
   public static final String DEV_DEPENDENCIES = DQ + "devDependencies" + DQ;
   public static final String SCRIPTS = DQ + "scripts" + DQ;
@@ -24,39 +25,36 @@ public class NpmDomainService implements NpmService {
 
   @Override
   public void addDependency(Project project, String dependency, String version) {
-    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
-
-    String needle = DEPENDENCIES + ": " + OB;
-    String newText = needle + System.lineSeparator() + indent(2, indent) + DQ + dependency + DQ + ": " + DQ + version + DQ;
-
-    String devDependenciesNeedle = DEV_DEPENDENCIES + ": " + OB;
-    if (!projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle)) {
-      newText =
-        newText +
-        System.lineSeparator() +
-        indent(1, indent) +
-        CB +
-        "," +
-        System.lineSeparator() +
-        indent(1, indent) +
-        devDependenciesNeedle;
-      projectRepository.replaceText(project, "", PACKAGE_JSON, devDependenciesNeedle, newText);
-    } else if (projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle + CB)) {
-      projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + System.lineSeparator() + indent(1, indent));
-    } else {
-      projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + ",");
-    }
+    addInformationToPackageJson(project, DEPENDENCIES, dependency, version);
   }
 
   @Override
   public void addDevDependency(Project project, String dependency, String version) {
-    // Need to be implemented
+    addInformationToPackageJson(project, DEV_DEPENDENCIES, dependency, version);
   }
 
   @Override
   public void addScript(Project project, String name, String cmd) {
-    // Need to be implemented
+    addInformationToPackageJson(project, SCRIPTS, name, cmd);
+  }
+
+  private void addInformationToPackageJson(Project project, String section, String key, String value) {
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+
+    String needle = section + ": " + OB;
+    String newText = needle + LF + indent(2, indent) + DQ + key + DQ + ": " + DQ + value + DQ;
+
+    // no section in package.json
+    if (!projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle)) {
+      newText = newText + LF + indent(1, indent) + CB + "," + LF + indent(1, indent) + VERSION;
+      projectRepository.replaceText(project, "", PACKAGE_JSON, VERSION, newText);
+      // section empty
+    } else if (projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle + CB)) {
+      projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + LF + indent(1, indent));
+    } else {
+      projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + ",");
+    }
   }
 
   @Override

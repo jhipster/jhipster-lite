@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.server.springboot.mvc.web.application.SpringBootMvcApplicationService;
 import tech.jhipster.lite.generator.server.springboot.user.application.SpringbootUserApplicationService;
 
 @RestController
@@ -24,10 +23,12 @@ class SpringBootUserResource {
   }
 
   @Operation(summary = "Add Spring Boot User and authority")
+  @PostMapping("/init")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot users and authority")
   public void addSpringBootUsers(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootUserApplicationService.addJavaUsers(project);
+    springBootUserApplicationService.addJavaAuthority(project);
     springBootUserApplicationService.addLiquibaseConfiguration(project);
   }
 }

@@ -4,5 +4,6 @@ import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface SpringBootUserService {
   void addJavaUsers(Project project);
+  void addJavaAuthority(Project project);
   void addLiquibaseConfiguration(Project project);
 }

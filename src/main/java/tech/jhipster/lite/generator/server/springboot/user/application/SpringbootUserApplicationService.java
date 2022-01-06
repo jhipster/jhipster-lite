@@ -17,6 +17,10 @@ public class SpringbootUserApplicationService {
     springBootUserService.addJavaUsers(project);
   }
 
+  public void addJavaAuthority(Project project) {
+    springBootUserService.addJavaAuthority(project);
+  }
+
   public void addLiquibaseConfiguration(Project project) {
     springBootUserService.addLiquibaseConfiguration(project);
   }

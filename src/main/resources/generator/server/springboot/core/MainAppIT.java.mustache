@@ -2,6 +2,7 @@ package {{packageName}};
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static {{packageName}}.{{mainClass}}App.LF;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -20,7 +21,7 @@ class {{mainClass}}AppIT {
   @Test
   void shouldApplicationRunning() {
     String result = {{mainClass}}App.applicationRunning("jhlite");
-    assertThat(result).isEqualTo("  Application 'jhlite' is running!\n");
+    assertThat(result).isEqualTo("  Application 'jhlite' is running!" + LF);
   }
 
   @Test
@@ -32,13 +33,13 @@ class {{mainClass}}AppIT {
   @Test
   void shouldAccessUrlLocalWithoutContextPath() {
     String result = {{mainClass}}App.accessUrlLocal("http", "8080", "/");
-    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/\n");
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/" + LF);
   }
 
   @Test
   void shouldAccessUrlLocalWithContextPath() {
     String result = {{mainClass}}App.accessUrlLocal("http", "8080", "/lite/");
-    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/lite/\n");
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/lite/" + LF);
   }
 
   @Test
@@ -50,13 +51,13 @@ class {{mainClass}}AppIT {
   @Test
   void shouldAccessUrlExternalWithoutContextPath() {
     String result = {{mainClass}}App.accessUrlExternal("http", "127.0.1.1", "8080", "/");
-    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/\n");
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/" + LF);
   }
 
   @Test
   void shouldAccessUrlExternalWithContextPath() {
     String result = {{mainClass}}App.accessUrlExternal("http", "127.0.1.1", "8080", "/lite/");
-    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/lite/\n");
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/lite/" + LF);
   }
 
   @Test

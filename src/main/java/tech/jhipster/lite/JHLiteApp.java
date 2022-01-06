@@ -17,6 +17,7 @@ public class JHLiteApp {
   private static final Logger log = LoggerFactory.getLogger(JHLiteApp.class);
 
   private static final String SEPARATOR = "----------------------------------------------------------";
+  protected static final String LF = "\n";
 
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(JHLiteApp.class);
@@ -31,9 +32,9 @@ public class JHLiteApp {
     String hostAddress = getHostAddress();
 
     String welcomeMessage = new StringBuilder()
-      .append("\n")
+      .append(LF)
       .append(SEPARATOR)
-      .append("\n")
+      .append(LF)
       .append(applicationRunning(env.getProperty("spring.application.name")))
       .append(accessUrlLocal(protocol, serverPort, contextPath))
       .append(accessUrlExternal(protocol, hostAddress, serverPort, contextPath))
@@ -46,32 +47,32 @@ public class JHLiteApp {
   }
 
   public static String applicationRunning(String value) {
-    return String.format("  Application '%s' is running!", value) + "\n";
+    return String.format("  Application '%s' is running!", value) + LF;
   }
 
   public static String accessUrlLocal(String protocol, String serverPort, String contextPath) {
     if (StringUtils.isBlank(serverPort)) {
       return "";
     }
-    return String.format("  Local: \t%s://localhost:%s%sswagger-ui.html", protocol, serverPort, contextPath) + "\n";
+    return String.format("  Local: \t%s://localhost:%s%sswagger-ui.html", protocol, serverPort, contextPath) + LF;
   }
 
   public static String accessUrlExternal(String protocol, String hostAddress, String serverPort, String contextPath) {
     if (StringUtils.isBlank(serverPort)) {
       return "";
     }
-    return String.format("  External: \t%s://%s:%s%sswagger-ui.html", protocol, hostAddress, serverPort, contextPath) + "\n";
+    return String.format("  External: \t%s://%s:%s%sswagger-ui.html", protocol, hostAddress, serverPort, contextPath) + LF;
   }
 
   public static String profile(String profiles) {
-    return String.format("  Profile(s): \t%s", profiles) + "\n";
+    return String.format("  Profile(s): \t%s", profiles) + LF;
   }
 
   public static String configServer(String configServerStatus) {
     if (StringUtils.isBlank(configServerStatus)) {
       return "";
     }
-    return "\n" + String.format("  Config Server: %s", configServerStatus) + "\n" + SEPARATOR + "\n";
+    return LF + String.format("  Config Server: %s", configServerStatus) + LF + SEPARATOR + LF;
   }
 
   public static String getProtocol(String value) {

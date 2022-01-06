@@ -43,15 +43,14 @@ public class NpmDomainService implements NpmService {
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
 
     String needle = key + ": " + OB;
-    String newText = needle + System.lineSeparator() + indent(2, indent) + DQ + dependency + DQ + ": " + DQ + version + DQ;
+    String newText = needle + LF + indent(2, indent) + DQ + dependency + DQ + ": " + DQ + version + DQ;
 
     String versionNeedle = VERSION;
     if (!projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle)) {
-      newText =
-        newText + System.lineSeparator() + indent(1, indent) + CB + "," + System.lineSeparator() + indent(1, indent) + versionNeedle;
+      newText = newText + LF + indent(1, indent) + CB + "," + LF + indent(1, indent) + versionNeedle;
       projectRepository.replaceText(project, "", PACKAGE_JSON, versionNeedle, newText);
     } else if (projectRepository.containsRegexp(project, "", PACKAGE_JSON, needle + CB)) {
-      projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + System.lineSeparator() + indent(1, indent));
+      projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + LF + indent(1, indent));
     } else {
       projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + ",");
     }

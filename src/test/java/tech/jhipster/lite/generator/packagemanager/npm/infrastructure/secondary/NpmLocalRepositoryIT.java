@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.project.infrastructure.secondary;
+package tech.jhipster.lite.generator.packagemanager.npm.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestUtils.*;
@@ -10,10 +10,10 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
-class CommandLocalRepositoryIT {
+class NpmLocalRepositoryIT {
 
   @Autowired
-  CommandLocalRepository repository;
+  NpmLocalRepository repository;
 
   @Test
   void shouldNpmInstallAndPrettierFormat() {

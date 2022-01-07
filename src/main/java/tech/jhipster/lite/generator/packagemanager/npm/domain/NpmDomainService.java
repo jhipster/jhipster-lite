@@ -4,7 +4,6 @@ import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -15,11 +14,11 @@ public class NpmDomainService implements NpmService {
   public static final String DEV_DEPENDENCIES = DQ + "devDependencies" + DQ;
   public static final String SCRIPTS = DQ + "scripts" + DQ;
 
-  private final CommandRepository commandRepository;
+  private final NpmRepository npmRepository;
   private final ProjectRepository projectRepository;
 
-  public NpmDomainService(CommandRepository commandRepository, ProjectRepository projectRepository) {
-    this.commandRepository = commandRepository;
+  public NpmDomainService(NpmRepository npmRepository, ProjectRepository projectRepository) {
+    this.npmRepository = npmRepository;
     this.projectRepository = projectRepository;
   }
 
@@ -59,11 +58,11 @@ public class NpmDomainService implements NpmService {
 
   @Override
   public void install(Project project) {
-    this.commandRepository.npmInstall(project);
+    this.npmRepository.npmInstall(project);
   }
 
   @Override
   public void prettify(Project project) {
-    this.commandRepository.npmPrettierFormat(project);
+    this.npmRepository.npmPrettierFormat(project);
   }
 }

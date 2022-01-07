@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.project.infrastructure.secondary;
+package tech.jhipster.lite.generator.packagemanager.npm.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,10 +16,10 @@ import tech.jhipster.lite.UnitTest;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class CommandLocalRepositoryTest {
+class NpmLocalRepositoryTest {
 
   @InjectMocks
-  CommandLocalRepository repository;
+  NpmLocalRepository repository;
 
   @Mock
   Process process;

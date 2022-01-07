@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.packagemanager.npm.application;
 
 import org.springframework.stereotype.Service;
+import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmRepository;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 
@@ -8,9 +9,11 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class NpmApplicationService {
 
   private final NpmService npmService;
+  private final NpmRepository npmRepository;
 
-  public NpmApplicationService(NpmService npmService) {
+  public NpmApplicationService(NpmService npmService, NpmRepository npmRepository) {
     this.npmService = npmService;
+    this.npmRepository = npmRepository;
   }
 
   public void addDependency(Project project, String dependency, String version) {
@@ -26,10 +29,10 @@ public class NpmApplicationService {
   }
 
   public void install(Project project) {
-    npmService.install(project);
+    npmRepository.npmInstall(project);
   }
 
   public void prettify(Project project) {
-    npmService.prettify(project);
+    npmRepository.npmPrettierFormat(project);
   }
 }

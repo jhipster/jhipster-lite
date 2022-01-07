@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.project.infrastructure.secondary.executables;
+package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -7,6 +7,7 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.OSUtils;
+import tech.jhipster.lite.generator.packagemanager.npm.domain.Npm;
 
 @UnitTest
 class NpmTest {

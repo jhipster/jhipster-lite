@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
+import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
@@ -20,7 +20,7 @@ class NpmApplicationServiceIT {
   NpmApplicationService npmApplicationService;
 
   @SpyBean
-  CommandRepository commandRepository;
+  NpmRepository npmRepository;
 
   @Test
   void shouldAddDependencyWhenNoDependencyEntry() {
@@ -136,6 +136,6 @@ class NpmApplicationServiceIT {
     Project project = tmpProjectWithPackageJson();
     npmApplicationService.prettify(project);
 
-    verify(commandRepository).npmPrettierFormat(any(Project.class));
+    verify(npmRepository).npmPrettierFormat(any(Project.class));
   }
 }

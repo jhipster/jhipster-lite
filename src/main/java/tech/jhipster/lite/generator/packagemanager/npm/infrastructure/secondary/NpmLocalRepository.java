@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.project.infrastructure.secondary;
+package tech.jhipster.lite.generator.packagemanager.npm.infrastructure.secondary;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,21 +11,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
+import tech.jhipster.lite.generator.packagemanager.npm.domain.Npm;
+import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.infrastructure.secondary.executables.Npm;
 
 @Repository
-public class CommandLocalRepository implements CommandRepository {
+public class NpmLocalRepository implements NpmRepository {
 
-  private final Logger log = LoggerFactory.getLogger(CommandLocalRepository.class);
+  private final Logger log = LoggerFactory.getLogger(NpmLocalRepository.class);
 
   private final Executor taskExecutor;
 
   @Value("${application.cmd.timeout:120}")
   private Integer timeout;
 
-  public CommandLocalRepository(Executor taskExecutor) {
+  public NpmLocalRepository(Executor taskExecutor) {
     this.taskExecutor = taskExecutor;
   }
 

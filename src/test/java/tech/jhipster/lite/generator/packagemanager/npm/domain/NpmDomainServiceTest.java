@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -21,7 +20,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class NpmDomainServiceTest {
 
   @Mock
-  CommandRepository commandRepository;
+  NpmRepository npmRepository;
 
   @Mock
   ProjectRepository projectRepository;
@@ -63,7 +62,7 @@ class NpmDomainServiceTest {
     Project project = tmpProject();
     assertThatCode(() -> npmDomainService.install(project)).doesNotThrowAnyException();
 
-    verify(commandRepository).npmInstall(any(Project.class));
+    verify(npmRepository).npmInstall(any(Project.class));
   }
 
   @Test
@@ -71,6 +70,6 @@ class NpmDomainServiceTest {
     Project project = tmpProject();
     assertThatCode(() -> npmDomainService.prettify(project)).doesNotThrowAnyException();
 
-    verify(commandRepository).npmPrettierFormat(any(Project.class));
+    verify(npmRepository).npmPrettierFormat(any(Project.class));
   }
 }

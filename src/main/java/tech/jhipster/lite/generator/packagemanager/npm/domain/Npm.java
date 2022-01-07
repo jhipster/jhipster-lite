@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.project.infrastructure.secondary.executables;
+package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
 import static tech.jhipster.lite.common.domain.OSUtils.isWindows;
 

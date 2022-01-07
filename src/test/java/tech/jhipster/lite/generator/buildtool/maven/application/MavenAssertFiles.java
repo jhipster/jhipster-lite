@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.Set;
+import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class MavenAssertFiles {
@@ -28,6 +29,9 @@ public class MavenAssertFiles {
   }
 
   private static void assertExecutePermission(Project project, String filename) {
+    if (!FileUtils.isPosix()) {
+      return;
+    }
     try {
       Set<PosixFilePermission> posixFilePermissions = Files.getPosixFilePermissions(getPathOf(project.getFolder(), filename));
       assertThat(posixFilePermissions).contains(PosixFilePermission.OWNER_EXECUTE);

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.logging.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
@@ -35,7 +36,7 @@ public class SpringBootLoggingDomainService implements SpringBootLoggingService 
     String needleLogger
   ) {
     String loggerWithNeedle =
-      String.format("<logger name=\"%s\" level=\"%s\" />", packageName, level.toString()) + project.getEndOfLine() + "  " + needleLogger;
+      String.format("<logger name=\"%s\" level=\"%s\" />", packageName, level.toString()) + LF + "  " + needleLogger;
     projectRepository.replaceText(project, getPath(folderConfig), fileLoggingConfig, needleLogger, loggerWithNeedle);
   }
 }

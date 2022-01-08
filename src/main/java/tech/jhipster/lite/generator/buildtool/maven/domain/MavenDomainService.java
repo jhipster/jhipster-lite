@@ -32,11 +32,11 @@ public class MavenDomainService implements MavenService {
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
 
     String parentHeaderNode = Maven.getParentHeader(parent, indent).indent(indent);
-    String parentHeaderRegexp = (REGEXP_PREFIX_MULTILINE + parentHeaderNode).replace(LF, project.getEndOfLine());
+    String parentHeaderRegexp = (REGEXP_PREFIX_MULTILINE + parentHeaderNode);
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, parentHeaderRegexp)) {
-      String newParentNode = Maven.getParent(parent, indent).indent(indent).replace(LF, project.getEndOfLine());
-      projectRepository.replaceText(project, "", POM_XML, REGEXP_SPACE_STAR + NEEDLE_PARENT + project.getEndOfLine(), newParentNode);
+      String newParentNode = Maven.getParent(parent, indent).indent(indent);
+      projectRepository.replaceText(project, "", POM_XML, REGEXP_SPACE_STAR + NEEDLE_PARENT + LF, newParentNode);
     }
   }
 
@@ -68,11 +68,11 @@ public class MavenDomainService implements MavenService {
     int level = NEEDLE_DEPENDENCY_MANAGEMENT.equals(needle) ? 3 : 2;
 
     String dependencyNode = Maven.getDependencyHeader(dependency, indent).indent(2 * indent);
-    String dependencyRegexp = (REGEXP_PREFIX_MULTILINE + dependencyNode).replace(LF, project.getEndOfLine());
+    String dependencyRegexp = (REGEXP_PREFIX_MULTILINE + dependencyNode);
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, dependencyRegexp)) {
       String newDependencyNode = Maven.getDependency(dependency, indent, exclusions).indent(level * indent);
-      String dependencyWithNeedle = (newDependencyNode + indent(level, indent) + needle).replace(LF, project.getEndOfLine());
+      String dependencyWithNeedle = (newDependencyNode + indent(level, indent) + needle);
 
       projectRepository.replaceText(project, "", POM_XML, REGEXP_SPACE_STAR + needle, dependencyWithNeedle);
     }
@@ -88,7 +88,7 @@ public class MavenDomainService implements MavenService {
 
     String dependencyNode = Maven.getDependency(dependencyToDelete, indent).indent(2 * indent);
     String endNode = indent(2, indent) + "</dependency>";
-    String dependencyNodeRegExp = ("(?s)" + dependencyNode.replace(endNode, ".*" + endNode)).replace(LF, project.getEndOfLine());
+    String dependencyNodeRegExp = ("(?s)" + dependencyNode.replace(endNode, ".*" + endNode));
 
     projectRepository.replaceRegexp(project, "", POM_XML, dependencyNodeRegExp, "");
   }
@@ -130,9 +130,9 @@ public class MavenDomainService implements MavenService {
         FileUtils.REGEXP_PREFIX_DOTALL + PLUGIN_BEGIN + FileUtils.REGEXP_DOT_STAR + pluginNode + FileUtils.REGEXP_DOT_STAR + NEEDLE_PLUGIN;
     }
 
-    if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp.replace(LF, project.getEndOfLine()))) {
+    if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
       String newPluginNode = Maven.getPlugin(plugin, indent).indent(level * indent);
-      String pluginWithNeedle = (newPluginNode + indent(level, indent) + needle).replace(LF, project.getEndOfLine());
+      String pluginWithNeedle = (newPluginNode + indent(level, indent) + needle);
 
       projectRepository.replaceText(project, "", POM_XML, REGEXP_SPACE_STAR + needle, pluginWithNeedle);
     }
@@ -147,7 +147,7 @@ public class MavenDomainService implements MavenService {
     String pluginRegexp = Maven.getProperty(key, ".*");
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
-      String propertyWithNeedle = Maven.getProperty(key, version) + project.getEndOfLine() + indent(2, indent) + NEEDLE_PROPERTIES;
+      String propertyWithNeedle = Maven.getProperty(key, version) + LF + indent(2, indent) + NEEDLE_PROPERTIES;
 
       projectRepository.replaceText(project, "", POM_XML, NEEDLE_PROPERTIES, propertyWithNeedle);
     }
@@ -157,7 +157,7 @@ public class MavenDomainService implements MavenService {
   public void deleteProperty(Project project, String key) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
-    String propertyNode = Maven.getProperty(key, ".*") + project.getEndOfLine();
+    String propertyNode = Maven.getProperty(key, ".*") + LF;
 
     projectRepository.replaceText(project, "", POM_XML, propertyNode, "");
   }

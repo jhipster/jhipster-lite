@@ -169,6 +169,38 @@ class FileUtilsTest {
   }
 
   @Nested
+  class ManageEndOfLineTest {
+
+    @Test
+    void shouldNormalizeCrlf() {
+      String crlf = "my little file \r\nwith crlf";
+
+      assertThat(normalizeEndOfLine(crlf)).isEqualTo("my little file \nwith crlf");
+    }
+
+    @Test
+    void shouldNormalizeLf() {
+      String lf = "my little file \nwith lf";
+
+      assertThat(normalizeEndOfLine(lf)).isEqualTo(lf);
+    }
+
+    @Test
+    void shouldTransformFromLfToCrlf() {
+      String lf = "my little file \nwith lf";
+
+      assertThat(transformEndOfLine(lf, "\r\n")).isEqualTo("my little file \r\nwith lf");
+    }
+
+    @Test
+    void shouldTransformFromCrlfToCrlf() {
+      String crlf = "my little file \r\nwith crlf";
+
+      assertThat(transformEndOfLine(crlf, "\r\n")).isEqualTo(crlf);
+    }
+  }
+
+  @Nested
   class ReadTest {
 
     @Test
@@ -177,14 +209,13 @@ class FileUtilsTest {
 
       String result = FileUtils.read(filename);
 
-      String lineSeparator = detectEndOfLine(filename).orElse("\0");
       String expectedResult = new StringBuilder()
         .append("this is a short readme")
-        .append(lineSeparator)
+        .append(LF)
         .append("used for unit tests")
-        .append(lineSeparator)
+        .append(LF)
         .append("powered by JHipster \uD83E\uDD13")
-        .append(lineSeparator)
+        .append(LF)
         .toString();
       assertThat(result).isEqualTo(expectedResult);
     }
@@ -339,14 +370,13 @@ class FileUtilsTest {
 
       String result = FileUtils.replaceInFile(filename, "powered by JHipster \uD83E\uDD13", "Hello JHipster Lite");
 
-      String lineSeparator = detectEndOfLine(filename).orElse("\0");
       String expectedResult = new StringBuilder()
         .append("this is a short readme")
-        .append(lineSeparator)
+        .append(LF)
         .append("used for unit tests")
-        .append(lineSeparator)
+        .append(LF)
         .append("Hello JHipster Lite")
-        .append(lineSeparator)
+        .append(LF)
         .toString();
       assertThat(result).isEqualTo(expectedResult);
     }
@@ -492,7 +522,6 @@ class FileUtilsTest {
     void shouldCountManyItemMultiLineRegexp() throws Exception {
       String filename = getPath("src/test/resources/generator/utils/example-readme.md");
 
-      String lineSeparator = detectEndOfLine(filename).orElse("\0");
       String regexp = new StringBuilder().append("```").append(LF).append("./mv.?w clean").toString();
 
       assertEquals(2, FileUtils.countsRegexp(filename, FileUtils.REGEXP_PREFIX_DOTALL + regexp));
@@ -502,7 +531,6 @@ class FileUtilsTest {
     void shouldCountNoItemMultiLineRegexp() throws Exception {
       String filename = getPath("src/test/resources/generator/utils/example-readme.md");
 
-      String lineSeparator = detectEndOfLine(filename).orElse("\0");
       String regexp = new StringBuilder().append("```").append(LF).append("np.? ci").toString();
 
       assertEquals(0, FileUtils.countsRegexp(filename, FileUtils.REGEXP_PREFIX_DOTALL + regexp));

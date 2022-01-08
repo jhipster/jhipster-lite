@@ -1,5 +1,8 @@
 package tech.jhipster.lite.common.domain;
 
+import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
@@ -65,7 +68,11 @@ public class FileUtils {
   }
 
   public static String read(String filename) throws IOException {
-    return Files.readString(getPathOf(filename), StandardCharsets.UTF_8);
+    return normalizeEndOfLine(Files.readString(getPathOf(filename), StandardCharsets.UTF_8));
+  }
+
+  public static void write(String filename, String text, String eol) throws IOException {
+    Files.write(getPathOf(filename), transformEndOfLine(text, eol).getBytes());
   }
 
   public static int getLine(String filename, String value) throws IOException {
@@ -147,13 +154,24 @@ public class FileUtils {
         currentChar = (char) read;
         if (currentChar == '\n') {
           if (previousChar == '\r') {
-            return Optional.of(WordUtils.CRLF);
+            return Optional.of(CRLF);
           }
-          return Optional.of(WordUtils.LF);
+          return Optional.of(LF);
         }
         previousChar = currentChar;
       }
     }
     return Optional.empty();
+  }
+
+  public static String normalizeEndOfLine(String text) {
+    return transformEndOfLine(text, LF);
+  }
+
+  public static String transformEndOfLine(String text, String toEndOfLine) {
+    if (LF.equals(toEndOfLine)) {
+      return text.replace(CRLF, LF);
+    }
+    return text.replaceAll("([^\\r])\\n", "$1" + toEndOfLine);
   }
 }

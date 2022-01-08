@@ -8,10 +8,35 @@ on:
       - main
 jobs:
   #--------------------------------------------------
-  # Build and Tests the project
+  # Build and Tests the project on Windows
   #--------------------------------------------------
-  tests:
-    name: tests
+  tests-windows:
+    name: tests-windows
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: 'Setup: checkout project'
+        uses: actions/checkout@v2
+      - name: 'Setup: environment'
+        id: setup
+        uses: ./.github/actions/setup
+      - name: 'Init: cache local Maven repository'
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: 'Init: install Node.js packages'
+        run: npm ci
+      - name: 'Test: run backend tests'
+        run: |
+          ./mvnw clean verify
+  #--------------------------------------------------
+  # Build and Tests the project on Linux
+  #--------------------------------------------------
+  tests-linux:
+    name: tests-linux
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -57,7 +82,7 @@ jobs:
   # Tests generated projects
   #--------------------------------------------------
   generation:
-    needs: tests
+    needs: [tests-linux, tests-windows]
     runs-on: ubuntu-latest
     strategy:
       matrix:

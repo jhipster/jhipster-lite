@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
@@ -67,7 +68,7 @@ public class LiquibaseDomainService implements LiquibaseService {
 
     String includeLine = new StringBuilder()
       .append(Liquibase.getIncludeLine(path, fileName))
-      .append(project.getEndOfLine())
+      .append(LF)
       .append(indent(1, indent))
       .append(NEEDLE_LIQUIBASE)
       .toString();

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.properties.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
@@ -39,7 +40,7 @@ public class SpringBootPropertiesDomainService implements SpringBootPropertiesSe
     String fileProperties,
     String needleProperties
   ) {
-    String propertiesWithNeedle = key + "=" + value + project.getEndOfLine() + needleProperties;
+    String propertiesWithNeedle = key + "=" + value + LF + needleProperties;
     projectRepository.replaceText(project, getPath(folderProperties, "config"), fileProperties, needleProperties, propertiesWithNeedle);
   }
 }

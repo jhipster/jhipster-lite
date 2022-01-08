@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary;
 
-import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.read;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
 
 import java.io.File;
@@ -126,7 +127,7 @@ public class ProjectLocalRepository implements ProjectRepository {
 
     try {
       FileUtils.createFolder(projectDestination);
-      Files.write(getPathOf(projectDestinationFilename), text.getBytes());
+      FileUtils.write(projectDestinationFilename, text, project.getEndOfLine());
     } catch (IOException e) {
       throw new GeneratorException(getErrorWritingMessage(projectDestinationFilename));
     }

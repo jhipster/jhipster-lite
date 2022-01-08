@@ -10,9 +10,10 @@ import tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.doma
 
 public class SpringBootUserDomainService implements SpringBootUserService {
 
-  public static final String SOURCE = "server/springboot/user";
-  public static final String TARGET_JAVA = "technical/infrastructure/secondary/user";
-  public static final String TARGET_RESOURCE = "config/liquibase/changelog/users";
+  public static final String SOURCE = "server/springboot/user/sqldatabase";
+  public static final String TARGET_JAVA = "user/infrastructure/secondary";
+  public static final String TARGET_RESOURCE = "config/liquibase/changelog/user";
+  public static final String USER_DATABASE_KEY = "sqlDatabaseName";
 
   private final ProjectRepository projectRepository;
   private final LiquibaseDomainService liquibaseDomainService;
@@ -23,46 +24,55 @@ public class SpringBootUserDomainService implements SpringBootUserService {
   }
 
   @Override
-  public void addJavaUsers(Project project) {
+  public void addSqlJavaUser(Project project, String sqlDatabaseName) {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    String userPath = "technical/infrastructure/secondary/user";
-    String userDomainPath = userPath + "/domain";
+    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
 
-    projectRepository.template(project, SOURCE, "User.java", getPath(MAIN_JAVA, packageNamePath, userDomainPath));
-    projectRepository.template(project, SOURCE, "UserConstants.java", getPath(MAIN_JAVA, packageNamePath, userDomainPath));
-    projectRepository.template(project, SOURCE, "UserConstants.java", getPath(MAIN_JAVA, packageNamePath, userDomainPath));
-    projectRepository.template(project, SOURCE, "UserJpaRepository.java", getPath(MAIN_JAVA, packageNamePath, userPath));
+    projectRepository.template(project, SOURCE, "User.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
+    projectRepository.template(project, SOURCE, "UserConstants.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
+    projectRepository.template(project, SOURCE, "UserConstants.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
+    projectRepository.template(project, SOURCE, "UserJpaRepository.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
   }
 
   @Override
-  public void addJavaAuthority(Project project) {
+  public void addSqlJavaAuthority(Project project, String sqlDatabaseName) {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    String userPath = "technical/infrastructure/secondary/user";
+    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
 
-    projectRepository.template(project, SOURCE, "AuthorityRepository.java", getPath(MAIN_JAVA, packageNamePath, userPath));
-    projectRepository.template(project, SOURCE, "AuthorityRepository.java", getPath(MAIN_JAVA, packageNamePath, userPath));
+    projectRepository.template(project, SOURCE, "Authority.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
+    projectRepository.template(project, SOURCE, "AuthorityRepository.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
   }
 
   @Override
-  public void addJavaAuditEntity(Project project) {
+  public void addSqlJavaAuditEntity(Project project, String sqlDatabaseName) {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    String userPath = "technical/infrastructure/secondary/entity";
+    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
 
-    projectRepository.template(project, SOURCE, "AbstractAuditingEntity.java", getPath(MAIN_JAVA, packageNamePath, userPath));
+    projectRepository.template(project, SOURCE, "AbstractAuditingEntity.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
+  }
+
+  private String getSqlJavaPath(String packageNamePath, String sqlDatabaseName) {
+    return getPath(MAIN_JAVA, packageNamePath, TARGET_JAVA + "/" + sqlDatabaseName);
   }
 
   @Override
-  public void addLiquibaseConfiguration(Project project) {
+  public void addSqlLiquibaseConfiguration(Project project, String sqlDatabaseName) {
     // Update liquibase master file
-    liquibaseDomainService.addChangelogXml(project, "users", "user.xml");
+    liquibaseDomainService.addChangelogXml(project, "user/" + sqlDatabaseName, "user.xml");
+
+    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
 
     // Copy liquibase files
-    projectRepository.add(project, SOURCE, "user.xml", getPath(MAIN_RESOURCES, TARGET_RESOURCE));
-    projectRepository.add(project, SOURCE, "user.csv", getPath(MAIN_RESOURCES, TARGET_RESOURCE));
-    projectRepository.add(project, SOURCE, "user_authority.csv", getPath(MAIN_RESOURCES, TARGET_RESOURCE));
-    projectRepository.add(project, SOURCE, "authority.csv", getPath(MAIN_RESOURCES, TARGET_RESOURCE));
+    projectRepository.add(project, SOURCE, "user.xml", getSqlLiquibasePath(sqlDatabaseName));
+    projectRepository.add(project, SOURCE, "user.csv", getSqlLiquibasePath(sqlDatabaseName));
+    projectRepository.add(project, SOURCE, "user_authority.csv", getSqlLiquibasePath(sqlDatabaseName));
+    projectRepository.add(project, SOURCE, "authority.csv", getSqlLiquibasePath(sqlDatabaseName));
+  }
+
+  private String getSqlLiquibasePath(String sqlDatabaseName) {
+    return getPath(MAIN_RESOURCES, TARGET_RESOURCE + "/" + sqlDatabaseName);
   }
 }

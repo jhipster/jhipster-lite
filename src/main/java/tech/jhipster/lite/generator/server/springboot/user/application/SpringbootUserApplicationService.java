@@ -13,19 +13,19 @@ public class SpringbootUserApplicationService {
     this.springBootUserService = springBootPropertiesService;
   }
 
-  public void addJavaUsers(Project project) {
-    springBootUserService.addJavaUsers(project);
+  public void addSqlJavaUsers(Project project, String sqlDabaseName) {
+    springBootUserService.addSqlJavaUser(project, sqlDabaseName);
   }
 
-  public void addJavaAuthority(Project project) {
-    springBootUserService.addJavaAuthority(project);
+  public void addSqlJavaAuthority(Project project, String sqlDabaseName) {
+    springBootUserService.addSqlJavaAuthority(project, sqlDabaseName);
   }
 
-  public void addJavaAuditEntity(Project project) {
-    springBootUserService.addJavaAuditEntity(project);
+  public void addSqlJavaAuditEntity(Project project, String sqlDabaseName) {
+    springBootUserService.addSqlJavaAuditEntity(project, sqlDabaseName);
   }
 
-  public void addLiquibaseConfiguration(Project project) {
-    springBootUserService.addLiquibaseConfiguration(project);
+  public void addSqlLiquibaseConfiguration(Project project, String sqlDabaseName) {
+    springBootUserService.addSqlLiquibaseConfiguration(project, sqlDabaseName);
   }
 }

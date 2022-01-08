@@ -38,7 +38,7 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/logging/aop"
   callApi "/api/servers/spring-boot/logging/logstash"
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
-  callApi "/api/servers/spring-boot/user/init"
+  callApi "/api/servers/spring-boot/user/postgresql"
   callApi "/api/servers/sonar"
 
 elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then

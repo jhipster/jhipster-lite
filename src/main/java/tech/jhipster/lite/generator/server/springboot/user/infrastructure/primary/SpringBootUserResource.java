@@ -23,13 +23,17 @@ class SpringBootUserResource {
   }
 
   @Operation(summary = "Add Spring Boot User and authority")
-  @PostMapping("/init")
+  @PostMapping("/postgresql")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot users and authority")
   public void addSpringBootUsers(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    springBootUserApplicationService.addJavaUsers(project);
-    springBootUserApplicationService.addJavaAuthority(project);
-    springBootUserApplicationService.addJavaAuditEntity(project);
-    springBootUserApplicationService.addLiquibaseConfiguration(project);
+    initUser(project, "postgresql");
+  }
+
+  private void initUser(Project project, String sqlDatabaseName) {
+    springBootUserApplicationService.addSqlJavaUsers(project, sqlDatabaseName);
+    springBootUserApplicationService.addSqlJavaAuthority(project, sqlDatabaseName);
+    springBootUserApplicationService.addSqlJavaAuditEntity(project, sqlDatabaseName);
+    springBootUserApplicationService.addSqlLiquibaseConfiguration(project, sqlDatabaseName);
   }
 }

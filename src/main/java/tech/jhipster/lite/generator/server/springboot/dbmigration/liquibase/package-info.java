@@ -1,2 +1,2 @@
-@tech.jhipster.lite.BusinessContext
+@tech.jhipster.lite.SharedKernel
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase;

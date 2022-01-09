@@ -17,7 +17,7 @@ public interface MavenService {
   void addProperty(Project project, String key, String version);
   void deleteProperty(Project project, String key);
 
-  void init(Project project);
+  void initJava(Project project);
 
   void addJavaPomXml(Project project);
   void addMavenWrapper(Project project);

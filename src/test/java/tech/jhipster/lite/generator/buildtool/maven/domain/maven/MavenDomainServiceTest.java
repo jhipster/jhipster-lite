@@ -130,10 +130,10 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldInit() {
+  void shouldInitJava() {
     Project project = tmpProject();
 
-    mavenDomainService.init(project);
+    mavenDomainService.initJava(project);
 
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());

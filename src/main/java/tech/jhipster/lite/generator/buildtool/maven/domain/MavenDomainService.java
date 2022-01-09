@@ -163,7 +163,7 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
-  public void init(Project project) {
+  public void initJava(Project project) {
     addJavaPomXml(project);
     addMavenWrapper(project);
   }

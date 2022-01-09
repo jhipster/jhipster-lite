@@ -83,7 +83,7 @@ public class BuildToolDomainService implements BuildToolService {
   @Override
   public void init(Project project, BuildToolType buildTool) {
     if (buildTool == MAVEN) {
-      mavenService.init(project);
+      mavenService.initJava(project);
     } else {
       throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }

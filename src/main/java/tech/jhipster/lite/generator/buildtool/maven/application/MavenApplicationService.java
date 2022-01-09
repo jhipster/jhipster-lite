@@ -54,11 +54,11 @@ public class MavenApplicationService {
   }
 
   public void init(Project project) {
-    mavenService.init(project);
+    mavenService.initJava(project);
   }
 
   public void addPomXml(Project project) {
-    mavenService.addPomXml(project);
+    mavenService.addJavaPomXml(project);
   }
 
   public void addMavenWrapper(Project project) {

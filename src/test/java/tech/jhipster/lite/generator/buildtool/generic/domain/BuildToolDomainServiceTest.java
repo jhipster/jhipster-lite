@@ -106,7 +106,7 @@ class BuildToolDomainServiceTest {
 
       buildToolDomainService.init(project, BuildToolType.MAVEN);
 
-      verify(mavenService).init(project);
+      verify(mavenService).initJava(project);
     }
 
     @Test
@@ -115,7 +115,7 @@ class BuildToolDomainServiceTest {
 
       buildToolDomainService.init(project, BuildToolType.MAVEN);
 
-      verify(mavenService).init(project);
+      verify(mavenService).initJava(project);
     }
   }
 

@@ -58,7 +58,7 @@ public class MavenApplicationService {
   }
 
   public void addPomXml(Project project) {
-    mavenService.addPomXml(project);
+    mavenService.addJavaPomXml(project);
   }
 
   public void addMavenWrapper(Project project) {

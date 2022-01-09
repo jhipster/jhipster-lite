@@ -19,6 +19,6 @@ public interface MavenService {
 
   void init(Project project);
 
-  void addPomXml(Project project);
+  void addJavaPomXml(Project project);
   void addMavenWrapper(Project project);
 }

@@ -142,10 +142,10 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldAddPomXml() {
+  void shouldAddJavaPomXml() {
     Project project = tmpProject();
 
-    mavenDomainService.addPomXml(project);
+    mavenDomainService.addJavaPomXml(project);
 
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
   }

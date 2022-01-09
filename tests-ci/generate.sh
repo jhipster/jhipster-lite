@@ -34,9 +34,17 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
   callApi "/api/servers/spring-boot/mvc/dummy"
   callApi "/api/servers/spring-boot/databases/postgresql"
+<<<<<<< HEAD
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
   callApi "/api/servers/spring-boot/logging/aop"
   callApi "/api/servers/spring-boot/logging/logstash"
+=======
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/user/postgresql"
+  callApi "/api/servers/spring-boot/aop/logging"
+  callApi "/api/servers/spring-boot/logging/logstash/tcp"
+  callApi "/api/servers/spring-boot/async"
+>>>>>>> 708d06e8 (Move user liquibase configuration to liquibase service)
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
   callApi "/api/servers/spring-boot/user/postgresql"
   callApi "/api/servers/sonar"
@@ -48,8 +56,19 @@ elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
+<<<<<<< HEAD
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
+=======
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/mvc/security/jwt"
+  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/databases/postgresql"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+  callApi "/api/servers/spring-boot/aop/logging"
+  callApi "/api/servers/spring-boot/logging/logstash/tcp"
+  callApi "/api/servers/spring-boot/async"
+>>>>>>> 708d06e8 (Move user liquibase configuration to liquibase service)
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
 
 elif [[ $filename == 'undertow-simplecache' ]]; then
@@ -59,8 +78,19 @@ elif [[ $filename == 'undertow-simplecache' ]]; then
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
   callApi "/api/servers/spring-boot/mvc/web/undertow"
+<<<<<<< HEAD
   callApi "/api/servers/spring-boot/mvc/dummy"
   callApi "/api/servers/spring-boot/banner/jhipster-v3"
+=======
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/mvc/security/jwt"
+  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/databases/mysql"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+  callApi "/api/servers/spring-boot/aop/logging"
+  callApi "/api/servers/spring-boot/logging/logstash/tcp"
+  callApi "/api/servers/spring-boot/async"
+>>>>>>> 708d06e8 (Move user liquibase configuration to liquibase service)
   callApi "/api/servers/spring-boot/cache/simple"
 
 elif [[ $filename == 'tomcat-configserver' ]]; then

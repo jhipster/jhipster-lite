@@ -6,21 +6,17 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.LiquibaseDomainService;
 
 public class SpringBootUserDomainService implements SpringBootUserService {
 
   public static final String SOURCE = "server/springboot/user/sqldatabase";
   public static final String TARGET_JAVA = "user/infrastructure/secondary";
-  public static final String TARGET_RESOURCE = "config/liquibase/changelog/user";
   public static final String USER_DATABASE_KEY = "sqlDatabaseName";
 
   private final ProjectRepository projectRepository;
-  private final LiquibaseDomainService liquibaseDomainService;
 
-  public SpringBootUserDomainService(ProjectRepository projectRepository, LiquibaseDomainService liquibaseDomainService) {
+  public SpringBootUserDomainService(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
-    this.liquibaseDomainService = liquibaseDomainService;
   }
 
   @Override
@@ -56,23 +52,5 @@ public class SpringBootUserDomainService implements SpringBootUserService {
 
   private String getSqlJavaPath(String packageNamePath, String sqlDatabaseName) {
     return getPath(MAIN_JAVA, packageNamePath, TARGET_JAVA + "/" + sqlDatabaseName);
-  }
-
-  @Override
-  public void addSqlLiquibaseConfiguration(Project project, String sqlDatabaseName) {
-    // Update liquibase master file
-    liquibaseDomainService.addChangelogXml(project, "user/" + sqlDatabaseName, "user.xml");
-
-    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
-
-    // Copy liquibase files
-    projectRepository.add(project, SOURCE, "user.xml", getSqlLiquibasePath(sqlDatabaseName));
-    projectRepository.add(project, SOURCE, "user.csv", getSqlLiquibasePath(sqlDatabaseName));
-    projectRepository.add(project, SOURCE, "user_authority.csv", getSqlLiquibasePath(sqlDatabaseName));
-    projectRepository.add(project, SOURCE, "authority.csv", getSqlLiquibasePath(sqlDatabaseName));
-  }
-
-  private String getSqlLiquibasePath(String sqlDatabaseName) {
-    return getPath(MAIN_RESOURCES, TARGET_RESOURCE + "/" + sqlDatabaseName);
   }
 }

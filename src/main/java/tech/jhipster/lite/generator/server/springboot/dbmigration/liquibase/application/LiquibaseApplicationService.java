@@ -36,4 +36,12 @@ public class LiquibaseApplicationService {
   void addLoggerInConfiguration(Project project) {
     liquibaseService.addLoggerInConfiguration(project);
   }
+
+  public void addSqlUserChangelog(Project project, String sqlDabaseName) {
+    liquibaseService.addSqlUserChangelog(project, sqlDabaseName);
+  }
+
+  public void addSqlUserAuthorityChangelog(Project project, String sqlDabaseName) {
+    liquibaseService.addSqlUserAuthorityChangelog(project, sqlDabaseName);
+  }
 }

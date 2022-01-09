@@ -19,8 +19,9 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   public static final String SOURCE = "server/springboot/dbmigration/liquibase";
   public static final String LIQUIBASE_PATH = "technical/infrastructure/secondary/liquibase";
-  public static final String MASTER_XML = "master.xml";
   public static final String CONFIG_LIQUIBASE = "config/liquibase";
+  public static final String CHANGELOG = CONFIG_LIQUIBASE + "/changelog";
+  public static final String USER_DATABASE_KEY = "sqlDatabaseName";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -55,7 +56,9 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   @Override
   public void addChangelogMasterXml(Project project) {
-    projectRepository.add(project, getPath(SOURCE, "resources"), MASTER_XML, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE));
+    projectRepository.add(project, getPath(SOURCE, "resources"), LIQUIBASE_MASTER_XML, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE));
+    projectRepository.add(project, getPath(SOURCE, "resources"), "sequence.xml", getPath(MAIN_RESOURCES, CHANGELOG));
+    projectRepository.add(project, getPath(SOURCE, "resources"), "date_time_wrapper.xml", getPath(MAIN_RESOURCES, CHANGELOG));
   }
 
   @Override
@@ -69,8 +72,14 @@ public class LiquibaseDomainService implements LiquibaseService {
       .append(NEEDLE_LIQUIBASE)
       .toString();
 
-    if (!projectRepository.containsRegexp(project, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE), MASTER_XML, includeLine)) {
-      projectRepository.replaceText(project, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE), MASTER_XML, NEEDLE_LIQUIBASE, includeLine);
+    if (!projectRepository.containsRegexp(project, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE), LIQUIBASE_MASTER_XML, includeLine)) {
+      projectRepository.replaceText(
+        project,
+        getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE),
+        LIQUIBASE_MASTER_XML,
+        NEEDLE_LIQUIBASE,
+        includeLine
+      );
     }
   }
 
@@ -102,5 +111,38 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   private void templateToLiquibase(Project project, String source, String type, String sourceFilename, String destination) {
     projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, LIQUIBASE_PATH));
+  }
+
+  @Override
+  public void addSqlUserChangelog(Project project, String sqlDatabaseName) {
+    // Update liquibase master file
+    addChangelogXml(project, "user/" + sqlDatabaseName, "user.xml");
+
+    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
+
+    // Copy liquibase files
+    projectRepository.template(project, getUserResourcePath(), "user.xml", getSqlLiquibasePath(sqlDatabaseName));
+    projectRepository.add(project, getUserResourcePath(), "user.csv", getSqlLiquibasePath(sqlDatabaseName));
+  }
+
+  private String getUserResourcePath() {
+    return getPath(SOURCE, "resources/user");
+  }
+
+  @Override
+  public void addSqlUserAuthorityChangelog(Project project, String sqlDatabaseName) {
+    // Update liquibase master file
+    addChangelogXml(project, "user/" + sqlDatabaseName, "authority.xml");
+
+    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
+
+    // Copy liquibase files
+    projectRepository.template(project, getUserResourcePath(), "authority.xml", getSqlLiquibasePath(sqlDatabaseName));
+    projectRepository.add(project, getUserResourcePath(), "authority.csv", getSqlLiquibasePath(sqlDatabaseName));
+    projectRepository.add(project, getUserResourcePath(), "user_authority.csv", getSqlLiquibasePath(sqlDatabaseName));
+  }
+
+  private String getSqlLiquibasePath(String sqlDatabaseName) {
+    return getPath(MAIN_RESOURCES, CHANGELOG + "/user/" + sqlDatabaseName);
   }
 }

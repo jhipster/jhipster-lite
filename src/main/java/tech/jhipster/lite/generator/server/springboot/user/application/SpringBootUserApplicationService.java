@@ -5,11 +5,11 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.user.domain.SpringBootUserService;
 
 @Service
-public class SpringbootUserApplicationService {
+public class SpringBootUserApplicationService {
 
   private final SpringBootUserService springBootUserService;
 
-  public SpringbootUserApplicationService(SpringBootUserService springBootPropertiesService) {
+  public SpringBootUserApplicationService(SpringBootUserService springBootPropertiesService) {
     this.springBootUserService = springBootPropertiesService;
   }
 
@@ -23,9 +23,5 @@ public class SpringbootUserApplicationService {
 
   public void addSqlJavaAuditEntity(Project project, String sqlDabaseName) {
     springBootUserService.addSqlJavaAuditEntity(project, sqlDabaseName);
-  }
-
-  public void addSqlLiquibaseConfiguration(Project project, String sqlDabaseName) {
-    springBootUserService.addSqlLiquibaseConfiguration(project, sqlDabaseName);
   }
 }

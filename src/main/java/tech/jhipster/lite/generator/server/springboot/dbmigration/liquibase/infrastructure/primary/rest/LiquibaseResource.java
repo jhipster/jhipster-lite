@@ -24,9 +24,18 @@ class LiquibaseResource {
 
   @Operation(summary = "Add Liquibase")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Liquibase")
-  @PostMapping
+  @PostMapping("init")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     liquibaseApplicationService.init(project);
+  }
+
+  @Operation(summary = "Add User and Authority")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding changelogs for user and authority")
+  @PostMapping("user/postgresql")
+  public void addUserAndAuthority(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    liquibaseApplicationService.addSqlUserChangelog(project, "postgresql");
+    liquibaseApplicationService.addSqlUserAuthorityChangelog(project, "postgresql");
   }
 }

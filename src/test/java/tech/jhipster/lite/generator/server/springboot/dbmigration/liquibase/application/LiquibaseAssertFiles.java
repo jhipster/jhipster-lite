@@ -42,5 +42,18 @@ public class LiquibaseAssertFiles {
 
   public static void assertFilesLiquibaseChangelogMasterXml(Project project) {
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/sequence.xml"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/date_time_wrapper.xml"));
+  }
+
+  public static void assertFilesLiquibaseSqlUser(Project project, String databaseName) {
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseName, "user.xml"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseName, "user.csv"));
+  }
+
+  public static void assertFilesLiquibaseSqlUserAuthority(Project project, String databaseName) {
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseName, "authority.xml"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseName, "authority.csv"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseName, "user_authority.csv"));
   }
 }

@@ -6,6 +6,8 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUser;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUserAuthority;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
+import tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseApplicationService;
 
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -39,6 +42,9 @@ class LiquibaseResourceIT {
 
   @Autowired
   PostgresqlApplicationService postgresqlApplicationService;
+
+  @Autowired
+  LiquibaseApplicationService liquibaseApplicationService;
 
   @Autowired
   MockMvc mockMvc;
@@ -58,7 +64,7 @@ class LiquibaseResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/databases/migration/liquibase")
+        post("/api/servers/spring-boot/databases/migration/liquibase/init")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -76,5 +82,31 @@ class LiquibaseResourceIT {
     );
     assertFilesLiquibaseChangelogMasterXml(project);
     assertFilesLiquibaseJava(project);
+  }
+
+  @Test
+  void shouldAddUserPostgresql() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
+    if (projectDTO == null) {
+      throw new GeneratorException("Error when reading file");
+    }
+    projectDTO.folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+    postgresqlApplicationService.init(project);
+    liquibaseApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/databases/migration/liquibase/user/postgresql")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    assertFilesLiquibaseSqlUser(project, "postgresql");
+    assertFilesLiquibaseSqlUserAuthority(project, "postgresql");
   }
 }

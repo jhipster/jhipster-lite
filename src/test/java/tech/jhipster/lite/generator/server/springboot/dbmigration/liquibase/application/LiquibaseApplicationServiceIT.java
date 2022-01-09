@@ -11,6 +11,8 @@ import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringB
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUser;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUserAuthority;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
 
 import java.util.List;
@@ -166,5 +168,23 @@ class LiquibaseApplicationServiceIT {
         "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\" />"
       )
     );
+  }
+
+  @Test
+  void shouldAddSqlUser() {
+    Project project = tmpProjectWithLiquibaseMasterXml();
+
+    liquibaseApplicationService.addSqlUserChangelog(project, "database");
+
+    assertFilesLiquibaseSqlUser(project, "database");
+  }
+
+  @Test
+  void shouldAddSqlUserAuthority() {
+    Project project = tmpProjectWithLiquibaseMasterXml();
+
+    liquibaseApplicationService.addSqlUserAuthorityChangelog(project, "database");
+
+    assertFilesLiquibaseSqlUserAuthority(project, "database");
   }
 }

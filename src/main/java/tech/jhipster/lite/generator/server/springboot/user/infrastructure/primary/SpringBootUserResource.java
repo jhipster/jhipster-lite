@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.server.springboot.user.application.SpringbootUserApplicationService;
+import tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserApplicationService;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/user")
 @Tag(name = "Spring Boot - User")
 class SpringBootUserResource {
 
-  private final SpringbootUserApplicationService springBootUserApplicationService;
+  private final SpringBootUserApplicationService springBootUserApplicationService;
 
-  public SpringBootUserResource(SpringbootUserApplicationService springBootUserApplicationService) {
+  public SpringBootUserResource(SpringBootUserApplicationService springBootUserApplicationService) {
     this.springBootUserApplicationService = springBootUserApplicationService;
   }
 
@@ -34,6 +34,5 @@ class SpringBootUserResource {
     springBootUserApplicationService.addSqlJavaUsers(project, sqlDatabaseName);
     springBootUserApplicationService.addSqlJavaAuthority(project, sqlDatabaseName);
     springBootUserApplicationService.addSqlJavaAuditEntity(project, sqlDatabaseName);
-    springBootUserApplicationService.addSqlLiquibaseConfiguration(project, sqlDatabaseName);
   }
 }

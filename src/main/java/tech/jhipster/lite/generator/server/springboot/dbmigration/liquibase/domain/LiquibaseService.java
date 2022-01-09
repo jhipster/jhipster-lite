@@ -10,4 +10,7 @@ public interface LiquibaseService {
   void addChangelogXml(Project project, String path, String fileName);
   void addConfigurationJava(Project project);
   void addLoggerInConfiguration(Project project);
+
+  void addSqlUserChangelog(Project project, String sqlDatabaseName);
+  void addSqlUserAuthorityChangelog(Project project, String sqlDatabaseName);
 }

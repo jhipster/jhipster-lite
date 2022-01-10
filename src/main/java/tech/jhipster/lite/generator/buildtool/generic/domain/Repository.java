@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
 import java.util.Optional;
+import tech.jhipster.lite.common.domain.OptionalUtils;
 import tech.jhipster.lite.error.domain.Assert;
 
 public class Repository {
@@ -16,15 +17,8 @@ public class Repository {
 
     this.id = builder.id;
     this.url = builder.url;
-    this.name = optionalNotBlank(builder.name);
-    this.additionalElements = optionalNotBlank(builder.additionalElements);
-  }
-
-  private Optional<String> optionalNotBlank(String value) {
-    if (value == null || value.isBlank()) {
-      return Optional.empty();
-    }
-    return Optional.of(value);
+    this.name = OptionalUtils.notBlank(builder.name);
+    this.additionalElements = OptionalUtils.notBlank(builder.additionalElements);
   }
 
   public static Repository.RepositoryBuilder builder() {

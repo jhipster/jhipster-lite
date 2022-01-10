@@ -18,6 +18,7 @@ public class Maven {
   public static final String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
   public static final String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
   public static final String NEEDLE_PLUGIN_MANAGEMENT = "<!-- jhipster-needle-maven-add-plugin-management -->";
+  public static final String NEEDLE_REPOSITORY = "<!-- jhipster-needle-maven-repository -->";
 
   public static final String PARENT_BEGIN = "<parent>";
   public static final String PARENT_END = "</parent>";

@@ -60,7 +60,7 @@ class SpringBootResourceIT {
     );
 
     assertFileExist(project, "src/main/java/tech/jhipster/chips/ChipsApp.java");
-    assertFileExist(project, "src/test/java/tech/jhipster/chips/ChipsAppIT.java");
+    assertFileExist(project, "src/test/java/tech/jhipster/chips/ChipsAppTest.java");
 
     assertFileExist(project, "src/main/resources/config/application.properties");
   }

@@ -25,8 +25,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
     project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
 
-    projectRepository.template(project, SOURCE, "User.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
-    projectRepository.template(project, SOURCE, "UserConstants.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
+    projectRepository.template(project, SOURCE, "UserEntity.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
     projectRepository.template(project, SOURCE, "UserConstants.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
     projectRepository.template(project, SOURCE, "UserJpaRepository.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
   }
@@ -37,7 +36,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
     project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
 
-    projectRepository.template(project, SOURCE, "Authority.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
+    projectRepository.template(project, SOURCE, "AuthorityEntity.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
     projectRepository.template(project, SOURCE, "AuthorityRepository.java", getSqlJavaPath(packageNamePath, sqlDatabaseName));
   }
 

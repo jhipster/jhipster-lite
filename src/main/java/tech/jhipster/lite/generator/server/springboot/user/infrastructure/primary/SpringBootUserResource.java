@@ -31,7 +31,7 @@ class SpringBootUserResource {
   }
 
   private void initUser(Project project, String sqlDatabaseName) {
-    springBootUserApplicationService.addSqlJavaUsers(project, sqlDatabaseName);
+    springBootUserApplicationService.addSqlJavaUser(project, sqlDatabaseName);
     springBootUserApplicationService.addSqlJavaAuthority(project, sqlDatabaseName);
     springBootUserApplicationService.addSqlJavaAuditEntity(project, sqlDatabaseName);
   }

@@ -13,7 +13,7 @@ public class SpringBootUserApplicationService {
     this.springBootUserService = springBootPropertiesService;
   }
 
-  public void addSqlJavaUsers(Project project, String sqlDabaseName) {
+  public void addSqlJavaUser(Project project, String sqlDabaseName) {
     springBootUserService.addSqlJavaUser(project, sqlDabaseName);
   }
 

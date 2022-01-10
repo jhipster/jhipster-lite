@@ -7,11 +7,11 @@ import tech.jhipster.lite.generator.server.springboot.user.domain.SpringBootUser
 import tech.jhipster.lite.generator.server.springboot.user.domain.SpringBootUserService;
 
 @Configuration
-public class SpringBootUserConfiguration {
+public class SpringBootUserBeanConfiguration {
 
   private final ProjectRepository projectRepository;
 
-  public SpringBootUserConfiguration(ProjectRepository projectRepository) {
+  public SpringBootUserBeanConfiguration(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
   }
 

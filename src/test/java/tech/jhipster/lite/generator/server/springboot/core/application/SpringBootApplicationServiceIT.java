@@ -63,7 +63,7 @@ class SpringBootApplicationServiceIT {
     assertFileContent(project, POM_XML, "<artifactId>spring-boot-maven-plugin</artifactId>");
 
     assertFileExist(project, getPath(MAIN_JAVA, "com/mycompany/myapp/JhipsterApp.java"));
-    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp/JhipsterAppIT.java"));
+    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp/JhipsterAppTest.java"));
     assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp", "IntegrationTest.java"));
 
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/application.properties"));
@@ -161,7 +161,7 @@ class SpringBootApplicationServiceIT {
     springBootApplicationService.addMainApp(project);
 
     assertFileExist(project, "src/main/java/com/mycompany/myapp/JhipsterApp.java");
-    assertFileExist(project, "src/test/java/com/mycompany/myapp/JhipsterAppIT.java");
+    assertFileExist(project, "src/test/java/com/mycompany/myapp/JhipsterAppTest.java");
   }
 
   @Test

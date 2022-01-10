@@ -104,7 +104,7 @@ public class SpringBootDomainService implements SpringBootService {
     String packageNamePath = project.getPackageNamePath().orElse("com/mycompany/myapp");
 
     projectRepository.template(project, SOURCE, "MainApp.java", getPath(MAIN_JAVA, packageNamePath), className + "App.java");
-    projectRepository.template(project, SOURCE, "MainAppIT.java", getPath(TEST_JAVA, packageNamePath), className + "AppIT.java");
+    projectRepository.template(project, SOURCE, "MainAppTest.java", getPath(TEST_JAVA, packageNamePath), className + "AppTest.java");
     projectRepository.template(project, SOURCE, "IntegrationTest.java", getPath(TEST_JAVA, packageNamePath));
   }
 

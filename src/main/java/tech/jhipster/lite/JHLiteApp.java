@@ -20,8 +20,7 @@ public class JHLiteApp {
   protected static final String LF = "\n";
 
   public static void main(String[] args) {
-    SpringApplication app = new SpringApplication(JHLiteApp.class);
-    Environment env = app.run(args).getEnvironment();
+    Environment env = SpringApplication.run(JHLiteApp.class, args).getEnvironment();
     logApplicationStartup(env);
   }
 

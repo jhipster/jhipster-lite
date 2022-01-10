@@ -2,20 +2,44 @@ package tech.jhipster.lite;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.JHLiteApp.LF;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@IntegrationTest
-class JHLiteAppIT {
+@UnitTest
+@ExtendWith(SpringExtension.class)
+class JHLiteAppTest {
+
+  @Mock
+  ConfigurableApplicationContext applicationContext;
+
+  @Mock
+  ConfigurableEnvironment environment;
+
+  @Test
+  void shouldConstruct() {
+    assertThatCode(() -> new JHLiteApp()).doesNotThrowAnyException();
+  }
 
   @Test
   void shouldMain() {
-    assertThatCode(() -> JHLiteApp.main(new String[] {})).doesNotThrowAnyException();
+    try (MockedStatic<SpringApplication> springApplication = Mockito.mockStatic(SpringApplication.class)) {
+      when(applicationContext.getEnvironment()).thenReturn(environment);
+      springApplication.when(() -> SpringApplication.run(JHLiteApp.class, new String[] {})).thenReturn(applicationContext);
+
+      assertThatCode(() -> JHLiteApp.main(new String[] {})).doesNotThrowAnyException();
+    }
   }
 
   @Test

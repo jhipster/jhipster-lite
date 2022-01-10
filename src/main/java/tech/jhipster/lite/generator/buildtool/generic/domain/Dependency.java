@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
 import java.util.Optional;
+import tech.jhipster.lite.common.domain.OptionalUtils;
 import tech.jhipster.lite.error.domain.Assert;
 
 public class Dependency {
@@ -19,16 +20,9 @@ public class Dependency {
     this.groupId = builder.groupId;
     this.artifactId = builder.artifactId;
     this.optional = builder.optional;
-    this.version = optionalNotBlank(builder.version);
-    this.scope = optionalNotBlank(builder.scope);
-    this.type = optionalNotBlank(builder.type);
-  }
-
-  private Optional<String> optionalNotBlank(String value) {
-    if (value == null || value.isBlank()) {
-      return Optional.empty();
-    }
-    return Optional.of(value);
+    this.version = OptionalUtils.notBlank(builder.version);
+    this.scope = OptionalUtils.notBlank(builder.scope);
+    this.type = OptionalUtils.notBlank(builder.type);
   }
 
   public static Dependency.DependencyBuilder builder() {

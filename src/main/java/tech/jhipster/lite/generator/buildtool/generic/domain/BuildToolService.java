@@ -13,5 +13,6 @@ public interface BuildToolService {
   void addPluginManagement(Project project, Plugin plugin);
   void addProperty(Project project, String key, String version);
   void addRepository(Project project, Repository repository);
+  void addPluginRepository(Project project, Repository repository);
   void init(Project project, BuildToolType buildTool);
 }

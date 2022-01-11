@@ -111,6 +111,16 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
+    void shouldAddPluginRepository() {
+      Project project = tmpProjectWithPomXml();
+      Repository repository = getRepository();
+
+      buildToolDomainService.addPluginRepository(project, repository);
+
+      verify(mavenService).addPluginRepository(project, repository);
+    }
+
+    @Test
     void shouldInit() {
       Project project = tmpProjectWithPomXml();
 
@@ -220,6 +230,15 @@ class BuildToolDomainServiceTest {
       Repository repository = getRepository();
 
       assertThatThrownBy(() -> buildToolDomainService.addRepository(project, repository)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotAddPluginRepository() {
+      Project project = tmpProject();
+      Repository repository = getRepository();
+
+      assertThatThrownBy(() -> buildToolDomainService.addPluginRepository(project, repository))
+        .isExactlyInstanceOf(GeneratorException.class);
     }
   }
 

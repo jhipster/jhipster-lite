@@ -18,7 +18,7 @@ public class TypescriptDomainService implements TypescriptService {
 
   @Override
   public void init(Project project) {
-    Typescript.dependencies().forEach((dependency, version) -> npmService.addDependency(project, dependency, version));
+    Typescript.devDependencies().forEach((dependency, version) -> npmService.addDevDependency(project, dependency, version));
     Typescript.scripts().forEach((name, cmd) -> npmService.addScript(project, name, cmd));
     Typescript.files().forEach(file -> projectRepository.add(project, SOURCE, file));
   }

@@ -19,7 +19,7 @@ class TypescriptApplicationServiceIT {
 
     typescriptApplicationService.init(project);
 
-    TypescriptAssert.assertDependencies(project);
+    TypescriptAssert.assertDevDependencies(project);
     TypescriptAssert.assertScripts(project);
     TypescriptAssert.assertConfigFiles(project);
   }

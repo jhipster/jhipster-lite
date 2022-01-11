@@ -35,7 +35,7 @@ class TypescriptDomainServiceTest {
 
     typescriptDomainService.init(project);
 
-    verify(npmService, times(10)).addDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(10)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(5)).addScript(any(Project.class), anyString(), anyString());
 
     verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString());

@@ -7,7 +7,7 @@ public class Typescript {
 
   private Typescript() {}
 
-  public static Map<String, String> dependencies() {
+  public static Map<String, String> devDependencies() {
     // @formatter:off
     return Map.of(
       "@types/jest", "27.4.0",

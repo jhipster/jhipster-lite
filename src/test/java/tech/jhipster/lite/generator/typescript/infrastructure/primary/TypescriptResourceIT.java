@@ -37,7 +37,7 @@ class TypescriptResourceIT {
       .perform(post("/api/typescript").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    TypescriptAssert.assertDependencies(project);
+    TypescriptAssert.assertDevDependencies(project);
     TypescriptAssert.assertScripts(project);
     TypescriptAssert.assertConfigFiles(project);
   }

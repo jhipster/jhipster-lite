@@ -10,7 +10,7 @@ public class TypescriptAssert {
 
   private TypescriptAssert() {}
 
-  public static void assertDependencies(Project project) {
+  public static void assertDevDependencies(Project project) {
     assertFileContent(project, PACKAGE_JSON, "@types/jest" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@typescript-eslint/eslint-plugin" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@typescript-eslint/parser" + DQ + ": ");

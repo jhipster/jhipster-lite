@@ -535,6 +535,76 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddPluginRepository() {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+    mavenApplicationService.addPluginRepository(project, repository);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of("<pluginRepository>", "<id>spring-milestone</id>", "<url>https://repo.spring.io/milestone</url>", "</pluginRepository>")
+    );
+  }
+
+  @Test
+  void shouldAddPluginRepositoryWithAdditionalElements() {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository
+      .builder()
+      .id("spring-milestone")
+      .url("https://repo.spring.io/milestone")
+      .additionalElements("""
+      <releases>
+        <enabled>false</enabled>
+      </releases>""")
+      .build();
+    mavenApplicationService.addPluginRepository(project, repository);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of(
+        "<pluginRepository>",
+        "<id>spring-milestone</id>",
+        "<url>https://repo.spring.io/milestone</url>",
+        "<releases>",
+        "<enabled>false</enabled>",
+        "</releases>",
+        "</pluginRepository>"
+      )
+    );
+  }
+
+  @Test
+  void shouldNotAddPluginRepositoryWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+
+    assertThatThrownBy(() -> mavenApplicationService.addPluginRepository(project, repository))
+      .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddPluginRepositoryOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+    mavenApplicationService.addPluginRepository(project, repository);
+    mavenApplicationService.addPluginRepository(project, repository);
+
+    assertFileContentManyTimes(
+      project,
+      POM_XML,
+      Maven.getPluginRepositoryHeader(repository, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
+      1
+    );
+  }
+
+  @Test
   void shouldInit() {
     Project project = tmpProject();
 

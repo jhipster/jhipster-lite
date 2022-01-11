@@ -8,6 +8,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.maven.domain.Maven;
 
 @UnitTest
@@ -290,5 +291,76 @@ class MavenTest {
 
   private Plugin.PluginBuilder fullPluginBuilder() {
     return minimalPluginBuilder().version("2.6.0");
+  }
+
+  @Test
+  void shouldGetRepository() {
+    String expected =
+      """
+      <repository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+      </repository>""";
+    Repository repository = minimalRepositoryBuilder().build();
+
+    assertThat(Maven.getRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetRepositoryWithName() {
+    String expected =
+      """
+      <repository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+        <name>Spring Milestone</name>
+      </repository>""";
+    Repository repository = fullRepositoryBuilder().build();
+
+    assertThat(Maven.getRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetRepositoryWith4Indentations() {
+    String expected =
+      """
+      <repository>
+          <id>spring-milestone</id>
+          <url>https://repo.spring.io/milestone</url>
+      </repository>""";
+    Repository repository = minimalRepositoryBuilder().build();
+
+    assertThat(Maven.getRepository(repository, 4)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetRepositoryWithAdditionalElements() {
+    // @formatter:off
+    String expected = """
+      <repository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+        <name>Spring Milestone</name>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+      </repository>""";
+    // @formatter:on
+    Repository repository = fullRepositoryBuilder()
+      .additionalElements("""
+        <releases>
+          <enabled>false</enabled>
+        </releases>""")
+      .build();
+
+    assertThat(Maven.getRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  private Repository.RepositoryBuilder minimalRepositoryBuilder() {
+    return Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone");
+  }
+
+  private Repository.RepositoryBuilder fullRepositoryBuilder() {
+    return minimalRepositoryBuilder().name("Spring Milestone");
   }
 }

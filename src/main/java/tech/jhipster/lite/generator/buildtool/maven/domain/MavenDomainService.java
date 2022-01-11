@@ -12,6 +12,7 @@ import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -160,6 +161,25 @@ public class MavenDomainService implements MavenService {
     String propertyNode = Maven.getProperty(key, ".*") + LF;
 
     projectRepository.replaceText(project, "", POM_XML, propertyNode, "");
+  }
+
+  @Override
+  public void addRepository(Project project, Repository repository) {
+    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
+
+    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
+
+    int level = 2;
+
+    String repositoryNode = Maven.getRepositoryHeader(repository, indent).indent(2 * indent);
+    String repositoryRegexp = (REGEXP_PREFIX_MULTILINE + repositoryNode);
+
+    if (!projectRepository.containsRegexp(project, "", POM_XML, repositoryRegexp)) {
+      String newRepositoryNode = Maven.getRepository(repository, indent).indent(level * indent);
+      String repositoryWithNeedle = (newRepositoryNode + indent(level, indent) + NEEDLE_REPOSITORY);
+
+      projectRepository.replaceText(project, "", POM_XML, REGEXP_SPACE_STAR + NEEDLE_REPOSITORY, repositoryWithNeedle);
+    }
   }
 
   @Override

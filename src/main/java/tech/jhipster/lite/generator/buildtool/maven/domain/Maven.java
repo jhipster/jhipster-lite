@@ -69,6 +69,9 @@ public class Maven {
   public static final String NAME_BEGIN = "<name>";
   public static final String NAME_END = "</name>";
 
+  public static final String PLUGIN_REPOSITORY_BEGIN = "<pluginRepository>";
+  public static final String PLUGIN_REPOSITORY_END = "</pluginRepository>";
+
   private Maven() {}
 
   public static String getParent(Parent parent) {
@@ -234,7 +237,29 @@ public class Maven {
   }
 
   public static String getRepositoryHeader(Repository repository, int indentation) {
-    String begin = REPOSITORY_BEGIN + LF;
+    return getRepositoryHeader(repository, indentation, NEEDLE_REPOSITORY);
+  }
+
+  public static String getRepository(Repository repository, int indentation) {
+    return getRepository(repository, indentation, NEEDLE_REPOSITORY);
+  }
+
+  public static String getPluginRepositoryHeader(Repository repository, int indentation) {
+    return getRepositoryHeader(repository, indentation, NEEDLE_PLUGIN_REPOSITORY);
+  }
+
+  public static String getPluginRepository(Repository repository, int indentation) {
+    return getRepository(repository, indentation, NEEDLE_PLUGIN_REPOSITORY);
+  }
+
+  private static String getRepositoryHeader(Repository repository, int indentation, String needle) {
+    String begin;
+
+    if (NEEDLE_PLUGIN_REPOSITORY.equals(needle)) {
+      begin = new StringBuilder().append(PLUGIN_REPOSITORY_BEGIN).append(LF).toString();
+    } else {
+      begin = new StringBuilder().append(REPOSITORY_BEGIN).append(LF).toString();
+    }
 
     String content = new StringBuilder()
       .append(ID_BEGIN)
@@ -251,8 +276,8 @@ public class Maven {
     return begin + content;
   }
 
-  public static String getRepository(Repository repository, int indentation) {
-    String header = getRepositoryHeader(repository, indentation);
+  private static String getRepository(Repository repository, int indentation, String needle) {
+    String header = getRepositoryHeader(repository, indentation, needle);
 
     StringBuilder additionalBodyBuilder = new StringBuilder();
 
@@ -262,6 +287,14 @@ public class Maven {
 
     String additionalBody = additionalBodyBuilder.toString().indent(indentation);
 
-    return header + additionalBody + REPOSITORY_END;
+    String end;
+
+    if (NEEDLE_PLUGIN_REPOSITORY.equals(needle)) {
+      end = PLUGIN_REPOSITORY_END;
+    } else {
+      end = REPOSITORY_END;
+    }
+
+    return header + additionalBody + end;
   }
 }

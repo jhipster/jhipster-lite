@@ -15,6 +15,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.maven.domain.Maven;
 import tech.jhipster.lite.generator.project.domain.Project;
 
@@ -462,6 +463,75 @@ class MavenApplicationServiceIT {
     FileUtils.createFolder(project.getFolder());
 
     assertThatThrownBy(() -> mavenApplicationService.deleteProperty(project, "java")).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddRepository() {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+    mavenApplicationService.addRepository(project, repository);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of("<repository>", "<id>spring-milestone</id>", "<url>https://repo.spring.io/milestone</url>", "</repository>")
+    );
+  }
+
+  @Test
+  void shouldAddRepositoryWithAdditionalElements() {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository
+      .builder()
+      .id("spring-milestone")
+      .url("https://repo.spring.io/milestone")
+      .additionalElements("""
+      <releases>
+        <enabled>false</enabled>
+      </releases>""")
+      .build();
+    mavenApplicationService.addRepository(project, repository);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of(
+        "<repository>",
+        "<id>spring-milestone</id>",
+        "<url>https://repo.spring.io/milestone</url>",
+        "<releases>",
+        "<enabled>false</enabled>",
+        "</releases>",
+        "</repository>"
+      )
+    );
+  }
+
+  @Test
+  void shouldNotAddRepositoryWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+
+    assertThatThrownBy(() -> mavenApplicationService.addRepository(project, repository)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddRepositoryOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+    mavenApplicationService.addRepository(project, repository);
+    mavenApplicationService.addRepository(project, repository);
+
+    assertFileContentManyTimes(
+      project,
+      POM_XML,
+      Maven.getRepositoryHeader(repository, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
+      1
+    );
   }
 
   @Test

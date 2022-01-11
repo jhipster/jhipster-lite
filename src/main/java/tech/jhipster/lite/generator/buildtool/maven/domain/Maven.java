@@ -8,6 +8,7 @@ import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 
 public class Maven {
 
@@ -18,6 +19,7 @@ public class Maven {
   public static final String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
   public static final String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
   public static final String NEEDLE_PLUGIN_MANAGEMENT = "<!-- jhipster-needle-maven-add-plugin-management -->";
+  public static final String NEEDLE_REPOSITORY = "<!-- jhipster-needle-maven-repository -->";
 
   public static final String PARENT_BEGIN = "<parent>";
   public static final String PARENT_END = "</parent>";
@@ -53,6 +55,18 @@ public class Maven {
 
   public static final String EXCLUSION_BEGIN = "<exclusion>";
   public static final String EXCLUSION_END = "</exclusion>";
+
+  public static final String REPOSITORY_BEGIN = "<repository>";
+  public static final String REPOSITORY_END = "</repository>";
+
+  public static final String ID_BEGIN = "<id>";
+  public static final String ID_END = "</id>";
+
+  public static final String URL_BEGIN = "<url>";
+  public static final String URL_END = "</url>";
+
+  public static final String NAME_BEGIN = "<name>";
+  public static final String NAME_END = "</name>";
 
   private Maven() {}
 
@@ -216,5 +230,37 @@ public class Maven {
       .append(key)
       .append(".version>")
       .toString();
+  }
+
+  public static String getRepositoryHeader(Repository repository, int indentation) {
+    String begin = REPOSITORY_BEGIN + LF;
+
+    String content = new StringBuilder()
+      .append(ID_BEGIN)
+      .append(repository.getId())
+      .append(ID_END)
+      .append(LF)
+      .append(URL_BEGIN)
+      .append(repository.getUrl())
+      .append(URL_END)
+      .append(LF)
+      .toString()
+      .indent(indentation);
+
+    return begin + content;
+  }
+
+  public static String getRepository(Repository repository, int indentation) {
+    String header = getRepositoryHeader(repository, indentation);
+
+    StringBuilder additionalBodyBuilder = new StringBuilder();
+
+    repository.getName().ifPresent(name -> additionalBodyBuilder.append(NAME_BEGIN).append(name).append(NAME_END).append(LF));
+
+    repository.getAdditionalElements().ifPresent(additionalBodyBuilder::append);
+
+    String additionalBody = additionalBodyBuilder.toString().indent(indentation);
+
+    return header + additionalBody + REPOSITORY_END;
   }
 }

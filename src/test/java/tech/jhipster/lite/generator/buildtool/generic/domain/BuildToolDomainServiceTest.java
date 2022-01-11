@@ -101,6 +101,16 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
+    void shouldAddRepository() {
+      Project project = tmpProjectWithPomXml();
+      Repository repository = getRepository();
+
+      buildToolDomainService.addRepository(project, repository);
+
+      verify(mavenService).addRepository(project, repository);
+    }
+
+    @Test
     void shouldInit() {
       Project project = tmpProjectWithPomXml();
 
@@ -203,6 +213,14 @@ class BuildToolDomainServiceTest {
       assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "1.16.0"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
+
+    @Test
+    void shouldNotAddRepository() {
+      Project project = tmpProject();
+      Repository repository = getRepository();
+
+      assertThatThrownBy(() -> buildToolDomainService.addRepository(project, repository)).isExactlyInstanceOf(GeneratorException.class);
+    }
   }
 
   private Parent getParent() {
@@ -219,5 +237,9 @@ class BuildToolDomainServiceTest {
 
   private Plugin getPlugin() {
     return Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+  }
+
+  private Repository getRepository() {
+    return Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
   }
 }

@@ -18,6 +18,7 @@ public interface MavenService {
   void addProperty(Project project, String key, String version);
   void deleteProperty(Project project, String key);
   void addRepository(Project project, Repository repository);
+  void addPluginRepository(Project project, Repository repository);
 
   void initJava(Project project);
 

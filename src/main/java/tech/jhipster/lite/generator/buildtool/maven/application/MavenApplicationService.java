@@ -58,6 +58,10 @@ public class MavenApplicationService {
     mavenService.addRepository(project, repository);
   }
 
+  public void addPluginRepository(Project project, Repository repository) {
+    mavenService.addPluginRepository(project, repository);
+  }
+
   public void init(Project project) {
     mavenService.initJava(project);
   }

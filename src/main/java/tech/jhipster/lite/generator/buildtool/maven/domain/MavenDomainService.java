@@ -165,20 +165,39 @@ public class MavenDomainService implements MavenService {
 
   @Override
   public void addRepository(Project project, Repository repository) {
+    addRepository(project, repository, NEEDLE_REPOSITORY);
+  }
+
+  @Override
+  public void addPluginRepository(Project project, Repository repository) {
+    addRepository(project, repository, NEEDLE_PLUGIN_REPOSITORY);
+  }
+
+  private void addRepository(Project project, Repository repository, String needle) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
 
     int level = 2;
 
-    String repositoryNode = Maven.getRepositoryHeader(repository, indent).indent(2 * indent);
+    String repositoryNode;
+    if (NEEDLE_PLUGIN_REPOSITORY.equals(needle)) {
+      repositoryNode = Maven.getPluginRepository(repository, indent).indent(2 * indent);
+    } else {
+      repositoryNode = Maven.getRepositoryHeader(repository, indent).indent(2 * indent);
+    }
     String repositoryRegexp = (REGEXP_PREFIX_MULTILINE + repositoryNode);
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, repositoryRegexp)) {
-      String newRepositoryNode = Maven.getRepository(repository, indent).indent(level * indent);
-      String repositoryWithNeedle = (newRepositoryNode + indent(level, indent) + NEEDLE_REPOSITORY);
+      String newRepositoryNode;
+      if (NEEDLE_PLUGIN_REPOSITORY.equals(needle)) {
+        newRepositoryNode = Maven.getPluginRepository(repository, indent).indent(level * indent);
+      } else {
+        newRepositoryNode = Maven.getRepository(repository, indent).indent(level * indent);
+      }
 
-      projectRepository.replaceText(project, "", POM_XML, REGEXP_SPACE_STAR + NEEDLE_REPOSITORY, repositoryWithNeedle);
+      String repositoryWithNeedle = (newRepositoryNode + indent(level, indent) + needle);
+      projectRepository.replaceText(project, "", POM_XML, REGEXP_SPACE_STAR + needle, repositoryWithNeedle);
     }
   }
 

@@ -356,6 +356,69 @@ class MavenTest {
     assertThat(Maven.getRepository(repository, 2)).isEqualTo(expected);
   }
 
+  @Test
+  void shouldGetPluginRepository() {
+    String expected =
+      """
+      <pluginRepository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+      </pluginRepository>""";
+    Repository repository = minimalRepositoryBuilder().build();
+
+    assertThat(Maven.getPluginRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetPluginRepositoryWithName() {
+    String expected =
+      """
+      <pluginRepository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+        <name>Spring Milestone</name>
+      </pluginRepository>""";
+    Repository repository = fullRepositoryBuilder().build();
+
+    assertThat(Maven.getPluginRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetPluginRepositoryWith4Indentations() {
+    String expected =
+      """
+      <pluginRepository>
+          <id>spring-milestone</id>
+          <url>https://repo.spring.io/milestone</url>
+      </pluginRepository>""";
+    Repository repository = minimalRepositoryBuilder().build();
+
+    assertThat(Maven.getPluginRepository(repository, 4)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetPluginRepositoryWithAdditionalElements() {
+    // @formatter:off
+    String expected = """
+      <pluginRepository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+        <name>Spring Milestone</name>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+      </pluginRepository>""";
+    // @formatter:on
+    Repository repository = fullRepositoryBuilder()
+      .additionalElements("""
+        <releases>
+          <enabled>false</enabled>
+        </releases>""")
+      .build();
+
+    assertThat(Maven.getPluginRepository(repository, 2)).isEqualTo(expected);
+  }
+
   private Repository.RepositoryBuilder minimalRepositoryBuilder() {
     return Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone");
   }

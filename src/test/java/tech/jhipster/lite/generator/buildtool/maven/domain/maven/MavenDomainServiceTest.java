@@ -141,6 +141,16 @@ class MavenDomainServiceTest {
   }
 
   @Test
+  void shouldAddPluginRepository() {
+    Project project = tmpProjectWithPomXml();
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+
+    mavenDomainService.addPluginRepository(project, repository);
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
   void shouldInitJava() {
     Project project = tmpProject();
 

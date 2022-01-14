@@ -55,4 +55,27 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String propertiesWithNeedle = key + "=" + value + LF + needleProperties;
     projectRepository.replaceText(project, getPath(folderProperties, "config"), fileProperties, needleProperties, propertiesWithNeedle);
   }
+
+  @Override
+  public void addLogger(Project project, String packageName, Level level) {
+    addLoggerToConfiguration(project, packageName, level, MAIN_RESOURCES, LOGGING_CONFIGURATION, NEEDLE_LOGBACK_LOGGER);
+  }
+
+  @Override
+  public void addLoggerTest(Project project, String packageName, Level level) {
+    addLoggerToConfiguration(project, packageName, level, TEST_RESOURCES, LOGGING_TEST_CONFIGURATION, NEEDLE_LOGBACK_LOGGER);
+  }
+
+  private void addLoggerToConfiguration(
+    Project project,
+    String packageName,
+    Level level,
+    String folderConfig,
+    String fileLoggingConfig,
+    String needleLogger
+  ) {
+    String loggerWithNeedle =
+      String.format("<logger name=\"%s\" level=\"%s\" />", packageName, level.toString()) + LF + "  " + needleLogger;
+    projectRepository.replaceText(project, getPath(folderConfig), fileLoggingConfig, needleLogger, loggerWithNeedle);
+  }
 }

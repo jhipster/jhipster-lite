@@ -16,6 +16,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest
@@ -208,6 +209,52 @@ class SpringBootCommonApplicationServiceIT {
 
       assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesTest(project, "jhipster.application", "jhlite"))
         .isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
+
+  @Nested
+  class LoggingConfigurationIT {
+
+    @Test
+    void shouldNotAddLogger() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootCommonApplicationService.addLogger(project, "tech.jhipster.web", Level.INFO))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddLoggerWithLevel() {
+      Project project = tmpProjectWithSpringBootLoggingConfiguration();
+
+      springBootCommonApplicationService.addLogger(project, "tech.jhipster.web", Level.DEBUG);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "logback-spring.xml");
+      assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\" />");
+      assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-log -->");
+    }
+  }
+
+  @Nested
+  class TestLoggingConfigurationIT {
+
+    @Test
+    void shouldNotAddTestLogger() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootCommonApplicationService.addLoggerTest(project, "tech.jhipster.web", Level.INFO))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddLoggerWithLevel() {
+      Project project = tmpProjectWithSpringBootLoggingConfiguration();
+
+      springBootCommonApplicationService.addLoggerTest(project, "tech.jhipster.web", Level.DEBUG);
+
+      String applicationProperties = getPath(TEST_RESOURCES, "logback.xml");
+      assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\" />");
+      assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-log -->");
     }
   }
 }

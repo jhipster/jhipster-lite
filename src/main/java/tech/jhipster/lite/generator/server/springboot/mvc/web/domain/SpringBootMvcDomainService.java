@@ -13,9 +13,8 @@ import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 
 public class SpringBootMvcDomainService implements SpringBootMvcService {
 
@@ -27,18 +26,15 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;
   public final SpringBootCommonService springBootCommonService;
-  public final SpringBootLoggingService springBootLoggingService;
 
   public SpringBootMvcDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService,
-    SpringBootLoggingService springBootLoggingService
+    SpringBootCommonService springBootCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
-    this.springBootLoggingService = springBootLoggingService;
   }
 
   @Override
@@ -122,8 +118,8 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   private void addLoggerInConfiguration(Project project, String packageName, Level level) {
-    springBootLoggingService.addLogger(project, packageName, level);
-    springBootLoggingService.addLoggerTest(project, packageName, level);
+    springBootCommonService.addLogger(project, packageName, level);
+    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 
   private int getServerPort(Project project) {

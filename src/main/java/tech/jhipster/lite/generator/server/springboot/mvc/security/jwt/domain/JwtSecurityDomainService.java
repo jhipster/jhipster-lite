@@ -52,20 +52,20 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   private void updateExceptionTranslator(Project project) {
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String exceptionPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
 
-    String oldImport = "import org.springframework.test.util.ReflectionTestUtils;";
+    String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";
     String newImport =
       """
-      import org.springframework.security.test.context.support.WithMockUser;
-      import org.springframework.test.util.ReflectionTestUtils;""";
-    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport, newImport);
+      import org.springframework.boot.test.context.SpringBootTest;
+      import org.springframework.security.test.context.support.WithMockUser;""";
+    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldImport, newImport);
 
-    String oldAnnotation = "@AutoConfigureMockMvc";
+    String oldAnnotation = "public @interface";
     String newAnnotation = """
-      @AutoConfigureMockMvc
-      @WithMockUser""";
-    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldAnnotation, newAnnotation);
+      @WithMockUser
+      public @interface""";
+    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldAnnotation, newAnnotation);
   }
 
   private void addPropertyAndDependency(Project project) {

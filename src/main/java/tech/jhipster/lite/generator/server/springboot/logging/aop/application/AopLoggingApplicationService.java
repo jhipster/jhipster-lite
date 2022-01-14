@@ -1,8 +1,8 @@
-package tech.jhipster.lite.generator.server.springboot.aop.logging.application;
+package tech.jhipster.lite.generator.server.springboot.logging.aop.application;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.aop.logging.domain.AopLoggingService;
+import tech.jhipster.lite.generator.server.springboot.logging.aop.domain.AopLoggingService;
 
 @Service
 public class AopLoggingApplicationService {

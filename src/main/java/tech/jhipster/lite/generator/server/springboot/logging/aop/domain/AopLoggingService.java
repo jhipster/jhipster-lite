@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.aop.logging.domain;
+package tech.jhipster.lite.generator.server.springboot.logging.aop.domain;
 
 import tech.jhipster.lite.generator.project.domain.Project;
 

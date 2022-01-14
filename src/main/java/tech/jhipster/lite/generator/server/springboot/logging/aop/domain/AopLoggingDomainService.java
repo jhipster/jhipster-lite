@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.aop.logging.domain;
+package tech.jhipster.lite.generator.server.springboot.logging.aop.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;

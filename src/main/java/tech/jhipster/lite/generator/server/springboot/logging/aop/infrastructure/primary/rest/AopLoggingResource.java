@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.aop.logging.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.server.springboot.logging.aop.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.server.springboot.aop.logging.application.AopLoggingApplicationService;
+import tech.jhipster.lite.generator.server.springboot.logging.aop.application.AopLoggingApplicationService;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/aop/logging")
-@Tag(name = "Spring Boot")
+@RequestMapping("/api/servers/spring-boot/logging/aop")
+@Tag(name = "Spring Boot - Logging")
 class AopLoggingResource {
 
   private final AopLoggingApplicationService aopLoggingApplicationService;

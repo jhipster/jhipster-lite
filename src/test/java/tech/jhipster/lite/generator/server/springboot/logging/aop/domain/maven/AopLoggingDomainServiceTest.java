@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.aop.logging.domain.maven;
+package tech.jhipster.lite.generator.server.springboot.logging.aop.domain.maven;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -16,8 +16,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.aop.logging.domain.AopLoggingDomainService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.logging.aop.domain.AopLoggingDomainService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

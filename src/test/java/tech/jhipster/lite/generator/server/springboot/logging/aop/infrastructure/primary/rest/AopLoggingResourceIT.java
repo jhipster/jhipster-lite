@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.aop.logging.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.server.springboot.logging.aop.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,7 +53,7 @@ class AopLoggingResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/aop/logging")
+        post("/api/servers/spring-boot/logging/aop")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

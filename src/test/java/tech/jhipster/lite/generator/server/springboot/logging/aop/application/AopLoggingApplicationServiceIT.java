@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.aop.logging.application;
+package tech.jhipster.lite.generator.server.springboot.logging.aop.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestUtils.*;

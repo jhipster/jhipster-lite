@@ -262,6 +262,39 @@ class FileUtilsTest {
   }
 
   @Nested
+  class ReadLineTest {
+
+    @Test
+    void shouldReadLine() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLine(filename, "unit tests")).contains("used for unit tests");
+      assertThat(FileUtils.readLine(filename, "JHipster")).contains("powered by JHipster \uD83E\uDD13");
+    }
+
+    @Test
+    void shouldNotReadLineAsCaseSensitive() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLine(filename, "jhipster")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineForAnotherText() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLine(filename, "beer")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineWhenFileNotExist() {
+      String filename = getPath("src/test/resources/generator/utils/unknown.md");
+
+      assertThatThrownBy(() -> FileUtils.readLine(filename, "beer")).isInstanceOf(IOException.class);
+    }
+  }
+
+  @Nested
   class ContainsInLineTest {
 
     @Test

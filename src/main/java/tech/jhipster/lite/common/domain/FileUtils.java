@@ -90,6 +90,19 @@ public class FileUtils {
     return -1;
   }
 
+  public static Optional<String> readLine(String filename, String value) throws IOException {
+    File file = new File(filename);
+    try (Scanner scanner = new Scanner(file)) {
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+        if (line.contains(value)) {
+          return Optional.of(line);
+        }
+      }
+    }
+    return Optional.empty();
+  }
+
   public static boolean containsLines(String filename, List<String> lines) {
     Assert.notBlank("filename", filename);
     Assert.notEmpty("lines", lines);

@@ -87,9 +87,9 @@ jobs:
     strategy:
       matrix:
         app:
-          - tomcat-postgresql-ehcachejava
-          - tomcat-postgresql-ehcachexml
-          - undertow-mysql-simplecache
+          - full-default
+          - tomcat-mysql-ehcachexml
+          - undertow-simplecache
           - tomcat-configserver
           - undertow-consul
     steps:

@@ -1,5 +1,5 @@
 {
-  "folder": "/tmp/jhlite/tomcat-postgresql-ehcachejava",
+  "folder": "/tmp/jhlite/undertow-simplecache",
   "generator-jhipster": {
     "projectName": "Beer Project",
     "baseName": "beer",

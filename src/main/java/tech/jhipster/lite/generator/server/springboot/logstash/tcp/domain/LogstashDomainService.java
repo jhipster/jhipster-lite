@@ -11,7 +11,7 @@ import java.util.TreeMap;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class LogstashDomainService implements LogstashService {
 
@@ -20,16 +20,16 @@ public class LogstashDomainService implements LogstashService {
 
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
   public LogstashDomainService(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootCommonService springBootCommonService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -63,7 +63,7 @@ public class LogstashDomainService implements LogstashService {
 
   @Override
   public void addProperties(Project project) {
-    properties().forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    properties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
   }
 
   private Map<String, Object> properties() {

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.logging.domain;
+package tech.jhipster.lite.generator.server.springboot.common.domain;
 
 public enum Level {
   OFF,

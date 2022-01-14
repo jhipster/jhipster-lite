@@ -7,7 +7,6 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.LiquibaseDomainService;
 import tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.LiquibaseService;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 
 @Configuration
 public class LiquibaseBeanConfiguration {
@@ -15,22 +14,19 @@ public class LiquibaseBeanConfiguration {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
-  private final SpringBootLoggingService springBootLoggingService;
 
   public LiquibaseBeanConfiguration(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService,
-    SpringBootLoggingService springBootLoggingService
+    SpringBootCommonService springBootCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
-    this.springBootLoggingService = springBootLoggingService;
   }
 
   @Bean
   public LiquibaseService liquibaseService() {
-    return new LiquibaseDomainService(projectRepository, buildToolService, springBootCommonService, springBootLoggingService);
+    return new LiquibaseDomainService(projectRepository, buildToolService, springBootCommonService);
   }
 }

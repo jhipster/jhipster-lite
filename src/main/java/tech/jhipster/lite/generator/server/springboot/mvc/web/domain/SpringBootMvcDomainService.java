@@ -13,9 +13,8 @@ import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class SpringBootMvcDomainService implements SpringBootMvcService {
 
@@ -26,19 +25,16 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
 
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;
-  public final SpringBootPropertiesService springBootPropertiesService;
-  public final SpringBootLoggingService springBootLoggingService;
+  public final SpringBootCommonService springBootCommonService;
 
   public SpringBootMvcDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService,
-    SpringBootLoggingService springBootLoggingService
+    SpringBootCommonService springBootCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
-    this.springBootLoggingService = springBootLoggingService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -69,15 +65,15 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public void addSpringBootActuator(Project project) {
     buildToolService.addDependency(project, springBootActuatorDependency());
 
-    springBootPropertiesService.addProperties(project, "management.endpoints.web.base-path", "/management");
-    springBootPropertiesService.addProperties(
+    springBootCommonService.addProperties(project, "management.endpoints.web.base-path", "/management");
+    springBootCommonService.addProperties(
       project,
       "management.endpoints.web.exposure.include",
       "configprops, env, health, info, logfile, loggers, threaddump"
     );
-    springBootPropertiesService.addProperties(project, "management.endpoint.health.probes.enabled", "true");
-    springBootPropertiesService.addProperties(project, "management.endpoint.health.group.liveness.include", "livenessState");
-    springBootPropertiesService.addProperties(project, "management.endpoint.health.group.readiness.include", "readinessState");
+    springBootCommonService.addProperties(project, "management.endpoint.health.probes.enabled", "true");
+    springBootCommonService.addProperties(project, "management.endpoint.health.group.liveness.include", "livenessState");
+    springBootCommonService.addProperties(project, "management.endpoint.health.group.readiness.include", "readinessState");
   }
 
   @Override
@@ -91,13 +87,9 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     buildToolService.addDependency(project, springBootStarterValidation());
 
     String packageName = project.getPackageName().orElse("com.mycompany.myapp");
-    springBootPropertiesService.addProperties(project, "application.exception.details", "false");
-    springBootPropertiesService.addProperties(
-      project,
-      "application.exception.package",
-      "org.,java.,net.,javax.,com.,io.,de.," + packageName
-    );
-    springBootPropertiesService.addPropertiesTest(project, "application.exception.package", "org.,java.");
+    springBootCommonService.addProperties(project, "application.exception.details", "false");
+    springBootCommonService.addProperties(project, "application.exception.package", "org.,java.,net.,javax.,com.,io.,de.," + packageName);
+    springBootCommonService.addPropertiesTest(project, "application.exception.package", "org.,java.");
 
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
     templateToExceptionHandler(project, packageNamePath, "src", "BadRequestAlertException.java", MAIN_JAVA);
@@ -121,13 +113,13 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   private void addServerPortInProperties(Project project) {
-    springBootPropertiesService.addProperties(project, "server.port", getServerPort(project));
-    springBootPropertiesService.addPropertiesTest(project, "server.port", 0);
+    springBootCommonService.addProperties(project, "server.port", getServerPort(project));
+    springBootCommonService.addPropertiesTest(project, "server.port", 0);
   }
 
   private void addLoggerInConfiguration(Project project, String packageName, Level level) {
-    springBootLoggingService.addLogger(project, packageName, level);
-    springBootLoggingService.addLoggerTest(project, packageName, level);
+    springBootCommonService.addLogger(project, packageName, level);
+    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 
   private int getServerPort(Project project) {

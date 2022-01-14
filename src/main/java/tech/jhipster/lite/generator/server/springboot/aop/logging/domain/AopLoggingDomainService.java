@@ -10,7 +10,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class AopLoggingDomainService implements AopLoggingService {
 
@@ -19,16 +19,16 @@ public class AopLoggingDomainService implements AopLoggingService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
   public AopLoggingDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootCommonService springBootCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -46,9 +46,9 @@ public class AopLoggingDomainService implements AopLoggingService {
 
   @Override
   public void addProperties(Project project) {
-    springBootPropertiesService.addProperties(project, LOGGING_PROPERTY_FIELD, "false");
-    springBootPropertiesService.addPropertiesFast(project, LOGGING_PROPERTY_FIELD, "true");
-    springBootPropertiesService.addPropertiesTest(project, LOGGING_PROPERTY_FIELD, "true");
+    springBootCommonService.addProperties(project, LOGGING_PROPERTY_FIELD, "false");
+    springBootCommonService.addPropertiesFast(project, LOGGING_PROPERTY_FIELD, "true");
+    springBootCommonService.addPropertiesTest(project, LOGGING_PROPERTY_FIELD, "true");
   }
 
   @Override

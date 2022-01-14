@@ -12,9 +12,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
 
 public class LiquibaseDomainService implements LiquibaseService {
 
@@ -26,18 +25,15 @@ public class LiquibaseDomainService implements LiquibaseService {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
-  private final SpringBootLoggingService springBootLoggingService;
 
   public LiquibaseDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService,
-    SpringBootLoggingService springBootLoggingService
+    SpringBootCommonService springBootCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
-    this.springBootLoggingService = springBootLoggingService;
   }
 
   @Override
@@ -100,8 +96,8 @@ public class LiquibaseDomainService implements LiquibaseService {
   }
 
   public void addLogger(Project project, String packageName, Level level) {
-    springBootLoggingService.addLogger(project, packageName, level);
-    springBootLoggingService.addLoggerTest(project, packageName, level);
+    springBootCommonService.addLogger(project, packageName, level);
+    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 
   private void templateToLiquibase(Project project, String source, String type, String sourceFilename, String destination) {

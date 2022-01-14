@@ -9,7 +9,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.cache.common.domain.SpringBootCacheService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class EhcacheDomainService implements EhcacheService {
 
@@ -19,18 +19,18 @@ public class EhcacheDomainService implements EhcacheService {
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
   private final SpringBootCacheService springBootCacheService;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
   public EhcacheDomainService(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
     SpringBootCacheService springBootCacheService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootCommonService springBootCommonService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCacheService = springBootCacheService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -74,7 +74,7 @@ public class EhcacheDomainService implements EhcacheService {
 
   @Override
   public void addXmlProperty(Project project) {
-    springBootPropertiesService.addProperties(project, "spring.cache.jcache.config", "classpath:config/ehcache/ehcache.xml");
+    springBootCommonService.addProperties(project, "spring.cache.jcache.config", "classpath:config/ehcache/ehcache.xml");
   }
 
   @Override
@@ -92,8 +92,8 @@ public class EhcacheDomainService implements EhcacheService {
 
   @Override
   public void addJavaProperties(Project project) {
-    springBootPropertiesService.addProperties(project, "application.cache.ehcache.max-entries", 100);
-    springBootPropertiesService.addProperties(project, "application.cache.ehcache.time-to-live-seconds", 3600);
+    springBootCommonService.addProperties(project, "application.cache.ehcache.max-entries", 100);
+    springBootCommonService.addProperties(project, "application.cache.ehcache.time-to-live-seconds", 3600);
   }
 
   private void templateToEhcache(Project project, String source, String type, String sourceFilename, String destination) {

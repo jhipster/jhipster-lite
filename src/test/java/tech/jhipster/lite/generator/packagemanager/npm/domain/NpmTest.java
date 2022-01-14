@@ -7,7 +7,6 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.OSUtils;
-import tech.jhipster.lite.generator.packagemanager.npm.domain.Npm;
 
 @UnitTest
 class NpmTest {

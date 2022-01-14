@@ -17,7 +17,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.aop.logging.domain.AopLoggingDomainService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -30,7 +30,7 @@ class AopLoggingDomainServiceTest {
   BuildToolService buildToolService;
 
   @Mock
-  SpringBootPropertiesService springBootPropertiesService;
+  SpringBootCommonService springBootCommonService;
 
   @InjectMocks
   AopLoggingDomainService aopLoggingDomainService;
@@ -43,9 +43,9 @@ class AopLoggingDomainServiceTest {
     // Java files
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
     // Properties modifications
-    verify(springBootPropertiesService).addProperties(any(Project.class), anyString(), anyString());
-    verify(springBootPropertiesService).addPropertiesFast(any(Project.class), anyString(), anyString());
-    verify(springBootPropertiesService).addPropertiesTest(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addProperties(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addPropertiesFast(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), anyString());
     // Maven dependency
     verify(buildToolService).addDependency(any(Project.class), any(Dependency.class));
   }
@@ -64,9 +64,9 @@ class AopLoggingDomainServiceTest {
 
     aopLoggingDomainService.addProperties(project);
 
-    verify(springBootPropertiesService).addProperties(any(Project.class), anyString(), anyString());
-    verify(springBootPropertiesService).addPropertiesFast(any(Project.class), anyString(), anyString());
-    verify(springBootPropertiesService).addPropertiesTest(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addProperties(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addPropertiesFast(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), anyString());
   }
 
   @Test

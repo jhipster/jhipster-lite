@@ -15,7 +15,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
-  public static final String SOURCE = "server/springboot/security/oauth2";
+  public static final String SOURCE = "server/springboot/mvc/security/oauth2";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;

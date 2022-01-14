@@ -58,6 +58,7 @@ elif [[ $filename == 'undertow-simplecache' ]]; then
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
   callApi "/api/servers/spring-boot/mvc/web/undertow"
+  callApi "/api/servers/spring-boot/mvc/dummy"
   callApi "/api/servers/spring-boot/banner/jhipster-v3"
   callApi "/api/servers/spring-boot/cache/simple"
 

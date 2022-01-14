@@ -31,6 +31,7 @@ if [[ $filename == 'tomcat-postgresql-ehcachejava' ]]; then
   callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/mvc/security/jwt"
   callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/mvc/dummy"
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
   callApi "/api/servers/spring-boot/aop/logging"

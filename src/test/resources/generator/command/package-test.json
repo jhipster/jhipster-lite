@@ -1,12 +1,12 @@
 {
-  "name": "jhlite",
+  "name": "jhlitetest",
   "version": "0.0.1",
   "scripts": {
     "prettier:check": "prettier --check \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\"",
     "prettier:format": "prettier --write \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\""
   },
   "devDependencies": {
-    "prettier": "2.5.1"
+    "prettier-plugin-java": "1.6.1"
   },
   "engines": {
     "node": ">=14.18.1"

@@ -88,8 +88,8 @@ jobs:
       matrix:
         app:
           - tomcat-postgresql-ehcachejava
-          - tomcat-postgresql-ehcachexml
-          - undertow-mysql-simplecache
+          - tomcat-ehcachexml
+          - undertow-simplecache
           - tomcat-configserver
           - undertow-consul
     steps:

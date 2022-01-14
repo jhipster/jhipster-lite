@@ -1,8 +1,8 @@
-package tech.jhipster.lite.generator.server.springboot.logstash.tcp.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.server.springboot.logging.logstash.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.logstash.tcp.application.LogstashAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ class LogstashResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/logging/logstash/tcp")
+        post("/api/servers/spring-boot/logging/logstash")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

@@ -1,12 +1,12 @@
-package tech.jhipster.lite.generator.server.springboot.logstash.tcp.infrastructure.config;
+package tech.jhipster.lite.generator.server.springboot.logging.logstash.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
-import tech.jhipster.lite.generator.server.springboot.logstash.tcp.domain.LogstashDomainService;
-import tech.jhipster.lite.generator.server.springboot.logstash.tcp.domain.LogstashService;
+import tech.jhipster.lite.generator.server.springboot.logging.logstash.domain.LogstashDomainService;
+import tech.jhipster.lite.generator.server.springboot.logging.logstash.domain.LogstashService;
 
 @Configuration
 public class LogstashBeanConfiguration {

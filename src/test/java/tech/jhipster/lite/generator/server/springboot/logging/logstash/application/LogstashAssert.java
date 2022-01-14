@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.logstash.tcp.application;
+package tech.jhipster.lite.generator.server.springboot.logging.logstash.application;
 
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
@@ -8,7 +8,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.logstash.tcp.domain.Logstash;
+import tech.jhipster.lite.generator.server.springboot.logging.logstash.domain.Logstash;
 
 public class LogstashAssert {
 

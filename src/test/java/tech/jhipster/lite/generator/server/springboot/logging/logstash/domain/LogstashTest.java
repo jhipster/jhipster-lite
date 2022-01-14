@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.logstash.tcp.domain;
+package tech.jhipster.lite.generator.server.springboot.logging.logstash.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

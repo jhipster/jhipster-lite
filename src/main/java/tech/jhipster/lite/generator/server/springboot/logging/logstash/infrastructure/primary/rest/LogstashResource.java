@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.logstash.tcp.infrastructure.rest;
+package tech.jhipster.lite.generator.server.springboot.logging.logstash.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.server.springboot.logstash.tcp.application.LogstashApplicationService;
+import tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashApplicationService;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/logging/logstash/tcp")
+@RequestMapping("/api/servers/spring-boot/logging/logstash")
 @Tag(name = "Spring Boot - Logging")
 class LogstashResource {
 

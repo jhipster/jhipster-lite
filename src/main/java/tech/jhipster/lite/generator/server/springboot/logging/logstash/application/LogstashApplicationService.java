@@ -1,8 +1,8 @@
-package tech.jhipster.lite.generator.server.springboot.logstash.tcp.application;
+package tech.jhipster.lite.generator.server.springboot.logging.logstash.application;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.logstash.tcp.domain.LogstashService;
+import tech.jhipster.lite.generator.server.springboot.logging.logstash.domain.LogstashService;
 
 @Service
 public class LogstashApplicationService {

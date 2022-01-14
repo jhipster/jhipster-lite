@@ -1,9 +1,9 @@
-package tech.jhipster.lite.generator.server.springboot.logstash.tcp.application;
+package tech.jhipster.lite.generator.server.springboot.logging.logstash.application;
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.logstash.tcp.application.LogstashAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

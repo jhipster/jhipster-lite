@@ -83,7 +83,7 @@ class OAuth2SecurityApplicationServiceIT {
     Project project = tmpProject();
 
     GitUtils.init(project.getFolder());
-    mavenService.addPomXml(project);
+    mavenService.addJavaPomXml(project);
     javaBaseApplicationService.init(project);
     springBootService.init(project);
     springBootMvcService.init(project);
@@ -101,7 +101,7 @@ class OAuth2SecurityApplicationServiceIT {
     Project project = tmpProject();
 
     GitUtils.init(project.getFolder());
-    mavenService.addPomXml(project);
+    mavenService.addJavaPomXml(project);
     javaBaseApplicationService.init(project);
     springBootService.init(project);
     springBootMvcService.init(project);

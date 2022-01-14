@@ -11,7 +11,7 @@ import java.util.Optional;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
@@ -19,16 +19,16 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
   public OAuth2SecurityDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootCommonService springBootCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -87,8 +87,8 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   private void addOAuth2ClientProperties(Project project, OAuth2Provider provider, String issuerUri) {
     oauth2ClientProperties(provider, issuerUri)
       .forEach((k, v) -> {
-        springBootPropertiesService.addProperties(project, k, v);
-        springBootPropertiesService.addPropertiesTest(project, k, v);
+        springBootCommonService.addProperties(project, k, v);
+        springBootCommonService.addPropertiesTest(project, k, v);
       });
   }
 

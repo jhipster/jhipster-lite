@@ -13,9 +13,9 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class MySQLDomainService implements MySQLService {
 
@@ -23,18 +23,18 @@ public class MySQLDomainService implements MySQLService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
   private final SpringBootLoggingService springBootLoggingService;
 
   public MySQLDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService,
+    SpringBootCommonService springBootCommonService,
     SpringBootLoggingService springBootLoggingService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
     this.springBootLoggingService = springBootLoggingService;
   }
 
@@ -94,7 +94,7 @@ public class MySQLDomainService implements MySQLService {
   public void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
 
-    springProperties(baseName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springProperties(baseName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
   }
 
   @Override
@@ -120,7 +120,7 @@ public class MySQLDomainService implements MySQLService {
     buildToolService.addProperty(project, "testcontainers", MySQL.getTestcontainersVersion());
     buildToolService.addDependency(project, dependency);
 
-    springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
+    springPropertiesForTest(baseName).forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));
   }
 
   private Map<String, Object> springProperties(String baseName) {

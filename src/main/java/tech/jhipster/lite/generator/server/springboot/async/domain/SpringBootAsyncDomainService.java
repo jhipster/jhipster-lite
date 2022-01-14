@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class SpringBootAsyncDomainService implements SpringBootAsyncService {
 
@@ -18,11 +18,11 @@ public class SpringBootAsyncDomainService implements SpringBootAsyncService {
   public static final String ASYNC_PATH = "technical/infrastructure/secondary/async";
 
   private final ProjectRepository projectRepository;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
-  public SpringBootAsyncDomainService(ProjectRepository projectRepository, SpringBootPropertiesService springBootPropertiesService) {
+  public SpringBootAsyncDomainService(ProjectRepository projectRepository, SpringBootCommonService springBootCommonService) {
     this.projectRepository = projectRepository;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -44,7 +44,7 @@ public class SpringBootAsyncDomainService implements SpringBootAsyncService {
   public void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
 
-    springPropertiesDatasource(baseName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springPropertiesDatasource(baseName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
   }
 
   private Map<String, Object> springPropertiesDatasource(String baseName) {

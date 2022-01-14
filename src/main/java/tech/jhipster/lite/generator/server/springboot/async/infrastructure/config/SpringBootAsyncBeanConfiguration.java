@@ -5,21 +5,21 @@ import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.async.domain.SpringBootAsyncDomainService;
 import tech.jhipster.lite.generator.server.springboot.async.domain.SpringBootAsyncService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @Configuration
 public class SpringBootAsyncBeanConfiguration {
 
   private final ProjectRepository projectRepository;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
-  public SpringBootAsyncBeanConfiguration(ProjectRepository projectRepository, SpringBootPropertiesService springBootPropertiesService) {
+  public SpringBootAsyncBeanConfiguration(ProjectRepository projectRepository, SpringBootCommonService springBootCommonService) {
     this.projectRepository = projectRepository;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Bean
   public SpringBootAsyncService springBootAsyncService() {
-    return new SpringBootAsyncDomainService(projectRepository, springBootPropertiesService);
+    return new SpringBootAsyncDomainService(projectRepository, springBootCommonService);
   }
 }

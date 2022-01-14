@@ -5,18 +5,18 @@ import java.util.TreeMap;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class DevToolsDomainService implements DevToolsService {
 
   public static final String SOURCE = "server/springboot/devtools";
 
   private final BuildToolService buildToolService;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
-  public DevToolsDomainService(BuildToolService buildToolService, SpringBootPropertiesService springBootPropertiesService) {
+  public DevToolsDomainService(BuildToolService buildToolService, SpringBootCommonService springBootCommonService) {
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -34,8 +34,8 @@ public class DevToolsDomainService implements DevToolsService {
 
   @Override
   public void addProperties(Project project) {
-    springPropertiesDevTools(false).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
-    springPropertiesDevTools(true).forEach((k, v) -> springBootPropertiesService.addPropertiesFast(project, k, v));
+    springPropertiesDevTools(false).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springPropertiesDevTools(true).forEach((k, v) -> springBootCommonService.addPropertiesFast(project, k, v));
   }
 
   private Map<String, Object> springPropertiesDevTools(boolean fast) {

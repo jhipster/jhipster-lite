@@ -1,5 +1,6 @@
-package tech.jhipster.lite.generator.server.springboot.properties.domain;
+package tech.jhipster.lite.generator.server.springboot.common.domain;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -8,7 +9,8 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_FAST_PROPERTIES;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.nio.file.Files;
 import org.junit.jupiter.api.Test;
@@ -23,13 +25,13 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class SpringBootPropertiesDomainServiceTest {
+class SpringBootCommonDomainServiceTest {
 
   @Mock
   ProjectRepository projectRepository;
 
   @InjectMocks
-  SpringBootPropertiesDomainService springBootPropertiesDomainService;
+  SpringBootCommonDomainService springBootCommonDomainService;
 
   @Test
   void shouldAddProperties() throws Exception {
@@ -40,7 +42,7 @@ class SpringBootPropertiesDomainServiceTest {
       getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
     );
 
-    springBootPropertiesDomainService.addProperties(project, "server.port", 8080);
+    springBootCommonDomainService.addProperties(project, "server.port", 8080);
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
@@ -54,7 +56,7 @@ class SpringBootPropertiesDomainServiceTest {
       getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_FAST_PROPERTIES)
     );
 
-    springBootPropertiesDomainService.addPropertiesFast(project, "specific.config.fast", "chips");
+    springBootCommonDomainService.addPropertiesFast(project, "specific.config.fast", "chips");
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
@@ -68,7 +70,7 @@ class SpringBootPropertiesDomainServiceTest {
       getPathOf(project.getFolder(), TEST_RESOURCES, "config", APPLICATION_PROPERTIES)
     );
 
-    springBootPropertiesDomainService.addPropertiesTest(project, "server.port", 8080);
+    springBootCommonDomainService.addPropertiesTest(project, "server.port", 8080);
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }

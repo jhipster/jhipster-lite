@@ -16,4 +16,16 @@ public class SpringBootCommonApplicationService {
   public void addTestLogbackRecorder(Project project) {
     springBootCommonService.addTestLogbackRecorder(project);
   }
+
+  public void addProperties(Project project, String key, Object value) {
+    springBootCommonService.addProperties(project, key, value);
+  }
+
+  public void addPropertiesFast(Project project, String key, Object value) {
+    springBootCommonService.addPropertiesFast(project, key, value);
+  }
+
+  public void addPropertiesTest(Project project, String key, Object value) {
+    springBootCommonService.addPropertiesTest(project, key, value);
+  }
 }

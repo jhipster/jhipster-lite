@@ -13,9 +13,9 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 public class PostgresqlDomainService implements PostgresqlService {
 
@@ -23,18 +23,18 @@ public class PostgresqlDomainService implements PostgresqlService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
   private final SpringBootLoggingService springBootLoggingService;
 
   public PostgresqlDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService,
+    SpringBootCommonService springBootCommonService,
     SpringBootLoggingService springBootLoggingService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
     this.springBootLoggingService = springBootLoggingService;
   }
 
@@ -98,10 +98,10 @@ public class PostgresqlDomainService implements PostgresqlService {
     String baseName = project.getBaseName().orElse("jhipster");
     String packageName = project.getPackageName().orElse("com.mycompany.myapp");
 
-    springPropertiesDatasource(baseName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
-    springPropertiesJpaPart1(packageName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
-    springPropertiesJpaPart2().forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
-    springPropertiesHibernate().forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springPropertiesDatasource(baseName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springPropertiesJpaPart1(packageName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springPropertiesJpaPart2().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springPropertiesHibernate().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
   }
 
   @Override
@@ -117,7 +117,7 @@ public class PostgresqlDomainService implements PostgresqlService {
     buildToolService.addProperty(project, "testcontainers", Postgresql.getTestcontainersVersion());
     buildToolService.addDependency(project, dependency);
 
-    springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
+    springPropertiesForTest(baseName).forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));
   }
 
   @Override

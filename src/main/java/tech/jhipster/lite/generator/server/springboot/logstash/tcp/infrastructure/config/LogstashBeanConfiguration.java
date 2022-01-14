@@ -4,29 +4,29 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.logstash.tcp.domain.LogstashDomainService;
 import tech.jhipster.lite.generator.server.springboot.logstash.tcp.domain.LogstashService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
 
 @Configuration
 public class LogstashBeanConfiguration {
 
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
   public LogstashBeanConfiguration(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootCommonService springBootCommonService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Bean
   public LogstashService logstashService() {
-    return new LogstashDomainService(buildToolService, projectRepository, springBootPropertiesService);
+    return new LogstashDomainService(buildToolService, projectRepository, springBootCommonService);
   }
 }

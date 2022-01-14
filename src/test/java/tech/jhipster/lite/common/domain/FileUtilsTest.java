@@ -214,7 +214,7 @@ class FileUtilsTest {
         .append(LF)
         .append("used for unit tests")
         .append(LF)
-        .append("powered by JHipster \uD83E\uDD13")
+        .append("powered by JHipster")
         .append(LF)
         .toString();
       assertThat(result).isEqualTo(expectedResult);
@@ -269,7 +269,7 @@ class FileUtilsTest {
       String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
       assertThat(FileUtils.readLine(filename, "unit tests")).contains("used for unit tests");
-      assertThat(FileUtils.readLine(filename, "JHipster")).contains("powered by JHipster \uD83E\uDD13");
+      assertThat(FileUtils.readLine(filename, "JHipster")).contains("powered by JHipster");
     }
 
     @Test
@@ -401,7 +401,7 @@ class FileUtilsTest {
     void shouldReplaceInFile() throws Exception {
       String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
-      String result = FileUtils.replaceInFile(filename, "powered by JHipster \uD83E\uDD13", "Hello JHipster Lite");
+      String result = FileUtils.replaceInFile(filename, "powered by JHipster", "Hello JHipster Lite");
 
       String expectedResult = new StringBuilder()
         .append("this is a short readme")

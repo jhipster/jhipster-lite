@@ -12,7 +12,7 @@ import java.util.Map;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class JwtSecurityDomainService implements JwtSecurityService {
 
@@ -21,16 +21,16 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCommonService springBootCommonService;
 
   public JwtSecurityDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootCommonService springBootCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -52,20 +52,20 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   private void updateExceptionTranslator(Project project) {
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String exceptionPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
 
-    String oldImport = "import org.springframework.test.util.ReflectionTestUtils;";
+    String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";
     String newImport =
       """
-      import org.springframework.security.test.context.support.WithMockUser;
-      import org.springframework.test.util.ReflectionTestUtils;""";
-    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport, newImport);
+      import org.springframework.boot.test.context.SpringBootTest;
+      import org.springframework.security.test.context.support.WithMockUser;""";
+    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldImport, newImport);
 
-    String oldAnnotation = "@AutoConfigureMockMvc";
+    String oldAnnotation = "public @interface";
     String newAnnotation = """
-      @AutoConfigureMockMvc
-      @WithMockUser""";
-    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldAnnotation, newAnnotation);
+      @WithMockUser
+      public @interface""";
+    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldAnnotation, newAnnotation);
   }
 
   private void addPropertyAndDependency(Project project) {
@@ -113,21 +113,21 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   }
 
   private void addBasicAuthProperties(Project project) {
-    springBootPropertiesService.addProperties(project, "spring.security.user.name", "admin");
-    springBootPropertiesService.addProperties(
+    springBootCommonService.addProperties(project, "spring.security.user.name", "admin");
+    springBootCommonService.addProperties(
       project,
       "spring.security.user.password",
       "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
     );
-    springBootPropertiesService.addProperties(project, "spring.security.user.roles", "ADMIN");
+    springBootCommonService.addProperties(project, "spring.security.user.roles", "ADMIN");
 
-    springBootPropertiesService.addPropertiesTest(project, "spring.security.user.name", "admin");
-    springBootPropertiesService.addPropertiesTest(
+    springBootCommonService.addPropertiesTest(project, "spring.security.user.name", "admin");
+    springBootCommonService.addPropertiesTest(
       project,
       "spring.security.user.password",
       "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
     );
-    springBootPropertiesService.addPropertiesTest(project, "spring.security.user.roles", "ADMIN");
+    springBootCommonService.addPropertiesTest(project, "spring.security.user.roles", "ADMIN");
   }
 
   private void addProperties(Project project) {
@@ -135,8 +135,8 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
     jwtProperties(baseName)
       .forEach((k, v) -> {
-        springBootPropertiesService.addProperties(project, k, v);
-        springBootPropertiesService.addPropertiesTest(project, k, v);
+        springBootCommonService.addProperties(project, k, v);
+        springBootCommonService.addPropertiesTest(project, k, v);
       });
   }
 

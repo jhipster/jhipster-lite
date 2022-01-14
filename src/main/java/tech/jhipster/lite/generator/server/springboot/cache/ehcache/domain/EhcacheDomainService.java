@@ -8,35 +8,34 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.cache.jcache.domain.SpringBootJCacheService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.cache.common.domain.SpringBootCacheService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class EhcacheDomainService implements EhcacheService {
 
   public static final String SOURCE = "server/springboot/cache/ehcache";
-  public static final String DESTINATION = "technical/infrastructure/secondary/cache/ehcache";
+  public static final String DESTINATION = "technical/infrastructure/secondary/cache";
 
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
-  private final SpringBootJCacheService springBootJCacheService;
-  private final SpringBootPropertiesService springBootPropertiesService;
+  private final SpringBootCacheService springBootCacheService;
+  private final SpringBootCommonService springBootCommonService;
 
   public EhcacheDomainService(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
-    SpringBootJCacheService springBootJCacheService,
-    SpringBootPropertiesService springBootPropertiesService
+    SpringBootCacheService springBootCacheService,
+    SpringBootCommonService springBootCommonService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
-    this.springBootJCacheService = springBootJCacheService;
-    this.springBootPropertiesService = springBootPropertiesService;
+    this.springBootCacheService = springBootCacheService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
   public void initJavaConfiguration(Project project) {
     addDependencies(project);
-    addEnableCaching(project);
     addJavaConfig(project);
     addJavaProperties(project);
   }
@@ -52,7 +51,8 @@ public class EhcacheDomainService implements EhcacheService {
 
   @Override
   public void addDependencies(Project project) {
-    springBootJCacheService.addDependencies(project);
+    springBootCacheService.addDependencies(project);
+    buildToolService.addDependency(project, Ehcache.cacheApiDependency());
     buildToolService.addDependency(project, Ehcache.ehcacheDependency());
   }
 
@@ -64,7 +64,7 @@ public class EhcacheDomainService implements EhcacheService {
 
   @Override
   public void addEnableCaching(Project project) {
-    springBootJCacheService.addEnableCaching(project);
+    springBootCacheService.addEnableCaching(project);
   }
 
   @Override
@@ -74,28 +74,26 @@ public class EhcacheDomainService implements EhcacheService {
 
   @Override
   public void addXmlProperty(Project project) {
-    springBootPropertiesService.addProperties(project, "spring.cache.jcache.config", "classpath:config/ehcache/ehcache.xml");
+    springBootCommonService.addProperties(project, "spring.cache.jcache.config", "classpath:config/ehcache/ehcache.xml");
   }
 
   @Override
   public void addJavaConfig(Project project) {
-    springBootJCacheService.addJavaConfig(project);
-
     project.addDefaultConfig(PACKAGE_NAME);
     project.addDefaultConfig(BASE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
 
-    templateToEhcache(project, packageNamePath, "src", "EhcacheConfiguration.java", MAIN_JAVA);
-    templateToEhcache(project, packageNamePath, "src", "EhcacheConfigurer.java", MAIN_JAVA);
+    templateToEhcache(project, packageNamePath, "src", "CacheConfiguration.java", MAIN_JAVA);
     templateToEhcache(project, packageNamePath, "src", "EhcacheProperties.java", MAIN_JAVA);
 
-    templateToEhcache(project, packageNamePath, "test", "EhcacheConfigurationIT.java", TEST_JAVA);
+    templateToEhcache(project, packageNamePath, "test", "CacheConfigurationIT.java", TEST_JAVA);
+    templateToEhcache(project, packageNamePath, "test", "CacheConfigurationTest.java", TEST_JAVA);
   }
 
   @Override
   public void addJavaProperties(Project project) {
-    springBootPropertiesService.addProperties(project, "application.cache.ehcache.max-entries", 100);
-    springBootPropertiesService.addProperties(project, "application.cache.ehcache.time-to-live-seconds", 3600);
+    springBootCommonService.addProperties(project, "application.cache.ehcache.max-entries", 100);
+    springBootCommonService.addProperties(project, "application.cache.ehcache.time-to-live-seconds", 3600);
   }
 
   private void templateToEhcache(Project project, String source, String type, String sourceFilename, String destination) {

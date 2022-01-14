@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
 import java.util.Optional;
+import tech.jhipster.lite.common.domain.OptionalUtils;
 import tech.jhipster.lite.error.domain.Assert;
 
 public class Plugin {
@@ -16,15 +17,8 @@ public class Plugin {
 
     this.groupId = builder.groupId;
     this.artifactId = builder.artifactId;
-    this.version = optionalNotBlank(builder.version);
-    this.additionalElements = optionalNotBlank(builder.additionalElements);
-  }
-
-  private Optional<String> optionalNotBlank(String value) {
-    if (value == null || value.isBlank()) {
-      return Optional.empty();
-    }
-    return Optional.of(value);
+    this.version = OptionalUtils.notBlank(builder.version);
+    this.additionalElements = OptionalUtils.notBlank(builder.additionalElements);
   }
 
   public static PluginBuilder builder() {

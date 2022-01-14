@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
+import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
@@ -30,7 +30,7 @@ class NpmResourceIT {
   InitApplicationService initApplicationService;
 
   @SpyBean
-  CommandRepository commandRepository;
+  NpmRepository npmRepository;
 
   @Test
   void shouldInstall() throws Exception {
@@ -55,6 +55,6 @@ class NpmResourceIT {
       .perform(post("/api/npm/prettier-format").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    verify(commandRepository).npmPrettierFormat(any(Project.class));
+    verify(npmRepository).npmPrettierFormat(any(Project.class));
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "jhlite",
-  "version": "0.0.5-SNAPSHOT",
+  "version": "0.0.7-SNAPSHOT",
   "description": "JHipster Lite",
   "homepage": "https://www.jhipster.tech/",
   "bugs": "https://github.com/jhipster/jhipster-lite/issues",
@@ -21,9 +21,9 @@
   "devDependencies": {
     "@prettier/plugin-xml": "1.2.0",
     "husky": "7.0.4",
-    "lint-staged": "12.1.4",
+    "lint-staged": "12.1.7",
     "prettier": "2.5.1",
-    "prettier-plugin-java": "1.6.0",
+    "prettier-plugin-java": "1.6.1",
     "prettier-plugin-packagejson": "2.2.15"
   },
   "engines": {

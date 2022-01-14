@@ -8,6 +8,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.maven.domain.Maven;
 
 @UnitTest
@@ -17,12 +18,13 @@ class MavenTest {
   void shouldGetParent() {
     // @formatter:off
     String expected =
-      "<parent>" + System.lineSeparator() +
-      "    <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "    <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
-      "    <version>2.5.3</version>" + System.lineSeparator() +
-      "    <relativePath/>" + System.lineSeparator() +
-      "  </parent>";
+      """
+        <parent>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-parent</artifactId>
+          <version>2.5.3</version>
+          <relativePath />
+        </parent>""";
     // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
@@ -33,12 +35,13 @@ class MavenTest {
   void shouldGetParentWith4Indentations() {
     // @formatter:off
     String expected =
-      "<parent>" + System.lineSeparator() +
-      "        <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "        <artifactId>spring-boot-starter-parent</artifactId>" + System.lineSeparator() +
-      "        <version>2.5.3</version>" + System.lineSeparator() +
-      "        <relativePath/>" + System.lineSeparator() +
-      "    </parent>";
+      """
+        <parent>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.5.3</version>
+            <relativePath />
+        </parent>""";
     // @formatter:on
     Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
 
@@ -46,47 +49,50 @@ class MavenTest {
   }
 
   @Test
-  void shouldGetDependencyMinimal() {
+  void shouldGetDependencyMinimalWith2Indentations() {
     // @formatter:off
     String expected =
-      "<dependency>" + System.lineSeparator() +
-      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
-      "    </dependency>";
+      """
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+        </dependency>""";
     // @formatter:on
 
     Dependency dependency = minimalDependencyBuilder().build();
 
-    assertThat(Maven.getDependency(dependency)).isEqualTo(expected);
+    assertThat(Maven.getDependency(dependency, 2)).isEqualTo(expected);
   }
 
   @Test
-  void shouldGetDependencyFull() {
+  void shouldGetDependencyFullWith2Indentations() {
     // @formatter:off
     String expected =
-      "<dependency>" + System.lineSeparator() +
-      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "      <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
-      "      <version>2.5.3</version>" + System.lineSeparator() +
-      "      <scope>test</scope>" + System.lineSeparator() +
-      "    </dependency>";
+      """
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+          <version>2.5.3</version>
+          <scope>test</scope>
+        </dependency>""";
     // @formatter:on
 
     Dependency dependency = fullDependencyBuilder().build();
 
-    assertThat(Maven.getDependency(dependency)).isEqualTo(expected);
+    assertThat(Maven.getDependency(dependency, 2)).isEqualTo(expected);
   }
 
   @Test
   void shouldGetDependencyFullWith4Indentations() {
     // @formatter:off
     String expected =
-      "<dependency>" + System.lineSeparator() +
-      "            <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "            <artifactId>spring-boot-starter</artifactId>" + System.lineSeparator() +
-      "            <version>2.5.3</version>" + System.lineSeparator() +
-      "            <scope>test</scope>" + System.lineSeparator() +
-      "        </dependency>";
+      """
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>2.5.3</version>
+            <scope>test</scope>
+        </dependency>""";
     // @formatter:on
 
     Dependency dependency = fullDependencyBuilder().build();
@@ -98,16 +104,17 @@ class MavenTest {
   void shouldGetDependencyWithExclusions() {
     // @formatter:off
     String expected =
-      "<dependency>" + System.lineSeparator() +
-      "      <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "      <artifactId>spring-boot-starter-web</artifactId>" + System.lineSeparator() +
-      "      <exclusions>" + System.lineSeparator() +
-      "        <exclusion>" + System.lineSeparator() +
-      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
-      "        </exclusion>" + System.lineSeparator() +
-      "      </exclusions>" + System.lineSeparator() +
-      "    </dependency>";
+      """
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+          <exclusions>
+            <exclusion>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-tomcat</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>""";
     // @formatter:on
 
     Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
@@ -121,13 +128,14 @@ class MavenTest {
   }
 
   @Test
-  void shouldGetExclusion() {
+  void shouldGetExclusionWith2Indentations() {
     // @formatter:off
     String expected =
-      "<exclusion>" + System.lineSeparator() +
-      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
-      "        </exclusion>";
+      """
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>""";
     // @formatter:off
 
     Dependency dependencyToExclude = Dependency
@@ -136,19 +144,20 @@ class MavenTest {
       .artifactId("spring-boot-starter-tomcat")
       .build();
 
-    assertThat(Maven.getExclusion(dependencyToExclude)).isEqualTo(expected);
+    assertThat(Maven.getExclusion(dependencyToExclude, 2)).isEqualTo(expected);
   }
 
   @Test
-  void shouldGetExclusions() {
+  void shouldGetExclusionsWith2Indentations() {
     // @formatter:off
     String expected =
-      "<exclusions>" + System.lineSeparator() +
-      "        <exclusion>" + System.lineSeparator() +
-      "          <groupId>org.springframework.boot</groupId>" + System.lineSeparator() +
-      "          <artifactId>spring-boot-starter-tomcat</artifactId>" + System.lineSeparator() +
-      "        </exclusion>" + System.lineSeparator() +
-      "      </exclusions>";
+      """
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+          </exclusion>
+        </exclusions>""";
     // @formatter:off
 
     Dependency dependencyToExclude = Dependency
@@ -157,7 +166,7 @@ class MavenTest {
       .artifactId("spring-boot-starter-tomcat")
       .build();
 
-    assertThat(Maven.getExclusions(List.of(dependencyToExclude))).isEqualTo(expected);
+    assertThat(Maven.getExclusions(List.of(dependencyToExclude), 2)).isEqualTo(expected);
   }
 
   private Dependency.DependencyBuilder minimalDependencyBuilder() {
@@ -172,34 +181,34 @@ class MavenTest {
   void shouldGetPlugin() {
     String expected = """
       <plugin>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>""";
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>""";
     Plugin plugin = minimalPluginBuilder().build();
 
-    assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
+    assertThat(Maven.getPlugin(plugin, 2)).isEqualTo(expected);
   }
 
   @Test
   void shouldGetPluginWithVersion() {
     String expected = """
       <plugin>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-maven-plugin</artifactId>
-              <version>2.6.0</version>
-            </plugin>""";
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.6.0</version>
+      </plugin>""";
     Plugin plugin = fullPluginBuilder().build();
 
-    assertThat(Maven.getPlugin(plugin)).isEqualTo(expected);
+    assertThat(Maven.getPlugin(plugin, 2)).isEqualTo(expected);
   }
 
   @Test
   void shouldGetPluginWith4Indentations() {
     String expected = """
       <plugin>
-                      <groupId>org.springframework.boot</groupId>
-                      <artifactId>spring-boot-maven-plugin</artifactId>
-                  </plugin>""";
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>""";
     Plugin plugin = minimalPluginBuilder().build();
 
     assertThat(Maven.getPlugin(plugin, 4)).isEqualTo(expected);
@@ -210,32 +219,32 @@ class MavenTest {
     // @formatter:off
     String expected = """
       <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.6.0</version>
-                <executions>
-                  <execution>
-                    <id>default-war</id>
-                    <goals>
-                      <goal>war</goal>
-                    </goals>
-                    <phase>package</phase>
-                  </execution>
-                </executions>
-                <configuration>
-                  <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
-                  <failOnMissingWebXml>false</failOnMissingWebXml>
-                  <warSourceDirectory>target/classes/static/</warSourceDirectory>
-                  <webResources>
-                    <resource>
-                      <directory>src/main/webapp</directory>
-                      <includes>
-                        <include>WEB-INF/**</include>
-                      </includes>
-                    </resource>
-                  </webResources>
-                </configuration>
-              </plugin>""".replace("\n", System.lineSeparator());
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.6.0</version>
+        <executions>
+          <execution>
+            <id>default-war</id>
+            <goals>
+              <goal>war</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <warSourceIncludes>WEB-INF/**,META-INF/**</warSourceIncludes>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <warSourceDirectory>target/classes/static/</warSourceDirectory>
+          <webResources>
+            <resource>
+              <directory>src/main/webapp</directory>
+              <includes>
+                <include>WEB-INF/**</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>""";
     // @formatter:on
     Plugin plugin = fullPluginBuilder()
       .additionalElements(
@@ -265,7 +274,7 @@ class MavenTest {
       )
       .build();
 
-    assertThat(Maven.getPluginManagement(plugin)).isEqualTo(expected);
+    assertThat(Maven.getPlugin(plugin, 2)).isEqualTo(expected);
   }
 
   @Test
@@ -282,5 +291,139 @@ class MavenTest {
 
   private Plugin.PluginBuilder fullPluginBuilder() {
     return minimalPluginBuilder().version("2.6.0");
+  }
+
+  @Test
+  void shouldGetRepository() {
+    String expected =
+      """
+      <repository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+      </repository>""";
+    Repository repository = minimalRepositoryBuilder().build();
+
+    assertThat(Maven.getRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetRepositoryWithName() {
+    String expected =
+      """
+      <repository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+        <name>Spring Milestone</name>
+      </repository>""";
+    Repository repository = fullRepositoryBuilder().build();
+
+    assertThat(Maven.getRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetRepositoryWith4Indentations() {
+    String expected =
+      """
+      <repository>
+          <id>spring-milestone</id>
+          <url>https://repo.spring.io/milestone</url>
+      </repository>""";
+    Repository repository = minimalRepositoryBuilder().build();
+
+    assertThat(Maven.getRepository(repository, 4)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetRepositoryWithAdditionalElements() {
+    // @formatter:off
+    String expected = """
+      <repository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+        <name>Spring Milestone</name>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+      </repository>""";
+    // @formatter:on
+    Repository repository = fullRepositoryBuilder()
+      .additionalElements("""
+        <releases>
+          <enabled>false</enabled>
+        </releases>""")
+      .build();
+
+    assertThat(Maven.getRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetPluginRepository() {
+    String expected =
+      """
+      <pluginRepository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+      </pluginRepository>""";
+    Repository repository = minimalRepositoryBuilder().build();
+
+    assertThat(Maven.getPluginRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetPluginRepositoryWithName() {
+    String expected =
+      """
+      <pluginRepository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+        <name>Spring Milestone</name>
+      </pluginRepository>""";
+    Repository repository = fullRepositoryBuilder().build();
+
+    assertThat(Maven.getPluginRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetPluginRepositoryWith4Indentations() {
+    String expected =
+      """
+      <pluginRepository>
+          <id>spring-milestone</id>
+          <url>https://repo.spring.io/milestone</url>
+      </pluginRepository>""";
+    Repository repository = minimalRepositoryBuilder().build();
+
+    assertThat(Maven.getPluginRepository(repository, 4)).isEqualTo(expected);
+  }
+
+  @Test
+  void shouldGetPluginRepositoryWithAdditionalElements() {
+    // @formatter:off
+    String expected = """
+      <pluginRepository>
+        <id>spring-milestone</id>
+        <url>https://repo.spring.io/milestone</url>
+        <name>Spring Milestone</name>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+      </pluginRepository>""";
+    // @formatter:on
+    Repository repository = fullRepositoryBuilder()
+      .additionalElements("""
+        <releases>
+          <enabled>false</enabled>
+        </releases>""")
+      .build();
+
+    assertThat(Maven.getPluginRepository(repository, 2)).isEqualTo(expected);
+  }
+
+  private Repository.RepositoryBuilder minimalRepositoryBuilder() {
+    return Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone");
+  }
+
+  private Repository.RepositoryBuilder fullRepositoryBuilder() {
+    return minimalRepositoryBuilder().name("Spring Milestone");
   }
 }

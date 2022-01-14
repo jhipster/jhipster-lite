@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 
@@ -11,15 +12,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
 class NpmDomainServiceTest {
 
   @Mock
-  CommandRepository commandRepository;
+  NpmRepository npmRepository;
+
+  @Mock
+  ProjectRepository projectRepository;
 
   @InjectMocks
   NpmDomainService npmDomainService;
@@ -31,6 +35,8 @@ class NpmDomainServiceTest {
     String version = "2.5.1";
 
     assertThatCode(() -> npmDomainService.addDependency(project, dependency, version)).doesNotThrowAnyException();
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -56,7 +62,7 @@ class NpmDomainServiceTest {
     Project project = tmpProject();
     assertThatCode(() -> npmDomainService.install(project)).doesNotThrowAnyException();
 
-    verify(commandRepository).npmInstall(any(Project.class));
+    verify(npmRepository).npmInstall(any(Project.class));
   }
 
   @Test
@@ -64,6 +70,6 @@ class NpmDomainServiceTest {
     Project project = tmpProject();
     assertThatCode(() -> npmDomainService.prettify(project)).doesNotThrowAnyException();
 
-    verify(commandRepository).npmPrettierFormat(any(Project.class));
+    verify(npmRepository).npmPrettierFormat(any(Project.class));
   }
 }

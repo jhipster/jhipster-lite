@@ -1,12 +1,14 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
-import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 
 public class Maven {
 
@@ -17,6 +19,8 @@ public class Maven {
   public static final String NEEDLE_PLUGIN = "<!-- jhipster-needle-maven-add-plugin -->";
   public static final String NEEDLE_PROPERTIES = "<!-- jhipster-needle-maven-property -->";
   public static final String NEEDLE_PLUGIN_MANAGEMENT = "<!-- jhipster-needle-maven-add-plugin-management -->";
+  public static final String NEEDLE_REPOSITORY = "<!-- jhipster-needle-maven-repository -->";
+  public static final String NEEDLE_PLUGIN_REPOSITORY = "<!-- jhipster-needle-maven-plugin-repository -->";
 
   public static final String PARENT_BEGIN = "<parent>";
   public static final String PARENT_END = "</parent>";
@@ -53,6 +57,21 @@ public class Maven {
   public static final String EXCLUSION_BEGIN = "<exclusion>";
   public static final String EXCLUSION_END = "</exclusion>";
 
+  public static final String REPOSITORY_BEGIN = "<repository>";
+  public static final String REPOSITORY_END = "</repository>";
+
+  public static final String ID_BEGIN = "<id>";
+  public static final String ID_END = "</id>";
+
+  public static final String URL_BEGIN = "<url>";
+  public static final String URL_END = "</url>";
+
+  public static final String NAME_BEGIN = "<name>";
+  public static final String NAME_END = "</name>";
+
+  public static final String PLUGIN_REPOSITORY_BEGIN = "<pluginRepository>";
+  public static final String PLUGIN_REPOSITORY_END = "</pluginRepository>";
+
   private Maven() {}
 
   public static String getParent(Parent parent) {
@@ -64,212 +83,145 @@ public class Maven {
   }
 
   public static String getParentHeader(Parent parent, int indentation) {
-    StringBuilder result = new StringBuilder()
-      .append(PARENT_BEGIN)
-      .append(System.lineSeparator())
-      .append(indent(2, indentation))
+    String begin = PARENT_BEGIN + LF;
+
+    String content = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(parent.getGroupId())
       .append(GROUP_ID_END)
-      .append(System.lineSeparator())
-      .append(indent(2, indentation))
+      .append(LF)
       .append(ARTIFACT_ID_BEGIN)
       .append(parent.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(System.lineSeparator());
-    return result.toString();
+      .append(LF)
+      .toString()
+      .indent(indentation);
+
+    return begin + content;
   }
 
   public static String getParent(Parent parent, int indentation) {
-    StringBuilder result = new StringBuilder()
-      .append(getParentHeader(parent, indentation))
-      .append(indent(2, indentation))
+    String header = getParentHeader(parent, indentation);
+
+    String additionalContent = new StringBuilder()
       .append(VERSION_BEGIN)
       .append(parent.getVersion())
       .append(VERSION_END)
-      .append(System.lineSeparator())
-      .append(indent(2, indentation))
-      .append("<relativePath/>")
-      .append(System.lineSeparator())
-      .append(indent(1, indentation))
-      .append(PARENT_END);
+      .append(LF)
+      .append("<relativePath />")
+      .toString()
+      .indent(indentation);
 
-    return result.toString();
-  }
-
-  public static String getDependency(Dependency dependency) {
-    return getDependency(dependency, WordUtils.DEFAULT_INDENTATION, List.of());
+    return header + additionalContent + PARENT_END;
   }
 
   public static String getDependency(Dependency dependency, int indentation) {
     return getDependency(dependency, indentation, List.of());
   }
 
-  public static String getDependencyHeader(Dependency dependency) {
-    return getDependencyHeader(dependency, WordUtils.DEFAULT_INDENTATION);
-  }
-
   public static String getDependencyHeader(Dependency dependency, int indentation) {
-    StringBuilder result = new StringBuilder()
-      .append(DEPENDENCY_BEGIN)
-      .append(System.lineSeparator())
-      .append(indent(3, indentation))
+    String begin = DEPENDENCY_BEGIN + LF;
+
+    String content = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(dependency.getGroupId())
       .append(GROUP_ID_END)
-      .append(System.lineSeparator())
-      .append(indent(3, indentation))
+      .append(LF)
       .append(ARTIFACT_ID_BEGIN)
       .append(dependency.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(System.lineSeparator());
-    return result.toString();
+      .append(LF)
+      .toString()
+      .indent(indentation);
+
+    return begin + content;
   }
 
   public static String getDependency(Dependency dependency, int indentation, List<Dependency> exclusions) {
-    StringBuilder result = new StringBuilder().append(getDependencyHeader(dependency, indentation));
+    String header = getDependencyHeader(dependency, indentation);
+
+    StringBuilder additionalBodyBuilder = new StringBuilder();
 
     if (dependency.isOptional()) {
-      result.append(indent(3, indentation)).append(OPTIONAL).append(System.lineSeparator());
+      additionalBodyBuilder.append(OPTIONAL).append(LF);
     }
 
     dependency
       .getVersion()
-      .ifPresent(version ->
-        result.append(indent(3, indentation)).append(VERSION_BEGIN).append(version).append(VERSION_END).append(System.lineSeparator())
-      );
+      .ifPresent(version -> additionalBodyBuilder.append(VERSION_BEGIN).append(version).append(VERSION_END).append(LF));
 
-    dependency
-      .getScope()
-      .ifPresent(scope ->
-        result.append(indent(3, indentation)).append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append(System.lineSeparator())
-      );
+    dependency.getScope().ifPresent(scope -> additionalBodyBuilder.append(SCOPE_BEGIN).append(scope).append(SCOPE_END).append(LF));
 
-    dependency
-      .getType()
-      .ifPresent(type ->
-        result.append(indent(3, indentation)).append(TYPE_BEGIN).append(type).append(TYPE_END).append(System.lineSeparator())
-      );
+    dependency.getType().ifPresent(type -> additionalBodyBuilder.append(TYPE_BEGIN).append(type).append(TYPE_END).append(LF));
 
     if (exclusions != null && !exclusions.isEmpty()) {
-      result.append(indent(3, indentation)).append(getExclusions(exclusions)).append(System.lineSeparator());
+      additionalBodyBuilder.append(getExclusions(exclusions, indentation)).append(LF);
     }
 
-    result.append(indent(2, indentation)).append(DEPENDENCY_END);
+    String additionalBody = additionalBodyBuilder.toString().indent(indentation);
 
-    return result.toString();
-  }
-
-  public static String getExclusion(Dependency exclusion) {
-    return getExclusion(exclusion, WordUtils.DEFAULT_INDENTATION);
+    return header + additionalBody + DEPENDENCY_END;
   }
 
   public static String getExclusion(Dependency exclusion, int indentation) {
-    StringBuilder result = new StringBuilder()
-      .append(EXCLUSION_BEGIN)
-      .append(System.lineSeparator())
-      .append(indent(5, indentation))
+    String begin = EXCLUSION_BEGIN + LF;
+
+    String body = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(exclusion.getGroupId())
       .append(GROUP_ID_END)
-      .append(System.lineSeparator())
-      .append(indent(5, indentation))
+      .append(LF)
       .append(ARTIFACT_ID_BEGIN)
       .append(exclusion.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(System.lineSeparator())
-      .append(indent(4, indentation))
-      .append(EXCLUSION_END);
-    return result.toString();
-  }
+      .append(LF)
+      .toString()
+      .indent(indentation);
 
-  public static String getExclusions(List<Dependency> exclusions) {
-    return getExclusions(exclusions, WordUtils.DEFAULT_INDENTATION);
+    return begin + body + EXCLUSION_END;
   }
 
   public static String getExclusions(List<Dependency> exclusions, int indentation) {
-    StringBuilder result = new StringBuilder().append(EXCLUSIONS_BEGIN);
+    String begin = EXCLUSIONS_BEGIN + LF;
 
-    exclusions.forEach(exclusion -> result.append(System.lineSeparator()).append(indent(4, indentation)).append(getExclusion(exclusion)));
-    result.append(System.lineSeparator()).append(indent(3, indentation)).append(EXCLUSIONS_END);
-    return result.toString();
-  }
+    String body = exclusions
+      .stream()
+      .map(exclusion -> getExclusion(exclusion, indentation))
+      .collect(Collectors.joining(LF))
+      .indent(indentation);
 
-  public static String getPlugin(Plugin plugin) {
-    return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION, 3);
-  }
-
-  public static String getPlugin(Plugin plugin, int indentation) {
-    return getPlugin(plugin, indentation, 3);
-  }
-
-  public static String getPluginHeader(Plugin plugin) {
-    return getPluginHeader(plugin, WordUtils.DEFAULT_INDENTATION, 3);
+    return begin + body + EXCLUSIONS_END;
   }
 
   public static String getPluginHeader(Plugin plugin, int indentation) {
-    return getPluginHeader(plugin, indentation, 3);
-  }
+    String begin = PLUGIN_BEGIN + LF;
 
-  public static String getPluginManagement(Plugin plugin) {
-    return getPlugin(plugin, WordUtils.DEFAULT_INDENTATION, 4);
-  }
-
-  public static String getPluginManagement(Plugin plugin, int indentation) {
-    return getPlugin(plugin, indentation, 4);
-  }
-
-  public static String getPluginManagementHeader(Plugin plugin) {
-    return getPluginHeader(plugin, WordUtils.DEFAULT_INDENTATION, 4);
-  }
-
-  public static String getPluginManagementHeader(Plugin plugin, int indentation) {
-    return getPluginHeader(plugin, indentation, 4);
-  }
-
-  public static String getPluginHeader(Plugin plugin, int indentation, int initialIndentation) {
-    StringBuilder result = new StringBuilder()
-      .append(PLUGIN_BEGIN)
-      .append(System.lineSeparator())
-      .append(indent(initialIndentation + 1, indentation))
+    String content = new StringBuilder()
       .append(GROUP_ID_BEGIN)
       .append(plugin.getGroupId())
       .append(GROUP_ID_END)
-      .append(System.lineSeparator())
-      .append(indent(initialIndentation + 1, indentation))
+      .append(LF)
       .append(ARTIFACT_ID_BEGIN)
       .append(plugin.getArtifactId())
       .append(ARTIFACT_ID_END)
-      .append(System.lineSeparator());
-    return result.toString();
+      .toString()
+      .indent(indentation);
+
+    return begin + content;
   }
 
-  public static String getPlugin(Plugin plugin, int indentation, int initialIndentation) {
-    StringBuilder result = new StringBuilder().append(getPluginHeader(plugin, indentation, initialIndentation));
+  public static String getPlugin(Plugin plugin, int indentation) {
+    String header = getPluginHeader(plugin, indentation);
 
-    plugin
-      .getVersion()
-      .ifPresent(version ->
-        result
-          .append(indent(initialIndentation + 1, indentation))
-          .append(VERSION_BEGIN)
-          .append(version)
-          .append(VERSION_END)
-          .append(System.lineSeparator())
-      );
+    StringBuilder additionalBodyBuilder = new StringBuilder();
 
-    //replace '\n' to make the multi-line additionalConfiguration platform specific
-    plugin
-      .getAdditionalElements()
-      .ifPresent(additionalElements ->
-        result.append(
-          plugin.getAdditionalElements().get().indent((initialIndentation + 1) * indentation).replace("\n", System.lineSeparator())
-        )
-      );
+    plugin.getVersion().ifPresent(version -> additionalBodyBuilder.append(VERSION_BEGIN).append(version).append(VERSION_END).append(LF));
 
-    result.append(indent(initialIndentation, indentation)).append(PLUGIN_END);
+    plugin.getAdditionalElements().ifPresent(additionalBodyBuilder::append);
 
-    return result.toString();
+    String additionalBody = additionalBodyBuilder.toString().indent(indentation);
+
+    return header + additionalBody + PLUGIN_END;
   }
 
   public static String getProperty(String key, String version) {
@@ -282,5 +234,67 @@ public class Maven {
       .append(key)
       .append(".version>")
       .toString();
+  }
+
+  public static String getRepositoryHeader(Repository repository, int indentation) {
+    return getRepositoryHeader(repository, indentation, NEEDLE_REPOSITORY);
+  }
+
+  public static String getRepository(Repository repository, int indentation) {
+    return getRepository(repository, indentation, NEEDLE_REPOSITORY);
+  }
+
+  public static String getPluginRepositoryHeader(Repository repository, int indentation) {
+    return getRepositoryHeader(repository, indentation, NEEDLE_PLUGIN_REPOSITORY);
+  }
+
+  public static String getPluginRepository(Repository repository, int indentation) {
+    return getRepository(repository, indentation, NEEDLE_PLUGIN_REPOSITORY);
+  }
+
+  private static String getRepositoryHeader(Repository repository, int indentation, String needle) {
+    String begin;
+
+    if (NEEDLE_PLUGIN_REPOSITORY.equals(needle)) {
+      begin = new StringBuilder().append(PLUGIN_REPOSITORY_BEGIN).append(LF).toString();
+    } else {
+      begin = new StringBuilder().append(REPOSITORY_BEGIN).append(LF).toString();
+    }
+
+    String content = new StringBuilder()
+      .append(ID_BEGIN)
+      .append(repository.getId())
+      .append(ID_END)
+      .append(LF)
+      .append(URL_BEGIN)
+      .append(repository.getUrl())
+      .append(URL_END)
+      .append(LF)
+      .toString()
+      .indent(indentation);
+
+    return begin + content;
+  }
+
+  private static String getRepository(Repository repository, int indentation, String needle) {
+    String header = getRepositoryHeader(repository, indentation, needle);
+
+    StringBuilder additionalBodyBuilder = new StringBuilder();
+
+    repository.getName().ifPresent(name -> additionalBodyBuilder.append(NAME_BEGIN).append(name).append(NAME_END).append(LF));
+
+    repository.getAdditionalElements().ifPresent(additionalBodyBuilder::append);
+
+    String additionalBody = additionalBodyBuilder.toString().indent(indentation);
+
+    String end;
+
+    if (NEEDLE_PLUGIN_REPOSITORY.equals(needle)) {
+      end = PLUGIN_REPOSITORY_END;
+    } else {
+      end = REPOSITORY_END;
+    }
+
+    return header + additionalBody + end;
   }
 }

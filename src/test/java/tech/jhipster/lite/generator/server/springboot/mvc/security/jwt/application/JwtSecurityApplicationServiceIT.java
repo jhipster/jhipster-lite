@@ -6,6 +6,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.*;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
@@ -38,7 +39,7 @@ class JwtSecurityApplicationServiceIT {
   void shouldInit() throws Exception {
     Project project = tmpProject();
     GitUtils.init(project.getFolder());
-    mavenService.addPomXml(project);
+    mavenService.addJavaPomXml(project);
     javaBaseApplicationService.init(project);
     springBootService.init(project);
     springBootMvcService.init(project);
@@ -49,20 +50,23 @@ class JwtSecurityApplicationServiceIT {
     assertJwtSecurityFilesExists(project);
     assertJwtSecurityProperties(project);
 
-    String exceptionTranslatorIT = "com/mycompany/myapp/technical/infrastructure/primary/exception/ExceptionTranslatorIT.java";
+    String integrationTest = "com/mycompany/myapp/IntegrationTest.java";
     assertFileContent(
       project,
-      getPath(TEST_JAVA, exceptionTranslatorIT),
-      "import org.springframework.security.test.context.support.WithMockUser;"
+      getPath(TEST_JAVA, integrationTest),
+      List.of(
+        "import org.springframework.boot.test.context.SpringBootTest;",
+        "import org.springframework.security.test.context.support.WithMockUser;"
+      )
     );
-    assertFileContent(project, getPath(TEST_JAVA, exceptionTranslatorIT), "@WithMockUser");
+    assertFileContent(project, getPath(TEST_JAVA, integrationTest), List.of("@WithMockUser", "public @interface"));
   }
 
   @Test
   void shouldAddBasicAuth() throws Exception {
     Project project = tmpProject();
     GitUtils.init(project.getFolder());
-    mavenService.addPomXml(project);
+    mavenService.addJavaPomXml(project);
     javaBaseApplicationService.init(project);
     springBootService.init(project);
     springBootMvcService.init(project);

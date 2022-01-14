@@ -1,14 +1,16 @@
 package tech.jhipster.lite.common.domain;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -24,7 +26,8 @@ public class FileUtils {
 
   public static final String REGEXP_PREFIX_MULTILINE = "(?m)";
   public static final String REGEXP_PREFIX_DOTALL = "(?s)";
-  public static final String DOT_STAR_REGEX = ".*";
+  public static final String REGEXP_DOT_STAR = ".*";
+  public static final String REGEXP_SPACE_STAR = "[ \t]*";
 
   private FileUtils() {}
 
@@ -65,7 +68,11 @@ public class FileUtils {
   }
 
   public static String read(String filename) throws IOException {
-    return Files.readString(getPathOf(filename), StandardCharsets.UTF_8);
+    return normalizeEndOfLine(Files.readString(getPathOf(filename), StandardCharsets.UTF_8));
+  }
+
+  public static void write(String filename, String text, String eol) throws IOException {
+    Files.write(getPathOf(filename), transformEndOfLine(text, eol).getBytes());
   }
 
   public static int getLine(String filename, String value) throws IOException {
@@ -136,5 +143,35 @@ public class FileUtils {
 
   public static boolean isPosix() {
     return FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
+  }
+
+  public static Optional<String> detectEndOfLine(String filename) throws IOException {
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8))) {
+      char previousChar = 0;
+      char currentChar;
+      int read;
+      while ((read = reader.read()) != -1) {
+        currentChar = (char) read;
+        if (currentChar == '\n') {
+          if (previousChar == '\r') {
+            return Optional.of(CRLF);
+          }
+          return Optional.of(LF);
+        }
+        previousChar = currentChar;
+      }
+    }
+    return Optional.empty();
+  }
+
+  public static String normalizeEndOfLine(String text) {
+    return transformEndOfLine(text, LF);
+  }
+
+  public static String transformEndOfLine(String text, String toEndOfLine) {
+    if (LF.equals(toEndOfLine)) {
+      return text.replace(CRLF, LF);
+    }
+    return text.replaceAll("([^\\r])\\n", "$1" + toEndOfLine);
   }
 }

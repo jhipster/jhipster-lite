@@ -18,14 +18,14 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
 class JwtSecurityDomainServiceTest {
 
   @Mock
-  SpringBootPropertiesService springBootPropertiesService;
+  SpringBootCommonService springBootCommonService;
 
   @Mock
   ProjectRepository projectRepository;
@@ -49,8 +49,8 @@ class JwtSecurityDomainServiceTest {
     // 12 classes + 4 tests
     verify(projectRepository, times(16)).template(any(Project.class), anyString(), anyString(), anyString());
 
-    verify(springBootPropertiesService, times(9)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootPropertiesService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(9)).addProperties(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
   }
 
   @Test
@@ -60,7 +60,7 @@ class JwtSecurityDomainServiceTest {
     jwtSecurityDomainService.addBasicAuth(project);
 
     verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
-    verify(springBootPropertiesService, times(3)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootPropertiesService, times(3)).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(3)).addProperties(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(3)).addPropertiesTest(any(Project.class), anyString(), any());
   }
 }

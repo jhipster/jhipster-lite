@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
-import tech.jhipster.lite.generator.project.domain.CommandRepository;
+import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
@@ -30,7 +30,7 @@ class InitResourceIT {
   InitApplicationService initApplicationService;
 
   @SpyBean
-  CommandRepository commandRepository;
+  NpmRepository npmRepository;
 
   @Test
   void shouldInit() throws Exception {

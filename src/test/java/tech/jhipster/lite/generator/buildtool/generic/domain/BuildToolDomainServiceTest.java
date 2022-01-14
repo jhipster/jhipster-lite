@@ -101,12 +101,32 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
+    void shouldAddRepository() {
+      Project project = tmpProjectWithPomXml();
+      Repository repository = getRepository();
+
+      buildToolDomainService.addRepository(project, repository);
+
+      verify(mavenService).addRepository(project, repository);
+    }
+
+    @Test
+    void shouldAddPluginRepository() {
+      Project project = tmpProjectWithPomXml();
+      Repository repository = getRepository();
+
+      buildToolDomainService.addPluginRepository(project, repository);
+
+      verify(mavenService).addPluginRepository(project, repository);
+    }
+
+    @Test
     void shouldInit() {
       Project project = tmpProjectWithPomXml();
 
       buildToolDomainService.init(project, BuildToolType.MAVEN);
 
-      verify(mavenService).init(project);
+      verify(mavenService).initJava(project);
     }
 
     @Test
@@ -115,7 +135,7 @@ class BuildToolDomainServiceTest {
 
       buildToolDomainService.init(project, BuildToolType.MAVEN);
 
-      verify(mavenService).init(project);
+      verify(mavenService).initJava(project);
     }
   }
 
@@ -203,6 +223,23 @@ class BuildToolDomainServiceTest {
       assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "1.16.0"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
+
+    @Test
+    void shouldNotAddRepository() {
+      Project project = tmpProject();
+      Repository repository = getRepository();
+
+      assertThatThrownBy(() -> buildToolDomainService.addRepository(project, repository)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotAddPluginRepository() {
+      Project project = tmpProject();
+      Repository repository = getRepository();
+
+      assertThatThrownBy(() -> buildToolDomainService.addPluginRepository(project, repository))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
   }
 
   private Parent getParent() {
@@ -219,5 +256,9 @@ class BuildToolDomainServiceTest {
 
   private Plugin getPlugin() {
     return Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
+  }
+
+  private Repository getRepository() {
+    return Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
   }
 }

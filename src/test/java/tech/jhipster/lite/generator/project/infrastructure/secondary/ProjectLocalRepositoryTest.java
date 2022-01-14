@@ -6,10 +6,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.io.File;
@@ -192,17 +191,17 @@ class ProjectLocalRepositoryTest {
   @Test
   void shouldReplaceText() {
     Project project = tmpProjectWithPomXml();
+
     String oldText = """
       <name>jhipster</name>
         <description>JHipster Project</description>""";
     String newText = """
       <name>chips</name>
-
         <description>Chips Project</description>""";
 
     repository.replaceText(project, "", POM_XML, oldText, newText);
 
-    assertFileContent(project, POM_XML, List.of("<name>chips</name>", "", "<description>Chips Project</description>"));
+    assertFileContent(project, POM_XML, List.of("<name>chips</name>", "<description>Chips Project</description>"));
   }
 
   @Test
@@ -254,6 +253,9 @@ class ProjectLocalRepositoryTest {
 
   @Test
   void shouldSetExecutable() throws IOException {
+    if (!FileUtils.isPosix()) {
+      return;
+    }
     Project project = tmpProjectWithPomXml();
     String pomXmlFolder = getPath(project.getFolder(), POM_XML);
     Set<PosixFilePermission> posixFilePermissions = Files.getPosixFilePermissions(getPathOf(pomXmlFolder));
@@ -267,6 +269,9 @@ class ProjectLocalRepositoryTest {
 
   @Test
   void shouldNotSetExecutable() {
+    if (!FileUtils.isPosix()) {
+      return;
+    }
     Project project = tmpProject();
     assertThatThrownBy(() -> repository.setExecutable(project, "", POM_XML)).isExactlyInstanceOf(GeneratorException.class);
   }

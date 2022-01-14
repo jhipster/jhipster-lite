@@ -95,6 +95,24 @@ public class TestUtils {
     return project;
   }
 
+  public static Project tmpProjectWithPackageJsonNothing() {
+    Project project = tmpProject();
+    copyPackageJsonByName(project, "package-nothing.json");
+    return project;
+  }
+
+  public static Project tmpProjectWithPackageJsonEmpty() {
+    Project project = tmpProject();
+    copyPackageJsonByName(project, "package-empty.json");
+    return project;
+  }
+
+  public static Project tmpProjectWithPackageJsonComplete() {
+    Project project = tmpProject();
+    copyPackageJsonByName(project, "package-complete.json");
+    return project;
+  }
+
   public static Project tmpProjectWithBuildGradle() {
     Project project = tmpProject();
     copyBuildGradle(project);
@@ -138,6 +156,15 @@ public class TestUtils {
     try {
       FileUtils.createFolder(project.getFolder());
       Files.copy(getPathOf("src/test/resources/generator/command/package-test.json"), getPathOf(project.getFolder(), PACKAGE_JSON));
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public static void copyPackageJsonByName(Project project, String packageJsonFilename) {
+    try {
+      FileUtils.createFolder(project.getFolder());
+      Files.copy(getPathOf("src/test/resources/generator/command/", packageJsonFilename), getPathOf(project.getFolder(), PACKAGE_JSON));
     } catch (IOException e) {
       throw new AssertionError(e);
     }

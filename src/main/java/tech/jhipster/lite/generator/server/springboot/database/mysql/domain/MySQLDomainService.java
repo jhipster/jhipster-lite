@@ -13,9 +13,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.Level;
-import tech.jhipster.lite.generator.server.springboot.logging.domain.SpringBootLoggingService;
-import tech.jhipster.lite.generator.server.springboot.properties.domain.SpringBootPropertiesService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class MySQLDomainService implements MySQLService {
 
@@ -23,19 +22,16 @@ public class MySQLDomainService implements MySQLService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
-  private final SpringBootPropertiesService springBootPropertiesService;
-  private final SpringBootLoggingService springBootLoggingService;
+  private final SpringBootCommonService springBootCommonService;
 
   public MySQLDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootPropertiesService springBootPropertiesService,
-    SpringBootLoggingService springBootLoggingService
+    SpringBootCommonService springBootCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
-    this.springBootPropertiesService = springBootPropertiesService;
-    this.springBootLoggingService = springBootLoggingService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -94,7 +90,7 @@ public class MySQLDomainService implements MySQLService {
   public void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
 
-    springProperties(baseName).forEach((k, v) -> springBootPropertiesService.addProperties(project, k, v));
+    springProperties(baseName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
   }
 
   @Override
@@ -103,8 +99,8 @@ public class MySQLDomainService implements MySQLService {
     addLogger(project, "org.hibernate", Level.WARN);
     addLogger(project, "org.hibernate.ejb.HibernatePersistence", Level.OFF);
 
-    springBootLoggingService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
-    springBootLoggingService.addLoggerTest(project, "org.testcontainers", Level.WARN);
+    springBootCommonService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
+    springBootCommonService.addLoggerTest(project, "org.testcontainers", Level.WARN);
   }
 
   @Override
@@ -120,7 +116,7 @@ public class MySQLDomainService implements MySQLService {
     buildToolService.addProperty(project, "testcontainers", MySQL.getTestcontainersVersion());
     buildToolService.addDependency(project, dependency);
 
-    springPropertiesForTest(baseName).forEach((k, v) -> springBootPropertiesService.addPropertiesTest(project, k, v));
+    springPropertiesForTest(baseName).forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));
   }
 
   private Map<String, Object> springProperties(String baseName) {
@@ -161,7 +157,7 @@ public class MySQLDomainService implements MySQLService {
   }
 
   public void addLogger(Project project, String packageName, Level level) {
-    springBootLoggingService.addLogger(project, packageName, level);
-    springBootLoggingService.addLoggerTest(project, packageName, level);
+    springBootCommonService.addLogger(project, packageName, level);
+    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 }

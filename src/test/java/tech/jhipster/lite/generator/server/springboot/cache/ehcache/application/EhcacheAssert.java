@@ -8,8 +8,8 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.server.springboot.cache.common.application.SpringBootCacheAssert;
 import tech.jhipster.lite.generator.server.springboot.cache.ehcache.domain.EhcacheDomainService;
-import tech.jhipster.lite.generator.server.springboot.cache.jcache.application.SpringBootJCacheAssert;
 
 public class EhcacheAssert {
 
@@ -23,13 +23,18 @@ public class EhcacheAssert {
   public static void assertInitXmlConfiguration(Project project) {
     assertDependencies(project);
     assertXmlDependencies(project);
-    assertEnableCaching(project);
     assertEhcacheXml(project);
     assertXmlProperty(project);
   }
 
   public static void assertDependencies(Project project) {
-    SpringBootJCacheAssert.assertDependencies(project);
+    SpringBootCacheAssert.assertDependencies(project);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of("<dependency>", "<groupId>javax.cache</groupId>", "<artifactId>cache-api</artifactId>", "</dependency>")
+    );
 
     assertFileContent(
       project,
@@ -58,31 +63,29 @@ public class EhcacheAssert {
   }
 
   public static void assertEnableCaching(Project project) {
-    SpringBootJCacheAssert.assertEnableCaching(project);
+    SpringBootCacheAssert.assertEnableCaching(project);
   }
 
   public static void assertJavaFiles(Project project) {
-    SpringBootJCacheAssert.assertJavaConfig(project);
-
     String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
     String cachePackage = basePackage + ".technical.infrastructure.secondary.cache";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     String ehcachePath = getPath(MAIN_JAVA, basePath, EhcacheDomainService.DESTINATION);
 
-    assertFileExist(project, getPath(ehcachePath, "EhcacheConfiguration.java"));
-    assertFileExist(project, getPath(ehcachePath, "EhcacheConfigurer.java"));
+    assertFileExist(project, getPath(ehcachePath, "CacheConfiguration.java"));
     assertFileExist(project, getPath(ehcachePath, "EhcacheProperties.java"));
 
-    assertFileContent(project, getPath(ehcachePath, "EhcacheConfiguration.java"), "package " + cachePackage);
-    assertFileContent(project, getPath(ehcachePath, "EhcacheConfigurer.java"), "package " + cachePackage);
+    assertFileContent(project, getPath(ehcachePath, "CacheConfiguration.java"), "package " + cachePackage);
     assertFileContent(project, getPath(ehcachePath, "EhcacheProperties.java"), "package " + cachePackage);
 
     String ehcacheTestPath = getPath(TEST_JAVA, basePath, EhcacheDomainService.DESTINATION);
 
-    assertFileExist(project, getPath(ehcacheTestPath, "EhcacheConfigurationIT.java"));
+    assertFileExist(project, getPath(ehcacheTestPath, "CacheConfigurationIT.java"));
+    assertFileExist(project, getPath(ehcacheTestPath, "CacheConfigurationTest.java"));
 
-    assertFileContent(project, getPath(ehcacheTestPath, "EhcacheConfigurationIT.java"), "package " + cachePackage);
+    assertFileContent(project, getPath(ehcacheTestPath, "CacheConfigurationIT.java"), "package " + cachePackage);
+    assertFileContent(project, getPath(ehcacheTestPath, "CacheConfigurationTest.java"), "package " + cachePackage);
   }
 
   public static void assertProperties(Project project) {

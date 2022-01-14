@@ -19,43 +19,48 @@ callApi() {
     "http://localhost:7471"$api
 }
 
-if [[ $filename == 'tomcat-postgresql-ehcachejava' ]]; then
+if [[ $filename == 'full-default' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
+  callApi "/api/servers/spring-boot/async"
   callApi "/api/servers/spring-boot/devtools"
   callApi "/api/servers/spring-boot/banner/jhipster-v7"
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/mvc/security/jwt"
   callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/mvc/dummy"
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
-  callApi "/api/servers/spring-boot/aop/logging"
-  callApi "/api/servers/spring-boot/logging/logstash/tcp"
-  callApi "/api/servers/spring-boot/async"
+  callApi "/api/servers/spring-boot/logging/aop"
+  callApi "/api/servers/spring-boot/logging/logstash"
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
   callApi "/api/servers/sonar"
 
-elif [[ $filename == 'tomcat-postgresql-ehcachexml' ]]; then
+elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
-  callApi "/api/servers/spring-boot/devtools"
-  callApi "/api/servers/spring-boot/banner/jhipster-v7"
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
-  callApi "/api/servers/spring-boot/mvc/security/jwt"
-  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/databases/postgresql"
+  callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"
-  callApi "/api/servers/spring-boot/aop/logging"
-  callApi "/api/servers/spring-boot/logging/logstash/tcp"
-  callApi "/api/servers/spring-boot/async"
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
-  callApi "/api/servers/sonar"
+
+elif [[ $filename == 'undertow-simplecache' ]]; then
+  callApi "/api/projects/init"
+  callApi "/api/build-tools/maven"
+  callApi "/api/servers/java/base"
+  callApi "/api/servers/java/jacoco-minimum-coverage"
+  callApi "/api/servers/spring-boot"
+  callApi "/api/servers/spring-boot/mvc/web/undertow"
+  callApi "/api/servers/spring-boot/mvc/dummy"
+  callApi "/api/servers/spring-boot/banner/jhipster-v3"
+  callApi "/api/servers/spring-boot/cache/simple"
 
 elif [[ $filename == 'undertow-oauth2' ]]; then
   callApi "/api/projects/init"
@@ -63,32 +68,28 @@ elif [[ $filename == 'undertow-oauth2' ]]; then
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
-  callApi "/api/servers/spring-boot/devtools"
-  callApi "/api/servers/spring-boot/banner/jhipster-v3"
   callApi "/api/servers/spring-boot/mvc/web/undertow"
   callApi "/api/servers/spring-boot/security/oauth2/default"
-  callApi "/api/servers/spring-boot/aop/logging"
-  callApi "/api/servers/spring-boot/async"
-  callApi "/api/servers/sonar"
 
-elif [[ $filename == 'undertow-mysql-simplecache' ]]; then
+elif [[ $filename == 'tomcat-configserver' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
-  callApi "/api/servers/spring-boot/devtools"
-  callApi "/api/servers/spring-boot/banner/jhipster-v3"
+  callApi "/api/servers/spring-boot/mvc/web/tomcat"
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/spring-cloud/config-client"
+
+elif [[ $filename == 'undertow-consul' ]]; then
+  callApi "/api/projects/init"
+  callApi "/api/build-tools/maven"
+  callApi "/api/servers/java/base"
+  callApi "/api/servers/java/jacoco-minimum-coverage"
+  callApi "/api/servers/spring-boot"
   callApi "/api/servers/spring-boot/mvc/web/undertow"
-  callApi "/api/servers/spring-boot/mvc/security/jwt"
-  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/databases/mysql"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase"
-  callApi "/api/servers/spring-boot/aop/logging"
-  callApi "/api/servers/spring-boot/logging/logstash/tcp"
-  callApi "/api/servers/spring-boot/async"
-  callApi "/api/servers/spring-boot/cache/simple"
-  callApi "/api/servers/sonar"
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/spring-cloud/consul"
 
 else
   echo "*** Unknown configuration..."

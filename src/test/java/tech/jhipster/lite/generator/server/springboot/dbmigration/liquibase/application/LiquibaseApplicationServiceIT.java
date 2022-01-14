@@ -154,16 +154,16 @@ class LiquibaseApplicationServiceIT {
     assertFileContent(
       project,
       getPath(MAIN_RESOURCES, LOGGING_CONFIGURATION),
-      List.of("<logger name=\"liquibase\" level=\"WARN\"/>", "<logger name=\"LiquibaseSchemaResolver\" level=\"INFO\"/>")
+      List.of("<logger name=\"liquibase\" level=\"WARN\" />", "<logger name=\"LiquibaseSchemaResolver\" level=\"INFO\" />")
     );
 
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
       List.of(
-        "<logger name=\"org.hibernate.validator\" level=\"WARN\"/>",
-        "<logger name=\"org.hibernate\" level=\"WARN\"/>",
-        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\"/>"
+        "<logger name=\"org.hibernate.validator\" level=\"WARN\" />",
+        "<logger name=\"org.hibernate\" level=\"WARN\" />",
+        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\" />"
       )
     );
   }

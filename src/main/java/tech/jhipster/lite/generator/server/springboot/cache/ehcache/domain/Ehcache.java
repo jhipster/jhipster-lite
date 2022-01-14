@@ -6,6 +6,10 @@ public class Ehcache {
 
   private Ehcache() {}
 
+  public static Dependency cacheApiDependency() {
+    return Dependency.builder().groupId("javax.cache").artifactId("cache-api").build();
+  }
+
   public static Dependency jakartaXmlBindApi() {
     return Dependency.builder().groupId("jakarta.xml.bind").artifactId("jakarta.xml.bind-api").build();
   }

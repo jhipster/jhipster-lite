@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.lite.generator.project.domain.Project;
 
@@ -53,12 +54,20 @@ public class MavenApplicationService {
     mavenService.deleteProperty(project, key);
   }
 
+  public void addRepository(Project project, Repository repository) {
+    mavenService.addRepository(project, repository);
+  }
+
+  public void addPluginRepository(Project project, Repository repository) {
+    mavenService.addPluginRepository(project, repository);
+  }
+
   public void init(Project project) {
-    mavenService.init(project);
+    mavenService.initJava(project);
   }
 
   public void addPomXml(Project project) {
-    mavenService.addPomXml(project);
+    mavenService.addJavaPomXml(project);
   }
 
   public void addMavenWrapper(Project project) {

@@ -8,7 +8,7 @@
 
   <groupId>tech.jhipster.lite</groupId>
   <artifactId>jhlite</artifactId>
-  <version>0.0.5-SNAPSHOT</version>
+  <version>0.0.7-SNAPSHOT</version>
   <name>jhlite</name>
   <description>JHipster Lite</description>
   <packaging>jar</packaging>
@@ -36,16 +36,16 @@
 
     <spring-boot.version>2.6.2</spring-boot.version>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
-    <assertj.version>3.21.0</assertj.version>
+    <assertj.version>3.22.0</assertj.version>
     <mockito.version>4.2.0</mockito.version>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <compiler-plugin.version>3.9.0</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <jacoco.version>0.8.7</jacoco.version>
     <mustache.version>0.9.10</mustache.version>
     <guava.version>31.0.1-jre</guava.version>
     <jgit.version>6.0.0.202111291000-r</jgit.version>
     <archunit-junit5.version>0.22.0</archunit-junit5.version>
-    <springdoc-openapi-ui.version>1.6.3</springdoc-openapi-ui.version>
+    <springdoc-openapi-ui.version>1.6.4</springdoc-openapi-ui.version>
     <problem-spring.version>0.27.0</problem-spring.version>
     <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
     <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>

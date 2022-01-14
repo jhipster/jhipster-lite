@@ -1,9 +1,0 @@
-{
-  "folder": "/tmp/jhlite/undertow-mysql-simplecache",
-  "generator-jhipster": {
-    "projectName": "Beer Project",
-    "baseName": "beer",
-    "prettierDefaultIndent": 2,
-    "packageName": "tech.jhipster.beer"
-  }
-}

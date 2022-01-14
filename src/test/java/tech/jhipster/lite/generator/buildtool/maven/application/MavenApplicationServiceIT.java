@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.buildtool.maven.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
 import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
@@ -14,6 +15,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.maven.domain.Maven;
 import tech.jhipster.lite.generator.project.domain.Project;
 
@@ -38,7 +40,7 @@ class MavenApplicationServiceIT {
         "<groupId>org.springframework.boot</groupId>",
         "<artifactId>spring-boot-starter-parent</artifactId>",
         "<version>2.5.3</version>",
-        "<relativePath/>",
+        "<relativePath />",
         "</parent>"
       )
     );
@@ -61,7 +63,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addParent(project, parent);
     mavenApplicationService.addParent(project, parent);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getParentHeader(parent), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getParentHeader(parent).indent(DEFAULT_INDENTATION), 1);
   }
 
   @Test
@@ -175,7 +177,12 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addDependency(project, dependency);
     mavenApplicationService.addDependency(project, dependency);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getDependencyHeader(dependency), 1);
+    assertFileContentManyTimes(
+      project,
+      POM_XML,
+      Maven.getDependencyHeader(dependency, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
+      1
+    );
   }
 
   @Test
@@ -381,7 +388,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPlugin(project, plugin);
     mavenApplicationService.addPlugin(project, plugin);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION), 1);
   }
 
   @Test
@@ -392,7 +399,7 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPluginManagement(project, plugin);
     mavenApplicationService.addPluginManagement(project, plugin);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginManagementHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(4 * DEFAULT_INDENTATION), 1);
   }
 
   @Test
@@ -403,8 +410,8 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPlugin(project, plugin);
     mavenApplicationService.addPluginManagement(project, plugin);
 
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin), 1);
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginManagementHeader(plugin), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION), 1);
+    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(4 * DEFAULT_INDENTATION), 1);
   }
 
   @Test
@@ -456,6 +463,145 @@ class MavenApplicationServiceIT {
     FileUtils.createFolder(project.getFolder());
 
     assertThatThrownBy(() -> mavenApplicationService.deleteProperty(project, "java")).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddRepository() {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+    mavenApplicationService.addRepository(project, repository);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of("<repository>", "<id>spring-milestone</id>", "<url>https://repo.spring.io/milestone</url>", "</repository>")
+    );
+  }
+
+  @Test
+  void shouldAddRepositoryWithAdditionalElements() {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository
+      .builder()
+      .id("spring-milestone")
+      .url("https://repo.spring.io/milestone")
+      .additionalElements("""
+      <releases>
+        <enabled>false</enabled>
+      </releases>""")
+      .build();
+    mavenApplicationService.addRepository(project, repository);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of(
+        "<repository>",
+        "<id>spring-milestone</id>",
+        "<url>https://repo.spring.io/milestone</url>",
+        "<releases>",
+        "<enabled>false</enabled>",
+        "</releases>",
+        "</repository>"
+      )
+    );
+  }
+
+  @Test
+  void shouldNotAddRepositoryWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+
+    assertThatThrownBy(() -> mavenApplicationService.addRepository(project, repository)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddRepositoryOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+    mavenApplicationService.addRepository(project, repository);
+    mavenApplicationService.addRepository(project, repository);
+
+    assertFileContentManyTimes(
+      project,
+      POM_XML,
+      Maven.getRepositoryHeader(repository, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
+      1
+    );
+  }
+
+  @Test
+  void shouldAddPluginRepository() {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+    mavenApplicationService.addPluginRepository(project, repository);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of("<pluginRepository>", "<id>spring-milestone</id>", "<url>https://repo.spring.io/milestone</url>", "</pluginRepository>")
+    );
+  }
+
+  @Test
+  void shouldAddPluginRepositoryWithAdditionalElements() {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository
+      .builder()
+      .id("spring-milestone")
+      .url("https://repo.spring.io/milestone")
+      .additionalElements("""
+      <releases>
+        <enabled>false</enabled>
+      </releases>""")
+      .build();
+    mavenApplicationService.addPluginRepository(project, repository);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of(
+        "<pluginRepository>",
+        "<id>spring-milestone</id>",
+        "<url>https://repo.spring.io/milestone</url>",
+        "<releases>",
+        "<enabled>false</enabled>",
+        "</releases>",
+        "</pluginRepository>"
+      )
+    );
+  }
+
+  @Test
+  void shouldNotAddPluginRepositoryWhenNoPomXml() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(project.getFolder());
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+
+    assertThatThrownBy(() -> mavenApplicationService.addPluginRepository(project, repository))
+      .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddPluginRepositoryOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+    mavenApplicationService.addPluginRepository(project, repository);
+    mavenApplicationService.addPluginRepository(project, repository);
+
+    assertFileContentManyTimes(
+      project,
+      POM_XML,
+      Maven.getPluginRepositoryHeader(repository, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
+      1
+    );
   }
 
   @Test

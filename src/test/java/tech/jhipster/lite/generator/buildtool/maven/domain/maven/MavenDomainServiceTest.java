@@ -17,6 +17,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -130,10 +131,30 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldInit() {
+  void shouldAddRepository() {
+    Project project = tmpProjectWithPomXml();
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+
+    mavenDomainService.addRepository(project, repository);
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddPluginRepository() {
+    Project project = tmpProjectWithPomXml();
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+
+    mavenDomainService.addPluginRepository(project, repository);
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldInitJava() {
     Project project = tmpProject();
 
-    mavenDomainService.init(project);
+    mavenDomainService.initJava(project);
 
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
@@ -142,10 +163,10 @@ class MavenDomainServiceTest {
   }
 
   @Test
-  void shouldAddPomXml() {
+  void shouldAddJavaPomXml() {
     Project project = tmpProject();
 
-    mavenDomainService.addPomXml(project);
+    mavenDomainService.addJavaPomXml(project);
 
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
   }

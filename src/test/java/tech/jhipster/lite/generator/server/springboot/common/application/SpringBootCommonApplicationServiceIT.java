@@ -1,13 +1,15 @@
 package tech.jhipster.lite.generator.server.springboot.common.application;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
+import java.io.IOException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -209,6 +211,152 @@ class SpringBootCommonApplicationServiceIT {
 
       assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesTest(project, "jhipster.application", "jhlite"))
         .isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
+
+  @Nested
+  class PropertiesNewLineIT {
+
+    @Test
+    void shouldNotAddPropertiesNewLine() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesNewLine(project))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddPropertiesNewLine() throws IOException {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootCommonApplicationService.addProperties(project, "new.property", "value");
+      springBootCommonApplicationService.addPropertiesNewLine(project);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application.properties");
+      assertFileContentRegexp(project, applicationProperties, "new.property=value" + LF + LF + "# jhipster-needle-application-properties");
+    }
+  }
+
+  @Nested
+  class PropertiesFastNewLineIT {
+
+    @Test
+    void shouldNotAddPropertiesFastNewLine() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesFastNewLine(project))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddPropertiesFastNewLine() throws IOException {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootCommonApplicationService.addPropertiesFast(project, "new.property", "value");
+      springBootCommonApplicationService.addPropertiesFastNewLine(project);
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      assertFileContentRegexp(
+        project,
+        applicationProperties,
+        "new.property=value" + LF + LF + "# jhipster-needle-application-fast-properties"
+      );
+    }
+  }
+
+  @Nested
+  class PropertiesTestNewLineIT {
+
+    @Test
+    void shouldNotAddPropertiesTestNewLine() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesTestNewLine(project))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddPropertiesTestNewLine() throws IOException {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootCommonApplicationService.addPropertiesTest(project, "new.property", "value");
+      springBootCommonApplicationService.addPropertiesTestNewLine(project);
+
+      String applicationProperties = getPath(TEST_RESOURCES, "config/application.properties");
+      assertFileContentRegexp(
+        project,
+        applicationProperties,
+        "new.property=value" + LF + LF + "# jhipster-needle-application-test-properties"
+      );
+    }
+  }
+
+  @Nested
+  class PropertiesCommentIT {
+
+    @Test
+    void shouldNotAddPropertiesComment() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesComment(project, "new comment"))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddPropertiesComment() {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootCommonApplicationService.addPropertiesComment(project, "new comment");
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application.properties");
+      assertFileContent(project, applicationProperties, "# new comment");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-properties");
+    }
+  }
+
+  @Nested
+  class PropertiesFastCommentIT {
+
+    @Test
+    void shouldNotAddPropertiesFastComment() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesFastComment(project, "new comment"))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddPropertiesFastComment() {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootCommonApplicationService.addPropertiesFastComment(project, "new comment");
+
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      assertFileContent(project, applicationProperties, "# new comment");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-fast-properties");
+    }
+  }
+
+  @Nested
+  class PropertiesTestCommentIT {
+
+    @Test
+    void shouldNotAddPropertiesTestComment() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesTestComment(project, "new comment"))
+        .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddPropertiesTestComment() {
+      Project project = tmpProjectWithSpringBootProperties();
+
+      springBootCommonApplicationService.addPropertiesTestComment(project, "new comment");
+
+      String applicationProperties = getPath(TEST_RESOURCES, "config/application.properties");
+      assertFileContent(project, applicationProperties, "# new comment");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-test-properties");
     }
   }
 

@@ -30,6 +30,30 @@ public class SpringBootCommonApplicationService {
     springBootCommonService.addPropertiesTest(project, key, value);
   }
 
+  public void addPropertiesNewLine(Project project) {
+    springBootCommonService.addPropertiesNewLine(project);
+  }
+
+  public void addPropertiesFastNewLine(Project project) {
+    springBootCommonService.addPropertiesFastNewLine(project);
+  }
+
+  public void addPropertiesTestNewLine(Project project) {
+    springBootCommonService.addPropertiesTestNewLine(project);
+  }
+
+  public void addPropertiesComment(Project project, String text) {
+    springBootCommonService.addPropertiesComment(project, text);
+  }
+
+  public void addPropertiesFastComment(Project project, String text) {
+    springBootCommonService.addPropertiesFastComment(project, text);
+  }
+
+  public void addPropertiesTestComment(Project project, String text) {
+    springBootCommonService.addPropertiesTestComment(project, text);
+  }
+
   public void addLogger(Project project, String packageName, Level level) {
     springBootCommonService.addLogger(project, packageName, level);
   }

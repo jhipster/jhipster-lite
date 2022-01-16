@@ -4,6 +4,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
@@ -73,6 +74,15 @@ public class TestUtils {
 
   public static void assertFileNoContent(Project project, String filename, List<String> lines) {
     assertFalse(FileUtils.containsLines(getPath(project.getFolder(), filename), lines), "The lines '" + lines + "' were found");
+  }
+
+  public static void assertFileContentRegexp(Project project, String filename, String regexp) {
+    try {
+      String text = read(getPath(project.getFolder(), "", filename));
+      assertTrue(FileUtils.containsRegexp(text, regexp), "The regexp '" + regexp + "' was not found");
+    } catch (IOException e) {
+      fail("Error when reading text from '" + filename + "'");
+    }
   }
 
   public static Project.ProjectBuilder tmpProjectBuilder() {

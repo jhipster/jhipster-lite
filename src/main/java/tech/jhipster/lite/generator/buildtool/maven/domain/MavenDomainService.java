@@ -140,7 +140,7 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
-  public void addProperty(Project project, String key, String version) {
+  public void addProperty(Project project, String key, String value) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
@@ -148,7 +148,7 @@ public class MavenDomainService implements MavenService {
     String pluginRegexp = Maven.getProperty(key, ".*");
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
-      String propertyWithNeedle = Maven.getProperty(key, version) + LF + indent(2, indent) + NEEDLE_PROPERTIES;
+      String propertyWithNeedle = Maven.getProperty(key, value) + LF + indent(2, indent) + NEEDLE_PROPERTIES;
 
       projectRepository.replaceText(project, "", POM_XML, NEEDLE_PROPERTIES, propertyWithNeedle);
     }

@@ -80,8 +80,8 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public void addExceptionHandler(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
 
-    buildToolService.addProperty(project, "problem-spring", SpringBootMvc.problemSpringVersion());
-    buildToolService.addProperty(project, "problem-spring-web", "\\${problem-spring.version}");
+    buildToolService.addProperty(project, "problem-spring.version", SpringBootMvc.problemSpringVersion());
+    buildToolService.addProperty(project, "problem-spring-web.version", "\\${problem-spring.version}");
 
     buildToolService.addDependency(project, problemSpringDependency());
     buildToolService.addDependency(project, springBootStarterValidation());

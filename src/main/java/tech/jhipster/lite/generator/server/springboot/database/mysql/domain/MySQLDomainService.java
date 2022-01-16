@@ -113,7 +113,7 @@ public class MySQLDomainService implements MySQLService {
       .version("\\${testcontainers.version}")
       .scope("test")
       .build();
-    buildToolService.addProperty(project, "testcontainers", MySQL.getTestcontainersVersion());
+    buildToolService.addProperty(project, "testcontainers.version", MySQL.getTestcontainersVersion());
     buildToolService.addDependency(project, dependency);
 
     springPropertiesForTest(baseName).forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));

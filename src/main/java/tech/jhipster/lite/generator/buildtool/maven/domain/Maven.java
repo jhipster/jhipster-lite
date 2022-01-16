@@ -224,16 +224,8 @@ public class Maven {
     return header + additionalBody + PLUGIN_END;
   }
 
-  public static String getProperty(String key, String version) {
-    return new StringBuilder()
-      .append("<")
-      .append(key)
-      .append(".version>")
-      .append(version)
-      .append("</")
-      .append(key)
-      .append(".version>")
-      .toString();
+  public static String getProperty(String key, String value) {
+    return new StringBuilder().append("<").append(key).append(">").append(value).append("</").append(key).append(">").toString();
   }
 
   public static String getRepositoryHeader(Repository repository, int indentation) {

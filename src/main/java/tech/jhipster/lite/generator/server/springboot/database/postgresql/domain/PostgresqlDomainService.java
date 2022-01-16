@@ -110,7 +110,7 @@ public class PostgresqlDomainService implements PostgresqlService {
       .version("\\${testcontainers.version}")
       .scope("test")
       .build();
-    buildToolService.addProperty(project, "testcontainers", Postgresql.getTestcontainersVersion());
+    buildToolService.addProperty(project, "testcontainers.version", Postgresql.getTestcontainersVersion());
     buildToolService.addDependency(project, dependency);
 
     springPropertiesForTest(baseName).forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));

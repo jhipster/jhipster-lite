@@ -282,7 +282,7 @@ class MavenTest {
     String key = "testcontainers";
     String version = "1.16.0";
 
-    assertThat(Maven.getProperty(key, version)).isEqualTo("<testcontainers.version>1.16.0</testcontainers.version>");
+    assertThat(Maven.getProperty(key, version)).isEqualTo("<testcontainers>1.16.0</testcontainers>");
   }
 
   private Plugin.PluginBuilder minimalPluginBuilder() {

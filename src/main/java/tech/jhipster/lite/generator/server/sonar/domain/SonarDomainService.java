@@ -53,7 +53,7 @@ public class SonarDomainService implements SonarService {
         </executions>"""
       )
       .build();
-    buildToolService.addProperty(project, "properties-maven-plugin", "1.0.0");
+    buildToolService.addProperty(project, "properties-maven-plugin.version", "1.0.0");
     buildToolService.addPlugin(project, plugin);
   }
 
@@ -65,7 +65,7 @@ public class SonarDomainService implements SonarService {
       .artifactId("sonar-maven-plugin")
       .version("\\${sonar-maven-plugin.version}")
       .build();
-    buildToolService.addProperty(project, "sonar-maven-plugin", getMavenPluginVersion());
+    buildToolService.addProperty(project, "sonar-maven-plugin.version", getMavenPluginVersion());
     buildToolService.addPluginManagement(project, plugin);
   }
 

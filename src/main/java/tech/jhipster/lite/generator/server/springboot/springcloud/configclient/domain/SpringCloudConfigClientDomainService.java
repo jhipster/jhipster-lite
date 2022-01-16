@@ -56,7 +56,7 @@ public class SpringCloudConfigClientDomainService implements SpringCloudConfigCl
 
   @Override
   public void addCloudConfigDependencies(Project project) {
-    this.buildToolService.addProperty(project, "spring-cloud", getSpringCloudVersion());
+    this.buildToolService.addProperty(project, "spring-cloud.version", getSpringCloudVersion());
     this.buildToolService.addDependencyManagement(project, springCloudDependencies());
     this.buildToolService.addDependency(project, springCloudBootstrap());
     this.buildToolService.addDependency(project, springCloudConfigClient());

@@ -69,7 +69,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   }
 
   private void addPropertyAndDependency(Project project) {
-    buildToolService.addProperty(project, "jjwt", jjwtVersion());
+    buildToolService.addProperty(project, "jjwt.version", jjwtVersion());
 
     buildToolService.addDependency(project, springBootStarterSecurityDependency());
     buildToolService.addDependency(project, jjwtApiDependency());

@@ -95,9 +95,9 @@ class BuildToolDomainServiceTest {
     void shouldAddProperty() {
       Project project = tmpProjectWithPomXml();
 
-      buildToolDomainService.addProperty(project, "testcontainers", "1.16.0");
+      buildToolDomainService.addProperty(project, "testcontainers.version", "1.16.0");
 
-      verify(mavenService).addProperty(project, "testcontainers", "1.16.0");
+      verify(mavenService).addProperty(project, "testcontainers.version", "1.16.0");
     }
 
     @Test

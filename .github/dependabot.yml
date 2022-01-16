@@ -23,3 +23,10 @@ updates:
     open-pull-requests-limit: 10
     labels:
       - 'area: dependencies'
+  - package-ecosystem: 'npm'
+    directory: '/src/main/resources/config/generator/dependencies/'
+    schedule:
+      interval: 'daily'
+    open-pull-requests-limit: 20
+    labels:
+      - 'area: dependencies'

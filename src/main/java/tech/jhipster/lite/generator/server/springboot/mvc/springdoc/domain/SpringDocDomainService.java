@@ -17,7 +17,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 public class SpringDocDomainService implements SpringDocService {
 
   private static final String SOURCE = "server/springboot/mvc/springdoc";
-  private static final String DESTINATION = "technical/infrastructure/secondary/springdoc";
+  private static final String DESTINATION = "technical/infrastructure/primary/springdoc";
 
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
@@ -71,6 +71,7 @@ public class SpringDocDomainService implements SpringDocService {
 
     result.put("springdoc.swagger-ui.operationsSorter", DEFAULT_SWAGGER_UI_SORT_VALUE);
     result.put("springdoc.swagger-ui.tagsSorter", DEFAULT_SWAGGER_UI_SORT_VALUE);
+    result.put("springdoc.swagger-ui.tryItOutEnabled", DEFAULT_TRY_OUT_ENABLED);
 
     return result;
   }

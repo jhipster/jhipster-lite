@@ -47,7 +47,7 @@ class SpringDocDomainServiceTest {
     springDocDomainService.init(project);
 
     // Then
-    verify(buildToolService).addProperty(project, "springdoc-openapi-ui", "1.5.12");
+    verify(buildToolService).addProperty(project, "springdoc-openapi-ui", "1.6.4");
     ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
     verify(buildToolService).addDependency(eq(project), dependencyArgCaptor.capture());
     assertThat(dependencyArgCaptor.getValue()).usingRecursiveComparison().isEqualTo(getExpectedDependency());
@@ -57,12 +57,13 @@ class SpringDocDomainServiceTest {
         project,
         "server/springboot/mvc/springdoc/src",
         "SpringDocConfiguration.java",
-        "src/main/java/com/mycompany/myapp/technical/infrastructure/secondary/springdoc"
+        "src/main/java/com/mycompany/myapp/technical/infrastructure/primary/springdoc"
       );
 
-    verify(springBootCommonService, times(2)).addProperties(any(), anyString(), anyString());
+    verify(springBootCommonService, times(3)).addProperties(any(), anyString(), any());
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.operationsSorter", DEFAULT_SWAGGER_UI_SORT_VALUE);
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.tagsSorter", DEFAULT_SWAGGER_UI_SORT_VALUE);
+    verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.tryItOutEnabled", DEFAULT_TRY_OUT_ENABLED);
 
     assertThat(project.getConfig())
       .containsEntry(API_TITLE_CONFIG_KEY, DEFAULT_API_TITLE)
@@ -91,7 +92,7 @@ class SpringDocDomainServiceTest {
     springDocDomainService.init(project);
 
     // Then
-    verify(buildToolService).addProperty(project, "springdoc-openapi-ui", "1.5.12");
+    verify(buildToolService).addProperty(project, "springdoc-openapi-ui", "1.6.4");
     ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
     verify(buildToolService).addDependency(eq(project), dependencyArgCaptor.capture());
     assertThat(dependencyArgCaptor.getValue()).usingRecursiveComparison().isEqualTo(getExpectedDependency());
@@ -101,12 +102,13 @@ class SpringDocDomainServiceTest {
         project,
         "server/springboot/mvc/springdoc/src",
         "SpringDocConfiguration.java",
-        "src/main/java/com/mycompany/myapp/technical/infrastructure/secondary/springdoc"
+        "src/main/java/com/mycompany/myapp/technical/infrastructure/primary/springdoc"
       );
 
-    verify(springBootCommonService, times(2)).addProperties(any(), anyString(), anyString());
+    verify(springBootCommonService, times(3)).addProperties(any(), anyString(), any());
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.operationsSorter", DEFAULT_SWAGGER_UI_SORT_VALUE);
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.tagsSorter", DEFAULT_SWAGGER_UI_SORT_VALUE);
+    verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.tryItOutEnabled", DEFAULT_TRY_OUT_ENABLED);
 
     assertThat(project.getConfig()).containsAllEntriesOf(projectConfig);
   }

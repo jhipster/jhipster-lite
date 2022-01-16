@@ -4,7 +4,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class SpringDoc {
 
-  private static final String SPRING_DOC_VERSION = "1.5.12";
+  private static final String SPRING_DOC_VERSION = "1.6.4";
 
   private SpringDoc() {}
 

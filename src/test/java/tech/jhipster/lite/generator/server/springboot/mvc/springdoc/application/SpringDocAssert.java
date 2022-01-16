@@ -35,10 +35,10 @@ public class SpringDocAssert {
 
   public static void assertJavaFiles(Project project) {
     String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
-    String springDocPackage = basePackage + ".technical.infrastructure.secondary.springdoc";
+    String springDocPackage = basePackage + ".technical.infrastructure.primary.springdoc";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    String springDocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/secondary/springdoc");
+    String springDocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
 
     String springDocConfigJavaFilePath = getPath(springDocPath, SPRING_DOC_CONFIG_JAVA_FILE_NAME);
     assertFileExist(project, springDocConfigJavaFilePath);
@@ -49,13 +49,17 @@ public class SpringDocAssert {
     TestUtils.assertFileContent(
       project,
       getPath(MAIN_RESOURCES, "config/application.properties"),
-      List.of("springdoc.swagger-ui.operationsSorter=alpha", "springdoc.swagger-ui.tagsSorter=alpha")
+      List.of(
+        "springdoc.swagger-ui.operationsSorter=alpha",
+        "springdoc.swagger-ui.tagsSorter=alpha",
+        "springdoc.swagger-ui.tryItOutEnabled=true"
+      )
     );
   }
 
   public static void assertFileContent(Project project, String filename, String expectedValue) {
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    String springDocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/secondary/springdoc");
+    String springDocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
 
     TestUtils.assertFileContent(project, getPath(springDocPath, filename), expectedValue);
   }

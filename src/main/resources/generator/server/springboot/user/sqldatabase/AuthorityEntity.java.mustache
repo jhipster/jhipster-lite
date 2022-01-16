@@ -31,8 +31,9 @@ public class AuthorityEntity implements Serializable {
     return name;
   }
 
-  public void setName(String name) {
+  public AuthorityEntity setName(String name) {
     this.name = name;
+    return this;
   }
 
   @Override
@@ -48,7 +49,8 @@ public class AuthorityEntity implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(name);
+    // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+    return getClass().hashCode();
   }
 
   // prettier-ignore

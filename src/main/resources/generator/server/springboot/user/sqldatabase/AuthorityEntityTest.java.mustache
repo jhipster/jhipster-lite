@@ -1,0 +1,34 @@
+package {{packageName}}.user.infrastructure.secondary.{{sqlDatabaseName}};
+
+import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import {{packageName}}.UnitTest;
+
+@UnitTest
+public class AuthorityEntityTest {
+
+  @Test
+  void shouldBuildWithSetters() {
+    AuthorityEntity authority = new AuthorityEntity();
+    authority.setName("myName");
+
+    assertThat(authority.getName()).isEqualTo("myName");
+    assertThat(authority.toString()).contains("myName");
+
+    // equals
+    AuthorityEntity otherEntity = new AuthorityEntity().setName("otherName");
+    AuthorityEntity otherEntityWithSameName = new AuthorityEntity().setName("myName");
+    AuthorityEntity otherEntityWithNullName = new AuthorityEntity().setName(null);
+
+    assertThat(authority.equals(authority)).isTrue();
+    assertThat(authority.equals(null)).isFalse();
+    assertThat(authority.equals(otherEntity)).isFalse();
+    assertThat(authority.equals(otherEntityWithSameName)).isTrue();
+    assertThat(otherEntityWithNullName.equals(authority)).isFalse();
+
+    // hasCode
+    assertThat(authority.hashCode()).isEqualTo(authority.getClass().hashCode());
+  }
+}

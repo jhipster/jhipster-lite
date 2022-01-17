@@ -1,17 +1,19 @@
 package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -71,5 +73,36 @@ class NpmDomainServiceTest {
     assertThatCode(() -> npmDomainService.prettify(project)).doesNotThrowAnyException();
 
     verify(npmRepository).npmPrettierFormat(any(Project.class));
+  }
+
+  @Nested
+  class GetVersionTest {
+
+    @Test
+    void shouldGetVersion() {
+      assertThat(npmDomainService.getVersion("prettier-plugin-java")).isNotEmpty();
+    }
+
+    @Test
+    void shouldNotGetVersionForNull() {
+      assertThatThrownBy(() -> npmDomainService.getVersion(null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("field");
+    }
+
+    @Test
+    void shouldNotGetVersion() {
+      assertThat(npmDomainService.getVersion("unknown")).isEmpty();
+    }
+
+    @Test
+    void shouldNotGetVersionForDescription() {
+      assertThat(npmDomainService.getVersion("description")).isEmpty();
+    }
+
+    @Test
+    void shouldNotGetVersionForCloseBracket() {
+      assertThat(npmDomainService.getVersion("}")).isEmpty();
+    }
   }
 }

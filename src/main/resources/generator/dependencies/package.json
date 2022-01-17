@@ -1,7 +1,7 @@
 {
   "name": "jhlite-dependencies",
   "version": "0.0.0",
-  "description": "JHipster Lite Dependencies",
+  "description": "JHipster Lite : used for Dependencies",
   "license": "Apache-2.0",
   "devDependencies": {
     "@prettier/plugin-xml": "1.2.0",

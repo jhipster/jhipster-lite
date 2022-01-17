@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
+import java.util.Optional;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface NpmService {
@@ -9,4 +10,6 @@ public interface NpmService {
 
   void install(Project project);
   void prettify(Project project);
+
+  Optional<String> getVersion(String name);
 }

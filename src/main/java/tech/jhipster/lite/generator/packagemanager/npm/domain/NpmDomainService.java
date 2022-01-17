@@ -1,9 +1,12 @@
 package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
 
+import java.util.Optional;
+import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -64,5 +67,18 @@ public class NpmDomainService implements NpmService {
   @Override
   public void prettify(Project project) {
     this.npmRepository.npmPrettierFormat(project);
+  }
+
+  @Override
+  public Optional<String> getVersion(String name) {
+    return FileUtils
+      .readLine(getPath(MAIN_RESOURCES, TEMPLATE_FOLDER, "dependencies", PACKAGE_JSON), name)
+      .map(readValue -> {
+        String[] result = readValue.split(":");
+        if (result.length == 2) {
+          return result[1].replace(",", "").replace(DQ, "").replace(" ", "");
+        }
+        return null;
+      });
   }
 }

@@ -7,21 +7,19 @@ public class Typescript {
 
   private Typescript() {}
 
-  public static Map<String, String> devDependencies() {
-    // @formatter:off
-    return Map.of(
-      "@types/jest", "27.4.0",
-      "@typescript-eslint/eslint-plugin", "5.9.0",
-      "@typescript-eslint/parser", "5.9.0",
-      "eslint", "8.6.0",
-      "eslint-import-resolver-typescript", "2.5.0",
-      "eslint-plugin-import", "2.25.4",
-      "eslint-plugin-prettier", "4.0.0",
-      "jest", "27.4.7",
-      "ts-jest", "27.1.2",
-      "typescript", "4.5.4"
+  public static List<String> devDependencies() {
+    return List.of(
+      "@types/jest",
+      "@typescript-eslint/eslint-plugin",
+      "@typescript-eslint/parser",
+      "eslint",
+      "eslint-import-resolver-typescript",
+      "eslint-plugin-import",
+      "eslint-plugin-prettier",
+      "jest",
+      "ts-jest",
+      "typescript"
     );
-    // @formatter:on
   }
 
   public static Map<String, String> scripts() {

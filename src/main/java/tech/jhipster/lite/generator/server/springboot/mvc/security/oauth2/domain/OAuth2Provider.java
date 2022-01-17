@@ -14,7 +14,7 @@ public enum OAuth2Provider {
   GITHUB(true, false),
   OKTA(true, true, "https://your-okta-domain/oauth2/default"),
   KEYCLOAK(false, true, "http://localhost:9080/auth/realms/jhipster"),
-  AUTHO0(false, true, "https://your-auth0-domain/"),
+  AUTH0(false, true, "https://your-auth0-domain/"),
   OTHER(false, true, "https://your-issuer-uri");
 
   private final boolean builtIn;

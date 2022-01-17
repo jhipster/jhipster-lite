@@ -57,7 +57,7 @@ public class OAuth2SecurityAssert {
           "spring.security.oauth2.client.registration.okta.client-id=web_app",
           "spring.security.oauth2.client.registration.okta.client-secret=web_app"
         );
-        case KEYCLOAK, AUTHO0, OTHER -> {
+        case KEYCLOAK, AUTH0, OTHER -> {
           String providerId = providerFallback.name().toLowerCase();
           yield List.of(
             "spring.security.oauth2.client.provider." + providerId + ".issuer-uri=" + issuerUriFallback,

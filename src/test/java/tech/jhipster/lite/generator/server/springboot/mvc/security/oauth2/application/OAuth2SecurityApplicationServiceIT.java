@@ -64,7 +64,7 @@ class OAuth2SecurityApplicationServiceIT {
 
   @Test
   void shouldAddClientAuth0() throws Exception {
-    shouldAddClient(OAuth2Provider.AUTHO0, null);
+    shouldAddClient(OAuth2Provider.AUTH0, null);
   }
 
   @Test

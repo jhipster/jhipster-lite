@@ -73,21 +73,8 @@ public class OAuth2SecurityAssert {
   }
 
   public static void assertUpdateExceptionTranslatorIT(Project project) {
-    String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
-    String exceptionPackage = basePackage + ".technical.infrastructure.primary.exception";
-
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     String exceptionTestPath = getPath(TEST_JAVA, basePath, "technical/infrastructure/primary/exception");
-
-    assertFileExist(project, getPath(exceptionTestPath, "ExceptionTranslatorTestConfiguration.java"));
-
-    assertFileContent(project, getPath(exceptionTestPath, "ExceptionTranslatorTestConfiguration.java"), "package " + exceptionPackage);
-
-    assertFileContent(
-      project,
-      getPath(exceptionTestPath, "ExceptionTranslatorIT.java"),
-      "@Import(ExceptionTranslatorTestConfiguration.class)"
-    );
     assertFileContent(project, getPath(exceptionTestPath, "ExceptionTranslatorIT.java"), "@WithMockUser");
   }
 

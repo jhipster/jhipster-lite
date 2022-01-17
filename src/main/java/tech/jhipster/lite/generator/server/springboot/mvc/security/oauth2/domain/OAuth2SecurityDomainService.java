@@ -115,32 +115,21 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     String exceptionPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
 
-    // create ExceptionTranslatorTestConfiguration to disable csrf
-    projectRepository.template(project, getPath(SOURCE, "test"), "ExceptionTranslatorTestConfiguration.java", exceptionPath);
-
-    // import @Import
-    String oldImport1 = "import org.springframework.context.ApplicationContext;";
-    String newImport1 =
-      """
-
-        import org.springframework.context.ApplicationContext;
-        import org.springframework.context.annotation.Import;""";
-    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport1, newImport1);
+    // TODO test CSRF
 
     // import @WithMockUser
-    String oldImport2 = "import org.springframework.test.util.ReflectionTestUtils;";
-    String newImport2 =
+    String oldImport = "import org.springframework.test.util.ReflectionTestUtils;";
+    String newImport =
       """
 
       import org.springframework.security.test.context.support.WithMockUser;
       import org.springframework.test.util.ReflectionTestUtils;""";
-    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport2, newImport2);
+    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport, newImport);
 
     // add annotations
     String oldAnnotation = "@AutoConfigureMockMvc";
     String newAnnotation = """
       @AutoConfigureMockMvc
-      @Import(ExceptionTranslatorTestConfiguration.class)
       @WithMockUser""";
     projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldAnnotation, newAnnotation);
   }

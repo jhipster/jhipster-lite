@@ -57,8 +57,6 @@ public class LiquibaseDomainService implements LiquibaseService {
   @Override
   public void addChangelogMasterXml(Project project) {
     projectRepository.add(project, getPath(SOURCE, "resources"), LIQUIBASE_MASTER_XML, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE));
-    projectRepository.add(project, getPath(SOURCE, "resources"), "sequence.xml", getPath(MAIN_RESOURCES, CHANGELOG));
-    projectRepository.add(project, getPath(SOURCE, "resources"), "date_time_wrapper.xml", getPath(MAIN_RESOURCES, CHANGELOG));
   }
 
   @Override

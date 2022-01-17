@@ -75,6 +75,90 @@ class SpringBootCommonDomainServiceTest {
   }
 
   @Test
+  void shouldAddPropertiesNewLine() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.properties"),
+      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
+    );
+
+    springBootCommonDomainService.addPropertiesNewLine(project);
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddPropertiesFastNewLine() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.fast.properties"),
+      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_FAST_PROPERTIES)
+    );
+
+    springBootCommonDomainService.addPropertiesFastNewLine(project);
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddPropertiesTestNewLine() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.test.properties"),
+      getPathOf(project.getFolder(), TEST_RESOURCES, "config", APPLICATION_PROPERTIES)
+    );
+
+    springBootCommonDomainService.addPropertiesTestNewLine(project);
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddPropertiesComment() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.properties"),
+      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_PROPERTIES)
+    );
+
+    springBootCommonDomainService.addPropertiesComment(project, "comment");
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddPropertiesFastComment() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.fast.properties"),
+      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_FAST_PROPERTIES)
+    );
+
+    springBootCommonDomainService.addPropertiesFastComment(project, "comment");
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddPropertiesTestComment() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
+    Files.copy(
+      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.test.properties"),
+      getPathOf(project.getFolder(), TEST_RESOURCES, "config", APPLICATION_PROPERTIES)
+    );
+
+    springBootCommonDomainService.addPropertiesTestComment(project, "comment");
+
+    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
   void shouldAddLogger() {
     Project project = tmpProjectWithSpringBootLoggingConfiguration();
 

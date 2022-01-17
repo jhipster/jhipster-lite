@@ -8,6 +8,12 @@ public interface SpringBootCommonService {
   void addProperties(Project project, String key, Object value);
   void addPropertiesFast(Project project, String key, Object value);
   void addPropertiesTest(Project project, String key, Object value);
+  void addPropertiesNewLine(Project project);
+  void addPropertiesFastNewLine(Project project);
+  void addPropertiesTestNewLine(Project project);
+  void addPropertiesComment(Project project, String text);
+  void addPropertiesFastComment(Project project, String text);
+  void addPropertiesTestComment(Project project, String text);
 
   void addLogger(Project project, String packageName, Level level);
   void addLoggerTest(Project project, String packageName, Level level);

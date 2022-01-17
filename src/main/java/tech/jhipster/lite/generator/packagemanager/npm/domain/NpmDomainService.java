@@ -7,6 +7,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER
 
 import java.util.Optional;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -71,8 +72,9 @@ public class NpmDomainService implements NpmService {
 
   @Override
   public Optional<String> getVersion(String name) {
+    Assert.notBlank("name", name);
     return FileUtils
-      .readLine(getPath(MAIN_RESOURCES, TEMPLATE_FOLDER, "dependencies", PACKAGE_JSON), name)
+      .readLine(getPath(MAIN_RESOURCES, TEMPLATE_FOLDER, "dependencies", PACKAGE_JSON), DQ + name + DQ)
       .map(readValue -> {
         String[] result = readValue.split(":");
         if (result.length == 2) {

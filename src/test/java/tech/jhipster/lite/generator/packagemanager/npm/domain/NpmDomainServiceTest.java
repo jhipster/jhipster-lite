@@ -87,7 +87,14 @@ class NpmDomainServiceTest {
     void shouldNotGetVersionForNull() {
       assertThatThrownBy(() -> npmDomainService.getVersion(null))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
-        .hasMessageContaining("field");
+        .hasMessageContaining("name");
+    }
+
+    @Test
+    void shouldNotGetVersionForBlank() {
+      assertThatThrownBy(() -> npmDomainService.getVersion(" "))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("name");
     }
 
     @Test

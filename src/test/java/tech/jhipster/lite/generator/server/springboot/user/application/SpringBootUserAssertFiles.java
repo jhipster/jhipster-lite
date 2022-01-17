@@ -12,15 +12,15 @@ public class SpringBootUserAssertFiles {
 
   public static void assertFilesSqlJavaUser(Project project, DatabaseType databaseType) {
     checkJavaFile(project, "UserEntity.java", databaseType);
-    checkJavaFile(project, "UserConstants.java", databaseType);
     checkJavaFile(project, "UserJpaRepository.java", databaseType);
+    checkJavaDomainFile(project, "UserConstants.java");
 
     checkJavaTestFile(project, "UserEntityTest.java", databaseType);
   }
 
   public static void assertFilesSqlJavaUserAuthority(Project project, DatabaseType databaseType) {
     checkJavaFile(project, "AuthorityEntity.java", databaseType);
-    checkJavaFile(project, "AuthorityRepository.java", databaseType);
+    checkJavaFile(project, "AuthorityJpaRepository.java", databaseType);
 
     checkJavaTestFile(project, "AuthorityEntityTest.java", databaseType);
   }
@@ -37,6 +37,14 @@ public class SpringBootUserAssertFiles {
       "user/infrastructure/secondary",
       databaseType.id()
     );
+
+    assertFileExist(project, getPath(userPath, javaFileName));
+    assertFileContent(project, getPath(userPath, javaFileName), "package " + userPackage);
+  }
+
+  private static void checkJavaDomainFile(Project project, String javaFileName) {
+    String userPackage = project.getPackageName().orElse("com.mycompany.myapp") + ".user.domain";
+    String userPath = getPath(MAIN_JAVA, project.getPackageNamePath().orElse("com/mycompany/myapp"), "user/domain");
 
     assertFileExist(project, getPath(userPath, javaFileName));
     assertFileContent(project, getPath(userPath, javaFileName), "package " + userPackage);

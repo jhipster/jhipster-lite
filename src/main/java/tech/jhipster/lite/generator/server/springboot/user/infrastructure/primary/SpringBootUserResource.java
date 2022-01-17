@@ -25,9 +25,9 @@ class SpringBootUserResource {
     this.springBootUserApplicationService = springBootUserApplicationService;
   }
 
-  @Operation(summary = "Add Spring Boot User and authority")
+  @Operation(summary = "Add UserEntity, AuthorityEntity and JpaRepository for PostgreSQL")
   @PostMapping("/postgresql")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot users and authority")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository")
   public void addSpringBootUsers(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     initUser(project, POSTGRESQL);

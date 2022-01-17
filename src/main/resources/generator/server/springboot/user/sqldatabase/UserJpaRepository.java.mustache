@@ -3,7 +3,6 @@ package {{packageName}}.user.infrastructure.secondary.{{sqlDatabaseName}};
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -30,11 +29,9 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, Long> {
   Optional<UserEntity> findOneByLogin(String login);
 
   @EntityGraph(attributePaths = "authorities")
-  @Cacheable(cacheNames = USERS_BY_LOGIN_CACHE)
   Optional<UserEntity> findOneWithAuthoritiesByLogin(String login);
 
   @EntityGraph(attributePaths = "authorities")
-  @Cacheable(cacheNames = USERS_BY_EMAIL_CACHE)
   Optional<UserEntity> findOneWithAuthoritiesByEmailIgnoreCase(String email);
 
   Page<UserEntity> findAllByIdNotNullAndActivatedIsTrue(Pageable pageable);

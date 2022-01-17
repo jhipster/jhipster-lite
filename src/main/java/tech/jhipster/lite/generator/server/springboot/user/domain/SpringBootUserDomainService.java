@@ -10,9 +10,10 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class SpringBootUserDomainService implements SpringBootUserService {
 
-  public static final String SOURCE = "server/springboot/user/sqldatabase";
-  public static final String TARGET_JAVA = "user/infrastructure/secondary";
-  public static final String USER_DATABASE_KEY = "sqlDatabaseName";
+  private static final String SOURCE = "server/springboot/user/sqldatabase";
+  private static final String TARGET_INFRA_SECOND_JAVA = "user/infrastructure/secondary";
+  private static final String TARGET_DOMAIN_JAVA = "user/domain";
+  private static final String USER_DATABASE_KEY = "sqlDatabaseName";
 
   private final ProjectRepository projectRepository;
 
@@ -27,8 +28,8 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     projectRepository.template(project, SOURCE, "UserEntity.java", getSqlJavaPath(packageNamePath, sqlDatabase));
-    projectRepository.template(project, SOURCE, "UserConstants.java", getSqlJavaPath(packageNamePath, sqlDatabase));
     projectRepository.template(project, SOURCE, "UserJpaRepository.java", getSqlJavaPath(packageNamePath, sqlDatabase));
+    projectRepository.template(project, SOURCE, "UserConstants.java", getSqlDomainJavaPath(packageNamePath));
 
     projectRepository.template(project, SOURCE, "UserEntityTest.java", getSqlJavaTestPath(packageNamePath, sqlDatabase));
   }
@@ -40,7 +41,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     projectRepository.template(project, SOURCE, "AuthorityEntity.java", getSqlJavaPath(packageNamePath, sqlDatabase));
-    projectRepository.template(project, SOURCE, "AuthorityRepository.java", getSqlJavaPath(packageNamePath, sqlDatabase));
+    projectRepository.template(project, SOURCE, "AuthorityJpaRepository.java", getSqlJavaPath(packageNamePath, sqlDatabase));
 
     projectRepository.template(project, SOURCE, "AuthorityEntityTest.java", getSqlJavaTestPath(packageNamePath, sqlDatabase));
   }
@@ -55,10 +56,14 @@ public class SpringBootUserDomainService implements SpringBootUserService {
   }
 
   private String getSqlJavaPath(String packageNamePath, DatabaseType sqlDatabase) {
-    return getPath(MAIN_JAVA, packageNamePath, TARGET_JAVA + "/" + sqlDatabase.id());
+    return getPath(MAIN_JAVA, packageNamePath, TARGET_INFRA_SECOND_JAVA + "/" + sqlDatabase.id());
+  }
+
+  private String getSqlDomainJavaPath(String packageNamePath) {
+    return getPath(MAIN_JAVA, packageNamePath, TARGET_DOMAIN_JAVA);
   }
 
   private String getSqlJavaTestPath(String packageNamePath, DatabaseType sqlDatabase) {
-    return getPath(TEST_JAVA, packageNamePath, TARGET_JAVA + "/" + sqlDatabase.id());
+    return getPath(TEST_JAVA, packageNamePath, TARGET_INFRA_SECOND_JAVA + "/" + sqlDatabase.id());
   }
 }

@@ -4,8 +4,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.*;
 
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,6 +34,7 @@ class TypescriptDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProject();
+    when(npmService.getVersion(anyString())).thenReturn(Optional.of("0.0.0"));
 
     typescriptDomainService.init(project);
 

@@ -67,7 +67,7 @@ class OAuth2SecurityResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/security/oauth2/add-client")
+        post("/api/servers/spring-boot/mvc/security/oauth2/add-client")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(oAuth2ClientDTO))
       )
@@ -99,7 +99,7 @@ class OAuth2SecurityResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/security/oauth2/default")
+        post("/api/servers/spring-boot/mvc/security/oauth2/default")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(oAuth2ClientDTO))
       )

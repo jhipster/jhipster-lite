@@ -13,7 +13,7 @@ import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.applic
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infrastructure.primary.dto.OAuth2ClientDTO;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/security")
+@RequestMapping("/api/servers/spring-boot/mvc/security")
 @Tag(name = "Spring Boot - Security")
 class OAuth2SecurityResource {
 

@@ -69,7 +69,7 @@ elif [[ $filename == 'undertow-oauth2' ]]; then
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
   callApi "/api/servers/spring-boot/mvc/web/undertow"
-  callApi "/api/servers/spring-boot/security/oauth2/default"
+  callApi "/api/servers/spring-boot/mvc/security/oauth2/default"
 
 elif [[ $filename == 'tomcat-configserver' ]]; then
   callApi "/api/projects/init"

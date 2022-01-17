@@ -87,6 +87,10 @@ class InitApplicationServiceIT {
     initApplicationService.addPackageJson(project);
 
     assertFilesPackageJson(project);
+    List
+      .of("@prettier/plugin-xml", "husky", "lint-staged", "prettier", "prettier-plugin-java", "prettier-plugin-packagejson")
+      .forEach(dependency -> assertFileContent(project, PACKAGE_JSON, dependency));
+    List.of("prepare", "prettier:check", "prettier:format").forEach(dependency -> assertFileContent(project, PACKAGE_JSON, dependency));
   }
 
   @Test

@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.user.infrastructure.prima
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
 import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaAuditEntity;
 import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaUser;
 import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaUserAuthority;
@@ -42,8 +43,8 @@ class SpringBootUserResourceIT {
       )
       .andExpect(status().isOk());
 
-    assertFilesSqlJavaUser(project, "postgresql");
-    assertFilesSqlJavaUserAuthority(project, "postgresql");
-    assertFilesSqlJavaAuditEntity(project, "postgresql");
+    assertFilesSqlJavaUser(project, POSTGRESQL);
+    assertFilesSqlJavaUserAuthority(project, POSTGRESQL);
+    assertFilesSqlJavaAuditEntity(project, POSTGRESQL);
   }
 }

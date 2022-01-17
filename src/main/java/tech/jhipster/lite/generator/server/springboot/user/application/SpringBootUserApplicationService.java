@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.user.application;
 
 import org.springframework.stereotype.Service;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.user.domain.SpringBootUserService;
 
@@ -13,15 +14,15 @@ public class SpringBootUserApplicationService {
     this.springBootUserService = springBootPropertiesService;
   }
 
-  public void addSqlJavaUser(Project project, String sqlDabaseName) {
-    springBootUserService.addSqlJavaUser(project, sqlDabaseName);
+  public void addSqlJavaUser(Project project, DatabaseType sqlDatabase) {
+    springBootUserService.addSqlJavaUser(project, sqlDatabase);
   }
 
-  public void addSqlJavaAuthority(Project project, String sqlDabaseName) {
-    springBootUserService.addSqlJavaAuthority(project, sqlDabaseName);
+  public void addSqlJavaAuthority(Project project, DatabaseType sqlDatabase) {
+    springBootUserService.addSqlJavaAuthority(project, sqlDatabase);
   }
 
-  public void addSqlJavaAuditEntity(Project project, String sqlDabaseName) {
-    springBootUserService.addSqlJavaAuditEntity(project, sqlDabaseName);
+  public void addSqlJavaAuditEntity(Project project, DatabaseType sqlDatabase) {
+    springBootUserService.addSqlJavaAuditEntity(project, sqlDatabase);
   }
 }

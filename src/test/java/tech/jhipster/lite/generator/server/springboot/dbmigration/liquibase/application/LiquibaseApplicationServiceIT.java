@@ -6,6 +6,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
@@ -174,17 +175,17 @@ class LiquibaseApplicationServiceIT {
   void shouldAddSqlUser() {
     Project project = tmpProjectWithLiquibaseMasterXml();
 
-    liquibaseApplicationService.addSqlUserChangelog(project, "database");
+    liquibaseApplicationService.addSqlUserChangelog(project, POSTGRESQL);
 
-    assertFilesLiquibaseSqlUser(project, "database");
+    assertFilesLiquibaseSqlUser(project, POSTGRESQL);
   }
 
   @Test
   void shouldAddSqlUserAuthority() {
     Project project = tmpProjectWithLiquibaseMasterXml();
 
-    liquibaseApplicationService.addSqlUserAuthorityChangelog(project, "database");
+    liquibaseApplicationService.addSqlUserAuthorityChangelog(project, POSTGRESQL);
 
-    assertFilesLiquibaseSqlUserAuthority(project, "database");
+    assertFilesLiquibaseSqlUserAuthority(project, POSTGRESQL);
   }
 }

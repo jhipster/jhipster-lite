@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUser;
@@ -106,7 +107,7 @@ class LiquibaseResourceIT {
       )
       .andExpect(status().isOk());
 
-    assertFilesLiquibaseSqlUser(project, "postgresql");
-    assertFilesLiquibaseSqlUserAuthority(project, "postgresql");
+    assertFilesLiquibaseSqlUser(project, POSTGRESQL);
+    assertFilesLiquibaseSqlUserAuthority(project, POSTGRESQL);
   }
 }

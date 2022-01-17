@@ -10,6 +10,7 @@ import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquiba
 
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -112,15 +113,15 @@ public class LiquibaseDomainService implements LiquibaseService {
   }
 
   @Override
-  public void addSqlUserChangelog(Project project, String sqlDatabaseName) {
+  public void addSqlUserChangelog(Project project, DatabaseType sqlDatabase) {
     // Update liquibase master file
-    addChangelogXml(project, "user/" + sqlDatabaseName, "user.xml");
+    addChangelogXml(project, "user/" + sqlDatabase.id(), "user.xml");
 
-    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
+    project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     // Copy liquibase files
-    projectRepository.template(project, getUserResourcePath(), "user.xml", getSqlLiquibasePath(sqlDatabaseName));
-    projectRepository.add(project, getUserResourcePath(), "user.csv", getSqlLiquibasePath(sqlDatabaseName));
+    projectRepository.template(project, getUserResourcePath(), "user.xml", getSqlLiquibasePath(sqlDatabase));
+    projectRepository.add(project, getUserResourcePath(), "user.csv", getSqlLiquibasePath(sqlDatabase));
   }
 
   private String getUserResourcePath() {
@@ -128,19 +129,19 @@ public class LiquibaseDomainService implements LiquibaseService {
   }
 
   @Override
-  public void addSqlUserAuthorityChangelog(Project project, String sqlDatabaseName) {
+  public void addSqlUserAuthorityChangelog(Project project, DatabaseType sqlDatabase) {
     // Update liquibase master file
-    addChangelogXml(project, "user/" + sqlDatabaseName, "authority.xml");
+    addChangelogXml(project, "user/" + sqlDatabase.id(), "authority.xml");
 
-    project.addConfig(USER_DATABASE_KEY, sqlDatabaseName);
+    project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     // Copy liquibase files
-    projectRepository.template(project, getUserResourcePath(), "authority.xml", getSqlLiquibasePath(sqlDatabaseName));
-    projectRepository.add(project, getUserResourcePath(), "authority.csv", getSqlLiquibasePath(sqlDatabaseName));
-    projectRepository.add(project, getUserResourcePath(), "user_authority.csv", getSqlLiquibasePath(sqlDatabaseName));
+    projectRepository.template(project, getUserResourcePath(), "authority.xml", getSqlLiquibasePath(sqlDatabase));
+    projectRepository.add(project, getUserResourcePath(), "authority.csv", getSqlLiquibasePath(sqlDatabase));
+    projectRepository.add(project, getUserResourcePath(), "user_authority.csv", getSqlLiquibasePath(sqlDatabase));
   }
 
-  private String getSqlLiquibasePath(String sqlDatabaseName) {
-    return getPath(MAIN_RESOURCES, CHANGELOG + "/user/" + sqlDatabaseName);
+  private String getSqlLiquibasePath(DatabaseType sqlDatabase) {
+    return getPath(MAIN_RESOURCES, CHANGELOG + "/user/" + sqlDatabase.id());
   }
 }

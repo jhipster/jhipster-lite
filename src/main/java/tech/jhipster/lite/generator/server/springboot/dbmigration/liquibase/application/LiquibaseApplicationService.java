@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application;
 
 import org.springframework.stereotype.Service;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.LiquibaseService;
 
@@ -37,11 +38,11 @@ public class LiquibaseApplicationService {
     liquibaseService.addLoggerInConfiguration(project);
   }
 
-  public void addSqlUserChangelog(Project project, String sqlDabaseName) {
-    liquibaseService.addSqlUserChangelog(project, sqlDabaseName);
+  public void addSqlUserChangelog(Project project, DatabaseType sqlDabase) {
+    liquibaseService.addSqlUserChangelog(project, sqlDabase);
   }
 
-  public void addSqlUserAuthorityChangelog(Project project, String sqlDabaseName) {
-    liquibaseService.addSqlUserAuthorityChangelog(project, sqlDabaseName);
+  public void addSqlUserAuthorityChangelog(Project project, DatabaseType sqlDabase) {
+    liquibaseService.addSqlUserAuthorityChangelog(project, sqlDabase);
   }
 }

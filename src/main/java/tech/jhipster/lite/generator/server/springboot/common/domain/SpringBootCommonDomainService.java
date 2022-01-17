@@ -53,7 +53,13 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String needleProperties
   ) {
     String propertiesWithNeedle = key + "=" + value + LF + needleProperties;
-    projectRepository.replaceText(project, getPath(folderProperties, "config"), fileProperties, needleProperties, propertiesWithNeedle);
+    projectRepository.replaceText(
+      project,
+      getPath(folderProperties, CONFIG_FOLDER),
+      fileProperties,
+      needleProperties,
+      propertiesWithNeedle
+    );
   }
 
   @Override
@@ -73,7 +79,13 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   private void addNewLineToProperties(Project project, String folderProperties, String fileProperties, String needleProperties) {
     String propertiesWithNeedle = LF + needleProperties;
-    projectRepository.replaceText(project, getPath(folderProperties, "config"), fileProperties, needleProperties, propertiesWithNeedle);
+    projectRepository.replaceText(
+      project,
+      getPath(folderProperties, CONFIG_FOLDER),
+      fileProperties,
+      needleProperties,
+      propertiesWithNeedle
+    );
   }
 
   @Override
@@ -99,7 +111,13 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String needleProperties
   ) {
     String propertiesWithNeedle = "# " + text + LF + needleProperties;
-    projectRepository.replaceText(project, getPath(folderProperties, "config"), fileProperties, needleProperties, propertiesWithNeedle);
+    projectRepository.replaceText(
+      project,
+      getPath(folderProperties, CONFIG_FOLDER),
+      fileProperties,
+      needleProperties,
+      propertiesWithNeedle
+    );
   }
 
   @Override

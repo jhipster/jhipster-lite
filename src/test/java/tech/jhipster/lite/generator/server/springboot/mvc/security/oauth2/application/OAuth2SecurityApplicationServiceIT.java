@@ -88,10 +88,11 @@ class OAuth2SecurityApplicationServiceIT {
     springBootService.init(project);
     springBootMvcService.init(project);
 
-    oAuth2SecurityApplicationService.addClient(project, null, null);
+    oAuth2SecurityApplicationService.addDefault(project, null, null);
 
     assertSecurityDependencies(project);
     assertOAuth2ClientDependencies(project);
+    assertOAuth2ResourceServerDependencies(project);
     assertOAuth2ClientProperties(project, null, null);
     assertUpdateExceptionTranslatorIT(project);
     // TODO assert default security configuration

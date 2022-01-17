@@ -13,6 +13,7 @@ public class OAuth2Security {
 
   private static final String STARTER_SECURITY = "spring-boot-starter-security";
   private static final String STARTER_OAUTH2_CLIENT = "spring-boot-starter-oauth2-client";
+  private static final String STARTER_OAUTH2_RESOURCE_SERVER = "spring-boot-starter-oauth2-resource-server";
 
   private OAuth2Security() {}
 
@@ -34,5 +35,9 @@ public class OAuth2Security {
 
   public static Dependency springBootStarterOAuth2ClientDependency() {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId(STARTER_OAUTH2_CLIENT).build();
+  }
+
+  public static Dependency springBootStarterOAuth2ResourceServerDependency() {
+    return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId(STARTER_OAUTH2_RESOURCE_SERVER).build();
   }
 }

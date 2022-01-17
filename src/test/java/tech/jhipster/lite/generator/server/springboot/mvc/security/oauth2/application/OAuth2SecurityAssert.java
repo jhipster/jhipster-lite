@@ -26,6 +26,10 @@ public class OAuth2SecurityAssert {
     assertFileContent(project, POM_XML, oauth2ClientDependency());
   }
 
+  public static void assertOAuth2ResourceServerDependencies(Project project) {
+    assertFileContent(project, POM_XML, oauth2ResourceServerDependency());
+  }
+
   public static void assertDockerKeycloak(Project project) {
     assertFileExist(project, "src/main/docker/keycloak.yml");
     assertFileExist(project, "src/main/docker/keycloak-realm-config/jhipster-realm.json");
@@ -102,6 +106,15 @@ public class OAuth2SecurityAssert {
       "<dependency>",
       "<groupId>org.springframework.boot</groupId>",
       "<artifactId>spring-boot-starter-oauth2-client</artifactId>",
+      "</dependency>"
+    );
+  }
+
+  public static List<String> oauth2ResourceServerDependency() {
+    return List.of(
+      "<dependency>",
+      "<groupId>org.springframework.boot</groupId>",
+      "<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>",
       "</dependency>"
     );
   }

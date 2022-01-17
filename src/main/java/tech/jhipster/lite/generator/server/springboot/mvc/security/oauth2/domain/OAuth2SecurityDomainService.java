@@ -39,7 +39,14 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   @Override
   public void addDefault(Project project, OAuth2Provider provider, String issuerUri) {
     addCommons(project, provider, issuerUri);
+    addResourceServerJwt(project);
     // TODO default security configuration
+  }
+
+  @Override
+  public void addResourceServerJwt(Project project) {
+    addOAuth2ResourceServerDependency(project);
+    // TODO JWT
   }
 
   @Override
@@ -82,6 +89,10 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     buildToolService.addDependency(project, springBootStarterOAuth2ClientDependency());
     // test
     buildToolService.addDependency(project, springSecurityTestDependency());
+  }
+
+  private void addOAuth2ResourceServerDependency(Project project) {
+    buildToolService.addDependency(project, springBootStarterOAuth2ResourceServerDependency());
   }
 
   private void addOAuth2ClientProperties(Project project, OAuth2Provider provider, String issuerUri) {

@@ -290,7 +290,28 @@ class FileUtilsTest {
     void shouldNotReadLineWhenFileNotExist() {
       String filename = getPath("src/test/resources/generator/utils/unknown.md");
 
-      assertThatThrownBy(() -> FileUtils.readLine(filename, "beer")).isInstanceOf(IOException.class);
+      assertThat(FileUtils.readLine(filename, "beer")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineForNullFileName() {
+      assertThatThrownBy(() -> FileUtils.readLine(null, null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLineForBlankFileName() {
+      assertThatThrownBy(() -> FileUtils.readLine(" ", null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLineForNullValue() {
+      assertThatThrownBy(() -> FileUtils.readLine("filename", null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("value");
     }
   }
 

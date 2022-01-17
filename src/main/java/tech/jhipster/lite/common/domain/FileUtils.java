@@ -90,7 +90,10 @@ public class FileUtils {
     return -1;
   }
 
-  public static Optional<String> readLine(String filename, String value) throws IOException {
+  public static Optional<String> readLine(String filename, String value) {
+    Assert.notBlank("filename", filename);
+    Assert.notNull("value", value);
+
     File file = new File(filename);
     try (Scanner scanner = new Scanner(file)) {
       while (scanner.hasNextLine()) {
@@ -99,6 +102,8 @@ public class FileUtils {
           return Optional.of(line);
         }
       }
+    } catch (FileNotFoundException e) {
+      log.error("Can't readLine as the filename '{}' is not found", filename, e);
     }
     return Optional.empty();
   }

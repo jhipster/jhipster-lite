@@ -47,7 +47,7 @@ class SpringDocDomainServiceTest {
     springDocDomainService.init(project);
 
     // Then
-    verify(buildToolService).addProperty(project, "springdoc-openapi-ui", "1.6.4");
+    verify(buildToolService).addProperty(project, "springdoc-openapi-ui.version", "1.6.4");
     ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
     verify(buildToolService).addDependency(eq(project), dependencyArgCaptor.capture());
     assertThat(dependencyArgCaptor.getValue()).usingRecursiveComparison().isEqualTo(getExpectedDependency());
@@ -92,7 +92,7 @@ class SpringDocDomainServiceTest {
     springDocDomainService.init(project);
 
     // Then
-    verify(buildToolService).addProperty(project, "springdoc-openapi-ui", "1.6.4");
+    verify(buildToolService).addProperty(project, "springdoc-openapi-ui.version", "1.6.4");
     ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
     verify(buildToolService).addDependency(eq(project), dependencyArgCaptor.capture());
     assertThat(dependencyArgCaptor.getValue()).usingRecursiveComparison().isEqualTo(getExpectedDependency());

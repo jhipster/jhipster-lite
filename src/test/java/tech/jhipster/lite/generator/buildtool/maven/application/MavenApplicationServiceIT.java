@@ -420,7 +420,7 @@ class MavenApplicationServiceIT {
 
     mavenApplicationService.addProperty(project, "testcontainers", "1.16.0");
 
-    assertFileContent(project, POM_XML, "    <testcontainers.version>1.16.0</testcontainers.version>");
+    assertFileContent(project, POM_XML, "    <testcontainers>1.16.0</testcontainers>");
   }
 
   @Test
@@ -448,11 +448,11 @@ class MavenApplicationServiceIT {
   void shouldDeleteProperty() {
     Project project = tmpProjectWithPomXml();
 
-    mavenApplicationService.addProperty(project, "my-key", "1.0");
+    mavenApplicationService.addProperty(project, "my-key.version", "1.0");
 
     assertFileContent(project, POM_XML, "    <my-key.version>1.0</my-key.version>");
 
-    mavenApplicationService.deleteProperty(project, "my-key");
+    mavenApplicationService.deleteProperty(project, "my-key.version");
 
     assertFileNoContent(project, POM_XML, "    <my-key.version>1.0</my-key.version>");
   }

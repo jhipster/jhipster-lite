@@ -41,7 +41,7 @@ public class LogstashDomainService implements LogstashService {
 
   @Override
   public void addDependencies(Project project) {
-    buildToolService.addProperty(project, "logstash-logback-encoder", Logstash.getLogstashLogbackEncoderVersion());
+    buildToolService.addProperty(project, "logstash-logback-encoder.version", Logstash.getLogstashLogbackEncoderVersion());
     buildToolService.addDependency(project, Logstash.logstashLogbackEncoderDependency());
   }
 

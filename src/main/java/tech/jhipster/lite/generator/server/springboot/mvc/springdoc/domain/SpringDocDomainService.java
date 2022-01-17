@@ -42,7 +42,7 @@ public class SpringDocDomainService implements SpringDocService {
 
   @Override
   public void addSpringDocDependency(Project project) {
-    buildToolService.addProperty(project, "springdoc-openapi-ui", SpringDoc.springDocVersion());
+    buildToolService.addProperty(project, "springdoc-openapi-ui.version", SpringDoc.springDocVersion());
     buildToolService.addDependency(project, SpringDoc.springDocDependency());
   }
 

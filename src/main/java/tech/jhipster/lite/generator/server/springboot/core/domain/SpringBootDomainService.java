@@ -88,7 +88,7 @@ public class SpringBootDomainService implements SpringBootService {
       .artifactId("spring-boot-maven-plugin")
       .version("\\${spring-boot.version}")
       .build();
-    buildToolService.addProperty(project, "spring-boot", SpringBoot.getVersion());
+    buildToolService.addProperty(project, "spring-boot.version", SpringBoot.getVersion());
     buildToolService.addPlugin(project, plugin);
   }
 

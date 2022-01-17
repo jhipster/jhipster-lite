@@ -11,7 +11,7 @@ public interface BuildToolService {
   void addDependencyManagement(Project project, Dependency dependency);
   void addPlugin(Project project, Plugin plugin);
   void addPluginManagement(Project project, Plugin plugin);
-  void addProperty(Project project, String key, String version);
+  void addProperty(Project project, String key, String value);
   void addRepository(Project project, Repository repository);
   void addPluginRepository(Project project, Repository repository);
   void init(Project project, BuildToolType buildTool);

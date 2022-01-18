@@ -6,6 +6,8 @@ public class SpringBootDocker {
   private static String DOCKER_PLATFORM_ARCHITECTURE = "amd64";
   private static String JIB_PLUGIN_VERSION = "3.1.4";
 
+  private SpringBootDocker() {}
+
   public static String getDockerBaseImage() {
     return DOCKER_BASE_IMAGE;
   }

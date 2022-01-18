@@ -89,6 +89,7 @@ class SpringBootDockerApplicationServiceIT {
       "<groupId>com.google.cloud.tools</groupId>",
       "<artifactId>jib-maven-plugin</artifactId>",
       "<version>${jib-maven-plugin.version}</version>",
+      "<configuration>",
       "<from>",
       "<image>${jib-maven-plugin.image}</image>",
       "<platforms>",
@@ -126,6 +127,7 @@ class SpringBootDockerApplicationServiceIT {
       "</permission>",
       "</permissions>",
       "</extraDirectories>",
+      "</configuration>",
       "</plugin>"
     );
   }

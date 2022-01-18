@@ -11,7 +11,7 @@ class SpringBootDockerTest {
 
   @Test
   void shouldGetDockerBaseImage() {
-    assertThat(SpringBootDocker.getDockerBaseImage()).isEqualTo("eclipse-temurin:11-jre-focal");
+    assertThat(SpringBootDocker.getDockerBaseImage()).isEqualTo("eclipse-temurin:17-jre-focal");
   }
 
   @Test

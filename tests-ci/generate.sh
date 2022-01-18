@@ -40,6 +40,7 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/logging/logstash"
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
   callApi "/api/servers/sonar"
+  callApi "/api/servers/spring-boot/docker/jib"
 
 elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/projects/init"

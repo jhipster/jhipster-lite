@@ -32,7 +32,7 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/mvc/security/jwt"
   callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/mvc/spring-doc"
+  callApi "/api/servers/spring-boot/mvc/springdoc"
   callApi "/api/servers/spring-boot/mvc/dummy"
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase"

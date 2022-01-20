@@ -175,6 +175,16 @@ public class Project {
     }
   }
 
+  public int getServerPort() {
+    int serverPort;
+    try {
+      serverPort = this.getIntegerConfig("serverPort").orElse(8080);
+    } catch (UnauthorizedValueException e) {
+      serverPort = 8080;
+    }
+    return serverPort;
+  }
+
   /**
    * Attempts detection of end-of-line characters by reading files at the root of the project folder or defaults to \n.
    * Non-UTF-8 files can lead to unexpected results.

@@ -13,7 +13,7 @@ import tech.jhipster.lite.generator.server.springboot.devtools.application.DevTo
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/devtools")
-@Tag(name = "Spring Boot - Developer Tools")
+@Tag(name = "Spring Boot - Tools")
 class DevToolsResource {
 
   private final DevToolsApplicationService devToolsApplicationService;

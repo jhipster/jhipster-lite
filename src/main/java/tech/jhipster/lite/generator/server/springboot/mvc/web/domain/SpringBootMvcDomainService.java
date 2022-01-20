@@ -113,23 +113,12 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   private void addServerPortInProperties(Project project) {
-    springBootCommonService.addProperties(project, "server.port", getServerPort(project));
+    springBootCommonService.addProperties(project, "server.port", project.getServerPort());
     springBootCommonService.addPropertiesTest(project, "server.port", 0);
   }
 
   private void addLoggerInConfiguration(Project project, String packageName, Level level) {
     springBootCommonService.addLogger(project, packageName, level);
     springBootCommonService.addLoggerTest(project, packageName, level);
-  }
-
-  private int getServerPort(Project project) {
-    int serverPort;
-    try {
-      serverPort = project.getIntegerConfig("serverPort").orElse(8080);
-    } catch (UnauthorizedValueException e) {
-      log.warn("The serverPort config is not valid");
-      serverPort = 8080;
-    }
-    return serverPort;
   }
 }

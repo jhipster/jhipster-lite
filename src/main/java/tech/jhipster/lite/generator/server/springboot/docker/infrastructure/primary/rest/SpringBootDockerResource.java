@@ -13,7 +13,7 @@ import tech.jhipster.lite.generator.server.springboot.docker.application.SpringB
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/docker")
-@Tag(name = "Spring Boot")
+@Tag(name = "Spring Boot - Tools")
 class SpringBootDockerResource {
 
   private final SpringBootDockerApplicationService springBootDockerApplicationService;

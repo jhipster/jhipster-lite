@@ -344,6 +344,34 @@ class ProjectTest {
     }
   }
 
+  @Nested
+  class GetServerPortTest {
+
+    @Test
+    void shouldGetDefaultServerPort() {
+      Project project = tmpProject();
+      assertThat(project.getServerPort()).isEqualTo(8080);
+    }
+
+    @Test
+    void shouldGetPresetServerPort() {
+      Project project = tmpProject();
+      project.addConfig("serverPort", 1337);
+      assertThat(project.getServerPort()).isEqualTo(1337);
+    }
+
+    @Test
+    void shouldNotGetServerPort() {
+      Project project = tmpProject();
+
+      project.addConfig("serverPort", List.of(1337));
+
+      assertThatThrownBy(() -> project.getIntegerConfig("serverPort"))
+        .isExactlyInstanceOf(UnauthorizedValueException.class)
+        .hasMessageContaining("serverPort");
+    }
+  }
+
   @Test
   void shouldBeMavenProject() throws Exception {
     Project project = Project.builder().folder(tmpDirForTest()).build();

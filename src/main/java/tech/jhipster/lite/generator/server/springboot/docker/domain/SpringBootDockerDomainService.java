@@ -64,7 +64,7 @@ public class SpringBootDockerDomainService implements SpringBootDockerService {
                 <arg>/entrypoint.sh</arg>
               </entrypoint>
               <ports>
-                <port>8081</port>
+                <port>%s</port>
               </ports>
               <environment>
                 <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
@@ -83,7 +83,8 @@ public class SpringBootDockerDomainService implements SpringBootDockerService {
               </permissions>
             </extraDirectories>
           </configuration>""".formatted(
-            project.getBaseName().orElse("jhipster")
+            project.getBaseName().orElse("jhipster"),
+            project.getServerPort()
           )
       )
       .build();

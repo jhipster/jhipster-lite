@@ -43,7 +43,7 @@ class SpringBootDockerApplicationServiceIT {
     assertFileContent(project, POM_XML, "<jib-maven-plugin.architecture>");
     assertFileContent(project, POM_XML, "</jib-maven-plugin.architecture>");
 
-    assertFileContent(project, POM_XML, mavenJibPlugin());
+    assertFileContent(project, POM_XML, mavenJibPlugin(project));
   }
 
   @Test
@@ -80,10 +80,10 @@ class SpringBootDockerApplicationServiceIT {
     assertFileContent(project, POM_XML, "<jib-maven-plugin.architecture>");
     assertFileContent(project, POM_XML, "</jib-maven-plugin.architecture>");
 
-    assertFileContent(project, POM_XML, mavenJibPlugin());
+    assertFileContent(project, POM_XML, mavenJibPlugin(project));
   }
 
-  private List<String> mavenJibPlugin() {
+  private List<String> mavenJibPlugin(Project project) {
     return List.of(
       "<plugin>",
       "<groupId>com.google.cloud.tools</groupId>",
@@ -100,7 +100,7 @@ class SpringBootDockerApplicationServiceIT {
       "</platforms>",
       "</from>",
       "<to>",
-      "<image>jhipster:latest</image>",
+      "<image>" + project.getBaseName().orElse("jhipster") + ":latest</image>",
       "</to>",
       "<container>",
       "<entrypoint>",
@@ -109,7 +109,7 @@ class SpringBootDockerApplicationServiceIT {
       "<arg>/entrypoint.sh</arg>",
       "</entrypoint>",
       "<ports>",
-      "<port>8081</port>",
+      "<port>" + project.getServerPort() + "</port>",
       "</ports>",
       "<environment>",
       "<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>",

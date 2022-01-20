@@ -12,7 +12,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringDocApplicationService;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/mvc/spring-doc")
+@RequestMapping("/api/servers/spring-boot/mvc/springdoc")
 @Tag(name = "Spring Boot - MVC")
 class SpringDocResource {
 
@@ -22,8 +22,8 @@ class SpringDocResource {
     this.springDocApplicationService = springDocApplicationService;
   }
 
-  @Operation(summary = "Add Spring Doc")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Doc")
+  @Operation(summary = "Add springdoc-openapi")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding springdoc-openapi")
   @PostMapping
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

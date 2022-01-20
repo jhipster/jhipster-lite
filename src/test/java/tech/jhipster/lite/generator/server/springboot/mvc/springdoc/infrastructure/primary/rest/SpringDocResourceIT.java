@@ -51,7 +51,7 @@ class SpringDocResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/spring-doc")
+        post("/api/servers/spring-boot/mvc/springdoc")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

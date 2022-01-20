@@ -7,9 +7,6 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.*;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -17,8 +14,6 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class SpringBootMvcDomainService implements SpringBootMvcService {
-
-  private final Logger log = LoggerFactory.getLogger(SpringBootMvcDomainService.class);
 
   public static final String SOURCE = "server/springboot/mvc/web";
   public static final String EXCEPTION_HANDLER_PATH = "technical/infrastructure/primary/exception";

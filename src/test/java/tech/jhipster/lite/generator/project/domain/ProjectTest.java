@@ -361,14 +361,12 @@ class ProjectTest {
     }
 
     @Test
-    void shouldNotGetServerPort() {
+    void shouldGetDefaultServerPortForInvalidProperty() {
       Project project = tmpProject();
 
       project.addConfig("serverPort", List.of(1337));
 
-      assertThatThrownBy(() -> project.getIntegerConfig("serverPort"))
-        .isExactlyInstanceOf(UnauthorizedValueException.class)
-        .hasMessageContaining("serverPort");
+      assertThat(project.getServerPort()).isEqualTo(8080);
     }
   }
 

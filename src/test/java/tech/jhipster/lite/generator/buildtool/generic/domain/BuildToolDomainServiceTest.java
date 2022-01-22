@@ -130,12 +130,21 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldInitWihoutExistingPomXml() {
+    void shouldInitWithoutExistingPomXml() {
       Project project = tmpProject();
 
       buildToolDomainService.init(project, BuildToolType.MAVEN);
 
       verify(mavenService).initJava(project);
+    }
+
+    @Test
+    void shouldGetVersion() {
+      Project project = tmpProjectWithPomXml();
+
+      buildToolDomainService.getVersion(project, "spring-boot");
+
+      verify(mavenService).getVersion("spring-boot");
     }
   }
 
@@ -239,6 +248,13 @@ class BuildToolDomainServiceTest {
 
       assertThatThrownBy(() -> buildToolDomainService.addPluginRepository(project, repository))
         .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotGetVersion() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> buildToolDomainService.getVersion(project, "spring-boot")).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 

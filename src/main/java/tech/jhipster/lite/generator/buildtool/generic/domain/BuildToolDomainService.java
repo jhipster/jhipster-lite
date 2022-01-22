@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.buildtool.generic.domain;
 import static tech.jhipster.lite.generator.project.domain.BuildToolType.MAVEN;
 
 import java.util.List;
+import java.util.Optional;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
@@ -102,6 +103,15 @@ public class BuildToolDomainService implements BuildToolService {
   public void init(Project project, BuildToolType buildTool) {
     if (buildTool == MAVEN) {
       mavenService.initJava(project);
+    } else {
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
+    }
+  }
+
+  @Override
+  public Optional<String> getVersion(Project project, String name) {
+    if (project.isMavenProject()) {
+      return mavenService.getVersion(name);
     } else {
       throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }

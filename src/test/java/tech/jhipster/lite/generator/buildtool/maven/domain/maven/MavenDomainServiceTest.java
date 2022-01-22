@@ -1,5 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain.maven;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -8,12 +10,14 @@ import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
 import java.util.List;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
@@ -180,5 +184,33 @@ class MavenDomainServiceTest {
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
     verify(projectRepository).add(any(Project.class), anyString(), anyString(), anyString(), anyString());
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
+  }
+
+  @Nested
+  class GetVersionTest {
+
+    @Test
+    void shouldGetVersion() {
+      assertThat(mavenDomainService.getVersion("spring-boot")).isNotEmpty();
+    }
+
+    @Test
+    void shouldNotGetVersionForNull() {
+      assertThatThrownBy(() -> mavenDomainService.getVersion(null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("name");
+    }
+
+    @Test
+    void shouldNotGetVersionForBlank() {
+      assertThatThrownBy(() -> mavenDomainService.getVersion(" "))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("name");
+    }
+
+    @Test
+    void shouldNotGetVersion() {
+      assertThat(mavenDomainService.getVersion("unknown")).isEmpty();
+    }
   }
 }

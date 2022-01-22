@@ -28,7 +28,11 @@ public class AuthorityEntity implements Serializable {
     return name;
   }
 
-  public AuthorityEntity setName(String name) {
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public AuthorityEntity name(String name) {
     this.name = name;
     return this;
   }
@@ -46,15 +50,14 @@ public class AuthorityEntity implements Serializable {
 
   @Override
   public int hashCode() {
-    // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
     return getClass().hashCode();
   }
 
   // prettier-ignore
-    @Override
-    public String toString() {
-        return "Authority{" +
-            "name='" + name + '\'' +
-            "}";
-    }
+  @Override
+  public String toString() {
+    return "Authority{" +
+      "name='" + name + '\'' +
+      "}";
+  }
 }

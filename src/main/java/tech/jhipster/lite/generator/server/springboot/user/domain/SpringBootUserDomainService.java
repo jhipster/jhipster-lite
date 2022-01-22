@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.user.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -24,7 +25,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
   @Override
   public void addSqlJavaUser(Project project, DatabaseType sqlDatabase) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     projectRepository.template(project, SOURCE, "UserEntity.java", getSqlJavaPath(packageNamePath, sqlDatabase));
@@ -37,7 +38,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
   @Override
   public void addSqlJavaAuthority(Project project, DatabaseType sqlDatabase) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     projectRepository.template(project, SOURCE, "AuthorityEntity.java", getSqlJavaPath(packageNamePath, sqlDatabase));
@@ -49,7 +50,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
   @Override
   public void addSqlJavaAuditEntity(Project project, DatabaseType sqlDatabase) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     projectRepository.template(project, SOURCE, "AbstractAuditingEntity.java", getSqlJavaPath(packageNamePath, sqlDatabase));

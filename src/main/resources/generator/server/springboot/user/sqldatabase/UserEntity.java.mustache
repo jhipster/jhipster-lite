@@ -26,7 +26,7 @@ public class UserEntity extends AbstractAuditingEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-  @SequenceGenerator(name = "sequenceGenerator")
+  @SequenceGenerator(name = "seq_sqlUser_{{sqlDatabaseName}}")
   private Long id;
 
   @NotNull

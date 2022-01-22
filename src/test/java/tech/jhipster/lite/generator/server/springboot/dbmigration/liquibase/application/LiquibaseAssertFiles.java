@@ -5,6 +5,7 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class LiquibaseAssertFiles {
@@ -42,5 +43,16 @@ public class LiquibaseAssertFiles {
 
   public static void assertFilesLiquibaseChangelogMasterXml(Project project) {
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"));
+  }
+
+  public static void assertFilesLiquibaseSqlUser(Project project, DatabaseType databaseType) {
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseType.id(), "user.xml"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseType.id(), "user.csv"));
+  }
+
+  public static void assertFilesLiquibaseSqlUserAuthority(Project project, DatabaseType databaseType) {
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseType.id(), "authority.xml"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseType.id(), "authority.csv"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/user", databaseType.id(), "user_authority.csv"));
   }
 }

@@ -35,10 +35,12 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/mvc/springdoc"
   callApi "/api/servers/spring-boot/mvc/dummy"
   callApi "/api/servers/spring-boot/databases/postgresql"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/user/postgresql"
   callApi "/api/servers/spring-boot/logging/aop"
   callApi "/api/servers/spring-boot/logging/logstash"
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
+  callApi "/api/servers/spring-boot/user/postgresql"
   callApi "/api/servers/sonar"
   callApi "/api/servers/spring-boot/docker/jib"
 

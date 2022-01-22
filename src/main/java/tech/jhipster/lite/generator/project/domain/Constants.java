@@ -16,5 +16,6 @@ public class Constants {
   public static final String TEST_TEMPLATE_RESOURCES = String.join(File.separator, TEST_RESOURCES, TEMPLATE_FOLDER);
 
   public static final String POM_XML = "pom.xml";
+  public static final String LIQUIBASE_MASTER_XML = "master.xml";
   public static final String PACKAGE_JSON = "package.json";
 }

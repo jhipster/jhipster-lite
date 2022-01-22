@@ -141,6 +141,12 @@ public class TestUtils {
     return project;
   }
 
+  public static Project tmpProjectWithLiquibaseMasterXml() {
+    Project project = tmpProject();
+    copyLiquibaseMasterXml(project);
+    return project;
+  }
+
   public static void copyPomXml(Project project) {
     try {
       FileUtils.createFolder(project.getFolder());
@@ -212,6 +218,18 @@ public class TestUtils {
       Files.copy(
         getPathOf("src/test/resources/generator/server/springboot/core/logback.xml"),
         getPathOf(project.getFolder(), TEST_RESOURCES, "logback.xml")
+      );
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public static void copyLiquibaseMasterXml(Project project) {
+    try {
+      FileUtils.createFolder(getPath(project.getFolder(), "src/main/resources/config/liquibase"));
+      Files.copy(
+        getPathOf("src/test/resources/generator/server/springboot/liquibase/master.test.xml"),
+        getPathOf(project.getFolder(), "src/main/resources/config/liquibase", LIQUIBASE_MASTER_XML)
       );
     } catch (IOException e) {
       throw new AssertionError(e);

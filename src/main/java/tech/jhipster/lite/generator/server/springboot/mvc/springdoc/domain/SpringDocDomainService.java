@@ -85,7 +85,9 @@ public class SpringDocDomainService implements SpringDocService {
 
   @Override
   public void addProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, "Springdoc Configuration");
     getSpringDocProperties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   private TreeMap<String, Object> getSpringDocProperties() {

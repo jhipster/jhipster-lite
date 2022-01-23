@@ -120,6 +120,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
       "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
     );
     springBootCommonService.addProperties(project, "spring.security.user.roles", "ADMIN");
+    springBootCommonService.addPropertiesNewLine(project);
 
     springBootCommonService.addPropertiesTest(project, "spring.security.user.name", "admin");
     springBootCommonService.addPropertiesTest(
@@ -128,16 +129,21 @@ public class JwtSecurityDomainService implements JwtSecurityService {
       "\\$2a\\$12\\$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"
     );
     springBootCommonService.addPropertiesTest(project, "spring.security.user.roles", "ADMIN");
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 
   private void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
 
+    springBootCommonService.addPropertiesComment(project, "Spring Security JWT");
+    springBootCommonService.addPropertiesTestComment(project, "Spring Security JWT");
     jwtProperties(baseName)
       .forEach((k, v) -> {
         springBootCommonService.addProperties(project, k, v);
         springBootCommonService.addPropertiesTest(project, k, v);
       });
+    springBootCommonService.addPropertiesNewLine(project);
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 
   private Map<String, Object> jwtProperties(String baseName) {

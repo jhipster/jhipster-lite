@@ -60,6 +60,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public void addSpringBootActuator(Project project) {
     buildToolService.addDependency(project, springBootActuatorDependency());
 
+    springBootCommonService.addPropertiesComment(project, "Spring Boot Actuator");
     springBootCommonService.addProperties(project, "management.endpoints.web.base-path", "/management");
     springBootCommonService.addProperties(
       project,
@@ -69,6 +70,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     springBootCommonService.addProperties(project, "management.endpoint.health.probes.enabled", "true");
     springBootCommonService.addProperties(project, "management.endpoint.health.group.liveness.include", "livenessState");
     springBootCommonService.addProperties(project, "management.endpoint.health.group.readiness.include", "readinessState");
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   @Override
@@ -108,12 +110,15 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   private void addServerPortInProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, "Spring Boot MVC");
     springBootCommonService.addProperties(project, "server.port", project.getServerPort());
     springBootCommonService.addPropertiesTest(project, "server.port", 0);
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   private void addLoggerInConfiguration(Project project, String packageName, Level level) {
     springBootCommonService.addLogger(project, packageName, level);
     springBootCommonService.addLoggerTest(project, packageName, level);
+    springBootCommonService.addPropertiesNewLine(project);
   }
 }

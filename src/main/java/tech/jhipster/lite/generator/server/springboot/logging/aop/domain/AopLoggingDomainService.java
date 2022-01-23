@@ -16,6 +16,7 @@ public class AopLoggingDomainService implements AopLoggingService {
 
   public static final String SOURCE = "server/springboot/aop/logging";
   private static final String LOGGING_PROPERTY_FIELD = "application.aop.logging";
+  private static final String COMMENT_AOP_LOGGING = "AOP Logging Configuration";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -46,9 +47,17 @@ public class AopLoggingDomainService implements AopLoggingService {
 
   @Override
   public void addProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, COMMENT_AOP_LOGGING);
     springBootCommonService.addProperties(project, LOGGING_PROPERTY_FIELD, "false");
+    springBootCommonService.addPropertiesNewLine(project);
+
+    springBootCommonService.addPropertiesFastComment(project, COMMENT_AOP_LOGGING);
     springBootCommonService.addPropertiesFast(project, LOGGING_PROPERTY_FIELD, "true");
+    springBootCommonService.addPropertiesFastNewLine(project);
+
+    springBootCommonService.addPropertiesTestComment(project, COMMENT_AOP_LOGGING);
     springBootCommonService.addPropertiesTest(project, LOGGING_PROPERTY_FIELD, "true");
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 
   @Override

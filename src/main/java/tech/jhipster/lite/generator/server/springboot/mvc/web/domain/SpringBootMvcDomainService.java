@@ -108,8 +108,10 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   private void addServerPortInProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, "Spring Boot MVC");
     springBootCommonService.addProperties(project, "server.port", project.getServerPort());
     springBootCommonService.addPropertiesTest(project, "server.port", 0);
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   private void addLoggerInConfiguration(Project project, String packageName, Level level) {

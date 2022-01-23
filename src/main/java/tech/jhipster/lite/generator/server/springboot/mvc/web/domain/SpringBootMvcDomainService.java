@@ -60,6 +60,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public void addSpringBootActuator(Project project) {
     buildToolService.addDependency(project, springBootActuatorDependency());
 
+    springBootCommonService.addPropertiesComment(project, "Spring Boot Actuator");
     springBootCommonService.addProperties(project, "management.endpoints.web.base-path", "/management");
     springBootCommonService.addProperties(
       project,
@@ -69,6 +70,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     springBootCommonService.addProperties(project, "management.endpoint.health.probes.enabled", "true");
     springBootCommonService.addProperties(project, "management.endpoint.health.group.liveness.include", "livenessState");
     springBootCommonService.addProperties(project, "management.endpoint.health.group.readiness.include", "readinessState");
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   @Override

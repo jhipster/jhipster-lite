@@ -51,7 +51,7 @@ class SpringDocResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/springdoc")
+        post("/api/servers/spring-boot/mvc/springdoc/init")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -67,5 +67,28 @@ class SpringDocResourceIT {
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_LICENSE_URL);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_EXT_DOC_DESCRIPTION);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_EXT_DOC_URL);
+  }
+
+  @Test
+  void shouldInitWithSecurityJWT() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
+    projectDTO.folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    assertDependencies(project);
+    assertJavaFilesWithSecurityJWT(project);
+    assertProperties(project);
   }
 }

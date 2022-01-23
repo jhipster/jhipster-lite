@@ -10,4 +10,6 @@ public interface SpringDocService {
   void addJavaFiles(Project project);
 
   void addProperties(Project project);
+
+  void initWithSecurityJWT(Project project);
 }

@@ -44,7 +44,9 @@ public class SpringBootAsyncDomainService implements SpringBootAsyncService {
   public void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
 
+    springBootCommonService.addPropertiesComment(project, "Async configuration");
     springPropertiesDatasource(baseName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   private Map<String, Object> springPropertiesDatasource(String baseName) {

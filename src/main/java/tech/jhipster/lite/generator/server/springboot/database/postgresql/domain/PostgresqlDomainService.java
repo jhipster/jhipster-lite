@@ -94,10 +94,17 @@ public class PostgresqlDomainService implements PostgresqlService {
     String baseName = project.getBaseName().orElse("jhipster");
     String packageName = project.getPackageName().orElse("com.mycompany.myapp");
 
+    springBootCommonService.addPropertiesComment(project, "Database Configuration");
+
     springPropertiesDatasource(baseName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
+
     springPropertiesJpaPart1(packageName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
     springPropertiesJpaPart2().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
+
     springPropertiesHibernate().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   @Override
@@ -113,7 +120,9 @@ public class PostgresqlDomainService implements PostgresqlService {
     buildToolService.addProperty(project, "testcontainers.version", Postgresql.getTestcontainersVersion());
     buildToolService.addDependency(project, dependency);
 
+    springBootCommonService.addPropertiesTestComment(project, "Database Configuration");
     springPropertiesForTest(baseName).forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 
   @Override

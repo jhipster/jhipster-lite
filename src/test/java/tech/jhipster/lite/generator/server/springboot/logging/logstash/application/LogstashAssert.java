@@ -64,7 +64,7 @@ public class LogstashAssert {
       project,
       getPath(MAIN_RESOURCES, "config/application.properties"),
       List.of(
-        "application.logging.logstash.tcp.enabled=true",
+        "application.logging.logstash.tcp.enabled=false",
         "application.logging.logstash.tcp.host=localhost",
         "application.logging.logstash.tcp.port=5000",
         "application.logging.logstash.tcp.ring-buffer-size=8192",

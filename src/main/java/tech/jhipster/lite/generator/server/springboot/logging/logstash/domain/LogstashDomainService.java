@@ -63,7 +63,9 @@ public class LogstashDomainService implements LogstashService {
 
   @Override
   public void addProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, "Logstash appender");
     properties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   private Map<String, Object> properties() {

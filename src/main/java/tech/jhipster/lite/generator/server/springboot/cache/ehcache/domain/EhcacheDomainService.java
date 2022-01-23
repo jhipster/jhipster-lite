@@ -92,8 +92,10 @@ public class EhcacheDomainService implements EhcacheService {
 
   @Override
   public void addJavaProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, "Ehcache Configuration");
     springBootCommonService.addProperties(project, "application.cache.ehcache.max-entries", 100);
     springBootCommonService.addProperties(project, "application.cache.ehcache.time-to-live-seconds", 3600);
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   private void templateToEhcache(Project project, String source, String type, String sourceFilename, String destination) {

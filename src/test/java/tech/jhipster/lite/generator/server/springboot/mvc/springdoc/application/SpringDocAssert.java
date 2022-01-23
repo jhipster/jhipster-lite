@@ -45,6 +45,19 @@ public class SpringDocAssert {
     TestUtils.assertFileContent(project, springDocConfigJavaFilePath, "package " + springDocPackage);
   }
 
+  public static void assertJavaFilesWithSecurityJWT(Project project) {
+    String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
+    String springDocPackage = basePackage + ".technical.infrastructure.primary.springdoc";
+
+    String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
+    String springDocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
+
+    String springDocConfigJavaFilePath = getPath(springDocPath, SPRING_DOC_CONFIG_JAVA_FILE_NAME);
+    assertFileExist(project, springDocConfigJavaFilePath);
+    TestUtils.assertFileContent(project, springDocConfigJavaFilePath, "package " + springDocPackage);
+    TestUtils.assertFileContent(project, springDocConfigJavaFilePath, "bearer-jwt");
+  }
+
   public static void assertProperties(Project project) {
     TestUtils.assertFileContent(
       project,

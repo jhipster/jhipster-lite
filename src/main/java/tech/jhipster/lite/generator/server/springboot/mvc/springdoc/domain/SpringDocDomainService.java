@@ -41,6 +41,13 @@ public class SpringDocDomainService implements SpringDocService {
   }
 
   @Override
+  public void initWithSecurityJWT(Project project) {
+    addSpringDocDependency(project);
+    addJavaFilesWithSecurityJWT(project);
+    addProperties(project);
+  }
+
+  @Override
   public void addSpringDocDependency(Project project) {
     buildToolService.addProperty(project, "springdoc-openapi-ui.version", SpringDoc.springDocVersion());
     buildToolService.addDependency(project, SpringDoc.springDocDependency());
@@ -58,6 +65,21 @@ public class SpringDocDomainService implements SpringDocService {
       getPath(SOURCE, "src"),
       "SpringDocConfiguration.java",
       getPath(MAIN_JAVA, packageNamePath, DESTINATION)
+    );
+  }
+
+  private void addJavaFilesWithSecurityJWT(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    project.addDefaultConfig(BASE_NAME);
+    getDefaultSpringDocConfig().forEach((key, defaultValue) -> updateEmptyConfig(project, key, defaultValue));
+
+    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src"),
+      "SpringDocConfigurationSecurityJWT.java",
+      getPath(MAIN_JAVA, packageNamePath, DESTINATION),
+      "SpringDocConfiguration.java"
     );
   }
 

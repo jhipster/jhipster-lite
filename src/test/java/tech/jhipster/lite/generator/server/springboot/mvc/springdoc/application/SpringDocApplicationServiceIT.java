@@ -7,6 +7,7 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domai
 
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
@@ -70,5 +71,25 @@ class SpringDocApplicationServiceIT {
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_LICENSE_URL);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_EXT_DOC_DESCRIPTION);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_EXT_DOC_URL);
+  }
+
+  @Test
+  @DisplayName("should init with Security JWT")
+  void shouldInitWithSecurityJWT() {
+    // Given
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "foo");
+
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    // When
+    springDocApplicationService.initWithSecurityJWT(project);
+
+    // Then
+    assertDependencies(project);
+    assertJavaFilesWithSecurityJWT(project);
+    assertProperties(project);
   }
 }

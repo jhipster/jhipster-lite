@@ -24,9 +24,17 @@ class SpringDocResource {
 
   @Operation(summary = "Add springdoc-openapi")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding springdoc-openapi")
-  @PostMapping
+  @PostMapping("/init")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     this.springDocApplicationService.init(project);
+  }
+
+  @Operation(summary = "Add springdoc-openapi with Security JWT")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding springdoc-openapi with Security JWT")
+  @PostMapping("/init-with-security-jwt")
+  public void initWithSecurityJWT(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    this.springDocApplicationService.initWithSecurityJWT(project);
   }
 }

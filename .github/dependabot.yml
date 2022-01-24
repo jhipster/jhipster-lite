@@ -23,6 +23,20 @@ updates:
     open-pull-requests-limit: 10
     labels:
       - 'area: dependencies'
+  - package-ecosystem: 'github-actions'
+    directory: '/.github/actions/setup'
+    schedule:
+      interval: 'daily'
+    open-pull-requests-limit: 10
+    labels:
+      - 'area: dependencies'
+  - package-ecosystem: 'github-actions'
+    directory: '/.github/workflows'
+    schedule:
+      interval: 'daily'
+    open-pull-requests-limit: 10
+    labels:
+      - 'area: dependencies'
 
   - package-ecosystem: 'npm'
     directory: '/'

@@ -53,9 +53,9 @@ elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
   callApi "/api/servers/spring-boot/mvc/springdoc/init"
   callApi "/api/servers/spring-boot/databases/mysql"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase"
+  callApi "/api/servers/spring-boot/databases/migration/flyway/init"
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
-
+0
 elif [[ $filename == 'undertow-simplecache' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"

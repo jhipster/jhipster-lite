@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Waiting 5sec to be sure the Jar is here"
+sleep 5
+
 echo "Copy JHipster Lite Jar file"
 cp ../target/*.jar .
 
@@ -9,5 +12,5 @@ java \
   --logging.level.ROOT=OFF & > /dev/null
 echo $! > .pid-jhlite
 
-echo "Waiting 10sec..."
-sleep 10
+echo "Waiting 15sec..."
+sleep 15

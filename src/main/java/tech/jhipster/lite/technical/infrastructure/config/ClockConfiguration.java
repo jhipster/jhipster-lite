@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.global;
+package tech.jhipster.lite.technical.infrastructure.config;
 
 import java.time.Clock;
 import org.springframework.context.annotation.Bean;

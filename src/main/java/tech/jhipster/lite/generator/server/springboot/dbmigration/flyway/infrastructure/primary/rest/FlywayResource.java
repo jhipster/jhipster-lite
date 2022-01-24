@@ -24,7 +24,7 @@ class FlywayResource {
 
   @Operation(summary = "Add Flyway")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Flyway")
-  @PostMapping
+  @PostMapping("/init")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     this.flywayApplicationService.init(project);

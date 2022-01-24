@@ -69,7 +69,7 @@ class FlywayDomainServiceTest {
       .add(
         project,
         "server/springboot/dbmigration/flyway/resources",
-        "V${datetime}__init.sql",
+        "V00000000000000__init.sql",
         "src/main/resources/db/migration",
         "V20220122150154__init.sql"
       );

@@ -55,7 +55,7 @@ public class FlywayDomainService implements FlywayService {
     projectRepository.add(
       project,
       getPath(SQL_INIT_FILE_SOURCE, "resources"),
-      "V${datetime}__init.sql",
+      "V00000000000000__init.sql",
       getPath(MAIN_RESOURCES, DEFAULT_SQL_FILES_FOLDER),
       buildInitFileName()
     );

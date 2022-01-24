@@ -82,7 +82,7 @@ jobs:
   # Tests generated projects
   #--------------------------------------------------
   generation:
-    needs: [tests-linux, tests-windows]
+    needs: [tests-linux]
     runs-on: ubuntu-latest
     strategy:
       matrix:

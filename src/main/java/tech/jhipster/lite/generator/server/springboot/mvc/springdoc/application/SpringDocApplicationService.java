@@ -16,4 +16,8 @@ public class SpringDocApplicationService {
   public void init(Project project) {
     springDocService.init(project);
   }
+
+  public void initWithSecurityJWT(Project project) {
+    springDocService.initWithSecurityJWT(project);
+  }
 }

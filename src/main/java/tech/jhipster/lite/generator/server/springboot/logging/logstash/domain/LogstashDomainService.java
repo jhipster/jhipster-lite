@@ -63,13 +63,15 @@ public class LogstashDomainService implements LogstashService {
 
   @Override
   public void addProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, "Logstash appender");
     properties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   private Map<String, Object> properties() {
     TreeMap<String, Object> result = new TreeMap<>();
 
-    result.put("application.logging.logstash.tcp.enabled", true);
+    result.put("application.logging.logstash.tcp.enabled", false);
     result.put("application.logging.logstash.tcp.host", "localhost");
     result.put("application.logging.logstash.tcp.port", 5000);
     result.put("application.logging.logstash.tcp.ring-buffer-size", 8192);

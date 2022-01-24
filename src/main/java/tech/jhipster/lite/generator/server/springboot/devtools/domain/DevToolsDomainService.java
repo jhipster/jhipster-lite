@@ -34,8 +34,13 @@ public class DevToolsDomainService implements DevToolsService {
 
   @Override
   public void addProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, "Spring Boot Dev Tools");
     springPropertiesDevTools(false).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
+
+    springBootCommonService.addPropertiesFastComment(project, "Spring Boot Dev Tools");
     springPropertiesDevTools(true).forEach((k, v) -> springBootCommonService.addPropertiesFast(project, k, v));
+    springBootCommonService.addPropertiesFastNewLine(project);
   }
 
   private Map<String, Object> springPropertiesDevTools(boolean fast) {

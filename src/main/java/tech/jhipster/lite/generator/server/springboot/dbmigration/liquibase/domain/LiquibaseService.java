@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain;
 
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface LiquibaseService {
@@ -10,4 +11,7 @@ public interface LiquibaseService {
   void addChangelogXml(Project project, String path, String fileName);
   void addConfigurationJava(Project project);
   void addLoggerInConfiguration(Project project);
+
+  void addSqlUserChangelog(Project project, DatabaseType sqlDatabase);
+  void addSqlUserAuthorityChangelog(Project project, DatabaseType sqlDatabase);
 }

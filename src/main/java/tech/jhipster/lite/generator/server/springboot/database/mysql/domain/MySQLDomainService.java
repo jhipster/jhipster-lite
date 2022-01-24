@@ -90,7 +90,9 @@ public class MySQLDomainService implements MySQLService {
   public void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
 
+    springBootCommonService.addPropertiesComment(project, "Database Configuration");
     springProperties(baseName).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   @Override
@@ -116,7 +118,9 @@ public class MySQLDomainService implements MySQLService {
     buildToolService.addProperty(project, "testcontainers.version", MySQL.getTestcontainersVersion());
     buildToolService.addDependency(project, dependency);
 
+    springBootCommonService.addPropertiesTestComment(project, "Database Configuration");
     springPropertiesForTest(baseName).forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 
   private Map<String, Object> springProperties(String baseName) {

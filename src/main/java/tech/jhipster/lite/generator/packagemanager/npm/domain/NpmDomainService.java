@@ -74,7 +74,7 @@ public class NpmDomainService implements NpmService {
   public Optional<String> getVersion(String name) {
     Assert.notBlank("name", name);
     return FileUtils
-      .readLine(getPath(MAIN_RESOURCES, TEMPLATE_FOLDER, "dependencies", PACKAGE_JSON), DQ + name + DQ)
+      .readLine(getPath(MAIN_RESOURCES, TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, PACKAGE_JSON), DQ + name + DQ)
       .map(readValue -> {
         String[] result = readValue.split(":");
         if (result.length == 2) {

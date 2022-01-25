@@ -249,12 +249,12 @@ public class MavenDomainService implements MavenService {
   public Optional<String> getVersion(String name) {
     Assert.notBlank("name", name);
 
-    String property_tag_ini = new StringBuilder().append("<").append(name).append(".version").append(">").toString();
-    String property_tag_end = new StringBuilder().append("</").append(name).append(".version").append(">").toString();
-    Pattern pattern = Pattern.compile(property_tag_ini + "(.*)" + property_tag_end);
+    String propertyTagIni = new StringBuilder().append("<").append(name).append(".version").append(">").toString();
+    String propertyTagEnd = new StringBuilder().append("</").append(name).append(".version").append(">").toString();
+    Pattern pattern = Pattern.compile(propertyTagIni + "(.*)" + propertyTagEnd);
 
     return FileUtils
-      .readLine(getPath(MAIN_RESOURCES, TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, POM_XML), property_tag_ini)
+      .readLine(getPath(MAIN_RESOURCES, TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, POM_XML), propertyTagIni)
       .map(readValue -> {
         Matcher matcher = pattern.matcher(readValue);
         if (matcher.find()) {

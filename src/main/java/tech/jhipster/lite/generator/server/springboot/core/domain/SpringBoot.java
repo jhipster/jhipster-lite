@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.core.domain;
 
 public class SpringBoot {
 
-  public static final String SPRING_BOOT_VERSION = "2.6.3";
   public static final String NEEDLE_APPLICATION_PROPERTIES = "# jhipster-needle-application-properties";
   public static final String NEEDLE_APPLICATION_FAST_PROPERTIES = "# jhipster-needle-application-fast-properties";
   public static final String NEEDLE_APPLICATION_TEST_PROPERTIES = "# jhipster-needle-application-test-properties";
@@ -14,8 +13,4 @@ public class SpringBoot {
   public static final String LOGGING_TEST_CONFIGURATION = "logback.xml";
 
   private SpringBoot() {}
-
-  public static String getVersion() {
-    return SPRING_BOOT_VERSION;
-  }
 }

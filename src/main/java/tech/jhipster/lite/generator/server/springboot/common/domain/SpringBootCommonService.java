@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.common.domain;
 
+import java.util.Optional;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface SpringBootCommonService {
@@ -17,4 +18,6 @@ public interface SpringBootCommonService {
 
   void addLogger(Project project, String packageName, Level level);
   void addLoggerTest(Project project, String packageName, Level level);
+
+  Optional<String> getProperty(Project project, String key);
 }

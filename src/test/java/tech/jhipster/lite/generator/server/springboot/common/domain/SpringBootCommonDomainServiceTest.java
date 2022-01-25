@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.common.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.*;
@@ -19,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -209,5 +211,28 @@ class SpringBootCommonDomainServiceTest {
     Project project = tmpProject();
 
     assertThat(springBootCommonDomainService.getProperty(project, "spring.application.name")).isEmpty();
+  }
+
+  @Test
+  void shouldNotGetPropertyForNullProject() {
+    assertThatThrownBy(() -> springBootCommonDomainService.getProperty(null, "spring.application.name"))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("project");
+  }
+
+  @Test
+  void shouldNotGetPropertyForNullKey() {
+    Project project = tmpProject();
+    assertThatThrownBy(() -> springBootCommonDomainService.getProperty(project, null))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("key");
+  }
+
+  @Test
+  void shouldNotGetPropertyForBlankKey() {
+    Project project = tmpProject();
+    assertThatThrownBy(() -> springBootCommonDomainService.getProperty(project, " "))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("key");
   }
 }

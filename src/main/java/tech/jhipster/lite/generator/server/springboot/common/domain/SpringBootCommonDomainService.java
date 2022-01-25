@@ -10,6 +10,7 @@ import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringB
 
 import java.util.Optional;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -134,6 +135,9 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   @Override
   public Optional<String> getProperty(Project project, String key) {
+    Assert.notNull("project", project);
+    Assert.notBlank("key", key);
+
     return FileUtils
       .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG_FOLDER, "application.properties"), key + "=")
       .map(readValue -> {

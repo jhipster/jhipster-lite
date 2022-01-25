@@ -112,8 +112,7 @@ public class BuildToolDomainService implements BuildToolService {
   public Optional<String> getVersion(Project project, String name) {
     if (project.isMavenProject()) {
       return mavenService.getVersion(name);
-    } else {
-      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }
+    throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
   }
 }

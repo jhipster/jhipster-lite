@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.common.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithSpringBootLoggingConfiguration;
+import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
@@ -188,5 +188,26 @@ class SpringBootCommonDomainServiceTest {
         eq(NEEDLE_LOGBACK_LOGGER),
         contains(NEEDLE_LOGBACK_LOGGER)
       );
+  }
+
+  @Test
+  void shouldGetProperty() {
+    Project project = tmpProjectWithSpringBootProperties();
+
+    assertThat(springBootCommonDomainService.getProperty(project, "spring.application.name")).contains("jhlite");
+  }
+
+  @Test
+  void shouldNotGetProperty() {
+    Project project = tmpProjectWithSpringBootProperties();
+
+    assertThat(springBootCommonDomainService.getProperty(project, "bad.key")).isEmpty();
+  }
+
+  @Test
+  void shouldNotGetPropertyWhenNoPropertiesFile() {
+    Project project = tmpProject();
+
+    assertThat(springBootCommonDomainService.getProperty(project, "spring.application.name")).isEmpty();
   }
 }

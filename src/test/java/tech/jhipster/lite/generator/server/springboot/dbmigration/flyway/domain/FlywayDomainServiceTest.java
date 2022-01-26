@@ -2,8 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.DEFAULT_FLYWAY_ENABLED;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.DEFAULT_FLYWAY_LOCATIONS;
@@ -11,6 +10,8 @@ import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -49,6 +50,8 @@ class FlywayDomainServiceTest {
     // Given
     Project project = tmpProject();
 
+    when(springBootCommonService.getProperty(project, "spring.datasource.url")).thenReturn(Optional.empty());
+
     // When
     flywayDomainService.init(project);
 
@@ -64,6 +67,52 @@ class FlywayDomainServiceTest {
       .version("\\${flyway.version}")
       .build();
     assertThat(dependencyArgCaptor.getValue()).usingRecursiveComparison().isEqualTo(expectedDependency);
+
+    verify(projectRepository)
+      .add(
+        project,
+        "server/springboot/dbmigration/flyway/resources",
+        "V00000000000000__init.sql",
+        "src/main/resources/db/migration",
+        "V20220122150154__init.sql"
+      );
+
+    verify(springBootCommonService, times(2)).addProperties(any(), anyString(), any());
+    verify(springBootCommonService).addProperties(project, "spring.flyway.enabled", DEFAULT_FLYWAY_ENABLED);
+    verify(springBootCommonService).addProperties(project, "spring.flyway.locations", DEFAULT_FLYWAY_LOCATIONS);
+  }
+
+  @Test
+  void shouldInitWithAdditionalFlywayMysqlDependency() {
+    // Given
+    Project project = tmpProject();
+
+    when(springBootCommonService.getProperty(project, "spring.datasource.url")).thenReturn(Optional.of("jdbc:mysql://localhost:3306/myDb"));
+
+    // When
+    flywayDomainService.init(project);
+
+    // Then
+    verify(buildToolService).addProperty(project, "flyway.version", "8.4.2");
+
+    ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
+    verify(buildToolService, times(2)).addDependency(eq(project), dependencyArgCaptor.capture());
+    List<Dependency> dependencies = dependencyArgCaptor.getAllValues();
+    Dependency expectedDependency = Dependency
+      .builder()
+      .groupId("org.flywaydb")
+      .artifactId("flyway-core")
+      .version("\\${flyway.version}")
+      .build();
+    assertThat(dependencies.get(0)).usingRecursiveComparison().isEqualTo(expectedDependency);
+
+    Dependency expectedMysqlDependency = Dependency
+      .builder()
+      .groupId("org.flywaydb")
+      .artifactId("flyway-mysql")
+      .version("\\${flyway.version}")
+      .build();
+    assertThat(dependencies.get(1)).usingRecursiveComparison().isEqualTo(expectedMysqlDependency);
 
     verify(projectRepository)
       .add(

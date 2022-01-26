@@ -48,6 +48,10 @@ public class FlywayDomainService implements FlywayService {
   public void addFlywayDependency(Project project) {
     buildToolService.addProperty(project, "flyway.version", Flyway.flywayVersion());
     buildToolService.addDependency(project, Flyway.flywayDependency());
+    springBootCommonService
+      .getProperty(project, "spring.datasource.url")
+      .filter(value -> value.contains("mysql"))
+      .ifPresent(value -> buildToolService.addDependency(project, Flyway.additionalFlywayMysqlDependency()));
   }
 
   @Override

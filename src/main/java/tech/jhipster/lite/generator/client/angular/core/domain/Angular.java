@@ -9,11 +9,16 @@ public class Angular {
 
   public static List<String> devDependencies() {
     return List.of(
+      "@angular-builders/jest",
       "@angular-devkit/build-angular",
       "@angular/cli",
       "@angular/compiler-cli",
       "@types/jasmine",
       "@types/node",
+      "@types/jest",
+      "jest",
+      "ts-jest",
+      "jest-preset-angular",
       "jasmine-core",
       "typescript"
     );
@@ -49,7 +54,7 @@ public class Angular {
 
   public static List<String> files() {
     // @formatter:offProjectLocalRepository
-    return List.of("angular.json", "tsconfig.app.json", "tsconfig.json");
+    return List.of("angular.json", "jest.conf.js", "tsconfig.app.json", "tsconfig.json", "tsconfig.spec.json");
     // @formatter:on
   }
 
@@ -73,6 +78,8 @@ public class Angular {
       "app.component.html",
       "app",
       "app-routing.module.ts",
+      "app",
+      "app.component.spec.ts",
       "app"
     );
     // @formatter:on

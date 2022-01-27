@@ -5,7 +5,6 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
-import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class AngularAssert {
@@ -60,6 +59,7 @@ public class AngularAssert {
   public static void assertAngularFiles(Project project) {
     String pathWebapp = "src/main/webapp";
     String pathApp = "src/main/webapp/app";
+    String pathEnvironments = "src/main/webapp/environments";
 
     assertFileExist(project, getPath(pathApp, "app.component.css"));
     assertFileExist(project, getPath(pathApp, "app.component.html"));
@@ -71,5 +71,7 @@ public class AngularAssert {
     assertFileExist(project, getPath(pathWebapp, "main.ts"));
     assertFileExist(project, getPath(pathWebapp, "polyfills.ts"));
     assertFileExist(project, getPath(pathWebapp, "styles.css"));
+    assertFileExist(project, getPath(pathEnvironments, "environment.prod.ts"));
+    assertFileExist(project, getPath(pathEnvironments, "environment.ts"));
   }
 }

@@ -7,11 +7,11 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
 >
 
-  <changeSet id="sequence_generator_sqlUser_{{sqlDatabaseName}}" author="jhipster">
-    <createSequence sequenceName="seq_sqlUser_{{sqlDatabaseName}}" startValue="1050" incrementBy="50" />
+  <changeSet id="create_sequence_jhi_user" author="jhipster">
+    <createSequence sequenceName="sequence_jhi_user" startValue="1050" incrementBy="50" />
   </changeSet>
 
-  <changeSet id="sqlUser_{{sqlDatabaseName}}" author="jhipster">
+  <changeSet id="create_table_jhi_user" author="jhipster">
     <createTable tableName="jhi_user">
       <column name="id" type="bigint">
         <constraints primaryKey="true" nullable="false" />

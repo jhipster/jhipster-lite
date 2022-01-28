@@ -9,7 +9,6 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
-import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class LiquibaseAssertFiles {
@@ -52,12 +51,12 @@ public class LiquibaseAssertFiles {
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"));
   }
 
-  public static void assertFilesLiquibaseSqlUser(Project project, DatabaseType databaseType) {
+  public static void assertFilesLiquibaseSqlUser(Project project) {
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/20220128173026_added_entity_User.xml"));
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/data/user.csv"));
   }
 
-  public static void assertFilesLiquibaseSqlUserAuthority(Project project, DatabaseType databaseType) {
+  public static void assertFilesLiquibaseSqlUserAuthority(Project project) {
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/20220128173026_added_entity_Authority.xml"));
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/data/authority.csv"));
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/data/user_authority.csv"));

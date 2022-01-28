@@ -6,14 +6,12 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUser;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUserAuthority;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.initClock;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
 
@@ -184,20 +182,11 @@ class LiquibaseApplicationServiceIT {
   }
 
   @Test
-  void shouldAddSqlUser() {
+  void shouldAddUserAuthorityChangelog() {
     Project project = tmpProjectWithLiquibaseMasterXml();
 
-    liquibaseApplicationService.addSqlUserChangelog(project, POSTGRESQL);
+    liquibaseApplicationService.addUserAuthorityChangelog(project);
 
-    assertFilesLiquibaseSqlUser(project, POSTGRESQL);
-  }
-
-  @Test
-  void shouldAddSqlUserAuthority() {
-    Project project = tmpProjectWithLiquibaseMasterXml();
-
-    liquibaseApplicationService.addSqlUserAuthorityChangelog(project, POSTGRESQL);
-
-    assertFilesLiquibaseSqlUserAuthority(project, POSTGRESQL);
+    assertFilesLiquibaseSqlUser(project);
   }
 }

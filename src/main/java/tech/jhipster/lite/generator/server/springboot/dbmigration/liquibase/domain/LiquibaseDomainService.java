@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -121,29 +120,25 @@ public class LiquibaseDomainService implements LiquibaseService {
   }
 
   @Override
-  public void addSqlUserChangelog(Project project, DatabaseType sqlDatabase) {
+  public void addUserAuthorityChangelog(Project project) {
+    addSqlUserChangelog(project);
+    addSqlUserAuthorityChangelog(project);
+  }
+
+  private void addSqlUserChangelog(Project project) {
     // Update liquibase master file
     String userChangelog = getTimestamp() + "_added_entity_User.xml";
     addChangelogXml(project, "", userChangelog);
-
-    project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     // Copy liquibase files
     projectRepository.template(project, getUserResourcePath(), "user.xml", getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
     projectRepository.add(project, getUserResourcePath(), "user.csv", getPath(MAIN_RESOURCES, DATA));
   }
 
-  private String getUserResourcePath() {
-    return getPath(SOURCE, "resources/user");
-  }
-
-  @Override
-  public void addSqlUserAuthorityChangelog(Project project, DatabaseType sqlDatabase) {
+  private void addSqlUserAuthorityChangelog(Project project) {
     // Update liquibase master file
     String authorityChangelog = getTimestamp() + "_added_entity_Authority.xml";
     addChangelogXml(project, "", authorityChangelog);
-
-    project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     // Copy liquibase files
     projectRepository.template(project, getUserResourcePath(), "authority.xml", getPath(MAIN_RESOURCES, CHANGELOG), authorityChangelog);
@@ -151,7 +146,11 @@ public class LiquibaseDomainService implements LiquibaseService {
     projectRepository.add(project, getUserResourcePath(), "user_authority.csv", getPath(MAIN_RESOURCES, DATA));
   }
 
-  public String getTimestamp() {
+  private String getUserResourcePath() {
+    return getPath(SOURCE, "resources/user");
+  }
+
+  private String getTimestamp() {
     LocalDateTime localDateTime = LocalDateTime.now(clock);
     return localDateTime.format(DATE_TIME_FORMATTER);
   }

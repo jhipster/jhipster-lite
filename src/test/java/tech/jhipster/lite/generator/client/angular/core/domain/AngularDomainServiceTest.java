@@ -34,7 +34,7 @@ class AngularDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProject();
-    when(npmService.getVersion(anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersionInAngular(anyString())).thenReturn(Optional.of("0.0.0"));
 
     angularDomainService.init(project);
 

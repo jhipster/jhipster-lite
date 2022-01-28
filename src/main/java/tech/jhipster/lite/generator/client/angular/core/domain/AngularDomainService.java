@@ -25,11 +25,12 @@ public class AngularDomainService implements AngularService {
     Angular
       .devDependencies()
       .forEach(dependency ->
-        npmService.getVersion(dependency).ifPresent(version -> npmService.addDevDependency(project, dependency, version))
+        npmService.getVersionInAngular(dependency).ifPresent(version -> npmService.addDevDependency(project, dependency, version))
       );
     Angular
       .dependencies()
-      .forEach(dependency -> npmService.getVersion(dependency).ifPresent(version -> npmService.addDependency(project, dependency, version))
+      .forEach(dependency ->
+        npmService.getVersionInAngular(dependency).ifPresent(version -> npmService.addDependency(project, dependency, version))
       );
     Angular.scripts().forEach((name, cmd) -> npmService.addScript(project, name, cmd));
     Angular.files().forEach(file -> projectRepository.add(project, SOURCE, file));

@@ -60,3 +60,11 @@ updates:
     labels:
       - 'area: dependencies'
       - 'client: vue'
+  - package-ecosystem: 'npm'
+    directory: '/src/main/resources/generator/dependencies/angular'
+    schedule:
+      interval: 'daily'
+    open-pull-requests-limit: 20
+    labels:
+      - 'area: dependencies'
+      - 'area: angular'

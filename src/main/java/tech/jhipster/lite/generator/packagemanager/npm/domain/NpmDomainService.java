@@ -89,4 +89,9 @@ public class NpmDomainService implements NpmService {
         return null;
       });
   }
+
+  @Override
+  public Optional<String> getVersionInAngular(String name) {
+    return getVersion("angular", name);
+  }
 }

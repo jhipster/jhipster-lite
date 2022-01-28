@@ -29,6 +29,8 @@ public class FileUtils {
   public static final String REGEXP_DOT_STAR = ".*";
   public static final String REGEXP_SPACE_STAR = "[ \t]*";
 
+  public static final String FILENAME = "filename";
+
   private FileUtils() {}
 
   public static boolean exists(String path) {
@@ -91,7 +93,7 @@ public class FileUtils {
   }
 
   public static Optional<String> readLine(String filename, String value) {
-    Assert.notBlank("filename", filename);
+    Assert.notBlank(FILENAME, filename);
     Assert.notNull("value", value);
 
     File file = new File(filename);
@@ -108,8 +110,25 @@ public class FileUtils {
     return Optional.empty();
   }
 
+  public static Optional<String> readLineInClasspath(String filename, String value) {
+    Assert.notBlank(FILENAME, filename);
+    Assert.notNull("value", value);
+
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(getInputStream(filename)))) {
+      while (reader.ready()) {
+        String line = reader.readLine();
+        if (line.contains(value)) {
+          return Optional.of(line);
+        }
+      }
+    } catch (Exception e) {
+      log.error("Can't readLine as the filename '{}' is not found", filename, e);
+    }
+    return Optional.empty();
+  }
+
   public static boolean containsLines(String filename, List<String> lines) {
-    Assert.notBlank("filename", filename);
+    Assert.notBlank(FILENAME, filename);
     Assert.notEmpty("lines", lines);
 
     File file = new File(filename);

@@ -221,7 +221,7 @@ class MavenDomainServiceTest {
       try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class)) {
         fileUtilsMock.when(() -> FileUtils.getPath(Mockito.anyString())).thenReturn("mypath");
         fileUtilsMock
-          .when(() -> FileUtils.readLine(Mockito.any(), Mockito.anyString()))
+          .when(() -> FileUtils.readLineInClasspath(Mockito.any(), Mockito.anyString()))
           .thenReturn(Optional.of(" <spring-boot.version>1.1</spring-boot>"));
 
         assertThat(mavenDomainService.getVersion("spring-boot")).isEmpty();

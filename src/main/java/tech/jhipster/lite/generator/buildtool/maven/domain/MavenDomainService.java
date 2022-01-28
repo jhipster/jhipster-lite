@@ -254,7 +254,7 @@ public class MavenDomainService implements MavenService {
     Pattern pattern = Pattern.compile(propertyTagIni + "(.*)" + propertyTagEnd);
 
     return FileUtils
-      .readLine(getPath(MAIN_RESOURCES, TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, POM_XML), propertyTagIni)
+      .readLineInClasspath(getPath(TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, POM_XML), propertyTagIni)
       .map(readValue -> {
         Matcher matcher = pattern.matcher(readValue);
         if (matcher.find()) {

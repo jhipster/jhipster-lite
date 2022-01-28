@@ -37,7 +37,7 @@
     <spring-boot.version>2.6.3</spring-boot.version>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <assertj.version>3.22.0</assertj.version>
-    <mockito.version>4.3.0</mockito.version>
+    <mockito.version>4.3.1</mockito.version>
     <compiler-plugin.version>3.9.0</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     <jacoco.version>0.8.7</jacoco.version>
@@ -94,6 +94,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     <!-- jhipster-needle-maven-add-dependency -->
 

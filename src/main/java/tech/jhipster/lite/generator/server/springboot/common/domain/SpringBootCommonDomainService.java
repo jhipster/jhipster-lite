@@ -8,6 +8,9 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_PROPERTIES;
 
+import java.util.Optional;
+import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -128,6 +131,22 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   @Override
   public void addLoggerTest(Project project, String packageName, Level level) {
     addLoggerToConfiguration(project, packageName, level, TEST_RESOURCES, LOGGING_TEST_CONFIGURATION, NEEDLE_LOGBACK_LOGGER);
+  }
+
+  @Override
+  public Optional<String> getProperty(Project project, String key) {
+    Assert.notNull("project", project);
+    Assert.notBlank("key", key);
+
+    return FileUtils
+      .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG_FOLDER, "application.properties"), key + "=")
+      .map(readValue -> {
+        String[] result = readValue.split("=");
+        if (result.length == 2) {
+          return result[1];
+        }
+        return null;
+      });
   }
 
   private void addLoggerToConfiguration(

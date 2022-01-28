@@ -316,6 +316,60 @@ class FileUtilsTest {
   }
 
   @Nested
+  class ReadLineInClasspathTest {
+
+    @Test
+    void shouldReadLine() throws Exception {
+      String filename = getPath("generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLineInClasspath(filename, "unit tests")).contains("used for unit tests");
+      assertThat(FileUtils.readLineInClasspath(filename, "JHipster")).contains("powered by JHipster");
+    }
+
+    @Test
+    void shouldNotReadLineAsCaseSensitive() throws Exception {
+      String filename = getPath("generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLineInClasspath(filename, "jhipster")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineForAnotherText() throws Exception {
+      String filename = getPath("generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLineInClasspath(filename, "beer")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineWhenFileNotExist() {
+      String filename = getPath("generator/utils/unknown.md");
+
+      assertThat(FileUtils.readLineInClasspath(filename, "beer")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineForNullFileName() {
+      assertThatThrownBy(() -> FileUtils.readLineInClasspath(null, null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLineForBlankFileName() {
+      assertThatThrownBy(() -> FileUtils.readLineInClasspath(" ", null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLineForNullValue() {
+      assertThatThrownBy(() -> FileUtils.readLineInClasspath("filename", null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("value");
+    }
+  }
+
+  @Nested
   class ContainsInLineTest {
 
     @Test

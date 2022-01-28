@@ -52,7 +52,7 @@ public class InitDomainService implements InitService {
     List
       .of("@prettier/plugin-xml", "husky", "lint-staged", "prettier", "prettier-plugin-java", "prettier-plugin-packagejson")
       .forEach(dependency ->
-        npmService.getVersion(dependency).ifPresent(version -> npmService.addDevDependency(project, dependency, version))
+        npmService.getVersionInCommon(dependency).ifPresent(version -> npmService.addDevDependency(project, dependency, version))
       );
   }
 

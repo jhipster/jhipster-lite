@@ -21,7 +21,7 @@ public class TypescriptDomainService implements TypescriptService {
     Typescript
       .devDependencies()
       .forEach(dependency ->
-        npmService.getVersion(dependency).ifPresent(version -> npmService.addDevDependency(project, dependency, version))
+        npmService.getVersionInCommon(dependency).ifPresent(version -> npmService.addDevDependency(project, dependency, version))
       );
     Typescript.scripts().forEach((name, cmd) -> npmService.addScript(project, name, cmd));
     Typescript.files().forEach(file -> projectRepository.add(project, SOURCE, file));

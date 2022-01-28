@@ -42,7 +42,7 @@ class InitDomainServiceTest {
   @Test
   void shouldAddPackageJson() {
     Project project = tmpProject();
-    when(npmService.getVersion(anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersionInCommon(anyString())).thenReturn(Optional.of("0.0.0"));
 
     assertThatCode(() -> initDomainService.addPackageJson(project)).doesNotThrowAnyException();
 

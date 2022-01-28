@@ -15,7 +15,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 public class LogstashDomainService implements LogstashService {
 
-  public static final String SOURCE = "server/springboot/logging/logstash/tcp";
+  public static final String SOURCE = "server/springboot/logging/logstash";
   public static final String DESTINATION = "technical/infrastructure/secondary/logstash";
 
   private final BuildToolService buildToolService;

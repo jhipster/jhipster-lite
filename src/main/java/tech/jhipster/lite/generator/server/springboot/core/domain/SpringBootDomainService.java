@@ -8,6 +8,7 @@ import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringB
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
 
 import tech.jhipster.lite.common.domain.WordUtils;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
@@ -43,16 +44,24 @@ public class SpringBootDomainService implements SpringBootService {
 
   @Override
   public void addSpringBootParent(Project project) {
-    project.addConfig("springBootVersion", SpringBoot.getVersion());
+    this.buildToolService.getVersion(project, "spring-boot")
+      .ifPresentOrElse(
+        version -> {
+          project.addConfig("springBootVersion", version);
 
-    Parent parent = Parent
-      .builder()
-      .groupId(SPRINGBOOT_PACKAGE)
-      .artifactId("spring-boot-starter-parent")
-      .version((String) project.getConfig("springBootVersion").orElse(SpringBoot.SPRING_BOOT_VERSION))
-      .build();
+          Parent parent = Parent
+            .builder()
+            .groupId(SPRINGBOOT_PACKAGE)
+            .artifactId("spring-boot-starter-parent")
+            .version((String) project.getConfig("springBootVersion").orElse(version))
+            .build();
 
-    buildToolService.addParent(project, parent);
+          buildToolService.addParent(project, parent);
+        },
+        () -> {
+          throw new GeneratorException("Spring Boot version not found");
+        }
+      );
   }
 
   @Override
@@ -82,14 +91,22 @@ public class SpringBootDomainService implements SpringBootService {
 
   @Override
   public void addSpringBootMavenPlugin(Project project) {
-    Plugin plugin = Plugin
-      .builder()
-      .groupId(SPRINGBOOT_PACKAGE)
-      .artifactId("spring-boot-maven-plugin")
-      .version("\\${spring-boot.version}")
-      .build();
-    buildToolService.addProperty(project, "spring-boot.version", SpringBoot.getVersion());
-    buildToolService.addPlugin(project, plugin);
+    this.buildToolService.getVersion(project, "spring-boot")
+      .ifPresentOrElse(
+        version -> {
+          Plugin plugin = Plugin
+            .builder()
+            .groupId(SPRINGBOOT_PACKAGE)
+            .artifactId("spring-boot-maven-plugin")
+            .version("\\${spring-boot.version}")
+            .build();
+          buildToolService.addProperty(project, "spring-boot.version", version);
+          buildToolService.addPlugin(project, plugin);
+        },
+        () -> {
+          throw new GeneratorException("Spring Boot version not found");
+        }
+      );
   }
 
   @Override

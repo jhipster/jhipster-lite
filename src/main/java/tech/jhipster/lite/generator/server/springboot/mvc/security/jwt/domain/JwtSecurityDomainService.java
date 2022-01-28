@@ -9,6 +9,7 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.do
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -69,14 +70,22 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   }
 
   private void addPropertyAndDependency(Project project) {
-    buildToolService.addProperty(project, "jjwt.version", jjwtVersion());
+    this.buildToolService.getVersion(project, "jjwt")
+      .ifPresentOrElse(
+        version -> {
+          buildToolService.addProperty(project, "jjwt.version", version);
 
-    buildToolService.addDependency(project, springBootStarterSecurityDependency());
-    buildToolService.addDependency(project, jjwtApiDependency());
-    buildToolService.addDependency(project, jjwtImplDependency());
-    buildToolService.addDependency(project, jjwtJacksonDependency());
+          buildToolService.addDependency(project, springBootStarterSecurityDependency());
+          buildToolService.addDependency(project, jjwtApiDependency());
+          buildToolService.addDependency(project, jjwtImplDependency());
+          buildToolService.addDependency(project, jjwtJacksonDependency());
 
-    buildToolService.addDependency(project, springSecurityTestDependency());
+          buildToolService.addDependency(project, springSecurityTestDependency());
+        },
+        () -> {
+          throw new GeneratorException("Json Web Token version not found");
+        }
+      );
   }
 
   private void addJavaFiles(Project project) {

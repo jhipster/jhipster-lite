@@ -1,17 +1,20 @@
 package tech.jhipster.lite.generator.server.springboot.core.domain;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
@@ -35,6 +38,7 @@ class SpringBootDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
+    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("2.6.3"));
 
     springBootDomainService.init(project);
 
@@ -51,10 +55,18 @@ class SpringBootDomainServiceTest {
   @Test
   void shouldAddSpringBootParent() {
     Project project = tmpProjectWithPomXml();
+    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("2.6.3"));
 
     springBootDomainService.addSpringBootParent(project);
 
     verify(buildToolService).addParent(any(Project.class), any(Parent.class));
+  }
+
+  @Test
+  void shouldNotAddSpringBootParent() {
+    Project project = tmpProjectWithPomXml();
+
+    assertThatThrownBy(() -> springBootDomainService.addSpringBootParent(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -69,9 +81,17 @@ class SpringBootDomainServiceTest {
   @Test
   void shouldAddSpringBootPlugin() {
     Project project = tmpProjectWithPomXml();
+    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("2.6.3"));
 
     springBootDomainService.addSpringBootMavenPlugin(project);
 
     verify(buildToolService).addPlugin(any(Project.class), any(Plugin.class));
+  }
+
+  @Test
+  void shouldNotAddSpringBootPlugin() {
+    Project project = tmpProjectWithPomXml();
+
+    assertThatThrownBy(() -> springBootDomainService.addSpringBootMavenPlugin(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

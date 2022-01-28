@@ -37,7 +37,7 @@ class SpringBootDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
-    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("2.6.3"));
+    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("0.0.0"));
 
     springBootDomainService.init(project);
 
@@ -54,7 +54,7 @@ class SpringBootDomainServiceTest {
   @Test
   void shouldAddSpringBootParent() {
     Project project = tmpProjectWithPomXml();
-    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("2.6.3"));
+    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("0.0.0"));
 
     springBootDomainService.addSpringBootParent(project);
 
@@ -80,7 +80,7 @@ class SpringBootDomainServiceTest {
   @Test
   void shouldAddSpringBootPlugin() {
     Project project = tmpProjectWithPomXml();
-    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("2.6.3"));
+    when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("0.0.0"));
 
     springBootDomainService.addSpringBootMavenPlugin(project);
 

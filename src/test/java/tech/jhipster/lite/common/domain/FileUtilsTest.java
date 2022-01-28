@@ -9,6 +9,7 @@ import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -47,6 +48,19 @@ class FileUtilsTest {
       assertThatThrownBy(() -> FileUtils.exists(null))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("path");
+    }
+
+    @Test
+    void shouldNotEndBySlash() {
+      String tempDir = System.getProperty("java.io.tmpdir");
+      String fileSeparator = FileSystems.getDefault().getSeparator();
+      if (!tempDir.endsWith(fileSeparator)) {
+        tempDir = tempDir + fileSeparator;
+      }
+
+      System.setProperty("java.io.tmpdir", tempDir);
+      String tmp = FileUtils.tmpDir();
+      assertFalse(tmp.endsWith(fileSeparator));
     }
   }
 

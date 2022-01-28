@@ -76,40 +76,40 @@ class NpmDomainServiceTest {
   }
 
   @Nested
-  class GetVersionTest {
+  class GetVersionInCommonTest {
 
     @Test
     void shouldGetVersion() {
-      assertThat(npmDomainService.getVersion("prettier-plugin-java")).isNotEmpty();
+      assertThat(npmDomainService.getVersionInCommon("prettier-plugin-java")).isNotEmpty();
     }
 
     @Test
     void shouldNotGetVersionForNull() {
-      assertThatThrownBy(() -> npmDomainService.getVersion(null))
+      assertThatThrownBy(() -> npmDomainService.getVersionInCommon(null))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("name");
     }
 
     @Test
     void shouldNotGetVersionForBlank() {
-      assertThatThrownBy(() -> npmDomainService.getVersion(" "))
+      assertThatThrownBy(() -> npmDomainService.getVersionInCommon(" "))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("name");
     }
 
     @Test
     void shouldNotGetVersion() {
-      assertThat(npmDomainService.getVersion("unknown")).isEmpty();
+      assertThat(npmDomainService.getVersionInCommon("unknown")).isEmpty();
     }
 
     @Test
     void shouldNotGetVersionForDescription() {
-      assertThat(npmDomainService.getVersion("description")).isEmpty();
+      assertThat(npmDomainService.getVersionInCommon("description")).isEmpty();
     }
 
     @Test
     void shouldNotGetVersionForCloseBracket() {
-      assertThat(npmDomainService.getVersion("}")).isEmpty();
+      assertThat(npmDomainService.getVersionInCommon("}")).isEmpty();
     }
   }
 }

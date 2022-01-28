@@ -71,10 +71,15 @@ public class NpmDomainService implements NpmService {
   }
 
   @Override
-  public Optional<String> getVersion(String name) {
+  public Optional<String> getVersionInCommon(String name) {
+    return getVersion("common", name);
+  }
+
+  private Optional<String> getVersion(String folderType, String name) {
+    Assert.notBlank("folderType", folderType);
     Assert.notBlank("name", name);
     return FileUtils
-      .readLineInClasspath(getPath(TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, PACKAGE_JSON), DQ + name + DQ)
+      .readLineInClasspath(getPath(TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, folderType, PACKAGE_JSON), DQ + name + DQ)
       .map(readValue -> {
         String[] result = readValue.split(":");
         if (result.length == 2) {

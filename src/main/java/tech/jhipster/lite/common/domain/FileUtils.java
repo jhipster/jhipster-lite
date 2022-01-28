@@ -44,7 +44,12 @@ public class FileUtils {
   }
 
   public static String tmpDir() {
-    return System.getProperty("java.io.tmpdir");
+    String tempDir = System.getProperty("java.io.tmpdir");
+    String fileSeparator = FileSystems.getDefault().getSeparator();
+    if (tempDir.endsWith(fileSeparator)) {
+      return tempDir.substring(0, tempDir.length() - fileSeparator.length());
+    }
+    return tempDir;
   }
 
   public static String tmpDirForTest() {

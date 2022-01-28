@@ -8,6 +8,9 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
@@ -22,20 +25,25 @@ public class LiquibaseDomainService implements LiquibaseService {
   public static final String LIQUIBASE_PATH = "technical/infrastructure/secondary/liquibase";
   public static final String CONFIG_LIQUIBASE = "config/liquibase";
   public static final String CHANGELOG = CONFIG_LIQUIBASE + "/changelog";
+  public static final String DATA = CONFIG_LIQUIBASE + "/data";
   public static final String USER_DATABASE_KEY = "sqlDatabaseName";
+  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
+  private final Clock clock;
 
   public LiquibaseDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService
+    SpringBootCommonService springBootCommonService,
+    Clock clock
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
+    this.clock = clock;
   }
 
   @Override
@@ -115,13 +123,14 @@ public class LiquibaseDomainService implements LiquibaseService {
   @Override
   public void addSqlUserChangelog(Project project, DatabaseType sqlDatabase) {
     // Update liquibase master file
-    addChangelogXml(project, "user/" + sqlDatabase.id(), "user.xml");
+    String userChangelog = getTimestamp() + "_added_entity_User.xml";
+    addChangelogXml(project, "", userChangelog);
 
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     // Copy liquibase files
-    projectRepository.template(project, getUserResourcePath(), "user.xml", getSqlLiquibasePath(sqlDatabase));
-    projectRepository.add(project, getUserResourcePath(), "user.csv", getSqlLiquibasePath(sqlDatabase));
+    projectRepository.template(project, getUserResourcePath(), "user.xml", getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
+    projectRepository.add(project, getUserResourcePath(), "user.csv", getPath(MAIN_RESOURCES, DATA));
   }
 
   private String getUserResourcePath() {
@@ -131,17 +140,19 @@ public class LiquibaseDomainService implements LiquibaseService {
   @Override
   public void addSqlUserAuthorityChangelog(Project project, DatabaseType sqlDatabase) {
     // Update liquibase master file
-    addChangelogXml(project, "user/" + sqlDatabase.id(), "authority.xml");
+    String authorityChangelog = getTimestamp() + "_added_entity_Authority.xml";
+    addChangelogXml(project, "", authorityChangelog);
 
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
     // Copy liquibase files
-    projectRepository.template(project, getUserResourcePath(), "authority.xml", getSqlLiquibasePath(sqlDatabase));
-    projectRepository.add(project, getUserResourcePath(), "authority.csv", getSqlLiquibasePath(sqlDatabase));
-    projectRepository.add(project, getUserResourcePath(), "user_authority.csv", getSqlLiquibasePath(sqlDatabase));
+    projectRepository.template(project, getUserResourcePath(), "authority.xml", getPath(MAIN_RESOURCES, CHANGELOG), authorityChangelog);
+    projectRepository.add(project, getUserResourcePath(), "authority.csv", getPath(MAIN_RESOURCES, DATA));
+    projectRepository.add(project, getUserResourcePath(), "user_authority.csv", getPath(MAIN_RESOURCES, DATA));
   }
 
-  private String getSqlLiquibasePath(DatabaseType sqlDatabase) {
-    return getPath(MAIN_RESOURCES, CHANGELOG + "/user/" + sqlDatabase.id());
+  public String getTimestamp() {
+    LocalDateTime localDateTime = LocalDateTime.now(clock);
+    return localDateTime.format(DATE_TIME_FORMATTER);
   }
 }

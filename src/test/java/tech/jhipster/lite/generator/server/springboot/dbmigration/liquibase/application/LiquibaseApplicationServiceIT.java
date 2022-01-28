@@ -14,11 +14,15 @@ import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquiba
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUser;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUserAuthority;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.initClock;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
 
+import java.time.Clock;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
@@ -41,6 +45,14 @@ class LiquibaseApplicationServiceIT {
 
   @Autowired
   LiquibaseApplicationService liquibaseApplicationService;
+
+  @SpyBean
+  Clock clock;
+
+  @BeforeEach
+  void setUp() {
+    initClock(clock);
+  }
 
   @Test
   void shouldInit() {

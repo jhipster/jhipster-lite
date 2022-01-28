@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.infrastructure.config;
 
+import java.time.Clock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
@@ -14,19 +15,22 @@ public class LiquibaseBeanConfiguration {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
+  private final Clock clock;
 
   public LiquibaseBeanConfiguration(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService
+    SpringBootCommonService springBootCommonService,
+    Clock clock
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
+    this.clock = clock;
   }
 
   @Bean
   public LiquibaseService liquibaseService() {
-    return new LiquibaseDomainService(projectRepository, buildToolService, springBootCommonService);
+    return new LiquibaseDomainService(projectRepository, buildToolService, springBootCommonService, clock);
   }
 }

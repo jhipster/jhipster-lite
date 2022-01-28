@@ -4,16 +4,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUser;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUserAuthority;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.*;
 
+import java.time.Clock;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
@@ -49,6 +48,14 @@ class LiquibaseResourceIT {
 
   @Autowired
   MockMvc mockMvc;
+
+  @SpyBean
+  Clock clock;
+
+  @BeforeEach
+  void setUp() {
+    initClock(clock);
+  }
 
   @Test
   void shouldInit() throws Exception {
@@ -107,7 +114,7 @@ class LiquibaseResourceIT {
       )
       .andExpect(status().isOk());
 
-    assertFilesLiquibaseSqlUser(project, POSTGRESQL);
-    assertFilesLiquibaseSqlUserAuthority(project, POSTGRESQL);
+    assertFilesLiquibaseSqlUser(project);
+    assertFilesLiquibaseSqlUserAuthority(project);
   }
 }

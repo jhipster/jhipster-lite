@@ -1,7 +1,5 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.infrastructure.primary.rest;
 
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,12 +30,11 @@ class LiquibaseResource {
     liquibaseApplicationService.init(project);
   }
 
-  @Operation(summary = "Add User and Authority")
+  @Operation(summary = "Add User and Authority changelogs")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding changelogs for user and authority")
   @PostMapping("user/postgresql")
   public void addUserAndAuthority(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    liquibaseApplicationService.addSqlUserChangelog(project, POSTGRESQL);
-    liquibaseApplicationService.addSqlUserAuthorityChangelog(project, POSTGRESQL);
+    liquibaseApplicationService.addUserAuthorityChangelog(project);
   }
 }

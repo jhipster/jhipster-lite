@@ -11,5 +11,5 @@ public interface NpmService {
   void install(Project project);
   void prettify(Project project);
 
-  Optional<String> getVersion(String name);
+  Optional<String> getVersionInCommon(String name);
 }

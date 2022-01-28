@@ -34,7 +34,7 @@ class TypescriptDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProject();
-    when(npmService.getVersion(anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersionInCommon(anyString())).thenReturn(Optional.of("0.0.0"));
 
     typescriptDomainService.init(project);
 

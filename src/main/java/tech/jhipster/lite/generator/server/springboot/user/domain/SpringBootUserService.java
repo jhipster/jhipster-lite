@@ -4,7 +4,5 @@ import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface SpringBootUserService {
-  void addSqlJavaUser(Project project, DatabaseType sqlDatabase);
-  void addSqlJavaAuthority(Project project, DatabaseType sqlDatabase);
-  void addSqlJavaAuditEntity(Project project, DatabaseType sqlDatabase);
+  void addUserAndAuthorityEntities(Project project, DatabaseType sqlDatabase);
 }

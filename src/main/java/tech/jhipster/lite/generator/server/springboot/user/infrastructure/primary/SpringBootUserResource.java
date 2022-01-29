@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.user.infrastructure.primary;
 
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
 import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,15 +28,24 @@ class SpringBootUserResource {
 
   @Operation(summary = "Add UserEntity, AuthorityEntity and JpaRepository for PostgreSQL")
   @PostMapping("/postgresql")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository")
-  public void addSpringBootUsers(@RequestBody ProjectDTO projectDTO) {
+  @ApiResponse(
+    responseCode = "500",
+    description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository for PostgreSQL"
+  )
+  public void addUserAndAuthorityEntitiesForPostgreSQL(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    initUser(project, POSTGRESQL);
+    addUserAndAuthorityEntities(project, POSTGRESQL);
   }
 
-  private void initUser(Project project, DatabaseType sqlDatabase) {
-    springBootUserApplicationService.addSqlJavaUser(project, sqlDatabase);
-    springBootUserApplicationService.addSqlJavaAuthority(project, sqlDatabase);
-    springBootUserApplicationService.addSqlJavaAuditEntity(project, sqlDatabase);
+  @Operation(summary = "Add UserEntity, AuthorityEntity and JpaRepository for MySQL")
+  @PostMapping("/mysql")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository for MySQL")
+  public void addUserAndAuthorityEntitiesForMySQL(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    addUserAndAuthorityEntities(project, MYSQL);
+  }
+
+  private void addUserAndAuthorityEntities(Project project, DatabaseType sqlDatabase) {
+    springBootUserApplicationService.addUserAndAuthorityEntities(project, sqlDatabase);
   }
 }

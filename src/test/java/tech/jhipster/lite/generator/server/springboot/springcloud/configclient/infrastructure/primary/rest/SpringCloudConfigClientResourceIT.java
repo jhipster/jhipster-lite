@@ -58,7 +58,7 @@ class SpringCloudConfigClientResourceIT {
     String projectPath = projectDTO.getFolder();
 
     assertFileExist(projectPath, "src/main/resources/config/bootstrap.properties");
-    assertFileExist(projectPath, "src/main/resources/config/bootstrap-fast.properties");
+    assertFileExist(projectPath, "src/main/resources/config/bootstrap-local.properties");
     assertFileExist(projectPath, "src/main/docker/jhipster-registry.yml");
   }
 }

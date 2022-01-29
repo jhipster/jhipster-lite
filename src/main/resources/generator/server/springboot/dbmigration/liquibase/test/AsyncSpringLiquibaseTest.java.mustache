@@ -80,8 +80,8 @@ class AsyncSpringLiquibaseTest {
   }
 
   @Test
-  void shouldInitDbWithFastProfile() {
-    environment.setActiveProfiles("fast");
+  void shouldInitDbWithLocalProfile() {
+    environment.setActiveProfiles("local");
 
     Throwable caught;
     synchronized (executor) {
@@ -110,7 +110,7 @@ class AsyncSpringLiquibaseTest {
 
   @Test
   void shouldInitDbWhenSlow() {
-    environment.setActiveProfiles("fast");
+    environment.setActiveProfiles("local");
     doReturn(AsyncSpringLiquibase.SLOWNESS_THRESHOLD * 1000L + 100L).when(config).getSleep();
     Throwable caught;
 
@@ -162,7 +162,7 @@ class AsyncSpringLiquibaseTest {
 
   @Test
   void testConnexionException() {
-    environment.setActiveProfiles("fast");
+    environment.setActiveProfiles("local");
 
     Throwable caught;
     synchronized (executor) {
@@ -180,7 +180,7 @@ class AsyncSpringLiquibaseTest {
 
   @Test
   void shouldInitDbWithLiquibaseException() {
-    environment.setActiveProfiles("fast");
+    environment.setActiveProfiles("local");
     Throwable caught = catchThrowable(() -> doThrow(exception).when(config).initDb());
     assertThat(caught).isNull();
 

@@ -107,11 +107,15 @@ class SpringCloudConfigApplicationServiceIT {
 
     assertFileContent(
       project,
-      getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"),
+      getPath(MAIN_RESOURCES, "config/bootstrap-local.properties"),
       bootstrapProperties(project.getBaseName().orElse("jhipster"))
     );
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"), List.of("spring.cloud.config.fail-fast=false"));
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, "config/bootstrap-local.properties"),
+      List.of("spring.cloud.config.fail-fast=false")
+    );
 
     assertFileContent(project, getPath(TEST_RESOURCES, "config/bootstrap.properties"), "spring.cloud.config.enabled=false");
   }

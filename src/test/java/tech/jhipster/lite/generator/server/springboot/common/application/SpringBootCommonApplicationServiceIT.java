@@ -109,54 +109,54 @@ class SpringBootCommonApplicationServiceIT {
   }
 
   @Nested
-  class FastPropertiesIT {
+  class LocalPropertiesIT {
 
     @Test
-    void shouldNotAddPropertiesFast() {
+    void shouldNotAddPropertiesLocal() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesFast(project, "specific.config.fast", "chips"))
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesLocal(project, "specific.config.local", "chips"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test
-    void shouldAddPropertiesFastWithInteger() {
+    void shouldAddPropertiesLocalWithInteger() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootCommonApplicationService.addPropertiesFast(project, "server.port", 8080);
+      springBootCommonApplicationService.addPropertiesLocal(project, "server.port", 8080);
 
-      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-local.properties");
       assertFileContent(project, applicationProperties, "server.port=8080");
-      assertFileContent(project, applicationProperties, "# jhipster-needle-application-fast-properties");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-local-properties");
     }
 
     @Test
-    void shouldAddPropertiesFastWithBoolean() {
+    void shouldAddPropertiesLocalWithBoolean() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootCommonApplicationService.addPropertiesFast(project, "spring.jmx.enabled", false);
+      springBootCommonApplicationService.addPropertiesLocal(project, "spring.jmx.enabled", false);
 
-      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-local.properties");
       assertFileContent(project, applicationProperties, "spring.jmx.enabled=false");
-      assertFileContent(project, applicationProperties, "# jhipster-needle-application-fast-properties");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-local-properties");
     }
 
     @Test
-    void shouldAddPropertiesFastWithString() {
+    void shouldAddPropertiesLocalWithString() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootCommonApplicationService.addPropertiesFast(project, "jhipster.application", "jhlite");
+      springBootCommonApplicationService.addPropertiesLocal(project, "jhipster.application", "jhlite");
 
-      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-local.properties");
       assertFileContent(project, applicationProperties, "jhipster.application=jhlite");
-      assertFileContent(project, applicationProperties, "# jhipster-needle-application-fast-properties");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-local-properties");
     }
 
     @Test
-    void shouldNotAddPropertiesFastWhenNoApplicationProperties() {
+    void shouldNotAddPropertiesLocalWhenNoApplicationProperties() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesFast(project, "jhipster.application", "jhlite"))
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesLocal(project, "jhipster.application", "jhlite"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
   }
@@ -238,28 +238,28 @@ class SpringBootCommonApplicationServiceIT {
   }
 
   @Nested
-  class PropertiesFastNewLineIT {
+  class PropertiesLocalNewLineIT {
 
     @Test
-    void shouldNotAddPropertiesFastNewLine() {
+    void shouldNotAddPropertiesLocalNewLine() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesFastNewLine(project))
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesLocalNewLine(project))
         .isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test
-    void shouldAddPropertiesFastNewLine() throws IOException {
+    void shouldAddPropertiesLocalNewLine() throws IOException {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootCommonApplicationService.addPropertiesFast(project, "new.property", "value");
-      springBootCommonApplicationService.addPropertiesFastNewLine(project);
+      springBootCommonApplicationService.addPropertiesLocal(project, "new.property", "value");
+      springBootCommonApplicationService.addPropertiesLocalNewLine(project);
 
-      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-local.properties");
       assertFileContentRegexp(
         project,
         applicationProperties,
-        "new.property=value" + LF + LF + "# jhipster-needle-application-fast-properties"
+        "new.property=value" + LF + LF + "# jhipster-needle-application-local-properties"
       );
     }
   }
@@ -315,25 +315,25 @@ class SpringBootCommonApplicationServiceIT {
   }
 
   @Nested
-  class PropertiesFastCommentIT {
+  class PropertiesLocalCommentIT {
 
     @Test
-    void shouldNotAddPropertiesFastComment() {
+    void shouldNotAddPropertiesLocalComment() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesFastComment(project, "new comment"))
+      assertThatThrownBy(() -> springBootCommonApplicationService.addPropertiesLocalComment(project, "new comment"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test
-    void shouldAddPropertiesFastComment() {
+    void shouldAddPropertiesLocalComment() {
       Project project = tmpProjectWithSpringBootProperties();
 
-      springBootCommonApplicationService.addPropertiesFastComment(project, "new comment");
+      springBootCommonApplicationService.addPropertiesLocalComment(project, "new comment");
 
-      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-fast.properties");
+      String applicationProperties = getPath(MAIN_RESOURCES, "config/application-local.properties");
       assertFileContent(project, applicationProperties, "# new comment");
-      assertFileContent(project, applicationProperties, "# jhipster-needle-application-fast-properties");
+      assertFileContent(project, applicationProperties, "# jhipster-needle-application-local-properties");
     }
   }
 

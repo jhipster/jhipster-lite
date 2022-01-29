@@ -5,7 +5,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 public class Consul {
 
   public static final String BOOTSTRAP_PROPERTIES = "bootstrap.properties";
-  public static final String BOOTSTRAP_FAST_PROPERTIES = "bootstrap-fast.properties";
+  public static final String BOOTSTRAP_LOCAL_PROPERTIES = "bootstrap-local.properties";
 
   private static final String DOCKER_CONSUL_IMAGE = "consul:1.11.1";
   private static final String DOCKER_CONSUL_CONFIG_LOADER_IMAGE = "jhipster/consul-config-loader:v0.4.1";

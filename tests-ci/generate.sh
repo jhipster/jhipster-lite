@@ -42,9 +42,9 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/mvc/dummy"
 
   callApi "/api/servers/spring-boot/databases/postgresql"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase/user/postgresql"
   callApi "/api/servers/spring-boot/user/postgresql"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
 
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
 
@@ -77,6 +77,8 @@ elif [[ $filename == 'undertow-simplecache' ]]; then
 
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/user/mysql"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
   callApi "/api/servers/spring-boot/cache/simple"
 
 elif [[ $filename == 'tomcat-configserver' ]]; then

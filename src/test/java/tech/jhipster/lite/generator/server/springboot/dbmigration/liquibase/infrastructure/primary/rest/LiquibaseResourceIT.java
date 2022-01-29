@@ -108,7 +108,7 @@ class LiquibaseResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/databases/migration/liquibase/user/postgresql")
+        post("/api/servers/spring-boot/databases/migration/liquibase/user")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

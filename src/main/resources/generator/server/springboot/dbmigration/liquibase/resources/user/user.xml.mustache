@@ -6,11 +6,6 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
 >
-
-  <changeSet id="create_sequence_jhi_user" author="jhipster">
-    <createSequence sequenceName="sequence_jhi_user" startValue="1050" incrementBy="50" />
-  </changeSet>
-
   <changeSet id="create_table_jhi_user" author="jhipster">
     <createTable tableName="jhi_user">
       <column name="id" type="bigint">

@@ -18,6 +18,7 @@ import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquiba
 import java.time.Clock;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -27,6 +28,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootService;
+import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLService;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.PostgresqlService;
 
 @IntegrationTest
@@ -40,6 +42,9 @@ class LiquibaseApplicationServiceIT {
 
   @Autowired
   PostgresqlService postgresqlService;
+
+  @Autowired
+  MySQLService mySQLService;
 
   @Autowired
   LiquibaseApplicationService liquibaseApplicationService;
@@ -182,11 +187,30 @@ class LiquibaseApplicationServiceIT {
   }
 
   @Test
-  void shouldAddUserAuthorityChangelog() {
+  @DisplayName("should add user and authority changelog for PostgreSQL")
+  void shouldAddUserAuthorityChangelogForMyPostgreSQL() {
     Project project = tmpProjectWithLiquibaseMasterXml();
 
     liquibaseApplicationService.addUserAuthorityChangelog(project);
 
     assertFilesLiquibaseSqlUser(project);
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/20220128173026_added_sequence_User.xml"));
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), "20220128173026_added_sequence_User.xml");
+  }
+
+  @Test
+  @DisplayName("should add user and authority changelog for MySQL")
+  void shouldAddUserAuthorityChangelogForMySQL() {
+    Project project = tmpProject();
+    buildToolService.init(project, BuildToolType.MAVEN);
+    springBootService.init(project);
+    mySQLService.init(project);
+    liquibaseApplicationService.init(project);
+
+    liquibaseApplicationService.addUserAuthorityChangelog(project);
+
+    assertFilesLiquibaseSqlUser(project);
+    assertFileNotExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/20220128173026_added_sequence_User.xml"));
+    assertFileNoContent(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), "20220128173026_added_sequence_User.xml");
   }
 }

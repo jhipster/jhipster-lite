@@ -32,7 +32,7 @@ class LiquibaseResource {
 
   @Operation(summary = "Add User and Authority changelogs")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding changelogs for user and authority")
-  @PostMapping("user/postgresql")
+  @PostMapping("user")
   public void addUserAndAuthority(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     liquibaseApplicationService.addUserAuthorityChangelog(project);

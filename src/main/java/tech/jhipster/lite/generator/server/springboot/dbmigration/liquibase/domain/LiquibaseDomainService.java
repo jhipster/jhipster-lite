@@ -25,7 +25,6 @@ public class LiquibaseDomainService implements LiquibaseService {
   public static final String CONFIG_LIQUIBASE = "config/liquibase";
   public static final String CHANGELOG = CONFIG_LIQUIBASE + "/changelog";
   public static final String DATA = CONFIG_LIQUIBASE + "/data";
-  public static final String USER_DATABASE_KEY = "sqlDatabaseName";
   private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
   private final ProjectRepository projectRepository;
@@ -121,16 +120,28 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   @Override
   public void addUserAuthorityChangelog(Project project) {
+    addSqlSequenceUserChangelog(project);
     addSqlUserChangelog(project);
     addSqlUserAuthorityChangelog(project);
   }
 
+  private void addSqlSequenceUserChangelog(Project project) {
+    if (!isMySQLDatabase(project)) {
+      String sequenceUserChangelog = getTimestamp() + "_added_sequence_User.xml";
+      addChangelogXml(project, "", sequenceUserChangelog);
+      projectRepository.template(
+        project,
+        getUserResourcePath(),
+        "sequence_user.xml",
+        getPath(MAIN_RESOURCES, CHANGELOG),
+        sequenceUserChangelog
+      );
+    }
+  }
+
   private void addSqlUserChangelog(Project project) {
-    // Update liquibase master file
     String userChangelog = getTimestamp() + "_added_entity_User.xml";
     addChangelogXml(project, "", userChangelog);
-
-    // Copy liquibase files
     projectRepository.template(project, getUserResourcePath(), "user.xml", getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
     projectRepository.add(project, getUserResourcePath(), "user.csv", getPath(MAIN_RESOURCES, DATA));
   }
@@ -153,5 +164,9 @@ public class LiquibaseDomainService implements LiquibaseService {
   private String getTimestamp() {
     LocalDateTime localDateTime = LocalDateTime.now(clock);
     return localDateTime.format(DATE_TIME_FORMATTER);
+  }
+
+  private boolean isMySQLDatabase(Project project) {
+    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("mysql")).isPresent();
   }
 }

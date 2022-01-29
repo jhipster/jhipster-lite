@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.user.application;
 
-import static tech.jhipster.lite.TestUtils.assertFileContent;
-import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
 
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -29,17 +29,33 @@ public class SpringBootUserAssertFiles {
     checkJavaFile(project, "AbstractAuditingEntity.java", databaseType);
   }
 
+  public static void checkSequence(Project project, DatabaseType databaseType) {
+    String userPath = getUserPath(project, databaseType);
+
+    if (databaseType == MYSQL) {
+      assertFileContent(project, getPath(userPath, "UserEntity.java"), "@GeneratedValue(strategy = GenerationType.IDENTITY)");
+      assertFileNoContent(project, getPath(userPath, "UserEntity.java"), "@GeneratedValue(strategy = GenerationType.SEQUENCE");
+    } else {
+      assertFileNoContent(project, getPath(userPath, "UserEntity.java"), "@GeneratedValue(strategy = GenerationType.IDENTITY)");
+      assertFileContent(project, getPath(userPath, "UserEntity.java"), "@GeneratedValue(strategy = GenerationType.SEQUENCE");
+    }
+  }
+
   private static void checkJavaFile(Project project, String javaFileName, DatabaseType databaseType) {
     String userPackage = project.getPackageName().orElse("com.mycompany.myapp") + ".user.infrastructure.secondary." + databaseType.id();
-    String userPath = getPath(
+    String userPath = getUserPath(project, databaseType);
+
+    assertFileExist(project, getPath(userPath, javaFileName));
+    assertFileContent(project, getPath(userPath, javaFileName), "package " + userPackage);
+  }
+
+  private static String getUserPath(Project project, DatabaseType databaseType) {
+    return getPath(
       MAIN_JAVA,
       project.getPackageNamePath().orElse("com/mycompany/myapp"),
       "user/infrastructure/secondary",
       databaseType.id()
     );
-
-    assertFileExist(project, getPath(userPath, javaFileName));
-    assertFileContent(project, getPath(userPath, javaFileName), "package " + userPackage);
   }
 
   private static void checkJavaDomainFile(Project project, String javaFileName) {

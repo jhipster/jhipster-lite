@@ -25,24 +25,28 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
+
   callApi "/api/servers/spring-boot/async"
   callApi "/api/servers/spring-boot/devtools"
+  callApi "/api/servers/spring-boot/logging/aop"
+  callApi "/api/servers/spring-boot/logging/logstash"
   callApi "/api/servers/spring-boot/banner/jhipster-v7"
+  callApi "/api/servers/sonar"
+  callApi "/api/servers/spring-boot/docker/jib"
+
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
   callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/mvc/security/jwt"
   callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
   callApi "/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt"
   callApi "/api/servers/spring-boot/mvc/dummy"
+
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/user/postgresql"
-  callApi "/api/servers/spring-boot/logging/aop"
-  callApi "/api/servers/spring-boot/logging/logstash"
-  callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
   callApi "/api/servers/spring-boot/user/postgresql"
-  callApi "/api/servers/sonar"
-  callApi "/api/servers/spring-boot/docker/jib"
+
+  callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
 
 elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/projects/init"
@@ -50,10 +54,13 @@ elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
+
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
   callApi "/api/servers/spring-boot/mvc/springdoc/init"
+
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/databases/migration/flyway/init"
+
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
 
 elif [[ $filename == 'undertow-simplecache' ]]; then
@@ -62,9 +69,14 @@ elif [[ $filename == 'undertow-simplecache' ]]; then
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
+
+  callApi "/api/servers/spring-boot/banner/jhipster-v3"
+
   callApi "/api/servers/spring-boot/mvc/web/undertow"
   callApi "/api/servers/spring-boot/mvc/dummy"
-  callApi "/api/servers/spring-boot/banner/jhipster-v3"
+
+  callApi "/api/servers/spring-boot/databases/mysql"
+  callApi "/api/servers/spring-boot/user/mysql"
   callApi "/api/servers/spring-boot/cache/simple"
 
 elif [[ $filename == 'tomcat-configserver' ]]; then
@@ -73,6 +85,7 @@ elif [[ $filename == 'tomcat-configserver' ]]; then
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
+
   callApi "/api/servers/spring-boot/mvc/web/tomcat"
   callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/spring-cloud/config-client"
@@ -83,6 +96,7 @@ elif [[ $filename == 'undertow-consul' ]]; then
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
+
   callApi "/api/servers/spring-boot/mvc/web/undertow"
   callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/spring-cloud/consul"

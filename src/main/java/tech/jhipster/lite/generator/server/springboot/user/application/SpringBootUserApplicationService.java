@@ -14,15 +14,7 @@ public class SpringBootUserApplicationService {
     this.springBootUserService = springBootPropertiesService;
   }
 
-  public void addSqlJavaUser(Project project, DatabaseType sqlDatabase) {
-    springBootUserService.addSqlJavaUser(project, sqlDatabase);
-  }
-
-  public void addSqlJavaAuthority(Project project, DatabaseType sqlDatabase) {
-    springBootUserService.addSqlJavaAuthority(project, sqlDatabase);
-  }
-
-  public void addSqlJavaAuditEntity(Project project, DatabaseType sqlDatabase) {
-    springBootUserService.addSqlJavaAuditEntity(project, sqlDatabase);
+  public void addUserAndAuthorityEntities(Project project, DatabaseType sqlDatabase) {
+    springBootUserService.addUserAndAuthorityEntities(project, sqlDatabase);
   }
 }

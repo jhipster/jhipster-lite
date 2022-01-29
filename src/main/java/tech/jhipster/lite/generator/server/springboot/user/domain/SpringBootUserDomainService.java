@@ -8,6 +8,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class SpringBootUserDomainService implements SpringBootUserService {
 
@@ -17,26 +18,43 @@ public class SpringBootUserDomainService implements SpringBootUserService {
   private static final String USER_DATABASE_KEY = "sqlDatabaseName";
 
   private final ProjectRepository projectRepository;
+  private final SpringBootCommonService springBootCommonService;
 
-  public SpringBootUserDomainService(ProjectRepository projectRepository) {
+  public SpringBootUserDomainService(ProjectRepository projectRepository, SpringBootCommonService springBootCommonService) {
     this.projectRepository = projectRepository;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
-  public void addSqlJavaUser(Project project, DatabaseType sqlDatabase) {
+  public void addUserAndAuthorityEntities(Project project, DatabaseType sqlDatabase) {
+    addUserEntity(project, sqlDatabase);
+    addAuthorityEntity(project, sqlDatabase);
+    addAbstractAuditingEntity(project, sqlDatabase);
+  }
+
+  private void addUserEntity(Project project, DatabaseType sqlDatabase) {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
-    projectRepository.template(project, SOURCE, "UserEntity.java", getSqlJavaPath(packageNamePath, sqlDatabase));
+    if (isMySQLDatabase(project)) {
+      projectRepository.template(
+        project,
+        SOURCE,
+        "UserEntity_without_sequence.java",
+        getSqlJavaPath(packageNamePath, sqlDatabase),
+        "UserEntity.java"
+      );
+    } else {
+      projectRepository.template(project, SOURCE, "UserEntity.java", getSqlJavaPath(packageNamePath, sqlDatabase));
+    }
     projectRepository.template(project, SOURCE, "UserJpaRepository.java", getSqlJavaPath(packageNamePath, sqlDatabase));
     projectRepository.template(project, SOURCE, "UserConstants.java", getSqlDomainJavaPath(packageNamePath));
 
     projectRepository.template(project, SOURCE, "UserEntityTest.java", getSqlJavaTestPath(packageNamePath, sqlDatabase));
   }
 
-  @Override
-  public void addSqlJavaAuthority(Project project, DatabaseType sqlDatabase) {
+  private void addAuthorityEntity(Project project, DatabaseType sqlDatabase) {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
@@ -47,8 +65,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     projectRepository.template(project, SOURCE, "AuthorityEntityTest.java", getSqlJavaTestPath(packageNamePath, sqlDatabase));
   }
 
-  @Override
-  public void addSqlJavaAuditEntity(Project project, DatabaseType sqlDatabase) {
+  private void addAbstractAuditingEntity(Project project, DatabaseType sqlDatabase) {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
@@ -66,5 +83,9 @@ public class SpringBootUserDomainService implements SpringBootUserService {
 
   private String getSqlJavaTestPath(String packageNamePath, DatabaseType sqlDatabase) {
     return getPath(TEST_JAVA, packageNamePath, TARGET_INFRA_SECOND_JAVA + "/" + sqlDatabase.id());
+  }
+
+  private boolean isMySQLDatabase(Project project) {
+    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("mysql")).isPresent();
   }
 }

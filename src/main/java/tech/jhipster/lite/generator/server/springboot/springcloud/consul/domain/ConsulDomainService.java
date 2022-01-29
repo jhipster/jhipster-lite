@@ -43,7 +43,7 @@ public class ConsulDomainService implements ConsulService {
     project.addDefaultConfig(BASE_NAME);
 
     projectRepository.template(project, getPath(SOURCE, "src"), BOOTSTRAP_PROPERTIES, getPath(MAIN_RESOURCES, CONFIG_FOLDER));
-    projectRepository.template(project, getPath(SOURCE, "src"), BOOTSTRAP_FAST_PROPERTIES, getPath(MAIN_RESOURCES, CONFIG_FOLDER));
+    projectRepository.template(project, getPath(SOURCE, "src"), BOOTSTRAP_LOCAL_PROPERTIES, getPath(MAIN_RESOURCES, CONFIG_FOLDER));
     projectRepository.template(project, getPath(SOURCE, "test"), BOOTSTRAP_PROPERTIES, getPath(TEST_RESOURCES, CONFIG_FOLDER));
   }
 

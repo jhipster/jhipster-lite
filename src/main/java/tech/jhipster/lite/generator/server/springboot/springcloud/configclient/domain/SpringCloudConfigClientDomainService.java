@@ -50,7 +50,7 @@ public class SpringCloudConfigClientDomainService implements SpringCloudConfigCl
     project.addDefaultConfig(BASE_NAME);
 
     projectRepository.template(project, getPath(SOURCE, "src"), "bootstrap.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
-    projectRepository.template(project, getPath(SOURCE, "src"), "bootstrap-fast.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
+    projectRepository.template(project, getPath(SOURCE, "src"), "bootstrap-local.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
     projectRepository.template(project, getPath(SOURCE, "src", "test"), "bootstrap.properties", getPath(TEST_RESOURCES, CONFIG_FOLDER));
   }
 

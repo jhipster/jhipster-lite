@@ -36,7 +36,7 @@ public class SpringBootDomainService implements SpringBootService {
     addSpringBootMavenPlugin(project);
     addMainApp(project);
     addApplicationProperties(project);
-    addApplicationFastProperties(project);
+    addApplicationLocalProperties(project);
     addApplicationTestProperties(project);
     addLoggingConfiguration(project);
     addLoggingTestConfiguration(project);
@@ -133,10 +133,10 @@ public class SpringBootDomainService implements SpringBootService {
   }
 
   @Override
-  public void addApplicationFastProperties(Project project) {
+  public void addApplicationLocalProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE, "application-fast.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
+    projectRepository.template(project, SOURCE, "application-local.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
   }
 
   @Override

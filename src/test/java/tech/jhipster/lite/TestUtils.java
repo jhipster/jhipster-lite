@@ -195,8 +195,8 @@ public class TestUtils {
         getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application.properties")
       );
       Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/core/application.src.fast.properties"),
-        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application-fast.properties")
+        getPathOf("src/test/resources/generator/server/springboot/core/application.src.local.properties"),
+        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application-local.properties")
       );
       Files.copy(
         getPathOf("src/test/resources/generator/server/springboot/core/application.test.properties"),

@@ -44,7 +44,7 @@ class AopLoggingDomainServiceTest {
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
     // Properties modifications
     verify(springBootCommonService).addProperties(any(Project.class), anyString(), anyString());
-    verify(springBootCommonService).addPropertiesFast(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addPropertiesLocal(any(Project.class), anyString(), anyString());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), anyString());
     // Maven dependency
     verify(buildToolService).addDependency(any(Project.class), any(Dependency.class));
@@ -65,7 +65,7 @@ class AopLoggingDomainServiceTest {
     aopLoggingDomainService.addProperties(project);
 
     verify(springBootCommonService).addProperties(any(Project.class), anyString(), anyString());
-    verify(springBootCommonService).addPropertiesFast(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addPropertiesLocal(any(Project.class), anyString(), anyString());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), anyString());
   }
 

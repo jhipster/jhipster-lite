@@ -22,8 +22,8 @@ public class SpringBootCommonApplicationService {
     springBootCommonService.addProperties(project, key, value);
   }
 
-  public void addPropertiesFast(Project project, String key, Object value) {
-    springBootCommonService.addPropertiesFast(project, key, value);
+  public void addPropertiesLocal(Project project, String key, Object value) {
+    springBootCommonService.addPropertiesLocal(project, key, value);
   }
 
   public void addPropertiesTest(Project project, String key, Object value) {
@@ -34,8 +34,8 @@ public class SpringBootCommonApplicationService {
     springBootCommonService.addPropertiesNewLine(project);
   }
 
-  public void addPropertiesFastNewLine(Project project) {
-    springBootCommonService.addPropertiesFastNewLine(project);
+  public void addPropertiesLocalNewLine(Project project) {
+    springBootCommonService.addPropertiesLocalNewLine(project);
   }
 
   public void addPropertiesTestNewLine(Project project) {
@@ -46,8 +46,8 @@ public class SpringBootCommonApplicationService {
     springBootCommonService.addPropertiesComment(project, text);
   }
 
-  public void addPropertiesFastComment(Project project, String text) {
-    springBootCommonService.addPropertiesFastComment(project, text);
+  public void addPropertiesLocalComment(Project project, String text) {
+    springBootCommonService.addPropertiesLocalComment(project, text);
   }
 
   public void addPropertiesTestComment(Project project, String text) {

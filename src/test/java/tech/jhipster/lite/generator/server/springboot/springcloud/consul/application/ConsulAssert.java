@@ -63,7 +63,7 @@ public class ConsulAssert {
 
   public static void assertProperties(Project project) {
     assertFileExist(project, MAIN_RESOURCES, "config/bootstrap.properties");
-    assertFileExist(project, MAIN_RESOURCES, "config/bootstrap-fast.properties");
+    assertFileExist(project, MAIN_RESOURCES, "config/bootstrap-local.properties");
     assertFileExist(project, TEST_RESOURCES, "config/bootstrap.properties");
 
     assertFileContent(
@@ -80,7 +80,7 @@ public class ConsulAssert {
       )
     );
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"), "spring.cloud.consul.config.fail-fast=false");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-local.properties"), "spring.cloud.consul.config.fail-local=false");
 
     assertFileContent(project, getPath(TEST_RESOURCES, "config/bootstrap.properties"), "spring.cloud.consul.enabled=false");
   }

@@ -67,7 +67,7 @@ class SpringBootApplicationServiceIT {
     assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp", "IntegrationTest.java"));
 
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/application.properties"));
-    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-local.properties"));
     assertFileExist(project, getPath(TEST_RESOURCES, "config/application.properties"));
     assertFileExist(project, getPath(MAIN_RESOURCES, "logback-spring.xml"));
     assertFileExist(project, getPath(TEST_RESOURCES, "logback.xml"));
@@ -175,13 +175,13 @@ class SpringBootApplicationServiceIT {
   }
 
   @Test
-  void shouldAddApplicationFastProperties() {
+  void shouldAddApplicationLocalProperties() {
     Project project = tmpProject();
     initApplicationService.init(project);
 
-    springBootApplicationService.addApplicationFastProperties(project);
+    springBootApplicationService.addApplicationLocalProperties(project);
 
-    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-local.properties"));
   }
 
   @Test

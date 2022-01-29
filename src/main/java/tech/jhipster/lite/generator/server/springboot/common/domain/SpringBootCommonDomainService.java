@@ -38,8 +38,8 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   }
 
   @Override
-  public void addPropertiesFast(Project project, String key, Object value) {
-    addKeyValueToProperties(project, key, value, MAIN_RESOURCES, APPLICATION_FAST_PROPERTIES, NEEDLE_APPLICATION_FAST_PROPERTIES);
+  public void addPropertiesLocal(Project project, String key, Object value) {
+    addKeyValueToProperties(project, key, value, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
   }
 
   @Override
@@ -71,8 +71,8 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   }
 
   @Override
-  public void addPropertiesFastNewLine(Project project) {
-    addNewLineToProperties(project, MAIN_RESOURCES, APPLICATION_FAST_PROPERTIES, NEEDLE_APPLICATION_FAST_PROPERTIES);
+  public void addPropertiesLocalNewLine(Project project) {
+    addNewLineToProperties(project, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
   }
 
   @Override
@@ -97,8 +97,8 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   }
 
   @Override
-  public void addPropertiesFastComment(Project project, String text) {
-    addCommentToProperties(project, text, MAIN_RESOURCES, APPLICATION_FAST_PROPERTIES, NEEDLE_APPLICATION_FAST_PROPERTIES);
+  public void addPropertiesLocalComment(Project project, String text) {
+    addCommentToProperties(project, text, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
   }
 
   @Override

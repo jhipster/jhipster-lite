@@ -45,7 +45,7 @@ class SpringBootDomainServiceTest {
     verify(buildToolService, times(4)).addDependency(any(Project.class), any(Dependency.class));
     verify(buildToolService).addPlugin(any(Project.class), any(Plugin.class));
 
-    // for application.properties, application-fast.properties, Integration Test annotation, Logging config and logging test config
+    // for application.properties, application-local.properties, Integration Test annotation, Logging config and logging test config
     verify(projectRepository, times(5)).template(any(Project.class), anyString(), anyString(), anyString());
     // for main class + test + application.properties in test
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());

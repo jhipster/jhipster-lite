@@ -51,9 +51,9 @@ public class AopLoggingDomainService implements AopLoggingService {
     springBootCommonService.addProperties(project, LOGGING_PROPERTY_FIELD, "false");
     springBootCommonService.addPropertiesNewLine(project);
 
-    springBootCommonService.addPropertiesFastComment(project, COMMENT_AOP_LOGGING);
-    springBootCommonService.addPropertiesFast(project, LOGGING_PROPERTY_FIELD, "true");
-    springBootCommonService.addPropertiesFastNewLine(project);
+    springBootCommonService.addPropertiesLocalComment(project, COMMENT_AOP_LOGGING);
+    springBootCommonService.addPropertiesLocal(project, LOGGING_PROPERTY_FIELD, "true");
+    springBootCommonService.addPropertiesLocalNewLine(project);
 
     springBootCommonService.addPropertiesTestComment(project, COMMENT_AOP_LOGGING);
     springBootCommonService.addPropertiesTest(project, LOGGING_PROPERTY_FIELD, "true");

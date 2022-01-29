@@ -1,11 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
+import java.util.Optional;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -40,6 +42,7 @@ class JwtSecurityDomainServiceTest {
   void shouldInit() throws GitAPIException {
     Project project = tmpProjectWithPomXml();
     GitUtils.init(project.getFolder());
+    when(buildToolService.getVersion(project, "jjwt")).thenReturn(Optional.of("0.0.0"));
 
     jwtSecurityDomainService.init(project);
 
@@ -51,6 +54,14 @@ class JwtSecurityDomainServiceTest {
 
     verify(springBootCommonService, times(9)).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
+  }
+
+  @Test
+  void shouldNotaddPropertyAndDependency() throws GitAPIException {
+    Project project = tmpProjectWithPomXml();
+    GitUtils.init(project.getFolder());
+
+    assertThatThrownBy(() -> jwtSecurityDomainService.init(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

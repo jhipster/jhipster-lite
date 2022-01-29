@@ -6,17 +6,12 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class JwtSecurity {
 
-  private static final String JJWT_VERSION = "0.11.2";
   private static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
 
   public static final String JSONWEBTOKEN_PACKAGE = "io.jsonwebtoken";
   public static final String JJWT_VERSION_PROPERTY = "\\${jjwt.version}";
 
   private JwtSecurity() {}
-
-  public static String jjwtVersion() {
-    return JJWT_VERSION;
-  }
 
   public static Dependency springBootStarterSecurityDependency() {
     return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-security").build();

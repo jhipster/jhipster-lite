@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -25,6 +26,7 @@ class InitResource {
   @Operation(summary = "Init project")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing project")
   @PostMapping("/init")
+  @GeneratorStep(id = "init-project")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);

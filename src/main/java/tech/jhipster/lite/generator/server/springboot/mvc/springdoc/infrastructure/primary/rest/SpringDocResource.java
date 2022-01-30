@@ -25,6 +25,7 @@ class SpringDocResource {
   @Operation(summary = "Add springdoc-openapi")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding springdoc-openapi")
   @PostMapping("/init")
+  @Tag(name = "")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     this.springDocApplicationService.init(project);

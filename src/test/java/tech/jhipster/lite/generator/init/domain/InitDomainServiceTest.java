@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.init.domain;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -15,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -35,6 +37,7 @@ class InitDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProject();
+    when(npmService.getVersionInCommon(anyString())).thenReturn(Optional.of("0.0.0"));
 
     assertThatCode(() -> initDomainService.init(project)).doesNotThrowAnyException();
   }
@@ -49,6 +52,13 @@ class InitDomainServiceTest {
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
     verify(npmService, times(6)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(3)).addScript(any(Project.class), anyString(), anyString());
+  }
+
+  @Test
+  void shouldNotAddPackageJson() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> initDomainService.addPackageJson(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

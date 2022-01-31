@@ -139,6 +139,17 @@ class SpringBootApplicationServiceIT {
         "<groupId>org.springframework.boot</groupId>",
         "<artifactId>spring-boot-maven-plugin</artifactId>",
         "<version>${spring-boot.version}</version>",
+        "<executions>",
+        "<execution>",
+        "<id>repackage</id>",
+        "<goals>",
+        "<goal>repackage</goal>",
+        "</goals>",
+        "</execution>",
+        "</executions>",
+        "<configuration>",
+        "<mainClass>${start-class}</mainClass>",
+        "</configuration>",
         "</plugin>"
       )
     );

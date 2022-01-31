@@ -7,6 +7,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.*;
 
 import java.util.List;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -77,8 +78,16 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   public void addExceptionHandler(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
 
-    buildToolService.addProperty(project, "problem-spring.version", SpringBootMvc.problemSpringVersion());
-    buildToolService.addProperty(project, "problem-spring-web.version", "\\${problem-spring.version}");
+    this.buildToolService.getVersion(project, "problem-spring")
+      .ifPresentOrElse(
+        version -> {
+          buildToolService.addProperty(project, "problem-spring.version", version);
+          buildToolService.addProperty(project, "problem-spring-web.version", "\\${problem-spring.version}");
+        },
+        () -> {
+          throw new GeneratorException("Spring Boot version not found");
+        }
+      );
 
     buildToolService.addDependency(project, problemSpringDependency());
     buildToolService.addDependency(project, springBootStarterValidation());

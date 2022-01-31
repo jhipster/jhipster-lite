@@ -26,6 +26,7 @@ class MavenResource {
   @Operation(summary = "Init", description = "Init Maven project with pom.xml and wrapper")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing Maven project")
   @PostMapping
+  @GeneratorStep(id = "maven")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     mavenApplicationService.init(project);

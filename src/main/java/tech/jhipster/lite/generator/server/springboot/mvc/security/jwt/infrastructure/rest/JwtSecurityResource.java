@@ -23,6 +23,7 @@ class JwtSecurityResource {
   @Operation(summary = "Add Spring Security JWT")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security JWT")
   @PostMapping("/jwt")
+  @GeneratorStep(id = "springboot-jwt")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     jwtSecurityApplicationService.init(project);
@@ -31,7 +32,7 @@ class JwtSecurityResource {
   @Operation(summary = "Add Basic Auth for Spring Security JWT")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Basic Auth for Spring Security JWT")
   @PostMapping("/jwt/basic-auth")
-  @GeneratorStep(id = "jwt-basic-auth")
+  @GeneratorStep(id = "springboot-jwt-basic-auth")
   public void addBasicAuth(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     jwtSecurityApplicationService.addBasicAuth(project);

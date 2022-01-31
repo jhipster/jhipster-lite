@@ -5,7 +5,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public interface SpringBootService {
   void init(Project project);
 
-  void addSpringBootParent(Project project);
+  void addSpringBootDependenciesBOM(Project project);
   void addSpringBootDependencies(Project project);
   void addSpringBootMavenPlugin(Project project);
   void addMainApp(Project project);

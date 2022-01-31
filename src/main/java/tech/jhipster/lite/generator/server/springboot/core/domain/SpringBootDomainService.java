@@ -31,7 +31,7 @@ public class SpringBootDomainService implements SpringBootService {
 
   @Override
   public void init(Project project) {
-    addSpringBootParent(project);
+    addSpringBootDependenciesBOM(project);
     addSpringBootDependencies(project);
     addSpringBootMavenPlugin(project);
     addMainApp(project);
@@ -43,20 +43,22 @@ public class SpringBootDomainService implements SpringBootService {
   }
 
   @Override
-  public void addSpringBootParent(Project project) {
+  public void addSpringBootDependenciesBOM(Project project) {
     this.buildToolService.getVersion(project, "spring-boot")
       .ifPresentOrElse(
         version -> {
           project.addConfig("springBootVersion", version);
 
-          Parent parent = Parent
+          Dependency springBootDependenciesPom = Dependency
             .builder()
             .groupId(SPRINGBOOT_PACKAGE)
-            .artifactId("spring-boot-starter-parent")
+            .artifactId("spring-boot-dependencies")
             .version((String) project.getConfig("springBootVersion").orElse(version))
+            .type("pom")
+            .scope("import")
             .build();
 
-          buildToolService.addParent(project, parent);
+          buildToolService.addDependencyManagement(project, springBootDependenciesPom);
         },
         () -> {
           throw new GeneratorException("Spring Boot version not found");

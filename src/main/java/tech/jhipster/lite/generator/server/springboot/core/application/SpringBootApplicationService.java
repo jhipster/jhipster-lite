@@ -17,8 +17,8 @@ public class SpringBootApplicationService {
     springBootService.init(project);
   }
 
-  public void addSpringBootParent(Project project) {
-    springBootService.addSpringBootParent(project);
+  public void addSpringBootDependenciesBOM(Project project) {
+    springBootService.addSpringBootDependenciesBOM(project);
   }
 
   public void addSpringBootDependencies(Project project) {

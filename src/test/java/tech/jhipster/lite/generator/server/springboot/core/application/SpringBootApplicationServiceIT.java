@@ -37,7 +37,7 @@ class SpringBootApplicationServiceIT {
 
     springBootApplicationService.init(project);
 
-    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
     assertFileContent(project, POM_XML, "<version>2.5.3</version>");
 
     assertFileContent(project, POM_XML, "<groupId>org.springframework.boot</groupId>");
@@ -74,28 +74,29 @@ class SpringBootApplicationServiceIT {
   }
 
   @Test
-  void shouldAddSpringBootParent() {
+  void shouldAddSpringBootDependenciesBOM() {
     Project project = tmpProject();
     project.addConfig("springBootVersion", "2.5.3");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
-    springBootApplicationService.addSpringBootParent(project);
-    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
+    springBootApplicationService.addSpringBootDependenciesBOM(project);
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
     assertFileContent(project, POM_XML, "<version>2.5.3</version>");
 
     // add again the parent, with wrong version
     project.addConfig("springBootVersion", "X.X.X");
-    springBootApplicationService.addSpringBootParent(project);
-    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
+    springBootApplicationService.addSpringBootDependenciesBOM(project);
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
     assertFileNoContent(project, POM_XML, "<version>X.X.X</version>");
   }
 
   @Test
-  void shouldNotAddSpringBootParentWhenNoPomXml() {
+  void shouldNotAddSpringBootDependenciesBOMWhenNoPomXml() {
     Project project = tmpProject();
 
-    assertThatThrownBy(() -> springBootApplicationService.addSpringBootParent(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> springBootApplicationService.addSpringBootDependenciesBOM(project))
+      .isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

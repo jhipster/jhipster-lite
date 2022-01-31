@@ -41,7 +41,7 @@ class SpringBootDomainServiceTest {
 
     springBootDomainService.init(project);
 
-    verify(buildToolService).addParent(any(Project.class), any(Parent.class));
+    verify(buildToolService).addDependencyManagement(any(Project.class), any(Dependency.class));
     verify(buildToolService, times(4)).addDependency(any(Project.class), any(Dependency.class));
     verify(buildToolService).addPlugin(any(Project.class), any(Plugin.class));
 
@@ -52,20 +52,20 @@ class SpringBootDomainServiceTest {
   }
 
   @Test
-  void shouldAddSpringBootParent() {
+  void shouldAddSpringBootDependenciesBOM() {
     Project project = tmpProjectWithPomXml();
     when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("0.0.0"));
 
-    springBootDomainService.addSpringBootParent(project);
+    springBootDomainService.addSpringBootDependenciesBOM(project);
 
-    verify(buildToolService).addParent(any(Project.class), any(Parent.class));
+    verify(buildToolService).addDependencyManagement(any(Project.class), any(Dependency.class));
   }
 
   @Test
-  void shouldNotAddSpringBootParent() {
+  void shouldNotAddSpringBootDependenciesBOMParent() {
     Project project = tmpProjectWithPomXml();
 
-    assertThatThrownBy(() -> springBootDomainService.addSpringBootParent(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> springBootDomainService.addSpringBootDependenciesBOM(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

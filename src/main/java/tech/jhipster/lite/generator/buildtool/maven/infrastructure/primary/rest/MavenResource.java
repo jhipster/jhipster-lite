@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/build-tools/maven")
@@ -33,6 +34,7 @@ class MavenResource {
   @Operation(summary = "Add pom.xml")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding pom.xml to project")
   @PostMapping("/pom-xml")
+  @GeneratorStep(id = "pom.xml")
   public void addPomXml(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     mavenApplicationService.addPomXml(project);
@@ -41,6 +43,7 @@ class MavenResource {
   @Operation(summary = "Add Maven Wrapper")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Maven Wrapper to project")
   @PostMapping("/wrapper")
+  @GeneratorStep(id = "maven-wrapper")
   public void addMavenWrapper(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     mavenApplicationService.addMavenWrapper(project);

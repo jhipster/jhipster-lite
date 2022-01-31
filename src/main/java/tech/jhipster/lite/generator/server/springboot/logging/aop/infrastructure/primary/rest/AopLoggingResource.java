@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.logging.aop.application.AopLoggingApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/logging/aop")
@@ -25,6 +26,7 @@ class AopLoggingResource {
   @Operation(summary = "Add AOP logging")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding AOP logging")
   @PostMapping
+  @GeneratorStep(id = "aop-logging")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     aopLoggingApplicationService.init(project);

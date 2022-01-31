@@ -39,7 +39,7 @@ class GeneratorHistoryInterceptorIT {
     return """
       {
         "values" : [ {
-          "serviceId" : "init-project"
+          "serviceId" : "init"
         } ]
       }""";
   }

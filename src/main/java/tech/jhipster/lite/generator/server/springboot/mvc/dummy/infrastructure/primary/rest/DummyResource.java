@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.mvc.dummy.application.DummyApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/mvc/dummy")
@@ -25,6 +26,7 @@ class DummyResource {
   @Operation(summary = "Add Dummy context with some APIs")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Dummy context")
   @PostMapping
+  @GeneratorStep(id = "dummy-context")
   public void addDummyContext(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     dummyApplicationService.applyDummyGitPatch(project);

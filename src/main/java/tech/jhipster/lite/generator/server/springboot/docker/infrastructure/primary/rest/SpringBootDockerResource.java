@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.docker.application.SpringBootDockerApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/docker")
@@ -25,6 +26,7 @@ class SpringBootDockerResource {
   @Operation(summary = "Add docker image building with Jib")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding jib")
   @PostMapping("/jib")
+  @GeneratorStep(id = "jib")
   public void addJib(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootDockerApplicationService.addJib(project);

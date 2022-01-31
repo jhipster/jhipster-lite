@@ -26,7 +26,7 @@ class InitResource {
   @Operation(summary = "Init project")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing project")
   @PostMapping("/init")
-  @GeneratorStep(id = "init-project")
+  @GeneratorStep(id = "init")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);

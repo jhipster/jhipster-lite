@@ -16,6 +16,6 @@ class GeneratorHistoryBeanConfigurationIT {
 
   @Test
   void shouldGetBean() {
-    assertThat(applicationContext.getBean("historyService")).isNotNull().isInstanceOf(GeneratorHistoryService.class);
+    assertThat(applicationContext.getBean("generatorHistoryService")).isNotNull().isInstanceOf(GeneratorHistoryService.class);
   }
 }

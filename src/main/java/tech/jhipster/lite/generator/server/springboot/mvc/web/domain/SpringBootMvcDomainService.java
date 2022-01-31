@@ -85,7 +85,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
           buildToolService.addProperty(project, "problem-spring-web.version", "\\${problem-spring.version}");
         },
         () -> {
-          throw new GeneratorException("Spring Boot version not found");
+          throw new GeneratorException("Problem Spring version not found");
         }
       );
 

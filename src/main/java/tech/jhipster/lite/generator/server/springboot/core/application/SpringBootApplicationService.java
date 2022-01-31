@@ -25,6 +25,10 @@ public class SpringBootApplicationService {
     springBootService.addSpringBootDependencies(project);
   }
 
+  public void addSpringBootMavenPluginManagement(Project project) {
+    springBootService.addSpringBootMavenPluginManagement(project);
+  }
+
   public void addSpringBootMavenPlugin(Project project) {
     springBootService.addSpringBootMavenPlugin(project);
   }

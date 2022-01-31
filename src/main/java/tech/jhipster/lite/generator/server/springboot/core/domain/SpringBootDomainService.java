@@ -33,6 +33,7 @@ public class SpringBootDomainService implements SpringBootService {
   public void init(Project project) {
     addSpringBootDependenciesBOM(project);
     addSpringBootDependencies(project);
+    addSpringBootMavenPluginManagement(project);
     addSpringBootMavenPlugin(project);
     addMainApp(project);
     addApplicationProperties(project);
@@ -92,7 +93,7 @@ public class SpringBootDomainService implements SpringBootService {
   }
 
   @Override
-  public void addSpringBootMavenPlugin(Project project) {
+  public void addSpringBootMavenPluginManagement(Project project) {
     this.buildToolService.getVersion(project, "spring-boot")
       .ifPresentOrElse(
         version -> {
@@ -101,14 +102,34 @@ public class SpringBootDomainService implements SpringBootService {
             .groupId(SPRINGBOOT_PACKAGE)
             .artifactId("spring-boot-maven-plugin")
             .version("\\${spring-boot.version}")
+            .additionalElements(
+              """
+                    <executions>
+                      <execution>
+                          <goals>
+                              <goal>repackage</goal>
+                          </goals>
+                      </execution>
+                    </executions>
+                    <configuration>
+                      <mainClass>\\${start-class}</mainClass>
+                    </configuration>
+                  """
+            )
             .build();
           buildToolService.addProperty(project, "spring-boot.version", version);
-          buildToolService.addPlugin(project, plugin);
+          buildToolService.addPluginManagement(project, plugin);
         },
         () -> {
           throw new GeneratorException("Spring Boot version not found");
         }
       );
+  }
+
+  @Override
+  public void addSpringBootMavenPlugin(Project project) {
+    Plugin plugin = Plugin.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-maven-plugin").build();
+    buildToolService.addPlugin(project, plugin);
   }
 
   @Override

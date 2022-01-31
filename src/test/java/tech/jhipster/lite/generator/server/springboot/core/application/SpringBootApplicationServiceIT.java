@@ -124,6 +124,47 @@ class SpringBootApplicationServiceIT {
   }
 
   @Test
+  void shouldAddSpringBootPluginManagement() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+
+    springBootApplicationService.addSpringBootMavenPluginManagement(project);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of(
+        "<plugin>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-maven-plugin</artifactId>",
+        "<version>${spring-boot.version}</version>",
+        "<executions>",
+        "<execution>",
+        "<goals>",
+        "<goal>repackage</goal>",
+        "</goals>",
+        "</execution>",
+        "</executions>",
+        "<configuration>",
+        "<mainClass>${start-class}</mainClass>",
+        "</configuration>",
+        "</plugin>"
+      )
+    );
+    assertFileContent(project, POM_XML, "<spring-boot.version>");
+    assertFileContent(project, POM_XML, "</spring-boot.version>");
+  }
+
+  @Test
+  void shouldNotAddSpringBootPluginManagementWhenNoPomXml() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> springBootApplicationService.addSpringBootMavenPluginManagement(project))
+      .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldAddSpringBootPlugin() {
     Project project = tmpProject();
     initApplicationService.init(project);
@@ -134,23 +175,8 @@ class SpringBootApplicationServiceIT {
     assertFileContent(
       project,
       POM_XML,
-      List.of(
-        "<plugin>",
-        "<groupId>org.springframework.boot</groupId>",
-        "<artifactId>spring-boot-maven-plugin</artifactId>",
-        "<version>${spring-boot.version}</version>",
-        "</plugin>"
-      )
+      List.of("<plugin>", "<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-maven-plugin</artifactId>", "</plugin>")
     );
-    assertFileContent(project, POM_XML, "<spring-boot.version>");
-    assertFileContent(project, POM_XML, "</spring-boot.version>");
-  }
-
-  @Test
-  void shouldNotAddSpringBootPluginWhenNoPomXml() {
-    Project project = tmpProject();
-
-    assertThatThrownBy(() -> springBootApplicationService.addSpringBootMavenPlugin(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

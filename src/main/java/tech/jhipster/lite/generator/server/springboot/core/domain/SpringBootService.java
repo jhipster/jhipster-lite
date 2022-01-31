@@ -7,6 +7,7 @@ public interface SpringBootService {
 
   void addSpringBootDependenciesBOM(Project project);
   void addSpringBootDependencies(Project project);
+  void addSpringBootMavenPluginManagement(Project project);
   void addSpringBootMavenPlugin(Project project);
   void addMainApp(Project project);
   void addApplicationProperties(Project project);

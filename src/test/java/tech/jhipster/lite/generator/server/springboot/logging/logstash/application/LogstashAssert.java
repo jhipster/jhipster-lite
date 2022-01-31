@@ -8,16 +8,11 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.logging.logstash.domain.Logstash;
 
 public class LogstashAssert {
 
   public static void assertDependencies(Project project) {
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<logstash-logback-encoder.version>" + Logstash.getLogstashLogbackEncoderVersion() + "</logstash-logback-encoder.version>")
-    );
+    assertFileContent(project, POM_XML, List.of("<logstash-logback-encoder.version>"));
     assertFileContent(
       project,
       POM_XML,

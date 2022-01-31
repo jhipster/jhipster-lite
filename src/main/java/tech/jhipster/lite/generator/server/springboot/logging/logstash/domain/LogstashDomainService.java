@@ -8,6 +8,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 
 import java.util.Map;
 import java.util.TreeMap;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -41,8 +42,16 @@ public class LogstashDomainService implements LogstashService {
 
   @Override
   public void addDependencies(Project project) {
-    buildToolService.addProperty(project, "logstash-logback-encoder.version", Logstash.getLogstashLogbackEncoderVersion());
-    buildToolService.addDependency(project, Logstash.logstashLogbackEncoderDependency());
+    this.buildToolService.getVersion(project, "logstash-logback-encoder")
+      .ifPresentOrElse(
+        version -> {
+          buildToolService.addProperty(project, "logstash-logback-encoder.version", version);
+          buildToolService.addDependency(project, Logstash.logstashLogbackEncoderDependency());
+        },
+        () -> {
+          throw new GeneratorException("Logstash Logback Encoder version not found");
+        }
+      );
   }
 
   @Override

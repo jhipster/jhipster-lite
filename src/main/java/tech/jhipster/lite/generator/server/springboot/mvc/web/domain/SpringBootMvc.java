@@ -4,14 +4,9 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class SpringBootMvc {
 
-  private static final String PROBLEM_SPRING_VERSION = "0.27.0";
   public static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
 
   private SpringBootMvc() {}
-
-  public static String problemSpringVersion() {
-    return PROBLEM_SPRING_VERSION;
-  }
 
   public static Dependency springBootStarterWebDependency() {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-web").build();

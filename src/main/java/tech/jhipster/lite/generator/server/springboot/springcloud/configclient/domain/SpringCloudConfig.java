@@ -4,15 +4,10 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class SpringCloudConfig {
 
-  private static final String SPRING_CLOUD_VERSION = "2021.0.0";
   private static final String JHIPSTER_REGISTRY_DOCKER_IMAGE = "jhipster/jhipster-registry:v7.1.0";
   private static final String SPRING_CLOUD_GROUP_ID = "org.springframework.cloud";
 
   private SpringCloudConfig() {}
-
-  public static String getSpringCloudVersion() {
-    return SPRING_CLOUD_VERSION;
-  }
 
   public static Dependency springCloudDependencies() {
     return Dependency

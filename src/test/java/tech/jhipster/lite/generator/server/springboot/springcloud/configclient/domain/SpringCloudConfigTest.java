@@ -10,11 +10,6 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 class SpringCloudConfigTest {
 
   @Test
-  void shouldGetSpringCloudVersion() {
-    assertThat(SpringCloudConfig.getSpringCloudVersion()).isEqualTo(SpringCloudConfig.getSpringCloudVersion());
-  }
-
-  @Test
   void shouldGetJhipsterRegistryDockerImageName() {
     assertThat(SpringCloudConfig.getJhipsterRegistryDockerImage()).isEqualTo("jhipster/jhipster-registry:v7.1.0");
   }

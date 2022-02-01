@@ -54,7 +54,7 @@ public class SpringBootDomainService implements SpringBootService {
             .builder()
             .groupId(SPRINGBOOT_PACKAGE)
             .artifactId("spring-boot-dependencies")
-            .version((String) project.getConfig("springBootVersion").orElse(version))
+            .version("\\${spring-boot.version}")
             .type("pom")
             .scope("import")
             .build();
@@ -104,17 +104,17 @@ public class SpringBootDomainService implements SpringBootService {
             .version("\\${spring-boot.version}")
             .additionalElements(
               """
-                    <executions>
-                      <execution>
-                          <goals>
-                              <goal>repackage</goal>
-                          </goals>
-                      </execution>
-                    </executions>
-                    <configuration>
-                      <mainClass>\\${start-class}</mainClass>
-                    </configuration>
-                  """
+                <executions>
+                  <execution>
+                    <goals>
+                      <goal>repackage</goal>
+                    </goals>
+                  </execution>
+                </executions>
+                <configuration>
+                  <mainClass>\\${start-class}</mainClass>
+                </configuration>
+              """
             )
             .build();
           buildToolService.addProperty(project, "spring-boot.version", version);

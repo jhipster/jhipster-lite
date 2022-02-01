@@ -79,10 +79,16 @@ public class JwtSecurityAssertFiles {
       "application.security.authentication.jwt.token-validity-in-seconds-for-remember-me=2592000"
     );
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"),
-      Stream.concat(properties.stream(), commentedCorsProperties.stream()).toList());
-    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"),
-      Stream.concat(properties.stream(), corsProperties.stream()).toList());
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, "config/application.properties"),
+      Stream.concat(properties.stream(), commentedCorsProperties.stream()).toList()
+    );
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, "config/application.properties"),
+      Stream.concat(properties.stream(), corsProperties.stream()).toList()
+    );
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-local.properties"), corsProperties);
   }
 

@@ -144,9 +144,10 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   private void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
 
-    springBootCommonService.addPropertiesComment(project, "Spring Security JWT");
-    springBootCommonService.addPropertiesTestComment(project, "Spring Security JWT");
-    springBootCommonService.addPropertiesLocalComment(project, "Spring Security JWT");
+    String commentSecurityJwt = "Spring Security JWT";
+    springBootCommonService.addPropertiesComment(project, commentSecurityJwt);
+    springBootCommonService.addPropertiesTestComment(project, commentSecurityJwt);
+    springBootCommonService.addPropertiesLocalComment(project, commentSecurityJwt);
     jwtProperties()
       .forEach((k, v) -> {
         springBootCommonService.addProperties(project, k, v);

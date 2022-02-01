@@ -101,20 +101,7 @@ public class SpringBootDomainService implements SpringBootService {
             .groupId(SPRINGBOOT_PACKAGE)
             .artifactId("spring-boot-maven-plugin")
             .version("\\${spring-boot.version}")
-            .additionalElements(
-              """
-                <executions>
-                  <execution>
-                    <goals>
-                      <goal>repackage</goal>
-                    </goals>
-                  </execution>
-                </executions>
-                <configuration>
-                  <mainClass>\\${start-class}</mainClass>
-                </configuration>
-              """
-            )
+            .additionalElements(springBootAdditionalElements())
             .build();
           buildToolService.addProperty(project, "spring-boot.version", version);
           buildToolService.addPluginManagement(project, plugin);
@@ -123,6 +110,21 @@ public class SpringBootDomainService implements SpringBootService {
           throw new GeneratorException("Spring Boot version not found");
         }
       );
+  }
+
+  private String springBootAdditionalElements() {
+    return """
+      <executions>
+        <execution>
+          <goals>
+            <goal>repackage</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <mainClass>\\${start-class}</mainClass>
+      </configuration>
+      """;
   }
 
   @Override

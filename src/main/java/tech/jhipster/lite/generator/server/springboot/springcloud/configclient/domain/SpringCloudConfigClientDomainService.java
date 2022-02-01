@@ -6,6 +6,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAM
 import static tech.jhipster.lite.generator.server.springboot.springcloud.configclient.domain.SpringCloudConfig.*;
 
 import tech.jhipster.lite.common.domain.Base64Utils;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -56,9 +57,17 @@ public class SpringCloudConfigClientDomainService implements SpringCloudConfigCl
 
   @Override
   public void addCloudConfigDependencies(Project project) {
-    this.buildToolService.addProperty(project, "spring-cloud.version", getSpringCloudVersion());
-    this.buildToolService.addDependencyManagement(project, springCloudDependencies());
-    this.buildToolService.addDependency(project, springCloudBootstrap());
-    this.buildToolService.addDependency(project, springCloudConfigClient());
+    this.buildToolService.getVersion(project, "spring-cloud")
+      .ifPresentOrElse(
+        version -> {
+          this.buildToolService.addProperty(project, "spring-cloud.version", version);
+          this.buildToolService.addDependencyManagement(project, springCloudDependencies());
+          this.buildToolService.addDependency(project, springCloudBootstrap());
+          this.buildToolService.addDependency(project, springCloudConfigClient());
+        },
+        () -> {
+          throw new GeneratorException("Spring Cloud version not found");
+        }
+      );
   }
 }

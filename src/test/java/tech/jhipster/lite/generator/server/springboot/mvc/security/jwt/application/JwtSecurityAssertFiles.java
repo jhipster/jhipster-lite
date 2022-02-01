@@ -8,6 +8,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 
 import java.util.List;
+import java.util.stream.Stream;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class JwtSecurityAssertFiles {
@@ -54,10 +55,7 @@ public class JwtSecurityAssertFiles {
 
   public static void assertJwtSecurityProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    List<String> properties = List.of(
-      "application.security.authentication.jwt.base64-secret=bXktc2VjcmV0LWtleS13aGljaC1zaG91bGQtYmUtY2hhbmdlZC1pbi1wcm9kdWN0aW9uLWFuZC1iZS1iYXNlNjQtZW5jb2RlZAo=",
-      "application.security.authentication.jwt.token-validity-in-seconds=86400",
-      "application.security.authentication.jwt.token-validity-in-seconds-for-remember-me=2592000",
+    List<String> corsProperties = List.of(
       "application.cors.allowed-origins=http://localhost:8100,http://localhost:9000",
       "application.cors.allowed-methods=*",
       "application.cors.allowed-headers=*",
@@ -69,11 +67,23 @@ public class JwtSecurityAssertFiles {
       baseName +
       "-params",
       "application.cors.allow-credentials=true",
-      "application.cors.max-age=1800"
+      "application.cors.max-age=1800",
+      "application.cors.allowed-origin-patterns=https://*.githubpreview.dev"
     );
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), properties);
-    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), properties);
+    List<String> commentedCorsProperties = corsProperties.stream().map(p -> "# " + p).toList();
+
+    List<String> properties = List.of(
+      "application.security.authentication.jwt.base64-secret=bXktc2VjcmV0LWtleS13aGljaC1zaG91bGQtYmUtY2hhbmdlZC1pbi1wcm9kdWN0aW9uLWFuZC1iZS1iYXNlNjQtZW5jb2RlZAo=",
+      "application.security.authentication.jwt.token-validity-in-seconds=86400",
+      "application.security.authentication.jwt.token-validity-in-seconds-for-remember-me=2592000"
+    );
+
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"),
+      Stream.concat(properties.stream(), commentedCorsProperties.stream()).toList());
+    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"),
+      Stream.concat(properties.stream(), corsProperties.stream()).toList());
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-local.properties"), corsProperties);
   }
 
   public static List<String> jwtSecurityDependencies() {

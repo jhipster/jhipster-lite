@@ -52,8 +52,9 @@ class JwtSecurityDomainServiceTest {
     // 12 classes + 4 tests
     verify(projectRepository, times(16)).template(any(Project.class), anyString(), anyString(), anyString());
 
-    verify(springBootCommonService, times(9)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(3)).addProperties(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(10)).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(7)).addPropertiesLocal(any(Project.class), anyString(), any());
   }
 
   @Test

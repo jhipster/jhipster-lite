@@ -41,7 +41,7 @@ class SpringBootDomainServiceTest {
 
     springBootDomainService.init(project);
 
-    verify(buildToolService).addParent(any(Project.class), any(Parent.class));
+    verify(buildToolService).addDependencyManagement(any(Project.class), any(Dependency.class));
     verify(buildToolService, times(4)).addDependency(any(Project.class), any(Dependency.class));
     verify(buildToolService).addPlugin(any(Project.class), any(Plugin.class));
 
@@ -52,20 +52,20 @@ class SpringBootDomainServiceTest {
   }
 
   @Test
-  void shouldAddSpringBootParent() {
+  void shouldAddSpringBootDependenciesBOM() {
     Project project = tmpProjectWithPomXml();
     when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("0.0.0"));
 
-    springBootDomainService.addSpringBootParent(project);
+    springBootDomainService.addSpringBootDependenciesBOM(project);
 
-    verify(buildToolService).addParent(any(Project.class), any(Parent.class));
+    verify(buildToolService).addDependencyManagement(any(Project.class), any(Dependency.class));
   }
 
   @Test
-  void shouldNotAddSpringBootParent() {
+  void shouldNotAddSpringBootDependenciesBOMParent() {
     Project project = tmpProjectWithPomXml();
 
-    assertThatThrownBy(() -> springBootDomainService.addSpringBootParent(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> springBootDomainService.addSpringBootDependenciesBOM(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -78,19 +78,29 @@ class SpringBootDomainServiceTest {
   }
 
   @Test
-  void shouldAddSpringBootPlugin() {
+  void shouldAddSpringBootPluginManagement() {
     Project project = tmpProjectWithPomXml();
     when(buildToolService.getVersion(project, "spring-boot")).thenReturn(Optional.of("0.0.0"));
+
+    springBootDomainService.addSpringBootMavenPluginManagement(project);
+
+    verify(buildToolService).addPluginManagement(any(Project.class), any(Plugin.class));
+  }
+
+  @Test
+  void shouldNotAddSpringBootPluginManagement() {
+    Project project = tmpProjectWithPomXml();
+
+    assertThatThrownBy(() -> springBootDomainService.addSpringBootMavenPluginManagement(project))
+      .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddSpringBootPlugin() {
+    Project project = tmpProjectWithPomXml();
 
     springBootDomainService.addSpringBootMavenPlugin(project);
 
     verify(buildToolService).addPlugin(any(Project.class), any(Plugin.class));
-  }
-
-  @Test
-  void shouldNotAddSpringBootPlugin() {
-    Project project = tmpProjectWithPomXml();
-
-    assertThatThrownBy(() -> springBootDomainService.addSpringBootMavenPlugin(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

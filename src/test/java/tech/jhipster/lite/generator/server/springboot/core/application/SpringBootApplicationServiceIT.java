@@ -38,7 +38,7 @@ class SpringBootApplicationServiceIT {
     springBootApplicationService.init(project);
 
     assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
-    assertFileContent(project, POM_XML, "<version>2.5.3</version>");
+    assertFileContent(project, POM_XML, "<version>${spring-boot.version}</version>");
 
     assertFileContent(project, POM_XML, "<groupId>org.springframework.boot</groupId>");
     assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter</artifactId>");
@@ -82,13 +82,13 @@ class SpringBootApplicationServiceIT {
 
     springBootApplicationService.addSpringBootDependenciesBOM(project);
     assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
-    assertFileContent(project, POM_XML, "<version>2.5.3</version>");
+    assertFileContent(project, POM_XML, "<version>${spring-boot.version}</version>");
 
     // add again the parent, with wrong version
     project.addConfig("springBootVersion", "X.X.X");
     springBootApplicationService.addSpringBootDependenciesBOM(project);
     assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
-    assertFileNoContent(project, POM_XML, "<version>X.X.X</version>");
+    assertFileContent(project, POM_XML, "<version>${spring-boot.version}</version>");
   }
 
   @Test

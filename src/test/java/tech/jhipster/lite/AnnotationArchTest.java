@@ -12,6 +12,7 @@ import com.tngtech.archunit.lang.ArchRule;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @UnitTest
@@ -60,7 +61,10 @@ class AnnotationArchTest {
     ArchRule rule = methods()
       .that()
       .areDeclaredInClassesThat()
-      .haveSimpleNameEndingWith("Resource")
+      .resideInAnyPackage("tech.jhipster.lite.generator..")
+      .and()
+      .areDeclaredInClassesThat()
+      .areAnnotatedWith(RestController.class)
       .and()
       .areAnnotatedWith(PostMapping.class)
       .should()

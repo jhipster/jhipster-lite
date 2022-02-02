@@ -6,6 +6,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.common.domain.JsonUtils;
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryData;
@@ -138,33 +142,42 @@ class GeneratorHistoryLocalRepositoryTest {
   }
 
   @Test
-  void shouldNotAddHistoryValueWhenJsonSerializationError() {
+  void shouldNotAddHistoryValueWhenJsonSerializationError() throws JsonProcessingException {
     // Given
     Project project = tmpProject();
 
-    try (MockedStatic<FileUtils> fileUtils = Mockito.mockStatic(FileUtils.class)) {
-      String historyFilePath = "/path/history.json";
-      fileUtils.when(() -> FileUtils.getPath(project.getFolder(), ".jhipster", "history.json")).thenReturn(historyFilePath);
-      fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
+    ObjectMapper spiedObjectMapper = spy(JsonUtils.getObjectMapper());
+    ObjectWriter spiedObjectWriter = spy(spiedObjectMapper.writer());
+    when(spiedObjectMapper.writerWithDefaultPrettyPrinter()).thenReturn(spiedObjectWriter);
+    when(spiedObjectWriter.writeValueAsString(any())).thenThrow(JsonProcessingException.class);
 
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId("tomcat");
+    try (MockedStatic<JsonUtils> jsonUtils = Mockito.mockStatic(JsonUtils.class)) {
+      jsonUtils.when(JsonUtils::getObjectMapper).thenReturn(spiedObjectMapper);
 
-      // When + Then
-      assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
-        .isExactlyInstanceOf(GeneratorException.class);
+      try (MockedStatic<FileUtils> fileUtils = Mockito.mockStatic(FileUtils.class)) {
+        String historyFilePath = "/path/history.json";
+        fileUtils.when(() -> FileUtils.getPath(project.getFolder(), ".jhipster", "history.json")).thenReturn(historyFilePath);
+        fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
-      fileUtils.verify(
-        () -> {
-          try {
-            FileUtils.write(anyString(), anyString(), anyString());
-          } catch (IOException e) {
-            fail("Unexpected IOException");
-          }
-        },
-        never()
-      );
+        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId("tomcat");
 
-      verifyNoInteractions(projectRepository);
+        // When + Then
+        assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
+          .isExactlyInstanceOf(GeneratorException.class);
+
+        fileUtils.verify(
+          () -> {
+            try {
+              FileUtils.write(anyString(), anyString(), anyString());
+            } catch (IOException e) {
+              fail("Unexpected IOException");
+            }
+          },
+          never()
+        );
+
+        verifyNoInteractions(projectRepository);
+      }
     }
   }
 

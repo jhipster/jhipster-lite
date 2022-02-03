@@ -17,7 +17,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest
-class GeneratorGeneratorHistoryApplicationServiceIT {
+class GeneratorHistoryApplicationServiceIT {
 
   @Autowired
   GeneratorHistoryApplicationService generatorHistoryApplicationService;

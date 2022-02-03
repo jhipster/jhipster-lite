@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtils {
 
+  public static final String CARRIAGE_RETURN = System.lineSeparator();
+
   private static ObjectMapper objectMapper = null;
 
   private JsonUtils() {

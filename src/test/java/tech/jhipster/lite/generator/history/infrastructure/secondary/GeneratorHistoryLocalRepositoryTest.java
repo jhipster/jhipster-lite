@@ -10,12 +10,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
@@ -102,11 +101,14 @@ class GeneratorHistoryLocalRepositoryTest {
       // Then
       fileUtils.verify(() -> FileUtils.read(anyString()), times(1));
       fileUtils.verify(() -> {
+        ArgumentCaptor<String> fileContentArgCaptor = ArgumentCaptor.forClass(String.class);
         try {
-          FileUtils.write(historyFilePath, getExpectedFileContent(), WordUtils.CRLF);
+          FileUtils.write(eq(historyFilePath), fileContentArgCaptor.capture(), eq(WordUtils.CRLF));
         } catch (IOException e) {
           fail("Unexpected IOException");
         }
+        List<String> fileContentLines = fileContentArgCaptor.getValue().lines().collect(Collectors.toList());
+        assertThat(fileContentLines).isEqualTo(getExpectedFileContentLines());
       });
 
       verifyNoInteractions(projectRepository);
@@ -132,11 +134,14 @@ class GeneratorHistoryLocalRepositoryTest {
 
       fileUtils.verify(() -> FileUtils.read(anyString()), times(2));
       fileUtils.verify(() -> {
+        ArgumentCaptor<String> fileContentArgCaptor = ArgumentCaptor.forClass(String.class);
         try {
-          FileUtils.write(historyFilePath, getExpectedFileContent(), WordUtils.CRLF);
+          FileUtils.write(eq(historyFilePath), fileContentArgCaptor.capture(), eq(WordUtils.CRLF));
         } catch (IOException e) {
           fail("Unexpected IOException");
         }
+        List<String> fileContentLines = fileContentArgCaptor.getValue().lines().collect(Collectors.toList());
+        assertThat(fileContentLines).isEqualTo(getExpectedFileContentLines());
       });
     }
   }
@@ -209,7 +214,7 @@ class GeneratorHistoryLocalRepositoryTest {
       """;
   }
 
-  private String getExpectedFileContent() {
+  private List<String> getExpectedFileContentLines() {
     return """
       {
         "values" : [ {
@@ -217,6 +222,7 @@ class GeneratorHistoryLocalRepositoryTest {
         }, {
           "serviceId" : "tomcat"
         } ]
-      }""";
+      }""".lines()
+      .collect(Collectors.toList());
   }
 }

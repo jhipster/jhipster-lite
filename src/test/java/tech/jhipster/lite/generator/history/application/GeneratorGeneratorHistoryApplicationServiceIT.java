@@ -38,7 +38,7 @@ class GeneratorGeneratorHistoryApplicationServiceIT {
     project.addConfig(BASE_NAME, "foo");
 
     // When
-    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId("init-project");
+    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("init-project");
     generatorHistoryApplicationService.addHistoryValue(project, generatorHistoryValue);
 
     // Then

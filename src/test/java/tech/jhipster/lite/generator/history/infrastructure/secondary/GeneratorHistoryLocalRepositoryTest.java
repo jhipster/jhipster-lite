@@ -51,7 +51,7 @@ class GeneratorHistoryLocalRepositoryTest {
 
       // Then
       GeneratorHistoryData expectedGeneratorHistoryData = new GeneratorHistoryData();
-      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue().setServiceId("springboot-init"));
+      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("springboot-init"));
       assertThat(generatorHistoryData).usingRecursiveComparison().isEqualTo(expectedGeneratorHistoryData);
     }
   }
@@ -95,7 +95,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
@@ -126,7 +126,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.read(historyFilePath)).thenThrow(new IOException()).thenReturn(getFileContent());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
@@ -164,7 +164,7 @@ class GeneratorHistoryLocalRepositoryTest {
         fileUtils.when(() -> FileUtils.getPath(project.getFolder(), ".jhipster", "history.json")).thenReturn(historyFilePath);
         fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
-        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId("tomcat");
+        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
 
         // When + Then
         assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
@@ -198,7 +198,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(new IOException());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
       assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
         .isInstanceOf(GeneratorException.class);
     }

@@ -25,7 +25,7 @@ public class GeneratorHistoryInterceptor {
     String serviceId = generatorStep.id();
     ProjectDTO projectDTO = (ProjectDTO) joinPoint.getArgs()[0];
     Project project = ProjectDTO.toProject(projectDTO);
-    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId(serviceId);
+    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue(serviceId);
     generatorHistoryApplicationService.addHistoryValue(project, generatorHistoryValue);
   }
 }

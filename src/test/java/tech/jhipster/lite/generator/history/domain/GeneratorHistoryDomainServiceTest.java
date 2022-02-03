@@ -44,7 +44,7 @@ class GeneratorHistoryDomainServiceTest {
     Project project = tmpProject();
 
     // When
-    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue().setServiceId("tomcat");
+    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
     historyDomainService.addHistoryValue(project, generatorHistoryValue);
 
     // Then

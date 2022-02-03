@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.typescript.application.TypescriptApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/typescript")
@@ -25,6 +26,7 @@ class TypescriptResource {
   @Operation(summary = "Init Typescript", description = "Init Typescript project")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing Typescript project")
   @PostMapping
+  @GeneratorStep(id = "typescript")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     typescriptApplicationService.init(project);

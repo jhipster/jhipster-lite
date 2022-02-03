@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.sonar.application.SonarApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/sonar")
@@ -25,6 +26,7 @@ class SonarResource {
   @Operation(summary = "Add Sonar configuration to inspect code quality")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration")
   @PostMapping
+  @GeneratorStep(id = "sonar")
   public void addSonar(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     sonarApplicationService.init(project);

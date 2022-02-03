@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.devtools.application.DevToolsApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/devtools")
@@ -25,6 +26,7 @@ class DevToolsResource {
   @Operation(summary = "Add Developer Tools dependencies")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Developer Tools")
   @PostMapping
+  @GeneratorStep(id = "dev-tools")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     devToolsApplicationService.init(project);

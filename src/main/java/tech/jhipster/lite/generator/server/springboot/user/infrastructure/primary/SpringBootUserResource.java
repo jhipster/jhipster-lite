@@ -14,6 +14,7 @@ import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/user")
@@ -32,6 +33,7 @@ class SpringBootUserResource {
     responseCode = "500",
     description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository for PostgreSQL"
   )
+  @GeneratorStep(id = "user-and-authority-entities-postgresql")
   public void addUserAndAuthorityEntitiesForPostgreSQL(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     addUserAndAuthorityEntities(project, POSTGRESQL);
@@ -40,6 +42,7 @@ class SpringBootUserResource {
   @Operation(summary = "Add UserEntity, AuthorityEntity and JpaRepository for MySQL")
   @PostMapping("/mysql")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository for MySQL")
+  @GeneratorStep(id = "user-and-authority-entities-mysql")
   public void addUserAndAuthorityEntitiesForMySQL(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     addUserAndAuthorityEntities(project, MYSQL);

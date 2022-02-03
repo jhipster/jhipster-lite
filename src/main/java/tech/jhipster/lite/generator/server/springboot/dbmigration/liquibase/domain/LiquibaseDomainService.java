@@ -142,7 +142,11 @@ public class LiquibaseDomainService implements LiquibaseService {
   private void addSqlUserChangelog(Project project) {
     String userChangelog = getTimestamp() + "_added_entity_User.xml";
     addChangelogXml(project, "", userChangelog);
-    projectRepository.template(project, getUserResourcePath(), "user.xml", getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
+    String userXmlFile = "user.xml";
+    if (isMySQLDatabase(project)) {
+      userXmlFile = "user_with_autoincrement.xml";
+    }
+    projectRepository.template(project, getUserResourcePath(), userXmlFile, getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
     projectRepository.add(project, getUserResourcePath(), "user.csv", getPath(MAIN_RESOURCES, DATA));
   }
 

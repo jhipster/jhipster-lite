@@ -194,6 +194,11 @@ class LiquibaseApplicationServiceIT {
     liquibaseApplicationService.addUserAuthorityChangelog(project);
 
     assertFilesLiquibaseSqlUser(project);
+    assertFileNoContent(
+      project,
+      getPath(MAIN_RESOURCES, "config/liquibase/changelog/20220128173026_added_entity_User.xml"),
+      "autoIncrement=\"true\""
+    );
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/20220128173026_added_sequence_User.xml"));
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), "20220128173026_added_sequence_User.xml");
   }
@@ -210,6 +215,11 @@ class LiquibaseApplicationServiceIT {
     liquibaseApplicationService.addUserAuthorityChangelog(project);
 
     assertFilesLiquibaseSqlUser(project);
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, "config/liquibase/changelog/20220128173026_added_entity_User.xml"),
+      "autoIncrement=\"true\""
+    );
     assertFileNotExist(project, getPath(MAIN_RESOURCES, "config/liquibase/changelog/20220128173026_added_sequence_User.xml"));
     assertFileNoContent(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), "20220128173026_added_sequence_User.xml");
   }

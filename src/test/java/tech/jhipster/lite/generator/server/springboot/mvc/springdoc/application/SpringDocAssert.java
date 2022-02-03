@@ -8,18 +8,13 @@ import java.util.List;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDoc;
 
 public class SpringDocAssert {
 
   public static final String SPRING_DOC_CONFIG_JAVA_FILE_NAME = "SpringDocConfiguration.java";
 
   public static void assertDependencies(Project project) {
-    TestUtils.assertFileContent(
-      project,
-      POM_XML,
-      List.of("<springdoc-openapi-ui.version>" + SpringDoc.springDocVersion() + "</springdoc-openapi-ui.version>")
-    );
+    TestUtils.assertFileContent(project, POM_XML, List.of("<springdoc-openapi-ui.version>"));
     TestUtils.assertFileContent(
       project,
       POM_XML,

@@ -9,6 +9,7 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domai
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -49,8 +50,16 @@ public class SpringDocDomainService implements SpringDocService {
 
   @Override
   public void addSpringDocDependency(Project project) {
-    buildToolService.addProperty(project, "springdoc-openapi-ui.version", SpringDoc.springDocVersion());
-    buildToolService.addDependency(project, SpringDoc.springDocDependency());
+    this.buildToolService.getVersion(project, "springdoc-openapi")
+      .ifPresentOrElse(
+        version -> {
+          buildToolService.addProperty(project, "springdoc-openapi-ui.version", version);
+          buildToolService.addDependency(project, SpringDoc.springDocDependency());
+        },
+        () -> {
+          throw new GeneratorException("Springdoc Openapi version not found");
+        }
+      );
   }
 
   @Override

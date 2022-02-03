@@ -1,14 +1,15 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -16,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -44,10 +46,11 @@ class SpringDocDomainServiceTest {
     Project project = tmpProject();
 
     // When
+    when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
     springDocDomainService.init(project);
 
     // Then
-    verify(buildToolService).addProperty(project, "springdoc-openapi-ui.version", "1.6.4");
+    verify(buildToolService).addProperty(project, "springdoc-openapi-ui.version", "0.0.0");
     ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
     verify(buildToolService).addDependency(eq(project), dependencyArgCaptor.capture());
     assertThat(dependencyArgCaptor.getValue()).usingRecursiveComparison().isEqualTo(getExpectedDependency());
@@ -89,10 +92,11 @@ class SpringDocDomainServiceTest {
     project.getConfig().putAll(projectConfig);
 
     // When
+    when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
     springDocDomainService.init(project);
 
     // Then
-    verify(buildToolService).addProperty(project, "springdoc-openapi-ui.version", "1.6.4");
+    verify(buildToolService).addProperty(project, "springdoc-openapi-ui.version", "0.0.0");
     ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
     verify(buildToolService).addDependency(eq(project), dependencyArgCaptor.capture());
     assertThat(dependencyArgCaptor.getValue()).usingRecursiveComparison().isEqualTo(getExpectedDependency());
@@ -111,6 +115,13 @@ class SpringDocDomainServiceTest {
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.tryItOutEnabled", DEFAULT_TRY_OUT_ENABLED);
 
     assertThat(project.getConfig()).containsAllEntriesOf(projectConfig);
+  }
+
+  @Test
+  void shouldNotAddSpringDocDependency() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> springDocDomainService.addSpringDocDependency(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   private static Dependency getExpectedDependency() {

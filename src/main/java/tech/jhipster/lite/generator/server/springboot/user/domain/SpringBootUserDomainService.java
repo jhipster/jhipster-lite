@@ -52,6 +52,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     projectRepository.template(project, SOURCE, "UserConstants.java", getSqlDomainJavaPath(packageNamePath));
 
     projectRepository.template(project, SOURCE, "UserEntityTest.java", getSqlJavaTestPath(packageNamePath, sqlDatabase));
+    projectRepository.template(project, SOURCE, "UserJpaRepositoryIT.java", getSqlJavaTestPath(packageNamePath, sqlDatabase));
   }
 
   private void addAuthorityEntity(Project project, DatabaseType sqlDatabase) {

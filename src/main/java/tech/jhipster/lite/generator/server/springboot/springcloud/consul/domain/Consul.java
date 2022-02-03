@@ -10,16 +10,11 @@ public class Consul {
   private static final String DOCKER_CONSUL_IMAGE = "consul:1.11.1";
   private static final String DOCKER_CONSUL_CONFIG_LOADER_IMAGE = "jhipster/consul-config-loader:v0.4.1";
   private static final String SPRING_CLOUD = "org.springframework.cloud";
-  private static final String SPRING_CLOUD_VERSION = "2021.0.0";
 
   private Consul() {}
 
   public static String getDockerConsulImage() {
     return DOCKER_CONSUL_IMAGE;
-  }
-
-  public static String getSpringCloudVersion() {
-    return SPRING_CLOUD_VERSION;
   }
 
   public static String getDockerConsulConfigLoaderImage() {

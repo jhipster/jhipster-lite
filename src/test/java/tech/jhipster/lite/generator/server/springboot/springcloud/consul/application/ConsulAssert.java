@@ -6,7 +6,6 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.getDockerConsulImage;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.getSpringCloudVersion;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -14,7 +13,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class ConsulAssert {
 
   public static void assertDependencies(Project project) {
-    assertFileContent(project, "pom.xml", "<spring-cloud.version>" + getSpringCloudVersion() + "</spring-cloud.version>");
+    assertFileContent(project, "pom.xml", "<spring-cloud.version>");
 
     assertFileContent(
       project,

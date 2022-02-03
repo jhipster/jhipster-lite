@@ -6,6 +6,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAM
 import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.*;
 
 import tech.jhipster.lite.common.domain.Base64Utils;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -31,11 +32,19 @@ public class ConsulDomainService implements ConsulService {
 
   @Override
   public void addDependencies(Project project) {
-    buildToolService.addProperty(project, "spring-cloud.version", getSpringCloudVersion());
-    buildToolService.addDependencyManagement(project, springCloudDependencyManagement());
-    buildToolService.addDependency(project, springCloudBootstrapDependency());
-    buildToolService.addDependency(project, springCloudConsulConfigDependency());
-    buildToolService.addDependency(project, springCloudConsulDiscoveryDependency());
+    this.buildToolService.getVersion(project, "spring-cloud")
+      .ifPresentOrElse(
+        version -> {
+          buildToolService.addProperty(project, "spring-cloud.version", version);
+          buildToolService.addDependencyManagement(project, springCloudDependencyManagement());
+          buildToolService.addDependency(project, springCloudBootstrapDependency());
+          buildToolService.addDependency(project, springCloudConsulConfigDependency());
+          buildToolService.addDependency(project, springCloudConsulDiscoveryDependency());
+        },
+        () -> {
+          throw new GeneratorException("Spring Cloud version not found");
+        }
+      );
   }
 
   @Override

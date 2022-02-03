@@ -16,6 +16,7 @@ public class SpringBootUserAssertFiles {
     checkJavaDomainFile(project, "UserConstants.java");
 
     checkJavaTestFile(project, "UserEntityTest.java", databaseType);
+    checkJavaTestFile(project, "UserJpaRepositoryIT.java", databaseType);
   }
 
   public static void assertFilesSqlJavaUserAuthority(Project project, DatabaseType databaseType) {

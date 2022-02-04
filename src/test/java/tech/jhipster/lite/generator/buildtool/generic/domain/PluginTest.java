@@ -67,7 +67,7 @@ class PluginTest {
 
     assertThat(result.getGroupId()).isEqualTo("org.springframework.boot");
     assertThat(result.getArtifactId()).isEqualTo("spring-boot-maven-plugin");
-    assertThat(result.getVersion()).contains("2.6.0");
+    assertThat(result.getVersion()).contains("0.0.0");
   }
 
   @Test
@@ -99,6 +99,6 @@ class PluginTest {
   }
 
   private Plugin.PluginBuilder fullBuilder() {
-    return minimalBuilder().version("2.6.0");
+    return minimalBuilder().version("0.0.0");
   }
 }

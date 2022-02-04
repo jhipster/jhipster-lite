@@ -22,11 +22,11 @@ class MavenTest {
         <parent>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-parent</artifactId>
-          <version>2.5.3</version>
+          <version>0.0.0</version>
           <relativePath />
         </parent>""";
     // @formatter:on
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
 
     assertThat(Maven.getParent(parent)).isEqualTo(expected);
   }
@@ -39,11 +39,11 @@ class MavenTest {
         <parent>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-parent</artifactId>
-            <version>2.5.3</version>
+            <version>0.0.0</version>
             <relativePath />
         </parent>""";
     // @formatter:on
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
 
     assertThat(Maven.getParent(parent, 4)).isEqualTo(expected);
   }
@@ -72,7 +72,7 @@ class MavenTest {
         <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter</artifactId>
-          <version>2.5.3</version>
+          <version>0.0.0</version>
           <scope>test</scope>
         </dependency>""";
     // @formatter:on
@@ -90,7 +90,7 @@ class MavenTest {
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>2.5.3</version>
+            <version>0.0.0</version>
             <scope>test</scope>
         </dependency>""";
     // @formatter:on
@@ -174,7 +174,7 @@ class MavenTest {
   }
 
   private Dependency.DependencyBuilder fullDependencyBuilder() {
-    return minimalDependencyBuilder().version("2.5.3").scope("test");
+    return minimalDependencyBuilder().version("0.0.0").scope("test");
   }
 
   @Test
@@ -195,7 +195,7 @@ class MavenTest {
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.6.0</version>
+        <version>0.0.0</version>
       </plugin>""";
     Plugin plugin = fullPluginBuilder().build();
 
@@ -221,7 +221,7 @@ class MavenTest {
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.6.0</version>
+        <version>0.0.0</version>
         <executions>
           <execution>
             <id>default-war</id>
@@ -280,9 +280,9 @@ class MavenTest {
   @Test
   void shouldGetProperty() {
     String key = "testcontainers";
-    String version = "1.16.0";
+    String version = "0.0.0";
 
-    assertThat(Maven.getProperty(key, version)).isEqualTo("<testcontainers>1.16.0</testcontainers>");
+    assertThat(Maven.getProperty(key, version)).isEqualTo("<testcontainers>0.0.0</testcontainers>");
   }
 
   private Plugin.PluginBuilder minimalPluginBuilder() {
@@ -290,7 +290,7 @@ class MavenTest {
   }
 
   private Plugin.PluginBuilder fullPluginBuilder() {
-    return minimalPluginBuilder().version("2.6.0");
+    return minimalPluginBuilder().version("0.0.0");
   }
 
   @Test

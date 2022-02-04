@@ -16,7 +16,7 @@ class ParentTest {
 
     assertThat(result.getGroupId()).isEqualTo("org.springframework.boot");
     assertThat(result.getArtifactId()).isEqualTo("spring-boot-starter-parent");
-    assertThat(result.getVersion()).isEqualTo("2.5.3");
+    assertThat(result.getVersion()).isEqualTo("0.0.0");
   }
 
   @Test
@@ -56,6 +56,6 @@ class ParentTest {
   }
 
   private Parent.ParentBuilder fullBuilder() {
-    return Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3");
+    return Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0");
   }
 }

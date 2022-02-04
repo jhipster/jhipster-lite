@@ -42,7 +42,7 @@ class MavenDomainServiceTest {
   @Test
   void shouldAddParent() {
     Project project = tmpProjectWithPomXml();
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
 
     mavenDomainService.addParent(project, parent);
 
@@ -123,7 +123,7 @@ class MavenDomainServiceTest {
   void shouldAddProperty() {
     Project project = tmpProjectWithPomXml();
 
-    mavenDomainService.addProperty(project, "testcontainers", "1.16.0");
+    mavenDomainService.addProperty(project, "testcontainers", "0.0.0");
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
@@ -222,7 +222,7 @@ class MavenDomainServiceTest {
         fileUtilsMock.when(() -> FileUtils.getPath(Mockito.anyString())).thenReturn("mypath");
         fileUtilsMock
           .when(() -> FileUtils.readLineInClasspath(Mockito.any(), Mockito.anyString()))
-          .thenReturn(Optional.of(" <spring-boot.version>1.1</spring-boot>"));
+          .thenReturn(Optional.of(" <spring-boot.version>0.0.0</spring-boot>"));
 
         assertThat(mavenDomainService.getVersion("spring-boot")).isEmpty();
       }

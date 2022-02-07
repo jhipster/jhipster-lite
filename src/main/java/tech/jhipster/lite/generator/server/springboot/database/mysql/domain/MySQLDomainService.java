@@ -8,7 +8,6 @@ import static tech.jhipster.lite.generator.server.springboot.database.mysql.doma
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
@@ -16,6 +15,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonService;
 
 public class MySQLDomainService implements MySQLService {
 
@@ -24,15 +24,18 @@ public class MySQLDomainService implements MySQLService {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
+  private final SQLCommonService sqlCommonService;
 
   public MySQLDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService
+    SpringBootCommonService springBootCommonService,
+    SQLCommonService sqlCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
+    this.sqlCommonService = sqlCommonService;
   }
 
   @Override
@@ -108,28 +111,8 @@ public class MySQLDomainService implements MySQLService {
 
   @Override
   public void addTestcontainers(Project project) {
-    this.buildToolService.getVersion(project, "testcontainers")
-      .ifPresentOrElse(
-        version -> {
-          String baseName = project.getBaseName().orElse("jhipster");
-          Dependency dependency = Dependency
-            .builder()
-            .groupId("org.testcontainers")
-            .artifactId("mysql")
-            .version("\\${testcontainers.version}")
-            .scope("test")
-            .build();
-          buildToolService.addProperty(project, "testcontainers.version", version);
-          buildToolService.addDependency(project, dependency);
-
-          springBootCommonService.addPropertiesTestComment(project, "Database Configuration");
-          springPropertiesForTest(baseName).forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));
-          springBootCommonService.addPropertiesTestNewLine(project);
-        },
-        () -> {
-          throw new GeneratorException("Testcontainers version not found");
-        }
-      );
+    String baseName = project.getBaseName().orElse("jhipster");
+    this.sqlCommonService.addTestcontainers(project, "mysql", springPropertiesForTest(baseName));
   }
 
   private Map<String, Object> springProperties(String baseName) {

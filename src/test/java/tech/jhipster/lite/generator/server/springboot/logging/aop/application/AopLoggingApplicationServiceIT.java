@@ -34,7 +34,7 @@ class AopLoggingApplicationServiceIT {
   @Test
   void shouldInit() {
     Project project = tmpProject();
-    project.addConfig("springBootVersion", "2.5.3");
+    project.addConfig("springBootVersion", "0.0.0");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
@@ -61,7 +61,7 @@ class AopLoggingApplicationServiceIT {
   @Test
   void shouldAddDialectJava() {
     Project project = tmpProject();
-    project.addConfig("springBootVersion", "2.5.3");
+    project.addConfig("springBootVersion", "0.0.0");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
@@ -82,7 +82,7 @@ class AopLoggingApplicationServiceIT {
   @Test
   void shouldMavenDependencies() {
     Project project = tmpProject();
-    project.addConfig("springBootVersion", "2.5.3");
+    project.addConfig("springBootVersion", "0.0.0");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
@@ -105,7 +105,7 @@ class AopLoggingApplicationServiceIT {
   @Test
   void shoulAddProperties() {
     Project project = tmpProject();
-    project.addConfig("springBootVersion", "2.5.3");
+    project.addConfig("springBootVersion", "0.0.0");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);

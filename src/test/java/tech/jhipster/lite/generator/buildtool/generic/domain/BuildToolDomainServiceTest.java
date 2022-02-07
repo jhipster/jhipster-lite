@@ -95,9 +95,9 @@ class BuildToolDomainServiceTest {
     void shouldAddProperty() {
       Project project = tmpProjectWithPomXml();
 
-      buildToolDomainService.addProperty(project, "testcontainers.version", "1.16.0");
+      buildToolDomainService.addProperty(project, "testcontainers.version", "0.0.0");
 
-      verify(mavenService).addProperty(project, "testcontainers.version", "1.16.0");
+      verify(mavenService).addProperty(project, "testcontainers.version", "0.0.0");
     }
 
     @Test
@@ -176,7 +176,7 @@ class BuildToolDomainServiceTest {
         .builder()
         .groupId("org.springframework.boot")
         .artifactId("spring-boot-starter-parent")
-        .version("2.5.3")
+        .version("0.0.0")
         .build();
 
       assertThatThrownBy(() -> buildToolDomainService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
@@ -229,7 +229,7 @@ class BuildToolDomainServiceTest {
     void shouldNotAddProperty() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "1.16.0"))
+      assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "0.0.0"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
 
@@ -259,7 +259,7 @@ class BuildToolDomainServiceTest {
   }
 
   private Parent getParent() {
-    return Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    return Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
   }
 
   private Dependency getDependency() {

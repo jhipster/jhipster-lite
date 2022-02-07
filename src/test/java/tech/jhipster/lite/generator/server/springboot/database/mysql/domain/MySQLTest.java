@@ -10,11 +10,6 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 class MySQLTest {
 
   @Test
-  void shouldGetTestcontainersVersion() {
-    assertThat(MySQL.getTestcontainersVersion()).isEqualTo(MySQL.getTestcontainersVersion());
-  }
-
-  @Test
   void shouldGetDockerImageName() {
     assertThat(MySQL.getDockerImageName()).isEqualTo("mysql:8.0.27");
   }

@@ -30,7 +30,7 @@ class SpringBootApplicationServiceIT {
   @Test
   void shouldInit() {
     Project project = tmpProject();
-    project.addConfig("springBootVersion", "2.5.3");
+    project.addConfig("springBootVersion", "0.0.0");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     mavenApplicationService.addMavenWrapper(project);
@@ -76,7 +76,7 @@ class SpringBootApplicationServiceIT {
   @Test
   void shouldAddSpringBootDependenciesBOM() {
     Project project = tmpProject();
-    project.addConfig("springBootVersion", "2.5.3");
+    project.addConfig("springBootVersion", "0.0.0");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 

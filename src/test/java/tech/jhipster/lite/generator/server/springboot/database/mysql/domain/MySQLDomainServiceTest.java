@@ -20,6 +20,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -34,18 +35,19 @@ class MySQLDomainServiceTest {
   @Mock
   SpringBootCommonService springBootCommonService;
 
+  @Mock
+  SQLCommonService sqlCommonService;
+
   @InjectMocks
   MySQLDomainService mySQLDomainService;
 
   @Test
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
-    when(buildToolService.getVersion(project, "testcontainers")).thenReturn(Optional.of("0.0.0"));
 
     mySQLDomainService.init(project);
 
-    verify(buildToolService, times(5)).addDependency(any(Project.class), any(Dependency.class));
-    verify(buildToolService).addProperty(any(Project.class), anyString(), anyString());
+    verify(buildToolService, times(4)).addDependency(any(Project.class), any(Dependency.class));
 
     verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString());
@@ -55,15 +57,7 @@ class MySQLDomainServiceTest {
     verify(springBootCommonService).addPropertiesNewLine(any(Project.class));
     verify(springBootCommonService, times(3)).addLogger(any(Project.class), anyString(), any(Level.class));
     verify(springBootCommonService, times(5)).addLoggerTest(any(Project.class), anyString(), any(Level.class));
-    verify(springBootCommonService).addPropertiesTestComment(any(Project.class), anyString());
-    verify(springBootCommonService, times(5)).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(springBootCommonService).addPropertiesTestNewLine(any(Project.class));
-  }
 
-  @Test
-  void shouldNotAddTestcontainers() {
-    Project project = tmpProjectWithPomXml();
-
-    assertThatThrownBy(() -> mySQLDomainService.addTestcontainers(project)).isExactlyInstanceOf(GeneratorException.class);
+    verify(sqlCommonService).addTestcontainers(any(Project.class), anyString(), anyMap());
   }
 }

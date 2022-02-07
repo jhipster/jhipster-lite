@@ -17,6 +17,7 @@ public class FlywayDomainService implements FlywayService {
 
   private static final String SQL_INIT_FILE_SOURCE = "server/springboot/dbmigration/flyway";
   private static final String SQL_INIT_FILE_NAME = "V%s__init.sql";
+  private static final String SQL_USER_AUTHORITY_FILE_NAME = "V%s__create_user_authority_tables.sql";
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
@@ -61,13 +62,25 @@ public class FlywayDomainService implements FlywayService {
       getPath(SQL_INIT_FILE_SOURCE, "resources"),
       "V00000000000000__init.sql",
       getPath(MAIN_RESOURCES, DEFAULT_SQL_FILES_FOLDER),
-      buildInitFileName()
+      buildFileNameWithTimestamp(SQL_INIT_FILE_NAME, 0)
     );
   }
 
   @Override
   public void addProperties(Project project) {
     getFlywayProperties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+  }
+
+  @Override
+  public void addUserAuthorityChangelog(Project project) {
+    String sqlFileSource = "V00000000000000__create_user_authority_tables" + (isDatabaseUseSequences(project) ? "_postgresql.sql" : ".sql");
+    projectRepository.add(
+      project,
+      getPath(SQL_INIT_FILE_SOURCE, "resources/user"),
+      sqlFileSource,
+      getPath(MAIN_RESOURCES, DEFAULT_SQL_FILES_FOLDER),
+      buildFileNameWithTimestamp(SQL_USER_AUTHORITY_FILE_NAME, 1)
+    );
   }
 
   private TreeMap<String, Object> getFlywayProperties() {
@@ -79,9 +92,13 @@ public class FlywayDomainService implements FlywayService {
     return result;
   }
 
-  private String buildInitFileName() {
-    LocalDateTime localDateTime = LocalDateTime.now(clock);
+  private String buildFileNameWithTimestamp(String fileNameFormat, int idxScript) {
+    LocalDateTime localDateTime = LocalDateTime.now(clock).plusSeconds(idxScript);
     String formattedDate = localDateTime.format(DATE_TIME_FORMATTER);
-    return SQL_INIT_FILE_NAME.formatted(formattedDate);
+    return fileNameFormat.formatted(formattedDate);
+  }
+
+  private boolean isDatabaseUseSequences(Project project) {
+    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("postgresql")).isPresent();
   }
 }

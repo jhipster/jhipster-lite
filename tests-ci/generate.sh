@@ -60,6 +60,11 @@ elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
 
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/databases/migration/flyway/init"
+  callApi "/api/servers/spring-boot/databases/migration/flyway/user"
+
+  callApi "/api/servers/spring-boot/mvc/security/jwt"
+  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt"
 
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
 

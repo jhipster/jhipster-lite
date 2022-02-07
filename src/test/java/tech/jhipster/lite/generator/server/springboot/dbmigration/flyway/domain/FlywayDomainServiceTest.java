@@ -127,4 +127,47 @@ class FlywayDomainServiceTest {
     verify(springBootCommonService).addProperties(project, "spring.flyway.enabled", DEFAULT_FLYWAY_ENABLED);
     verify(springBootCommonService).addProperties(project, "spring.flyway.locations", DEFAULT_FLYWAY_LOCATIONS);
   }
+
+  @Test
+  void shouldAddUserAuthorityChangelogWithSequence() {
+    // Given
+    Project project = tmpProject();
+
+    when(springBootCommonService.getProperty(project, "spring.datasource.url"))
+      .thenReturn(Optional.of("jdbc:postgresql://localhost:3306/myDb"));
+
+    // When
+    flywayDomainService.addUserAuthorityChangelog(project);
+
+    // Then
+    verify(projectRepository)
+      .add(
+        project,
+        "server/springboot/dbmigration/flyway/resources/user",
+        "V00000000000000__create_user_authority_tables_postgresql.sql",
+        "src/main/resources/db/migration",
+        "V20220122150155__create_user_authority_tables.sql"
+      );
+  }
+
+  @Test
+  void shouldAddUserAuthorityChangelogWithoutSequence() {
+    // Given
+    Project project = tmpProject();
+
+    when(springBootCommonService.getProperty(project, "spring.datasource.url")).thenReturn(Optional.of("jdbc:mysql://localhost:3306/myDb"));
+
+    // When
+    flywayDomainService.addUserAuthorityChangelog(project);
+
+    // Then
+    verify(projectRepository)
+      .add(
+        project,
+        "server/springboot/dbmigration/flyway/resources/user",
+        "V00000000000000__create_user_authority_tables.sql",
+        "src/main/resources/db/migration",
+        "V20220122150155__create_user_authority_tables.sql"
+      );
+  }
 }

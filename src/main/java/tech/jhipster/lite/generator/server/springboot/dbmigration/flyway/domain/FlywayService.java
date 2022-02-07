@@ -10,4 +10,6 @@ public interface FlywayService {
   void addChangelogSql(Project project);
 
   void addProperties(Project project);
+
+  void addUserAuthorityChangelog(Project project);
 }

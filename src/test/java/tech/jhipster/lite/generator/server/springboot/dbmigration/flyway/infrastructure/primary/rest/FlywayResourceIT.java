@@ -68,7 +68,31 @@ class FlywayResourceIT {
       .andExpect(status().isOk());
 
     assertDependencies(project);
-    assertSqlFile(project);
+    assertInitSqlFile(project);
     assertProperties(project);
+  }
+
+  @Test
+  void shouldAddUserAndAuthority() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
+    if (projectDTO == null) {
+      throw new GeneratorException("Error when reading file");
+    }
+    projectDTO.folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/databases/migration/flyway/user")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    assertUserAuthoritySqlFile(project);
   }
 }

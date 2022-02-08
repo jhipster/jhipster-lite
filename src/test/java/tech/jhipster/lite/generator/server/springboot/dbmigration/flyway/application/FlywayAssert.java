@@ -34,8 +34,13 @@ public class FlywayAssert {
     );
   }
 
-  public static void assertSqlFile(Project project) {
+  public static void assertInitSqlFile(Project project) {
     String initSqlFilePath = getPath(MAIN_RESOURCES, "db/migration", "V20220122172511__init.sql");
+    assertFileExist(project, initSqlFilePath);
+  }
+
+  public static void assertUserAuthoritySqlFile(Project project) {
+    String initSqlFilePath = getPath(MAIN_RESOURCES, "db/migration", "V20220122172512__create_user_authority_tables.sql");
     assertFileExist(project, initSqlFilePath);
   }
 

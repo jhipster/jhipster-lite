@@ -53,7 +53,25 @@ class FlywayApplicationServiceIT {
 
     // Then
     assertDependencies(project);
-    assertSqlFile(project);
+    assertInitSqlFile(project);
     assertProperties(project);
+  }
+
+  @Test
+  void shouldAddUserAuthorityChangelog() {
+    // Given
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "foo");
+
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+    flywayApplicationService.init(project);
+
+    // When
+    flywayApplicationService.addUserAuthorityChangelog(project);
+
+    // Then
+    assertUserAuthoritySqlFile(project);
   }
 }

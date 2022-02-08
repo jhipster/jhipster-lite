@@ -16,4 +16,8 @@ public class FlywayApplicationService {
   public void init(Project project) {
     flywayService.init(project);
   }
+
+  public void addUserAuthorityChangelog(Project project) {
+    flywayService.addUserAuthorityChangelog(project);
+  }
 }

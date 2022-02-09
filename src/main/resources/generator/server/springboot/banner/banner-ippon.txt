@@ -1,5 +1,4 @@
-
-${AnsiColor.BLUE}          _____          ${AnsiColor.GREEN}          _____          ${AnsiColor.CYAN}          _____         ${AnsiColor.RED}         ______         ${AnsiColor.YELLOW}           _____                                                                                                                 /\    \        ${AnsiColor.YELLOW}           _____
+${AnsiColor.BLUE}          _____          ${AnsiColor.GREEN}          _____          ${AnsiColor.CYAN}          _____         ${AnsiColor.RED}         ______         ${AnsiColor.YELLOW}           _____
 ${AnsiColor.BLUE}         /\    \         ${AnsiColor.GREEN}         /\    \         ${AnsiColor.CYAN}         /\    \        ${AnsiColor.RED}        /::\    \       ${AnsiColor.YELLOW}         /:\    \
 ${AnsiColor.BLUE}        /::\    \        ${AnsiColor.GREEN}        /::\    \        ${AnsiColor.CYAN}        /::\    \       ${AnsiColor.RED}       /::::\    \      ${AnsiColor.YELLOW}        /:::\____\
 ${AnsiColor.BLUE}        \:::\    \       ${AnsiColor.GREEN}       /::::\    \       ${AnsiColor.CYAN}       /::::\    \      ${AnsiColor.RED}      /::::::\    \     ${AnsiColor.YELLOW}       /:::::|   |

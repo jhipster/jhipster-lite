@@ -32,13 +32,13 @@ class BannerResource {
     bannerApplicationService.addBannerJHipsterV7(project);
   }
 
-  @Operation(summary = "Add banner JHipster v7 for Ippon")
+  @Operation(summary = "Add banner for Ippon applications")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
-  @PostMapping("/jhipster-v7-ippon")
-  @GeneratorStep(id = "banner-jhipster-v7-react")
-  public void addBannerJHipsterV7Ippon(@RequestBody ProjectDTO projectDTO) {
+  @PostMapping("/ippon")
+  @GeneratorStep(id = "banner-ippon")
+  public void addBannerIppon(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    bannerApplicationService.addBannerJHipsterV7Ippon(project);
+    bannerApplicationService.addBannerIppon(project);
   }
 
   @Operation(summary = "Add banner JHipster v7 for React")

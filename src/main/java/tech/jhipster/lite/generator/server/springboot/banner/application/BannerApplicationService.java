@@ -17,6 +17,10 @@ public class BannerApplicationService {
     bannerService.addBannerJHipsterV7(project);
   }
 
+  public void addBannerIppon(Project project) {
+    bannerService.addBannerIppon(project);
+  }
+
   public void addBannerJHipsterV7React(Project project) {
     bannerService.addBannerJHipsterV7React(project);
   }

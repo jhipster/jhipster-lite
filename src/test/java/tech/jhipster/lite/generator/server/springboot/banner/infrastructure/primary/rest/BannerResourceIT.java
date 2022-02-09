@@ -30,7 +30,7 @@ class BannerResourceIT {
   @ValueSource(
     strings = {
       "/api/servers/spring-boot/banner/jhipster-v7",
-      "/api/servers/spring-boot/banner/jhipster-v7-ippon",
+      "/api/servers/spring-boot/banner/ippon",
       "/api/servers/spring-boot/banner/jhipster-v7-react",
       "/api/servers/spring-boot/banner/jhipster-v7-vue",
       "/api/servers/spring-boot/banner/jhipster-v2",

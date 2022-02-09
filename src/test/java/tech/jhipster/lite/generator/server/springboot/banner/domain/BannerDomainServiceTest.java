@@ -31,6 +31,12 @@ class BannerDomainServiceTest {
   }
 
   @Test
+  void shouldAddBannerJHipsterV7Ippon() {
+    bannerDomainService.addBannerJHipsterV7Ippon(tmpProject());
+    verify(projectRepository).add(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
   void shouldAddBannerJHipsterV7React() {
     bannerDomainService.addBannerJHipsterV7React(tmpProject());
     verify(projectRepository).add(any(Project.class), anyString(), anyString(), anyString(), anyString());

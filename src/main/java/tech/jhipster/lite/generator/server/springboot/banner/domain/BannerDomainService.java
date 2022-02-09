@@ -21,6 +21,11 @@ public class BannerDomainService implements BannerService {
   }
 
   @Override
+  public void addBannerJHipsterV7Ippon(Project project) {
+    addBanner(project, "banner-jhipster-v7-ippon.txt");
+  }
+
+  @Override
   public void addBannerJHipsterV7React(Project project) {
     addBanner(project, "banner-jhipster-v7-react.txt");
   }

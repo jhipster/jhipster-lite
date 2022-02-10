@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
@@ -24,8 +23,7 @@ public class CodespaceResourceIT {
   @Autowired
   MockMvc mockMvc;
 
-  @Test
-  void shouldInit() throws Exception {
+  void shouldCreateFiles() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");

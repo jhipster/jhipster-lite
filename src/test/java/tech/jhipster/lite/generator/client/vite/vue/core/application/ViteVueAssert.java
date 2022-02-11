@@ -25,6 +25,7 @@ public class ViteVueAssert {
   }
 
   public static void assertViteConfigFiles(Project project) {
+    assertFileExist(project, ".eslintrc.js");
     assertFileExist(project, "jest.config.js");
     assertFileExist(project, "tsconfig.json");
     assertFileExist(project, "vite.config.ts");
@@ -39,6 +40,6 @@ public class ViteVueAssert {
   public static void assertAppFiles(Project project) {
     assertFileExist(project, "src/main/webapp/app/common/primary/app/App.component.ts");
     assertFileExist(project, "src/main/webapp/app/common/primary/app/App.vue");
-    assertFileExist(project, "src/test/javascript/spec/common/primary/app/App.component.spec.ts");
+    assertFileExist(project, "src/test/javascript/spec/common/primary/app/App.spec.ts");
   }
 }

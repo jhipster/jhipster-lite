@@ -76,7 +76,9 @@ public class ViteVueDomainService implements ViteVueService {
   }
 
   public void addViteConfigFiles(Project project) {
-    List.of("jest.config.js", "tsconfig.json", "vite.config.ts").forEach(file -> projectRepository.add(project, SOURCE, file));
+    List
+      .of(".eslintrc.js", "jest.config.js", "tsconfig.json", "vite.config.ts")
+      .forEach(file -> projectRepository.add(project, SOURCE, file));
   }
 
   public void addRootFiles(Project project) {
@@ -110,7 +112,7 @@ public class ViteVueDomainService implements ViteVueService {
     projectRepository.template(
       project,
       getPath(SOURCE, "test/spec/common/primary/app"),
-      "App.component.spec.ts",
+      "App.spec.ts",
       "src/test/javascript/spec/common/primary/app"
     );
   }

@@ -7,14 +7,20 @@ public class ViteVue {
   private ViteVue() {}
 
   public static List<String> dependencies() {
-    return List.of("vue", "vue-class-component", "vue-router");
+    return List.of("vue", "vue-class-component");
   }
 
   public static List<String> devDependencies() {
     return List.of(
+      "@rushstack/eslint-patch",
       "@types/jest",
+      "@typescript-eslint/parser",
       "@vitejs/plugin-vue",
+      "@vue/eslint-config-typescript",
       "@vue/test-utils",
+      "eslint",
+      "eslint-config-prettier",
+      "eslint-plugin-vue",
       "jest",
       "jest-transform-stub",
       "ts-jest",

@@ -96,24 +96,12 @@ public class ViteVueDomainService implements ViteVueService {
   }
 
   public void addAppFiles(Project project) {
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "webapp/app/common/primary/app"),
-      "App.component.ts",
-      "src/main/webapp/app/common/primary/app"
-    );
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "webapp/app/common/primary/app"),
-      "App.vue",
-      "src/main/webapp/app/common/primary/app"
-    );
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "webapp/app/common/primary/app"),
-      "index.ts",
-      "src/main/webapp/app/common/primary/app"
-    );
+    String sourcePrimary = getPath(SOURCE, "webapp/app/common/primary/app");
+    String destinationPrimary = "src/main/webapp/app/common/primary/app";
+
+    projectRepository.template(project, sourcePrimary, "App.component.ts", destinationPrimary);
+    projectRepository.template(project, sourcePrimary, "App.vue", destinationPrimary);
+    projectRepository.template(project, sourcePrimary, "index.ts", destinationPrimary);
 
     projectRepository.template(
       project,

@@ -108,6 +108,12 @@ public class ViteVueDomainService implements ViteVueService {
       "App.vue",
       "src/main/webapp/app/common/primary/app"
     );
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "webapp/app/common/primary/app"),
+      "index.ts",
+      "src/main/webapp/app/common/primary/app"
+    );
 
     projectRepository.template(
       project,

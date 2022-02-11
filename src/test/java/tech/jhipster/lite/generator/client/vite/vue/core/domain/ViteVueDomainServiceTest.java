@@ -109,6 +109,6 @@ class ViteVueDomainServiceTest {
 
     viteVueDomainService.addAppFiles(project);
 
-    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

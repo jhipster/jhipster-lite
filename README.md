@@ -186,6 +186,7 @@ Spring Boot:
 - Logstash TCP appender
 - Springdoc without or with Security JWT
 - Jib to build Docker image
+- Apache Kafka as a Broker
 
 Spring Boot Database:
 

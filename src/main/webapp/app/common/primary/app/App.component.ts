@@ -1,3 +1,8 @@
-import { Vue } from 'vue-class-component';
-
-export default class AppComponent extends Vue {}
+export default {
+  name: 'App',
+  data: () => {
+    return {
+      jhipsterLite: 'JHipster lite',
+    };
+  },
+};

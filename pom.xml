@@ -30,8 +30,8 @@
 
   <properties>
     <java.version>17</java.version>
-    <node.version>v16.13.2</node.version>
-    <npm.version>8.3.0</npm.version>
+    <node.version>v16.14.0</node.version>
+    <npm.version>8.5.0</npm.version>
 
     <maven.version>3.8.3</maven.version>
     <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>

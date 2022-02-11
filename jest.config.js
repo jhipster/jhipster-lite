@@ -1,4 +1,3 @@
-// jest.config.js
 module.exports = {
   moduleFileExtensions: ['js', 'ts', 'json', 'vue'],
   transform: {
@@ -11,17 +10,7 @@ module.exports = {
     'src/main/webapp/**/*.{js,ts,vue}',
     '!src/main/webapp/**/*.component.ts',
     '!src/main/webapp/app/main.ts',
-    '!src/main/webapp/app/router/*.ts',
-    '!src/i18n.ts',
     '!**/*.d.ts',
-    '!**/*AsyncModule.ts',
-  ],
-  coveragePathIgnorePatterns: [
-    '<rootDir>/node_modules/',
-    '<rootDir>/src/test/javascript/',
-    '<rootDir>/src/main/webapp/app/router',
-    '<rootDir>/src/main/resources',
-    '.*.json',
   ],
   coverageReporters: ['html', 'json-summary', 'text-summary', 'lcov', 'clover'],
   coverageDirectory: '<rootDir>/target/test-results/',
@@ -33,4 +22,5 @@ module.exports = {
       lines: 100,
     },
   },
+  modulePathIgnorePatterns: ['<rootDir>/src/main/resources/'],
 };

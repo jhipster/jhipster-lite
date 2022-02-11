@@ -38,7 +38,7 @@ class ViteVueDomainServiceTest {
     Project project = tmpProjectWithPackageJson();
     when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
-    viteVueDomainService.addViteVue(project);
+    assertThatCode(() -> viteVueDomainService.addViteVue(project)).doesNotThrowAnyException();
   }
 
   @Test

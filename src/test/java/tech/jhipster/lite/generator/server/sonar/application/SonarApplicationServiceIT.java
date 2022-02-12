@@ -46,57 +46,6 @@ class SonarApplicationServiceIT {
     assertFileContent(project, POM_XML, propertiesPlugin());
   }
 
-  @Test
-  void shouldAddDockerCompose() {
-    Project project = tmpProject();
-    initApplicationService.init(project);
-    mavenApplicationService.addPomXml(project);
-
-    sonarApplicationService.addDockerCompose(project);
-
-    assertFileExist(project, "src/main/docker/sonar.yml");
-    assertFileContent(project, "src/main/docker/sonar.yml", "image: " + Sonar.SONARQUBE_DOCKER_IMAGE);
-  }
-
-  @Test
-  void shouldAddSonarProperties() {
-    Project project = tmpProject();
-    initApplicationService.init(project);
-    mavenApplicationService.addPomXml(project);
-
-    sonarApplicationService.addPropertiesFile(project);
-
-    assertFileExist(project, "sonar-project.properties");
-    assertFileContent(project, "sonar-project.properties", List.of("sonar.sources=src/main/"));
-  }
-
-  @Test
-  void shouldAddPropertiesPlugin() {
-    Project project = tmpProject();
-    initApplicationService.init(project);
-    mavenApplicationService.addPomXml(project);
-
-    sonarApplicationService.addPropertiesPlugin(project);
-
-    assertFileContent(project, POM_XML, "<properties-maven-plugin.version>");
-    assertFileContent(project, POM_XML, "</properties-maven-plugin.version>");
-
-    assertFileContent(project, POM_XML, propertiesPlugin());
-  }
-
-  @Test
-  void shouldAddSonarScannerPluginManagement() {
-    Project project = tmpProject();
-    initApplicationService.init(project);
-    mavenApplicationService.addPomXml(project);
-
-    sonarApplicationService.addSonarScannerPluginManagement(project);
-
-    assertFileContent(project, POM_XML, "<sonar-maven-plugin.version>");
-    assertFileContent(project, POM_XML, "</sonar-maven-plugin.version>");
-    assertFileContent(project, POM_XML, sonarSourcePlugin());
-  }
-
   private List<String> propertiesPlugin() {
     return List.of(
       "<plugin>",

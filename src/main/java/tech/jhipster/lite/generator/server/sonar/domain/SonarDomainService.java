@@ -29,8 +29,7 @@ public class SonarDomainService implements SonarService {
     addDockerCompose(project);
   }
 
-  @Override
-  public void addPropertiesPlugin(Project project) {
+  private void addPropertiesPlugin(Project project) {
     Plugin plugin = Plugin
       .builder()
       .groupId("org.codehaus.mojo")
@@ -57,8 +56,7 @@ public class SonarDomainService implements SonarService {
     buildToolService.addPlugin(project, plugin);
   }
 
-  @Override
-  public void addSonarScannerPluginManagement(Project project) {
+  private void addSonarScannerPluginManagement(Project project) {
     Plugin plugin = Plugin
       .builder()
       .groupId("org.sonarsource.scanner.maven")
@@ -69,15 +67,13 @@ public class SonarDomainService implements SonarService {
     buildToolService.addPluginManagement(project, plugin);
   }
 
-  @Override
-  public void addPropertiesFile(Project project) {
+  private void addPropertiesFile(Project project) {
     project.addDefaultConfig(BASE_NAME);
     project.addDefaultConfig(PROJECT_NAME);
     projectRepository.template(project, SOURCE, "sonar-project.properties");
   }
 
-  @Override
-  public void addDockerCompose(Project project) {
+  private void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("sonarqubeDockerImage", Sonar.getSonarqubeDockerImage());
     projectRepository.template(project, SOURCE, "sonar.yml", "src/main/docker", "sonar.yml");

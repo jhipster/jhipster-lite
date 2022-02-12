@@ -16,20 +16,4 @@ public class SonarApplicationService {
   public void init(Project project) {
     this.sonarService.init(project);
   }
-
-  void addPropertiesPlugin(Project project) {
-    this.sonarService.addPropertiesPlugin(project);
-  }
-
-  void addSonarScannerPluginManagement(Project project) {
-    this.sonarService.addSonarScannerPluginManagement(project);
-  }
-
-  void addPropertiesFile(Project project) {
-    this.sonarService.addPropertiesFile(project);
-  }
-
-  void addDockerCompose(Project project) {
-    this.sonarService.addDockerCompose(project);
-  }
 }

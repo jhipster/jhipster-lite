@@ -23,4 +23,5 @@ module.exports = {
     },
   },
   modulePathIgnorePatterns: ['<rootDir>/src/main/resources/'],
+  testResultsProcessor: 'jest-sonar-reporter',
 };

@@ -48,6 +48,9 @@ if [[ $filename == 'full-default' ]]; then
 
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
 
+  callApi "/api/frontend-maven-plugin"
+  callApi "/api/vite/vue"
+
 elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"

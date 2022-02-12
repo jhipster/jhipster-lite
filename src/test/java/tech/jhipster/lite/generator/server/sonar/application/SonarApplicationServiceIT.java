@@ -10,7 +10,6 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.sonar.domain.Sonar;
 
 @IntegrationTest
 class SonarApplicationServiceIT {
@@ -25,12 +24,12 @@ class SonarApplicationServiceIT {
   MavenApplicationService mavenApplicationService;
 
   @Test
-  void shouldInit() {
+  void shouldAddSonarJavaBackend() {
     Project project = tmpProject();
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
-    sonarApplicationService.init(project);
+    sonarApplicationService.addSonarJavaBackend(project);
 
     assertFileExist(project, "src/main/docker/sonar.yml");
     assertFileExist(project, "sonar-project.properties");

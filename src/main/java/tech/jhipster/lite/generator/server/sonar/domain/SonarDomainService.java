@@ -22,7 +22,7 @@ public class SonarDomainService implements SonarService {
   }
 
   @Override
-  public void init(Project project) {
+  public void addSonarJavaBackend(Project project) {
     addPropertiesPlugin(project);
     addSonarScannerPluginManagement(project);
     addPropertiesFile(project);

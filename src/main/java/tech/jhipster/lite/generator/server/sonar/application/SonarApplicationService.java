@@ -13,7 +13,7 @@ public class SonarApplicationService {
     this.sonarService = sonarService;
   }
 
-  public void init(Project project) {
-    this.sonarService.init(project);
+  public void addSonarJavaBackend(Project project) {
+    this.sonarService.addSonarJavaBackend(project);
   }
 }

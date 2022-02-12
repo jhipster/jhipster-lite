@@ -27,8 +27,8 @@ class SonarResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration")
   @PostMapping
   @GeneratorStep(id = "sonar")
-  public void addSonar(@RequestBody ProjectDTO projectDTO) {
+  public void addSonarJavaBackend(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    sonarApplicationService.init(project);
+    sonarApplicationService.addSonarJavaBackend(project);
   }
 }

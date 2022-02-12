@@ -35,12 +35,12 @@ class SonarResourceIT {
   MockMvc mockMvc;
 
   @Test
-  void shouldAddSonar() throws Exception {
+  void shouldAddSonarJavaBackend() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    sonarApplicationService.init(project);
+    sonarApplicationService.addSonarJavaBackend(project);
 
     mockMvc
       .perform(post("/api/servers/sonar").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))

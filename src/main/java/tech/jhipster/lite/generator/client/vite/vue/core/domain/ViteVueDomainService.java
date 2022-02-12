@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.vite.vue.core.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ public class ViteVueDomainService implements ViteVueService {
     addDependencies(project);
     addDevDependencies(project);
     addScripts(project);
+    addJestSonar(project);
 
     addViteConfigFiles(project);
 
@@ -109,5 +111,17 @@ public class ViteVueDomainService implements ViteVueService {
       "App.spec.ts",
       "src/test/javascript/spec/common/primary/app"
     );
+  }
+
+  public void addJestSonar(Project project) {
+    String oldText = "\"cacheDirectories\": \\[";
+    String newText =
+      """
+      "jestSonar": \\{
+          "reportPath": "target/test-results/jest",
+          "reportFile": "TESTS-results-sonar.xml"
+        \\},
+        "cacheDirectories": \\[""";
+    projectRepository.replaceText(project, "", PACKAGE_JSON, oldText, newText);
   }
 }

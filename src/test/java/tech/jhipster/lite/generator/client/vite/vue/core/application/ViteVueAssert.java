@@ -5,6 +5,7 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
+import java.util.List;
 import tech.jhipster.lite.generator.client.vite.vue.core.domain.ViteVue;
 import tech.jhipster.lite.generator.project.domain.Project;
 
@@ -42,5 +43,13 @@ public class ViteVueAssert {
     assertFileExist(project, "src/main/webapp/app/common/primary/app/App.vue");
     assertFileExist(project, "src/main/webapp/app/common/primary/app/index.ts");
     assertFileExist(project, "src/test/javascript/spec/common/primary/app/App.spec.ts");
+  }
+
+  public static void assertJestSonar(Project project) {
+    assertFileContent(
+      project,
+      PACKAGE_JSON,
+      List.of("\"jestSonar\": {", "\"reportPath\": \"target/test-results/jest\",", "\"reportFile\": \"TESTS-results-sonar.xml\"", "}")
+    );
   }
 }

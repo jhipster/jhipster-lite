@@ -26,5 +26,7 @@ class ViteVueApplicationServiceIT {
     assertViteConfigFiles(project);
     assertRootFiles(project);
     assertAppFiles(project);
+
+    assertJestSonar(project);
   }
 }

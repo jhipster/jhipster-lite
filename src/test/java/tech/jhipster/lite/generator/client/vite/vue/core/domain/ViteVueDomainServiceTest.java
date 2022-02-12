@@ -65,7 +65,7 @@ class ViteVueDomainServiceTest {
 
     viteVueDomainService.addDevDependencies(project);
 
-    verify(npmService, times(16)).addDevDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(17)).addDevDependency(any(Project.class), anyString(), anyString());
   }
 
   @Test

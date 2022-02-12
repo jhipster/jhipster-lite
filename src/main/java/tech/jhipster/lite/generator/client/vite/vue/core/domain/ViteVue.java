@@ -22,6 +22,7 @@ public class ViteVue {
       "eslint-config-prettier",
       "eslint-plugin-vue",
       "jest",
+      "jest-sonar-reporter",
       "jest-transform-stub",
       "ts-jest",
       "typescript",

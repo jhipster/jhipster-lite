@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.client.vite.vue.core.infrastructure.primary.rest;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.readFileToObject;

@@ -29,6 +29,14 @@ public class SonarDomainService implements SonarService {
     addDockerCompose(project);
   }
 
+  @Override
+  public void addSonarJavaBackendAndFrontend(Project project) {
+    addPropertiesPlugin(project);
+    addSonarScannerPluginManagement(project);
+    addFullstackPropertiesFile(project);
+    addDockerCompose(project);
+  }
+
   private void addPropertiesPlugin(Project project) {
     Plugin plugin = Plugin
       .builder()
@@ -71,6 +79,12 @@ public class SonarDomainService implements SonarService {
     project.addDefaultConfig(BASE_NAME);
     project.addDefaultConfig(PROJECT_NAME);
     projectRepository.template(project, SOURCE, "sonar-project.properties");
+  }
+
+  private void addFullstackPropertiesFile(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+    project.addDefaultConfig(PROJECT_NAME);
+    projectRepository.template(project, SOURCE, "sonar-fullstack-project.properties", "", "sonar-project.properties");
   }
 
   private void addDockerCompose(Project project) {

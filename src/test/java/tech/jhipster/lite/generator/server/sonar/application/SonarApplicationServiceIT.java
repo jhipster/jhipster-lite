@@ -31,50 +31,20 @@ class SonarApplicationServiceIT {
 
     sonarApplicationService.addSonarJavaBackend(project);
 
-    assertFileExist(project, "src/main/docker/sonar.yml");
-    assertFileExist(project, "sonar-project.properties");
-
-    assertFileContent(project, POM_XML, "<properties-maven-plugin.version>");
-    assertFileContent(project, POM_XML, "</properties-maven-plugin.version>");
-
-    assertFileContent(project, POM_XML, "<sonar-maven-plugin.version>");
-    assertFileContent(project, POM_XML, "</sonar-maven-plugin.version>");
-
-    assertFileContent(project, POM_XML, sonarSourcePlugin());
-
-    assertFileContent(project, POM_XML, propertiesPlugin());
+    SonarAssert.assertFiles(project);
+    SonarAssert.assertPomXml(project);
   }
 
-  private List<String> propertiesPlugin() {
-    return List.of(
-      "<plugin>",
-      "<groupId>org.codehaus.mojo</groupId>",
-      "<artifactId>properties-maven-plugin</artifactId>",
-      "<version>${properties-maven-plugin.version}</version>",
-      "<executions>",
-      "<execution>",
-      "<phase>initialize</phase>",
-      "<goals>",
-      "<goal>read-project-properties</goal>",
-      "</goals>",
-      "<configuration>",
-      "<files>",
-      "<file>sonar-project.properties</file>",
-      "</files>",
-      "</configuration>",
-      "</execution>",
-      "</executions>",
-      "</plugin>"
-    );
-  }
+  @Test
+  void shouldAddSonarJavaBackendAndFrontend() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
 
-  private List<String> sonarSourcePlugin() {
-    return List.of(
-      "<plugin>",
-      "<groupId>org.sonarsource.scanner.maven</groupId>",
-      "<artifactId>sonar-maven-plugin</artifactId>",
-      "<version>${sonar-maven-plugin.version}</version>",
-      "</plugin>"
-    );
+    sonarApplicationService.addSonarJavaBackendAndFrontend(project);
+
+    SonarAssert.assertFiles(project);
+    SonarAssert.assertFrontProperties(project);
+    SonarAssert.assertPomXml(project);
   }
 }

@@ -23,12 +23,21 @@ class SonarResource {
     this.sonarApplicationService = sonarApplicationService;
   }
 
-  @Operation(summary = "Add Sonar configuration to inspect code quality")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration")
+  @Operation(summary = "Add Sonar configuration for Java Backend to inspect code quality")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration for Java Backend")
   @PostMapping("/java-backend")
   @GeneratorStep(id = "sonar-java-backend")
   public void addSonarJavaBackend(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     sonarApplicationService.addSonarJavaBackend(project);
+  }
+
+  @Operation(summary = "Add Sonar configuration for Java Backend and Frontend to inspect code quality")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration for Java Backend and Frontend")
+  @PostMapping("/java-backend-and-frontend")
+  @GeneratorStep(id = "sonar-java-backend-and-frontend")
+  public void addSonarJavaBackendAndFrontend(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    sonarApplicationService.addSonarJavaBackendAndFrontend(project);
   }
 }

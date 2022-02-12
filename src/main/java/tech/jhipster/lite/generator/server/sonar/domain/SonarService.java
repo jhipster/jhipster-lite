@@ -4,4 +4,5 @@ import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface SonarService {
   void addSonarJavaBackend(Project project);
+  void addSonarJavaBackendAndFrontend(Project project);
 }

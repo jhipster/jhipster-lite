@@ -16,4 +16,8 @@ public class SonarApplicationService {
   public void addSonarJavaBackend(Project project) {
     this.sonarService.addSonarJavaBackend(project);
   }
+
+  public void addSonarJavaBackendAndFrontend(Project project) {
+    this.sonarService.addSonarJavaBackendAndFrontend(project);
+  }
 }

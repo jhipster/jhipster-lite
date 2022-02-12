@@ -31,7 +31,7 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/logging/aop"
   callApi "/api/servers/spring-boot/logging/logstash"
   callApi "/api/servers/spring-boot/banner/jhipster-v7"
-  callApi "/api/servers/sonar"
+  callApi "/api/servers/sonar/java-backend"
   callApi "/api/servers/spring-boot/docker/jib"
 
   callApi "/api/servers/spring-boot/mvc/web/tomcat"

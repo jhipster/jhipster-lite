@@ -43,7 +43,11 @@ class SonarResourceIT {
     sonarApplicationService.addSonarJavaBackend(project);
 
     mockMvc
-      .perform(post("/api/servers/sonar").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/servers/sonar/java-backend")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();

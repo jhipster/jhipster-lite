@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.sonar.infrastructure.primary;
+package tech.jhipster.lite.generator.server.sonar.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,8 +25,8 @@ class SonarResource {
 
   @Operation(summary = "Add Sonar configuration to inspect code quality")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration")
-  @PostMapping
-  @GeneratorStep(id = "sonar")
+  @PostMapping("/java-backend")
+  @GeneratorStep(id = "sonar-java-backend")
   public void addSonarJavaBackend(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     sonarApplicationService.addSonarJavaBackend(project);

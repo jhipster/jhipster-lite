@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.client.angular.core.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 
+import java.io.File;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -36,6 +37,8 @@ public class AngularDomainService implements AngularService {
     Angular.files().forEach(file -> projectRepository.add(project, SOURCE, file));
     Angular
       .angularFiles()
-      .forEach((file, path) -> projectRepository.template(project, SOURCE_WEBAPP + "/" + path, file, getPath(MAIN_WEBAPP, path)));
+      .forEach((file, path) ->
+        projectRepository.template(project, getPath(SOURCE_WEBAPP + File.separator + path), file, getPath(MAIN_WEBAPP, path))
+      );
   }
 }

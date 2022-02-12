@@ -16,13 +16,11 @@ public class Angular {
       "@angular-devkit/build-angular",
       "@angular/cli",
       "@angular/compiler-cli",
-      "@types/jasmine",
       "@types/node",
       "@types/jest",
       "jest",
       "ts-jest",
       "jest-preset-angular",
-      "jasmine-core",
       "typescript"
     );
   }
@@ -48,7 +46,7 @@ public class Angular {
     return Map.of(
       "ng", "ng",
       "start", "ng serve",
-      "build", "ng build",
+      "build", "ng build --output-path=target/classes/static",
       "watch", "ng build --watch --configuration development",
       "test", "ng test"
     );

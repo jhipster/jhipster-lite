@@ -16,13 +16,11 @@ public class AngularAssert {
     assertFileContent(project, PACKAGE_JSON, "@angular-devkit/build-angular" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@angular/cli" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@angular/compiler-cli" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@types/jasmine" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@types/node" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@types/jest" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "jest" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "ts-jest" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "jest-preset-angular" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "jasmine-core" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "typescript" + DQ + ": ");
   }
 

@@ -21,6 +21,7 @@ public class Angular {
       "jest",
       "ts-jest",
       "jest-preset-angular",
+      "jest-sonar-reporter",
       "typescript"
     );
   }
@@ -48,7 +49,7 @@ public class Angular {
       "start", "ng serve",
       "build", "ng build --output-path=target/classes/static",
       "watch", "ng build --watch --configuration development",
-      "test", "ng test"
+      "test", "ng test --coverage"
     );
     // @formatter:on
   }

@@ -21,6 +21,7 @@ public class AngularAssert {
     assertFileContent(project, PACKAGE_JSON, "jest" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "ts-jest" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "jest-preset-angular" + DQ + ": ");
+    assertFileContent(project, PACKAGE_JSON, "jest-sonar-reporter" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "typescript" + DQ + ": ");
   }
 

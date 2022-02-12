@@ -13,5 +13,6 @@ module.exports = {
   coverageDirectory: '<rootDir>/target/test-results/',
   moduleNameMapper: pathsToModuleNameMapper(paths, { prefix: `<rootDir>/${baseUrl}/` }),
   testMatch: ['<rootDir>/src/main/webapp/app/**/@(*.)@(spec.ts)'],
+  testResultsProcessor: 'jest-sonar-reporter',
   testURL: 'http://localhost/',
 };

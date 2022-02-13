@@ -11,8 +11,16 @@ module.exports = {
   modulePaths: [`<rootDir>/${baseUrl}`],
   cacheDirectory: '<rootDir>/target/jest-cache',
   coverageDirectory: '<rootDir>/target/test-results/',
+  coverageThreshold: {
+    global: {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+    },
+  },
   moduleNameMapper: pathsToModuleNameMapper(paths, { prefix: `<rootDir>/${baseUrl}/` }),
-  testMatch: ['<rootDir>/src/main/webapp/app/**/@(*.)@(spec.ts)'],
+  testMatch: ['<rootDir>/src/main/webapp/environments/**/@(*.)@(spec.ts)', '<rootDir>/src/main/webapp/app/**/@(*.)@(spec.ts)'],
   testResultsProcessor: 'jest-sonar-reporter',
   testURL: 'http://localhost/',
 };

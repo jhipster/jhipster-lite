@@ -1,10 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Angular {
 
@@ -55,24 +52,22 @@ public class Angular {
   }
 
   public static List<String> files() {
-    // @formatter:offProjectLocalRepository
     return List.of("angular.json", "jest.conf.js", "tsconfig.app.json", "tsconfig.json", "tsconfig.spec.json");
-    // @formatter:on
   }
 
   public static Map<String, String> angularFiles() {
-    // @formatter:offProjectLocalRepository
+    // @formatter:off
     return Map.ofEntries(
       Map.entry("index.html", ""),
       Map.entry("main.ts", ""),
       Map.entry("polyfills.ts", ""),
       Map.entry("styles.css", ""),
-      Map.entry("app.module.ts", "app"),
-      Map.entry("app.component.ts", "app"),
-      Map.entry("app.component.css", "app"),
-      Map.entry("app.component.html", "app"),
-      Map.entry("app-routing.module.ts", "app"),
-      Map.entry("app.component.spec.ts", "app"),
+      Map.entry("app.module.ts", "app/common/primary/app"),
+      Map.entry("app.component.ts", "app/common/primary/app"),
+      Map.entry("app.component.css", "app/common/primary/app"),
+      Map.entry("app.component.html", "app/common/primary/app"),
+      Map.entry("app-routing.module.ts", "app/common/primary/app"),
+      Map.entry("app.component.spec.ts", "app/common/primary/app"),
       Map.entry("environment.prod.ts", "environments"),
       Map.entry("environment.ts", "environments")
     );

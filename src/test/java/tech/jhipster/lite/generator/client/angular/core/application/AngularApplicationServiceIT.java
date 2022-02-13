@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.core.application;
 
 import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,10 @@ class AngularApplicationServiceIT {
 
     angularApplicationService.init(project);
 
-    AngularAssert.assertDevDependencies(project);
-    AngularAssert.assertDependencies(project);
-    AngularAssert.assertScripts(project);
-    AngularAssert.assertConfigFiles(project);
-    AngularAssert.assertAngularFiles(project);
+    assertDevDependencies(project);
+    assertDependencies(project);
+    assertScripts(project);
+    assertConfigFiles(project);
+    assertAngularFiles(project);
   }
 }

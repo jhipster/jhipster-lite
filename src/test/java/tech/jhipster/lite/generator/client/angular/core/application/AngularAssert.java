@@ -5,6 +5,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
+import tech.jhipster.lite.generator.client.angular.core.domain.Angular;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class AngularAssert {
@@ -12,31 +13,11 @@ public class AngularAssert {
   private AngularAssert() {}
 
   public static void assertDevDependencies(Project project) {
-    assertFileContent(project, PACKAGE_JSON, "@angular-builders/jest" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular-devkit/build-angular" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/cli" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/compiler-cli" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@types/node" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@types/jest" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "jest" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "ts-jest" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "jest-preset-angular" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "jest-sonar-reporter" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "typescript" + DQ + ": ");
+    Angular.devDependencies().forEach(devDependency -> assertFileContent(project, PACKAGE_JSON, DQ + devDependency + DQ));
   }
 
   public static void assertDependencies(Project project) {
-    assertFileContent(project, PACKAGE_JSON, "@angular/animations" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/common" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/compiler" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/core" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/forms" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/platform-browser" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/platform-browser-dynamic" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@angular/router" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "rxjs" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "tslib" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "zone.js" + DQ + ": ");
+    Angular.dependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
   }
 
   public static void assertScripts(Project project) {
@@ -57,7 +38,7 @@ public class AngularAssert {
 
   public static void assertAngularFiles(Project project) {
     String pathWebapp = "src/main/webapp";
-    String pathApp = "src/main/webapp/app";
+    String pathApp = "src/main/webapp/app/common/primary/app";
     String pathEnvironments = "src/main/webapp/environments";
 
     assertFileExist(project, getPath(pathApp, "app.component.css"));

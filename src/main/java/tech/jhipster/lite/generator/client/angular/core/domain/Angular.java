@@ -56,23 +56,25 @@ public class Angular {
   }
 
   public static Map<String, String> angularFiles() {
+    String primaryApp = "app/common/primary/app";
+    String environments = "environments";
     // @formatter:off
     return Map.ofEntries(
       Map.entry("index.html", ""),
       Map.entry("main.ts", ""),
       Map.entry("polyfills.ts", ""),
       Map.entry("styles.css", ""),
-      Map.entry("app.module.ts", "app/common/primary/app"),
-      Map.entry("app.component.ts", "app/common/primary/app"),
-      Map.entry("app.component.css", "app/common/primary/app"),
-      Map.entry("app.component.html", "app/common/primary/app"),
-      Map.entry("app-routing.module.ts", "app/common/primary/app"),
-      Map.entry("app-routing.module.spec.ts", "app/common/primary/app"),
-      Map.entry("app.component.spec.ts", "app/common/primary/app"),
-      Map.entry("environment.prod.ts", "environments"),
-      Map.entry("environment.prod.spec.ts", "environments"),
-      Map.entry("environment.ts", "environments"),
-      Map.entry("environment.spec.ts", "environments")
+      Map.entry("app.module.ts", primaryApp),
+      Map.entry("app.component.ts", primaryApp),
+      Map.entry("app.component.css", primaryApp),
+      Map.entry("app.component.html", primaryApp),
+      Map.entry("app-routing.module.ts", primaryApp),
+      Map.entry("app-routing.module.spec.ts", primaryApp),
+      Map.entry("app.component.spec.ts", primaryApp),
+      Map.entry("environment.prod.ts", environments),
+      Map.entry("environment.prod.spec.ts", environments),
+      Map.entry("environment.ts", environments),
+      Map.entry("environment.spec.ts", environments)
     );
     // @formatter:on
   }

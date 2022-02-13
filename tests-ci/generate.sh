@@ -73,6 +73,9 @@ elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
 
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
 
+  callApi "/api/frontend-maven-plugin"
+  callApi "/api/angular"
+
 elif [[ $filename == 'undertow-simplecache' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"

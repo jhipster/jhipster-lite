@@ -45,7 +45,7 @@ class AngularDomainServiceTest {
     verify(npmService, times(5)).addScript(any(Project.class), anyString(), anyString());
 
     verify(projectRepository, times(5)).add(any(Project.class), anyString(), anyString());
-    verify(projectRepository, times(12)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(15)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -106,6 +106,6 @@ class AngularDomainServiceTest {
 
     angularDomainService.addAngularFiles(project);
 
-    verify(projectRepository, times(12)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(15)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

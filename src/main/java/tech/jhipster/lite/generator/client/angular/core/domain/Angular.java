@@ -67,9 +67,12 @@ public class Angular {
       Map.entry("app.component.css", "app/common/primary/app"),
       Map.entry("app.component.html", "app/common/primary/app"),
       Map.entry("app-routing.module.ts", "app/common/primary/app"),
+      Map.entry("app-routing.module.spec.ts", "app/common/primary/app"),
       Map.entry("app.component.spec.ts", "app/common/primary/app"),
       Map.entry("environment.prod.ts", "environments"),
-      Map.entry("environment.ts", "environments")
+      Map.entry("environment.prod.spec.ts", "environments"),
+      Map.entry("environment.ts", "environments"),
+      Map.entry("environment.spec.ts", "environments")
     );
     // @formatter:on
   }

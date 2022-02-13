@@ -47,11 +47,14 @@ public class AngularAssert {
     assertFileExist(project, getPath(pathApp, "app.component.ts"));
     assertFileExist(project, getPath(pathApp, "app.module.ts"));
     assertFileExist(project, getPath(pathApp, "app-routing.module.ts"));
+    assertFileExist(project, getPath(pathApp, "app-routing.module.spec.ts"));
     assertFileExist(project, getPath(pathWebapp, "index.html"));
     assertFileExist(project, getPath(pathWebapp, "main.ts"));
     assertFileExist(project, getPath(pathWebapp, "polyfills.ts"));
     assertFileExist(project, getPath(pathWebapp, "styles.css"));
     assertFileExist(project, getPath(pathEnvironments, "environment.prod.ts"));
+    assertFileExist(project, getPath(pathEnvironments, "environment.prod.spec.ts"));
     assertFileExist(project, getPath(pathEnvironments, "environment.ts"));
+    assertFileExist(project, getPath(pathEnvironments, "environment.spec.ts"));
   }
 }

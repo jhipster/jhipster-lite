@@ -58,12 +58,25 @@ public class EurekaAssert {
     assertFileExist(project, MAIN_RESOURCES, "config/bootstrap.properties");
     assertFileExist(project, TEST_RESOURCES, "config/bootstrap.properties");
 
+    String baseName = project.getBaseName().orElseThrow();
     assertFileContent(
       project,
       getPath(MAIN_RESOURCES, "config/bootstrap.properties"),
       List.of(
-        "spring.application.name=" + project.getBaseName().orElse("xxx"),
-        "eureka.client.service-url.defaultZone=http://admin:admin@localhost:8761/eureka"
+        "spring.application.name=" + baseName,
+        "eureka.client.service-url.defaultZone=http://admin:admin@localhost:8761/eureka",
+        "eureka.client.enabled=true",
+        "eureka.client.healthcheck.enabled=true",
+        "eureka.client.fetch-registry=true",
+        "eureka.client.register-with-eureka=true",
+        "eureka.client.instance-info-replication-interval-seconds=10",
+        "eureka.client.registry-fetch-interval-seconds=10",
+        "eureka.instance.appname=" + baseName,
+        "eureka.instance.instance-id=" + baseName + ":${spring.application.instance-id:${random.value}}",
+        "eureka.instance.lease-renewal-interval-in-seconds=5",
+        "eureka.instance.lease-expiration-duration-in-seconds=10",
+        "eureka.instance.status-page-url-path=${management.endpoints.web.base-path}/info",
+        "eureka.instance.health-check-url-path=${management.endpoints.web.base-path}/health"
       )
     );
 

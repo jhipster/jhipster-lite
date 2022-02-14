@@ -72,6 +72,8 @@ class SonarDomainServiceTest {
   void shouldNotAddSonarJavaBackendAndFrontend() {
     Project project = tmpProjectWithPomXml();
 
+    when(buildToolService.getVersion(any(Project.class), eq("properties-maven-plugin"))).thenReturn(Optional.of("0.0.0"));
+
     Assertions
       .assertThatThrownBy(() -> sonarDomainService.addSonarJavaBackendAndFrontend(project))
       .isExactlyInstanceOf(GeneratorException.class);

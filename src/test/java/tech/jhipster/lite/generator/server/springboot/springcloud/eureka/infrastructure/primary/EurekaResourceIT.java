@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -38,11 +37,7 @@ class EurekaResourceIT {
   @Test
   void shouldInit() throws Exception {
     // Given
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
 
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);

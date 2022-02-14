@@ -2,8 +2,8 @@ package tech.jhipster.lite.generator.server.sonar.domain;
 
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
-import static tech.jhipster.lite.generator.server.sonar.domain.Sonar.getMavenPluginVersion;
 
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -60,7 +60,14 @@ public class SonarDomainService implements SonarService {
         </executions>"""
       )
       .build();
-    buildToolService.addProperty(project, "properties-maven-plugin.version", "1.0.0");
+    buildToolService
+      .getVersion(project, "properties-maven-plugin")
+      .ifPresentOrElse(
+        version -> buildToolService.addProperty(project, "properties-maven-plugin.version", version),
+        () -> {
+          throw new GeneratorException("Version not found: properties-maven-plugin");
+        }
+      );
     buildToolService.addPlugin(project, plugin);
   }
 
@@ -71,7 +78,14 @@ public class SonarDomainService implements SonarService {
       .artifactId("sonar-maven-plugin")
       .version("\\${sonar-maven-plugin.version}")
       .build();
-    buildToolService.addProperty(project, "sonar-maven-plugin.version", getMavenPluginVersion());
+    buildToolService
+      .getVersion(project, "sonar-maven-plugin")
+      .ifPresentOrElse(
+        version -> buildToolService.addProperty(project, "sonar-maven-plugin.version", version),
+        () -> {
+          throw new GeneratorException("Version not found: sonar-maven-plugin");
+        }
+      );
     buildToolService.addPluginManagement(project, plugin);
   }
 

@@ -23,7 +23,7 @@ class EurekaResource {
   }
 
   @Operation(summary = "Add Spring Cloud Eureka Client")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Cloud Eureka Client config")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Cloud Eureka Client")
   @PostMapping
   @GeneratorStep(id = "eureka-client")
   public void init(@RequestBody ProjectDTO projectDTO) {

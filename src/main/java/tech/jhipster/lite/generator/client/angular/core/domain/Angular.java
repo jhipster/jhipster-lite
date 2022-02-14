@@ -58,7 +58,6 @@ public class Angular {
   public static Map<String, String> angularFiles() {
     String primaryApp = "app/common/primary/app";
     String environments = "environments";
-    // @formatter:off
     return Map.ofEntries(
       Map.entry("index.html", ""),
       Map.entry("main.ts", ""),
@@ -76,6 +75,5 @@ public class Angular {
       Map.entry("environment.ts", environments),
       Map.entry("environment.spec.ts", environments)
     );
-    // @formatter:on
   }
 }

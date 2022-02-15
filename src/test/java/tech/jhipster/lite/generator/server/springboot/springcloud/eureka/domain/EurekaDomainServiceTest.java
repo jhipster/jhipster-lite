@@ -23,6 +23,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommonService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +34,9 @@ class EurekaDomainServiceTest {
 
   @Mock
   BuildToolService buildToolService;
+
+  @Mock
+  SpringCloudCommonService springCloudCommonService;
 
   @InjectMocks
   EurekaDomainService eurekaDomainService;
@@ -67,11 +71,21 @@ class EurekaDomainServiceTest {
       assertThat(addedDependencies.get(0)).usingRecursiveComparison().isEqualTo(getExpectedStarterBootstrapDependency());
       assertThat(addedDependencies.get(1)).usingRecursiveComparison().isEqualTo(getExpectedNetflixEurekaDependency());
 
-      verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
-      verify(projectRepository)
-        .template(project, "server/springboot/springcloud/eureka/src", "bootstrap.properties", "src/main/resources/config");
-      verify(projectRepository)
-        .template(project, "server/springboot/springcloud/eureka/src/test", "bootstrap.properties", "src/test/resources/config");
+      verify(springCloudCommonService, times(2)).addOrMergeBootstrapProperties(any(Project.class), anyString(), anyString(), anyString());
+      verify(springCloudCommonService)
+        .addOrMergeBootstrapProperties(
+          project,
+          "server/springboot/springcloud/eureka/src",
+          "bootstrap.properties",
+          "src/main/resources/config"
+        );
+      verify(springCloudCommonService)
+        .addOrMergeBootstrapProperties(
+          project,
+          "server/springboot/springcloud/eureka/src/test",
+          "bootstrap.properties",
+          "src/test/resources/config"
+        );
 
       assertThat(project.getConfig("jhipsterRegistryDockerImage")).contains("jhipster/jhipster-registry:v7.1.0");
       assertThat(project.getConfig("base64JwtSecret")).contains(expectedBase64Secret);

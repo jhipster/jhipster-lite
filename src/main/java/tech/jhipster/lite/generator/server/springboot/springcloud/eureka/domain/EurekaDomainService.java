@@ -10,6 +10,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommonService;
 
 public class EurekaDomainService implements EurekaService {
 
@@ -21,10 +22,16 @@ public class EurekaDomainService implements EurekaService {
 
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
+  private final SpringCloudCommonService springCloudCommonService;
 
-  public EurekaDomainService(BuildToolService buildToolService, ProjectRepository projectRepository) {
+  public EurekaDomainService(
+    BuildToolService buildToolService,
+    ProjectRepository projectRepository,
+    SpringCloudCommonService springCloudCommonService
+  ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
+    this.springCloudCommonService = springCloudCommonService;
   }
 
   @Override
@@ -52,8 +59,13 @@ public class EurekaDomainService implements EurekaService {
   @Override
   public void addProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    projectRepository.template(project, getPath(SOURCE, "src"), BOOTSTRAP_PROPERTIES_FILE_NAME, getPath(MAIN_RESOURCES, CONFIG_FOLDER));
-    projectRepository.template(
+    springCloudCommonService.addOrMergeBootstrapProperties(
+      project,
+      getPath(SOURCE, "src"),
+      BOOTSTRAP_PROPERTIES_FILE_NAME,
+      getPath(MAIN_RESOURCES, CONFIG_FOLDER)
+    );
+    springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "src/test"),
       BOOTSTRAP_PROPERTIES_FILE_NAME,

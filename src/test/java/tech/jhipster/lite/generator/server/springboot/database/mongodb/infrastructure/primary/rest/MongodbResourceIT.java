@@ -2,10 +2,12 @@ package tech.jhipster.lite.generator.server.springboot.database.mongodb.infrastr
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.TestUtils.assertFileExist;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.server.springboot.database.mongodb.MongodbAssert.assertConfigFiles;
+import static tech.jhipster.lite.generator.server.springboot.database.mongodb.MongodbAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.database.mongodb.MongodbAssert.assertDockerMongodb;
+import static tech.jhipster.lite.generator.server.springboot.database.mongodb.MongodbAssert.assertJavaFiles;
+import static tech.jhipster.lite.generator.server.springboot.database.mongodb.MongodbAssert.assertLoggerInConfig;
+import static tech.jhipster.lite.generator.server.springboot.database.mongodb.MongodbAssert.assertTestFiles;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,16 +60,11 @@ class MongodbResourceIT {
       )
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getFolder();
-    assertFileExist(
-      projectPath,
-      getPath(MAIN_JAVA, "tech/jhipster/chips/technical/infrastructure/secondary/mongodb/JSR310DateConverters.java")
-    );
-    assertFileExist(
-      projectPath,
-      getPath(TEST_JAVA, "tech/jhipster/chips/technical/infrastructure/secondary/mongodb/JSR310DateConvertersTest.java")
-    );
-
-    assertFileExist(projectPath, "src/main/docker/mongodb.yml");
+    assertDependencies(project);
+    assertDockerMongodb(project);
+    assertJavaFiles(project);
+    assertTestFiles(project);
+    assertConfigFiles(project);
+    assertLoggerInConfig(project);
   }
 }

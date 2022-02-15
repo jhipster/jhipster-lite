@@ -11,9 +11,9 @@ import tech.jhipster.lite.generator.server.springboot.database.mongodb.domain.Mo
 @Configuration
 public class MongodbBeanConfiguration {
 
-  public final ProjectRepository projectRepository;
-  public final BuildToolService buildToolService;
-  public final SpringBootCommonService springBootCommonService;
+  private final ProjectRepository projectRepository;
+  private final BuildToolService buildToolService;
+  private final SpringBootCommonService springBootCommonService;
 
   public MongodbBeanConfiguration(
     ProjectRepository projectRepository,

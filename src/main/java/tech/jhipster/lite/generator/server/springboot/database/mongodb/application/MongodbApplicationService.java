@@ -16,36 +16,4 @@ public class MongodbApplicationService {
   public void init(Project project) {
     mongodbService.init(project);
   }
-
-  public void addSpringDataMongodb(Project project) {
-    mongodbService.addSpringDataMongodb(project);
-  }
-
-  public void addMongodbDriver(Project project) {
-    mongodbService.addMongodbDriver(project);
-  }
-
-  public void addDockerCompose(Project project) {
-    mongodbService.addDockerCompose(project);
-  }
-
-  public void addJavaFiles(Project project) {
-    mongodbService.addJavaFiles(project);
-  }
-
-  public void addConfigurationFiles(Project project) {
-    mongodbService.addConfigurationFiles(project);
-  }
-
-  public void addProperties(Project project) {
-    mongodbService.addProperties(project);
-  }
-
-  public void addLogger(Project project) {
-    mongodbService.addLoggerInConfiguration(project);
-  }
-
-  public void addTestContainers(Project project) {
-    mongodbService.addTestcontainers(project);
-  }
 }

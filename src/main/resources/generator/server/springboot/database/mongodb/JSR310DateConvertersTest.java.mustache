@@ -4,10 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import {{packageName}}.UnitTest;
 import {{packageName}}.technical.infrastructure.secondary.mongodb.JSR310DateConverters.*;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import org.junit.jupiter.api.DisplayName;
@@ -16,75 +12,21 @@ import org.junit.jupiter.api.Test;
 @UnitTest
 class JSR310DateConvertersTest {
 
-  private static final ZonedDateTime ZONED_DATE_TIME = ZonedDateTime.parse("2022-02-13T12:00:00+01:00[Europe/Paris]");
-
-  @Test
-  @DisplayName("Should convert LocalDate to Date")
-  void shouldConvertLocalDateToDate() {
-    LocalDate source = ZONED_DATE_TIME.toLocalDate();
-    Date result = LocalDateToDateConverter.INSTANCE.convert(source);
-    assertThat(result).isEqualTo(toDate(source));
-  }
-
-  @Test
-  @DisplayName("Should convert Date to LocalDate")
-  void shouldConvertDateToLocalDate() {
-    Date source = toDate(ZONED_DATE_TIME);
-    LocalDate result = DateToLocalDateConverter.INSTANCE.convert(source);
-    assertThat(result).isEqualTo(ZONED_DATE_TIME.toLocalDate());
-  }
-
-  @Test
-  @DisplayName("Should convert Date to LocalDateTime")
-  void shouldConvertDateToLocalDateTime() {
-    Date source = toDate(ZONED_DATE_TIME);
-    LocalDateTime result = DateToLocalDateTimeConverter.INSTANCE.convert(source);
-    assertThat(result).isEqualTo(ZONED_DATE_TIME.toLocalDateTime());
-  }
-
-  @Test
-  @DisplayName("Should convert LocalDateTime to Date")
-  void shouldConvertLocalDateTimeToDate() {
-    LocalDateTime source = ZONED_DATE_TIME.toLocalDateTime();
-    Date result = LocalDateTimeToDateConverter.INSTANCE.convert(source);
-    assertThat(result).isEqualTo(toDate(ZONED_DATE_TIME));
-  }
-
   @Test
   @DisplayName("Should convert ZonedDateTime to Date")
   void shouldConvertZonedDateTimeToDate() {
-    Date result = ZonedDateTimeToDateConverter.INSTANCE.convert(ZONED_DATE_TIME);
-    assertThat(result).isEqualTo(toDate(ZONED_DATE_TIME));
+    ZonedDateTime source = ZonedDateTime.parse("2022-02-15T12:00:00+01:00[Europe/Paris]");
+    Date expected = Date.from(source.toInstant());
+    Date result = ZonedDateTimeToDateConverter.INSTANCE.convert(source);
+    assertThat(result).isEqualTo(expected);
   }
 
   @Test
   @DisplayName("Should convert Date to ZonedDateTime")
   void shouldConvertDateToZonedDateTime() {
-    Date source = toDate(ZONED_DATE_TIME);
+    ZonedDateTime expected = ZonedDateTime.parse("2022-02-15T12:00:00+01:00[Europe/Paris]");
+    Date source = Date.from(expected.toInstant());
     ZonedDateTime result = DateToZonedDateTimeConverter.INSTANCE.convert(source);
-    assertThat(result).isEqualTo(ZONED_DATE_TIME);
-  }
-
-  @Test
-  @DisplayName("Should convert Duration to Long")
-  void shouldConvertDurationToLong() {
-    Long result = DurationToLongConverter.INSTANCE.convert(Duration.ofDays(2));
-    assertThat(result).isEqualTo(172800000000000L);
-  }
-
-  @Test
-  @DisplayName("Should convert Long to Duration")
-  void shouldConvertLongToDuration() {
-    Duration result = LongToDurationConverter.INSTANCE.convert(172800000000000L);
-    assertThat(result).isEqualTo(Duration.ofDays(2));
-    assertThat(result).isEqualTo(Duration.ofHours(48));
-  }
-
-  private Date toDate(ZonedDateTime zonedDateTime) {
-    return Date.from(zonedDateTime.toInstant());
-  }
-
-  private Date toDate(LocalDate localDate) {
-    return Date.from(localDate.atStartOfDay().atZone(ZoneId.of("Europe/Paris")).toInstant());
+    assertThat(result).isEqualTo(expected);
   }
 }

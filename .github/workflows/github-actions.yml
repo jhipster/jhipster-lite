@@ -92,6 +92,7 @@ jobs:
           - undertow-simplecache
           - tomcat-configserver
           - undertow-consul
+          - tomcat-mongodb
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2

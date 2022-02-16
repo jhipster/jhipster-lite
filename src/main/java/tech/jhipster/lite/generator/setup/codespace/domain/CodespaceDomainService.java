@@ -22,12 +22,10 @@ public class CodespaceDomainService implements CodespaceService {
     addDocker(project);
   }
 
-  @Override
   public void addJSON(Project project) {
     projectRepository.add(project, SOURCE, "devcontainer.json", DEVCONTAINER_DEST, "devcontainer.json");
   }
 
-  @Override
   public void addDocker(Project project) {
     projectRepository.add(project, SOURCE, "Dockerfile", DEVCONTAINER_DEST, "Dockerfile");
   }

@@ -13,4 +13,5 @@ public interface NpmService {
 
   Optional<String> getVersion(String folder, String name);
   Optional<String> getVersionInCommon(String name);
+  Optional<String> getVersionInAngular(String name);
 }

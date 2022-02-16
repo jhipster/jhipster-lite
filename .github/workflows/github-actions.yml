@@ -99,6 +99,7 @@ jobs:
           - tomcat-configserver
           - undertow-consul
           - tomcat-eureka
+          - tomcat-mongodb
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2

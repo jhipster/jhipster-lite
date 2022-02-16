@@ -81,6 +81,7 @@ class SpringCloudCommonDomainServiceTest {
             """
               # a comment
               prop1=valueFromGenerator1
+
               prop2=valueFromGenerator2
               prop3=valueFromGenerator3
               """
@@ -94,6 +95,7 @@ class SpringCloudCommonDomainServiceTest {
             prop1=existingValueEditedByUser
             prop2=value2
             prop4=valueAddedByUser
+
             """
           );
 
@@ -106,7 +108,46 @@ class SpringCloudCommonDomainServiceTest {
         );
 
         // Then
-        fileUtils.verify(() -> FileUtils.appendLines(destinationFilePath, List.of("prop3=valueFromGenerator3")));
+        fileUtils.verify(() -> FileUtils.appendLines(destinationFilePath, List.of("", "prop3=valueFromGenerator3")));
+      }
+    }
+
+    @Test
+    void shouldNotAppendPropertiesInExistingFileWhenAllPropertiesExist() {
+      // Given
+      String folderPath = "/project/folder/path";
+      Map<String, Object> config = Map.of("baseName", "foo");
+      Project project = new Project.ProjectBuilder().folder(folderPath).config(config).build();
+
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String destinationFilePath = "/destination/file/path/bootstrap.properties";
+        fileUtils.when(() -> FileUtils.getPath(folderPath, DESTINATION_FILE_FOLDER, SOURCE_FILE_NAME)).thenReturn(destinationFilePath);
+
+        fileUtils.when(() -> FileUtils.exists(anyString())).thenReturn(true);
+
+        when(projectRepository.getComputedTemplate(project, SOURCE_FOLDER_PATH, SOURCE_FILE_NAME))
+          .thenReturn("""
+              # a comment
+              prop1=valueFromGenerator1
+              """);
+
+        fileUtils
+          .when(() -> FileUtils.read(destinationFilePath))
+          .thenReturn("""
+            # a comment
+            prop1=valueFromGenerator1
+            """);
+
+        // When
+        springCloudCommonDomainService.addOrMergeBootstrapProperties(
+          project,
+          SOURCE_FOLDER_PATH,
+          SOURCE_FILE_NAME,
+          DESTINATION_FILE_FOLDER
+        );
+
+        // Then
+        fileUtils.verify(() -> FileUtils.appendLines(anyString(), any()), never());
       }
     }
 

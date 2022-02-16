@@ -53,15 +53,22 @@ public class SpringCloudCommonDomainService implements SpringCloudCommonService 
         return !destinationFilePropertyKeys.contains(propertyKey);
       })
       .toList();
-    try {
-      FileUtils.appendLines(destinationFilePath, linesToAdd);
-    } catch (IOException e) {
-      throw new GeneratorException("Cannot get append lines in file: " + destinationFilePath, e);
+    if (!linesToAdd.isEmpty()) {
+      try {
+        FileUtils.appendLines(destinationFilePath, linesToAdd);
+      } catch (IOException e) {
+        throw new GeneratorException("Cannot get append lines in file: " + destinationFilePath, e);
+      }
     }
   }
 
   private List<String> getPropertyKeys(List<String> fileContentLines) {
-    return fileContentLines.stream().filter(line -> !line.startsWith(COMMENT_PROPERTIES_PREFIX)).map(this::getPropertyKey).toList();
+    return fileContentLines
+      .stream()
+      .filter(line -> !line.startsWith(COMMENT_PROPERTIES_PREFIX))
+      .filter(line -> !line.trim().isEmpty())
+      .map(this::getPropertyKey)
+      .toList();
   }
 
   private String getPropertyKey(String propertyLine) {

@@ -91,6 +91,11 @@ public class NpmDomainService implements NpmService {
   }
 
   @Override
+  public Optional<String> getVersionInReact(String name) {
+    return getVersion("react", name);
+  }
+
+  @Override
   public Optional<String> getVersionInAngular(String name) {
     return getVersion("angular", name);
   }

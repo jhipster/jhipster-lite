@@ -51,7 +51,7 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue"
 
-  callApi ""
+  callApi "/api/setup/codespaces"
 
 elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/projects/init"

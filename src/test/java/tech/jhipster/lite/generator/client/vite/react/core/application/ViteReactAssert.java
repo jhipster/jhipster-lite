@@ -19,35 +19,36 @@ public class ViteReactAssert {
     assertFileContent(project, PACKAGE_JSON, "@types/node" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@types/react" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@types/react-dom" + DQ + ": ");
+    assertFileContent(project, PACKAGE_JSON, "@vitejs/plugin-react" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "react" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "react-dom" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "react-scripts" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "typescript" + DQ + ": ");
+    assertFileContent(project, PACKAGE_JSON, "vite" + DQ + ": ");
   }
 
   public static void assertScripts(Project project) {
-    assertFileContent(project, PACKAGE_JSON, "start");
+    assertFileContent(project, PACKAGE_JSON, "dev");
     assertFileContent(project, PACKAGE_JSON, "build");
+    assertFileContent(project, PACKAGE_JSON, "preview");
     assertFileContent(project, PACKAGE_JSON, "test");
   }
 
   public static void assertConfigFiles(Project project) {
     assertFileExist(project, "tsconfig.json");
-    assertFileExist(project, "tsconfig.node.json");
     assertFileExist(project, "vite.config.ts");
   }
 
   public static void assertReactFiles(Project project) {
-    String pathPublic = "public";
     String pathSrc = "src";
     String pathWebapp = "src/main/webapp";
+    String pathApp = "src/main/webapp/app";
     String primaryApp = "src/main/webapp/app/common/primary/app";
     String primaryTestApp = "src/test/javascript/spec/common/primary/app";
 
-    assertFileExist(project, getPath(pathPublic, "index.html"));
-    assertFileExist(project, getPath(pathWebapp, "index.css"));
-    assertFileExist(project, getPath(pathSrc, "index.tsx"));
-    assertFileExist(project, getPath(pathWebapp, "react-app-env.d.ts"));
+    assertFileExist(project, getPath(pathWebapp, "index.html"));
+    assertFileExist(project, getPath(pathApp, "index.css"));
+    assertFileExist(project, getPath(pathApp, "index.tsx"));
+    assertFileExist(project, getPath(pathApp, "vite-env.d.ts"));
     assertFileExist(project, getPath(primaryApp, "App.css"));
     assertFileExist(project, getPath(primaryApp, "App.tsx"));
     assertFileExist(project, getPath(primaryTestApp, "App.test.tsx"));

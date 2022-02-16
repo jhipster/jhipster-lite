@@ -22,27 +22,24 @@ public class ViteReact {
       "@types/react-dom",
       "@vitejs/plugin-react",
       "typescript",
-      "vite",
-      "webpack",
-      "webpack-cli",
-      "webpack-dev-server"
+      "vite"
     );
   }
 
   public static Map<String, String> scripts() {
-    return Map.of("dev", "vite", "build", "tsc && vite build", "preview", "vite preview");
+    return Map.of("dev", "vite", "build", "tsc && vite build", "preview", "vite preview", "test", "jest");
   }
 
   public static List<String> files() {
-    return List.of("tsconfig.json", "tsconfig.node.json", "vite.config.ts");
+    return List.of("tsconfig.json", "vite.config.ts");
   }
 
   public static Map<String, String> reactFiles() {
     return Map.ofEntries(
-      Map.entry("index.html", "public"),
-      Map.entry("index.css", "src/main/webapp"),
-      Map.entry("index.tsx", "src/main/webapp"),
-      Map.entry("react-app-env.d.ts", "src/main/webapp"),
+      Map.entry("index.html", "src/main/webapp"),
+      Map.entry("index.css", "src/main/webapp/app"),
+      Map.entry("index.tsx", "src/main/webapp/app"),
+      Map.entry("vite-env.d.ts", "src/main/webapp/app"),
       Map.entry("App.css", "src/main/webapp/app/common/primary/app"),
       Map.entry("App.tsx", "src/main/webapp/app/common/primary/app"),
       Map.entry("App.test.tsx", "src/test/javascript/spec/common/primary/app"),

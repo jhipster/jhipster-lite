@@ -36,14 +36,14 @@ class ViteReactDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProject();
-    when(npmService.getVersionInReact(anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersionInViteReact(anyString())).thenReturn(Optional.of("0.0.0"));
 
     viteReactDomainService.init(project);
 
-    verify(npmService, times(11)).addDependency(any(Project.class), anyString(), anyString());
-    verify(npmService, times(3)).addScript(any(Project.class), anyString(), anyString());
+    verify(npmService, times(2)).addDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(4)).addScript(any(Project.class), anyString(), anyString());
 
-    verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString());
     verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 

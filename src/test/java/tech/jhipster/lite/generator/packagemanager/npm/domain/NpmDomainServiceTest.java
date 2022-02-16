@@ -118,36 +118,36 @@ class NpmDomainServiceTest {
 
     @Test
     void shouldGetVersion() {
-      assertThat(npmDomainService.getVersionInReact("react-dom")).isNotEmpty();
+      assertThat(npmDomainService.getVersionInViteReact("react-dom")).isNotEmpty();
     }
 
     @Test
     void shouldNotGetVersionForNull() {
-      assertThatThrownBy(() -> npmDomainService.getVersionInReact(null))
+      assertThatThrownBy(() -> npmDomainService.getVersionInViteReact(null))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("name");
     }
 
     @Test
     void shouldNotGetVersionForBlank() {
-      assertThatThrownBy(() -> npmDomainService.getVersionInReact(" "))
+      assertThatThrownBy(() -> npmDomainService.getVersionInViteReact(" "))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("name");
     }
 
     @Test
     void shouldNotGetVersion() {
-      assertThat(npmDomainService.getVersionInReact("unknown")).isEmpty();
+      assertThat(npmDomainService.getVersionInViteReact("unknown")).isEmpty();
     }
 
     @Test
     void shouldNotGetVersionForDescription() {
-      assertThat(npmDomainService.getVersionInReact("description")).isEmpty();
+      assertThat(npmDomainService.getVersionInViteReact("description")).isEmpty();
     }
 
     @Test
     void shouldNotGetVersionForCloseBracket() {
-      assertThat(npmDomainService.getVersionInReact("}")).isEmpty();
+      assertThat(npmDomainService.getVersionInViteReact("}")).isEmpty();
     }
   }
 

@@ -25,7 +25,7 @@ public class ViteReactDomainService implements ViteReactService {
       .dependencies()
       .forEach(dependency ->
         npmService
-          .getVersionInReact(dependency)
+          .getVersionInViteReact(dependency)
           .ifPresentOrElse(
             version -> npmService.addDependency(project, dependency, version),
             () -> {
@@ -37,7 +37,7 @@ public class ViteReactDomainService implements ViteReactService {
       .devDependencies()
       .forEach(dependency ->
         npmService
-          .getVersionInReact(dependency)
+          .getVersionInViteReact(dependency)
           .ifPresentOrElse(
             version -> npmService.addDevDependency(project, dependency, version),
             () -> {

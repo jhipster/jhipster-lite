@@ -13,14 +13,6 @@ public class CodespaceApplicationService {
     this.codespaceService = codespaceService;
   }
 
-  public void addJSONcontainer(Project project) {
-    codespaceService.addJSON(project);
-  }
-
-  public void addDockerfilecontainer(Project project) {
-    codespaceService.addDocker(project);
-  }
-
   public void init(Project project) {
     codespaceService.init(project);
   }

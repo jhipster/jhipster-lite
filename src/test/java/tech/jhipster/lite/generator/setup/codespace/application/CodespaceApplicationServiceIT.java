@@ -17,22 +17,11 @@ public class CodespaceApplicationServiceIT {
   CodespaceApplicationService codespaceApplicationService;
 
   @Test
-  void shouldAddJsonContainer() {
+  void shouldInitFiles() {
     Project project = tmpProject();
 
-    codespaceApplicationService.addJSONcontainer(project);
-
-    assertFilesContainerJson(project);
-    assertFileContent(project, ".devcontainer/devcontainer.json", "\"name\": \"Java\"");
-  }
-
-  @Test
-  void shouldAddDockerfile() {
-    Project project = tmpProject();
-
-    codespaceApplicationService.addDockerfilecontainer(project);
-
+    codespaceApplicationService.init(project);
     assertFilesDockerfile(project);
-    assertFileContent(project, ".devcontainer/Dockerfile", "ARG VARIANT=\"17\"");
+    assertFilesContainerJson(project);
   }
 }

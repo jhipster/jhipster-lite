@@ -43,7 +43,17 @@ class ViteVueDomainServiceTest {
   @Test
   void shouldAddStyledViteVue() {
     Project project = tmpProjectWithPackageJson();
-    assertThatCode(() -> viteVueDomainService.addStyledViteVue(project)).doesNotThrowAnyException();
+    //assertThatCode(() -> viteVueDomainService.addStyledViteVue(project)).doesNotThrowAnyException();
+    viteVueDomainService.addStyledIndex(project);
+
+    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldNotAddStyledIndex() {
+    Project project = tmpProjectWithPackageJson();
+
+    assertThatThrownBy(() -> viteVueDomainService.addStyledViteVue(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

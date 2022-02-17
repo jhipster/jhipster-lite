@@ -54,5 +54,12 @@ class ViveVueResourceIT {
     mockMvc
       .perform(post("/api/vite/vue/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
+
+    assertDependency(project);
+    assertScripts(project);
+
+    assertViteConfigFiles(project);
+    assertRootFiles(project);
+    assertAppFiles(project);
   }
 }

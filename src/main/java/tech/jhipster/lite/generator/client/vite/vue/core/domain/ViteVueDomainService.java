@@ -41,7 +41,7 @@ public class ViteVueDomainService implements ViteVueService {
     addStyledIndex(project);
   }
 
-  private void addStyledIndex(Project project) {
+  public void addStyledIndex(Project project) {
     String sourcePrimary = getPath(SOURCE, "webapp/app/common/primary/app");
     String destinationPrimary = "src/main/webapp/app/common/primary/app";
 

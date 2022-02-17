@@ -31,7 +31,7 @@ public class CodespaceResourceIT {
       .perform(post("/api/setup/codespaces").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    assertFileContent(project, ".devcontainer/devcontainer.js", "e");
-    assertFileContent(project, ".devcontainer/Dockerfile", "A");
+    assertFileContent(project, ".devcontainer/devcontainer.json", "\"dockerfile\": \"Dockerfile\"");
+    assertFileContent(project, ".devcontainer/Dockerfile", "ARG VARIANT=\"17\"");
   }
 }

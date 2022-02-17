@@ -99,6 +99,7 @@ jobs:
           - tomcat-configserver
           - undertow-consul
           - tomcat-mongodb
+          - tomcat-vite-react
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2

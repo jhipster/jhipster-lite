@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.TestUtils;
-import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
@@ -26,18 +24,14 @@ public class CodespaceResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
 
     mockMvc
       .perform(post("/api/setup/codespaces").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    Project project = ProjectDTO.toProject(projectDTO);
-    assertFileContent(project, ".devcontainer/devcontainer.js", "\"name\": \"Java\"");
-    assertFileContent(project, ".devcontainer/Dockerfile", "ARG VARIANT=\"17\"");
+    assertFileContent(project, ".devcontainer/devcontainer.js", "e");
+    assertFileContent(project, ".devcontainer/Dockerfile", "A");
   }
 }

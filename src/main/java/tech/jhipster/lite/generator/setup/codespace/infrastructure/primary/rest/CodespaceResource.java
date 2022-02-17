@@ -14,7 +14,7 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 
 @RestController
 @RequestMapping("/api/setup")
-@Tag(name = "setUp")
+@Tag(name = "Setup")
 class CodespaceResource {
 
   private final CodespaceApplicationService codespaceApplicationService;

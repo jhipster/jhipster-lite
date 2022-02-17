@@ -41,6 +41,7 @@ class ViteReactDomainServiceTest {
     viteReactDomainService.init(project);
 
     verify(npmService, times(2)).addDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(10)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(4)).addScript(any(Project.class), anyString(), anyString());
 
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString());

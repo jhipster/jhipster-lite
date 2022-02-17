@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.common.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.COMMENT_PROPERTIES_PREFIX;
+import static tech.jhipster.lite.generator.project.domain.Constants.KEY_VALUE_PROPERTIES_SEPARATOR;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,8 +13,6 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class SpringCloudCommonDomainService implements SpringCloudCommonService {
 
-  public static final String COMMENT_PROPERTIES_PREFIX = "#";
-  public static final String KEY_PROPERTY_SEPARATOR = "=";
   private final ProjectRepository projectRepository;
 
   public SpringCloudCommonDomainService(ProjectRepository projectRepository) {
@@ -72,6 +72,6 @@ public class SpringCloudCommonDomainService implements SpringCloudCommonService 
   }
 
   private String getPropertyKey(String propertyLine) {
-    return propertyLine.split(KEY_PROPERTY_SEPARATOR, 2)[0];
+    return propertyLine.split(KEY_VALUE_PROPERTIES_SEPARATOR, 2)[0];
   }
 }

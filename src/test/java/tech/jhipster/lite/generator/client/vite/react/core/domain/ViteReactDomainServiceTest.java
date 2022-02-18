@@ -3,10 +3,8 @@ package tech.jhipster.lite.generator.client.vite.react.core.domain;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.tmpProject;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -53,5 +51,19 @@ class ViteReactDomainServiceTest {
     Project project = tmpProject();
 
     assertThatThrownBy(() -> viteReactDomainService.init(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldNotAddDependencies() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> viteReactDomainService.addDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldNotAddDevDependencies() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> viteReactDomainService.addDevDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

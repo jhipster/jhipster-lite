@@ -39,6 +39,7 @@ class ReactResourceIT {
 
     ViteReactAssert.assertDependencies(project);
     ViteReactAssert.assertScripts(project);
-    ViteReactAssert.assertConfigFiles(project);
+    ViteReactAssert.assertReactFiles(project);
+    ViteReactAssert.assertFiles(project);
   }
 }

@@ -21,7 +21,7 @@ class ViteReactApplicationServiceIT {
 
     ViteReactAssert.assertDependencies(project);
     ViteReactAssert.assertScripts(project);
-    ViteReactAssert.assertConfigFiles(project);
+    ViteReactAssert.assertFiles(project);
     ViteReactAssert.assertReactFiles(project);
   }
 }

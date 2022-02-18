@@ -33,7 +33,7 @@ public class ViteReactAssert {
     assertFileContent(project, PACKAGE_JSON, "test");
   }
 
-  public static void assertConfigFiles(Project project) {
+  public static void assertFiles(Project project) {
     assertFileExist(project, "tsconfig.json");
     assertFileExist(project, "vite.config.ts");
   }

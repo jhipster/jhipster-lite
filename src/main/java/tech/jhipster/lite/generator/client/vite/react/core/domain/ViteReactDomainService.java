@@ -21,18 +21,14 @@ public class ViteReactDomainService implements ViteReactService {
 
   @Override
   public void init(Project project) {
-    ViteReact
-      .dependencies()
-      .forEach(dependency ->
-        npmService
-          .getVersionInViteReact(dependency)
-          .ifPresentOrElse(
-            version -> npmService.addDependency(project, dependency, version),
-            () -> {
-              throw new GeneratorException("Dependency not found: " + dependency);
-            }
-          )
-      );
+    addDevDependencies(project);
+    addDependencies(project);
+    addScripts(project);
+    addFiles(project);
+    addViteReactFiles(project);
+  }
+
+  public void addDevDependencies(Project project) {
     ViteReact
       .devDependencies()
       .forEach(dependency ->
@@ -45,8 +41,32 @@ public class ViteReactDomainService implements ViteReactService {
             }
           )
       );
+  }
+
+  public void addDependencies(Project project) {
+    ViteReact
+      .dependencies()
+      .forEach(dependency ->
+        npmService
+          .getVersionInViteReact(dependency)
+          .ifPresentOrElse(
+            version -> npmService.addDependency(project, dependency, version),
+            () -> {
+              throw new GeneratorException("Dependency not found: " + dependency);
+            }
+          )
+      );
+  }
+
+  public void addScripts(Project project) {
     ViteReact.scripts().forEach((name, cmd) -> npmService.addScript(project, name, cmd));
+  }
+
+  public void addFiles(Project project) {
     ViteReact.files().forEach(file -> projectRepository.add(project, SOURCE, file));
-    ViteReact.reactFiles().forEach((file, path) -> projectRepository.template(project, SOURCE + "/" + path, file, getPath("/", path)));
+  }
+
+  public void addViteReactFiles(Project project) {
+    ViteReact.reactFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
   }
 }

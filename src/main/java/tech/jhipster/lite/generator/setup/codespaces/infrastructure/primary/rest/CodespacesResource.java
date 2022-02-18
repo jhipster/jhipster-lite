@@ -23,7 +23,7 @@ class CodespacesResource {
     this.codespacesApplicationService = codespacesApplicationService;
   }
 
-  @Operation(summary = "Github Codespaces", description = "Init github codespace configuration files")
+  @Operation(summary = "GitHub Codespaces", description = "Init GitHub Codespaces configuration files")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing Github Codespace files.")
   @PostMapping("/codespaces")
   @GeneratorStep(id = "github codespaces")

@@ -20,8 +20,12 @@ public class ViteReactAssert {
     assertFileContent(project, PACKAGE_JSON, "@types/react" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@types/react-dom" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "@vitejs/plugin-react" + DQ + ": ");
+    assertFileContent(project, PACKAGE_JSON, "jest" + DQ + ": ");
+    assertFileContent(project, PACKAGE_JSON, "jest-css-modules" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "react" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "react-dom" + DQ + ": ");
+    assertFileContent(project, PACKAGE_JSON, "ts-jest" + DQ + ": ");
+    assertFileContent(project, PACKAGE_JSON, "ts-node" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "typescript" + DQ + ": ");
     assertFileContent(project, PACKAGE_JSON, "vite" + DQ + ": ");
   }
@@ -36,6 +40,7 @@ public class ViteReactAssert {
   public static void assertFiles(Project project) {
     assertFileExist(project, "tsconfig.json");
     assertFileExist(project, "vite.config.ts");
+    assertFileExist(project, "jest.config.ts");
   }
 
   public static void assertReactFiles(Project project) {

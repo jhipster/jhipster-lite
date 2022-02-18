@@ -21,7 +21,11 @@ public class ViteReact {
       "@types/react",
       "@types/react-dom",
       "@vitejs/plugin-react",
+      "jest",
+      "jest-css-modules",
       "typescript",
+      "ts-jest",
+      "ts-node",
       "vite"
     );
   }
@@ -31,7 +35,7 @@ public class ViteReact {
   }
 
   public static List<String> files() {
-    return List.of("tsconfig.json", "vite.config.ts");
+    return List.of("tsconfig.json", "vite.config.ts", "jest.config.ts");
   }
 
   public static Map<String, String> reactFiles() {

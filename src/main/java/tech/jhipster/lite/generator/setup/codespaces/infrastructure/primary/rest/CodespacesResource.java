@@ -26,7 +26,7 @@ class CodespacesResource {
   @Operation(summary = "GitHub Codespaces", description = "Init GitHub Codespaces configuration files")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing GitHub Codespace files.")
   @PostMapping("/codespaces")
-  @GeneratorStep(id = "github codespaces")
+  @GeneratorStep(id = "github-codespaces")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     codespacesApplicationService.init(project);

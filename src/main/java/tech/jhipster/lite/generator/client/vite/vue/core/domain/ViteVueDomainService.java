@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.client.vite.vue.core.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import java.util.List;
 import java.util.Map;
@@ -118,6 +119,8 @@ public class ViteVueDomainService implements ViteVueService {
   }
 
   public void addAppFilesWithCss(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+
     projectRepository.template(project, SOURCE_PRIMARY, "StyledApp.html", DESTINATION_PRIMARY, "App.html");
     projectRepository.template(project, SOURCE_PRIMARY, "StyledApp.vue", DESTINATION_PRIMARY, "App.vue");
 

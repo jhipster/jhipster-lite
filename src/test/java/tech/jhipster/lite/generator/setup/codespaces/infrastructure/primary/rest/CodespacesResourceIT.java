@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.setup.codespace.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.setup.codespaces.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,7 +17,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 
 @IntegrationTest
 @AutoConfigureMockMvc
-public class CodespaceResourceIT {
+class CodespacesResourceIT {
 
   @Autowired
   MockMvc mockMvc;

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.setup.codespace.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.setup.codespaces.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.setup.codespace.application.CodespaceApplicationService;
+import tech.jhipster.lite.generator.setup.codespaces.application.CodespacesApplicationService;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/setup")
 @Tag(name = "Setup")
-class CodespaceResource {
+class CodespacesResource {
 
-  private final CodespaceApplicationService codespaceApplicationService;
+  private final CodespacesApplicationService codespacesApplicationService;
 
-  public CodespaceResource(CodespaceApplicationService codespaceApplicationService) {
-    this.codespaceApplicationService = codespaceApplicationService;
+  public CodespacesResource(CodespacesApplicationService codespacesApplicationService) {
+    this.codespacesApplicationService = codespacesApplicationService;
   }
 
-  @Operation(summary = "Init", description = "Init Maven project with pom.xml and wrapper")
-  @ApiResponse(responseCode = "500", description = "An error occurred while initializing Maven project")
+  @Operation(summary = "Github Codespaces", description = "Init github codespace configuration files")
+  @ApiResponse(responseCode = "500", description = "An error occurred while initializing Github Codespace files.")
   @PostMapping("/codespaces")
-  @GeneratorStep(id = "codespace")
+  @GeneratorStep(id = "github codespaces")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    codespaceApplicationService.init(project);
+    codespacesApplicationService.init(project);
   }
 }

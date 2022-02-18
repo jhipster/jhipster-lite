@@ -6,6 +6,8 @@ import tech.jhipster.lite.generator.project.domain.Project;
 
 public class CodespacesAssertFiles {
 
+  private CodespacesAssertFiles() {}
+
   public static void assertFilesContainerJson(Project project) {
     assertFileExist(project, ".devcontainer/devcontainer.json");
   }

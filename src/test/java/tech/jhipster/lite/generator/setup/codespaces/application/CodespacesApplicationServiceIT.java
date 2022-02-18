@@ -10,7 +10,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
-public class CodespacesApplicationServiceIT {
+class CodespacesApplicationServiceIT {
 
   @Autowired
   CodespacesApplicationService codespacesApplicationService;

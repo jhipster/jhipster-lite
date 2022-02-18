@@ -16,7 +16,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-public class CodespacesDomainServiceTest {
+class CodespacesDomainServiceTest {
 
   @Mock
   private ProjectRepository projectRepository;

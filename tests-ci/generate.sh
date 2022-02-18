@@ -50,6 +50,16 @@ if [[ $filename == 'full-default' ]]; then
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue"
+
+elif [[ $filename == 'vueapp' ]]; then
+  callApi "/api/projects/init"
+  callApi "/api/build-tools/maven"
+  callApi "/api/servers/java/base"
+  callApi "/api/servers/java/jacoco-minimum-coverage"
+  callApi "/api/servers/spring-boot"
+  callApi "/api/servers/spring-boot/mvc/web/tomcat"
+
+  callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue/styled"
 
 elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then

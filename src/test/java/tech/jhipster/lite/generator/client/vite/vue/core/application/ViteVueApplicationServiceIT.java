@@ -44,6 +44,7 @@ class ViteVueApplicationServiceIT {
     assertRootFiles(project);
     assertAppFiles(project);
     assertAppWithCss(project);
+    assertLogos(project);
 
     assertJestSonar(project);
   }

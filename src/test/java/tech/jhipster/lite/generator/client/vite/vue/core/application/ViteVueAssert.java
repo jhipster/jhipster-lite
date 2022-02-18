@@ -53,6 +53,11 @@ public class ViteVueAssert {
     assertFileContent(project, "src/main/webapp/app/common/primary/app/App.vue", "<style>");
   }
 
+  public static void assertLogos(Project project) {
+    assertFileExist(project, "src/main/webapp/content/images/JHipster-Lite-neon-green.png");
+    assertFileExist(project, "src/main/webapp/content/images/VueLogo.png");
+  }
+
   public static void assertJestSonar(Project project) {
     assertFileContent(
       project,

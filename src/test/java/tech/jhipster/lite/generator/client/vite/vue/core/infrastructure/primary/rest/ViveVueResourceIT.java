@@ -43,6 +43,9 @@ class ViveVueResourceIT {
     assertViteConfigFiles(project);
     assertRootFiles(project);
     assertAppFiles(project);
+    assertAppWithoutCss(project);
+
+    assertJestSonar(project);
   }
 
   @Test
@@ -61,5 +64,8 @@ class ViveVueResourceIT {
     assertViteConfigFiles(project);
     assertRootFiles(project);
     assertAppFiles(project);
+    assertAppWithCss(project);
+
+    assertJestSonar(project);
   }
 }

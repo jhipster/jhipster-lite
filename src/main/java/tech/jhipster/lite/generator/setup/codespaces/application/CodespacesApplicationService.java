@@ -9,7 +9,7 @@ public class CodespacesApplicationService {
 
   private final CodespacesService codespacesService;
 
-  public CodespacesApplicationService(CodespacesService codespaceService) {
+  public CodespacesApplicationService(CodespacesService codespacesService) {
     this.codespacesService = codespaceService;
   }
 

@@ -102,6 +102,8 @@ public class ViteVueDomainService implements ViteVueService {
   }
 
   public void addAppFiles(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+
     projectRepository.template(project, SOURCE_PRIMARY, "App.component.ts", DESTINATION_PRIMARY);
     projectRepository.template(project, SOURCE_PRIMARY, "index.ts", DESTINATION_PRIMARY);
 
@@ -114,6 +116,8 @@ public class ViteVueDomainService implements ViteVueService {
   }
 
   public void addAppFilesWithoutCss(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+
     projectRepository.template(project, SOURCE_PRIMARY, "App.html", DESTINATION_PRIMARY);
     projectRepository.template(project, SOURCE_PRIMARY, "App.vue", DESTINATION_PRIMARY);
   }

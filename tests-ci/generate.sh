@@ -116,6 +116,17 @@ elif [[ $filename == 'tomcat-configserver' ]]; then
   callApi "/api/servers/spring-boot/mvc/web/actuator"
   callApi "/api/servers/spring-boot/spring-cloud/config-client"
 
+elif [[ $filename == 'tomcat-eureka' ]]; then
+  callApi "/api/projects/init"
+  callApi "/api/build-tools/maven"
+  callApi "/api/servers/java/base"
+  callApi "/api/servers/java/jacoco-minimum-coverage"
+  callApi "/api/servers/spring-boot"
+
+  callApi "/api/servers/spring-boot/mvc/web/tomcat"
+  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/spring-cloud/eureka-client"
+
 elif [[ $filename == 'undertow-consul' ]]; then
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"

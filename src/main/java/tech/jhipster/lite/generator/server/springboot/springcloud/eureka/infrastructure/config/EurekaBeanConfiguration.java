@@ -1,21 +1,21 @@
-package tech.jhipster.lite.generator.server.springboot.springcloud.consul.infrastructure.config;
+package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommonService;
-import tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.ConsulDomainService;
-import tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.ConsulService;
+import tech.jhipster.lite.generator.server.springboot.springcloud.eureka.domain.EurekaDomainService;
+import tech.jhipster.lite.generator.server.springboot.springcloud.eureka.domain.EurekaService;
 
 @Configuration
-public class ConsulBeanConfiguration {
+public class EurekaBeanConfiguration {
 
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
   private final SpringCloudCommonService springCloudCommonService;
 
-  public ConsulBeanConfiguration(
+  public EurekaBeanConfiguration(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
     SpringCloudCommonService springCloudCommonService
@@ -26,7 +26,7 @@ public class ConsulBeanConfiguration {
   }
 
   @Bean
-  public ConsulService consulService() {
-    return new ConsulDomainService(buildToolService, projectRepository, springCloudCommonService);
+  public EurekaService eurekaService() {
+    return new EurekaDomainService(buildToolService, projectRepository, springCloudCommonService);
   }
 }

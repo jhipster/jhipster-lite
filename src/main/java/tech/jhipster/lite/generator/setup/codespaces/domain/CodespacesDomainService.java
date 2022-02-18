@@ -20,11 +20,11 @@ public class CodespacesDomainService implements CodespacesService {
     addDocker(project);
   }
 
-  public void addJSON(Project project) {
+  public void addConfig(Project project) {
     projectRepository.add(project, SOURCE, "devcontainer.json", DEVCONTAINER_DEST, "devcontainer.json");
   }
 
-  public void addDocker(Project project) {
+  public void addDockerfile(Project project) {
     projectRepository.add(project, SOURCE, "Dockerfile", DEVCONTAINER_DEST, "Dockerfile");
   }
 }

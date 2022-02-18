@@ -9,8 +9,8 @@ public class CodespacesApplicationService {
 
   private final CodespacesService codespacesService;
 
-  public CodespacesApplicationService(CodespacesService codespaceService) {
-    this.codespacesService = codespaceService;
+  public CodespacesApplicationService(CodespacesService codespacesService) {
+    this.codespacesService = codespaceServices;
   }
 
   public void init(Project project) {

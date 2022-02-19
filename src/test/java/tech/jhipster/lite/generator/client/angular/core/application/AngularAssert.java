@@ -57,4 +57,9 @@ public class AngularAssert {
     assertFileExist(project, getPath(pathEnvironments, "environment.ts"));
     assertFileExist(project, getPath(pathEnvironments, "environment.spec.ts"));
   }
+
+  public static void assertLogos(Project project) {
+    assertFileExist(project, "src/main/webapp/content/images/JHipster-Lite-neon-green.png");
+    assertFileExist(project, "src/main/webapp/content/images/AngularLogo.svg");
+  }
 }

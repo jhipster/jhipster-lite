@@ -29,6 +29,7 @@ public class AngularDomainService implements AngularService {
     addScripts(project);
     addFiles(project);
     addAngularFiles(project);
+    addImages(project);
     addJestSonar(project);
   }
 
@@ -74,6 +75,16 @@ public class AngularDomainService implements AngularService {
     Angular
       .angularFiles()
       .forEach((file, path) -> projectRepository.template(project, getPath(SOURCE_WEBAPP, path), file, getPath(MAIN_WEBAPP, path)));
+  }
+
+  public void addImages(Project project) {
+    projectRepository.add(
+      project,
+      getPath(SOURCE_WEBAPP, "/content/images"),
+      "JHipster-Lite-neon-green.png",
+      "src/main/webapp/content/images"
+    );
+    projectRepository.add(project, getPath(SOURCE_WEBAPP, "/content/images"), "AngularLogo.svg", "src/main/webapp/content/images");
   }
 
   public void addJestSonar(Project project) {

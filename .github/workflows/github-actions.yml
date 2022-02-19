@@ -94,6 +94,7 @@ jobs:
       matrix:
         app:
           - full-default
+          - vueapp
           - tomcat-mysql-ehcachexml
           - undertow-simplecache
           - tomcat-configserver

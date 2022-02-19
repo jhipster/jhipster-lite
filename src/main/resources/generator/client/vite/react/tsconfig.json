@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "composite": true,
+    "composite": false,
     "module": "esnext",
     "moduleResolution": "node",
     "baseUrl": "src"

@@ -16,15 +16,15 @@ public class CodespacesDomainService implements CodespacesService {
 
   @Override
   public void init(Project project) {
-    addJSON(project);
-    addDocker(project);
+    addConfig(project);
+    addDockerfile(project);
   }
 
-  public void addConfig(Project project) {
+  private void addConfig(Project project) {
     projectRepository.add(project, SOURCE, "devcontainer.json", DEVCONTAINER_DEST, "devcontainer.json");
   }
 
-  public void addDockerfile(Project project) {
+  private void addDockerfile(Project project) {
     projectRepository.add(project, SOURCE, "Dockerfile", DEVCONTAINER_DEST, "Dockerfile");
   }
 }

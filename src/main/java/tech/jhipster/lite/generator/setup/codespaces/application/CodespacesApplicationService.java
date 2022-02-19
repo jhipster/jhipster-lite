@@ -10,7 +10,7 @@ public class CodespacesApplicationService {
   private final CodespacesService codespacesService;
 
   public CodespacesApplicationService(CodespacesService codespacesService) {
-    this.codespacesService = codespaceServices;
+    this.codespacesService = codespacesService;
   }
 
   public void init(Project project) {

@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.lite.generator.setup.codespaces.application.CodespacesAssertFiles.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ class CodespacesResourceIT {
       .perform(post("/api/setup/codespaces").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
+    assertFilesDockerfile(project);
+    assertFilesContainerJson(project);
     assertFileContent(project, ".devcontainer/devcontainer.json", "\"dockerfile\": \"Dockerfile\"");
     assertFileContent(project, ".devcontainer/Dockerfile", "ARG VARIANT=\"17\"");
   }

@@ -26,6 +26,7 @@ public class ViteReactDomainService implements ViteReactService {
     addScripts(project);
     addFiles(project);
     addViteReactFiles(project);
+    addJestSonar(project);
   }
 
   public void addDevDependencies(Project project) {
@@ -68,5 +69,17 @@ public class ViteReactDomainService implements ViteReactService {
 
   public void addViteReactFiles(Project project) {
     ViteReact.reactFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
+  }
+
+  public void addJestSonar(Project project) {
+    String oldText = "\"cacheDirectories\": \\[";
+    String newText =
+      """
+      "jestSonar": \\{
+          "reportPath": "target/test-results/jest",
+          "reportFile": "TESTS-results-sonar.xml"
+        \\},
+        "cacheDirectories": \\[""";
+    projectRepository.replaceText(project, "", "package.json", oldText, newText);
   }
 }

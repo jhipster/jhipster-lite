@@ -23,5 +23,6 @@ class ViteReactApplicationServiceIT {
     ViteReactAssert.assertScripts(project);
     ViteReactAssert.assertFiles(project);
     ViteReactAssert.assertReactFiles(project);
+    ViteReactAssert.assertJestSonar(project);
   }
 }

@@ -5,6 +5,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
+import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class ViteReactAssert {
@@ -46,6 +47,7 @@ public class ViteReactAssert {
   public static void assertReactFiles(Project project) {
     String pathSrc = "src";
     String pathWebapp = "src/main/webapp";
+    String pathConfig = "src/main/webapp/config";
     String pathApp = "src/main/webapp/app";
     String primaryApp = "src/main/webapp/app/common/primary/app";
     String primaryTestApp = "src/test/javascript/spec/common/primary/app";
@@ -57,6 +59,14 @@ public class ViteReactAssert {
     assertFileExist(project, getPath(primaryApp, "App.css"));
     assertFileExist(project, getPath(primaryApp, "App.tsx"));
     assertFileExist(project, getPath(primaryTestApp, "App.test.tsx"));
-    assertFileExist(project, getPath(pathSrc, "setupTests.ts"));
+    assertFileExist(project, getPath(pathConfig, "setupTests.ts"));
+  }
+
+  public static void assertJestSonar(Project project) {
+    assertFileContent(
+      project,
+      PACKAGE_JSON,
+      List.of("\"jestSonar\": {", "\"reportPath\": \"target/test-results/jest\",", "\"reportFile\": \"TESTS-results-sonar.xml\"", "}")
+    );
   }
 }

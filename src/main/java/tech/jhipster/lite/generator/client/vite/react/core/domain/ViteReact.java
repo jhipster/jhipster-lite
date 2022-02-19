@@ -22,6 +22,7 @@ public class ViteReact {
       "@types/react-dom",
       "@vitejs/plugin-react",
       "jest",
+      "jest-sonar-reporter",
       "jest-css-modules",
       "typescript",
       "ts-jest",
@@ -47,7 +48,7 @@ public class ViteReact {
       Map.entry("App.css", "src/main/webapp/app/common/primary/app"),
       Map.entry("App.tsx", "src/main/webapp/app/common/primary/app"),
       Map.entry("App.test.tsx", "src/test/javascript/spec/common/primary/app"),
-      Map.entry("setupTests.ts", "src")
+      Map.entry("setupTests.ts", "src/main/webapp/config")
     );
   }
 }

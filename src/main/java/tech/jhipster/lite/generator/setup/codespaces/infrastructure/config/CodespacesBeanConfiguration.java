@@ -16,7 +16,7 @@ public class CodespacesBeanConfiguration {
   }
 
   @Bean
-  public CodespacesService CodespacesService() {
+  public CodespacesService codespacesService() {
     return new CodespacesDomainService(projectRepository);
   }
 }

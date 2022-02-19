@@ -16,6 +16,6 @@ class CodespacesBeanConfigurationIT {
 
   @Test
   void shouldGetBean() {
-    assertThat(applicationContext.getBean("CodespacesService")).isNotNull().isInstanceOf(CodespacesDomainService.class);
+    assertThat(applicationContext.getBean("codespacesService")).isNotNull().isInstanceOf(CodespacesDomainService.class);
   }
 }

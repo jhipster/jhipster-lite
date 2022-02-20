@@ -27,6 +27,7 @@ public class Svelte {
       "eslint-plugin-svelte3",
       "jest",
       "jest-transform-stub",
+      "jest-sonar-reporter",
       "prettier",
       "prettier-plugin-svelte",
       "svelte",

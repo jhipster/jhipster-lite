@@ -40,15 +40,21 @@ public class ViteReact {
   }
 
   public static Map<String, String> reactFiles() {
+    String pathApp = "src/main/webapp/app";
+    String pathWebapp = "src/main/webapp";
+    String pathPrimaryApp = "src/main/webapp/app/common/primary/app";
+    String pathTestPrimaryApp = "src/test/javascript/spec/common/primary/app";
+    String pathConfig = "src/main/webapp/config";
+
     return Map.ofEntries(
-      Map.entry("index.html", "src/main/webapp"),
-      Map.entry("index.css", "src/main/webapp/app"),
-      Map.entry("index.tsx", "src/main/webapp/app"),
-      Map.entry("vite-env.d.ts", "src/main/webapp/app"),
-      Map.entry("App.css", "src/main/webapp/app/common/primary/app"),
-      Map.entry("App.tsx", "src/main/webapp/app/common/primary/app"),
-      Map.entry("App.test.tsx", "src/test/javascript/spec/common/primary/app"),
-      Map.entry("setupTests.ts", "src/main/webapp/config")
+      Map.entry("index.html", pathWebapp),
+      Map.entry("index.css", pathApp),
+      Map.entry("index.tsx", pathApp),
+      Map.entry("vite-env.d.ts", pathApp),
+      Map.entry("App.css", pathPrimaryApp),
+      Map.entry("App.tsx", pathPrimaryApp),
+      Map.entry("App.test.tsx", pathTestPrimaryApp),
+      Map.entry("setupTests.ts", pathConfig)
     );
   }
 }

@@ -6,29 +6,16 @@ import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import java.util.List;
+import tech.jhipster.lite.generator.client.vite.react.core.domain.ViteReact;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class ViteReactAssert {
 
   private ViteReactAssert() {}
 
-  public static void assertDependencies(Project project) {
-    assertFileContent(project, PACKAGE_JSON, "@testing-library/jest-dom" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@testing-library/react" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@testing-library/user-event" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@types/jest" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@types/node" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@types/react" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@types/react-dom" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "@vitejs/plugin-react" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "jest" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "jest-css-modules" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "react" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "react-dom" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "ts-jest" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "ts-node" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "typescript" + DQ + ": ");
-    assertFileContent(project, PACKAGE_JSON, "vite" + DQ + ": ");
+  public static void assertDependency(Project project) {
+    ViteReact.dependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
+    ViteReact.devDependencies().forEach(devDependency -> assertFileContent(project, PACKAGE_JSON, DQ + devDependency + DQ));
   }
 
   public static void assertScripts(Project project) {

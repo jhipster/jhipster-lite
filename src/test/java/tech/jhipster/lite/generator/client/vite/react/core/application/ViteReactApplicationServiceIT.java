@@ -19,7 +19,7 @@ class ViteReactApplicationServiceIT {
 
     viteReactApplicationService.init(project);
 
-    ViteReactAssert.assertDependencies(project);
+    ViteReactAssert.assertDependency(project);
     ViteReactAssert.assertScripts(project);
     ViteReactAssert.assertFiles(project);
     ViteReactAssert.assertReactFiles(project);

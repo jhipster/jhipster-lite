@@ -37,7 +37,7 @@ class ReactResourceIT {
       .perform(post("/api/vite/react").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    ViteReactAssert.assertDependencies(project);
+    ViteReactAssert.assertDependency(project);
     ViteReactAssert.assertScripts(project);
     ViteReactAssert.assertReactFiles(project);
     ViteReactAssert.assertFiles(project);

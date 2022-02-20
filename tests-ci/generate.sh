@@ -65,12 +65,14 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue"
 
+elif [[ $filename == 'springboot' ]]; then
+  springboot
+
 elif [[ $filename == 'tomcat-vite-react' ]]; then
   springboot
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/react"
-
 
 elif [[ $filename == 'vueapp' ]]; then
   springboot

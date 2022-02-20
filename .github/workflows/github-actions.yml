@@ -102,6 +102,7 @@ jobs:
           - tomcat-eureka
           - tomcat-mongodb
           - tomcat-svelte
+          - tomcat-vite-react
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2

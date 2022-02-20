@@ -61,6 +61,7 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
 
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
+  callApi "/api/setup/codespaces"
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue"
@@ -73,6 +74,12 @@ elif [[ $filename == 'tomcat-svelte' ]]; then
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/svelte"
+  
+elif [[ $filename == 'tomcat-vite-react' ]]; then
+  springboot
+
+  callApi "/api/frontend-maven-plugin"
+  callApi "/api/vite/react"
 
 elif [[ $filename == 'vueapp' ]]; then
   springboot

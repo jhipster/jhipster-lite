@@ -3,20 +3,61 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.common.domain
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.COMMENT_PROPERTIES_PREFIX;
 import static tech.jhipster.lite.generator.project.domain.Constants.KEY_VALUE_PROPERTIES_SEPARATOR;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommon.*;
 
 import java.io.IOException;
 import java.util.List;
+import tech.jhipster.lite.common.domain.Base64Utils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class SpringCloudCommonDomainService implements SpringCloudCommonService {
 
-  private final ProjectRepository projectRepository;
+  public static final String SPRING_CLOUD_SOURCE = "server/springboot/springcloud/configclient";
+  public static final String JHIPSTER_REGISTRY_YML_FILE_NAME = "jhipster-registry.yml";
 
-  public SpringCloudCommonDomainService(ProjectRepository projectRepository) {
+  private final ProjectRepository projectRepository;
+  private final BuildToolService buildToolService;
+
+  public SpringCloudCommonDomainService(ProjectRepository projectRepository, BuildToolService buildToolService) {
     this.projectRepository = projectRepository;
+    this.buildToolService = buildToolService;
+  }
+
+  @Override
+  public void addSpringCloudCommonDependencies(Project project) {
+    String springCloudVersion =
+      this.buildToolService.getVersion(project, "spring-cloud").orElseThrow(() -> new GeneratorException("Spring Cloud version not found"));
+
+    buildToolService.addProperty(project, "spring-cloud.version", springCloudVersion);
+    buildToolService.addDependencyManagement(project, springCloudDependencyManagement());
+    buildToolService.addDependency(project, springCloudStarterBootstrap());
+  }
+
+  @Override
+  public void addJhipsterRegistryDockerCompose(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+    project.addConfig("jhipsterRegistryDockerImage", JHIPSTER_REGISTRY_DOCKER_IMAGE);
+    project.addConfig("base64JwtSecret", Base64Utils.getBase64Secret());
+
+    projectRepository.template(
+      project,
+      SPRING_CLOUD_SOURCE,
+      JHIPSTER_REGISTRY_YML_FILE_NAME,
+      "src/main/docker",
+      JHIPSTER_REGISTRY_YML_FILE_NAME
+    );
+    projectRepository.template(
+      project,
+      SPRING_CLOUD_SOURCE,
+      "application.config.properties",
+      "src/main/docker/central-server-config/localhost-config",
+      "application.properties"
+    );
   }
 
   @Override

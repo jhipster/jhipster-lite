@@ -8,6 +8,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -46,7 +47,16 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
 
   @Override
   public void addArchUnitMavenPlugin(Project project) {
-    buildToolService.addProperty(project, ArchUnit.getPropertyName(), ArchUnit.getArchUnitVersion());
-    buildToolService.addDependency(project, ArchUnit.archUnitDependency());
+    buildToolService
+      .getVersion(project, "archunit-junit5")
+      .ifPresentOrElse(
+        version -> {
+          buildToolService.addProperty(project, ArchUnit.getPropertyName(), version);
+          buildToolService.addDependency(project, ArchUnit.archUnitDependency());
+        },
+        () -> {
+          throw new GeneratorException("Version not found: archunit-junit5");
+        }
+      );
   }
 }

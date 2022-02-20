@@ -101,6 +101,7 @@ jobs:
           - undertow-consul
           - tomcat-eureka
           - tomcat-mongodb
+          - tomcat-vite-react
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2

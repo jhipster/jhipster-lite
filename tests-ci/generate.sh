@@ -52,12 +52,7 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/vite/vue"
 
   elif [[ $filename == 'tomcat-svelte' ]]; then
-  callApi "/api/projects/init"
-  callApi "/api/build-tools/maven"
-  callApi "/api/servers/java/base"
-  callApi "/api/servers/java/jacoco-minimum-coverage"
-  callApi "/api/servers/spring-boot"
-  callApi "/api/servers/spring-boot/mvc/web/tomcat"
+  springboot
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/svelte"

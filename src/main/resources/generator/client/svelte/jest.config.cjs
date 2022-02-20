@@ -8,8 +8,8 @@ module.exports = {
 	collectCoverage: true,
 	collectCoverageFrom: [
 	  'src/main/webapp/**/*.{js,ts,svelte}',
-	  '!src/main/webapp/**/*.component.ts',
-	  '!src/main/webapp/app/main.ts',
+	  '!src/main/webapp/jest-setup.ts',
+	  '!src/main/webapp/routes/index.svelte',
 	  '!**/*.d.ts',
 	],
 	coverageReporters: ['html', 'json-summary', 'text-summary', 'lcov', 'clover'],

@@ -64,7 +64,7 @@ class SvelteDomainServiceTest {
 
     svelteDomainService.addDevDependencies(project);
 
-    verify(npmService, times(24)).addDevDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(25)).addDevDependency(any(Project.class), anyString(), anyString());
   }
 
   @Test
@@ -89,7 +89,7 @@ class SvelteDomainServiceTest {
 
     svelteDomainService.addSvelteConfigFile(project);
 
-    verify(projectRepository, times(7)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository, times(6)).add(any(Project.class), anyString(), anyString());
   }
 
   @Test
@@ -98,7 +98,7 @@ class SvelteDomainServiceTest {
 
     svelteDomainService.addRootFiles(project);
 
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test

@@ -37,15 +37,15 @@ public class SvelteAssert {
   public static void assertSvelteConfigFiles(Project project) {
     assertFileExist(project, ".eslintrc.cjs");
     assertFileExist(project, ".prettierrc");
-    assertFileExist(project, "jest-setup.ts");
     assertFileExist(project, "jest.config.cjs");
     assertFileExist(project, "tsconfig.json");
     assertFileExist(project, "babel.config.cjs");
   }
 
   public static void assertRootFiles(Project project) {
-    assertFileExist(project, "src/app.html");
-    assertFileExist(project, "src/app.d.ts");
+    assertFileExist(project, "src/main/webapp/app.html");
+    assertFileExist(project, "src/main/webapp/app.d.ts");
+    assertFileExist(project, "src/main/webapp/jest-setup.ts");
   }
 
   public static void assertAppFiles(Project project) {

@@ -62,8 +62,10 @@ To launch tests and integration tests:
 You can run the project using Maven:
 
 ```
-./mvnw spring-boot:run
+./mvnw
 ```
+
+Since spring-boot:run is the default target
 
 Or, first, you can package as jar:
 

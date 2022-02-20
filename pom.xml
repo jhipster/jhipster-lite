@@ -151,6 +151,7 @@
   </dependencies>
 
   <build>
+    <defaultGoal>spring-boot:run</defaultGoal>
     <resources>
       <resource>
         <directory>${basedir}/src/main/resources</directory>

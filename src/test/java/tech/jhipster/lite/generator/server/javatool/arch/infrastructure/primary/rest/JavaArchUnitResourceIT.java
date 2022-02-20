@@ -3,9 +3,7 @@ package tech.jhipster.lite.generator.server.javatool.arch.infrastructure.primary
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertArchUnitMavenPlugin;
-import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertFilesAnnotations;
-import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertFilesHexaArchTest;
+import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
+import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -28,11 +27,15 @@ class JavaArchUnitResourceIT {
   @Autowired
   MockMvc mockMvc;
 
+  @Autowired
+  SpringBootApplicationService springBootApplicationService;
+
   @Test
   void shouldInit() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
 
     mockMvc
       .perform(
@@ -43,5 +46,6 @@ class JavaArchUnitResourceIT {
     assertFilesAnnotations(project);
     assertFilesHexaArchTest(project);
     assertArchUnitMavenPlugin(project);
+    assertLoggerInConfiguration(project);
   }
 }

@@ -12,6 +12,8 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class JavaArchUnitDomainService implements JavaArchUnitService {
 
@@ -20,16 +22,23 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
+  private final SpringBootCommonService springBootCommonService;
 
-  public JavaArchUnitDomainService(ProjectRepository projectRepository, BuildToolService buildToolService) {
+  public JavaArchUnitDomainService(
+    ProjectRepository projectRepository,
+    BuildToolService buildToolService,
+    SpringBootCommonService springBootCommonService
+  ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
+    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
   public void init(Project project) {
     addHexagobalArchJavaFiles(project);
     addArchUnitMavenPlugin(project);
+    addLoggerInConfiguration(project);
   }
 
   @Override
@@ -58,5 +67,14 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
           throw new GeneratorException("Version not found: archunit-junit5");
         }
       );
+  }
+
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    addLogger(project, "com.tngtech.archunit", Level.INFO);
+  }
+
+  public void addLogger(Project project, String packageName, Level level) {
+    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 }

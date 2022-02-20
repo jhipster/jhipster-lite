@@ -4,8 +4,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +18,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -30,14 +34,19 @@ class JavaArchUnitDomainServiceTest {
   @Mock
   BuildToolService buildToolService;
 
+  @Mock
+  SpringBootCommonService springBootCommonService;
+
   @Test
   void shouldInit() {
     Project project = tmpProject();
+    when(buildToolService.getVersion(project, "archunit-junit5")).thenReturn(Optional.of("0.0.0"));
 
     javaArchUnitDomainService.init(project);
 
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
     verify(buildToolService).addProperty(any(Project.class), anyString(), anyString());
     verify(buildToolService).addDependency(any(Project.class), any(Dependency.class));
+    verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any(Level.class));
   }
 }

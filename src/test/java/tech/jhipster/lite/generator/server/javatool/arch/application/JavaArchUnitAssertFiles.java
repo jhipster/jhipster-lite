@@ -3,9 +3,8 @@ package tech.jhipster.lite.generator.server.javatool.arch.application;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
@@ -40,6 +39,14 @@ public class JavaArchUnitAssertFiles {
         "<version>${archunit-junit5.version}</version>",
         "</dependency>"
       )
+    );
+  }
+
+  public static void assertLoggerInConfiguration(Project project) {
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
+      List.of("<logger name=\"com.tngtech.archunit\" level=\"INFO\" />")
     );
   }
 }

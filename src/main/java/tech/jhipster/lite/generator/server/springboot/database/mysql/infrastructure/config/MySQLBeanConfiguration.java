@@ -12,18 +12,15 @@ import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.
 @Configuration
 public class MySQLBeanConfiguration {
 
-  public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;
   public final SpringBootCommonService springBootCommonService;
   public final SQLCommonService sqlCommonService;
 
   public MySQLBeanConfiguration(
-    ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
     SQLCommonService sqlCommonService
   ) {
-    this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
@@ -31,6 +28,6 @@ public class MySQLBeanConfiguration {
 
   @Bean
   public MySQLService mysqlService() {
-    return new MySQLDomainService(projectRepository, buildToolService, springBootCommonService, sqlCommonService);
+    return new MySQLDomainService(buildToolService, springBootCommonService, sqlCommonService);
   }
 }

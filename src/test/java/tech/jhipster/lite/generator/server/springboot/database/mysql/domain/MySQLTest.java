@@ -21,20 +21,4 @@ class MySQLTest {
     assertThat(dependency.getGroupId()).isEqualTo("mysql");
     assertThat(dependency.getArtifactId()).isEqualTo("mysql-connector-java");
   }
-
-  @Test
-  void shouldMysqlHikari() {
-    Dependency dependency = MySQL.mysqlHikari();
-
-    assertThat(dependency.getGroupId()).isEqualTo("com.zaxxer");
-    assertThat(dependency.getArtifactId()).isEqualTo("HikariCP");
-  }
-
-  @Test
-  void shouldMysqlHibernateCore() {
-    Dependency dependency = MySQL.mysqlHibernateCore();
-
-    assertThat(dependency.getGroupId()).isEqualTo("org.hibernate");
-    assertThat(dependency.getArtifactId()).isEqualTo("hibernate-core");
-  }
 }

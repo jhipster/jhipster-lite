@@ -6,6 +6,8 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -34,6 +36,8 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
     project.addDefaultConfig(PACKAGE_NAME);
 
     String packageNamePath = project.getPackageNamePath().orElse(PACKAGE_PATH);
+    String packageWalkPath = Arrays.stream(packageNamePath.split("/")).map(s -> "\"" + s + "\"").collect(Collectors.joining(", "));
+    project.addConfig("packageWalkPath", packageWalkPath);
 
     projectRepository.template(project, SOURCE, "BusinessContext.java", getPath(MAIN_JAVA, packageNamePath));
     projectRepository.template(project, SOURCE, "SharedKernel.java", getPath(MAIN_JAVA, packageNamePath));

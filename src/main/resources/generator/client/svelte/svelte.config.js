@@ -11,7 +11,12 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		files: {
-			routes: 'src/main/webapp/routes'
+			routes: 'src/main/webapp/routes',
+			template: 'src/main/webapp/app.html',
+			assets: 'src/main/webapp/static',
+			hooks: 'src/main/webapp/hooks',
+			lib: 'src/main/webapp/lib',
+			serviceWorker: 'src/main/webapp/service-worker'
 		},
 		vite: {
 			resolve: {

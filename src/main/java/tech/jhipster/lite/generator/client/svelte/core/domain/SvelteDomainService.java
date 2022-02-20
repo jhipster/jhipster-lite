@@ -85,13 +85,16 @@ public class SvelteDomainService implements SvelteService {
 
   public void addSvelteConfigFile(Project project) {
     List
-      .of(".eslintrc.cjs", "tsconfig.json", "svelte.config.js", ".prettierrc", "jest.config.cjs", "jest-setup.ts", "babel.config.cjs")
+      .of(".eslintrc.cjs", "tsconfig.json", "svelte.config.js", ".prettierrc", "jest.config.cjs", "babel.config.cjs")
       .forEach(file -> projectRepository.add(project, SOURCE, file));
   }
 
   public void addRootFiles(Project project) {
-    projectRepository.template(project, getPath(SOURCE, "src"), "app.html", "src");
-    projectRepository.template(project, getPath(SOURCE, "src"), "app.d.ts", "src");
+    String pathWebapp = "src/main/webapp";
+
+    projectRepository.template(project, getPath(SOURCE, pathWebapp), "app.html", pathWebapp);
+    projectRepository.template(project, getPath(SOURCE, pathWebapp), "app.d.ts", pathWebapp);
+    projectRepository.template(project, getPath(SOURCE, pathWebapp), "jest-setup.ts", pathWebapp);
   }
 
   public void addAppFiles(Project project) {
@@ -126,7 +129,7 @@ public class SvelteDomainService implements SvelteService {
   public void addType(Project project) {
     String oldText = "\"cacheDirectories\": \\[";
     String newText = """
-      "type": \\"module"\\,
+      "type": "module",
         "cacheDirectories": \\[""";
     projectRepository.replaceText(project, "", PACKAGE_JSON, oldText, newText);
   }

@@ -74,6 +74,7 @@ elif [[ $filename == 'tomcat-vite-react' ]]; then
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/react"
+  callApi "/api/vite/react/cypress"
 
 elif [[ $filename == 'vueapp' ]]; then
   springboot

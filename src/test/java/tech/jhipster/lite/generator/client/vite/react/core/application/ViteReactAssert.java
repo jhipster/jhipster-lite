@@ -45,7 +45,7 @@ public class ViteReactAssert {
     assertFileExist(project, getPath(pathApp, "vite-env.d.ts"));
     assertFileExist(project, getPath(primaryApp, "App.css"));
     assertFileExist(project, getPath(primaryApp, "App.tsx"));
-    assertFileExist(project, getPath(primaryTestApp, "App.test.tsx"));
+    assertFileExist(project, getPath(primaryTestApp, "App.spec.tsx"));
     assertFileExist(project, getPath(pathConfig, "setupTests.ts"));
   }
 

@@ -80,15 +80,6 @@ public class LiquibaseAssertFiles {
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
       List.of(
-        "<logger name=\"org.hibernate.validator\" level=\"WARN\" />",
-        "<logger name=\"org.hibernate\" level=\"WARN\" />",
-        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\" />"
-      )
-    );
-    assertFileContent(
-      project,
-      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
-      List.of(
         "<logger name=\"liquibase\" level=\"WARN\" />",
         "<logger name=\"LiquibaseSchemaResolver\" level=\"INFO\" />",
         "<logger name=\"com.zaxxer.hikari\" level=\"INFO\" />"

@@ -5,10 +5,12 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class LiquibaseAssertFiles {
@@ -65,5 +67,32 @@ public class LiquibaseAssertFiles {
   public static void initClock(Clock clock) {
     when(clock.getZone()).thenReturn(DEFAULT_TIMEZONE);
     when(clock.instant()).thenReturn(Instant.parse(CURRENT_DATE));
+  }
+
+  public static void assertLoggerInConfig(Project project) {
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, LOGGING_CONFIGURATION),
+      List.of("<logger name=\"liquibase\" level=\"WARN\" />", "<logger name=\"LiquibaseSchemaResolver\" level=\"INFO\" />")
+    );
+
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
+      List.of(
+        "<logger name=\"org.hibernate.validator\" level=\"WARN\" />",
+        "<logger name=\"org.hibernate\" level=\"WARN\" />",
+        "<logger name=\"org.hibernate.ejb.HibernatePersistence\" level=\"OFF\" />"
+      )
+    );
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
+      List.of(
+        "<logger name=\"liquibase\" level=\"WARN\" />",
+        "<logger name=\"LiquibaseSchemaResolver\" level=\"INFO\" />",
+        "<logger name=\"com.zaxxer.hikari\" level=\"INFO\" />"
+      )
+    );
   }
 }

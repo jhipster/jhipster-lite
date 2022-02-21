@@ -1,17 +1,13 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
-import { AppVue } from '@/main/webapp/app/common/primary/app';
+import { HomeVue } from '@/main/webapp/app/common/primary/home';
 
 let wrapper: VueWrapper;
 
 const wrap = () => {
-  wrapper = shallowMount(AppVue, {
-    global: {
-      stubs: ['router-view'],
-    },
-  });
+  wrapper = shallowMount(HomeVue);
 };
 
-describe('App', () => {
+describe('Home', () => {
   it('should exist', () => {
     wrap();
 

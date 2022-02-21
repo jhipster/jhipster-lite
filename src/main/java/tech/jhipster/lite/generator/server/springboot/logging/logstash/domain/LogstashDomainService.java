@@ -99,7 +99,7 @@ public class LogstashDomainService implements LogstashService {
   public void addLoggerInConfiguration(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageName = project.getPackageName().orElse("com.mycompany.myapp");
-    String destinationPackage = DESTINATION.replaceAll("/", ".");
+    String destinationPackage = DESTINATION.replace("/", ".");
     addLogger(project, packageName + "." + destinationPackage, Level.WARN);
     addLogger(project, "org.jboss.logging", Level.WARN);
   }

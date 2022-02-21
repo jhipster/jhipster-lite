@@ -13,6 +13,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class JwtSecurityDomainService implements JwtSecurityService {
@@ -41,6 +42,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addPropertyAndDependency(project);
     addJavaFiles(project);
     addProperties(project);
+    addLoggerInConfiguration(project);
 
     updateExceptionTranslator(project);
   }
@@ -188,5 +190,16 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     result.put("application.cors.max-age", "1800");
     result.put("application.cors.allowed-origin-patterns", "https://*.githubpreview.dev");
     return result;
+  }
+
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    addLogger(project, packageName + ".security.jwt.infrastructure.config", Level.WARN);
+  }
+
+  public void addLogger(Project project, String packageName, Level level) {
+    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 }

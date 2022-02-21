@@ -20,6 +20,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
@@ -55,6 +56,8 @@ class JwtSecurityDomainServiceTest {
     verify(springBootCommonService, times(3)).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService, times(10)).addPropertiesTest(any(Project.class), anyString(), any());
     verify(springBootCommonService, times(7)).addPropertiesLocal(any(Project.class), anyString(), any());
+
+    verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any(Level.class));
   }
 
   @Test

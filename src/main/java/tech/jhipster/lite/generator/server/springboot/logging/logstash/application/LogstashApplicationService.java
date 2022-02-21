@@ -28,4 +28,8 @@ public class LogstashApplicationService {
   public void addProperties(Project project) {
     logstashService.addProperties(project);
   }
+
+  public void addLoggerInConfiguration(Project project) {
+    logstashService.addLoggerInConfiguration(project);
+  }
 }

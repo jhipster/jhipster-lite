@@ -18,6 +18,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonService;
 
 public class MongodbDomainService implements MongodbService {
 
@@ -26,15 +27,18 @@ public class MongodbDomainService implements MongodbService {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
+  private final SQLCommonService sqlCommonService;
 
   public MongodbDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService
+    SpringBootCommonService springBootCommonService,
+    SQLCommonService sqlCommonService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
+    this.sqlCommonService = sqlCommonService;
   }
 
   @Override
@@ -67,7 +71,7 @@ public class MongodbDomainService implements MongodbService {
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("mongodbDockerImage", Mongodb.getMongodbDockerImage());
-    projectRepository.template(project, SOURCE, "mongodb.yml", "src/main/docker", "mongodb.yml");
+    sqlCommonService.addDockerComposeTemplate(project, "mongodb");
   }
 
   @Override

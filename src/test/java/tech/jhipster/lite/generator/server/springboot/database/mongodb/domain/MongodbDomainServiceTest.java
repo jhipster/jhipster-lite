@@ -22,6 +22,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -36,6 +37,9 @@ class MongodbDomainServiceTest {
   @Mock
   SpringBootCommonService springBootCommonService;
 
+  @Mock
+  SQLCommonService sqlCommonService;
+
   @InjectMocks
   MongodbDomainService mongodbDomainService;
 
@@ -48,7 +52,6 @@ class MongodbDomainServiceTest {
 
     verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
 
-    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
     verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
 
     verify(springBootCommonService).addPropertiesComment(any(Project.class), anyString());
@@ -57,6 +60,8 @@ class MongodbDomainServiceTest {
     verify(springBootCommonService, times(2)).addLogger(any(Project.class), anyString(), any(Level.class));
     verify(springBootCommonService, times(4)).addLoggerTest(any(Project.class), anyString(), any(Level.class));
     verify(projectRepository, times(2)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+
+    verify(sqlCommonService).addDockerComposeTemplate(project, "mongodb");
   }
 
   @Test

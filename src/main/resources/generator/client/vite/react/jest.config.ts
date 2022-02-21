@@ -18,6 +18,6 @@ export default {
       lines: 100,
     },
   },
-  modulePathIgnorePatterns: ['<rootDir>/src/main/resources/'],
+  modulePathIgnorePatterns: ['<rootDir>/src/main/resources/', '<rootDir>/src/test/javascript/integration'],
   testResultsProcessor: 'jest-sonar-reporter',
 };

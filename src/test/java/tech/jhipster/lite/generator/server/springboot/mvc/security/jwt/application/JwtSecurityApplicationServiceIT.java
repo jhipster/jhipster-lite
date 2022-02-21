@@ -60,6 +60,8 @@ class JwtSecurityApplicationServiceIT {
       )
     );
     assertFileContent(project, getPath(TEST_JAVA, integrationTest), List.of("@WithMockUser", "public @interface"));
+
+    assertLoggerInConfiguration(project);
   }
 
   @Test

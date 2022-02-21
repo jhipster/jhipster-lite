@@ -18,6 +18,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 public class SQLCommonDomainService implements SQLCommonService {
 
+  public static final String PROJECT = "project";
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final ProjectRepository projectRepository;
@@ -34,7 +35,7 @@ public class SQLCommonDomainService implements SQLCommonService {
 
   @Override
   public void addTestcontainers(Project project, String database, Map<String, Object> properties) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT, project);
 
     this.buildToolService.getVersion(project, "testcontainers")
       .ifPresentOrElse(
@@ -55,28 +56,28 @@ public class SQLCommonDomainService implements SQLCommonService {
 
   @Override
   public void addSpringDataJpa(Project project) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT, project);
 
     buildToolService.addDependency(project, SQLCommon.springDataJpa());
   }
 
   @Override
   public void addHikari(Project project) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT, project);
 
     buildToolService.addDependency(project, SQLCommon.hikariDependency());
   }
 
   @Override
   public void addHibernateCore(Project project) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT, project);
 
     buildToolService.addDependency(project, SQLCommon.sqlHibernateCore());
   }
 
   @Override
   public void addDockerComposeTemplate(Project project, String database) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT, project);
     Assert.notBlank("database", database);
 
     final String ymlFileName = database + ".yml";
@@ -85,7 +86,7 @@ public class SQLCommonDomainService implements SQLCommonService {
 
   @Override
   public void addJavaFiles(Project project, String database) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT, project);
 
     project.addDefaultConfig(PACKAGE_NAME);
     project.addDefaultConfig(BASE_NAME);
@@ -102,7 +103,7 @@ public class SQLCommonDomainService implements SQLCommonService {
 
   @Override
   public void addProperties(Project project, Map<String, Object> properties) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT, project);
     Assert.notNull("properties", properties);
 
     Map<String, Object> commonProperties = SQLCommon.springProperties();
@@ -116,7 +117,7 @@ public class SQLCommonDomainService implements SQLCommonService {
 
   @Override
   public void addLoggers(Project project) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT, project);
 
     SQLCommon.loggers().forEach((k, v) -> addLogger(project, k, v));
   }

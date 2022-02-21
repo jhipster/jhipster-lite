@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -66,7 +65,7 @@ class PostgresqlDomainServiceTest {
     verify(sqlCommonService).addHibernateCore(project);
     verify(sqlCommonService).addDockerComposeTemplate(project, "postgresql");
     verify(sqlCommonService).addJavaFiles(project, "postgresql");
-    verify(sqlCommonService).addProperties(eq(project), any(Map.class));
+    verify(sqlCommonService).addProperties(eq(project), any());
     verify(sqlCommonService).addLoggers(project);
   }
 }

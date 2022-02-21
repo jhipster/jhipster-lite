@@ -6,10 +6,9 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql.*;
 
-import java.util.Map;
-import java.util.TreeMap;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -75,12 +74,12 @@ public class PostgresqlDomainService implements PostgresqlService {
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("postgresqlDockerImage", Postgresql.getPostgresqlDockerImage());
-    sqlCommonService.addDockerComposeTemplate(project, "postgresql");
+    sqlCommonService.addDockerComposeTemplate(project, DatabaseType.POSTGRESQL.id());
   }
 
   @Override
   public void addJavaFiles(Project project) {
-    sqlCommonService.addJavaFiles(project, "postgresql");
+    sqlCommonService.addJavaFiles(project, DatabaseType.POSTGRESQL.id());
     String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     String databasePath = "technical/infrastructure/secondary/postgresql";
 
@@ -99,7 +98,7 @@ public class PostgresqlDomainService implements PostgresqlService {
   @Override
   public void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    this.sqlCommonService.addTestcontainers(project, "postgresql", springPropertiesForTest(baseName));
+    this.sqlCommonService.addTestcontainers(project, DatabaseType.POSTGRESQL.id(), springPropertiesForTest(baseName));
   }
 
   @Override

@@ -10,6 +10,7 @@ public class SQLCommon {
 
   private SQLCommon() {}
 
+  private static final String DATABASE = "database";
   private static final String PREFIX_SOURCE = "server/springboot/database/";
   private static final String PREFIX_DATABASE_PATH = "technical/infrastructure/secondary/";
 
@@ -18,7 +19,7 @@ public class SQLCommon {
   }
 
   public static Dependency testContainersDependency(String database) {
-    Assert.notBlank("database", database);
+    Assert.notBlank(DATABASE, database);
     return Dependency
       .builder()
       .groupId("org.testcontainers")
@@ -72,12 +73,12 @@ public class SQLCommon {
   }
 
   public static String getSource(String database) {
-    Assert.notBlank("database", database);
+    Assert.notBlank(DATABASE, database);
     return PREFIX_SOURCE + database;
   }
 
   public static String getDatabasePath(String database) {
-    Assert.notBlank("database", database);
+    Assert.notBlank(DATABASE, database);
     return PREFIX_DATABASE_PATH + database;
   }
 }

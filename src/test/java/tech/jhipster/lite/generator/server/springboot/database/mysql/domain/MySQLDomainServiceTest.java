@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +16,6 @@ import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonService;
@@ -61,7 +59,7 @@ class MySQLDomainServiceTest {
     verify(sqlCommonService).addHibernateCore(project);
     verify(sqlCommonService).addDockerComposeTemplate(project, "mysql");
     verify(sqlCommonService).addJavaFiles(project, "mysql");
-    verify(sqlCommonService).addProperties(eq(project), any(Map.class));
+    verify(sqlCommonService).addProperties(eq(project), any());
     verify(sqlCommonService).addLoggers(project);
   }
 }

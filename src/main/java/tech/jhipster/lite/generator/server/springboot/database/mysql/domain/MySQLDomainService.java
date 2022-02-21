@@ -1,19 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.database.mysql.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL.*;
 
-import java.util.Map;
-import java.util.TreeMap;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.project.domain.DefaultConfig;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonService;
@@ -73,12 +66,12 @@ public class MySQLDomainService implements MySQLService {
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("dockerImageName", MySQL.getDockerImageName());
-    sqlCommonService.addDockerComposeTemplate(project, "mysql");
+    sqlCommonService.addDockerComposeTemplate(project, DatabaseType.MYSQL.id());
   }
 
   @Override
   public void addJavaFiles(Project project) {
-    sqlCommonService.addJavaFiles(project, "mysql");
+    sqlCommonService.addJavaFiles(project, DatabaseType.MYSQL.id());
   }
 
   @Override
@@ -99,6 +92,6 @@ public class MySQLDomainService implements MySQLService {
   @Override
   public void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    this.sqlCommonService.addTestcontainers(project, "mysql", springPropertiesForTest(baseName));
+    this.sqlCommonService.addTestcontainers(project, DatabaseType.MYSQL.id(), springPropertiesForTest(baseName));
   }
 }

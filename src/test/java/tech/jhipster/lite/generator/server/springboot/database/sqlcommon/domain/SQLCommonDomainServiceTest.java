@@ -39,7 +39,8 @@ class SQLCommonDomainServiceTest {
 
   @Test
   void shouldNotAddTestcontainersWithoutProject() {
-    assertThatThrownBy(() -> sqlCommonDomainService.addTestcontainers(null, "database", Map.of()))
+    Map<String, Object> emptyMap = Map.of();
+    assertThatThrownBy(() -> sqlCommonDomainService.addTestcontainers(null, "database", emptyMap))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("project");
   }
@@ -67,14 +68,16 @@ class SQLCommonDomainServiceTest {
 
   @Test
   void shouldNotAddHibernateCoreTemplateWithoutDatabase() {
-    assertThatThrownBy(() -> sqlCommonDomainService.addDockerComposeTemplate(tmpProjectWithPomXml(), null))
+    Project project = tmpProjectWithPomXml();
+    assertThatThrownBy(() -> sqlCommonDomainService.addDockerComposeTemplate(project, null))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("database");
   }
 
   @Test
   void shouldNotAddHibernateCoreTemplateWithEmptyDatabase() {
-    assertThatThrownBy(() -> sqlCommonDomainService.addDockerComposeTemplate(tmpProjectWithPomXml(), ""))
+    Project project = tmpProjectWithPomXml();
+    assertThatThrownBy(() -> sqlCommonDomainService.addDockerComposeTemplate(project, ""))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("database");
   }
@@ -88,14 +91,16 @@ class SQLCommonDomainServiceTest {
 
   @Test
   void shouldNotAddPropertiesWithoutProject() {
-    assertThatThrownBy(() -> sqlCommonDomainService.addProperties(null, Map.of()))
+    Map<String, Object> emptyMap = Map.of();
+    assertThatThrownBy(() -> sqlCommonDomainService.addProperties(null, emptyMap))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("project");
   }
 
   @Test
   void shouldNotAddPropertiesWithoutProperties() {
-    assertThatThrownBy(() -> sqlCommonDomainService.addProperties(tmpProjectWithPomXml(), null))
+    Project project = tmpProjectWithPomXml();
+    assertThatThrownBy(() -> sqlCommonDomainService.addProperties(project, null))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("properties");
   }

@@ -18,6 +18,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
@@ -49,6 +50,8 @@ class LogstashDomainServiceTest {
     verify(projectRepository, times(7)).template(any(Project.class), anyString(), anyString(), anyString());
 
     verify(springBootCommonService, times(5)).addProperties(any(Project.class), anyString(), any());
+
+    verify(springBootCommonService, times(2)).addLoggerTest(any(Project.class), anyString(), any(Level.class));
   }
 
   @Test
@@ -85,5 +88,14 @@ class LogstashDomainServiceTest {
     logstashDomainService.addProperties(project);
 
     verify(springBootCommonService, times(5)).addProperties(any(Project.class), anyString(), any());
+  }
+
+  @Test
+  void shouldAddLoggerInConfiguration() {
+    Project project = tmpProjectWithPomXml();
+
+    logstashDomainService.addLoggerInConfiguration(project);
+
+    verify(springBootCommonService, times(2)).addLoggerTest(any(Project.class), anyString(), any(Level.class));
   }
 }

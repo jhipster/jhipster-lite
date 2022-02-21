@@ -4,6 +4,7 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
@@ -64,6 +65,18 @@ public class LogstashAssert {
         "application.logging.logstash.tcp.port=5000",
         "application.logging.logstash.tcp.ring-buffer-size=8192",
         "application.logging.logstash.tcp.shutdown_grace_period=PT1M"
+      )
+    );
+  }
+
+  public static void assertLoggerInConfiguration(Project project) {
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
+      List.of(
+        "<logger name=\"" + packageName + ".technical.infrastructure.secondary.logstash\" level=\"WARN\" />",
+        "<logger name=\"org.jboss.logging\" level=\"WARN\" />"
       )
     );
   }

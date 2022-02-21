@@ -34,17 +34,15 @@ class LogstashApplicationServiceIT {
     project.addConfig(BASE_NAME, "foo");
 
     initApplicationService.init(project);
-
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
     logstashApplicationService.init(project);
 
     assertDependencies(project);
-
     assertJavaFiles(project);
-
     assertProperties(project);
+    assertLoggerInConfiguration(project);
   }
 
   @Test
@@ -85,5 +83,18 @@ class LogstashApplicationServiceIT {
     logstashApplicationService.addProperties(project);
 
     assertProperties(project);
+  }
+
+  @Test
+  void shouldAddLoggerConfiguration() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "bar");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    logstashApplicationService.addLoggerInConfiguration(project);
+
+    assertLoggerInConfiguration(project);
   }
 }

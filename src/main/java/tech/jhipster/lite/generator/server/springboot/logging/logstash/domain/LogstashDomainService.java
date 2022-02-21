@@ -12,6 +12,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class LogstashDomainService implements LogstashService {
@@ -38,6 +39,7 @@ public class LogstashDomainService implements LogstashService {
     addDependencies(project);
     addJavaFiles(project);
     addProperties(project);
+    addLoggerInConfiguration(project);
   }
 
   @Override
@@ -91,5 +93,18 @@ public class LogstashDomainService implements LogstashService {
 
   private void templateToLogstash(Project project, String source, String type, String sourceFilename, String destination) {
     projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, DESTINATION));
+  }
+
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String destinationPackage = DESTINATION.replaceAll("/", ".");
+    addLogger(project, packageName + "." + destinationPackage, Level.WARN);
+    addLogger(project, "org.jboss.logging", Level.WARN);
+  }
+
+  private void addLogger(Project project, String packageName, Level level) {
+    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 }

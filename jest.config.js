@@ -13,6 +13,7 @@ module.exports = {
     'src/main/webapp/**/*.{js,ts,vue}',
     '!src/main/webapp/**/*.component.ts',
     '!src/main/webapp/app/main.ts',
+    '!src/main/webapp/app/router/index.ts',
     '!**/*.d.ts',
   ],
   coverageReporters: ['html', 'json-summary', 'text-summary', 'lcov', 'clover'],

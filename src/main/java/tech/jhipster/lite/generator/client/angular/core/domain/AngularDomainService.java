@@ -81,7 +81,7 @@ public class AngularDomainService implements AngularService {
     projectRepository.add(
       project,
       getPath(SOURCE_WEBAPP, "/content/images"),
-      "JHipster-Lite-neon-green.png",
+      "JHipster-Lite-neon-red.png",
       "src/main/webapp/content/images"
     );
     projectRepository.add(project, getPath(SOURCE_WEBAPP, "/content/images"), "AngularLogo.svg", "src/main/webapp/content/images");

@@ -59,7 +59,7 @@ public class AngularAssert {
   }
 
   public static void assertLogos(Project project) {
-    assertFileExist(project, "src/main/webapp/content/images/JHipster-Lite-neon-green.png");
+    assertFileExist(project, "src/main/webapp/content/images/JHipster-Lite-neon-red.png");
     assertFileExist(project, "src/main/webapp/content/images/AngularLogo.svg");
   }
 }

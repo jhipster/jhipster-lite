@@ -1,5 +1,5 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
-import { HomeVue } from '@/main/webapp/app/common/primary/home';
+import { HomeVue } from '@/common/primary/home';
 
 let wrapper: VueWrapper;
 

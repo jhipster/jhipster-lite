@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { AxiosHttp } from '@/main/webapp/app/http/AxiosHttp';
+import { AxiosHttp } from '@/http/AxiosHttp';
 import { dataAxiosResponse, stubAxiosInstance } from './AxiosStub';
 
 interface Payload {

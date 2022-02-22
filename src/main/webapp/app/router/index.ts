@@ -1,4 +1,4 @@
-import { HomeVue } from '@/main/webapp/app/common/primary/home';
+import { HomeVue } from '@/common/primary/home';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [

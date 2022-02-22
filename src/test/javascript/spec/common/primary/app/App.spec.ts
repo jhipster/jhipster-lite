@@ -1,5 +1,5 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
-import { AppVue } from '@/main/webapp/app/common/primary/app';
+import { AppVue } from '@/common/primary/app';
 
 let wrapper: VueWrapper;
 

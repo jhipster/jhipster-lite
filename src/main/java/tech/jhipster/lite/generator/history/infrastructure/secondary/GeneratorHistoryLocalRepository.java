@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.domain.JsonUtils;
-import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryData;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryRepository;
@@ -59,7 +58,7 @@ public class GeneratorHistoryLocalRepository implements GeneratorHistoryReposito
       throw new GeneratorException("Cannot serialize the history data " + generatorHistoryData + " : " + e.getMessage());
     }
     try {
-      FileUtils.write(filePath, newHistoryFileContent, WordUtils.CRLF);
+      FileUtils.write(filePath, newHistoryFileContent, project.getEndOfLine());
     } catch (IOException e) {
       throw new GeneratorException("Cannot write JSON content in file " + filePath + " : " + e.getMessage());
     }

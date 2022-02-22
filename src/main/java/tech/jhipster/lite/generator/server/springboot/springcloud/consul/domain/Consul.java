@@ -21,21 +21,6 @@ public class Consul {
     return DOCKER_CONSUL_CONFIG_LOADER_IMAGE;
   }
 
-  public static Dependency springCloudDependencyManagement() {
-    return Dependency
-      .builder()
-      .groupId(SPRING_CLOUD)
-      .artifactId("spring-cloud-dependencies")
-      .version("\\${spring-cloud.version}")
-      .type("pom")
-      .scope("import")
-      .build();
-  }
-
-  public static Dependency springCloudBootstrapDependency() {
-    return Dependency.builder().groupId(SPRING_CLOUD).artifactId("spring-cloud-starter-bootstrap").build();
-  }
-
   public static Dependency springCloudConsulDiscoveryDependency() {
     return Dependency.builder().groupId(SPRING_CLOUD).artifactId("spring-cloud-starter-consul-discovery").build();
   }

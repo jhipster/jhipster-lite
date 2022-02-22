@@ -4,6 +4,7 @@ export default {
   },
   moduleNameMapper: {
     '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules',
+    '@webapp/(.*)': '<rootDir>/src/main/webapp/$1',
   },
   testEnvironment: 'jsdom',
   collectCoverage: true,

@@ -16,7 +16,10 @@
     "composite": false,
     "module": "esnext",
     "moduleResolution": "node",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@webapp/*": ["main/webapp/*"]
+    }
   },
   "include": ["vite.config.ts", "src"]
 }

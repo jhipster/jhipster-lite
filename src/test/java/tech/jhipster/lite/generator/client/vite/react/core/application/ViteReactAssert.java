@@ -23,6 +23,7 @@ public class ViteReactAssert {
     assertFileContent(project, PACKAGE_JSON, "build");
     assertFileContent(project, PACKAGE_JSON, "preview");
     assertFileContent(project, PACKAGE_JSON, "test");
+    assertFileContent(project, PACKAGE_JSON, "test:watch");
   }
 
   public static void assertFiles(Project project) {

@@ -1,6 +1,6 @@
-import { Project } from '@/main/webapp/app/generator/domain/Project';
-import ProjectRepository from '@/main/webapp/app/generator/secondary/ProjectRepository';
-import { stubAxiosHttp } from '@/test/javascript/spec/http/AxiosHttpStub';
+import { Project } from '@/generator/domain/Project';
+import ProjectRepository from '@/generator/secondary/ProjectRepository';
+import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 
 describe('ProjectsRepository', () => {
   it('Should init project', () => {

@@ -1,7 +1,7 @@
-import ProjectRepository from '@/main/webapp/app/generator/secondary/ProjectRepository';
-import router from '@/main/webapp/app/router';
+import ProjectRepository from '@/generator/secondary/ProjectRepository';
+import router from '@/router';
 import { createApp } from 'vue';
-import App from './common/primary/app/App.vue';
+import App from '@/common/primary/app/App.vue';
 
 const app = createApp(App);
 app.provide('projectService', ProjectRepository);

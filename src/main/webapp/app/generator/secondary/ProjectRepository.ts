@@ -1,6 +1,6 @@
-import { Project } from '@/main/webapp/app/generator/domain/Project';
-import { ProjectService } from '@/main/webapp/app/generator/domain/ProjectService';
-import { AxiosHttp } from '@/main/webapp/app/http/AxiosHttp';
+import { Project } from '@/generator/domain/Project';
+import { ProjectService } from '@/generator/domain/ProjectService';
+import { AxiosHttp } from '@/http/AxiosHttp';
 
 export default class ProjectRepository implements ProjectService {
   constructor(private axiosHttp: AxiosHttp) {}

@@ -13,7 +13,7 @@
     "types": ["vite/client", "@types/jest"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/main/webapp/app/*"]
     }
   },
   "include": ["src/main/webapp/**/*.ts", "src/main/webapp/**/*.d.ts", "src/main/webapp/**/*.tsx", "src/main/webapp/**/*.vue"],

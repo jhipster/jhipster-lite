@@ -1,7 +1,7 @@
 module.exports = {
   moduleFileExtensions: ['js', 'ts', 'json', 'vue'],
   moduleNameMapper: {
-    '^@/(.*)': '<rootDir>/src/$1',
+    '^@/(.*)': '<rootDir>/src/main/webapp/app/$1',
   },
   transform: {
     '^.+\\.ts$': 'ts-jest',

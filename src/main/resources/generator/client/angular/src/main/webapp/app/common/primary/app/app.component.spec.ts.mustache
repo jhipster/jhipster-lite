@@ -22,12 +22,12 @@ describe('App Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should have as title `JHipster Lite`', () => {
+    it('should have appName', () => {
       // WHEN
       comp.ngOnInit();
 
       // THEN
-      expect(comp.title).toEqual('JHipster Lite');
+      expect(comp.appName).toEqual('{{baseName}}');
     });
   });
 

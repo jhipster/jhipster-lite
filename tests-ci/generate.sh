@@ -60,6 +60,8 @@ if [[ $filename == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
 
+  callApi "/api/servers/java/arch"
+
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
   callApi "/api/setup/codespaces"
 

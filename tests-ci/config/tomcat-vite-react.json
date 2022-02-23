@@ -1,9 +1,0 @@
-{
-  "folder": "/tmp/jhlite/tomcat-vite-react",
-  "generator-jhipster": {
-    "projectName": "Beer Project",
-    "baseName": "beer",
-    "prettierDefaultIndent": 2,
-    "packageName": "tech.jhipster.beer"
-  }
-}

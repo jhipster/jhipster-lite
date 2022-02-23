@@ -1,4 +1,4 @@
-package {{packageName}}.technical.infrastructure.primary;
+package {{packageName}};
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 
@@ -17,10 +17,6 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
-
-import {{packageName}}.UnitTest;
-import {{packageName}}.SharedKernel;
-import {{packageName}}.BusinessContext;
 
 @UnitTest
 class HexagonalArchTest {

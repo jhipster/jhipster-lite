@@ -24,7 +24,7 @@ public class JavaArchUnitAssertFiles {
 
   public static void assertFilesHexaArchTest(Project project) {
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    String archPath = getPath(TEST_JAVA, basePath, "technical/infrastructure/primary");
+    String archPath = getPath(TEST_JAVA, basePath);
 
     assertFileExist(project, getPath(archPath, "HexagonalArchTest.java"));
   }

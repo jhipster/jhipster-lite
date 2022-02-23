@@ -18,7 +18,6 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 public class JavaArchUnitDomainService implements JavaArchUnitService {
 
   public static final String SOURCE = "server/javatool/arch";
-  public static final String TECH_INFRA_PRIMARY_PATH = "technical/infrastructure/primary";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -50,7 +49,7 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
 
     projectRepository.template(project, SOURCE, "BusinessContext.java", getPath(MAIN_JAVA, packageNamePath));
     projectRepository.template(project, SOURCE, "SharedKernel.java", getPath(MAIN_JAVA, packageNamePath));
-    projectRepository.template(project, SOURCE, "HexagonalArchTest.java", getPath(TEST_JAVA, packageNamePath, TECH_INFRA_PRIMARY_PATH));
+    projectRepository.template(project, SOURCE, "HexagonalArchTest.java", getPath(TEST_JAVA, packageNamePath));
   }
 
   private void addArchUnitMavenPlugin(Project project) {

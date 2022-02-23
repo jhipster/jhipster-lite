@@ -1,6 +1,6 @@
 -- User
 
-CREATE SEQUENCE sequence_user start with 1050 increment by 50;
+CREATE SEQUENCE sequence_jhi_user start with 1050 increment by 50;
 
 CREATE TABLE jhi_user
 (

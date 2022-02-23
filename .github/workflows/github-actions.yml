@@ -94,15 +94,16 @@ jobs:
       matrix:
         app:
           - full-default
-          - vueapp
           - tomcat-mysql-ehcachexml
           - undertow-simplecache
           - tomcat-configserver
           - undertow-consul
           - tomcat-eureka
           - tomcat-mongodb
-          - tomcat-vite-react
           - flywayapp
+          - angularapp
+          - reactapp
+          - vueapp
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2

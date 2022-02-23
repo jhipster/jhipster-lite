@@ -71,17 +71,6 @@ if [[ $filename == 'full-default' ]]; then
 elif [[ $filename == 'springboot' ]]; then
   springboot
 
-elif [[ $filename == 'tomcat-vite-react' ]]; then
-  springboot
-
-  callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/react"
-
-elif [[ $filename == 'vueapp' ]]; then
-  springboot
-  callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/vue/styled"
-
 elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   springboot
 
@@ -96,9 +85,6 @@ elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   callApi "/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt"
 
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
-
-  callApi "/api/frontend-maven-plugin"
-  callApi "/api/angular"
 
 elif [[ $filename == 'undertow-simplecache' ]]; then
   springbootUndertow
@@ -131,11 +117,25 @@ elif [[ $filename == 'tomcat-mongodb' ]]; then
 
 elif [[ $filename == 'flywayapp' ]]; then
   springboot
-
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/user/postgresql"
   callApi "/api/servers/spring-boot/databases/migration/flyway/init"
   callApi "/api/servers/spring-boot/databases/migration/flyway/user"
+
+elif [[ $filename == 'angularapp' ]]; then
+  springboot
+  callApi "/api/frontend-maven-plugin"
+  callApi "/api/angular"
+
+elif [[ $filename == 'reactapp' ]]; then
+  springboot
+  callApi "/api/frontend-maven-plugin"
+  callApi "/api/vite/react"
+
+elif [[ $filename == 'vueapp' ]]; then
+  springboot
+  callApi "/api/frontend-maven-plugin"
+  callApi "/api/vite/vue/styled"
 
 else
   echo "*** Unknown configuration..."

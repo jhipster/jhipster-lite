@@ -4,6 +4,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class ArchUnit {
 
+  public static final String ARCHUNIT_JUNIT5_VERSION = "archunit-junit5.version";
+
   private ArchUnit() {}
 
   public static Dependency archUnitDependency() {
@@ -11,11 +13,7 @@ public class ArchUnit {
       .builder()
       .groupId("com.tngtech.archunit")
       .artifactId("archunit-junit5-api")
-      .version("\\${" + getPropertyName() + "}")
+      .version("\\${" + ARCHUNIT_JUNIT5_VERSION + "}")
       .build();
-  }
-
-  public static String getPropertyName() {
-    return "archunit-junit5.version";
   }
 }

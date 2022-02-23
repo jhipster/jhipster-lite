@@ -41,8 +41,7 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
     addLoggerInConfiguration(project);
   }
 
-  @Override
-  public void addHexagobalArchJavaFiles(Project project) {
+  private void addHexagobalArchJavaFiles(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
 
     String packageNamePath = project.getPackageNamePath().orElse(PACKAGE_PATH);
@@ -54,13 +53,12 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
     projectRepository.template(project, SOURCE, "HexagonalArchTest.java", getPath(TEST_JAVA, packageNamePath, TECH_INFRA_PRIMARY_PATH));
   }
 
-  @Override
-  public void addArchUnitMavenPlugin(Project project) {
+  private void addArchUnitMavenPlugin(Project project) {
     buildToolService
       .getVersion(project, "archunit-junit5")
       .ifPresentOrElse(
         version -> {
-          buildToolService.addProperty(project, ArchUnit.getPropertyName(), version);
+          buildToolService.addProperty(project, ArchUnit.ARCHUNIT_JUNIT5_VERSION, version);
           buildToolService.addDependency(project, ArchUnit.archUnitDependency());
         },
         () -> {
@@ -69,12 +67,11 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
       );
   }
 
-  @Override
-  public void addLoggerInConfiguration(Project project) {
+  private void addLoggerInConfiguration(Project project) {
     addLogger(project, "com.tngtech.archunit", Level.INFO);
   }
 
-  public void addLogger(Project project, String packageName, Level level) {
+  private void addLogger(Project project, String packageName, Level level) {
     springBootCommonService.addLoggerTest(project, packageName, level);
   }
 }

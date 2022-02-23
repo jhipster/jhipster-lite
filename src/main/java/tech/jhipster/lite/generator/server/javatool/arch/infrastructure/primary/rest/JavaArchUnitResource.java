@@ -26,7 +26,7 @@ class JavaArchUnitResource {
   @Operation(summary = "Add Hexagonal Arch classes to project")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Hexagonal Arch classes to project")
   @PostMapping
-  @GeneratorStep(id = "java-archUnit")
+  @GeneratorStep(id = "java-archunit")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     javaArchUnitApplicationService.init(project);

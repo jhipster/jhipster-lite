@@ -12,6 +12,8 @@ import tech.jhipster.lite.generator.project.domain.Project;
 
 public class JavaArchUnitAssertFiles {
 
+  private JavaArchUnitAssertFiles() {}
+
   public static void assertFilesAnnotations(Project project) {
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     String mainPath = getPath(MAIN_JAVA, basePath);

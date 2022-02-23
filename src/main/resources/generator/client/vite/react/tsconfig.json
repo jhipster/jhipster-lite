@@ -18,7 +18,7 @@
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
-      "@webapp/*": ["main/webapp/*"]
+      "@/*": ["main/webapp/app/*"]
     }
   },
   "include": ["vite.config.ts", "src"]

@@ -86,8 +86,8 @@ elif [[ $filename == 'tomcat-mysql-ehcachexml' ]]; then
   springboot
 
   callApi "/api/servers/spring-boot/mvc/springdoc/init"
-
   callApi "/api/servers/spring-boot/databases/mysql"
+  callApi "/api/servers/spring-boot/user/mysql"
   callApi "/api/servers/spring-boot/databases/migration/flyway/init"
   callApi "/api/servers/spring-boot/databases/migration/flyway/user"
 
@@ -128,6 +128,14 @@ elif [[ $filename == 'undertow-consul' ]]; then
 elif [[ $filename == 'tomcat-mongodb' ]]; then
   springboot
   callApi "/api/servers/spring-boot/databases/mongodb"
+
+elif [[ $filename == 'flywayapp' ]]; then
+  springboot
+
+  callApi "/api/servers/spring-boot/databases/postgresql"
+  callApi "/api/servers/spring-boot/user/postgresql"
+  callApi "/api/servers/spring-boot/databases/migration/flyway/init"
+  callApi "/api/servers/spring-boot/databases/migration/flyway/user"
 
 else
   echo "*** Unknown configuration..."

@@ -22,7 +22,15 @@
             "main": "src/main/webapp/main.ts",
             "polyfills": "src/main/webapp/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/main/webapp/favicon.ico", "src/main/webapp/assets"],
+            "assets": [
+              "src/main/webapp/favicon.ico",
+              "src/main/webapp/content",
+              {
+                "glob": "**/*",
+                "input": "src/main/webapp/content",
+                "output": "content"
+              }
+            ],
             "styles": ["src/main/webapp/styles.css"],
             "scripts": []
           },

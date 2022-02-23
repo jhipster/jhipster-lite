@@ -25,5 +25,6 @@ class AngularApplicationServiceIT {
     assertScripts(project);
     assertConfigFiles(project);
     assertAngularFiles(project);
+    assertLogos(project);
   }
 }

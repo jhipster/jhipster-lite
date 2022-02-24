@@ -102,7 +102,7 @@ class ViteVueDomainServiceTest {
 
     viteVueDomainService.addScripts(project);
 
-    verify(npmService, times(4)).addScript(any(Project.class), anyString(), anyString());
+    verify(npmService, times(5)).addScript(any(Project.class), anyString(), anyString());
   }
 
   @Test

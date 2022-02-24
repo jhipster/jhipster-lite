@@ -84,6 +84,7 @@ public class ViteVueDomainService implements ViteVueService {
         "build", "vue-tsc --noEmit && vite build --emptyOutDir",
         "dev", "vite",
         "preview", "vite preview",
+        "start", "vite",
         "test", "jest src/test/javascript/spec"
       )
       .forEach((name, cmd) -> npmService.addScript(project, name, cmd));

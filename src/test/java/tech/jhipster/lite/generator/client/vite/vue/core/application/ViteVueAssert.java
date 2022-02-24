@@ -21,6 +21,7 @@ public class ViteVueAssert {
     assertFileContent(project, PACKAGE_JSON, "\"build\": \"vue-tsc --noEmit && vite build --emptyOutDir\"");
     assertFileContent(project, PACKAGE_JSON, "\"dev\": \"vite\"");
     assertFileContent(project, PACKAGE_JSON, "\"preview\": \"vite preview\"");
+    assertFileContent(project, PACKAGE_JSON, "\"start\": \"vite\"");
     assertFileContent(project, PACKAGE_JSON, "\"test\": \"jest src/test/javascript/spec\"");
   }
 
@@ -29,6 +30,7 @@ public class ViteVueAssert {
     assertFileExist(project, "jest.config.js");
     assertFileExist(project, "tsconfig.json");
     assertFileExist(project, "vite.config.ts");
+    assertFileContent(project, "vite.config.ts", "port: 9000");
   }
 
   public static void assertRootFiles(Project project) {

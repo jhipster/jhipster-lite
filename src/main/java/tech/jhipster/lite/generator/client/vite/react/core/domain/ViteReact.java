@@ -39,6 +39,8 @@ public class ViteReact {
       "tsc && vite build --emptyOutDir",
       "preview",
       "vite preview",
+      "start",
+      "vite",
       "test",
       "jest",
       "test:watch",

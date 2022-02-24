@@ -46,14 +46,14 @@ class SpringBootMvcDomainServiceTest {
 
     verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
 
-    verify(springBootCommonService).addPropertiesComment(any(Project.class), anyString());
+    verify(springBootCommonService, times(9)).addPropertiesComment(any(Project.class), anyString());
     verify(springBootCommonService, times(3)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootCommonService, times(2)).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(springBootCommonService, times(2)).addPropertiesNewLine(any(Project.class));
+    verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(3)).addPropertiesNewLine(any(Project.class));
     verify(springBootCommonService).addLogger(any(Project.class), anyString(), any(Level.class));
     verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any(Level.class));
 
-    verify(projectRepository, times(12)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(15)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -65,14 +65,14 @@ class SpringBootMvcDomainServiceTest {
 
     verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
 
-    verify(springBootCommonService).addPropertiesComment(any(Project.class), anyString());
+    verify(springBootCommonService, times(9)).addPropertiesComment(any(Project.class), anyString());
     verify(springBootCommonService, times(3)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootCommonService, times(2)).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(springBootCommonService, times(2)).addPropertiesNewLine(any(Project.class));
+    verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(3)).addPropertiesNewLine(any(Project.class));
     verify(springBootCommonService).addLogger(any(Project.class), anyString(), any(Level.class));
     verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any(Level.class));
 
-    verify(projectRepository, times(12)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(15)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test

@@ -43,9 +43,8 @@ class ConsulDomainServiceTest {
 
     consulDomainService.init(project);
 
-    verify(buildToolService).addProperty(any(Project.class), anyString(), anyString());
-    verify(buildToolService).addDependencyManagement(any(Project.class), any(Dependency.class));
-    verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
+    verify(springCloudCommonService).addSpringCloudCommonDependencies(project);
+    verify(buildToolService, times(2)).addDependency(any(Project.class), any(Dependency.class));
 
     verify(springCloudCommonService, times(3)).addOrMergeBootstrapProperties(any(Project.class), anyString(), anyString(), anyString());
     verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());

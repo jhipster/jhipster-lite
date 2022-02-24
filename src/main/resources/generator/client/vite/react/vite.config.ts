@@ -8,7 +8,10 @@ export default defineConfig({
     outDir: '../../../target/classes/static',
   },
   resolve: {
-    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src/main/webapp/app') }],
   },
   root: 'src/main/webapp',
+  server: {
+    port: 9000,
+  },
 });

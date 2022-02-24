@@ -30,6 +30,7 @@ public class AngularAssert {
 
   public static void assertConfigFiles(Project project) {
     assertFileExist(project, "angular.json");
+    assertFileContent(project, "angular.json", "\"port\": 9000");
     assertFileExist(project, "jest.conf.js");
     assertFileExist(project, "tsconfig.app.json");
     assertFileExist(project, "tsconfig.json");
@@ -56,5 +57,10 @@ public class AngularAssert {
     assertFileExist(project, getPath(pathEnvironments, "environment.prod.spec.ts"));
     assertFileExist(project, getPath(pathEnvironments, "environment.ts"));
     assertFileExist(project, getPath(pathEnvironments, "environment.spec.ts"));
+  }
+
+  public static void assertLogos(Project project) {
+    assertFileExist(project, "src/main/webapp/content/images/JHipster-Lite-neon-red.png");
+    assertFileExist(project, "src/main/webapp/content/images/AngularLogo.svg");
   }
 }

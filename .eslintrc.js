@@ -9,5 +9,6 @@ module.exports = {
   rules: {
     quotes: ['error', 'single', { avoidEscape: true }],
     '@typescript-eslint/no-unused-vars': ['error'],
+    'vue/multi-word-component-names': 'off',
   },
 };

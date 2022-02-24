@@ -47,6 +47,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -66,6 +67,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -86,6 +88,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -106,6 +109,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -125,6 +129,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -145,6 +150,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -198,6 +204,11 @@ class SpringBootMvcApplicationServiceIT {
     assertSpringBootStarterValidation(project);
     assertExceptionHandlerProperties(project);
     assertExceptionHandlerFiles(project);
+  }
+
+  private void assertCors(Project project) {
+    assertCorsFiles(project);
+    assertCorsProperties(project);
   }
 
   private void assertTomcat(Project project) {

@@ -1,4 +1,4 @@
-package {{packageName}}.security.jwt.infrastructure.config;
+package tech.jhipster.lite.technical.infrastructure.primary.cors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.filter.CorsFilter;
-import {{packageName}}.IntegrationTest;
+import tech.jhipster.lite.IntegrationTest;
 
 @IntegrationTest
 class CorsFilterConfigurationIT {

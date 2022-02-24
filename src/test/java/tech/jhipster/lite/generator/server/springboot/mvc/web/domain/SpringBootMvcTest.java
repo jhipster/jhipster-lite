@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.web.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
@@ -67,5 +68,12 @@ class SpringBootMvcTest {
     assertThat(dependency.getArtifactId()).isEqualTo("spring-boot-starter-validation");
     assertThat(dependency.getVersion()).isEmpty();
     assertThat(dependency.getScope()).isEmpty();
+  }
+
+  @Test
+  void shouldCorsFiles() {
+    List<String> corsFiles = List.of("CorsFilterConfiguration.java", "CorsProperties.java");
+
+    assertThat(SpringBootMvc.corsFiles().keySet()).containsExactlyInAnyOrderElementsOf(corsFiles);
   }
 }

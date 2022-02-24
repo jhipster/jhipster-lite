@@ -107,6 +107,7 @@ public class LiquibaseDomainService implements LiquibaseService {
   public void addLoggerInConfiguration(Project project) {
     addLogger(project, "liquibase", Level.WARN);
     addLogger(project, "LiquibaseSchemaResolver", Level.INFO);
+    addLogger(project, "com.zaxxer.hikari", Level.INFO);
   }
 
   public void addLogger(Project project, String packageName, Level level) {

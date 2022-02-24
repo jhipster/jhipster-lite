@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.client.angular.core.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
@@ -29,6 +30,7 @@ public class AngularDomainService implements AngularService {
     addScripts(project);
     addFiles(project);
     addAngularFiles(project);
+    addImages(project);
     addJestSonar(project);
   }
 
@@ -71,9 +73,20 @@ public class AngularDomainService implements AngularService {
   }
 
   public void addAngularFiles(Project project) {
+    project.addDefaultConfig(BASE_NAME);
     Angular
       .angularFiles()
       .forEach((file, path) -> projectRepository.template(project, getPath(SOURCE_WEBAPP, path), file, getPath(MAIN_WEBAPP, path)));
+  }
+
+  public void addImages(Project project) {
+    projectRepository.add(
+      project,
+      getPath(SOURCE_WEBAPP, "/content/images"),
+      "JHipster-Lite-neon-red.png",
+      "src/main/webapp/content/images"
+    );
+    projectRepository.add(project, getPath(SOURCE_WEBAPP, "/content/images"), "AngularLogo.svg", "src/main/webapp/content/images");
   }
 
   public void addJestSonar(Project project) {

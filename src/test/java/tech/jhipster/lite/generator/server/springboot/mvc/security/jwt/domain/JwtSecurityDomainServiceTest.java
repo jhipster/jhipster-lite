@@ -20,6 +20,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
@@ -49,12 +50,16 @@ class JwtSecurityDomainServiceTest {
     verify(buildToolService).addProperty(any(Project.class), anyString(), anyString());
     verify(buildToolService, times(5)).addDependency(any(Project.class), any(Dependency.class));
 
-    // 12 classes + 4 tests
-    verify(projectRepository, times(16)).template(any(Project.class), anyString(), anyString(), anyString());
+    // 9 classes + 3 tests
+    verify(projectRepository, times(12)).template(any(Project.class), anyString(), anyString(), anyString());
 
     verify(springBootCommonService, times(3)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootCommonService, times(10)).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(springBootCommonService, times(7)).addPropertiesLocal(any(Project.class), anyString(), any());
+    verify(springBootCommonService, times(3)).addPropertiesTest(any(Project.class), anyString(), any());
+
+    verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any(Level.class));
+
+    // 4 replaces
+    verify(projectRepository, times(4)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test

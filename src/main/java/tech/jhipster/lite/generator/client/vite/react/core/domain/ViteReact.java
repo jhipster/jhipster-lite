@@ -32,7 +32,20 @@ public class ViteReact {
   }
 
   public static Map<String, String> scripts() {
-    return Map.of("dev", "vite", "build", "tsc && vite build --emptyOutDir", "preview", "vite preview", "test", "jest");
+    return Map.of(
+      "dev",
+      "vite",
+      "build",
+      "tsc && vite build --emptyOutDir",
+      "preview",
+      "vite preview",
+      "start",
+      "vite",
+      "test",
+      "jest",
+      "test:watch",
+      "jest --watch"
+    );
   }
 
   public static List<String> files() {

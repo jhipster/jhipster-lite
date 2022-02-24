@@ -22,7 +22,9 @@ public class ViteReactAssert {
     assertFileContent(project, PACKAGE_JSON, "dev");
     assertFileContent(project, PACKAGE_JSON, "build");
     assertFileContent(project, PACKAGE_JSON, "preview");
+    assertFileContent(project, PACKAGE_JSON, "start");
     assertFileContent(project, PACKAGE_JSON, "test");
+    assertFileContent(project, PACKAGE_JSON, "test:watch");
   }
 
   public static void assertFiles(Project project) {
@@ -55,5 +57,9 @@ public class ViteReactAssert {
       PACKAGE_JSON,
       List.of("\"jestSonar\": {", "\"reportPath\": \"target/test-results/jest\",", "\"reportFile\": \"TESTS-results-sonar.xml\"", "}")
     );
+  }
+
+  public static void assertConfig(Project project) {
+    assertFileContent(project, "vite.config.ts", "port: 9000");
   }
 }

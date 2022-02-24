@@ -1,0 +1,9 @@
+{
+  "folder": "/tmp/jhlite/reactapp",
+  "generator-jhipster": {
+    "projectName": "ReactApp Project",
+    "baseName": "reactapp",
+    "prettierDefaultIndent": 2,
+    "packageName": "tech.jhipster.reactapp"
+  }
+}

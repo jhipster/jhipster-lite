@@ -62,12 +62,9 @@ class JwtSecurityTest {
       "SecurityUtils.java",
       "ApplicationSecurityDefaults.java",
       "ApplicationSecurityProperties.java",
-      "CorsFilterConfiguration.java",
-      "CorsProperties.java",
       "JWTConfigurer.java",
       "JWTFilter.java",
       "SecurityConfiguration.java",
-      "SecurityExceptionTranslator.java",
       "TokenProvider.java"
     );
 
@@ -79,7 +76,6 @@ class JwtSecurityTest {
     List<String> javaTestFiles = List.of(
       "SecurityUtilsTest.java",
       "ApplicationSecurityPropertiesTest.java",
-      "CorsFilterConfigurationIT.java",
       "JWTFilterTest.java",
       "TokenProviderTest.java"
     );

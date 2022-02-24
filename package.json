@@ -22,24 +22,26 @@
     "prettier:check": "prettier --check \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\"",
     "prettier:format": "prettier --write \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\"",
     "preview": "vite preview",
+    "start": "vite",
     "test": "jest src/test/javascript/spec"
   },
   "dependencies": {
     "axios": "0.26.0",
-    "vue": "3.2.31"
+    "vue": "3.2.31",
+    "vue-router": "4.0.12"
   },
   "devDependencies": {
     "@prettier/plugin-xml": "1.2.0",
     "@rushstack/eslint-patch": "1.1.0",
-    "@types/jest": "27.4.0",
+    "@types/jest": "27.4.1",
     "@types/sinon": "10.0.11",
-    "@typescript-eslint/parser": "5.12.0",
-    "@vitejs/plugin-vue": "2.2.0",
+    "@typescript-eslint/parser": "5.12.1",
+    "@vitejs/plugin-vue": "2.2.2",
     "@vue/eslint-config-typescript": "10.0.0",
     "@vue/test-utils": "2.0.0-rc.18",
     "eslint": "8.9.0",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-vue": "8.4.1",
+    "eslint-config-prettier": "8.4.0",
+    "eslint-plugin-vue": "8.5.0",
     "husky": "7.0.4",
     "jest": "26.6.3",
     "jest-sonar-reporter": "2.0.0",

@@ -26,6 +26,6 @@ module.exports = {
       lines: 100,
     },
   },
-  modulePathIgnorePatterns: ['<rootDir>/src/main/resources/'],
+  modulePathIgnorePatterns: ['<rootDir>/src/main/resources/', '<rootDir>/target/classes/generator/'],
   testResultsProcessor: 'jest-sonar-reporter',
 };

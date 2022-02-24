@@ -48,6 +48,7 @@ class JwtSecurityApplicationServiceIT {
 
     assertPomXmlProperties(project);
     assertJwtSecurityFilesExists(project);
+    assertExceptionTranslatorWithSecurity(project);
     assertJwtSecurityProperties(project);
 
     String integrationTest = "com/mycompany/myapp/IntegrationTest.java";

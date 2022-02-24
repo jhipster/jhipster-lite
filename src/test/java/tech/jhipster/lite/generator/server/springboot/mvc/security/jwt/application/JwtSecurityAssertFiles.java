@@ -30,7 +30,6 @@ public class JwtSecurityAssertFiles {
       "JWTConfigurer.java",
       "JWTFilter.java",
       "SecurityConfiguration.java",
-      "SecurityExceptionTranslator.java",
       "TokenProvider.java"
     );
 
@@ -51,6 +50,21 @@ public class JwtSecurityAssertFiles {
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "CorsFilterConfigurationIT.java"));
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "JWTFilterTest.java"));
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "TokenProviderTest.java"));
+  }
+
+  public static void assertExceptionTranslatorWithSecurity(Project project) {
+    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), "technical/infrastructure/primary/exception");
+
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
+      "import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;"
+    );
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
+      "public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {"
+    );
   }
 
   public static void assertJwtSecurityProperties(Project project) {

@@ -59,7 +59,6 @@ public class JwtSecurity {
     map.put("JWTConfigurer.java", INFRASTRUCTURE_CONFIG);
     map.put("JWTFilter.java", INFRASTRUCTURE_CONFIG);
     map.put("SecurityConfiguration.java", INFRASTRUCTURE_CONFIG);
-    map.put("SecurityExceptionTranslator.java", INFRASTRUCTURE_CONFIG);
     map.put("TokenProvider.java", INFRASTRUCTURE_CONFIG);
 
     return map;

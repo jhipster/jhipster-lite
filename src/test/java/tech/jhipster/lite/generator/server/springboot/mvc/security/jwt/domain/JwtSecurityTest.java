@@ -67,7 +67,6 @@ class JwtSecurityTest {
       "JWTConfigurer.java",
       "JWTFilter.java",
       "SecurityConfiguration.java",
-      "SecurityExceptionTranslator.java",
       "TokenProvider.java"
     );
 

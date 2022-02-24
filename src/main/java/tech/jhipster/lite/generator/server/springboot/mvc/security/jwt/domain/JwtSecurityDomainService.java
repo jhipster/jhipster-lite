@@ -162,8 +162,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   }
 
   private void addProperties(Project project) {
-    String baseName = project.getBaseName().orElse("jhipster");
-
     String commentSecurityJwt = "Spring Security JWT";
     springBootCommonService.addPropertiesComment(project, commentSecurityJwt);
     springBootCommonService.addPropertiesTestComment(project, commentSecurityJwt);
@@ -172,12 +170,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
       .forEach((k, v) -> {
         springBootCommonService.addProperties(project, k, v);
         springBootCommonService.addPropertiesTest(project, k, v);
-      });
-    corsProperties(baseName)
-      .forEach((k, v) -> {
-        springBootCommonService.addPropertiesLocal(project, k, v);
-        springBootCommonService.addPropertiesTest(project, k, v);
-        springBootCommonService.addPropertiesComment(project, k + "=" + v);
       });
     springBootCommonService.addPropertiesNewLine(project);
     springBootCommonService.addPropertiesTestNewLine(project);
@@ -192,21 +184,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     );
     result.put("application.security.authentication.jwt.token-validity-in-seconds", "86400");
     result.put("application.security.authentication.jwt.token-validity-in-seconds-for-remember-me", "2592000");
-    return result;
-  }
-
-  private Map<String, Object> corsProperties(String baseName) {
-    Map<String, Object> result = new LinkedHashMap<>();
-    result.put("application.cors.allowed-origins", "http://localhost:8100,http://localhost:9000");
-    result.put("application.cors.allowed-methods", "*");
-    result.put("application.cors.allowed-headers", "*");
-    result.put(
-      "application.cors.exposed-headers",
-      "Authorization,Link,X-Total-Count,X-" + baseName + "-alert,X-" + baseName + "-error,X-" + baseName + "-params"
-    );
-    result.put("application.cors.allow-credentials", "true");
-    result.put("application.cors.max-age", "1800");
-    result.put("application.cors.allowed-origin-patterns", "https://*.githubpreview.dev");
     return result;
   }
 

@@ -21,6 +21,7 @@ public class ViteVueAssert {
     assertFileContent(project, PACKAGE_JSON, "\"build\": \"vue-tsc --noEmit && vite build --emptyOutDir\"");
     assertFileContent(project, PACKAGE_JSON, "\"dev\": \"vite\"");
     assertFileContent(project, PACKAGE_JSON, "\"preview\": \"vite preview\"");
+    assertFileContent(project, PACKAGE_JSON, "\"start\": \"vite\"");
     assertFileContent(project, PACKAGE_JSON, "\"test\": \"jest src/test/javascript/spec\"");
   }
 

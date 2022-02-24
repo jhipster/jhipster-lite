@@ -1,10 +1,7 @@
 package tech.jhipster.lite.generator.server.javatool.arch.application;
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertArchUnitMavenPlugin;
-import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertFilesAnnotations;
-import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertFilesHexaArchTest;
-import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertLoggerInConfiguration;
+import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +29,11 @@ class JavaArchUnitApplicationServiceIT {
     springBootApplicationService.init(project);
 
     javaArchUnitApplicationService.init(project);
+
     assertArchUnitMavenPlugin(project);
     assertFilesAnnotations(project);
     assertFilesHexaArchTest(project);
+    assertArchunitProperties(project);
     assertLoggerInConfiguration(project);
   }
 }

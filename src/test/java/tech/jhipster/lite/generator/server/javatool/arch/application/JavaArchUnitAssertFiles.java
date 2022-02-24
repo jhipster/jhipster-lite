@@ -22,6 +22,10 @@ public class JavaArchUnitAssertFiles {
     assertFileExist(project, getPath(mainPath, "SharedKernel.java"));
   }
 
+  public static void assertArchunitProperties(Project project) {
+    assertFileContent(project, getPath(TEST_RESOURCES, "archunit.properties"), "archRule.failOnEmptyShould=false");
+  }
+
   public static void assertFilesHexaArchTest(Project project) {
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     String archPath = getPath(TEST_JAVA, basePath);

@@ -30,6 +30,7 @@ public class AngularAssert {
 
   public static void assertConfigFiles(Project project) {
     assertFileExist(project, "angular.json");
+    assertFileContent(project, "angular.json", "\"port\": 9000");
     assertFileExist(project, "jest.conf.js");
     assertFileExist(project, "tsconfig.app.json");
     assertFileExist(project, "tsconfig.json");

@@ -5,7 +5,7 @@ import { AxiosHttp } from '@/http/AxiosHttp';
 export default class ProjectRepository implements ProjectService {
   constructor(private axiosHttp: AxiosHttp) {}
 
-  init(project: Project) {
-    return this.axiosHttp.post('api/projects/init', project);
+  async init(project: Project): Promise<void> {
+    await this.axiosHttp.post('api/projects/init', project);
   }
 }

@@ -4,4 +4,5 @@ import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface ViteReactService {
   void init(Project project);
+  void StyledInit(Project project);
 }

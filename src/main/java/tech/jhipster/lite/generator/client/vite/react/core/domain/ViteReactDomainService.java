@@ -29,6 +29,12 @@ public class ViteReactDomainService implements ViteReactService {
     addJestSonar(project);
   }
 
+  @Override
+  public void StyledInit(Project project) {
+    init(project);
+    addStyledReactIndex(project);
+  }
+
   public void addDevDependencies(Project project) {
     ViteReact
       .devDependencies()
@@ -69,6 +75,30 @@ public class ViteReactDomainService implements ViteReactService {
 
   public void addViteReactFiles(Project project) {
     ViteReact.reactFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
+  }
+
+  public void addStyledReactIndex(Project project) {
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
+      "StyledApp.tsx.mustache",
+      "src/main/webapp/app/common/primary/app",
+      "App.tsx"
+    );
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
+      "StyledApp.css.mustache",
+      "src/main/webapp/app/common/primary/app",
+      "App.css"
+    );
+    projectRepository.add(project, getPath(SOURCE, "src/main/webapp/content.images"), "ReactLogo.png", "src/main/webapp/content/images");
+    projectRepository.add(
+      project,
+      getPath(SOURCE, "src/main/webapp/content.images"),
+      "JHipster-Lite-neon-blue.png",
+      "src/main/webapp/content/images"
+    );
   }
 
   public void addJestSonar(Project project) {

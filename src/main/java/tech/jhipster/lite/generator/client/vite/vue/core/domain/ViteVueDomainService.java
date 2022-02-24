@@ -135,7 +135,7 @@ public class ViteVueDomainService implements ViteVueService {
       "JHipster-Lite-neon-green.png",
       "src/main/webapp/content/images"
     );
-    projectRepository.add(project, getPath(SOURCE, "webapp/content/images"), "VueLogo.png", "src/main/webapp/content/images");
+    projectRepository.add(project, getPath(SOURCE, "/webapp/content/images"), "ReactLogo.png", "src/main/webapp/content/images");
   }
 
   public void addJestSonar(Project project) {

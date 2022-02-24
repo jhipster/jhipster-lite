@@ -47,6 +47,17 @@ class ViteReactDomainServiceTest {
   }
 
   @Test
+  void shouldInitStylesIndex() {
+    Project project = tmpProject();
+    when(npmService.getVersionInViteReact(anyString())).thenReturn(Optional.of("0.0.0"));
+
+    viteReactDomainService.addStyledReactIndex(project);
+
+    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString());
+    verify(projectRepository).add(any(Project.class), anyString(), anyString());
+  }
+
+  @Test
   void shouldNotInit() {
     Project project = tmpProject();
 

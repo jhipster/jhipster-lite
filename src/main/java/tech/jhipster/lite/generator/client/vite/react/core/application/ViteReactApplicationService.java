@@ -16,4 +16,8 @@ public class ViteReactApplicationService {
   public void init(Project project) {
     viteReactService.init(project);
   }
+
+  public void StyledInit(Project project) {
+    viteReactService.StyledInit(project);
+  }
 }

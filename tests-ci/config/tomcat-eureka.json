@@ -3,7 +3,6 @@
   "generator-jhipster": {
     "projectName": "Beer Project",
     "baseName": "beer",
-    "prettierDefaultIndent": 2,
     "packageName": "tech.jhipster.beer"
   }
 }

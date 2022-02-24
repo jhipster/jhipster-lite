@@ -6,6 +6,6 @@ export default class ProjectRepository implements ProjectService {
   constructor(private axiosHttp: AxiosHttp) {}
 
   init(project: Project) {
-    return this.axiosHttp.post('url/to/init', project);
+    return this.axiosHttp.post('api/projects/init', project);
   }
 }

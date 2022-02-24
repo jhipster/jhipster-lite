@@ -12,7 +12,7 @@ describe('ProjectsRepository', () => {
     projectRepository.init(project);
 
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('url/to/init');
+    expect(uri).toBe('api/projects/init');
     expect(payload).toEqual<Project>(project);
   });
 });

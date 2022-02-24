@@ -54,8 +54,6 @@ public class JwtSecurity {
 
     map.put("ApplicationSecurityDefaults.java", INFRASTRUCTURE_CONFIG);
     map.put("ApplicationSecurityProperties.java", INFRASTRUCTURE_CONFIG);
-    map.put("CorsFilterConfiguration.java", INFRASTRUCTURE_CONFIG);
-    map.put("CorsProperties.java", INFRASTRUCTURE_CONFIG);
     map.put("JWTConfigurer.java", INFRASTRUCTURE_CONFIG);
     map.put("JWTFilter.java", INFRASTRUCTURE_CONFIG);
     map.put("SecurityConfiguration.java", INFRASTRUCTURE_CONFIG);
@@ -70,7 +68,6 @@ public class JwtSecurity {
     map.put("SecurityUtilsTest.java", "application");
 
     map.put("ApplicationSecurityPropertiesTest.java", INFRASTRUCTURE_CONFIG);
-    map.put("CorsFilterConfigurationIT.java", INFRASTRUCTURE_CONFIG);
     map.put("JWTFilterTest.java", INFRASTRUCTURE_CONFIG);
     map.put("TokenProviderTest.java", INFRASTRUCTURE_CONFIG);
 

@@ -30,7 +30,7 @@ class ConsulApplicationServiceIT {
   @Test
   void shouldInit() {
     Project project = tmpProject();
-    project.addConfig(BASE_NAME, "foo");
+    project.addConfig(BASE_NAME, "Foo");
 
     initApplicationService.init(project);
 

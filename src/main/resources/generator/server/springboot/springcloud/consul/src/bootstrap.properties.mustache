@@ -19,6 +19,6 @@ spring.cloud.consul.discovery.tags[3]=git-version=${git.commit.id.describe:}
 spring.cloud.consul.discovery.tags[4]=git-commit=${git.commit.id.abbrev:}
 spring.cloud.consul.discovery.tags[5]=git-branch=${git.branch:}
 
-spring.cloud.consul.discovery.instance-id={{baseName}}:${spring.application.instance-id:${random.value}}
-spring.cloud.consul.discovery.service-name={{baseName}}
+spring.cloud.consul.discovery.instance-id={{baseNameLowercase}}:${spring.application.instance-id:${random.value}}
+spring.cloud.consul.discovery.service-name={{baseNameLowercase}}
 spring.cloud.consul.discovery.prefer-ip-address=true

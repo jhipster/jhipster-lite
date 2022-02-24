@@ -22,4 +22,7 @@ export default defineConfig({
     outDir: '../../../target/classes/static',
   },
   root: 'src/main/webapp',
+  server: {
+    port: 9000,
+  },
 });

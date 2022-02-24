@@ -58,4 +58,8 @@ public class ViteReactAssert {
       List.of("\"jestSonar\": {", "\"reportPath\": \"target/test-results/jest\",", "\"reportFile\": \"TESTS-results-sonar.xml\"", "}")
     );
   }
+
+  public static void assertConfig(Project project) {
+    assertFileContent(project, "vite.config.ts", "port: 9000");
+  }
 }

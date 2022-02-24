@@ -79,6 +79,17 @@ public class ConsulAssert {
       )
     );
 
+    String baseName = project.getBaseName().orElseThrow();
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, "config/bootstrap.properties"),
+      List.of(
+        "spring.cloud.consul.discovery.instance-id=" + baseName.toLowerCase() + ":${spring.application.instance-id:${random.value}}",
+        "spring.cloud.consul.discovery.service-name=" + baseName.toLowerCase(),
+        "spring.cloud.consul.discovery.prefer-ip-address=true"
+      )
+    );
+
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-local.properties"), "spring.cloud.consul.config.fail-local=false");
 
     assertFileContent(project, getPath(TEST_RESOURCES, "config/bootstrap.properties"), "spring.cloud.consul.enabled=false");

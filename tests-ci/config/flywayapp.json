@@ -3,7 +3,6 @@
   "generator-jhipster": {
     "projectName": "Flyway App",
     "baseName": "flywayapp",
-    "prettierDefaultIndent": 2,
     "packageName": "tech.jhipster.flywayapp"
   }
 }

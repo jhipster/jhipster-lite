@@ -3,7 +3,6 @@
   "generator-jhipster": {
     "projectName": "AngularApp Project",
     "baseName": "angularapp",
-    "prettierDefaultIndent": 2,
     "packageName": "tech.jhipster.angularapp"
   }
 }

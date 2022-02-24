@@ -3,7 +3,6 @@
   "generator-jhipster": {
     "projectName": "Spring Boot Project",
     "baseName": "springbootapp",
-    "prettierDefaultIndent": 2,
     "packageName": "tech.jhipster.springbootapp"
   }
 }

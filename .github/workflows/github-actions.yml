@@ -101,11 +101,11 @@ jobs:
         app:
           - fullapp
           - mysqlapp
+          - flywayapp
           - undertowapp
           - eurekaapp
           - consulapp
           - mongodbapp
-          - flywayapp
           - angularapp
           - reactapp
           - vueapp
@@ -144,7 +144,7 @@ jobs:
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           docker-compose -f src/main/docker/sonar.yml up -d
-          sleep 15
+          sleep 30
           docker ps -a
       - name: 'Test: verify ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/

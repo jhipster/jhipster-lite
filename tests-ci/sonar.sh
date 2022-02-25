@@ -1,6 +1,12 @@
 #!/bin/bash
 
-sonar=$(curl -sX GET 'http://localhost:9001/api/measures/component?component=jhlite&metricKeys=bugs%2Ccoverage%2Cvulnerabilities%2Cduplicated_lines_density%2Ccode_smells');
+application=$1
+if [[ $application == '' ]]; then
+  echo "using jhlite by default"
+  application='jhlite'
+fi
+
+sonar=$(curl -sX GET 'http://localhost:9001/api/measures/component?component='"$application"'&metricKeys=bugs%2Ccoverage%2Cvulnerabilities%2Cduplicated_lines_density%2Ccode_smells');
 
 vul=$(echo "$sonar"|jq -r .component|jq -r .measures|jq '[.[]|select(.metric=="vulnerabilities")][0]'|jq -r .value);
 cov=$(echo "$sonar"|jq -r .component|jq -r .measures|jq '[.[]|select(.metric=="coverage")][0]'|jq -r .value);

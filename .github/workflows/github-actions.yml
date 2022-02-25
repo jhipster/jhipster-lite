@@ -141,11 +141,18 @@ jobs:
           key: ${{ runner.os }}-maven-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: 'Test: starting Sonar'
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
+        run: docker-compose -f src/main/docker/sonar.yml up -d
       - name: 'Test: verify ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           chmod +x mvnw
-          ./mvnw clean verify
+          ./mvnw clean verify sonar:sonar
+      - name: 'Test: check local Sonar Analysis'
+        run: |
+          sleep 15
+          ./tests-ci/sonar.sh ${{ matrix.app }}
   #--------------------------------------------------
   # Send analysis to Codecov
   #--------------------------------------------------

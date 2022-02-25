@@ -22,7 +22,7 @@ public class ViteReactDomainService implements ViteReactService {
   @Override
   public void addViteReact(Project project) {
     addCommonViteReact(project);
-    addViteReactFiles(project);
+    addViteReactUnstyledFiles(project);
   }
 
   @Override
@@ -37,6 +37,7 @@ public class ViteReactDomainService implements ViteReactService {
     addScripts(project);
     addFiles(project);
     addJestSonar(project);
+    addViteReactCommonFiles(project);
   }
 
   public void addDevDependencies(Project project) {
@@ -77,12 +78,47 @@ public class ViteReactDomainService implements ViteReactService {
     ViteReact.files().forEach(file -> projectRepository.add(project, SOURCE, file));
   }
 
-  public void addViteReactFiles(Project project) {
-    ViteReact.reactFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
+  public void addViteReactCommonFiles(Project project) {
+    ViteReact.reactCommonFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
+  }
+
+  public void addViteReactUnstyledFiles(Project project) {
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
+      "App.css",
+      "src/main/webapp/app/common/primary/app"
+    );
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
+      "App.tsx",
+      "src/main/webapp/app/common/primary/app"
+    );
   }
 
   public void addViteReactStyledFiles(Project project) {
-    ViteReact.reactStyledFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
+      "StyledApp.css",
+      "src/main/webapp/app/common/primary/app",
+      "App.css"
+    );
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
+      "StyledApp.tsx",
+      "src/main/webapp/app/common/primary/app",
+      "App.tsx"
+    );
+    projectRepository.add(project, getPath(SOURCE, "src/main/webapp/content.images"), "ReactLogo.png", "src/main/webapp/content/images");
+    projectRepository.add(
+      project,
+      getPath(SOURCE, "src/main/webapp/content.images"),
+      "JHipster-Lite-neon-blue.png",
+      "src/main/webapp/content/images"
+    );
   }
 
   public void addJestSonar(Project project) {

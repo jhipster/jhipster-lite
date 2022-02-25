@@ -29,7 +29,7 @@ class ViteReactResource {
   @GeneratorStep(id = "vite-react")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    viteReactApplicationService.init(project);
+    viteReactApplicationService.addViteReact(project);
   }
 
   @Operation(summary = "Add Vite+React with minimal CSS")
@@ -38,6 +38,6 @@ class ViteReactResource {
   @GeneratorStep(id = "vite-react-styled")
   public void addStyledViteVue(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    viteReactApplicationService.StyledInit(project);
+    viteReactApplicationService.addStyledViteReact(project);
   }
 }

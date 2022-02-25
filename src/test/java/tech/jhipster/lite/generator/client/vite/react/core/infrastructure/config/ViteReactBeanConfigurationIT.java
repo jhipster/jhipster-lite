@@ -9,7 +9,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.client.vite.react.core.domain.ViteReactDomainService;
 
 @IntegrationTest
-class ViteReactBeanConfigurationIT {
+class evViteReactBeanConfigurationIT {
 
   @Autowired
   ApplicationContext applicationContext;

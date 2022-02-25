@@ -142,7 +142,10 @@ jobs:
             ${{ runner.os }}-maven-
       - name: 'Test: starting Sonar'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
-        run: docker-compose -f src/main/docker/sonar.yml up -d
+        run: |
+          docker-compose -f src/main/docker/sonar.yml up -d
+          sleep 15
+          docker ps -a
       - name: 'Test: verify ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |

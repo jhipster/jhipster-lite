@@ -102,6 +102,8 @@ public class SvelteDomainService implements SvelteService {
     String sourceRoutes = getPath(SOURCE, "src/main/webapp/routes");
     String destinationPrimary = "src/main/webapp/app/common/primary/app";
     String destinationRoutes = "src/main/webapp/routes";
+    String sourceAssets = "src/main/webapp/assets";
+    String destinationAssets = "src/main/webapp/assets";
 
     projectRepository.template(project, sourcePrimary, "App.svelte", destinationPrimary);
     projectRepository.template(project, sourceRoutes, "index.svelte", destinationRoutes);
@@ -112,6 +114,9 @@ public class SvelteDomainService implements SvelteService {
       "App.spec.ts",
       "src/tests/javascript/spec/common/primary/app"
     );
+
+    projectRepository.add(project, getPath(SOURCE, sourceAssets), "JHipster-Lite-neon-orange.png", destinationAssets);
+    projectRepository.add(project, getPath(SOURCE, sourceAssets), "svelte-logo.png", destinationAssets);
   }
 
   public void addJestSonar(Project project) {

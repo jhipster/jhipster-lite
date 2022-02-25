@@ -26,4 +26,17 @@ class ViteReactApplicationServiceIT {
     ViteReactAssert.assertReactFiles(project);
     ViteReactAssert.assertJestSonar(project);
   }
+
+  @Test
+  void shouldInitStyled() {
+    Project project = tmpProjectWithPackageJsonComplete();
+
+    viteReactApplicationService.addStyledViteReact(project);
+    ViteReactAssert.assertDependency(project);
+    ViteReactAssert.assertScripts(project);
+    ViteReactAssert.assertConfig(project);
+    ViteReactAssert.assertFiles(project);
+    ViteReactAssert.assertReactFiles(project);
+    ViteReactAssert.assertJestSonar(project);
+  }
 }

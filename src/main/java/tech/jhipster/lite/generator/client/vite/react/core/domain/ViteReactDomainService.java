@@ -89,15 +89,11 @@ public class ViteReactDomainService implements ViteReactService {
   }
 
   public void addViteReactStyledFiles(Project project) {
+    String imagesPath = "src/main/webapp/content/images";
     projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.css", SOURCE_APP, "App.css");
     projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.tsx", SOURCE_APP, "App.tsx");
-    projectRepository.add(project, getPath(SOURCE, "src/main/webapp/content.images"), "ReactLogo.png", "src/main/webapp/content/images");
-    projectRepository.add(
-      project,
-      getPath(SOURCE, "src/main/webapp/content.images"),
-      "JHipster-Lite-neon-blue.png",
-      "src/main/webapp/content/images"
-    );
+    projectRepository.add(project, getPath(SOURCE, imagesPath), "ReactLogo.png", imagesPath);
+    projectRepository.add(project, getPath(SOURCE, imagesPath), "JHipster-Lite-neon-blue.png", imagesPath);
   }
 
   public void addJestSonar(Project project) {

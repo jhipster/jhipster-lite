@@ -66,7 +66,7 @@ public class FileUtils {
   public static InputStream getInputStream(String... paths) {
     InputStream in = FileUtils.class.getResourceAsStream(FILE_SEPARATOR + getPath(paths));
     if (in == null) {
-      throw new GeneratorException("File not found in classpath");
+      throw new GeneratorException("File '" + getPath(paths) + "' not found in classpath");
     }
     return in;
   }

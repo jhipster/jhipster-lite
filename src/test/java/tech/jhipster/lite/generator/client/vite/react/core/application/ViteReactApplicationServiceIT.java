@@ -17,8 +17,21 @@ class ViteReactApplicationServiceIT {
   void shouldInit() {
     Project project = tmpProjectWithPackageJsonComplete();
 
-    viteReactApplicationService.init(project);
+    viteReactApplicationService.addViteReact(project);
 
+    ViteReactAssert.assertDependency(project);
+    ViteReactAssert.assertScripts(project);
+    ViteReactAssert.assertConfig(project);
+    ViteReactAssert.assertFiles(project);
+    ViteReactAssert.assertReactFiles(project);
+    ViteReactAssert.assertJestSonar(project);
+  }
+
+  @Test
+  void shouldInitStyled() {
+    Project project = tmpProjectWithPackageJsonComplete();
+
+    viteReactApplicationService.addStyledViteReact(project);
     ViteReactAssert.assertDependency(project);
     ViteReactAssert.assertScripts(project);
     ViteReactAssert.assertConfig(project);

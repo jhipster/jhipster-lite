@@ -15,11 +15,11 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 @RestController
 @RequestMapping("/api/vite/vue")
 @Tag(name = "Vite - Vue")
-class ViveVueResource {
+class ViteVueResource {
 
   private final ViteVueApplicationService viteVueApplicationService;
 
-  public ViveVueResource(ViteVueApplicationService viteVueApplicationService) {
+  public ViteVueResource(ViteVueApplicationService viteVueApplicationService) {
     this.viteVueApplicationService = viteVueApplicationService;
   }
 

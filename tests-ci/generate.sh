@@ -157,7 +157,7 @@ elif [[ $application == 'reactapp' ]]; then
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/react"
+  callApi "/api/vite/react/styled"
 
 elif [[ $application == 'vueapp' ]]; then
   springboot

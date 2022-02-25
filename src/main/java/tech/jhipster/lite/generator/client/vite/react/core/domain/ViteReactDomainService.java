@@ -10,6 +10,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class ViteReactDomainService implements ViteReactService {
 
   public static final String SOURCE = "client/vite/react";
+  public static final String SOURCE_APP = "src/main/webapp/app/common/primary/app";
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
@@ -20,13 +21,24 @@ public class ViteReactDomainService implements ViteReactService {
   }
 
   @Override
-  public void init(Project project) {
+  public void addViteReact(Project project) {
+    addCommonViteReact(project);
+    addViteReactUnstyledFiles(project);
+  }
+
+  @Override
+  public void addStyledViteReact(Project project) {
+    addCommonViteReact(project);
+    addViteReactStyledFiles(project);
+  }
+
+  public void addCommonViteReact(Project project) {
     addDevDependencies(project);
     addDependencies(project);
     addScripts(project);
     addFiles(project);
-    addViteReactFiles(project);
     addJestSonar(project);
+    addViteReactCommonFiles(project);
   }
 
   public void addDevDependencies(Project project) {
@@ -67,8 +79,25 @@ public class ViteReactDomainService implements ViteReactService {
     ViteReact.files().forEach(file -> projectRepository.add(project, SOURCE, file));
   }
 
-  public void addViteReactFiles(Project project) {
-    ViteReact.reactFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
+  public void addViteReactCommonFiles(Project project) {
+    ViteReact.reactCommonFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
+  }
+
+  public void addViteReactUnstyledFiles(Project project) {
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "App.css", SOURCE_APP);
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "App.tsx", SOURCE_APP);
+  }
+
+  public void addViteReactStyledFiles(Project project) {
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.css", SOURCE_APP, "App.css");
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.tsx", SOURCE_APP, "App.tsx");
+    projectRepository.add(project, getPath(SOURCE, "src/main/webapp/content.images"), "ReactLogo.png", "src/main/webapp/content/images");
+    projectRepository.add(
+      project,
+      getPath(SOURCE, "src/main/webapp/content.images"),
+      "JHipster-Lite-neon-blue.png",
+      "src/main/webapp/content/images"
+    );
   }
 
   public void addJestSonar(Project project) {

@@ -13,7 +13,11 @@ public class ViteReactApplicationService {
     this.viteReactService = viteReactService;
   }
 
-  public void init(Project project) {
-    viteReactService.init(project);
+  public void addViteReact(Project project) {
+    viteReactService.addViteReact(project);
+  }
+
+  public void addStyledViteReact(Project project) {
+    viteReactService.addStyledViteReact(project);
   }
 }

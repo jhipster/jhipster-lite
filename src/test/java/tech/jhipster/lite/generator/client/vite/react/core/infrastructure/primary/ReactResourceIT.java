@@ -42,4 +42,22 @@ class ReactResourceIT {
     ViteReactAssert.assertReactFiles(project);
     ViteReactAssert.assertFiles(project);
   }
+
+  @Test
+  void shouldInitStyled() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/vite/react/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    ViteReactAssert.assertDependency(project);
+    ViteReactAssert.assertScripts(project);
+    ViteReactAssert.assertReactFiles(project);
+    ViteReactAssert.assertFiles(project);
+  }
 }

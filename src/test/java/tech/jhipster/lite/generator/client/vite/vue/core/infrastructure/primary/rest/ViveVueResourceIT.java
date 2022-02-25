@@ -19,7 +19,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class ViveVueResourceIT {
+class ViteVueResourceIT {
 
   @Autowired
   MockMvc mockMvc;

@@ -26,13 +26,10 @@
 		"forceConsistentCasingInFileNames": true,
 		"allowJs": true,
 		"checkJs": true,
+		"baseUrl": "src",
 		"paths": {
-			"$lib": ["src/lib"],
-			"$lib/*": ["src/lib/*"],
-			"$webapp": ["src/main/webapp"],
-			"$webapp/*": ["src/main/webapp/*"]
-		},
-		"baseUrl": "src"
+			"@/*": ["main/webapp/app/*"]
+		}
 	},
 	"include": [
 		"src/**/*.d.ts",

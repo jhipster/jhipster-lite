@@ -13,16 +13,14 @@ const config = {
 		files: {
 			routes: 'src/main/webapp/routes',
 			template: 'src/main/webapp/app.html',
-			assets: 'src/main/webapp/static',
+			assets: 'src/main/webapp/assets',
 			hooks: 'src/main/webapp/hooks',
 			lib: 'src/main/webapp/lib',
 			serviceWorker: 'src/main/webapp/service-worker'
 		},
 		vite: {
 			resolve: {
-				alias: {
-					$webapp: path.resolve('./src/main/webapp')
-				}
+				alias: [{ find: '@', replacement: path.resolve('src/main/webapp') }]
 			}
 		}
 	}

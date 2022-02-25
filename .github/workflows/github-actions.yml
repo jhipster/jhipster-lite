@@ -99,14 +99,13 @@ jobs:
     strategy:
       matrix:
         app:
-          - full-default
-          - tomcat-mysql-ehcachexml
-          - undertow-simplecache
-          - tomcat-configserver
-          - undertow-consul
-          - tomcat-eureka
-          - tomcat-mongodb
+          - fullapp
+          - mysqlapp
           - flywayapp
+          - undertowapp
+          - eurekaapp
+          - consulapp
+          - mongodbapp
           - angularapp
           - reactapp
           - vueapp
@@ -141,11 +140,21 @@ jobs:
           key: ${{ runner.os }}-maven-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: 'Test: starting Sonar'
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
+        run: |
+          docker-compose -f src/main/docker/sonar.yml up -d
+          sleep 30
+          docker ps -a
       - name: 'Test: verify ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           chmod +x mvnw
-          ./mvnw clean verify
+          ./mvnw clean verify sonar:sonar
+      - name: 'Test: check local Sonar Analysis'
+        run: |
+          sleep 15
+          ./tests-ci/sonar.sh ${{ matrix.app }}
   #--------------------------------------------------
   # Send analysis to Codecov
   #--------------------------------------------------

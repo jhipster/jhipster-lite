@@ -36,7 +36,7 @@ class ViteReactDomainServiceTest {
     Project project = tmpProject();
     when(npmService.getVersionInViteReact(anyString())).thenReturn(Optional.of("0.0.0"));
 
-    viteReactDomainService.init(project);
+    viteReactDomainService.addViteReact(project);
 
     verify(npmService, times(2)).addDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(15)).addDevDependency(any(Project.class), anyString(), anyString());
@@ -51,17 +51,17 @@ class ViteReactDomainServiceTest {
     Project project = tmpProject();
     when(npmService.getVersionInViteReact(anyString())).thenReturn(Optional.of("0.0.0"));
 
-    viteReactDomainService.addStyledReactIndex(project);
+    viteReactDomainService.addViteReactStyledFiles(project);
 
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString());
-    verify(projectRepository).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test
   void shouldNotInit() {
     Project project = tmpProject();
 
-    assertThatThrownBy(() -> viteReactDomainService.init(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> viteReactDomainService.addViteReact(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test

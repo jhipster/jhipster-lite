@@ -70,4 +70,26 @@ public class ViteReact {
       Map.entry("setupTests.ts", pathConfig)
     );
   }
+
+  public static Map<String, String> reactStyledFiles() {
+    String pathApp = "src/main/webapp/app";
+    String pathWebapp = "src/main/webapp";
+    String pathPrimaryApp = "src/main/webapp/app/common/primary/app";
+    String pathTestPrimaryApp = "src/test/javascript/spec/common/primary/app";
+    String pathConfig = "src/main/webapp/config";
+    String pathContentImage = "src/main/webapp/content.images";
+
+    return Map.ofEntries(
+      Map.entry("index.html", pathWebapp),
+      Map.entry("index.css", pathApp),
+      Map.entry("index.tsx", pathApp),
+      Map.entry("vite-env.d.ts", pathApp),
+      Map.entry("StyledApp.css", pathPrimaryApp),
+      Map.entry("StyledApp.tsx", pathPrimaryApp),
+      Map.entry("App.test.tsx", pathTestPrimaryApp),
+      Map.entry("setupTests.ts", pathConfig),
+      Map.entry("JHipster-Lite-neon-blue.png", pathContentImage),
+      Map.entry("ReactLogo.png", pathContentImage)
+    );
+  }
 }

@@ -17,7 +17,7 @@ class ViteReactApplicationServiceIT {
   void shouldInit() {
     Project project = tmpProjectWithPackageJsonComplete();
 
-    viteReactApplicationService.init(project);
+    viteReactApplicationService.addViteReact(project);
 
     ViteReactAssert.assertDependency(project);
     ViteReactAssert.assertScripts(project);

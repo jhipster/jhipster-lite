@@ -20,19 +20,23 @@ public class ViteReactDomainService implements ViteReactService {
   }
 
   @Override
-  public void init(Project project) {
+  public void addViteReact(Project project) {
+    addCommonViteReact(project);
+    addViteReactFiles(project);
+  }
+
+  @Override
+  public void addStyledViteReact(Project project) {
+    addCommonViteReact(project);
+    addViteReactStyledFiles(project);
+  }
+
+  public void addCommonViteReact(Project project) {
     addDevDependencies(project);
     addDependencies(project);
     addScripts(project);
     addFiles(project);
-    addViteReactFiles(project);
     addJestSonar(project);
-  }
-
-  @Override
-  public void StyledInit(Project project) {
-    init(project);
-    addStyledReactIndex(project);
   }
 
   public void addDevDependencies(Project project) {
@@ -77,28 +81,8 @@ public class ViteReactDomainService implements ViteReactService {
     ViteReact.reactFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
   }
 
-  public void addStyledReactIndex(Project project) {
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
-      "StyledApp.tsx.mustache",
-      "src/main/webapp/app/common/primary/app",
-      "App.tsx"
-    );
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
-      "StyledApp.css.mustache",
-      "src/main/webapp/app/common/primary/app",
-      "App.css"
-    );
-    projectRepository.add(project, getPath(SOURCE, "src/main/webapp/content.images"), "ReactLogo.png", "src/main/webapp/content/images");
-    projectRepository.add(
-      project,
-      getPath(SOURCE, "src/main/webapp/content.images"),
-      "JHipster-Lite-neon-blue.png",
-      "src/main/webapp/content/images"
-    );
+  public void addViteReactStyledFiles(Project project) {
+    ViteReact.reactStyledFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
   }
 
   public void addJestSonar(Project project) {

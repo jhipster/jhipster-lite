@@ -99,13 +99,12 @@ jobs:
     strategy:
       matrix:
         app:
-          - full-default
-          - tomcat-mysql-ehcachexml
-          - undertow-simplecache
-          - tomcat-configserver
-          - undertow-consul
-          - tomcat-eureka
-          - tomcat-mongodb
+          - fullapp
+          - mysqlapp
+          - undertowapp
+          - eurekaapp
+          - consulapp
+          - mongodbapp
           - flywayapp
           - angularapp
           - reactapp

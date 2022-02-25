@@ -56,7 +56,15 @@ sonar_back_front() {
   callApi "/api/servers/sonar/java-backend-and-frontend"
 }
 
-if [[ $application == 'full-default' ]]; then
+if [[ $application == 'springboot' ]]; then
+  springboot
+  sonar_back
+
+elif [[ $application == 'fullstack' ]]; then
+  springboot
+  sonar_back_front
+
+elif [[ $application == 'fullapp' ]]; then
   springboot
   sonar_back_front
 
@@ -66,6 +74,8 @@ if [[ $application == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/logging/logstash"
   callApi "/api/servers/spring-boot/banner/jhipster-v7"
   callApi "/api/servers/spring-boot/docker/jib"
+  callApi "/api/servers/java/arch"
+  callApi "/api/setup/codespaces"
 
   callApi "/api/servers/spring-boot/mvc/security/jwt"
   callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
@@ -77,90 +87,82 @@ if [[ $application == 'full-default' ]]; then
   callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
 
-  callApi "/api/servers/java/arch"
-
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
-  callApi "/api/setup/codespaces"
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue"
 
-elif [[ $application == 'springboot' ]]; then
-  springboot
-
-elif [[ $application == 'tomcat-mysql-ehcachexml' ]]; then
+elif [[ $application == 'mysqlapp' ]]; then
   springboot
   sonar_back
 
   callApi "/api/servers/spring-boot/mvc/springdoc/init"
-  callApi "/api/servers/spring-boot/databases/mysql"
-  callApi "/api/servers/spring-boot/user/mysql"
-  callApi "/api/servers/spring-boot/databases/migration/flyway/init"
-  callApi "/api/servers/spring-boot/databases/migration/flyway/user"
-
-  callApi "/api/servers/spring-boot/mvc/security/jwt"
-  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt"
-
-  callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
-
-elif [[ $application == 'undertow-simplecache' ]]; then
-  springboot_undertow
-  sonar_back
-
-  callApi "/api/servers/spring-boot/banner/jhipster-v3"
   callApi "/api/servers/spring-boot/mvc/dummy"
 
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/user/mysql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
-  callApi "/api/servers/spring-boot/cache/simple"
 
-elif [[ $application == 'tomcat-configserver' ]]; then
-  springboot
-  sonar_back
-  callApi "/api/servers/spring-boot/spring-cloud/config-client"
-  callApi "/api/servers/sonar/java-backend"
-
-elif [[ $application == 'tomcat-eureka' ]]; then
-  springboot
-  sonar_back
-  callApi "/api/servers/spring-boot/spring-cloud/eureka-client"
-
-elif [[ $application == 'undertow-consul' ]]; then
-  springboot_undertow
-  sonar_back
-  callApi "/api/servers/spring-boot/spring-cloud/consul"
-
-elif [[ $application == 'tomcat-mongodb' ]]; then
-  springboot
-  sonar_back
-  callApi "/api/servers/spring-boot/databases/mongodb"
+  callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
 
 elif [[ $application == 'flywayapp' ]]; then
   springboot
   sonar_back
+
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/user/postgresql"
   callApi "/api/servers/spring-boot/databases/migration/flyway/init"
   callApi "/api/servers/spring-boot/databases/migration/flyway/user"
 
+elif [[ $application == 'undertowapp' ]]; then
+  springboot_undertow
+  sonar_back
+
+  callApi "/api/servers/spring-boot/databases/mysql"
+  callApi "/api/servers/spring-boot/user/mysql"
+  callApi "/api/servers/spring-boot/databases/migration/flyway/init"
+  callApi "/api/servers/spring-boot/databases/migration/flyway/user"
+
+  callApi "/api/servers/spring-boot/cache/simple"
+
+elif [[ $application == 'eurekaapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/spring-cloud/eureka-client"
+  callApi "/api/servers/spring-boot/spring-cloud/config-client"
+
+elif [[ $application == 'consulapp' ]]; then
+  springboot_undertow
+  sonar_back
+
+  callApi "/api/servers/spring-boot/spring-cloud/consul"
+
+elif [[ $application == 'mongodbapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/databases/mongodbapp"
+
 elif [[ $application == 'angularapp' ]]; then
   springboot
   sonar_back_front
+
   callApi "/api/frontend-maven-plugin"
   callApi "/api/angular"
 
 elif [[ $application == 'reactapp' ]]; then
   springboot
   sonar_back_front
+
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/react"
 
 elif [[ $application == 'vueapp' ]]; then
   springboot
   sonar_back_front
+
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue/styled"
 

@@ -10,6 +10,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class ViteReactDomainService implements ViteReactService {
 
   public static final String SOURCE = "client/vite/react";
+  public static final String SOURCE_APP = "src/main/webapp/app/common/primary/app";
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
@@ -83,35 +84,13 @@ public class ViteReactDomainService implements ViteReactService {
   }
 
   public void addViteReactUnstyledFiles(Project project) {
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
-      "App.css",
-      "src/main/webapp/app/common/primary/app"
-    );
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
-      "App.tsx",
-      "src/main/webapp/app/common/primary/app"
-    );
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "App.css", SOURCE_APP);
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "App.tsx", SOURCE_APP);
   }
 
   public void addViteReactStyledFiles(Project project) {
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
-      "StyledApp.css",
-      "src/main/webapp/app/common/primary/app",
-      "App.css"
-    );
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src/main/webapp/app/common/primary/app"),
-      "StyledApp.tsx",
-      "src/main/webapp/app/common/primary/app",
-      "App.tsx"
-    );
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.css", SOURCE_APP, "App.css");
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.tsx", SOURCE_APP, "App.tsx");
     projectRepository.add(project, getPath(SOURCE, "src/main/webapp/content.images"), "ReactLogo.png", "src/main/webapp/content/images");
     projectRepository.add(
       project,

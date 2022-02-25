@@ -23,8 +23,8 @@ class ViveVueResource {
     this.viteVueApplicationService = viteVueApplicationService;
   }
 
-  @Operation(summary = "Add Vite+Vue3", description = "Add Vite+Vue3")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Vite+Vue3")
+  @Operation(summary = "Add Vite+Vue", description = "Add Vite+Vue")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Vite+Vue")
   @PostMapping
   @GeneratorStep(id = "vite-vue")
   public void addViteVue(@RequestBody ProjectDTO projectDTO) {
@@ -32,8 +32,8 @@ class ViveVueResource {
     viteVueApplicationService.addViteVue(project);
   }
 
-  @Operation(summary = "Add Vite+Vue3 with minimal CSS")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Vite+Vue3 with minimal CSS")
+  @Operation(summary = "Add Vite+Vue with minimal CSS")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Vite+Vue with minimal CSS")
   @PostMapping("/styled")
   @GeneratorStep(id = "vite-vue-styled")
   public void addStyledViteVue(@RequestBody ProjectDTO projectDTO) {

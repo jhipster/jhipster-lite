@@ -2,9 +2,11 @@ package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.infrastruct
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringDocAssert.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
 
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,11 +40,12 @@ class SpringDocResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
+    ProjectDTO projectDTO = Optional
+      .ofNullable(TestUtils.readFileToObject("json/chips.json", ProjectDTO.class))
+      .orElseThrow(() -> new GeneratorException("Error when reading file"));
     projectDTO.folder(FileUtils.tmpDirForTest());
+    projectDTO.getGeneratorJhipster().put(BASE_NAME, "Jhipster");
+
     Project project = ProjectDTO.toProject(projectDTO);
 
     initApplicationService.init(project);
@@ -61,6 +64,7 @@ class SpringDocResourceIT {
     assertJavaFiles(project);
     assertProperties(project);
 
+    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, project.getBaseName().orElseThrow().toLowerCase());
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_TITLE);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_DESCRIPTION);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_LICENSE_NAME);

@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
 
 import java.util.HashMap;
@@ -43,7 +44,9 @@ class SpringDocDomainServiceTest {
   @Test
   void shouldInitWithDefaultValues() {
     // Given
-    Project project = tmpProject();
+    Map<String, Object> config = new HashMap<>();
+    config.put(BASE_NAME, "foo");
+    Project project = Project.builder().folder("/path/to/folder").config(config).build();
 
     // When
     when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
@@ -69,6 +72,7 @@ class SpringDocDomainServiceTest {
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.tryItOutEnabled", DEFAULT_TRY_OUT_ENABLED);
 
     assertThat(project.getConfig())
+      .containsEntry("baseNameLowercase", "foo")
       .containsEntry(API_TITLE_CONFIG_KEY, DEFAULT_API_TITLE)
       .containsEntry(API_DESCRIPTION_CONFIG_KEY, DEFAULT_API_DESCRIPTION)
       .containsEntry(API_LICENSE_NAME_CONFIG_KEY, DEFAULT_LICENSE_NAME)
@@ -80,16 +84,16 @@ class SpringDocDomainServiceTest {
   @Test
   void shouldInitWithAdditionalConfigFromProject() {
     // Given
-    Project project = tmpProject();
-
     Map<String, Object> projectConfig = new HashMap<>();
+    projectConfig.put(BASE_NAME, "MyProject");
     projectConfig.put(API_TITLE_CONFIG_KEY, "Custom API title");
     projectConfig.put(API_DESCRIPTION_CONFIG_KEY, "Custom API description");
     projectConfig.put(API_LICENSE_NAME_CONFIG_KEY, "Custom 1.0");
     projectConfig.put(API_LICENSE_URL_CONFIG_KEY, "https://custom-license-url.com");
     projectConfig.put(API_EXT_DOC_DESCRIPTION_CONFIG_KEY, "Custom external doc description");
     projectConfig.put(API_EXT_DOC_URL_CONFIG_KEY, "https://custom-ext-doc-url.com");
-    project.getConfig().putAll(projectConfig);
+
+    Project project = Project.builder().folder("/path/to/folder").config(projectConfig).build();
 
     // When
     when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
@@ -115,6 +119,7 @@ class SpringDocDomainServiceTest {
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.tryItOutEnabled", DEFAULT_TRY_OUT_ENABLED);
 
     assertThat(project.getConfig()).containsAllEntriesOf(projectConfig);
+    assertThat(project.getConfig()).containsEntry("baseNameLowercase", "myproject");
   }
 
   @Test

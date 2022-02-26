@@ -6,7 +6,6 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAM
 import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringDocAssert.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
 
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -40,10 +38,7 @@ class SpringDocResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = Optional
-      .ofNullable(TestUtils.readFileToObject("json/chips.json", ProjectDTO.class))
-      .orElseThrow(() -> new GeneratorException("Error when reading file"));
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
     projectDTO.getGeneratorJhipster().put(BASE_NAME, "MyProject");
 
     Project project = ProjectDTO.toProject(projectDTO);

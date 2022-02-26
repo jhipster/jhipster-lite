@@ -70,6 +70,30 @@ class WordUtilsTest {
   }
 
   @Nested
+  class LowerFirstTest {
+
+    @Test
+    void shouldLowerFirst() {
+      assertThat(WordUtils.lowerFirst("JhipsterLite")).isEqualTo("jhipsterLite");
+    }
+
+    @Test
+    void shouldLowerFirstOneLetter() {
+      assertThat(WordUtils.lowerFirst("J")).isEqualTo("j");
+    }
+
+    @Test
+    void shouldNotLowerFirstWithNull() {
+      assertThatThrownBy(() -> WordUtils.lowerFirst(null)).isExactlyInstanceOf(MissingMandatoryValueException.class);
+    }
+
+    @Test
+    void shouldNotLowerFirstWithBlank() {
+      assertThatThrownBy(() -> WordUtils.lowerFirst(" ")).isExactlyInstanceOf(MissingMandatoryValueException.class);
+    }
+  }
+
+  @Nested
   class IndentTest {
 
     @Test

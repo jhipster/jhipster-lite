@@ -119,7 +119,7 @@ class SpringDocDomainServiceTest {
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.tryItOutEnabled", DEFAULT_TRY_OUT_ENABLED);
 
     assertThat(project.getConfig()).containsAllEntriesOf(projectConfig);
-    assertThat(project.getConfig()).containsEntry("baseNameLowercase", "myproject");
+    assertThat(project.getConfig()).containsEntry("baseNameLowercase", "myProject");
   }
 
   @Test

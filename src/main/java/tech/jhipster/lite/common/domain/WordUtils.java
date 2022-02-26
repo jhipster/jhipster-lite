@@ -14,21 +14,28 @@ public class WordUtils {
   public static final String OB = "\\{";
   public static final String CB = "\\}";
 
+  private static final String VALUE_FIELD = "value";
+
   private WordUtils() {}
 
   public static String kebabCase(String value) {
-    Assert.notBlank("value", value);
+    Assert.notBlank(VALUE_FIELD, value);
 
     return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, value);
   }
 
   public static String upperFirst(String value) {
-    Assert.notBlank("value", value);
+    Assert.notBlank(VALUE_FIELD, value);
 
     StringBuilder result = new StringBuilder();
     result.append(value.substring(0, 1).toUpperCase());
     result.append(value.substring(1));
     return result.toString();
+  }
+
+  public static String lowerFirst(String value) {
+    Assert.notBlank(VALUE_FIELD, value);
+    return value.substring(0, 1).toLowerCase() + value.substring(1);
   }
 
   public static String indent(int times) {

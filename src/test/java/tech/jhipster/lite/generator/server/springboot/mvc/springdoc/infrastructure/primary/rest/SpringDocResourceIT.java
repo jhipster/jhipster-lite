@@ -44,7 +44,7 @@ class SpringDocResourceIT {
       .ofNullable(TestUtils.readFileToObject("json/chips.json", ProjectDTO.class))
       .orElseThrow(() -> new GeneratorException("Error when reading file"));
     projectDTO.folder(FileUtils.tmpDirForTest());
-    projectDTO.getGeneratorJhipster().put(BASE_NAME, "Jhipster");
+    projectDTO.getGeneratorJhipster().put(BASE_NAME, "MyProject");
 
     Project project = ProjectDTO.toProject(projectDTO);
 
@@ -64,7 +64,7 @@ class SpringDocResourceIT {
     assertJavaFiles(project);
     assertProperties(project);
 
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, project.getBaseName().orElseThrow().toLowerCase());
+    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, "myProject");
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_TITLE);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_DESCRIPTION);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_LICENSE_NAME);

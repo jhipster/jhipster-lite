@@ -14,6 +14,9 @@ public class AngularDomainService implements AngularService {
 
   public static final String SOURCE = "client/angular";
   public static final String SOURCE_WEBAPP = "client/angular/src/main/webapp";
+  private static final String APP = "src/main/webapp/app/common/primary/app";
+  public static final String SOURCE_PRIMARY = getPath(SOURCE, APP);
+  public static final String DESTINATION_PRIMARY = APP;
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
@@ -24,14 +27,46 @@ public class AngularDomainService implements AngularService {
   }
 
   @Override
-  public void init(Project project) {
+  public void addAngular(Project project) {
+    addCommonAngular(project);
+    addAppFilesWithoutCss(project);
+  }
+
+  @Override
+  public void addStyledAngular(Project project) {
+    addCommonAngular(project);
+    addAppFilesWithCss(project);
+  }
+
+  private void addCommonAngular(Project project) {
     addDependencies(project);
     addDevDependencies(project);
     addScripts(project);
+    addJestSonar(project);
     addFiles(project);
     addAngularFiles(project);
+  }
+
+  public void addAppFilesWithoutCss(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+
+    projectRepository.template(project, SOURCE_PRIMARY, "app.component.html", DESTINATION_PRIMARY);
+    projectRepository.template(project, SOURCE_PRIMARY, "app.component.ts", DESTINATION_PRIMARY);
+  }
+
+  public void addAppFilesWithCss(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+
+    projectRepository.template(project, SOURCE_PRIMARY, "styledApp.component.html", DESTINATION_PRIMARY, "app.component.html");
+    projectRepository.template(project, SOURCE_PRIMARY, "styledApp.component.ts", DESTINATION_PRIMARY, "app.component.ts");
+
+    projectRepository.template(
+      project,
+      getPath(SOURCE_WEBAPP, "app/common/primary/app"),
+      "app.component.css",
+      getPath(MAIN_WEBAPP, "app/common/primary/app")
+    );
     addImages(project);
-    addJestSonar(project);
   }
 
   public void addDependencies(Project project) {
@@ -44,7 +79,7 @@ public class AngularDomainService implements AngularService {
 
   private void addDependency(Project project, String dependency) {
     npmService
-      .getVersionInAngular(dependency)
+      .getVersion("angular", dependency)
       .ifPresentOrElse(
         version -> npmService.addDependency(project, dependency, version),
         () -> {
@@ -55,7 +90,7 @@ public class AngularDomainService implements AngularService {
 
   private void addDevDependency(Project project, String devDependency) {
     npmService
-      .getVersionInAngular(devDependency)
+      .getVersion("angular", devDependency)
       .ifPresentOrElse(
         version -> npmService.addDevDependency(project, devDependency, version),
         () -> {

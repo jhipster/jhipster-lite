@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAppWithCss;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAppWithoutCss;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ class AngularResourceIT {
   InitApplicationService initApplicationService;
 
   @Test
-  void shouldInit() throws Exception {
+  void shouldAddAngular() throws Exception {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
@@ -40,5 +42,22 @@ class AngularResourceIT {
     AngularAssert.assertDevDependencies(project);
     AngularAssert.assertScripts(project);
     AngularAssert.assertConfigFiles(project);
+    assertAppWithoutCss(project);
+  }
+
+  @Test
+  void shouldAddStyledAngular() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+
+    mockMvc
+      .perform(post("/api/angular/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+
+    AngularAssert.assertDevDependencies(project);
+    AngularAssert.assertScripts(project);
+    AngularAssert.assertConfigFiles(project);
+    assertAppWithCss(project);
   }
 }

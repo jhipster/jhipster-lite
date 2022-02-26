@@ -23,12 +23,21 @@ class AngularResource {
     this.angularApplicationService = angularApplicationService;
   }
 
-  @Operation(summary = "Init Angular", description = "Init Angular project")
-  @ApiResponse(responseCode = "500", description = "An error occurred while initializing Angular project")
+  @Operation(summary = "Add Angular", description = "Add Angular")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular")
   @PostMapping
   @GeneratorStep(id = "angular")
-  public void init(@RequestBody ProjectDTO projectDTO) {
+  public void addAngular(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    angularApplicationService.init(project);
+    angularApplicationService.addAngular(project);
+  }
+
+  @Operation(summary = "Add Angular with minimal CSS")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular with minimal CSS")
+  @PostMapping("/styled")
+  @GeneratorStep(id = "angular-styled")
+  public void addStyledAngular(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    angularApplicationService.addStyledAngular(project);
   }
 }

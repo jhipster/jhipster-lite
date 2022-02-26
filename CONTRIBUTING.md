@@ -76,6 +76,23 @@ $ npm -v
 8.5.0
 ```
 
+#### Docker and Docker-compose
+
+To add containers for development (like databases, sonar...) you need:
+
+- [Docker](https://docs.docker.com/engine/install/) _(min version: 20.xx.xx)_
+- [Docker-compose](https://docs.docker.com/compose/install/) _(min version: 1.29.x)_
+
+```
+$ docker -v
+Docker version 20.10.12, build e91ed57
+```
+
+```
+$ docker-compose -v
+docker-compose version 1.29.2, build 5becea4c
+```
+
 ### Fork the jhipster-lite project
 
 Go to the [jhipster-lite project](https://github.com/jhipster/jhipster-lite) and click on the "fork" button. You can then clone your own fork of the project, and start working on it.

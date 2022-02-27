@@ -16,4 +16,8 @@ public class SvelteApplicationService {
   public void addSvelte(Project project) {
     svelteService.addSvelte(project);
   }
+
+  public void addStyledSvelteKit(Project project) {
+    svelteService.addStyledSvelteKit(project);
+  }
 }

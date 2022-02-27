@@ -53,6 +53,11 @@ public class SvelteAssert {
     assertFileExist(project, "src/main/webapp/routes/index.svelte");
   }
 
+  public static void assertAssets(Project project) {
+    assertFileExist(project, "src/main/webapp/assets/JHipster-Lite-neon-orange.png");
+    assertFileExist(project, "src/main/webapp/assets/svelte-logo.png");
+  }
+
   public static void assertJestSonar(Project project) {
     assertFileContent(
       project,

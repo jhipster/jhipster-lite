@@ -24,14 +24,23 @@ public class SvelteDomainService implements SvelteService {
 
   @Override
   public void addSvelte(Project project) {
+    addCommonSvelteKit(project);
+    addUnstyledHomeFiles(project);
+  }
+
+  @Override
+  public void addStyledSvelteKit(Project project) {
+    addCommonSvelteKit(project);
+    addStyledHomeFiles(project);
+  }
+
+  public void addCommonSvelteKit(Project project) {
     addDependencies(project);
     addDevDependencies(project);
     addScripts(project);
     addJestSonar(project);
     addType(project);
-
     addSvelteConfigFile(project);
-
     addRootFiles(project);
     addAppFiles(project);
   }
@@ -114,6 +123,25 @@ public class SvelteDomainService implements SvelteService {
       "App.spec.ts",
       "src/tests/javascript/spec/common/primary/app"
     );
+
+    projectRepository.add(project, getPath(SOURCE, sourceAssets), "JHipster-Lite-neon-orange.png", destinationAssets);
+    projectRepository.add(project, getPath(SOURCE, sourceAssets), "svelte-logo.png", destinationAssets);
+  }
+
+  public void addUnstyledHomeFiles(Project project) {
+    String sourcePrimary = getPath(SOURCE, "src/main/webapp/app/common/primary/app");
+    String destinationPrimary = "src/main/webapp/app/common/primary/app";
+
+    projectRepository.template(project, sourcePrimary, "App.svelte", destinationPrimary);
+  }
+
+  public void addStyledHomeFiles(Project project) {
+    String sourcePrimary = getPath(SOURCE, "src/main/webapp/app/common/primary/app");
+    String destinationPrimary = "src/main/webapp/app/common/primary/app";
+    String sourceAssets = "src/main/webapp/assets";
+    String destinationAssets = "src/main/webapp/assets";
+
+    projectRepository.template(project, sourcePrimary, "StyledApp.svelte", destinationPrimary, "App.svelte");
 
     projectRepository.add(project, getPath(SOURCE, sourceAssets), "JHipster-Lite-neon-orange.png", destinationAssets);
     projectRepository.add(project, getPath(SOURCE, sourceAssets), "svelte-logo.png", destinationAssets);

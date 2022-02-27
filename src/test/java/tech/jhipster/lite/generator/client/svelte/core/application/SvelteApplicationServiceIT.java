@@ -30,4 +30,22 @@ class SvelteApplicationServiceIT {
     assertJestSonar(project);
     assertType(project);
   }
+
+  @Test
+  void shouldAddStyledSvelte() {
+    Project project = tmpProjectWithPackageJson();
+
+    svelteApplicationService.addStyledSvelteKit(project);
+
+    assertDependency(project);
+    assertScripts(project);
+
+    assertSvelteConfigFiles(project);
+    assertRootFiles(project);
+    assertAppFiles(project);
+    assertAssets(project);
+
+    assertJestSonar(project);
+    assertType(project);
+  }
 }

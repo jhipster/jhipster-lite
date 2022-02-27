@@ -53,7 +53,7 @@ updates:
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
-    directory: '/src/main/resources/generator/dependencies/vite/vue3'
+    directory: '/src/main/resources/generator/dependencies/vite/vue'
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20

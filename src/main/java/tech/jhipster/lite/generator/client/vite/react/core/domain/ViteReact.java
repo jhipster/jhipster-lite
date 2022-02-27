@@ -52,7 +52,7 @@ public class ViteReact {
     return List.of("tsconfig.json", "vite.config.ts", "jest.config.ts");
   }
 
-  public static Map<String, String> reactFiles() {
+  public static Map<String, String> reactCommonFiles() {
     String pathApp = "src/main/webapp/app";
     String pathWebapp = "src/main/webapp";
     String pathPrimaryApp = "src/main/webapp/app/common/primary/app";

@@ -46,6 +46,9 @@ public class EurekaDomainService implements EurekaService {
   @Override
   public void addProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
+    String baseName = project.getBaseName().orElse(BASE_NAME);
+    project.addConfig("baseNameLowercase", baseName.toLowerCase());
+
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "src"),

@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.infrastruct
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringDocAssert.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
 
@@ -13,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -38,11 +38,9 @@ class SpringDocResourceIT {
 
   @Test
   void shouldInit() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class);
-    if (projectDTO == null) {
-      throw new GeneratorException("Error when reading file");
-    }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    projectDTO.getGeneratorJhipster().put(BASE_NAME, "MyProject");
+
     Project project = ProjectDTO.toProject(projectDTO);
 
     initApplicationService.init(project);
@@ -61,6 +59,7 @@ class SpringDocResourceIT {
     assertJavaFiles(project);
     assertProperties(project);
 
+    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, "myProject");
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_TITLE);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_DESCRIPTION);
     assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_LICENSE_NAME);

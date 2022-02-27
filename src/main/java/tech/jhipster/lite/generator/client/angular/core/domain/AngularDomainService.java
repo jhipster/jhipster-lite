@@ -82,11 +82,11 @@ public class AngularDomainService implements AngularService {
   public void addImages(Project project) {
     projectRepository.add(
       project,
-      getPath(SOURCE_WEBAPP, "/content/images"),
+      getPath(SOURCE_WEBAPP, "content/images"),
       "JHipster-Lite-neon-red.png",
       "src/main/webapp/content/images"
     );
-    projectRepository.add(project, getPath(SOURCE_WEBAPP, "/content/images"), "AngularLogo.svg", "src/main/webapp/content/images");
+    projectRepository.add(project, getPath(SOURCE_WEBAPP, "content/images"), "AngularLogo.svg", "src/main/webapp/content/images");
   }
 
   public void addJestSonar(Project project) {

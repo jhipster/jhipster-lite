@@ -4,7 +4,11 @@ import { HomeVue } from '@/common/primary/home';
 let wrapper: VueWrapper;
 
 const wrap = () => {
-  wrapper = shallowMount(HomeVue);
+  wrapper = shallowMount(HomeVue, {
+    global: {
+      stubs: ['router-link'],
+    },
+  });
 };
 
 describe('Home', () => {

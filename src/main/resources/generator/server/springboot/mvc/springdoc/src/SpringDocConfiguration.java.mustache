@@ -16,7 +16,7 @@ public class SpringDocConfiguration {
   private String version;
 
   @Bean
-  public OpenAPI {{baseName}}OpenAPI() {
+  public OpenAPI {{baseNameLowercase}}OpenAPI() {
     return new OpenAPI()
       .info(
         new Info()
@@ -29,7 +29,7 @@ public class SpringDocConfiguration {
   }
 
   @Bean
-  public GroupedOpenApi {{baseName}}AllOpenAPI() {
+  public GroupedOpenApi {{baseNameLowercase}}AllOpenAPI() {
     // prettier-ignore
     return GroupedOpenApi.builder()
       .group("all")

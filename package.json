@@ -1,6 +1,6 @@
 {
   "name": "jhlite",
-  "version": "0.0.11-SNAPSHOT",
+  "version": "0.0.12-SNAPSHOT",
   "description": "JHipster Lite",
   "homepage": "https://www.jhipster.tech/",
   "bugs": "https://github.com/jhipster/jhipster-lite/issues",
@@ -55,7 +55,7 @@
     "typescript": "4.5.5",
     "vite": "2.8.4",
     "vue-jest": "5.0.0-alpha.10",
-    "vue-tsc": "0.31.4"
+    "vue-tsc": "0.32.0"
   },
   "engines": {
     "node": ">=14.18.1"

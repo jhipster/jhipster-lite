@@ -166,7 +166,7 @@ elif [[ $application == 'vueapp' ]]; then
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue/styled"
   
-elif [[ $filename == 'svelteapp' ]]; then
+elif [[ $application == 'svelteapp' ]]; then
   springboot
   sonar_back_front
 

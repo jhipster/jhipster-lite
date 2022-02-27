@@ -168,6 +168,7 @@ elif [[ $application == 'vueapp' ]]; then
   
 elif [[ $filename == 'svelteapp' ]]; then
   springboot
+  sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/svelte"

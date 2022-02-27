@@ -1,9 +1,9 @@
 {
-    "folder": "/tmp/jhlite/tomcat-svelte",
-    "generator-jhipster": {
-      "projectName": "Beer Project",
-      "baseName": "beer",
-      "prettierDefaultIndent": 2,
-      "packageName": "tech.jhipster.beer"
-    }
+  "folder": "/tmp/jhlite/svelteapp",
+  "generator-jhipster": {
+    "projectName": "Svelteapp Project",
+    "baseName": "svelteapp",
+    "prettierDefaultIndent": 2,
+    "packageName": "tech.jhipster.svelteapp"
   }
+}

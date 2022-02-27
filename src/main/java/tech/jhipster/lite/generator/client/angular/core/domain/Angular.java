@@ -65,7 +65,6 @@ public class Angular {
       Map.entry("styles.css", ""),
       Map.entry("app.module.ts", primaryApp),
       Map.entry("app.component.ts", primaryApp),
-      Map.entry("app.component.css", primaryApp),
       Map.entry("app.component.html", primaryApp),
       Map.entry("app-routing.module.ts", primaryApp),
       Map.entry("app-routing.module.spec.ts", primaryApp),

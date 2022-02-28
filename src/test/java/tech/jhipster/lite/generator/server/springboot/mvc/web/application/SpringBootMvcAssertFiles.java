@@ -4,6 +4,7 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvcDomainService.INFRA_PRIMARY_CORS;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -72,7 +73,7 @@ public class SpringBootMvcAssertFiles {
   }
 
   public static void assertCorsFiles(Project project) {
-    String corsPath = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), "technical/infrastructure/primary/cors");
+    String corsPath = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), INFRA_PRIMARY_CORS);
     assertFileExist(project, getPath(MAIN_JAVA, corsPath, "CorsFilterConfiguration.java"));
     assertFileExist(project, getPath(MAIN_JAVA, corsPath, "CorsProperties.java"));
     assertFileExist(project, getPath(TEST_JAVA, corsPath, "CorsFilterConfigurationIT.java"));

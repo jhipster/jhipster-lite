@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -34,24 +35,39 @@ class AngularDomainServiceTest {
   ProjectRepository projectRepository;
 
   @Test
-  void shouldInit() {
-    Project project = tmpProject();
-    when(npmService.getVersionInAngular(anyString())).thenReturn(Optional.of("0.0.0"));
+  void shouldAddAngular() {
+    Project project = tmpProjectWithPackageJson();
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
-    angularDomainService.init(project);
+    assertThatCode(() -> angularDomainService.addAngular(project)).doesNotThrowAnyException();
+  }
 
-    verify(npmService, times(11)).addDevDependency(any(Project.class), anyString(), anyString());
-    verify(npmService, times(11)).addDependency(any(Project.class), anyString(), anyString());
-    verify(npmService, times(5)).addScript(any(Project.class), anyString(), anyString());
+  @Test
+  void shouldNotAddAngular() {
+    Project project = tmpProjectWithPackageJson();
 
-    verify(projectRepository, times(5)).add(any(Project.class), anyString(), anyString());
-    verify(projectRepository, times(15)).template(any(Project.class), anyString(), anyString(), anyString());
+    assertThatThrownBy(() -> angularDomainService.addAngular(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddStyledAngular() {
+    Project project = tmpProjectWithPackageJson();
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
+
+    assertThatCode(() -> angularDomainService.addStyledAngular(project)).doesNotThrowAnyException();
+  }
+
+  @Test
+  void shouldNotAddStyledAngular() {
+    Project project = tmpProjectWithPackageJson();
+
+    assertThatThrownBy(() -> angularDomainService.addStyledAngular(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
   void shouldAddDependencies() {
     Project project = tmpProjectWithPackageJson();
-    when(npmService.getVersionInAngular(anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
     angularDomainService.addDependencies(project);
 
@@ -68,7 +84,7 @@ class AngularDomainServiceTest {
   @Test
   void shouldAddDevDependencies() {
     Project project = tmpProjectWithPackageJson();
-    when(npmService.getVersionInAngular(anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
     angularDomainService.addDevDependencies(project);
 
@@ -106,6 +122,6 @@ class AngularDomainServiceTest {
 
     angularDomainService.addAngularFiles(project);
 
-    verify(projectRepository, times(15)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(14)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

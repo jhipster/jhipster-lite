@@ -16,7 +16,7 @@
     <jjwt.version>0.11.2</jjwt.version>
     <logstash-logback-encoder.version>7.0.1</logstash-logback-encoder.version>
     <problem-spring.version>0.27.0</problem-spring.version>
-    <spring-boot.version>2.6.3</spring-boot.version>
+    <spring-boot.version>2.6.4</spring-boot.version>
     <spring-cloud.version>2021.0.0</spring-cloud.version>
     <spring-cloud-netflix-eureka-client.version>3.1.1</spring-cloud-netflix-eureka-client.version>
     <springdoc-openapi.version>1.6.6</springdoc-openapi.version>
@@ -29,7 +29,8 @@
     <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
     <jib-maven-plugin.version>3.2.0</jib-maven-plugin.version>
-    <flyway.version>8.5.0</flyway.version>
+    <flyway.version>8.5.1</flyway.version>
+    <archunit-junit5.version>0.23.0</archunit-junit5.version>
   </properties>
 
   <dependencyManagement>
@@ -108,6 +109,12 @@
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-core</artifactId>
         <version>${flyway.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.tngtech.archunit</groupId>
+        <artifactId>archunit-junit5-api</artifactId>
+        <version>${archunit-junit5.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

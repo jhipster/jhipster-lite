@@ -32,14 +32,27 @@ public class ViteReact {
   }
 
   public static Map<String, String> scripts() {
-    return Map.of("dev", "vite", "build", "tsc && vite build --emptyOutDir", "preview", "vite preview", "test", "jest");
+    return Map.of(
+      "dev",
+      "vite",
+      "build",
+      "tsc && vite build --emptyOutDir",
+      "preview",
+      "vite preview",
+      "start",
+      "vite",
+      "test",
+      "jest",
+      "test:watch",
+      "jest --watch"
+    );
   }
 
   public static List<String> files() {
     return List.of("tsconfig.json", "vite.config.ts", "jest.config.ts");
   }
 
-  public static Map<String, String> reactFiles() {
+  public static Map<String, String> reactCommonFiles() {
     String pathApp = "src/main/webapp/app";
     String pathWebapp = "src/main/webapp";
     String pathPrimaryApp = "src/main/webapp/app/common/primary/app";

@@ -103,7 +103,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.verify(() -> {
         ArgumentCaptor<String> fileContentArgCaptor = ArgumentCaptor.forClass(String.class);
         try {
-          FileUtils.write(eq(historyFilePath), fileContentArgCaptor.capture(), eq(WordUtils.CRLF));
+          FileUtils.write(eq(historyFilePath), fileContentArgCaptor.capture(), eq(project.getEndOfLine()));
         } catch (IOException e) {
           fail("Unexpected IOException");
         }
@@ -136,7 +136,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.verify(() -> {
         ArgumentCaptor<String> fileContentArgCaptor = ArgumentCaptor.forClass(String.class);
         try {
-          FileUtils.write(eq(historyFilePath), fileContentArgCaptor.capture(), eq(WordUtils.CRLF));
+          FileUtils.write(eq(historyFilePath), fileContentArgCaptor.capture(), eq(project.getEndOfLine()));
         } catch (IOException e) {
           fail("Unexpected IOException");
         }

@@ -13,7 +13,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class ViteVueDomainService implements ViteVueService {
 
-  public static final String SOURCE = "client/vite/vue3";
+  public static final String SOURCE = "client/vite/vue";
   public static final String SOURCE_PRIMARY = getPath(SOURCE, "webapp/app/common/primary/app");
   public static final String DESTINATION_PRIMARY = "src/main/webapp/app/common/primary/app";
 
@@ -57,7 +57,7 @@ public class ViteVueDomainService implements ViteVueService {
 
   private void addDependency(Project project, String dependency) {
     npmService
-      .getVersion("vite/vue3", dependency)
+      .getVersion("vite/vue", dependency)
       .ifPresentOrElse(
         version -> npmService.addDependency(project, dependency, version),
         () -> {
@@ -68,7 +68,7 @@ public class ViteVueDomainService implements ViteVueService {
 
   private void addDevDependency(Project project, String devDependency) {
     npmService
-      .getVersion("vite/vue3", devDependency)
+      .getVersion("vite/vue", devDependency)
       .ifPresentOrElse(
         version -> npmService.addDevDependency(project, devDependency, version),
         () -> {
@@ -84,6 +84,7 @@ public class ViteVueDomainService implements ViteVueService {
         "build", "vue-tsc --noEmit && vite build --emptyOutDir",
         "dev", "vite",
         "preview", "vite preview",
+        "start", "vite",
         "test", "jest src/test/javascript/spec"
       )
       .forEach((name, cmd) -> npmService.addScript(project, name, cmd));

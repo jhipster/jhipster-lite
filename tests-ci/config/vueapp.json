@@ -3,7 +3,6 @@
   "generator-jhipster": {
     "projectName": "VueApp Project",
     "baseName": "vueapp",
-    "prettierDefaultIndent": 2,
     "packageName": "tech.jhipster.vueapp"
   }
 }

@@ -94,9 +94,4 @@ public class NpmDomainService implements NpmService {
   public Optional<String> getVersionInViteReact(String name) {
     return getVersion("vite/react", name);
   }
-
-  @Override
-  public Optional<String> getVersionInAngular(String name) {
-    return getVersion("angular", name);
-  }
 }

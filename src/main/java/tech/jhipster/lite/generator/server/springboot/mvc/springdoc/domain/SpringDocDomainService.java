@@ -9,6 +9,7 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domai
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -64,10 +65,7 @@ public class SpringDocDomainService implements SpringDocService {
 
   @Override
   public void addJavaFiles(Project project) {
-    project.addDefaultConfig(PACKAGE_NAME);
-    project.addDefaultConfig(BASE_NAME);
-    getDefaultSpringDocConfig().forEach((key, defaultValue) -> updateEmptyConfig(project, key, defaultValue));
-
+    addDefaultParameters(project);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
     projectRepository.template(
       project,
@@ -78,10 +76,7 @@ public class SpringDocDomainService implements SpringDocService {
   }
 
   private void addJavaFilesWithSecurityJWT(Project project) {
-    project.addDefaultConfig(PACKAGE_NAME);
-    project.addDefaultConfig(BASE_NAME);
-    getDefaultSpringDocConfig().forEach((key, defaultValue) -> updateEmptyConfig(project, key, defaultValue));
-
+    addDefaultParameters(project);
     String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
     projectRepository.template(
       project,
@@ -97,6 +92,14 @@ public class SpringDocDomainService implements SpringDocService {
     springBootCommonService.addPropertiesComment(project, "Springdoc Configuration");
     getSpringDocProperties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
     springBootCommonService.addPropertiesNewLine(project);
+  }
+
+  private void addDefaultParameters(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    project.addDefaultConfig(BASE_NAME);
+    String baseName = project.getBaseName().orElseThrow();
+    project.addConfig("baseNameLowercase", WordUtils.lowerFirst(baseName));
+    getDefaultSpringDocConfig().forEach((key, defaultValue) -> updateEmptyConfig(project, key, defaultValue));
   }
 
   private TreeMap<String, Object> getSpringDocProperties() {

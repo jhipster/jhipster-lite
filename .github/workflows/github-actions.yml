@@ -52,6 +52,8 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: 'Start local Sonar'
+        run: docker-compose -f src/main/docker/sonar.yml up -d
       - name: 'Init: install Node.js packages'
         run: npm ci
       - name: 'Check: prettier'
@@ -59,7 +61,11 @@ jobs:
       - name: 'Test: run backend tests'
         run: |
           chmod +x mvnw
-          ./mvnw clean verify
+          ./mvnw clean verify sonar:sonar
+      - name: 'Check local Sonar Analysis'
+        run: |
+          sleep 15
+          ./tests-ci/sonar.sh
       - name: 'Analysis: SonarCloud'
         if: github.repository == 'jhipster/jhipster-lite' && github.ref == 'refs/heads/main'
         env:
@@ -93,15 +99,16 @@ jobs:
     strategy:
       matrix:
         app:
-          - full-default
+          - fullapp
+          - mysqlapp
+          - flywayapp
+          - undertowapp
+          - eurekaapp
+          - consulapp
+          - mongodbapp
+          - angularapp
+          - reactapp
           - vueapp
-          - tomcat-mysql-ehcachexml
-          - undertow-simplecache
-          - tomcat-configserver
-          - undertow-consul
-          - tomcat-eureka
-          - tomcat-mongodb
-          - tomcat-vite-react
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v2
@@ -133,11 +140,21 @@ jobs:
           key: ${{ runner.os }}-maven-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: 'Test: starting Sonar'
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
+        run: |
+          docker-compose -f src/main/docker/sonar.yml up -d
+          sleep 30
+          docker ps -a
       - name: 'Test: verify ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           chmod +x mvnw
-          ./mvnw clean verify
+          ./mvnw clean verify sonar:sonar
+      - name: 'Test: check local Sonar Analysis'
+        run: |
+          sleep 15
+          ./tests-ci/sonar.sh ${{ matrix.app }}
   #--------------------------------------------------
   # Send analysis to Codecov
   #--------------------------------------------------

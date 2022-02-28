@@ -42,9 +42,7 @@ public class ConsulDomainService implements ConsulService {
     this.buildToolService.getVersion(project, "spring-cloud")
       .ifPresentOrElse(
         version -> {
-          buildToolService.addProperty(project, "spring-cloud.version", version);
-          buildToolService.addDependencyManagement(project, springCloudDependencyManagement());
-          buildToolService.addDependency(project, springCloudBootstrapDependency());
+          springCloudCommonService.addSpringCloudCommonDependencies(project);
           buildToolService.addDependency(project, springCloudConsulConfigDependency());
           buildToolService.addDependency(project, springCloudConsulDiscoveryDependency());
         },
@@ -57,6 +55,8 @@ public class ConsulDomainService implements ConsulService {
   @Override
   public void addProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
+    String baseName = project.getBaseName().orElse(BASE_NAME);
+    project.addConfig("baseNameLowercase", baseName.toLowerCase());
 
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,

@@ -1,0 +1,8 @@
+{
+  "folder": "/tmp/jhlite/angularapp",
+  "generator-jhipster": {
+    "projectName": "AngularApp Project",
+    "baseName": "angularapp",
+    "packageName": "tech.jhipster.angularapp"
+  }
+}

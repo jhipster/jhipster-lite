@@ -62,8 +62,10 @@ To launch tests and integration tests:
 You can run the project using Maven:
 
 ```
-./mvnw spring-boot:run
+./mvnw
 ```
+
+Since spring-boot:run is the default target
 
 Or, first, you can package as jar:
 
@@ -90,7 +92,6 @@ You can use this JSON to generate a project:
   "generator-jhipster": {
     "projectName": "Beer Project",
     "baseName": "beer",
-    "prettierDefaultIndent": 2,
     "packageName": "tech.jhipster.beer"
   }
 }
@@ -101,26 +102,56 @@ You can use different API to:
 
 - init the project
 
-Then, you can add:
+Then, for a Java project, you can add:
 
 - Maven as Build Tool
 - Java Base classes and Domain Error
-- JaCoCo config for minimum coverage
+
+List of optional tools for Java:
+
+- ArchUnit tests
+- JaCoCo configuration for minimum coverage
 - Sonar configuration
+
+Setup:
+
+- GitHub Codespaces
+
+Spring Boot:
+
 - Spring Boot as Server Framework
-  - Spring Boot Actuator
-  - Tomcat or Undertow as Spring Boot MVC
-    - Spring Security with JWT
-      - Basic Auth
-  - PostgreSQL or MySQL as Database
-    - Liquibase as Database Migration Tool
-  - AOP Logging
-  - Asynchronous execution and scheduling configuration
-  - Spring Cache
-    - Simple
-    - Ehcache
-  - Developer Tools
-  - Logstash TCP appender
+- Spring Boot Actuator
+- Tomcat or Undertow as Spring Boot MVC
+  - Spring Security with JWT
+    - Basic Auth
+- AOP Logging
+- Asynchronous execution and scheduling configuration
+- Spring Cache
+  - Simple
+  - Ehcache
+- Developer Tools
+- Logstash TCP appender
+- Springdoc without or with Security JWT
+- Jib to build Docker image
+
+Spring Boot Database:
+
+- PostgreSQL or MySQL as Database
+  - Liquibase or Flyway as Database Migration Tool
+  - User and Authority tables (depending on Liquibase or Flyway)
+- MongoDB as NoSQL DAtabase
+
+Spring Cloud:
+
+- Eureka client
+- Spring Cloud Config client
+- Spring Cloud Consul
+
+Client:
+
+- Angular
+- React with Vite
+- Vue with Vite
 
 [jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
 [jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases

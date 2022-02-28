@@ -4,11 +4,10 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 
 import java.util.List;
-import java.util.stream.Stream;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class JwtSecurityAssertFiles {
@@ -25,12 +24,9 @@ public class JwtSecurityAssertFiles {
     List<String> infrastructureConfigJavaFiles = List.of(
       "ApplicationSecurityDefaults.java",
       "ApplicationSecurityProperties.java",
-      "CorsFilterConfiguration.java",
-      "CorsProperties.java",
       "JWTConfigurer.java",
       "JWTFilter.java",
       "SecurityConfiguration.java",
-      "SecurityExceptionTranslator.java",
       "TokenProvider.java"
     );
 
@@ -48,48 +44,34 @@ public class JwtSecurityAssertFiles {
     assertFileExist(project, getPath(TEST_JAVA, applicationConfigPath, "SecurityUtilsTest.java"));
 
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "ApplicationSecurityPropertiesTest.java"));
-    assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "CorsFilterConfigurationIT.java"));
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "JWTFilterTest.java"));
     assertFileExist(project, getPath(TEST_JAVA, infrastructureConfigPath, "TokenProviderTest.java"));
   }
 
-  public static void assertJwtSecurityProperties(Project project) {
-    String baseName = project.getBaseName().orElse("jhipster");
-    List<String> corsProperties = List.of(
-      "application.cors.allowed-origins=http://localhost:8100,http://localhost:9000",
-      "application.cors.allowed-methods=*",
-      "application.cors.allowed-headers=*",
-      "application.cors.exposed-headers=Authorization,Link,X-Total-Count,X-" +
-      baseName +
-      "-alert,X-" +
-      baseName +
-      "-error,X-" +
-      baseName +
-      "-params",
-      "application.cors.allow-credentials=true",
-      "application.cors.max-age=1800",
-      "application.cors.allowed-origin-patterns=https://*.githubpreview.dev"
+  public static void assertExceptionTranslatorWithSecurity(Project project) {
+    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), "technical/infrastructure/primary/exception");
+
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
+      "import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;"
     );
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
+      "public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {"
+    );
+  }
 
-    List<String> commentedCorsProperties = corsProperties.stream().map(p -> "# " + p).toList();
-
+  public static void assertJwtSecurityProperties(Project project) {
     List<String> properties = List.of(
       "application.security.authentication.jwt.base64-secret=bXktc2VjcmV0LWtleS13aGljaC1zaG91bGQtYmUtY2hhbmdlZC1pbi1wcm9kdWN0aW9uLWFuZC1iZS1iYXNlNjQtZW5jb2RlZAo=",
       "application.security.authentication.jwt.token-validity-in-seconds=86400",
       "application.security.authentication.jwt.token-validity-in-seconds-for-remember-me=2592000"
     );
 
-    assertFileContent(
-      project,
-      getPath(MAIN_RESOURCES, "config/application.properties"),
-      Stream.concat(properties.stream(), commentedCorsProperties.stream()).toList()
-    );
-    assertFileContent(
-      project,
-      getPath(TEST_RESOURCES, "config/application.properties"),
-      Stream.concat(properties.stream(), corsProperties.stream()).toList()
-    );
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-local.properties"), corsProperties);
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), properties);
+    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), properties);
   }
 
   public static List<String> jwtSecurityDependencies() {
@@ -151,5 +133,14 @@ public class JwtSecurityAssertFiles {
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), properties);
     assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), properties);
+  }
+
+  public static void assertLoggerInConfiguration(Project project) {
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
+      "<logger name=\"" + packageName + ".security.jwt.infrastructure.config\" level=\"WARN\" />"
+    );
   }
 }

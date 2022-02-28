@@ -8,7 +8,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURC
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.springcloud.eureka.domain.EurekaClient;
+import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommon;
 
 public class EurekaAssert {
 
@@ -71,8 +71,8 @@ public class EurekaAssert {
         "eureka.client.register-with-eureka=true",
         "eureka.client.instance-info-replication-interval-seconds=10",
         "eureka.client.registry-fetch-interval-seconds=10",
-        "eureka.instance.appname=" + baseName,
-        "eureka.instance.instance-id=" + baseName + ":${spring.application.instance-id:${random.value}}",
+        "eureka.instance.appname=" + baseName.toLowerCase(),
+        "eureka.instance.instance-id=" + baseName.toLowerCase() + ":${spring.application.instance-id:${random.value}}",
         "eureka.instance.lease-renewal-interval-in-seconds=5",
         "eureka.instance.lease-expiration-duration-in-seconds=10",
         "eureka.instance.status-page-url-path=${management.endpoints.web.base-path}/info",
@@ -85,7 +85,7 @@ public class EurekaAssert {
 
   public static void assertDockerCompose(Project project) {
     assertFileExist(project, "src/main/docker/jhipster-registry.yml");
-    assertFileContent(project, "src/main/docker/jhipster-registry.yml", EurekaClient.JHIPSTER_REGISTRY_DOCKER_IMAGE);
+    assertFileContent(project, "src/main/docker/jhipster-registry.yml", SpringCloudCommon.JHIPSTER_REGISTRY_DOCKER_IMAGE);
     assertFileExist(project, "src/main/docker/central-server-config/localhost-config/application.properties");
   }
 }

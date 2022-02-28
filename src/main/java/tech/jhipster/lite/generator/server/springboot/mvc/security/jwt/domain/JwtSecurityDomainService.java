@@ -13,6 +13,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class JwtSecurityDomainService implements JwtSecurityService {
@@ -41,8 +42,10 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addPropertyAndDependency(project);
     addJavaFiles(project);
     addProperties(project);
+    addLoggerInConfiguration(project);
 
     updateExceptionTranslator(project);
+    updateIntegrationTest(project);
   }
 
   @Override
@@ -51,7 +54,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addBasicAuthProperties(project);
   }
 
-  private void updateExceptionTranslator(Project project) {
+  private void updateIntegrationTest(Project project) {
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
 
@@ -67,6 +70,23 @@ public class JwtSecurityDomainService implements JwtSecurityService {
       @WithMockUser
       public @interface""";
     projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldAnnotation, newAnnotation);
+  }
+
+  private void updateExceptionTranslator(Project project) {
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String exceptionTranslatorPath = getPath(MAIN_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String exceptionTranslatorFile = "ExceptionTranslator.java";
+
+    String oldImport = "import org.zalando.problem.spring.web.advice.ProblemHandling;";
+    String newImport =
+      """
+      import org.zalando.problem.spring.web.advice.ProblemHandling;
+      import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;""";
+    projectRepository.replaceText(project, exceptionTranslatorPath, exceptionTranslatorFile, oldImport, newImport);
+
+    String oldImplements = "public class ExceptionTranslator implements ProblemHandling \\{";
+    String newImplements = "public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait \\{";
+    projectRepository.replaceText(project, exceptionTranslatorPath, exceptionTranslatorFile, oldImplements, newImplements);
   }
 
   private void addPropertyAndDependency(Project project) {
@@ -142,8 +162,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   }
 
   private void addProperties(Project project) {
-    String baseName = project.getBaseName().orElse("jhipster");
-
     String commentSecurityJwt = "Spring Security JWT";
     springBootCommonService.addPropertiesComment(project, commentSecurityJwt);
     springBootCommonService.addPropertiesTestComment(project, commentSecurityJwt);
@@ -152,12 +170,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
       .forEach((k, v) -> {
         springBootCommonService.addProperties(project, k, v);
         springBootCommonService.addPropertiesTest(project, k, v);
-      });
-    corsProperties(baseName)
-      .forEach((k, v) -> {
-        springBootCommonService.addPropertiesLocal(project, k, v);
-        springBootCommonService.addPropertiesTest(project, k, v);
-        springBootCommonService.addPropertiesComment(project, k + "=" + v);
       });
     springBootCommonService.addPropertiesNewLine(project);
     springBootCommonService.addPropertiesTestNewLine(project);
@@ -175,18 +187,14 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     return result;
   }
 
-  private Map<String, Object> corsProperties(String baseName) {
-    Map<String, Object> result = new LinkedHashMap<>();
-    result.put("application.cors.allowed-origins", "http://localhost:8100,http://localhost:9000");
-    result.put("application.cors.allowed-methods", "*");
-    result.put("application.cors.allowed-headers", "*");
-    result.put(
-      "application.cors.exposed-headers",
-      "Authorization,Link,X-Total-Count,X-" + baseName + "-alert,X-" + baseName + "-error,X-" + baseName + "-params"
-    );
-    result.put("application.cors.allow-credentials", "true");
-    result.put("application.cors.max-age", "1800");
-    result.put("application.cors.allowed-origin-patterns", "https://*.githubpreview.dev");
-    return result;
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    addLogger(project, packageName + ".security.jwt.infrastructure.config", Level.WARN);
+  }
+
+  public void addLogger(Project project, String packageName, Level level) {
+    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 }

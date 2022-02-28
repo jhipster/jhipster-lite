@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.*;
 
 import java.util.List;
@@ -45,6 +46,9 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addServerPortInProperties(project);
     addExceptionHandler(project);
     addLoggerInConfiguration(project, "org.springframework.web", Level.WARN);
+
+    addCorsFiles(project);
+    addCorsProperties(project);
   }
 
   @Override
@@ -55,6 +59,9 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addServerPortInProperties(project);
     addExceptionHandler(project);
     addLoggerInConfiguration(project, "io.undertow", Level.WARN);
+
+    addCorsFiles(project);
+    addCorsProperties(project);
   }
 
   @Override
@@ -129,5 +136,42 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     springBootCommonService.addLogger(project, packageName, level);
     springBootCommonService.addLoggerTest(project, packageName, level);
     springBootCommonService.addPropertiesNewLine(project);
+    springBootCommonService.addPropertiesTestNewLine(project);
+  }
+
+  private void addCorsFiles(Project project) {
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String packageCors = "technical/infrastructure/primary/cors";
+    corsFiles()
+      .forEach((javaFile, destination) ->
+        projectRepository.template(project, getPath(SOURCE, "src", "cors"), javaFile, getPath(MAIN_JAVA, packageNamePath, packageCors))
+      );
+
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "test", "cors"),
+      "CorsFilterConfigurationIT.java",
+      getPath(TEST_JAVA, packageNamePath, packageCors)
+    );
+  }
+
+  private void addCorsProperties(Project project) {
+    String baseName = project.getBaseName().orElse("jhipster");
+
+    String commentCorsConfiguration = "CORS configuration";
+    springBootCommonService.addPropertiesComment(project, commentCorsConfiguration);
+    springBootCommonService.addPropertiesLocalComment(project, commentCorsConfiguration);
+    springBootCommonService.addPropertiesTestComment(project, commentCorsConfiguration);
+
+    corsProperties(baseName)
+      .forEach((k, v) -> {
+        springBootCommonService.addPropertiesComment(project, k + "=" + v);
+        springBootCommonService.addPropertiesLocal(project, k, v);
+        springBootCommonService.addPropertiesTest(project, k, v);
+      });
+
+    springBootCommonService.addPropertiesNewLine(project);
+    springBootCommonService.addPropertiesLocalNewLine(project);
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 }

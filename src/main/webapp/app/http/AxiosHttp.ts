@@ -1,5 +1,7 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 
+export type AxiosHttpResponse<T> = AxiosResponse<T>;
+
 export class AxiosHttp {
   constructor(private axiosInstance: AxiosInstance) {}
 

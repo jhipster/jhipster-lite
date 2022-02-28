@@ -106,7 +106,6 @@ public class SpringBootDockerDomainService implements SpringBootDockerService {
 
   @Override
   public void addDockerFile(Project project) {
-    //    projectRepository.template(project, DOCKER_SOURCE, DOCKER_FILE);
     projectRepository.add(project, DOCKER_SOURCE, DOCKER_FILE);
   }
 }

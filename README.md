@@ -136,7 +136,7 @@ Spring Boot:
 
 Spring Boot Database:
 
-- PostgreSQL or MySQL as Database
+- PostgreSQL, MySQL or MariaDB as Database
   - Liquibase or Flyway as Database Migration Tool
   - User and Authority tables (depending on Liquibase or Flyway)
 - MongoDB as NoSQL DAtabase

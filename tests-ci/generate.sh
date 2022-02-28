@@ -107,6 +107,18 @@ elif [[ $application == 'mysqlapp' ]]; then
 
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
 
+elif [[ $application == 'mariadbapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/mvc/springdoc/init"
+  callApi "/api/servers/spring-boot/mvc/dummy"
+
+  callApi "/api/servers/spring-boot/databases/mariadb"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+
+  callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
+
 elif [[ $application == 'flywayapp' ]]; then
   springboot
   sonar_back

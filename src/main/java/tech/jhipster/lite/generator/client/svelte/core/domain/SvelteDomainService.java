@@ -81,7 +81,8 @@ public class SvelteDomainService implements SvelteService {
     // prettier-ignore
     Map
       .of(
-        "dev", "svelte-kit dev",
+        "dev", "svelte-kit dev --port 9000",
+        "start", "svelte-kit dev --port 9000",
         "build", "svelte-kit build",
         "package", "svelte-kit package",
         "preview", "svelte-kit preview",

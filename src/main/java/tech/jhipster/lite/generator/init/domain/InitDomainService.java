@@ -33,6 +33,7 @@ public class InitDomainService implements InitService {
     addEditorConfiguration(project);
     addPrettier(project);
     addPackageJson(project);
+    gitInit(project);
   }
 
   @Override
@@ -109,5 +110,10 @@ public class InitDomainService implements InitService {
 
     project.addConfig("prettierEndOfLine", CRLF.equals(project.getEndOfLine()) ? "crlf" : "lf");
     projectRepository.template(project, SOURCE, ".prettierrc");
+  }
+
+  @Override
+  public void gitInit(Project project) {
+    projectRepository.gitInit(project);
   }
 }

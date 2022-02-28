@@ -13,6 +13,8 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class SvelteDomainService implements SvelteService {
 
   public static final String SOURCE = "client/svelte";
+  public static final String DESTINATION_PRIMARY = "src/main/webapp/app/common/primary/app";
+  public static final String SOURCE_PRIMARY = getPath(SOURCE, DESTINATION_PRIMARY);
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
@@ -94,7 +96,7 @@ public class SvelteDomainService implements SvelteService {
 
   public void addSvelteConfigFile(Project project) {
     List
-      .of(".eslintrc.cjs", "tsconfig.json", "svelte.config.js", ".prettierrc", "jest.config.cjs", "babel.config.cjs")
+      .of(".eslintrc.cjs", "tsconfig.json", "svelte.config.js", "jest.config.cjs")
       .forEach(file -> projectRepository.add(project, SOURCE, file));
   }
 
@@ -107,44 +109,30 @@ public class SvelteDomainService implements SvelteService {
   }
 
   public void addAppFiles(Project project) {
-    String sourcePrimary = getPath(SOURCE, "src/main/webapp/app/common/primary/app");
     String sourceRoutes = getPath(SOURCE, "src/main/webapp/routes");
-    String destinationPrimary = "src/main/webapp/app/common/primary/app";
     String destinationRoutes = "src/main/webapp/routes";
-    String sourceAssets = "src/main/webapp/assets";
-    String destinationAssets = "src/main/webapp/assets";
 
-    projectRepository.template(project, sourcePrimary, "App.svelte", destinationPrimary);
     projectRepository.template(project, sourceRoutes, "index.svelte", destinationRoutes);
 
     projectRepository.template(
       project,
-      getPath(SOURCE, "src/tests/spec/common/primary/app"),
+      getPath(SOURCE, "src/test/spec/common/primary/app"),
       "App.spec.ts",
-      "src/tests/javascript/spec/common/primary/app"
+      "src/test/javascript/spec/common/primary/app"
     );
-
-    projectRepository.add(project, getPath(SOURCE, sourceAssets), "JHipster-Lite-neon-orange.png", destinationAssets);
-    projectRepository.add(project, getPath(SOURCE, sourceAssets), "svelte-logo.png", destinationAssets);
   }
 
   public void addUnstyledHomeFiles(Project project) {
-    String sourcePrimary = getPath(SOURCE, "src/main/webapp/app/common/primary/app");
-    String destinationPrimary = "src/main/webapp/app/common/primary/app";
-
-    projectRepository.template(project, sourcePrimary, "App.svelte", destinationPrimary);
+    projectRepository.template(project, SOURCE_PRIMARY, "App.svelte", DESTINATION_PRIMARY);
   }
 
   public void addStyledHomeFiles(Project project) {
-    String sourcePrimary = getPath(SOURCE, "src/main/webapp/app/common/primary/app");
-    String destinationPrimary = "src/main/webapp/app/common/primary/app";
-    String sourceAssets = "src/main/webapp/assets";
-    String destinationAssets = "src/main/webapp/assets";
+    String assets = "src/main/webapp/assets";
 
-    projectRepository.template(project, sourcePrimary, "StyledApp.svelte", destinationPrimary, "App.svelte");
+    projectRepository.template(project, SOURCE_PRIMARY, "StyledApp.svelte", DESTINATION_PRIMARY, "App.svelte");
 
-    projectRepository.add(project, getPath(SOURCE, sourceAssets), "JHipster-Lite-neon-orange.png", destinationAssets);
-    projectRepository.add(project, getPath(SOURCE, sourceAssets), "svelte-logo.png", destinationAssets);
+    projectRepository.add(project, getPath(SOURCE, assets), "JHipster-Lite-neon-orange.png", assets);
+    projectRepository.add(project, getPath(SOURCE, assets), "svelte-logo.png", assets);
   }
 
   public void addJestSonar(Project project) {

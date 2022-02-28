@@ -3,7 +3,6 @@
   "generator-jhipster": {
     "projectName": "Svelteapp Project",
     "baseName": "svelteapp",
-    "prettierDefaultIndent": 2,
     "packageName": "tech.jhipster.svelteapp"
   }
 }

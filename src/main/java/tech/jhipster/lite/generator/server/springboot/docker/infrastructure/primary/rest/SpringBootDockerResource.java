@@ -31,4 +31,13 @@ class SpringBootDockerResource {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootDockerApplicationService.addJib(project);
   }
+
+  @Operation(summary = "Add docker file")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding jib")
+  @PostMapping("/dockerfile")
+  @GeneratorStep(id = "dockerfile")
+  public void addDockerfile(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    springBootDockerApplicationService.addDockerfile(project);
+  }
 }

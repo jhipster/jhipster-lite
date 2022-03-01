@@ -54,4 +54,23 @@ class SpringBootDockerResourceIT {
 
     assertFileExist(projectPath, "src/main/docker/jib/entrypoint.sh");
   }
+
+  @Test
+  void shouldAddDockerfile() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/docker/dockerfile")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    String projectPath = projectDTO.getFolder();
+
+    assertFileExist(projectPath, "Dockerfile");
+  }
 }

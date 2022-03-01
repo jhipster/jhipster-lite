@@ -23,4 +23,5 @@ public class Constants {
 
   public static final String COMMENT_PROPERTIES_PREFIX = "#";
   public static final String KEY_VALUE_PROPERTIES_SEPARATOR = "=";
+  public static final String DOCKERFILE = "Dockerfile";
 }

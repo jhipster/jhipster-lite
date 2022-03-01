@@ -13,7 +13,7 @@ public class Svelte {
   public static List<String> devDependencies() {
     return List.of(
       "@babel/preset-env",
-      "@sveltejs/adapter-auto",
+      "@sveltejs/adapter-static",
       "@sveltejs/kit",
       "@testing-library/svelte",
       "@testing-library/jest-dom",

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.web.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.INFRA_PRIMARY;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
@@ -18,7 +19,8 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 public class SpringBootMvcDomainService implements SpringBootMvcService {
 
   public static final String SOURCE = "server/springboot/mvc/web";
-  public static final String EXCEPTION_HANDLER_PATH = "technical/infrastructure/primary/exception";
+  public static final String INFRA_PRIMARY_CORS = getPath(INFRA_PRIMARY, "cors");
+  public static final String INFRA_PRIMARY_EXCEPTION = getPath(INFRA_PRIMARY, "exception");
 
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;
@@ -122,7 +124,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   private void templateToExceptionHandler(Project project, String source, String type, String sourceFilename, String destination) {
-    projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, EXCEPTION_HANDLER_PATH));
+    projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, INFRA_PRIMARY_EXCEPTION));
   }
 
   private void addServerPortInProperties(Project project) {
@@ -141,17 +143,21 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
 
   private void addCorsFiles(Project project) {
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String packageCors = "technical/infrastructure/primary/cors";
     corsFiles()
       .forEach((javaFile, destination) ->
-        projectRepository.template(project, getPath(SOURCE, "src", "cors"), javaFile, getPath(MAIN_JAVA, packageNamePath, packageCors))
+        projectRepository.template(
+          project,
+          getPath(SOURCE, "src", "cors"),
+          javaFile,
+          getPath(MAIN_JAVA, packageNamePath, INFRA_PRIMARY_CORS)
+        )
       );
 
     projectRepository.template(
       project,
       getPath(SOURCE, "test", "cors"),
       "CorsFilterConfigurationIT.java",
-      getPath(TEST_JAVA, packageNamePath, packageCors)
+      getPath(TEST_JAVA, packageNamePath, INFRA_PRIMARY_CORS)
     );
   }
 

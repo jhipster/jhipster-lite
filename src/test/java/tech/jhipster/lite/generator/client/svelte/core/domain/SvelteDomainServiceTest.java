@@ -80,7 +80,7 @@ class SvelteDomainServiceTest {
 
     svelteDomainService.addScripts(project);
 
-    verify(npmService, times(9)).addScript(any(Project.class), anyString(), anyString());
+    verify(npmService, times(10)).addScript(any(Project.class), anyString(), anyString());
   }
 
   @Test
@@ -89,7 +89,7 @@ class SvelteDomainServiceTest {
 
     svelteDomainService.addSvelteConfigFile(project);
 
-    verify(projectRepository, times(6)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository, times(4)).add(any(Project.class), anyString(), anyString());
   }
 
   @Test
@@ -107,6 +107,6 @@ class SvelteDomainServiceTest {
 
     svelteDomainService.addAppFiles(project);
 
-    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

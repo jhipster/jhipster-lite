@@ -20,7 +20,8 @@ public class SvelteAssert {
 
   public static void assertScripts(Project project) {
     assertFileContent(project, PACKAGE_JSON, "\"build\": \"svelte-kit build\"");
-    assertFileContent(project, PACKAGE_JSON, "\"dev\": \"svelte-kit dev\"");
+    assertFileContent(project, PACKAGE_JSON, "\"dev\": \"svelte-kit dev --port 9000\"");
+    assertFileContent(project, PACKAGE_JSON, "\"start\": \"svelte-kit dev --port 9000\"");
     assertFileContent(project, PACKAGE_JSON, "\"preview\": \"svelte-kit preview\"");
     assertFileContent(project, PACKAGE_JSON, "\"package\": \"svelte-kit package\"");
     assertFileContent(project, PACKAGE_JSON, "\"check\": \"svelte-check --tsconfig ./tsconfig.json\"");
@@ -36,10 +37,8 @@ public class SvelteAssert {
 
   public static void assertSvelteConfigFiles(Project project) {
     assertFileExist(project, ".eslintrc.cjs");
-    assertFileExist(project, ".prettierrc");
     assertFileExist(project, "jest.config.cjs");
     assertFileExist(project, "tsconfig.json");
-    assertFileExist(project, "babel.config.cjs");
   }
 
   public static void assertRootFiles(Project project) {

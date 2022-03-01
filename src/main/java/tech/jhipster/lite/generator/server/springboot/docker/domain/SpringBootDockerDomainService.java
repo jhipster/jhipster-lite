@@ -106,6 +106,7 @@ public class SpringBootDockerDomainService implements SpringBootDockerService {
 
   @Override
   public void addDockerfile(Project project) {
-    projectRepository.add(project, DOCKER_SOURCE, DOCKERFILE);
+    project.addConfig("serverPort", 8080);
+    projectRepository.template(project, DOCKER_SOURCE, DOCKERFILE);
   }
 }

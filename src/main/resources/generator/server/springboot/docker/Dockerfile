@@ -5,7 +5,7 @@ RUN \
     rm -Rf target node_modules && \
     chmod +x mvnw && \
     sleep 1 && \
-    ./mvnw package -Pgcp -DskipTests && \
+    ./mvnw package -DskipTests && \
     mv /code/jhipster-app/target/*.jar /code/ && \
     rm -Rf /code/jhipster-app/ /root/.m2 /root/.cache /tmp/* /var/tmp/*
 

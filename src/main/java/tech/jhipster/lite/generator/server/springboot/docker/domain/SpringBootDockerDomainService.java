@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.docker.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.DOCKER_FILE;
+import static tech.jhipster.lite.generator.project.domain.Constants.DOCKERFILE;
 
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
@@ -105,7 +105,7 @@ public class SpringBootDockerDomainService implements SpringBootDockerService {
   }
 
   @Override
-  public void addDockerFile(Project project) {
-    projectRepository.add(project, DOCKER_SOURCE, DOCKER_FILE);
+  public void addDockerfile(Project project) {
+    projectRepository.add(project, DOCKER_SOURCE, DOCKERFILE);
   }
 }

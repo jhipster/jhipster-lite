@@ -84,11 +84,11 @@ class SpringBootDockerApplicationServiceIT {
   }
 
   @Test
-  void shouldAddDockerFile() {
+  void shouldAddDockerfile() {
     Project project = tmpProject();
     initApplicationService.init(project);
 
-    springBootDockerApplicationService.addDockerFile(project);
+    springBootDockerApplicationService.addDockerfile(project);
 
     assertFileExist(project, "Dockerfile");
   }

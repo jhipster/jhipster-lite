@@ -74,7 +74,7 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/logging/logstash"
   callApi "/api/servers/spring-boot/banner/jhipster-v7"
   callApi "/api/servers/spring-boot/docker/jib"
-  callApi "/api/servers/spring-boot/docker/docker-file"
+  callApi "/api/servers/spring-boot/docker/dockerfile"
   callApi "/api/servers/java/arch"
   callApi "/api/setup/codespaces"
 

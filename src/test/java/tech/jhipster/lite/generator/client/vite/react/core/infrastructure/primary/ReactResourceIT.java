@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.lite.generator.client.vite.react.core.application.ViteReactAssert.assertAppWithCss;
+import static tech.jhipster.lite.generator.client.vite.react.core.application.ViteReactAssert.assertAppWithoutCss;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,7 @@ class ReactResourceIT {
     ViteReactAssert.assertScripts(project);
     ViteReactAssert.assertReactFiles(project);
     ViteReactAssert.assertFiles(project);
+    assertAppWithoutCss(project);
   }
 
   @Test
@@ -59,5 +62,6 @@ class ReactResourceIT {
     ViteReactAssert.assertScripts(project);
     ViteReactAssert.assertReactFiles(project);
     ViteReactAssert.assertFiles(project);
+    assertAppWithCss(project);
   }
 }

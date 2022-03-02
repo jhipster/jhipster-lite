@@ -43,7 +43,7 @@ class ViteReactDomainServiceTest {
     verify(npmService, times(6)).addScript(any(Project.class), anyString(), anyString());
 
     verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString());
-    verify(projectRepository, times(10)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test

@@ -104,6 +104,7 @@ jobs:
         app:
           - fullapp
           - mysqlapp
+          - mariadbapp
           - flywayapp
           - undertowapp
           - eurekaapp

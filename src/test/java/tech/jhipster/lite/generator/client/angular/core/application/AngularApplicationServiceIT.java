@@ -15,16 +15,31 @@ class AngularApplicationServiceIT {
   AngularApplicationService angularApplicationService;
 
   @Test
-  void shouldInit() {
+  void shouldAddAngular() {
     Project project = tmpProjectWithPackageJsonComplete();
 
-    angularApplicationService.init(project);
+    angularApplicationService.addAngular(project);
 
     assertDevDependencies(project);
     assertDependencies(project);
     assertScripts(project);
     assertConfigFiles(project);
     assertAngularFiles(project);
+    assertAppWithoutCss(project);
+  }
+
+  @Test
+  void shouldAddStyledAngular() {
+    Project project = tmpProjectWithPackageJsonComplete();
+
+    angularApplicationService.addStyledAngular(project);
+
+    assertDevDependencies(project);
+    assertDependencies(project);
+    assertScripts(project);
+    assertConfigFiles(project);
+    assertAngularFiles(project);
+    assertAppWithCss(project);
     assertLogos(project);
   }
 }

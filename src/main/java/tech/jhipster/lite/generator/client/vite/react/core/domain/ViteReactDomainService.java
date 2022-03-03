@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.vite.react.core.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
@@ -22,12 +23,14 @@ public class ViteReactDomainService implements ViteReactService {
 
   @Override
   public void addViteReact(Project project) {
+    project.addDefaultConfig(BASE_NAME);
     addCommonViteReact(project);
     addViteReactUnstyledFiles(project);
   }
 
   @Override
   public void addStyledViteReact(Project project) {
+    project.addDefaultConfig(BASE_NAME);
     addCommonViteReact(project);
     addViteReactStyledFiles(project);
   }
@@ -84,14 +87,13 @@ public class ViteReactDomainService implements ViteReactService {
   }
 
   public void addViteReactUnstyledFiles(Project project) {
-    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "App.css", SOURCE_APP);
     projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "App.tsx", SOURCE_APP);
   }
 
   public void addViteReactStyledFiles(Project project) {
     String imagesPath = "src/main/webapp/content/images";
-    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.css", SOURCE_APP, "App.css");
     projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.tsx", SOURCE_APP, "App.tsx");
+    projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "App.css", SOURCE_APP);
     projectRepository.add(project, getPath(SOURCE, imagesPath), "ReactLogo.png", imagesPath);
     projectRepository.add(project, getPath(SOURCE, imagesPath), "JHipster-Lite-neon-blue.png", imagesPath);
   }

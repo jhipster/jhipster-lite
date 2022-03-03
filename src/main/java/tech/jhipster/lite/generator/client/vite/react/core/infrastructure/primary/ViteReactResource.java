@@ -36,7 +36,7 @@ class ViteReactResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Vite+React with minimal CSS")
   @PostMapping("/styled")
   @GeneratorStep(id = "vite-react-styled")
-  public void addStyledViteVue(@RequestBody ProjectDTO projectDTO) {
+  public void addStyledViteReact(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     viteReactApplicationService.addStyledViteReact(project);
   }

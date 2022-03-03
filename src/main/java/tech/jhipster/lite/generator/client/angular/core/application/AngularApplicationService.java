@@ -13,7 +13,11 @@ public class AngularApplicationService {
     this.angularService = angularService;
   }
 
-  public void init(Project project) {
-    angularService.init(project);
+  public void addAngular(Project project) {
+    angularService.addAngular(project);
+  }
+
+  public void addStyledAngular(Project project) {
+    angularService.addStyledAngular(project);
   }
 }

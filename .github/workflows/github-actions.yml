@@ -1,4 +1,7 @@
 name: build
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || (github.ref == 'refs/heads/main' && github.sha) || github.ref }}
+  cancel-in-progress: true
 on:
   push:
     branches:
@@ -16,7 +19,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: 'Setup: checkout project'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 'Setup: environment'
         id: setup
         uses: ./.github/actions/setup
@@ -41,7 +44,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: 'Setup: checkout project'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 'Setup: environment'
         id: setup
         uses: ./.github/actions/setup
@@ -113,7 +116,7 @@ jobs:
 
     steps:
       - name: 'Setup: checkout project'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 'Setup: environment'
         id: setup
         uses: ./.github/actions/setup
@@ -167,7 +170,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Setup: checkout project'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 'Artifact: download JaCoCo report'
         uses: actions/download-artifact@v2
         with:

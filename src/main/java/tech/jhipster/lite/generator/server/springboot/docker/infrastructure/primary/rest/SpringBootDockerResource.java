@@ -23,12 +23,21 @@ class SpringBootDockerResource {
     this.springBootDockerApplicationService = springBootDockerApplicationService;
   }
 
-  @Operation(summary = "Add docker image building with Jib")
+  @Operation(summary = "Add Docker image building with Jib")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding jib")
   @PostMapping("/jib")
   @GeneratorStep(id = "jib")
   public void addJib(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootDockerApplicationService.addJib(project);
+  }
+
+  @Operation(summary = "Add Dockerfile")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Dockerfile")
+  @PostMapping("/dockerfile")
+  @GeneratorStep(id = "dockerfile")
+  public void addDockerfile(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    springBootDockerApplicationService.addDockerfile(project);
   }
 }

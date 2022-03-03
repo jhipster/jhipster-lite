@@ -42,7 +42,6 @@ public class AngularAssert {
     String pathApp = "src/main/webapp/app/common/primary/app";
     String pathEnvironments = "src/main/webapp/environments";
 
-    assertFileExist(project, getPath(pathApp, "app.component.css"));
     assertFileExist(project, getPath(pathApp, "app.component.html"));
     assertFileExist(project, getPath(pathApp, "app.component.spec.ts"));
     assertFileExist(project, getPath(pathApp, "app.component.ts"));
@@ -57,6 +56,14 @@ public class AngularAssert {
     assertFileExist(project, getPath(pathEnvironments, "environment.prod.spec.ts"));
     assertFileExist(project, getPath(pathEnvironments, "environment.ts"));
     assertFileExist(project, getPath(pathEnvironments, "environment.spec.ts"));
+  }
+
+  public static void assertAppWithoutCss(Project project) {
+    assertFileNoContent(project, "src/main/webapp/app/common/primary/app/app.component.ts", "styleUrls");
+  }
+
+  public static void assertAppWithCss(Project project) {
+    assertFileContent(project, "src/main/webapp/app/common/primary/app/app.component.ts", "styleUrls");
   }
 
   public static void assertLogos(Project project) {

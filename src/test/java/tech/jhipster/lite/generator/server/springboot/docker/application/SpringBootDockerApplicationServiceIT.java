@@ -83,6 +83,29 @@ class SpringBootDockerApplicationServiceIT {
     assertFileContent(project, POM_XML, mavenJibPlugin(project));
   }
 
+  @Test
+  void shouldAddDockerfile() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+
+    springBootDockerApplicationService.addDockerfile(project);
+
+    assertFileExist(project, "Dockerfile");
+    assertFileContent(project, "Dockerfile", "EXPOSE 8080");
+  }
+
+  @Test
+  void shouldAddDockerfileWithDifferentPort() {
+    Project project = tmpProject();
+    project.addConfig("serverPort", 7419);
+    initApplicationService.init(project);
+
+    springBootDockerApplicationService.addDockerfile(project);
+
+    assertFileExist(project, "Dockerfile");
+    assertFileContent(project, "Dockerfile", "EXPOSE 7419");
+  }
+
   private List<String> mavenJibPlugin(Project project) {
     return List.of(
       "<plugin>",

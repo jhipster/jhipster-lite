@@ -34,7 +34,6 @@ public class ViteReactAssert {
   }
 
   public static void assertReactFiles(Project project) {
-    String pathSrc = "src";
     String pathWebapp = "src/main/webapp";
     String pathConfig = "src/main/webapp/config";
     String pathApp = "src/main/webapp/app";
@@ -45,10 +44,17 @@ public class ViteReactAssert {
     assertFileExist(project, getPath(pathApp, "index.css"));
     assertFileExist(project, getPath(pathApp, "index.tsx"));
     assertFileExist(project, getPath(pathApp, "vite-env.d.ts"));
-    assertFileExist(project, getPath(primaryApp, "App.css"));
     assertFileExist(project, getPath(primaryApp, "App.tsx"));
     assertFileExist(project, getPath(primaryTestApp, "App.spec.tsx"));
     assertFileExist(project, getPath(pathConfig, "setupTests.ts"));
+  }
+
+  public static void assertAppWithoutCss(Project project) {
+    assertFileNoContent(project, "src/main/webapp/app/common/primary/app/App.tsx", "App.css");
+  }
+
+  public static void assertAppWithCss(Project project) {
+    assertFileContent(project, "src/main/webapp/app/common/primary/app/App.tsx", "App.css");
   }
 
   public static void assertJestSonar(Project project) {

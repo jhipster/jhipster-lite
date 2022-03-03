@@ -11,9 +11,9 @@ import static tech.jhipster.lite.generator.server.springboot.database.mongodb.do
 
 import java.util.Map;
 import java.util.TreeMap;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -115,25 +115,8 @@ public class MongodbDomainService implements MongodbService {
     return result;
   }
 
-  @Override
-  public void addTestcontainers(Project project) {
-    this.buildToolService.getVersion(project, "testcontainers")
-      .ifPresentOrElse(
-        version -> {
-          Dependency dependency = Dependency
-            .builder()
-            .groupId("org.testcontainers")
-            .artifactId("mongodb")
-            .version("\\${testcontainers.version}")
-            .scope("test")
-            .build();
-          buildToolService.addProperty(project, "testcontainers.version", version);
-          buildToolService.addDependency(project, dependency);
-        },
-        () -> {
-          throw new GeneratorException("Testcontainers version not found");
-        }
-      );
+  private void addTestcontainers(Project project) {
+    this.sqlCommonService.addTestcontainers(project, DatabaseType.MONGODB.id(), Map.of());
   }
 
   @Override

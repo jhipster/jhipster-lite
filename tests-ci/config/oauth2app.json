@@ -1,0 +1,8 @@
+{
+  "folder": "/tmp/jhlite/oauth2app",
+  "generator-jhipster": {
+    "projectName": "OAuth2 Project",
+    "baseName": "oauth2app",
+    "packageName": "tech.jhipster.oauth2app"
+  }
+}

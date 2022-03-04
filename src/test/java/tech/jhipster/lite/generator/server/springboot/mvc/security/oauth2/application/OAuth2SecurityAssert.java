@@ -65,16 +65,22 @@ public class OAuth2SecurityAssert {
     );
   }
 
-  public static void assertIntegrationTestWithMockUser(Project project) {
+  public static void assertIntegrationTestWithSecurity(Project project) {
     String path = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH));
+    String integrationTestFile = getPath(TEST_JAVA, path, "IntegrationTest.java");
+
+    assertFileContent(project, integrationTestFile, "import org.springframework.boot.test.context.SpringBootTest;");
+
+    assertFileContent(project, integrationTestFile, "import org.springframework.security.test.context.support.WithMockUser;");
+    assertFileContent(project, integrationTestFile, "@WithMockUser");
+
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
     assertFileContent(
       project,
-      getPath(TEST_JAVA, path, "IntegrationTest.java"),
-      List.of(
-        "import org.springframework.boot.test.context.SpringBootTest;",
-        "import org.springframework.security.test.context.support.WithMockUser;"
-      )
+      integrationTestFile,
+      "import " + packageName + ".security.oauth2.infrastructure.config.TestSecurityConfiguration;"
     );
+    assertFileContent(project, integrationTestFile, "TestSecurityConfiguration.class");
   }
 
   public static List<String> securityDependency() {

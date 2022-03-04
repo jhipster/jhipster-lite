@@ -48,6 +48,6 @@ class OAuth2SecurityApplicationServiceIT {
     assertProperties(project);
 
     assertExceptionTranslatorWithSecurity(project);
-    assertIntegrationTestWithMockUser(project);
+    assertIntegrationTestWithSecurity(project);
   }
 }

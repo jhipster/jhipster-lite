@@ -62,12 +62,14 @@ class OAuth2SecurityDomainServiceTest {
     verify(springBootCommonService, times(5)).addProperties(any(Project.class), anyString(), anyString());
     verify(springBootCommonService).addPropertiesNewLine(project);
 
-    // 1 property, with 1 comment and 1 new line
+    // 2 properties, with 1 comment and 1 new line
     verify(springBootCommonService).addPropertiesTestComment(any(Project.class), anyString());
-    verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService, times(2)).addPropertiesTest(any(Project.class), anyString(), anyString());
     verify(springBootCommonService).addPropertiesTestNewLine(project);
 
     verify(commonSecurityService).updateExceptionTranslator(project);
     verify(commonSecurityService).updateIntegrationTestWithMockUser(project);
+
+    verify(projectRepository, times(2)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 }

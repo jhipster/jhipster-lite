@@ -2,11 +2,12 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domai
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 
+import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -43,6 +44,7 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
     updateExceptionTranslator(project);
     updateIntegrationTestWithMockUser(project);
+    updateIntegrationTestWithTestSecurityConfiguration(project);
   }
 
   private void addDependencies(Project project) {
@@ -98,5 +100,29 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
   private void updateIntegrationTestWithMockUser(Project project) {
     commonSecurityService.updateIntegrationTestWithMockUser(project);
+  }
+
+  private void updateIntegrationTestWithTestSecurityConfiguration(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
+
+    project.addDefaultConfig(BASE_NAME);
+    String baseName = project.getBaseName().orElse("jhipster");
+    String className = WordUtils.upperFirst(baseName);
+
+    String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";
+    String newImport = String.format(
+      """
+      import org.springframework.boot.test.context.SpringBootTest;
+      import %s.security.oauth2.infrastructure.config.TestSecurityConfiguration;""",
+      packageName
+    );
+    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldImport, newImport);
+
+    String oldClass = className + "App.class";
+    String newClass = className + "App.class, TestSecurityConfiguration.class";
+    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldClass, newClass);
   }
 }

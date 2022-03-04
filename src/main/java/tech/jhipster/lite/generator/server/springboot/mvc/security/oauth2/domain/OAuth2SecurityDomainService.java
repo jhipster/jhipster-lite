@@ -103,12 +103,12 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
   private void updateIntegrationTestWithTestSecurityConfiguration(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
 
     project.addDefaultConfig(BASE_NAME);
-    String baseName = project.getBaseName().orElse("jhipster");
+    String baseName = project.getBaseName().orElse(DEFAULT_BASE_NAME);
     String className = WordUtils.upperFirst(baseName);
 
     String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";

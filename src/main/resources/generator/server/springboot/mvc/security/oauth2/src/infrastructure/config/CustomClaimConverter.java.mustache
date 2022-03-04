@@ -34,6 +34,7 @@ public class CustomClaimConverter implements Converter<Map<String, Object>, Map<
   public static final String NAME = "name";
   public static final String PREFERRED_USERNAME = "preferred_username";
   public static final String ROLES = "roles";
+  public static final String SUB = "sub";
   private final BearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();
 
   private final MappedJwtClaimSetConverter delegate = MappedJwtClaimSetConverter.withDefaults(Collections.emptyMap());
@@ -58,11 +59,11 @@ public class CustomClaimConverter implements Converter<Map<String, Object>, Map<
       // Retrieve and set the token
       String token = bearerTokenResolver.resolve(servletRequestAttributes.getRequest());
       HttpHeaders headers = new HttpHeaders();
-      headers.set("Authorization", buildBearer(token));
+      headers.set(HttpHeaders.AUTHORIZATION, buildBearer(token));
 
       // Retrieve user infos from OAuth provider if not already loaded
       ObjectNode user = users.computeIfAbsent(
-        claims.get("sub").toString(),
+        claims.get(SUB).toString(),
         s -> {
           ResponseEntity<ObjectNode> userInfo = restTemplate.exchange(
             registration.getProviderDetails().getUserInfoEndpoint().getUri(),

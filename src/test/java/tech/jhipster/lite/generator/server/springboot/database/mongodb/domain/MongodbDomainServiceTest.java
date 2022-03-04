@@ -1,21 +1,16 @@
 package tech.jhipster.lite.generator.server.springboot.database.mongodb.domain;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
 
-import java.util.Optional;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -46,11 +41,9 @@ class MongodbDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
-    when(buildToolService.getVersion(project, "testcontainers")).thenReturn(Optional.of("0.0.0"));
-
     mongodbDomainService.init(project);
 
-    verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
+    verify(buildToolService, times(2)).addDependency(any(Project.class), any(Dependency.class));
 
     verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
 
@@ -62,12 +55,6 @@ class MongodbDomainServiceTest {
     verify(projectRepository, times(2)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
 
     verify(sqlCommonService).addDockerComposeTemplate(project, "mongodb");
-  }
-
-  @Test
-  void shouldNotInit() {
-    Project project = tmpProjectWithPomXml();
-
-    assertThatThrownBy(() -> mongodbDomainService.init(project)).isExactlyInstanceOf(GeneratorException.class);
+    verify(sqlCommonService).addTestcontainers(project, "mongodb", Map.of());
   }
 }

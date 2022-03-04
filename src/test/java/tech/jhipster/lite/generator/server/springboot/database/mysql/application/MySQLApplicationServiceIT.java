@@ -59,6 +59,11 @@ class MySQLApplicationServiceIT {
       getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
       "spring.datasource.url=jdbc:mysql://localhost:3306/jhipster"
     );
+    assertTestContainersWereAdded(project);
+    assertLoggerInConfig(project);
+  }
+
+  private void assertTestContainersWereAdded(Project project) {
     assertFileContent(project, POM_XML, "<testcontainers.version>");
     assertFileContent(project, POM_XML, "</testcontainers.version>");
     assertFileContent(project, POM_XML, testcontainers());
@@ -67,7 +72,6 @@ class MySQLApplicationServiceIT {
       getPath(TEST_RESOURCES, "config/application.properties"),
       List.of("spring.datasource.url=jdbc:tc:" + MySQL.getDockerImageName() + ":///jhipster", "spring.datasource.username=jhipster")
     );
-    assertLoggerInConfig(project);
   }
 
   @Test
@@ -210,27 +214,6 @@ class MySQLApplicationServiceIT {
         "<logger name=\"com.github.dockerjava\" level=\"WARN\" />",
         "<logger name=\"org.testcontainers\" level=\"WARN\" />"
       )
-    );
-  }
-
-  @Test
-  void shouldAddTestcontainers() {
-    Project project = tmpProject();
-    project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");
-    project.addConfig(BASE_NAME, "chips");
-    initApplicationService.init(project);
-    mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addApplicationTestProperties(project);
-
-    mysqlApplicationService.addTestContainers(project);
-
-    assertFileContent(project, POM_XML, "<testcontainers.version>");
-    assertFileContent(project, POM_XML, "</testcontainers.version>");
-    assertFileContent(project, POM_XML, testcontainers());
-    assertFileContent(
-      project,
-      getPath(TEST_RESOURCES, "config/application.properties"),
-      List.of("spring.datasource.url=jdbc:tc:" + MySQL.getDockerImageName() + ":///chips", "spring.datasource.username=chips")
     );
   }
 

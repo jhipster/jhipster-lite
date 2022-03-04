@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;

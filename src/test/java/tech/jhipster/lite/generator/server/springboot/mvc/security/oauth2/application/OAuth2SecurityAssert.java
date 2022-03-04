@@ -4,7 +4,6 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2SecurityDomainService.SECURITY_OAUTH2_PATH;
 

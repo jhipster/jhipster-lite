@@ -5,7 +5,11 @@ import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
+import java.util.List;
+import java.util.Map;
 import tech.jhipster.lite.common.domain.WordUtils;
+import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -14,9 +18,11 @@ public class InitDomainService implements InitService {
   public static final String SOURCE = "init";
   public static final String HUSKY_FOLDER = ".husky";
 
+  private final NpmService npmService;
   private final ProjectRepository projectRepository;
 
-  public InitDomainService(ProjectRepository projectRepository) {
+  public InitDomainService(NpmService npmService, ProjectRepository projectRepository) {
+    this.npmService = npmService;
     this.projectRepository = projectRepository;
   }
 
@@ -39,6 +45,36 @@ public class InitDomainService implements InitService {
     project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
     projectRepository.template(project, SOURCE, PACKAGE_JSON);
+    addDevDependencies(project);
+    addScripts(project);
+  }
+
+  private void addDevDependencies(Project project) {
+    List
+      .of("@prettier/plugin-xml", "husky", "lint-staged", "prettier", "prettier-plugin-java", "prettier-plugin-packagejson")
+      .forEach(dependency ->
+        npmService
+          .getVersionInCommon(dependency)
+          .ifPresentOrElse(
+            version -> npmService.addDevDependency(project, dependency, version),
+            () -> {
+              throw new GeneratorException("Dependency not found: " + dependency);
+            }
+          )
+      );
+  }
+
+  private void addScripts(Project project) {
+    Map
+      .of(
+        "prepare",
+        "husky install",
+        "prettier:check",
+        "prettier --check \\\\\"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\\\\\"",
+        "prettier:format",
+        "prettier --write \\\\\"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\\\\\""
+      )
+      .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
   }
 
   @Override

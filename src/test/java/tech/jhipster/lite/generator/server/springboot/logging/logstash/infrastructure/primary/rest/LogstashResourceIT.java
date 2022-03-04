@@ -58,5 +58,6 @@ class LogstashResourceIT {
     assertDependencies(project);
     assertJavaFiles(project);
     assertProperties(project);
+    assertLoggerInConfiguration(project);
   }
 }

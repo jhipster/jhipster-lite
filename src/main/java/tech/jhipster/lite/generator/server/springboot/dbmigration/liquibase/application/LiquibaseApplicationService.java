@@ -36,4 +36,8 @@ public class LiquibaseApplicationService {
   void addLoggerInConfiguration(Project project) {
     liquibaseService.addLoggerInConfiguration(project);
   }
+
+  public void addUserAuthorityChangelog(Project project) {
+    liquibaseService.addUserAuthorityChangelog(project);
+  }
 }

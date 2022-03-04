@@ -17,12 +17,16 @@ public class SpringBootApplicationService {
     springBootService.init(project);
   }
 
-  public void addSpringBootParent(Project project) {
-    springBootService.addSpringBootParent(project);
+  public void addSpringBootDependenciesBOM(Project project) {
+    springBootService.addSpringBootDependenciesBOM(project);
   }
 
   public void addSpringBootDependencies(Project project) {
     springBootService.addSpringBootDependencies(project);
+  }
+
+  public void addSpringBootMavenPluginManagement(Project project) {
+    springBootService.addSpringBootMavenPluginManagement(project);
   }
 
   public void addSpringBootMavenPlugin(Project project) {
@@ -37,8 +41,8 @@ public class SpringBootApplicationService {
     springBootService.addApplicationProperties(project);
   }
 
-  public void addApplicationFastProperties(Project project) {
-    springBootService.addApplicationFastProperties(project);
+  public void addApplicationLocalProperties(Project project) {
+    springBootService.addApplicationLocalProperties(project);
   }
 
   public void addApplicationTestProperties(Project project) {

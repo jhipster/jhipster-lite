@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.sonar.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.TestUtils.assertFileExist;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplication
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.server.sonar.application.SonarApplicationService;
+import tech.jhipster.lite.generator.server.sonar.application.SonarAssert;
 
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -29,26 +28,44 @@ class SonarResourceIT {
   MavenApplicationService mavenApplicationService;
 
   @Autowired
-  SonarApplicationService sonarApplicationService;
-
-  @Autowired
   MockMvc mockMvc;
 
   @Test
-  void shouldAddSonar() throws Exception {
+  void shouldAddSonarJavaBackend() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    sonarApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/servers/sonar").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/servers/sonar/java-backend")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
-    String projectPath = projectDTO.getFolder();
+    SonarAssert.assertFiles(project);
+    SonarAssert.assertPomXml(project);
+  }
 
-    assertFileExist(projectPath, "sonar-project.properties");
-    assertFileExist(projectPath, "src/main/docker/sonar.yml");
+  @Test
+  void shouldAddSonarJavaBackendAndFrontend() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/sonar/java-backend-and-frontend")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    SonarAssert.assertFiles(project);
+    SonarAssert.assertFrontProperties(project);
+    SonarAssert.assertPomXml(project);
   }
 }

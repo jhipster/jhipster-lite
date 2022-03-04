@@ -4,6 +4,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
@@ -75,6 +76,15 @@ public class TestUtils {
     assertFalse(FileUtils.containsLines(getPath(project.getFolder(), filename), lines), "The lines '" + lines + "' were found");
   }
 
+  public static void assertFileContentRegexp(Project project, String filename, String regexp) {
+    try {
+      String text = read(getPath(project.getFolder(), "", filename));
+      assertTrue(FileUtils.containsRegexp(text, regexp), "The regexp '" + regexp + "' was not found");
+    } catch (IOException e) {
+      fail("Error when reading text from '" + filename + "'");
+    }
+  }
+
   public static Project.ProjectBuilder tmpProjectBuilder() {
     return Project.builder().folder(FileUtils.tmpDirForTest());
   }
@@ -131,6 +141,12 @@ public class TestUtils {
     return project;
   }
 
+  public static Project tmpProjectWithLiquibaseMasterXml() {
+    Project project = tmpProject();
+    copyLiquibaseMasterXml(project);
+    return project;
+  }
+
   public static void copyPomXml(Project project) {
     try {
       FileUtils.createFolder(project.getFolder());
@@ -179,8 +195,8 @@ public class TestUtils {
         getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application.properties")
       );
       Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/core/application.src.fast.properties"),
-        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application-fast.properties")
+        getPathOf("src/test/resources/generator/server/springboot/core/application.src.local.properties"),
+        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application-local.properties")
       );
       Files.copy(
         getPathOf("src/test/resources/generator/server/springboot/core/application.test.properties"),
@@ -202,6 +218,18 @@ public class TestUtils {
       Files.copy(
         getPathOf("src/test/resources/generator/server/springboot/core/logback.xml"),
         getPathOf(project.getFolder(), TEST_RESOURCES, "logback.xml")
+      );
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public static void copyLiquibaseMasterXml(Project project) {
+    try {
+      FileUtils.createFolder(getPath(project.getFolder(), "src/main/resources/config/liquibase"));
+      Files.copy(
+        getPathOf("src/test/resources/generator/server/springboot/liquibase/master.test.xml"),
+        getPathOf(project.getFolder(), "src/main/resources/config/liquibase", LIQUIBASE_MASTER_XML)
       );
     } catch (IOException e) {
       throw new AssertionError(e);

@@ -1,0 +1,8 @@
+{
+  "folder": "/tmp/jhlite/consulapp",
+  "generator-jhipster": {
+    "projectName": "ConsulApp Project",
+    "baseName": "consulapp",
+    "packageName": "tech.jhipster.consulapp"
+  }
+}

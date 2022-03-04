@@ -1,15 +1,15 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.web.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.INFRA_PRIMARY;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.*;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import tech.jhipster.lite.error.domain.UnauthorizedValueException;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -18,10 +18,9 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 public class SpringBootMvcDomainService implements SpringBootMvcService {
 
-  private final Logger log = LoggerFactory.getLogger(SpringBootMvcDomainService.class);
-
   public static final String SOURCE = "server/springboot/mvc/web";
-  public static final String EXCEPTION_HANDLER_PATH = "technical/infrastructure/primary/exception";
+  public static final String INFRA_PRIMARY_CORS = getPath(INFRA_PRIMARY, "cors");
+  public static final String INFRA_PRIMARY_EXCEPTION = getPath(INFRA_PRIMARY, "exception");
 
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;
@@ -49,6 +48,9 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addServerPortInProperties(project);
     addExceptionHandler(project);
     addLoggerInConfiguration(project, "org.springframework.web", Level.WARN);
+
+    addCorsFiles(project);
+    addCorsProperties(project);
   }
 
   @Override
@@ -59,12 +61,16 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     addServerPortInProperties(project);
     addExceptionHandler(project);
     addLoggerInConfiguration(project, "io.undertow", Level.WARN);
+
+    addCorsFiles(project);
+    addCorsProperties(project);
   }
 
   @Override
   public void addSpringBootActuator(Project project) {
     buildToolService.addDependency(project, springBootActuatorDependency());
 
+    springBootCommonService.addPropertiesComment(project, "Spring Boot Actuator");
     springBootCommonService.addProperties(project, "management.endpoints.web.base-path", "/management");
     springBootCommonService.addProperties(
       project,
@@ -74,14 +80,23 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     springBootCommonService.addProperties(project, "management.endpoint.health.probes.enabled", "true");
     springBootCommonService.addProperties(project, "management.endpoint.health.group.liveness.include", "livenessState");
     springBootCommonService.addProperties(project, "management.endpoint.health.group.readiness.include", "readinessState");
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   @Override
   public void addExceptionHandler(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
 
-    buildToolService.addProperty(project, "problem-spring", SpringBootMvc.problemSpringVersion());
-    buildToolService.addProperty(project, "problem-spring-web", "\\${problem-spring.version}");
+    this.buildToolService.getVersion(project, "problem-spring")
+      .ifPresentOrElse(
+        version -> {
+          buildToolService.addProperty(project, "problem-spring.version", version);
+          buildToolService.addProperty(project, "problem-spring-web.version", "\\${problem-spring.version}");
+        },
+        () -> {
+          throw new GeneratorException("Problem Spring version not found");
+        }
+      );
 
     buildToolService.addDependency(project, problemSpringDependency());
     buildToolService.addDependency(project, springBootStarterValidation());
@@ -109,27 +124,60 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   private void templateToExceptionHandler(Project project, String source, String type, String sourceFilename, String destination) {
-    projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, EXCEPTION_HANDLER_PATH));
+    projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, INFRA_PRIMARY_EXCEPTION));
   }
 
   private void addServerPortInProperties(Project project) {
-    springBootCommonService.addProperties(project, "server.port", getServerPort(project));
+    springBootCommonService.addPropertiesComment(project, "Spring Boot MVC");
+    springBootCommonService.addProperties(project, "server.port", project.getServerPort());
     springBootCommonService.addPropertiesTest(project, "server.port", 0);
+    springBootCommonService.addPropertiesNewLine(project);
   }
 
   private void addLoggerInConfiguration(Project project, String packageName, Level level) {
     springBootCommonService.addLogger(project, packageName, level);
     springBootCommonService.addLoggerTest(project, packageName, level);
+    springBootCommonService.addPropertiesNewLine(project);
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 
-  private int getServerPort(Project project) {
-    int serverPort;
-    try {
-      serverPort = project.getIntegerConfig("serverPort").orElse(8080);
-    } catch (UnauthorizedValueException e) {
-      log.warn("The serverPort config is not valid");
-      serverPort = 8080;
-    }
-    return serverPort;
+  private void addCorsFiles(Project project) {
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    corsFiles()
+      .forEach((javaFile, destination) ->
+        projectRepository.template(
+          project,
+          getPath(SOURCE, "src", "cors"),
+          javaFile,
+          getPath(MAIN_JAVA, packageNamePath, INFRA_PRIMARY_CORS)
+        )
+      );
+
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "test", "cors"),
+      "CorsFilterConfigurationIT.java",
+      getPath(TEST_JAVA, packageNamePath, INFRA_PRIMARY_CORS)
+    );
+  }
+
+  private void addCorsProperties(Project project) {
+    String baseName = project.getBaseName().orElse("jhipster");
+
+    String commentCorsConfiguration = "CORS configuration";
+    springBootCommonService.addPropertiesComment(project, commentCorsConfiguration);
+    springBootCommonService.addPropertiesLocalComment(project, commentCorsConfiguration);
+    springBootCommonService.addPropertiesTestComment(project, commentCorsConfiguration);
+
+    corsProperties(baseName)
+      .forEach((k, v) -> {
+        springBootCommonService.addPropertiesComment(project, k + "=" + v);
+        springBootCommonService.addPropertiesLocal(project, k, v);
+        springBootCommonService.addPropertiesTest(project, k, v);
+      });
+
+    springBootCommonService.addPropertiesNewLine(project);
+    springBootCommonService.addPropertiesLocalNewLine(project);
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 }

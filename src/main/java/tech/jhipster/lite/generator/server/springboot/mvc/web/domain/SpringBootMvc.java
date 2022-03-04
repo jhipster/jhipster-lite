@@ -1,17 +1,14 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.web.domain;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class SpringBootMvc {
 
-  private static final String PROBLEM_SPRING_VERSION = "0.27.0";
   public static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
 
   private SpringBootMvc() {}
-
-  public static String problemSpringVersion() {
-    return PROBLEM_SPRING_VERSION;
-  }
 
   public static Dependency springBootStarterWebDependency() {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-web").build();
@@ -35,5 +32,29 @@ public class SpringBootMvc {
 
   public static Dependency springBootStarterValidation() {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-validation").build();
+  }
+
+  public static Map<String, String> corsFiles() {
+    return Map.of(
+      "CorsFilterConfiguration.java",
+      "technical/infrastructure/primary/cors",
+      "CorsProperties.java",
+      "technical/infrastructure/primary/cors"
+    );
+  }
+
+  public static Map<String, Object> corsProperties(String baseName) {
+    Map<String, Object> result = new LinkedHashMap<>();
+    result.put("application.cors.allowed-origins", "http://localhost:8100,http://localhost:9000");
+    result.put("application.cors.allowed-methods", "*");
+    result.put("application.cors.allowed-headers", "*");
+    result.put(
+      "application.cors.exposed-headers",
+      "Authorization,Link,X-Total-Count,X-" + baseName + "-alert,X-" + baseName + "-error,X-" + baseName + "-params"
+    );
+    result.put("application.cors.allow-credentials", "true");
+    result.put("application.cors.max-age", "1800");
+    result.put("application.cors.allowed-origin-patterns", "https://*.githubpreview.dev");
+    return result;
   }
 }

@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.async.application.SpringBootAsyncApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/async")
-@Tag(name = "Spring Boot")
+@Tag(name = "Spring Boot - Tools")
 class SpringBootAsyncResource {
 
   private final SpringBootAsyncApplicationService springBootAsyncApplicationService;
@@ -25,6 +26,7 @@ class SpringBootAsyncResource {
   @Operation(summary = "Add asynchronous execution and scheduling configuration")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding asynchronous execution and scheduling configuration")
   @PostMapping
+  @GeneratorStep(id = "springboot-async")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootAsyncApplicationService.init(project);

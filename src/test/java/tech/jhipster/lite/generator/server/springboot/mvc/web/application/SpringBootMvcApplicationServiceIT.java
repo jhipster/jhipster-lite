@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
@@ -47,6 +48,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -66,6 +68,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -86,6 +89,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -106,6 +110,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -125,6 +130,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -145,6 +151,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertTestUtil(project);
     assertExceptionHandler(project);
+    assertCors(project);
   }
 
   @Test
@@ -200,6 +207,11 @@ class SpringBootMvcApplicationServiceIT {
     assertExceptionHandlerFiles(project);
   }
 
+  private void assertCors(Project project) {
+    assertCorsFiles(project);
+    assertCorsProperties(project);
+  }
+
   private void assertTomcat(Project project) {
     assertFileContent(project, POM_XML, springBootStarterWebDependency());
   }
@@ -230,7 +242,7 @@ class SpringBootMvcApplicationServiceIT {
   }
 
   private void assertExceptionHandlerFiles(Project project) {
-    String packagePath = "com/mycompany/myapp/technical/infrastructure/primary/exception";
+    String packagePath = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH), INFRA_PRIMARY, "exception");
     List<String> listClass = List.of(
       "BadRequestAlertException.java",
       "ErrorConstants.java",
@@ -242,7 +254,7 @@ class SpringBootMvcApplicationServiceIT {
     listClass.forEach(javaClass -> assertFileExist(project, getPath(MAIN_JAVA, packagePath), javaClass));
     assertFileContent(
       project,
-      getPath(MAIN_JAVA, "com/mycompany/myapp/technical/infrastructure/primary/exception/ExceptionTranslator.java"),
+      getPath(MAIN_JAVA, packagePath, "ExceptionTranslator.java"),
       "package com.mycompany.myapp.technical.infrastructure.primary.exception;"
     );
 
@@ -257,7 +269,7 @@ class SpringBootMvcApplicationServiceIT {
   }
 
   private void assertTestUtil(Project project) {
-    assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp"), "TestUtil.java");
+    assertFileExist(project, getPath(TEST_JAVA, project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH)), "TestUtil.java");
   }
 
   public void assertLoggingConfiguration(Project project, String loggerEntry) {

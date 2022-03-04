@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
 import java.util.List;
+import java.util.Optional;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
@@ -15,7 +16,7 @@ public interface MavenService {
   void deleteDependency(Project project, Dependency dependency);
   void addPlugin(Project project, Plugin plugin);
   void addPluginManagement(Project project, Plugin plugin);
-  void addProperty(Project project, String key, String version);
+  void addProperty(Project project, String key, String value);
   void deleteProperty(Project project, String key);
   void addRepository(Project project, Repository repository);
   void addPluginRepository(Project project, Repository repository);
@@ -24,4 +25,6 @@ public interface MavenService {
 
   void addJavaPomXml(Project project);
   void addMavenWrapper(Project project);
+
+  Optional<String> getVersion(String name);
 }

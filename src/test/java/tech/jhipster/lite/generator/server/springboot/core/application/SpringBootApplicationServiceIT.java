@@ -30,15 +30,15 @@ class SpringBootApplicationServiceIT {
   @Test
   void shouldInit() {
     Project project = tmpProject();
-    project.addConfig("springBootVersion", "2.5.3");
+    project.addConfig("springBootVersion", "0.0.0");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     mavenApplicationService.addMavenWrapper(project);
 
     springBootApplicationService.init(project);
 
-    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
-    assertFileContent(project, POM_XML, "<version>2.5.3</version>");
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
+    assertFileContent(project, POM_XML, "<version>${spring-boot.version}</version>");
 
     assertFileContent(project, POM_XML, "<groupId>org.springframework.boot</groupId>");
     assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter</artifactId>");
@@ -67,35 +67,36 @@ class SpringBootApplicationServiceIT {
     assertFileExist(project, getPath(TEST_JAVA, "com/mycompany/myapp", "IntegrationTest.java"));
 
     assertFileExist(project, getPath(MAIN_RESOURCES, "config/application.properties"));
-    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-local.properties"));
     assertFileExist(project, getPath(TEST_RESOURCES, "config/application.properties"));
     assertFileExist(project, getPath(MAIN_RESOURCES, "logback-spring.xml"));
     assertFileExist(project, getPath(TEST_RESOURCES, "logback.xml"));
   }
 
   @Test
-  void shouldAddSpringBootParent() {
+  void shouldAddSpringBootDependenciesBOM() {
     Project project = tmpProject();
-    project.addConfig("springBootVersion", "2.5.3");
+    project.addConfig("springBootVersion", "0.0.0");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
 
-    springBootApplicationService.addSpringBootParent(project);
-    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
-    assertFileContent(project, POM_XML, "<version>2.5.3</version>");
+    springBootApplicationService.addSpringBootDependenciesBOM(project);
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
+    assertFileContent(project, POM_XML, "<version>${spring-boot.version}</version>");
 
     // add again the parent, with wrong version
     project.addConfig("springBootVersion", "X.X.X");
-    springBootApplicationService.addSpringBootParent(project);
-    assertFileContent(project, POM_XML, "<artifactId>spring-boot-starter-parent</artifactId>");
-    assertFileNoContent(project, POM_XML, "<version>X.X.X</version>");
+    springBootApplicationService.addSpringBootDependenciesBOM(project);
+    assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
+    assertFileContent(project, POM_XML, "<version>${spring-boot.version}</version>");
   }
 
   @Test
-  void shouldNotAddSpringBootParentWhenNoPomXml() {
+  void shouldNotAddSpringBootDependenciesBOMWhenNoPomXml() {
     Project project = tmpProject();
 
-    assertThatThrownBy(() -> springBootApplicationService.addSpringBootParent(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> springBootApplicationService.addSpringBootDependenciesBOM(project))
+      .isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -123,6 +124,47 @@ class SpringBootApplicationServiceIT {
   }
 
   @Test
+  void shouldAddSpringBootPluginManagement() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+
+    springBootApplicationService.addSpringBootMavenPluginManagement(project);
+
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of(
+        "<plugin>",
+        "<groupId>org.springframework.boot</groupId>",
+        "<artifactId>spring-boot-maven-plugin</artifactId>",
+        "<version>${spring-boot.version}</version>",
+        "<executions>",
+        "<execution>",
+        "<goals>",
+        "<goal>repackage</goal>",
+        "</goals>",
+        "</execution>",
+        "</executions>",
+        "<configuration>",
+        "<mainClass>${start-class}</mainClass>",
+        "</configuration>",
+        "</plugin>"
+      )
+    );
+    assertFileContent(project, POM_XML, "<spring-boot.version>");
+    assertFileContent(project, POM_XML, "</spring-boot.version>");
+  }
+
+  @Test
+  void shouldNotAddSpringBootPluginManagementWhenNoPomXml() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> springBootApplicationService.addSpringBootMavenPluginManagement(project))
+      .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldAddSpringBootPlugin() {
     Project project = tmpProject();
     initApplicationService.init(project);
@@ -133,23 +175,8 @@ class SpringBootApplicationServiceIT {
     assertFileContent(
       project,
       POM_XML,
-      List.of(
-        "<plugin>",
-        "<groupId>org.springframework.boot</groupId>",
-        "<artifactId>spring-boot-maven-plugin</artifactId>",
-        "<version>${spring-boot.version}</version>",
-        "</plugin>"
-      )
+      List.of("<plugin>", "<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-maven-plugin</artifactId>", "</plugin>")
     );
-    assertFileContent(project, POM_XML, "<spring-boot.version>");
-    assertFileContent(project, POM_XML, "</spring-boot.version>");
-  }
-
-  @Test
-  void shouldNotAddSpringBootPluginWhenNoPomXml() {
-    Project project = tmpProject();
-
-    assertThatThrownBy(() -> springBootApplicationService.addSpringBootMavenPlugin(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -175,13 +202,13 @@ class SpringBootApplicationServiceIT {
   }
 
   @Test
-  void shouldAddApplicationFastProperties() {
+  void shouldAddApplicationLocalProperties() {
     Project project = tmpProject();
     initApplicationService.init(project);
 
-    springBootApplicationService.addApplicationFastProperties(project);
+    springBootApplicationService.addApplicationLocalProperties(project);
 
-    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"));
+    assertFileExist(project, getPath(MAIN_RESOURCES, "config/application-local.properties"));
   }
 
   @Test

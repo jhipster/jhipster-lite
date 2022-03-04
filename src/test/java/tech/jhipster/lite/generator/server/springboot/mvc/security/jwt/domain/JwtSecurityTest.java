@@ -11,11 +11,6 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 class JwtSecurityTest {
 
   @Test
-  void shouldJjwtVersion() {
-    assertThat(JwtSecurity.jjwtVersion()).isEqualTo("0.11.2");
-  }
-
-  @Test
   void shouldSpringBootStarterSecurity() {
     Dependency dependency = JwtSecurity.springBootStarterSecurityDependency();
     assertThat(dependency.getGroupId()).isEqualTo("org.springframework.boot");
@@ -67,12 +62,9 @@ class JwtSecurityTest {
       "SecurityUtils.java",
       "ApplicationSecurityDefaults.java",
       "ApplicationSecurityProperties.java",
-      "CorsFilterConfiguration.java",
-      "CorsProperties.java",
       "JWTConfigurer.java",
       "JWTFilter.java",
       "SecurityConfiguration.java",
-      "SecurityExceptionTranslator.java",
       "TokenProvider.java"
     );
 
@@ -84,7 +76,6 @@ class JwtSecurityTest {
     List<String> javaTestFiles = List.of(
       "SecurityUtilsTest.java",
       "ApplicationSecurityPropertiesTest.java",
-      "CorsFilterConfigurationIT.java",
       "JWTFilterTest.java",
       "TokenProviderTest.java"
     );

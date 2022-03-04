@@ -3,12 +3,16 @@ package tech.jhipster.lite.generator.buildtool.maven.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.domain.WordUtils;
+import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
@@ -140,7 +144,7 @@ public class MavenDomainService implements MavenService {
   }
 
   @Override
-  public void addProperty(Project project, String key, String version) {
+  public void addProperty(Project project, String key, String value) {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
     int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(DEFAULT_INDENTATION);
@@ -148,7 +152,7 @@ public class MavenDomainService implements MavenService {
     String pluginRegexp = Maven.getProperty(key, ".*");
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, pluginRegexp)) {
-      String propertyWithNeedle = Maven.getProperty(key, version) + LF + indent(2, indent) + NEEDLE_PROPERTIES;
+      String propertyWithNeedle = Maven.getProperty(key, value) + LF + indent(2, indent) + NEEDLE_PROPERTIES;
 
       projectRepository.replaceText(project, "", POM_XML, NEEDLE_PROPERTIES, propertyWithNeedle);
     }
@@ -229,15 +233,26 @@ public class MavenDomainService implements MavenService {
 
     String sourceWrapper = getPath(SOURCE, ".mvn", "wrapper");
     String destinationWrapper = getPath(".mvn", "wrapper");
-
-    projectRepository.add(
-      project,
-      sourceWrapper,
-      "MavenWrapperDownloader.java.mustache",
-      destinationWrapper,
-      "MavenWrapperDownloader.java"
-    );
     projectRepository.add(project, sourceWrapper, "maven-wrapper.jar", destinationWrapper);
     projectRepository.add(project, sourceWrapper, "maven-wrapper.properties", destinationWrapper);
+  }
+
+  @Override
+  public Optional<String> getVersion(String name) {
+    Assert.notBlank("name", name);
+
+    String propertyTagIni = new StringBuilder().append("<").append(name).append(".version").append(">").toString();
+    String propertyTagEnd = new StringBuilder().append("</").append(name).append(".version").append(">").toString();
+    Pattern pattern = Pattern.compile(propertyTagIni + "(.*)" + propertyTagEnd);
+
+    return FileUtils
+      .readLineInClasspath(getPath(TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, POM_XML), propertyTagIni)
+      .map(readValue -> {
+        Matcher matcher = pattern.matcher(readValue);
+        if (matcher.find()) {
+          return matcher.group(1);
+        }
+        return null;
+      });
   }
 }

@@ -1,0 +1,85 @@
+package tech.jhipster.lite.generator.server.springboot.user.infrastructure.primary.rest;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
+import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.*;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.TestUtils;
+import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
+import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
+import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
+import tech.jhipster.lite.generator.server.springboot.database.mysql.application.MySQLApplicationService;
+
+@IntegrationTest
+@AutoConfigureMockMvc
+class SpringBootUserResourceIT {
+
+  @Autowired
+  MavenApplicationService mavenApplicationService;
+
+  @Autowired
+  SpringBootApplicationService springBootApplicationService;
+
+  @Autowired
+  MySQLApplicationService mySQLApplicationService;
+
+  @Autowired
+  MockMvc mockMvc;
+
+  @Test
+  @DisplayName("should add user and authority entities for PostgreSQL")
+  void shouldAddUserAndAuthorityEntitiesForPostgreSQL() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/user/postgresql")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    assertFilesSqlJavaUser(project, POSTGRESQL);
+    assertFilesSqlJavaUserAuthority(project, POSTGRESQL);
+    assertFilesSqlJavaAuditEntity(project, POSTGRESQL);
+
+    checkSequence(project, POSTGRESQL);
+  }
+
+  @Test
+  @DisplayName("should add user and authority entities for MySQL")
+  void shouldAddUserAndAuthorityEntitiesForMySQL() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+    mySQLApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/user/mysql")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    assertFilesSqlJavaUser(project, MYSQL);
+    assertFilesSqlJavaUserAuthority(project, MYSQL);
+    assertFilesSqlJavaAuditEntity(project, MYSQL);
+
+    checkSequence(project, MYSQL);
+  }
+}

@@ -75,7 +75,7 @@ class AopLoggingResourceIT {
     );
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), "application.aop.logging=false");
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-fast.properties"), "application.aop.logging=true");
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-local.properties"), "application.aop.logging=true");
     assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), "application.aop.logging=true");
   }
 }

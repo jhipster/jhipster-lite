@@ -95,9 +95,9 @@ class BuildToolDomainServiceTest {
     void shouldAddProperty() {
       Project project = tmpProjectWithPomXml();
 
-      buildToolDomainService.addProperty(project, "testcontainers", "1.16.0");
+      buildToolDomainService.addProperty(project, "testcontainers.version", "0.0.0");
 
-      verify(mavenService).addProperty(project, "testcontainers", "1.16.0");
+      verify(mavenService).addProperty(project, "testcontainers.version", "0.0.0");
     }
 
     @Test
@@ -130,12 +130,21 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldInitWihoutExistingPomXml() {
+    void shouldInitWithoutExistingPomXml() {
       Project project = tmpProject();
 
       buildToolDomainService.init(project, BuildToolType.MAVEN);
 
       verify(mavenService).initJava(project);
+    }
+
+    @Test
+    void shouldGetVersion() {
+      Project project = tmpProjectWithPomXml();
+
+      buildToolDomainService.getVersion(project, "spring-boot");
+
+      verify(mavenService).getVersion("spring-boot");
     }
   }
 
@@ -167,7 +176,7 @@ class BuildToolDomainServiceTest {
         .builder()
         .groupId("org.springframework.boot")
         .artifactId("spring-boot-starter-parent")
-        .version("2.5.3")
+        .version("0.0.0")
         .build();
 
       assertThatThrownBy(() -> buildToolDomainService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
@@ -220,7 +229,7 @@ class BuildToolDomainServiceTest {
     void shouldNotAddProperty() {
       Project project = tmpProject();
 
-      assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "1.16.0"))
+      assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "0.0.0"))
         .isExactlyInstanceOf(GeneratorException.class);
     }
 
@@ -240,10 +249,17 @@ class BuildToolDomainServiceTest {
       assertThatThrownBy(() -> buildToolDomainService.addPluginRepository(project, repository))
         .isExactlyInstanceOf(GeneratorException.class);
     }
+
+    @Test
+    void shouldNotGetVersion() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> buildToolDomainService.getVersion(project, "spring-boot")).isExactlyInstanceOf(GeneratorException.class);
+    }
   }
 
   private Parent getParent() {
-    return Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    return Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
   }
 
   private Dependency getDependency() {

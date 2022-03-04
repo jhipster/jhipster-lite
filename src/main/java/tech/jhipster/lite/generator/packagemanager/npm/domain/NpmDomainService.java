@@ -1,9 +1,13 @@
 package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
 
+import java.util.Optional;
+import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -64,5 +68,30 @@ public class NpmDomainService implements NpmService {
   @Override
   public void prettify(Project project) {
     this.npmRepository.npmPrettierFormat(project);
+  }
+
+  @Override
+  public Optional<String> getVersionInCommon(String name) {
+    return getVersion("common", name);
+  }
+
+  @Override
+  public Optional<String> getVersion(String folder, String name) {
+    Assert.notBlank("folder", folder);
+    Assert.notBlank("name", name);
+    return FileUtils
+      .readLineInClasspath(getPath(TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, folder, PACKAGE_JSON), DQ + name + DQ)
+      .map(readValue -> {
+        String[] result = readValue.split(":");
+        if (result.length == 2) {
+          return result[1].replace(",", "").replace(DQ, "").replace(" ", "");
+        }
+        return null;
+      });
+  }
+
+  @Override
+  public Optional<String> getVersionInViteReact(String name) {
+    return getVersion("vite/react", name);
   }
 }

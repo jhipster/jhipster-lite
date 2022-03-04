@@ -6,17 +6,12 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class JwtSecurity {
 
-  private static final String JJWT_VERSION = "0.11.2";
   private static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
 
   public static final String JSONWEBTOKEN_PACKAGE = "io.jsonwebtoken";
   public static final String JJWT_VERSION_PROPERTY = "\\${jjwt.version}";
 
   private JwtSecurity() {}
-
-  public static String jjwtVersion() {
-    return JJWT_VERSION;
-  }
 
   public static Dependency springBootStarterSecurityDependency() {
     return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-security").build();
@@ -59,12 +54,9 @@ public class JwtSecurity {
 
     map.put("ApplicationSecurityDefaults.java", INFRASTRUCTURE_CONFIG);
     map.put("ApplicationSecurityProperties.java", INFRASTRUCTURE_CONFIG);
-    map.put("CorsFilterConfiguration.java", INFRASTRUCTURE_CONFIG);
-    map.put("CorsProperties.java", INFRASTRUCTURE_CONFIG);
     map.put("JWTConfigurer.java", INFRASTRUCTURE_CONFIG);
     map.put("JWTFilter.java", INFRASTRUCTURE_CONFIG);
     map.put("SecurityConfiguration.java", INFRASTRUCTURE_CONFIG);
-    map.put("SecurityExceptionTranslator.java", INFRASTRUCTURE_CONFIG);
     map.put("TokenProvider.java", INFRASTRUCTURE_CONFIG);
 
     return map;
@@ -76,7 +68,6 @@ public class JwtSecurity {
     map.put("SecurityUtilsTest.java", "application");
 
     map.put("ApplicationSecurityPropertiesTest.java", INFRASTRUCTURE_CONFIG);
-    map.put("CorsFilterConfigurationIT.java", INFRASTRUCTURE_CONFIG);
     map.put("JWTFilterTest.java", INFRASTRUCTURE_CONFIG);
     map.put("TokenProviderTest.java", INFRASTRUCTURE_CONFIG);
 

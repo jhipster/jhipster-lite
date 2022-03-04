@@ -1,19 +1,26 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain.maven;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
 import java.util.List;
+import java.util.Optional;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
@@ -35,7 +42,7 @@ class MavenDomainServiceTest {
   @Test
   void shouldAddParent() {
     Project project = tmpProjectWithPomXml();
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
 
     mavenDomainService.addParent(project, parent);
 
@@ -116,7 +123,7 @@ class MavenDomainServiceTest {
   void shouldAddProperty() {
     Project project = tmpProjectWithPomXml();
 
-    mavenDomainService.addProperty(project, "testcontainers", "1.16.0");
+    mavenDomainService.addProperty(project, "testcontainers", "0.0.0");
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
@@ -158,7 +165,6 @@ class MavenDomainServiceTest {
 
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
-    verify(projectRepository).add(any(Project.class), anyString(), anyString(), anyString(), anyString());
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
   }
 
@@ -178,7 +184,46 @@ class MavenDomainServiceTest {
     mavenDomainService.addMavenWrapper(project);
 
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
-    verify(projectRepository).add(any(Project.class), anyString(), anyString(), anyString(), anyString());
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
+  }
+
+  @Nested
+  class GetVersionTest {
+
+    @Test
+    void shouldGetVersion() {
+      assertThat(mavenDomainService.getVersion("spring-boot")).isNotEmpty();
+    }
+
+    @Test
+    void shouldNotGetVersionForNull() {
+      assertThatThrownBy(() -> mavenDomainService.getVersion(null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("name");
+    }
+
+    @Test
+    void shouldNotGetVersionForBlank() {
+      assertThatThrownBy(() -> mavenDomainService.getVersion(" "))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("name");
+    }
+
+    @Test
+    void shouldNotGetVersion() {
+      assertThat(mavenDomainService.getVersion("unknown")).isEmpty();
+    }
+
+    @Test
+    void shouldNotGetVersionForWrongPattern() {
+      try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class)) {
+        fileUtilsMock.when(() -> FileUtils.getPath(Mockito.anyString())).thenReturn("mypath");
+        fileUtilsMock
+          .when(() -> FileUtils.readLineInClasspath(Mockito.any(), Mockito.anyString()))
+          .thenReturn(Optional.of(" <spring-boot.version>0.0.0</spring-boot>"));
+
+        assertThat(mavenDomainService.getVersion("spring-boot")).isEmpty();
+      }
+    }
   }
 }

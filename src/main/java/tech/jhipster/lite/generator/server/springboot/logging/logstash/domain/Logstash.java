@@ -4,8 +4,6 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class Logstash {
 
-  private static final String LOGSTASH_LOGBACK_ENCODER_VERSION = "7.0.1";
-
   private Logstash() {}
 
   public static Dependency logstashLogbackEncoderDependency() {
@@ -15,9 +13,5 @@ public class Logstash {
       .artifactId("logstash-logback-encoder")
       .version("\\${logstash-logback-encoder.version}")
       .build();
-  }
-
-  public static String getLogstashLogbackEncoderVersion() {
-    return LOGSTASH_LOGBACK_ENCODER_VERSION;
   }
 }

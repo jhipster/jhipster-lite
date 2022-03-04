@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.cache.simple.application.SpringBootCacheSimpleApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/cache/simple")
@@ -25,6 +26,7 @@ class SpringBootCacheSimpleResource {
   @Operation(summary = "Add simple cache")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding simple cache")
   @PostMapping
+  @GeneratorStep(id = "springboot-cache")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootCacheSimpleApplicationService.init(project);

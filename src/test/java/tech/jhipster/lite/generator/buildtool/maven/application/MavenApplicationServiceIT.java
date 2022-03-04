@@ -29,7 +29,7 @@ class MavenApplicationServiceIT {
   void shouldAddParent() {
     Project project = tmpProjectWithPomXml();
 
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
     mavenApplicationService.addParent(project, parent);
 
     assertFileContent(
@@ -39,7 +39,7 @@ class MavenApplicationServiceIT {
         "<parent>",
         "<groupId>org.springframework.boot</groupId>",
         "<artifactId>spring-boot-starter-parent</artifactId>",
-        "<version>2.5.3</version>",
+        "<version>0.0.0</version>",
         "<relativePath />",
         "</parent>"
       )
@@ -50,7 +50,7 @@ class MavenApplicationServiceIT {
   void shouldNotAddParentWhenNoPomXml() throws Exception {
     Project project = tmpProject();
     FileUtils.createFolder(project.getFolder());
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
 
     assertThatThrownBy(() -> mavenApplicationService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
   }
@@ -59,7 +59,7 @@ class MavenApplicationServiceIT {
   void shouldAddParentOnlyOneTime() throws Exception {
     Project project = tmpProjectWithPomXml();
 
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("2.5.3").build();
+    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
     mavenApplicationService.addParent(project, parent);
     mavenApplicationService.addParent(project, parent);
 
@@ -418,9 +418,9 @@ class MavenApplicationServiceIT {
   void shouldAddProperty() {
     Project project = tmpProjectWithPomXml();
 
-    mavenApplicationService.addProperty(project, "testcontainers", "1.16.0");
+    mavenApplicationService.addProperty(project, "testcontainers", "0.0.0");
 
-    assertFileContent(project, POM_XML, "    <testcontainers.version>1.16.0</testcontainers.version>");
+    assertFileContent(project, POM_XML, "    <testcontainers>0.0.0</testcontainers>");
   }
 
   @Test
@@ -428,7 +428,7 @@ class MavenApplicationServiceIT {
     Project project = tmpProject();
     FileUtils.createFolder(project.getFolder());
 
-    assertThatThrownBy(() -> mavenApplicationService.addProperty(project, "testcontainers", "1.16.0"))
+    assertThatThrownBy(() -> mavenApplicationService.addProperty(project, "testcontainers", "0.0.0"))
       .isExactlyInstanceOf(GeneratorException.class);
   }
 
@@ -437,7 +437,7 @@ class MavenApplicationServiceIT {
     Project project = tmpProjectWithPomXml();
 
     String key = "testcontainers";
-    String version = "1.16.0";
+    String version = "0.0.0";
     mavenApplicationService.addProperty(project, key, version);
     mavenApplicationService.addProperty(project, key, version);
 
@@ -448,11 +448,11 @@ class MavenApplicationServiceIT {
   void shouldDeleteProperty() {
     Project project = tmpProjectWithPomXml();
 
-    mavenApplicationService.addProperty(project, "my-key", "1.0");
+    mavenApplicationService.addProperty(project, "my-key.version", "1.0");
 
     assertFileContent(project, POM_XML, "    <my-key.version>1.0</my-key.version>");
 
-    mavenApplicationService.deleteProperty(project, "my-key");
+    mavenApplicationService.deleteProperty(project, "my-key.version");
 
     assertFileNoContent(project, POM_XML, "    <my-key.version>1.0</my-key.version>");
   }

@@ -6,7 +6,6 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.getDockerConsulImage;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.getSpringCloudVersion;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -14,7 +13,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class ConsulAssert {
 
   public static void assertDependencies(Project project) {
-    assertFileContent(project, "pom.xml", "<spring-cloud.version>" + getSpringCloudVersion() + "</spring-cloud.version>");
+    assertFileContent(project, "pom.xml", "<spring-cloud.version>");
 
     assertFileContent(
       project,
@@ -63,7 +62,7 @@ public class ConsulAssert {
 
   public static void assertProperties(Project project) {
     assertFileExist(project, MAIN_RESOURCES, "config/bootstrap.properties");
-    assertFileExist(project, MAIN_RESOURCES, "config/bootstrap-fast.properties");
+    assertFileExist(project, MAIN_RESOURCES, "config/bootstrap-local.properties");
     assertFileExist(project, TEST_RESOURCES, "config/bootstrap.properties");
 
     assertFileContent(
@@ -80,7 +79,18 @@ public class ConsulAssert {
       )
     );
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-fast.properties"), "spring.cloud.consul.config.fail-fast=false");
+    String baseName = project.getBaseName().orElseThrow();
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, "config/bootstrap.properties"),
+      List.of(
+        "spring.cloud.consul.discovery.instance-id=" + baseName.toLowerCase() + ":${spring.application.instance-id:${random.value}}",
+        "spring.cloud.consul.discovery.service-name=" + baseName.toLowerCase(),
+        "spring.cloud.consul.discovery.prefer-ip-address=true"
+      )
+    );
+
+    assertFileContent(project, getPath(MAIN_RESOURCES, "config/bootstrap-local.properties"), "spring.cloud.consul.config.fail-local=false");
 
     assertFileContent(project, getPath(TEST_RESOURCES, "config/bootstrap.properties"), "spring.cloud.consul.enabled=false");
   }

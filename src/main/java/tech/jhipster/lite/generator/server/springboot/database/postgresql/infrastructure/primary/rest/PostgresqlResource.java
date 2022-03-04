@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/databases/postgresql")
@@ -25,6 +26,7 @@ class PostgresqlResource {
   @Operation(summary = "Add PostgreSQL drivers and dependencies, with testcontainers")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding PostgreSQL")
   @PostMapping
+  @GeneratorStep(id = "postgresql")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     postgresqlApplicationService.init(project);

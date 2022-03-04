@@ -4,11 +4,13 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static tech.jhipster.lite.TestUtils.assertFileNotExist;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
 import static tech.jhipster.lite.common.domain.WordUtils.LF;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -47,6 +49,19 @@ class FileUtilsTest {
       assertThatThrownBy(() -> FileUtils.exists(null))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("path");
+    }
+
+    @Test
+    void shouldNotEndBySlash() {
+      String tempDir = System.getProperty("java.io.tmpdir");
+      String fileSeparator = FileSystems.getDefault().getSeparator();
+      if (!tempDir.endsWith(fileSeparator)) {
+        tempDir = tempDir + fileSeparator;
+      }
+
+      System.setProperty("java.io.tmpdir", tempDir);
+      String tmp = FileUtils.tmpDir();
+      assertFalse(tmp.endsWith(fileSeparator));
     }
   }
 
@@ -214,7 +229,7 @@ class FileUtilsTest {
         .append(LF)
         .append("used for unit tests")
         .append(LF)
-        .append("powered by JHipster \uD83E\uDD13")
+        .append("powered by JHipster")
         .append(LF)
         .toString();
       assertThat(result).isEqualTo(expectedResult);
@@ -258,6 +273,114 @@ class FileUtilsTest {
       String filename = getPath("src/test/resources/generator/utils/unknown.md");
 
       assertThatThrownBy(() -> FileUtils.getLine(filename, "beer")).isInstanceOf(IOException.class);
+    }
+  }
+
+  @Nested
+  class ReadLineTest {
+
+    @Test
+    void shouldReadLine() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLine(filename, "unit tests")).contains("used for unit tests");
+      assertThat(FileUtils.readLine(filename, "JHipster")).contains("powered by JHipster");
+    }
+
+    @Test
+    void shouldNotReadLineAsCaseSensitive() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLine(filename, "jhipster")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineForAnotherText() throws Exception {
+      String filename = getPath("src/test/resources/generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLine(filename, "beer")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineWhenFileNotExist() {
+      String filename = getPath("src/test/resources/generator/utils/unknown.md");
+
+      assertThat(FileUtils.readLine(filename, "beer")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineForNullFileName() {
+      assertThatThrownBy(() -> FileUtils.readLine(null, null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLineForBlankFileName() {
+      assertThatThrownBy(() -> FileUtils.readLine(" ", null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLineForNullValue() {
+      assertThatThrownBy(() -> FileUtils.readLine("filename", null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("value");
+    }
+  }
+
+  @Nested
+  class ReadLineInClasspathTest {
+
+    @Test
+    void shouldReadLine() throws Exception {
+      String filename = getPath("generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLineInClasspath(filename, "unit tests")).contains("used for unit tests");
+      assertThat(FileUtils.readLineInClasspath(filename, "JHipster")).contains("powered by JHipster");
+    }
+
+    @Test
+    void shouldNotReadLineAsCaseSensitive() throws Exception {
+      String filename = getPath("generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLineInClasspath(filename, "jhipster")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineForAnotherText() throws Exception {
+      String filename = getPath("generator/utils/readme-short.md");
+
+      assertThat(FileUtils.readLineInClasspath(filename, "beer")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineWhenFileNotExist() {
+      String filename = getPath("generator/utils/unknown.md");
+
+      assertThat(FileUtils.readLineInClasspath(filename, "beer")).isEmpty();
+    }
+
+    @Test
+    void shouldNotReadLineForNullFileName() {
+      assertThatThrownBy(() -> FileUtils.readLineInClasspath(null, null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLineForBlankFileName() {
+      assertThatThrownBy(() -> FileUtils.readLineInClasspath(" ", null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLineForNullValue() {
+      assertThatThrownBy(() -> FileUtils.readLineInClasspath("filename", null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("value");
     }
   }
 
@@ -368,7 +491,7 @@ class FileUtilsTest {
     void shouldReplaceInFile() throws Exception {
       String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
-      String result = FileUtils.replaceInFile(filename, "powered by JHipster \uD83E\uDD13", "Hello JHipster Lite");
+      String result = FileUtils.replaceInFile(filename, "powered by JHipster", "Hello JHipster Lite");
 
       String expectedResult = new StringBuilder()
         .append("this is a short readme")
@@ -534,6 +657,33 @@ class FileUtilsTest {
       String regexp = new StringBuilder().append("```").append(LF).append("np.? ci").toString();
 
       assertEquals(0, FileUtils.countsRegexp(filename, FileUtils.REGEXP_PREFIX_DOTALL + regexp));
+    }
+  }
+
+  @Nested
+  class AppendLinesTest {
+
+    @Test
+    void shouldAppendLinesInFile() throws IOException {
+      // Given
+      Path filePath = Files.createTempFile("append-lines", null);
+      Files.write(filePath, "existing content".getBytes());
+
+      List<String> lines = List.of(CRLF, "new first line", "new second line");
+
+      // When
+      FileUtils.appendLines(filePath.toString(), lines);
+
+      // Then
+      assertThat(FileUtils.read(filePath.toString()).lines().toList())
+        .isEqualTo(List.of("existing content", "", "new first line", "new second line"));
+    }
+
+    @Test
+    void shouldNotAppendLinesWhenFileDoesNotExist() {
+      List<String> lines = List.of("line");
+
+      assertThatThrownBy(() -> FileUtils.appendLines("/unknown/path/file", lines)).isInstanceOf(IOException.class);
     }
   }
 

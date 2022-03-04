@@ -5,10 +5,7 @@ import static tech.jhipster.lite.common.domain.WordUtils.LF;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -29,6 +26,8 @@ public class FileUtils {
   public static final String REGEXP_DOT_STAR = ".*";
   public static final String REGEXP_SPACE_STAR = "[ \t]*";
 
+  public static final String FILENAME = "filename";
+
   private FileUtils() {}
 
   public static boolean exists(String path) {
@@ -44,7 +43,12 @@ public class FileUtils {
   }
 
   public static String tmpDir() {
-    return System.getProperty("java.io.tmpdir");
+    String tempDir = System.getProperty("java.io.tmpdir");
+    String fileSeparator = FileSystems.getDefault().getSeparator();
+    if (tempDir.endsWith(fileSeparator)) {
+      return tempDir.substring(0, tempDir.length() - fileSeparator.length());
+    }
+    return tempDir;
   }
 
   public static String tmpDirForTest() {
@@ -62,7 +66,7 @@ public class FileUtils {
   public static InputStream getInputStream(String... paths) {
     InputStream in = FileUtils.class.getResourceAsStream(FILE_SEPARATOR + getPath(paths));
     if (in == null) {
-      throw new GeneratorException("File not found in classpath");
+      throw new GeneratorException("File '" + getPath(paths) + "' not found in classpath");
     }
     return in;
   }
@@ -90,8 +94,43 @@ public class FileUtils {
     return -1;
   }
 
+  public static Optional<String> readLine(String filename, String value) {
+    Assert.notBlank(FILENAME, filename);
+    Assert.notNull("value", value);
+
+    File file = new File(filename);
+    try (Scanner scanner = new Scanner(file)) {
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+        if (line.contains(value)) {
+          return Optional.of(line);
+        }
+      }
+    } catch (FileNotFoundException e) {
+      log.error("Can't readLine as the filename '{}' is not found", filename, e);
+    }
+    return Optional.empty();
+  }
+
+  public static Optional<String> readLineInClasspath(String filename, String value) {
+    Assert.notBlank(FILENAME, filename);
+    Assert.notNull("value", value);
+
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(getInputStream(filename)))) {
+      while (reader.ready()) {
+        String line = reader.readLine();
+        if (line.contains(value)) {
+          return Optional.of(line);
+        }
+      }
+    } catch (Exception e) {
+      log.error("Can't readLine as the filename '{}' is not found", filename, e);
+    }
+    return Optional.empty();
+  }
+
   public static boolean containsLines(String filename, List<String> lines) {
-    Assert.notBlank("filename", filename);
+    Assert.notBlank(FILENAME, filename);
     Assert.notEmpty("lines", lines);
 
     File file = new File(filename);
@@ -173,5 +212,9 @@ public class FileUtils {
       return text.replace(CRLF, LF);
     }
     return text.replaceAll("([^\\r])\\n", "$1" + toEndOfLine);
+  }
+
+  public static void appendLines(String filePath, List<String> lines) throws IOException {
+    Files.write(Path.of(filePath), lines, StandardOpenOption.APPEND);
   }
 }

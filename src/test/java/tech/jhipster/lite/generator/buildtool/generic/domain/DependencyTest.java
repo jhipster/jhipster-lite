@@ -26,7 +26,7 @@ class DependencyTest {
 
     assertThat(result.getGroupId()).isEqualTo("org.springframework.boot");
     assertThat(result.getArtifactId()).isEqualTo("spring-boot-starter");
-    assertThat(result.getVersion()).contains("2.5.3");
+    assertThat(result.getVersion()).contains("0.0.0");
     assertThat(result.getScope()).contains("test");
   }
 
@@ -56,11 +56,11 @@ class DependencyTest {
 
   @Test
   void shouldBuildWithVersion() {
-    Dependency result = minimalBuilder().version("2.5.3").build();
+    Dependency result = minimalBuilder().version("0.0.0").build();
 
     assertThat(result.getGroupId()).isEqualTo("org.springframework.boot");
     assertThat(result.getArtifactId()).isEqualTo("spring-boot-starter");
-    assertThat(result.getVersion()).contains("2.5.3");
+    assertThat(result.getVersion()).contains("0.0.0");
     assertThat(result.getScope()).isEmpty();
   }
 
@@ -99,6 +99,6 @@ class DependencyTest {
   }
 
   private Dependency.DependencyBuilder fullBuilder() {
-    return minimalBuilder().version("2.5.3").scope("test");
+    return minimalBuilder().version("0.0.0").scope("test");
   }
 }

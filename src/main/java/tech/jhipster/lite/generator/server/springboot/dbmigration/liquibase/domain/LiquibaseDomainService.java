@@ -8,6 +8,9 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -19,21 +22,26 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   public static final String SOURCE = "server/springboot/dbmigration/liquibase";
   public static final String LIQUIBASE_PATH = "technical/infrastructure/secondary/liquibase";
-  public static final String MASTER_XML = "master.xml";
   public static final String CONFIG_LIQUIBASE = "config/liquibase";
+  public static final String CHANGELOG = CONFIG_LIQUIBASE + "/changelog";
+  public static final String DATA = CONFIG_LIQUIBASE + "/data";
+  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
+  private final Clock clock;
 
   public LiquibaseDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService
+    SpringBootCommonService springBootCommonService,
+    Clock clock
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
+    this.clock = clock;
   }
 
   @Override
@@ -55,7 +63,7 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   @Override
   public void addChangelogMasterXml(Project project) {
-    projectRepository.add(project, getPath(SOURCE, "resources"), MASTER_XML, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE));
+    projectRepository.add(project, getPath(SOURCE, "resources"), LIQUIBASE_MASTER_XML, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE));
   }
 
   @Override
@@ -69,8 +77,14 @@ public class LiquibaseDomainService implements LiquibaseService {
       .append(NEEDLE_LIQUIBASE)
       .toString();
 
-    if (!projectRepository.containsRegexp(project, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE), MASTER_XML, includeLine)) {
-      projectRepository.replaceText(project, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE), MASTER_XML, NEEDLE_LIQUIBASE, includeLine);
+    if (!projectRepository.containsRegexp(project, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE), LIQUIBASE_MASTER_XML, includeLine)) {
+      projectRepository.replaceText(
+        project,
+        getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE),
+        LIQUIBASE_MASTER_XML,
+        NEEDLE_LIQUIBASE,
+        includeLine
+      );
     }
   }
 
@@ -93,6 +107,7 @@ public class LiquibaseDomainService implements LiquibaseService {
   public void addLoggerInConfiguration(Project project) {
     addLogger(project, "liquibase", Level.WARN);
     addLogger(project, "LiquibaseSchemaResolver", Level.INFO);
+    addLogger(project, "com.zaxxer.hikari", Level.INFO);
   }
 
   public void addLogger(Project project, String packageName, Level level) {
@@ -102,5 +117,61 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   private void templateToLiquibase(Project project, String source, String type, String sourceFilename, String destination) {
     projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, LIQUIBASE_PATH));
+  }
+
+  @Override
+  public void addUserAuthorityChangelog(Project project) {
+    addSqlSequenceUserChangelog(project);
+    addSqlUserChangelog(project);
+    addSqlUserAuthorityChangelog(project);
+  }
+
+  private void addSqlSequenceUserChangelog(Project project) {
+    if (!isMySQLDatabase(project)) {
+      String sequenceUserChangelog = getTimestamp() + "_added_sequence_User.xml";
+      addChangelogXml(project, "", sequenceUserChangelog);
+      projectRepository.template(
+        project,
+        getUserResourcePath(),
+        "sequence_user.xml",
+        getPath(MAIN_RESOURCES, CHANGELOG),
+        sequenceUserChangelog
+      );
+    }
+  }
+
+  private void addSqlUserChangelog(Project project) {
+    String userChangelog = getTimestamp() + "_added_entity_User.xml";
+    addChangelogXml(project, "", userChangelog);
+    String userXmlFile = "user.xml";
+    if (isMySQLDatabase(project)) {
+      userXmlFile = "user_with_autoincrement.xml";
+    }
+    projectRepository.template(project, getUserResourcePath(), userXmlFile, getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
+    projectRepository.add(project, getUserResourcePath(), "user.csv", getPath(MAIN_RESOURCES, DATA));
+  }
+
+  private void addSqlUserAuthorityChangelog(Project project) {
+    // Update liquibase master file
+    String authorityChangelog = getTimestamp() + "_added_entity_Authority.xml";
+    addChangelogXml(project, "", authorityChangelog);
+
+    // Copy liquibase files
+    projectRepository.template(project, getUserResourcePath(), "authority.xml", getPath(MAIN_RESOURCES, CHANGELOG), authorityChangelog);
+    projectRepository.add(project, getUserResourcePath(), "authority.csv", getPath(MAIN_RESOURCES, DATA));
+    projectRepository.add(project, getUserResourcePath(), "user_authority.csv", getPath(MAIN_RESOURCES, DATA));
+  }
+
+  private String getUserResourcePath() {
+    return getPath(SOURCE, "resources/user");
+  }
+
+  private String getTimestamp() {
+    LocalDateTime localDateTime = LocalDateTime.now(clock);
+    return localDateTime.format(DATE_TIME_FORMATTER);
+  }
+
+  private boolean isMySQLDatabase(Project project) {
+    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("mysql")).isPresent();
   }
 }

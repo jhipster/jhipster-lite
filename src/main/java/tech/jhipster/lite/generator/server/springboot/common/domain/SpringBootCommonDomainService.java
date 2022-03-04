@@ -8,6 +8,9 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_PROPERTIES;
 
+import java.util.Optional;
+import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -35,8 +38,8 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   }
 
   @Override
-  public void addPropertiesFast(Project project, String key, Object value) {
-    addKeyValueToProperties(project, key, value, MAIN_RESOURCES, APPLICATION_FAST_PROPERTIES, NEEDLE_APPLICATION_FAST_PROPERTIES);
+  public void addPropertiesLocal(Project project, String key, Object value) {
+    addKeyValueToProperties(project, key, value, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
   }
 
   @Override
@@ -53,7 +56,71 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String needleProperties
   ) {
     String propertiesWithNeedle = key + "=" + value + LF + needleProperties;
-    projectRepository.replaceText(project, getPath(folderProperties, "config"), fileProperties, needleProperties, propertiesWithNeedle);
+    projectRepository.replaceText(
+      project,
+      getPath(folderProperties, CONFIG_FOLDER),
+      fileProperties,
+      needleProperties,
+      propertiesWithNeedle
+    );
+  }
+
+  @Override
+  public void addPropertiesNewLine(Project project) {
+    addNewLineToProperties(project, MAIN_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_PROPERTIES);
+  }
+
+  @Override
+  public void addPropertiesLocalNewLine(Project project) {
+    addNewLineToProperties(project, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
+  }
+
+  @Override
+  public void addPropertiesTestNewLine(Project project) {
+    addNewLineToProperties(project, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
+  }
+
+  private void addNewLineToProperties(Project project, String folderProperties, String fileProperties, String needleProperties) {
+    String propertiesWithNeedle = LF + needleProperties;
+    projectRepository.replaceText(
+      project,
+      getPath(folderProperties, CONFIG_FOLDER),
+      fileProperties,
+      needleProperties,
+      propertiesWithNeedle
+    );
+  }
+
+  @Override
+  public void addPropertiesComment(Project project, String text) {
+    addCommentToProperties(project, text, MAIN_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_PROPERTIES);
+  }
+
+  @Override
+  public void addPropertiesLocalComment(Project project, String text) {
+    addCommentToProperties(project, text, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
+  }
+
+  @Override
+  public void addPropertiesTestComment(Project project, String text) {
+    addCommentToProperties(project, text, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
+  }
+
+  private void addCommentToProperties(
+    Project project,
+    String text,
+    String folderProperties,
+    String fileProperties,
+    String needleProperties
+  ) {
+    String propertiesWithNeedle = "# " + text + LF + needleProperties;
+    projectRepository.replaceText(
+      project,
+      getPath(folderProperties, CONFIG_FOLDER),
+      fileProperties,
+      needleProperties,
+      propertiesWithNeedle
+    );
   }
 
   @Override
@@ -64,6 +131,22 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   @Override
   public void addLoggerTest(Project project, String packageName, Level level) {
     addLoggerToConfiguration(project, packageName, level, TEST_RESOURCES, LOGGING_TEST_CONFIGURATION, NEEDLE_LOGBACK_LOGGER);
+  }
+
+  @Override
+  public Optional<String> getProperty(Project project, String key) {
+    Assert.notNull("project", project);
+    Assert.notBlank("key", key);
+
+    return FileUtils
+      .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG_FOLDER, "application.properties"), key + "=")
+      .map(readValue -> {
+        String[] result = readValue.split("=");
+        if (result.length == 2) {
+          return result[1];
+        }
+        return null;
+      });
   }
 
   private void addLoggerToConfiguration(

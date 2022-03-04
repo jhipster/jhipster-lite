@@ -9,6 +9,7 @@ public class Constants {
   public static final String MAIN_JAVA = getPath("src/main/java");
   public static final String MAIN_WEBAPP = getPath("src/main/webapp");
   public static final String MAIN_RESOURCES = getPath("src/main/resources");
+  public static final String MAIN_DOCKER = getPath("src/main/docker");
 
   public static final String TEMPLATE_FOLDER = "generator";
   public static final String DEPENDENCIES_FOLDER = "dependencies";

@@ -93,6 +93,12 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue"
 
+elif [[ $application == 'oauth2app' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/mvc/security/oauth2"
+
 elif [[ $application == 'mysqlapp' ]]; then
   springboot
   sonar_back

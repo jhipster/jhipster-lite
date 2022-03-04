@@ -93,7 +93,7 @@ class CustomClaimConverterIT {
   }
 
   @Test
-  void testConvert() {
+  void shouldConvert() {
     // GIVEN
     Map<String, Object> claims = new HashMap<>();
     claims.put("sub", "123");
@@ -118,7 +118,7 @@ class CustomClaimConverterIT {
   }
 
   @Test
-  void testConvert_withoutGroups() {
+  void shouldConvertWithoutGroups() {
     // GIVEN
     Map<String, Object> claims = new HashMap<>();
     claims.put("sub", "123");
@@ -134,7 +134,7 @@ class CustomClaimConverterIT {
   }
 
   @Test
-  void testConvert_withNamespacedRoles() {
+  void shouldConvertWithNamespacedRoles() {
     // GIVEN
     Map<String, Object> claims = new HashMap<>();
     claims.put("sub", "123");
@@ -159,7 +159,7 @@ class CustomClaimConverterIT {
   }
 
   @Test
-  void testConvert_withoutFirstAndLastName() {
+  void shouldConvertWithoutFirstAndLastName() {
     // GIVEN
     Map<String, Object> claims = new HashMap<>();
     claims.put("sub", "123");
@@ -194,7 +194,7 @@ class CustomClaimConverterIT {
   }
 
   @Test
-  void testConvert_withName() {
+  void shouldConvertWithName() {
     // GIVEN
     Map<String, Object> claims = new HashMap<>();
     claims.put("sub", "123");
@@ -215,7 +215,7 @@ class CustomClaimConverterIT {
   }
 
   @Test
-  void testConvert_withLastNameMultipleWords() {
+  void shouldConvertWithLastNameMultipleWords() {
     // GIVEN
     Map<String, Object> claims = new HashMap<>();
     claims.put("sub", "123");
@@ -237,7 +237,7 @@ class CustomClaimConverterIT {
   }
 
   @Test
-  void testConvert_withEmail() {
+  void shouldConvertWithEmail() {
     // GIVEN
     Map<String, Object> claims = new HashMap<>();
     claims.put("sub", "123");

@@ -1,6 +1,5 @@
 package {{packageName}}.security.oauth2.application;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames.ID_TOKEN;
 
@@ -150,7 +149,7 @@ class SecurityUtilsTest {
   }
 
   @Test
-  void testExtractAuthorityFromClaims() {
+  void shouldExtractAuthorityFromClaims() {
     Map<String, Object> claims = new HashMap<>();
     claims.put("groups", Arrays.asList(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER));
 
@@ -165,7 +164,7 @@ class SecurityUtilsTest {
   }
 
   @Test
-  void testExtractAuthorityFromClaims_NamespacedRoles() {
+  void shouldExtractAuthorityFromClaimsNamespacedRoles() {
     Map<String, Object> claims = new HashMap<>();
     claims.put(SecurityUtils.CLAIMS_NAMESPACE + "roles", Arrays.asList(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER));
 
@@ -177,15 +176,6 @@ class SecurityUtilsTest {
     List<GrantedAuthority> authorities = SecurityUtils.extractAuthorityFromClaims(claims);
 
     assertThat(authorities).isNotNull().isNotEmpty().hasSize(2).containsAll(expectedAuthorities);
-  }
-
-  @Test
-  void testIsAuthenticated() {
-    SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-    securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "admin"));
-    SecurityContextHolder.setContext(securityContext);
-    boolean isAuthenticated = SecurityUtils.isAuthenticated();
-    assertThat(isAuthenticated).isTrue();
   }
 
   @Test
@@ -213,29 +203,6 @@ class SecurityUtilsTest {
     SecurityContextHolder.setContext(securityContext);
     boolean isAuthenticated = SecurityUtils.isAuthenticated();
     assertThat(isAuthenticated).isFalse();
-  }
-
-  @Test
-  void testAnonymousIsNotAuthenticated() {
-    SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-    Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ANONYMOUS));
-    securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("anonymous", "anonymous", authorities));
-    SecurityContextHolder.setContext(securityContext);
-    boolean isAuthenticated = SecurityUtils.isAuthenticated();
-    assertThat(isAuthenticated).isFalse();
-  }
-
-  @Test
-  void testHasCurrentUserThisAuthority() {
-    SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-    Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
-    securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("user", "user", authorities));
-    SecurityContextHolder.setContext(securityContext);
-
-    assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.USER)).isTrue();
-    assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)).isFalse();
   }
 
   @Test

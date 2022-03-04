@@ -6,9 +6,6 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -101,72 +98,5 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
   private void updateIntegrationTestWithMockUser(Project project) {
     commonSecurityService.updateIntegrationTestWithMockUser(project);
-  }
-
-  public void addClient(Project project, OAuth2Provider provider, String issuerUri) {
-    addCommons(project, provider, issuerUri);
-  }
-
-  public void addDefault(Project project, OAuth2Provider provider, String issuerUri) {
-    addCommons(project, provider, issuerUri);
-    addResourceServerJwt(project);
-    // TODO default security configuration
-  }
-
-  public void addResourceServerJwt(Project project) {
-    addOAuth2ResourceServerDependency(project);
-    // TODO JWT
-  }
-
-  private void addCommons(Project project, OAuth2Provider provider, String issuerUri) {
-    addOAuth2ClientDependencies(project);
-    OAuth2Provider providerFallback = fallbackToDefault(provider);
-    addOAuth2ClientProperties(project, providerFallback, issuerUri);
-    updateExceptionTranslator(project);
-    if (providerFallback == OAuth2Provider.KEYCLOAK) {
-      addKeycloakDocker(project);
-    }
-  }
-
-  private OAuth2Provider fallbackToDefault(OAuth2Provider provider) {
-    return Optional.ofNullable(provider).orElse(DEFAULT_PROVIDER);
-  }
-
-  private void addOAuth2ClientDependencies(Project project) {
-    buildToolService.addDependency(project, springBootStarterSecurityDependency());
-    buildToolService.addDependency(project, springBootStarterOAuth2ClientDependency());
-    // test
-    buildToolService.addDependency(project, springSecurityTestDependency());
-  }
-
-  private void addOAuth2ResourceServerDependency(Project project) {
-    buildToolService.addDependency(project, springBootStarterOAuth2ResourceServerDependency());
-  }
-
-  private void addOAuth2ClientProperties(Project project, OAuth2Provider provider, String issuerUri) {
-    oauth2ClientProperties(provider, issuerUri)
-      .forEach((k, v) -> {
-        springBootCommonService.addProperties(project, k, v);
-        springBootCommonService.addPropertiesTest(project, k, v);
-      });
-  }
-
-  private Map<String, Object> oauth2ClientProperties(OAuth2Provider provider, String issuerUri) {
-    Map<String, Object> result = new LinkedHashMap<>();
-
-    String providerId = provider.name().toLowerCase();
-
-    if (provider.isCustom()) {
-      String issuerUriFallback = Optional.ofNullable(issuerUri).orElse(provider.getDefaultIssuerUri());
-      result.put("spring.security.oauth2.client.provider." + providerId + ".issuer-uri", issuerUriFallback);
-    }
-    if (!provider.isBuiltIn()) {
-      result.put("spring.security.oauth2.client.registration." + providerId + ".client-name", providerId);
-    }
-    result.put("spring.security.oauth2.client.registration." + providerId + ".client-id", "web_app");
-    result.put("spring.security.oauth2.client.registration." + providerId + ".client-secret", "web_app");
-    result.put("spring.security.oauth2.client.registration." + providerId + ".scope", "openid,profile,email");
-
-    return result;
   }
 }

@@ -1,8 +1,9 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infrastructure.rest;
+package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityAssert.assertDockerKeycloak;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityAssert.assertIntegrationTestWithMockUser;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -67,10 +68,12 @@ class OAuth2SecurityResourceIT {
       )
       .andExpect(status().isOk());
 
+    assertSecurityDependencies(project);
     assertDockerKeycloak(project);
-    //    assertSecurityDependencies(project);
-    //    assertOAuth2ClientDependencies(project);
-    //    assertOAuth2ClientProperties(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
-    //    assertUpdateExceptionTranslatorIT(project);
+    assertJavaFiles(project);
+    assertProperties(project);
+
+    assertExceptionTranslatorWithSecurity(project);
+    assertIntegrationTestWithMockUser(project);
   }
 }

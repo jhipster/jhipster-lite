@@ -1,18 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import org.checkerframework.checker.units.qual.K;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.technical.infrastructure.primary.cors.CorsFilterConfiguration;
-import tech.jhipster.lite.technical.infrastructure.primary.cors.CorsProperties;
 
 public class OAuth2Security {
 
   private static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
-
-  public static final OAuth2Provider DEFAULT_PROVIDER = OAuth2Provider.KEYCLOAK;
 
   private static final String DOCKER_KEYCLOAK_IMAGE = "jboss/keycloak";
   private static final String DOCKER_KEYCLOAK_VERSION = "16.1.0";

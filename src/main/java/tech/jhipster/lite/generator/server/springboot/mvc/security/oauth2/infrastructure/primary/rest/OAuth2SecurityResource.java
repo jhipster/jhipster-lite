@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infrastructure.rest;
+package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityApplicationService;
-import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infrastructure.primary.dto.OAuth2ClientDTO;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
@@ -28,8 +27,8 @@ class OAuth2SecurityResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding a Spring Security OAuth2 / OIDC Authentication")
   @PostMapping("/oauth2")
   @GeneratorStep(id = "springboot-oauth2")
-  public void addOAuth2(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
-    Project project = ProjectDTO.toProject(oAuth2ClientDTO);
+  public void addOAuth2(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
     oauth2SecurityApplicationService.addOAuth2(project);
   }
 }

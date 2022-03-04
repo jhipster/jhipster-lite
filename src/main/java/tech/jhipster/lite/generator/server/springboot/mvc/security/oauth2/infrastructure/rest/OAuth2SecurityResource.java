@@ -11,6 +11,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityApplicationService;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infrastructure.primary.dto.OAuth2ClientDTO;
+import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/mvc/security")
@@ -26,6 +27,7 @@ class OAuth2SecurityResource {
   @Operation(summary = "Add a Spring Security OAuth2-OIDC Client")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding a Spring Security OAuth2-OIDC Client")
   @PostMapping("/oauth2/add-client")
+  @GeneratorStep(id = "springboot-oauth2-client")
   public void addClient(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
     Project project = ProjectDTO.toProject(oAuth2ClientDTO);
     oauth2SecurityApplicationService.addClient(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
@@ -34,6 +36,7 @@ class OAuth2SecurityResource {
   @Operation(summary = "Add Spring Security default login with OAuth2")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security default login with OAuth2")
   @PostMapping("/oauth2/default")
+  @GeneratorStep(id = "springboot-oauth2")
   public void addDefault(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
     Project project = ProjectDTO.toProject(oAuth2ClientDTO);
     oauth2SecurityApplicationService.addDefault(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());

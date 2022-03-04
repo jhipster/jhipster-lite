@@ -1,10 +1,11 @@
 package tech.jhipster.lite.generator.server.springboot.user.application;
 
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.*;
 
+import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 
@@ -33,7 +34,7 @@ public class SpringBootUserAssertFiles {
   public static void checkSequence(Project project, DatabaseType databaseType) {
     String userPath = getUserPath(project, databaseType);
 
-    if (databaseType == MYSQL) {
+    if (List.of(MYSQL, MARIADB).contains(databaseType)) {
       assertFileContent(project, getPath(userPath, "UserEntity.java"), "@GeneratedValue(strategy = GenerationType.IDENTITY)");
       assertFileNoContent(project, getPath(userPath, "UserEntity.java"), "@GeneratedValue(strategy = GenerationType.SEQUENCE");
     } else {

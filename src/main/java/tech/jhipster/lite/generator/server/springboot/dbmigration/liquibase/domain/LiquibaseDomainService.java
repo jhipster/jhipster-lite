@@ -1,12 +1,10 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
-import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.*;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -127,7 +125,7 @@ public class LiquibaseDomainService implements LiquibaseService {
   }
 
   private void addSqlSequenceUserChangelog(Project project) {
-    if (!isMySQLDatabase(project)) {
+    if (isDatabaseWhichNeedsSequenceStrategy(project)) {
       String sequenceUserChangelog = getTimestamp() + "_added_sequence_User.xml";
       addChangelogXml(project, "", sequenceUserChangelog);
       projectRepository.template(
@@ -144,7 +142,7 @@ public class LiquibaseDomainService implements LiquibaseService {
     String userChangelog = getTimestamp() + "_added_entity_User.xml";
     addChangelogXml(project, "", userChangelog);
     String userXmlFile = "user.xml";
-    if (isMySQLDatabase(project)) {
+    if (isMySQLOrMariaDBDatabase(project)) {
       userXmlFile = "user_with_autoincrement.xml";
     }
     projectRepository.template(project, getUserResourcePath(), userXmlFile, getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
@@ -173,5 +171,17 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   private boolean isMySQLDatabase(Project project) {
     return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("mysql")).isPresent();
+  }
+
+  private boolean isMariaDBDatabase(Project project) {
+    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("mariadb")).isPresent();
+  }
+
+  private boolean isDatabaseWhichNeedsSequenceStrategy(Project project) {
+    return !isMySQLOrMariaDBDatabase(project);
+  }
+
+  private boolean isMySQLOrMariaDBDatabase(Project project) {
+    return isMySQLDatabase(project) || isMariaDBDatabase(project);
   }
 }

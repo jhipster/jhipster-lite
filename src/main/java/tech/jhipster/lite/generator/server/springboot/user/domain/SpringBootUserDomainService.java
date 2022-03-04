@@ -1,14 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.user.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class SpringBootUserDomainService implements SpringBootUserService {
 
@@ -18,11 +16,9 @@ public class SpringBootUserDomainService implements SpringBootUserService {
   private static final String USER_DATABASE_KEY = "sqlDatabaseName";
 
   private final ProjectRepository projectRepository;
-  private final SpringBootCommonService springBootCommonService;
 
-  public SpringBootUserDomainService(ProjectRepository projectRepository, SpringBootCommonService springBootCommonService) {
+  public SpringBootUserDomainService(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
-    this.springBootCommonService = springBootCommonService;
   }
 
   @Override
@@ -37,7 +33,7 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     project.addConfig(USER_DATABASE_KEY, sqlDatabase.id());
 
-    if (isMySQLDatabase(project)) {
+    if (isDatabaseWhichNoNeedsSequenceStrategy(sqlDatabase)) {
       projectRepository.template(
         project,
         SOURCE,
@@ -86,7 +82,15 @@ public class SpringBootUserDomainService implements SpringBootUserService {
     return getPath(TEST_JAVA, packageNamePath, TARGET_INFRA_SECOND_JAVA + "/" + sqlDatabase.id());
   }
 
-  private boolean isMySQLDatabase(Project project) {
-    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("mysql")).isPresent();
+  private boolean isMySQLDatabase(DatabaseType databaseType) {
+    return databaseType.equals(DatabaseType.MYSQL);
+  }
+
+  private boolean isMariaDBDatabase(DatabaseType databaseType) {
+    return databaseType.equals(DatabaseType.MARIADB);
+  }
+
+  private boolean isDatabaseWhichNoNeedsSequenceStrategy(DatabaseType databaseType) {
+    return isMySQLDatabase(databaseType) || isMariaDBDatabase(databaseType);
   }
 }

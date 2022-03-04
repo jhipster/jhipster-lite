@@ -24,21 +24,12 @@ class OAuth2SecurityResource {
     this.oauth2SecurityApplicationService = oauth2SecurityApplicationService;
   }
 
-  @Operation(summary = "Add a Spring Security OAuth2-OIDC Client")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding a Spring Security OAuth2-OIDC Client")
-  @PostMapping("/oauth2/add-client")
-  @GeneratorStep(id = "springboot-oauth2-client")
-  public void addClient(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
-    Project project = ProjectDTO.toProject(oAuth2ClientDTO);
-    oauth2SecurityApplicationService.addClient(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
-  }
-
-  @Operation(summary = "Add Spring Security default login with OAuth2")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Security default login with OAuth2")
-  @PostMapping("/oauth2/default")
+  @Operation(summary = "Add a Spring Security: OAuth 2.0 / OIDC Authentication (stateful, works with Keycloak and Okta)")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding a Spring Security OAuth2 / OIDC Authentication")
+  @PostMapping("/oauth2")
   @GeneratorStep(id = "springboot-oauth2")
-  public void addDefault(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
+  public void addOAuth2(@RequestBody OAuth2ClientDTO oAuth2ClientDTO) {
     Project project = ProjectDTO.toProject(oAuth2ClientDTO);
-    oauth2SecurityApplicationService.addDefault(project, oAuth2ClientDTO.getProvider(), oAuth2ClientDTO.getIssuerUri());
+    oauth2SecurityApplicationService.addOAuth2(project);
   }
 }

@@ -40,36 +40,24 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   private void addKeycloakDocker(Project project) {
     project.addConfig("dockerKeycloakImage", getDockerKeycloakImage());
     project.addConfig("dockerKeycloakVersion", getDockerKeycloakVersion());
-    projectRepository.template(project, getPath(SOURCE, "src"), "keycloak.yml", MAIN_DOCKER, "keycloak.yml");
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src"),
-      "jhipster-realm.json.mustache",
-      getPath(MAIN_DOCKER, "keycloak-realm-config"),
-      "jhipster-realm.json"
-    );
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src"),
-      "jhipster-users-0.json.mustache",
-      getPath(MAIN_DOCKER, "keycloak-realm-config"),
-      "jhipster-users-0.json"
-    );
+
+    String dockerSourcePath = getPath(SOURCE, "docker");
+    String dockerPathRealm = getPath(MAIN_DOCKER, "keycloak-realm-config");
+    projectRepository.template(project, dockerSourcePath, "keycloak.yml", MAIN_DOCKER, "keycloak.yml");
+    projectRepository.template(project, dockerSourcePath, "jhipster-realm.json", dockerPathRealm, "jhipster-realm.json");
+    projectRepository.template(project, dockerSourcePath, "jhipster-users-0.json", dockerPathRealm, "jhipster-users-0.json");
   }
 
-  @Override
   public void addClient(Project project, OAuth2Provider provider, String issuerUri) {
     addCommons(project, provider, issuerUri);
   }
 
-  @Override
   public void addDefault(Project project, OAuth2Provider provider, String issuerUri) {
     addCommons(project, provider, issuerUri);
     addResourceServerJwt(project);
     // TODO default security configuration
   }
 
-  @Override
   public void addResourceServerJwt(Project project) {
     addOAuth2ResourceServerDependency(project);
     // TODO JWT

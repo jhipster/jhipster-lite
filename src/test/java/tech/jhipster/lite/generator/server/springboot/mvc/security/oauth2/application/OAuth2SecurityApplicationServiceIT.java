@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.appli
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityAssert.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
@@ -31,6 +32,20 @@ class OAuth2SecurityApplicationServiceIT {
 
   @Autowired
   OAuth2SecurityApplicationService oAuth2SecurityApplicationService;
+
+  @Test
+  @DisplayName("should add OAuth2")
+  void shouldAddOAuth2() {
+    Project project = tmpProject();
+
+    mavenService.addJavaPomXml(project);
+    springBootService.init(project);
+    springBootMvcService.init(project);
+
+    oAuth2SecurityApplicationService.addOAuth2(project);
+
+    assertDockerKeycloak(project);
+  }
 
   @Test
   void shouldAddClientDefault() throws Exception {

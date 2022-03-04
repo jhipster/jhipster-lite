@@ -14,6 +14,10 @@ public class OAuth2SecurityApplicationService {
     this.oauth2SecurityService = oauth2SecurityService;
   }
 
+  public void addOAuth2(Project project) {
+    oauth2SecurityService.addOAuth2(project);
+  }
+
   public void addDefault(Project project, OAuth2Provider provider, String issuerUri) {
     oauth2SecurityService.addDefault(project, provider, issuerUri);
   }

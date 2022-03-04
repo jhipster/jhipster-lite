@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
@@ -32,6 +33,31 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   }
 
   @Override
+  public void addOAuth2(Project project) {
+    addKeycloakDocker(project);
+  }
+
+  private void addKeycloakDocker(Project project) {
+    project.addConfig("dockerKeycloakImage", getDockerKeycloakImage());
+    project.addConfig("dockerKeycloakVersion", getDockerKeycloakVersion());
+    projectRepository.template(project, getPath(SOURCE, "src"), "keycloak.yml", MAIN_DOCKER, "keycloak.yml");
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src"),
+      "jhipster-realm.json.mustache",
+      getPath(MAIN_DOCKER, "keycloak-realm-config"),
+      "jhipster-realm.json"
+    );
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "src"),
+      "jhipster-users-0.json.mustache",
+      getPath(MAIN_DOCKER, "keycloak-realm-config"),
+      "jhipster-users-0.json"
+    );
+  }
+
+  @Override
   public void addClient(Project project, OAuth2Provider provider, String issuerUri) {
     addCommons(project, provider, issuerUri);
   }
@@ -47,27 +73,6 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   public void addResourceServerJwt(Project project) {
     addOAuth2ResourceServerDependency(project);
     // TODO JWT
-  }
-
-  @Override
-  public void addKeycloakDocker(Project project) {
-    project.addConfig("dockerKeycloakImage", getDockerKeycloakImage());
-    project.addConfig("dockerKeycloakVersion", getDockerKeycloakVersion());
-    projectRepository.template(project, getPath(SOURCE, "src"), "keycloak.yml", "src/main/docker", "keycloak.yml");
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src"),
-      "jhipster-realm.json.mustache",
-      "src/main/docker/keycloak-realm-config",
-      "jhipster-realm.json"
-    );
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "src"),
-      "jhipster-users-0.json.mustache",
-      "src/main/docker/keycloak-realm-config",
-      "jhipster-users-0.json"
-    );
   }
 
   private void addCommons(Project project, OAuth2Provider provider, String issuerUri) {

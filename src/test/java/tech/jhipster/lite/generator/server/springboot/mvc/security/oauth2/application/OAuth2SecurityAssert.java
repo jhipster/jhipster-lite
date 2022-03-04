@@ -4,15 +4,12 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2SecurityDomainService.SECURITY_OAUTH2_PATH;
 
 import java.util.List;
-import java.util.Optional;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Provider;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security;
 
 public class OAuth2SecurityAssert {
@@ -53,10 +50,31 @@ public class OAuth2SecurityAssert {
       .forEach((k, v) -> assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), k + "=" + v));
   }
 
-  public static void assertUpdateExceptionTranslatorIT(Project project) {
-    String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    String exceptionTestPath = getPath(TEST_JAVA, basePath, "technical/infrastructure/primary/exception");
-    assertFileContent(project, getPath(exceptionTestPath, "ExceptionTranslatorIT.java"), "@WithMockUser");
+  public static void assertExceptionTranslatorWithSecurity(Project project) {
+    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), INFRA_PRIMARY, "exception");
+
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
+      "import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;"
+    );
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
+      "public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {"
+    );
+  }
+
+  public static void assertIntegrationTestWithMockUser(Project project) {
+    String integrationTest = "com/mycompany/myapp/IntegrationTest.java";
+    assertFileContent(
+      project,
+      getPath(TEST_JAVA, integrationTest),
+      List.of(
+        "import org.springframework.boot.test.context.SpringBootTest;",
+        "import org.springframework.security.test.context.support.WithMockUser;"
+      )
+    );
   }
 
   public static List<String> securityDependency() {

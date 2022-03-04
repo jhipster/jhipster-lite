@@ -19,6 +19,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.CommonSecurityService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +33,9 @@ class OAuth2SecurityDomainServiceTest {
 
   @Mock
   SpringBootCommonService springBootCommonService;
+
+  @Mock
+  CommonSecurityService commonSecurityService;
 
   @InjectMocks
   OAuth2SecurityDomainService oAuth2SecurityDomainService;
@@ -63,5 +67,8 @@ class OAuth2SecurityDomainServiceTest {
     verify(springBootCommonService).addPropertiesTestComment(any(Project.class), anyString());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), anyString());
     verify(springBootCommonService).addPropertiesTestNewLine(project);
+
+    verify(commonSecurityService).updateExceptionTranslator(project);
+    verify(commonSecurityService).updateIntegrationTestWithMockUser(project);
   }
 }

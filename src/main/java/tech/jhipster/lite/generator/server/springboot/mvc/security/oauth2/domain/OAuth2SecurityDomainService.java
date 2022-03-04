@@ -13,6 +13,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.CommonSecurityService;
 
 public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
@@ -22,15 +23,18 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
+  private final CommonSecurityService commonSecurityService;
 
   public OAuth2SecurityDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService
+    SpringBootCommonService springBootCommonService,
+    CommonSecurityService commonSecurityService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
+    this.commonSecurityService = commonSecurityService;
   }
 
   @Override
@@ -39,6 +43,9 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     addKeycloakDocker(project);
     addJavaFiles(project);
     addSpringBootProperties(project);
+
+    updateExceptionTranslator(project);
+    updateIntegrationTestWithMockUser(project);
   }
 
   private void addDependencies(Project project) {
@@ -86,6 +93,14 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     springBootCommonService.addPropertiesTestComment(project, "Spring Security OAuth2");
     propertiesForTests().forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));
     springBootCommonService.addPropertiesTestNewLine(project);
+  }
+
+  private void updateExceptionTranslator(Project project) {
+    commonSecurityService.updateExceptionTranslator(project);
+  }
+
+  private void updateIntegrationTestWithMockUser(Project project) {
+    commonSecurityService.updateIntegrationTestWithMockUser(project);
   }
 
   public void addClient(Project project, OAuth2Provider provider, String issuerUri) {
@@ -153,28 +168,5 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     result.put("spring.security.oauth2.client.registration." + providerId + ".scope", "openid,profile,email");
 
     return result;
-  }
-
-  private void updateExceptionTranslator(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String exceptionPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
-
-    // TODO test CSRF
-
-    // import @WithMockUser
-    String oldImport = "import org.springframework.test.util.ReflectionTestUtils;";
-    String newImport =
-      """
-
-      import org.springframework.security.test.context.support.WithMockUser;
-      import org.springframework.test.util.ReflectionTestUtils;""";
-    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldImport, newImport);
-
-    // add annotations
-    String oldAnnotation = "@AutoConfigureMockMvc";
-    String newAnnotation = """
-      @AutoConfigureMockMvc
-      @WithMockUser""";
-    projectRepository.replaceText(project, exceptionPath, "ExceptionTranslatorIT.java", oldAnnotation, newAnnotation);
   }
 }

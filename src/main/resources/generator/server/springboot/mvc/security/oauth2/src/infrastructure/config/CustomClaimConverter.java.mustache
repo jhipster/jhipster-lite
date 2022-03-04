@@ -28,6 +28,13 @@ import {{packageName}}.security.oauth2.application.SecurityUtils;
  */
 public class CustomClaimConverter implements Converter<Map<String, Object>, Map<String, Object>> {
 
+  public static final String GIVEN_NAME = "given_name";
+  public static final String FAMILY_NAME = "family_name";
+  public static final String EMAIL = "email";
+  public static final String GROUPS = "groups";
+  public static final String NAME = "name";
+  public static final String PREFERRED_USERNAME = "preferred_username";
+  public static final String ROLES = "roles";
   private final BearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();
 
   private final MappedJwtClaimSetConverter delegate = MappedJwtClaimSetConverter.withDefaults(Collections.emptyMap());
@@ -69,42 +76,44 @@ public class CustomClaimConverter implements Converter<Map<String, Object>, Map<
       );
 
       // Add custom claims
-      if (user != null) {
-        convertedClaims.put("preferred_username", user.get("preferred_username").asText());
-        if (user.has("given_name")) {
-          convertedClaims.put("given_name", user.get("given_name").asText());
-        }
-        if (user.has("family_name")) {
-          convertedClaims.put("family_name", user.get("family_name").asText());
-        }
-        if (user.has("email")) {
-          convertedClaims.put("email", user.get("email").asText());
-        }
-        // Allow full name in a name claim - happens with Auth0
-        if (user.has("name")) {
-          String[] name = user.get("name").asText().split("\\s+");
-          if (name.length > 0) {
-            convertedClaims.put("given_name", name[0]);
-            convertedClaims.put("family_name", String.join(" ", Arrays.copyOfRange(name, 1, name.length)));
-          }
-        }
-        if (user.has("groups")) {
-          List<String> groups = StreamSupport
-            .stream(user.get("groups").spliterator(), false)
-            .map(JsonNode::asText)
-            .collect(Collectors.toList());
-          convertedClaims.put("groups", groups);
-        }
-        if (user.has(SecurityUtils.CLAIMS_NAMESPACE + "roles")) {
-          List<String> roles = StreamSupport
-            .stream(user.get(SecurityUtils.CLAIMS_NAMESPACE + "roles").spliterator(), false)
-            .map(JsonNode::asText)
-            .collect(Collectors.toList());
-          convertedClaims.put("roles", roles);
-        }
-      }
+      addCustomClaim(convertedClaims, user);
     }
     return convertedClaims;
+  }
+
+  private void addCustomClaim(Map<String, Object> convertedClaims, ObjectNode user) {
+    if (user == null) {
+      return;
+    }
+    convertedClaims.put(PREFERRED_USERNAME, user.get(PREFERRED_USERNAME).asText());
+    if (user.has(GIVEN_NAME)) {
+      convertedClaims.put(GIVEN_NAME, user.get(GIVEN_NAME).asText());
+    }
+    if (user.has(FAMILY_NAME)) {
+      convertedClaims.put(FAMILY_NAME, user.get(FAMILY_NAME).asText());
+    }
+    if (user.has(EMAIL)) {
+      convertedClaims.put(EMAIL, user.get(EMAIL).asText());
+    }
+    // Allow full name in a name claim - happens with Auth0
+    if (user.has(NAME)) {
+      String[] name = user.get(NAME).asText().split("\\s+");
+      if (name.length > 0) {
+        convertedClaims.put(GIVEN_NAME, name[0]);
+        convertedClaims.put(FAMILY_NAME, String.join(" ", Arrays.copyOfRange(name, 1, name.length)));
+      }
+    }
+    if (user.has(GROUPS)) {
+      List<String> groups = StreamSupport.stream(user.get(GROUPS).spliterator(), false).map(JsonNode::asText).toList();
+      convertedClaims.put(GROUPS, groups);
+    }
+    if (user.has(SecurityUtils.CLAIMS_NAMESPACE + ROLES)) {
+      List<String> roles = StreamSupport
+        .stream(user.get(SecurityUtils.CLAIMS_NAMESPACE + ROLES).spliterator(), false)
+        .map(JsonNode::asText)
+        .toList();
+      convertedClaims.put(ROLES, roles);
+    }
   }
 
   private String buildBearer(String token) {

@@ -44,5 +44,18 @@ class OAuth2SecurityDomainServiceTest {
 
     // 3 files related to docker-compose (docker-compose, realm, users)
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
+
+    // 9 files for Java
+    // 10 files for Java Test
+    verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddJavaFiles() {
+    Project project = tmpProject();
+
+    oAuth2SecurityDomainService.addJavaFiles(project);
+
+    verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

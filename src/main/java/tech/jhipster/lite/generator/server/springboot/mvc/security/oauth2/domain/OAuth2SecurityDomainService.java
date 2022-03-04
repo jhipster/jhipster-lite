@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 
@@ -17,6 +17,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
   public static final String SOURCE = "server/springboot/mvc/security/oauth2";
+  public static final String SECURITY_OAUTH2_PATH = "security/oauth2";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -35,6 +36,7 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   @Override
   public void addOAuth2(Project project) {
     addKeycloakDocker(project);
+    addJavaFiles(project);
   }
 
   private void addKeycloakDocker(Project project) {
@@ -46,6 +48,25 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     projectRepository.template(project, dockerSourcePath, "keycloak.yml", MAIN_DOCKER, "keycloak.yml");
     projectRepository.template(project, dockerSourcePath, "jhipster-realm.json", dockerPathRealm, "jhipster-realm.json");
     projectRepository.template(project, dockerSourcePath, "jhipster-users-0.json", dockerPathRealm, "jhipster-users-0.json");
+  }
+
+  public void addJavaFiles(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+
+    String sourceSrc = getPath(SOURCE, "src");
+    String destinationSrc = getPath(MAIN_JAVA, packageNamePath, SECURITY_OAUTH2_PATH);
+    oauth2SecurityFiles()
+      .forEach((javaFile, folder) ->
+        projectRepository.template(project, getPath(sourceSrc, folder), javaFile, getPath(destinationSrc, folder))
+      );
+
+    String sourceTest = getPath(SOURCE, "test");
+    String destinationTest = getPath(TEST_JAVA, packageNamePath, SECURITY_OAUTH2_PATH);
+    oauth2TestSecurityFiles()
+      .forEach((javaFile, folder) ->
+        projectRepository.template(project, getPath(sourceTest, folder), javaFile, getPath(destinationTest, folder))
+      );
   }
 
   public void addClient(Project project, OAuth2Provider provider, String issuerUri) {

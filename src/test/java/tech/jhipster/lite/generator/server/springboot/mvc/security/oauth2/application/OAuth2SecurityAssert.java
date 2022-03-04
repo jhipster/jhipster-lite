@@ -4,14 +4,17 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.DEFAULT_PROVIDER;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.getDockerKeycloakImage;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2SecurityDomainService.SECURITY_OAUTH2_PATH;
 
 import java.util.List;
 import java.util.Optional;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Provider;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security;
 
 public class OAuth2SecurityAssert {
 
@@ -36,6 +39,18 @@ public class OAuth2SecurityAssert {
     assertFileExist(project, "src/main/docker/keycloak-realm-config/jhipster-users-0.json");
 
     assertFileContent(project, "src/main/docker/keycloak.yml", getDockerKeycloakImage());
+  }
+
+  public static void assertJavaFiles(Project project) {
+    String oauth2Path = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH), SECURITY_OAUTH2_PATH);
+
+    // main java files
+    OAuth2Security
+      .oauth2SecurityFiles()
+      .forEach((javaFile, destination) -> assertFileExist(project, getPath(MAIN_JAVA, oauth2Path, destination, javaFile)));
+    OAuth2Security
+      .oauth2TestSecurityFiles()
+      .forEach((javaFile, destination) -> assertFileExist(project, getPath(TEST_JAVA, oauth2Path, destination, javaFile)));
   }
 
   public static void assertOAuth2ClientProperties(Project project, OAuth2Provider provider, String issuerUri) {

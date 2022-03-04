@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.appli
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityAssert.assertDockerKeycloak;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityAssert.assertJavaFiles;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,5 +44,6 @@ class OAuth2SecurityApplicationServiceIT {
     oAuth2SecurityApplicationService.addOAuth2(project);
 
     assertDockerKeycloak(project);
+    assertJavaFiles(project);
   }
 }

@@ -90,12 +90,17 @@ public class OAuth2Security {
       "web_app",
       "spring.security.oauth2.client.registration.oidc.scope",
       "openid,profile,email",
-      "application.security.authentication.oauth2.audience",
+      "application.security.oauth2.audience",
       "account,api://default"
     );
   }
 
   public static Map<String, String> propertiesForTests() {
-    return Map.of("spring.security.oauth2.client.provider.oidc.issuer-uri", "http://DO_NOT_CALL:9080/auth/realms/jhipster");
+    return Map.of(
+      "spring.main.allow-bean-definition-overriding",
+      "true",
+      "spring.security.oauth2.client.provider.oidc.issuer-uri",
+      "http://DO_NOT_CALL:9080/auth/realms/jhipster"
+    );
   }
 }

@@ -37,16 +37,16 @@ public class OAuth2Security {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId(STARTER_SECURITY).build();
   }
 
-  public static Dependency springSecurityTestDependency() {
-    return Dependency.builder().groupId("org.springframework.security").artifactId("spring-security-test").scope("test").build();
-  }
-
   public static Dependency springBootStarterOAuth2ClientDependency() {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId(STARTER_OAUTH2_CLIENT).build();
   }
 
   public static Dependency springBootStarterOAuth2ResourceServerDependency() {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId(STARTER_OAUTH2_RESOURCE_SERVER).build();
+  }
+
+  public static Dependency springSecurityTestDependency() {
+    return Dependency.builder().groupId("org.springframework.security").artifactId("spring-security-test").scope("test").build();
   }
 
   public static Map<String, String> oauth2SecurityFiles() {

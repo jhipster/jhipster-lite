@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -42,20 +43,15 @@ class OAuth2SecurityDomainServiceTest {
 
     oAuth2SecurityDomainService.addOAuth2(project);
 
+    // 3 dependencies
+    // 1 dependency for test
+    verify(buildToolService, times(4)).addDependency(any(Project.class), any(Dependency.class));
+
     // 3 files related to docker-compose (docker-compose, realm, users)
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
 
     // 9 files for Java
     // 10 files for Java Test
-    verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldAddJavaFiles() {
-    Project project = tmpProject();
-
-    oAuth2SecurityDomainService.addJavaFiles(project);
-
     verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

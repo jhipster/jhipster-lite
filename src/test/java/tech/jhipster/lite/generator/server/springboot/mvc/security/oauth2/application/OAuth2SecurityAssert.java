@@ -22,15 +22,10 @@ public class OAuth2SecurityAssert {
 
   public static void assertSecurityDependencies(Project project) {
     assertFileContent(project, POM_XML, securityDependency());
-    assertFileContent(project, POM_XML, securityTestDependency());
-  }
-
-  public static void assertOAuth2ClientDependencies(Project project) {
     assertFileContent(project, POM_XML, oauth2ClientDependency());
-  }
-
-  public static void assertOAuth2ResourceServerDependencies(Project project) {
     assertFileContent(project, POM_XML, oauth2ResourceServerDependency());
+
+    assertFileContent(project, POM_XML, securityTestDependency());
   }
 
   public static void assertDockerKeycloak(Project project) {

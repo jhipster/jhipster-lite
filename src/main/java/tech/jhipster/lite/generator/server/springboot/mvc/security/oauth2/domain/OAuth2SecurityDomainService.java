@@ -35,8 +35,16 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
   @Override
   public void addOAuth2(Project project) {
+    addDependencies(project);
     addKeycloakDocker(project);
     addJavaFiles(project);
+  }
+
+  private void addDependencies(Project project) {
+    buildToolService.addDependency(project, springBootStarterSecurityDependency());
+    buildToolService.addDependency(project, springBootStarterOAuth2ClientDependency());
+    buildToolService.addDependency(project, springSecurityTestDependency());
+    buildToolService.addDependency(project, springBootStarterOAuth2ResourceServerDependency());
   }
 
   private void addKeycloakDocker(Project project) {
@@ -50,7 +58,7 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     projectRepository.template(project, dockerSourcePath, "jhipster-users-0.json", dockerPathRealm, "jhipster-users-0.json");
   }
 
-  public void addJavaFiles(Project project) {
+  private void addJavaFiles(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
 

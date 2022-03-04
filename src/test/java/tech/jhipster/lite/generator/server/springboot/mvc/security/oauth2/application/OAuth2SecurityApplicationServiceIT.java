@@ -45,5 +45,6 @@ class OAuth2SecurityApplicationServiceIT {
     assertSecurityDependencies(project);
     assertDockerKeycloak(project);
     assertJavaFiles(project);
+    assertProperties(project);
   }
 }

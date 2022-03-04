@@ -85,4 +85,23 @@ public class OAuth2Security {
 
     return map;
   }
+
+  public static Map<String, String> properties() {
+    return Map.of(
+      "spring.security.oauth2.client.provider.oidc.issuer-uri",
+      "http://localhost:9080/auth/realms/jhipster",
+      "spring.security.oauth2.client.registration.oidc.client-id",
+      "web_app",
+      "spring.security.oauth2.client.registration.oidc.client-secret",
+      "web_app",
+      "spring.security.oauth2.client.registration.oidc.scope",
+      "openid,profile,email",
+      "application.security.authentication.oauth2.audience",
+      "account,api://default"
+    );
+  }
+
+  public static Map<String, String> propertiesForTests() {
+    return Map.of("spring.security.oauth2.client.provider.oidc.issuer-uri", "http://DO_NOT_CALL:9080/auth/realms/jhipster");
+  }
 }

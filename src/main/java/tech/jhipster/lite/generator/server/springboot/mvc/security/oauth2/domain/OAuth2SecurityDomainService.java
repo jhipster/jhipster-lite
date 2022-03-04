@@ -38,6 +38,7 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     addDependencies(project);
     addKeycloakDocker(project);
     addJavaFiles(project);
+    addSpringBootProperties(project);
   }
 
   private void addDependencies(Project project) {
@@ -75,6 +76,16 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
       .forEach((javaFile, folder) ->
         projectRepository.template(project, getPath(sourceTest, folder), javaFile, getPath(destinationTest, folder))
       );
+  }
+
+  private void addSpringBootProperties(Project project) {
+    springBootCommonService.addPropertiesComment(project, "Spring Security OAuth2");
+    properties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesNewLine(project);
+
+    springBootCommonService.addPropertiesTestComment(project, "Spring Security OAuth2");
+    propertiesForTests().forEach((k, v) -> springBootCommonService.addPropertiesTest(project, k, v));
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 
   public void addClient(Project project, OAuth2Provider provider, String issuerUri) {

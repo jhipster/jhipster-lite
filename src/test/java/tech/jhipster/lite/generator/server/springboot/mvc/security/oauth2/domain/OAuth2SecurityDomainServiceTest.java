@@ -53,5 +53,15 @@ class OAuth2SecurityDomainServiceTest {
     // 9 files for Java
     // 10 files for Java Test
     verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
+
+    // 5 properties, with 1 comment and 1 new line
+    verify(springBootCommonService).addPropertiesComment(any(Project.class), anyString());
+    verify(springBootCommonService, times(5)).addProperties(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addPropertiesNewLine(project);
+
+    // 1 property, with 1 comment and 1 new line
+    verify(springBootCommonService).addPropertiesTestComment(any(Project.class), anyString());
+    verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), anyString());
+    verify(springBootCommonService).addPropertiesTestNewLine(project);
   }
 }

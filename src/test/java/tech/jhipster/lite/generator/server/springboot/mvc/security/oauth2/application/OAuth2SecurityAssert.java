@@ -5,8 +5,7 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.DEFAULT_PROVIDER;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.getDockerKeycloakImage;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2SecurityDomainService.SECURITY_OAUTH2_PATH;
 
 import java.util.List;
@@ -48,42 +47,10 @@ public class OAuth2SecurityAssert {
       .forEach((javaFile, destination) -> assertFileExist(project, getPath(TEST_JAVA, oauth2Path, destination, javaFile)));
   }
 
-  public static void assertOAuth2ClientProperties(Project project, OAuth2Provider provider, String issuerUri) {
-    OAuth2Provider providerFallback = Optional.ofNullable(provider).orElse(DEFAULT_PROVIDER);
-    String issuerUriFallback = Optional.ofNullable(issuerUri).orElse(providerFallback.getDefaultIssuerUri());
-
-    List<String> properties =
-      switch (providerFallback) {
-        case GOOGLE -> List.of(
-          "spring.security.oauth2.client.registration.google.client-id=web_app",
-          "spring.security.oauth2.client.registration.google.client-secret=web_app"
-        );
-        case FACEBOOK -> List.of(
-          "spring.security.oauth2.client.registration.facebook.client-id=web_app",
-          "spring.security.oauth2.client.registration.facebook.client-secret=web_app"
-        );
-        case GITHUB -> List.of(
-          "spring.security.oauth2.client.registration.github.client-id=web_app",
-          "spring.security.oauth2.client.registration.github.client-secret=web_app"
-        );
-        case OKTA -> List.of(
-          "spring.security.oauth2.client.provider.okta.issuer-uri=" + issuerUriFallback,
-          "spring.security.oauth2.client.registration.okta.client-id=web_app",
-          "spring.security.oauth2.client.registration.okta.client-secret=web_app"
-        );
-        case KEYCLOAK, AUTH0, OTHER -> {
-          String providerId = providerFallback.name().toLowerCase();
-          yield List.of(
-            "spring.security.oauth2.client.provider." + providerId + ".issuer-uri=" + issuerUriFallback,
-            "spring.security.oauth2.client.registration." + providerId + ".client-name=" + providerId,
-            "spring.security.oauth2.client.registration." + providerId + ".client-id=web_app",
-            "spring.security.oauth2.client.registration." + providerId + ".client-secret=web_app"
-          );
-        }
-      };
-
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), properties);
-    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), properties);
+  public static void assertProperties(Project project) {
+    properties().forEach((k, v) -> assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), k + "=" + v));
+    propertiesForTests()
+      .forEach((k, v) -> assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), k + "=" + v));
   }
 
   public static void assertUpdateExceptionTranslatorIT(Project project) {

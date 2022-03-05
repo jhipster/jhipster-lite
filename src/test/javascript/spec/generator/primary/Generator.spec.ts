@@ -31,7 +31,7 @@ describe('Generator', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('Should not init project when project path is not filled', async () => {
+  it('should not init project when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.init.resolves({});
     await wrap({ projectService });
@@ -42,7 +42,7 @@ describe('Generator', () => {
     expect(projectService.init.called).toBe(false);
   });
 
-  it('Should init project when project path is filled', async () => {
+  it('should init project when project path is filled', async () => {
     const projectService = stubProjectService();
     projectService.init.resolves({});
     await wrap({ projectService });
@@ -54,5 +54,30 @@ describe('Generator', () => {
     await initButton.trigger('click');
 
     expect(projectService.init.called).toBe(true);
+  });
+
+  it('should not add Maven when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addMaven.resolves({});
+    await wrap({ projectService });
+
+    const mavenButton = wrapper.find('#maven');
+    await mavenButton.trigger('click');
+
+    expect(projectService.addMaven.called).toBe(false);
+  });
+
+  it('should add Maven when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addMaven.resolves({});
+    await wrap({ projectService });
+    const project: Project = { folder: 'project/path' };
+
+    const projectPathInput = wrapper.find('#path');
+    await projectPathInput.setValue(project.folder);
+    const mavenButton = wrapper.find('#maven');
+    await mavenButton.trigger('click');
+
+    expect(projectService.addMaven.called).toBe(true);
   });
 });

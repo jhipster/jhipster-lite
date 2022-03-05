@@ -16,9 +16,16 @@ export default defineComponent({
       }
     };
 
+    const addMaven = async () => {
+      if (project.value.folder !== '') {
+        await projectService.addMaven(project.value);
+      }
+    };
+
     return {
       project,
       initProject,
+      addMaven,
     };
   },
 });

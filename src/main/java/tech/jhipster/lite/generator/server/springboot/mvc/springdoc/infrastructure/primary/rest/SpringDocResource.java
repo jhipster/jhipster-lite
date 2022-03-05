@@ -14,7 +14,6 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/mvc/springdoc")
-@Tag(name = "Spring Boot - MVC")
 class SpringDocResource {
 
   private final SpringDocApplicationService springDocApplicationService;
@@ -27,6 +26,7 @@ class SpringDocResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding springdoc-openapi")
   @PostMapping("/init")
   @GeneratorStep(id = "springdoc-openapi")
+  @Tag(name = "Spring Boot - MVC")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     this.springDocApplicationService.init(project);
@@ -36,6 +36,7 @@ class SpringDocResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding springdoc-openapi with Security JWT")
   @PostMapping("/init-with-security-jwt")
   @GeneratorStep(id = "springdoc-openapi-with-security-jwt")
+  @Tag(name = "Spring Boot - MVC - Security")
   public void initWithSecurityJWT(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     this.springDocApplicationService.initWithSecurityJWT(project);

@@ -11,7 +11,7 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/mvc/security")
-@Tag(name = "Spring Boot - MVC")
+@Tag(name = "Spring Boot - MVC - Security")
 class JwtSecurityResource {
 
   private final JwtSecurityApplicationService jwtSecurityApplicationService;

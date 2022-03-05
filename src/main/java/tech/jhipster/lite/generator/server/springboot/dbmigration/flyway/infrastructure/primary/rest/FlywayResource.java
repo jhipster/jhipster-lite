@@ -14,7 +14,7 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/databases/migration/flyway")
-@Tag(name = "Spring Boot - Database")
+@Tag(name = "Spring Boot - Database Migration")
 class FlywayResource {
 
   private final FlywayApplicationService flywayApplicationService;

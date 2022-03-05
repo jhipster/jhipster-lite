@@ -14,7 +14,7 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/mvc/security")
-@Tag(name = "Spring Boot - Security")
+@Tag(name = "Spring Boot - MVC - Security")
 class OAuth2SecurityResource {
 
   private final OAuth2SecurityApplicationService oauth2SecurityApplicationService;

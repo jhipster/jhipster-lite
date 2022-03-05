@@ -1,10 +1,9 @@
-package tech.jhipster.lite.generator.client.vite.vue.core.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.client.vue.core.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.client.vite.vue.core.application.ViteVueAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
+import tech.jhipster.lite.generator.client.vue.core.application.VueAssert;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class ViteVueResourceIT {
+class VueResourceIT {
 
   @Autowired
   MockMvc mockMvc;
@@ -28,44 +28,44 @@ class ViteVueResourceIT {
   InitApplicationService initApplicationService;
 
   @Test
-  void shouldAddViteVue() throws Exception {
+  void shouldAddVue() throws Exception {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/vite/vue").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/vue").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    assertDependency(project);
-    assertScripts(project);
+    VueAssert.assertDependency(project);
+    VueAssert.assertScripts(project);
 
-    assertViteConfigFiles(project);
-    assertRootFiles(project);
-    assertAppFiles(project);
-    assertAppWithoutCss(project);
+    VueAssert.assertViteConfigFiles(project);
+    VueAssert.assertRootFiles(project);
+    VueAssert.assertAppFiles(project);
+    VueAssert.assertAppWithoutCss(project);
 
-    assertJestSonar(project);
+    VueAssert.assertJestSonar(project);
   }
 
   @Test
-  void shouldAddStyledViteVue() throws Exception {
+  void shouldAddStyledVue() throws Exception {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/vite/vue/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/vue/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
-    assertDependency(project);
-    assertScripts(project);
+    VueAssert.assertDependency(project);
+    VueAssert.assertScripts(project);
 
-    assertViteConfigFiles(project);
-    assertRootFiles(project);
-    assertAppFiles(project);
-    assertAppWithCss(project);
+    VueAssert.assertViteConfigFiles(project);
+    VueAssert.assertRootFiles(project);
+    VueAssert.assertAppFiles(project);
+    VueAssert.assertAppWithCss(project);
 
-    assertJestSonar(project);
+    VueAssert.assertJestSonar(project);
   }
 }

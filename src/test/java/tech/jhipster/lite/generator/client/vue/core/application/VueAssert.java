@@ -1,20 +1,20 @@
-package tech.jhipster.lite.generator.client.vite.vue.core.application;
+package tech.jhipster.lite.generator.client.vue.core.application;
 
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import java.util.List;
-import tech.jhipster.lite.generator.client.vite.vue.core.domain.ViteVue;
+import tech.jhipster.lite.generator.client.vue.core.domain.Vue;
 import tech.jhipster.lite.generator.project.domain.Project;
 
-public class ViteVueAssert {
+public class VueAssert {
 
-  private ViteVueAssert() {}
+  private VueAssert() {}
 
   public static void assertDependency(Project project) {
-    ViteVue.dependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
-    ViteVue.devDependencies().forEach(devDependency -> assertFileContent(project, PACKAGE_JSON, DQ + devDependency + DQ));
+    Vue.dependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
+    Vue.devDependencies().forEach(devDependency -> assertFileContent(project, PACKAGE_JSON, DQ + devDependency + DQ));
   }
 
   public static void assertScripts(Project project) {

@@ -91,7 +91,7 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/vue"
+  callApi "/api/vue"
 
 elif [[ $application == 'oauth2app' ]]; then
   springboot
@@ -183,7 +183,7 @@ elif [[ $application == 'vueapp' ]]; then
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/vue/styled"
+  callApi "/api/vue/styled"
 
 else
   echo "*** Unknown configuration..."

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.vite.vue.core.domain;
+package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -21,7 +21,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class ViteVueDomainServiceTest {
+class VueDomainServiceTest {
 
   @Mock
   ProjectRepository projectRepository;
@@ -30,36 +30,36 @@ class ViteVueDomainServiceTest {
   NpmService npmService;
 
   @InjectMocks
-  private ViteVueDomainService viteVueDomainService;
+  private VueDomainService vueDomainService;
 
   @Test
-  void shouldAddViteVue() {
+  void shouldAddVue() {
     Project project = tmpProjectWithPackageJson();
     when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
-    assertThatCode(() -> viteVueDomainService.addViteVue(project)).doesNotThrowAnyException();
+    assertThatCode(() -> vueDomainService.addVue(project)).doesNotThrowAnyException();
   }
 
   @Test
-  void shouldNotAddViteVue() {
+  void shouldNotAddVue() {
     Project project = tmpProjectWithPackageJson();
 
-    assertThatThrownBy(() -> viteVueDomainService.addViteVue(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> vueDomainService.addVue(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
-  void shouldAddStyledViteVue() {
+  void shouldAddStyledVue() {
     Project project = tmpProjectWithPackageJson();
     when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
-    assertThatCode(() -> viteVueDomainService.addStyledViteVue(project)).doesNotThrowAnyException();
+    assertThatCode(() -> vueDomainService.addStyledVue(project)).doesNotThrowAnyException();
   }
 
   @Test
   void shouldNotAddStyledIndex() {
     Project project = tmpProjectWithPackageJson();
 
-    assertThatThrownBy(() -> viteVueDomainService.addStyledViteVue(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> vueDomainService.addStyledVue(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -67,7 +67,7 @@ class ViteVueDomainServiceTest {
     Project project = tmpProjectWithPackageJson();
     when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
-    viteVueDomainService.addDependencies(project);
+    vueDomainService.addDependencies(project);
 
     verify(npmService, times(1)).addDependency(any(Project.class), anyString(), anyString());
   }
@@ -76,7 +76,7 @@ class ViteVueDomainServiceTest {
   void shouldNotAddDependencies() {
     Project project = tmpProjectWithPackageJson();
 
-    assertThatThrownBy(() -> viteVueDomainService.addDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> vueDomainService.addDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -84,7 +84,7 @@ class ViteVueDomainServiceTest {
     Project project = tmpProjectWithPackageJson();
     when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
-    viteVueDomainService.addDevDependencies(project);
+    vueDomainService.addDevDependencies(project);
 
     verify(npmService, times(17)).addDevDependency(any(Project.class), anyString(), anyString());
   }
@@ -93,14 +93,14 @@ class ViteVueDomainServiceTest {
   void shouldNotAddDevDependencies() {
     Project project = tmpProjectWithPackageJson();
 
-    assertThatThrownBy(() -> viteVueDomainService.addDevDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> vueDomainService.addDevDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
   void shouldAddScripts() {
     Project project = tmpProjectWithPackageJson();
 
-    viteVueDomainService.addScripts(project);
+    vueDomainService.addScripts(project);
 
     verify(npmService, times(5)).addScript(any(Project.class), anyString(), anyString());
   }
@@ -109,7 +109,7 @@ class ViteVueDomainServiceTest {
   void shouldAddViteConfigFiles() {
     Project project = tmpProjectWithPackageJson();
 
-    viteVueDomainService.addViteConfigFiles(project);
+    vueDomainService.addViteConfigFiles(project);
 
     verify(projectRepository, times(4)).add(any(Project.class), anyString(), anyString());
   }
@@ -118,7 +118,7 @@ class ViteVueDomainServiceTest {
   void shouldAddRootFiles() {
     Project project = tmpProject();
 
-    viteVueDomainService.addRootFiles(project);
+    vueDomainService.addRootFiles(project);
 
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
   }
@@ -127,7 +127,7 @@ class ViteVueDomainServiceTest {
   void shouldAddAppFiles() {
     Project project = tmpProject();
 
-    viteVueDomainService.addAppFiles(project);
+    vueDomainService.addAppFiles(project);
 
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
   }
@@ -136,7 +136,7 @@ class ViteVueDomainServiceTest {
   void shouldAddAppFilesWithoutCss() {
     Project project = tmpProject();
 
-    viteVueDomainService.addAppFilesWithoutCss(project);
+    vueDomainService.addAppFilesWithoutCss(project);
 
     verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
   }
@@ -145,7 +145,7 @@ class ViteVueDomainServiceTest {
   void shouldAddAppFilesWithCss() {
     Project project = tmpProject();
 
-    viteVueDomainService.addAppFilesWithCss(project);
+    vueDomainService.addAppFilesWithCss(project);
 
     verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());

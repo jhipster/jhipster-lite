@@ -22,7 +22,7 @@ JHipster is a development platform to quickly generate, develop & deploy modern 
 **JHipster Lite** will help you to start your project, by generating step by step only what you need.
 
 - the generated code uses Hexagonal Architecture
-- the technical code is separated to your business code
+- the technical code is separated from your business code
 - you will only generate the code you want, no additional unused code
 - best quality as possible: 💯% coverage, 0 code smell, no duplication 😎
 

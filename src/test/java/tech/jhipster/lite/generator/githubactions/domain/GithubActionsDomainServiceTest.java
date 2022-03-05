@@ -29,14 +29,7 @@ class GithubActionsDomainServiceTest {
   void shouldInit() {
     Project project = tmpProject();
 
-    assertThatCode(() -> githubActionsDomainService.init(project)).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldAddYml() {
-    Project project = tmpProject();
-
-    assertThatCode(() -> githubActionsDomainService.addYmls(project)).doesNotThrowAnyException();
+    assertThatCode(() -> githubActionsDomainService.addGitHubActionsForMaven(project)).doesNotThrowAnyException();
 
     verify(projectRepository)
       .template(any(Project.class), eq("githubactions/.github/actions/setup/"), eq("action.yml.mustache"), eq(".github/actions/setup/"));

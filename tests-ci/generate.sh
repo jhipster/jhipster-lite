@@ -31,6 +31,7 @@ callApi() {
 springboot() {
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
+  callApi "/api/github-actions/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
@@ -41,6 +42,7 @@ springboot() {
 springboot_undertow() {
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
+  callApi "/api/github-actions/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"

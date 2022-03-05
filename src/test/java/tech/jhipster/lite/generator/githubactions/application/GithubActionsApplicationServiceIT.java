@@ -22,13 +22,4 @@ class GithubActionsApplicationServiceIT {
 
     assertFilesYml(project);
   }
-
-  @Test
-  void shouldAddYmls() {
-    Project project = tmpProject();
-
-    githubActionsApplicationService.addYml(project);
-
-    assertFilesYml(project);
-  }
 }

@@ -20,12 +20,11 @@ public class GithubActionsDomainService implements GithubActionsService {
   }
 
   @Override
-  public void init(Project project) {
+  public void addGitHubActionsForMaven(Project project) {
     addYmls(project);
   }
 
-  @Override
-  public void addYmls(Project project) {
+  private void addYmls(Project project) {
     projectRepository.template(
       project,
       GITHUB_ACTIONS_SETUP_SOURCE_FOLDER,

@@ -14,10 +14,6 @@ public class GithubActionsApplicationService {
   }
 
   public void init(Project project) {
-    githubActionsService.init(project);
-  }
-
-  public void addYml(Project project) {
-    githubActionsService.addYmls(project);
+    githubActionsService.addGitHubActionsForMaven(project);
   }
 }

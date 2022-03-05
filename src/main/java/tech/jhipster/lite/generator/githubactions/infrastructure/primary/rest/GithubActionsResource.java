@@ -14,7 +14,7 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 
 @RestController
 @RequestMapping("/api/github-actions/")
-@Tag(name = "Github Actions")
+@Tag(name = "GitHub Actions")
 class GithubActionsResource {
 
   private final GithubActionsApplicationService githubActionsApplicationService;
@@ -23,11 +23,11 @@ class GithubActionsResource {
     this.githubActionsApplicationService = githubActionsApplicationService;
   }
 
-  @Operation(summary = "Init Github Actions YML file")
-  @ApiResponse(responseCode = "500", description = "An error occurred while initializing the github-actions.yml.mustache file")
-  @PostMapping("/init")
+  @Operation(summary = "Init Github Actions YML files")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding GitHub Actions")
+  @PostMapping("/maven")
   @GeneratorStep(id = "github-actions")
-  public void init(@RequestBody ProjectDTO projectDTO) {
+  public void addGitHubActionsForMaven(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     githubActionsApplicationService.init(project);
   }

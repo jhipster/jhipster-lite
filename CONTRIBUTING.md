@@ -78,10 +78,10 @@ $ npm -v
 
 #### Docker and Docker-compose
 
-To add containers for development (like databases, sonar...) you need:
+To add containers for development (like Databases, Sonar...) you need:
 
-- [Docker](https://docs.docker.com/engine/install/) _(min version: 20.xx.xx)_
-- [Docker-compose](https://docs.docker.com/compose/install/) _(min version: 1.29.x)_
+- [Docker](https://docs.docker.com/engine/install/) _(minimum version: 20.xx.xx)_
+- [Docker Compose](https://docs.docker.com/compose/install/) _(minimum version: 1.29.x)_
 
 ```
 $ docker -v

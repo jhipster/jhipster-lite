@@ -15,6 +15,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.CommonSecurityService;
 
 public class JwtSecurityDomainService implements JwtSecurityService {
 
@@ -24,15 +25,18 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
+  private final CommonSecurityService commonSecurityService;
 
   public JwtSecurityDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
-    SpringBootCommonService springBootCommonService
+    SpringBootCommonService springBootCommonService,
+    CommonSecurityService commonSecurityService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
+    this.commonSecurityService = commonSecurityService;
   }
 
   @Override
@@ -45,7 +49,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addLoggerInConfiguration(project);
 
     updateExceptionTranslator(project);
-    updateIntegrationTest(project);
+    updateIntegrationTestWithMockUser(project);
   }
 
   @Override
@@ -54,39 +58,12 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addBasicAuthProperties(project);
   }
 
-  private void updateIntegrationTest(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
-
-    String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";
-    String newImport =
-      """
-      import org.springframework.boot.test.context.SpringBootTest;
-      import org.springframework.security.test.context.support.WithMockUser;""";
-    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldImport, newImport);
-
-    String oldAnnotation = "public @interface";
-    String newAnnotation = """
-      @WithMockUser
-      public @interface""";
-    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldAnnotation, newAnnotation);
+  private void updateExceptionTranslator(Project project) {
+    commonSecurityService.updateExceptionTranslator(project);
   }
 
-  private void updateExceptionTranslator(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String exceptionTranslatorPath = getPath(MAIN_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
-    String exceptionTranslatorFile = "ExceptionTranslator.java";
-
-    String oldImport = "import org.zalando.problem.spring.web.advice.ProblemHandling;";
-    String newImport =
-      """
-      import org.zalando.problem.spring.web.advice.ProblemHandling;
-      import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;""";
-    projectRepository.replaceText(project, exceptionTranslatorPath, exceptionTranslatorFile, oldImport, newImport);
-
-    String oldImplements = "public class ExceptionTranslator implements ProblemHandling \\{";
-    String newImplements = "public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait \\{";
-    projectRepository.replaceText(project, exceptionTranslatorPath, exceptionTranslatorFile, oldImplements, newImplements);
+  private void updateIntegrationTestWithMockUser(Project project) {
+    commonSecurityService.updateIntegrationTestWithMockUser(project);
   }
 
   private void addPropertyAndDependency(Project project) {

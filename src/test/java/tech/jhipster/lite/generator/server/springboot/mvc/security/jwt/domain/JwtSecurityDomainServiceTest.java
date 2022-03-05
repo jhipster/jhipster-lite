@@ -22,6 +22,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.CommonSecurityService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -35,6 +36,9 @@ class JwtSecurityDomainServiceTest {
 
   @Mock
   BuildToolService buildToolService;
+
+  @Mock
+  CommonSecurityService commonSecurityService;
 
   @InjectMocks
   JwtSecurityDomainService jwtSecurityDomainService;
@@ -58,8 +62,9 @@ class JwtSecurityDomainServiceTest {
 
     verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any(Level.class));
 
-    // 4 replaces
-    verify(projectRepository, times(4)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    // The 4 replaces, managed by commonSecurityService
+    verify(commonSecurityService).updateExceptionTranslator(project);
+    verify(commonSecurityService).updateIntegrationTestWithMockUser(project);
   }
 
   @Test

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.vite.react.core.infrastructure.primary;
+package tech.jhipster.lite.generator.client.vite.react.core.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,7 +21,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class ReactResourceIT {
+class ViteReactResourceIT {
 
   @Autowired
   MockMvc mockMvc;

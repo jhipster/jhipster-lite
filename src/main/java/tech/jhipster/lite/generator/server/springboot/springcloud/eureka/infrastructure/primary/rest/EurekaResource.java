@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.infrastructure.primary;
+package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

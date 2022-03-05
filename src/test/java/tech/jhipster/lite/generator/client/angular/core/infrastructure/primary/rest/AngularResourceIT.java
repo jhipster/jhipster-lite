@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.angular.core.infrastructure.primary;
+package tech.jhipster.lite.generator.client.angular.core.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

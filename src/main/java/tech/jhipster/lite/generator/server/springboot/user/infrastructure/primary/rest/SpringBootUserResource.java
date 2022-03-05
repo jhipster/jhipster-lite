@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.user.infrastructure.primary;
+package tech.jhipster.lite.generator.server.springboot.user.infrastructure.primary.rest;
 
 import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
 import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;

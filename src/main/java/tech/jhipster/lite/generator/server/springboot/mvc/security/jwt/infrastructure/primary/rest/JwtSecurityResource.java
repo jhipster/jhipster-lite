@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.infrastructure.rest;
+package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

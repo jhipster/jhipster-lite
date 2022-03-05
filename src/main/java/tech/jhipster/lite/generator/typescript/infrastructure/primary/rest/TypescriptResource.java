@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.typescript.infrastructure.primary;
+package tech.jhipster.lite.generator.typescript.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.angular.core.infrastructure.primary;
+package tech.jhipster.lite.generator.client.angular.core.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

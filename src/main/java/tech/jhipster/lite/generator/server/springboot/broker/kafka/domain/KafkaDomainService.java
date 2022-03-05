@@ -16,6 +16,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 public class KafkaDomainService implements KafkaService {
 
   public static final String SOURCE = "server/springboot/broker/kafka";
+  public static final String DUMMY_TOPIC_NAME = "kafka.topic.dummy";
 
   private final BuildToolService buildToolService;
 
@@ -43,22 +44,19 @@ public class KafkaDomainService implements KafkaService {
 
   @Override
   public void addDummyProducer(final Project project) {
-    springBootCommonService
-      .getProperty(project, "kafka.topic.dummy")
-      .orElseGet(() -> {
-        project.addDefaultConfig(PACKAGE_NAME);
-        project.addDefaultConfig(BASE_NAME);
-        String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-        String kafkaPropertiesPath = "technical/infrastructure/secondary/kafka";
-        String dummyProducerPath = "dummy/infrastructure/secondary/producer";
+    if (!springBootCommonService.getProperty(project, DUMMY_TOPIC_NAME).isPresent()) {
+      project.addDefaultConfig(PACKAGE_NAME);
+      project.addDefaultConfig(BASE_NAME);
+      String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
+      String kafkaPropertiesPath = "technical/infrastructure/secondary/kafka";
+      String dummyProducerPath = "dummy/infrastructure/secondary/producer";
 
-        String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
-        springBootCommonService.addProperties(project, "kafka.topic.dummy", topicName);
+      String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
+      springBootCommonService.addProperties(project, DUMMY_TOPIC_NAME, topicName);
 
-        projectRepository.template(project, SOURCE, "KafkaProperties.java", getPath(MAIN_JAVA, packageNamePath, kafkaPropertiesPath));
-        projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, dummyProducerPath));
-        return topicName;
-      });
+      projectRepository.template(project, SOURCE, "KafkaProperties.java", getPath(MAIN_JAVA, packageNamePath, kafkaPropertiesPath));
+      projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, dummyProducerPath));
+    }
   }
 
   private void addApacheKafkaClient(final Project project) {

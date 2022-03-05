@@ -1,0 +1,8 @@
+{
+  "folder": "/tmp/jhlite/kafkaapp",
+  "generator-jhipster": {
+    "projectName": "KafkaApp Project",
+    "baseName": "kafkaapp",
+    "packageName": "tech.jhipster.kafkaapp"
+  }
+}

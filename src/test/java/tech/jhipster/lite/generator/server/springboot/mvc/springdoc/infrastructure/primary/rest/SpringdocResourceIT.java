@@ -3,8 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.infrastruct
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringDocAssert.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import tech.jhipster.lite.generator.server.springboot.core.application.SpringBoo
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class SpringDocResourceIT {
+class SpringdocResourceIT {
 
   @Autowired
   InitApplicationService initApplicationService;
@@ -59,13 +59,13 @@ class SpringDocResourceIT {
     assertJavaFiles(project);
     assertProperties(project);
 
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, "myProject");
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_TITLE);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_DESCRIPTION);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_LICENSE_NAME);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_LICENSE_URL);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_EXT_DOC_DESCRIPTION);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_EXT_DOC_URL);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, "myProject");
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_API_TITLE);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_API_DESCRIPTION);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_LICENSE_NAME);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_LICENSE_URL);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_EXT_DOC_DESCRIPTION);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_EXT_DOC_URL);
   }
 
   @Test

@@ -2,10 +2,10 @@ package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain;
 
 import tech.jhipster.lite.generator.project.domain.Project;
 
-public interface SpringDocService {
+public interface SpringdocService {
   void init(Project project);
 
-  void addSpringDocDependency(Project project);
+  void addSpringdocDependency(Project project);
 
   void addJavaFiles(Project project);
 

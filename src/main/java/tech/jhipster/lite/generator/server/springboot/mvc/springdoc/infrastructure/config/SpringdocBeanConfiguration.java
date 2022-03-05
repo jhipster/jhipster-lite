@@ -5,17 +5,17 @@ import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocDomainService;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocService;
+import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocDomainService;
+import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocService;
 
 @Configuration
-public class SpringDocBeanConfiguration {
+public class SpringdocBeanConfiguration {
 
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
   private final SpringBootCommonService springBootCommonService;
 
-  public SpringDocBeanConfiguration(
+  public SpringdocBeanConfiguration(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
     SpringBootCommonService springBootCommonService
@@ -26,7 +26,7 @@ public class SpringDocBeanConfiguration {
   }
 
   @Bean
-  public SpringDocService springDocService() {
-    return new SpringDocDomainService(buildToolService, projectRepository, springBootCommonService);
+  public SpringdocService springdocService() {
+    return new SpringdocDomainService(buildToolService, projectRepository, springBootCommonService);
   }
 }

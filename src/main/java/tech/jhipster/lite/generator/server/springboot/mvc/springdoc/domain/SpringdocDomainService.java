@@ -4,7 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
-public class SpringDocDomainService implements SpringDocService {
+public class SpringdocDomainService implements SpringdocService {
 
   private static final String SOURCE = "server/springboot/mvc/springdoc";
   private static final String DESTINATION = "technical/infrastructure/primary/springdoc";
@@ -25,7 +25,7 @@ public class SpringDocDomainService implements SpringDocService {
   private final ProjectRepository projectRepository;
   private final SpringBootCommonService springBootCommonService;
 
-  public SpringDocDomainService(
+  public SpringdocDomainService(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
     SpringBootCommonService springBootCommonService
@@ -37,25 +37,25 @@ public class SpringDocDomainService implements SpringDocService {
 
   @Override
   public void init(Project project) {
-    addSpringDocDependency(project);
+    addSpringdocDependency(project);
     addJavaFiles(project);
     addProperties(project);
   }
 
   @Override
   public void initWithSecurityJWT(Project project) {
-    addSpringDocDependency(project);
+    addSpringdocDependency(project);
     addJavaFilesWithSecurityJWT(project);
     addProperties(project);
   }
 
   @Override
-  public void addSpringDocDependency(Project project) {
+  public void addSpringdocDependency(Project project) {
     this.buildToolService.getVersion(project, "springdoc-openapi")
       .ifPresentOrElse(
         version -> {
           buildToolService.addProperty(project, "springdoc-openapi-ui.version", version);
-          buildToolService.addDependency(project, SpringDoc.springDocDependency());
+          buildToolService.addDependency(project, Springdoc.springdocDependency());
         },
         () -> {
           throw new GeneratorException("Springdoc Openapi version not found");
@@ -70,7 +70,7 @@ public class SpringDocDomainService implements SpringDocService {
     projectRepository.template(
       project,
       getPath(SOURCE, "src"),
-      "SpringDocConfiguration.java",
+      "SpringdocConfiguration.java",
       getPath(MAIN_JAVA, packageNamePath, DESTINATION)
     );
   }
@@ -81,16 +81,16 @@ public class SpringDocDomainService implements SpringDocService {
     projectRepository.template(
       project,
       getPath(SOURCE, "src"),
-      "SpringDocConfigurationSecurityJWT.java",
+      "SpringdocConfigurationSecurityJWT.java",
       getPath(MAIN_JAVA, packageNamePath, DESTINATION),
-      "SpringDocConfiguration.java"
+      "SpringdocConfiguration.java"
     );
   }
 
   @Override
   public void addProperties(Project project) {
     springBootCommonService.addPropertiesComment(project, "Springdoc Configuration");
-    getSpringDocProperties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    getSpringdocProperties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
     springBootCommonService.addPropertiesNewLine(project);
   }
 
@@ -99,10 +99,10 @@ public class SpringDocDomainService implements SpringDocService {
     project.addDefaultConfig(BASE_NAME);
     String baseName = project.getBaseName().orElseThrow();
     project.addConfig("baseNameLowercase", WordUtils.lowerFirst(baseName));
-    getDefaultSpringDocConfig().forEach((key, defaultValue) -> updateEmptyConfig(project, key, defaultValue));
+    getDefaultSpringdocConfig().forEach((key, defaultValue) -> updateEmptyConfig(project, key, defaultValue));
   }
 
-  private TreeMap<String, Object> getSpringDocProperties() {
+  private TreeMap<String, Object> getSpringdocProperties() {
     TreeMap<String, Object> result = new TreeMap<>();
 
     result.put("springdoc.swagger-ui.operationsSorter", DEFAULT_SWAGGER_UI_SORT_VALUE);
@@ -112,7 +112,7 @@ public class SpringDocDomainService implements SpringDocService {
     return result;
   }
 
-  private Map<String, String> getDefaultSpringDocConfig() {
+  private Map<String, String> getDefaultSpringdocConfig() {
     Map<String, String> result = new HashMap<>();
     result.put(API_TITLE_CONFIG_KEY, DEFAULT_API_TITLE);
     result.put(API_DESCRIPTION_CONFIG_KEY, DEFAULT_API_DESCRIPTION);

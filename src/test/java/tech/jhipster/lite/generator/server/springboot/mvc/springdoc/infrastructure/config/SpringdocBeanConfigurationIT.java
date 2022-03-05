@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocService;
+import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocService;
 
 @IntegrationTest
-class SpringDocBeanConfigurationIT {
+class SpringdocBeanConfigurationIT {
 
   @Autowired
   ApplicationContext applicationContext;
 
   @Test
   void shouldGetBean() {
-    assertThat(applicationContext.getBean("springDocService")).isNotNull().isInstanceOf(SpringDocService.class);
+    assertThat(applicationContext.getBean("springdocService")).isNotNull().isInstanceOf(SpringdocService.class);
   }
 }

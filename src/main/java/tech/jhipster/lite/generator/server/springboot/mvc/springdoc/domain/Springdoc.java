@@ -2,11 +2,11 @@ package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain;
 
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
-public class SpringDoc {
+public class Springdoc {
 
-  private SpringDoc() {}
+  private Springdoc() {}
 
-  public static Dependency springDocDependency() {
+  public static Dependency springdocDependency() {
     return Dependency
       .builder()
       .groupId("org.springdoc")

@@ -2,8 +2,8 @@ package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringDocAssert.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest
-class SpringDocApplicationServiceIT {
+class SpringdocApplicationServiceIT {
 
   private static final String CUSTOM_API_TITLE = "Custom API title";
   private static final String CUSTOM_API_DESCRIPTION = "Custom API description";
@@ -27,7 +27,7 @@ class SpringDocApplicationServiceIT {
   private static final String CUSTOM_EXT_DOC_URL = "https://custom-doc-url.com";
 
   @Autowired
-  SpringDocApplicationService springDocApplicationService;
+  SpringdocApplicationService springdocApplicationService;
 
   @Autowired
   InitApplicationService initApplicationService;
@@ -58,7 +58,7 @@ class SpringDocApplicationServiceIT {
     springBootApplicationService.init(project);
 
     // When
-    springDocApplicationService.init(project);
+    springdocApplicationService.init(project);
 
     // Then
     assertDependencies(project);
@@ -86,7 +86,7 @@ class SpringDocApplicationServiceIT {
     springBootApplicationService.init(project);
 
     // When
-    springDocApplicationService.initWithSecurityJWT(project);
+    springdocApplicationService.initWithSecurityJWT(project);
 
     // Then
     assertDependencies(project);

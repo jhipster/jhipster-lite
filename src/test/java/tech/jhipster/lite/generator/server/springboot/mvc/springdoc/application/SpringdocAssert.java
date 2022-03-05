@@ -9,9 +9,9 @@ import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
-public class SpringDocAssert {
+public class SpringdocAssert {
 
-  public static final String SPRING_DOC_CONFIG_JAVA_FILE_NAME = "SpringDocConfiguration.java";
+  public static final String SPRING_DOC_CONFIG_JAVA_FILE_NAME = "SpringdocConfiguration.java";
 
   public static void assertDependencies(Project project) {
     TestUtils.assertFileContent(project, POM_XML, List.of("<springdoc-openapi-ui.version>"));
@@ -30,27 +30,27 @@ public class SpringDocAssert {
 
   public static void assertJavaFiles(Project project) {
     String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
-    String springDocPackage = basePackage + ".technical.infrastructure.primary.springdoc";
+    String springdocPackage = basePackage + ".technical.infrastructure.primary.springdoc";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    String springDocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
+    String springdocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
 
-    String springDocConfigJavaFilePath = getPath(springDocPath, SPRING_DOC_CONFIG_JAVA_FILE_NAME);
-    assertFileExist(project, springDocConfigJavaFilePath);
-    TestUtils.assertFileContent(project, springDocConfigJavaFilePath, "package " + springDocPackage);
+    String springdocConfigJavaFilePath = getPath(springdocPath, SPRING_DOC_CONFIG_JAVA_FILE_NAME);
+    assertFileExist(project, springdocConfigJavaFilePath);
+    TestUtils.assertFileContent(project, springdocConfigJavaFilePath, "package " + springdocPackage);
   }
 
   public static void assertJavaFilesWithSecurityJWT(Project project) {
     String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
-    String springDocPackage = basePackage + ".technical.infrastructure.primary.springdoc";
+    String springdocPackage = basePackage + ".technical.infrastructure.primary.springdoc";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    String springDocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
+    String springdocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
 
-    String springDocConfigJavaFilePath = getPath(springDocPath, SPRING_DOC_CONFIG_JAVA_FILE_NAME);
-    assertFileExist(project, springDocConfigJavaFilePath);
-    TestUtils.assertFileContent(project, springDocConfigJavaFilePath, "package " + springDocPackage);
-    TestUtils.assertFileContent(project, springDocConfigJavaFilePath, "bearer-jwt");
+    String springdocConfigJavaFilePath = getPath(springdocPath, SPRING_DOC_CONFIG_JAVA_FILE_NAME);
+    assertFileExist(project, springdocConfigJavaFilePath);
+    TestUtils.assertFileContent(project, springdocConfigJavaFilePath, "package " + springdocPackage);
+    TestUtils.assertFileContent(project, springdocConfigJavaFilePath, "bearer-jwt");
   }
 
   public static void assertProperties(Project project) {
@@ -67,8 +67,8 @@ public class SpringDocAssert {
 
   public static void assertFileContent(Project project, String filename, String expectedValue) {
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    String springDocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
+    String springdocPath = getPath(MAIN_JAVA, basePath, "technical/infrastructure/primary/springdoc");
 
-    TestUtils.assertFileContent(project, getPath(springDocPath, filename), expectedValue);
+    TestUtils.assertFileContent(project, getPath(springdocPath, filename), expectedValue);
   }
 }

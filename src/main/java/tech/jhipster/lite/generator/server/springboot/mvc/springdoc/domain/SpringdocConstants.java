@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain;
 
-public class SpringDocConstants {
+public class SpringdocConstants {
 
   public static final String API_TITLE_CONFIG_KEY = "apiTitle";
   public static final String API_DESCRIPTION_CONFIG_KEY = "apiDescription";
@@ -19,7 +19,7 @@ public class SpringDocConstants {
   public static final String DEFAULT_SWAGGER_UI_SORT_VALUE = "alpha";
   public static final boolean DEFAULT_TRY_OUT_ENABLED = true;
 
-  private SpringDocConstants() {
+  private SpringdocConstants() {
     // Cannot be instantiated
   }
 }

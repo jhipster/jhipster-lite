@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringDocConstants.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class SpringDocDomainServiceTest {
+class SpringdocDomainServiceTest {
 
   @Mock
   ProjectRepository projectRepository;
@@ -39,7 +39,7 @@ class SpringDocDomainServiceTest {
   SpringBootCommonService springBootCommonService;
 
   @InjectMocks
-  SpringDocDomainService springDocDomainService;
+  SpringdocDomainService springdocDomainService;
 
   @Test
   void shouldInitWithDefaultValues() {
@@ -50,7 +50,7 @@ class SpringDocDomainServiceTest {
 
     // When
     when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
-    springDocDomainService.init(project);
+    springdocDomainService.init(project);
 
     // Then
     verify(buildToolService).addProperty(project, "springdoc-openapi-ui.version", "0.0.0");
@@ -62,7 +62,7 @@ class SpringDocDomainServiceTest {
       .template(
         project,
         "server/springboot/mvc/springdoc/src",
-        "SpringDocConfiguration.java",
+        "SpringdocConfiguration.java",
         "src/main/java/com/mycompany/myapp/technical/infrastructure/primary/springdoc"
       );
 
@@ -97,7 +97,7 @@ class SpringDocDomainServiceTest {
 
     // When
     when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
-    springDocDomainService.init(project);
+    springdocDomainService.init(project);
 
     // Then
     verify(buildToolService).addProperty(project, "springdoc-openapi-ui.version", "0.0.0");
@@ -109,7 +109,7 @@ class SpringDocDomainServiceTest {
       .template(
         project,
         "server/springboot/mvc/springdoc/src",
-        "SpringDocConfiguration.java",
+        "SpringdocConfiguration.java",
         "src/main/java/com/mycompany/myapp/technical/infrastructure/primary/springdoc"
       );
 
@@ -123,10 +123,10 @@ class SpringDocDomainServiceTest {
   }
 
   @Test
-  void shouldNotAddSpringDocDependency() {
+  void shouldNotAddSpringdocDependency() {
     Project project = tmpProject();
 
-    assertThatThrownBy(() -> springDocDomainService.addSpringDocDependency(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> springdocDomainService.addSpringdocDependency(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   private static Dependency getExpectedDependency() {

@@ -7,10 +7,10 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 @UnitTest
-class SpringDocTest {
+class SpringdocTest {
 
   @Test
-  void shouldReturnSpringDocDependency() {
+  void shouldReturnSpringdocDependency() {
     Dependency expectedDependency = Dependency
       .builder()
       .groupId("org.springdoc")
@@ -18,6 +18,6 @@ class SpringDocTest {
       .version("\\${springdoc-openapi-ui.version}")
       .build();
 
-    assertThat(SpringDoc.springDocDependency()).usingRecursiveComparison().isEqualTo(expectedDependency);
+    assertThat(Springdoc.springdocDependency()).usingRecursiveComparison().isEqualTo(expectedDependency);
   }
 }

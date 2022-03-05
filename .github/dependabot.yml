@@ -60,7 +60,7 @@ updates:
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
-    directory: '/src/main/resources/generator/dependencies/vite/react'
+    directory: '/src/main/resources/generator/dependencies/react'
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20

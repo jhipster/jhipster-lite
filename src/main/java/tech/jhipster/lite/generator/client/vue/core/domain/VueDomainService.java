@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.vite.vue.core.domain;
+package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
@@ -11,33 +11,33 @@ import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
-public class ViteVueDomainService implements ViteVueService {
+public class VueDomainService implements VueService {
 
-  public static final String SOURCE = "client/vite/vue";
+  public static final String SOURCE = "client/vue";
   public static final String SOURCE_PRIMARY = getPath(SOURCE, "webapp/app/common/primary/app");
   public static final String DESTINATION_PRIMARY = "src/main/webapp/app/common/primary/app";
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
 
-  public ViteVueDomainService(ProjectRepository projectRepository, NpmService npmService) {
+  public VueDomainService(ProjectRepository projectRepository, NpmService npmService) {
     this.projectRepository = projectRepository;
     this.npmService = npmService;
   }
 
   @Override
-  public void addViteVue(Project project) {
-    addCommonViteVue(project);
+  public void addVue(Project project) {
+    addCommonVue(project);
     addAppFilesWithoutCss(project);
   }
 
   @Override
-  public void addStyledViteVue(Project project) {
-    addCommonViteVue(project);
+  public void addStyledVue(Project project) {
+    addCommonVue(project);
     addAppFilesWithCss(project);
   }
 
-  private void addCommonViteVue(Project project) {
+  private void addCommonVue(Project project) {
     addDependencies(project);
     addDevDependencies(project);
     addScripts(project);
@@ -48,16 +48,16 @@ public class ViteVueDomainService implements ViteVueService {
   }
 
   public void addDependencies(Project project) {
-    ViteVue.dependencies().forEach(dependency -> addDependency(project, dependency));
+    Vue.dependencies().forEach(dependency -> addDependency(project, dependency));
   }
 
   public void addDevDependencies(Project project) {
-    ViteVue.devDependencies().forEach(devDependency -> addDevDependency(project, devDependency));
+    Vue.devDependencies().forEach(devDependency -> addDevDependency(project, devDependency));
   }
 
   private void addDependency(Project project, String dependency) {
     npmService
-      .getVersion("vite/vue", dependency)
+      .getVersion("vue", dependency)
       .ifPresentOrElse(
         version -> npmService.addDependency(project, dependency, version),
         () -> {
@@ -68,7 +68,7 @@ public class ViteVueDomainService implements ViteVueService {
 
   private void addDevDependency(Project project, String devDependency) {
     npmService
-      .getVersion("vite/vue", devDependency)
+      .getVersion("vue", devDependency)
       .ifPresentOrElse(
         version -> npmService.addDevDependency(project, devDependency, version),
         () -> {

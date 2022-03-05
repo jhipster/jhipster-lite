@@ -1,10 +1,10 @@
-package tech.jhipster.lite.generator.client.vite.vue.core.domain;
+package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import java.util.List;
 
-public class ViteVue {
+public class Vue {
 
-  private ViteVue() {}
+  private Vue() {}
 
   public static List<String> dependencies() {
     return List.of("vue");

@@ -59,13 +59,13 @@ class SpringdocResourceIT {
     assertJavaFiles(project);
     assertProperties(project);
 
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, "myProject");
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_TITLE);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_API_DESCRIPTION);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_LICENSE_NAME);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_LICENSE_URL);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_EXT_DOC_DESCRIPTION);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, DEFAULT_EXT_DOC_URL);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, "myProject");
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_API_TITLE);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_API_DESCRIPTION);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_LICENSE_NAME);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_LICENSE_URL);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_EXT_DOC_DESCRIPTION);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, DEFAULT_EXT_DOC_URL);
   }
 
   @Test

@@ -65,13 +65,13 @@ class SpringdocApplicationServiceIT {
     assertJavaFiles(project);
     assertProperties(project);
 
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, project.getBaseName().orElseThrow().toLowerCase());
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_API_TITLE);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_API_DESCRIPTION);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_LICENSE_NAME);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_LICENSE_URL);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_EXT_DOC_DESCRIPTION);
-    assertFileContent(project, SPRING_DOC_CONFIG_JAVA_FILE_NAME, CUSTOM_EXT_DOC_URL);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, project.getBaseName().orElseThrow().toLowerCase());
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, CUSTOM_API_TITLE);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, CUSTOM_API_DESCRIPTION);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, CUSTOM_LICENSE_NAME);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, CUSTOM_LICENSE_URL);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, CUSTOM_EXT_DOC_DESCRIPTION);
+    assertFileContent(project, SPRINGDOC_CONFIGURATION_JAVA, CUSTOM_EXT_DOC_URL);
   }
 
   @Test

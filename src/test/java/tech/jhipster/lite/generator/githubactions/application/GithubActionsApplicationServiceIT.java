@@ -24,7 +24,7 @@ class GithubActionsApplicationServiceIT {
   }
 
   @Test
-  void shouldAddYml() {
+  void shouldAddYmls() {
     Project project = tmpProject();
 
     githubActionsApplicationService.addYml(project);

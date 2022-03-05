@@ -26,7 +26,7 @@ class GithubActionsResource {
   @Operation(summary = "Init Github Actions YML file")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing the github-actions.yml.mustache file")
   @PostMapping("/init")
-  @GeneratorStep(id = "init")
+  @GeneratorStep(id = "github-actions")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     githubActionsApplicationService.init(project);

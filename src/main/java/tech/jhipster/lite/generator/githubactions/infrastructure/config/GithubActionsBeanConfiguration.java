@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.githubactions.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.objenesis.SpringObjenesis;
 import tech.jhipster.lite.generator.githubactions.domain.GithubActionsDomainService;
 import tech.jhipster.lite.generator.githubactions.domain.GithubActionsService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;

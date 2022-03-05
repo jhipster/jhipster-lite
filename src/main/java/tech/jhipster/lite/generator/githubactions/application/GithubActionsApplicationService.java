@@ -18,6 +18,6 @@ public class GithubActionsApplicationService {
   }
 
   public void addYml(Project project) {
-    githubActionsService.addYml(project);
+    githubActionsService.addYmls(project);
   }
 }

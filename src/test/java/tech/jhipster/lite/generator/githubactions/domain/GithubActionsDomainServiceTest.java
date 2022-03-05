@@ -36,9 +36,11 @@ class GithubActionsDomainServiceTest {
   void shouldAddYml() {
     Project project = tmpProject();
 
-    assertThatCode(() -> githubActionsDomainService.addYml(project)).doesNotThrowAnyException();
+    assertThatCode(() -> githubActionsDomainService.addYmls(project)).doesNotThrowAnyException();
 
     verify(projectRepository)
-      .template(any(Project.class), eq("githubactions"), eq("github-actions.yml.mustache"), eq(".github/workflows/"));
+      .template(any(Project.class), eq("githubactions/.github/actions/setup/"), eq("action.yml.mustache"), eq(".github/actions/setup/"));
+    verify(projectRepository)
+      .template(any(Project.class), eq("githubactions/.github/workflows/"), eq("github-actions.yml.mustache"), eq(".github/workflows/"));
   }
 }

@@ -64,6 +64,24 @@ To launch tests and integration tests:
 ./mvnw clean verify
 ```
 
+## Prettier
+
+We use [prettier](https://github.com/prettier/prettier) and [prettier-java](https://github.com/jhipster/prettier-java) to format our code.
+
+To check format:
+
+```
+npm run prettier:check
+```
+
+To launch format all code:
+
+```
+npm run prettier:format
+```
+
+## Sonar Analysis
+
 To launch local Sonar Analysis:
 
 ```
@@ -76,17 +94,7 @@ Then:
 ./mvnw clean verify sonar:sonar
 ```
 
-To check format, using prettier:
-
-```
-npm run prettier:check
-```
-
-To launch format all code with prettier:
-
-```
-npm run prettier:format
-```
+So you can check the result at http://localhost:9001
 
 ## Run the project
 
@@ -183,6 +191,10 @@ Client:
 - Angular
 - React with Vite
 - Vue with Vite
+
+Continuous Integration:
+
+- GitHub Actions
 
 [jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
 [jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases

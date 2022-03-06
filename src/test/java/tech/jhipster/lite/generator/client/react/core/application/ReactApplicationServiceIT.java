@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.client.react.core.application;
 
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonComplete;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

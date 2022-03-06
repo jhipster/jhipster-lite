@@ -53,6 +53,7 @@ public class KafkaDomainService implements KafkaService {
 
       String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
       springBootCommonService.addProperties(project, DUMMY_TOPIC_NAME, topicName);
+      springBootCommonService.addPropertiesTest(project, DUMMY_TOPIC_NAME, topicName);
 
       projectRepository.template(project, SOURCE, "KafkaProperties.java", getPath(MAIN_JAVA, packageNamePath, kafkaPropertiesPath));
       projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, dummyProducerPath));
@@ -72,7 +73,11 @@ public class KafkaDomainService implements KafkaService {
   }
 
   private void addProperties(final Project project) {
-    getKafkaCommonProperties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    getKafkaCommonProperties()
+      .forEach((k, v) -> {
+        springBootCommonService.addProperties(project, k, v);
+        springBootCommonService.addPropertiesTest(project, k, v);
+      });
   }
 
   private TreeMap<String, Object> getKafkaCommonProperties() {
@@ -80,10 +85,10 @@ public class KafkaDomainService implements KafkaService {
 
     result.put("# Kafka Configuration", "");
     result.put("kafka.bootstrap-servers", "localhost:9092");
-    result.put("kafka.consumer.'[key.deserializer]", "org.apache.kafka.common.serialization.StringDeserializer");
-    result.put("kafka.consumer.'[value.deserializer]", "org.apache.kafka.common.serialization.StringDeserializer");
-    result.put("kafka.consumer.'[group.id]", DASHERIZED_BASE_NAME);
-    result.put("kafka.consumer.'[auto.offset.reset]", "earliest");
+    result.put("kafka.consumer.'[key.deserializer]'", "org.apache.kafka.common.serialization.StringDeserializer");
+    result.put("kafka.consumer.'[value.deserializer]'", "org.apache.kafka.common.serialization.StringDeserializer");
+    result.put("kafka.consumer.'[group.id]'", DASHERIZED_BASE_NAME);
+    result.put("kafka.consumer.'[auto.offset.reset]'", "earliest");
     result.put("kafka.producer.'[key.serializer]'", "org.apache.kafka.common.serialization.StringSerializer");
     result.put("kafka.producer.'[value.serializer]'", "org.apache.kafka.common.serialization.StringSerializer");
     result.put("kafka.polling.timeout", "10000");

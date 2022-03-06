@@ -9,12 +9,15 @@ public interface SpringBootCommonService {
   void addProperties(Project project, String key, Object value);
   void addPropertiesLocal(Project project, String key, Object value);
   void addPropertiesTest(Project project, String key, Object value);
+  void addPropertiesTestLogging(Project project, String key, Level value);
   void addPropertiesNewLine(Project project);
   void addPropertiesLocalNewLine(Project project);
   void addPropertiesTestNewLine(Project project);
+  void addPropertiesTestLoggingNewLine(Project project);
   void addPropertiesComment(Project project, String text);
   void addPropertiesLocalComment(Project project, String text);
   void addPropertiesTestComment(Project project, String text);
+  void addPropertiesTestLoggingComment(Project project, String text);
 
   void addLogger(Project project, String packageName, Level level);
   void addLoggerTest(Project project, String packageName, Level level);

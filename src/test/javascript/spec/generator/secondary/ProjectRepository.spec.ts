@@ -2,8 +2,8 @@ import { Project } from '@/generator/domain/Project';
 import ProjectRepository from '@/generator/secondary/ProjectRepository';
 import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 
-describe('ProjectsRepository', () => {
-  it('Should init project', () => {
+describe('ProjectRepository', () => {
+  it('should init project', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const projectRepository = new ProjectRepository(axiosHttpStub);
@@ -16,7 +16,7 @@ describe('ProjectsRepository', () => {
     expect(payload).toEqual<Project>(project);
   });
 
-  it('Should add Maven', () => {
+  it('should add Maven', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const projectRepository = new ProjectRepository(axiosHttpStub);

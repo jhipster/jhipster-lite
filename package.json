@@ -23,7 +23,8 @@
     "prettier:format": "prettier --write \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\"",
     "preview": "vite preview",
     "start": "vite",
-    "test": "jest src/test/javascript/spec"
+    "test": "jest src/test/javascript/spec",
+    "test:clear": "jest --clearCache"
   },
   "dependencies": {
     "axios": "0.26.0",

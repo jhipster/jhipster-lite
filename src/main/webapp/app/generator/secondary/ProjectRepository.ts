@@ -8,4 +8,8 @@ export default class ProjectRepository implements ProjectService {
   async init(project: Project): Promise<void> {
     await this.axiosHttp.post('api/projects/init', project);
   }
+
+  async addMaven(project: Project): Promise<void> {
+    await this.axiosHttp.post('api/build-tools/maven', project);
+  }
 }

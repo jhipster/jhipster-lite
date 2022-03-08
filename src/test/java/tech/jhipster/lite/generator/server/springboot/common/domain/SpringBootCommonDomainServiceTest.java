@@ -238,4 +238,11 @@ class SpringBootCommonDomainServiceTest {
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("project");
   }
+
+  @Test
+  void shouldNotCheckIfProjectIsDatabaseUseSequencesWithoutProject() {
+    assertThatThrownBy(() -> springBootCommonDomainService.isDatabaseUseSequences(null))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("project");
+  }
 }

@@ -24,4 +24,5 @@ public interface SpringBootCommonService {
 
   Optional<String> getProperty(Project project, String key);
   boolean isSetWithMySQLOrMariaDBDatabase(Project project);
+  boolean isDatabaseUseSequences(Project project);
 }

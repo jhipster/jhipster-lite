@@ -6,6 +6,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_PROPERTIES;
 
 import java.util.Optional;
@@ -47,6 +48,18 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     addKeyValueToProperties(project, key, value, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
   }
 
+  @Override
+  public void addPropertiesTestLogging(Project project, String key, Level value) {
+    addKeyValueToProperties(
+      project,
+      "logging.level." + key,
+      value,
+      TEST_RESOURCES,
+      APPLICATION_PROPERTIES,
+      NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES
+    );
+  }
+
   private void addKeyValueToProperties(
     Project project,
     String key,
@@ -80,6 +93,11 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     addNewLineToProperties(project, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
   }
 
+  @Override
+  public void addPropertiesTestLoggingNewLine(Project project) {
+    addNewLineToProperties(project, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES);
+  }
+
   private void addNewLineToProperties(Project project, String folderProperties, String fileProperties, String needleProperties) {
     String propertiesWithNeedle = LF + needleProperties;
     projectRepository.replaceText(
@@ -104,6 +122,11 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   @Override
   public void addPropertiesTestComment(Project project, String text) {
     addCommentToProperties(project, text, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
+  }
+
+  @Override
+  public void addPropertiesTestLoggingComment(Project project, String text) {
+    addCommentToProperties(project, text, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES);
   }
 
   private void addCommentToProperties(

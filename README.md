@@ -19,7 +19,12 @@
 
 JHipster is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
 
-**JHipster Lite** will help you to start your project, by generating step by step what you need.
+**JHipster Lite** will help you to start your project, by generating step by step only what you need.
+
+- the generated code uses Hexagonal Architecture
+- the technical code is separated from your business code
+- you will only generate the code you want, no additional unused code
+- best quality as possible: 💯% coverage, 0 code smell, no duplication 😎
 
 ## Prerequisites
 
@@ -31,16 +36,18 @@ You need to have Java 17 :
 
 ### Node.js and NPM
 
-This part is needed if you want to contribute to the project.
-
-- [Node.js](https://nodejs.org/): we use Node to run a prettier as code formatter.
-  Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+- [Node.js](https://nodejs.org/): we use Node to run a development web server and build the project. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
 
 After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
 
 ```
 npm ci
+```
+
+You will only need to run this command when dependencies change in [package.json](package.json).
+
+```
+npm install
 ```
 
 ## Test the project
@@ -57,15 +64,45 @@ To launch tests and integration tests:
 ./mvnw clean verify
 ```
 
+## Prettier
+
+We use [prettier](https://github.com/prettier/prettier) and [prettier-java](https://github.com/jhipster/prettier-java) to format our code.
+
+To check format:
+
+```
+npm run prettier:check
+```
+
+To launch format all code:
+
+```
+npm run prettier:format
+```
+
+## Sonar Analysis
+
+To launch local Sonar Analysis:
+
+```
+docker-compose -f src/main/docker/sonar.yml up -d
+```
+
+Then:
+
+```
+./mvnw clean verify sonar:sonar
+```
+
+So you can check the result at http://localhost:9001
+
 ## Run the project
 
-You can run the project using Maven:
+You can run the project using Maven, as `spring-boot:run` is the default target:
 
 ```
 ./mvnw
 ```
-
-Since spring-boot:run is the default target
 
 Or, first, you can package as jar:
 
@@ -83,22 +120,23 @@ Then navigate to http://localhost:7471/swagger-ui.html in your browser.
 
 ## Generate your project
 
-You can use this JSON to generate a project:
+Go to http://localhost:7471/swagger-ui.html and build your own JSON to generate a project. Here an example:
 
 <!-- prettier-ignore-start -->
 ```yaml
 {
   "folder": "/tmp/beer",
   "generator-jhipster": {
-    "projectName": "Beer Project",
     "baseName": "beer",
-    "packageName": "tech.jhipster.beer"
+    "projectName": "Beer Project",
+    "packageName": "tech.jhipster.beer",
+    "serverPort": 8080
   }
 }
 ```
 <!-- prettier-ignore-end -->
 
-You can use different API to:
+You can use the different existing APIs to:
 
 - init the project
 
@@ -124,6 +162,7 @@ Spring Boot:
 - Tomcat or Undertow as Spring Boot MVC
   - Spring Security with JWT
     - Basic Auth
+  - OAuth 2.0 and OIDC Authentication
 - AOP Logging
 - Asynchronous execution and scheduling configuration
 - Spring Cache
@@ -136,10 +175,10 @@ Spring Boot:
 
 Spring Boot Database:
 
-- PostgreSQL or MySQL as Database
+- PostgreSQL, MySQL or MariaDB as Database
   - Liquibase or Flyway as Database Migration Tool
   - User and Authority tables (depending on Liquibase or Flyway)
-- MongoDB as NoSQL DAtabase
+- MongoDB as NoSQL Database
 
 Spring Cloud:
 
@@ -152,6 +191,10 @@ Client:
 - Angular
 - React with Vite
 - Vue with Vite
+
+Continuous Integration:
+
+- GitHub Actions
 
 [jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
 [jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases

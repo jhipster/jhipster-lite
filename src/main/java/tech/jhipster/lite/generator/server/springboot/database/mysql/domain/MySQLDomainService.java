@@ -89,8 +89,7 @@ public class MySQLDomainService implements MySQLService {
     springBootCommonService.addLoggerTest(project, "org.testcontainers", Level.WARN);
   }
 
-  @Override
-  public void addTestcontainers(Project project) {
+  private void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
     this.sqlCommonService.addTestcontainers(project, DatabaseType.MYSQL.id(), springPropertiesForTest(baseName));
   }

@@ -103,7 +103,9 @@ jobs:
       matrix:
         app:
           - fullapp
+          - oauth2app
           - mysqlapp
+          - mariadbapp
           - flywayapp
           - undertowapp
           - eurekaapp

@@ -95,8 +95,7 @@ public class PostgresqlDomainService implements PostgresqlService {
     sqlCommonService.addProperties(project, springProperties(baseName, packageName));
   }
 
-  @Override
-  public void addTestcontainers(Project project) {
+  private void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
     this.sqlCommonService.addTestcontainers(project, DatabaseType.POSTGRESQL.id(), springPropertiesForTest(baseName));
   }

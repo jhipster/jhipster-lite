@@ -31,6 +31,7 @@ callApi() {
 springboot() {
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
+  callApi "/api/github-actions/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
@@ -41,6 +42,7 @@ springboot() {
 springboot_undertow() {
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
+  callApi "/api/github-actions/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
@@ -91,7 +93,13 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/vue"
+  callApi "/api/vue"
+
+elif [[ $application == 'oauth2app' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/mvc/security/oauth2"
 
 elif [[ $application == 'mysqlapp' ]]; then
   springboot
@@ -104,6 +112,18 @@ elif [[ $application == 'mysqlapp' ]]; then
   callApi "/api/servers/spring-boot/user/mysql"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
+
+  callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
+
+elif [[ $application == 'mariadbapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/mvc/springdoc/init"
+  callApi "/api/servers/spring-boot/mvc/dummy"
+
+  callApi "/api/servers/spring-boot/databases/mariadb"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
 
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
 
@@ -158,14 +178,14 @@ elif [[ $application == 'reactapp' ]]; then
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/react/styled"
+  callApi "/api/react/styled"
 
 elif [[ $application == 'vueapp' ]]; then
   springboot
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/vue/styled"
+  callApi "/api/vue/styled"
 
 elif [[ $application == 'svelteapp' ]]; then
   springboot

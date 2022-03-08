@@ -166,13 +166,13 @@ elif [[ $application == 'vueapp' ]]; then
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vite/vue/styled"
-  
+
 elif [[ $application == 'svelteapp' ]]; then
   springboot
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/svelte"
+  callApi "/api/svelte/styled"
 
 else
   echo "*** Unknown configuration..."

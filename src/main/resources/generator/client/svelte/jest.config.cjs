@@ -6,7 +6,7 @@ module.exports = {
 		'.+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$': 'jest-transform-stub'
 	},
 	moduleNameMapper: {
-		'^@/(.*)': '<rootDir>/src/main/webapp/$1'
+		'^@webapp(.*)': '<rootDir>/src/main/webapp/$1',
 	},
 	collectCoverage: true,
 	collectCoverageFrom: [

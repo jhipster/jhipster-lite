@@ -25,7 +25,7 @@ public class SvelteAssert {
     assertFileContent(project, PACKAGE_JSON, "\"preview\": \"svelte-kit preview\"");
     assertFileContent(project, PACKAGE_JSON, "\"package\": \"svelte-kit package\"");
     assertFileContent(project, PACKAGE_JSON, "\"check\": \"svelte-check --tsconfig ./tsconfig.json\"");
-    assertFileContent(project, PACKAGE_JSON, "\"check,watch\": \"svelte-check --tsconfig ./tsconfig.json --watch\"");
+    assertFileContent(project, PACKAGE_JSON, "\"check:watch\": \"svelte-check --tsconfig ./tsconfig.json --watch\"");
     assertFileContent(
       project,
       PACKAGE_JSON,

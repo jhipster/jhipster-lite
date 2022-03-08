@@ -87,7 +87,7 @@ public class SvelteDomainService implements SvelteService {
         "package", "svelte-kit package",
         "preview", "svelte-kit preview",
         "check", "svelte-check --tsconfig ./tsconfig.json",
-        "check,watch", "svelte-check --tsconfig ./tsconfig.json --watch",
+        "check:watch", "svelte-check --tsconfig ./tsconfig.json --watch",
         "lint", "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
         "format", "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
         "test", "jest"

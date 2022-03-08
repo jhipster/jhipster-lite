@@ -373,4 +373,23 @@ class ProjectLocalRepositoryTest {
       assertFileNotExist(project, "example.md");
     }
   }
+
+  @Test
+  void shouldRename() {
+    Project project = tmpProjectWithPomXml();
+
+    repository.rename(project, ".", POM_XML, "pom.xml.beer");
+
+    assertFileNotExist(project, POM_XML);
+    assertFileExist(project, "pom.xml.beer");
+  }
+
+  @Test
+  void shouldNotRename() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> repository.rename(project, ".", POM_XML, "pom.xml.burger")).isExactlyInstanceOf(GeneratorException.class);
+
+    assertFileNotExist(project, POM_XML);
+  }
 }

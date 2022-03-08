@@ -2,6 +2,7 @@ package tech.jhipster.lite.common.domain;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.TestUtils.assertFileNotExist;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
@@ -10,10 +11,7 @@ import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.List;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -701,5 +699,23 @@ class FileUtilsTest {
     void shouldReturnPosixTrueForNonWindows() {
       assertTrue(isPosix());
     }
+  }
+
+  @Test
+  void shouldRename() throws Exception {
+    String folder = tmpDirForTest();
+    createFolder(folder);
+    Files.createFile(Paths.get(folder, "hello.world"));
+
+    FileUtils.rename(folder, "hello.world", "hello.beer");
+
+    assertFileExist(folder, "hello.beer");
+  }
+
+  @Test
+  void shouldNotRename() {
+    String folder = tmpDirForTest();
+
+    assertThatThrownBy(() -> FileUtils.rename(folder, "hello.world", "hello.beer")).isInstanceOf(IOException.class);
   }
 }

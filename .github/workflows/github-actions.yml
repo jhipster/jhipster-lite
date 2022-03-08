@@ -94,6 +94,32 @@ jobs:
           path: '${{ github.workspace }}/target/*.jar'
           retention-days: 1
   #--------------------------------------------------
+  # Cypress
+  #--------------------------------------------------
+  cypress:
+    needs: [tests-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Setup: checkout project'
+        uses: actions/checkout@v3
+      - name: 'Setup: environment'
+        id: setup
+        uses: ./.github/actions/setup
+      - name: 'Artifact: download JAR'
+        uses: actions/download-artifact@v2
+        with:
+          name: jhlite-jar
+          path: ./tests-ci/
+      - name: 'Init: install Node.js packages'
+        run: npm ci
+      - name: 'Test: start application JHipster Lite'
+        working-directory: ./tests-ci/
+        run: |
+          ./start.sh
+      - name: 'Test: launch Cypress'
+        run: npm run e2e:headless
+
+  #--------------------------------------------------
   # Tests generated projects
   #--------------------------------------------------
   generation:

@@ -16,7 +16,7 @@ public class Flyway {
     return Dependency.builder().groupId("org.flywaydb").artifactId("flyway-core").version("\\${flyway.version}").build();
   }
 
-  public static Dependency additionalFlywayMysqlDependency() {
+  public static Dependency additionalFlywayMysqlAndMariaDBDependency() {
     return Dependency.builder().groupId("org.flywaydb").artifactId("flyway-mysql").version("\\${flyway.version}").build();
   }
 }

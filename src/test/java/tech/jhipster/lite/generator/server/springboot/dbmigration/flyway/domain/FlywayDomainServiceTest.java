@@ -1,11 +1,10 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.DEFAULT_FLYWAY_ENABLED;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.DEFAULT_FLYWAY_LOCATIONS;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.*;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -53,7 +52,7 @@ class FlywayDomainServiceTest {
     Project project = tmpProject();
 
     when(buildToolService.getVersion(any(Project.class), anyString())).thenReturn(Optional.of("0.0.0"));
-    when(springBootCommonService.getProperty(project, "spring.datasource.url")).thenReturn(Optional.empty());
+    when(springBootCommonService.isSetWithMySQLOrMariaDBDatabase(project)).thenReturn(false);
 
     // When
     flywayDomainService.init(project);
@@ -91,12 +90,12 @@ class FlywayDomainServiceTest {
   }
 
   @Test
-  void shouldInitWithAdditionalFlywayMysqlDependency() {
+  void shouldInitWithAdditionalFlywayMysqlMariaDBDependency() {
     // Given
     Project project = tmpProject();
 
     when(buildToolService.getVersion(any(Project.class), anyString())).thenReturn(Optional.of("0.0.0"));
-    when(springBootCommonService.getProperty(project, "spring.datasource.url")).thenReturn(Optional.of("jdbc:mysql://localhost:3306/myDb"));
+    when(springBootCommonService.isSetWithMySQLOrMariaDBDatabase(project)).thenReturn(true);
 
     // When
     flywayDomainService.init(project);
@@ -140,8 +139,7 @@ class FlywayDomainServiceTest {
     // Given
     Project project = tmpProject();
 
-    when(springBootCommonService.getProperty(project, "spring.datasource.url"))
-      .thenReturn(Optional.of("jdbc:postgresql://localhost:3306/myDb"));
+    when(springBootCommonService.isDatabaseUseSequences(project)).thenReturn(true);
 
     // When
     flywayDomainService.addUserAuthorityChangelog(project);
@@ -162,7 +160,7 @@ class FlywayDomainServiceTest {
     // Given
     Project project = tmpProject();
 
-    when(springBootCommonService.getProperty(project, "spring.datasource.url")).thenReturn(Optional.of("jdbc:mysql://localhost:3306/myDb"));
+    when(springBootCommonService.isDatabaseUseSequences(project)).thenReturn(false);
 
     // When
     flywayDomainService.addUserAuthorityChangelog(project);

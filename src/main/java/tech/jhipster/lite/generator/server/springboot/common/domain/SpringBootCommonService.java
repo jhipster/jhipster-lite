@@ -23,4 +23,5 @@ public interface SpringBootCommonService {
   void addLoggerTest(Project project, String packageName, Level level);
 
   Optional<String> getProperty(Project project, String key);
+  boolean isSetWithMySQLOrMariaDBDatabase(Project project);
 }

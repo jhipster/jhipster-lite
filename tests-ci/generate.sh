@@ -123,7 +123,9 @@ elif [[ $application == 'mariadbapp' ]]; then
   callApi "/api/servers/spring-boot/mvc/dummy"
 
   callApi "/api/servers/spring-boot/databases/mariadb"
+  callApi "/api/servers/spring-boot/user/mariadb"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
 
   callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
 

@@ -1,26 +1,30 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.*;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.*;
 
 import java.time.Clock;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootService;
+import tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDBService;
 import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLService;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.PostgresqlService;
 
@@ -38,6 +42,9 @@ class LiquibaseApplicationServiceIT {
 
   @Autowired
   MySQLService mySQLService;
+
+  @Autowired
+  MariaDBService mariaDBService;
 
   @Autowired
   LiquibaseApplicationService liquibaseApplicationService;
@@ -178,13 +185,18 @@ class LiquibaseApplicationServiceIT {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/liquibase/master.xml"), "20220128173026_added_sequence_User.xml");
   }
 
-  @Test
-  @DisplayName("should add user and authority changelog for MySQL")
-  void shouldAddUserAuthorityChangelogForMySQL() {
+  @ParameterizedTest
+  @EnumSource(value = DatabaseType.class, names = { "MYSQL", "MARIADB" })
+  @DisplayName("should add user and authority changelog for MySQL or MariaDB")
+  void shouldAddUserAuthorityChangelogForMySQLorMariaDB(DatabaseType databaseType) {
     Project project = tmpProject();
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
-    mySQLService.init(project);
+    if (databaseType.equals(DatabaseType.MYSQL)) {
+      mySQLService.init(project);
+    } else {
+      mariaDBService.init(project);
+    }
     liquibaseApplicationService.init(project);
 
     liquibaseApplicationService.addUserAuthorityChangelog(project);

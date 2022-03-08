@@ -1,16 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.common.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_LOGBACK_LOGGER;
 
 import java.nio.file.Files;
 import org.junit.jupiter.api.Test;
@@ -234,5 +230,12 @@ class SpringBootCommonDomainServiceTest {
     assertThatThrownBy(() -> springBootCommonDomainService.getProperty(project, " "))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("key");
+  }
+
+  @Test
+  void shouldNotCheckIfProjectIsSetWithMariaDbOrMySqlDatabaseWithoutProject() {
+    assertThatThrownBy(() -> springBootCommonDomainService.isSetWithMySQLOrMariaDBDatabase(null))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("project");
   }
 }

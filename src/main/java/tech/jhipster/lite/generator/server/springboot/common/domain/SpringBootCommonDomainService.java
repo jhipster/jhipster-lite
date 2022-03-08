@@ -1,13 +1,10 @@
 package tech.jhipster.lite.generator.server.springboot.common.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_PROPERTIES;
 
 import java.util.Optional;
 import tech.jhipster.lite.common.domain.FileUtils;
@@ -170,6 +167,20 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
         }
         return null;
       });
+  }
+
+  @Override
+  public boolean isSetWithMySQLOrMariaDBDatabase(Project project) {
+    Assert.notNull("project", project);
+    return isMariaDBDatabase(project) || isMySQLDatabase(project);
+  }
+
+  private boolean isMySQLDatabase(Project project) {
+    return getProperty(project, "spring.datasource.url").filter(value -> value.contains("mysql")).isPresent();
+  }
+
+  private boolean isMariaDBDatabase(Project project) {
+    return getProperty(project, "spring.datasource.url").filter(value -> value.contains("mariadb")).isPresent();
   }
 
   private void addLoggerToConfiguration(

@@ -142,7 +142,7 @@ public class LiquibaseDomainService implements LiquibaseService {
     String userChangelog = getTimestamp() + "_added_entity_User.xml";
     addChangelogXml(project, "", userChangelog);
     String userXmlFile = "user.xml";
-    if (isMySQLOrMariaDBDatabase(project)) {
+    if (springBootCommonService.isSetWithMySQLOrMariaDBDatabase(project)) {
       userXmlFile = "user_with_autoincrement.xml";
     }
     projectRepository.template(project, getUserResourcePath(), userXmlFile, getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
@@ -169,19 +169,7 @@ public class LiquibaseDomainService implements LiquibaseService {
     return localDateTime.format(DATE_TIME_FORMATTER);
   }
 
-  private boolean isMySQLDatabase(Project project) {
-    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("mysql")).isPresent();
-  }
-
-  private boolean isMariaDBDatabase(Project project) {
-    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("mariadb")).isPresent();
-  }
-
   private boolean isDatabaseWhichNeedsSequenceStrategy(Project project) {
-    return !isMySQLOrMariaDBDatabase(project);
-  }
-
-  private boolean isMySQLOrMariaDBDatabase(Project project) {
-    return isMySQLDatabase(project) || isMariaDBDatabase(project);
+    return !springBootCommonService.isSetWithMySQLOrMariaDBDatabase(project);
   }
 }

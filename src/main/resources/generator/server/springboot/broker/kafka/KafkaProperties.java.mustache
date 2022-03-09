@@ -1,46 +1,33 @@
 package {{packageName}}.technical.infrastructure.secondary.kafka;
 
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.PostConstruct;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "kafka")
 public class KafkaProperties {
+  @Value("${kafka.bootstrap.servers:localhost:9092}")
+  private String bootstrapServers;
 
-    @Value("${kafka.bootstrap.servers:localhost:9092}")
-    private String bootstrapServers;
+  private Map<String, Object> producer = new HashMap<>();
 
-    @Value("${kafka.polling.timeout:10000}")
-    private Integer pollingTimeout;
-
-    private Map<String, Object> producer = new HashMap<>();
-
-    @PostConstruct
-    public void init() {
-        if (!producer.containsKey(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG)) {
-            producer.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        }
+  @PostConstruct
+  public void init() {
+    if (!producer.containsKey(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG)) {
+      producer.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
     }
+  }
 
-    public Map<String, Object> getProducer() {
-        return this.producer;
-    }
+  public Map<String, Object> getProducer() {
+    return this.producer;
+  }
 
-    public void setProducer(Map<String, Object> producer) {
-        this.producer = producer;
-    }
-
-    public Integer getPollingTimeout() {
-        return pollingTimeout;
-    }
-
-    public void setPollingTimeout(Integer pollingTimeout) {
-        this.pollingTimeout = pollingTimeout;
-    }
+  public void setProducer(Map<String, Object> producer) {
+    this.producer = producer;
+  }
 }

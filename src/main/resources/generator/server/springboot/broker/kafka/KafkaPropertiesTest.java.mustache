@@ -1,0 +1,40 @@
+package {{packageName}}.technical.infrastructure.secondary.kafka;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
+import {{packageName}}.UnitTest;
+
+@UnitTest
+class KafkaPropertiesTest {
+  private KafkaProperties kafkaProperties;
+
+  @BeforeEach
+  public void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    kafkaProperties = new KafkaProperties();
+    ReflectionTestUtils.setField(kafkaProperties, "bootstrapServers", "localhost:9092");
+    Method postConstruct = KafkaProperties.class.getDeclaredMethod("init", null);
+    postConstruct.setAccessible(true);
+    postConstruct.invoke(kafkaProperties);
+  }
+
+  @Test
+  void shouldGetProducer() {
+    assertEquals("localhost:9092", kafkaProperties.getProducer().get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG));
+  }
+
+  @Test
+  void shouldSetProducer() {
+    Map<String, Object> producer = new HashMap();
+    producer.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "external:9092");
+    kafkaProperties.setProducer(producer);
+    assertEquals("external:9092", kafkaProperties.getProducer().get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG));
+  }
+}

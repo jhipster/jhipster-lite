@@ -57,7 +57,7 @@ class KafkaDomainServiceTest {
 
     verify(springBootCommonService).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test

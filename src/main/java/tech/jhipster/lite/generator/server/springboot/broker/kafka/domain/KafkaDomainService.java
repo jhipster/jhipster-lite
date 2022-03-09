@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.util.TreeMap;
@@ -56,6 +57,7 @@ public class KafkaDomainService implements KafkaService {
       springBootCommonService.addPropertiesTest(project, DUMMY_TOPIC_NAME, topicName);
 
       projectRepository.template(project, SOURCE, "KafkaProperties.java", getPath(MAIN_JAVA, packageNamePath, kafkaPropertiesPath));
+      projectRepository.template(project, SOURCE, "KafkaPropertiesTest.java", getPath(TEST_JAVA, packageNamePath, kafkaPropertiesPath));
       projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, dummyProducerPath));
     }
   }

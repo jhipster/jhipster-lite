@@ -63,6 +63,10 @@ class KafkaApplicationServiceIT {
     assertFileExist(project, getPath(MAIN_JAVA, kafkaPropertiesPath, "KafkaProperties.java"));
     assertFileContent(project, getPath(MAIN_JAVA, kafkaPropertiesPath, "KafkaProperties.java"), "public class KafkaProperties");
 
+    String kafkaPropertiesTestPath = getPath("com/mycompany/myapp/technical/infrastructure/secondary/kafka");
+    assertFileExist(project, getPath(TEST_JAVA, kafkaPropertiesTestPath, "KafkaPropertiesTest.java"));
+    assertFileContent(project, getPath(TEST_JAVA, kafkaPropertiesTestPath, "KafkaPropertiesTest.java"), "class KafkaPropertiesTest");
+
     String dummyProducerPath = getPath("com/mycompany/myapp/dummy/infrastructure/secondary/producer");
     assertFileExist(project, getPath(MAIN_JAVA, dummyProducerPath, "DummyProducer.java"));
     assertFileContent(project, getPath(MAIN_JAVA, dummyProducerPath, "DummyProducer.java"), "public class DummyProducer");

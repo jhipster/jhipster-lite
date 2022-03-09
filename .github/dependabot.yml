@@ -75,7 +75,7 @@ updates:
       - 'area: dependencies'
 
   - package-ecosystem: 'docker'
-    directory: '/src/main/resources/generator/dependencies/Dockerfile'
+    directory: '/src/main/resources/generator/dependencies'
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20

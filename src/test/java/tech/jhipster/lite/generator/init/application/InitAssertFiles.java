@@ -56,4 +56,9 @@ public class InitAssertFiles {
     assertFilesEditorConfiguration(project);
     assertFilesPrettier(project);
   }
+
+  public static void assertFileGitInit(Project project) {
+    assertFileExist(project, ".git/config");
+    assertFileExist(project, ".git/HEAD");
+  }
 }

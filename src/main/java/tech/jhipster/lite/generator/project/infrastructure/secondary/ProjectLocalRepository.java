@@ -87,6 +87,15 @@ public class ProjectLocalRepository implements ProjectRepository {
   }
 
   @Override
+  public void rename(Project project, String source, String sourceFilename, String destinationFilename) {
+    try {
+      FileUtils.rename(getPath(project.getFolder(), source), sourceFilename, destinationFilename);
+    } catch (IOException e) {
+      throw new GeneratorException("Error when renaming file: " + sourceFilename + " -> " + destinationFilename, e);
+    }
+  }
+
+  @Override
   public String getComputedTemplate(Project project, String source, String sourceFilename) {
     String filename = MustacheUtils.withExt(sourceFilename);
     String filePath = getPath(TEMPLATE_FOLDER, source, filename);

@@ -1,23 +1,22 @@
 package tech.jhipster.lite.generator.server.springboot.common.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_PROPERTIES;
 
 import java.util.Optional;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   public static final String SOURCE = "server/springboot/common";
+  private static final String PROJECT_FIELD_ASSERT_NAME = "project";
 
   private final ProjectRepository projectRepository;
 
@@ -158,7 +157,7 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   @Override
   public Optional<String> getProperty(Project project, String key) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT_FIELD_ASSERT_NAME, project);
     Assert.notBlank("key", key);
 
     return FileUtils
@@ -170,6 +169,31 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
         }
         return null;
       });
+  }
+
+  @Override
+  public boolean isSetWithMySQLOrMariaDBDatabase(Project project) {
+    Assert.notNull(PROJECT_FIELD_ASSERT_NAME, project);
+    return isMariaDBDatabase(project) || isMySQLDatabase(project);
+  }
+
+  @Override
+  public boolean isDatabaseUseSequences(Project project) {
+    Assert.notNull(PROJECT_FIELD_ASSERT_NAME, project);
+
+    return hasSpecificDatabaseProperty(project, DatabaseType.POSTGRESQL);
+  }
+
+  private boolean isMySQLDatabase(Project project) {
+    return hasSpecificDatabaseProperty(project, DatabaseType.MYSQL);
+  }
+
+  private boolean isMariaDBDatabase(Project project) {
+    return hasSpecificDatabaseProperty(project, DatabaseType.MARIADB);
+  }
+
+  private boolean hasSpecificDatabaseProperty(Project project, DatabaseType databaseType) {
+    return getProperty(project, "spring.datasource.url").filter(value -> value.contains(databaseType.id())).isPresent();
   }
 
   private void addLoggerToConfiguration(

@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.user.infrastructure.confi
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.user.domain.SpringBootUserDomainService;
 import tech.jhipster.lite.generator.server.springboot.user.domain.SpringBootUserService;
 
@@ -11,15 +10,13 @@ import tech.jhipster.lite.generator.server.springboot.user.domain.SpringBootUser
 public class SpringBootUserBeanConfiguration {
 
   private final ProjectRepository projectRepository;
-  private final SpringBootCommonService springBootCommonService;
 
-  public SpringBootUserBeanConfiguration(ProjectRepository projectRepository, SpringBootCommonService springBootCommonService) {
+  public SpringBootUserBeanConfiguration(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
-    this.springBootCommonService = springBootCommonService;
   }
 
   @Bean
   public SpringBootUserService springBootUserService() {
-    return new SpringBootUserDomainService(projectRepository, springBootCommonService);
+    return new SpringBootUserDomainService(projectRepository);
   }
 }

@@ -36,4 +36,8 @@ public class InitApplicationService {
   public void addPrettier(Project project) {
     initService.addPrettier(project);
   }
+
+  public void gitInit(Project project) {
+    initService.gitInit(project);
+  }
 }

@@ -217,4 +217,8 @@ public class FileUtils {
   public static void appendLines(String filePath, List<String> lines) throws IOException {
     Files.write(Path.of(filePath), lines, StandardOpenOption.APPEND);
   }
+
+  public static void rename(String source, String sourceFilename, String destinationFilename) throws IOException {
+    Files.move(getPathOf(source, sourceFilename), getPathOf(source, destinationFilename));
+  }
 }

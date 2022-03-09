@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.*;
 
 import java.time.Clock;
@@ -57,10 +57,9 @@ public class FlywayDomainService implements FlywayService {
         }
       );
     buildToolService.addDependency(project, Flyway.flywayDependency());
-    springBootCommonService
-      .getProperty(project, "spring.datasource.url")
-      .filter(value -> value.contains("mysql"))
-      .ifPresent(value -> buildToolService.addDependency(project, Flyway.additionalFlywayMysqlDependency()));
+    if (springBootCommonService.isSetWithMySQLOrMariaDBDatabase(project)) {
+      buildToolService.addDependency(project, Flyway.additionalFlywayMysqlAndMariaDBDependency());
+    }
   }
 
   @Override
@@ -81,7 +80,7 @@ public class FlywayDomainService implements FlywayService {
 
   @Override
   public void addUserAuthorityChangelog(Project project) {
-    String sqlFileSource = "V00000000000000__create_user_authority_tables" + (isDatabaseUseSequences(project) ? "_postgresql.sql" : ".sql");
+    String sqlFileSource = buildSqlFileSource(project);
     projectRepository.add(
       project,
       getPath(SQL_INIT_FILE_SOURCE, "resources/user"),
@@ -89,6 +88,14 @@ public class FlywayDomainService implements FlywayService {
       getPath(MAIN_RESOURCES, DEFAULT_SQL_FILES_FOLDER),
       buildFileNameWithTimestamp(SQL_USER_AUTHORITY_FILE_NAME, 1)
     );
+  }
+
+  private String buildSqlFileSource(Project project) {
+    String sqlFileSourcePrefix = "V00000000000000__create_user_authority_tables";
+    if (isDatabaseUseSequences(project)) {
+      return sqlFileSourcePrefix + "_postgresql.sql";
+    }
+    return sqlFileSourcePrefix + ".sql";
   }
 
   private TreeMap<String, Object> getFlywayProperties() {
@@ -107,6 +114,6 @@ public class FlywayDomainService implements FlywayService {
   }
 
   private boolean isDatabaseUseSequences(Project project) {
-    return springBootCommonService.getProperty(project, "spring.datasource.url").filter(value -> value.contains("postgresql")).isPresent();
+    return springBootCommonService.isDatabaseUseSequences(project);
   }
 }

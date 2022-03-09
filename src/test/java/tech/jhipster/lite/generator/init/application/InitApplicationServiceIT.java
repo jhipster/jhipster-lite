@@ -55,6 +55,7 @@ class InitApplicationServiceIT {
       )
     );
     // @formatter:on
+    assertFileGitInit(project);
   }
 
   @Test
@@ -127,5 +128,14 @@ class InitApplicationServiceIT {
     initApplicationService.addPrettier(project);
 
     assertFilesPrettier(project);
+  }
+
+  @Test
+  void shouldGitInit() {
+    Project project = tmpProject();
+
+    initApplicationService.gitInit(project);
+
+    assertFileGitInit(project);
   }
 }

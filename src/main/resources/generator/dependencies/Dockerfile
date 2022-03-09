@@ -1,6 +1,6 @@
 FROM sonarqube:9.2.4-community
 FROM jhipster/consul-config-loader:v0.4.1
-FROM jhipster/jhipster-registry:v7.1.0
+FROM jhipster/jhipster-registry:v7.3.0
 FROM jboss/keycloak:16.1.0
 FROM mariadb:10.8.2
 FROM mongo:5.0.6

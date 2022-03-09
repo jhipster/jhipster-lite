@@ -16,8 +16,8 @@
   "scripts": {
     "build": "vue-tsc --noEmit && vite build --emptyOutDir",
     "dev": "vite",
-    "e2e": "npm run test:component",
-    "e2e:headless": "npm run test:component:headless",
+    "e2e": "cypress open --config-file src/test/component/cypress/cypress-config.json",
+    "e2e:headless": "cypress run --headless --config-file src/test/component/cypress/cypress-config.json",
     "format": "prettier . --write",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src/main/webapp src/test/javascript",
     "prepare": "husky install",
@@ -26,9 +26,7 @@
     "preview": "vite preview",
     "start": "vite",
     "test": "jest src/test/javascript/spec",
-    "test:clear": "jest --clearCache",
-    "test:component": "cypress open --config-file src/test/component/cypress/cypress-config.json",
-    "test:component:headless": "cypress run --headless --config-file src/test/component/cypress/cypress-config.json"
+    "test:clear": "jest --clearCache"
   },
   "dependencies": {
     "axios": "0.26.0",

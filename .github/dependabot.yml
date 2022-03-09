@@ -5,6 +5,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 15
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
 
@@ -13,6 +14,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
 
@@ -21,6 +23,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 10
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'github-actions'
@@ -28,6 +31,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 10
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'github-actions'
@@ -35,6 +39,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 10
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
 
@@ -43,6 +48,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 10
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
@@ -50,6 +56,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
@@ -57,6 +64,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
@@ -64,6 +72,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
@@ -71,6 +80,7 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
 
@@ -79,5 +89,6 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 20
+    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'

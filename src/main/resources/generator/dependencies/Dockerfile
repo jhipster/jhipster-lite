@@ -1,4 +1,4 @@
-FROM sonarqube:9.2.4-community
+FROM sonarqube:9.3.0-community
 FROM jhipster/consul-config-loader:v0.4.1
 FROM jhipster/jhipster-registry:v7.1.0
 FROM jboss/keycloak:16.1.0

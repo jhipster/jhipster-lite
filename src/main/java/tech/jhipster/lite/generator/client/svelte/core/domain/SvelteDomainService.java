@@ -26,14 +26,20 @@ public class SvelteDomainService implements SvelteService {
 
   @Override
   public void addSvelte(Project project) {
+    renameJhipsterFiles(project);
     addCommonSvelteKit(project);
     addUnstyledHomeFiles(project);
   }
 
   @Override
   public void addStyledSvelteKit(Project project) {
+    renameJhipsterFiles(project);
     addCommonSvelteKit(project);
     addStyledHomeFiles(project);
+  }
+
+  public void renameJhipsterFiles(Project project) {
+    projectRepository.rename(project, getPath(SOURCE, "."), "lintstage.js", "lintstage.cjs");
   }
 
   public void addCommonSvelteKit(Project project) {

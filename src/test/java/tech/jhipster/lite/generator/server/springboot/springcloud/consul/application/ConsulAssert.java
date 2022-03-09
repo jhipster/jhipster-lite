@@ -69,7 +69,7 @@ public class ConsulAssert {
       project,
       getPath(MAIN_RESOURCES, "config/bootstrap.properties"),
       List.of(
-        "spring.cloud.consul.discovery.health-check-path=/management/health",
+        "spring.cloud.consul.discovery.health-check-path=${server.servlet.context-path:}/management/health",
         "spring.cloud.consul.discovery.tags[0]=version=@project.version@",
         "spring.cloud.consul.discovery.tags[1]=context-path=${server.servlet.context-path:}",
         "spring.cloud.consul.discovery.tags[2]=profile=${spring.profiles.active:}",

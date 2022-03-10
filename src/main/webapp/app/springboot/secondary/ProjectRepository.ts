@@ -1,7 +1,7 @@
-import { Project } from '@/generator/domain/Project';
-import { ProjectService } from '@/generator/domain/ProjectService';
+import { Project } from '@/springboot/domain/Project';
+import { ProjectService } from '@/springboot/domain/ProjectService';
 import { AxiosHttp } from '@/http/AxiosHttp';
-import { RestProject, toRestProject } from '@/generator/secondary/RestProject';
+import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
 
 export default class ProjectRepository implements ProjectService {
   constructor(private axiosHttp: AxiosHttp) {}

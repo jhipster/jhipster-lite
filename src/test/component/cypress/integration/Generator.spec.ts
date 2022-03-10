@@ -19,5 +19,6 @@ describe('Generator', () => {
     cy.get(generatorSelector('add-maven-button')).contains('Maven');
     cy.get(generatorSelector('add-java-base-button')).contains('JavaBase');
     cy.get(generatorSelector('add-spring-boot-button')).contains('SpringBoot');
+    cy.get(generatorSelector('add-spring-boot-mvc-tomcat-button')).contains('Spring MVC Tomcat');
   });
 });

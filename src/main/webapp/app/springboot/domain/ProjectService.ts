@@ -5,4 +5,5 @@ export interface ProjectService {
   addMaven(project: Project): Promise<void>;
   addJavaBase(project: Project): Promise<void>;
   addSpringBoot(project: Project): Promise<void>;
+  addSpringBootMvcTomcat(project: Project): Promise<void>;
 }

@@ -36,12 +36,19 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootMvcTomcat = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addSpringBootMvcTomcat(toProject(project.value));
+      }
+    };
+
     return {
       project,
       initProject,
       addMaven,
       addJavaBase,
       addSpringBoot,
+      addSpringBootMvcTomcat,
     };
   },
 });

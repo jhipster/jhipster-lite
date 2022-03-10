@@ -60,4 +60,18 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
+  it('should add SpringBoot MVC with Tomcat', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootMvcTomcat(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/mvc/web/tomcat');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
 });

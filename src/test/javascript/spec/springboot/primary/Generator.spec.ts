@@ -192,4 +192,41 @@ describe('Generator', () => {
       serverPort: 8080,
     });
   });
+
+  it('should not add SpringBoot MVC with Tomcat when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addSpringBootMvcTomcat.resolves({});
+    await wrap({ projectService });
+
+    const button = wrapper.find('#springbootmvctomcat');
+    await button.trigger('click');
+
+    expect(projectService.addSpringBootMvcTomcat.called).toBe(false);
+  });
+
+  it('should add SpringBoot when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addSpringBootMvcTomcat.resolves({});
+    await wrap({ projectService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+
+    const button = wrapper.find('#springbootmvctomcat');
+    await button.trigger('click');
+
+    const args = projectService.addSpringBootMvcTomcat.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
 });

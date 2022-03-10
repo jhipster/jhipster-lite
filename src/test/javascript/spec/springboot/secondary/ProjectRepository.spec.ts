@@ -1,7 +1,7 @@
-import { Project } from '@/generator/domain/Project';
-import ProjectRepository from '@/generator/secondary/ProjectRepository';
+import { Project } from '@/springboot/domain/Project';
+import ProjectRepository from '@/springboot/secondary/ProjectRepository';
 import { stubAxiosHttp } from '../../http/AxiosHttpStub';
-import { RestProject, toRestProject } from '@/generator/secondary/RestProject';
+import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
 import { createProject } from '../domain/Project.fixture';
 
 describe('ProjectRepository', () => {

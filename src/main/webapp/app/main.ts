@@ -1,4 +1,4 @@
-import ProjectRepository from '@/generator/secondary/ProjectRepository';
+import ProjectRepository from '@/springboot/secondary/ProjectRepository';
 import { AxiosHttp } from '@/http/AxiosHttp';
 import router from '@/router';
 import axios from 'axios';

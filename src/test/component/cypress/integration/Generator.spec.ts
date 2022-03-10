@@ -12,7 +12,8 @@ describe('Generator', () => {
   });
 
   it('should display generator page', () => {
-    cy.get(generatorSelector('title')).contains('Generator');
+    cy.get(generatorSelector('title')).contains('JHLite');
+    cy.get(generatorSelector('subtitle')).contains('SpringBoot Generator');
 
     cy.get(generatorSelector('init-button')).contains('Init');
     cy.get(generatorSelector('add-maven-button')).contains('Maven');

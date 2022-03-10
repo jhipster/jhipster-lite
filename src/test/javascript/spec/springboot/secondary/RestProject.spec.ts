@@ -1,6 +1,7 @@
-import { RestProject, toRestProject } from '@/generator/secondary/RestProject';
-import { Project } from '@/generator/domain/Project';
+import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
+import { Project } from '@/springboot/domain/Project';
 import { createProject } from '../domain/Project.fixture';
+import { toRestGeneratorJHipster } from '@/springboot/secondary/RestGeneratorJHipster';
 
 describe('RestProject', () => {
   it('should convert to Project', () => {
@@ -10,6 +11,7 @@ describe('RestProject', () => {
 
     expect(toRestProject(project)).toEqual<RestProject>({
       folder: 'folder',
+      'generator-jhipster': toRestGeneratorJHipster(project),
     });
   });
 });

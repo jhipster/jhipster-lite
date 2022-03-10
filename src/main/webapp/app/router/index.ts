@@ -1,4 +1,4 @@
-import { GeneratorVue } from '@/generator/primary';
+import { GeneratorVue } from '@/springboot/primary';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [

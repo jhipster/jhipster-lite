@@ -1,4 +1,4 @@
-import { Project } from '@/generator/domain/Project';
+import { Project } from '@/springboot/domain/Project';
 
 export interface ProjectService {
   init(project: Project): Promise<void>;

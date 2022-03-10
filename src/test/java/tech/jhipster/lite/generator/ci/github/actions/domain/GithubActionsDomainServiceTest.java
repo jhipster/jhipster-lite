@@ -32,8 +32,18 @@ class GithubActionsDomainServiceTest {
     assertThatCode(() -> githubActionsDomainService.addGitHubActionsForMaven(project)).doesNotThrowAnyException();
 
     verify(projectRepository)
-      .template(any(Project.class), eq("githubactions/.github/actions/setup/"), eq("action.yml.mustache"), eq(".github/actions/setup/"));
+      .template(
+        any(Project.class),
+        eq("ci/github/actions/.github/actions/setup/"),
+        eq("action.yml.mustache"),
+        eq(".github/actions/setup/")
+      );
     verify(projectRepository)
-      .template(any(Project.class), eq("githubactions/.github/workflows/"), eq("github-actions.yml.mustache"), eq(".github/workflows/"));
+      .template(
+        any(Project.class),
+        eq("ci/github/actions/.github/workflows/"),
+        eq("github-actions.yml.mustache"),
+        eq(".github/workflows/")
+      );
   }
 }

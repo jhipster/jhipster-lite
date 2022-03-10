@@ -3,7 +3,7 @@ package tech.jhipster.lite.generator.ci.github.actions.domain;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
-public class GithubActionsDomainService implements GithubActionsService {
+public class GitHubActionsDomainService implements GitHubActionsService {
 
   public static final String GITHUB_ACTIONS_CI_SOURCE_FOLDER = "ci/github/actions/.github/workflows/";
   public static final String GITHUB_ACTIONS_CI_YML = "github-actions.yml.mustache";
@@ -15,7 +15,7 @@ public class GithubActionsDomainService implements GithubActionsService {
 
   private final ProjectRepository projectRepository;
 
-  public GithubActionsDomainService(ProjectRepository projectRepository) {
+  public GitHubActionsDomainService(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
   }
 

@@ -17,19 +17,19 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class GithubActionsDomainServiceTest {
+class GitHubActionsDomainServiceTest {
 
   @Mock
   private ProjectRepository projectRepository;
 
   @InjectMocks
-  private GithubActionsDomainService githubActionsDomainService;
+  private GitHubActionsDomainService gitHubActionsDomainService;
 
   @Test
-  void shouldInit() {
+  void shouldAddGitHubActionsForMaven() {
     Project project = tmpProject();
 
-    assertThatCode(() -> githubActionsDomainService.addGitHubActionsForMaven(project)).doesNotThrowAnyException();
+    assertThatCode(() -> gitHubActionsDomainService.addGitHubActionsForMaven(project)).doesNotThrowAnyException();
 
     verify(projectRepository)
       .template(

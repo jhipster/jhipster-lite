@@ -7,28 +7,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.jhipster.lite.generator.ci.github.actions.application.GithubActionsApplicationService;
+import tech.jhipster.lite.generator.ci.github.actions.application.GitHubActionsApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/github-actions/")
-@Tag(name = "GitHub Actions")
-class GithubActionsResource {
+@Tag(name = "Continuous Integration")
+class GitHubActionsResource {
 
-  private final GithubActionsApplicationService githubActionsApplicationService;
+  private final GitHubActionsApplicationService gitHubActionsApplicationService;
 
-  GithubActionsResource(GithubActionsApplicationService githubActionsApplicationService) {
-    this.githubActionsApplicationService = githubActionsApplicationService;
+  GitHubActionsResource(GitHubActionsApplicationService gitHubActionsApplicationService) {
+    this.gitHubActionsApplicationService = gitHubActionsApplicationService;
   }
 
-  @Operation(summary = "Init Github Actions YML files")
+  @Operation(summary = "Add GitHub Actions")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding GitHub Actions")
   @PostMapping("/maven")
   @GeneratorStep(id = "github-actions")
   public void addGitHubActionsForMaven(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    githubActionsApplicationService.init(project);
+    gitHubActionsApplicationService.addGitHubActionsForMaven(project);
   }
 }

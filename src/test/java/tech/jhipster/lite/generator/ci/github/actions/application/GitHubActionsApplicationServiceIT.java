@@ -8,17 +8,17 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
-class GithubActionsApplicationServiceIT {
+class GitHubActionsApplicationServiceIT {
 
   @Autowired
-  GithubActionsApplicationService githubActionsApplicationService;
+  GitHubActionsApplicationService gitHubActionsApplicationService;
 
   @Test
-  void shouldInit() {
+  void shouldAddGitHubActionsForMaven() {
     Project project = tmpProject();
 
-    githubActionsApplicationService.init(project);
+    gitHubActionsApplicationService.addGitHubActionsForMaven(project);
 
-    GithubActionsAssertFiles.assertFilesYml(project);
+    GitHubActionsAssertFiles.assertFilesYml(project);
   }
 }

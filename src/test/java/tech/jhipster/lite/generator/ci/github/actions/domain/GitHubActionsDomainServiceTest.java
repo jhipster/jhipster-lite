@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.githubactions.domain;
+package tech.jhipster.lite.generator.ci.github.actions.domain;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,23 +17,33 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class GithubActionsDomainServiceTest {
+class GitHubActionsDomainServiceTest {
 
   @Mock
   private ProjectRepository projectRepository;
 
   @InjectMocks
-  private GithubActionsDomainService githubActionsDomainService;
+  private GitHubActionsDomainService gitHubActionsDomainService;
 
   @Test
-  void shouldInit() {
+  void shouldAddGitHubActionsForMaven() {
     Project project = tmpProject();
 
-    assertThatCode(() -> githubActionsDomainService.addGitHubActionsForMaven(project)).doesNotThrowAnyException();
+    assertThatCode(() -> gitHubActionsDomainService.addGitHubActionsForMaven(project)).doesNotThrowAnyException();
 
     verify(projectRepository)
-      .template(any(Project.class), eq("githubactions/.github/actions/setup/"), eq("action.yml.mustache"), eq(".github/actions/setup/"));
+      .template(
+        any(Project.class),
+        eq("ci/github/actions/.github/actions/setup/"),
+        eq("action.yml.mustache"),
+        eq(".github/actions/setup/")
+      );
     verify(projectRepository)
-      .template(any(Project.class), eq("githubactions/.github/workflows/"), eq("github-actions.yml.mustache"), eq(".github/workflows/"));
+      .template(
+        any(Project.class),
+        eq("ci/github/actions/.github/workflows/"),
+        eq("github-actions.yml.mustache"),
+        eq(".github/workflows/")
+      );
   }
 }

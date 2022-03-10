@@ -1,7 +1,7 @@
-package tech.jhipster.lite.generator.githubactions.application;
+package tech.jhipster.lite.generator.ci.github.actions.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.githubactions.domain.GithubActionsService;
+import tech.jhipster.lite.generator.ci.github.actions.domain.GithubActionsService;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @Service

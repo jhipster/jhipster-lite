@@ -1,7 +1,6 @@
-package tech.jhipster.lite.generator.githubactions.application;
+package tech.jhipster.lite.generator.ci.github.actions.application;
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.generator.githubactions.application.GithubActionsAssertFiles.assertFilesYml;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,6 @@ class GithubActionsApplicationServiceIT {
 
     githubActionsApplicationService.init(project);
 
-    assertFilesYml(project);
+    GithubActionsAssertFiles.assertFilesYml(project);
   }
 }

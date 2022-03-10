@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.githubactions.application;
+package tech.jhipster.lite.generator.ci.github.actions.application;
 
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 

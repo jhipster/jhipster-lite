@@ -1,11 +1,10 @@
-package tech.jhipster.lite.generator.githubactions.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.ci.github.actions.infrastructure.primary.rest;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.convertObjectToJsonBytes;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
-import static tech.jhipster.lite.generator.githubactions.application.GithubActionsAssertFiles.assertFilesGithubActions;
+import static tech.jhipster.lite.generator.ci.github.actions.application.GithubActionsAssertFiles.assertFilesGithubActions;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.generator.githubactions.application.GithubActionsApplicationService;
+import tech.jhipster.lite.generator.ci.github.actions.application.GithubActionsApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.githubactions.domain;
+package tech.jhipster.lite.generator.ci.github.actions.domain;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;

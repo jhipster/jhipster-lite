@@ -118,6 +118,20 @@ java -jar target/*.jar
 
 Then navigate to http://localhost:7471/swagger-ui.html in your browser.
 
+## e2e tests
+
+You need to run the project first. Then, you can run the end-to-end tests:
+
+```
+npm run e2e
+```
+
+Or in headless mode:
+
+```
+npm run e2e:headless
+```
+
 ## Generate your project
 
 Go to http://localhost:7471/swagger-ui.html and build your own JSON to generate a project. Here an example:

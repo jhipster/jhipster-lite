@@ -19,14 +19,15 @@
     "e2e": "cypress open --config-file src/test/component/cypress/cypress-config.json",
     "e2e:headless": "cypress run --headless --config-file src/test/component/cypress/cypress-config.json",
     "format": "prettier . --write",
+    "jest": "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src/main/webapp src/test/javascript",
     "prepare": "husky install",
     "prettier:check": "prettier --check \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\"",
     "prettier:format": "prettier --write \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\"",
     "preview": "vite preview",
     "start": "vite",
-    "test": "jest src/test/javascript/spec",
-    "test:clear": "jest --clearCache"
+    "test": "npm run jest --",
+    "test:watch": "npm run jest -- --watch"
   },
   "dependencies": {
     "axios": "0.26.1",

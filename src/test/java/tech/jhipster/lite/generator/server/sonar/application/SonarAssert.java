@@ -13,6 +13,7 @@ public class SonarAssert {
 
   public static void assertFiles(Project project) {
     assertFileExist(project, "src/main/docker/sonar.yml");
+    assertFileContent(project, "src/main/docker/sonar.yml", "sonarqube:9.3.0-community");
     assertFileExist(project, "sonar-project.properties");
   }
 

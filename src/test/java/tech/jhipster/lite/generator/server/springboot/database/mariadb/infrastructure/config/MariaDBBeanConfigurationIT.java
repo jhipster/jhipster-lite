@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDBDomainService;
-import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLDomainService;
 
 @IntegrationTest
 class MariaDBBeanConfigurationIT {

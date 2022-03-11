@@ -293,7 +293,7 @@ class FileUtilsTest {
     }
 
     @Test
-    void shouldNotReadLineForAnotherText() throws Exception {
+    void shouldNotReadLineForAnotherText() {
       String filename = getPath("src/test/resources/generator/utils/readme-short.md");
 
       assertThat(FileUtils.readLine(filename, "beer")).isEmpty();

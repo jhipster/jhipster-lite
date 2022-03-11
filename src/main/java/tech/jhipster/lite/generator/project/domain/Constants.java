@@ -27,6 +27,9 @@ public class Constants {
   public static final String COMMENT_PROPERTIES_PREFIX = "#";
   public static final String KEY_VALUE_PROPERTIES_SEPARATOR = "=";
 
+  public static final String DOCKER_IMAGE_NAME_VERSION_SEPARATOR = ":";
+  public static final String DOCKERFILE_IMAGE_FROM_PREFIX = "FROM";
+
   // Hexagonal Architecture
   public static final String TECHNICAL = "technical";
   public static final String INFRASTRUCTURE = getPath(TECHNICAL, "infrastructure");

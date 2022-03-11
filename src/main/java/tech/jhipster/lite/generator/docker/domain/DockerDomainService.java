@@ -1,0 +1,33 @@
+package tech.jhipster.lite.generator.docker.domain;
+
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+
+import java.io.IOException;
+import java.util.Optional;
+import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.error.domain.GeneratorException;
+
+public class DockerDomainService implements DockerService {
+
+  @Override
+  public Optional<String> getVersion(String imageName) {
+    Assert.notBlank("imageName", imageName);
+    String dockerfilePath = getPath(TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, DOCKERFILE);
+    String fromImageNameValue = DOCKERFILE_IMAGE_FROM_PREFIX + " " + imageName + DOCKER_IMAGE_NAME_VERSION_SEPARATOR;
+    try {
+      return FileUtils
+        .read(dockerfilePath)
+        .lines()
+        .map(String::trim)
+        .filter(line -> line.toLowerCase().startsWith(fromImageNameValue.toLowerCase()))
+        .map(line -> line.split(DOCKER_IMAGE_NAME_VERSION_SEPARATOR))
+        .filter(splits -> splits.length == 2)
+        .map(splits -> splits[1].trim())
+        .findFirst();
+    } catch (IOException e) {
+      throw new GeneratorException("Cannot get the Dockerfile : " + DOCKERFILE_IMAGE_FROM_PREFIX);
+    }
+  }
+}

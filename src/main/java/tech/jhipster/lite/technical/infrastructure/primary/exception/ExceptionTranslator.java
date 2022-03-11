@@ -18,6 +18,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.zalando.problem.*;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 import org.zalando.problem.violations.ConstraintViolationProblem;
+import tech.jhipster.lite.error.domain.GeneratorException;
 
 /**
  * Controller advice to translate the server side exceptions to client-friendly json structures.
@@ -105,6 +106,12 @@ public class ExceptionTranslator implements ProblemHandling {
   @ExceptionHandler
   public ResponseEntity<Problem> handleBadRequestAlertException(BadRequestAlertException ex, NativeWebRequest request) {
     return create(ex, request, HeaderUtil.createFailureAlert(applicationName, true, ex.getEntityName(), ex.getErrorKey(), ex.getMessage()));
+  }
+
+  @ExceptionHandler
+  public ResponseEntity<Problem> handleGenerationException(GeneratorException ex, NativeWebRequest request) {
+    Problem problem = Problem.builder().withStatus(Status.BAD_REQUEST).withTitle(ex.getMessage()).build();
+    return create(ex, problem, request);
   }
 
   @Override

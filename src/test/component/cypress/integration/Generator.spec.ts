@@ -20,5 +20,8 @@ describe('Generator', () => {
     cy.get(generatorSelector('add-java-base-button')).contains('JavaBase');
     cy.get(generatorSelector('add-spring-boot-button')).contains('SpringBoot');
     cy.get(generatorSelector('add-spring-boot-mvc-tomcat-button')).contains('Spring MVC Tomcat');
+    cy.get(generatorSelector('add-angular-button')).contains('Angular');
+    cy.get(generatorSelector('add-react-button')).contains('React');
+    cy.get(generatorSelector('add-vue-button')).contains('Vue');
   });
 });

@@ -23,5 +23,6 @@ describe('Generator', () => {
     cy.get(generatorSelector('add-angular-button')).contains('Angular');
     cy.get(generatorSelector('add-react-button')).contains('React');
     cy.get(generatorSelector('add-vue-button')).contains('Vue');
+    cy.get(generatorSelector('add-frontend-maven-plugin-button')).contains('Frontend Maven Plugin');
   });
 });

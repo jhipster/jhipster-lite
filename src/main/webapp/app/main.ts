@@ -17,8 +17,8 @@ const vueRepository = new VueRepository(axiosHttp);
 const app = createApp(App);
 app.provide('projectService', projectRepository);
 app.provide('angularService', angularRepository);
-app.provide('reactRepository', reactRepository);
-app.provide('vueRepository', vueRepository);
+app.provide('reactService', reactRepository);
+app.provide('vueService', vueRepository);
 app.use(router);
 
 app.mount('#app');

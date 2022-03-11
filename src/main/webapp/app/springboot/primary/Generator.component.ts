@@ -81,6 +81,12 @@ export default defineComponent({
       }
     };
 
+    const addFrontendMavenPlugin = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addFrontendMavenPlugin(toProject(project.value));
+      }
+    };
+
     return {
       project,
       isAngularWithStyle,
@@ -94,6 +100,7 @@ export default defineComponent({
       addAngular,
       addReact,
       addVue,
+      addFrontendMavenPlugin,
     };
   },
 });

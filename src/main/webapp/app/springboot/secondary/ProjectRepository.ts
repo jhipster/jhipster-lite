@@ -16,6 +16,11 @@ export default class ProjectRepository implements ProjectService {
     await this.axiosHttp.post('api/build-tools/maven', restProject);
   }
 
+  async addFrontendMavenPlugin(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('api/frontend-maven-plugin', restProject);
+  }
+
   async addJavaBase(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('/api/servers/java/base', restProject);

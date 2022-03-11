@@ -13,6 +13,10 @@ public class DockerApplicationService {
     this.dockerService = dockerService;
   }
 
+  public Optional<String> getImageNameWithVersion(String imageName) {
+    return dockerService.getImageNameWithVersion(imageName);
+  }
+
   public Optional<String> getImageVersion(String imageName) {
     return dockerService.getImageVersion(imageName);
   }

@@ -24,6 +24,63 @@ class DockerDomainServiceTest {
   private DockerDomainService dockerDomainService;
 
   @Nested
+  class GetImageNameWithVersionTest {
+
+    @Test
+    void shouldReturnImageNameWithVersion() {
+      try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class)) {
+        String dockerfilePath = "/path/of/dockerfile";
+        fileUtilsMock.when(() -> FileUtils.getPath("generator", "dependencies", "Dockerfile")).thenReturn(dockerfilePath);
+        fileUtilsMock
+          .when(() -> FileUtils.readLinesInClasspath(dockerfilePath))
+          .thenReturn(
+            """
+                FROM jboss/keycloak:16.1.0
+                FROM ubuntu/postgres:12-20.04_beta
+                FROM postgres-old:1.0.0
+                from Postgres:14.1
+              """.lines()
+              .collect(Collectors.toList())
+          );
+
+        assertThat(dockerDomainService.getImageNameWithVersion("postgres")).contains("postgres:14.1");
+      }
+    }
+
+    @Test
+    void shouldNotReturnImageVersionWhenNotFound() {
+      try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class)) {
+        String dockerfilePath = "/path/of/dockerfile";
+        fileUtilsMock.when(() -> FileUtils.getPath("generator", "dependencies", "Dockerfile")).thenReturn(dockerfilePath);
+        fileUtilsMock.when(() -> FileUtils.readLinesInClasspath(dockerfilePath)).thenReturn(List.of("FROM postgres:14.1"));
+
+        assertThat(dockerDomainService.getImageNameWithVersion("mysql")).isEmpty();
+      }
+    }
+
+    @Test
+    void shouldNotReturnImageVersionWhenDockerfileIsInvalid() {
+      try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class)) {
+        String dockerfilePath = "/path/of/dockerfile";
+        fileUtilsMock.when(() -> FileUtils.getPath("generator", "dependencies", "Dockerfile")).thenReturn(dockerfilePath);
+        fileUtilsMock.when(() -> FileUtils.readLinesInClasspath(dockerfilePath)).thenReturn(List.of("FROM postgres:14.1:6"));
+
+        assertThat(dockerDomainService.getImageNameWithVersion("postgres")).isEmpty();
+      }
+    }
+
+    @Test
+    void shouldThrowExceptionWhenFilenameIsNull() {
+      assertThatThrownBy(() -> dockerDomainService.getImageNameWithVersion(null)).isInstanceOf(MissingMandatoryValueException.class);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenFilenameIsBlank() {
+      assertThatThrownBy(() -> dockerDomainService.getImageNameWithVersion("   ")).isInstanceOf(MissingMandatoryValueException.class);
+    }
+  }
+
+  @Nested
   class GetImageVersionTest {
 
     @Test

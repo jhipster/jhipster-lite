@@ -14,6 +14,15 @@ class DockerApplicationServiceIT {
   DockerApplicationService dockerApplicationService;
 
   @Test
+  void shouldGetImageNameWithVersion() {
+    // When
+    Optional<String> imageNameWithVersion = dockerApplicationService.getImageNameWithVersion("mysql");
+
+    // Then
+    assertThat(imageNameWithVersion).contains("mysql:8.0.28");
+  }
+
+  @Test
   void shouldGetImageVersion() {
     // When
     Optional<String> imageVersion = dockerApplicationService.getImageVersion("mysql");

@@ -10,6 +10,11 @@ import tech.jhipster.lite.error.domain.Assert;
 public class DockerDomainService implements DockerService {
 
   @Override
+  public Optional<String> getImageNameWithVersion(String imageName) {
+    return getImageVersion(imageName).map(version -> imageName + DOCKER_IMAGE_NAME_VERSION_SEPARATOR + version);
+  }
+
+  @Override
   public Optional<String> getImageVersion(String imageName) {
     Assert.notBlank("imageName", imageName);
 

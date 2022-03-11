@@ -23,11 +23,29 @@
     <input id="serverport" type="number" v-model="project.serverPort" />
   </p>
   <hr />
+  <h3>Init</h3>
   <button id="init" @click.prevent="initProject" data-selector="generator.init-button">Init</button>
   <button id="maven" @click.prevent="addMaven" data-selector="generator.add-maven-button">Maven</button>
   <button id="javabase" @click.prevent="addJavaBase" data-selector="generator.add-java-base-button">JavaBase</button>
+  <h3>SpringBoot</h3>
   <button id="springboot" @click.prevent="addSpringBoot" data-selector="generator.add-spring-boot-button">SpringBoot</button>
   <button id="springbootmvctomcat" @click.prevent="addSpringBootMvcTomcat" data-selector="generator.add-spring-boot-mvc-tomcat-button">
     Spring MVC Tomcat
   </button>
+  <h3>Client</h3>
+  <div>
+    <button id="angular" @click.prevent="addAngular" data-selector="generator.add-angular-button">Angular</button>
+    <input type="checkbox" id="angular-with-style" name="angular-with-style" v-model="isAngularWithStyle" />
+    <label for="angular-with-style">Generate with style</label>
+  </div>
+  <div>
+    <button id="react" @click.prevent="addReact" data-selector="generator.add-react-button">React</button>
+    <input type="checkbox" id="react-with-style" name="react-with-style" v-model="isReactWithStyle" />
+    <label for="react-with-style">Generate with style</label>
+  </div>
+  <div>
+    <button id="vue" @click.prevent="addVue" data-selector="generator.add-vue-button">Vue</button>
+    <input type="checkbox" id="vue-with-style" name="vue-with-style" v-model="isVueWithStyle" />
+    <label for="vue-with-style">Generate with style</label>
+  </div>
 </form>

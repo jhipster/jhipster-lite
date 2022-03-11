@@ -129,6 +129,11 @@ public class FileUtils {
     return Optional.empty();
   }
 
+  public static List<String> readLinesInClasspath(String filename) {
+    Assert.notBlank(FILENAME, filename);
+    return new BufferedReader(new InputStreamReader(getInputStream(filename))).lines().toList();
+  }
+
   public static boolean containsLines(String filename, List<String> lines) {
     Assert.notBlank(FILENAME, filename);
     Assert.notEmpty("lines", lines);

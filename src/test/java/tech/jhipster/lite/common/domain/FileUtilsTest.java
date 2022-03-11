@@ -383,6 +383,39 @@ class FileUtilsTest {
   }
 
   @Nested
+  class ReadLinesInClasspathTest {
+
+    @Test
+    void shouldReadLines() {
+      assertThat(FileUtils.readLinesInClasspath(getPath("generator/utils/readme-short.md")))
+        .hasSize(3)
+        .containsExactly("this is a short readme", "used for unit tests", "powered by JHipster");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenFileDoesNotExist() {
+      String fileName = "/path/to/unknown.md";
+      assertThatThrownBy(() -> FileUtils.readLinesInClasspath(fileName))
+        .isInstanceOf(GeneratorException.class)
+        .hasMessageContaining(fileName);
+    }
+
+    @Test
+    void shouldNotReadLinesForNullFileName() {
+      assertThatThrownBy(() -> FileUtils.readLinesInClasspath(null))
+        .isInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotReadLinesForBlankFileName() {
+      assertThatThrownBy(() -> FileUtils.readLinesInClasspath("   "))
+        .isInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+  }
+
+  @Nested
   class ContainsInLineTest {
 
     @Test

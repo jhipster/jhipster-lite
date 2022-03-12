@@ -20,7 +20,7 @@ import {{packageName}}.security.oauth2.infrastructure.WithUnauthenticatedMockUse
 
 @AutoConfigureMockMvc
 @IntegrationTest
-@WithMockUser(value = "test")
+@WithMockUser(value = TEST_USER_LOGIN)
 class AccountResourceIT {
 
   @Autowired

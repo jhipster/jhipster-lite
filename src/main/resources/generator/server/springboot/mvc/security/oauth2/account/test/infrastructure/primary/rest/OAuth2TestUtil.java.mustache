@@ -1,5 +1,7 @@
 package {{packageName}}.account.infrastructure.primary.rest;
 
+import static tech.jhipster.oauth2app.account.domain.AccountConstants.*;
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -32,9 +34,9 @@ public class OAuth2TestUtil {
 
   public static OAuth2AuthenticationToken testAuthenticationToken() {
     Map<String, Object> claims = new HashMap<>();
-    claims.put("sub", TEST_USER_LOGIN);
-    claims.put("preferred_username", TEST_USER_LOGIN);
-    claims.put("email", "john.doe@jhipster.com");
+    claims.put(SUB, TEST_USER_LOGIN);
+    claims.put(PREFERRED_USERNAME, TEST_USER_LOGIN);
+    claims.put(EMAIL, "john.doe@jhipster.com");
     claims.put("roles", Collections.singletonList(AuthoritiesConstants.ADMIN));
 
     return authenticationToken(claims);
@@ -50,14 +52,14 @@ public class OAuth2TestUtil {
   public static OAuth2AuthenticationToken authenticationToken(Map<String, Object> claims) {
     Instant issuedAt = Instant.now();
     Instant expiresAt = Instant.now().plus(1, ChronoUnit.DAYS);
-    if (!claims.containsKey("sub")) {
-      claims.put("sub", "jane");
+    if (!claims.containsKey(SUB)) {
+      claims.put(SUB, "jane");
     }
-    if (!claims.containsKey("preferred_username")) {
-      claims.put("preferred_username", "jane");
+    if (!claims.containsKey(PREFERRED_USERNAME)) {
+      claims.put(PREFERRED_USERNAME, "jane");
     }
-    if (!claims.containsKey("email")) {
-      claims.put("email", "jane.doe@jhipster.com");
+    if (!claims.containsKey(EMAIL)) {
+      claims.put(EMAIL, "jane.doe@jhipster.com");
     }
     if (claims.containsKey("auth_time")) {
       issuedAt = (Instant) claims.get("auth_time");

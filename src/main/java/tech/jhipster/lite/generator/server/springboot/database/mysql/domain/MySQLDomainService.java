@@ -105,6 +105,7 @@ public class MySQLDomainService implements MySQLService {
 
   private void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    this.sqlCommonService.addTestcontainers(project, DatabaseType.MYSQL.id(), springPropertiesForTest(baseName));
+    String mysqlVersion = dockerService.getImageVersion(MySQL.getDockerImageName()).orElseThrow();
+    this.sqlCommonService.addTestcontainers(project, DatabaseType.MYSQL.id(), springPropertiesForTest(baseName, mysqlVersion));
   }
 }

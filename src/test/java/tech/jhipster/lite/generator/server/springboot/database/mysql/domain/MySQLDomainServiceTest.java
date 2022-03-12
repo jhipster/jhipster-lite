@@ -55,6 +55,7 @@ class MySQLDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     when(dockerService.getImageNameWithVersion("mysql")).thenReturn(Optional.of("mysql:0.0.0"));
+    when(dockerService.getImageVersion("mysql")).thenReturn(Optional.of("0.0.0"));
 
     mySQLDomainService.init(project);
 

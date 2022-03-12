@@ -27,10 +27,10 @@ public class MySQL {
     return result;
   }
 
-  public static Map<String, Object> springPropertiesForTest(String baseName) {
+  public static Map<String, Object> springPropertiesForTest(String baseName, String mysqlVersion) {
     TreeMap<String, Object> result = new TreeMap<>();
     result.put("spring.datasource.driver-class-name", "org.testcontainers.jdbc.ContainerDatabaseDriver");
-    result.put("spring.datasource.url", "jdbc:tc:" + MySQL.getDockerImageName() + ":///" + baseName);
+    result.put("spring.datasource.url", "jdbc:tc:mysql:" + mysqlVersion + ":///" + baseName);
     result.put("spring.datasource.username", baseName);
     result.put("spring.datasource.password", "");
     result.put("spring.datasource.hikari.maximum-pool-size", 2);

@@ -6,7 +6,9 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 
 import tech.jhipster.lite.common.domain.WordUtils;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -21,17 +23,20 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final CommonSecurityService commonSecurityService;
+  private final DockerService dockerService;
 
   public OAuth2SecurityDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
-    CommonSecurityService commonSecurityService
+    CommonSecurityService commonSecurityService,
+    DockerService dockerService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.commonSecurityService = commonSecurityService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -54,8 +59,15 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   }
 
   private void addKeycloakDocker(Project project) {
-    project.addConfig("dockerKeycloakImage", getDockerKeycloakImage());
-    project.addConfig("dockerKeycloakVersion", getDockerKeycloakVersion());
+    String keycloakVersion = dockerService
+      .getImageVersion(getDockerKeycloakImageName())
+      .orElseThrow(() -> {
+        throw new GeneratorException("Version not found for docker image: " + getDockerKeycloakImageName());
+      });
+    String imageName = dockerService.getImageNameWithVersion(getDockerKeycloakImageName()).orElseThrow();
+
+    project.addConfig("dockerKeycloakImage", imageName);
+    project.addConfig("dockerKeycloakVersion", keycloakVersion);
 
     String dockerSourcePath = getPath(SOURCE, "docker");
     String dockerPathRealm = getPath(MAIN_DOCKER, "keycloak-realm-config");
@@ -114,8 +126,8 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";
     String newImport = String.format(
       """
-      import org.springframework.boot.test.context.SpringBootTest;
-      import %s.security.oauth2.infrastructure.config.TestSecurityConfiguration;""",
+        import org.springframework.boot.test.context.SpringBootTest;
+        import %s.security.oauth2.infrastructure.config.TestSecurityConfiguration;""",
       packageName
     );
     projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldImport, newImport);

@@ -6,7 +6,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class MariaDB {
 
-  public static final String DOCKER_IMAGE_NAME = "mariadb:10.8.2";
+  public static final String DOCKER_IMAGE_NAME = "mariadb";
   public static final String SOURCE = "server/springboot/database/mariadb";
 
   private MariaDB() {}

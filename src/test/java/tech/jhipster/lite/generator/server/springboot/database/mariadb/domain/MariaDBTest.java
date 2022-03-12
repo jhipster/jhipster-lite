@@ -13,7 +13,7 @@ class MariaDBTest {
 
   @Test
   void shouldGetDockerImageName() {
-    assertThat(MariaDB.getDockerImageName()).isEqualTo("mariadb:10.8.2");
+    assertThat(MariaDB.getDockerImageName()).isEqualTo("mariadb");
   }
 
   @Test

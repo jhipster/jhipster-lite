@@ -124,6 +124,7 @@ class MariaDBApplicationServiceIT {
     mariaDBApplicationService.addDockerCompose(project);
 
     assertFileExist(project, "src/main/docker/mariadb.yml");
+    assertFileContent(project, "src/main/docker/mariadb.yml", "mariadb:10.8.2");
     assertFileContent(project, "src/main/docker/mariadb.yml", "MYSQL_DATABASE=jhipster");
   }
 

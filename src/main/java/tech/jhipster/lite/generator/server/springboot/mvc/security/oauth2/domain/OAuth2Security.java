@@ -1,17 +1,20 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
+import static tech.jhipster.lite.generator.project.domain.Constants.DOMAIN;
+
 import java.util.HashMap;
 import java.util.Map;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class OAuth2Security {
 
-  private static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
+  public static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
+  public static final String ACCOUNT_CONTEXT = "account";
+  public static final String ACCOUNT_INFRASTRUCTURE_PRIMARY = "infrastructure/primary/rest";
 
   private static final String DOCKER_KEYCLOAK_IMAGE_NAME = "jboss/keycloak";
 
   private static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
-
   private static final String STARTER_SECURITY = "spring-boot-starter-security";
   private static final String STARTER_OAUTH2_CLIENT = "spring-boot-starter-oauth2-client";
   private static final String STARTER_OAUTH2_RESOURCE_SERVER = "spring-boot-starter-oauth2-resource-server";
@@ -43,8 +46,8 @@ public class OAuth2Security {
 
     map.put("SecurityUtils.java", "application");
 
-    map.put("AuthoritiesConstants.java", "domain");
-    map.put("ApplicationSecurityDefaults.java", "domain");
+    map.put("AuthoritiesConstants.java", DOMAIN);
+    map.put("ApplicationSecurityDefaults.java", DOMAIN);
 
     map.put("ApplicationSecurityProperties.java", INFRASTRUCTURE_CONFIG);
     map.put("AudienceValidator.java", INFRASTRUCTURE_CONFIG);
@@ -97,5 +100,28 @@ public class OAuth2Security {
       "spring.security.oauth2.client.provider.oidc.issuer-uri",
       "http://DO_NOT_CALL:9080/auth/realms/jhipster"
     );
+  }
+
+  public static Map<String, String> oauth2AccountContextFiles() {
+    Map<String, String> map = new HashMap<>();
+
+    map.put("AccountConstants.java", DOMAIN);
+    map.put("AccountResource.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("AccountResourceException.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("UserDTO.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+
+    return map;
+  }
+
+  public static Map<String, String> oauth2AccountContextTestFiles() {
+    Map<String, String> map = new HashMap<>();
+
+    map.put("AccountResourceExceptionTest.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("AccountResourceIT.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("AccountResourceTest.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("OAuth2TestUtil.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("UserDTOTest.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+
+    return map;
   }
 }

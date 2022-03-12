@@ -95,6 +95,22 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
       );
   }
 
+  @Override
+  public void addAccountContext(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+
+    String sourceSrc = getPath(SOURCE, ACCOUNT_CONTEXT, "src");
+    String destinationSrc = getPath(MAIN_JAVA, packageNamePath, ACCOUNT_CONTEXT);
+    oauth2AccountContextFiles()
+      .forEach((file, folder) -> projectRepository.template(project, getPath(sourceSrc, folder), file, getPath(destinationSrc, folder)));
+
+    String sourceTest = getPath(SOURCE, ACCOUNT_CONTEXT, "test");
+    String destinationTest = getPath(TEST_JAVA, packageNamePath, ACCOUNT_CONTEXT);
+    oauth2AccountContextTestFiles()
+      .forEach((file, folder) -> projectRepository.template(project, getPath(sourceTest, folder), file, getPath(destinationTest, folder)));
+  }
+
   private void addSpringBootProperties(Project project) {
     springBootCommonService.addPropertiesComment(project, "Spring Security OAuth2");
     properties().forEach((k, v) -> springBootCommonService.addProperties(project, k, v));

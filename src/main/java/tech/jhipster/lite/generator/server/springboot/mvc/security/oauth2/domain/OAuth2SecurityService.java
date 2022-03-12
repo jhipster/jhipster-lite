@@ -4,4 +4,5 @@ import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface OAuth2SecurityService {
   void addOAuth2(Project project);
+  void addAccountContext(Project project);
 }

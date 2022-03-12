@@ -90,4 +90,14 @@ class OAuth2SecurityDomainServiceTest {
       .isInstanceOf(GeneratorException.class)
       .hasMessageContaining("jboss/keycloak");
   }
+
+  @Test
+  void shouldAddAccountContext() {
+    Project project = tmpProject();
+
+    oAuth2SecurityDomainService.addAccountContext(project);
+
+    // 4 java files and 5 for tests
+    verify(projectRepository, times(9)).template(any(Project.class), anyString(), anyString(), anyString());
+  }
 }

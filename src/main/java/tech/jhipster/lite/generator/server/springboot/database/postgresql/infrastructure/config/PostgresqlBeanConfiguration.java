@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.database.postgresql.infra
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.PostgresqlDomainService;
@@ -16,21 +17,24 @@ public class PostgresqlBeanConfiguration {
   public final BuildToolService buildToolService;
   public final SpringBootCommonService springBootCommonService;
   public final SQLCommonService sqlCommonService;
+  private final DockerService dockerService;
 
   public PostgresqlBeanConfiguration(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
-    SQLCommonService sqlCommonService
+    SQLCommonService sqlCommonService,
+    DockerService dockerService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
+    this.dockerService = dockerService;
   }
 
   @Bean
   public PostgresqlService postgresqlService() {
-    return new PostgresqlDomainService(projectRepository, buildToolService, springBootCommonService, sqlCommonService);
+    return new PostgresqlDomainService(projectRepository, buildToolService, springBootCommonService, sqlCommonService, dockerService);
   }
 }

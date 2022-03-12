@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.database.postgresql.appli
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
@@ -17,7 +16,6 @@ import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplication
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
-import tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql;
 
 @IntegrationTest
 class PostgresqlApplicationServiceIT {
@@ -72,10 +70,7 @@ class PostgresqlApplicationServiceIT {
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, "config/application.properties"),
-      List.of(
-        "spring.datasource.url=jdbc:tc:postgresql:" + Postgresql.getPostgresqlDockerVersion() + ":///jhipster?TC_TMPFS=/testtmpfs:rw",
-        "spring.datasource.username=jhipster"
-      )
+      List.of("spring.datasource.url=jdbc:tc:postgresql:14.2:///jhipster?TC_TMPFS=/testtmpfs:rw", "spring.datasource.username=jhipster")
     );
   }
 
@@ -131,6 +126,7 @@ class PostgresqlApplicationServiceIT {
     postgresqlApplicationService.addDockerCompose(project);
 
     assertFileExist(project, "src/main/docker/postgresql.yml");
+    assertFileContent(project, "src/main/docker/postgresql.yml", "postgres:14.2");
     assertFileContent(project, "src/main/docker/postgresql.yml", "POSTGRES_USER=jhipster");
   }
 
@@ -142,6 +138,7 @@ class PostgresqlApplicationServiceIT {
     postgresqlApplicationService.addDockerCompose(project);
 
     assertFileExist(project, "src/main/docker/postgresql.yml");
+    assertFileContent(project, "src/main/docker/postgresql.yml", "postgres:14.2");
     assertFileContent(project, "src/main/docker/postgresql.yml", "POSTGRES_USER=chips");
   }
 

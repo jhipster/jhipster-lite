@@ -111,15 +111,8 @@ public class PostgresqlDomainService implements PostgresqlService {
 
   private void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    dockerService
-      .getImageVersion(Postgresql.getPostgresqlDockerImageName())
-      .ifPresentOrElse(
-        version ->
-          this.sqlCommonService.addTestcontainers(project, DatabaseType.POSTGRESQL.id(), springPropertiesForTest(baseName, version)),
-        () -> {
-          throw new GeneratorException("Version not found for docker image: " + Postgresql.getPostgresqlDockerImageName());
-        }
-      );
+    String imageVersion = dockerService.getImageVersion(Postgresql.getPostgresqlDockerImageName()).orElseThrow();
+    this.sqlCommonService.addTestcontainers(project, DatabaseType.POSTGRESQL.id(), springPropertiesForTest(baseName, imageVersion));
   }
 
   @Override

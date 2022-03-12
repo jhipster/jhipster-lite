@@ -5,7 +5,6 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.getDockerConsulImage;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -97,7 +96,8 @@ public class ConsulAssert {
 
   public static void assertDockerConsul(Project project) {
     assertFileExist(project, "src/main/docker/consul.yml");
-    assertFileContent(project, "src/main/docker/consul.yml", getDockerConsulImage());
+    assertFileContent(project, "src/main/docker/consul.yml", "consul:1.11.4");
+    assertFileContent(project, "src/main/docker/consul.yml", "jhipster/consul-config-loader:v0.4.1");
     assertFileExist(project, "src/main/docker/central-server-config/application.yml");
   }
 }

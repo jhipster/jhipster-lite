@@ -67,6 +67,8 @@ class ConsulDomainServiceTest {
   void shouldNotAddDockerComposeFile() {
     Project project = tmpProjectWithPomXml();
 
-    assertThatThrownBy(() -> consulDomainService.addDockerConsul(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> consulDomainService.addDockerConsul(project))
+      .isExactlyInstanceOf(GeneratorException.class)
+      .hasMessageContaining("consul");
   }
 }

@@ -4,7 +4,9 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAM
 import static tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL.*;
 
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -16,15 +18,18 @@ public class MySQLDomainService implements MySQLService {
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final SQLCommonService sqlCommonService;
+  private final DockerService dockerService;
 
   public MySQLDomainService(
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
-    SQLCommonService sqlCommonService
+    SQLCommonService sqlCommonService,
+    DockerService dockerService
   ) {
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -65,7 +70,16 @@ public class MySQLDomainService implements MySQLService {
   @Override
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    project.addConfig("dockerImageName", MySQL.getDockerImageName());
+
+    dockerService
+      .getImageNameWithVersion(MySQL.getDockerImageName())
+      .ifPresentOrElse(
+        imageName -> project.addConfig("dockerImageName", imageName),
+        () -> {
+          throw new GeneratorException("Version not found for docker image: " + MySQL.getDockerImageName());
+        }
+      );
+
     sqlCommonService.addDockerComposeTemplate(project, DatabaseType.MYSQL.id());
   }
 
@@ -91,6 +105,7 @@ public class MySQLDomainService implements MySQLService {
 
   private void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    this.sqlCommonService.addTestcontainers(project, DatabaseType.MYSQL.id(), springPropertiesForTest(baseName));
+    String mysqlVersion = dockerService.getImageVersion(MySQL.getDockerImageName()).orElseThrow();
+    this.sqlCommonService.addTestcontainers(project, DatabaseType.MYSQL.id(), springPropertiesForTest(baseName, mysqlVersion));
   }
 }

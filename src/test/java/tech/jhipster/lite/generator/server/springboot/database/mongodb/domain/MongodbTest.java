@@ -11,17 +11,12 @@ class MongodbTest {
 
   @Test
   void shouldGetDockerImageName() {
-    assertThat(Mongodb.getMongodbDockerImage()).isEqualTo("mongo:4.4.11");
-  }
-
-  @Test
-  void shouldGetMongodbDockerVersion() {
-    assertThat(Mongodb.getMongodbDockerVersion()).isEqualTo(Mongodb.MONGODB_DOCKER_VERSION);
+    assertThat(Mongodb.getMongodbDockerImageName()).isEqualTo("mongo");
   }
 
   @Test
   void shouldGetMongodbDockerImage() {
-    assertThat(Mongodb.getMongodbDockerImage()).isEqualTo(Mongodb.MONGODB_DOCKER_IMAGE);
+    assertThat(Mongodb.getMongodbDockerImageName()).isEqualTo(Mongodb.MONGODB_DOCKER_IMAGE_NAME);
   }
 
   @Test

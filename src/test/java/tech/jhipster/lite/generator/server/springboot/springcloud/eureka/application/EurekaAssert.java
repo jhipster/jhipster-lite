@@ -85,7 +85,7 @@ public class EurekaAssert {
 
   public static void assertDockerCompose(Project project) {
     assertFileExist(project, "src/main/docker/jhipster-registry.yml");
-    assertFileContent(project, "src/main/docker/jhipster-registry.yml", SpringCloudCommon.JHIPSTER_REGISTRY_DOCKER_IMAGE);
+    assertFileContent(project, "src/main/docker/jhipster-registry.yml", "jhipster/jhipster-registry:v7.3.0");
     assertFileExist(project, "src/main/docker/central-server-config/localhost-config/application.properties");
   }
 }

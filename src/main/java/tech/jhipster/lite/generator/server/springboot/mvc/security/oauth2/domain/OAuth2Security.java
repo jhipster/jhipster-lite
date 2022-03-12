@@ -8,8 +8,7 @@ public class OAuth2Security {
 
   private static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
 
-  private static final String DOCKER_KEYCLOAK_IMAGE = "jboss/keycloak";
-  private static final String DOCKER_KEYCLOAK_VERSION = "16.1.0";
+  private static final String DOCKER_KEYCLOAK_IMAGE_NAME = "jboss/keycloak";
 
   private static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
 
@@ -19,12 +18,8 @@ public class OAuth2Security {
 
   private OAuth2Security() {}
 
-  public static String getDockerKeycloakImage() {
-    return DOCKER_KEYCLOAK_IMAGE + ":" + DOCKER_KEYCLOAK_VERSION;
-  }
-
-  public static String getDockerKeycloakVersion() {
-    return DOCKER_KEYCLOAK_VERSION;
+  public static String getDockerKeycloakImageName() {
+    return DOCKER_KEYCLOAK_IMAGE_NAME;
   }
 
   public static Dependency springBootStarterSecurityDependency() {

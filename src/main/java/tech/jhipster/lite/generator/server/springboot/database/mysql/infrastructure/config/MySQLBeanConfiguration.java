@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.database.mysql.infrastruc
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLDomainService;
 import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLService;
@@ -14,19 +15,22 @@ public class MySQLBeanConfiguration {
   public final BuildToolService buildToolService;
   public final SpringBootCommonService springBootCommonService;
   public final SQLCommonService sqlCommonService;
+  private final DockerService dockerService;
 
   public MySQLBeanConfiguration(
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
-    SQLCommonService sqlCommonService
+    SQLCommonService sqlCommonService,
+    DockerService dockerService
   ) {
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
+    this.dockerService = dockerService;
   }
 
   @Bean
   public MySQLService mysqlService() {
-    return new MySQLDomainService(buildToolService, springBootCommonService, sqlCommonService);
+    return new MySQLDomainService(buildToolService, springBootCommonService, sqlCommonService, dockerService);
   }
 }

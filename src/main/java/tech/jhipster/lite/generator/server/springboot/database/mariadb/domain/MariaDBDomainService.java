@@ -1,10 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.database.mariadb.domain;
 
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDB.*;
 
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -16,15 +18,18 @@ public class MariaDBDomainService implements MariaDBService {
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final SQLCommonService sqlCommonService;
+  private final DockerService dockerService;
 
   public MariaDBDomainService(
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
-    SQLCommonService sqlCommonService
+    SQLCommonService sqlCommonService,
+    DockerService dockerService
   ) {
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -65,7 +70,16 @@ public class MariaDBDomainService implements MariaDBService {
   @Override
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    project.addConfig("dockerImageName", MariaDB.getDockerImageName());
+
+    dockerService
+      .getImageNameWithVersion(MariaDB.getDockerImageName())
+      .ifPresentOrElse(
+        imageName -> project.addConfig("dockerImageName", imageName),
+        () -> {
+          throw new GeneratorException("Version not found for docker image: " + MariaDB.getDockerImageName());
+        }
+      );
+
     sqlCommonService.addDockerComposeTemplate(project, DatabaseType.MARIADB.id());
   }
 

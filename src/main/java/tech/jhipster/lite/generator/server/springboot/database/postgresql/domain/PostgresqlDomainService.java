@@ -7,7 +7,9 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAM
 import static tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql.*;
 
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -22,17 +24,20 @@ public class PostgresqlDomainService implements PostgresqlService {
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final SQLCommonService sqlCommonService;
+  private final DockerService dockerService;
 
   public PostgresqlDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
-    SQLCommonService sqlCommonService
+    SQLCommonService sqlCommonService,
+    DockerService dockerService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -73,7 +78,16 @@ public class PostgresqlDomainService implements PostgresqlService {
   @Override
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    project.addConfig("postgresqlDockerImage", Postgresql.getPostgresqlDockerImage());
+
+    dockerService
+      .getImageNameWithVersion(Postgresql.getPostgresqlDockerImageName())
+      .ifPresentOrElse(
+        imageName -> project.addConfig("postgresqlDockerImage", imageName),
+        () -> {
+          throw new GeneratorException("Version not found for docker image: " + Postgresql.getPostgresqlDockerImageName());
+        }
+      );
+
     sqlCommonService.addDockerComposeTemplate(project, DatabaseType.POSTGRESQL.id());
   }
 
@@ -97,7 +111,8 @@ public class PostgresqlDomainService implements PostgresqlService {
 
   private void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    this.sqlCommonService.addTestcontainers(project, DatabaseType.POSTGRESQL.id(), springPropertiesForTest(baseName));
+    String imageVersion = dockerService.getImageVersion(Postgresql.getPostgresqlDockerImageName()).orElseThrow();
+    this.sqlCommonService.addTestcontainers(project, DatabaseType.POSTGRESQL.id(), springPropertiesForTest(baseName, imageVersion));
   }
 
   @Override

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +25,7 @@ import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -40,6 +42,9 @@ class SpringCloudCommonDomainServiceTest {
 
   @Mock
   BuildToolService buildToolService;
+
+  @Mock
+  DockerService dockerService;
 
   @InjectMocks
   SpringCloudCommonDomainService springCloudCommonDomainService;
@@ -103,6 +108,8 @@ class SpringCloudCommonDomainServiceTest {
       // Given
       Project project = tmpProject();
 
+      when(dockerService.getImageNameWithVersion("jhipster/jhipster-registry")).thenReturn(Optional.of("jhipster/jhipster-registry:1.1.1"));
+
       String expectedBase64Secret = "encodedSecret";
 
       try (MockedStatic<Base64Utils> base64Utils = mockStatic(Base64Utils.class)) {
@@ -112,7 +119,7 @@ class SpringCloudCommonDomainServiceTest {
         springCloudCommonDomainService.addJhipsterRegistryDockerCompose(project);
 
         // Then
-        assertThat(project.getConfig("jhipsterRegistryDockerImage")).contains("jhipster/jhipster-registry:v7.1.0");
+        assertThat(project.getConfig("jhipsterRegistryDockerImage")).contains("jhipster/jhipster-registry:1.1.1");
         assertThat(project.getConfig("base64JwtSecret")).contains(expectedBase64Secret);
 
         verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
@@ -134,6 +141,15 @@ class SpringCloudCommonDomainServiceTest {
             "application.properties"
           );
       }
+    }
+
+    @Test
+    void shouldThrowExceptionWhenImageVersionNotFound() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> springCloudCommonDomainService.addJhipsterRegistryDockerCompose(project))
+        .isInstanceOf(GeneratorException.class)
+        .hasMessageContaining("jhipster/jhipster-registry");
     }
   }
 

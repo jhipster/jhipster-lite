@@ -7,15 +7,18 @@ import static org.mockito.Mockito.anyMap;
 import static org.mockito.Mockito.eq;
 import static tech.jhipster.lite.TestUtils.*;
 
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -34,6 +37,9 @@ class MariaDBDomainServiceTest {
   @Mock
   SQLCommonService sqlCommonService;
 
+  @Mock
+  DockerService dockerService;
+
   @InjectMocks
   MariaDBDomainService mariaDBDomainService;
 
@@ -47,6 +53,8 @@ class MariaDBDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
+
+    when(dockerService.getImageNameWithVersion("mariadb")).thenReturn(Optional.of("mariadb:0.0.0"));
 
     mariaDBDomainService.init(project);
 
@@ -62,5 +70,12 @@ class MariaDBDomainServiceTest {
     verify(sqlCommonService).addJavaFiles(project, "mariadb");
     verify(sqlCommonService).addProperties(eq(project), any());
     verify(sqlCommonService).addLoggers(project);
+  }
+
+  @Test
+  void shouldThrowExceptionWhenImageVersionNotFound() {
+    Project project = tmpProject();
+
+    assertThatThrownBy(() -> mariaDBDomainService.init(project)).isInstanceOf(GeneratorException.class).hasMessageContaining("mariadb");
   }
 }

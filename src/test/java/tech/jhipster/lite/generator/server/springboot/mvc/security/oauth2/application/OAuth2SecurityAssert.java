@@ -29,7 +29,7 @@ public class OAuth2SecurityAssert {
     assertFileExist(project, "src/main/docker/keycloak-realm-config/jhipster-realm.json");
     assertFileExist(project, "src/main/docker/keycloak-realm-config/jhipster-users-0.json");
 
-    assertFileContent(project, "src/main/docker/keycloak.yml", getDockerKeycloakImage());
+    assertFileContent(project, "src/main/docker/keycloak.yml", "jboss/keycloak:16.1.1");
   }
 
   public static void assertJavaFiles(Project project) {

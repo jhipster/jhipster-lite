@@ -4,7 +4,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class SpringCloudCommon {
 
-  public static final String JHIPSTER_REGISTRY_DOCKER_IMAGE = "jhipster/jhipster-registry:v7.1.0";
+  public static final String JHIPSTER_REGISTRY_DOCKER_IMAGE_NAME = "jhipster/jhipster-registry";
   public static final String SPRINGFRAMEWORK_CLOUD_GROUP_ID = "org.springframework.cloud";
 
   private SpringCloudCommon() {

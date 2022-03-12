@@ -6,6 +6,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -15,10 +16,12 @@ public class SonarDomainService implements SonarService {
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
+  private final DockerService dockerService;
 
-  public SonarDomainService(ProjectRepository projectRepository, BuildToolService buildToolService) {
+  public SonarDomainService(ProjectRepository projectRepository, BuildToolService buildToolService, DockerService dockerService) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -103,7 +106,14 @@ public class SonarDomainService implements SonarService {
 
   private void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    project.addConfig("sonarqubeDockerImage", Sonar.getSonarqubeDockerImage());
+    dockerService
+      .getImageNameWithVersion(Sonar.getSonarqubeDockerImageName())
+      .ifPresentOrElse(
+        imageName -> project.addConfig("sonarqubeDockerImage", imageName),
+        () -> {
+          throw new GeneratorException("Version not found for docker image: " + Sonar.getSonarqubeDockerImageName());
+        }
+      );
     projectRepository.template(project, SOURCE, "sonar.yml", "src/main/docker", "sonar.yml");
   }
 }

@@ -10,6 +10,6 @@ class SonarTest {
 
   @Test
   void shouldGetSonarqubeDockerVersion() {
-    assertThat(Sonar.getSonarqubeDockerImage()).isEqualTo("sonarqube:9.2.4-community");
+    assertThat(Sonar.getSonarqubeDockerImageName()).isEqualTo("sonarqube");
   }
 }

@@ -1,9 +1,10 @@
 package {{packageName}}.account.infrastructure.primary.rest;
 
-import static {{packageName}}.account.domain.AccountConstants.DEFAULT_LANGUAGE;
+import static {{packageName}}.account.domain.AccountConstants.*;
 
 import java.time.Instant;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -175,64 +176,72 @@ public class UserDTO {
 
   private static UserDTO getUserDTOFromAttributes(Map<String, Object> details) {
     UserDTO user = new UserDTO();
-    Boolean activated = Boolean.TRUE;
-    String sub = String.valueOf(details.get("sub"));
+    String sub = String.valueOf(details.get(SUB));
 
     // handle resource server JWT, where sub claim is email and uid is ID
-    if (details.get("uid") != null) {
-      user.setId((String) details.get("uid"));
-      user.setLogin(sub);
-    } else {
-      user.setId(sub);
-    }
+    Optional
+      .ofNullable(details.get(UID))
+      .ifPresentOrElse(
+        uid -> {
+          user.setId((String) uid);
+          user.setLogin(sub);
+        },
+        () -> user.setId(sub)
+      );
 
-    String username = null;
-    if (details.get("preferred_username") != null) {
-      username = ((String) details.get("preferred_username")).toLowerCase();
-    }
-    if (username != null) {
-      user.setLogin(username);
-    } else if (user.getLogin() == null) {
-      user.setLogin(user.getId());
-    }
-    if (details.get("given_name") != null) {
-      user.setFirstName((String) details.get("given_name"));
-    } else if (details.get("name") != null) {
-      user.setFirstName((String) details.get("name"));
-    }
-    if (details.get("family_name") != null) {
-      user.setLastName((String) details.get("family_name"));
-    }
-    if (details.get("email_verified") != null) {
-      activated = (Boolean) details.get("email_verified");
-    }
-    if (details.get("email") != null) {
-      user.setEmail(((String) details.get("email")).toLowerCase());
-    } else if (sub.contains("|") && username != null && username.contains("@")) {
+    String username = Optional.ofNullable(details.get(PREFERRED_USERNAME)).map(s -> s.toString().toLowerCase()).orElse(null);
+    user.setLogin(Optional.ofNullable(username).orElse(user.getId()));
+
+    Optional.ofNullable(getFirstName(details)).ifPresent(user::setFirstName);
+
+    Optional.ofNullable(details.get(FAMILY_NAME)).ifPresent(familyName -> user.setLastName((String) familyName));
+
+    Optional
+      .ofNullable(details.get(EMAIL_VERIFIED))
+      .ifPresentOrElse(emailVerified -> user.setActivated((Boolean) emailVerified), () -> user.setActivated(Boolean.TRUE));
+
+    if (details.get(EMAIL) != null) {
+      user.setEmail(((String) details.get(EMAIL)).toLowerCase());
+    } else if (checkAuth0(sub, username)) {
       // special handling for Auth0
       user.setEmail(username);
     } else {
       user.setEmail(sub);
     }
-    if (details.get("langKey") != null) {
-      user.setLangKey((String) details.get("langKey"));
-    } else if (details.get("locale") != null) {
-      // trim off country code if it exists
-      String locale = (String) details.get("locale");
-      if (locale.contains("_")) {
-        locale = locale.substring(0, locale.indexOf('_'));
-      } else if (locale.contains("-")) {
-        locale = locale.substring(0, locale.indexOf('-'));
-      }
-      user.setLangKey(locale.toLowerCase());
+    if (details.get(LANG_KEY) != null) {
+      user.setLangKey((String) details.get(LANG_KEY));
+    } else if (details.get(LOCALE) != null) {
+      user.setLangKey(getLocale(details));
     } else {
       // set langKey to default if not specified by IdP
       user.setLangKey(DEFAULT_LANGUAGE);
     }
-    if (details.get("picture") != null) {
-      user.setImageUrl((String) details.get("picture"));
-    }
-    user.setActivated(activated);
+
+    Optional.ofNullable(details.get(PICTURE)).ifPresent(picture -> user.setImageUrl((String) picture));
     return user;
+  }
+
+  private static boolean checkAuth0(String sub, String username) {
+    return sub.contains("|") && username != null && username.contains("@");
+  }
+
+  private static String getLocale(Map<String, Object> details) {
+    // trim off country code if it exists
+    String locale = (String) details.get(LOCALE);
+    if (locale.contains("_")) {
+      locale = locale.substring(0, locale.indexOf('_'));
+    } else if (locale.contains("-")) {
+      locale = locale.substring(0, locale.indexOf('-'));
+    }
+    return locale.toLowerCase();
+  }
+
+  private static String getFirstName(Map<String, Object> details) {
+    if (details.get(GIVEN_NAME) != null) {
+      return (String) details.get(GIVEN_NAME);
+    } else if (details.get(NAME) != null) {
+      return (String) details.get(NAME);
+    }
+    return null;
   }
 }

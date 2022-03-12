@@ -199,6 +199,7 @@ class UserDTOTest {
     claims.put("preferred_username", "admin");
     claims.put("sub", "admin@localhost|information");
     claims.put("locale", "fr");
+    claims.put("email_verified", false);
 
     OidcIdToken idToken = new OidcIdToken(ID_TOKEN, Instant.now(), Instant.now().plusSeconds(60), claims);
     Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -209,6 +210,7 @@ class UserDTOTest {
     UserDTO result = UserDTO.getUserDTOFromToken(oauth2AuthenticationToken);
 
     assertThat(result.getLangKey()).isEqualTo("fr");
+    assertThat(result.isActivated()).isFalse();
   }
 
   @Test

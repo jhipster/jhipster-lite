@@ -6,15 +6,19 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
+import java.util.Optional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -33,6 +37,9 @@ class MySQLDomainServiceTest {
   @Mock
   SQLCommonService sqlCommonService;
 
+  @Mock
+  DockerService dockerService;
+
   @InjectMocks
   MySQLDomainService mySQLDomainService;
 
@@ -46,6 +53,8 @@ class MySQLDomainServiceTest {
   @Test
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
+
+    when(dockerService.getImageNameWithVersion("mysql")).thenReturn(Optional.of("mysql:0.0.0"));
 
     mySQLDomainService.init(project);
 
@@ -61,5 +70,15 @@ class MySQLDomainServiceTest {
     verify(sqlCommonService).addJavaFiles(project, "mysql");
     verify(sqlCommonService).addProperties(eq(project), any());
     verify(sqlCommonService).addLoggers(project);
+  }
+
+  @Test
+  void shouldThrowExceptionWhenImageVersionNotFound() {
+    Project project = tmpProjectWithPomXml();
+
+    Assertions
+      .assertThatThrownBy(() -> mySQLDomainService.init(project))
+      .isInstanceOf(GeneratorException.class)
+      .hasMessageContaining("mysql");
   }
 }

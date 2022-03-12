@@ -126,6 +126,7 @@ class MySQLApplicationServiceIT {
     mysqlApplicationService.addDockerCompose(project);
 
     assertFileExist(project, "src/main/docker/mysql.yml");
+    assertFileContent(project, "src/main/docker/mysql.yml", "mysql:8.0.28");
     assertFileContent(project, "src/main/docker/mysql.yml", "MYSQL_DATABASE=jhipster");
   }
 

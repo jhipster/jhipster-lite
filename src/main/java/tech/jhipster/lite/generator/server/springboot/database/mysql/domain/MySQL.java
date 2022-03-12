@@ -6,7 +6,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class MySQL {
 
-  public static final String DOCKER_IMAGE_NAME = "mysql:8.0.27";
+  public static final String DOCKER_IMAGE_NAME = "mysql";
+  public static final String MYSQL_GROUP_ID = "mysql";
   public static final String SOURCE = "server/springboot/database/mysql";
 
   private MySQL() {}
@@ -16,7 +17,7 @@ public class MySQL {
   }
 
   public static Dependency mysqlConnectorJava() {
-    return Dependency.builder().groupId("mysql").artifactId("mysql-connector-java").build();
+    return Dependency.builder().groupId(MYSQL_GROUP_ID).artifactId("mysql-connector-java").build();
   }
 
   public static Map<String, Object> springProperties(String baseName) {

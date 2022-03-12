@@ -12,13 +12,13 @@ describe('Generator', () => {
   });
 
   it('should display generator page', () => {
-    cy.get(generatorSelector('title')).contains('JHLite');
-    cy.get(generatorSelector('subtitle')).contains('SpringBoot Generator');
+    cy.get(generatorSelector('title')).contains('JHipster Lite');
+    cy.get(generatorSelector('subtitle')).contains('Spring Boot Generator');
 
     cy.get(generatorSelector('init-button')).contains('Init');
     cy.get(generatorSelector('add-maven-button')).contains('Maven');
-    cy.get(generatorSelector('add-java-base-button')).contains('JavaBase');
-    cy.get(generatorSelector('add-spring-boot-button')).contains('SpringBoot');
+    cy.get(generatorSelector('add-java-base-button')).contains('Java Base');
+    cy.get(generatorSelector('add-spring-boot-button')).contains('Spring Boot');
     cy.get(generatorSelector('add-spring-boot-mvc-tomcat-button')).contains('Spring MVC Tomcat');
     cy.get(generatorSelector('add-angular-button')).contains('Angular');
     cy.get(generatorSelector('add-react-button')).contains('React');

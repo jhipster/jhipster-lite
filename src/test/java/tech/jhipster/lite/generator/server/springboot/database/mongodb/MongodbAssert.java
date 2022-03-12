@@ -11,7 +11,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURC
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
-import static tech.jhipster.lite.generator.server.springboot.database.mongodb.domain.Mongodb.getMongodbDockerImage;
+import static tech.jhipster.lite.generator.server.springboot.database.mongodb.domain.Mongodb.getMongodbDockerImageName;
 
 import java.util.List;
 import tech.jhipster.lite.common.domain.FileUtils;
@@ -57,7 +57,7 @@ public final class MongodbAssert {
 
   public static void assertDockerMongodb(Project project) {
     assertFileExist(project, "src/main/docker/mongodb.yml");
-    assertFileContent(project, "src/main/docker/mongodb.yml", getMongodbDockerImage());
+    assertFileContent(project, "src/main/docker/mongodb.yml", "mongo:5.0.6");
     assertFileContent(project, "src/main/docker/mongodb.yml", "- 127.0.0.1:27017:27017");
   }
 

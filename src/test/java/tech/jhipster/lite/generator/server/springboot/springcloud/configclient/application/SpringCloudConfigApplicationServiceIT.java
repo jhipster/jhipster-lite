@@ -92,6 +92,7 @@ class SpringCloudConfigApplicationServiceIT {
 
   private void assertDockerCompose(Project project) {
     assertFileExist(project, "src/main/docker/jhipster-registry.yml");
+    assertFileContent(project, "src/main/docker/jhipster-registry.yml", "jhipster/jhipster-registry:v7.3.0");
     assertFileContent(project, "src/main/docker/jhipster-registry.yml", "JHIPSTER_REGISTRY_PASSWORD=admin");
     assertFileExist(project, "src/main/docker/central-server-config/localhost-config/application.properties");
   }

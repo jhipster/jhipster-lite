@@ -23,16 +23,16 @@ export default class ProjectRepository implements ProjectService {
 
   async addJavaBase(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/java/base', restProject);
+    await this.axiosHttp.post('api/servers/java/base', restProject);
   }
 
   async addSpringBoot(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/spring-boot', restProject);
+    await this.axiosHttp.post('api/servers/spring-boot', restProject);
   }
 
   async addSpringBootMvcTomcat(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/spring-boot/mvc/web/tomcat', restProject);
+    await this.axiosHttp.post('api/servers/spring-boot/mvc/web/tomcat', restProject);
   }
 }

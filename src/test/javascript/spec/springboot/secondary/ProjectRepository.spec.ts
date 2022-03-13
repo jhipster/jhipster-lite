@@ -3,6 +3,7 @@ import ProjectRepository from '@/springboot/secondary/ProjectRepository';
 import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
 import { createProject } from '../domain/Project.fixture';
+import { createRestHistory } from '../../common/secondary/RestHistory.fixture';
 
 describe('ProjectRepository', () => {
   it('should init project', () => {
@@ -43,7 +44,7 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/java/base');
+    expect(uri).toBe('api/servers/java/base');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -57,7 +58,7 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot');
+    expect(uri).toBe('api/servers/spring-boot');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -71,7 +72,7 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/mvc/web/tomcat');
+    expect(uri).toBe('api/servers/spring-boot/mvc/web/tomcat');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 

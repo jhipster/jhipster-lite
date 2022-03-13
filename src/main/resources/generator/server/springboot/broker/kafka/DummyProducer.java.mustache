@@ -18,7 +18,7 @@ public class DummyProducer {
 
   private final String topicName;
 
-  public DummyProducer(@Value("${kafka.topic.name}") String topicName, Producer<String, String> kafkaProducer) {
+  public DummyProducer(@Value("${kafka.topic.dummy}") String topicName, Producer<String, String> kafkaProducer) {
     this.kafkaProducer = kafkaProducer;
     this.topicName = topicName;
   }

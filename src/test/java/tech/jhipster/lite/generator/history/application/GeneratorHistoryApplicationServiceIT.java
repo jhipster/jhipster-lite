@@ -1,11 +1,12 @@
 package tech.jhipster.lite.generator.history.application;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.io.IOException;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
@@ -44,6 +45,8 @@ class GeneratorHistoryApplicationServiceIT {
     // Then
     String content = FileUtils.read(getPath(project.getFolder(), ".jhipster", "history.json"));
     assertThat(content).isEqualTo(getExpectedHistoryFileContent());
+    List<GeneratorHistoryValue> serviceIds = generatorHistoryApplicationService.getValues(project);
+    assertThat(serviceIds).extracting(GeneratorHistoryValue::serviceId).containsOnly("init-project");
   }
 
   private String getExpectedHistoryFileContent() {

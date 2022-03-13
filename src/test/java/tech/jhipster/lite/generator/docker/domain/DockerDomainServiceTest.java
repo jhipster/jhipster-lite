@@ -35,11 +35,11 @@ class DockerDomainServiceTest {
           .when(() -> FileUtils.readLinesInClasspath(dockerfilePath))
           .thenReturn(
             """
-                FROM jboss/keycloak:16.1.0
-                FROM ubuntu/postgres:12-20.04_beta
-                FROM postgres-old:1.0.0
-                from Postgres:14.1
-              """.lines()
+            FROM jboss/keycloak:16.1.0
+            FROM ubuntu/postgres:12-20.04_beta
+            FROM postgres-old:1.0.0
+            from Postgres:14.1
+            """.lines()
               .collect(Collectors.toList())
           );
 

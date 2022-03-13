@@ -49,16 +49,23 @@ public class KafkaDomainService implements KafkaService {
       project.addDefaultConfig(PACKAGE_NAME);
       project.addDefaultConfig(BASE_NAME);
       String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-      String kafkaPropertiesPath = "technical/infrastructure/secondary/kafka";
-      String dummyProducerPath = "dummy/infrastructure/secondary/producer";
+      String secondaryKafkaPath = "technical/infrastructure/secondary/kafka";
+      String dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
 
       String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
       springBootCommonService.addProperties(project, DUMMY_TOPIC_NAME, topicName);
       springBootCommonService.addPropertiesTest(project, DUMMY_TOPIC_NAME, topicName);
 
-      projectRepository.template(project, SOURCE, "KafkaProperties.java", getPath(MAIN_JAVA, packageNamePath, kafkaPropertiesPath));
-      projectRepository.template(project, SOURCE, "KafkaPropertiesTest.java", getPath(TEST_JAVA, packageNamePath, kafkaPropertiesPath));
+      projectRepository.template(project, SOURCE, "KafkaProducerProperties.java", getPath(MAIN_JAVA, packageNamePath, secondaryKafkaPath));
+      projectRepository.template(
+        project,
+        SOURCE,
+        "KafkaProducerPropertiesTest.java",
+        getPath(TEST_JAVA, packageNamePath, secondaryKafkaPath)
+      );
       projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, dummyProducerPath));
+      projectRepository.template(project, SOURCE, "DummyProducerTest.java", getPath(TEST_JAVA, packageNamePath, dummyProducerPath));
+      projectRepository.template(project, SOURCE, "KafkaConfiguration.java", getPath(MAIN_JAVA, packageNamePath, secondaryKafkaPath));
     }
   }
 

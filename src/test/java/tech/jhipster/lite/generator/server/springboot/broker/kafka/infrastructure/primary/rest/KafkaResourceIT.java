@@ -83,7 +83,13 @@ class KafkaResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/secondary/kafka/KafkaProperties.java");
-    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/dummy/infrastructure/secondary/producer/DummyProducer.java");
+    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/secondary/kafka/KafkaProducerProperties.java");
+    assertFileExist(
+      projectPath,
+      "src/test/java/tech/jhipster/chips/technical/infrastructure/secondary/kafka/KafkaProducerPropertiesTest.java"
+    );
+    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/dummy/infrastructure/secondary/kafka/producer/DummyProducer.java");
+    assertFileExist(projectPath, "src/test/java/tech/jhipster/chips/dummy/infrastructure/secondary/kafka/producer/DummyProducerTest.java");
+    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/secondary/kafka/KafkaConfiguration.java");
   }
 }

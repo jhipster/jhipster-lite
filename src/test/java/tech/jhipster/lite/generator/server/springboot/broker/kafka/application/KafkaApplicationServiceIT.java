@@ -59,17 +59,31 @@ class KafkaApplicationServiceIT {
 
     kafkaApplicationService.addDummyProducer(project);
 
-    String kafkaPropertiesPath = getPath("com/mycompany/myapp/technical/infrastructure/secondary/kafka");
-    assertFileExist(project, getPath(MAIN_JAVA, kafkaPropertiesPath, "KafkaProperties.java"));
-    assertFileContent(project, getPath(MAIN_JAVA, kafkaPropertiesPath, "KafkaProperties.java"), "public class KafkaProperties");
+    String secondaryKafkaPath = getPath("com/mycompany/myapp/technical/infrastructure/secondary/kafka");
+    assertFileExist(project, getPath(MAIN_JAVA, secondaryKafkaPath, "KafkaProducerProperties.java"));
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, secondaryKafkaPath, "KafkaProducerProperties.java"),
+      "public class KafkaProducerProperties"
+    );
+    assertFileExist(project, getPath(MAIN_JAVA, secondaryKafkaPath, "KafkaConfiguration.java"));
+    assertFileContent(project, getPath(MAIN_JAVA, secondaryKafkaPath, "KafkaConfiguration.java"), "public class KafkaConfiguration");
 
-    String kafkaPropertiesTestPath = getPath("com/mycompany/myapp/technical/infrastructure/secondary/kafka");
-    assertFileExist(project, getPath(TEST_JAVA, kafkaPropertiesTestPath, "KafkaPropertiesTest.java"));
-    assertFileContent(project, getPath(TEST_JAVA, kafkaPropertiesTestPath, "KafkaPropertiesTest.java"), "class KafkaPropertiesTest");
+    String kafkaProducerPropertiesTestPath = getPath("com/mycompany/myapp/technical/infrastructure/secondary/kafka");
+    assertFileExist(project, getPath(TEST_JAVA, kafkaProducerPropertiesTestPath, "KafkaProducerPropertiesTest.java"));
+    assertFileContent(
+      project,
+      getPath(TEST_JAVA, kafkaProducerPropertiesTestPath, "KafkaProducerPropertiesTest.java"),
+      "class KafkaProducerPropertiesTest"
+    );
 
-    String dummyProducerPath = getPath("com/mycompany/myapp/dummy/infrastructure/secondary/producer");
+    String dummyProducerPath = getPath("com/mycompany/myapp/dummy/infrastructure/secondary/kafka/producer");
     assertFileExist(project, getPath(MAIN_JAVA, dummyProducerPath, "DummyProducer.java"));
     assertFileContent(project, getPath(MAIN_JAVA, dummyProducerPath, "DummyProducer.java"), "public class DummyProducer");
+
+    String dummyProducerTestPath = getPath("com/mycompany/myapp/dummy/infrastructure/secondary/kafka/producer");
+    assertFileExist(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerTest.java"));
+    assertFileContent(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerTest.java"), "class DummyProducerTest");
   }
 
   private List<String> kafkaClients() {

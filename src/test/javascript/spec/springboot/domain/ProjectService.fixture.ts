@@ -8,6 +8,12 @@ export interface ProjectServiceFixture extends ProjectService {
   addJavaBase: SinonStub;
   addSpringBoot: SinonStub;
   addSpringBootMvcTomcat: SinonStub;
+  addSpringBootBannerIppon: SinonStub;
+  addSpringBootBannerJhipsterV2: SinonStub;
+  addSpringBootBannerJhipsterV3: SinonStub;
+  addSpringBootBannerJhipsterV7: SinonStub;
+  addSpringBootBannerJhipsterV7React: SinonStub;
+  addSpringBootBannerJhipsterV7Vue: SinonStub;
 }
 
 export const stubProjectService = (): ProjectServiceFixture => ({
@@ -17,4 +23,10 @@ export const stubProjectService = (): ProjectServiceFixture => ({
   addJavaBase: sinon.stub(),
   addSpringBoot: sinon.stub(),
   addSpringBootMvcTomcat: sinon.stub(),
+  addSpringBootBannerIppon: sinon.stub(),
+  addSpringBootBannerJhipsterV2: sinon.stub(),
+  addSpringBootBannerJhipsterV3: sinon.stub(),
+  addSpringBootBannerJhipsterV7: sinon.stub(),
+  addSpringBootBannerJhipsterV7React: sinon.stub(),
+  addSpringBootBannerJhipsterV7Vue: sinon.stub(),
 });

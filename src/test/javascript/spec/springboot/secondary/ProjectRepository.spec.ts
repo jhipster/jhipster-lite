@@ -88,4 +88,18 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('api/frontend-maven-plugin');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
+  it('should add Ippon Banner', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootBannerIppon(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/servers/spring-boot/banner/ippon');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
 });

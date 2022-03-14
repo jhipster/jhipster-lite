@@ -32,7 +32,7 @@
             </div>
             <div class="mb-1">
               <label for="serverport">Server port : </label>
-              <input class="jh-input" id="serverport" type="number" v-model="project.serverPort" />
+              <input class="jh-input" id="serverport" type="number" v-model="project.serverPort" min="0" />
             </div>
           </div>
         </div>
@@ -149,6 +149,61 @@
             >
               Spring MVC Tomcat
             </button>
+          </li>
+          <li class="dropdown">
+            <button class="jh-btn btn-primary dropbtn" id="springbootaddbanner" data-selector="generator.add-banner-button">
+              Spring-boot Banner
+            </button>
+            <div class="dropdown-content">
+              <button
+                class="jh-btn btn-primary"
+                id="springbootbannerippon"
+                @click.prevent="addBannerIppon"
+                data-selector="generator.add-banner-ippon-button"
+              >
+                Ippon Banner
+              </button>
+              <button
+                class="jh-btn btn-primary"
+                id="springbootbannerjhipster-v2"
+                @click.prevent="addBannerJhipsterV2"
+                data-selector="generator.add-banner-v2-button"
+              >
+                Jhipster-2-banner
+              </button>
+              <button
+                class="jh-btn btn-primary"
+                id="springbootbannerjhipster-v3"
+                @click.prevent="addBannerJhipsterV3"
+                data-selector="generator.add-banner-v3-button"
+              >
+                Jhipster-3-banner
+              </button>
+              <button
+                class="jh-btn btn-primary"
+                id="springbootbannerjhipster-v7"
+                @click.prevent="addBannerJhipsterV7"
+                data-selector="generator.add-banner-v7-button"
+              >
+                Jhipster-7-banner
+              </button>
+              <button
+                class="jh-btn btn-primary"
+                id="springbootbannerjhipster-v7-react"
+                @click.prevent="addBannerJhipsterV7React"
+                data-selector="generator.add-banner-v7-react-button"
+              >
+                Jhipster-7-react-banner
+              </button>
+              <button
+                class="jh-btn btn-primary"
+                id="springbootbannerjhipster-v7-vue"
+                @click.prevent="addBannerJhipsterV7Vue"
+                data-selector="generator.add-banner-v7-vue-button"
+              >
+                Jhipster-7-vue-banner
+              </button>
+            </div>
           </li>
         </ul>
       </div>

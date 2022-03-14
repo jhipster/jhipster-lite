@@ -35,4 +35,34 @@ export default class ProjectRepository implements ProjectService {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('/api/servers/spring-boot/mvc/web/tomcat', restProject);
   }
+
+  async addSpringBootBannerIppon(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/banner/ippon', restProject);
+  }
+
+  async addSpringBootBannerJhipsterV2(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v2', restProject);
+  }
+
+  async addSpringBootBannerJhipsterV3(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v3', restProject);
+  }
+
+  async addSpringBootBannerJhipsterV7(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v7', restProject);
+  }
+
+  async addSpringBootBannerJhipsterV7React(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v7-react', restProject);
+  }
+
+  async addSpringBootBannerJhipsterV7Vue(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v7-vue', restProject);
+  }
 }

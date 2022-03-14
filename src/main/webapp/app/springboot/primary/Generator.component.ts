@@ -87,6 +87,38 @@ export default defineComponent({
       }
     };
 
+    const addBannerIppon = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addSpringBootBannerIppon(toProject(project.value));
+      }
+    };
+
+    const addBannerJhipsterV2 = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addSpringBootBannerJhipsterV2(toProject(project.value));
+      }
+    };
+    const addBannerJhipsterV3 = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addSpringBootBannerJhipsterV3(toProject(project.value));
+      }
+    };
+    const addBannerJhipsterV7 = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addSpringBootBannerJhipsterV7(toProject(project.value));
+      }
+    };
+    const addBannerJhipsterV7React = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addSpringBootBannerJhipsterV7React(toProject(project.value));
+      }
+    };
+    const addBannerJhipsterV7Vue = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addSpringBootBannerJhipsterV7Vue(toProject(project.value));
+      }
+    };
+
     return {
       project,
       isAngularWithStyle,
@@ -101,6 +133,12 @@ export default defineComponent({
       addReact,
       addVue,
       addFrontendMavenPlugin,
+      addBannerIppon,
+      addBannerJhipsterV2,
+      addBannerJhipsterV3,
+      addBannerJhipsterV7,
+      addBannerJhipsterV7React,
+      addBannerJhipsterV7Vue,
     };
   },
 });

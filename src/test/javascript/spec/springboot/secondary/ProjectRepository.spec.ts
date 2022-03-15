@@ -99,7 +99,7 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/servers/spring-boot/banner/ippon');
+    expect(uri).toBe('/api/servers/spring-boot/banner/ippon');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

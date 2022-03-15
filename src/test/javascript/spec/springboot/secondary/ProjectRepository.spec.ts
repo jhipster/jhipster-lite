@@ -102,4 +102,69 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/banner/ippon');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+  it('should add JHV2 Banner', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootBannerJhipsterV2(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v2');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add JHV3 Banner', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootBannerJhipsterV3(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v3');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add JHV7 Banner', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootBannerJhipsterV7(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v7');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add JHV7React Banner', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootBannerJhipsterV7React(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v7-react');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add JHV7Vue Banner', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootBannerJhipsterV7Vue(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v7-vue');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
 });

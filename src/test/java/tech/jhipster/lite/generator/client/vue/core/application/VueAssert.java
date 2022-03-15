@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.client.vue.core.application;
 
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.WordUtils.DQ;
-import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import java.util.List;
 import tech.jhipster.lite.generator.client.vue.core.domain.Vue;
@@ -14,6 +14,7 @@ public class VueAssert {
 
   public static void assertDependency(Project project) {
     Vue.dependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
+    Vue.routerDependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
     Vue.devDependencies().forEach(devDependency -> assertFileContent(project, PACKAGE_JSON, DQ + devDependency + DQ));
   }
 
@@ -37,6 +38,11 @@ public class VueAssert {
     assertFileExist(project, "src/main/webapp/index.html");
     assertFileExist(project, "src/main/webapp/app/env.d.ts");
     assertFileExist(project, "src/main/webapp/app/main.ts");
+  }
+
+  public static void assertRouterFiles(Project project) {
+    assertFileExist(project, MAIN_WEBAPP, "/app/router/router.ts");
+    assertFileExist(project, TEST_JAVASCRIPT, "/router/Router.spec.ts");
   }
 
   public static void assertAppFiles(Project project) {

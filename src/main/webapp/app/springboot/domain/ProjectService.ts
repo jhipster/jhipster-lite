@@ -15,4 +15,8 @@ export interface ProjectService {
   addSpringBootFlywayUser(project: Project): Promise<void>;
   addSpringBootLiquibaseInit(project: Project): Promise<void>;
   addSpringBootLiquibaseUser(project: Project): Promise<void>;
+  addJWT(project: Project): Promise<void>;
+  addBasicAuthJWT(project: Project): Promise<void>;
+  addOauth2(project: Project): Promise<void>;
+  addSpringdocJWT(project: Project): Promise<void>;
 }

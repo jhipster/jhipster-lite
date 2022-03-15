@@ -104,4 +104,24 @@ export default class ProjectRepository implements ProjectService {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('/api/servers/spring-boot/databases/migration/liquibase/user', restProject);
   }
+
+  async addJWT(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/mvc/security/jwt', restProject);
+  }
+
+  async addBasicAuthJWT(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/mvc/security/jwt/basic-auth', restProject);
+  }
+
+  async addOauth2(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/mvc/security/oauth2', restProject);
+  }
+
+  async addSpringdocJWT(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt', restProject);
+  }
 }

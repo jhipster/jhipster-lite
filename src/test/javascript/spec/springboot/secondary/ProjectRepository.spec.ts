@@ -276,4 +276,58 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/migration/liquibase/user');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
+  it('should add JWT', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addJWT(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/mvc/security/jwt');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add Basic Auth JWT', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addBasicAuthJWT(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/mvc/security/jwt/basic-auth');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add Oauth2', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addOauth2(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/mvc/security/oauth2');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add SpringdocJWT', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringdocJWT(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+
 });

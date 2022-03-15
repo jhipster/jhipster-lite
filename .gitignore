@@ -140,6 +140,7 @@ Desktop.ini
 *.*~
 *~
 .merge_file*
+.history
 
 ######################
 # Gradle Wrapper

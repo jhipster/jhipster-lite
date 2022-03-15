@@ -109,4 +109,13 @@ class SvelteDomainServiceTest {
 
     verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
   }
+
+  @Test
+  void shouldRenameJhipsterFiles() {
+    Project project = tmpProject();
+
+    svelteDomainService.renameJhipsterFiles(project);
+
+    verify(projectRepository, times(1)).rename(any(Project.class), anyString(), anyString(), anyString());
+  }
 }

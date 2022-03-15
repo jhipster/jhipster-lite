@@ -7,6 +7,7 @@ module.exports = {
 	},
 	moduleNameMapper: {
 		'^@webapp(.*)': '<rootDir>/src/main/webapp/$1',
+    '^@assets(.*)$': '<rootDir>/src/main/webapp/assets/$1',
 	},
 	collectCoverage: true,
 	collectCoverageFrom: [

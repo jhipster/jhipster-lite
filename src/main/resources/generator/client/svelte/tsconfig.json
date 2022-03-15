@@ -28,7 +28,8 @@
     "checkJs": true,
     "baseUrl": "src",
     "paths": {
-      "@/*": ["main/webapp/app/*"]
+      "@/*": ["main/webapp/app/*"],
+      "@assets/*": ["main/webapp/assets/*"]
     }
   },
   "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "src/main/webapp/jest-setup.ts", "src/tests/**/*"]

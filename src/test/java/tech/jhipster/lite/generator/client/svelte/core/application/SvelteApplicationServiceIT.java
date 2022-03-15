@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.client.svelte.core.application;
 
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonAndLintStage;
 import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.*;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ class SvelteApplicationServiceIT {
 
   @Test
   void shouldAddSvelte() {
-    Project project = tmpProjectWithPackageJson();
+    Project project = tmpProjectWithPackageJsonAndLintStage();
 
     svelteApplicationService.addSvelte(project);
 
@@ -33,7 +33,7 @@ class SvelteApplicationServiceIT {
 
   @Test
   void shouldAddStyledSvelte() {
-    Project project = tmpProjectWithPackageJson();
+    Project project = tmpProjectWithPackageJsonAndLintStage();
 
     svelteApplicationService.addStyledSvelteKit(project);
 

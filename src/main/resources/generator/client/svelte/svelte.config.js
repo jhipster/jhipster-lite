@@ -25,7 +25,10 @@ const config = {
     },
     vite: {
       resolve: {
-        alias: [{ find: '@', replacement: path.resolve('src/main/webapp') }],
+        alias: [
+          { find: '@', replacement: path.resolve('src/main/webapp') },
+          { find: '@assets', replacement: path.resolve('src/main/webapp/assets') },
+        ],
       },
     },
   },

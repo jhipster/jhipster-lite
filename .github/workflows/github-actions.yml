@@ -140,6 +140,8 @@ jobs:
           - angularapp
           - reactapp
           - vueapp
+          - svelteapp
+
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v3

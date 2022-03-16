@@ -4,13 +4,15 @@ import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate
 import { AngularService } from '@/springboot/domain/client/AngularService';
 import { ReactService } from '@/springboot/domain/client/ReactService';
 import { VueService } from '@/springboot/domain/client/VueService';
+import { Logger } from '@/common/domain/Logger';
 
 export default defineComponent({
   name: 'GeneratorComponent',
   components: {},
   setup() {
-    const projectService = inject('projectService') as ProjectService;
     const angularService = inject('angularService') as AngularService;
+    const logger = inject('logger') as Logger;
+    const projectService = inject('projectService') as ProjectService;
     const reactService = inject('reactService') as ReactService;
     const vueService = inject('vueService') as VueService;
 
@@ -23,40 +25,48 @@ export default defineComponent({
 
     const initProject = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.init(toProject(project.value));
+        await projectService.init(toProject(project.value)).catch(error => logger.error('Project initialization failed', error));
       }
     };
 
     const addMaven = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addMaven(toProject(project.value));
+        await projectService.addMaven(toProject(project.value)).catch(error => logger.error('Adding Maven to project failed', error));
       }
     };
 
     const addJavaBase = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addJavaBase(toProject(project.value));
+        await projectService
+          .addJavaBase(toProject(project.value))
+          .catch(error => logger.error('Adding Java Base to project failed', error));
       }
     };
 
     const addSpringBoot = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addSpringBoot(toProject(project.value));
+        await projectService
+          .addSpringBoot(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot to project failed', error));
       }
     };
 
     const addSpringBootMvcTomcat = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addSpringBootMvcTomcat(toProject(project.value));
+        await projectService
+          .addSpringBootMvcTomcat(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot MVC with Tomcat to project failed', error));
       }
     };
 
     const addAngular = async (): Promise<void> => {
       if (project.value.folder !== '') {
         if (isAngularWithStyle.value) {
-          await angularService.addWithStyle(toProject(project.value));
+          await angularService
+            .addWithStyle(toProject(project.value))
+            .catch(error => logger.error('Adding Angular with style to project failed', error));
         } else {
-          await angularService.add(toProject(project.value));
+          await angularService.add(toProject(project.value)).catch(error => logger.error('Adding Angular to project failed', error));
         }
       }
     };
@@ -64,9 +74,11 @@ export default defineComponent({
     const addReact = async (): Promise<void> => {
       if (project.value.folder !== '') {
         if (isReactWithStyle.value) {
-          await reactService.addWithStyle(toProject(project.value));
+          await reactService
+            .addWithStyle(toProject(project.value))
+            .catch(error => logger.error('Adding React with style to project failed', error));
         } else {
-          await reactService.add(toProject(project.value));
+          await reactService.add(toProject(project.value)).catch(error => logger.error('Adding React to project failed', error));
         }
       }
     };
@@ -74,16 +86,20 @@ export default defineComponent({
     const addVue = async (): Promise<void> => {
       if (project.value.folder !== '') {
         if (isVueWithStyle.value) {
-          await vueService.addWithStyle(toProject(project.value));
+          await vueService
+            .addWithStyle(toProject(project.value))
+            .catch(error => logger.error('Adding Vue with style to project failed', error));
         } else {
-          await vueService.add(toProject(project.value));
+          await vueService.add(toProject(project.value)).catch(error => logger.error('Adding Vue to project failed', error));
         }
       }
     };
 
     const addFrontendMavenPlugin = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addFrontendMavenPlugin(toProject(project.value));
+        await projectService
+          .addFrontendMavenPlugin(toProject(project.value))
+          .catch(error => logger.error('Adding Frontend Maven Plugin to project failed', error));
       }
     };
 

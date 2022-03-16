@@ -10,20 +10,24 @@ import { stubReactService } from '../domain/client/ReactService.fixture';
 import { ReactService } from '@/springboot/domain/client/ReactService';
 import { stubVueService } from '../domain/client/VueService.fixture';
 import { VueService } from '@/springboot/domain/client/VueService';
+import { stubLogger } from '../../common/domain/Logger.fixture';
+import { Logger } from '@/common/domain/Logger';
 
 let wrapper: VueWrapper;
 
 interface WrapperOptions {
-  projectService: ProjectService;
   angularService: AngularService;
+  logger: Logger;
+  projectService: ProjectService;
   reactService: ReactService;
   vueService: VueService;
 }
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { projectService, angularService, reactService, vueService }: WrapperOptions = {
-    projectService: stubProjectService(),
+  const { angularService, logger, projectService, reactService, vueService }: WrapperOptions = {
     angularService: stubAngularService(),
+    logger: stubLogger(),
+    projectService: stubProjectService(),
     reactService: stubReactService(),
     vueService: stubVueService(),
     ...wrapperOptions,
@@ -31,8 +35,9 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
   wrapper = mount(GeneratorVue, {
     global: {
       provide: {
-        projectService,
         angularService,
+        logger,
+        projectService,
         reactService,
         vueService,
       },
@@ -97,6 +102,21 @@ describe('Generator', () => {
     });
   });
 
+  it('should handle error on init failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.init.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#init');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Project initialization failed');
+  });
+
   it('should not add Maven when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.addMaven.resolves({});
@@ -132,6 +152,21 @@ describe('Generator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
+  });
+
+  it('should handle error on adding maven failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addMaven.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#maven');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Maven to project failed');
   });
 
   it('should not add JavaBase when project path is not filled', async () => {
@@ -171,6 +206,21 @@ describe('Generator', () => {
     });
   });
 
+  it('should handle error on adding java base failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addJavaBase.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#javabase');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Java Base to project failed');
+  });
+
   it('should not add SpringBoot when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.addSpringBoot.resolves({});
@@ -208,6 +258,21 @@ describe('Generator', () => {
     });
   });
 
+  it('should handle error on adding spring boot failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addSpringBoot.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#springboot');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding SpringBoot to project failed');
+  });
+
   it('should not add SpringBoot MVC with Tomcat when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.addSpringBootMvcTomcat.resolves({});
@@ -243,6 +308,21 @@ describe('Generator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
+  });
+
+  it('should handle error on adding SpringBoot MVC with Tomcat failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addSpringBootMvcTomcat.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#springbootmvctomcat');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding SpringBoot MVC with Tomcat to project failed');
   });
 
   it('should not add Angular when project path is not filled', async () => {
@@ -310,6 +390,38 @@ describe('Generator', () => {
     });
   });
 
+  it('should handle error on adding Angular failure', async () => {
+    const logger = stubLogger();
+    const angularService = stubAngularService();
+    angularService.add.rejects({});
+    await wrap({ angularService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#angular');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Angular to project failed');
+  });
+
+  it('should handle error on adding Angular with style failure', async () => {
+    const logger = stubLogger();
+    const angularService = stubAngularService();
+    angularService.addWithStyle.rejects({});
+    await wrap({ angularService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const checkbox = wrapper.find('#angular-with-style');
+    await checkbox.setValue(true);
+    const initButton = wrapper.find('#angular');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Angular with style to project failed');
+  });
+
   it('should not add React when project path is not filled', async () => {
     const reactService = stubReactService();
     reactService.add.resolves({});
@@ -373,6 +485,38 @@ describe('Generator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
+  });
+
+  it('should handle error on adding React failure', async () => {
+    const logger = stubLogger();
+    const reactService = stubReactService();
+    reactService.add.rejects({});
+    await wrap({ reactService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#react');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding React to project failed');
+  });
+
+  it('should handle error on adding React with style failure', async () => {
+    const logger = stubLogger();
+    const reactService = stubReactService();
+    reactService.addWithStyle.rejects({});
+    await wrap({ reactService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const checkbox = wrapper.find('#react-with-style');
+    await checkbox.setValue(true);
+    const initButton = wrapper.find('#react');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding React with style to project failed');
   });
 
   it('should not add Vue when project path is not filled', async () => {
@@ -440,6 +584,38 @@ describe('Generator', () => {
     });
   });
 
+  it('should handle error on adding Vue failure', async () => {
+    const logger = stubLogger();
+    const vueService = stubVueService();
+    vueService.add.rejects({});
+    await wrap({ vueService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#vue');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Vue to project failed');
+  });
+
+  it('should handle error on adding Vue with style failure', async () => {
+    const logger = stubLogger();
+    const vueService = stubVueService();
+    vueService.addWithStyle.rejects({});
+    await wrap({ vueService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const checkbox = wrapper.find('#vue-with-style');
+    await checkbox.setValue(true);
+    const initButton = wrapper.find('#vue');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Vue with style to project failed');
+  });
+
   it('should not add Frontend Maven Plugin when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.addFrontendMavenPlugin.resolves({});
@@ -475,5 +651,20 @@ describe('Generator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
+  });
+
+  it('should handle error on adding Frontend Maven Plugin failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addFrontendMavenPlugin.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#frontend-maven-plugin');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Frontend Maven Plugin to project failed');
   });
 });

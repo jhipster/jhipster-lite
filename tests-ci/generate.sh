@@ -100,6 +100,7 @@ elif [[ $application == 'oauth2app' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/mvc/security/oauth2"
+  callApi "/api/servers/spring-boot/mvc/security/oauth2/account"
 
 elif [[ $application == 'mysqlapp' ]]; then
   springboot

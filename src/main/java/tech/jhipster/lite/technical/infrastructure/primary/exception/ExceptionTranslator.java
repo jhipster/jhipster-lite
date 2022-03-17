@@ -114,6 +114,8 @@ public class ExceptionTranslator implements ProblemHandling {
     return create(ex, problem, request);
   }
 
+  // jhipster-needle-exception-translator
+
   @Override
   public ProblemBuilder prepare(final Throwable throwable, final StatusType status, final URI type) {
     if (!exceptionWithDetails) {

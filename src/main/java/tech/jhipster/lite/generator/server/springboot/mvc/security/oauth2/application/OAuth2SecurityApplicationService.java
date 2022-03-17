@@ -16,4 +16,8 @@ public class OAuth2SecurityApplicationService {
   public void addOAuth2(Project project) {
     oauth2SecurityService.addOAuth2(project);
   }
+
+  public void addAccountContext(Project project) {
+    oauth2SecurityService.addAccountContext(project);
+  }
 }

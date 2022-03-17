@@ -25,8 +25,8 @@ import org.springframework.security.oauth2.jose.jws.JwsAlgorithms;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import {{packageName}}.UnitTest;
+import {{packageName}}.error.domain.AccountException;
 import {{packageName}}.error.domain.MissingMandatoryValueException;
-import {{packageName}}.error.domain.UnauthorizedValueException;
 import {{packageName}}.security.oauth2.domain.AuthoritiesConstants;
 
 @UnitTest
@@ -256,7 +256,7 @@ class SecurityUtilsTest {
   void shouldNotGetAttributesForAnotherToken() {
     UsernamePasswordAuthenticationToken token = buildUsernamePasswordAuthenticationToken();
 
-    Assertions.assertThatThrownBy(() -> SecurityUtils.getAttributes(token)).isExactlyInstanceOf(UnauthorizedValueException.class);
+    Assertions.assertThatThrownBy(() -> SecurityUtils.getAttributes(token)).isExactlyInstanceOf(AccountException.class);
   }
 
   @Test

@@ -1,17 +1,30 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class OAuth2Security {
 
-  private static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
+  public static final String SECURITY_OAUTH2 = "security/oauth2";
+  public static final String SECURITY_OAUTH2_APPLICATION = getPath(SECURITY_OAUTH2, APPLICATION);
+  public static final String SECURITY_OAUTH2_DOMAIN = getPath(SECURITY_OAUTH2, DOMAIN);
+  public static final String SECURITY_OAUTH2_INFRASTRUCTURE = getPath(SECURITY_OAUTH2, INFRASTRUCTURE);
+  public static final String SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG = getPath(SECURITY_OAUTH2, CONFIG);
+  public static final String TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION = getPath(TECHNICAL_PRIMARY, "exception");
+
+  public static final String ERROR_DOMAIN = "error/domain";
+
+  public static final String ACCOUNT_CONTEXT = "account";
+  public static final String ACCOUNT_DOMAIN = getPath(ACCOUNT_CONTEXT, DOMAIN);
+  public static final String ACCOUNT_INFRASTRUCTURE_PRIMARY = getPath(ACCOUNT_CONTEXT, PRIMARY, "rest");
 
   private static final String DOCKER_KEYCLOAK_IMAGE_NAME = "jboss/keycloak";
 
   private static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
-
   private static final String STARTER_SECURITY = "spring-boot-starter-security";
   private static final String STARTER_OAUTH2_CLIENT = "spring-boot-starter-oauth2-client";
   private static final String STARTER_OAUTH2_RESOURCE_SERVER = "spring-boot-starter-oauth2-resource-server";
@@ -41,17 +54,19 @@ public class OAuth2Security {
   public static Map<String, String> oauth2SecurityFiles() {
     Map<String, String> map = new HashMap<>();
 
-    map.put("SecurityUtils.java", "application");
+    map.put("SecurityUtils.java", SECURITY_OAUTH2_APPLICATION);
 
-    map.put("AuthoritiesConstants.java", "domain");
-    map.put("ApplicationSecurityDefaults.java", "domain");
+    map.put("AuthoritiesConstants.java", SECURITY_OAUTH2_DOMAIN);
+    map.put("ApplicationSecurityDefaults.java", SECURITY_OAUTH2_DOMAIN);
 
-    map.put("ApplicationSecurityProperties.java", INFRASTRUCTURE_CONFIG);
-    map.put("AudienceValidator.java", INFRASTRUCTURE_CONFIG);
-    map.put("CustomClaimConverter.java", INFRASTRUCTURE_CONFIG);
-    map.put("JwtGrantedAuthorityConverter.java", INFRASTRUCTURE_CONFIG);
-    map.put("OAuth2Configuration.java", INFRASTRUCTURE_CONFIG);
-    map.put("SecurityConfiguration.java", INFRASTRUCTURE_CONFIG);
+    map.put("ApplicationSecurityProperties.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("AudienceValidator.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("CustomClaimConverter.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("JwtGrantedAuthorityConverter.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("OAuth2Configuration.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("SecurityConfiguration.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+
+    map.put("AccountException.java", ERROR_DOMAIN);
 
     return map;
   }
@@ -59,18 +74,19 @@ public class OAuth2Security {
   public static Map<String, String> oauth2TestSecurityFiles() {
     Map<String, String> map = new HashMap<>();
 
-    map.put("SecurityUtilsTest.java", "application");
+    map.put("SecurityUtilsTest.java", SECURITY_OAUTH2_APPLICATION);
 
-    map.put("ApplicationSecurityPropertiesTest.java", INFRASTRUCTURE_CONFIG);
-    map.put("AudienceValidatorTest.java", INFRASTRUCTURE_CONFIG);
-    map.put("CustomClaimConverterIT.java", INFRASTRUCTURE_CONFIG);
-    map.put("FakeRequestAttributes.java", INFRASTRUCTURE_CONFIG);
-    map.put("JwtGrantedAuthorityConverterTest.java", INFRASTRUCTURE_CONFIG);
-    map.put("SecurityConfigurationIT.java", INFRASTRUCTURE_CONFIG);
-    map.put("SecurityConfigurationTest.java", INFRASTRUCTURE_CONFIG);
-    map.put("TestSecurityConfiguration.java", INFRASTRUCTURE_CONFIG);
+    map.put("ApplicationSecurityPropertiesTest.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("AudienceValidatorTest.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("CustomClaimConverterIT.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("FakeRequestAttributes.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("JwtGrantedAuthorityConverterTest.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("SecurityConfigurationIT.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("SecurityConfigurationTest.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
+    map.put("TestSecurityConfiguration.java", SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG);
 
-    map.put("WithUnauthenticatedMockUser.java", "infrastructure");
+    map.put("WithUnauthenticatedMockUser.java", SECURITY_OAUTH2_INFRASTRUCTURE);
+    map.put("AccountExceptionTest.java", ERROR_DOMAIN);
 
     return map;
   }
@@ -97,5 +113,26 @@ public class OAuth2Security {
       "spring.security.oauth2.client.provider.oidc.issuer-uri",
       "http://DO_NOT_CALL:9080/auth/realms/jhipster"
     );
+  }
+
+  public static Map<String, String> oauth2AccountContextFiles() {
+    Map<String, String> map = new HashMap<>();
+
+    map.put("AccountConstants.java", ACCOUNT_DOMAIN);
+    map.put("AccountResource.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("UserDTO.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+
+    return map;
+  }
+
+  public static Map<String, String> oauth2AccountContextTestFiles() {
+    Map<String, String> map = new HashMap<>();
+
+    map.put("AccountResourceIT.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("AccountResourceTest.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("OAuth2TestUtil.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+    map.put("UserDTOTest.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+
+    return map;
   }
 }

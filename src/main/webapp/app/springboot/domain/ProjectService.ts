@@ -8,9 +8,9 @@ export interface ProjectService {
   addSpringBoot(project: Project): Promise<void>;
   addSpringBootMvcTomcat(project: Project): Promise<void>;
   addSpringBootBannerIppon(project: Project): Promise<void>;
-  addSpringBootBannerJhipsterV2(project: Project): Promise<void>;
-  addSpringBootBannerJhipsterV3(project: Project): Promise<void>;
-  addSpringBootBannerJhipsterV7(project: Project): Promise<void>;
-  addSpringBootBannerJhipsterV7React(project1: Project): Promise<void>;
-  addSpringBootBannerJhipsterV7Vue(project1: Project): Promise<void>;
+  addSpringBootBannerJHipsterV2(project: Project): Promise<void>;
+  addSpringBootBannerJHipsterV3(project: Project): Promise<void>;
+  addSpringBootBannerJHipsterV7(project: Project): Promise<void>;
+  addSpringBootBannerJHipsterV7React(project1: Project): Promise<void>;
+  addSpringBootBannerJHipsterV7Vue(project1: Project): Promise<void>;
 }

@@ -93,29 +93,29 @@ export default defineComponent({
       }
     };
 
-    const addBannerJhipsterV2 = async (): Promise<void> => {
+    const addBannerJHipsterV2 = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addSpringBootBannerJhipsterV2(toProject(project.value));
+        await projectService.addSpringBootBannerJHipsterV2(toProject(project.value));
       }
     };
-    const addBannerJhipsterV3 = async (): Promise<void> => {
+    const addBannerJHipsterV3 = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addSpringBootBannerJhipsterV3(toProject(project.value));
+        await projectService.addSpringBootBannerJHipsterV3(toProject(project.value));
       }
     };
-    const addBannerJhipsterV7 = async (): Promise<void> => {
+    const addBannerJHipsterV7 = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addSpringBootBannerJhipsterV7(toProject(project.value));
+        await projectService.addSpringBootBannerJHipsterV7(toProject(project.value));
       }
     };
-    const addBannerJhipsterV7React = async (): Promise<void> => {
+    const addBannerJHipsterV7React = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addSpringBootBannerJhipsterV7React(toProject(project.value));
+        await projectService.addSpringBootBannerJHipsterV7React(toProject(project.value));
       }
     };
-    const addBannerJhipsterV7Vue = async (): Promise<void> => {
+    const addBannerJHipsterV7Vue = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.addSpringBootBannerJhipsterV7Vue(toProject(project.value));
+        await projectService.addSpringBootBannerJHipsterV7Vue(toProject(project.value));
       }
     };
 
@@ -134,11 +134,11 @@ export default defineComponent({
       addVue,
       addFrontendMavenPlugin,
       addBannerIppon,
-      addBannerJhipsterV2,
-      addBannerJhipsterV3,
-      addBannerJhipsterV7,
-      addBannerJhipsterV7React,
-      addBannerJhipsterV7Vue,
+      addBannerJHipsterV2,
+      addBannerJHipsterV3,
+      addBannerJHipsterV7,
+      addBannerJHipsterV7React,
+      addBannerJHipsterV7Vue,
     };
   },
 });

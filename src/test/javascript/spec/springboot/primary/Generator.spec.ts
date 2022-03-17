@@ -502,7 +502,7 @@ describe('Generator', () => {
       serverPort: 8080,
     });
   });
-  it('should add Ippon Banner when project path is not filled', async () => {
+  it('should not add Ippon Banner when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.addSpringBootBannerIppon.resolves({});
     await wrap({ projectService });
@@ -515,7 +515,7 @@ describe('Generator', () => {
 
   it('should add JHV2 Banner when project path is filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV2.resolves({});
+    projectService.addSpringBootBannerJHipsterV2.resolves({});
     await wrap({ projectService });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
       folder: 'project/path',
@@ -529,7 +529,7 @@ describe('Generator', () => {
     const button = wrapper.find('#springbootbannerjhipster-v2');
     await button.trigger('click');
 
-    const args = projectService.addSpringBootBannerJhipsterV2.getCall(0).args[0];
+    const args = projectService.addSpringBootBannerJHipsterV2.getCall(0).args[0];
     expect(args).toEqual({
       baseName: 'beer',
       folder: 'project/path',
@@ -539,20 +539,20 @@ describe('Generator', () => {
     });
   });
 
-  it('should add JHV2 Banner when project path is not filled', async () => {
+  it('should not add JHV2 Banner when project path is not filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV2.resolves({});
+    projectService.addSpringBootBannerJHipsterV2.resolves({});
     await wrap({ projectService });
 
     const button = wrapper.find('#springbootbannerjhipster-v2');
     await button.trigger('click');
 
-    expect(projectService.addSpringBootBannerJhipsterV2.called).toBe(false);
+    expect(projectService.addSpringBootBannerJHipsterV2.called).toBe(false);
   });
 
   it('should add JHV3 Banner when project path is filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV3.resolves({});
+    projectService.addSpringBootBannerJHipsterV3.resolves({});
     await wrap({ projectService });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
       folder: 'project/path',
@@ -566,7 +566,7 @@ describe('Generator', () => {
     const button = wrapper.find('#springbootbannerjhipster-v3');
     await button.trigger('click');
 
-    const args = projectService.addSpringBootBannerJhipsterV3.getCall(0).args[0];
+    const args = projectService.addSpringBootBannerJHipsterV3.getCall(0).args[0];
     expect(args).toEqual({
       baseName: 'beer',
       folder: 'project/path',
@@ -576,20 +576,20 @@ describe('Generator', () => {
     });
   });
 
-  it('should add JHV3 Banner when project path is not filled', async () => {
+  it('should not add JHV3 Banner when project path is not filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV2.resolves({});
+    projectService.addSpringBootBannerJHipsterV2.resolves({});
     await wrap({ projectService });
 
     const button = wrapper.find('#springbootbannerjhipster-v3');
     await button.trigger('click');
 
-    expect(projectService.addSpringBootBannerJhipsterV3.called).toBe(false);
+    expect(projectService.addSpringBootBannerJHipsterV3.called).toBe(false);
   });
 
   it('should add JHV7 Banner when project path is filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV7.resolves({});
+    projectService.addSpringBootBannerJHipsterV7.resolves({});
     await wrap({ projectService });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
       folder: 'project/path',
@@ -603,7 +603,7 @@ describe('Generator', () => {
     const button = wrapper.find('#springbootbannerjhipster-v7');
     await button.trigger('click');
 
-    const args = projectService.addSpringBootBannerJhipsterV7.getCall(0).args[0];
+    const args = projectService.addSpringBootBannerJHipsterV7.getCall(0).args[0];
     expect(args).toEqual({
       baseName: 'beer',
       folder: 'project/path',
@@ -613,20 +613,20 @@ describe('Generator', () => {
     });
   });
 
-  it('should add JHV7 Banner when project path is not filled', async () => {
+  it('should not add JHV7 Banner when project path is not filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV7.resolves({});
+    projectService.addSpringBootBannerJHipsterV7.resolves({});
     await wrap({ projectService });
 
     const button = wrapper.find('#springbootbannerjhipster-v7');
     await button.trigger('click');
 
-    expect(projectService.addSpringBootBannerJhipsterV7.called).toBe(false);
+    expect(projectService.addSpringBootBannerJHipsterV7.called).toBe(false);
   });
 
   it('should add JHV7React Banner when project path is filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV7React.resolves({});
+    projectService.addSpringBootBannerJHipsterV7React.resolves({});
     await wrap({ projectService });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
       folder: 'project/path',
@@ -640,7 +640,7 @@ describe('Generator', () => {
     const button = wrapper.find('#springbootbannerjhipster-v7-react');
     await button.trigger('click');
 
-    const args = projectService.addSpringBootBannerJhipsterV7React.getCall(0).args[0];
+    const args = projectService.addSpringBootBannerJHipsterV7React.getCall(0).args[0];
     expect(args).toEqual({
       baseName: 'beer',
       folder: 'project/path',
@@ -650,20 +650,20 @@ describe('Generator', () => {
     });
   });
 
-  it('should add JHV7React Banner when project path is not filled', async () => {
+  it('should not add JHV7React Banner when project path is not filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV7React.resolves({});
+    projectService.addSpringBootBannerJHipsterV7React.resolves({});
     await wrap({ projectService });
 
     const button = wrapper.find('#springbootbannerjhipster-v7-react');
     await button.trigger('click');
 
-    expect(projectService.addSpringBootBannerJhipsterV7React.called).toBe(false);
+    expect(projectService.addSpringBootBannerJHipsterV7React.called).toBe(false);
   });
 
   it('should add JHV7Vue Banner when project path is filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV7Vue.resolves({});
+    projectService.addSpringBootBannerJHipsterV7Vue.resolves({});
     await wrap({ projectService });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
       folder: 'project/path',
@@ -677,7 +677,7 @@ describe('Generator', () => {
     const button = wrapper.find('#springbootbannerjhipster-v7-vue');
     await button.trigger('click');
 
-    const args = projectService.addSpringBootBannerJhipsterV7Vue.getCall(0).args[0];
+    const args = projectService.addSpringBootBannerJHipsterV7Vue.getCall(0).args[0];
     expect(args).toEqual({
       baseName: 'beer',
       folder: 'project/path',
@@ -687,14 +687,14 @@ describe('Generator', () => {
     });
   });
 
-  it('should add JHV7Vue Banner when project path is not filled', async () => {
+  it('should not add JHV7Vue Banner when project path is not filled', async () => {
     const projectService = stubProjectService();
-    projectService.addSpringBootBannerJhipsterV7Vue.resolves({});
+    projectService.addSpringBootBannerJHipsterV7Vue.resolves({});
     await wrap({ projectService });
 
     const button = wrapper.find('#springbootbannerjhipster-v7-vue');
     await button.trigger('click');
 
-    expect(projectService.addSpringBootBannerJhipsterV7Vue.called).toBe(false);
+    expect(projectService.addSpringBootBannerJHipsterV7Vue.called).toBe(false);
   });
 });

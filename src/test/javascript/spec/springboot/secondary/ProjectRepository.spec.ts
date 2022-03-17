@@ -108,7 +108,7 @@ describe('ProjectRepository', () => {
     const projectRepository = new ProjectRepository(axiosHttpStub);
     const project: Project = createProject({ folder: 'folder/path' });
 
-    projectRepository.addSpringBootBannerJhipsterV2(project);
+    projectRepository.addSpringBootBannerJHipsterV2(project);
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
@@ -121,7 +121,7 @@ describe('ProjectRepository', () => {
     const projectRepository = new ProjectRepository(axiosHttpStub);
     const project: Project = createProject({ folder: 'folder/path' });
 
-    projectRepository.addSpringBootBannerJhipsterV3(project);
+    projectRepository.addSpringBootBannerJHipsterV3(project);
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
@@ -134,7 +134,7 @@ describe('ProjectRepository', () => {
     const projectRepository = new ProjectRepository(axiosHttpStub);
     const project: Project = createProject({ folder: 'folder/path' });
 
-    projectRepository.addSpringBootBannerJhipsterV7(project);
+    projectRepository.addSpringBootBannerJHipsterV7(project);
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
@@ -147,7 +147,7 @@ describe('ProjectRepository', () => {
     const projectRepository = new ProjectRepository(axiosHttpStub);
     const project: Project = createProject({ folder: 'folder/path' });
 
-    projectRepository.addSpringBootBannerJhipsterV7React(project);
+    projectRepository.addSpringBootBannerJHipsterV7React(project);
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
@@ -160,7 +160,7 @@ describe('ProjectRepository', () => {
     const projectRepository = new ProjectRepository(axiosHttpStub);
     const project: Project = createProject({ folder: 'folder/path' });
 
-    projectRepository.addSpringBootBannerJhipsterV7Vue(project);
+    projectRepository.addSpringBootBannerJHipsterV7Vue(project);
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;

@@ -9,11 +9,11 @@ export interface ProjectServiceFixture extends ProjectService {
   addSpringBoot: SinonStub;
   addSpringBootMvcTomcat: SinonStub;
   addSpringBootBannerIppon: SinonStub;
-  addSpringBootBannerJhipsterV2: SinonStub;
-  addSpringBootBannerJhipsterV3: SinonStub;
-  addSpringBootBannerJhipsterV7: SinonStub;
-  addSpringBootBannerJhipsterV7React: SinonStub;
-  addSpringBootBannerJhipsterV7Vue: SinonStub;
+  addSpringBootBannerJHipsterV2: SinonStub;
+  addSpringBootBannerJHipsterV3: SinonStub;
+  addSpringBootBannerJHipsterV7: SinonStub;
+  addSpringBootBannerJHipsterV7React: SinonStub;
+  addSpringBootBannerJHipsterV7Vue: SinonStub;
 }
 
 export const stubProjectService = (): ProjectServiceFixture => ({
@@ -24,9 +24,9 @@ export const stubProjectService = (): ProjectServiceFixture => ({
   addSpringBoot: sinon.stub(),
   addSpringBootMvcTomcat: sinon.stub(),
   addSpringBootBannerIppon: sinon.stub(),
-  addSpringBootBannerJhipsterV2: sinon.stub(),
-  addSpringBootBannerJhipsterV3: sinon.stub(),
-  addSpringBootBannerJhipsterV7: sinon.stub(),
-  addSpringBootBannerJhipsterV7React: sinon.stub(),
-  addSpringBootBannerJhipsterV7Vue: sinon.stub(),
+  addSpringBootBannerJHipsterV2: sinon.stub(),
+  addSpringBootBannerJHipsterV3: sinon.stub(),
+  addSpringBootBannerJHipsterV7: sinon.stub(),
+  addSpringBootBannerJHipsterV7React: sinon.stub(),
+  addSpringBootBannerJHipsterV7Vue: sinon.stub(),
 });

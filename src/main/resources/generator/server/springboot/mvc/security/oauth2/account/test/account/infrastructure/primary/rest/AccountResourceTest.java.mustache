@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import {{packageName}}.UnitTest;
+import {{packageName}}.error.domain.AccountException;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -22,6 +23,6 @@ class AccountResourceTest {
 
   @Test
   void shouldNotGetAccount() {
-    assertThatThrownBy(() -> accountResource.getAccount(principal)).isExactlyInstanceOf(AccountResourceException.class);
+    assertThatThrownBy(() -> accountResource.getAccount(principal)).isExactlyInstanceOf(AccountException.class);
   }
 }

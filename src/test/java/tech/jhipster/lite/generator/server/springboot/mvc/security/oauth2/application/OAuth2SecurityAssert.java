@@ -121,14 +121,14 @@ public class OAuth2SecurityAssert {
   }
 
   public static void assertAccountFiles(Project project) {
-    String accountPath = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH), ACCOUNT_CONTEXT);
+    String path = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH));
 
     // main java files
     oauth2AccountContextFiles()
-      .forEach((javaFile, destination) -> assertFileExist(project, getPath(MAIN_JAVA, accountPath, destination, javaFile)));
+      .forEach((javaFile, destination) -> assertFileExist(project, getPath(MAIN_JAVA, path, destination, javaFile)));
 
     // test java files
     oauth2AccountContextTestFiles()
-      .forEach((javaFile, destination) -> assertFileExist(project, getPath(TEST_JAVA, accountPath, destination, javaFile)));
+      .forEach((javaFile, destination) -> assertFileExist(project, getPath(TEST_JAVA, path, destination, javaFile)));
   }
 }

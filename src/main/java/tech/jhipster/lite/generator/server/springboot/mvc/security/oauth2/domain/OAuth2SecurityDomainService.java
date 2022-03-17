@@ -101,12 +101,12 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
 
     String sourceSrc = getPath(SOURCE, ACCOUNT_CONTEXT, "src");
-    String destinationSrc = getPath(MAIN_JAVA, packageNamePath, ACCOUNT_CONTEXT);
+    String destinationSrc = getPath(MAIN_JAVA, packageNamePath);
     oauth2AccountContextFiles()
       .forEach((file, folder) -> projectRepository.template(project, getPath(sourceSrc, folder), file, getPath(destinationSrc, folder)));
 
     String sourceTest = getPath(SOURCE, ACCOUNT_CONTEXT, "test");
-    String destinationTest = getPath(TEST_JAVA, packageNamePath, ACCOUNT_CONTEXT);
+    String destinationTest = getPath(TEST_JAVA, packageNamePath);
     oauth2AccountContextTestFiles()
       .forEach((file, folder) -> projectRepository.template(project, getPath(sourceTest, folder), file, getPath(destinationTest, folder)));
   }

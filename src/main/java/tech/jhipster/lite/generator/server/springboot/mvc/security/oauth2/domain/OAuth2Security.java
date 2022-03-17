@@ -9,8 +9,11 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 public class OAuth2Security {
 
   public static final String INFRASTRUCTURE_CONFIG = "infrastructure/config";
+
   public static final String ACCOUNT_CONTEXT = "account";
-  public static final String ACCOUNT_INFRASTRUCTURE_PRIMARY = "infrastructure/primary/rest";
+  public static final String ERROR_DOMAIN = "error/domain";
+  public static final String ACCOUNT_DOMAIN = ACCOUNT_CONTEXT + "/" + DOMAIN;
+  public static final String ACCOUNT_INFRASTRUCTURE_PRIMARY = ACCOUNT_CONTEXT + "/infrastructure/primary/rest";
 
   private static final String DOCKER_KEYCLOAK_IMAGE_NAME = "jboss/keycloak";
 
@@ -105,10 +108,11 @@ public class OAuth2Security {
   public static Map<String, String> oauth2AccountContextFiles() {
     Map<String, String> map = new HashMap<>();
 
-    map.put("AccountConstants.java", DOMAIN);
+    map.put("AccountConstants.java", ACCOUNT_DOMAIN);
     map.put("AccountResource.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
-    map.put("AccountResourceException.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
     map.put("UserDTO.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+
+    map.put("AccountException.java", ERROR_DOMAIN);
 
     return map;
   }
@@ -116,11 +120,12 @@ public class OAuth2Security {
   public static Map<String, String> oauth2AccountContextTestFiles() {
     Map<String, String> map = new HashMap<>();
 
-    map.put("AccountResourceExceptionTest.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
     map.put("AccountResourceIT.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
     map.put("AccountResourceTest.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
     map.put("OAuth2TestUtil.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
     map.put("UserDTOTest.java", ACCOUNT_INFRASTRUCTURE_PRIMARY);
+
+    map.put("AccountExceptionTest.java", ERROR_DOMAIN);
 
     return map;
   }

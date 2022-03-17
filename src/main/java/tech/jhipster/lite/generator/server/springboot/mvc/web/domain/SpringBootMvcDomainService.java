@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.web.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.INFRA_PRIMARY;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.TECHNICAL_PRIMARY;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
@@ -19,8 +19,8 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 public class SpringBootMvcDomainService implements SpringBootMvcService {
 
   public static final String SOURCE = "server/springboot/mvc/web";
-  public static final String INFRA_PRIMARY_CORS = getPath(INFRA_PRIMARY, "cors");
-  public static final String INFRA_PRIMARY_EXCEPTION = getPath(INFRA_PRIMARY, "exception");
+  public static final String INFRA_PRIMARY_CORS = getPath(TECHNICAL_PRIMARY, "cors");
+  public static final String INFRA_PRIMARY_EXCEPTION = getPath(TECHNICAL_PRIMARY, "exception");
 
   public final ProjectRepository projectRepository;
   public final BuildToolService buildToolService;

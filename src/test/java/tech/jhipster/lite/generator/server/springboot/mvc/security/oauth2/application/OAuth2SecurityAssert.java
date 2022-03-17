@@ -33,7 +33,7 @@ public class OAuth2SecurityAssert {
   }
 
   public static void assertJavaFiles(Project project) {
-    String oauth2Path = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH), SECURITY_OAUTH2_PATH);
+    String oauth2Path = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH));
 
     // main java files
     OAuth2Security
@@ -51,7 +51,7 @@ public class OAuth2SecurityAssert {
   }
 
   public static void assertExceptionTranslatorWithSecurity(Project project) {
-    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), INFRA_PRIMARY, "exception");
+    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), TECHNICAL_PRIMARY, "exception");
 
     assertFileContent(
       project,

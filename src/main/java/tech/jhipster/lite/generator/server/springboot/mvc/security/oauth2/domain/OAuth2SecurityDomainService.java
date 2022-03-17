@@ -81,14 +81,14 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
 
     String sourceSrc = getPath(SOURCE, "src");
-    String destinationSrc = getPath(MAIN_JAVA, packageNamePath, SECURITY_OAUTH2_PATH);
+    String destinationSrc = getPath(MAIN_JAVA, packageNamePath);
     oauth2SecurityFiles()
       .forEach((javaFile, folder) ->
         projectRepository.template(project, getPath(sourceSrc, folder), javaFile, getPath(destinationSrc, folder))
       );
 
     String sourceTest = getPath(SOURCE, "test");
-    String destinationTest = getPath(TEST_JAVA, packageNamePath, SECURITY_OAUTH2_PATH);
+    String destinationTest = getPath(TEST_JAVA, packageNamePath);
     oauth2TestSecurityFiles()
       .forEach((javaFile, folder) ->
         projectRepository.template(project, getPath(sourceTest, folder), javaFile, getPath(destinationTest, folder))
@@ -100,12 +100,12 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     project.addDefaultConfig(PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
 
-    String sourceSrc = getPath(SOURCE, ACCOUNT_CONTEXT, "src");
+    String sourceSrc = getPath(SOURCE, "src");
     String destinationSrc = getPath(MAIN_JAVA, packageNamePath);
     oauth2AccountContextFiles()
       .forEach((file, folder) -> projectRepository.template(project, getPath(sourceSrc, folder), file, getPath(destinationSrc, folder)));
 
-    String sourceTest = getPath(SOURCE, ACCOUNT_CONTEXT, "test");
+    String sourceTest = getPath(SOURCE, "test");
     String destinationTest = getPath(TEST_JAVA, packageNamePath);
     oauth2AccountContextTestFiles()
       .forEach((file, folder) -> projectRepository.template(project, getPath(sourceTest, folder), file, getPath(destinationTest, folder)));

@@ -33,11 +33,12 @@ public class Constants {
   // Hexagonal Architecture
   public static final String APPLICATION = "application";
   public static final String DOMAIN = "domain";
-  public static final String PRIMARY = "primary";
-  public static final String SECONDARY = "secondary";
+  public static final String INFRASTRUCTURE = "infrastructure";
+  public static final String PRIMARY = getPath(INFRASTRUCTURE, "primary");
+  public static final String SECONDARY = getPath(INFRASTRUCTURE, "secondary");
+  public static final String CONFIG = getPath(INFRASTRUCTURE, "config");
 
   public static final String TECHNICAL = "technical";
-  public static final String INFRASTRUCTURE = getPath(TECHNICAL, "infrastructure");
-  public static final String INFRA_PRIMARY = getPath(INFRASTRUCTURE, PRIMARY);
-  public static final String INFRA_SECONDARY = getPath(INFRASTRUCTURE, SECONDARY);
+  public static final String TECHNICAL_INFRASTRUCTURE = getPath(TECHNICAL, "infrastructure");
+  public static final String TECHNICAL_PRIMARY = getPath(TECHNICAL, PRIMARY);
 }

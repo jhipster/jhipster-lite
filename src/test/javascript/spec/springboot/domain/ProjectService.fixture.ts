@@ -1,5 +1,6 @@
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import sinon, { SinonStub } from 'sinon';
+import { Project } from '../../../../../main/webapp/app/springboot/domain/Project';
 
 export interface ProjectServiceFixture extends ProjectService {
   init: SinonStub;
@@ -9,6 +10,9 @@ export interface ProjectServiceFixture extends ProjectService {
   addSpringBoot: SinonStub;
   addSpringBootMvcTomcat: SinonStub;
   addSpringBootAsync: SinonStub;
+  addSpringBootDevtoolsDependencies: SinonStub;
+  addSpringBootDockerfile: SinonStub;
+  addSpringBootDockerJib: SinonStub;
 }
 
 export const stubProjectService = (): ProjectServiceFixture => ({
@@ -19,4 +23,7 @@ export const stubProjectService = (): ProjectServiceFixture => ({
   addSpringBoot: sinon.stub(),
   addSpringBootMvcTomcat: sinon.stub(),
   addSpringBootAsync: sinon.stub(),
+  addSpringBootDevtoolsDependencies: sinon.stub(),
+  addSpringBootDockerfile: sinon.stub(),
+  addSpringBootDockerJib: sinon.stub(),
 });

@@ -102,4 +102,43 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/async');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+  it('should add devtools dependencies', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootDevtoolsDependencies(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/devtools');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add dockerfile', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootDockerfile(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/docker/dockerfile');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add docker jib', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootDockerJib(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/docker/jib');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
 });

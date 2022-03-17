@@ -8,4 +8,7 @@ export interface ProjectService {
   addSpringBoot(project: Project): Promise<void>;
   addSpringBootMvcTomcat(project: Project): Promise<void>;
   addSpringBootAsync(project: Project): Promise<void>;
+  addSpringBootDevtoolsDependencies(project: Project): Promise<void>;
+  addSpringBootDockerfile(project: Project): Promise<void>;
+  addSpringBootDockerJib(project: Project): Promise<void>;
 }

@@ -88,4 +88,44 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('api/frontend-maven-plugin');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
+  it('should add client config on spring cloud', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringCloudConfigClient(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/spring-cloud/config-client');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add spring cloud consul config', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringCloudConsul(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/spring-cloud/consul');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add eureka on spring cloud', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringCloudEureka(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/spring-cloud/eureka-client');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
 });

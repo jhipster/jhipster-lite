@@ -79,7 +79,7 @@ class OAuth2SecurityDomainServiceTest {
     verify(commonSecurityService).updateExceptionTranslator(project);
     verify(commonSecurityService).updateIntegrationTestWithMockUser(project);
 
-    verify(projectRepository, times(2)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test

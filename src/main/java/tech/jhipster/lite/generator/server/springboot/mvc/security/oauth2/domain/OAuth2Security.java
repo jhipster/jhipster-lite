@@ -14,6 +14,7 @@ public class OAuth2Security {
   public static final String SECURITY_OAUTH2_DOMAIN = getPath(SECURITY_OAUTH2, DOMAIN);
   public static final String SECURITY_OAUTH2_INFRASTRUCTURE = getPath(SECURITY_OAUTH2, INFRASTRUCTURE);
   public static final String SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG = getPath(SECURITY_OAUTH2, CONFIG);
+  public static final String TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION = getPath(TECHNICAL_PRIMARY, "exception");
 
   public static final String ERROR_DOMAIN = "error/domain";
 

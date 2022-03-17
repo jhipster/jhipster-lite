@@ -137,7 +137,7 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   private void updateExceptionTranslatorWithAccountExceptionHandler(Project project) {
     String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String exceptionTranslatorPath = getPath(MAIN_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String exceptionTranslatorPath = getPath(MAIN_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION);
     String exceptionTranslatorFile = "ExceptionTranslator.java";
 
     String oldImport = "import org.zalando.problem.violations.ConstraintViolationProblem;";
@@ -165,7 +165,7 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   private void updateExceptionTranslatorTestController(Project project) {
     String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String exceptionTranslatorPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String exceptionTranslatorPath = getPath(TEST_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION);
     String fileToReplace = "ExceptionTranslatorTestController.java";
 
     String oldImport = "import org.springframework.http.converter.HttpMessageConversionException;";
@@ -190,9 +190,8 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   }
 
   private void updateExceptionTranslatorIT(Project project) {
-    String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String exceptionTranslatorPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String exceptionTranslatorPath = getPath(TEST_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION);
     String fileToReplace = "ExceptionTranslatorIT.java";
 
     String oldNeedle = "// jhipster-needle-exception-translator-it";

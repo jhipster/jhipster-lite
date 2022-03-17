@@ -1,6 +1,5 @@
 package {{packageName}}.account.infrastructure.primary.rest;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static {{packageName}}.account.infrastructure.primary.rest.OAuth2TestUtil.*;
@@ -49,7 +48,7 @@ class AccountResourceIT {
 
   @Test
   void shouldGetUnknownAccount() throws Exception {
-    mockMvc.perform(get("/api/account").accept(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
+    mockMvc.perform(get("/api/account").accept(MediaType.APPLICATION_JSON)).andExpect(status().isUnauthorized());
   }
 
   @Test

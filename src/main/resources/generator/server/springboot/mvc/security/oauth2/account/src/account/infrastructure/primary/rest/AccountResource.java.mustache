@@ -21,7 +21,7 @@ class AccountResource {
    *
    * @param principal the current user; resolves to {@code null} if not authenticated.
    * @return the current user.
-   * @throws AccountResourceException {@code 500 (Internal Server Error)} if the user couldn't be returned.
+   * @throws AccountException {@code 500 (Internal Server Error)} if the user couldn't be returned.
    */
   @GetMapping("/account")
   @SuppressWarnings("unchecked")

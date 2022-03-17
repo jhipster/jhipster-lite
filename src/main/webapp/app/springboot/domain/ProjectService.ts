@@ -7,4 +7,5 @@ export interface ProjectService {
   addJavaBase(project: Project): Promise<void>;
   addSpringBoot(project: Project): Promise<void>;
   addSpringBootMvcTomcat(project: Project): Promise<void>;
+  addSpringBootAsync(project: Project): Promise<void>;
 }

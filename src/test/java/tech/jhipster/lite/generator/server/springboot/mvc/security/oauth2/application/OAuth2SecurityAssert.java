@@ -75,6 +75,15 @@ public class OAuth2SecurityAssert {
       getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
       "public ResponseEntity<Problem> handleAccountException"
     );
+
+    assertFileContent(project, getPath(TEST_JAVA, path, "ExceptionTranslatorTestController.java"), "@GetMapping(\"/account-exception\")");
+
+    assertFileContent(project, getPath(TEST_JAVA, path, "ExceptionTranslatorTestController.java"), "public void accountException()");
+    assertFileContent(
+      project,
+      getPath(TEST_JAVA, path, "ExceptionTranslatorIT.java"),
+      "void shouldHandleAccountException() throws Exception"
+    );
   }
 
   public static void assertIntegrationTestWithSecurity(Project project) {

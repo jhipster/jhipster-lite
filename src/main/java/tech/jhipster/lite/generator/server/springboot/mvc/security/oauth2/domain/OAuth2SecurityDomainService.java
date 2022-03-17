@@ -47,7 +47,11 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     addSpringBootProperties(project);
 
     updateExceptionTranslator(project);
+
     updateExceptionTranslatorWithAccountExceptionHandler(project);
+    updateExceptionTranslatorTestController(project);
+    updateExceptionTranslatorIT(project);
+
     updateIntegrationTestWithMockUser(project);
     updateIntegrationTestWithTestSecurityConfiguration(project);
   }
@@ -156,6 +160,56 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
         // jhipster-needle-exception-translator""";
     projectRepository.replaceText(project, exceptionTranslatorPath, exceptionTranslatorFile, oldNeedle, newNeedle);
+  }
+
+  private void updateExceptionTranslatorTestController(Project project) {
+    String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String exceptionTranslatorPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String fileToReplace = "ExceptionTranslatorTestController.java";
+
+    String oldImport = "import org.springframework.http.converter.HttpMessageConversionException;";
+    String newImport = String.format(
+      """
+      import org.springframework.http.converter.HttpMessageConversionException;
+      import %s.error.domain.AccountException;""",
+      packageName
+    );
+    projectRepository.replaceText(project, exceptionTranslatorPath, fileToReplace, oldImport, newImport);
+
+    String oldNeedle = "// jhipster-needle-exception-translator-test-controller";
+    String newNeedle =
+      """
+      @GetMapping("/account-exception")
+        public void accountException() {
+          throw new AccountException("beer");
+        }
+
+        // jhipster-needle-exception-translator-test-controller""";
+    projectRepository.replaceText(project, exceptionTranslatorPath, fileToReplace, oldNeedle, newNeedle);
+  }
+
+  private void updateExceptionTranslatorIT(Project project) {
+    String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String exceptionTranslatorPath = getPath(TEST_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String fileToReplace = "ExceptionTranslatorIT.java";
+
+    String oldNeedle = "// jhipster-needle-exception-translator-it";
+    String newNeedle =
+      """
+        @Test
+          void shouldHandleAccountException() throws Exception {
+            mockMvc
+              .perform(get("/api/exception-translator-test/account-exception"))
+              .andExpect(status().isUnauthorized())
+              .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+              .andExpect(jsonPath("\\$.message").value("error.http.401"))
+              .andExpect(jsonPath("\\$.title").value("beer"));
+          }
+
+          // jhipster-needle-exception-translator-it""";
+    projectRepository.replaceText(project, exceptionTranslatorPath, fileToReplace, oldNeedle, newNeedle);
   }
 
   private void updateIntegrationTestWithTestSecurityConfiguration(Project project) {

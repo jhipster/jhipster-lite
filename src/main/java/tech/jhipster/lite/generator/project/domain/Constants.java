@@ -36,9 +36,9 @@ public class Constants {
   public static final String INFRASTRUCTURE = "infrastructure";
   public static final String PRIMARY = getPath(INFRASTRUCTURE, "primary");
   public static final String SECONDARY = getPath(INFRASTRUCTURE, "secondary");
-  public static final String CONFIG = getPath(INFRASTRUCTURE, "config");
+  public static final String CONFIG = getPath(INFRASTRUCTURE, CONFIG_FOLDER);
 
   public static final String TECHNICAL = "technical";
-  public static final String TECHNICAL_INFRASTRUCTURE = getPath(TECHNICAL, "infrastructure");
+  public static final String TECHNICAL_INFRASTRUCTURE = getPath(TECHNICAL, INFRASTRUCTURE);
   public static final String TECHNICAL_PRIMARY = getPath(TECHNICAL, PRIMARY);
 }

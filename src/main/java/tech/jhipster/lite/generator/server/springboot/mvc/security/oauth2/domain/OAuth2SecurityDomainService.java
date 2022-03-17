@@ -47,6 +47,7 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
     addSpringBootProperties(project);
 
     updateExceptionTranslator(project);
+    updateExceptionTranslatorWithAccountExceptionHandler(project);
     updateIntegrationTestWithMockUser(project);
     updateIntegrationTestWithTestSecurityConfiguration(project);
   }
@@ -127,6 +128,34 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
 
   private void updateIntegrationTestWithMockUser(Project project) {
     commonSecurityService.updateIntegrationTestWithMockUser(project);
+  }
+
+  private void updateExceptionTranslatorWithAccountExceptionHandler(Project project) {
+    String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String exceptionTranslatorPath = getPath(MAIN_JAVA, packageNamePath, "technical/infrastructure/primary/exception");
+    String exceptionTranslatorFile = "ExceptionTranslator.java";
+
+    String oldImport = "import org.zalando.problem.violations.ConstraintViolationProblem;";
+    String newImport = String.format(
+      """
+      import org.zalando.problem.violations.ConstraintViolationProblem;
+      import %s.error.domain.AccountException;""",
+      packageName
+    );
+    projectRepository.replaceText(project, exceptionTranslatorPath, exceptionTranslatorFile, oldImport, newImport);
+
+    String oldNeedle = "// jhipster-needle-exception-translator";
+    String newNeedle =
+      """
+      @ExceptionHandler
+        public ResponseEntity<Problem> handleAccountException(AccountException ex, NativeWebRequest request) {
+          Problem problem = Problem.builder().withStatus(Status.UNAUTHORIZED).withTitle(ex.getMessage()).build();
+          return create(ex, problem, request);
+        }
+
+        // jhipster-needle-exception-translator""";
+    projectRepository.replaceText(project, exceptionTranslatorPath, exceptionTranslatorFile, oldNeedle, newNeedle);
   }
 
   private void updateIntegrationTestWithTestSecurityConfiguration(Project project) {

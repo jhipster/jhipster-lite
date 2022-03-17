@@ -11,6 +11,10 @@ arrowParens: avoid
 # jsx and tsx rules:
 bracketSameLine: false
 
+# search additional plugin, following prettier 2.6.0
+pluginSearchDirs:
+  - .
+
 # java rules:
 overrides:
   - files: "*.java"

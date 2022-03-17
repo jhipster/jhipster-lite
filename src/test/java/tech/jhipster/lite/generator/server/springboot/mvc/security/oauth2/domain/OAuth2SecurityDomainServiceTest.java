@@ -62,9 +62,9 @@ class OAuth2SecurityDomainServiceTest {
     // 3 files related to docker-compose (docker-compose, realm, users)
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
 
-    // 9 files for Java
-    // 10 files for Java Test
-    verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
+    // 10 files for Java
+    // 11 files for Java Test
+    verify(projectRepository, times(21)).template(any(Project.class), anyString(), anyString(), anyString());
 
     // 5 properties, with 1 comment and 1 new line
     verify(springBootCommonService).addPropertiesComment(any(Project.class), anyString());
@@ -97,7 +97,7 @@ class OAuth2SecurityDomainServiceTest {
 
     oAuth2SecurityDomainService.addAccountContext(project);
 
-    // 4 java files and 5 for tests
-    verify(projectRepository, times(9)).template(any(Project.class), anyString(), anyString(), anyString());
+    // 3 java files and 4 for tests
+    verify(projectRepository, times(7)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

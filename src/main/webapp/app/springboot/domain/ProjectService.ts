@@ -7,4 +7,7 @@ export interface ProjectService {
   addJavaBase(project: Project): Promise<void>;
   addSpringBoot(project: Project): Promise<void>;
   addSpringBootMvcTomcat(project: Project): Promise<void>;
+  addEhcacheWithJavaConf(project: Project): Promise<void>;
+  addEhcacheWithXML(project: Project): Promise<void>;
+  addSimpleCache(project: Project): Promise<void>;
 }

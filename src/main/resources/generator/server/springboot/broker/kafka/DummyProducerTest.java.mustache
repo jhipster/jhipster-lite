@@ -24,7 +24,7 @@ class DummyProducerTest {
   public void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     mockProducer = new MockProducer<>(true, new StringSerializer(), new StringSerializer());
     dummyProducer = new DummyProducer("queue.jhipster.dummy", mockProducer);
-    Method postConstruct = DummyProducer.class.getDeclaredMethod("init", null);
+    Method postConstruct = DummyProducer.class.getDeclaredMethod("init");
     postConstruct.setAccessible(true);
     postConstruct.invoke(dummyProducer);
   }

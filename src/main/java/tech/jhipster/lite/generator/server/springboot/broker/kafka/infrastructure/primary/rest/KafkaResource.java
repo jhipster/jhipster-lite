@@ -28,7 +28,7 @@ class KafkaResource {
   @PostMapping
   @GeneratorStep(id = "springboot-kafka")
   public void init(final @RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
+    final Project project = ProjectDTO.toProject(projectDTO);
     kafkaApplicationService.init(project);
   }
 
@@ -37,7 +37,7 @@ class KafkaResource {
   @PostMapping("/dummy-producer")
   @GeneratorStep(id = "springboot-kafka-producer")
   public void addDummyProducer(final @RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
+    final Project project = ProjectDTO.toProject(projectDTO);
     kafkaApplicationService.addDummyProducer(project);
   }
 }

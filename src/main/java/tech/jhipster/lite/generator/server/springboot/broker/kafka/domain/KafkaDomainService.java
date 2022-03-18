@@ -48,11 +48,11 @@ public class KafkaDomainService implements KafkaService {
     if (!springBootCommonService.getProperty(project, DUMMY_TOPIC_NAME).isPresent()) {
       project.addDefaultConfig(PACKAGE_NAME);
       project.addDefaultConfig(BASE_NAME);
-      String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-      String secondaryKafkaPath = "technical/infrastructure/secondary/kafka";
-      String dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
+      final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
+      final String secondaryKafkaPath = "technical/infrastructure/secondary/kafka";
+      final String dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
 
-      String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
+      final String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
       springBootCommonService.addProperties(project, DUMMY_TOPIC_NAME, topicName);
       springBootCommonService.addPropertiesTest(project, DUMMY_TOPIC_NAME, topicName);
 
@@ -70,7 +70,7 @@ public class KafkaDomainService implements KafkaService {
   }
 
   private void addApacheKafkaClient(final Project project) {
-    Dependency dependency = Dependency.builder().groupId("org.apache.kafka").artifactId("kafka-clients").build();
+    final Dependency dependency = Dependency.builder().groupId("org.apache.kafka").artifactId("kafka-clients").build();
     buildToolService.addDependency(project, dependency);
   }
 
@@ -90,7 +90,7 @@ public class KafkaDomainService implements KafkaService {
   }
 
   private TreeMap<String, Object> getKafkaCommonProperties() {
-    TreeMap<String, Object> result = new TreeMap<>();
+    final TreeMap<String, Object> result = new TreeMap<>();
 
     result.put("# Kafka Configuration", "");
     result.put("kafka.bootstrap-servers", "localhost:9092");
@@ -106,6 +106,8 @@ public class KafkaDomainService implements KafkaService {
   }
 
   void addTestcontainers(final Project project) {
+    final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
+    projectRepository.template(project, SOURCE, "KafkaTestContainerExtension.java", getPath(TEST_JAVA, packageNamePath));
     this.buildToolService.getVersion(project, "testcontainers")
       .ifPresentOrElse(
         version -> {
@@ -123,5 +125,6 @@ public class KafkaDomainService implements KafkaService {
           throw new GeneratorException("Testcontainers version not found");
         }
       );
+    springBootCommonService.updateIntegrationTestAnnotation(project, "KafkaTestContainerExtension");
   }
 }

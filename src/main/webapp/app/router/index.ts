@@ -11,6 +11,11 @@ const routes = [
     name: 'Generator',
     component: GeneratorVue,
   },
+  {
+    path: '/kikou',
+    name: 'Kikou',
+    component: GeneratorVue,
+  },
 ];
 
 const router = createRouter({

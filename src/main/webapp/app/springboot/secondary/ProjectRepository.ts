@@ -85,4 +85,23 @@ export default class ProjectRepository implements ProjectService {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('/api/servers/spring-boot/databases/mongodb', restProject);
   }
+  async addSpringBootFlywayInit(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/databases/migration/flyway/init', restProject);
+  }
+
+  async addSpringBootFlywayUser(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/databases/migration/flyway/user', restProject);
+  }
+
+  async addSpringBootLiquibaseInit(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/databases/migration/liquibase/init', restProject);
+  }
+
+  async addSpringBootLiquibaseUser(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/databases/migration/liquibase/user', restProject);
+  }
 }

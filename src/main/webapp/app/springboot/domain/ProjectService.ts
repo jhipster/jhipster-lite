@@ -7,4 +7,8 @@ export interface ProjectService {
   addJavaBase(project: Project): Promise<void>;
   addSpringBoot(project: Project): Promise<void>;
   addSpringBootMvcTomcat(project: Project): Promise<void>;
+  addPostgres(project: Project): Promise<void>;
+  addMySQL(project: Project): Promise<void>;
+  addMariaDB(project: Project): Promise<void>;
+  addMongoDB(project: Project): Promise<void>;
 }

@@ -1,5 +1,6 @@
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import sinon, { SinonStub } from 'sinon';
+import { Project } from '../../../../../main/webapp/app/springboot/domain/Project';
 
 export interface ProjectServiceFixture extends ProjectService {
   init: SinonStub;
@@ -14,6 +15,10 @@ export interface ProjectServiceFixture extends ProjectService {
   addSpringBootBannerJHipsterV7: SinonStub;
   addSpringBootBannerJHipsterV7React: SinonStub;
   addSpringBootBannerJHipsterV7Vue: SinonStub;
+  addPostgres: SinonStub;
+  addMySQL: SinonStub;
+  addMariaDB: SinonStub;
+  addMongoDB: SinonStub;
 }
 
 export const stubProjectService = (): ProjectServiceFixture => ({
@@ -29,4 +34,8 @@ export const stubProjectService = (): ProjectServiceFixture => ({
   addSpringBootBannerJHipsterV7: sinon.stub(),
   addSpringBootBannerJHipsterV7React: sinon.stub(),
   addSpringBootBannerJHipsterV7Vue: sinon.stub(),
+  addPostgres: sinon.stub(),
+  addMySQL: sinon.stub(),
+  addMariaDB: sinon.stub(),
+  addMongoDB: sinon.stub(),
 });

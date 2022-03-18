@@ -1,35 +1,23 @@
 package {{packageName}};
 
-import java.util.Collections;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
 
 public class KafkaTestContainerExtension implements BeforeAllCallback {
-  private static final ThreadLocal<KafkaContainer> THREAD_CONTAINER = new ThreadLocal<>();
-  private final long memoryInBytes = Math.round(1024 * 1024 * 1024 * 0.6);
-  private final long memorySwapInBytes = Math.round(1024 * 1024 * 1024 * 0.8);
-  private final long nanoCpu = Math.round(1_000_000_000L * 0.1);
+
+  private AtomicBoolean kafkaContainerStarted = new AtomicBoolean(false);
 
   @Override
-  public void beforeAll(ExtensionContext context) {
-    if (null == THREAD_CONTAINER.get()) {
-      KafkaContainer kafkaContainer = new KafkaContainer(DockerImageName.parse("{{kafkaDockerImage}}"))
-        .withReuse(true)
-        .withTmpFs(Collections.singletonMap("/testtmpfs", "rw"))
-        .withCommand(
-          "--nojournal --wiredTigerCacheSizeGB 0.25 --wiredTigerCollectionBlockCompressor none --slowOpSampleRate 0 --setParameter ttlMonitorEnabled=false --setParameter diagnosticDataCollectionEnabled=false --setParameter logicalSessionRefreshMillis=6000000 --setParameter enableFlowControl=false --setParameter oplogFetcherUsesExhaust=false --setParameter disableResumableRangeDeleter=true --setParameter enableShardedIndexConsistencyCheck=false --setParameter enableFinerGrainedCatalogCacheRefresh=false --setParameter readHedgingMode=off --setParameter loadRoutingTableOnStartup=false --setParameter rangeDeleterBatchDelayMS=2000000 --setParameter skipShardingConfigurationChecks=true --setParameter syncdelay=3600"
-        )
-        .withCreateContainerCmdModifier(
-          cmd -> cmd.getHostConfig().withMemory(memoryInBytes).withMemorySwap(memorySwapInBytes).withNanoCPUs(nanoCpu)
-        );
+  public void beforeAll(final ExtensionContext context) {
+    if (!kafkaContainerStarted.get()) {
+      // TODO: withNetwork will need to be removed soon
+      // See discussion at https://github.com/jhipster/generator-jhipster/issues/11544#issuecomment-609065206
+      final KafkaContainer kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.0.1")).withNetwork(null);
       kafkaContainer.start();
-      THREAD_CONTAINER.set(kafkaContainer);
+      kafkaContainerStarted.set(true);
     }
-  }
-
-  public static ThreadLocal<?> getThreadContainer() {
-    return THREAD_CONTAINER;
   }
 }

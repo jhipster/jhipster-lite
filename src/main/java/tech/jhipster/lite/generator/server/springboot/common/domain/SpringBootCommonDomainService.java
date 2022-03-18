@@ -68,13 +68,7 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String needleProperties
   ) {
     String propertiesWithNeedle = key + "=" + value + LF + needleProperties;
-    projectRepository.replaceText(
-      project,
-      getPath(folderProperties, CONFIG_FOLDER),
-      fileProperties,
-      needleProperties,
-      propertiesWithNeedle
-    );
+    projectRepository.replaceText(project, getPath(folderProperties, CONFIG), fileProperties, needleProperties, propertiesWithNeedle);
   }
 
   @Override
@@ -99,13 +93,7 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   private void addNewLineToProperties(Project project, String folderProperties, String fileProperties, String needleProperties) {
     String propertiesWithNeedle = LF + needleProperties;
-    projectRepository.replaceText(
-      project,
-      getPath(folderProperties, CONFIG_FOLDER),
-      fileProperties,
-      needleProperties,
-      propertiesWithNeedle
-    );
+    projectRepository.replaceText(project, getPath(folderProperties, CONFIG), fileProperties, needleProperties, propertiesWithNeedle);
   }
 
   @Override
@@ -136,13 +124,7 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String needleProperties
   ) {
     String propertiesWithNeedle = "# " + text + LF + needleProperties;
-    projectRepository.replaceText(
-      project,
-      getPath(folderProperties, CONFIG_FOLDER),
-      fileProperties,
-      needleProperties,
-      propertiesWithNeedle
-    );
+    projectRepository.replaceText(project, getPath(folderProperties, CONFIG), fileProperties, needleProperties, propertiesWithNeedle);
   }
 
   @Override
@@ -161,7 +143,7 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     Assert.notBlank("key", key);
 
     return FileUtils
-      .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG_FOLDER, "application.properties"), key + "=")
+      .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG, "application.properties"), key + "=")
       .map(readValue -> {
         String[] result = readValue.split("=");
         if (result.length == 2) {

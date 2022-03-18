@@ -13,14 +13,14 @@ public class OAuth2Security {
   public static final String SECURITY_OAUTH2_APPLICATION = getPath(SECURITY_OAUTH2, APPLICATION);
   public static final String SECURITY_OAUTH2_DOMAIN = getPath(SECURITY_OAUTH2, DOMAIN);
   public static final String SECURITY_OAUTH2_INFRASTRUCTURE = getPath(SECURITY_OAUTH2, INFRASTRUCTURE);
-  public static final String SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG = getPath(SECURITY_OAUTH2, CONFIG);
-  public static final String TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION = getPath(TECHNICAL_PRIMARY, "exception");
+  public static final String SECURITY_OAUTH2_INFRASTRUCTURE_CONFIG = getPath(SECURITY_OAUTH2, INFRASTRUCTURE_CONFIG);
+  public static final String TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION = getPath(TECHNICAL_INFRASTRUCTURE_PRIMARY, "exception");
 
   public static final String ERROR_DOMAIN = "error/domain";
 
   public static final String ACCOUNT_CONTEXT = "account";
   public static final String ACCOUNT_DOMAIN = getPath(ACCOUNT_CONTEXT, DOMAIN);
-  public static final String ACCOUNT_INFRASTRUCTURE_PRIMARY = getPath(ACCOUNT_CONTEXT, PRIMARY, "rest");
+  public static final String ACCOUNT_INFRASTRUCTURE_PRIMARY = getPath(ACCOUNT_CONTEXT, INFRASTRUCTURE_PRIMARY, "rest");
 
   private static final String DOCKER_KEYCLOAK_IMAGE_NAME = "jboss/keycloak";
 

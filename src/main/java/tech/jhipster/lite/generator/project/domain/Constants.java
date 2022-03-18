@@ -13,7 +13,6 @@ public class Constants {
 
   public static final String TEMPLATE_FOLDER = "generator";
   public static final String DEPENDENCIES_FOLDER = "dependencies";
-  public static final String CONFIG_FOLDER = "config";
 
   public static final String TEST_JAVA = getPath("src/test/java");
   public static final String TEST_RESOURCES = getPath("src/test/resources");
@@ -34,11 +33,16 @@ public class Constants {
   public static final String APPLICATION = "application";
   public static final String DOMAIN = "domain";
   public static final String INFRASTRUCTURE = "infrastructure";
-  public static final String PRIMARY = getPath(INFRASTRUCTURE, "primary");
-  public static final String SECONDARY = getPath(INFRASTRUCTURE, "secondary");
-  public static final String CONFIG = getPath(INFRASTRUCTURE, CONFIG_FOLDER);
+  public static final String PRIMARY = "primary";
+  public static final String SECONDARY = "secondary";
+  public static final String CONFIG = "config";
+
+  public static final String INFRASTRUCTURE_PRIMARY = getPath(INFRASTRUCTURE, PRIMARY);
+  public static final String INFRASTRUCTURE_SECONDARY = getPath(INFRASTRUCTURE, SECONDARY);
+  public static final String INFRASTRUCTURE_CONFIG = getPath(INFRASTRUCTURE, CONFIG);
 
   public static final String TECHNICAL = "technical";
   public static final String TECHNICAL_INFRASTRUCTURE = getPath(TECHNICAL, INFRASTRUCTURE);
-  public static final String TECHNICAL_PRIMARY = getPath(TECHNICAL, PRIMARY);
+  public static final String TECHNICAL_INFRASTRUCTURE_PRIMARY = getPath(TECHNICAL, INFRASTRUCTURE_PRIMARY);
+  public static final String TECHNICAL_INFRASTRUCTURE_SECONDARY = getPath(TECHNICAL, INFRASTRUCTURE_SECONDARY);
 }

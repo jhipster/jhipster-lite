@@ -1,17 +1,27 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+
 import java.util.List;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class FrontendMavenDomainService implements FrontendMavenService {
 
-  private final BuildToolService buildToolService;
+  private static final String SOURCE = "server/springboot/mvc/web/src";
+  private static final String TEST = "server/springboot/mvc/web/test";
 
-  public FrontendMavenDomainService(BuildToolService buildToolService) {
+  private final BuildToolService buildToolService;
+  private final ProjectRepository projectRepository;
+
+  public FrontendMavenDomainService(BuildToolService buildToolService, ProjectRepository projectRepository) {
     this.buildToolService = buildToolService;
+    this.projectRepository = projectRepository;
   }
 
   @Override
@@ -23,6 +33,18 @@ public class FrontendMavenDomainService implements FrontendMavenService {
     buildToolService.addPlugin(project, checksumMavenPlugin());
     buildToolService.addPlugin(project, mavenAntrunPlugin());
     buildToolService.addPlugin(project, frontendMavenPlugin());
+
+    addRedirectionToWebappFiles(project);
+  }
+
+  private void addRedirectionToWebappFiles(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    project.addDefaultConfig(BASE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String redirectionPath = getPath(TECHNICAL_INFRASTRUCTURE_PRIMARY, "redirection");
+
+    projectRepository.template(project, SOURCE, "RedirectionResource.java", getPath(MAIN_JAVA, packageNamePath, redirectionPath));
+    projectRepository.template(project, TEST, "RedirectionResourceIT.java", getPath(TEST_JAVA, packageNamePath, redirectionPath));
   }
 
   private Plugin frontendMavenPlugin() {

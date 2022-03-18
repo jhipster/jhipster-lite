@@ -65,4 +65,24 @@ export default class ProjectRepository implements ProjectService {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('api/servers/spring-boot/banner/jhipster-v7-vue', restProject);
   }
+
+  async addPostgres(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/databases/postgresql', restProject);
+  }
+
+  async addMySQL(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/databases/mysql', restProject);
+  }
+
+  async addMariaDB(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/databases/mariadb', restProject);
+  }
+
+  async addMongoDB(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/databases/mongodb', restProject);
+  }
 }

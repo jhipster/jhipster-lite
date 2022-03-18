@@ -18,9 +18,7 @@ public class KafkaProducerProperties {
 
   @PostConstruct
   public void init() {
-    if (!producer.containsKey(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG)) {
-      producer.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-    }
+    producer.computeIfAbsent(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, k -> bootstrapServers);
   }
 
   public Map<String, Object> getProducer() {

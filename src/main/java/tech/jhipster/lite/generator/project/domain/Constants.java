@@ -22,6 +22,7 @@ public class Constants {
   public static final String LIQUIBASE_MASTER_XML = "master.xml";
   public static final String PACKAGE_JSON = "package.json";
   public static final String DOCKERFILE = "Dockerfile";
+  public static final String INTEGRATION_TEST = "IntegrationTest.java";
 
   public static final String COMMENT_PROPERTIES_PREFIX = "#";
   public static final String KEY_VALUE_PROPERTIES_SEPARATOR = "=";

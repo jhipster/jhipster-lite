@@ -73,4 +73,8 @@ public class SpringBootCommonApplicationService {
   public void addLoggerTest(Project project, String packageName, Level level) {
     springBootCommonService.addLoggerTest(project, packageName, level);
   }
+
+  public void updateIntegrationTestAnnotation(Project project, String className) {
+    springBootCommonService.updateIntegrationTestAnnotation(project, className);
+  }
 }

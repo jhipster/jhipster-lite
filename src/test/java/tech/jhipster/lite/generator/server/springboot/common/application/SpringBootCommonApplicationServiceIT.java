@@ -479,4 +479,21 @@ class SpringBootCommonApplicationServiceIT {
       assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-log -->");
     }
   }
+
+  @Test
+  void shouldUpdateIntegrationTestAnnotation() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    springBootCommonApplicationService.updateIntegrationTestAnnotation(project, "BeerContainer");
+
+    String integrationTestFile = getPath(TEST_JAVA, DefaultConfig.PACKAGE_PATH, "IntegrationTest.java");
+    assertFileContent(project, integrationTestFile, "public @interface");
+    assertFileContent(project, integrationTestFile, "@ExtendWith(BeerContainer.class)");
+
+    springBootCommonApplicationService.updateIntegrationTestAnnotation(project, "ChipsContainer");
+    assertFileContent(project, integrationTestFile, "@ExtendWith(ChipsContainer.class)");
+  }
 }

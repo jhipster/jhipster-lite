@@ -23,6 +23,10 @@ export interface ProjectServiceFixture extends ProjectService {
   addSpringBootFlywayUser: SinonStub;
   addSpringBootLiquibaseInit: SinonStub;
   addSpringBootLiquibaseUser: SinonStub;
+  addJWT: SinonStub;
+  addBasicAuthJWT: SinonStub;
+  addOauth2: SinonStub;
+  addSpringdocJWT: SinonStub;
 }
 
 export const stubProjectService = (): ProjectServiceFixture => ({
@@ -46,4 +50,8 @@ export const stubProjectService = (): ProjectServiceFixture => ({
   addSpringBootFlywayUser: sinon.stub(),
   addSpringBootLiquibaseInit: sinon.stub(),
   addSpringBootLiquibaseUser: sinon.stub(),
+  addJWT: sinon.stub(),
+  addBasicAuthJWT: sinon.stub(),
+  addOauth2: sinon.stub(),
+  addSpringdocJWT: sinon.stub(),
 });

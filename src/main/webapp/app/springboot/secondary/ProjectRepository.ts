@@ -38,31 +38,31 @@ export default class ProjectRepository implements ProjectService {
 
   async addSpringBootBannerIppon(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/spring-boot/banner/ippon', restProject);
+    await this.axiosHttp.post('api/servers/spring-boot/banner/ippon', restProject);
   }
 
   async addSpringBootBannerJHipsterV2(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v2', restProject);
+    await this.axiosHttp.post('api/servers/spring-boot/banner/jhipster-v2', restProject);
   }
 
   async addSpringBootBannerJHipsterV3(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v3', restProject);
+    await this.axiosHttp.post('api/servers/spring-boot/banner/jhipster-v3', restProject);
   }
 
   async addSpringBootBannerJHipsterV7(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v7', restProject);
+    await this.axiosHttp.post('api/servers/spring-boot/banner/jhipster-v7', restProject);
   }
 
   async addSpringBootBannerJHipsterV7React(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v7-react', restProject);
+    await this.axiosHttp.post('api/servers/spring-boot/banner/jhipster-v7-react', restProject);
   }
 
   async addSpringBootBannerJHipsterV7Vue(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/servers/spring-boot/banner/jhipster-v7-vue', restProject);
+    await this.axiosHttp.post('api/servers/spring-boot/banner/jhipster-v7-vue', restProject);
   }
 }

@@ -3,7 +3,6 @@ import ProjectRepository from '@/springboot/secondary/ProjectRepository';
 import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
 import { createProject } from '../domain/Project.fixture';
-import { createRestHistory } from '../../common/secondary/RestHistory.fixture';
 
 describe('ProjectRepository', () => {
   it('should init project', () => {
@@ -100,10 +99,11 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/banner/ippon');
+    expect(uri).toBe('api/servers/spring-boot/banner/ippon');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add JHV2 Banner', () => {
+
+  it('should add JHipster v2 Banner', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const projectRepository = new ProjectRepository(axiosHttpStub);
@@ -113,10 +113,11 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v2');
+    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v2');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add JHV3 Banner', () => {
+
+  it('should add JHipster v3 Banner', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const projectRepository = new ProjectRepository(axiosHttpStub);
@@ -126,10 +127,11 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v3');
+    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v3');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add JHV7 Banner', () => {
+
+  it('should add JHipster v7 Banner', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const projectRepository = new ProjectRepository(axiosHttpStub);
@@ -139,10 +141,11 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v7');
+    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v7');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add JHV7React Banner', () => {
+
+  it('should add JHipster v7 React Banner', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const projectRepository = new ProjectRepository(axiosHttpStub);
@@ -152,10 +155,11 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v7-react');
+    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v7-react');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add JHV7Vue Banner', () => {
+
+  it('should add JHipster v7 Vue Banner', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const projectRepository = new ProjectRepository(axiosHttpStub);
@@ -165,7 +169,7 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/banner/jhipster-v7-vue');
+    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v7-vue');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

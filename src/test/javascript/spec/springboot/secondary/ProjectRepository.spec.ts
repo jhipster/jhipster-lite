@@ -329,5 +329,4 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-
 });

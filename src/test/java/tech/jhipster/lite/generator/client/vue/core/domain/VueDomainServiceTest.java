@@ -102,7 +102,7 @@ class VueDomainServiceTest {
 
     vueDomainService.addScripts(project);
 
-    verify(npmService, times(5)).addScript(any(Project.class), anyString(), anyString());
+    verify(npmService, times(7)).addScript(any(Project.class), anyString(), anyString());
   }
 
   @Test

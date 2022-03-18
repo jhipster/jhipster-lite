@@ -83,9 +83,11 @@ public class VueDomainService implements VueService {
       .of(
         "build", "vue-tsc --noEmit && vite build --emptyOutDir",
         "dev", "vite",
+        "jest", "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache",
         "preview", "vite preview",
         "start", "vite",
-        "test", "jest src/test/javascript/spec"
+        "test", "npm run jest --",
+        "test:watch", "npm run jest -- --watch"
       )
       .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
   }

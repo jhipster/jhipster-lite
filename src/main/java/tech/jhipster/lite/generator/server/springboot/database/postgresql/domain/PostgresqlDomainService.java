@@ -104,7 +104,7 @@ public class PostgresqlDomainService implements PostgresqlService {
   @Override
   public void addProperties(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
 
     sqlCommonService.addProperties(project, springProperties(baseName, packageName));
   }

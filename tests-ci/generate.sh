@@ -167,7 +167,7 @@ elif [[ $application == 'mongodbapp' ]]; then
   springboot
   sonar_back
 
-  callApi "/api/servers/spring-boot/databases/mongodbapp"
+  callApi "/api/servers/spring-boot/databases/mongodb"
 
 elif [[ $application == 'angularapp' ]]; then
   springboot

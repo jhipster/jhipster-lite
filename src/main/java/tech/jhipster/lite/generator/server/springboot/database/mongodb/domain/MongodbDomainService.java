@@ -143,20 +143,6 @@ public class MongodbDomainService implements MongodbService {
   }
 
   private void updateIntegrationTestAnnotation(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
-
-    String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";
-    String newImport =
-      """
-        import org.junit.jupiter.api.extension.ExtendWith;
-        import org.springframework.boot.test.context.SpringBootTest;""";
-    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldImport, newImport);
-
-    String oldAnnotation = "public @interface";
-    String newAnnotation = """
-      @ExtendWith(MongodbTestContainerExtension.class)
-      public @interface""";
-    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldAnnotation, newAnnotation);
+    springBootCommonService.updateIntegrationTestAnnotation(project, "MongodbTestContainerExtension");
   }
 }

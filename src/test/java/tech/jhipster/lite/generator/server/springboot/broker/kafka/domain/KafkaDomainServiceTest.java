@@ -55,11 +55,20 @@ class KafkaDomainServiceTest {
   void shouldAddProducer() {
     Project project = tmpProjectWithPomXml();
 
+    when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.empty());
     kafkaDomainService.addDummyProducer(project);
 
     verify(springBootCommonService).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), any());
     verify(projectRepository, times(5)).template(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldNotAddProducer() {
+    Project project = tmpProjectWithPomXml();
+
+    when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.of("queue.jhipster.dummy"));
+    kafkaDomainService.addDummyProducer(project);
   }
 
   @Test

@@ -4,9 +4,10 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvcDomainService.INFRA_PRIMARY_CORS;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.TECHNICAL_INFRASTRUCTURE_PRIMARY_CORS;
 
 import java.util.List;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class SpringBootMvcAssertFiles {
@@ -73,7 +74,7 @@ public class SpringBootMvcAssertFiles {
   }
 
   public static void assertCorsFiles(Project project) {
-    String corsPath = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), INFRA_PRIMARY_CORS);
+    String corsPath = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH), TECHNICAL_INFRASTRUCTURE_PRIMARY_CORS);
     assertFileExist(project, getPath(MAIN_JAVA, corsPath, "CorsFilterConfiguration.java"));
     assertFileExist(project, getPath(MAIN_JAVA, corsPath, "CorsProperties.java"));
     assertFileExist(project, getPath(TEST_JAVA, corsPath, "CorsFilterConfigurationIT.java"));
@@ -99,8 +100,8 @@ public class SpringBootMvcAssertFiles {
 
     List<String> commentedCorsProperties = corsProperties.stream().map(p -> "# " + p).toList();
 
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), commentedCorsProperties);
-    assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), corsProperties);
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config/application-local.properties"), corsProperties);
+    assertFileContent(project, getPath(MAIN_RESOURCES, CONFIG, "application.properties"), commentedCorsProperties);
+    assertFileContent(project, getPath(TEST_RESOURCES, CONFIG, "application.properties"), corsProperties);
+    assertFileContent(project, getPath(MAIN_RESOURCES, CONFIG, "application-local.properties"), corsProperties);
   }
 }

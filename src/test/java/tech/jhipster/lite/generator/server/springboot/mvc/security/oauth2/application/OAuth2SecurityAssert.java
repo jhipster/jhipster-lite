@@ -6,7 +6,6 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.DEFAULT_PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2SecurityDomainService.SECURITY_OAUTH2_PATH;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
@@ -52,7 +51,7 @@ public class OAuth2SecurityAssert {
   }
 
   public static void assertExceptionTranslatorWithSecurity(Project project) {
-    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), TECHNICAL_PRIMARY, "exception");
+    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), TECHNICAL_INFRASTRUCTURE_PRIMARY, "exception");
     String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
 
     assertFileContent(

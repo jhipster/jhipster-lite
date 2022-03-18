@@ -17,6 +17,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -47,8 +48,8 @@ class SpringBootCommonApplicationServiceIT {
 
     springBootCommonApplicationService.addTestLogbackRecorder(project);
 
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH);
 
     assertFileExist(project, getPath(TEST_JAVA, packageNamePath, "LogbackRecorder.java"));
 

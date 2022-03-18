@@ -11,6 +11,7 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.Spri
 import java.util.List;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -99,7 +100,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     buildToolService.addDependency(project, problemSpringDependency());
     buildToolService.addDependency(project, springBootStarterValidation());
 
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     springBootCommonService.addProperties(project, "application.exception.details", "false");
     springBootCommonService.addProperties(project, "application.exception.package", "org.,java.,net.,javax.,com.,io.,de.," + packageName);
     springBootCommonService.addPropertiesTest(project, "application.exception.package", "org.,java.");

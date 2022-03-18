@@ -94,7 +94,7 @@ public class OAuth2SecurityAssert {
     assertFileContent(project, integrationTestFile, "import org.springframework.security.test.context.support.WithMockUser;");
     assertFileContent(project, integrationTestFile, "@WithMockUser");
 
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     assertFileContent(
       project,
       integrationTestFile,

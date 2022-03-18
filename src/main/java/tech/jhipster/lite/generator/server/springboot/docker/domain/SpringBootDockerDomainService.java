@@ -7,6 +7,7 @@ import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -32,7 +33,7 @@ public class SpringBootDockerDomainService implements SpringBootDockerService {
   @Override
   public void addJibFiles(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     String className = WordUtils.upperFirst(baseName);
     project.addConfig("mainClass", packageName + "." + className + "App");
     projectRepository.template(project, getPath(JIB_SOURCE), "entrypoint.sh", getPath("src/main/docker/jib"));

@@ -224,4 +224,56 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/mongodb');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+  it('should migrate flyway init', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootFlywayInit(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/databases/migration/flyway/init');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should migrate flyway user', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootFlywayUser(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/databases/migration/flyway/user');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should migrate liquibase init', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootLiquibaseInit(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/databases/migration/liquibase/init');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should migrate liquibase user', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSpringBootLiquibaseUser(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/databases/migration/liquibase/user');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
 });

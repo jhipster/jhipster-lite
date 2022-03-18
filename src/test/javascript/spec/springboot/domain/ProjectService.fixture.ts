@@ -19,6 +19,10 @@ export interface ProjectServiceFixture extends ProjectService {
   addMySQL: SinonStub;
   addMariaDB: SinonStub;
   addMongoDB: SinonStub;
+  addSpringBootFlywayInit: SinonStub;
+  addSpringBootFlywayUser: SinonStub;
+  addSpringBootLiquibaseInit: SinonStub;
+  addSpringBootLiquibaseUser: SinonStub;
 }
 
 export const stubProjectService = (): ProjectServiceFixture => ({
@@ -38,4 +42,8 @@ export const stubProjectService = (): ProjectServiceFixture => ({
   addMySQL: sinon.stub(),
   addMariaDB: sinon.stub(),
   addMongoDB: sinon.stub(),
+  addSpringBootFlywayInit: sinon.stub(),
+  addSpringBootFlywayUser: sinon.stub(),
+  addSpringBootLiquibaseInit: sinon.stub(),
+  addSpringBootLiquibaseUser: sinon.stub(),
 });

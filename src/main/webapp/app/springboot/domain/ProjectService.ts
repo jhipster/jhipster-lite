@@ -11,4 +11,8 @@ export interface ProjectService {
   addMySQL(project: Project): Promise<void>;
   addMariaDB(project: Project): Promise<void>;
   addMongoDB(project: Project): Promise<void>;
+  addSpringBootFlywayInit(project: Project): Promise<void>;
+  addSpringBootFlywayUser(project: Project): Promise<void>;
+  addSpringBootLiquibaseInit(project: Project): Promise<void>;
+  addSpringBootLiquibaseUser(project: Project): Promise<void>;
 }

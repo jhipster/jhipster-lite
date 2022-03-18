@@ -65,6 +65,21 @@ class AngularDomainServiceTest {
   }
 
   @Test
+  void shouldAddJwtAngular() {
+    Project project = tmpProjectWithPackageJson();
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
+
+    assertThatCode(() -> angularDomainService.addJwtAngular(project)).doesNotThrowAnyException();
+  }
+
+  @Test
+  void shouldNotAddJwtAngular() {
+    Project project = tmpProjectWithPackageJson();
+
+    assertThatThrownBy(() -> angularDomainService.addJwtAngular(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldAddDependencies() {
     Project project = tmpProjectWithPackageJson();
     when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
@@ -99,6 +114,23 @@ class AngularDomainServiceTest {
   }
 
   @Test
+  void shouldAddJwtDependencies() {
+    Project project = tmpProjectWithPackageJson();
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
+
+    angularDomainService.addJwtDependencies(project);
+
+    verify(npmService, times(1)).addDependency(any(Project.class), anyString(), anyString());
+  }
+
+  @Test
+  void shouldNotAddJwtDependencies() {
+    Project project = tmpProjectWithPackageJson();
+
+    assertThatThrownBy(() -> angularDomainService.addJwtDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldAddScripts() {
     Project project = tmpProjectWithPackageJson();
 
@@ -117,11 +149,29 @@ class AngularDomainServiceTest {
   }
 
   @Test
+  void shouldAddJwtFiles() {
+    Project project = tmpProjectWithPackageJson();
+
+    angularDomainService.addJwtFiles(project);
+
+    verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString());
+  }
+
+  @Test
   void shouldAddAngularFiles() {
     Project project = tmpProjectWithPackageJson();
 
     angularDomainService.addAngularFiles(project);
 
     verify(projectRepository, times(14)).template(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddAngularJwtFiles() {
+    Project project = tmpProjectWithPackageJson();
+
+    angularDomainService.addAngularJwtFiles(project);
+
+    verify(projectRepository, times(9)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

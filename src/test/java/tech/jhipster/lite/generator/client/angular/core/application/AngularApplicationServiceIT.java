@@ -49,4 +49,18 @@ class AngularApplicationServiceIT {
     assertAppWithCss(project);
     assertLogos(project);
   }
+
+  @Test
+  void shouldAddJwtAngular() {
+    Project project = tmpProjectWithPackageJsonComplete();
+
+    angularApplicationService.addJwtAngular(project);
+
+    assertDevDependencies(project);
+    assertDependencies(project);
+    assertScripts(project);
+    assertConfigFiles(project);
+    assertAngularFiles(project);
+    assertAppJwt(project);
+  }
 }

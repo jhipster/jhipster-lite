@@ -39,6 +39,10 @@ public class Angular {
     );
   }
 
+  public static List<String> jwtDependencies() {
+    return List.of("ngx-webstorage");
+  }
+
   public static Map<String, String> scripts() {
     // @formatter:off
     return Map.of(
@@ -53,6 +57,10 @@ public class Angular {
 
   public static List<String> files() {
     return List.of("angular.json", "jest.conf.js", "tsconfig.app.json", "tsconfig.json", "tsconfig.spec.json");
+  }
+
+  public static List<String> jwtFiles() {
+    return List.of("proxy.conf.json");
   }
 
   public static Map<String, String> angularFiles() {
@@ -73,6 +81,24 @@ public class Angular {
       Map.entry("environment.prod.spec.ts", environments),
       Map.entry("environment.ts", environments),
       Map.entry("environment.spec.ts", environments)
+    );
+  }
+
+  public static Map<String, String> angularJwtFiles() {
+    String primaryAppAuth = "app/common/primary/app/auth";
+    String primaryAppInterceptor = "app/common/primary/app/interceptor";
+    String primaryAppLogin = "app/common/primary/app/login";
+    String primaryAppModel = "app/common/primary/app/model";
+    return Map.ofEntries(
+      Map.entry("account.service.ts", primaryAppAuth),
+      Map.entry("account.service.spec.ts", primaryAppAuth),
+      Map.entry("auth-jwt.service.ts", primaryAppAuth),
+      Map.entry("auth-jwt.service.spec.ts", primaryAppAuth),
+      Map.entry("auth.interceptor.ts", primaryAppInterceptor),
+      Map.entry("login.service.ts", primaryAppLogin),
+      Map.entry("login.service.spec.ts", primaryAppLogin),
+      Map.entry("account.model.ts", primaryAppModel),
+      Map.entry("login.model.ts", primaryAppModel)
     );
   }
 }

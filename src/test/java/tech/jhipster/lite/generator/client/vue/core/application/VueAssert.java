@@ -20,9 +20,11 @@ public class VueAssert {
   public static void assertScripts(Project project) {
     assertFileContent(project, PACKAGE_JSON, "\"build\": \"vue-tsc --noEmit && vite build --emptyOutDir\"");
     assertFileContent(project, PACKAGE_JSON, "\"dev\": \"vite\"");
+    assertFileContent(project, PACKAGE_JSON, "\"jest\": \"jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache\"");
     assertFileContent(project, PACKAGE_JSON, "\"preview\": \"vite preview\"");
     assertFileContent(project, PACKAGE_JSON, "\"start\": \"vite\"");
-    assertFileContent(project, PACKAGE_JSON, "\"test\": \"jest src/test/javascript/spec\"");
+    assertFileContent(project, PACKAGE_JSON, "\"test\": \"npm run jest --\"");
+    assertFileContent(project, PACKAGE_JSON, "\"test:watch\": \"npm run jest -- --watch\"");
   }
 
   public static void assertViteConfigFiles(Project project) {

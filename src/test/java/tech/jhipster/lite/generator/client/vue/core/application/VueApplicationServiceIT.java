@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.client.vue.core.application;
 
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
+import static tech.jhipster.lite.TestUtils.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ class VueApplicationServiceIT {
     VueAssert.assertViteConfigFiles(project);
     VueAssert.assertRootFiles(project);
     VueAssert.assertAppFiles(project);
+    VueAssert.assertRouterFiles(project);
     VueAssert.assertAppWithoutCss(project);
 
     VueAssert.assertJestSonar(project);
@@ -41,6 +42,7 @@ class VueApplicationServiceIT {
 
     VueAssert.assertViteConfigFiles(project);
     VueAssert.assertRootFiles(project);
+    VueAssert.assertRouterFiles(project);
     VueAssert.assertAppFiles(project);
     VueAssert.assertAppWithCss(project);
     VueAssert.assertLogos(project);

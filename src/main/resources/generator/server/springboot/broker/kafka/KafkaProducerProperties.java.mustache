@@ -1,0 +1,31 @@
+package {{packageName}}.technical.infrastructure.secondary.kafka;
+
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.PostConstruct;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ConfigurationProperties(prefix = "kafka")
+public class KafkaProducerProperties {
+  @Value("${kafka.bootstrap.servers:localhost:9092}")
+  private String bootstrapServers;
+
+  private Map<String, Object> producer = new HashMap<>();
+
+  @PostConstruct
+  public void init() {
+    producer.computeIfAbsent(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, k -> bootstrapServers);
+  }
+
+  public Map<String, Object> getProducer() {
+    return this.producer;
+  }
+
+  public void setProducer(Map<String, Object> producer) {
+    this.producer = producer;
+  }
+}

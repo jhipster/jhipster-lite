@@ -200,6 +200,10 @@ Spring Cloud:
 - Spring Cloud Config client
 - Spring Cloud Consul
 
+Broker:
+
+- Apache Kafka
+
 Client:
 
 - Angular

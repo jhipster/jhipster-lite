@@ -203,6 +203,13 @@ elif [[ $application == 'svelteapp' ]]; then
   callApi "/api/frontend-maven-plugin"
   callApi "/api/svelte/styled"
 
+elif [[ $application == 'kafkaapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/brokers/kafka"
+  callApi "/api/servers/spring-boot/brokers/kafka/dummy-producer"
+
 else
   echo "*** Unknown configuration..."
   exit 1

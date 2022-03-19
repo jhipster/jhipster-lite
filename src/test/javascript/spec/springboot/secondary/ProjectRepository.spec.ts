@@ -422,4 +422,44 @@ describe('ProjectRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/spring-cloud/eureka-client');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
+  it('should add Ehcache with Java configuration', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addEhcacheWithJavaConf(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/cache/ehcache/java-configuration');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add Ehcache with XML', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addEhcacheWithXML(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/cache/ehcache/xml-configuration');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+  it('should add simple cache', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSimpleCache(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/cache/simple');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
 });

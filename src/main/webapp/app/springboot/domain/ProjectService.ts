@@ -7,6 +7,9 @@ export interface ProjectService {
   addJavaBase(project: Project): Promise<void>;
   addSpringBoot(project: Project): Promise<void>;
   addSpringBootMvcTomcat(project: Project): Promise<void>;
+  addEhcacheWithJavaConf(project: Project): Promise<void>;
+  addEhcacheWithXML(project: Project): Promise<void>;
+  addSimpleCache(project: Project): Promise<void>;
   addSpringCloudConfigClient(project: Project): Promise<void>;
   addSpringCloudConsul(project: Project): Promise<void>;
   addSpringCloudEureka(project: Project): Promise<void>;

@@ -159,4 +159,19 @@ export default class ProjectRepository implements ProjectService {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('/api/servers/spring-boot/spring-cloud/eureka-client', restProject);
   }
+
+  async addEhcacheWithJavaConf(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/cache/ehcache/java-configuration', restProject);
+  }
+
+  async addEhcacheWithXML(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/cache/ehcache/xml-configuration', restProject);
+  }
+
+  async addSimpleCache(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/cache/simple', restProject);
+  }
 }

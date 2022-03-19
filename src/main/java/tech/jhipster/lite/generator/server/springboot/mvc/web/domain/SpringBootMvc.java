@@ -1,5 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.web.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.TECHNICAL_INFRASTRUCTURE_PRIMARY;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
@@ -7,6 +10,9 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 public class SpringBootMvc {
 
   public static final String SPRINGBOOT_PACKAGE = "org.springframework.boot";
+
+  public static final String CORS = "cors";
+  public static final String TECHNICAL_INFRASTRUCTURE_PRIMARY_CORS = getPath(TECHNICAL_INFRASTRUCTURE_PRIMARY, CORS);
 
   private SpringBootMvc() {}
 
@@ -37,9 +43,9 @@ public class SpringBootMvc {
   public static Map<String, String> corsFiles() {
     return Map.of(
       "CorsFilterConfiguration.java",
-      "technical/infrastructure/primary/cors",
+      TECHNICAL_INFRASTRUCTURE_PRIMARY_CORS,
       "CorsProperties.java",
-      "technical/infrastructure/primary/cors"
+      TECHNICAL_INFRASTRUCTURE_PRIMARY_CORS
     );
   }
 

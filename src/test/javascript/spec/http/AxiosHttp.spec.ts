@@ -32,7 +32,7 @@ const expectForSendingAndQuerying = (uri: string, payload: Payload, result: Axio
 
 describe('axiosHttp', () => {
   describe('GET', () => {
-    it('Should get content', async () => {
+    it('should get content', async () => {
       const axiosInstance = stubAxiosInstance();
       axiosInstance.get.resolves(responseResult());
       const axiosHttp = new AxiosHttp(axiosInstance);
@@ -42,10 +42,21 @@ describe('axiosHttp', () => {
       const [uri] = axiosInstance.get.getCall(0).args;
       expectForQuerying(uri, result);
     });
+
+    it('should get content with params', async () => {
+      const axiosInstance = stubAxiosInstance();
+      axiosInstance.get.resolves(responseResult());
+      const axiosHttp = new AxiosHttp(axiosInstance);
+
+      await axiosHttp.get<Result>('/uri', { params: { beer: 'chips' } });
+
+      const [, config] = axiosInstance.get.getCall(0).args;
+      expect(config.params.beer).toBe('chips');
+    });
   });
 
   describe('PUT', () => {
-    it('Should only get content', async () => {
+    it('should only get content', async () => {
       const axiosInstance = stubAxiosInstance();
       axiosInstance.put.resolves(responseResult());
       const axiosHttp = new AxiosHttp(axiosInstance);
@@ -56,7 +67,7 @@ describe('axiosHttp', () => {
       expectForQuerying(uri, result);
     });
 
-    it('Should send and get content', async () => {
+    it('should send and get content', async () => {
       const axiosInstance = stubAxiosInstance();
       axiosInstance.put.resolves(responseResult());
       const axiosHttp = new AxiosHttp(axiosInstance);
@@ -69,7 +80,7 @@ describe('axiosHttp', () => {
   });
 
   describe('POST', () => {
-    it('Should only get content', async () => {
+    it('should only get content', async () => {
       const axiosInstance = stubAxiosInstance();
       axiosInstance.post.resolves(responseResult());
       const axiosHttp = new AxiosHttp(axiosInstance);
@@ -80,7 +91,7 @@ describe('axiosHttp', () => {
       expectForQuerying(uri, result);
     });
 
-    it('Should send and get content', async () => {
+    it('should send and get content', async () => {
       const axiosInstance = stubAxiosInstance();
       axiosInstance.post.resolves(responseResult());
       const axiosHttp = new AxiosHttp(axiosInstance);
@@ -93,7 +104,7 @@ describe('axiosHttp', () => {
   });
 
   describe('DELETE', () => {
-    it('Should get content', async () => {
+    it('should get content', async () => {
       const axiosInstance = stubAxiosInstance();
       axiosInstance.delete.resolves(responseResult());
       const axiosHttp = new AxiosHttp(axiosInstance);

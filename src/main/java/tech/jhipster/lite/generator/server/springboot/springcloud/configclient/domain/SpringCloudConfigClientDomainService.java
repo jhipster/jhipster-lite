@@ -42,19 +42,19 @@ public class SpringCloudConfigClientDomainService implements SpringCloudConfigCl
       project,
       getPath(SOURCE, "src"),
       "bootstrap.properties",
-      getPath(MAIN_RESOURCES, CONFIG_FOLDER)
+      getPath(MAIN_RESOURCES, CONFIG)
     );
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "src"),
       "bootstrap-local.properties",
-      getPath(MAIN_RESOURCES, CONFIG_FOLDER)
+      getPath(MAIN_RESOURCES, CONFIG)
     );
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "src", "test"),
       "bootstrap.properties",
-      getPath(TEST_RESOURCES, CONFIG_FOLDER)
+      getPath(TEST_RESOURCES, CONFIG)
     );
   }
 

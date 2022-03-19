@@ -8,7 +8,7 @@
 
   <groupId>tech.jhipster.lite</groupId>
   <artifactId>jhlite</artifactId>
-  <version>0.0.14-SNAPSHOT</version>
+  <version>0.0.15-SNAPSHOT</version>
   <name>jhlite</name>
   <description>JHipster Lite</description>
   <packaging>jar</packaging>
@@ -44,7 +44,7 @@
     <node.version>v16.14.0</node.version>
     <npm.version>8.5.0</npm.version>
 
-    <maven.version>3.8.4</maven.version>
+    <maven.version>3.8.5</maven.version>
     <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
 
     <spring-boot.version>3.0.0-M1</spring-boot.version>

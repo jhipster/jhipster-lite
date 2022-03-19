@@ -8,6 +8,8 @@ import { AngularService } from '@/springboot/domain/client/AngularService';
 import { stubAngularService } from '../domain/client/AngularService.fixture';
 import { stubReactService } from '../domain/client/ReactService.fixture';
 import { ReactService } from '@/springboot/domain/client/ReactService';
+import { stubSpringBootService } from '../domain/SpringBootService.fixture';
+import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import { stubVueService } from '../domain/client/VueService.fixture';
 import { VueService } from '@/springboot/domain/client/VueService';
 import { stubLogger } from '../../common/domain/Logger.fixture';
@@ -20,15 +22,17 @@ interface WrapperOptions {
   logger: Logger;
   projectService: ProjectService;
   reactService: ReactService;
+  springBootService: SpringBootService;
   vueService: VueService;
 }
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { angularService, logger, projectService, reactService, vueService }: WrapperOptions = {
+  const { angularService, logger, projectService, reactService, springBootService, vueService }: WrapperOptions = {
     angularService: stubAngularService(),
     logger: stubLogger(),
     projectService: stubProjectService(),
     reactService: stubReactService(),
+    springBootService: stubSpringBootService(),
     vueService: stubVueService(),
     ...wrapperOptions,
   };
@@ -39,6 +43,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
         logger,
         projectService,
         reactService,
+        springBootService,
         vueService,
       },
     },
@@ -222,20 +227,20 @@ describe('Generator', () => {
   });
 
   it('should not add SpringBoot when project path is not filled', async () => {
-    const projectService = stubProjectService();
-    projectService.addSpringBoot.resolves({});
-    await wrap({ projectService });
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBoot.resolves({});
+    await wrap({ springBootService });
 
     const button = wrapper.find('#springboot');
     await button.trigger('click');
 
-    expect(projectService.addSpringBoot.called).toBe(false);
+    expect(springBootService.addSpringBoot.called).toBe(false);
   });
 
   it('should add SpringBoot when project path is filled', async () => {
-    const projectService = stubProjectService();
-    projectService.addSpringBoot.resolves({});
-    await wrap({ projectService });
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBoot.resolves({});
+    await wrap({ springBootService });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
       folder: 'project/path',
       baseName: 'beer',
@@ -248,7 +253,7 @@ describe('Generator', () => {
     const button = wrapper.find('#springboot');
     await button.trigger('click');
 
-    const args = projectService.addSpringBoot.getCall(0).args[0];
+    const args = springBootService.addSpringBoot.getCall(0).args[0];
     expect(args).toEqual({
       baseName: 'beer',
       folder: 'project/path',
@@ -260,9 +265,9 @@ describe('Generator', () => {
 
   it('should handle error on adding spring boot failure', async () => {
     const logger = stubLogger();
-    const projectService = stubProjectService();
-    projectService.addSpringBoot.rejects({});
-    await wrap({ projectService, logger });
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBoot.rejects({});
+    await wrap({ springBootService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
 
@@ -274,20 +279,20 @@ describe('Generator', () => {
   });
 
   it('should not add SpringBoot MVC with Tomcat when project path is not filled', async () => {
-    const projectService = stubProjectService();
-    projectService.addSpringBootMvcTomcat.resolves({});
-    await wrap({ projectService });
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcTomcat.resolves({});
+    await wrap({ springBootService });
 
     const button = wrapper.find('#springbootmvctomcat');
     await button.trigger('click');
 
-    expect(projectService.addSpringBootMvcTomcat.called).toBe(false);
+    expect(springBootService.addSpringBootMvcTomcat.called).toBe(false);
   });
 
   it('should add SpringBoot MVC with Tomcat when project path is filled', async () => {
-    const projectService = stubProjectService();
-    projectService.addSpringBootMvcTomcat.resolves({});
-    await wrap({ projectService });
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcTomcat.resolves({});
+    await wrap({ springBootService });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
       folder: 'project/path',
       baseName: 'beer',
@@ -300,7 +305,7 @@ describe('Generator', () => {
     const button = wrapper.find('#springbootmvctomcat');
     await button.trigger('click');
 
-    const args = projectService.addSpringBootMvcTomcat.getCall(0).args[0];
+    const args = springBootService.addSpringBootMvcTomcat.getCall(0).args[0];
     expect(args).toEqual({
       baseName: 'beer',
       folder: 'project/path',
@@ -312,9 +317,9 @@ describe('Generator', () => {
 
   it('should handle error on adding SpringBoot MVC with Tomcat failure', async () => {
     const logger = stubLogger();
-    const projectService = stubProjectService();
-    projectService.addSpringBootMvcTomcat.rejects({});
-    await wrap({ projectService, logger });
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcTomcat.rejects({});
+    await wrap({ springBootService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
 

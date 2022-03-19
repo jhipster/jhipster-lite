@@ -1,8 +1,8 @@
 import { stubAxiosHttp } from '../../../http/AxiosHttpStub';
-import { Project } from '../../../../../../main/webapp/app/springboot/domain/Project';
+import { Project } from '@/springboot/domain/Project';
 import { createProject } from '../../domain/Project.fixture';
 import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
-import VueRepository from '../../../../../../main/webapp/app/springboot/secondary/client/VueRepository';
+import VueRepository from '@/springboot/secondary/client/VueRepository';
 
 describe('VueRepository', () => {
   it('should add Vue', () => {

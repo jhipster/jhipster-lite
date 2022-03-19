@@ -1,5 +1,5 @@
-import { Service } from '../../../../../main/webapp/app/common/domain/Service';
-import { toService } from '../../../../../main/webapp/app/common/secondary/RestServiceId';
+import { Service } from '@/common/domain/Service';
+import { toService } from '@/common/secondary/RestServiceId';
 
 describe('RestServiceId', () => {
   it('should convert to Service', () => {

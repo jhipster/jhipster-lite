@@ -1,5 +1,5 @@
 import sinon, { SinonStub } from 'sinon';
-import { AxiosHttp, AxiosHttpResponse } from '../../../../main/webapp/app/http/AxiosHttp';
+import { AxiosHttp, AxiosHttpResponse } from '@/http/AxiosHttp';
 
 export interface AxiosHttpStub extends AxiosHttp {
   get: SinonStub;

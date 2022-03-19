@@ -1,5 +1,5 @@
 import sinon, { SinonStub } from 'sinon';
-import { ProjectHistoryService } from '../../../../../main/webapp/app/common/domain/ProjectHistoryService';
+import { ProjectHistoryService } from '@/common/domain/ProjectHistoryService';
 
 export interface ProjectHistoryServiceFixture extends ProjectHistoryService {
   get: SinonStub;

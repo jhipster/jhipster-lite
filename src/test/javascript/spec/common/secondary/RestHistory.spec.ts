@@ -1,6 +1,6 @@
-import { RestHistory, toHistory } from '../../../../../main/webapp/app/common/secondary/RestHistory';
-import { History } from '../../../../../main/webapp/app/common/domain/History';
-import { toService } from '../../../../../main/webapp/app/common/secondary/RestServiceId';
+import { RestHistory, toHistory } from '@/common/secondary/RestHistory';
+import { History } from '@/common/domain/History';
+import { toService } from '@/common/secondary/RestServiceId';
 import { createRestHistory } from './RestHistory.fixture';
 
 describe('RestHistory', () => {

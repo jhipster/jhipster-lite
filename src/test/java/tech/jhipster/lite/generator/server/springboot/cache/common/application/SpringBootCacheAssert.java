@@ -27,7 +27,7 @@ public class SpringBootCacheAssert {
   }
 
   public static void assertEnableCaching(Project project) {
-    String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
+    String basePackage = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     String cachePackage = basePackage + ".technical.infrastructure.secondary.cache";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));

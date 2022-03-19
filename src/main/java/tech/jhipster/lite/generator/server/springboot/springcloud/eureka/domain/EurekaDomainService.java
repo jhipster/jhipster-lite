@@ -53,13 +53,13 @@ public class EurekaDomainService implements EurekaService {
       project,
       getPath(SOURCE, "src"),
       BOOTSTRAP_PROPERTIES_FILE_NAME,
-      getPath(MAIN_RESOURCES, CONFIG_FOLDER)
+      getPath(MAIN_RESOURCES, CONFIG)
     );
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "src/test"),
       BOOTSTRAP_PROPERTIES_FILE_NAME,
-      getPath(TEST_RESOURCES, CONFIG_FOLDER)
+      getPath(TEST_RESOURCES, CONFIG)
     );
   }
 

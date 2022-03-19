@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import {{packageName}}.error.domain.AccountException;
 import {{packageName}}.error.domain.Assert;
-import {{packageName}}.error.domain.UnauthorizedValueException;
 import {{packageName}}.security.oauth2.domain.AuthoritiesConstants;
 
 /**
@@ -140,6 +140,6 @@ public final class SecurityUtils {
     } else if (token instanceof JwtAuthenticationToken jwtAuthenticationToken) {
       return jwtAuthenticationToken.getTokenAttributes();
     }
-    throw new UnauthorizedValueException("AuthenticationToken is not OAuth2 or JWT!");
+    throw new AccountException("AuthenticationToken is not OAuth2 or JWT!");
   }
 }

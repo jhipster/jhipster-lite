@@ -29,7 +29,7 @@ public class SpringdocAssert {
   }
 
   public static void assertJavaFiles(Project project) {
-    String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
+    String basePackage = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     String springdocPackage = basePackage + ".technical.infrastructure.primary.springdoc";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
@@ -41,7 +41,7 @@ public class SpringdocAssert {
   }
 
   public static void assertJavaFilesWithSecurityJWT(Project project) {
-    String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
+    String basePackage = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     String springdocPackage = basePackage + ".technical.infrastructure.primary.springdoc";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));

@@ -11,6 +11,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.List;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class LiquibaseAssertFiles {
@@ -19,7 +20,8 @@ public class LiquibaseAssertFiles {
   public static final ZoneId DEFAULT_TIMEZONE = ZoneId.of("UTC");
 
   public static void assertFilesLiquibaseJava(Project project) {
-    String liquibasePackage = project.getPackageName().orElse("com.mycompany.myapp") + ".technical.infrastructure.secondary.liquibase";
+    String liquibasePackage =
+      project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME) + ".technical.infrastructure.secondary.liquibase";
     String liquibasePath = getPath(
       MAIN_JAVA,
       project.getPackageNamePath().orElse("com/mycompany/myapp"),

@@ -66,19 +66,19 @@ public class ConsulDomainService implements ConsulService {
       project,
       getPath(SOURCE, "src"),
       BOOTSTRAP_PROPERTIES,
-      getPath(MAIN_RESOURCES, CONFIG_FOLDER)
+      getPath(MAIN_RESOURCES, CONFIG)
     );
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "src"),
       BOOTSTRAP_LOCAL_PROPERTIES,
-      getPath(MAIN_RESOURCES, CONFIG_FOLDER)
+      getPath(MAIN_RESOURCES, CONFIG)
     );
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "test"),
       BOOTSTRAP_PROPERTIES,
-      getPath(TEST_RESOURCES, CONFIG_FOLDER)
+      getPath(TEST_RESOURCES, CONFIG)
     );
   }
 

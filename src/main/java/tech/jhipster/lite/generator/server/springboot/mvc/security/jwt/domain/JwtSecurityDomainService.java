@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -167,7 +168,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
   @Override
   public void addLoggerInConfiguration(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     addLogger(project, packageName + ".security.jwt.infrastructure.config", Level.WARN);
   }
 

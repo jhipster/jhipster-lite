@@ -17,6 +17,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -47,8 +48,8 @@ class SpringBootCommonApplicationServiceIT {
 
     springBootCommonApplicationService.addTestLogbackRecorder(project);
 
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH);
 
     assertFileExist(project, getPath(TEST_JAVA, packageNamePath, "LogbackRecorder.java"));
 
@@ -477,5 +478,22 @@ class SpringBootCommonApplicationServiceIT {
       assertFileContent(project, applicationProperties, "<logger name=\"tech.jhipster.web\" level=\"DEBUG\" />");
       assertFileContent(project, applicationProperties, "<!-- jhipster-needle-logback-add-log -->");
     }
+  }
+
+  @Test
+  void shouldUpdateIntegrationTestAnnotation() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    springBootCommonApplicationService.updateIntegrationTestAnnotation(project, "BeerContainer");
+
+    String integrationTestFile = getPath(TEST_JAVA, DefaultConfig.PACKAGE_PATH, "IntegrationTest.java");
+    assertFileContent(project, integrationTestFile, "public @interface");
+    assertFileContent(project, integrationTestFile, "@ExtendWith(BeerContainer.class)");
+
+    springBootCommonApplicationService.updateIntegrationTestAnnotation(project, "ChipsContainer");
+    assertFileContent(project, integrationTestFile, "@ExtendWith(ChipsContainer.class)");
   }
 }

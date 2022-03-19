@@ -1,6 +1,5 @@
 import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import sinon, { SinonStub } from 'sinon';
-import { Project } from '../../../../../main/webapp/app/springboot/domain/Project';
 
 export interface SpringBootServiceFixture extends SpringBootService {
   addSpringBoot: SinonStub;

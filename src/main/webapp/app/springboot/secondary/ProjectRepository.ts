@@ -124,4 +124,24 @@ export default class ProjectRepository implements ProjectService {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt', restProject);
   }
+
+  async addSpringBootAsync(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/async', restProject);
+  }
+
+  async addSpringBootDevtoolsDependencies(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/devtools', restProject);
+  }
+
+  async addSpringBootDockerfile(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/docker/dockerfile', restProject);
+  }
+
+  async addSpringBootDockerJib(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/docker/jib', restProject);
+  }
 }

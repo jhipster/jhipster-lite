@@ -4,6 +4,7 @@ import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate
 import { AngularService } from '@/springboot/domain/client/AngularService';
 import { ReactService } from '@/springboot/domain/client/ReactService';
 import { VueService } from '@/springboot/domain/client/VueService';
+import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import { Logger } from '@/common/domain/Logger';
 
 export default defineComponent({
@@ -14,6 +15,7 @@ export default defineComponent({
     const logger = inject('logger') as Logger;
     const projectService = inject('projectService') as ProjectService;
     const reactService = inject('reactService') as ReactService;
+    const springBootService = inject('springBootService') as SpringBootService;
     const vueService = inject('vueService') as VueService;
 
     const project = ref<ProjectToUpdate>({
@@ -45,7 +47,7 @@ export default defineComponent({
 
     const addSpringBoot = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService
+        await springBootService
           .addSpringBoot(toProject(project.value))
           .catch(error => logger.error('Adding SpringBoot to project failed', error));
       }
@@ -53,7 +55,7 @@ export default defineComponent({
 
     const addSpringBootMvcTomcat = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService
+        await springBootService
           .addSpringBootMvcTomcat(toProject(project.value))
           .catch(error => logger.error('Adding SpringBoot MVC with Tomcat to project failed', error));
       }

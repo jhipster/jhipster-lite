@@ -102,7 +102,7 @@ class VueDomainServiceTest {
     verify(projectRepository, times(2)).template(eq(project), any(String.class), filesCaptor.capture(), anyString());
     verify(projectRepository, times(2)).replaceText(eq(project), anyString(), anyString(), anyString(), anyString());
 
-    assertThat(filesCaptor.getAllValues().containsAll(List.of("router.ts", "Router.spec.ts"))).isTrue();
+    assertThat(filesCaptor.getAllValues()).contains("router.ts", "Router.spec.ts");
   }
 
   @Test

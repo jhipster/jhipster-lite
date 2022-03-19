@@ -9,6 +9,9 @@ export interface ProjectServiceFixture extends ProjectService {
   addJavaBase: SinonStub;
   addSpringBoot: SinonStub;
   addSpringBootMvcTomcat: SinonStub;
+  addSpringCloudConfigClient: SinonStub;
+  addSpringCloudConsul: SinonStub;
+  addSpringCloudEureka: SinonStub;
   addSpringBootAsync: SinonStub;
   addSpringBootDevtoolsDependencies: SinonStub;
   addSpringBootDockerfile: SinonStub;
@@ -40,6 +43,9 @@ export const stubProjectService = (): ProjectServiceFixture => ({
   addJavaBase: sinon.stub(),
   addSpringBoot: sinon.stub(),
   addSpringBootMvcTomcat: sinon.stub(),
+  addSpringCloudConfigClient: sinon.stub(),
+  addSpringCloudConsul: sinon.stub(),
+  addSpringCloudEureka: sinon.stub(),
   addSpringBootAsync: sinon.stub(),
   addSpringBootDevtoolsDependencies: sinon.stub(),
   addSpringBootDockerfile: sinon.stub(),

@@ -144,4 +144,19 @@ export default class ProjectRepository implements ProjectService {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('/api/servers/spring-boot/docker/jib', restProject);
   }
+
+  async addSpringCloudConfigClient(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/spring-cloud/config-client', restProject);
+  }
+
+  async addSpringCloudConsul(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/spring-cloud/consul', restProject);
+  }
+
+  async addSpringCloudEureka(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('/api/servers/spring-boot/spring-cloud/eureka-client', restProject);
+  }
 }

@@ -7,6 +7,9 @@ export interface ProjectService {
   addJavaBase(project: Project): Promise<void>;
   addSpringBoot(project: Project): Promise<void>;
   addSpringBootMvcTomcat(project: Project): Promise<void>;
+  addSpringCloudConfigClient(project: Project): Promise<void>;
+  addSpringCloudConsul(project: Project): Promise<void>;
+  addSpringCloudEureka(project: Project): Promise<void>;
   addSpringBootAsync(project: Project): Promise<void>;
   addSpringBootDevtoolsDependencies(project: Project): Promise<void>;
   addSpringBootDockerfile(project: Project): Promise<void>;

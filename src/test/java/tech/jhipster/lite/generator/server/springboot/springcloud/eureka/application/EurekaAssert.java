@@ -8,7 +8,6 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURC
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommon;
 
 public class EurekaAssert {
 

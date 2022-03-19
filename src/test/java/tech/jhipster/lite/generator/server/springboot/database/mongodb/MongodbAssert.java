@@ -11,7 +11,6 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURC
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
-import static tech.jhipster.lite.generator.server.springboot.database.mongodb.domain.Mongodb.getMongodbDockerImageName;
 
 import java.util.List;
 import tech.jhipster.lite.common.domain.FileUtils;

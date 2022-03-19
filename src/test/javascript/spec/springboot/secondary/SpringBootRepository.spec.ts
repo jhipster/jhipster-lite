@@ -116,7 +116,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v7-vue');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add Postgres', () => {
+
+  it('should add PostgreSQL', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -129,7 +130,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/postgresql');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add Mysql', () => {
+
+  it('should add MySQL', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -142,6 +144,7 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/mysql');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
   it('should add MariaDB', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
@@ -155,6 +158,7 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/mariadb');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
   it('should add MongoDB', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
@@ -168,7 +172,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/mongodb');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should migrate flyway init', () => {
+
+  it('should add Flyway', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -181,7 +186,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/migration/flyway/init');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should migrate flyway user', () => {
+
+  it('should add User with Flyway', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -194,7 +200,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/migration/flyway/user');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should migrate liquibase init', () => {
+
+  it('should add Liquibase', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -207,7 +214,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/databases/migration/liquibase/init');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should migrate liquibase user', () => {
+
+  it('should add User with Liquibase', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -221,7 +229,7 @@ describe('SpringBootRepository', () => {
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
-  it('should add JWT', () => {
+  it('should add Spring Security JWT', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -234,7 +242,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/mvc/security/jwt');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add Basic Auth JWT', () => {
+
+  it('should add Basic Auth for Spring Security JWT', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -247,7 +256,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/mvc/security/jwt/basic-auth');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add Oauth2', () => {
+
+  it('should add a Spring Security OAuth 2.0 / OIDC', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -260,7 +270,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/mvc/security/oauth2');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add SpringdocJWT', () => {
+
+  it('should add Springdoc with Security JWT', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -287,7 +298,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/async');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add devtools dependencies', () => {
+
+  it('should add Developer Tools dependencies', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -300,7 +312,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/devtools');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add dockerfile', () => {
+
+  it('should add Dockerfile', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -313,7 +326,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/docker/dockerfile');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add docker jib', () => {
+
+  it('should add docker image building with Jib', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -327,7 +341,7 @@ describe('SpringBootRepository', () => {
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
-  it('should add client config on spring cloud', () => {
+  it('should add Spring Cloud Config Client', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -340,7 +354,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/spring-cloud/config-client');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add spring cloud consul config', () => {
+
+  it('should add Spring Cloud Consul config and discovery', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -353,7 +368,8 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/spring-cloud/consul');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
-  it('should add eureka on spring cloud', () => {
+
+  it('should add Spring Cloud Eureka Client', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
     const springBootRepository = new SpringBootRepository(axiosHttpStub);
@@ -380,6 +396,7 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/cache/ehcache/java-configuration');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
   it('should add Ehcache with XML', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();
@@ -393,6 +410,7 @@ describe('SpringBootRepository', () => {
     expect(uri).toBe('/api/servers/spring-boot/cache/ehcache/xml-configuration');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
+
   it('should add simple cache', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();

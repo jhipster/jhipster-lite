@@ -242,7 +242,11 @@ class SpringBootMvcApplicationServiceIT {
   }
 
   private void assertExceptionHandlerFiles(Project project) {
-    String packagePath = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH), INFRA_PRIMARY, "exception");
+    String packagePath = getPath(
+      project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH),
+      TECHNICAL_INFRASTRUCTURE_PRIMARY,
+      "exception"
+    );
     List<String> listClass = List.of(
       "BadRequestAlertException.java",
       "ErrorConstants.java",

@@ -11,10 +11,10 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURC
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
-import static tech.jhipster.lite.generator.server.springboot.database.mongodb.domain.Mongodb.getMongodbDockerImageName;
 
 import java.util.List;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public final class MongodbAssert {
@@ -62,8 +62,8 @@ public final class MongodbAssert {
   }
 
   public static void assertJavaFiles(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse("com/mycompany/myapp");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageNamePath = project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH);
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
 
     String mongodbPath = getPath(packageNamePath, "/technical/infrastructure/secondary/mongodb");
     assertFileExist(project, getPath(MAIN_JAVA, mongodbPath, "MongodbDatabaseConfiguration.java"));
@@ -82,8 +82,8 @@ public final class MongodbAssert {
   }
 
   public static void assertTestFiles(Project project) {
-    String packagePath = project.getPackageNamePath().orElse("com/mycompany/myapp");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packagePath = project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH);
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
 
     String mongodbPath = getPath(packagePath, "/technical/infrastructure/secondary/mongodb");
     assertFileExist(project, getPath(TEST_JAVA, packagePath, "/technical/infrastructure/secondary/mongodb/JSR310DateConvertersTest.java"));
@@ -111,7 +111,7 @@ public final class MongodbAssert {
 
   public static void assertConfigFiles(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
 
     assertFileContent(
       project,

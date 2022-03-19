@@ -62,9 +62,9 @@ class OAuth2SecurityDomainServiceTest {
     // 3 files related to docker-compose (docker-compose, realm, users)
     verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
 
-    // 9 files for Java
-    // 10 files for Java Test
-    verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
+    // 10 files for Java
+    // 11 files for Java Test
+    verify(projectRepository, times(21)).template(any(Project.class), anyString(), anyString(), anyString());
 
     // 5 properties, with 1 comment and 1 new line
     verify(springBootCommonService).addPropertiesComment(any(Project.class), anyString());
@@ -79,7 +79,7 @@ class OAuth2SecurityDomainServiceTest {
     verify(commonSecurityService).updateExceptionTranslator(project);
     verify(commonSecurityService).updateIntegrationTestWithMockUser(project);
 
-    verify(projectRepository, times(2)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    verify(projectRepository, times(7)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -89,5 +89,15 @@ class OAuth2SecurityDomainServiceTest {
     assertThatThrownBy(() -> oAuth2SecurityDomainService.addOAuth2(project))
       .isInstanceOf(GeneratorException.class)
       .hasMessageContaining("jboss/keycloak");
+  }
+
+  @Test
+  void shouldAddAccountContext() {
+    Project project = tmpProject();
+
+    oAuth2SecurityDomainService.addAccountContext(project);
+
+    // 3 java files and 4 for tests
+    verify(projectRepository, times(7)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

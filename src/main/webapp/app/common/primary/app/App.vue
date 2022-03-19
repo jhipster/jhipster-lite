@@ -167,6 +167,7 @@ input[type='radio'] {
   -o-transform: scale(2); /* Opera */
   transform: scale(2);
 }
+
 /*------------------ Checkbox group --------------------------*/
 .jh-checkbox-group {
   position: relative;
@@ -248,6 +249,7 @@ input[type='radio'] {
 *::after {
   box-sizing: inherit;
 }
+
 /*------------------*/
 .title-highlight {
   padding-left: 1.5rem;

@@ -22,10 +22,16 @@ fi
 
 callApi() {
   local api="$1"
-  curl -X POST \
+  status_code=$(curl -o /dev/null -s -w "%{http_code}\n" \
+    -X POST \
     -H "accept: */*" \
     -H "Content-Type: application/json" -d @"$filename" \
-    "http://localhost:7471""$api"
+    "http://localhost:7471""$api")
+
+  if [[ $status_code == '40'* || $status_code == '50'* ]]; then
+    echo "Error when calling API:" "$status_code"
+    exit 1
+  fi;
 }
 
 springboot() {
@@ -100,6 +106,7 @@ elif [[ $application == 'oauth2app' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/mvc/security/oauth2"
+  callApi "/api/servers/spring-boot/mvc/security/oauth2/account"
 
 elif [[ $application == 'mysqlapp' ]]; then
   springboot
@@ -166,7 +173,7 @@ elif [[ $application == 'mongodbapp' ]]; then
   springboot
   sonar_back
 
-  callApi "/api/servers/spring-boot/databases/mongodbapp"
+  callApi "/api/servers/spring-boot/databases/mongodb"
 
 elif [[ $application == 'angularapp' ]]; then
   springboot

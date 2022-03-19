@@ -1,11 +1,13 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.util.List;
 import java.util.Map;
+import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -14,8 +16,11 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class VueDomainService implements VueService {
 
   public static final String SOURCE = "client/vue";
+  public static final String NEEDLE_IMPORT = "// jhipster-needle-main-ts-import";
+  public static final String NEEDLE_PROVIDER = "// jhipster-needle-main-ts-provider";
   public static final String SOURCE_PRIMARY = getPath(SOURCE, "webapp/app/common/primary/app");
   public static final String DESTINATION_PRIMARY = "src/main/webapp/app/common/primary/app";
+  public static final String DESTINATION_APP = "src/main/webapp/app";
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
@@ -38,6 +43,7 @@ public class VueDomainService implements VueService {
   }
 
   private void addCommonVue(Project project) {
+    Assert.notNull("project", project);
     addDependencies(project);
     addDevDependencies(project);
     addScripts(project);
@@ -45,6 +51,7 @@ public class VueDomainService implements VueService {
     addViteConfigFiles(project);
     addRootFiles(project);
     addAppFiles(project);
+    addRouter(project);
   }
 
   public void addDependencies(Project project) {
@@ -53,6 +60,15 @@ public class VueDomainService implements VueService {
 
   public void addDevDependencies(Project project) {
     Vue.devDependencies().forEach(devDependency -> addDevDependency(project, devDependency));
+  }
+
+  public void addRouter(Project project) {
+    addRouterDependency(project);
+    addRouterFiles(project);
+  }
+
+  private void addRouterDependency(Project project) {
+    Vue.routerDependencies().forEach(dependency -> addDependency(project, dependency));
   }
 
   private void addDependency(Project project, String dependency) {
@@ -83,9 +99,11 @@ public class VueDomainService implements VueService {
       .of(
         "build", "vue-tsc --noEmit && vite build --emptyOutDir",
         "dev", "vite",
+        "jest", "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache",
         "preview", "vite preview",
         "start", "vite",
-        "test", "jest src/test/javascript/spec"
+        "test", "npm run jest --",
+        "test:watch", "npm run jest -- --watch"
       )
       .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
   }
@@ -98,8 +116,28 @@ public class VueDomainService implements VueService {
 
   public void addRootFiles(Project project) {
     projectRepository.template(project, getPath(SOURCE, "webapp"), "index.html", "src/main/webapp");
-    projectRepository.template(project, getPath(SOURCE, "webapp/app"), "env.d.ts", "src/main/webapp/app");
-    projectRepository.template(project, getPath(SOURCE, "webapp/app"), "main.ts", "src/main/webapp/app");
+    projectRepository.template(project, getPath(SOURCE, "webapp/app"), "env.d.ts", DESTINATION_APP);
+    projectRepository.template(project, getPath(SOURCE, "webapp/app"), MAIN_TYPESCRIPT, DESTINATION_APP);
+  }
+
+  private void addRouterFiles(Project project) {
+    addRouterConfigAndTestFiles(project);
+    addRouterMainConfiguration(project);
+  }
+
+  private void addRouterConfigAndTestFiles(Project project) {
+    projectRepository.template(project, getPath(SOURCE, "webapp/app/router"), "router.ts", "src/main/webapp/app/router");
+    projectRepository.template(project, getPath(SOURCE, "test/spec/router"), "Router.spec.ts", "src/test/javascript/spec/router");
+  }
+
+  private void addRouterMainConfiguration(Project project) {
+    addNewNeedleLineToFile(project, Vue.ROUTER_IMPORT, DESTINATION_APP, MAIN_TYPESCRIPT, NEEDLE_IMPORT);
+    addNewNeedleLineToFile(project, Vue.ROUTER_PROVIDER, DESTINATION_APP, MAIN_TYPESCRIPT, NEEDLE_PROVIDER);
+  }
+
+  private void addNewNeedleLineToFile(Project project, String importLine, String folder, String file, String needle) {
+    String importWithNeedle = importLine + LF + needle;
+    projectRepository.replaceText(project, getPath(folder), file, needle, importWithNeedle);
   }
 
   public void addAppFiles(Project project) {

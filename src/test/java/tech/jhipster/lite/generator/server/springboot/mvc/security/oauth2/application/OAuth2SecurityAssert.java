@@ -4,8 +4,8 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.DEFAULT_PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2SecurityDomainService.SECURITY_OAUTH2_PATH;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
@@ -33,7 +33,7 @@ public class OAuth2SecurityAssert {
   }
 
   public static void assertJavaFiles(Project project) {
-    String oauth2Path = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH), SECURITY_OAUTH2_PATH);
+    String oauth2Path = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH));
 
     // main java files
     OAuth2Security
@@ -51,7 +51,8 @@ public class OAuth2SecurityAssert {
   }
 
   public static void assertExceptionTranslatorWithSecurity(Project project) {
-    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), INFRA_PRIMARY, "exception");
+    String path = getPath(project.getPackageNamePath().orElse("com/mycompany/myapp"), TECHNICAL_INFRASTRUCTURE_PRIMARY, "exception");
+    String packageName = project.getPackageName().orElse(DEFAULT_PACKAGE_NAME);
 
     assertFileContent(
       project,
@@ -61,7 +62,26 @@ public class OAuth2SecurityAssert {
     assertFileContent(
       project,
       getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
+      String.format("import %s.error.domain.AccountException;", packageName)
+    );
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
       "public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {"
+    );
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, path, "ExceptionTranslator.java"),
+      "public ResponseEntity<Problem> handleAccountException"
+    );
+
+    assertFileContent(project, getPath(TEST_JAVA, path, "ExceptionTranslatorTestController.java"), "@GetMapping(\"/account-exception\")");
+
+    assertFileContent(project, getPath(TEST_JAVA, path, "ExceptionTranslatorTestController.java"), "public void accountException()");
+    assertFileContent(
+      project,
+      getPath(TEST_JAVA, path, "ExceptionTranslatorIT.java"),
+      "void shouldHandleAccountException() throws Exception"
     );
   }
 
@@ -74,7 +94,7 @@ public class OAuth2SecurityAssert {
     assertFileContent(project, integrationTestFile, "import org.springframework.security.test.context.support.WithMockUser;");
     assertFileContent(project, integrationTestFile, "@WithMockUser");
 
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     assertFileContent(
       project,
       integrationTestFile,
@@ -118,5 +138,17 @@ public class OAuth2SecurityAssert {
       "<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>",
       "</dependency>"
     );
+  }
+
+  public static void assertAccountFiles(Project project) {
+    String path = getPath(project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH));
+
+    // main java files
+    oauth2AccountContextFiles()
+      .forEach((javaFile, destination) -> assertFileExist(project, getPath(MAIN_JAVA, path, destination, javaFile)));
+
+    // test java files
+    oauth2AccountContextTestFiles()
+      .forEach((javaFile, destination) -> assertFileExist(project, getPath(TEST_JAVA, path, destination, javaFile)));
   }
 }

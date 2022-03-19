@@ -1,12 +1,12 @@
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export type AxiosHttpResponse<T> = AxiosResponse<T>;
 
 export class AxiosHttp {
   constructor(private axiosInstance: AxiosInstance) {}
 
-  async get<Result>(uri: string): Promise<AxiosResponse<Result>> {
-    return this.axiosInstance.get<Result>(uri);
+  async get<Result>(uri: string, config: AxiosRequestConfig = {}): Promise<AxiosResponse<Result>> {
+    return this.axiosInstance.get<Result>(uri, config);
   }
 
   async put<Result, Payload = never>(uri: string, data?: Payload): Promise<AxiosResponse<Result>> {

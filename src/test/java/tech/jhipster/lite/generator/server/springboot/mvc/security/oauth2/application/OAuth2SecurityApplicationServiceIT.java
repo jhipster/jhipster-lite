@@ -50,4 +50,13 @@ class OAuth2SecurityApplicationServiceIT {
     assertExceptionTranslatorWithSecurity(project);
     assertIntegrationTestWithSecurity(project);
   }
+
+  @Test
+  void shouldAddAccountContext() {
+    Project project = tmpProject();
+
+    oAuth2SecurityApplicationService.addAccountContext(project);
+
+    assertAccountFiles(project);
+  }
 }

@@ -31,4 +31,13 @@ class OAuth2SecurityResource {
     Project project = ProjectDTO.toProject(projectDTO);
     oauth2SecurityApplicationService.addOAuth2(project);
   }
+
+  @Operation(summary = "Add a account context for OAuth 2.0 / OIDC Authentication")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding account context for OAuth2 / OIDC Authentication")
+  @PostMapping("/oauth2/account")
+  @GeneratorStep(id = "springboot-oauth2-account")
+  public void addAccountContext(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    oauth2SecurityApplicationService.addAccountContext(project);
+  }
 }

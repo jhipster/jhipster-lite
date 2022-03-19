@@ -76,4 +76,20 @@ class OAuth2SecurityResourceIT {
     assertExceptionTranslatorWithSecurity(project);
     assertIntegrationTestWithSecurity(project);
   }
+
+  @Test
+  void shouldAddAccountContext() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/mvc/security/oauth2/account")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    assertAccountFiles(project);
+  }
 }

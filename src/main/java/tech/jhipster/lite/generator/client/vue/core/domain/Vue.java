@@ -4,10 +4,17 @@ import java.util.List;
 
 public class Vue {
 
+  public static final String ROUTER_IMPORT = "import router from \'./router/router\';";
+  public static final String ROUTER_PROVIDER = "app.use(router);";
+
   private Vue() {}
 
   public static List<String> dependencies() {
     return List.of("vue");
+  }
+
+  public static List<String> routerDependencies() {
+    return List.of("vue-router");
   }
 
   public static List<String> devDependencies() {

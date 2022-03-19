@@ -14,6 +14,7 @@ import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
@@ -35,6 +36,9 @@ class KafkaResourceIT {
 
   @Autowired
   KafkaApplicationService kafkaApplicationService;
+
+  @Autowired
+  DockerService dockerService;
 
   @Autowired
   MockMvc mockMvc;

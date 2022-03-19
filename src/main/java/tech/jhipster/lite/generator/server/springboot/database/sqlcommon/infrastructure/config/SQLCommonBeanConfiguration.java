@@ -11,9 +11,9 @@ import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.
 @Configuration
 public class SQLCommonBeanConfiguration {
 
-  public final BuildToolService buildToolService;
-  public final SpringBootCommonService springBootCommonService;
-  public final ProjectRepository projectRepository;
+  private final BuildToolService buildToolService;
+  private final SpringBootCommonService springBootCommonService;
+  private final ProjectRepository projectRepository;
 
   public SQLCommonBeanConfiguration(
     BuildToolService buildToolService,

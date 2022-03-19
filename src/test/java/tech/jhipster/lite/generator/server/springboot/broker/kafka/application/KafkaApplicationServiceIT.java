@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -28,6 +29,9 @@ class KafkaApplicationServiceIT {
 
   @Autowired
   SpringBootApplicationService springBootApplicationService;
+
+  @Autowired
+  DockerService dockerService;
 
   @Test
   void shouldInit() {

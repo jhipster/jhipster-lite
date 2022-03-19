@@ -16,6 +16,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -33,6 +34,9 @@ class KafkaDomainServiceTest {
   @Mock
   SpringBootCommonService springBootCommonService;
 
+  @Mock
+  DockerService dockerService;
+
   @InjectMocks
   KafkaDomainService kafkaDomainService;
 
@@ -40,10 +44,12 @@ class KafkaDomainServiceTest {
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
     when(buildToolService.getVersion(project, "testcontainers")).thenReturn(Optional.of("0.0.0"));
+    when(dockerService.getImageNameWithVersion(anyString())).thenReturn(Optional.of("dummy"));
 
     kafkaDomainService.init(project);
 
     verify(buildToolService, times(2)).addDependency(any(Project.class), any(Dependency.class));
+    verify(dockerService, times(2)).getImageNameWithVersion(anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString());
     verify(springBootCommonService, times(9)).addProperties(any(Project.class), anyString(), any());
@@ -69,6 +75,8 @@ class KafkaDomainServiceTest {
 
     when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.of("queue.jhipster.dummy"));
     kafkaDomainService.addDummyProducer(project);
+
+    verify(springBootCommonService).getProperty(any(Project.class), anyString());
   }
 
   @Test

@@ -2,9 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
 public class Zookeeper {
 
-  public static final String ZOOKEEPER_DOCKER_VERSION = "7.0.1";
-
-  public static final String ZOOKEEPER_DOCKER_IMAGE = "confluentinc/cp-zookeeper:" + ZOOKEEPER_DOCKER_VERSION;
+  public static final String ZOOKEEPER_DOCKER_IMAGE = "confluentinc/cp-zookeeper";
 
   private Zookeeper() {}
 

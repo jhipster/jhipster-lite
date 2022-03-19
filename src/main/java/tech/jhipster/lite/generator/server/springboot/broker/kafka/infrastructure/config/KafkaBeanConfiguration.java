@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.infrastructu
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.KafkaDomainService;
 import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.KafkaService;
@@ -11,24 +12,28 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 @Configuration
 public class KafkaBeanConfiguration {
 
-  public final BuildToolService buildToolService;
+  private final BuildToolService buildToolService;
 
-  public final ProjectRepository projectRepository;
+  private final ProjectRepository projectRepository;
 
-  public final SpringBootCommonService springBootCommonService;
+  private final SpringBootCommonService springBootCommonService;
+
+  private final DockerService dockerService;
 
   public KafkaBeanConfiguration(
     final BuildToolService buildToolService,
     final ProjectRepository projectRepository,
-    final SpringBootCommonService springBootCommonService
+    final SpringBootCommonService springBootCommonService,
+    final DockerService dockerService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
+    this.dockerService = dockerService;
   }
 
   @Bean
   public KafkaService kafkaService() {
-    return new KafkaDomainService(buildToolService, projectRepository, springBootCommonService);
+    return new KafkaDomainService(buildToolService, projectRepository, springBootCommonService, dockerService);
   }
 }

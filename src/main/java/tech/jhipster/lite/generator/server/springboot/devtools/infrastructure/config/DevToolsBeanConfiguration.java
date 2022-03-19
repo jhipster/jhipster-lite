@@ -10,8 +10,8 @@ import tech.jhipster.lite.generator.server.springboot.devtools.domain.DevToolsSe
 @Configuration
 public class DevToolsBeanConfiguration {
 
-  public final BuildToolService buildToolService;
-  public final SpringBootCommonService springBootCommonService;
+  private final BuildToolService buildToolService;
+  private final SpringBootCommonService springBootCommonService;
 
   public DevToolsBeanConfiguration(BuildToolService buildToolService, SpringBootCommonService springBootCommonService) {
     this.buildToolService = buildToolService;

@@ -13,10 +13,10 @@ import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.
 @Configuration
 public class PostgresqlBeanConfiguration {
 
-  public final ProjectRepository projectRepository;
-  public final BuildToolService buildToolService;
-  public final SpringBootCommonService springBootCommonService;
-  public final SQLCommonService sqlCommonService;
+  private final ProjectRepository projectRepository;
+  private final BuildToolService buildToolService;
+  private final SpringBootCommonService springBootCommonService;
+  private final SQLCommonService sqlCommonService;
   private final DockerService dockerService;
 
   public PostgresqlBeanConfiguration(

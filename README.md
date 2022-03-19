@@ -186,7 +186,6 @@ Spring Boot:
 - Logstash TCP appender
 - Springdoc without or with Security JWT
 - Jib to build Docker image
-- Apache Kafka as a Broker
 
 Spring Boot Database:
 
@@ -200,6 +199,10 @@ Spring Cloud:
 - Eureka client
 - Spring Cloud Config client
 - Spring Cloud Consul
+
+Broker:
+
+- Apache Kafka
 
 Client:
 

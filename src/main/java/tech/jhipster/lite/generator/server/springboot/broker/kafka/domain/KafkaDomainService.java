@@ -1,14 +1,15 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.util.TreeMap;
+import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -25,14 +26,18 @@ public class KafkaDomainService implements KafkaService {
 
   private final SpringBootCommonService springBootCommonService;
 
+  private final DockerService dockerService;
+
   public KafkaDomainService(
     final BuildToolService buildToolService,
     final ProjectRepository projectRepository,
-    final SpringBootCommonService springBootCommonService
+    final SpringBootCommonService springBootCommonService,
+    DockerService dockerService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -49,7 +54,7 @@ public class KafkaDomainService implements KafkaService {
       project.addDefaultConfig(PACKAGE_NAME);
       project.addDefaultConfig(BASE_NAME);
       final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-      final String secondaryKafkaPath = "technical/infrastructure/secondary/kafka";
+      final String secondaryKafkaPath = TECHNICAL_INFRASTRUCTURE_SECONDARY + "/kafka";
       final String dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
 
       final String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
@@ -75,28 +80,32 @@ public class KafkaDomainService implements KafkaService {
   }
 
   private void addDockerCompose(final Project project) {
+    final String zookeeperDockerImage = dockerService.getImageNameWithVersion(Zookeeper.getZookeeperDockerImage()).orElseThrow();
+    final String kafkaDockerImage = dockerService.getImageNameWithVersion(Kafka.getKafkaDockerImage()).orElseThrow();
+
     project.addDefaultConfig(BASE_NAME);
-    project.addConfig("zookeeperDockerImage", Zookeeper.getZookeeperDockerImage());
-    project.addConfig("kafkaDockerImage", Kafka.getKafkaDockerImage());
+    project.addConfig("zookeeperDockerImage", zookeeperDockerImage);
+    project.addConfig("kafkaDockerImage", kafkaDockerImage);
     projectRepository.template(project, SOURCE, "kafka.yml", "src/main/docker", "kafka.yml");
   }
 
   private void addProperties(final Project project) {
-    getKafkaCommonProperties()
+    final String kebabBaseName = WordUtils.kebabCase(project.getBaseName().orElse(DEFAULT_BASE_NAME));
+    getKafkaCommonProperties(kebabBaseName)
       .forEach((k, v) -> {
         springBootCommonService.addProperties(project, k, v);
         springBootCommonService.addPropertiesTest(project, k, v);
       });
   }
 
-  private TreeMap<String, Object> getKafkaCommonProperties() {
+  private TreeMap<String, Object> getKafkaCommonProperties(final String kebabBaseName) {
     final TreeMap<String, Object> result = new TreeMap<>();
 
     result.put("# Kafka Configuration", "");
     result.put("kafka.bootstrap-servers", "localhost:9092");
     result.put("kafka.consumer.'[key.deserializer]'", "org.apache.kafka.common.serialization.StringDeserializer");
     result.put("kafka.consumer.'[value.deserializer]'", "org.apache.kafka.common.serialization.StringDeserializer");
-    result.put("kafka.consumer.'[group.id]'", DASHERIZED_BASE_NAME);
+    result.put("kafka.consumer.'[group.id]'", kebabBaseName);
     result.put("kafka.consumer.'[auto.offset.reset]'", "earliest");
     result.put("kafka.producer.'[key.serializer]'", "org.apache.kafka.common.serialization.StringSerializer");
     result.put("kafka.producer.'[value.serializer]'", "org.apache.kafka.common.serialization.StringSerializer");

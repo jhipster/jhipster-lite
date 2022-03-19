@@ -12,9 +12,9 @@ import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.
 @Configuration
 public class MySQLBeanConfiguration {
 
-  public final BuildToolService buildToolService;
-  public final SpringBootCommonService springBootCommonService;
-  public final SQLCommonService sqlCommonService;
+  private final BuildToolService buildToolService;
+  private final SpringBootCommonService springBootCommonService;
+  private final SQLCommonService sqlCommonService;
   private final DockerService dockerService;
 
   public MySQLBeanConfiguration(

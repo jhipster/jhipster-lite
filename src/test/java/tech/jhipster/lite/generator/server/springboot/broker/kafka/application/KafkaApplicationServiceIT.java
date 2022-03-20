@@ -51,6 +51,10 @@ class KafkaApplicationServiceIT {
     assertFileContent(project, POM_XML, "<testcontainers.version>");
     assertFileContent(project, POM_XML, "</testcontainers.version>");
     assertFileContent(project, POM_XML, testcontainers());
+
+    String dummyProducerTestPath = getPath("com/mycompany/myapp/dummy/infrastructure/secondary/kafka/producer");
+    assertFileExist(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"));
+    assertFileContent(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"), "class DummyProducerIT");
   }
 
   @Test

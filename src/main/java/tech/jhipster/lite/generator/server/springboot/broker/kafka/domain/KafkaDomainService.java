@@ -17,8 +17,9 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 public class KafkaDomainService implements KafkaService {
 
-  public static final String SOURCE = "server/springboot/broker/kafka";
-  public static final String DUMMY_TOPIC_NAME = "kafka.topic.dummy";
+  private static final String SOURCE = "server/springboot/broker/kafka";
+  private static final String DUMMY_TOPIC_NAME = "kafka.topic.dummy";
+  private static final String DUMMY_PRODUCER_PATH = "dummy/infrastructure/secondary/kafka/producer";
 
   private final BuildToolService buildToolService;
 
@@ -55,7 +56,6 @@ public class KafkaDomainService implements KafkaService {
       project.addDefaultConfig(BASE_NAME);
       final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
       final String secondaryKafkaPath = TECHNICAL_INFRASTRUCTURE_SECONDARY + "/kafka";
-      final String dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
 
       final String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
       springBootCommonService.addProperties(project, DUMMY_TOPIC_NAME, topicName);
@@ -68,8 +68,8 @@ public class KafkaDomainService implements KafkaService {
         "KafkaProducerPropertiesTest.java",
         getPath(TEST_JAVA, packageNamePath, secondaryKafkaPath)
       );
-      projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, dummyProducerPath));
-      projectRepository.template(project, SOURCE, "DummyProducerTest.java", getPath(TEST_JAVA, packageNamePath, dummyProducerPath));
+      projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
+      projectRepository.template(project, SOURCE, "DummyProducerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
       projectRepository.template(project, SOURCE, "KafkaConfiguration.java", getPath(MAIN_JAVA, packageNamePath, secondaryKafkaPath));
     }
   }
@@ -135,5 +135,6 @@ public class KafkaDomainService implements KafkaService {
         }
       );
     springBootCommonService.updateIntegrationTestAnnotation(project, "KafkaTestContainerExtension");
+    projectRepository.template(project, SOURCE, "DummyProducerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
   }
 }

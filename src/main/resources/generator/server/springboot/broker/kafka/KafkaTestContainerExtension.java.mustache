@@ -18,6 +18,7 @@ public class KafkaTestContainerExtension implements BeforeAllCallback {
       final KafkaContainer kafkaContainer = new KafkaContainer(DockerImageName.parse("{{kafkaDockerImage}}")).withNetwork(null);
       kafkaContainer.start();
       kafkaContainerStarted.set(true);
+      System.setProperty("kafka.bootstrap.servers", kafkaContainer.getBootstrapServers());
     }
   }
 }

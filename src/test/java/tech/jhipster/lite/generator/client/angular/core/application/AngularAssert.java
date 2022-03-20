@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.client.angular.core.application;
 
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.TestUtils.assertFileNoContent;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;

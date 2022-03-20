@@ -12,6 +12,7 @@ import tech.jhipster.lite.common.domain.Base64Utils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -22,10 +23,16 @@ public class SpringCloudCommonDomainService implements SpringCloudCommonService 
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
+  private final DockerService dockerService;
 
-  public SpringCloudCommonDomainService(ProjectRepository projectRepository, BuildToolService buildToolService) {
+  public SpringCloudCommonDomainService(
+    ProjectRepository projectRepository,
+    BuildToolService buildToolService,
+    DockerService dockerService
+  ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -41,7 +48,16 @@ public class SpringCloudCommonDomainService implements SpringCloudCommonService 
   @Override
   public void addJhipsterRegistryDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    project.addConfig("jhipsterRegistryDockerImage", JHIPSTER_REGISTRY_DOCKER_IMAGE);
+
+    dockerService
+      .getImageNameWithVersion(JHIPSTER_REGISTRY_DOCKER_IMAGE_NAME)
+      .ifPresentOrElse(
+        imageName -> project.addConfig("jhipsterRegistryDockerImage", imageName),
+        () -> {
+          throw new GeneratorException("Version not found for docker image: " + JHIPSTER_REGISTRY_DOCKER_IMAGE_NAME);
+        }
+      );
+
     project.addConfig("base64JwtSecret", Base64Utils.getBase64Secret());
 
     projectRepository.template(

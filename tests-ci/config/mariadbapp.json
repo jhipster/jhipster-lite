@@ -1,0 +1,8 @@
+{
+  "folder": "/tmp/jhlite/mariadbapp",
+  "generator-jhipster": {
+    "projectName": "MariaDB Project",
+    "baseName": "mariadbapp",
+    "packageName": "tech.jhipster.mariadbapp"
+  }
+}

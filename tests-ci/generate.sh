@@ -22,15 +22,22 @@ fi
 
 callApi() {
   local api="$1"
-  curl -X POST \
+  status_code=$(curl -o /dev/null -s -w "%{http_code}\n" \
+    -X POST \
     -H "accept: */*" \
     -H "Content-Type: application/json" -d @"$filename" \
-    "http://localhost:7471""$api"
+    "http://localhost:7471""$api")
+
+  if [[ $status_code == '40'* || $status_code == '50'* ]]; then
+    echo "Error when calling API:" "$status_code"
+    exit 1
+  fi;
 }
 
 springboot() {
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
+  callApi "/api/github-actions/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
@@ -41,6 +48,7 @@ springboot() {
 springboot_undertow() {
   callApi "/api/projects/init"
   callApi "/api/build-tools/maven"
+  callApi "/api/github-actions/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
@@ -91,7 +99,14 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/vue"
+  callApi "/api/vue"
+
+elif [[ $application == 'oauth2app' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/mvc/security/oauth2"
+  callApi "/api/servers/spring-boot/mvc/security/oauth2/account"
 
 elif [[ $application == 'mysqlapp' ]]; then
   springboot
@@ -102,6 +117,20 @@ elif [[ $application == 'mysqlapp' ]]; then
 
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/user/mysql"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
+  callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
+
+  callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
+
+elif [[ $application == 'mariadbapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/mvc/springdoc/init"
+  callApi "/api/servers/spring-boot/mvc/dummy"
+
+  callApi "/api/servers/spring-boot/databases/mariadb"
+  callApi "/api/servers/spring-boot/user/mariadb"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
   callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
 
@@ -144,7 +173,7 @@ elif [[ $application == 'mongodbapp' ]]; then
   springboot
   sonar_back
 
-  callApi "/api/servers/spring-boot/databases/mongodbapp"
+  callApi "/api/servers/spring-boot/databases/mongodb"
 
 elif [[ $application == 'angularapp' ]]; then
   springboot
@@ -158,15 +187,29 @@ elif [[ $application == 'reactapp' ]]; then
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/react/styled"
-  callApi "/api/vite/react/cypress"
+  callApi "/api/react/styled"
+  callApi "/api/react/cypress"
 
 elif [[ $application == 'vueapp' ]]; then
   springboot
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vite/vue/styled"
+  callApi "/api/vue/styled"
+
+elif [[ $application == 'svelteapp' ]]; then
+  springboot
+  sonar_back_front
+
+  callApi "/api/frontend-maven-plugin"
+  callApi "/api/svelte/styled"
+
+elif [[ $application == 'kafkaapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/brokers/kafka"
+  callApi "/api/servers/spring-boot/brokers/kafka/dummy-producer"
 
 else
   echo "*** Unknown configuration..."

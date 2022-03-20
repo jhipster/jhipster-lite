@@ -10,13 +10,8 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 class PostgresqlTest {
 
   @Test
-  void shouldGetPostgresqlDockerVersion() {
-    assertThat(Postgresql.getPostgresqlDockerVersion()).isEqualTo(Postgresql.POSTGRESQL_DOCKER_VERSION);
-  }
-
-  @Test
   void shouldGetPostgresqlDockerImage() {
-    assertThat(Postgresql.getPostgresqlDockerImage()).isEqualTo(Postgresql.POSTGRESQL_DOCKER_IMAGE);
+    assertThat(Postgresql.getPostgresqlDockerImageName()).isEqualTo(Postgresql.POSTGRESQL_DOCKER_IMAGE_NAME);
   }
 
   @Test

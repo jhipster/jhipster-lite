@@ -1,12 +1,10 @@
-import { HomeVue } from '@/common/primary/home';
-import { GeneratorVue } from '@/generator/primary';
+import { GeneratorVue } from '@/springboot/primary';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: HomeVue,
+    redirect: { name: 'Generator' },
   },
   {
     path: '/generator',

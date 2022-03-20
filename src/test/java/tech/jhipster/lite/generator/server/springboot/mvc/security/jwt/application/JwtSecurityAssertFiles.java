@@ -8,6 +8,7 @@ import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringB
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 
 import java.util.List;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class JwtSecurityAssertFiles {
@@ -136,7 +137,7 @@ public class JwtSecurityAssertFiles {
   }
 
   public static void assertLoggerInConfiguration(Project project) {
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),

@@ -16,6 +16,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommonService;
@@ -33,6 +34,9 @@ class ConsulDomainServiceTest {
   @Mock
   SpringCloudCommonService springCloudCommonService;
 
+  @Mock
+  DockerService dockerService;
+
   @InjectMocks
   ConsulDomainService consulDomainService;
 
@@ -40,6 +44,8 @@ class ConsulDomainServiceTest {
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
     when(buildToolService.getVersion(project, "spring-cloud")).thenReturn(Optional.of("0.0.0"));
+    when(dockerService.getImageNameWithVersion("consul")).thenReturn(Optional.of("1.1.1"));
+    when(dockerService.getImageNameWithVersion("jhipster/consul-config-loader")).thenReturn(Optional.of("2.2.2"));
 
     consulDomainService.init(project);
 
@@ -55,5 +61,14 @@ class ConsulDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     assertThatThrownBy(() -> consulDomainService.addDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldNotAddDockerComposeFile() {
+    Project project = tmpProjectWithPomXml();
+
+    assertThatThrownBy(() -> consulDomainService.addDockerConsul(project))
+      .isExactlyInstanceOf(GeneratorException.class)
+      .hasMessageContaining("consul");
   }
 }

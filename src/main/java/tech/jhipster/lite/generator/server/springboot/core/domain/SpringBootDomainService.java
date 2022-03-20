@@ -153,27 +153,21 @@ public class SpringBootDomainService implements SpringBootService {
   public void addApplicationProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE, "application.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
+    projectRepository.template(project, SOURCE, "application.properties", getPath(MAIN_RESOURCES, CONFIG));
   }
 
   @Override
   public void addApplicationLocalProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE, "application-local.properties", getPath(MAIN_RESOURCES, CONFIG_FOLDER));
+    projectRepository.template(project, SOURCE, "application-local.properties", getPath(MAIN_RESOURCES, CONFIG));
   }
 
   @Override
   public void addApplicationTestProperties(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(
-      project,
-      SOURCE,
-      "application-test.properties",
-      getPath(TEST_RESOURCES, CONFIG_FOLDER),
-      "application.properties"
-    );
+    projectRepository.template(project, SOURCE, "application-test.properties", getPath(TEST_RESOURCES, CONFIG), "application.properties");
   }
 
   @Override

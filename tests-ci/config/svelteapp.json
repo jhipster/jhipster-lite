@@ -1,0 +1,8 @@
+{
+  "folder": "/tmp/jhlite/svelteapp",
+  "generator-jhipster": {
+    "projectName": "Svelteapp Project",
+    "baseName": "svelteapp",
+    "packageName": "tech.jhipster.svelteapp"
+  }
+}

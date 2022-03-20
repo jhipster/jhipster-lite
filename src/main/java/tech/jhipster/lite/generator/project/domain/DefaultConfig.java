@@ -12,15 +12,18 @@ public class DefaultConfig {
   public static final String PACKAGE_NAME = "packageName";
   public static final String PRETTIER_DEFAULT_INDENT = "prettierDefaultIndent";
 
+  public static final String DEFAULT_PACKAGE_NAME = "com.mycompany.myapp";
+  public static final String PACKAGE_PATH = "com/mycompany/myapp";
+  public static final String DEFAULT_BASE_NAME = "jhipster";
+  public static final String DEFAULT_PROJECT_NAME = "JHipster Project";
+
   // prettier-ignore
   public static final Map<String, Object> defaultMap = Map.of(
-    BASE_NAME, "jhipster",
-    PROJECT_NAME, "JHipster Project",
-    PACKAGE_NAME, "com.mycompany.myapp",
+    BASE_NAME, DEFAULT_BASE_NAME,
+    PROJECT_NAME, DEFAULT_PROJECT_NAME,
+    PACKAGE_NAME, DEFAULT_PACKAGE_NAME,
     PRETTIER_DEFAULT_INDENT, DEFAULT_INDENTATION
   );
-
-  public static final String PACKAGE_PATH = "com/mycompany/myapp";
 
   private DefaultConfig() {}
 

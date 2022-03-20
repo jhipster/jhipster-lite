@@ -1,16 +1,17 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.web.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.INFRA_PRIMARY;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
+import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommon.TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.*;
 
 import java.util.List;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -19,12 +20,10 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 public class SpringBootMvcDomainService implements SpringBootMvcService {
 
   public static final String SOURCE = "server/springboot/mvc/web";
-  public static final String INFRA_PRIMARY_CORS = getPath(INFRA_PRIMARY, "cors");
-  public static final String INFRA_PRIMARY_EXCEPTION = getPath(INFRA_PRIMARY, "exception");
 
-  public final ProjectRepository projectRepository;
-  public final BuildToolService buildToolService;
-  public final SpringBootCommonService springBootCommonService;
+  private final ProjectRepository projectRepository;
+  private final BuildToolService buildToolService;
+  private final SpringBootCommonService springBootCommonService;
 
   public SpringBootMvcDomainService(
     ProjectRepository projectRepository,
@@ -101,7 +100,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
     buildToolService.addDependency(project, problemSpringDependency());
     buildToolService.addDependency(project, springBootStarterValidation());
 
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     springBootCommonService.addProperties(project, "application.exception.details", "false");
     springBootCommonService.addProperties(project, "application.exception.package", "org.,java.,net.,javax.,com.,io.,de.," + packageName);
     springBootCommonService.addPropertiesTest(project, "application.exception.package", "org.,java.");
@@ -124,7 +123,12 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
   }
 
   private void templateToExceptionHandler(Project project, String source, String type, String sourceFilename, String destination) {
-    projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, INFRA_PRIMARY_EXCEPTION));
+    projectRepository.template(
+      project,
+      getPath(SOURCE, type),
+      sourceFilename,
+      getPath(destination, source, TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION)
+    );
   }
 
   private void addServerPortInProperties(Project project) {
@@ -147,17 +151,17 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
       .forEach((javaFile, destination) ->
         projectRepository.template(
           project,
-          getPath(SOURCE, "src", "cors"),
+          getPath(SOURCE, "src", CORS),
           javaFile,
-          getPath(MAIN_JAVA, packageNamePath, INFRA_PRIMARY_CORS)
+          getPath(MAIN_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_PRIMARY_CORS)
         )
       );
 
     projectRepository.template(
       project,
-      getPath(SOURCE, "test", "cors"),
+      getPath(SOURCE, "test", CORS),
       "CorsFilterConfigurationIT.java",
-      getPath(TEST_JAVA, packageNamePath, INFRA_PRIMARY_CORS)
+      getPath(TEST_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_PRIMARY_CORS)
     );
   }
 

@@ -65,14 +65,14 @@ jobs:
         run: |
           chmod +x mvnw
           ./mvnw clean verify sonar:sonar
-      - name: 'Check local Sonar Analysis'
+      - name: 'Analysis: local Sonar'
         run: |
           sleep 15
           ./tests-ci/sonar.sh
       - name: 'Analysis: SonarCloud'
         if: github.repository == 'jhipster/jhipster-lite' && github.ref == 'refs/heads/main'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./mvnw initialize sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster_jhipster-lite -Dsonar.organization=jhipster
       - name: 'Artifact: upload JaCoCo report'
@@ -94,6 +94,32 @@ jobs:
           path: '${{ github.workspace }}/target/*.jar'
           retention-days: 1
   #--------------------------------------------------
+  # Cypress
+  #--------------------------------------------------
+  cypress:
+    needs: [tests-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Setup: checkout project'
+        uses: actions/checkout@v3
+      - name: 'Setup: environment'
+        id: setup
+        uses: ./.github/actions/setup
+      - name: 'Artifact: download JAR'
+        uses: actions/download-artifact@v2
+        with:
+          name: jhlite-jar
+          path: ./tests-ci/
+      - name: 'Init: install Node.js packages'
+        run: npm ci
+      - name: 'Test: start application JHipster Lite'
+        working-directory: ./tests-ci/
+        run: |
+          ./start.sh
+      - name: 'Test: launch Cypress'
+        run: npm run e2e:headless
+
+  #--------------------------------------------------
   # Tests generated projects
   #--------------------------------------------------
   generation:
@@ -103,7 +129,9 @@ jobs:
       matrix:
         app:
           - fullapp
+          - oauth2app
           - mysqlapp
+          - mariadbapp
           - flywayapp
           - undertowapp
           - eurekaapp
@@ -112,6 +140,8 @@ jobs:
           - angularapp
           - reactapp
           - vueapp
+          - svelteapp
+          - kafkaapp
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v3
@@ -162,7 +192,7 @@ jobs:
   # Send analysis to Codecov
   #--------------------------------------------------
   codecov:
-    needs: generation
+    needs: cypress
     name: codecov
     if: github.repository == 'jhipster/jhipster-lite'
     runs-on: ubuntu-latest
@@ -189,3 +219,24 @@ jobs:
           files: lcov.info
           fail_ci_if_error: true
           verbose: true
+  #--------------------------------------------------
+  # Dependabot auto merge PR
+  #--------------------------------------------------
+  dependabot-auto-merge-pr:
+    name: dependabot-auto-merge-pr
+    needs: [cypress, generation]
+    permissions:
+      pull-requests: write
+      contents: write
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'jhipster/jhipster-lite' && github.ref != 'refs/heads/main' && github.event.pull_request.user.login == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.3.0
+      - name: Enable auto-merge for Dependabot PRs
+        if: ${{ steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

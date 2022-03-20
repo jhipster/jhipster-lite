@@ -63,8 +63,7 @@ javac 17.0.1
 
 #### Node.js and NPM
 
-[Node.js](https://nodejs.org/): we use Node to run a prettier as code formatter.
-Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+[Node.js](https://nodejs.org/): we use Node to run a development web server and build the project. Depending on your system, you can install Node either from source or as a pre-packaged bundle.
 
 ```
 $ node -v
@@ -78,10 +77,10 @@ $ npm -v
 
 #### Docker and Docker-compose
 
-To add containers for development (like databases, sonar...) you need:
+To launch containers for development (like Databases, Sonar...) you need:
 
-- [Docker](https://docs.docker.com/engine/install/) _(min version: 20.xx.xx)_
-- [Docker-compose](https://docs.docker.com/compose/install/) _(min version: 1.29.x)_
+- [Docker](https://docs.docker.com/engine/install/) _(minimum version: 20.xx.xx)_
+- [Docker Compose](https://docs.docker.com/compose/install/) _(minimum version: 1.29.x)_
 
 ```
 $ docker -v
@@ -135,7 +134,7 @@ upstream	git@github.com:jhipster/jhipster-lite.git (fetch)
 upstream	git@github.com:jhipster/jhipster-lite.git (push)
 ```
 
-You can edit you `.git/config`, and update this section:
+You can edit your `.git/config`, and update this section:
 
 ```
 [remote "upstream"]
@@ -160,10 +159,22 @@ For testing:
 ./mvnw clean verify
 ```
 
+For testing the front only:
+
+```
+npm run test
+```
+
 For running the project:
 
 ```
-./mvnw spring-boot:run
+./mvnw
+```
+
+For running the front only:
+
+```
+npm run start
 ```
 
 ### Use a text editor

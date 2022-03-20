@@ -3,20 +3,20 @@ package tech.jhipster.lite.generator.server.springboot.common.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_APPLICATION_TEST_PROPERTIES;
 
 import java.util.Optional;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   public static final String SOURCE = "server/springboot/common";
+  private static final String PROJECT_FIELD_ASSERT_NAME = "project";
 
   private final ProjectRepository projectRepository;
 
@@ -47,6 +47,18 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     addKeyValueToProperties(project, key, value, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
   }
 
+  @Override
+  public void addPropertiesTestLogging(Project project, String key, Level value) {
+    addKeyValueToProperties(
+      project,
+      "logging.level." + key,
+      value,
+      TEST_RESOURCES,
+      APPLICATION_PROPERTIES,
+      NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES
+    );
+  }
+
   private void addKeyValueToProperties(
     Project project,
     String key,
@@ -56,13 +68,7 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String needleProperties
   ) {
     String propertiesWithNeedle = key + "=" + value + LF + needleProperties;
-    projectRepository.replaceText(
-      project,
-      getPath(folderProperties, CONFIG_FOLDER),
-      fileProperties,
-      needleProperties,
-      propertiesWithNeedle
-    );
+    projectRepository.replaceText(project, getPath(folderProperties, CONFIG), fileProperties, needleProperties, propertiesWithNeedle);
   }
 
   @Override
@@ -80,15 +86,14 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     addNewLineToProperties(project, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
   }
 
+  @Override
+  public void addPropertiesTestLoggingNewLine(Project project) {
+    addNewLineToProperties(project, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES);
+  }
+
   private void addNewLineToProperties(Project project, String folderProperties, String fileProperties, String needleProperties) {
     String propertiesWithNeedle = LF + needleProperties;
-    projectRepository.replaceText(
-      project,
-      getPath(folderProperties, CONFIG_FOLDER),
-      fileProperties,
-      needleProperties,
-      propertiesWithNeedle
-    );
+    projectRepository.replaceText(project, getPath(folderProperties, CONFIG), fileProperties, needleProperties, propertiesWithNeedle);
   }
 
   @Override
@@ -106,6 +111,11 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     addCommentToProperties(project, text, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
   }
 
+  @Override
+  public void addPropertiesTestLoggingComment(Project project, String text) {
+    addCommentToProperties(project, text, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES);
+  }
+
   private void addCommentToProperties(
     Project project,
     String text,
@@ -114,13 +124,7 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String needleProperties
   ) {
     String propertiesWithNeedle = "# " + text + LF + needleProperties;
-    projectRepository.replaceText(
-      project,
-      getPath(folderProperties, CONFIG_FOLDER),
-      fileProperties,
-      needleProperties,
-      propertiesWithNeedle
-    );
+    projectRepository.replaceText(project, getPath(folderProperties, CONFIG), fileProperties, needleProperties, propertiesWithNeedle);
   }
 
   @Override
@@ -135,11 +139,11 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   @Override
   public Optional<String> getProperty(Project project, String key) {
-    Assert.notNull("project", project);
+    Assert.notNull(PROJECT_FIELD_ASSERT_NAME, project);
     Assert.notBlank("key", key);
 
     return FileUtils
-      .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG_FOLDER, "application.properties"), key + "=")
+      .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG, "application.properties"), key + "=")
       .map(readValue -> {
         String[] result = readValue.split("=");
         if (result.length == 2) {
@@ -147,6 +151,31 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
         }
         return null;
       });
+  }
+
+  @Override
+  public boolean isSetWithMySQLOrMariaDBDatabase(Project project) {
+    Assert.notNull(PROJECT_FIELD_ASSERT_NAME, project);
+    return isMariaDBDatabase(project) || isMySQLDatabase(project);
+  }
+
+  @Override
+  public boolean isDatabaseUseSequences(Project project) {
+    Assert.notNull(PROJECT_FIELD_ASSERT_NAME, project);
+
+    return hasSpecificDatabaseProperty(project, DatabaseType.POSTGRESQL);
+  }
+
+  private boolean isMySQLDatabase(Project project) {
+    return hasSpecificDatabaseProperty(project, DatabaseType.MYSQL);
+  }
+
+  private boolean isMariaDBDatabase(Project project) {
+    return hasSpecificDatabaseProperty(project, DatabaseType.MARIADB);
+  }
+
+  private boolean hasSpecificDatabaseProperty(Project project, DatabaseType databaseType) {
+    return getProperty(project, "spring.datasource.url").filter(value -> value.contains(databaseType.id())).isPresent();
   }
 
   private void addLoggerToConfiguration(
@@ -160,5 +189,34 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
     String loggerWithNeedle =
       String.format("<logger name=\"%s\" level=\"%s\" />", packageName, level.toString()) + LF + "  " + needleLogger;
     projectRepository.replaceText(project, getPath(folderConfig), fileLoggingConfig, needleLogger, loggerWithNeedle);
+  }
+
+  @Override
+  public void updateIntegrationTestAnnotation(Project project, String className) {
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
+
+    if (!containsExtendWith(project)) {
+      String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";
+      String newImport =
+        """
+          import org.junit.jupiter.api.extension.ExtendWith;
+          import org.springframework.boot.test.context.SpringBootTest;""";
+      projectRepository.replaceText(project, integrationTestPath, INTEGRATION_TEST, oldImport, newImport);
+    }
+
+    String oldAnnotation = "public @interface";
+    String newAnnotation = String.format("""
+      @ExtendWith(%s.class)
+      public @interface""", className);
+    projectRepository.replaceText(project, integrationTestPath, INTEGRATION_TEST, oldAnnotation, newAnnotation);
+  }
+
+  private boolean containsExtendWith(Project project) {
+    String packageNamePath = project.getPackageNamePath().orElse(PACKAGE_PATH);
+    return FileUtils.containsInLine(
+      getPath(project.getFolder(), TEST_JAVA, packageNamePath, INTEGRATION_TEST),
+      "import org.junit.jupiter.api.extension.ExtendWith;"
+    );
   }
 }

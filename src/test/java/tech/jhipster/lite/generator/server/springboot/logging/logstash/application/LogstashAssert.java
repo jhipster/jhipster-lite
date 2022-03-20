@@ -28,7 +28,7 @@ public class LogstashAssert {
   }
 
   public static void assertJavaFiles(Project project) {
-    String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
+    String basePackage = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     String logstashPackage = basePackage + ".technical.infrastructure.secondary.logstash";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
@@ -70,7 +70,7 @@ public class LogstashAssert {
   }
 
   public static void assertLoggerInConfiguration(Project project) {
-    String packageName = project.getPackageName().orElse("com.mycompany.myapp");
+    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),

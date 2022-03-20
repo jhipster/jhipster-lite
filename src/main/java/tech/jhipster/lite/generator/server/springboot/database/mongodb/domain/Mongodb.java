@@ -4,18 +4,12 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class Mongodb {
 
-  public static final String MONGODB_DOCKER_VERSION = "4.4.11";
-
-  public static final String MONGODB_DOCKER_IMAGE = "mongo:" + MONGODB_DOCKER_VERSION;
+  public static final String MONGODB_DOCKER_IMAGE_NAME = "mongo";
 
   private Mongodb() {}
 
-  public static String getMongodbDockerVersion() {
-    return MONGODB_DOCKER_VERSION;
-  }
-
-  public static String getMongodbDockerImage() {
-    return MONGODB_DOCKER_IMAGE;
+  public static String getMongodbDockerImageName() {
+    return MONGODB_DOCKER_IMAGE_NAME;
   }
 
   public static Dependency mongodbDriver() {

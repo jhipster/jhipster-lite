@@ -1,11 +1,13 @@
 package tech.jhipster.lite.generator.server.springboot.user.application;
 
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.*;
 
+import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class SpringBootUserAssertFiles {
@@ -33,7 +35,7 @@ public class SpringBootUserAssertFiles {
   public static void checkSequence(Project project, DatabaseType databaseType) {
     String userPath = getUserPath(project, databaseType);
 
-    if (databaseType == MYSQL) {
+    if (List.of(MYSQL, MARIADB).contains(databaseType)) {
       assertFileContent(project, getPath(userPath, "UserEntity.java"), "@GeneratedValue(strategy = GenerationType.IDENTITY)");
       assertFileNoContent(project, getPath(userPath, "UserEntity.java"), "@GeneratedValue(strategy = GenerationType.SEQUENCE");
     } else {
@@ -43,7 +45,8 @@ public class SpringBootUserAssertFiles {
   }
 
   private static void checkJavaFile(Project project, String javaFileName, DatabaseType databaseType) {
-    String userPackage = project.getPackageName().orElse("com.mycompany.myapp") + ".user.infrastructure.secondary." + databaseType.id();
+    String userPackage =
+      project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME) + ".user.infrastructure.secondary." + databaseType.id();
     String userPath = getUserPath(project, databaseType);
 
     assertFileExist(project, getPath(userPath, javaFileName));
@@ -60,7 +63,7 @@ public class SpringBootUserAssertFiles {
   }
 
   private static void checkJavaDomainFile(Project project, String javaFileName) {
-    String userPackage = project.getPackageName().orElse("com.mycompany.myapp") + ".user.domain";
+    String userPackage = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME) + ".user.domain";
     String userPath = getPath(MAIN_JAVA, project.getPackageNamePath().orElse("com/mycompany/myapp"), "user/domain");
 
     assertFileExist(project, getPath(userPath, javaFileName));
@@ -68,7 +71,8 @@ public class SpringBootUserAssertFiles {
   }
 
   private static void checkJavaTestFile(Project project, String javaFileName, DatabaseType databaseType) {
-    String userPackage = project.getPackageName().orElse("com.mycompany.myapp") + ".user.infrastructure.secondary." + databaseType.id();
+    String userPackage =
+      project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME) + ".user.infrastructure.secondary." + databaseType.id();
     String userPath = getPath(
       TEST_JAVA,
       project.getPackageNamePath().orElse("com/mycompany/myapp"),

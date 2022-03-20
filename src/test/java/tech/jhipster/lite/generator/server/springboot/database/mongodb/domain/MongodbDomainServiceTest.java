@@ -1,14 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.database.mongodb.domain;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
 
+import java.util.Map;
 import java.util.Optional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +16,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -40,17 +39,21 @@ class MongodbDomainServiceTest {
   @Mock
   SQLCommonService sqlCommonService;
 
+  @Mock
+  DockerService dockerService;
+
   @InjectMocks
   MongodbDomainService mongodbDomainService;
 
   @Test
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
-    when(buildToolService.getVersion(project, "testcontainers")).thenReturn(Optional.of("0.0.0"));
+
+    when(dockerService.getImageNameWithVersion("mongo")).thenReturn(Optional.of("mongo:0.0.0"));
 
     mongodbDomainService.init(project);
 
-    verify(buildToolService, times(3)).addDependency(any(Project.class), any(Dependency.class));
+    verify(buildToolService, times(2)).addDependency(any(Project.class), any(Dependency.class));
 
     verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
 
@@ -59,15 +62,19 @@ class MongodbDomainServiceTest {
     verify(springBootCommonService).addPropertiesNewLine(any(Project.class));
     verify(springBootCommonService, times(2)).addLogger(any(Project.class), anyString(), any(Level.class));
     verify(springBootCommonService, times(4)).addLoggerTest(any(Project.class), anyString(), any(Level.class));
-    verify(projectRepository, times(2)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    verify(springBootCommonService).updateIntegrationTestAnnotation(any(Project.class), anyString());
 
     verify(sqlCommonService).addDockerComposeTemplate(project, "mongodb");
+    verify(sqlCommonService).addTestcontainers(project, "mongodb", Map.of());
   }
 
   @Test
-  void shouldNotInit() {
-    Project project = tmpProjectWithPomXml();
+  void shouldThrowExceptionWhenImageVersionNotFound() {
+    Project project = tmpProject();
 
-    assertThatThrownBy(() -> mongodbDomainService.init(project)).isExactlyInstanceOf(GeneratorException.class);
+    Assertions
+      .assertThatThrownBy(() -> mongodbDomainService.init(project))
+      .isInstanceOf(GeneratorException.class)
+      .hasMessageContaining("mongo");
   }
 }

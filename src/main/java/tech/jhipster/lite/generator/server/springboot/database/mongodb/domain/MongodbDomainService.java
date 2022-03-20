@@ -1,12 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.database.mongodb.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.database.mongodb.domain.Mongodb.mongodbDriver;
 
 import java.util.Map;
@@ -14,6 +10,8 @@ import java.util.TreeMap;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -28,17 +26,20 @@ public class MongodbDomainService implements MongodbService {
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final SQLCommonService sqlCommonService;
+  private final DockerService dockerService;
 
   public MongodbDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
-    SQLCommonService sqlCommonService
+    SQLCommonService sqlCommonService,
+    DockerService dockerService
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -70,7 +71,15 @@ public class MongodbDomainService implements MongodbService {
   @Override
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    project.addConfig("mongodbDockerImage", Mongodb.getMongodbDockerImage());
+
+    dockerService
+      .getImageNameWithVersion(Mongodb.getMongodbDockerImageName())
+      .ifPresentOrElse(
+        imageName -> project.addConfig("mongodbDockerImage", imageName),
+        () -> {
+          throw new GeneratorException("Version not found for docker image: " + Mongodb.getMongodbDockerImageName());
+        }
+      );
     sqlCommonService.addDockerComposeTemplate(project, "mongodb");
   }
 
@@ -115,25 +124,8 @@ public class MongodbDomainService implements MongodbService {
     return result;
   }
 
-  @Override
-  public void addTestcontainers(Project project) {
-    this.buildToolService.getVersion(project, "testcontainers")
-      .ifPresentOrElse(
-        version -> {
-          Dependency dependency = Dependency
-            .builder()
-            .groupId("org.testcontainers")
-            .artifactId("mongodb")
-            .version("\\${testcontainers.version}")
-            .scope("test")
-            .build();
-          buildToolService.addProperty(project, "testcontainers.version", version);
-          buildToolService.addDependency(project, dependency);
-        },
-        () -> {
-          throw new GeneratorException("Testcontainers version not found");
-        }
-      );
+  private void addTestcontainers(Project project) {
+    this.sqlCommonService.addTestcontainers(project, DatabaseType.MONGODB.id(), Map.of());
   }
 
   @Override
@@ -151,20 +143,6 @@ public class MongodbDomainService implements MongodbService {
   }
 
   private void updateIntegrationTestAnnotation(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
-    String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
-
-    String oldImport = "import org.springframework.boot.test.context.SpringBootTest;";
-    String newImport =
-      """
-        import org.junit.jupiter.api.extension.ExtendWith;
-        import org.springframework.boot.test.context.SpringBootTest;""";
-    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldImport, newImport);
-
-    String oldAnnotation = "public @interface";
-    String newAnnotation = """
-      @ExtendWith(MongodbTestContainerExtension.class)
-      public @interface""";
-    projectRepository.replaceText(project, integrationTestPath, "IntegrationTest.java", oldAnnotation, newAnnotation);
+    springBootCommonService.updateIntegrationTestAnnotation(project, "MongodbTestContainerExtension");
   }
 }

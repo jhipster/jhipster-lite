@@ -8,6 +8,7 @@ import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.
 import tech.jhipster.lite.common.domain.Base64Utils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommonService;
@@ -19,15 +20,18 @@ public class ConsulDomainService implements ConsulService {
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
   private final SpringCloudCommonService springCloudCommonService;
+  private final DockerService dockerService;
 
   public ConsulDomainService(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
-    SpringCloudCommonService springCloudCommonService
+    SpringCloudCommonService springCloudCommonService,
+    DockerService dockerService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springCloudCommonService = springCloudCommonService;
+    this.dockerService = dockerService;
   }
 
   @Override
@@ -62,26 +66,34 @@ public class ConsulDomainService implements ConsulService {
       project,
       getPath(SOURCE, "src"),
       BOOTSTRAP_PROPERTIES,
-      getPath(MAIN_RESOURCES, CONFIG_FOLDER)
+      getPath(MAIN_RESOURCES, CONFIG)
     );
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "src"),
       BOOTSTRAP_LOCAL_PROPERTIES,
-      getPath(MAIN_RESOURCES, CONFIG_FOLDER)
+      getPath(MAIN_RESOURCES, CONFIG)
     );
     springCloudCommonService.addOrMergeBootstrapProperties(
       project,
       getPath(SOURCE, "test"),
       BOOTSTRAP_PROPERTIES,
-      getPath(TEST_RESOURCES, CONFIG_FOLDER)
+      getPath(TEST_RESOURCES, CONFIG)
     );
   }
 
   @Override
   public void addDockerConsul(Project project) {
-    project.addConfig("dockerConsulImage", getDockerConsulImage());
-    project.addConfig("dockerConsulConfigLoaderImage", getDockerConsulConfigLoaderImage());
+    String consulImage = dockerService
+      .getImageNameWithVersion(getDockerConsulImageName())
+      .orElseThrow(() -> new GeneratorException("Version not found for docker image: " + getDockerConsulImageName()));
+
+    String consulConfigLoaderImage = dockerService
+      .getImageNameWithVersion(getDockerConsulConfigLoaderImageName())
+      .orElseThrow(() -> new GeneratorException("Version not found for docker image: " + getDockerConsulConfigLoaderImageName()));
+
+    project.addConfig("dockerConsulImage", consulImage);
+    project.addConfig("dockerConsulConfigLoaderImage", consulConfigLoaderImage);
 
     projectRepository.template(project, getPath(SOURCE, "src"), "consul.yml", "src/main/docker", "consul.yml");
 

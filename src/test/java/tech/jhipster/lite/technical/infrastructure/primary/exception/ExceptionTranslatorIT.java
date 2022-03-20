@@ -201,4 +201,14 @@ class ExceptionTranslatorIT {
       .andExpect(jsonPath("$.message").value("error.http.500"))
       .andExpect(jsonPath("$.title").value("Internal Server Error"));
   }
+
+  @Test
+  void shouldHandleGeneratorException() throws Exception {
+    mockMvc
+      .perform(get("/api/exception-translator-test/generator-exception-test"))
+      .andExpect(status().isBadRequest())
+      .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+      .andExpect(jsonPath("$.message").value("error.http.400"))
+      .andExpect(jsonPath("$.title").value("Test generator exception"));
+  }
 }

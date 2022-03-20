@@ -129,6 +129,11 @@ public class FileUtils {
     return Optional.empty();
   }
 
+  public static List<String> readLinesInClasspath(String filename) {
+    Assert.notBlank(FILENAME, filename);
+    return new BufferedReader(new InputStreamReader(getInputStream(filename))).lines().toList();
+  }
+
   public static boolean containsLines(String filename, List<String> lines) {
     Assert.notBlank(FILENAME, filename);
     Assert.notEmpty("lines", lines);
@@ -216,5 +221,9 @@ public class FileUtils {
 
   public static void appendLines(String filePath, List<String> lines) throws IOException {
     Files.write(Path.of(filePath), lines, StandardOpenOption.APPEND);
+  }
+
+  public static void rename(String source, String sourceFilename, String destinationFilename) throws IOException {
+    Files.move(getPathOf(source, sourceFilename), getPathOf(source, destinationFilename));
   }
 }

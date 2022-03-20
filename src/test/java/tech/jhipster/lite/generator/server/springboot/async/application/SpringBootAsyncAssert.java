@@ -13,7 +13,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class SpringBootAsyncAssert {
 
   public static void assertJavaFiles(Project project) {
-    String basePackage = project.getPackageName().orElse("com.mycompany.myapp");
+    String basePackage = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
     String asyncPackage = basePackage + ".technical.infrastructure.secondary.async";
 
     String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));

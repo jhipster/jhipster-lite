@@ -12,6 +12,5 @@ public interface PostgresqlService {
   void addDockerCompose(Project project);
   void addJavaFiles(Project project);
   void addProperties(Project project);
-  void addTestcontainers(Project project);
   void addLoggerInConfiguration(Project project);
 }

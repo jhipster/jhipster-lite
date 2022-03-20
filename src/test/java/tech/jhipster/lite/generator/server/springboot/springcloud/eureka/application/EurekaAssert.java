@@ -8,7 +8,6 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURC
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommon;
 
 public class EurekaAssert {
 
@@ -85,7 +84,7 @@ public class EurekaAssert {
 
   public static void assertDockerCompose(Project project) {
     assertFileExist(project, "src/main/docker/jhipster-registry.yml");
-    assertFileContent(project, "src/main/docker/jhipster-registry.yml", SpringCloudCommon.JHIPSTER_REGISTRY_DOCKER_IMAGE);
+    assertFileContent(project, "src/main/docker/jhipster-registry.yml", "jhipster/jhipster-registry:v7.3.0");
     assertFileExist(project, "src/main/docker/central-server-config/localhost-config/application.properties");
   }
 }

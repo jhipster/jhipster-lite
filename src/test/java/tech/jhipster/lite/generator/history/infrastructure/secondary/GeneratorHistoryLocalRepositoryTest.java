@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.domain.JsonUtils;
-import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryData;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;

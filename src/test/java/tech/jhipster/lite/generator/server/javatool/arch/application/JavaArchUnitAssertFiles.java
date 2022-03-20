@@ -52,7 +52,7 @@ public class JavaArchUnitAssertFiles {
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
-      List.of("<logger name=\"com.tngtech.archunit\" level=\"INFO\" />")
+      List.of("<logger name=\"com.tngtech.archunit\" level=\"WARN\" />")
     );
   }
 }

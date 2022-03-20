@@ -105,6 +105,13 @@ public class TestUtils {
     return project;
   }
 
+  public static Project tmpProjectWithPackageJsonAndLintStage() {
+    Project project = tmpProject();
+    copyLintstage(project);
+    copyPackageJson(project);
+    return project;
+  }
+
   public static Project tmpProjectWithPackageJsonNothing() {
     Project project = tmpProject();
     copyPackageJsonByName(project, "package-nothing.json");
@@ -172,6 +179,15 @@ public class TestUtils {
     try {
       FileUtils.createFolder(project.getFolder());
       Files.copy(getPathOf("src/test/resources/generator/command/package-test.json"), getPathOf(project.getFolder(), PACKAGE_JSON));
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public static void copyLintstage(Project project) {
+    try {
+      FileUtils.createFolder(project.getFolder());
+      Files.copy(getPathOf("src/test/resources/generator/common/.lintstagedrc.js"), getPathOf(project.getFolder(), ".lintstagedrc.js"));
     } catch (IOException e) {
       throw new AssertionError(e);
     }

@@ -4,7 +4,12 @@
 /src/main/webapp/content/css/main.css
 /target/classes/static/**
 /src/test/javascript/coverage/
-/src/test/java/tech/jhipster/lite/PersonalProjectIT.java
+
+######################
+# JHipster Lite
+######################
+
+!/src/main/resources/generator/buildtool/maven/.mvn/wrapper/maven-wrapper.jar
 /tests-ci/.pid-jhlite
 /roadmap/*.png
 !/roadmap/spring_boot_project.png
@@ -140,6 +145,7 @@ Desktop.ini
 *.*~
 *~
 .merge_file*
+.history
 
 ######################
 # Gradle Wrapper
@@ -157,7 +163,12 @@ Desktop.ini
 .eslintcache
 
 ######################
-# Templates
+# Angular
 ######################
+.angular/
+dist/
 
-!/src/main/resources/generator/buildtool/maven/.mvn/wrapper/maven-wrapper.jar
+######################
+# Svelte
+######################
+.svelte-kit/

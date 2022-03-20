@@ -1,10 +1,10 @@
 package tech.jhipster.lite.technical.infrastructure.primary.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import java.net.URI;
 import java.util.*;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +18,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.zalando.problem.*;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 import org.zalando.problem.violations.ConstraintViolationProblem;
+import tech.jhipster.lite.error.domain.GeneratorException;
 
 /**
  * Controller advice to translate the server side exceptions to client-friendly json structures.
@@ -44,7 +45,7 @@ public class ExceptionTranslator implements ProblemHandling {
    * Post-process the Problem payload to add the message key for the front-end if needed.
    */
   @Override
-  public ResponseEntity<Problem> process(@Nullable ResponseEntity<Problem> entity, NativeWebRequest request) {
+  public ResponseEntity<Problem> process(@Null ResponseEntity<Problem> entity, NativeWebRequest request) {
     if (entity == null) {
       return null;
     }
@@ -79,7 +80,7 @@ public class ExceptionTranslator implements ProblemHandling {
   }
 
   @Override
-  public ResponseEntity<Problem> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @Nonnull NativeWebRequest request) {
+  public ResponseEntity<Problem> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @NotNull NativeWebRequest request) {
     BindingResult result = ex.getBindingResult();
     List<FieldErrorDTO> fieldErrors = result
       .getFieldErrors()
@@ -106,6 +107,14 @@ public class ExceptionTranslator implements ProblemHandling {
   public ResponseEntity<Problem> handleBadRequestAlertException(BadRequestAlertException ex, NativeWebRequest request) {
     return create(ex, request, HeaderUtil.createFailureAlert(applicationName, true, ex.getEntityName(), ex.getErrorKey(), ex.getMessage()));
   }
+
+  @ExceptionHandler
+  public ResponseEntity<Problem> handleGenerationException(GeneratorException ex, NativeWebRequest request) {
+    Problem problem = Problem.builder().withStatus(Status.BAD_REQUEST).withTitle(ex.getMessage()).build();
+    return create(ex, problem, request);
+  }
+
+  // jhipster-needle-exception-translator
 
   @Override
   public ProblemBuilder prepare(final Throwable throwable, final StatusType status, final URI type) {

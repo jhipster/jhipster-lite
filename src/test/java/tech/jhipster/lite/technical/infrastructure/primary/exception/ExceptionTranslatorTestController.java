@@ -1,10 +1,11 @@
 package tech.jhipster.lite.technical.infrastructure.primary.exception;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.*;
+import tech.jhipster.lite.error.domain.GeneratorException;
 
 @RestController
 @RequestMapping("/api/exception-translator-test")
@@ -37,6 +38,11 @@ public class ExceptionTranslatorTestController {
   @GetMapping("/null-pointer-exception")
   public void nullPointerException() {
     throw new NullPointerException("java.lang.NullPointerException");
+  }
+
+  @GetMapping("/generator-exception-test")
+  public void generatorException() {
+    throw new GeneratorException("Test generator exception");
   }
 
   @GetMapping("/http-message-conversion-exception")

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.technical.infrastructure.primary.exception;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.*;

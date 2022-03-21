@@ -1,10 +1,10 @@
 package tech.jhipster.lite.technical.infrastructure.primary.exception;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import java.net.URI;
 import java.util.*;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +45,7 @@ public class ExceptionTranslator implements ProblemHandling {
    * Post-process the Problem payload to add the message key for the front-end if needed.
    */
   @Override
-  public ResponseEntity<Problem> process(@Null ResponseEntity<Problem> entity, NativeWebRequest request) {
+  public ResponseEntity<Problem> process(@Nullable ResponseEntity<Problem> entity, NativeWebRequest request) {
     if (entity == null) {
       return null;
     }
@@ -80,7 +80,7 @@ public class ExceptionTranslator implements ProblemHandling {
   }
 
   @Override
-  public ResponseEntity<Problem> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @NotNull NativeWebRequest request) {
+  public ResponseEntity<Problem> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @Nonnull NativeWebRequest request) {
     BindingResult result = ex.getBindingResult();
     List<FieldErrorDTO> fieldErrors = result
       .getFieldErrors()

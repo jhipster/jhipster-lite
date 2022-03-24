@@ -54,6 +54,8 @@
     <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
     <properties-maven-plugin.version>1.1.0</properties-maven-plugin.version>
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
+    <commons-io.version>2.11.0</commons-io.version>
+    <zt-zip.version>1.11</zt-zip.version>
 
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
@@ -74,6 +76,16 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons-io.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.zeroturnaround</groupId>
+      <artifactId>zt-zip</artifactId>
+      <version>${zt-zip.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>

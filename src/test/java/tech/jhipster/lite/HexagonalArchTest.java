@@ -1,6 +1,7 @@
 package tech.jhipster.lite;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -29,12 +31,18 @@ class HexagonalArchTest {
 
   private static final Collection<String> businessContexts = buildBusinessContexts();
 
+  private static final Collection<String> sharedKernels = buildSharedKernels();
+
   private static final Collection<String> commonPackages = Arrays.asList("java..", "org.slf4j..", "org.apache.commons.lang3..");
 
   private static final Collection<String> sharedKernelsPackages = buildSharedKernelsPackages();
 
   private static Collection<String> buildBusinessContexts() {
     return getPackageAnnotatedBy(BusinessContext.class);
+  }
+
+  private static Collection<String> buildSharedKernels() {
+    return getPackageAnnotatedBy(SharedKernel.class);
   }
 
   private static Collection<String> buildSharedKernelsPackages() {
@@ -122,8 +130,24 @@ class HexagonalArchTest {
     );
   }
 
+  @Test
+  void shouldNotHaveFrameworkDependenciesInSharedKernel() {
+    sharedKernels.forEach(context ->
+      classes()
+        .that()
+        .resideInAnyPackage(context + ".domain..")
+        .and()
+        .resideOutsideOfPackage("tech.jhipster.lite.common.domain")
+        .should()
+        .onlyDependOnClassesThat()
+        .resideInAnyPackage(authorizedContextPackages(context + ".domain.."))
+        .because("Domain model should only depend on himself and a very limited set of external dependencies")
+        .check(classes)
+    );
+  }
+
   private String[] authorizedContextPackages(String packageName) {
-    return Stream.of(Arrays.asList(packageName), commonPackages, sharedKernelsPackages).flatMap(Collection::stream).toArray(String[]::new);
+    return Stream.of(List.of(packageName), commonPackages, sharedKernelsPackages).flatMap(Collection::stream).toArray(String[]::new);
   }
 
   @Test

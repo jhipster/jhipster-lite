@@ -13,6 +13,8 @@ import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplication
 import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq;
+import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest
@@ -43,8 +45,9 @@ class KafkaApplicationServiceIT {
     kafkaApplicationService.init(project);
     assertFileContent(project, POM_XML, kafkaClients());
 
-    assertFileExist(project, "src/main/docker/kafka.yml");
-    assertFileContent(project, "src/main/docker/kafka.yml", "KAFKA_BROKER_ID: 1");
+    String pathToKafkaDockerComposeFile = MAIN_DOCKER + "/" + Kafka.getKafkaDockerComposeFile();
+    assertFileExist(project, pathToKafkaDockerComposeFile);
+    assertFileContent(project, pathToKafkaDockerComposeFile, "KAFKA_BROKER_ID: 1");
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "# Kafka Configuration");
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "kafka.bootstrap-servers=localhost:9092");
@@ -94,17 +97,18 @@ class KafkaApplicationServiceIT {
   }
 
   @Test
-  void shouldAddAkhqSupport() {
+  void shouldAddAkhq() {
     Project project = tmpProject();
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
     kafkaApplicationService.init(project);
 
-    kafkaApplicationService.addAkhqSupport(project);
+    kafkaApplicationService.addAkhq(project);
 
-    assertFileExist(project, "src/main/docker/akhq.yml");
-    assertFileContent(project, "src/main/docker/akhq.yml", "AKHQ_CONFIGURATION");
+    String pathToAkhqDockerComposeFile = MAIN_DOCKER + "/" + Akhq.getAkhqDockerImage();
+    assertFileExist(project, pathToAkhqDockerComposeFile);
+    assertFileContent(project, pathToAkhqDockerComposeFile, "AKHQ_CONFIGURATION");
   }
 
   private List<String> kafkaClients() {

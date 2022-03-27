@@ -70,11 +70,11 @@ class KafkaDomainServiceTest {
   }
 
   @Test
-  void shouldAddAkhqSupport() {
+  void shouldAddAkhq() {
     Project project = tmpProjectWithPomXml();
     when(dockerService.getImageNameWithVersion(anyString())).thenReturn(Optional.of("dummy"));
 
-    kafkaDomainService.addAkhqSupport(project);
+    kafkaDomainService.addAkhq(project);
 
     verify(dockerService).getImageNameWithVersion(anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());

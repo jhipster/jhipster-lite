@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.infrastructu
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.broker.kafka.application.KafkaApplicationService;
+import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq;
+import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest
@@ -63,7 +66,7 @@ class KafkaResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, "src/main/docker/kafka.yml");
+    assertFileExist(projectPath, MAIN_DOCKER + "/" + Kafka.getKafkaDockerComposeFile());
   }
 
   @Test
@@ -118,6 +121,6 @@ class KafkaResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, "src/main/docker/akhq.yml");
+    assertFileExist(projectPath, MAIN_DOCKER + "/" + Akhq.getAkhqDockerImage());
   }
 }

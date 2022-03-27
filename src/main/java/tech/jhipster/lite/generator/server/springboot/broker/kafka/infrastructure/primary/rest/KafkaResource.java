@@ -45,8 +45,8 @@ class KafkaResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding AKHQ support")
   @PostMapping("/akhq-support")
   @GeneratorStep(id = "springboot-kafka-akhq-support")
-  public void addAkhqSupport(final @RequestBody ProjectDTO projectDTO) {
+  public void addAkhq(final @RequestBody ProjectDTO projectDTO) {
     final Project project = ProjectDTO.toProject(projectDTO);
-    kafkaApplicationService.addAkhqSupport(project);
+    kafkaApplicationService.addAkhq(project);
   }
 }

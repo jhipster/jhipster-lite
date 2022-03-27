@@ -76,10 +76,10 @@ public class KafkaDomainService implements KafkaService {
   }
 
   @Override
-  public void addAkhqSupport(Project project) {
+  public void addAkhq(Project project) {
     final String akhqDockerImage = dockerService.getImageNameWithVersion(Akhq.getAkhqDockerImage()).orElseThrow();
     project.addConfig("akhqDockerImage", akhqDockerImage);
-    projectRepository.template(project, SOURCE, "akhq.yml", "src/main/docker", "akhq.yml");
+    projectRepository.template(project, SOURCE, Akhq.getAkhqDockerComposeFile(), MAIN_DOCKER, Akhq.getAkhqDockerComposeFile());
   }
 
   private void addApacheKafkaClient(final Project project) {
@@ -94,7 +94,7 @@ public class KafkaDomainService implements KafkaService {
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("zookeeperDockerImage", zookeeperDockerImage);
     project.addConfig("kafkaDockerImage", kafkaDockerImage);
-    projectRepository.template(project, SOURCE, "kafka.yml", "src/main/docker", "kafka.yml");
+    projectRepository.template(project, SOURCE, Kafka.getKafkaDockerComposeFile(), MAIN_DOCKER, Kafka.getKafkaDockerComposeFile());
   }
 
   private void addProperties(final Project project) {

@@ -106,7 +106,7 @@ class KafkaApplicationServiceIT {
 
     kafkaApplicationService.addAkhq(project);
 
-    String pathToAkhqDockerComposeFile = MAIN_DOCKER + "/" + Akhq.getAkhqDockerImage();
+    String pathToAkhqDockerComposeFile = MAIN_DOCKER + "/" + Akhq.getAkhqDockerComposeFile();
     assertFileExist(project, pathToAkhqDockerComposeFile);
     assertFileContent(project, pathToAkhqDockerComposeFile, "AKHQ_CONFIGURATION");
   }

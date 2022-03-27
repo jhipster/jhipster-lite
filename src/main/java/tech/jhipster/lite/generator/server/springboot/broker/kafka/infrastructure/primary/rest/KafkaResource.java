@@ -41,10 +41,10 @@ class KafkaResource {
     kafkaApplicationService.addDummyProducer(project);
   }
 
-  @Operation(summary = "Add AKHQ support")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding AKHQ support")
-  @PostMapping("/akhq-support")
-  @GeneratorStep(id = "springboot-kafka-akhq-support")
+  @Operation(summary = "Add AKHQ")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding AKHQ")
+  @PostMapping("/akhq")
+  @GeneratorStep(id = "springboot-kafka-akhq")
   public void addAkhq(final @RequestBody ProjectDTO projectDTO) {
     final Project project = ProjectDTO.toProject(projectDTO);
     kafkaApplicationService.addAkhq(project);

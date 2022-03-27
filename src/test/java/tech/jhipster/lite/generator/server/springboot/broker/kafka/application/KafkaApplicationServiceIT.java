@@ -93,6 +93,20 @@ class KafkaApplicationServiceIT {
     assertFileContent(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"), "class DummyProducerIT");
   }
 
+  @Test
+  void shouldAddAkhqSupport() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+    kafkaApplicationService.init(project);
+
+    kafkaApplicationService.addAkhqSupport(project);
+
+    assertFileExist(project, "src/main/docker/akhq.yml");
+    assertFileContent(project, "src/main/docker/akhq.yml", "AKHQ_CONFIGURATION");
+  }
+
   private List<String> kafkaClients() {
     return List.of("<dependency>", "<groupId>org.apache.kafka</groupId>", "<artifactId>kafka-clients</artifactId>", "</dependency>");
   }

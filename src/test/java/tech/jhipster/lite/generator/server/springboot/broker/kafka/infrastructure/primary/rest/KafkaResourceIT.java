@@ -96,4 +96,28 @@ class KafkaResourceIT {
     assertFileExist(projectPath, "src/test/java/tech/jhipster/chips/dummy/infrastructure/secondary/kafka/producer/DummyProducerTest.java");
     assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/secondary/kafka/KafkaConfiguration.java");
   }
+
+  @Test
+  void shouldAkhqSupport() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    if (projectDTO == null) {
+      throw new GeneratorException("Error when reading file");
+    }
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+    kafkaApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/brokers/kafka/akhq-support")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    String projectPath = projectDTO.getFolder();
+    assertFileExist(projectPath, "src/main/docker/akhq.yml");
+  }
 }

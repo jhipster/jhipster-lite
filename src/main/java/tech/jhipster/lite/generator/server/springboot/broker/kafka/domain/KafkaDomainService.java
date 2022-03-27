@@ -75,6 +75,13 @@ public class KafkaDomainService implements KafkaService {
     }
   }
 
+  @Override
+  public void addAkhqSupport(Project project) {
+    final String akhqDockerImage = dockerService.getImageNameWithVersion(Akhq.getAkhqDockerImage()).orElseThrow();
+    project.addConfig("akhqDockerImage", akhqDockerImage);
+    projectRepository.template(project, SOURCE, "akhq.yml", "src/main/docker", "akhq.yml");
+  }
+
   private void addApacheKafkaClient(final Project project) {
     final Dependency dependency = Dependency.builder().groupId("org.apache.kafka").artifactId("kafka-clients").build();
     buildToolService.addDependency(project, dependency);

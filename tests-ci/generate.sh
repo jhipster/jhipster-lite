@@ -209,6 +209,7 @@ elif [[ $application == 'kafkaapp' ]]; then
 
   callApi "/api/servers/spring-boot/brokers/kafka"
   callApi "/api/servers/spring-boot/brokers/kafka/dummy-producer"
+  callApi "/api/servers/spring-boot/brokers/kafka/akhq-support"
 
 else
   echo "*** Unknown configuration..."

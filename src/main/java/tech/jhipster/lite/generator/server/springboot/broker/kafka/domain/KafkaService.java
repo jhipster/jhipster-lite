@@ -6,4 +6,6 @@ public interface KafkaService {
   void init(Project project);
 
   void addDummyProducer(Project project);
+
+  void addAkhqSupport(Project project);
 }

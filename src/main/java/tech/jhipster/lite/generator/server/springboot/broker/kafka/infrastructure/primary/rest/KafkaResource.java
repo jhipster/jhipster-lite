@@ -35,9 +35,18 @@ class KafkaResource {
   @Operation(summary = "Add a dummy Kafka producer")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding a dummy Kafka producer")
   @PostMapping("/dummy-producer")
-  @GeneratorStep(id = "springboot-kafka-producer")
+  @GeneratorStep(id = "springboot-kafka-dummy-producer")
   public void addDummyProducer(final @RequestBody ProjectDTO projectDTO) {
     final Project project = ProjectDTO.toProject(projectDTO);
     kafkaApplicationService.addDummyProducer(project);
+  }
+
+  @Operation(summary = "Add AKHQ support")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding AKHQ support")
+  @PostMapping("/akhq-support")
+  @GeneratorStep(id = "springboot-kafka-akhq-support")
+  public void addAkhqSupport(final @RequestBody ProjectDTO projectDTO) {
+    final Project project = ProjectDTO.toProject(projectDTO);
+    kafkaApplicationService.addAkhqSupport(project);
   }
 }

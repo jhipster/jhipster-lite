@@ -209,7 +209,7 @@ public class ProjectLocalRepository implements ProjectRepository {
     try {
       ZipUtil.pack(workingDir, new File(workingDir + ".zip"));
     } catch (ZipException e) {
-      throw new GeneratorException("Error when zipping " + project.getFolder());
+      throw new GeneratorException("Error when zipping " + project.getFolder(), e);
     }
   }
 

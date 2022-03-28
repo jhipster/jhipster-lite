@@ -1,5 +1,7 @@
 package tech.jhipster.lite.generator.project.domain;
 
+import java.io.IOException;
+
 public interface ProjectRepository {
   void create(Project project);
 
@@ -27,4 +29,6 @@ public interface ProjectRepository {
   void gitApplyPatch(Project project, String patchFilename);
 
   void zip(Project project);
+
+  byte[] download(Project project);
 }

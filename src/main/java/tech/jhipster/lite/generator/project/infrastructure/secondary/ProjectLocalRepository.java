@@ -5,6 +5,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.read;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -210,6 +211,16 @@ public class ProjectLocalRepository implements ProjectRepository {
       ZipUtil.pack(workingDir, new File(workingDir + ".zip"));
     } catch (ZipException e) {
       throw new GeneratorException("Error when zipping " + project.getFolder(), e);
+    }
+  }
+
+  @Override
+  public byte[] download(Project project) {
+    zip(project);
+    try (InputStream inputStream = new FileInputStream(project.getFolder() + ".zip")) {
+      return new byte[inputStream.available()];
+    } catch (IOException ioe) {
+      throw new GeneratorException("An error occured when converting directory", ioe);
     }
   }
 

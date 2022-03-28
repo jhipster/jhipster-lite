@@ -29,7 +29,6 @@ import org.mockito.InjectMocks;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.zeroturnaround.zip.ZipException;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
@@ -405,5 +404,17 @@ class ProjectLocalRepositoryTest {
   void shouldNotZipWithNonExistingFolder() {
     Project project = tmpProject();
     assertThatThrownBy(() -> repository.zip(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldDownload() {
+    Project project = tmpProjectWithPomXml();
+    assertThat(repository.download(project)).isNotNull();
+  }
+
+  @Test
+  void shouldNotDownload() {
+    Project project = tmpProject();
+    assertThatThrownBy(() -> repository.download(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

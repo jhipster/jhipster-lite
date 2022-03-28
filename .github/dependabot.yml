@@ -92,6 +92,14 @@ updates:
       - 'area: dependencies'
 
   - package-ecosystem: 'docker'
+    directory: '/src/main/docker'
+    schedule:
+      interval: 'daily'
+    open-pull-requests-limit: 20
+    rebase-strategy: 'disabled'
+    labels:
+      - 'area: dependencies'
+  - package-ecosystem: 'docker'
     directory: '/src/main/resources/generator/dependencies'
     schedule:
       interval: 'daily'

@@ -17,6 +17,8 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.zeroturnaround.zip.ZipException;
+import org.zeroturnaround.zip.ZipUtil;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
@@ -198,6 +200,16 @@ public class ProjectLocalRepository implements ProjectRepository {
       GitUtils.apply(project.getFolder(), patchFilename);
     } catch (GitAPIException | IOException e) {
       throw new GeneratorException("Error when git apply patch", e);
+    }
+  }
+
+  @Override
+  public void zip(Project project) {
+    File workingDir = new File(project.getFolder());
+    try {
+      ZipUtil.pack(workingDir, new File(workingDir + ".zip"));
+    } catch (ZipException e) {
+      throw new GeneratorException("Error when zipping " + project.getFolder(), e);
     }
   }
 

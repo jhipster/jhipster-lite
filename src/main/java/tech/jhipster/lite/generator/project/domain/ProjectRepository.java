@@ -27,4 +27,6 @@ public interface ProjectRepository {
   void gitApplyPatch(Project project, String patchFilename);
 
   void zip(Project project);
+
+  byte[] download(Project project);
 }

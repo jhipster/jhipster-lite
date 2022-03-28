@@ -226,4 +226,10 @@ public class FileUtils {
   public static void rename(String source, String sourceFilename, String destinationFilename) throws IOException {
     Files.move(getPathOf(source, sourceFilename), getPathOf(source, destinationFilename));
   }
+
+  public static byte[] convertFileToByte(String path) throws IOException {
+    try (InputStream inputStream = new FileInputStream(path);) {
+      return new byte[inputStream.available()];
+    }
+  }
 }

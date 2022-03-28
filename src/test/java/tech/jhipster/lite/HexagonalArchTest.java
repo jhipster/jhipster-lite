@@ -33,7 +33,8 @@ class HexagonalArchTest {
 
   private static final Collection<String> sharedKernels = buildSharedKernels();
 
-  private static final Collection<String> commonPackages = Arrays.asList("java..", "org.slf4j..", "org.apache.commons.lang3..");
+  // the empty package is related to: https://github.com/TNG/ArchUnit/issues/191#issuecomment-507964792
+  private static final Collection<String> commonPackages = Arrays.asList("java..", "org.slf4j..", "org.apache.commons.lang3..", "");
 
   private static final Collection<String> sharedKernelsPackages = buildSharedKernelsPackages();
 

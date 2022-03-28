@@ -3,6 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.application;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
 
 import java.util.List;
@@ -13,8 +15,6 @@ import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplication
 import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq;
-import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest
@@ -45,7 +45,7 @@ class KafkaApplicationServiceIT {
     kafkaApplicationService.init(project);
     assertFileContent(project, POM_XML, kafkaClients());
 
-    String pathToKafkaDockerComposeFile = MAIN_DOCKER + "/" + Kafka.getKafkaDockerComposeFile();
+    String pathToKafkaDockerComposeFile = MAIN_DOCKER + "/" + KAFKA_DOCKER_COMPOSE_FILE;
     assertFileExist(project, pathToKafkaDockerComposeFile);
     assertFileContent(project, pathToKafkaDockerComposeFile, "KAFKA_BROKER_ID: 1");
 
@@ -106,7 +106,7 @@ class KafkaApplicationServiceIT {
 
     kafkaApplicationService.addAkhq(project);
 
-    String pathToAkhqDockerComposeFile = MAIN_DOCKER + "/" + Akhq.getAkhqDockerComposeFile();
+    String pathToAkhqDockerComposeFile = MAIN_DOCKER + "/" + AKHQ_DOCKER_COMPOSE_FILE;
     assertFileExist(project, pathToAkhqDockerComposeFile);
     assertFileContent(project, pathToAkhqDockerComposeFile, "AKHQ_CONFIGURATION");
   }

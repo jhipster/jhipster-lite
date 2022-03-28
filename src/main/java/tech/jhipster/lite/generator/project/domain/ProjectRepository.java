@@ -1,7 +1,5 @@
 package tech.jhipster.lite.generator.project.domain;
 
-import java.io.IOException;
-
 public interface ProjectRepository {
   void create(Project project);
 

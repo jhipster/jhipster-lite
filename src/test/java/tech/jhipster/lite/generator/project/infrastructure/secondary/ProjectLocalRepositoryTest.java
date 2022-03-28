@@ -6,8 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import com.github.mustachejava.MustacheNotFoundException;
@@ -26,6 +25,7 @@ import org.eclipse.jgit.api.errors.InvalidConfigurationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -414,7 +414,11 @@ class ProjectLocalRepositoryTest {
 
   @Test
   void shouldNotDownload() {
-    Project project = tmpProject();
-    assertThatThrownBy(() -> repository.download(project)).isExactlyInstanceOf(GeneratorException.class);
+    Project project = tmpProjectWithPomXml();
+    try (MockedStatic<FileUtils> fileUtils = Mockito.mockStatic(FileUtils.class)) {
+      fileUtils.when(() -> FileUtils.convertFileToByte(anyString())).thenThrow(new IOException());
+
+      assertThatThrownBy(() -> repository.download(project)).isExactlyInstanceOf(GeneratorException.class);
+    }
   }
 }

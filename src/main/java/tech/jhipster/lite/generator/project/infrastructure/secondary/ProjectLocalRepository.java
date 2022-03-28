@@ -4,10 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.FileUtils.read;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -217,10 +214,10 @@ public class ProjectLocalRepository implements ProjectRepository {
   @Override
   public byte[] download(Project project) {
     zip(project);
-    try (InputStream inputStream = new FileInputStream(project.getFolder() + ".zip")) {
-      return new byte[inputStream.available()];
+    try {
+      return FileUtils.convertFileToByte(project.getFolder() + ".zip");
     } catch (IOException ioe) {
-      throw new GeneratorException("An error occured when converting directory", ioe);
+      throw new GeneratorException("Error when creating ", ioe);
     }
   }
 

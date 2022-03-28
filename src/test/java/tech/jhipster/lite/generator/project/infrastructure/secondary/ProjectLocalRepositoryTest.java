@@ -404,6 +404,6 @@ class ProjectLocalRepositoryTest {
   @Test
   void shouldNotZipWithNonExistingFolder() {
     Project project = tmpProject();
-    assertThatThrownBy(() -> repository.zip(project)).isExactlyInstanceOf(ZipException.class);
+    assertThatThrownBy(() -> repository.zip(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

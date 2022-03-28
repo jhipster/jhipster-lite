@@ -3,6 +3,10 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_IMAGE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_COMPOSE_FILE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_IMAGE;
 
 import java.util.TreeMap;
 import tech.jhipster.lite.common.domain.WordUtils;
@@ -75,19 +79,26 @@ public class KafkaDomainService implements KafkaService {
     }
   }
 
+  @Override
+  public void addAkhq(Project project) {
+    final String akhqDockerImage = dockerService.getImageNameWithVersion(AKHQ_DOCKER_IMAGE).orElseThrow();
+    project.addConfig("akhqDockerImage", akhqDockerImage);
+    projectRepository.template(project, SOURCE, AKHQ_DOCKER_COMPOSE_FILE, MAIN_DOCKER, AKHQ_DOCKER_COMPOSE_FILE);
+  }
+
   private void addApacheKafkaClient(final Project project) {
     final Dependency dependency = Dependency.builder().groupId("org.apache.kafka").artifactId("kafka-clients").build();
     buildToolService.addDependency(project, dependency);
   }
 
   private void addDockerCompose(final Project project) {
-    final String zookeeperDockerImage = dockerService.getImageNameWithVersion(Zookeeper.getZookeeperDockerImage()).orElseThrow();
-    final String kafkaDockerImage = dockerService.getImageNameWithVersion(Kafka.getKafkaDockerImage()).orElseThrow();
+    final String zookeeperDockerImage = dockerService.getImageNameWithVersion(Zookeeper.ZOOKEEPER_DOCKER_IMAGE).orElseThrow();
+    final String kafkaDockerImage = dockerService.getImageNameWithVersion(KAFKA_DOCKER_IMAGE).orElseThrow();
 
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("zookeeperDockerImage", zookeeperDockerImage);
     project.addConfig("kafkaDockerImage", kafkaDockerImage);
-    projectRepository.template(project, SOURCE, "kafka.yml", "src/main/docker", "kafka.yml");
+    projectRepository.template(project, SOURCE, KAFKA_DOCKER_COMPOSE_FILE, MAIN_DOCKER, KAFKA_DOCKER_COMPOSE_FILE);
   }
 
   private void addProperties(final Project project) {

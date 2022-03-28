@@ -51,7 +51,7 @@ class KafkaDomainServiceTest {
     verify(buildToolService, times(2)).addDependency(any(Project.class), any(Dependency.class));
     verify(dockerService, times(2)).getImageNameWithVersion(anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
-    verify(projectRepository, times(1)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString());
     verify(springBootCommonService, times(9)).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
     verify(springBootCommonService).updateIntegrationTestAnnotation(any(Project.class), anyString());
@@ -67,6 +67,17 @@ class KafkaDomainServiceTest {
     verify(springBootCommonService).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), any());
     verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddAkhq() {
+    Project project = tmpProjectWithPomXml();
+    when(dockerService.getImageNameWithVersion(anyString())).thenReturn(Optional.of("dummy"));
+
+    kafkaDomainService.addAkhq(project);
+
+    verify(dockerService).getImageNameWithVersion(anyString());
+    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test

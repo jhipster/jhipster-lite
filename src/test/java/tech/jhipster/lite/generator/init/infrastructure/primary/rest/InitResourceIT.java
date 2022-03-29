@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.init.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
@@ -45,5 +45,20 @@ class InitResourceIT {
     assertFileContent(project, "README.md", "Chips Project");
     assertFileContent(project, ".prettierrc", "tabWidth: 2");
     assertFileContent(project, PACKAGE_JSON, "chips");
+  }
+
+  @Test
+  void shouldDownload() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+
+    initApplicationService.init(project);
+
+    mockMvc
+      .perform(post("/api/projects/download").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk())
+      .andExpect(header().string("Content-Disposition", "attachment; filename=" + project.getBaseName().orElse("application") + ".zip"))
+      .andExpect(header().string("X-Suggested-Filename", project.getBaseName().orElse("application") + ".zip"))
+      .andExpect(content().contentType("application/octet-stream"));
   }
 }

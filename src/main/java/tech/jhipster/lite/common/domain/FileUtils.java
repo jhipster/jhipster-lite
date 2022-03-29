@@ -229,7 +229,7 @@ public class FileUtils {
 
   public static byte[] convertFileToByte(String path) throws IOException {
     try (InputStream inputStream = new FileInputStream(path);) {
-      return new byte[inputStream.available()];
+      return inputStream.readAllBytes();
     }
   }
 }

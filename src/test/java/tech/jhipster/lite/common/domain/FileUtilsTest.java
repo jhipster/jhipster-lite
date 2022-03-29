@@ -751,4 +751,13 @@ class FileUtilsTest {
 
     assertThatThrownBy(() -> FileUtils.rename(folder, "hello.world", "hello.beer")).isInstanceOf(IOException.class);
   }
+
+  @Test
+  void shouldConvertFileToByte() throws IOException {
+    String folder = tmpDirForTest();
+    createFolder(folder);
+    Files.createFile(Paths.get(folder, "hello.world"));
+
+    assertThat(FileUtils.convertFileToByte(folder + "/hello.world")).isNotNull();
+  }
 }

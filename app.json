@@ -1,0 +1,16 @@
+{
+  "name": "JHipster Registry",
+  "description": "This is the JHipster registry service, based on Spring Cloud Netflix, Eureka and Spring Cloud Config.",
+  "logo": "https://www.jhipster.tech/images/logo/logo-jhipster-drink-coffee.png",
+  "env": {
+    "JAVA_OPTS": {
+      "description": "Java runtime options.",
+      "value": "-Dfile.encoding=UTF-8"
+    },
+    "PORT": {
+      "description": "Port on which you want to run application",
+      "value": "7471"
+    }
+  },
+  "buildpacks": [{ "url": "heroku/jvm" }, { "url": "https://github.com/matthieulapatate/jhipster-lite-buildpack" }]
+}

@@ -25,7 +25,6 @@ import org.eclipse.jgit.api.errors.InvalidConfigurationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -396,8 +395,10 @@ class ProjectLocalRepositoryTest {
   @Test
   void shouldZip() {
     Project project = tmpProjectWithPomXml();
-    repository.zip(project);
-    assertFileExist(project.getFolder() + ".zip");
+
+    String result = repository.zip(project);
+
+    assertFileExist(getPath(tmpDir(), result));
   }
 
   @Test
@@ -416,7 +417,8 @@ class ProjectLocalRepositoryTest {
   void shouldNotDownload() {
     Project project = tmpProjectWithPomXml();
     try (MockedStatic<FileUtils> fileUtils = Mockito.mockStatic(FileUtils.class)) {
-      fileUtils.when(() -> FileUtils.convertFileToByte(anyString())).thenThrow(new IOException());
+      fileUtils.when(FileUtils::tmpDir).thenCallRealMethod();
+      fileUtils.when(() -> FileUtils.convertFileInTmpToByte(anyString())).thenThrow(new IOException());
 
       assertThatThrownBy(() -> repository.download(project)).isExactlyInstanceOf(GeneratorException.class);
     }

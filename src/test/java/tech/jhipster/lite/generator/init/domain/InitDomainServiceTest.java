@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -99,5 +100,12 @@ class InitDomainServiceTest {
     verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString(), anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
     verify(projectRepository).setExecutable(any(Project.class), anyString(), anyString());
+  }
+
+  @Test
+  void shouldDownload() {
+    Project project = tmpProjectWithPomXml();
+
+    assertThatCode(() -> initDomainService.download(project)).doesNotThrowAnyException();
   }
 }

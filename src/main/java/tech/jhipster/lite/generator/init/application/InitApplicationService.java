@@ -40,4 +40,8 @@ public class InitApplicationService {
   public void gitInit(Project project) {
     initService.gitInit(project);
   }
+
+  public byte[] download(Project project) {
+    return initService.download(project);
+  }
 }

@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.init.application;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
@@ -137,5 +138,12 @@ class InitApplicationServiceIT {
     initApplicationService.gitInit(project);
 
     assertFileGitInit(project);
+  }
+
+  @Test
+  void shouldDownloadProject() {
+    Project project = tmpProjectWithPomXml();
+
+    assertThat(initApplicationService.download(project)).isNotNull();
   }
 }

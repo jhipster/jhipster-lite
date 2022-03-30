@@ -27,6 +27,7 @@ public interface ProjectRepository {
   void gitApplyPatch(Project project, String patchFilename);
 
   String zip(Project project);
-
   byte[] download(Project project);
+
+  boolean isJHipsterLiteProject(String path);
 }

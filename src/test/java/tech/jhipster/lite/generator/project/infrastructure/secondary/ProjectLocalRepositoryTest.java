@@ -423,4 +423,25 @@ class ProjectLocalRepositoryTest {
       assertThatThrownBy(() -> repository.download(project)).isExactlyInstanceOf(GeneratorException.class);
     }
   }
+
+  @Test
+  void shouldBeJHipsterLiteProject() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), JHIPSTER_FOLDER));
+    Files.createFile(getPathOf(project.getFolder(), JHIPSTER_FOLDER, HISTORY_JSON));
+
+    boolean result = repository.isJHipsterLiteProject(project.getFolder());
+
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  void shouldNotBeJHipsterLiteProject() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), JHIPSTER_FOLDER));
+
+    boolean result = repository.isJHipsterLiteProject(project.getFolder());
+
+    assertThat(result).isFalse();
+  }
 }

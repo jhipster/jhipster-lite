@@ -25,6 +25,8 @@ public class Constants {
   public static final String DOCKERFILE = "Dockerfile";
   public static final String INTEGRATION_TEST = "IntegrationTest.java";
   public static final String MAIN_TYPESCRIPT = "main.ts";
+  public static final String JHIPSTER_FOLDER = ".jhipster";
+  public static final String HISTORY_JSON = "history.json";
 
   public static final String COMMENT_PROPERTIES_PREFIX = "#";
   public static final String KEY_VALUE_PROPERTIES_SEPARATOR = "=";

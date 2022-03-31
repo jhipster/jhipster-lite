@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary;
 
 import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import java.io.*;
 import java.nio.file.FileSystems;
@@ -221,6 +221,11 @@ public class ProjectLocalRepository implements ProjectRepository {
     } catch (IOException ioe) {
       throw new GeneratorException("Error when creating ", ioe);
     }
+  }
+
+  @Override
+  public boolean isJHipsterLiteProject(String path) {
+    return FileUtils.exists(getPath(path, JHIPSTER_FOLDER, HISTORY_JSON));
   }
 
   private String getErrorWritingMessage(String filename) {

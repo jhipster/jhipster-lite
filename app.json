@@ -1,7 +1,7 @@
 {
   "name": "JHipster Lite",
   "description": "This is the JHipster Lite service, a lighter version of JHipster generator",
-  "logo": "https://www.jhipster.tech/images/logo/logo-jhipster-drink-coffee.png",
+  "logo": "https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/JHipster%20bowtie%20-%20square.png",
   "env": {
     "JAVA_OPTS": {
       "description": "Java runtime options.",

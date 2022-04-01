@@ -1,0 +1,16 @@
+{
+  "name": "JHipster Lite",
+  "description": "This is the JHipster Lite service, a lighter version of JHipster generator",
+  "logo": "https://www.jhipster.tech/images/logo/logo-jhipster-drink-coffee.png",
+  "env": {
+    "JAVA_OPTS": {
+      "description": "Java runtime options.",
+      "value": "-Dfile.encoding=UTF-8"
+    },
+    "PORT": {
+      "description": "Port on which you want to run application",
+      "value": "7471"
+    }
+  },
+  "buildpacks": [{ "url": "heroku/jvm" }, { "url": "https://github.com/jhipster/jhipster-lite-heroku-buildpack" }]
+}

@@ -26,9 +26,16 @@ JHipster is a development platform to quickly generate, develop & deploy modern 
 - you will only generate the code you want, no additional unused code
 - best quality as possible: 💯% coverage, 0 code smell, no duplication 😎
 
-## Deployment
+## Deploy to Heroku
 
+Click this button to deploy your own instance of the registry:
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/matthieulapatate/jhipster-lite/tree/HerokuDeployment)
+
+Complementary informations:
+
+- You will have the latest release behaviour on that server
+- This will allow you to not be obliged to install all dependencies needed for launching the jhipster-lite project
+- The registry service cannot be scaled up to multiple dynos to provide redundancy. You must deploy multiple applications (i.e. click the button more than once). This is because Eureka requires distinct URLs to synchronize in-memory state between instances.
 
 ## Prerequisites
 

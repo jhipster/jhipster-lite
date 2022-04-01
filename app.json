@@ -1,6 +1,6 @@
 {
-  "name": "JHipster Registry",
-  "description": "This is the JHipster registry service, based on Spring Cloud Netflix, Eureka and Spring Cloud Config.",
+  "name": "JHipster Lite",
+  "description": "This is the JHipster lite service, a lighter version of JHipster generator",
   "logo": "https://www.jhipster.tech/images/logo/logo-jhipster-drink-coffee.png",
   "env": {
     "JAVA_OPTS": {

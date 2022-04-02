@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.database.mariadb.application.MariaDBApplicationService;
@@ -26,7 +27,7 @@ class MariaDBResource {
   @Operation(summary = "Add MariaDB drivers and dependencies, with testcontainers")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding MariaDB")
   @PostMapping
-  @GeneratorStep(id = "mariadb")
+  @GeneratorStep(id = GeneratorAction.MARIADB)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     mariaDBApplicationService.init(project);

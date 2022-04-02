@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.client.react.core.application.ReactApplicationService;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
@@ -26,7 +27,7 @@ class ReactResource {
   @Operation(summary = "Init React+Vite", description = "Init React+Vite project")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing React+Vite project")
   @PostMapping
-  @GeneratorStep(id = "react")
+  @GeneratorStep(id = GeneratorAction.REACT)
   public void addReact(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     reactApplicationService.addReact(project);
@@ -35,7 +36,7 @@ class ReactResource {
   @Operation(summary = "Add React+Vite with minimal CSS", description = "Add React+Vite with minimal CSS")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding React+Vite with minimal CSS")
   @PostMapping("/styled")
-  @GeneratorStep(id = "react-styled")
+  @GeneratorStep(id = GeneratorAction.REACT_STYLED)
   public void addStyledReact(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     reactApplicationService.addStyledReact(project);

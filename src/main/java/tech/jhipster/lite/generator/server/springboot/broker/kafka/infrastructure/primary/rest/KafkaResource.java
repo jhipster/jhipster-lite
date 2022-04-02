@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.broker.kafka.application.KafkaApplicationService;
@@ -26,7 +27,7 @@ class KafkaResource {
   @Operation(summary = "Add Kafka dependencies, with testcontainers")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Kafka")
   @PostMapping
-  @GeneratorStep(id = "springboot-kafka")
+  @GeneratorStep(id = GeneratorAction.SPRINGBOOT_KAFKA)
   public void init(final @RequestBody ProjectDTO projectDTO) {
     final Project project = ProjectDTO.toProject(projectDTO);
     kafkaApplicationService.init(project);
@@ -35,7 +36,7 @@ class KafkaResource {
   @Operation(summary = "Add a dummy Kafka producer")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding a dummy Kafka producer")
   @PostMapping("/dummy-producer")
-  @GeneratorStep(id = "springboot-kafka-dummy-producer")
+  @GeneratorStep(id = GeneratorAction.SPRINGBOOT_KAFKA_DUMMY_PRODUCER)
   public void addDummyProducer(final @RequestBody ProjectDTO projectDTO) {
     final Project project = ProjectDTO.toProject(projectDTO);
     kafkaApplicationService.addDummyProducer(project);
@@ -44,7 +45,7 @@ class KafkaResource {
   @Operation(summary = "Add AKHQ")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding AKHQ")
   @PostMapping("/akhq")
-  @GeneratorStep(id = "springboot-kafka-akhq")
+  @GeneratorStep(id = GeneratorAction.SPRINGBOOT_KAFKA_AKHQ)
   public void addAkhq(final @RequestBody ProjectDTO projectDTO) {
     final Project project = ProjectDTO.toProject(projectDTO);
     kafkaApplicationService.addAkhq(project);

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserApplicationService;
@@ -32,7 +33,7 @@ class SpringBootUserResource {
     responseCode = "500",
     description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository for PostgreSQL"
   )
-  @GeneratorStep(id = "user-and-authority-entities-postgresql")
+  @GeneratorStep(id = GeneratorAction.USER_AND_AUTHORITY_ENTITIES_POSTGRESQL)
   public void addUserAndAuthorityEntitiesForPostgreSQL(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     addUserAndAuthorityEntities(project, POSTGRESQL);
@@ -41,7 +42,7 @@ class SpringBootUserResource {
   @Operation(summary = "Add UserEntity, AuthorityEntity and JpaRepository for MySQL")
   @PostMapping("/mysql")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository for MySQL")
-  @GeneratorStep(id = "user-and-authority-entities-mysql")
+  @GeneratorStep(id = GeneratorAction.USER_AND_AUTHORITY_ENTITIES_MYSQL)
   public void addUserAndAuthorityEntitiesForMySQL(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     addUserAndAuthorityEntities(project, MYSQL);
@@ -53,7 +54,7 @@ class SpringBootUserResource {
     responseCode = "500",
     description = "An error occurred while adding UserEntity, AuthorityEntity and JpaRepository for MariaDB"
   )
-  @GeneratorStep(id = "user-and-authority-entities-mariadb")
+  @GeneratorStep(id = GeneratorAction.USER_AND_AUTHORITY_ENTITIES_MARIADB)
   public void addUserAndAuthorityEntitiesForMariaDB(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     addUserAndAuthorityEntities(project, MARIADB);

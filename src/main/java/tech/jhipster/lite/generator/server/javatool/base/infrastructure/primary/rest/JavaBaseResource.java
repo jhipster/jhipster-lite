@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.javatool.base.application.JavaBaseApplicationService;
@@ -26,7 +27,7 @@ class JavaBaseResource {
   @Operation(summary = "Add Base classes and Error domain to project")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding base classes and error domain to project")
   @PostMapping
-  @GeneratorStep(id = "java-base")
+  @GeneratorStep(id = GeneratorAction.JAVA_BASE)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     javaBaseApplicationService.init(project);

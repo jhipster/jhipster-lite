@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.docker.application.SpringBootDockerApplicationService;
@@ -26,7 +27,7 @@ class SpringBootDockerResource {
   @Operation(summary = "Add Docker image building with Jib")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding jib")
   @PostMapping("/jib")
-  @GeneratorStep(id = "jib")
+  @GeneratorStep(id = GeneratorAction.JIB)
   public void addJib(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootDockerApplicationService.addJib(project);
@@ -35,7 +36,7 @@ class SpringBootDockerResource {
   @Operation(summary = "Add Dockerfile")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Dockerfile")
   @PostMapping("/dockerfile")
-  @GeneratorStep(id = "dockerfile")
+  @GeneratorStep(id = GeneratorAction.DOCKERFILE)
   public void addDockerfile(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     springBootDockerApplicationService.addDockerfile(project);

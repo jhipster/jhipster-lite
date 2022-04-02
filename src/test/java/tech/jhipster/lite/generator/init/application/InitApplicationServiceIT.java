@@ -23,9 +23,6 @@ class InitApplicationServiceIT {
   @Autowired
   InitApplicationService initApplicationService;
 
-  @SpyBean
-  NpmRepository npmRepository;
-
   @Test
   void shouldInitWithConfig() {
     // @formatter:off

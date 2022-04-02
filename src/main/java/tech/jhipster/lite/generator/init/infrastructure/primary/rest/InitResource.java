@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
@@ -31,7 +32,7 @@ class InitResource {
   @Operation(summary = "Init project")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing project")
   @PostMapping("/init")
-  @GeneratorStep(id = "init")
+  @GeneratorStep(id = GeneratorAction.INIT)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
@@ -40,17 +41,21 @@ class InitResource {
   @Operation(summary = "Download project")
   @ApiResponse(responseCode = "500", description = "An error occurred while downloading project")
   @PostMapping("/download")
-  @GeneratorStep(id = "download")
+  @GeneratorStep(id = GeneratorAction.DOWNLOAD)
   public ResponseEntity<Resource> download(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     byte[] out = initApplicationService.download(project);
     ByteArrayResource resource = new ByteArrayResource(out);
     return ResponseEntity
       .ok()
-      .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + project.getBaseName().orElse("application") + ".zip")
+      .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + getZipFilename(project))
       .contentType(MediaType.parseMediaType("application/octet-stream"))
       .contentLength(out.length)
-      .header("X-Suggested-Filename", project.getBaseName().orElse("application") + ".zip")
+      .header("X-Suggested-Filename", getZipFilename(project))
       .body(resource);
+  }
+
+  private String getZipFilename(Project project) {
+    return project.getBaseName().orElse("application") + ".zip";
   }
 }

@@ -24,5 +24,12 @@ export default defineConfig({
   root: 'src/main/webapp',
   server: {
     port: 9000,
+    proxy: {
+      '/api': {
+        ws: true,
+        changeOrigin: true,
+        target: 'http://localhost:7471',
+      },
+    },
   },
 });

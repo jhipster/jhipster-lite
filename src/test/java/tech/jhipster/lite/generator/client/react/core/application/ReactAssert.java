@@ -47,7 +47,7 @@ public class ReactAssert {
     assertFileExist(project, getPath(pathApp, "index.tsx"));
     assertFileExist(project, getPath(pathApp, "vite-env.d.ts"));
     assertFileExist(project, getPath(primaryApp, "App.tsx"));
-    assertFileExist(project, getPath(primaryTestApp, "App.test.tsx"));
+    assertFileExist(project, getPath(primaryTestApp, "App.spec.tsx"));
     assertFileExist(project, getPath(pathConfig, "setupTests.ts"));
   }
 

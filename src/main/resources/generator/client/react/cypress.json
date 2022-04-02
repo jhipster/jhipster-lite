@@ -1,0 +1,6 @@
+{
+  "baseUrl": "http://localhost:9000",
+  "testFiles": "**/*.test.tsx",
+  "componentFolder": "src",
+  "integrationFolder": "src/test/javascript/integration/"
+}

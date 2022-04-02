@@ -65,7 +65,7 @@ public class React {
       Map.entry("index.tsx", pathApp),
       Map.entry("vite-env.d.ts", pathApp),
       Map.entry("App.tsx", pathPrimaryApp),
-      Map.entry("App.test.tsx", pathTestPrimaryApp),
+      Map.entry("App.spec.tsx", pathTestPrimaryApp),
       Map.entry("setupTests.ts", pathConfig)
     );
   }

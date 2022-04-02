@@ -1,0 +1,9 @@
+import { mount } from '@cypress/react'
+import App from '@/common/primary/app/App';
+
+describe('App Integration test', () => {
+  it('render styled react title', () => {
+    mount(<App />)
+    cy.get('h1').contains('React + TypeScript + Vite')
+  })
+})

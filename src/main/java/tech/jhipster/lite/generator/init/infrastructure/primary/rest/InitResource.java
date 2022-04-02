@@ -48,10 +48,14 @@ class InitResource {
     ByteArrayResource resource = new ByteArrayResource(out);
     return ResponseEntity
       .ok()
-      .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + project.getBaseName().orElse("application") + ".zip")
+      .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + getZipFilename(project))
       .contentType(MediaType.parseMediaType("application/octet-stream"))
       .contentLength(out.length)
-      .header("X-Suggested-Filename", project.getBaseName().orElse("application") + ".zip")
+      .header("X-Suggested-Filename", getZipFilename(project))
       .body(resource);
+  }
+
+  private String getZipFilename(Project project) {
+    return project.getBaseName().orElse("application") + ".zip";
   }
 }

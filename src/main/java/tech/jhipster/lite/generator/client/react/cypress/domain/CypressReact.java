@@ -16,7 +16,7 @@ public class CypressReact {
   }
 
   public static Map<String, String> cypressFiles() {
-    String pathRoot = "";
+    String pathRoot = ".";
     String pathPlugins = "cypress/plugins";
     String pathTestConfig = "src/test/javascript/integration";
 

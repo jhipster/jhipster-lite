@@ -188,7 +188,7 @@ elif [[ $application == 'reactapp' ]]; then
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/react/styled"
-  callApi "/api/react/cypress"
+  callApi "/api/e2e/cypress"
 
 elif [[ $application == 'vueapp' ]]; then
   springboot

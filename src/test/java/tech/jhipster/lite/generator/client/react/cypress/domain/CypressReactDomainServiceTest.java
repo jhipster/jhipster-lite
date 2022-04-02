@@ -23,7 +23,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class CypressReactDomainServiceTest {
 
   @InjectMocks
-  CypressReactDomainService CypressReactDomainService;
+  CypressReactDomainService cypressReactDomainService;
 
   @Mock
   NpmService npmService;
@@ -36,7 +36,7 @@ class CypressReactDomainServiceTest {
     Project project = tmpProject();
     when(npmService.getVersionInReact(anyString())).thenReturn(Optional.of("0.0.0"));
 
-    CypressReactDomainService.init(project);
+    cypressReactDomainService.init(project);
 
     verify(npmService, times(3)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(2)).addScript(any(Project.class), anyString(), anyString());
@@ -49,13 +49,13 @@ class CypressReactDomainServiceTest {
   void shouldNotInit() {
     Project project = tmpProject();
 
-    assertThatThrownBy(() -> CypressReactDomainService.init(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> cypressReactDomainService.init(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
   void shouldNotAddDevDependencies() {
     Project project = tmpProject();
 
-    assertThatThrownBy(() -> CypressReactDomainService.addDevDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> cypressReactDomainService.addDevDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

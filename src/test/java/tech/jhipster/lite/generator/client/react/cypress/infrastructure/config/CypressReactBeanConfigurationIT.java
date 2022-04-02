@@ -16,6 +16,6 @@ class CypressReactBeanConfigurationIT {
 
   @Test
   void shouldGetBean() {
-    assertThat(applicationContext.getBean("CypressReactService")).isNotNull().isInstanceOf(CypressReactDomainService.class);
+    assertThat(applicationContext.getBean("cypressReactService")).isNotNull().isInstanceOf(CypressReactDomainService.class);
   }
 }

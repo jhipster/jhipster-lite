@@ -7,13 +7,13 @@ import tech.jhipster.lite.generator.project.domain.Project;
 @Service
 public class CypressReactApplicationService {
 
-  private final CypressReactService CypressReactService;
+  private final CypressReactService cypressReactService;
 
-  public CypressReactApplicationService(CypressReactService CypressReactService) {
-    this.CypressReactService = CypressReactService;
+  public CypressReactApplicationService(CypressReactService cypressReactService) {
+    this.cypressReactService = cypressReactService;
   }
 
   public void init(Project project) {
-    CypressReactService.init(project);
+    cypressReactService.init(project);
   }
 }

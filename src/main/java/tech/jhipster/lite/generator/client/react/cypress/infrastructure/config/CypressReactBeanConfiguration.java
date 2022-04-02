@@ -19,7 +19,7 @@ public class CypressReactBeanConfiguration {
   }
 
   @Bean
-  public CypressReactService CypressReactService() {
+  public CypressReactService cypressReactService() {
     return new CypressReactDomainService(projectRepository, npmService);
   }
 }

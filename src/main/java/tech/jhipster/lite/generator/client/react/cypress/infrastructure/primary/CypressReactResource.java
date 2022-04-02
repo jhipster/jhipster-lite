@@ -17,10 +17,10 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 @Tag(name = "React")
 class CypressReactResource {
 
-  private final CypressReactApplicationService CypressReactApplicationService;
+  private final CypressReactApplicationService cypressReactApplicationService;
 
-  public CypressReactResource(CypressReactApplicationService CypressReactApplicationService) {
-    this.CypressReactApplicationService = CypressReactApplicationService;
+  public CypressReactResource(CypressReactApplicationService cypressReactApplicationService) {
+    this.cypressReactApplicationService = cypressReactApplicationService;
   }
 
   @Operation(summary = "Add Cypress to Vite+React", description = "Add Cypress to Vite+React project")
@@ -29,6 +29,6 @@ class CypressReactResource {
   @GeneratorStep(id = "react-cypress")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    CypressReactApplicationService.init(project);
+    cypressReactApplicationService.init(project);
   }
 }

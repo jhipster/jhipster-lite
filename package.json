@@ -16,8 +16,8 @@
   "scripts": {
     "build": "vue-tsc --noEmit && vite build --emptyOutDir",
     "dev": "vite",
-    "e2e": "cypress open --config-file src/test/component/cypress/cypress-config.json",
-    "e2e:headless": "cypress run --headless --config-file src/test/component/cypress/cypress-config.json",
+    "e2e": "cypress open --config-file src/test/javascript/cypress/cypress-config.json",
+    "e2e:headless": "cypress run --headless --config-file src/test/javascript/cypress/cypress-config.json",
     "format": "prettier . --write",
     "jest": "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src/main/webapp src/test/javascript",

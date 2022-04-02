@@ -24,7 +24,7 @@ jobs:
         id: setup
         uses: ./.github/actions/setup
       - name: 'Init: cache local Maven repository'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -45,11 +45,13 @@ jobs:
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: 'Setup: environment'
         id: setup
         uses: ./.github/actions/setup
       - name: 'Init: cache local Maven repository'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -167,7 +169,7 @@ jobs:
           echo $MD5SUM_POM_XML
           echo ::set-output name=md5sum_pom_xml::${MD5SUM_POM_XML}
       - name: 'Init: cache local Maven repository'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
@@ -219,11 +221,23 @@ jobs:
           files: lcov.info
           fail_ci_if_error: true
           verbose: true
+
+  #--------------------------------------------------
+  # Configuration for Status checks that are required
+  #--------------------------------------------------
+  status-checks:
+    name: status-checks
+    needs: [codecov, generation]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validation Status checks
+        run: echo 'Configuration for Status checks that are required'
+
   #--------------------------------------------------
   # Dependabot auto merge PR
   #--------------------------------------------------
-  dependabot-auto-merge-pr:
-    name: dependabot-auto-merge-pr
+  dependabot-auto-merge:
+    name: dependabot-auto-merge
     needs: [cypress, generation]
     permissions:
       pull-requests: write

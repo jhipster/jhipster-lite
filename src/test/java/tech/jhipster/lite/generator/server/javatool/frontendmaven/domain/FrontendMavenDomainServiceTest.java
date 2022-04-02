@@ -1,14 +1,16 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+import static org.mockito.Mockito.eq;
+import static tech.jhipster.lite.TestUtils.*;
 
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,6 +19,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -24,6 +27,9 @@ class FrontendMavenDomainServiceTest {
 
   @Mock
   BuildToolService buildToolService;
+
+  @Mock
+  ProjectRepository projectRepository;
 
   @InjectMocks
   FrontendMavenDomainService frontendMavenDomainService;
@@ -35,8 +41,12 @@ class FrontendMavenDomainServiceTest {
 
     frontendMavenDomainService.addFrontendMavenPlugin(project);
 
+    ArgumentCaptor<String> redirectionFilesCaptor = ArgumentCaptor.forClass(String.class);
     verify(buildToolService, times(5)).addProperty(any(Project.class), anyString(), anyString());
     verify(buildToolService, times(3)).addPlugin(any(Project.class), any(Plugin.class));
+    verify(projectRepository, times(2)).template(eq(project), anyString(), redirectionFilesCaptor.capture(), anyString());
+
+    assertThat(redirectionFilesCaptor.getAllValues()).containsExactly("RedirectionResource.java", "RedirectionResourceIT.java");
   }
 
   @Test

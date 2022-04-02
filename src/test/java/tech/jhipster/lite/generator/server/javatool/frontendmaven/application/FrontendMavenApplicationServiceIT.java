@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.application;
 
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.server.javatool.frontendmaven.application.FrontendMavenAssert.*;
 
 import org.junit.jupiter.api.Test;
@@ -23,5 +23,6 @@ class FrontendMavenApplicationServiceIT {
     assertChecksumMavenPlugin(project);
     assertMavenAntrunPlugin(project);
     assertFrontendMavenPlugin(project);
+    assertRedirectionFiles(project);
   }
 }

@@ -11,4 +11,5 @@ public interface InitService {
   void addEditorConfiguration(Project project);
   void addPrettier(Project project);
   void gitInit(Project project);
+  byte[] download(Project project);
 }

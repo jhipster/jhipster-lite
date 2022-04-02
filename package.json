@@ -1,6 +1,6 @@
 {
   "name": "jhlite",
-  "version": "0.0.15-SNAPSHOT",
+  "version": "0.0.16-SNAPSHOT",
   "description": "JHipster Lite",
   "homepage": "https://www.jhipster.tech/",
   "bugs": "https://github.com/jhipster/jhipster-lite/issues",
@@ -35,16 +35,16 @@
     "vue-router": "4.0.14"
   },
   "devDependencies": {
-    "@prettier/plugin-xml": "1.2.0",
+    "@prettier/plugin-xml": "2.0.1",
     "@rushstack/eslint-patch": "1.1.1",
     "@types/jest": "27.4.1",
     "@types/sinon": "10.0.11",
-    "@typescript-eslint/parser": "5.15.0",
-    "@vitejs/plugin-vue": "2.2.4",
+    "@typescript-eslint/parser": "5.17.0",
+    "@vitejs/plugin-vue": "2.3.1",
     "@vue/eslint-config-typescript": "10.0.0",
     "@vue/test-utils": "2.0.0-rc.18",
-    "cypress": "9.5.2",
-    "eslint": "8.11.0",
+    "cypress": "9.5.3",
+    "eslint": "8.12.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-vue": "8.5.0",
@@ -53,15 +53,15 @@
     "jest-sonar-reporter": "2.0.0",
     "jest-transform-stub": "2.0.0",
     "lint-staged": "12.3.7",
-    "prettier": "2.6.0",
+    "prettier": "2.6.1",
     "prettier-plugin-java": "1.6.1",
-    "prettier-plugin-packagejson": "2.2.16",
+    "prettier-plugin-packagejson": "2.2.17",
     "sinon": "13.0.1",
     "ts-jest": "26.5.6",
-    "typescript": "4.6.2",
-    "vite": "2.8.6",
+    "typescript": "4.6.3",
+    "vite": "2.9.1",
     "vue-jest": "5.0.0-alpha.10",
-    "vue-tsc": "0.33.2"
+    "vue-tsc": "0.33.9"
   },
   "engines": {
     "node": ">=14.18.1"

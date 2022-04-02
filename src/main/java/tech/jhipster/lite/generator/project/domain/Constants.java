@@ -25,6 +25,8 @@ public class Constants {
   public static final String DOCKERFILE = "Dockerfile";
   public static final String INTEGRATION_TEST = "IntegrationTest.java";
   public static final String MAIN_TYPESCRIPT = "main.ts";
+  public static final String JHIPSTER_FOLDER = ".jhipster";
+  public static final String HISTORY_JSON = "history.json";
 
   public static final String COMMENT_PROPERTIES_PREFIX = "#";
   public static final String KEY_VALUE_PROPERTIES_SEPARATOR = "=";
@@ -46,6 +48,6 @@ public class Constants {
 
   public static final String TECHNICAL = "technical";
   public static final String TECHNICAL_INFRASTRUCTURE = getPath(TECHNICAL, INFRASTRUCTURE);
-  public static final String TECHNICAL_INFRASTRUCTURE_PRIMARY = getPath(TECHNICAL, INFRASTRUCTURE_PRIMARY);
-  public static final String TECHNICAL_INFRASTRUCTURE_SECONDARY = getPath(TECHNICAL, INFRASTRUCTURE_SECONDARY);
+  public static final String TECHNICAL_INFRASTRUCTURE_PRIMARY = getPath(TECHNICAL_INFRASTRUCTURE, PRIMARY);
+  public static final String TECHNICAL_INFRASTRUCTURE_SECONDARY = getPath(TECHNICAL_INFRASTRUCTURE, SECONDARY);
 }

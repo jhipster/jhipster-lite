@@ -1,9 +1,11 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.application;
 
-import static tech.jhipster.lite.TestUtils.assertFileContent;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import java.util.List;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class FrontendMavenAssert {
@@ -55,5 +57,23 @@ public class FrontendMavenAssert {
         "<executions>"
       )
     );
+  }
+
+  public static void assertRedirectionFiles(Project project) {
+    String path = getPath(
+      MAIN_JAVA,
+      project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH),
+      TECHNICAL_INFRASTRUCTURE_PRIMARY,
+      "redirection"
+    );
+    String testPath = getPath(
+      TEST_JAVA,
+      project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH),
+      TECHNICAL_INFRASTRUCTURE_PRIMARY,
+      "redirection"
+    );
+
+    assertFileExist(project, path, "RedirectionResource.java");
+    assertFileExist(project, testPath, "RedirectionResourceIT.java");
   }
 }

@@ -116,4 +116,9 @@ public class InitDomainService implements InitService {
   public void gitInit(Project project) {
     projectRepository.gitInit(project);
   }
+
+  @Override
+  public byte[] download(Project project) {
+    return projectRepository.download(project);
+  }
 }

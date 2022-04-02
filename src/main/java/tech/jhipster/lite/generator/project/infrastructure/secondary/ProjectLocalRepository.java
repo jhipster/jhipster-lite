@@ -1,12 +1,10 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.read;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -17,6 +15,8 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.zeroturnaround.zip.ZipException;
+import org.zeroturnaround.zip.ZipUtil;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
@@ -199,6 +199,33 @@ public class ProjectLocalRepository implements ProjectRepository {
     } catch (GitAPIException | IOException e) {
       throw new GeneratorException("Error when git apply patch", e);
     }
+  }
+
+  @Override
+  public String zip(Project project) {
+    File workingDir = new File(project.getFolder());
+    String filename = workingDir.getName() + ".zip";
+    try {
+      ZipUtil.pack(workingDir, new File(tmpDir() + FileSystems.getDefault().getSeparator() + filename));
+      return filename;
+    } catch (ZipException e) {
+      throw new GeneratorException("Error when zipping " + project.getFolder(), e);
+    }
+  }
+
+  @Override
+  public byte[] download(Project project) {
+    String filename = zip(project);
+    try {
+      return FileUtils.convertFileInTmpToByte(filename);
+    } catch (IOException ioe) {
+      throw new GeneratorException("Error when creating ", ioe);
+    }
+  }
+
+  @Override
+  public boolean isJHipsterLiteProject(String path) {
+    return FileUtils.exists(getPath(path, JHIPSTER_FOLDER, HISTORY_JSON));
   }
 
   private String getErrorWritingMessage(String filename) {

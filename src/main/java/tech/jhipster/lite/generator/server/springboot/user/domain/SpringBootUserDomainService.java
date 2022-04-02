@@ -11,8 +11,9 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class SpringBootUserDomainService implements SpringBootUserService {
 
   private static final String SOURCE = "server/springboot/user/sqldatabase";
-  private static final String TARGET_INFRA_SECOND_JAVA = "user/infrastructure/secondary";
-  private static final String TARGET_DOMAIN_JAVA = "user/domain";
+  private static final String USER_CONTEXT = "user";
+  private static final String USER_INFRASTRUCTURE_SECONDARY = getPath(USER_CONTEXT, INFRASTRUCTURE_SECONDARY);
+  private static final String USER_DOMAIN = getPath(USER_CONTEXT, DOMAIN);
   private static final String USER_DATABASE_KEY = "sqlDatabaseName";
 
   private final ProjectRepository projectRepository;
@@ -71,15 +72,15 @@ public class SpringBootUserDomainService implements SpringBootUserService {
   }
 
   private String getSqlJavaPath(String packageNamePath, DatabaseType sqlDatabase) {
-    return getPath(MAIN_JAVA, packageNamePath, TARGET_INFRA_SECOND_JAVA + "/" + sqlDatabase.id());
+    return getPath(MAIN_JAVA, packageNamePath, USER_INFRASTRUCTURE_SECONDARY + "/" + sqlDatabase.id());
   }
 
   private String getSqlDomainJavaPath(String packageNamePath) {
-    return getPath(MAIN_JAVA, packageNamePath, TARGET_DOMAIN_JAVA);
+    return getPath(MAIN_JAVA, packageNamePath, USER_DOMAIN);
   }
 
   private String getSqlJavaTestPath(String packageNamePath, DatabaseType sqlDatabase) {
-    return getPath(TEST_JAVA, packageNamePath, TARGET_INFRA_SECOND_JAVA + "/" + sqlDatabase.id());
+    return getPath(TEST_JAVA, packageNamePath, USER_INFRASTRUCTURE_SECONDARY + "/" + sqlDatabase.id());
   }
 
   private boolean isMySQLDatabase(DatabaseType databaseType) {

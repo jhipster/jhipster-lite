@@ -3,6 +3,10 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_IMAGE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_COMPOSE_FILE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_IMAGE;
 
 import java.util.TreeMap;
 import tech.jhipster.lite.common.domain.WordUtils;
@@ -17,8 +21,9 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 public class KafkaDomainService implements KafkaService {
 
-  public static final String SOURCE = "server/springboot/broker/kafka";
-  public static final String DUMMY_TOPIC_NAME = "kafka.topic.dummy";
+  private static final String SOURCE = "server/springboot/broker/kafka";
+  private static final String DUMMY_TOPIC_NAME = "kafka.topic.dummy";
+  private static final String DUMMY_PRODUCER_PATH = "dummy/infrastructure/secondary/kafka/producer";
 
   private final BuildToolService buildToolService;
 
@@ -55,7 +60,6 @@ public class KafkaDomainService implements KafkaService {
       project.addDefaultConfig(BASE_NAME);
       final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
       final String secondaryKafkaPath = TECHNICAL_INFRASTRUCTURE_SECONDARY + "/kafka";
-      final String dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
 
       final String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
       springBootCommonService.addProperties(project, DUMMY_TOPIC_NAME, topicName);
@@ -68,10 +72,18 @@ public class KafkaDomainService implements KafkaService {
         "KafkaProducerPropertiesTest.java",
         getPath(TEST_JAVA, packageNamePath, secondaryKafkaPath)
       );
-      projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, dummyProducerPath));
-      projectRepository.template(project, SOURCE, "DummyProducerTest.java", getPath(TEST_JAVA, packageNamePath, dummyProducerPath));
+      projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
+      projectRepository.template(project, SOURCE, "DummyProducerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
+      projectRepository.template(project, SOURCE, "DummyProducerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
       projectRepository.template(project, SOURCE, "KafkaConfiguration.java", getPath(MAIN_JAVA, packageNamePath, secondaryKafkaPath));
     }
+  }
+
+  @Override
+  public void addAkhq(Project project) {
+    final String akhqDockerImage = dockerService.getImageNameWithVersion(AKHQ_DOCKER_IMAGE).orElseThrow();
+    project.addConfig("akhqDockerImage", akhqDockerImage);
+    projectRepository.template(project, SOURCE, AKHQ_DOCKER_COMPOSE_FILE, MAIN_DOCKER, AKHQ_DOCKER_COMPOSE_FILE);
   }
 
   private void addApacheKafkaClient(final Project project) {
@@ -80,13 +92,13 @@ public class KafkaDomainService implements KafkaService {
   }
 
   private void addDockerCompose(final Project project) {
-    final String zookeeperDockerImage = dockerService.getImageNameWithVersion(Zookeeper.getZookeeperDockerImage()).orElseThrow();
-    final String kafkaDockerImage = dockerService.getImageNameWithVersion(Kafka.getKafkaDockerImage()).orElseThrow();
+    final String zookeeperDockerImage = dockerService.getImageNameWithVersion(Zookeeper.ZOOKEEPER_DOCKER_IMAGE).orElseThrow();
+    final String kafkaDockerImage = dockerService.getImageNameWithVersion(KAFKA_DOCKER_IMAGE).orElseThrow();
 
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("zookeeperDockerImage", zookeeperDockerImage);
     project.addConfig("kafkaDockerImage", kafkaDockerImage);
-    projectRepository.template(project, SOURCE, "kafka.yml", "src/main/docker", "kafka.yml");
+    projectRepository.template(project, SOURCE, KAFKA_DOCKER_COMPOSE_FILE, MAIN_DOCKER, KAFKA_DOCKER_COMPOSE_FILE);
   }
 
   private void addProperties(final Project project) {

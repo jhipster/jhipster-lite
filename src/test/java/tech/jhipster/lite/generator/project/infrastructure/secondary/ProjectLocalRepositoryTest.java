@@ -6,8 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import com.github.mustachejava.MustacheNotFoundException;
@@ -391,5 +390,58 @@ class ProjectLocalRepositoryTest {
     assertThatThrownBy(() -> repository.rename(project, ".", POM_XML, "pom.xml.burger")).isExactlyInstanceOf(GeneratorException.class);
 
     assertFileNotExist(project, POM_XML);
+  }
+
+  @Test
+  void shouldZip() {
+    Project project = tmpProjectWithPomXml();
+
+    String result = repository.zip(project);
+
+    assertFileExist(getPath(tmpDir(), result));
+  }
+
+  @Test
+  void shouldNotZipWithNonExistingFolder() {
+    Project project = tmpProject();
+    assertThatThrownBy(() -> repository.zip(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldDownload() {
+    Project project = tmpProjectWithPomXml();
+    assertThat(repository.download(project)).isNotNull();
+  }
+
+  @Test
+  void shouldNotDownload() {
+    Project project = tmpProjectWithPomXml();
+    try (MockedStatic<FileUtils> fileUtils = Mockito.mockStatic(FileUtils.class)) {
+      fileUtils.when(FileUtils::tmpDir).thenCallRealMethod();
+      fileUtils.when(() -> FileUtils.convertFileInTmpToByte(anyString())).thenThrow(new IOException());
+
+      assertThatThrownBy(() -> repository.download(project)).isExactlyInstanceOf(GeneratorException.class);
+    }
+  }
+
+  @Test
+  void shouldBeJHipsterLiteProject() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), JHIPSTER_FOLDER));
+    Files.createFile(getPathOf(project.getFolder(), JHIPSTER_FOLDER, HISTORY_JSON));
+
+    boolean result = repository.isJHipsterLiteProject(project.getFolder());
+
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  void shouldNotBeJHipsterLiteProject() throws Exception {
+    Project project = tmpProject();
+    FileUtils.createFolder(getPath(project.getFolder(), JHIPSTER_FOLDER));
+
+    boolean result = repository.isJHipsterLiteProject(project.getFolder());
+
+    assertThat(result).isFalse();
   }
 }

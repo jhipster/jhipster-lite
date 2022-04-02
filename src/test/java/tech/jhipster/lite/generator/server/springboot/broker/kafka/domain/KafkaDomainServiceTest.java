@@ -66,7 +66,18 @@ class KafkaDomainServiceTest {
 
     verify(springBootCommonService).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(projectRepository, times(5)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(6)).template(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddAkhq() {
+    Project project = tmpProjectWithPomXml();
+    when(dockerService.getImageNameWithVersion(anyString())).thenReturn(Optional.of("dummy"));
+
+    kafkaDomainService.addAkhq(project);
+
+    verify(dockerService).getImageNameWithVersion(anyString());
+    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 
   @Test

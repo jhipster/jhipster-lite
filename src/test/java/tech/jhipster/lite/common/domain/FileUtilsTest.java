@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnOs;
@@ -750,5 +751,13 @@ class FileUtilsTest {
     String folder = tmpDirForTest();
 
     assertThatThrownBy(() -> FileUtils.rename(folder, "hello.world", "hello.beer")).isInstanceOf(IOException.class);
+  }
+
+  @Test
+  void shouldConvertFileInTmpToByte() throws IOException {
+    String filename = UUID.randomUUID().toString();
+    Files.createFile(Paths.get(tmpDir(), filename));
+
+    assertThat(FileUtils.convertFileInTmpToByte(filename)).isNotNull();
   }
 }

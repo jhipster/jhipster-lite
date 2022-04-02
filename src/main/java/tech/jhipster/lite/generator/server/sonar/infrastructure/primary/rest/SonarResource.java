@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.sonar.application.SonarApplicationService;
@@ -26,7 +27,7 @@ class SonarResource {
   @Operation(summary = "Add Sonar configuration for Java Backend to inspect code quality")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration for Java Backend")
   @PostMapping("/java-backend")
-  @GeneratorStep(id = "sonar-java-backend")
+  @GeneratorStep(id = GeneratorAction.SONAR_JAVA_BACKEND)
   public void addSonarJavaBackend(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     sonarApplicationService.addSonarJavaBackend(project);
@@ -35,7 +36,7 @@ class SonarResource {
   @Operation(summary = "Add Sonar configuration for Java Backend and Frontend to inspect code quality")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Sonar configuration for Java Backend and Frontend")
   @PostMapping("/java-backend-and-frontend")
-  @GeneratorStep(id = "sonar-java-backend-and-frontend")
+  @GeneratorStep(id = GeneratorAction.SONAR_JAVA_BACKEND_AND_FRONTEND)
   public void addSonarJavaBackendAndFrontend(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     sonarApplicationService.addSonarJavaBackendAndFrontend(project);

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulApplicationService;
@@ -26,7 +27,7 @@ class ConsulResource {
   @Operation(summary = "Add Spring Cloud Consul config and discovery")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Cloud Consul config and discovery")
   @PostMapping
-  @GeneratorStep(id = "consul")
+  @GeneratorStep(id = GeneratorAction.CONSUL)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     consulApplicationService.init(project);

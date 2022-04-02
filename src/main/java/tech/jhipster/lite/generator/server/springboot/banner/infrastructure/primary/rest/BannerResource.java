@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.banner.application.BannerApplicationService;
@@ -26,7 +27,7 @@ class BannerResource {
   @Operation(summary = "Add banner JHipster v7 for Angular")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7")
-  @GeneratorStep(id = "banner-jhipster-v7")
+  @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V7)
   public void addBannerJHipsterV7(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV7(project);
@@ -35,7 +36,7 @@ class BannerResource {
   @Operation(summary = "Add banner for Ippon applications")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/ippon")
-  @GeneratorStep(id = "banner-ippon")
+  @GeneratorStep(id = GeneratorAction.BANNER_IPPON)
   public void addBannerIppon(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerIppon(project);
@@ -44,7 +45,7 @@ class BannerResource {
   @Operation(summary = "Add banner JHipster v7 for React")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7-react")
-  @GeneratorStep(id = "banner-jhipster-v7-react")
+  @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V7_REACT)
   public void addBannerJHipsterV7React(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV7React(project);
@@ -53,7 +54,7 @@ class BannerResource {
   @Operation(summary = "Add banner JHipster v7 for Vue")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7-vue")
-  @GeneratorStep(id = "banner-jhipster-v7-vue")
+  @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V7_VUE)
   public void addBannerJHipsterV7Vue(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV7Vue(project);
@@ -62,7 +63,7 @@ class BannerResource {
   @Operation(summary = "Add banner JHipster v2")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v2")
-  @GeneratorStep(id = "banner-jhipster-v2")
+  @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V2)
   public void addBannerJHipsterV2(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV2(project);
@@ -71,7 +72,7 @@ class BannerResource {
   @Operation(summary = "Add banner JHipster v3")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v3")
-  @GeneratorStep(id = "banner-jhipster-v3")
+  @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V3)
   public void addBannerJHipsterV3(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     bannerApplicationService.addBannerJHipsterV3(project);

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.setup.codespaces.application.CodespacesApplicationService;
@@ -26,7 +27,7 @@ class CodespacesResource {
   @Operation(summary = "GitHub Codespaces", description = "Init GitHub Codespaces configuration files")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing GitHub Codespaces files.")
   @PostMapping("/codespaces")
-  @GeneratorStep(id = "github-codespaces")
+  @GeneratorStep(id = GeneratorAction.GITHUB_CODESPACES)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     codespacesApplicationService.init(project);

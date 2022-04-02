@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitApplicationService;
@@ -26,7 +27,7 @@ class JavaArchUnitResource {
   @Operation(summary = "Add Hexagonal Arch classes to project")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Hexagonal Arch classes to project")
   @PostMapping
-  @GeneratorStep(id = "java-archunit")
+  @GeneratorStep(id = GeneratorAction.JAVA_ARCHUNIT)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     javaArchUnitApplicationService.init(project);

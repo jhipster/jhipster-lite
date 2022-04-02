@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseApplicationService;
@@ -26,7 +27,7 @@ class LiquibaseResource {
   @Operation(summary = "Add Liquibase")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Liquibase")
   @PostMapping("init")
-  @GeneratorStep(id = "liquibase")
+  @GeneratorStep(id = GeneratorAction.LIQUIBASE)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     liquibaseApplicationService.init(project);
@@ -35,7 +36,7 @@ class LiquibaseResource {
   @Operation(summary = "Add User and Authority changelogs")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding changelogs for user and authority")
   @PostMapping("user")
-  @GeneratorStep(id = "liquibase-user-and-authority-changelogs")
+  @GeneratorStep(id = GeneratorAction.LIQUIBASE_USER_AND_AUTHORITY_CHANGELOGS)
   public void addUserAndAuthority(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     liquibaseApplicationService.addUserAuthorityChangelog(project);

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.database.mongodb.application.MongodbApplicationService;
@@ -26,7 +27,7 @@ class MongodbResource {
   @Operation(summary = "Add MongoDB drivers and dependencies, with testcontainers")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding MongoDB")
   @PostMapping
-  @GeneratorStep(id = "mongodb")
+  @GeneratorStep(id = GeneratorAction.MONGODB)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     mongodbApplicationService.init(project);

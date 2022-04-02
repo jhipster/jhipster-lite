@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.client.angular.core.application.AngularApplicationService;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
@@ -26,7 +27,7 @@ class AngularResource {
   @Operation(summary = "Add Angular", description = "Add Angular")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular")
   @PostMapping
-  @GeneratorStep(id = "angular")
+  @GeneratorStep(id = GeneratorAction.ANGULAR)
   public void addAngular(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     angularApplicationService.addAngular(project);
@@ -35,7 +36,7 @@ class AngularResource {
   @Operation(summary = "Add Angular with minimal CSS")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular with minimal CSS")
   @PostMapping("/styled")
-  @GeneratorStep(id = "angular-styled")
+  @GeneratorStep(id = GeneratorAction.ANGULAR_STYLED)
   public void addStyledAngular(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     angularApplicationService.addStyledAngular(project);

@@ -13,6 +13,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
 @IntegrationTest
@@ -53,8 +54,8 @@ class HistoryResourceIT {
       .perform(get("/api/projects/history").param("folder", projectDTO.getFolder()))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$.serviceIds", Matchers.hasSize(3)))
-      .andExpect(jsonPath("$.serviceIds[0]").value("init"))
-      .andExpect(jsonPath("$.serviceIds[1]").value("maven"))
-      .andExpect(jsonPath("$.serviceIds[2]").value("github-actions"));
+      .andExpect(jsonPath("$.serviceIds[0]").value(GeneratorAction.INIT))
+      .andExpect(jsonPath("$.serviceIds[1]").value(GeneratorAction.MAVEN_JAVA))
+      .andExpect(jsonPath("$.serviceIds[2]").value(GeneratorAction.GITHUB_ACTIONS));
   }
 }

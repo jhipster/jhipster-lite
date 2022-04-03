@@ -4,9 +4,14 @@ public class GeneratorAction {
 
   private GeneratorAction() {}
 
-  // init
+  // Init
   public static final String INIT = "init";
   public static final String DOWNLOAD = "download";
+
+  // Maven
+  public static final String MAVEN_JAVA = "maven-java";
+  public static final String MAVEN_JAVA_POM_XML = "maven-java-pom-xml";
+  public static final String MAVEN_WRAPPER = "maven-wrapper";
 
   public static final String NPM_INSTALL = "npm-install";
   public static final String NPM_PRETTIFY = "npm-prettify";
@@ -24,10 +29,6 @@ public class GeneratorAction {
 
   public static final String SVELTE = "svelte";
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
-
-  public static final String MAVEN = "maven";
-  public static final String POM_XML = "pom.xml";
-  public static final String MAVEN_WRAPPER = "maven-wrapper";
 
   public static final String CONSUL = "consul";
 

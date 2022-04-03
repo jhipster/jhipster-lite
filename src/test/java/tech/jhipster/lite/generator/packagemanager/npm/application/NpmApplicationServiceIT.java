@@ -2,7 +2,13 @@ package tech.jhipster.lite.generator.packagemanager.npm.application;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.TestUtils.assertFileNoContent;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonComplete;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonEmpty;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonNothing;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import java.util.List;

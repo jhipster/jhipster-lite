@@ -2,7 +2,9 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.infras
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.eureka.application.EurekaAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.eureka.application.EurekaAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.eureka.application.EurekaAssert.assertDockerCompose;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.eureka.application.EurekaAssert.assertProperties;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.dummy.application;
 
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.mvc.dummy.application.DummyAssert.assertJavaFiles;
 import static tech.jhipster.lite.generator.server.springboot.mvc.dummy.application.DummyAssert.assertTestFiles;

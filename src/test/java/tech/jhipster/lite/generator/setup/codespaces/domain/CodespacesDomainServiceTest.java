@@ -2,7 +2,8 @@ package tech.jhipster.lite.generator.setup.codespaces.domain;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
 
 import org.junit.jupiter.api.Test;

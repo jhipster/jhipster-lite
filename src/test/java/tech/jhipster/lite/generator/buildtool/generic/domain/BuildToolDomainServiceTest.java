@@ -2,7 +2,9 @@ package tech.jhipster.lite.generator.buildtool.generic.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithBuildGradle;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
 import java.util.List;
 import org.junit.jupiter.api.Nested;

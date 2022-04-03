@@ -2,7 +2,9 @@ package tech.jhipster.lite.generator.server.springboot.docker.domain;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
 import java.util.Optional;

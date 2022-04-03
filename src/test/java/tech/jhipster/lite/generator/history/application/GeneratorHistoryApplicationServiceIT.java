@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.history.application;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import java.io.IOException;
 import java.util.List;

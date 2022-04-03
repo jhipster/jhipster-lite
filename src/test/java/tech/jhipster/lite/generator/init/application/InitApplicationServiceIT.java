@@ -1,11 +1,22 @@
 package tech.jhipster.lite.generator.init.application;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.tmpProjectBuilder;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
-import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFileGitInit;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesEditorConfiguration;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesGitConfiguration;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesInit;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesPackageJson;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesPrettier;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesReadme;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
 
 import java.util.HashMap;
 import java.util.List;

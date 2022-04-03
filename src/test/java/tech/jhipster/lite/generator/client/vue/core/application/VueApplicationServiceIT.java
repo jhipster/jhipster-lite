@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.client.vue.core.application;
 
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

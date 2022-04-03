@@ -1,9 +1,13 @@
 package tech.jhipster.lite.generator.server.springboot.user.application;
 
-import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.*;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.TestUtils.assertFileNoContent;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MARIADB;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;

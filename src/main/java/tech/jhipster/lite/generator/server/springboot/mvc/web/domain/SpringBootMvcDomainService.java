@@ -6,7 +6,16 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommon.TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION;
-import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.CORS;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.TECHNICAL_INFRASTRUCTURE_PRIMARY_CORS;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.corsFiles;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.corsProperties;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.problemSpringDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.springBootActuatorDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.springBootStarterValidation;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.springBootStarterWebDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.tomcatDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.undertowDependency;
 
 import java.util.List;
 import tech.jhipster.lite.error.domain.GeneratorException;

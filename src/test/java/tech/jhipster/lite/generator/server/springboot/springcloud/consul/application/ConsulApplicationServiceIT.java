@@ -2,7 +2,9 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.consul.applic
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.assertDockerConsul;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.assertProperties;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

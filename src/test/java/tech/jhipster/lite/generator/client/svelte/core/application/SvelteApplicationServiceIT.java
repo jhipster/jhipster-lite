@@ -1,7 +1,14 @@
 package tech.jhipster.lite.generator.client.svelte.core.application;
 
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonAndLintStage;
-import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.*;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertAppFiles;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertAssets;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertDependency;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertJestSonar;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertRootFiles;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertScripts;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertSvelteConfigFiles;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertType;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

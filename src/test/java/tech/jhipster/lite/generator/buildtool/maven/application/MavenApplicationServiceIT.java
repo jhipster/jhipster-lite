@@ -1,9 +1,15 @@
 package tech.jhipster.lite.generator.buildtool.maven.application;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.assertFileContentManyTimes;
+import static tech.jhipster.lite.TestUtils.assertFileNoContent;
+import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
-import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.*;
+import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.assertFilesMaven;
+import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.assertFilesMavenWrapper;
+import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.assertFilesPomXml;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;

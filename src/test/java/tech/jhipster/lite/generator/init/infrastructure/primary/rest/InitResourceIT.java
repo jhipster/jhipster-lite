@@ -1,9 +1,13 @@
 package tech.jhipster.lite.generator.init.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.generator.init.application.InitAssertFiles.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.convertObjectToJsonBytes;
+import static tech.jhipster.lite.TestUtils.readFileToObject;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesInit;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import org.junit.jupiter.api.Test;

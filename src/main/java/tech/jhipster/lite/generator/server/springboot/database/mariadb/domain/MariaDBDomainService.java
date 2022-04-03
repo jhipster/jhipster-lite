@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.database.mariadb.domain;
 
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDB.*;
+import static tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDB.mariadbConnectorJava;
+import static tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDB.springProperties;
+import static tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDB.springPropertiesForTest;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;

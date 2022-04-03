@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.user.infrastructure.primary.rest;
 
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.*;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MARIADB;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

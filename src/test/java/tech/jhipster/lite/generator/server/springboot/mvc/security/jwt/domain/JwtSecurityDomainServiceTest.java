@@ -3,7 +3,9 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
 import java.util.Optional;

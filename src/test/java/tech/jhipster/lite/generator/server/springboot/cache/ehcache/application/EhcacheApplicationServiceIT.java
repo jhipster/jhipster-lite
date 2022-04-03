@@ -3,7 +3,15 @@ package tech.jhipster.lite.generator.server.springboot.cache.ehcache.application
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertEhcacheXml;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertEnableCaching;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertInitJavaConfiguration;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertInitXmlConfiguration;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertJavaFiles;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertProperties;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertXmlDependencies;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertXmlProperty;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

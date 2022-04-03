@@ -1,9 +1,14 @@
 package tech.jhipster.lite.generator.server.springboot.user.infrastructure.primary.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.*;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MARIADB;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
+import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaAuditEntity;
+import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaUser;
+import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaUserAuthority;
+import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.checkSequence;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

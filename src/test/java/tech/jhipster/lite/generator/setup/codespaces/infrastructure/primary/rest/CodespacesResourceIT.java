@@ -2,10 +2,12 @@ package tech.jhipster.lite.generator.setup.codespaces.infrastructure.primary.res
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.convertObjectToJsonBytes;
+import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.setup.codespaces.application.CodespacesAssertFiles.*;
+import static tech.jhipster.lite.generator.setup.codespaces.application.CodespacesAssertFiles.assertFilesContainerJson;
+import static tech.jhipster.lite.generator.setup.codespaces.application.CodespacesAssertFiles.assertFilesDockerfile;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

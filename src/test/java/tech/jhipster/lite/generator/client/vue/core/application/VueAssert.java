@@ -1,8 +1,12 @@
 package tech.jhipster.lite.generator.client.vue.core.application;
 
-import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.WordUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.TestUtils.assertFileNoContent;
+import static tech.jhipster.lite.common.domain.WordUtils.DQ;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVASCRIPT;
 
 import java.util.List;
 import tech.jhipster.lite.generator.client.vue.core.domain.Vue;

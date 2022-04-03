@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.packagemanager.npm.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,9 @@ package tech.jhipster.lite.generator.init.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
 
 import java.util.List;
 import java.util.Map;

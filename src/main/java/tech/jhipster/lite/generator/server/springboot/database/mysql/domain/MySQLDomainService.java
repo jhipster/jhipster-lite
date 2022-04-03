@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.database.mysql.domain;
 
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL.*;
+import static tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL.mysqlConnectorJava;
+import static tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL.springProperties;
+import static tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQL.springPropertiesForTest;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;

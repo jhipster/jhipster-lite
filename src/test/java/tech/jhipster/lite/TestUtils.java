@@ -5,8 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.common.domain.FileUtils.exists;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
+import static tech.jhipster.lite.common.domain.FileUtils.read;
+import static tech.jhipster.lite.generator.project.domain.Constants.LIQUIBASE_MASTER_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

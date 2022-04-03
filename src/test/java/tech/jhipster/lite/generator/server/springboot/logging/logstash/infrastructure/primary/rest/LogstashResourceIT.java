@@ -2,7 +2,10 @@ package tech.jhipster.lite.generator.server.springboot.logging.logstash.infrastr
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertJavaFiles;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertLoggerInConfiguration;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertProperties;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

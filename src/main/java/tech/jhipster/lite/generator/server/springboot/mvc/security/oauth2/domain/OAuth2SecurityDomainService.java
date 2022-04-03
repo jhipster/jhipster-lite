@@ -1,9 +1,26 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.DEFAULT_BASE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.DEFAULT_PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.getDockerKeycloakImageName;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.oauth2AccountContextFiles;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.oauth2AccountContextTestFiles;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.oauth2SecurityFiles;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.oauth2TestSecurityFiles;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.properties;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.propertiesForTests;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.springBootStarterOAuth2ClientDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.springBootStarterOAuth2ResourceServerDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.springBootStarterSecurityDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.springSecurityTestDependency;
 
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;

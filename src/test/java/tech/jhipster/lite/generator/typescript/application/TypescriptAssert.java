@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.typescript.application;
 
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 

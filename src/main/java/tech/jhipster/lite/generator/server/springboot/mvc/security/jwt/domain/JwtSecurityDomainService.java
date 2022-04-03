@@ -5,7 +5,13 @@ import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.jjwtApiDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.jjwtImplDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.jjwtJacksonDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.jwtSecurityFiles;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.jwtTestSecurityFiles;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.springBootStarterSecurityDependency;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.springSecurityTestDependency;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

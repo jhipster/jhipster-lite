@@ -2,7 +2,11 @@ package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.applic
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.assertInitSqlFile;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.assertProperties;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.assertUserAuthoritySqlFile;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.initClock;
 
 import java.time.Clock;
 import org.junit.jupiter.api.BeforeEach;

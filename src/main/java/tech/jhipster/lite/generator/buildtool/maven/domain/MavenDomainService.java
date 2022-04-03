@@ -1,10 +1,30 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.common.domain.WordUtils.*;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.common.domain.FileUtils.REGEXP_PREFIX_MULTILINE;
+import static tech.jhipster.lite.common.domain.FileUtils.REGEXP_SPACE_STAR;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
+import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_DEPENDENCY;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_DEPENDENCY_MANAGEMENT;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_DEPENDENCY_TEST;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_PARENT;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_PLUGIN;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_PLUGIN_MANAGEMENT;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_PLUGIN_REPOSITORY;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_PROPERTIES;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.NEEDLE_REPOSITORY;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.PLUGIN_BEGIN;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.PLUGIN_MANAGEMENT_BEGIN;
+import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.PLUGIN_MANAGEMENT_END;
+import static tech.jhipster.lite.generator.project.domain.Constants.DEPENDENCIES_FOLDER;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
 
 import java.util.List;
 import java.util.Optional;

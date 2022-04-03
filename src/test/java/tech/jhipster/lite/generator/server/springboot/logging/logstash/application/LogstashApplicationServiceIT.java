@@ -3,7 +3,10 @@ package tech.jhipster.lite.generator.server.springboot.logging.logstash.applicat
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertJavaFiles;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertLoggerInConfiguration;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertProperties;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.database.mariadb.domain;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;

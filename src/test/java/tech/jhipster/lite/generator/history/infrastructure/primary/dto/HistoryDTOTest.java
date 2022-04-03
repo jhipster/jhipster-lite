@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.history.infrastructure.primary.dto;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;

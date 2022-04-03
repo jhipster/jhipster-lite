@@ -2,7 +2,11 @@ package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.infras
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.assertInitSqlFile;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.assertProperties;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.assertUserAuthoritySqlFile;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayAssert.initClock;
 
 import java.time.Clock;
 import org.junit.jupiter.api.BeforeEach;

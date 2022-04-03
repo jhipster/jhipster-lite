@@ -4,7 +4,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.*;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertAppFiles;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertAssets;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertDependency;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertRootFiles;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertScripts;
+import static tech.jhipster.lite.generator.client.svelte.core.application.SvelteAssert.assertSvelteConfigFiles;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,14 @@
 package tech.jhipster.lite.generator.client.angular.core.application;
 
-import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.*;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonComplete;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAngularFiles;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAppWithCss;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAppWithoutCss;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertConfigFiles;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertDependencies;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertDevDependencies;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertLogos;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertScripts;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

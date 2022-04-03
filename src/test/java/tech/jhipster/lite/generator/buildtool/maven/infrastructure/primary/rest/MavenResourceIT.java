@@ -5,7 +5,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.*;
+import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.assertFilesMaven;
+import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.assertFilesMavenWrapper;
+import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.assertFilesPomXml;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;

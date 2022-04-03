@@ -1,10 +1,15 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.common.domain.WordUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.*;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
+import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.generator.project.domain.Constants.LIQUIBASE_MASTER_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
 
 import java.time.Clock;
 import java.time.LocalDateTime;

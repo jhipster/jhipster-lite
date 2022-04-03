@@ -4,7 +4,9 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.COMMENT_PROPERTIES_PREFIX;
 import static tech.jhipster.lite.generator.project.domain.Constants.KEY_VALUE_PROPERTIES_SEPARATOR;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommon.*;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommon.JHIPSTER_REGISTRY_DOCKER_IMAGE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommon.springCloudDependencyManagement;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommon.springCloudStarterBootstrap;
 
 import java.io.IOException;
 import java.util.List;

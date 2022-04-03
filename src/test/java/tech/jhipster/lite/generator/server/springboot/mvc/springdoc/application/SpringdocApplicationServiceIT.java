@@ -2,8 +2,18 @@ package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.SPRINGDOC_CONFIGURATION_JAVA;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.assertFileContent;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.assertJavaFiles;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.assertJavaFilesWithSecurityJWT;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocAssert.assertProperties;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.API_DESCRIPTION_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.API_EXT_DOC_DESCRIPTION_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.API_EXT_DOC_URL_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.API_LICENSE_NAME_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.API_LICENSE_URL_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.API_TITLE_CONFIG_KEY;
 
 import java.util.HashMap;
 import java.util.Map;

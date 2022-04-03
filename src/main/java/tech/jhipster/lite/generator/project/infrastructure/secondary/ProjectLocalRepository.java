@@ -1,9 +1,15 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary;
 
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.read;
+import static tech.jhipster.lite.common.domain.FileUtils.tmpDir;
+import static tech.jhipster.lite.generator.project.domain.Constants.HISTORY_JSON;
+import static tech.jhipster.lite.generator.project.domain.Constants.JHIPSTER_FOLDER;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;

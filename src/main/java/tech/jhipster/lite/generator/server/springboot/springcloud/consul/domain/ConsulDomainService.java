@@ -1,9 +1,16 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.CONFIG;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.*;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.BOOTSTRAP_LOCAL_PROPERTIES;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.BOOTSTRAP_PROPERTIES;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.getDockerConsulConfigLoaderImageName;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.getDockerConsulImageName;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.springCloudConsulConfigDependency;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain.Consul.springCloudConsulDiscoveryDependency;
 
 import tech.jhipster.lite.common.domain.Base64Utils;
 import tech.jhipster.lite.error.domain.GeneratorException;

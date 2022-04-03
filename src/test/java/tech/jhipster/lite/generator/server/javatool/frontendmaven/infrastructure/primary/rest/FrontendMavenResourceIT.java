@@ -3,7 +3,9 @@ package tech.jhipster.lite.generator.server.javatool.frontendmaven.infrastructur
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.server.javatool.frontendmaven.application.FrontendMavenAssert.*;
+import static tech.jhipster.lite.generator.server.javatool.frontendmaven.application.FrontendMavenAssert.assertChecksumMavenPlugin;
+import static tech.jhipster.lite.generator.server.javatool.frontendmaven.application.FrontendMavenAssert.assertFrontendMavenPlugin;
+import static tech.jhipster.lite.generator.server.javatool.frontendmaven.application.FrontendMavenAssert.assertMavenAntrunPlugin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

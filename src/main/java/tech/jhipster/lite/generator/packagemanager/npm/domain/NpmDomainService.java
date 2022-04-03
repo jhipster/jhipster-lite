@@ -1,8 +1,14 @@
 package tech.jhipster.lite.generator.packagemanager.npm.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.WordUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.common.domain.WordUtils.CB;
+import static tech.jhipster.lite.common.domain.WordUtils.DQ;
+import static tech.jhipster.lite.common.domain.WordUtils.LF;
+import static tech.jhipster.lite.common.domain.WordUtils.OB;
+import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.generator.project.domain.Constants.DEPENDENCIES_FOLDER;
+import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
 
 import java.util.Optional;

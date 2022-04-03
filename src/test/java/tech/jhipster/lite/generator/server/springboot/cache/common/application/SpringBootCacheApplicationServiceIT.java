@@ -3,7 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.cache.common.application;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.cache.common.application.SpringBootCacheAssert.*;
+import static tech.jhipster.lite.generator.server.springboot.cache.common.application.SpringBootCacheAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.cache.common.application.SpringBootCacheAssert.assertEnableCaching;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

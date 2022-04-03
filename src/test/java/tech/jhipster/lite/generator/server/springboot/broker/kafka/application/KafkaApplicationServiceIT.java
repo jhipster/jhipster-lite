@@ -1,8 +1,14 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.application;
 
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.assertFileContent;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;

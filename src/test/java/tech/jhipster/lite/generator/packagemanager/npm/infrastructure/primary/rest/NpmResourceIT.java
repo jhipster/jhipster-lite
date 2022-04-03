@@ -4,7 +4,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.assertFileExist;
+import static tech.jhipster.lite.TestUtils.convertObjectToJsonBytes;
+import static tech.jhipster.lite.TestUtils.readFileToObject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

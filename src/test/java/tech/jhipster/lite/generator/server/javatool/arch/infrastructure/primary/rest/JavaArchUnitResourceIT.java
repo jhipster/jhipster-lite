@@ -3,7 +3,10 @@ package tech.jhipster.lite.generator.server.javatool.arch.infrastructure.primary
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.*;
+import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertArchUnitMavenPlugin;
+import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertFilesAnnotations;
+import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertFilesHexaArchTest;
+import static tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitAssertFiles.assertLoggerInConfiguration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

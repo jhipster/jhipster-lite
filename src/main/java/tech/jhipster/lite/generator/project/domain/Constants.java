@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.project.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 
 public class Constants {
 

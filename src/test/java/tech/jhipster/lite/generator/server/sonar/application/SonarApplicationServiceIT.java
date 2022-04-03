@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.sonar.application;
 
-import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.TestUtils.tmpProject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -18,9 +18,15 @@ public class VueDomainService implements VueService {
   public static final String SOURCE = "client/vue";
   public static final String NEEDLE_IMPORT = "// jhipster-needle-main-ts-import";
   public static final String NEEDLE_PROVIDER = "// jhipster-needle-main-ts-provider";
-  public static final String SOURCE_PRIMARY = getPath(SOURCE, "webapp/app/common/primary/app");
-  public static final String DESTINATION_PRIMARY = "src/main/webapp/app/common/primary/app";
+  public static final String SOURCE_PRIMARY = getPath(SOURCE, "webapp/app/common/primary");
+  public static final String SOURCE_TEST_PRIMARY = getPath(SOURCE, "test/spec/common/primary");
+  public static final String SOURCE_PRIMARY_APP = getPath(SOURCE_PRIMARY, "app");
+  public static final String DESTINATION_PRIMARY = "src/main/webapp/app/common/primary";
+  public static final String DESTINATION_PRIMARY_APP = DESTINATION_PRIMARY + "/app";
+  public static final String DESTINATION_PRIMARY_TEST = "src/test/javascript/spec/common/primary";
+  public static final String DESTINATION_PRIMARY_ROUTER = DESTINATION_PRIMARY + "/app";
   public static final String DESTINATION_APP = "src/main/webapp/app";
+  public static final String DESTINATION_ROUTER = DESTINATION_APP + "/router";
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
@@ -42,6 +48,14 @@ public class VueDomainService implements VueService {
     addAppFilesWithCss(project);
   }
 
+  @Override
+  public void addPinia(Project project) {
+    Assert.notNull("project", project);
+
+    addPiniaDependencies(project);
+    addPiniaMainConfiguration(project);
+  }
+
   private void addCommonVue(Project project) {
     Assert.notNull("project", project);
     addDependencies(project);
@@ -56,6 +70,18 @@ public class VueDomainService implements VueService {
 
   public void addDependencies(Project project) {
     Vue.dependencies().forEach(dependency -> addDependency(project, dependency));
+  }
+
+  public void addPiniaDependencies(Project project) {
+    Vue.piniaDependencies().forEach(dependency -> addDependency(project, dependency));
+    Vue.piniaDevDependencies().forEach(devDependency -> addDevDependency(project, devDependency));
+  }
+
+  private void addPiniaMainConfiguration(Project project) {
+    Vue.PINIA_IMPORTS.forEach(importLine -> addNewNeedleLineToFile(project, importLine, DESTINATION_APP, MAIN_TYPESCRIPT, NEEDLE_IMPORT));
+    Vue.PINIA_PROVIDERS.forEach(providerLine ->
+      addNewNeedleLineToFile(project, providerLine, DESTINATION_APP, MAIN_TYPESCRIPT, NEEDLE_PROVIDER)
+    );
   }
 
   public void addDevDependencies(Project project) {
@@ -126,7 +152,7 @@ public class VueDomainService implements VueService {
   }
 
   private void addRouterConfigAndTestFiles(Project project) {
-    projectRepository.template(project, getPath(SOURCE, "webapp/app/router"), "router.ts", "src/main/webapp/app/router");
+    projectRepository.template(project, getPath(SOURCE, "webapp/app/router"), ROUTER_TYPESCRIPT, "src/main/webapp/app/router");
     projectRepository.template(project, getPath(SOURCE, "test/spec/router"), "Router.spec.ts", "src/test/javascript/spec/router");
   }
 
@@ -143,29 +169,24 @@ public class VueDomainService implements VueService {
   public void addAppFiles(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE_PRIMARY, "App.component.ts", DESTINATION_PRIMARY);
-    projectRepository.template(project, SOURCE_PRIMARY, "index.ts", DESTINATION_PRIMARY);
+    projectRepository.template(project, SOURCE_PRIMARY_APP, "App.component.ts", DESTINATION_PRIMARY_APP);
+    projectRepository.template(project, SOURCE_PRIMARY_APP, "index.ts", DESTINATION_PRIMARY_APP);
 
-    projectRepository.template(
-      project,
-      getPath(SOURCE, "test/spec/common/primary/app"),
-      "App.spec.ts",
-      "src/test/javascript/spec/common/primary/app"
-    );
+    projectRepository.template(project, getPath(SOURCE_TEST_PRIMARY, "app"), "App.spec.ts", DESTINATION_PRIMARY_TEST + "/app");
   }
 
   public void addAppFilesWithoutCss(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE_PRIMARY, "App.html", DESTINATION_PRIMARY);
-    projectRepository.template(project, SOURCE_PRIMARY, "App.vue", DESTINATION_PRIMARY);
+    projectRepository.template(project, SOURCE_PRIMARY_APP, "App.html", DESTINATION_PRIMARY_APP);
+    projectRepository.template(project, SOURCE_PRIMARY_APP, "App.vue", DESTINATION_PRIMARY_APP);
   }
 
   public void addAppFilesWithCss(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE_PRIMARY, "StyledApp.html", DESTINATION_PRIMARY, "App.html");
-    projectRepository.template(project, SOURCE_PRIMARY, "StyledApp.vue", DESTINATION_PRIMARY, "App.vue");
+    projectRepository.template(project, SOURCE_PRIMARY_APP, "StyledApp.html", DESTINATION_PRIMARY_APP, "App.html");
+    projectRepository.template(project, SOURCE_PRIMARY_APP, "StyledApp.vue", DESTINATION_PRIMARY_APP, "App.vue");
 
     projectRepository.add(
       project,

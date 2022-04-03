@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.client.vue.core.infrastructure.primary.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.TestUtils.readFileToObject;
-import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +46,22 @@ class VueResourceIT {
     VueAssert.assertAppWithoutCss(project);
 
     VueAssert.assertJestSonar(project);
+  }
+
+  @Test
+  void shouldAddPinia() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+
+    mockMvc
+      .perform(post("/api/vue").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+
+    mockMvc
+      .perform(post("/api/vue/pinia").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+    VueAssert.assertPiniaDependency(project);
   }
 
   @Test

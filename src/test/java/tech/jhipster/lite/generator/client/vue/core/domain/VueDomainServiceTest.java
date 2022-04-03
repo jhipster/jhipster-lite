@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
 
-import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -51,6 +50,13 @@ class VueDomainServiceTest {
   @Test
   void shouldNotAddVueWhenNoProject() {
     assertThatThrownBy(() -> vueDomainService.addVue(null))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("project");
+  }
+
+  @Test
+  void shouldNotAddPiniaWhenNoProject() {
+    assertThatThrownBy(() -> vueDomainService.addPinia(null))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("project");
   }
@@ -182,5 +188,30 @@ class VueDomainServiceTest {
 
     verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
     verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddPiniaDependencies() {
+    Project project = tmpProject();
+
+    final String version = "1.0.0";
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of(version));
+
+    vueDomainService.addPiniaDependencies(project);
+    ArgumentCaptor<String> dependenciesCaptor = ArgumentCaptor.forClass(String.class);
+    verify(npmService, times(2)).addDependency(eq(project), dependenciesCaptor.capture(), eq(version));
+
+    assertThat(dependenciesCaptor.getAllValues()).containsAll(Vue.piniaDependencies());
+  }
+
+  @Test
+  void shouldUpdateMainConfigurationWhenAddingPinia() {
+    Project project = tmpProject();
+    final String version = "1.0.0";
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of(version));
+
+    vueDomainService.addPinia(project);
+
+    verify(projectRepository, times(5)).replaceText(eq(project), anyString(), eq("main.ts"), anyString(), anyString());
   }
 }

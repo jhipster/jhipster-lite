@@ -4,10 +4,13 @@
   "description": "JHipster Lite : used for Vite+Vue3 dependencies",
   "license": "Apache-2.0",
   "dependencies": {
+    "pinia": "2.0.12",
+    "pinia-plugin-persist": "1.0.0",
     "vue": "3.2.31",
     "vue-router": "4.0.14"
   },
   "devDependencies": {
+    "@pinia/testing": "0.0.10",
     "@rushstack/eslint-patch": "1.1.1",
     "@types/jest": "27.4.1",
     "@typescript-eslint/parser": "5.17.0",

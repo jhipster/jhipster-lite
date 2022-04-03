@@ -196,6 +196,7 @@ elif [[ $application == 'vueapp' ]]; then
 
   callApi "/api/frontend-maven-plugin"
   callApi "/api/vue/styled"
+  callApi "/api/vue/pinia"
 
 elif [[ $application == 'svelteapp' ]]; then
   springboot

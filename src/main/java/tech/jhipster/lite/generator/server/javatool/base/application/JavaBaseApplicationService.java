@@ -13,7 +13,7 @@ public class JavaBaseApplicationService {
     this.javaBaseService = javaBaseService;
   }
 
-  public void init(Project project) {
-    javaBaseService.init(project);
+  public void addJavaBase(Project project) {
+    javaBaseService.addJavaBase(project);
   }
 }

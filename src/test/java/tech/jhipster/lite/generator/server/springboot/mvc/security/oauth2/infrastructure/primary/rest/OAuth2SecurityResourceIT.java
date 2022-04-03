@@ -56,7 +56,7 @@ class OAuth2SecurityResourceIT {
 
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    javaBaseApplicationService.init(project);
+    javaBaseApplicationService.addJavaBase(project);
     springBootApplicationService.init(project);
     springBootMvcApplicationService.init(project);
 

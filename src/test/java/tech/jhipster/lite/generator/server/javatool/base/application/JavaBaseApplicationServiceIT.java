@@ -16,10 +16,10 @@ class JavaBaseApplicationServiceIT {
   JavaBaseApplicationService javaBaseApplicationService;
 
   @Test
-  void shouldInit() {
+  void shouldAddJavaBase() {
     Project project = tmpProject();
 
-    javaBaseApplicationService.init(project);
+    javaBaseApplicationService.addJavaBase(project);
 
     String pathMain = "src/main/java/com/mycompany/myapp/error/domain";
     assertFileExist(project, getPath(pathMain, "Assert.java"));
@@ -36,11 +36,11 @@ class JavaBaseApplicationServiceIT {
   }
 
   @Test
-  void shouldInitWithSpecificPackage() {
+  void shouldAddJavaBaseWithSpecificPackage() {
     Project project = tmpProject();
     project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");
 
-    javaBaseApplicationService.init(project);
+    javaBaseApplicationService.addJavaBase(project);
 
     String packageResult = "package tech.jhipster.chips.error.domain;";
 

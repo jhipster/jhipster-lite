@@ -55,7 +55,7 @@ class JwtSecurityResourceIT {
     GitUtils.init(project.getFolder());
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    javaBaseApplicationService.init(project);
+    javaBaseApplicationService.addJavaBase(project);
     springBootApplicationService.init(project);
     springBootMvcApplicationService.init(project);
 
@@ -81,7 +81,7 @@ class JwtSecurityResourceIT {
     GitUtils.init(project.getFolder());
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    javaBaseApplicationService.init(project);
+    javaBaseApplicationService.addJavaBase(project);
     springBootApplicationService.init(project);
     springBootMvcApplicationService.init(project);
     jwtSecurityApplicationService.init(project);

@@ -28,8 +28,8 @@ class JavaBaseResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding base classes and error domain to project")
   @PostMapping
   @GeneratorStep(id = GeneratorAction.JAVA_BASE)
-  public void init(@RequestBody ProjectDTO projectDTO) {
+  public void addJavaBase(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    javaBaseApplicationService.init(project);
+    javaBaseApplicationService.addJavaBase(project);
   }
 }

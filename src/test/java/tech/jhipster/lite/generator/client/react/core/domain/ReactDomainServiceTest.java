@@ -41,7 +41,7 @@ class ReactDomainServiceTest {
     reactDomainService.addReact(project);
 
     verify(npmService, times(2)).addDependency(any(Project.class), anyString(), anyString());
-    verify(npmService, times(15)).addDevDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(16)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(6)).addScript(any(Project.class), anyString(), anyString());
 
     verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString());
@@ -56,7 +56,7 @@ class ReactDomainServiceTest {
     reactDomainService.addStyledReact(project);
 
     verify(npmService, times(2)).addDependency(any(Project.class), anyString(), anyString());
-    verify(npmService, times(15)).addDevDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(16)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(6)).addScript(any(Project.class), anyString(), anyString());
 
     verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString());

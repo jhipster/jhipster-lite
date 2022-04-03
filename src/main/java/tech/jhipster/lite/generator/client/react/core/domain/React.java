@@ -20,6 +20,7 @@ public class React {
       "@types/node",
       "@types/react",
       "@types/react-dom",
+      "@types/ws",
       "@vitejs/plugin-react",
       "jest",
       "jest-sonar-reporter",

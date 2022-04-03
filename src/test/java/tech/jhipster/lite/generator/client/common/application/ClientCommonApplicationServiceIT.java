@@ -48,8 +48,8 @@ class ClientCommonApplicationServiceIT {
     List<String> expectedContentLines =
       """
       {
-        "include" : [ "value1" ],
-        "exclude" : [ "value1", "value2" ]
+        "include": ["value1"],
+        "exclude": ["value1", "value2"]
       }
       """.lines().toList();
     assertThat(Files.readAllLines(existingTsconfigJsonFilePath)).containsExactlyElementsOf(expectedContentLines);

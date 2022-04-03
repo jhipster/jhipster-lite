@@ -8,6 +8,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.PrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.Nested;
@@ -51,8 +52,8 @@ class JsonUtilsTest {
         .isEqualTo(
           """
         {
-          "include" : [ "value1" ],
-          "exclude" : [ "value1", "value2", "value3" ]
+          "include": ["value1"],
+          "exclude": ["value1", "value2", "value3"]
         }
         """.lines()
             .toList()
@@ -72,8 +73,8 @@ class JsonUtilsTest {
       assertThat(result.lines().toList())
         .isEqualTo("""
         {
-          "include" : [ "value1" ],
-          "exclude" : [ "value1" ]
+          "include": ["value1"],
+          "exclude": ["value1"]
         }
         """.lines().toList());
     }
@@ -107,7 +108,7 @@ class JsonUtilsTest {
       JsonUtils.getObjectMapper();
       ObjectMapper spiedObjectMapper = spy(JsonUtils.getObjectMapper());
       ObjectWriter spiedObjectWriter = spy(spiedObjectMapper.writer());
-      when(spiedObjectMapper.writerWithDefaultPrettyPrinter()).thenReturn(spiedObjectWriter);
+      when(spiedObjectMapper.writer(any(PrettyPrinter.class))).thenReturn(spiedObjectWriter);
       when(spiedObjectWriter.writeValueAsString(any())).thenThrow(JsonProcessingException.class);
 
       try (MockedStatic<JsonUtils> jsonUtils = Mockito.mockStatic(JsonUtils.class)) {

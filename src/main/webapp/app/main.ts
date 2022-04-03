@@ -12,6 +12,9 @@ import ConsoleLogger from '@/common/secondary/ConsoleLogger';
 import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
+
 const axiosHttp = new AxiosHttp(axios.create({ baseURL: '' }));
 const consoleLogger = new ConsoleLogger(console);
 const projectRepository = new ProjectRepository(axiosHttp);

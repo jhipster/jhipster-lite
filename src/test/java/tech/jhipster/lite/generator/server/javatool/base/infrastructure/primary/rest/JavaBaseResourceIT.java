@@ -7,6 +7,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.server.javatool.base.domain.JavaBaseDomainService.ERROR_DOMAIN_PATH;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
+import tech.jhipster.lite.generator.server.javatool.base.domain.JavaBase;
 
 @IntegrationTest
 @AutoConfigureMockMvc
@@ -38,14 +41,14 @@ class JavaBaseResourceIT {
       )
       .andExpect(status().isOk());
 
-    String pathMain = getPath(project.getFolder(), MAIN_JAVA, "tech/jhipster/chips/error/domain");
-    assertFileExist(getPath(pathMain, "Assert.java"));
-    assertFileExist(getPath(pathMain, "MissingMandatoryValueException.java"));
-    assertFileExist(getPath(pathMain, "UnauthorizedValueException.java"));
+    String specificPath = "tech/jhipster/chips";
 
-    String pathTest = getPath(project.getFolder(), TEST_JAVA, "tech/jhipster/chips/error/domain");
-    assertFileExist(getPath(pathTest, "AssertTest.java"));
-    assertFileExist(getPath(pathTest, "MissingMandatoryValueExceptionTest.java"));
-    assertFileExist(getPath(pathTest, "UnauthorizedValueExceptionTest.java"));
+    String pathMain = getPath(MAIN_JAVA, specificPath, ERROR_DOMAIN_PATH);
+    JavaBase.errorDomainFiles().forEach(file -> assertFileExist(project, getPath(pathMain, file)));
+
+    String pathTest = getPath(TEST_JAVA, specificPath, ERROR_DOMAIN_PATH);
+    JavaBase.errorDomainTestFiles().forEach(file -> assertFileExist(project, getPath(pathTest, file)));
+
+    JavaBase.annotationsFiles().forEach(file -> assertFileExist(project, getPath(TEST_JAVA, specificPath, file)));
   }
 }

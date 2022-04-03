@@ -23,7 +23,6 @@
             "polyfills": "src/main/webapp/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/main/webapp/favicon.ico",
               "src/main/webapp/content",
               {
                 "glob": "**/*",

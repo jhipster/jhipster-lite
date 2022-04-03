@@ -18,6 +18,10 @@ public class VueAssert {
     Vue.devDependencies().forEach(devDependency -> assertFileContent(project, PACKAGE_JSON, DQ + devDependency + DQ));
   }
 
+  public static void assertPiniaDependency(Project project) {
+    Vue.piniaDependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
+  }
+
   public static void assertScripts(Project project) {
     assertFileContent(project, PACKAGE_JSON, "\"build\": \"vue-tsc --noEmit && vite build --emptyOutDir\"");
     assertFileContent(project, PACKAGE_JSON, "\"dev\": \"vite\"");

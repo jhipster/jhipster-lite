@@ -17,6 +17,10 @@ public class VueApplicationService {
     vueService.addVue(project);
   }
 
+  public void addPinia(Project project) {
+    vueService.addPinia(project);
+  }
+
   public void addStyledVue(Project project) {
     vueService.addStyledVue(project);
   }

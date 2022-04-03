@@ -32,6 +32,16 @@ class VueApplicationServiceIT {
   }
 
   @Test
+  void shouldAddPinia() {
+    Project project = tmpProjectWithPackageJson();
+
+    vueApplicationService.addVue(project);
+    vueApplicationService.addPinia(project);
+
+    VueAssert.assertPiniaDependency(project);
+  }
+
+  @Test
   void shouldAddStyledVue() {
     Project project = tmpProjectWithPackageJson();
 

@@ -9,6 +9,8 @@ import ReactRepository from '@/springboot/secondary/client/ReactRepository';
 import VueRepository from '@/springboot/secondary/client/VueRepository';
 import SpringBootRepository from './springboot/secondary/SpringBootRepository';
 import ConsoleLogger from '@/common/secondary/ConsoleLogger';
+import { createPinia } from 'pinia';
+import piniaPersist from 'pinia-plugin-persist';
 
 const axiosHttp = new AxiosHttp(axios.create({ baseURL: '' }));
 const consoleLogger = new ConsoleLogger(console);
@@ -19,6 +21,8 @@ const vueRepository = new VueRepository(axiosHttp);
 const springBootRepository = new SpringBootRepository(axiosHttp);
 
 const app = createApp(App);
+const pinia = createPinia();
+pinia.use(piniaPersist);
 app.provide('angularService', angularRepository);
 app.provide('logger', consoleLogger);
 app.provide('projectService', projectRepository);
@@ -26,5 +30,6 @@ app.provide('reactService', reactRepository);
 app.provide('springBootService', springBootRepository);
 app.provide('vueService', vueRepository);
 app.use(router);
+app.use(pinia);
 
 app.mount('#app');

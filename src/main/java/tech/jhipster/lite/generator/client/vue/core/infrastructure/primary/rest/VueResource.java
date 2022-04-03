@@ -41,4 +41,13 @@ class VueResource {
     Project project = ProjectDTO.toProject(projectDTO);
     vueApplicationService.addStyledVue(project);
   }
+
+  @Operation(summary = "Add Pinia", description = "Add pinia for state management")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Pinia")
+  @PostMapping("/pinia")
+  @GeneratorStep(id = GeneratorAction.VUE_PINIA)
+  public void addPinia(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    vueApplicationService.addPinia(project);
+  }
 }

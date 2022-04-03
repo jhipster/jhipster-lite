@@ -6,4 +6,6 @@ public interface VueService {
   void addVue(Project project);
 
   void addStyledVue(Project project);
+
+  void addPinia(Project project);
 }

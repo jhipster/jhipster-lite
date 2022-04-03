@@ -1,8 +1,9 @@
-package tech.jhipster.lite.generator.client.common.cypress.domain;
+package tech.jhipster.lite.generator.client.tools.cypress.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.client.common.domain.ClientCommonService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -13,10 +14,12 @@ public class CypressDomainService implements CypressService {
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
+  private final ClientCommonService clientCommonService;
 
-  public CypressDomainService(ProjectRepository projectRepository, NpmService npmService) {
+  public CypressDomainService(ProjectRepository projectRepository, NpmService npmService, ClientCommonService clientCommonService) {
     this.projectRepository = projectRepository;
     this.npmService = npmService;
+    this.clientCommonService = clientCommonService;
   }
 
   @Override
@@ -25,6 +28,7 @@ public class CypressDomainService implements CypressService {
     addCypressScripts(project);
     addCypressFiles(project);
     addCypressTestFiles(project);
+    excludeIntegrationFilesTsConfig(project);
   }
 
   public void addDevDependencies(Project project) {
@@ -52,5 +56,9 @@ public class CypressDomainService implements CypressService {
 
   public void addCypressTestFiles(Project project) {
     Cypress.cypressTestFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, path));
+  }
+
+  private void excludeIntegrationFilesTsConfig(Project project) {
+    Cypress.tsconfigPatternsToExclude().forEach(value -> clientCommonService.excludeInTsconfigJson(project, value));
   }
 }

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.common.cypress.domain;
+package tech.jhipster.lite.generator.client.tools.cypress.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.client.common.domain.ClientCommonService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -29,6 +30,9 @@ class CypressDomainServiceTest {
 
   @Mock
   ProjectRepository projectRepository;
+
+  @Mock
+  ClientCommonService clientCommonService;
 
   @Test
   void shouldAddCypress() {
@@ -69,6 +73,8 @@ class CypressDomainServiceTest {
         "Home.spec.ts",
         "src/test/javascript/integration/common/primary/app"
       );
+
+    verify(clientCommonService).excludeInTsconfigJson(project, "src/test/javascript/integration/**/*spec.ts");
   }
 
   @Test

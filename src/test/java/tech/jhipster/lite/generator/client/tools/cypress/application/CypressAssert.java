@@ -1,12 +1,13 @@
-package tech.jhipster.lite.generator.client.common.cypress.application;
+package tech.jhipster.lite.generator.client.tools.cypress.application;
 
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.Constants.TSCONFIG_JSON;
 
-import tech.jhipster.lite.generator.client.common.cypress.domain.Cypress;
+import tech.jhipster.lite.generator.client.tools.cypress.domain.Cypress;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class CypressAssert {
@@ -22,6 +23,8 @@ public class CypressAssert {
     assertFileContent(project, PACKAGE_JSON, "e2e:headless");
     assertFileContent(project, PACKAGE_JSON, "test:component");
     assertFileContent(project, PACKAGE_JSON, "test:component:headless");
+
+    assertFileContent(project, TSCONFIG_JSON, "src/test/javascript/integration/**/*spec.ts");
   }
 
   public static void assertCypressFiles(Project project) {

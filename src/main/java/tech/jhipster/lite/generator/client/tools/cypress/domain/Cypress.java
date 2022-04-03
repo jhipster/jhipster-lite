@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.common.cypress.domain;
+package tech.jhipster.lite.generator.client.tools.cypress.domain;
 
 import java.util.List;
 import java.util.Map;
@@ -37,5 +37,9 @@ public class Cypress {
     String pathIntegrationTestPrimaryApp = "src/test/javascript/integration/common/primary/app";
 
     return Map.ofEntries(Map.entry("Home.spec.ts", pathIntegrationTestPrimaryApp));
+  }
+
+  public static List<String> tsconfigPatternsToExclude() {
+    return List.of("src/test/javascript/integration/**/*spec.ts");
   }
 }

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.client.common.cypress.infrastructure.primary;
+package tech.jhipster.lite.generator.client.tools.cypress.infrastructure.primary;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.jhipster.lite.generator.client.common.cypress.application.CypressApplicationService;
+import tech.jhipster.lite.generator.client.tools.cypress.application.CypressApplicationService;
 import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;

@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_TYPESCRIPT;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.Constants.ROUTER_TYPESCRIPT;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import java.util.List;

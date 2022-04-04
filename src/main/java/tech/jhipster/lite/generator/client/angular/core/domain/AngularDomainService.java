@@ -45,7 +45,6 @@ public class AngularDomainService implements AngularService {
 
   @Override
   public void addJwtAngular(Project project) {
-    addCommonAngular(project);
     addAppJwtFiles(project);
   }
 
@@ -137,7 +136,7 @@ public class AngularDomainService implements AngularService {
         import { Subject, takeUntil } from 'rxjs';
         import { AccountService } from './auth/account.service';
         import { LoginService } from './login/login.service';
-        import { Account } from './model/account.model';""";
+        import { Account } from './auth/account.model';""";
     projectRepository.replaceText(project, APP, APP_COMPONENT, oldHtml, newHtml);
 
     oldHtml = "export class AppComponent implements OnInit \\{";
@@ -211,7 +210,7 @@ public class AngularDomainService implements AngularService {
     newHtml =
       """
         import { AppComponent } from './app.component';
-        import { AuthInterceptor } from './interceptor/auth.interceptor';
+        import { AuthInterceptor } from './auth/auth.interceptor';
         """;
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
@@ -273,7 +272,7 @@ public class AngularDomainService implements AngularService {
         import { of, Subject } from 'rxjs';
         import { LoginService } from './login/login.service';
         import { AccountService } from './auth/account.service';
-        import { Account } from './model/account.model';
+        import { Account } from './auth/account.model';
 
         import { AppComponent } from './app.component';
 

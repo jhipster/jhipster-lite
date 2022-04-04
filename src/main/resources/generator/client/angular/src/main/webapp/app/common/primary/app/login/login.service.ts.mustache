@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { Account } from '../model/account.model';
+import { Account } from '../auth/account.model';
 import { AccountService } from '../auth/account.service';
 import { AuthServerProvider } from '../auth/auth-jwt.service';
-import { Login } from '../model/login.model';
+import { Login } from './login.model';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {

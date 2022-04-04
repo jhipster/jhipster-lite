@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject, of } from 'rxjs';
 import { shareReplay, tap, catchError } from 'rxjs/operators';
 
-import { Account } from '../model/account.model';
+import { Account } from './account.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {

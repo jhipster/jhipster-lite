@@ -52,6 +52,9 @@ class AngularResourceIT {
     initApplicationService.init(project);
 
     mockMvc
+      .perform(post("/api/angular").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+    mockMvc
       .perform(post("/api/angular/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
@@ -67,6 +70,9 @@ class AngularResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);
 
+    mockMvc
+      .perform(post("/api/angular").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
     mockMvc
       .perform(post("/api/angular/jwt").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());

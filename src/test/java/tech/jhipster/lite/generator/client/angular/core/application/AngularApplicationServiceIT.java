@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.client.angular.core.application;
 
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonComplete;
 import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAngularFiles;
+import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAppJwt;
 import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAppWithCss;
 import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertAppWithoutCss;
 import static tech.jhipster.lite.generator.client.angular.core.application.AngularAssert.assertConfigFiles;
@@ -54,6 +55,7 @@ class AngularApplicationServiceIT {
   void shouldAddJwtAngular() {
     Project project = tmpProjectWithPackageJsonComplete();
 
+    angularApplicationService.addAngular(project);
     angularApplicationService.addJwtAngular(project);
 
     assertDevDependencies(project);

@@ -86,19 +86,17 @@ public class Angular {
 
   public static Map<String, String> angularJwtFiles() {
     String primaryAppAuth = "app/common/primary/app/auth";
-    String primaryAppInterceptor = "app/common/primary/app/interceptor";
     String primaryAppLogin = "app/common/primary/app/login";
-    String primaryAppModel = "app/common/primary/app/model";
     return Map.ofEntries(
+      Map.entry("account.model.ts", primaryAppAuth),
       Map.entry("account.service.ts", primaryAppAuth),
       Map.entry("account.service.spec.ts", primaryAppAuth),
+      Map.entry("auth.interceptor.ts", primaryAppAuth),
       Map.entry("auth-jwt.service.ts", primaryAppAuth),
       Map.entry("auth-jwt.service.spec.ts", primaryAppAuth),
-      Map.entry("auth.interceptor.ts", primaryAppInterceptor),
       Map.entry("login.service.ts", primaryAppLogin),
       Map.entry("login.service.spec.ts", primaryAppLogin),
-      Map.entry("account.model.ts", primaryAppModel),
-      Map.entry("login.model.ts", primaryAppModel)
+      Map.entry("login.model.ts", primaryAppLogin)
     );
   }
 }

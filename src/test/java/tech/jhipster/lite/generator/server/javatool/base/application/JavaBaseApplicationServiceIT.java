@@ -4,12 +4,17 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.server.javatool.base.domain.JavaBaseDomainService.ERROR_DOMAIN_PATH;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.server.javatool.base.domain.JavaBase;
 
 @IntegrationTest
 class JavaBaseApplicationServiceIT {
@@ -18,55 +23,46 @@ class JavaBaseApplicationServiceIT {
   JavaBaseApplicationService javaBaseApplicationService;
 
   @Test
-  void shouldInit() {
+  void shouldAddJavaBase() {
     Project project = tmpProject();
 
-    javaBaseApplicationService.init(project);
+    javaBaseApplicationService.addJavaBase(project);
 
-    String pathMain = "src/main/java/com/mycompany/myapp/error/domain";
-    assertFileExist(project, getPath(pathMain, "Assert.java"));
-    assertFileExist(project, getPath(pathMain, "MissingMandatoryValueException.java"));
-    assertFileExist(project, getPath(pathMain, "UnauthorizedValueException.java"));
+    String pathMain = getPath(MAIN_JAVA, DefaultConfig.PACKAGE_PATH, ERROR_DOMAIN_PATH);
+    JavaBase.errorDomainFiles().forEach(file -> assertFileExist(project, getPath(pathMain, file)));
 
-    assertFileExist(project, getPath("src/test/java/com/mycompany/myapp", "UnitTest.java"));
-    assertFileExist(project, getPath("src/test/java/com/mycompany/myapp", "ReplaceCamelCase.java"));
+    String pathTest = getPath(TEST_JAVA, DefaultConfig.PACKAGE_PATH, ERROR_DOMAIN_PATH);
+    JavaBase.errorDomainTestFiles().forEach(file -> assertFileExist(project, getPath(pathTest, file)));
 
-    String pathTest = "src/test/java/com/mycompany/myapp/error/domain";
-    assertFileExist(project, getPath(pathTest, "AssertTest.java"));
-    assertFileExist(project, getPath(pathTest, "MissingMandatoryValueExceptionTest.java"));
-    assertFileExist(project, getPath(pathTest, "UnauthorizedValueExceptionTest.java"));
+    JavaBase.annotationsFiles().forEach(file -> assertFileExist(project, getPath(TEST_JAVA, DefaultConfig.PACKAGE_PATH, file)));
   }
 
   @Test
-  void shouldInitWithSpecificPackage() {
+  void shouldAddJavaBaseWithSpecificPackage() {
     Project project = tmpProject();
     project.addConfig(PACKAGE_NAME, "tech.jhipster.chips");
 
-    javaBaseApplicationService.init(project);
+    javaBaseApplicationService.addJavaBase(project);
 
     String packageResult = "package tech.jhipster.chips.error.domain;";
+    String specificPath = "tech/jhipster/chips";
 
-    String pathMain = "src/main/java/tech/jhipster/chips/error/domain";
-    assertFileExist(project, getPath(pathMain, "Assert.java"));
-    assertFileContent(project, getPath(pathMain, "Assert.java"), packageResult);
+    String pathMain = getPath(MAIN_JAVA, specificPath, ERROR_DOMAIN_PATH);
+    JavaBase
+      .errorDomainFiles()
+      .forEach(file -> {
+        assertFileExist(project, getPath(pathMain, file));
+        assertFileContent(project, getPath(pathMain, file), packageResult);
+      });
 
-    assertFileExist(project, getPath(pathMain, "MissingMandatoryValueException.java"));
-    assertFileContent(project, getPath(pathMain, "MissingMandatoryValueException.java"), packageResult);
+    String pathTest = getPath(TEST_JAVA, specificPath, ERROR_DOMAIN_PATH);
+    JavaBase
+      .errorDomainTestFiles()
+      .forEach(file -> {
+        assertFileExist(project, getPath(pathTest, file));
+        assertFileContent(project, getPath(pathTest, file), packageResult);
+      });
 
-    assertFileExist(project, getPath(pathMain, "UnauthorizedValueException.java"));
-    assertFileContent(project, getPath(pathMain, "UnauthorizedValueException.java"), packageResult);
-
-    assertFileExist(project, getPath("src/test/java/tech/jhipster/chips", "UnitTest.java"));
-    assertFileExist(project, getPath("src/test/java/tech/jhipster/chips", "ReplaceCamelCase.java"));
-
-    String pathTest = "src/test/java/tech/jhipster/chips/error/domain";
-    assertFileExist(project, getPath(pathTest, "AssertTest.java"));
-    assertFileContent(project, getPath(pathTest, "AssertTest.java"), packageResult);
-
-    assertFileExist(project, getPath(pathTest, "MissingMandatoryValueExceptionTest.java"));
-    assertFileContent(project, getPath(pathTest, "MissingMandatoryValueExceptionTest.java"), packageResult);
-
-    assertFileExist(project, getPath(pathTest, "UnauthorizedValueExceptionTest.java"));
-    assertFileContent(project, getPath(pathTest, "UnauthorizedValueExceptionTest.java"), packageResult);
+    JavaBase.annotationsFiles().forEach(file -> assertFileExist(project, getPath(TEST_JAVA, specificPath, file)));
   }
 }

@@ -13,6 +13,9 @@ public class GeneratorAction {
   public static final String MAVEN_JAVA_POM_XML = "maven-java-pom-xml";
   public static final String MAVEN_WRAPPER = "maven-wrapper";
 
+  // Javatool: base
+  public static final String JAVA_BASE = "java-base";
+
   public static final String NPM_INSTALL = "npm-install";
   public static final String NPM_PRETTIFY = "npm-prettify";
 
@@ -66,8 +69,6 @@ public class GeneratorAction {
   public static final String FLYWAY_USER_AND_AUTHORITY_CHANGELOGS = "flyway-user-and-authority-changelogs";
 
   public static final String JAVA_ARCHUNIT = "java-archunit";
-
-  public static final String JAVA_BASE = "java-base";
 
   public static final String MARIADB = "mariadb";
 

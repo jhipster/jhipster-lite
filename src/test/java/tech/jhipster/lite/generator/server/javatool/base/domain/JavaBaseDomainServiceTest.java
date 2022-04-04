@@ -26,10 +26,10 @@ class JavaBaseDomainServiceTest {
   JavaBaseDomainService javaBaseDomainService;
 
   @Test
-  void shouldInit() {
+  void shouldAddJavaBase() {
     Project project = tmpProject();
 
-    javaBaseDomainService.init(project);
+    javaBaseDomainService.addJavaBase(project);
 
     verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
   }

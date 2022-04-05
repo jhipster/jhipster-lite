@@ -15,6 +15,7 @@ public interface BuildToolService {
   void addProperty(Project project, String key, String value);
   void addRepository(Project project, Repository repository);
   void addPluginRepository(Project project, Repository repository);
+
   void init(Project project, BuildToolType buildTool);
 
   Optional<String> getVersion(Project project, String name);

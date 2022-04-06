@@ -61,28 +61,15 @@ describe('ProjectRepository', () => {
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
-  it('should download the project', () => {
-    const [projectRepository, axiosHttpStub] = createStubedProjectRepository();
+  it('should download the project', async () => {
+    const [projectRepository, axiosHttpStub] = createStubedProjectRepository({ data: [1, 2, 3] });
     const project: Project = createProject({ folder: 'folder/path' });
 
-    projectRepository.download(project);
+    expect(await projectRepository.download(project)).toEqual(new Uint8Array([1, 2, 3]));
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
     expect(uri).toBe('api/projects/download');
     expect(payload).toEqual<RestProject>(expectedRestProject);
-  });
-
-  it('should not download the project', () => {
-    const axiosHttpStub = stubAxiosHttp();
-    axiosHttpStub.post.rejects({});
-    const projectRepository = new ProjectRepository(axiosHttpStub);
-    const project: Project = createProject({ folder: 'folder/path' });
-
-    try {
-      projectRepository.download(project);
-    } catch (e) {
-      expect(e).toMatch('error');
-    }
   });
 });

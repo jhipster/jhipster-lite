@@ -30,6 +30,7 @@ export default class ProjectRepository implements ProjectService {
     const restProject: RestProject = toRestProject(project);
     return this.axiosHttp
       .post<ArrayBufferLike, RestProject>('api/projects/download', restProject)
-      .then(response => new Uint8Array(response.data));
+      .then(response => new Uint8Array(response.data))
+      .catch(error => new Uint8Array());
   }
 }

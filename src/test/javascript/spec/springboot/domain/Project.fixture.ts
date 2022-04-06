@@ -1,4 +1,6 @@
 import { Project } from '@/springboot/domain/Project';
+import ProjectRepository from '../../../../../main/webapp/app/springboot/secondary/ProjectRepository';
+import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 
 export const createProject = (project?: Partial<Project>): Project => ({
   folder: 'folder/path',
@@ -8,3 +10,10 @@ export const createProject = (project?: Partial<Project>): Project => ({
   serverPort: 8080,
   ...project,
 });
+
+export const createStubedProjectRepository = (): [ProjectRepository, any] => {
+  const axiosHttpStub = stubAxiosHttp();
+  axiosHttpStub.post.resolves();
+  const projectRepository = new ProjectRepository(axiosHttpStub);
+  return [projectRepository, axiosHttpStub];
+};

@@ -2,7 +2,7 @@ import { Project } from '@/springboot/domain/Project';
 import ProjectRepository from '@/springboot/secondary/ProjectRepository';
 import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
-import { createProject } from '../domain/Project.fixture';
+import { createProject, createStubedProjectRepository } from '../domain/Project.fixture';
 
 describe('ProjectRepository', () => {
   it('should init project', () => {
@@ -62,9 +62,7 @@ describe('ProjectRepository', () => {
   });
 
   it('should download the project', () => {
-    const axiosHttpStub = stubAxiosHttp();
-    axiosHttpStub.post.resolves();
-    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const [projectRepository, axiosHttpStub] = createStubedProjectRepository();
     const project: Project = createProject({ folder: 'folder/path' });
 
     projectRepository.download(project);

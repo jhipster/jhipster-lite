@@ -26,11 +26,10 @@ export default class ProjectRepository implements ProjectService {
     await this.axiosHttp.post('api/servers/java/base', restProject);
   }
 
-  async download(project: Project): Promise<Blob> {
+  async download(project: Project): Promise<ArrayBuffer> {
     const restProject: RestProject = toRestProject(project);
     return this.axiosHttp
-      .post<Blob, RestProject>('api/projects/download', restProject)
-      .then(response => new Blob([response.data]))
-      .catch(err => new Blob());
+      .post<ArrayBufferLike, RestProject>('api/projects/download', restProject)
+      .then(response => new Uint8Array(response.data));
   }
 }

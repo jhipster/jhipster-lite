@@ -3,7 +3,7 @@
     <nav class="container-fluid flex-wrap flex-md-nowrap align-text-center" aria-label="Main navigation">
       <a class="navbar-brand text-decoration-none d-flex align-items-center" href="#">
         <img src="../../../content/JHipster-Lite-neon-blue.png" alt="" width="40" class="mx-2" />
-        <span class="fs-4 text-decoration-none">JHipster lite</span>
+        <span class="fs-4 text-decoration-none" data-selector="generator.title">JHipster Lite</span>
       </a>
       <button
         class="navbar-toggler text-primary"
@@ -30,26 +30,26 @@
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://www.jhipster.tech/" target="_blank" rel="noopener">
-              <img src="../../../content/V2 JHipster Bowtie RGB 2x.png" alt="" height="24" class="d-inline-block align-text-center" />
+              <img src="../../../content/V2_JHipster_Bowtie_RGB_2x.png" alt="" height="24" class="d-inline-block align-text-center" />
               <small class="d-md-none ms-2">JHipster</small>
             </a>
           </li>
           <hr class="separator--vertical mx-4 bg-primary" />
           <li class="nav-item col-6 col-md-auto">
-            <a class="nav-link p-2" href="https://github.com/twbs" target="_blank" rel="noopener">
+            <a class="nav-link p-2" href="https://github.com/jhipster/jhipster-lite" target="_blank" rel="noopener">
               <i class="bi bi-github"></i>
               <small class="d-md-none ms-2">GitHub</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">
-            <a class="nav-link p-2" href="https://twitter.com/getbootstrap" target="_blank" rel="noopener">
+            <a class="nav-link p-2" href="https://twitter.com/jhipster" target="_blank" rel="noopener">
               <i class="bi bi-twitter"></i>
               <small class="d-md-none ms-2">Twitter</small>
             </a>
           </li>
 
           <li class="nav-item col-6 col-md-auto">
-            <a class="nav-link p-2" href="https://opencollective.com/bootstrap/" target="_blank" rel="noopener">
+            <a class="nav-link p-2" href="https://opencollective.com/generator-jhipster" target="_blank" rel="noopener">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="36"
@@ -80,11 +80,6 @@
       <div class="col-12 col-md-4">
         <h2>Project configuration</h2>
         <div class="row g-3">
-          <div class="col-12">
-            <label for="path" class="form-label">Path (required) : </label>
-            <input id="path" type="text" class="form-control" v-model="project.folder" required />
-            <div class="invalid-feedback">Please enter your path.</div>
-          </div>
           <div class="col-12">
             <label for="path" class="form-label">Path (required) : </label>
             <input id="path" type="text" class="form-control" v-model="project.folder" required />
@@ -122,7 +117,7 @@
                 <div class="list-group-item gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="language" id="java" value="" checked="" />
+                      <input class="form-check-input flex-shrink-0" type="radio" name="language" id="language" value="java" checked />
                       <span> Java </span>
                     </label>
                   </div>
@@ -143,7 +138,7 @@
                 <div class="list-group-item gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="build_tool" id="maven" value="" checked="" />
+                      <input class="form-check-input flex-shrink-0" type="radio" name="buildTool" id="buildTool" value="maven" checked />
                       <span> Maven </span>
                     </label>
                   </div>
@@ -152,7 +147,7 @@
                 <div class="list-group-item gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="build_tool" id="gradle" value="" checked="" />
+                      <input class="form-check-input flex-shrink-0" type="radio" name="buildTool" id="buildTool" value="gradle" />
                       <span> Gradle </span>
                     </label>
                   </div>
@@ -175,7 +170,7 @@
               <div class="list-group-item gap-3 py-3" aria-current="true">
                 <div class="gap-2 w-100 justify-content-between">
                   <label>
-                    <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server_none" value="" checked="" />
+                    <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server" value="none" checked />
                     <span> None </span>
                   </label>
                 </div>
@@ -184,7 +179,7 @@
               <div class="list-group-item gap-3 py-3" aria-current="true">
                 <div class="gap-2 w-100 justify-content-between">
                   <label>
-                    <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server_springboot" value="" checked="" />
+                    <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server" value="springboot" />
                     <span> Spring Boot </span>
                   </label>
                 </div>
@@ -204,7 +199,7 @@
             <div class="list-group-item gap-3 py-3" aria-current="true">
               <div class="gap-2 w-100 justify-content-between">
                 <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client_none" value="" checked="" />
+                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="none" checked />
                   <span>None</span>
                 </label>
               </div>
@@ -213,7 +208,7 @@
             <div class="list-group-item gap-3 py-3" aria-current="true">
               <div class="gap-2 w-100 justify-content-between">
                 <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client_angular" value="" checked="" />
+                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="angular" />
                   <span>Angular</span>
                 </label>
               </div>
@@ -222,7 +217,7 @@
             <div class="list-group-item gap-3 py-3" aria-current="true">
               <div class="gap-2 w-100 justify-content-between">
                 <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client_react" value="" checked="" />
+                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="react" />
                   <span>React</span>
                 </label>
               </div>
@@ -231,7 +226,7 @@
             <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
               <div class="gap-2 w-100 justify-content-between">
                 <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client_vue" value="" checked="" />
+                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="vue" />
                   <span>Vue</span>
                 </label>
               </div>
@@ -240,7 +235,7 @@
             <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
               <div class="gap-2 w-100 justify-content-between">
                 <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client_vue" value="" checked="" />
+                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="svelte" />
                   <span>Svelte</span>
                 </label>
               </div>
@@ -279,18 +274,6 @@
           </button>
           <button
             class="nav-link"
-            id="v-pills-messages-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#v-pills-messages"
-            type="button"
-            role="tab"
-            aria-controls="v-pills-messages"
-            aria-selected="false"
-          >
-            VUE
-          </button>
-          <button
-            class="nav-link"
             id="v-pills-settings-tab"
             data-bs-toggle="pill"
             data-bs-target="#v-pills-settings"
@@ -301,13 +284,87 @@
           >
             ANGULAR
           </button>
+          <button
+            class="nav-link"
+            id="v-pills-react-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-react"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-react"
+            aria-selected="false"
+          >
+            REACT
+          </button>
+          <button
+            class="nav-link"
+            id="v-pills-vue-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-vue"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-vue"
+            aria-selected="false"
+          >
+            VUE
+          </button>
         </div>
         <hr class="separator--vertical mx-4 bg-primary" />
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-          <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-          <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+          <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <button class="jh-btn btn-primary" id="init" @click.prevent="initProject" data-selector="generator.init-button">Init</button>
+            &nbsp;
+            <button class="jh-btn btn-primary" id="maven" @click.prevent="addMaven" data-selector="generator.add-maven-button">
+              Maven
+            </button>
+            &nbsp;
+            <button class="jh-btn btn-primary" id="javabase" @click.prevent="addJavaBase" data-selector="generator.add-java-base-button">
+              Java Base
+            </button>
+            &nbsp;
+            <button
+              class="jh-btn btn-primary"
+              id="frontend-maven-plugin"
+              @click.prevent="addFrontendMavenPlugin"
+              data-selector="generator.add-frontend-maven-plugin-button"
+            >
+              Frontend Maven Plugin
+            </button>
+          </div>
+          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <button
+              class="jh-btn btn-primary"
+              id="springboot"
+              @click.prevent="addSpringBoot"
+              data-selector="generator.add-spring-boot-button"
+            >
+              Spring Boot
+            </button>
+            &nbsp;
+            <button
+              class="jh-btn btn-primary"
+              id="springbootmvctomcat"
+              @click.prevent="addSpringBootMvcTomcat"
+              data-selector="generator.add-spring-boot-mvc-tomcat-button"
+            >
+              Spring MVC Tomcat
+            </button>
+          </div>
+          <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <button class="jh-btn btn-primary" id="angular" @click.prevent="addAngular" data-selector="generator.add-angular-button">
+              Generate Angular
+            </button>
+          </div>
+          <div class="tab-pane fade" id="v-pills-react" role="tabpanel" aria-labelledby="v-pills-react-tab">
+            <button class="jh-btn btn-primary" id="react" @click.prevent="addReact" data-selector="generator.add-react-button">
+              Generate React
+            </button>
+          </div>
+          <div class="tab-pane fade" id="v-pills-vue" role="tabpanel" aria-labelledby="v-pills-vue-tab">
+            <button class="jh-btn btn-primary" id="vue" @click.prevent="addVue" data-selector="generator.add-vue-button">
+              Generate Vue
+            </button>
+          </div>
         </div>
       </div>
     </div>

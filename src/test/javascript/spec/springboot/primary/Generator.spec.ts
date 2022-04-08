@@ -1,6 +1,6 @@
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import { GeneratorVue } from '@/springboot/primary';
-import { mount, VueWrapper } from '@vue/test-utils';
+import { mount, shallowMount, VueWrapper } from '@vue/test-utils';
 import { stubProjectService } from '../domain/ProjectService.fixture';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
 import { createProjectToUpdate } from './ProjectToUpdate.fixture';
@@ -671,5 +671,60 @@ describe('Generator', () => {
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Frontend Maven Plugin to project failed');
+  });
+
+  it('should download initialized project', async () => {
+    const projectService = stubProjectService();
+    projectService.download.resolves({});
+    // @ts-ignore
+    global.URL.createObjectURL = jest.fn(() => new Blob([{}], { type: 'application/zip' }));
+
+    await wrap({ projectService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+
+    const button = wrapper.find('#download');
+    await button.trigger('click');
+
+    const args = projectService.download.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should not download an non existing project', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.download.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const downloadButton = wrapper.find('#download');
+    await downloadButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Downloading project failed');
+  });
+
+  it('should not not download when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.download.resolves({});
+    await wrap({ projectService });
+
+    const button = wrapper.find('#download');
+    await button.trigger('click');
+
+    expect(projectService.download.called).toBe(false);
   });
 });

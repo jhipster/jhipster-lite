@@ -406,6 +406,10 @@
             >
               Frontend Maven Plugin
             </button>
+            &nbsp;
+            <button class="jh-btn btn-primary" id="download" @click.prevent="download" data-selector="generator.download-button">
+              Download
+            </button>
           </div>
           <div id="v-pills-profile" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <button

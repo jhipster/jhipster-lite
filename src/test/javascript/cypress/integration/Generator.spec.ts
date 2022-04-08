@@ -13,7 +13,6 @@ describe('Generator', () => {
 
   it('should display generator page', () => {
     cy.get(generatorSelector('title')).contains('JHipster Lite');
-    cy.get(generatorSelector('subtitle')).contains('Spring Boot Generator');
 
     cy.get(generatorSelector('init-button')).contains('Init');
     cy.get(generatorSelector('add-maven-button')).contains('Maven');

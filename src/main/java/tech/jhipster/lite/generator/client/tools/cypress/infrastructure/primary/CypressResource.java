@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/e2e/cypress")
+@RequestMapping("/api/clients/cypress")
 @Tag(name = "E2e")
 class CypressResource {
 

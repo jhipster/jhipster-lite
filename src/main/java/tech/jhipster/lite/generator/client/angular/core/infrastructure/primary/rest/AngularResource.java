@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/angular")
+@RequestMapping("/api/clients/angular")
 @Tag(name = "Angular")
 class AngularResource {
 
@@ -40,5 +40,14 @@ class AngularResource {
   public void addStyledAngular(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     angularApplicationService.addStyledAngular(project);
+  }
+
+  @Operation(summary = "Add Angular with authentication JWT")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular with authentication JWT")
+  @PostMapping("/jwt")
+  @GeneratorStep(id = "angular-jwt")
+  public void addJwtAngular(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    angularApplicationService.addJwtAngular(project);
   }
 }

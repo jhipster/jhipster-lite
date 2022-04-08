@@ -39,7 +39,7 @@ class CypressResourceIT {
     vueApplicationService.addVue(project);
 
     mockMvc
-      .perform(post("/api/e2e/cypress").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/clients/cypress").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     CypressAssert.assertDependency(project);

@@ -24,6 +24,10 @@ export default defineComponent({
     const isAngularWithStyle = ref<boolean>(false);
     const isReactWithStyle = ref<boolean>(false);
     const isVueWithStyle = ref<boolean>(false);
+    const language = ref<string>();
+    const buildTool = ref<string>();
+    const server = ref<string>();
+    const client = ref<string>();
 
     const initProject = async (): Promise<void> => {
       if (project.value.folder !== '') {
@@ -110,6 +114,10 @@ export default defineComponent({
       isAngularWithStyle,
       isReactWithStyle,
       isVueWithStyle,
+      language,
+      buildTool,
+      server,
+      client,
       initProject,
       addMaven,
       addJavaBase,

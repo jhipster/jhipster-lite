@@ -15,7 +15,7 @@ describe('VueRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/vue');
+    expect(uri).toBe('/api/clients/vue');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -29,7 +29,7 @@ describe('VueRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/vue/styled');
+    expect(uri).toBe('/api/clients/vue/styled');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

@@ -36,7 +36,7 @@ class AngularResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/angular").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/clients/angular").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     AngularAssert.assertDevDependencies(project);
@@ -52,12 +52,35 @@ class AngularResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/angular/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/clients/angular/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     AngularAssert.assertDevDependencies(project);
     AngularAssert.assertScripts(project);
     AngularAssert.assertConfigFiles(project);
     assertAppWithCss(project);
+  }
+
+  @Test
+  void shouldAddJwtAngular() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+
+    mockMvc
+      .perform(post("/api/clients/angular").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+    mockMvc
+      .perform(
+        post("/api/clients/angular/jwt").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    AngularAssert.assertDevDependencies(project);
+    AngularAssert.assertScripts(project);
+    AngularAssert.assertConfigFiles(project);
+    AngularAssert.assertAppJwt(project);
   }
 }

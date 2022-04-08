@@ -29,7 +29,7 @@ describe('ReactRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/clients/react/styled');
+    expect(uri).toBe('/api/clients/react/styles');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

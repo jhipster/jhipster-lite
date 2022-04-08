@@ -19,7 +19,7 @@ import tech.jhipster.lite.generator.server.springboot.user.application.SpringBoo
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/user")
+@RequestMapping("/api/servers/spring-boot/features/user")
 @Tag(name = "Spring Boot - User")
 class SpringBootUserResource {
 

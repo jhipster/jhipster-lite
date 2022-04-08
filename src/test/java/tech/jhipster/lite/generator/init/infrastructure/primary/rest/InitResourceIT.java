@@ -41,7 +41,7 @@ class InitResourceIT {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/projects/init").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);
@@ -59,7 +59,7 @@ class InitResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/projects/download").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/project-downloads").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk())
       .andExpect(header().string("Content-Disposition", "attachment; filename=" + project.getBaseName().orElse("application") + ".zip"))
       .andExpect(header().string("X-Suggested-Filename", project.getBaseName().orElse("application") + ".zip"))

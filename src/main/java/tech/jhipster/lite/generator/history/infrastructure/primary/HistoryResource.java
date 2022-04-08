@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.history.infrastructure.primary.dto.HistoryDT
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @RestController
-@RequestMapping("/api/projects")
+@RequestMapping("/api/project-histories")
 @Tag(name = "History")
 class HistoryResource {
 
@@ -26,7 +26,7 @@ class HistoryResource {
 
   @Operation(summary = "Get project history")
   @ApiResponse(responseCode = "500", description = "An error occurred while getting history project")
-  @GetMapping("/history")
+  @GetMapping
   public ResponseEntity<HistoryDTO> get(
     @Parameter(description = "Project path to get history") @RequestParam(value = "folder") String folder
   ) {

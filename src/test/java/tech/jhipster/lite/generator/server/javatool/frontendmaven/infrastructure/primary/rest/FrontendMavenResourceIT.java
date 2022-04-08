@@ -41,7 +41,9 @@ class FrontendMavenResourceIT {
 
     mockMvc
       .perform(
-        post("/api/frontend-maven-plugin").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/developer-tools/frontend-maven-plugin")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

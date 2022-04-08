@@ -66,7 +66,7 @@ class JwtSecurityResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/security/jwt")
+        post("/api/servers/spring-boot/security-systems/jwt")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -93,7 +93,7 @@ class JwtSecurityResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/security/jwt/basic-auth")
+        post("/api/servers/spring-boot/security-systems/jwt/basic-auth")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

@@ -53,7 +53,7 @@ class AngularResourceIT {
 
     mockMvc
       .perform(
-        post("/api/clients/angular/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/clients/angular/styles").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

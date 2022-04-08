@@ -30,7 +30,7 @@ class DummyResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/dummy")
+        post("/api/servers/spring-boot/features/dummy")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

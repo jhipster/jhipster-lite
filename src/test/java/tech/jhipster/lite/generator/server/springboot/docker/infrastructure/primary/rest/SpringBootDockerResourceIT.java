@@ -44,7 +44,7 @@ class SpringBootDockerResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/docker/jib")
+        post("/api/servers/spring-boot/containers/docker/jib")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -63,7 +63,7 @@ class SpringBootDockerResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/docker/dockerfile")
+        post("/api/servers/spring-boot/containers/docker/dockerfile")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

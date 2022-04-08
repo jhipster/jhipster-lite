@@ -19,7 +19,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/projects")
+@RequestMapping("/api")
 @Tag(name = "Init")
 class InitResource {
 
@@ -31,7 +31,7 @@ class InitResource {
 
   @Operation(summary = "Init project")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing project")
-  @PostMapping("/init")
+  @PostMapping("/projects")
   @GeneratorStep(id = GeneratorAction.INIT)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -40,7 +40,7 @@ class InitResource {
 
   @Operation(summary = "Download project")
   @ApiResponse(responseCode = "500", description = "An error occurred while downloading project")
-  @PostMapping("/download")
+  @PostMapping("/project-downloads")
   @GeneratorStep(id = GeneratorAction.DOWNLOAD)
   public ResponseEntity<Resource> download(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

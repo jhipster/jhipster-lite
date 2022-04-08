@@ -51,7 +51,7 @@ class SpringBootMvcResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/web/tomcat")
+        post("/api/servers/spring-boot/web-servers/tomcat")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -79,7 +79,7 @@ class SpringBootMvcResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/web/undertow")
+        post("/api/servers/spring-boot/web-servers/undertow")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -103,7 +103,7 @@ class SpringBootMvcResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/web/actuator")
+        post("/api/servers/spring-boot/technical-tools/actuator")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

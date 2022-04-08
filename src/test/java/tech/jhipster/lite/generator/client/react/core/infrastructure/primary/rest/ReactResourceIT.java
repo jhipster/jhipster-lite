@@ -54,7 +54,7 @@ class ReactResourceIT {
 
     mockMvc
       .perform(
-        post("/api/clients/react/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/clients/react/styles").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

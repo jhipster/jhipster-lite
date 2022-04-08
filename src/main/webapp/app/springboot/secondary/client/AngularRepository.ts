@@ -13,6 +13,6 @@ export default class AngularRepository implements AngularService {
 
   async addWithStyle(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/clients/angular/styled', restProject);
+    await this.axiosHttp.post('/api/clients/angular/styles', restProject);
   }
 }

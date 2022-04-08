@@ -35,7 +35,7 @@ class ReactResource {
 
   @Operation(summary = "Add React+Vite with minimal CSS", description = "Add React+Vite with minimal CSS")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding React+Vite with minimal CSS")
-  @PostMapping("/styled")
+  @PostMapping("/styles")
   @GeneratorStep(id = GeneratorAction.REACT_STYLED)
   public void addStyledReact(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

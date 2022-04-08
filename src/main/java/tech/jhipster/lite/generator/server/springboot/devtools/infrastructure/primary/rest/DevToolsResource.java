@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.devtools.application.DevTo
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/devtools")
+@RequestMapping("/api/servers/spring-boot/technical-tools/devtools")
 @Tag(name = "Spring Boot - Tools")
 class DevToolsResource {
 

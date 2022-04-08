@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.sonar.application.SonarApplicationSer
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/sonar")
+@RequestMapping("/api/developer-tools/sonar")
 @Tag(name = "Sonar")
 class SonarResource {
 

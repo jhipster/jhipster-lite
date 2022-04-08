@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.appl
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/databases/migration/liquibase")
+@RequestMapping("/api/servers/spring-boot/database-migration-tools/liquibase")
 @Tag(name = "Spring Boot - Database Migration")
 class LiquibaseResource {
 
@@ -26,7 +26,7 @@ class LiquibaseResource {
 
   @Operation(summary = "Add Liquibase")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Liquibase")
-  @PostMapping("init")
+  @PostMapping
   @GeneratorStep(id = GeneratorAction.LIQUIBASE)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

@@ -60,7 +60,9 @@ class VueResourceIT {
 
     mockMvc
       .perform(
-        post("/api/clients/vue/pinia").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/clients/vue/stores/pinia")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
     VueAssert.assertPiniaDependency(project);
@@ -74,7 +76,7 @@ class VueResourceIT {
 
     mockMvc
       .perform(
-        post("/api/clients/vue/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/clients/vue/styles").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

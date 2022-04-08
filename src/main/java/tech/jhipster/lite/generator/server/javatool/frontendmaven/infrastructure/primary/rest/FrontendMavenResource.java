@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.javatool.frontendmaven.application.Fr
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/frontend-maven-plugin")
+@RequestMapping("/api/developer-tools/frontend-maven-plugin")
 @Tag(name = "Frontend Maven Plugin")
 class FrontendMavenResource {
 

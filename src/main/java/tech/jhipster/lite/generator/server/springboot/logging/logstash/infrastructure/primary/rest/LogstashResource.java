@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.logging.logstash.applicati
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/logging/logstash")
+@RequestMapping("/api/servers/spring-boot/log-tools/logstash")
 @Tag(name = "Spring Boot - Logging")
 class LogstashResource {
 

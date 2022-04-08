@@ -8,6 +8,6 @@ export default class ProjectHistoryRepository implements ProjectHistoryService {
   constructor(private axiosHttp: AxiosHttp) {}
 
   async get(folder: Folder): Promise<History> {
-    return this.axiosHttp.get<RestHistory>('api/projects/history', { params: { folder } }).then(response => toHistory(response.data));
+    return this.axiosHttp.get<RestHistory>('api/project-histories', { params: { folder } }).then(response => toHistory(response.data));
   }
 }

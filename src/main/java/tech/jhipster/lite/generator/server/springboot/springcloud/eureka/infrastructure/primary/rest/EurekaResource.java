@@ -13,7 +13,7 @@ import tech.jhipster.lite.generator.server.springboot.springcloud.eureka.applica
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/spring-cloud/eureka-client")
+@RequestMapping("/api/servers/spring-boot/distributed-systems/spring-cloud/eureka-client")
 @Tag(name = "Spring Boot - Spring Cloud")
 class EurekaResource {
 

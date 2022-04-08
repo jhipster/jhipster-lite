@@ -51,7 +51,7 @@ class DevToolsResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/devtools")
+        post("/api/servers/spring-boot/technical-tools/devtools")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.applica
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/databases/migration/flyway")
+@RequestMapping("/api/servers/spring-boot/database-migration-tools/flyway")
 @Tag(name = "Spring Boot - Database Migration")
 class FlywayResource {
 
@@ -26,7 +26,7 @@ class FlywayResource {
 
   @Operation(summary = "Add Flyway")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Flyway")
-  @PostMapping("/init")
+  @PostMapping
   @GeneratorStep(id = GeneratorAction.FLYWAY)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

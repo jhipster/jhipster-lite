@@ -29,7 +29,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/servers/spring-boot/mvc/web/tomcat');
+    expect(uri).toBe('api/servers/spring-boot/web-servers/tomcat');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -43,7 +43,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/servers/spring-boot/banner/ippon');
+    expect(uri).toBe('api/servers/spring-boot/banners/ippon');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -57,7 +57,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v2');
+    expect(uri).toBe('api/servers/spring-boot/banners/jhipster-v2');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -71,7 +71,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v3');
+    expect(uri).toBe('api/servers/spring-boot/banners/jhipster-v3');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -85,7 +85,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v7');
+    expect(uri).toBe('api/servers/spring-boot/banners/jhipster-v7');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -99,7 +99,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v7-react');
+    expect(uri).toBe('api/servers/spring-boot/banners/jhipster-v7-react');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -113,7 +113,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/servers/spring-boot/banner/jhipster-v7-vue');
+    expect(uri).toBe('api/servers/spring-boot/banners/jhipster-v7-vue');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -183,7 +183,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/databases/migration/flyway/init');
+    expect(uri).toBe('/api/servers/spring-boot/database-migration-tools/flyway');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -197,7 +197,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/databases/migration/flyway/user');
+    expect(uri).toBe('/api/servers/spring-boot/database-migration-tools/flyway/user');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -211,7 +211,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/databases/migration/liquibase/init');
+    expect(uri).toBe('/api/servers/spring-boot/database-migration-tools/liquibase');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -225,7 +225,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/databases/migration/liquibase/user');
+    expect(uri).toBe('/api/servers/spring-boot/database-migration-tools/liquibase/user');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -239,7 +239,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/mvc/security/jwt');
+    expect(uri).toBe('/api/servers/spring-boot/security-systems/jwt');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -253,7 +253,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/mvc/security/jwt/basic-auth');
+    expect(uri).toBe('/api/servers/spring-boot/security-systems/jwt/basic-auth');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -267,7 +267,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/mvc/security/oauth2');
+    expect(uri).toBe('/api/servers/spring-boot/security-systems/oauth2');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -281,7 +281,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt');
+    expect(uri).toBe('/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -309,7 +309,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/devtools');
+    expect(uri).toBe('/api/servers/spring-boot/technical-tools/devtools');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -323,7 +323,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/docker/dockerfile');
+    expect(uri).toBe('/api/servers/spring-boot/containers/docker/dockerfile');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -337,7 +337,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/docker/jib');
+    expect(uri).toBe('/api/servers/spring-boot/containers/docker/jib');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -351,7 +351,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/spring-cloud/config-client');
+    expect(uri).toBe('/api/servers/spring-boot/distributed-systems/spring-cloud/config-client');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -365,7 +365,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/spring-cloud/consul');
+    expect(uri).toBe('/api/servers/spring-boot/distributed-systems/spring-cloud/consul');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -379,7 +379,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/spring-cloud/eureka-client');
+    expect(uri).toBe('/api/servers/spring-boot/distributed-systems/spring-cloud/eureka-client');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -393,7 +393,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/cache/ehcache/java-configuration');
+    expect(uri).toBe('/api/servers/spring-boot/caches/ehcache/java-configuration');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -407,7 +407,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/cache/ehcache/xml-configuration');
+    expect(uri).toBe('/api/servers/spring-boot/caches/ehcache/xml-configuration');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -421,7 +421,7 @@ describe('SpringBootRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/servers/spring-boot/cache/simple');
+    expect(uri).toBe('/api/servers/spring-boot/caches/simple');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

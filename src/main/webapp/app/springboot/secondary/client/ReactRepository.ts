@@ -13,6 +13,6 @@ export default class ReactRepository implements ReactService {
 
   async addWithStyle(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/clients/react/styled', restProject);
+    await this.axiosHttp.post('/api/clients/react/styles', restProject);
   }
 }

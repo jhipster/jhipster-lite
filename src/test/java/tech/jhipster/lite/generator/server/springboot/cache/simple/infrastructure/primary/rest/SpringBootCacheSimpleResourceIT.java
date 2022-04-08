@@ -49,7 +49,7 @@ class SpringBootCacheSimpleResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/cache/simple")
+        post("/api/servers/spring-boot/caches/simple")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.springcloud.configclient.a
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/spring-cloud/config-client")
+@RequestMapping("/api/servers/spring-boot/distributed-systems/spring-cloud/config-client")
 @Tag(name = "Spring Boot - Spring Cloud")
 class SpringCloudConfigResource {
 

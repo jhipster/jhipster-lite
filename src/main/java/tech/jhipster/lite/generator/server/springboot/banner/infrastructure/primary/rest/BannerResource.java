@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.banner.application.BannerA
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/banner")
+@RequestMapping("/api/servers/spring-boot/banners")
 @Tag(name = "Spring Boot")
 class BannerResource {
 

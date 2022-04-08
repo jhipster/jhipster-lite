@@ -32,7 +32,11 @@ class GitHubActionsResourceIT {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/github-actions/maven").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/developer-tools/github-actions/maven")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);

@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.typescript.application.TypescriptApplication
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/typescript")
+@RequestMapping("/api/javascript-languages/typescript")
 @Tag(name = "Typescript")
 class TypescriptResource {
 

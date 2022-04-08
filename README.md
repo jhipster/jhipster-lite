@@ -32,7 +32,7 @@ Click this button to deploy your own instance of JHipster Lite:
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-Complementary informations:
+Complementary information:
 
 - You will have the latest release behaviour on that server
 

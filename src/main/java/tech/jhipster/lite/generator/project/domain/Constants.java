@@ -20,6 +20,8 @@ public class Constants {
   public static final String TEST_TEMPLATE_RESOURCES = getPath(TEST_RESOURCES, TEMPLATE_FOLDER);
 
   public static final String POM_XML = "pom.xml";
+  public static final String BUILD_GRADLE_KTS = "build.gradle.kts";
+  public static final String SETTINGS_GRADLE_KTS = "settings.gradle.kts";
   public static final String LIQUIBASE_MASTER_XML = "master.xml";
   public static final String PACKAGE_JSON = "package.json";
   public static final String DOCKERFILE = "Dockerfile";

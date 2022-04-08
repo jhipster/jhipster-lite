@@ -67,6 +67,8 @@ class KafkaResourceIT {
 
     String projectPath = projectDTO.getFolder();
     assertFileExist(projectPath, MAIN_DOCKER + "/" + KAFKA_DOCKER_COMPOSE_FILE);
+    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/config/kafka/KafkaProperties.java");
+    assertFileExist(projectPath, "src/test/java/tech/jhipster/chips/technical/infrastructure/config/kafka/KafkaPropertiesTest.java");
   }
 
   @Test
@@ -90,14 +92,9 @@ class KafkaResourceIT {
       .andExpect(status().isOk());
 
     String projectPath = projectDTO.getFolder();
-    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/secondary/kafka/KafkaProducerProperties.java");
-    assertFileExist(
-      projectPath,
-      "src/test/java/tech/jhipster/chips/technical/infrastructure/secondary/kafka/KafkaProducerPropertiesTest.java"
-    );
     assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/dummy/infrastructure/secondary/kafka/producer/DummyProducer.java");
     assertFileExist(projectPath, "src/test/java/tech/jhipster/chips/dummy/infrastructure/secondary/kafka/producer/DummyProducerTest.java");
-    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/secondary/kafka/KafkaConfiguration.java");
+    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/config/kafka/KafkaConfiguration.java");
   }
 
   @Test
@@ -119,5 +116,34 @@ class KafkaResourceIT {
 
     String projectPath = projectDTO.getFolder();
     assertFileExist(projectPath, MAIN_DOCKER + "/" + AKHQ_DOCKER_COMPOSE_FILE);
+  }
+
+  @Test
+  void shouldAddConsumer() throws Exception {
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    if (projectDTO == null) {
+      throw new GeneratorException("Error when reading file");
+    }
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.init(project);
+    mavenApplicationService.init(project);
+    springBootApplicationService.init(project);
+    kafkaApplicationService.init(project);
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/brokers/kafka/dummy-consumer")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    String projectPath = projectDTO.getFolder();
+    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer/DummyConsumer.java");
+    assertFileExist(projectPath, "src/test/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer/AbstractConsumer.java");
+    assertFileExist(
+      projectPath,
+      "src/main/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer/serde/DeserializationError.java"
+    );
   }
 }

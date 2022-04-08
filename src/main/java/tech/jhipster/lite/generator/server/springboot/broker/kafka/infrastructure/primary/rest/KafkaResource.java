@@ -50,4 +50,13 @@ class KafkaResource {
     final Project project = ProjectDTO.toProject(projectDTO);
     kafkaApplicationService.addAkhq(project);
   }
+
+  @Operation(summary = "Add a dummy Kafka consumer")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding a dummy Kafka consumer")
+  @PostMapping("/dummy-consumer")
+  @GeneratorStep(id = GeneratorAction.SPRINGBOOT_KAFKA_DUMMY_CONSUMER)
+  public void addDummyConsumer(final @RequestBody ProjectDTO projectDTO) {
+    final Project project = ProjectDTO.toProject(projectDTO);
+    kafkaApplicationService.addDummyConsumer(project);
+  }
 }

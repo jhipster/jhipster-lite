@@ -24,4 +24,8 @@ public class KafkaApplicationService {
   public void addAkhq(final Project project) {
     kafkaService.addAkhq(project);
   }
+
+  public void addDummyConsumer(final Project project) {
+    kafkaService.addDummyConsumer(project);
+  }
 }

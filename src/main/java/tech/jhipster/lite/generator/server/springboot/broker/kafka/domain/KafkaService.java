@@ -8,4 +8,6 @@ public interface KafkaService {
   void addDummyProducer(Project project);
 
   void addAkhq(Project project);
+
+  void addDummyConsumer(Project project);
 }

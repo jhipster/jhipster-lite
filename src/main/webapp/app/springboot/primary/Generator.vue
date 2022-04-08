@@ -227,7 +227,7 @@
               <div class="gap-2 w-100 justify-content-between">
                 <label>
                   <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="vue" />
-                  <span>Vue</span>
+                  <span>Vue.js</span>
                 </label>
               </div>
               <img src="/content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
@@ -306,7 +306,7 @@
             aria-controls="v-pills-vue"
             aria-selected="false"
           >
-            VUE
+            VUE.JS
           </button>
         </div>
         <hr class="separator--vertical mx-4 bg-primary" />
@@ -351,18 +351,33 @@
             </button>
           </div>
           <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <div>
+              <input type="checkbox" id="angular-with-style" name="angular-with-style" v-model="isAngularWithStyle" />
+              &nbsp;
+              <label for="angular-with-style">Add Angular style</label>
+            </div>
             <button class="jh-btn btn-primary" id="angular" @click.prevent="addAngular" data-selector="generator.add-angular-button">
               Generate Angular
             </button>
           </div>
           <div class="tab-pane fade" id="v-pills-react" role="tabpanel" aria-labelledby="v-pills-react-tab">
+            <div>
+              <input type="checkbox" id="react-with-style" name="react-with-style" v-model="isReactWithStyle" />
+              &nbsp;
+              <label for="react-with-style">Add React style</label>
+            </div>
             <button class="jh-btn btn-primary" id="react" @click.prevent="addReact" data-selector="generator.add-react-button">
               Generate React
             </button>
           </div>
           <div class="tab-pane fade" id="v-pills-vue" role="tabpanel" aria-labelledby="v-pills-vue-tab">
+            <div>
+              <input type="checkbox" id="vue-with-style" name="vue-with-style" v-model="isVueWithStyle" />
+              &nbsp;
+              <label for="vue-with-style">Add Vue.js style</label>
+            </div>
             <button class="jh-btn btn-primary" id="vue" @click.prevent="addVue" data-selector="generator.add-vue-button">
-              Generate Vue
+              Generate Vue.js
             </button>
           </div>
         </div>

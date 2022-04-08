@@ -29,7 +29,7 @@ callApi() {
     "http://localhost:7471""$api")
 
   if [[ $status_code == '40'* || $status_code == '50'* ]]; then
-    echo "Error when calling API:" "$status_code"
+    echo "Error when calling API:" "$status_code" "$api"
     exit 1
   fi;
 }
@@ -182,8 +182,8 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/developer-tools/frontend-maven-plugin"
   callApi "/api/clients/angular"
 
-  callApi "/api/servers/spring-boot/mvc/security/jwt"
-  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/security-systems/jwt"
+  callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/clients/angular/jwt"
 
 elif [[ $application == 'reactapp' ]]; then

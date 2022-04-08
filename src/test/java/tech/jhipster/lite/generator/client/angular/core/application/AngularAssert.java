@@ -69,18 +69,8 @@ public class AngularAssert {
   }
 
   public static void assertAppJwt(Project project) {
-    String pathAuth = "src/main/webapp/app/auth";
-    String pathLogin = "src/main/webapp/app/login";
-
-    assertFileExist(project, getPath(pathAuth, "account.model.ts"));
-    assertFileExist(project, getPath(pathAuth, "account.service.ts"));
-    assertFileExist(project, getPath(pathAuth, "account.service.spec.ts"));
-    assertFileExist(project, getPath(pathAuth, "auth-jwt.service.ts"));
-    assertFileExist(project, getPath(pathAuth, "auth-jwt.service.spec.ts"));
-    assertFileExist(project, getPath(pathAuth, "auth.interceptor.ts"));
-    assertFileExist(project, getPath(pathLogin, "login.service.ts"));
-    assertFileExist(project, getPath(pathLogin, "login.service.spec.ts"));
-    assertFileExist(project, getPath(pathLogin, "login.model.ts"));
+    String rootPath = "src/main/webapp/";
+    Angular.angularJwtFiles().forEach((file, path) -> assertFileExist(project, getPath(rootPath + path, file)));
   }
 
   public static void assertLogos(Project project) {

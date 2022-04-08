@@ -5,6 +5,11 @@ import java.util.Map;
 
 public class Angular {
 
+  public static final String APP_MODULE = "app.module.ts";
+  public static final String APP_COMPONENT = "app.component.ts";
+  public static final String APP_COMPONENT_SPEC = "app.component.spec.ts";
+  public static final String APP_COMPONENT_HTML = "app.component.html";
+
   private Angular() {}
 
   public static List<String> devDependencies() {
@@ -59,8 +64,8 @@ public class Angular {
     return List.of("angular.json", "jest.conf.js", "tsconfig.app.json", "tsconfig.json", "tsconfig.spec.json");
   }
 
-  public static List<String> jwtFiles() {
-    return List.of("proxy.conf.json");
+  public static Map<String, String> jwtFiles() {
+    return Map.ofEntries(Map.entry("proxy.conf.json", ""));
   }
 
   public static Map<String, String> angularFiles() {
@@ -71,12 +76,12 @@ public class Angular {
       Map.entry("main.ts", ""),
       Map.entry("polyfills.ts", ""),
       Map.entry("styles.css", ""),
-      Map.entry("app.module.ts", primaryApp),
-      Map.entry("app.component.ts", primaryApp),
-      Map.entry("app.component.html", primaryApp),
+      Map.entry(APP_MODULE, primaryApp),
+      Map.entry(APP_COMPONENT, primaryApp),
+      Map.entry(APP_COMPONENT_HTML, primaryApp),
       Map.entry("app-routing.module.ts", primaryApp),
       Map.entry("app-routing.module.spec.ts", primaryApp),
-      Map.entry("app.component.spec.ts", primaryApp),
+      Map.entry(APP_COMPONENT_SPEC, primaryApp),
       Map.entry("environment.prod.ts", environments),
       Map.entry("environment.prod.spec.ts", environments),
       Map.entry("environment.ts", environments),

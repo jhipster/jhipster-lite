@@ -1,0 +1,66 @@
+package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import {{packageName}}.UnitTest;
+
+@UnitTest
+@ExtendWith(MockitoExtension.class)
+class DummyConsumerTest {
+
+  @Mock
+  private KafkaConsumer<String, String> consumer;
+
+  private DummyConsumer dummyConsumer;
+
+  @BeforeEach
+  public void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    dummyConsumer = new DummyConsumer("queue.jhipster.dummy", 10_000, consumer);
+
+    Method postConstructInit = DummyConsumer.class.getDeclaredMethod("init");
+    postConstructInit.setAccessible(true);
+    postConstructInit.invoke(dummyConsumer);
+
+    Method postConstructDestroy = DummyConsumer.class.getDeclaredMethod("destroy");
+    postConstructDestroy.setAccessible(true);
+    postConstructDestroy.invoke(dummyConsumer);
+  }
+
+  @Test
+  void shouldHandleMessage() {
+    ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, "dummy message");
+    boolean actualResult = dummyConsumer.handleMessage(record);
+    assertEquals(true, actualResult);
+  }
+
+  @Test
+  void shouldNotHandleMessage() {
+    ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, null);
+    boolean actualResult = dummyConsumer.handleMessage(record);
+    assertEquals(false, actualResult);
+  }
+
+  @Test
+  void shouldExecuteKafkaRunner() {
+    dummyConsumer.executeKafkaRunner();
+
+    verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+  }
+
+  @Test
+  void shouldSetClosed() {
+    dummyConsumer.setClosed(true);
+    assertEquals(true, dummyConsumer.isClosed());
+  }
+}

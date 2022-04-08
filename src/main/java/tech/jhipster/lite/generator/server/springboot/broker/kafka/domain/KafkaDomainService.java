@@ -98,6 +98,8 @@ public class KafkaDomainService implements KafkaService {
     final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     projectRepository.template(project, SOURCE, "AbstractConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
     projectRepository.template(project, SOURCE, "DummyConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+    projectRepository.template(project, SOURCE, "DummyConsumerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+    projectRepository.template(project, SOURCE, "DummyConsumerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
   }
 
   private void addApacheKafkaClient(final Project project) {

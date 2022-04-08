@@ -115,6 +115,12 @@ class KafkaApplicationServiceIT {
       getPath(MAIN_JAVA, dummyConsumerPath, "DummyConsumer.java"),
       "public class DummyConsumer extends AbstractConsumer<String>"
     );
+
+    assertFileExist(project, getPath(TEST_JAVA, dummyConsumerPath, "DummyConsumerIT.java"));
+    assertFileContent(project, getPath(TEST_JAVA, dummyConsumerPath, "DummyConsumerIT.java"), "class DummyConsumerIT");
+
+    assertFileExist(project, getPath(TEST_JAVA, dummyConsumerPath, "DummyConsumerTest.java"));
+    assertFileContent(project, getPath(TEST_JAVA, dummyConsumerPath, "DummyConsumerTest.java"), "class DummyConsumerTest");
   }
 
   @Test

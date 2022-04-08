@@ -103,6 +103,6 @@ class KafkaDomainServiceTest {
 
     kafkaDomainService.addDummyConsumer(project);
 
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

@@ -2,10 +2,7 @@ package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
 
 import java.time.Duration;
 import java.util.Collections;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -23,20 +20,10 @@ public abstract class AbstractConsumer<T> implements Runnable {
   private final String topicName;
   private final int pollingTimeout;
 
-  public AbstractConsumer(final String topicName, final Map<String, Object> properties, final int pollingTimeout) {
+  public AbstractConsumer(final String topicName, final int pollingTimeout, final KafkaConsumer<String, T> consumer) {
     this.topicName = topicName;
-    this.consumer = new KafkaConsumer<>(properties);
     this.pollingTimeout = pollingTimeout;
-  }
-
-  @PostConstruct
-  public void init() {
-    Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
-  }
-
-  @PreDestroy
-  public void destroy() {
-    shutdown();
+    this.consumer = consumer;
   }
 
   @Override
@@ -66,5 +53,13 @@ public abstract class AbstractConsumer<T> implements Runnable {
     consumer.wakeup();
   }
 
-  protected abstract void handleMessage(ConsumerRecord<String, T> record);
+  public boolean isClosed() {
+    return closed.get();
+  }
+
+  public void setClosed(boolean closed) {
+    this.closed.set(closed);
+  }
+
+  protected abstract boolean handleMessage(ConsumerRecord<String, T> record);
 }

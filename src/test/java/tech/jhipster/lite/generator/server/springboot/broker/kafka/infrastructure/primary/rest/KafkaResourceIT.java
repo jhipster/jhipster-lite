@@ -141,5 +141,7 @@ class KafkaResourceIT {
     String projectPath = projectDTO.getFolder();
     assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer/AbstractConsumer.java");
     assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer/DummyConsumer.java");
+    assertFileExist(projectPath, "src/test/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer/DummyConsumerIT.java");
+    assertFileExist(projectPath, "src/test/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer/DummyConsumerTest.java");
   }
 }

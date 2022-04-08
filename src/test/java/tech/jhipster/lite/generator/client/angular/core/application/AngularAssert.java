@@ -69,8 +69,8 @@ public class AngularAssert {
   }
 
   public static void assertAppJwt(Project project) {
-    String pathAuth = "src/main/webapp/app/common/primary/app/auth";
-    String pathLogin = "src/main/webapp/app/common/primary/app/login";
+    String pathAuth = "src/main/webapp/app/auth";
+    String pathLogin = "src/main/webapp/app/login";
 
     assertFileExist(project, getPath(pathAuth, "account.model.ts"));
     assertFileExist(project, getPath(pathAuth, "account.service.ts"));

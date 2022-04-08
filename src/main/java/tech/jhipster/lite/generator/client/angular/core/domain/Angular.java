@@ -85,8 +85,8 @@ public class Angular {
   }
 
   public static Map<String, String> angularJwtFiles() {
-    String primaryAppAuth = "app/common/primary/app/auth";
-    String primaryAppLogin = "app/common/primary/app/login";
+    String primaryAppAuth = "app/auth";
+    String primaryAppLogin = "app/login";
     return Map.ofEntries(
       Map.entry("account.model.ts", primaryAppAuth),
       Map.entry("account.service.ts", primaryAppAuth),

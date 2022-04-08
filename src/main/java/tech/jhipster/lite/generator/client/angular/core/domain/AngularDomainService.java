@@ -134,9 +134,9 @@ public class AngularDomainService implements AngularService {
         import { Component, OnDestroy, OnInit } from '@angular/core';
         import { FormBuilder, Validators } from '@angular/forms';
         import { Subject, takeUntil } from 'rxjs';
-        import { AccountService } from './auth/account.service';
-        import { LoginService } from './login/login.service';
-        import { Account } from './auth/account.model';""";
+        import { AccountService } from '../../../auth/account.service';
+        import { LoginService } from '../../../login/login.service';
+        import { Account } from '../../../auth/account.model';""";
     projectRepository.replaceText(project, APP, APP_COMPONENT, oldHtml, newHtml);
 
     oldHtml = "export class AppComponent implements OnInit \\{";
@@ -210,7 +210,7 @@ public class AngularDomainService implements AngularService {
     newHtml =
       """
         import { AppComponent } from './app.component';
-        import { AuthInterceptor } from './auth/auth.interceptor';
+        import { AuthInterceptor } from '../../../auth/auth.interceptor';
         """;
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
@@ -270,9 +270,9 @@ public class AngularDomainService implements AngularService {
         import { NgxWebstorageModule } from 'ngx-webstorage';
         import { FormBuilder } from '@angular/forms';
         import { of, Subject } from 'rxjs';
-        import { LoginService } from './login/login.service';
-        import { AccountService } from './auth/account.service';
-        import { Account } from './auth/account.model';
+        import { LoginService } from '../../../login/login.service';
+        import { AccountService } from '../../../auth/account.service';
+        import { Account } from '../../../auth/account.model';
 
         import { AppComponent } from './app.component';
 

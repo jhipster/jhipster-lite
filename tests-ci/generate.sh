@@ -89,7 +89,7 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
-  callApi "/api/servers/spring-boot/features"
+  callApi "/api/servers/spring-boot/features/dummy"
 
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/features/user/postgresql"
@@ -113,7 +113,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
-  callApi "/api/servers/spring-boot/features"
+  callApi "/api/servers/spring-boot/features/dummy"
 
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/features/user/mysql"
@@ -127,7 +127,7 @@ elif [[ $application == 'mariadbapp' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
-  callApi "/api/servers/spring-boot/features"
+  callApi "/api/servers/spring-boot/features/dummy"
 
   callApi "/api/servers/spring-boot/databases/mariadb"
   callApi "/api/servers/spring-boot/features/user/mariadb"

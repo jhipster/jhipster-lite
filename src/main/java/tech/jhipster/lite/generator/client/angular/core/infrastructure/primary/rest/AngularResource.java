@@ -41,4 +41,13 @@ class AngularResource {
     Project project = ProjectDTO.toProject(projectDTO);
     angularApplicationService.addStyledAngular(project);
   }
+
+  @Operation(summary = "Add Angular with authentication JWT")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular with authentication JWT")
+  @PostMapping("/jwt")
+  @GeneratorStep(id = "angular-jwt")
+  public void addJwtAngular(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    angularApplicationService.addJwtAngular(project);
+  }
 }

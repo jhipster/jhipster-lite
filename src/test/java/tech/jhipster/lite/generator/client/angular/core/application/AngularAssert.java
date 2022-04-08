@@ -68,6 +68,21 @@ public class AngularAssert {
     assertFileContent(project, "src/main/webapp/app/common/primary/app/app.component.ts", "styleUrls");
   }
 
+  public static void assertAppJwt(Project project) {
+    String pathAuth = "src/main/webapp/app/auth";
+    String pathLogin = "src/main/webapp/app/login";
+
+    assertFileExist(project, getPath(pathAuth, "account.model.ts"));
+    assertFileExist(project, getPath(pathAuth, "account.service.ts"));
+    assertFileExist(project, getPath(pathAuth, "account.service.spec.ts"));
+    assertFileExist(project, getPath(pathAuth, "auth-jwt.service.ts"));
+    assertFileExist(project, getPath(pathAuth, "auth-jwt.service.spec.ts"));
+    assertFileExist(project, getPath(pathAuth, "auth.interceptor.ts"));
+    assertFileExist(project, getPath(pathLogin, "login.service.ts"));
+    assertFileExist(project, getPath(pathLogin, "login.service.spec.ts"));
+    assertFileExist(project, getPath(pathLogin, "login.model.ts"));
+  }
+
   public static void assertLogos(Project project) {
     assertFileExist(project, "src/main/webapp/content/images/JHipster-Lite-neon-red.png");
     assertFileExist(project, "src/main/webapp/content/images/AngularLogo.svg");

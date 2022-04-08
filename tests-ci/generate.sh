@@ -182,6 +182,10 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/frontend-maven-plugin"
   callApi "/api/clients/angular"
 
+  callApi "/api/servers/spring-boot/mvc/security/jwt"
+  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/clients/angular/jwt"
+
 elif [[ $application == 'reactapp' ]]; then
   springboot
   sonar_back_front

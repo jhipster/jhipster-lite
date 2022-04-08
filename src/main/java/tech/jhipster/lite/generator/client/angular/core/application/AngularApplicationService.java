@@ -20,4 +20,8 @@ public class AngularApplicationService {
   public void addStyledAngular(Project project) {
     angularService.addStyledAngular(project);
   }
+
+  public void addJwtAngular(Project project) {
+    angularService.addJwtAngular(project);
+  }
 }

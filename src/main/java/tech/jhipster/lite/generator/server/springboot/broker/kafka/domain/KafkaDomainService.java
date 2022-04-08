@@ -24,6 +24,7 @@ public class KafkaDomainService implements KafkaService {
   private static final String SOURCE = "server/springboot/broker/kafka";
   private static final String DUMMY_TOPIC_NAME = "kafka.topic.dummy";
   private static final String DUMMY_PRODUCER_PATH = "dummy/infrastructure/secondary/kafka/producer";
+  private static final String DUMMY_CONSUMER_PATH = "dummy/infrastructure/primary/kafka/consumer";
 
   private final BuildToolService buildToolService;
 
@@ -94,17 +95,9 @@ public class KafkaDomainService implements KafkaService {
 
   @Override
   public void addDummyConsumer(final Project project) {
-    this.buildToolService.getVersion(project, "vavr")
-      .ifPresentOrElse(
-        version -> {
-          Dependency dependency = Dependency.builder().groupId("io.vavr").artifactId("vavr").version("\\${vavr.version}").build();
-          buildToolService.addProperty(project, "vavr.version", version);
-          buildToolService.addDependency(project, dependency);
-        },
-        () -> {
-          throw new GeneratorException("Vavr version not found");
-        }
-      );
+    final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
+    projectRepository.template(project, SOURCE, "AbstractConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+    projectRepository.template(project, SOURCE, "DummyConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
   }
 
   private void addApacheKafkaClient(final Project project) {

@@ -101,10 +101,8 @@ class KafkaDomainServiceTest {
   void shouldAddConsumer() {
     Project project = tmpProjectWithPomXml();
 
-    when(buildToolService.getVersion(project, "vavr")).thenReturn(Optional.of("0.0.0"));
-
     kafkaDomainService.addDummyConsumer(project);
 
-    verify(buildToolService).addDependency(any(Project.class), any(Dependency.class));
+    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

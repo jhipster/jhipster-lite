@@ -1,14 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.application;
 
-import static tech.jhipster.lite.TestUtils.assertFileContent;
-import static tech.jhipster.lite.TestUtils.assertFileExist;
-import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
@@ -95,6 +89,32 @@ class KafkaApplicationServiceIT {
 
     assertFileExist(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"));
     assertFileContent(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"), "class DummyProducerIT");
+  }
+
+  @Test
+  void shouldAddConsumer() {
+    Project project = tmpProject();
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+    kafkaApplicationService.init(project);
+
+    kafkaApplicationService.addDummyConsumer(project);
+
+    String dummyConsumerPath = getPath("com/mycompany/myapp/dummy/infrastructure/primary/kafka/consumer");
+    assertFileExist(project, getPath(MAIN_JAVA, dummyConsumerPath, "AbstractConsumer.java"));
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, dummyConsumerPath, "AbstractConsumer.java"),
+      "public abstract class AbstractConsumer<T> implements Runnable"
+    );
+
+    assertFileExist(project, getPath(MAIN_JAVA, dummyConsumerPath, "DummyConsumer.java"));
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, dummyConsumerPath, "DummyConsumer.java"),
+      "public class DummyConsumer extends AbstractConsumer<String>"
+    );
   }
 
   @Test

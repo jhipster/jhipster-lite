@@ -8,11 +8,11 @@ export default class VueRepository implements VueService {
 
   async add(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/vue', restProject);
+    await this.axiosHttp.post('/api/clients/vue', restProject);
   }
 
   async addWithStyle(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('/api/vue/styled', restProject);
+    await this.axiosHttp.post('/api/clients/vue/styled', restProject);
   }
 }

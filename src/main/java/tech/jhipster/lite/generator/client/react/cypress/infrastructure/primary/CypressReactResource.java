@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/react/cypress")
+@RequestMapping("/api/clients/react/cypress")
 @Tag(name = "React")
 class CypressReactResource {
 

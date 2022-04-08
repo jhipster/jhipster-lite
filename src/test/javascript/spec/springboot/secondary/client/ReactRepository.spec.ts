@@ -15,7 +15,7 @@ describe('ReactRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/react');
+    expect(uri).toBe('/api/clients/react');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -29,7 +29,7 @@ describe('ReactRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/react/styled');
+    expect(uri).toBe('/api/clients/react/styled');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

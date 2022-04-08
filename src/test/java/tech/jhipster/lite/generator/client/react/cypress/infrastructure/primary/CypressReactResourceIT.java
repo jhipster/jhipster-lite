@@ -34,7 +34,9 @@ class CypressReactResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/react/cypress").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/clients/react/cypress").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     CypressReactAssert.assertCypressScripts(project);

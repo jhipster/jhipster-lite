@@ -37,13 +37,13 @@
           <hr class="separator--vertical mx-4 bg-primary" />
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://github.com/jhipster/jhipster-lite" target="_blank" rel="noopener">
-              <i class="bi bi-github"></i>
+              <em class="bi bi-github"></em>
               <small class="d-md-none ms-2">GitHub</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://twitter.com/jhipster" target="_blank" rel="noopener">
-              <i class="bi bi-twitter"></i>
+              <em class="bi bi-twitter"></em>
               <small class="d-md-none ms-2">Twitter</small>
             </a>
           </li>

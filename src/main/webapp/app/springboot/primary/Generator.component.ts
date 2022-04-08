@@ -24,10 +24,10 @@ export default defineComponent({
     const isAngularWithStyle = ref<boolean>(false);
     const isReactWithStyle = ref<boolean>(false);
     const isVueWithStyle = ref<boolean>(false);
-    const language = ref<String>();
-    const buildTool = ref<String>();
-    const server = ref<String>();
-    const client = ref<String>();
+    const language = ref<string>();
+    const buildTool = ref<string>();
+    const server = ref<string>();
+    const client = ref<string>();
 
     const initProject = async (): Promise<void> => {
       if (project.value.folder !== '') {

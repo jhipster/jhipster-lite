@@ -1,6 +1,10 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.client.angular.core.domain.Angular.APP_COMPONENT;
+import static tech.jhipster.lite.generator.client.angular.core.domain.Angular.APP_COMPONENT_HTML;
+import static tech.jhipster.lite.generator.client.angular.core.domain.Angular.APP_COMPONENT_SPEC;
+import static tech.jhipster.lite.generator.client.angular.core.domain.Angular.APP_MODULE;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
@@ -17,11 +21,6 @@ public class AngularDomainService implements AngularService {
   private static final String APP = "src/main/webapp/app/common/primary/app";
   public static final String SOURCE_PRIMARY = getPath(SOURCE, APP);
   public static final String DESTINATION_PRIMARY = APP;
-
-  private static final String APP_MODULE = "app.module.ts";
-  private static final String APP_COMPONENT = "app.component.ts";
-  private static final String APP_COMPONENT_SPEC = "app.component.spec.ts";
-  private static final String APP_COMPONENT_HTML = "app.component.html";
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
@@ -432,7 +431,8 @@ public class AngularDomainService implements AngularService {
   }
 
   public void addJwtFiles(Project project) {
-    Angular.jwtFiles().forEach(file -> projectRepository.add(project, SOURCE, file));
+    project.addConfig("serverPort", 8080);
+    Angular.jwtFiles().forEach((file, path) -> projectRepository.template(project, getPath(SOURCE, path), file, getPath("", path)));
   }
 
   public void addAngularFiles(Project project) {

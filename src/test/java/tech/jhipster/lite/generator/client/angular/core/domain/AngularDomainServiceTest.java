@@ -154,7 +154,7 @@ class AngularDomainServiceTest {
 
     angularDomainService.addJwtFiles(project);
 
-    verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository, times(1)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test

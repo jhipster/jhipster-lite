@@ -36,7 +36,7 @@ class ReactResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/react").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/clients/react").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     ReactAssert.assertDependency(project);
@@ -53,7 +53,9 @@ class ReactResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/react/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/clients/react/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     ReactAssert.assertDependency(project);

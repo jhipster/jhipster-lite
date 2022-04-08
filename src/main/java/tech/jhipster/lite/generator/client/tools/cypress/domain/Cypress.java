@@ -27,8 +27,7 @@ public class Cypress {
   }
 
   public static Map<String, String> cypressFiles() {
-    String pathRoot = "src/test/javascript/integration";
-    return Map.ofEntries(Map.entry(".eslintrc.js", pathRoot), Map.entry("tsconfig.json", pathRoot));
+    return Map.ofEntries(Map.entry(".eslintrc.js", JAVASCRIPT_INTEGRATION), Map.entry("tsconfig.json", JAVASCRIPT_INTEGRATION));
   }
 
   public static Map<String, String> cypressTestFiles() {

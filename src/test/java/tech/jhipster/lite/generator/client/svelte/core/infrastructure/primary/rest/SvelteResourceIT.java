@@ -39,7 +39,7 @@ class SvelteResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/svelte").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/clients/svelte").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     assertDependency(project);
@@ -57,7 +57,9 @@ class SvelteResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/svelte/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/clients/svelte/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     assertDependency(project);

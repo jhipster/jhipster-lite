@@ -99,7 +99,7 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vue"
+  callApi "/api/clients/vue"
 
 elif [[ $application == 'oauth2app' ]]; then
   springboot
@@ -180,30 +180,30 @@ elif [[ $application == 'angularapp' ]]; then
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/angular"
+  callApi "/api/clients/angular"
 
 elif [[ $application == 'reactapp' ]]; then
   springboot
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/react/styled"
-  callApi "/api/react/cypress"
+  callApi "/api/clients/react/styled"
+  callApi "/api/clients/react/cypress"
 
 elif [[ $application == 'vueapp' ]]; then
   springboot
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/vue/styled"
-  callApi "/api/vue/pinia"
+  callApi "/api/clients/vue/styled"
+  callApi "/api/clients/vue/pinia"
 
 elif [[ $application == 'svelteapp' ]]; then
   springboot
   sonar_back_front
 
   callApi "/api/frontend-maven-plugin"
-  callApi "/api/svelte/styled"
+  callApi "/api/clients/svelte/styled"
 
 elif [[ $application == 'kafkaapp' ]]; then
   springboot

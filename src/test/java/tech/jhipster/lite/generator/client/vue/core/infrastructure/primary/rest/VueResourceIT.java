@@ -34,7 +34,7 @@ class VueResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/vue").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/clients/vue").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     VueAssert.assertDependency(project);
@@ -55,11 +55,13 @@ class VueResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/vue").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/clients/vue").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     mockMvc
-      .perform(post("/api/vue/pinia").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/clients/vue/pinia").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
     VueAssert.assertPiniaDependency(project);
   }
@@ -71,7 +73,9 @@ class VueResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/vue/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/clients/vue/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     VueAssert.assertDependency(project);

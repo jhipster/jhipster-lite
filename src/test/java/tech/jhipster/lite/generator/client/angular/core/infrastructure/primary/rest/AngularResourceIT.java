@@ -36,7 +36,7 @@ class AngularResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/angular").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/clients/angular").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     AngularAssert.assertDevDependencies(project);
@@ -52,7 +52,9 @@ class AngularResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/angular/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/clients/angular/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     AngularAssert.assertDevDependencies(project);

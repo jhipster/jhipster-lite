@@ -7,6 +7,8 @@ public class Cypress {
 
   private Cypress() {}
 
+  public static final String JAVASCRIPT_INTEGRATION = "src/test/javascript/integration";
+
   public static List<String> devDependencies() {
     return List.of("cypress", "eslint-plugin-cypress");
   }
@@ -26,11 +28,7 @@ public class Cypress {
 
   public static Map<String, String> cypressFiles() {
     String pathRoot = "src/test/javascript/integration";
-    return Map.ofEntries(
-      Map.entry("cypress-config.json", pathRoot),
-      Map.entry(".eslintrc.js", pathRoot),
-      Map.entry("tsconfig.json", pathRoot)
-    );
+    return Map.ofEntries(Map.entry(".eslintrc.js", pathRoot), Map.entry("tsconfig.json", pathRoot));
   }
 
   public static Map<String, String> cypressTestFiles() {

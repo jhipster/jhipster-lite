@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.generator.client.tools.cypress.domain.Cypress.JAVASCRIPT_INTEGRATION;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -61,14 +62,13 @@ class CypressDomainServiceTest {
         "cypress run --headless --config-file src/test/javascript/integration/cypress-config.json"
       );
 
-    verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository).add(project, "client/common/cypress/src/test/javascript/integration", ".eslintrc.js", JAVASCRIPT_INTEGRATION);
     verify(projectRepository)
-      .add(project, "client/common/cypress/src/test/javascript/integration", ".eslintrc.js", "src/test/javascript/integration");
-    verify(projectRepository)
-      .add(project, "client/common/cypress/src/test/javascript/integration", "cypress-config.json", "src/test/javascript/integration");
-    verify(projectRepository)
-      .add(project, "client/common/cypress/src/test/javascript/integration", "tsconfig.json", "src/test/javascript/integration");
+      .add(project, "client/common/cypress/src/test/javascript/integration", "tsconfig.json", JAVASCRIPT_INTEGRATION);
 
+    verify(projectRepository)
+      .template(project, "client/common/cypress/src/test/javascript/integration", "cypress-config.json", JAVASCRIPT_INTEGRATION);
     verify(projectRepository)
       .template(
         project,

@@ -58,7 +58,7 @@ class SvelteResourceIT {
 
     mockMvc
       .perform(
-        post("/api/clients/svelte/styled").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/clients/svelte/styles").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

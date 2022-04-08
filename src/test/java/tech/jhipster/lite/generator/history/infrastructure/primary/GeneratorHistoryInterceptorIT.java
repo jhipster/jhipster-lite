@@ -28,7 +28,7 @@ class GeneratorHistoryInterceptorIT {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/projects/init").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
     // Then
     String content = FileUtils.read(getPath(projectDTO.getFolder(), ".jhipster", "history.json"));

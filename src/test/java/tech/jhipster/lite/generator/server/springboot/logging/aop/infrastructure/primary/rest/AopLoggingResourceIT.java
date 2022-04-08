@@ -53,7 +53,7 @@ class AopLoggingResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/logging/aop")
+        post("/api/servers/spring-boot/log-tools/aop")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

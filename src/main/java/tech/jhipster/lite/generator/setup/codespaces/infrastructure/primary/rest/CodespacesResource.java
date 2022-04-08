@@ -14,8 +14,8 @@ import tech.jhipster.lite.generator.setup.codespaces.application.CodespacesAppli
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/setup")
-@Tag(name = "Setup")
+@RequestMapping("/api/developer-tools/codespaces")
+@Tag(name = "Codespaces")
 class CodespacesResource {
 
   private final CodespacesApplicationService codespacesApplicationService;
@@ -26,7 +26,7 @@ class CodespacesResource {
 
   @Operation(summary = "GitHub Codespaces", description = "Init GitHub Codespaces configuration files")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing GitHub Codespaces files.")
-  @PostMapping("/codespaces")
+  @PostMapping
   @GeneratorStep(id = GeneratorAction.GITHUB_CODESPACES)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

@@ -39,7 +39,7 @@ class SonarResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/sonar/java-backend")
+        post("/api/developer-tools/sonar/java-backend")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -58,7 +58,7 @@ class SonarResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/sonar/java-backend-and-frontend")
+        post("/api/developer-tools/sonar/java-backend-and-frontend")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

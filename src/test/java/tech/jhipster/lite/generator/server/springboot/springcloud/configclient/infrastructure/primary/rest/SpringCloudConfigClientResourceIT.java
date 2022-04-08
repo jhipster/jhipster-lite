@@ -49,7 +49,7 @@ class SpringCloudConfigClientResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/spring-cloud/config-client")
+        post("/api/servers/spring-boot/distributed-systems/spring-cloud/config-client")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

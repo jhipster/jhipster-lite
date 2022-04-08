@@ -53,7 +53,7 @@ class SpringBootUserResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/user/postgresql")
+        post("/api/servers/spring-boot/features/user/postgresql")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -78,7 +78,7 @@ class SpringBootUserResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/user/mysql")
+        post("/api/servers/spring-boot/features/user/mysql")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -103,7 +103,7 @@ class SpringBootUserResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/user/mariadb")
+        post("/api/servers/spring-boot/features/user/mariadb")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

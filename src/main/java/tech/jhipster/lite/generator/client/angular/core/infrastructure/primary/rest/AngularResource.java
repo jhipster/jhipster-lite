@@ -35,7 +35,7 @@ class AngularResource {
 
   @Operation(summary = "Add Angular with minimal CSS")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular with minimal CSS")
-  @PostMapping("/styled")
+  @PostMapping("/styles")
   @GeneratorStep(id = GeneratorAction.ANGULAR_STYLED)
   public void addStyledAngular(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

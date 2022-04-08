@@ -50,7 +50,7 @@ class EhcacheResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/cache/ehcache/java-configuration")
+        post("/api/servers/spring-boot/caches/ehcache/java-configuration")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -73,7 +73,7 @@ class EhcacheResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/cache/ehcache/xml-configuration")
+        post("/api/servers/spring-boot/caches/ehcache/xml-configuration")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

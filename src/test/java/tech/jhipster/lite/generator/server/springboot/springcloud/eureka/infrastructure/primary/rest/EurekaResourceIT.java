@@ -49,7 +49,7 @@ class EurekaResourceIT {
     // When
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/spring-cloud/eureka-client")
+        post("/api/servers/spring-boot/distributed-systems/spring-cloud/eureka-client")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

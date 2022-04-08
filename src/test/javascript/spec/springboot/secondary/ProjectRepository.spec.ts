@@ -15,7 +15,7 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/projects/init');
+    expect(uri).toBe('api/projects');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
@@ -57,7 +57,7 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/frontend-maven-plugin');
+    expect(uri).toBe('api/developer-tools/frontend-maven-plugin');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

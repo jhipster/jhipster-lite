@@ -13,7 +13,7 @@ describe('ProjectRepository', () => {
     const history: History = await projectHistoryRepository.get('folder/path');
 
     const [uri, config] = axiosHttpStub.get.getCall(0).args;
-    expect(uri).toBe('api/projects/history');
+    expect(uri).toBe('api/project-histories');
     expect(config).toEqual({ params: { folder: 'folder/path' } });
     expect(history).toEqual<History>({
       services: [Service.INITIALIZATION, Service.JAVA_BASE, Service.MAVEN],

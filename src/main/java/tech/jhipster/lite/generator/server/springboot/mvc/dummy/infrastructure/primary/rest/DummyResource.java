@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.mvc.dummy.application.Dumm
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/mvc/dummy")
+@RequestMapping("/api/servers/spring-boot/features/dummy")
 @Tag(name = "Spring Boot - MVC")
 class DummyResource {
 

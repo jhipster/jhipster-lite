@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.docker.application.SpringB
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/docker")
+@RequestMapping("/api/servers/spring-boot/containers/docker")
 @Tag(name = "Spring Boot - Tools")
 class SpringBootDockerResource {
 

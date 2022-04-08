@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/mvc/springdoc")
+@RequestMapping("/api/servers/spring-boot/api-documentations/springdoc")
 class SpringdocResource {
 
   private final SpringdocApplicationService springdocApplicationService;

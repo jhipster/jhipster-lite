@@ -29,39 +29,39 @@ callApi() {
     "http://localhost:7471""$api")
 
   if [[ $status_code == '40'* || $status_code == '50'* ]]; then
-    echo "Error when calling API:" "$status_code"
+    echo "Error when calling API:" "$status_code" "$api"
     exit 1
   fi;
 }
 
 springboot() {
-  callApi "/api/projects/init"
+  callApi "/api/projects"
   callApi "/api/build-tools/maven"
-  callApi "/api/github-actions/maven"
+  callApi "/api/developer-tools/github-actions/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
-  callApi "/api/servers/spring-boot/mvc/web/tomcat"
-  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/web-servers/tomcat"
+  callApi "/api/servers/spring-boot/technical-tools/actuator"
 }
 
 springboot_undertow() {
-  callApi "/api/projects/init"
+  callApi "/api/projects"
   callApi "/api/build-tools/maven"
-  callApi "/api/github-actions/maven"
+  callApi "/api/developer-tools/github-actions/maven"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
-  callApi "/api/servers/spring-boot/mvc/web/undertow"
-  callApi "/api/servers/spring-boot/mvc/web/actuator"
+  callApi "/api/servers/spring-boot/web-servers/undertow"
+  callApi "/api/servers/spring-boot/technical-tools/actuator"
 }
 
 sonar_back() {
-  callApi "/api/servers/sonar/java-backend"
+  callApi "/api/developer-tools/sonar/java-backend"
 }
 
 sonar_back_front() {
-  callApi "/api/servers/sonar/java-backend-and-frontend"
+  callApi "/api/developer-tools/sonar/java-backend-and-frontend"
 }
 
 if [[ $application == 'springboot' ]]; then
@@ -77,97 +77,97 @@ elif [[ $application == 'fullapp' ]]; then
   sonar_back_front
 
   callApi "/api/servers/spring-boot/async"
-  callApi "/api/servers/spring-boot/devtools"
-  callApi "/api/servers/spring-boot/logging/aop"
-  callApi "/api/servers/spring-boot/logging/logstash"
-  callApi "/api/servers/spring-boot/banner/jhipster-v7"
-  callApi "/api/servers/spring-boot/docker/jib"
-  callApi "/api/servers/spring-boot/docker/dockerfile"
+  callApi "/api/servers/spring-boot/technical-tools/devtools"
+  callApi "/api/servers/spring-boot/log-tools/aop"
+  callApi "/api/servers/spring-boot/log-tools/logstash"
+  callApi "/api/servers/spring-boot/banners/jhipster-v7"
+  callApi "/api/servers/spring-boot/containers/docker/jib"
+  callApi "/api/servers/spring-boot/containers/docker/dockerfile"
   callApi "/api/servers/java/arch"
-  callApi "/api/setup/codespaces"
+  callApi "/api/developer-tools/codespaces"
 
-  callApi "/api/servers/spring-boot/mvc/security/jwt"
-  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt"
-  callApi "/api/servers/spring-boot/mvc/dummy"
+  callApi "/api/servers/spring-boot/security-systems/jwt"
+  callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/features"
 
   callApi "/api/servers/spring-boot/databases/postgresql"
-  callApi "/api/servers/spring-boot/user/postgresql"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
+  callApi "/api/servers/spring-boot/features/user/postgresql"
+  callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
+  callApi "/api/servers/spring-boot/database-migration-tools/liquibase/user"
 
-  callApi "/api/servers/spring-boot/cache/ehcache/java-configuration"
+  callApi "/api/servers/spring-boot/caches/ehcache/java-configuration"
 
-  callApi "/api/frontend-maven-plugin"
+  callApi "/api/developer-tools/frontend-maven-plugin"
   callApi "/api/clients/vue"
 
 elif [[ $application == 'oauth2app' ]]; then
   springboot
   sonar_back
 
-  callApi "/api/servers/spring-boot/mvc/security/oauth2"
-  callApi "/api/servers/spring-boot/mvc/security/oauth2/account"
+  callApi "/api/servers/spring-boot/security-systems/oauth2"
+  callApi "/api/servers/spring-boot/security-systems/oauth2/account"
 
 elif [[ $application == 'mysqlapp' ]]; then
   springboot
   sonar_back
 
-  callApi "/api/servers/spring-boot/mvc/springdoc/init"
-  callApi "/api/servers/spring-boot/mvc/dummy"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/servers/spring-boot/features"
 
   callApi "/api/servers/spring-boot/databases/mysql"
-  callApi "/api/servers/spring-boot/user/mysql"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
+  callApi "/api/servers/spring-boot/features/user/mysql"
+  callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
+  callApi "/api/servers/spring-boot/database-migration-tools/liquibase/user"
 
-  callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
+  callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
 elif [[ $application == 'mariadbapp' ]]; then
   springboot
   sonar_back
 
-  callApi "/api/servers/spring-boot/mvc/springdoc/init"
-  callApi "/api/servers/spring-boot/mvc/dummy"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/servers/spring-boot/features"
 
   callApi "/api/servers/spring-boot/databases/mariadb"
-  callApi "/api/servers/spring-boot/user/mariadb"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase/init"
-  callApi "/api/servers/spring-boot/databases/migration/liquibase/user"
+  callApi "/api/servers/spring-boot/features/user/mariadb"
+  callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
+  callApi "/api/servers/spring-boot/database-migration-tools/liquibase/user"
 
-  callApi "/api/servers/spring-boot/cache/ehcache/xml-configuration"
+  callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
 elif [[ $application == 'flywayapp' ]]; then
   springboot
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/postgresql"
-  callApi "/api/servers/spring-boot/user/postgresql"
-  callApi "/api/servers/spring-boot/databases/migration/flyway/init"
-  callApi "/api/servers/spring-boot/databases/migration/flyway/user"
+  callApi "/api/servers/spring-boot/features/user/postgresql"
+  callApi "/api/servers/spring-boot/database-migration-tools/flyway"
+  callApi "/api/servers/spring-boot/database-migration-tools/flyway/user"
 
 elif [[ $application == 'undertowapp' ]]; then
   springboot_undertow
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/mysql"
-  callApi "/api/servers/spring-boot/user/mysql"
-  callApi "/api/servers/spring-boot/databases/migration/flyway/init"
-  callApi "/api/servers/spring-boot/databases/migration/flyway/user"
+  callApi "/api/servers/spring-boot/features/user/mysql"
+  callApi "/api/servers/spring-boot/database-migration-tools/flyway"
+  callApi "/api/servers/spring-boot/database-migration-tools/flyway/user"
 
-  callApi "/api/servers/spring-boot/cache/simple"
+  callApi "/api/servers/spring-boot/caches/simple"
 
 elif [[ $application == 'eurekaapp' ]]; then
   springboot
   sonar_back
 
-  callApi "/api/servers/spring-boot/spring-cloud/eureka-client"
-  callApi "/api/servers/spring-boot/spring-cloud/config-client"
+  callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/eureka-client"
+  callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/config-client"
 
 elif [[ $application == 'consulapp' ]]; then
   springboot_undertow
   sonar_back
 
-  callApi "/api/servers/spring-boot/spring-cloud/consul"
+  callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/consul"
 
 elif [[ $application == 'mongodbapp' ]]; then
   springboot
@@ -179,36 +179,36 @@ elif [[ $application == 'angularapp' ]]; then
   springboot
   sonar_back_front
 
-  callApi "/api/frontend-maven-plugin"
+  callApi "/api/developer-tools/frontend-maven-plugin"
   callApi "/api/clients/angular"
 
-  callApi "/api/servers/spring-boot/mvc/security/jwt"
-  callApi "/api/servers/spring-boot/mvc/security/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/security-systems/jwt"
+  callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/clients/angular/jwt"
 
 elif [[ $application == 'reactapp' ]]; then
   springboot
   sonar_back_front
 
-  callApi "/api/frontend-maven-plugin"
-  callApi "/api/clients/react/styled"
+  callApi "/api/developer-tools/frontend-maven-plugin"
+  callApi "/api/clients/react/styles"
   callApi "/api/clients/cypress"
 
 elif [[ $application == 'vueapp' ]]; then
   springboot
   sonar_back_front
 
-  callApi "/api/frontend-maven-plugin"
-  callApi "/api/clients/vue/styled"
-  callApi "/api/clients/vue/pinia"
+  callApi "/api/developer-tools/frontend-maven-plugin"
+  callApi "/api/clients/vue/styles"
+  callApi "/api/clients/vue/stores/pinia"
   callApi "/api/clients/cypress"
 
 elif [[ $application == 'svelteapp' ]]; then
   springboot
   sonar_back_front
 
-  callApi "/api/frontend-maven-plugin"
-  callApi "/api/clients/svelte/styled"
+  callApi "/api/developer-tools/frontend-maven-plugin"
+  callApi "/api/clients/svelte/styles"
 
 elif [[ $application == 'kafkaapp' ]]; then
   springboot

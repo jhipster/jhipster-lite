@@ -59,7 +59,7 @@ class SpringdocResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/springdoc/init")
+        post("/api/servers/spring-boot/api-documentations/springdoc/init")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -90,7 +90,7 @@ class SpringdocResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/springdoc/init-with-security-jwt")
+        post("/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

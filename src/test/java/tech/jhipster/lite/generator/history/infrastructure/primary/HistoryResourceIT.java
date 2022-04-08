@@ -27,7 +27,7 @@ class HistoryResourceIT {
 
   @Test
   void shouldNotGetHistoryWithoutFolder() throws Exception {
-    mockMvc.perform(get("/api/projects/history")).andExpect(status().isBadRequest());
+    mockMvc.perform(get("/api/project-histories")).andExpect(status().isBadRequest());
   }
 
   @Test
@@ -39,7 +39,7 @@ class HistoryResourceIT {
     projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/projects/init").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
     mockMvc
       .perform(
@@ -48,12 +48,14 @@ class HistoryResourceIT {
       .andExpect(status().isOk());
     mockMvc
       .perform(
-        post("/api/github-actions/maven").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/developer-tools/github-actions/maven")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 
     mockMvc
-      .perform(get("/api/projects/history").param("folder", projectDTO.getFolder()))
+      .perform(get("/api/project-histories").param("folder", projectDTO.getFolder()))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$.serviceIds", Matchers.hasSize(3)))
       .andExpect(jsonPath("$.serviceIds[0]").value(GeneratorAction.INIT))

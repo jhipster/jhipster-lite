@@ -52,7 +52,7 @@ class LogstashResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/logging/logstash")
+        post("/api/servers/spring-boot/log-tools/logstash")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

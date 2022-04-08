@@ -29,12 +29,12 @@ class BannerResourceIT {
   @ParameterizedTest
   @ValueSource(
     strings = {
-      "/api/servers/spring-boot/banner/jhipster-v7",
-      "/api/servers/spring-boot/banner/ippon",
-      "/api/servers/spring-boot/banner/jhipster-v7-react",
-      "/api/servers/spring-boot/banner/jhipster-v7-vue",
-      "/api/servers/spring-boot/banner/jhipster-v2",
-      "/api/servers/spring-boot/banner/jhipster-v3",
+      "/api/servers/spring-boot/banners/jhipster-v7",
+      "/api/servers/spring-boot/banners/ippon",
+      "/api/servers/spring-boot/banners/jhipster-v7-react",
+      "/api/servers/spring-boot/banners/jhipster-v7-vue",
+      "/api/servers/spring-boot/banners/jhipster-v2",
+      "/api/servers/spring-boot/banners/jhipster-v3",
     }
   )
   void shouldAddBanner(String url) throws Exception {

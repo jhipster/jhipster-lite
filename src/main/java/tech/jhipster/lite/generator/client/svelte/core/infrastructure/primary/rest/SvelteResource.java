@@ -35,7 +35,7 @@ class SvelteResource {
 
   @Operation(summary = "Add SvelteKit with minimal CSS")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding SvelteKit with minimal CSS")
-  @PostMapping("/styled")
+  @PostMapping("/styles")
   @GeneratorStep(id = GeneratorAction.SVEKTEKIT_STYLE)
   public void addStyledSvelteKit(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

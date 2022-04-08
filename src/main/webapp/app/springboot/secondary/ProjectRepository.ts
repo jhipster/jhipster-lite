@@ -8,7 +8,7 @@ export default class ProjectRepository implements ProjectService {
 
   async init(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('api/projects/init', restProject);
+    await this.axiosHttp.post('api/projects', restProject);
   }
 
   async addMaven(project: Project): Promise<void> {
@@ -18,7 +18,7 @@ export default class ProjectRepository implements ProjectService {
 
   async addFrontendMavenPlugin(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
-    await this.axiosHttp.post('api/frontend-maven-plugin', restProject);
+    await this.axiosHttp.post('api/developer-tools/frontend-maven-plugin', restProject);
   }
 
   async addJavaBase(project: Project): Promise<void> {

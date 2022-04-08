@@ -41,7 +41,9 @@ class NpmResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/npm/install").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/package-managers/npm/install").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     assertFileExist(project, "node_modules");
@@ -54,7 +56,11 @@ class NpmResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/npm/prettier-format").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/package-managers/npm/prettier-format")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     verify(npmRepository).npmPrettierFormat(any(Project.class));

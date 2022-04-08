@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/cache/ehcache")
+@RequestMapping("/api/servers/spring-boot/caches/ehcache")
 @Tag(name = "Spring Boot - Cache")
 class EhcacheResource {
 

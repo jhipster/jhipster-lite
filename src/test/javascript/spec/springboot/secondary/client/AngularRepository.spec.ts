@@ -29,7 +29,7 @@ describe('AngularRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/clients/angular/styled');
+    expect(uri).toBe('/api/clients/angular/styles');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

@@ -34,7 +34,11 @@ class TypescriptResourceIT {
     initApplicationService.init(project);
 
     mockMvc
-      .perform(post("/api/typescript").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/javascript-languages/typescript")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     TypescriptAssert.assertDevDependencies(project);

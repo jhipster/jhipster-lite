@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.cache.simple.application.S
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/cache/simple")
+@RequestMapping("/api/servers/spring-boot/caches/simple")
 @Tag(name = "Spring Boot - Cache")
 class SpringBootCacheSimpleResource {
 

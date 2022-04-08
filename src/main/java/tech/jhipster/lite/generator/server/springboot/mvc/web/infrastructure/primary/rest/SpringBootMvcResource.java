@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.server.springboot.mvc.web.application.Spring
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/servers/spring-boot/mvc/web")
+@RequestMapping("/api/servers/spring-boot")
 @Tag(name = "Spring Boot - MVC")
 class SpringBootMvcResource {
 
@@ -26,7 +26,7 @@ class SpringBootMvcResource {
 
   @Operation(summary = "Add Spring Boot MVC with Tomcat")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot MVC with Tomcat")
-  @PostMapping("/tomcat")
+  @PostMapping("/web-servers/tomcat")
   @GeneratorStep(id = GeneratorAction.SPRINGBOOT_TOMCAT)
   public void addSpringBootMvc(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -35,7 +35,7 @@ class SpringBootMvcResource {
 
   @Operation(summary = "Add Spring Boot MVC with Undertow")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot MVC with Undertow")
-  @PostMapping("/undertow")
+  @PostMapping("/web-servers/undertow")
   @GeneratorStep(id = GeneratorAction.SPRINGBOOT_UNDERTOW)
   public void addSpringBootUndertow(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
@@ -44,7 +44,7 @@ class SpringBootMvcResource {
 
   @Operation(summary = "Add Spring Boot Actuator")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Boot Actuator")
-  @PostMapping("/actuator")
+  @PostMapping("/technical-tools/actuator")
   @GeneratorStep(id = GeneratorAction.SPRINGBOOT_ACTUATOR)
   public void addSpringBootActuator(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);

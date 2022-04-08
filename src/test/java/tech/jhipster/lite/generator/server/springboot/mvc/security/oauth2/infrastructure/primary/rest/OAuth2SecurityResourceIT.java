@@ -67,7 +67,7 @@ class OAuth2SecurityResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/security/oauth2")
+        post("/api/servers/spring-boot/security-systems/oauth2")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -89,7 +89,7 @@ class OAuth2SecurityResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/mvc/security/oauth2/account")
+        post("/api/servers/spring-boot/security-systems/oauth2/account")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

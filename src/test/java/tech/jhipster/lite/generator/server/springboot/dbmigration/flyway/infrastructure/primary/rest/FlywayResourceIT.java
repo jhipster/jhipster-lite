@@ -65,7 +65,7 @@ class FlywayResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/databases/migration/flyway/init")
+        post("/api/servers/spring-boot/database-migration-tools/flyway")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -91,7 +91,7 @@ class FlywayResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/databases/migration/flyway/user")
+        post("/api/servers/spring-boot/database-migration-tools/flyway/user")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

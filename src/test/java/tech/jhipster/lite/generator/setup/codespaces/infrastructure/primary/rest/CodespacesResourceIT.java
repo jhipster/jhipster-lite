@@ -31,7 +31,9 @@ class CodespacesResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
 
     mockMvc
-      .perform(post("/api/setup/codespaces").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(
+        post("/api/developer-tools/codespaces").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO))
+      )
       .andExpect(status().isOk());
 
     assertFilesDockerfile(project);

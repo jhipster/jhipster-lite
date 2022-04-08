@@ -34,7 +34,7 @@ public class NpmLocalRepository implements NpmRepository {
     try {
       this.runProcess(project, Npm.getExecutableCommand(), "install");
     } catch (IOException e) {
-      throw new GeneratorException("Error when running \"npm install\"");
+      throw new GeneratorException("Error when running \"npm install\"", e);
     }
   }
 

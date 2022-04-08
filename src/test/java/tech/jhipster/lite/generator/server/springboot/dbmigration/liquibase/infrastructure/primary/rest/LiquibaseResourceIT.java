@@ -76,7 +76,7 @@ class LiquibaseResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/databases/migration/liquibase/init")
+        post("/api/servers/spring-boot/database-migration-tools/liquibase")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
@@ -112,7 +112,7 @@ class LiquibaseResourceIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/databases/migration/liquibase/user")
+        post("/api/servers/spring-boot/database-migration-tools/liquibase/user")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

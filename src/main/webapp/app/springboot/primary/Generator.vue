@@ -103,8 +103,8 @@
         </div>
       </div>
       <div class="col">
+        <h2>Options</h2>
         <div class="row gx-4">
-          <h2>Options</h2>
           <div class="col-12 col-md-6">
             <h3 class="h5">Language</h3>
             <hr
@@ -157,89 +157,94 @@
             </div>
           </div>
         </div>
-
-        <div class="list-group row">
-          <h3 class="h5">Server</h3>
-          <hr
-            class="q-separator q-separator--horizontal q-separator--horizontal-item-inset"
-            aria-orientation="horizontal"
-            style="margin-bottom: 8px; margin-top: 8px"
-          />
-          <div class="row p-2">
-            <div class="list-group--inline mx-0">
-              <div class="list-group-item gap-3 py-3" aria-current="true">
-                <div class="gap-2 w-100 justify-content-between">
-                  <label>
-                    <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server" value="none" checked />
-                    <span> None </span>
-                  </label>
+        <div class="row gx-4">
+          <div class="col-12 col-md-12">
+            <h3 class="h5">Server</h3>
+            <hr
+              class="q-separator q-separator--horizontal q-separator--horizontal-item-inset"
+              aria-orientation="horizontal"
+              style="margin-bottom: 8px; margin-top: 8px"
+            />
+            <div class="row p-2">
+              <div class="list-group--inline mx-0">
+                <div class="list-group-item gap-3 py-3" aria-current="true">
+                  <div class="gap-2 w-100 justify-content-between">
+                    <label>
+                      <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server" value="none" checked />
+                      <span>None</span>
+                    </label>
+                  </div>
+                  <img src="/content/JHipster-Lite-neon-blue_40x.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <img src="/content/JHipster-Lite-neon-blue_40x.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-              </div>
-              <div class="list-group-item gap-3 py-3" aria-current="true">
-                <div class="gap-2 w-100 justify-content-between">
-                  <label>
-                    <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server" value="springboot" />
-                    <span> Spring Boot </span>
-                  </label>
+                <div class="list-group-item gap-3 py-3" aria-current="true">
+                  <div class="gap-2 w-100 justify-content-between">
+                    <label>
+                      <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server" value="springboot" />
+                      <span> Spring Boot </span>
+                    </label>
+                  </div>
+                  <img src="/content/SpringLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <img src="/content/SpringLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
               </div>
             </div>
           </div>
         </div>
-        <div class="list-group row">
-          <h3 class="h5">Client</h3>
-          <hr
-            class="q-separator q-separator--horizontal q-separator--horizontal-item-inset"
-            aria-orientation="horizontal"
-            style="margin-bottom: 8px; margin-top: 8px"
-          />
-          <div class="list-group--inline mx-0">
-            <div class="list-group-item gap-3 py-3" aria-current="true">
-              <div class="gap-2 w-100 justify-content-between">
-                <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="none" checked />
-                  <span>None</span>
-                </label>
+        <div class="row gx-4">
+          <div class="col-12 col-md-12">
+            <h3 class="h5">Client</h3>
+            <hr
+              class="q-separator q-separator--horizontal q-separator--horizontal-item-inset"
+              aria-orientation="horizontal"
+              style="margin-bottom: 8px; margin-top: 8px"
+            />
+            <div class="row p-2">
+              <div class="list-group--inline mx-0">
+                <div class="list-group-item gap-3 py-3" aria-current="true">
+                  <div class="gap-2 w-100 justify-content-between">
+                    <label>
+                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="none" checked />
+                      <span>None</span>
+                    </label>
+                  </div>
+                  <img src="/content/JHipster-Lite-neon-blue_40x.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                </div>
+                <div class="list-group-item gap-3 py-3" aria-current="true">
+                  <div class="gap-2 w-100 justify-content-between">
+                    <label>
+                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="angular" />
+                      <span>Angular</span>
+                    </label>
+                  </div>
+                  <img src="/content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                </div>
+                <div class="list-group-item gap-3 py-3" aria-current="true">
+                  <div class="gap-2 w-100 justify-content-between">
+                    <label>
+                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="react" />
+                      <span>React</span>
+                    </label>
+                  </div>
+                  <img src="/content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                </div>
+                <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
+                  <div class="gap-2 w-100 justify-content-between">
+                    <label>
+                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="vue" />
+                      <span>Vue.js</span>
+                    </label>
+                  </div>
+                  <img src="/content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                </div>
+                <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
+                  <div class="gap-2 w-100 justify-content-between">
+                    <label>
+                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="svelte" />
+                      <span>Svelte</span>
+                    </label>
+                  </div>
+                  <img src="/content/SvelteLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                </div>
               </div>
-              <img src="/content/JHipster-Lite-neon-blue_40x.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-            </div>
-            <div class="list-group-item gap-3 py-3" aria-current="true">
-              <div class="gap-2 w-100 justify-content-between">
-                <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="angular" />
-                  <span>Angular</span>
-                </label>
-              </div>
-              <img src="/content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-            </div>
-            <div class="list-group-item gap-3 py-3" aria-current="true">
-              <div class="gap-2 w-100 justify-content-between">
-                <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="react" />
-                  <span>React</span>
-                </label>
-              </div>
-              <img src="/content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-            </div>
-            <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
-              <div class="gap-2 w-100 justify-content-between">
-                <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="vue" />
-                  <span>Vue.js</span>
-                </label>
-              </div>
-              <img src="/content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-            </div>
-            <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
-              <div class="gap-2 w-100 justify-content-between">
-                <label>
-                  <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="svelte" />
-                  <span>Svelte</span>
-                </label>
-              </div>
-              <img src="/content/SvelteLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
             </div>
           </div>
         </div>

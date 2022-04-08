@@ -5,5 +5,5 @@ export interface ProjectService {
   addMaven(project: Project): Promise<void>;
   addFrontendMavenPlugin(project: Project): Promise<void>;
   addJavaBase(project: Project): Promise<void>;
-  download(project: Project): Promise<ArrayBuffer>;
+  download(project: Project): Promise<BlobPart[]>;
 }

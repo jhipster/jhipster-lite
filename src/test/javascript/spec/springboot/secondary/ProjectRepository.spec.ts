@@ -64,11 +64,12 @@ describe('ProjectRepository', () => {
   it('should download the project', async () => {
     const [projectRepository, axiosHttpStub] = createStubedProjectRepository({ data: [1, 2, 3] });
     const project: Project = createProject({ folder: 'folder/path' });
-
-    expect(await projectRepository.download(project)).toEqual(new Uint8Array([1, 2, 3]));
-
     const expectedRestProject: RestProject = toRestProject(project);
+
+    const datas = await projectRepository.download(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+
+    expect(datas).toEqual([1, 2, 3]);
     expect(uri).toBe('api/projects/download');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });

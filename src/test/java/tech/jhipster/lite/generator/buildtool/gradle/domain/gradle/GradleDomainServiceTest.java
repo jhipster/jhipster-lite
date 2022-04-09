@@ -33,12 +33,12 @@ class GradleDomainServiceTest {
     gradleDomainService.initJava(project);
 
     verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString());
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).add(any(Project.class), anyString(), anyString(), anyString());
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
   }
 
   @Test
-  void shouldAddJavaPomXml() {
+  void shouldAddJavaBuildGradleKts() {
     Project project = tmpProject();
 
     gradleDomainService.addJavaBuildGradleKts(project);
@@ -47,12 +47,12 @@ class GradleDomainServiceTest {
   }
 
   @Test
-  void shouldAddMavenWrapper() {
+  void shouldAddGradleWrapper() {
     Project project = tmpProject();
 
     gradleDomainService.addGradleWrapper(project);
 
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).add(any(Project.class), anyString(), anyString(), anyString());
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
   }
 }

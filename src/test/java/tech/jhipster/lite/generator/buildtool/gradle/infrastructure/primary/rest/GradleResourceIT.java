@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
+import static tech.jhipster.lite.generator.buildtool.gradle.application.GradleAssertFiles.assertFilesBuildGradleKts;
 import static tech.jhipster.lite.generator.buildtool.gradle.application.GradleAssertFiles.assertFilesGradle;
 import static tech.jhipster.lite.generator.buildtool.gradle.application.GradleAssertFiles.assertFilesGradleWrapper;
 import static tech.jhipster.lite.generator.project.domain.Constants.BUILD_GRADLE_KTS;
@@ -41,11 +42,29 @@ class GradleResourceIT {
     assertFilesGradle(project);
 
     assertFileContent(project, SETTINGS_GRADLE_KTS, "rootProject.name = \"chips\"");
-    assertFileContent(project, BUILD_GRADLE_KTS,  "group = \"tech.jhipster.chips\"");
+    assertFileContent(project, BUILD_GRADLE_KTS, "group = \"tech.jhipster.chips\"");
   }
 
   @Test
-  void shouldAddMavenWrapper() throws Exception {
+  void shouldAddBuildGradleKts() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+
+    mockMvc
+      .perform(
+        post("/api/build-tools/gradle/build-gradle")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    Project project = ProjectDTO.toProject(projectDTO);
+    assertFilesBuildGradleKts(project);
+    assertFileContent(project, SETTINGS_GRADLE_KTS, "rootProject.name = \"chips\"");
+    assertFileContent(project, BUILD_GRADLE_KTS, "group = \"tech.jhipster.chips\"");
+  }
+
+  @Test
+  void shouldAddGradleWrapper() throws Exception {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
 
     mockMvc

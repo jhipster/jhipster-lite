@@ -34,7 +34,7 @@ callApi() {
   fi;
 }
 
-springboot() {
+springboot_mvc() {
   callApi "/api/projects"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions/maven"
@@ -56,6 +56,16 @@ springboot_undertow() {
   callApi "/api/servers/spring-boot/technical-tools/actuator"
 }
 
+springboot() {
+  callApi "/api/projects"
+  callApi "/api/build-tools/maven"
+  callApi "/api/developer-tools/github-actions/maven"
+  callApi "/api/servers/java/base"
+  callApi "/api/servers/java/jacoco-minimum-coverage"
+  callApi "/api/servers/spring-boot"
+  callApi "/api/servers/spring-boot/technical-tools/actuator"
+}
+
 sonar_back() {
   callApi "/api/developer-tools/sonar/java-backend"
 }
@@ -65,15 +75,15 @@ sonar_back_front() {
 }
 
 if [[ $application == 'springboot' ]]; then
-  springboot
+  springboot_mvc
   sonar_back
 
 elif [[ $application == 'fullstack' ]]; then
-  springboot
+  springboot_mvc
   sonar_back_front
 
 elif [[ $application == 'fullapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back_front
 
   callApi "/api/servers/spring-boot/async"
@@ -102,14 +112,14 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/clients/vue"
 
 elif [[ $application == 'oauth2app' ]]; then
-  springboot
+  springboot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/security-systems/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2/account"
 
 elif [[ $application == 'mysqlapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
@@ -123,7 +133,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
 elif [[ $application == 'mariadbapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
@@ -137,7 +147,7 @@ elif [[ $application == 'mariadbapp' ]]; then
   callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
 elif [[ $application == 'flywayapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/postgresql"
@@ -157,7 +167,7 @@ elif [[ $application == 'undertowapp' ]]; then
   callApi "/api/servers/spring-boot/caches/simple"
 
 elif [[ $application == 'eurekaapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/eureka-client"
@@ -170,13 +180,13 @@ elif [[ $application == 'consulapp' ]]; then
   callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/consul"
 
 elif [[ $application == 'mongodbapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/mongodb"
 
 elif [[ $application == 'angularapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
@@ -187,7 +197,7 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/clients/angular/jwt"
 
 elif [[ $application == 'reactapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
@@ -195,7 +205,7 @@ elif [[ $application == 'reactapp' ]]; then
   callApi "/api/clients/cypress"
 
 elif [[ $application == 'vueapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
@@ -204,19 +214,25 @@ elif [[ $application == 'vueapp' ]]; then
   callApi "/api/clients/cypress"
 
 elif [[ $application == 'svelteapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
   callApi "/api/clients/svelte/styles"
 
 elif [[ $application == 'kafkaapp' ]]; then
-  springboot
+  springboot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/brokers/kafka"
   callApi "/api/servers/spring-boot/brokers/kafka/dummy-producer"
   callApi "/api/servers/spring-boot/brokers/kafka/akhq"
+
+elif [[ $application == 'reactiveapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/reactive-servers/netty"
 
 else
   echo "*** Unknown configuration..."

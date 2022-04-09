@@ -144,6 +144,7 @@ jobs:
           - vueapp
           - svelteapp
           - kafkaapp
+          - reactiveapp
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v3

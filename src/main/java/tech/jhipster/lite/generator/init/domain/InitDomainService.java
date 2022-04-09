@@ -39,6 +39,14 @@ public class InitDomainService implements InitService {
   }
 
   @Override
+  public void initMinimal(Project project) {
+    addReadme(project);
+    addGitConfiguration(project);
+    addEditorConfiguration(project);
+    gitInit(project);
+  }
+
+  @Override
   public void addPackageJson(Project project) {
     project.addDefaultConfig(PROJECT_NAME);
     project.addDefaultConfig(BASE_NAME);

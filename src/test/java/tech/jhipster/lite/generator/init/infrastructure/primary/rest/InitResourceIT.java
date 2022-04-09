@@ -8,6 +8,7 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.convertObjectToJsonBytes;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesInit;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesInitMinimal;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import org.junit.jupiter.api.Test;
@@ -33,9 +34,6 @@ class InitResourceIT {
   @Autowired
   InitApplicationService initApplicationService;
 
-  @SpyBean
-  NpmRepository npmRepository;
-
   @Test
   void shouldInit() throws Exception {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
@@ -49,6 +47,19 @@ class InitResourceIT {
     assertFileContent(project, "README.md", "Chips Project");
     assertFileContent(project, ".prettierrc", "tabWidth: 2");
     assertFileContent(project, PACKAGE_JSON, "chips");
+  }
+
+  @Test
+  void shouldInitMinimal() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+
+    mockMvc
+      .perform(post("/api/projects-minimal").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+
+    Project project = ProjectDTO.toProject(projectDTO);
+    assertFilesInitMinimal(project);
+    assertFileContent(project, "README.md", "Chips Project");
   }
 
   @Test

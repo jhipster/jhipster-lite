@@ -38,6 +38,15 @@ class InitResource {
     initApplicationService.init(project);
   }
 
+  @Operation(summary = "Init minimal project")
+  @ApiResponse(responseCode = "500", description = "An error occurred while initializing minimal project")
+  @PostMapping("/projects-minimal")
+  @GeneratorStep(id = GeneratorAction.INIT_MINIMAL)
+  public void initMinimal(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    initApplicationService.initMinimal(project);
+  }
+
   @Operation(summary = "Download project")
   @ApiResponse(responseCode = "500", description = "An error occurred while downloading project")
   @PostMapping("/project-downloads")

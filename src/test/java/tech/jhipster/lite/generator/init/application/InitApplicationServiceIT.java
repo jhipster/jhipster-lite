@@ -10,6 +10,7 @@ import static tech.jhipster.lite.generator.init.application.InitAssertFiles.asse
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesEditorConfiguration;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesGitConfiguration;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesInit;
+import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesInitMinimal;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesPackageJson;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesPrettier;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesReadme;
@@ -23,9 +24,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
@@ -68,6 +67,26 @@ class InitApplicationServiceIT {
   }
 
   @Test
+  void shouldInitMinimalWithConfig() {
+    // @formatter:off
+    Map<String, Object> config = new HashMap<>(
+      Map.of(
+        BASE_NAME, "jhipsterLite",
+        PROJECT_NAME, "JHipster Lite"
+      )
+    );
+    // @formatter:on
+    Project project = tmpProjectBuilder().endOfLine(CRLF).config(config).build();
+
+    initApplicationService.initMinimal(project);
+
+    assertFilesInitMinimal(project);
+    assertFileContent(project, "README.md", "JHipster Lite");
+    assertFileContent(project, ".editorconfig", "end_of_line = crlf");
+    assertFileGitInit(project);
+  }
+
+  @Test
   void shouldInitWithDefaultConfig() {
     Project project = tmpProject();
 
@@ -88,6 +107,17 @@ class InitApplicationServiceIT {
       )
     );
     // @formatter:on
+  }
+
+  @Test
+  void shouldInitMinimalWithDefaultConfig() {
+    Project project = tmpProject();
+
+    initApplicationService.initMinimal(project);
+
+    assertFilesInitMinimal(project);
+    assertFileContent(project, "README.md", "JHipster Project");
+    assertFileContent(project, ".editorconfig", "end_of_line = lf");
   }
 
   @Test

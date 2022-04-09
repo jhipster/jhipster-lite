@@ -44,6 +44,13 @@ class InitDomainServiceTest {
   }
 
   @Test
+  void shouldInitMinimal() {
+    Project project = tmpProject();
+
+    assertThatCode(() -> initDomainService.initMinimal(project)).doesNotThrowAnyException();
+  }
+
+  @Test
   void shouldAddPackageJson() {
     Project project = tmpProject();
     when(npmService.getVersionInCommon(anyString())).thenReturn(Optional.of("0.0.0"));

@@ -50,9 +50,4 @@ public class GradleDomainService implements GradleService {
     projectRepository.setExecutable(project, "", "gradlew");
     projectRepository.setExecutable(project, "", "gradlew.bat");
   }
-
-  @Override
-  public Optional<String> getVersion(String name) {
-    return Optional.empty();
-  }
 }

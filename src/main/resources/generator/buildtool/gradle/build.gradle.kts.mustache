@@ -1,18 +1,22 @@
 plugins {
-   java
-   jacoco
+  java
+  jacoco
 }
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-         vendor.set(JvmVendorSpec.ADOPTIUM)
-    }
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+      vendor.set(JvmVendorSpec.ADOPTIUM)
+  }
+}
+
+jacoco {
+  toolVersion = "0.8.8"
 }
 
 repositories {
-    mavenCentral()
-    // jhipster-needle-gradle-repository
+  mavenCentral()
+  // jhipster-needle-gradle-repository
 }
 
 group = "{{packageName}}{{^packageName}}com.mycompany.myapp{{/packageName}}"
@@ -35,22 +39,22 @@ dependencies {
 }
 
 tasks.test {
-    filter {
-      includeTestsMatching("**/*Test.*")
-      excludeTestsMatching("**/*IntTest.*")
-      excludeTestsMatching("**/*IT.*")
-    }
-    useJUnitPlatform()
+  filter {
+    includeTestsMatching("**/*Test.*")
+    excludeTestsMatching("**/*IntTest.*")
+    excludeTestsMatching("**/*IT.*")
+  }
+  useJUnitPlatform()
 }
 
 val integrationTest = task<Test>("integrationTest") {
-    description = "Runs integration tests."
-    group = "verification"
-    shouldRunAfter("test")
-    filter {
-      includeTestsMatching("**/*IntTest.*")
-      includeTestsMatching("**/*IT.*")
-      excludeTestsMatching("**/*Test.*")
-    }
-    useJUnitPlatform()
+  description = "Runs integration tests."
+  group = "verification"
+  shouldRunAfter("test")
+  filter {
+    includeTestsMatching("**/*IntTest.*")
+    includeTestsMatching("**/*IT.*")
+    excludeTestsMatching("**/*Test.*")
+  }
+  useJUnitPlatform()
 }

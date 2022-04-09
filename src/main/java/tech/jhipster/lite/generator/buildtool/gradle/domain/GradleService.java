@@ -10,6 +10,4 @@ public interface GradleService {
 
   void addJavaBuildGradleKts(Project project);
   void addGradleWrapper(Project project);
-
-  Optional<String> getVersion(String name);
 }

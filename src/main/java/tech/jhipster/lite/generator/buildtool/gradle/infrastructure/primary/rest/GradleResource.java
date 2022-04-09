@@ -27,7 +27,7 @@ class GradleResource {
   @Operation(summary = "Init", description = "Init Gradle project with build.gradle.kts and wrapper")
   @ApiResponse(responseCode = "500", description = "An error occurred while initializing Gradle project")
   @PostMapping
-  @GeneratorStep(id = GeneratorAction.MAVEN_JAVA)
+  @GeneratorStep(id = GeneratorAction.GRADLE_JAVA)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     gradleApplicationService.init(project);
@@ -36,8 +36,8 @@ class GradleResource {
   @Operation(summary = "Add build.gradle.kts")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding build.gradle.kts to project")
   @PostMapping("/build-gradle")
-  @GeneratorStep(id = GeneratorAction.MAVEN_JAVA_POM_XML)
-  public void addPomXml(@RequestBody ProjectDTO projectDTO) {
+  @GeneratorStep(id = GeneratorAction.GRADLE_JAVA_BUILD_GRADLE_KTS)
+  public void addBuildGradleKts(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     gradleApplicationService.addBuildGradle(project);
   }
@@ -45,8 +45,8 @@ class GradleResource {
   @Operation(summary = "Add Gradle Wrapper")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Gradle Wrapper to project")
   @PostMapping("/wrapper")
-  @GeneratorStep(id = GeneratorAction.MAVEN_WRAPPER)
-  public void addMavenWrapper(@RequestBody ProjectDTO projectDTO) {
+  @GeneratorStep(id = GeneratorAction.GRADLE_WRAPPER)
+  public void addGradleWrapper(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     gradleApplicationService.addGradleWrapper(project);
   }

@@ -167,6 +167,7 @@ You can use the different existing APIs to:
 Then, for a Java project, you can add:
 
 - Maven as Build Tool
+- Gradle as Build Tool
 - Java Base classes and Domain Error
 
 List of optional tools for Java:

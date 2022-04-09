@@ -4,6 +4,7 @@ import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertProperties;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,11 @@ class SpringBootWebfluxApplicationServiceIT {
     project.addConfig(PACKAGE_NAME, "tech.jhipster.baz");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
-    springBootApplicationService.addSpringBootDependencies(project);
+    springBootApplicationService.init(project);
 
     springBootWebfluxApplicationService.addSpringBootWebflux(project);
 
     assertDependencies(project);
+    assertProperties(project);
   }
 }

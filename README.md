@@ -32,7 +32,7 @@ Click this button to deploy your own instance of JHipster Lite:
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-Complementary informations:
+Complementary information:
 
 - You will have the latest release behaviour on that server
 
@@ -167,6 +167,7 @@ You can use the different existing APIs to:
 Then, for a Java project, you can add:
 
 - Maven as Build Tool
+- Gradle as Build Tool
 - Java Base classes and Domain Error
 
 List of optional tools for Java:

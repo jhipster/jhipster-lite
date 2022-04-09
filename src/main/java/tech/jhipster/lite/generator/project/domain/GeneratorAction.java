@@ -13,6 +13,11 @@ public class GeneratorAction {
   public static final String MAVEN_JAVA_POM_XML = "maven-java-pom-xml";
   public static final String MAVEN_WRAPPER = "maven-wrapper";
 
+  // Gradle
+  public static final String GRADLE_JAVA = "gradle-java";
+  public static final String GRADLE_JAVA_BUILD_GRADLE_KTS = "gradle-java-build-gradle-kts";
+  public static final String GRADLE_WRAPPER = "gradle-wrapper";
+
   // Javatool: base
   public static final String JAVA_BASE = "java-base";
 

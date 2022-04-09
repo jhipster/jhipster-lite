@@ -44,17 +44,11 @@ public class GradleDomainService implements GradleService {
 
   @Override
   public void addGradleWrapper(Project project) {
-
-    projectRepository.add(project, SOURCE, "gradlew");
+    Gradle
+      .gradleWrapper()
+      .forEach((file, location) -> projectRepository.add(project, getPath(SOURCE, location), file, location));
     projectRepository.setExecutable(project, "", "gradlew");
-
-    projectRepository.add(project, SOURCE, "gradlew.bat");
     projectRepository.setExecutable(project, "", "gradlew.bat");
-
-    String sourceWrapper = getPath(SOURCE, "gradle", "wrapper");
-    String destinationWrapper = getPath("gradle", "wrapper");
-    projectRepository.add(project, sourceWrapper, "gradle-wrapper.jar", destinationWrapper);
-    projectRepository.add(project, sourceWrapper, "gradle-wrapper.properties", destinationWrapper);
   }
 
   @Override

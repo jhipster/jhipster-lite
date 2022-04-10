@@ -24,7 +24,7 @@
         </svg>
       </button>
 
-      <div class="collapse navbar-collapse fs-4" id="bdNavbar">
+      <div id="bdNavbar" class="collapse navbar-collapse fs-4">
         <hr class="d-md-none text-white-50" />
 
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
@@ -82,23 +82,23 @@
         <div class="row g-3">
           <div class="col-12">
             <label for="path" class="form-label">Path (required) : </label>
-            <input id="path" type="text" class="form-control" v-model="project.folder" required />
+            <input id="path" v-model="project.folder" type="text" class="form-control" required />
           </div>
           <div class="col-12">
             <label for="basename" class="form-label">Basename : </label>
-            <input id="basename" type="text" class="form-control" v-model="project.baseName" />
+            <input id="basename" v-model="project.baseName" type="text" class="form-control" />
           </div>
           <div class="col-12">
             <label for="projectname" class="form-label">Project name : </label>
-            <input id="projectname" type="text" class="form-control" v-model="project.projectName" />
+            <input id="projectname" v-model="project.projectName" type="text" class="form-control" />
           </div>
           <div class="col-12">
             <label for="packagename" class="form-label">Package name : </label>
-            <input id="packagename" type="text" class="form-control" v-model="project.packageName" />
+            <input id="packagename" v-model="project.packageName" type="text" class="form-control" />
           </div>
           <div class="col-12">
             <label for="serverport" class="form-label">Server port : </label>
-            <input id="serverport" type="number" class="form-control" v-model="project.serverPort" min="0" />
+            <input id="serverport" v-model="project.serverPort" type="number" class="form-control" min="0" />
           </div>
         </div>
       </div>
@@ -114,10 +114,10 @@
             />
             <div class="row p-2">
               <div class="list-group--inline mx-0">
-                <div class="list-group-item gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="language" id="language" value="java" checked />
+                      <input id="language" class="form-check-input flex-shrink-0" type="radio" name="language" value="java" checked />
                       <span> Java </span>
                     </label>
                   </div>
@@ -135,19 +135,19 @@
             />
             <div class="row p-2">
               <div class="list-group--inline mx-0">
-                <div class="list-group-item gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="buildTool" id="buildTool" value="maven" checked />
+                      <input id="buildTool" class="form-check-input flex-shrink-0" type="radio" name="buildTool" value="maven" checked />
                       <span> Maven </span>
                     </label>
                   </div>
                   <img src="/content/MavenLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="buildTool" id="buildTool" value="gradle" />
+                      <input id="buildTool" class="form-check-input flex-shrink-0" type="radio" name="buildTool" value="gradle" />
                       <span> Gradle </span>
                     </label>
                   </div>
@@ -167,19 +167,19 @@
             />
             <div class="row p-2">
               <div class="list-group--inline mx-0">
-                <div class="list-group-item gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server" value="none" checked />
+                      <input id="server" class="form-check-input flex-shrink-0" type="radio" name="server" value="none" checked />
                       <span>None</span>
                     </label>
                   </div>
                   <img src="/content/JHipster-Lite-neon-blue_40x.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="server" id="server" value="springboot" />
+                      <input id="server" class="form-check-input flex-shrink-0" type="radio" name="server" value="springboot" />
                       <span> Spring Boot </span>
                     </label>
                   </div>
@@ -199,28 +199,28 @@
             />
             <div class="row p-2">
               <div class="list-group--inline mx-0">
-                <div class="list-group-item gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="none" checked />
+                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="none" checked />
                       <span>None</span>
                     </label>
                   </div>
                   <img src="/content/JHipster-Lite-neon-blue_40x.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="angular" />
+                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="angular" />
                       <span>Angular</span>
                     </label>
                   </div>
                   <img src="/content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="react" />
+                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="react" />
                       <span>React</span>
                     </label>
                   </div>
@@ -229,7 +229,7 @@
                 <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="vue" />
+                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="vue" />
                       <span>Vue.js</span>
                     </label>
                   </div>
@@ -238,7 +238,7 @@
                 <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input class="form-check-input flex-shrink-0" type="radio" name="client" id="client" value="svelte" />
+                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="svelte" />
                       <span>Svelte</span>
                     </label>
                   </div>
@@ -250,138 +250,239 @@
         </div>
       </div>
     </div>
-    <div class="row gap-3 py-3">
-      <div class="d-flex align-items-start">
-        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <button
-            class="nav-link active"
-            id="v-pills-home-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#v-pills-home"
-            type="button"
-            role="tab"
-            aria-controls="v-pills-home"
-            aria-selected="true"
-          >
-            INIT
-          </button>
-          <button
-            class="nav-link"
-            id="v-pills-profile-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#v-pills-profile"
-            type="button"
-            role="tab"
-            aria-controls="v-pills-profile"
-            aria-selected="false"
-          >
-            SPRING BOOT
-          </button>
-          <button
-            class="nav-link"
-            id="v-pills-settings-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#v-pills-settings"
-            type="button"
-            role="tab"
-            aria-controls="v-pills-settings"
-            aria-selected="false"
-          >
-            ANGULAR
-          </button>
-          <button
-            class="nav-link"
-            id="v-pills-react-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#v-pills-react"
-            type="button"
-            role="tab"
-            aria-controls="v-pills-react"
-            aria-selected="false"
-          >
-            REACT
-          </button>
-          <button
-            class="nav-link"
-            id="v-pills-vue-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#v-pills-vue"
-            type="button"
-            role="tab"
-            aria-controls="v-pills-vue"
-            aria-selected="false"
-          >
-            VUE.JS
-          </button>
-        </div>
-        <hr class="separator--vertical mx-4 bg-primary" />
-        <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <button class="jh-btn btn-primary" id="init" @click.prevent="initProject" data-selector="generator.init-button">Init</button>
+
+    <div class="row py-3 d-flex align-items-start">
+      <div class="col-4 col-md-2">
+        <ul id="v-pills-tab" class="nav nav-pills flex-column w-100" role="tablist" aria-orientation="vertical">
+          <li class="nav-item">
+            <div class="focus-helper" tabindex="-1"></div>
+            <button
+              id="v-pills-home-tab"
+              class="nav-link active"
+              data-bs-toggle="tab"
+              data-bs-target="#v-pills-home"
+              role="tab"
+              aria-controls="v-pills-home"
+              aria-selected="true"
+            >
+              <i class="bi bi-code-slash" style="font-size: 1.5rem; color: var(--primary-color)"></i>
+              INITIALIZATION
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <div class="q-focus-helper" tabindex="-1"></div>
+            <button
+              id="v-pills-profile-tab"
+              class="nav-link text-spring"
+              data-bs-toggle="tab"
+              data-bs-target="#v-pills-profile"
+              role="tab"
+              aria-controls="v-pills-profile"
+              aria-selected="false"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" x="0px" y="0px" viewBox="0 0 64 64" xml:space="preserve">
+                <path
+                  d="M58.2 3.365a29.503 29.503 0 0 1-3.419 6.064A32.094 32.094 0 1 0 9.965 55.372l1.186 1.047a32.08 32.08 0 0 0 52.67-22.253c.875-8.17-1.524-18.51-5.62-30.8zM14.53 55.558a2.744 2.744 0 1 1-.404-3.857 2.744 2.744 0 0 1 .404 3.857zm43.538-9.61c-7.92 10.55-24.83 6.99-35.672 7.502 0 0-1.922.113-3.857.43 0 0 .73-.31 1.663-.663 7.614-2.65 11.213-3.16 15.838-5.54 8.708-4.427 17.322-14.122 19.112-24.2-3.313 9.695-13.373 18.032-22.53 21.418-6.276 2.313-17.614 4.566-17.614 4.566l-.457-.245c-7.714-3.75-7.952-20.457 6.077-25.845 6.143-2.366 12.02-1.067 18.654-2.65 7.084-1.683 15.28-6.99 18.615-13.916 3.73 11.08 8.224 28.422.166 39.15z"
+                  fill="#68bd45"
+                />
+              </svg>
+              SPRING BOOT
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button
+              id="v-pills-settings-tab"
+              class="nav-link text-angular"
+              data-bs-toggle="tab"
+              data-bs-target="#v-pills-settings"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-settings"
+              aria-selected="false"
+            >
+              <svg
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 240 240"
+                width="24"
+                height="24"
+                xml:space="preserve"
+              >
+                <g>
+                  <polygon
+                    fill="#DD0031"
+                    points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2 	"
+                  />
+                  <polygon
+                    fill="#C3002F"
+                    points="125,30 125,52.2 125,52.1 125,153.4 125,153.4 125,230 125,230 203.9,186.3 218.1,63.2 125,30 	"
+                  />
+                  <path
+                    fill="#FFFFFF"
+                    d="M125,52.1L66.8,182.6h0h21.7h0l11.7-29.2h49.4l11.7,29.2h0h21.7h0L125,52.1L125,52.1L125,52.1L125,52.1
+		L125,52.1z M142,135.4H108l17-40.9L142,135.4z"
+                  />
+                </g>
+              </svg>
+              ANGULAR
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              id="v-pills-react-tab"
+              class="nav-link text-react"
+              data-bs-toggle="tab"
+              data-bs-target="#v-pills-react"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-react"
+              aria-selected="false"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-11.5 -10.23174 23 20.46348">
+                <title>React Logo</title>
+                <circle cx="0" cy="0" r="2.05" fill="#61dafb" />
+                <g stroke="#61dafb" stroke-width="1" fill="none">
+                  <ellipse rx="11" ry="4.2" />
+                  <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+                  <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+                </g>
+              </svg>
+
+              REACT
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button
+              id="v-pills-vue-tab"
+              class="nav-link text-vue"
+              data-bs-toggle="tab"
+              data-bs-target="#v-pills-vue"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-vue"
+              aria-selected="false"
+            >
+              <svg class="logo" viewBox="0 0 128 128" width="24" height="24" data-v-5f26462c="">
+                <path fill="#42b883" d="M78.8,10L64,35.4L49.2,10H0l64,110l64-110C128,10,78.8,10,78.8,10z" data-v-5f26462c=""></path>
+                <path fill="#35495e" d="M78.8,10L64,35.4L49.2,10H25.6L64,76l38.4-66H78.8z" data-v-5f26462c=""></path>
+              </svg>
+              VUE.JS
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-8 col-md-10">
+        <div id="v-pills-tabContent" class="tab-content">
+          <div id="v-pills-home" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <button id="init" class="btn btn-outline-primary" data-selector="generator.init-button" @click.prevent="initProject">
+              Init
+            </button>
             &nbsp;
-            <button class="jh-btn btn-primary" id="maven" @click.prevent="addMaven" data-selector="generator.add-maven-button">
+            <button id="maven" class="btn btn-outline-primary" data-selector="generator.add-maven-button" @click.prevent="addMaven">
               Maven
             </button>
             &nbsp;
-            <button class="jh-btn btn-primary" id="javabase" @click.prevent="addJavaBase" data-selector="generator.add-java-base-button">
+            <button
+              id="javabase"
+              class="btn btn-outline-primary"
+              data-selector="generator.add-java-base-button"
+              @click.prevent="addJavaBase"
+            >
               Java Base
             </button>
             &nbsp;
             <button
-              class="jh-btn btn-primary"
               id="frontend-maven-plugin"
-              @click.prevent="addFrontendMavenPlugin"
+              class="btn btn-outline-primary"
               data-selector="generator.add-frontend-maven-plugin-button"
+              @click.prevent="addFrontendMavenPlugin"
             >
               Frontend Maven Plugin
             </button>
           </div>
-          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <div id="v-pills-profile" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <button
-              class="jh-btn btn-primary"
               id="springboot"
-              @click.prevent="addSpringBoot"
+              class="btn btn-outline-primary"
               data-selector="generator.add-spring-boot-button"
+              @click.prevent="addSpringBoot"
             >
               Spring Boot
             </button>
             &nbsp;
             <button
-              class="jh-btn btn-primary"
               id="springbootmvctomcat"
-              @click.prevent="addSpringBootMvcTomcat"
+              class="btn btn-outline-primary"
               data-selector="generator.add-spring-boot-mvc-tomcat-button"
+              @click.prevent="addSpringBootMvcTomcat"
             >
               Spring MVC Tomcat
             </button>
           </div>
-          <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-            <div>
-              <input type="checkbox" id="angular-with-style" name="angular-with-style" v-model="isAngularWithStyle" />
-              &nbsp;
-              <label for="angular-with-style">Add Angular style</label>
+          <div id="v-pills-settings" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+            <div class="list-group--inline py-2">
+              <label for="angular-with-style" class="list-group-item gap-3">
+                <input
+                  id="angular-with-style"
+                  v-model="isAngularWithStyle"
+                  type="checkbox"
+                  name="angular-with-style"
+                  class="form-check-input flex-shrink-0"
+                />
+                <span class="form-checked-content">
+                  <strong>Add Angular style</strong>
+                </span>
+              </label>
             </div>
-            <button class="jh-btn btn-primary" id="angular" @click.prevent="addAngular" data-selector="generator.add-angular-button">
+            <button id="angular" class="btn btn-outline-primary" data-selector="generator.add-angular-button" @click.prevent="addAngular">
               Generate Angular
             </button>
           </div>
-          <div class="tab-pane fade" id="v-pills-react" role="tabpanel" aria-labelledby="v-pills-react-tab">
-            <div>
-              <input type="checkbox" id="react-with-style" name="react-with-style" v-model="isReactWithStyle" />
-              &nbsp;
-              <label for="react-with-style">Add React style</label>
+          <div id="v-pills-react" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-react-tab">
+            <div class="list-group--inline py-2">
+              <label for="react-with-style" class="list-group-item gap-3">
+                <input
+                  id="react-with-style"
+                  v-model="isReactWithStyle"
+                  name="react-with-style"
+                  class="form-check-input flex-shrink-0"
+                  type="checkbox"
+                  value=""
+                />
+                <span class="form-checked-content">
+                  <strong>Add React style</strong>
+                </span>
+              </label>
             </div>
-            <button class="jh-btn btn-primary" id="react" @click.prevent="addReact" data-selector="generator.add-react-button">
+            <button id="react" class="btn btn-outline-primary" data-selector="generator.add-react-button" @click.prevent="addReact">
               Generate React
             </button>
           </div>
-          <div class="tab-pane fade" id="v-pills-vue" role="tabpanel" aria-labelledby="v-pills-vue-tab">
-            <div>
-              <input type="checkbox" id="vue-with-style" name="vue-with-style" v-model="isVueWithStyle" />
-              &nbsp;
-              <label for="vue-with-style">Add Vue.js style</label>
+          <div id="v-pills-vue" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-vue-tab">
+            <div class="list-group--inline py-2">
+              <label for="react-with-style" class="list-group-item gap-3">
+                <input
+                  id="vue-with-style"
+                  v-model="isVueWithStyle"
+                  type="checkbox"
+                  name="vue-with-style"
+                  class="form-check-input flex-shrink-0"
+                  value=""
+                />
+                <span class="form-checked-content">
+                  <strong>Add Vue.js style</strong>
+                </span>
+              </label>
             </div>
-            <button class="jh-btn btn-primary" id="vue" @click.prevent="addVue" data-selector="generator.add-vue-button">
+            <button id="vue" class="btn btn-outline-primary" data-selector="generator.add-vue-button" @click.prevent="addVue">
               Generate Vue.js
             </button>
           </div>

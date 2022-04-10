@@ -35,7 +35,8 @@
 }
 .navbar-toggler:focus,
 a:focus,
-input:focus {
+input:focus,
+button:focus {
   outline: 2px solid;
   outline-color: var(--primary-color-focus);
   outline-offset: 2px;
@@ -57,6 +58,31 @@ a:hover {
 .nav-link:focus,
 a:focus {
   color: var(--primary-color-focus);
+}
+.nav-pills .nav-link {
+  width: 100%;
+  border-radius: 0;
+}
+.nav-pills {
+  padding: 0 16px;
+  min-height: 48px;
+}
+.nav-pills li {
+  padding: 4px 0;
+}
+.nav-pills .nav-link.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid currentColor;
+  background: none;
+}
+.nav-pills button {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.nav-pills .nav-link:hover {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .separator--vertical {
@@ -105,8 +131,24 @@ hr:not([size]).separator--vertical {
 input[type='radio'] {
   margin-right: 1rem;
 }
+input[type='checkbox'],
+input[type='radio'] {
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.2); /* IE */
+  -moz-transform: scale(1.2); /* FF */
+  -webkit-transform: scale(1.2); /* Safari and Chrome */
+  -o-transform: scale(1.2); /* Opera */
+}
 .btn-primary {
   background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-primary:hover,
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+}
+.btn-outline-primary {
+  color: var(--primary-color);
   border-color: var(--primary-color);
 }
 .bg-spring {
@@ -117,6 +159,7 @@ input[type='radio'] {
 }
 .bg-vue {
   background: #3fb27f !important;
+  opacity: 0.15;
 }
 .text-vue {
   color: #3fb27f !important;

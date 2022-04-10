@@ -139,6 +139,7 @@ jobs:
           - eurekaapp
           - consulapp
           - mongodbapp
+          - gradleapp
           - angularapp
           - reactapp
           - vueapp
@@ -179,9 +180,11 @@ jobs:
       - name: 'Test: starting Sonar'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          docker-compose -f src/main/docker/sonar.yml up -d
-          sleep 30
-          docker ps -a
+          if [ -f 'src/main/docker/sonar.yml' ]; then
+            docker-compose -f src/main/docker/sonar.yml up -d
+            sleep 30
+            docker ps -a
+          fi
       - name: 'Test: verify ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
@@ -193,8 +196,10 @@ jobs:
           fi
       - name: 'Test: check local Sonar Analysis'
         run: |
-          sleep 15
-          ./tests-ci/sonar.sh ${{ matrix.app }}
+          if [ -f '/tmp/jhlite/${{ matrix.app }}/src/main/docker/sonar.yml' ]; then
+            sleep 15
+            ./tests-ci/sonar.sh ${{ matrix.app }}
+          fi
   #--------------------------------------------------
   # Send analysis to Codecov
   #--------------------------------------------------

@@ -185,6 +185,11 @@ elif [[ $application == 'mongodbapp' ]]; then
 
   callApi "/api/servers/spring-boot/databases/mongodb"
 
+elif [[ $application == 'gradleapp' ]]; then
+  callApi "/api/projects"
+  callApi "/api/build-tools/gradle"
+  callApi "/api/servers/java/base"
+
 elif [[ $application == 'angularapp' ]]; then
   springboot_mvc
   sonar_back_front

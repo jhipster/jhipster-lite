@@ -1,5 +1,5 @@
 import { Project } from '@/springboot/domain/Project';
-import ProjectRepository from '../../../../../main/webapp/app/springboot/secondary/ProjectRepository';
+import ProjectRepository from '@/springboot/secondary/ProjectRepository';
 import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 
 export const createProject = (project?: Partial<Project>): Project => ({

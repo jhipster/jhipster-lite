@@ -1,0 +1,11 @@
+import { test, Page } from '@playwright/test';
+
+import { HomePage } from './home-page';
+
+test.describe('Home', () => {
+  test('display home page', async ({ page }) => {
+    const homePage = new HomePage(page);
+    await homePage.visit();
+    await homePage.appLocator.waitFor();
+  });
+});

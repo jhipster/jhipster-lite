@@ -98,7 +98,7 @@ public class GeneratorAction {
   public static final String SONAR_JAVA_BACKEND = "sonar-java-backend";
   public static final String SONAR_JAVA_BACKEND_AND_FRONTEND = "sonar-java-backend-and-frontend";
 
-  public static final String FRONTEND_MAVEN_PULGIN = "frontend-maven-plugin";
+  public static final String FRONTEND_MAVEN_PLUGIN = "frontend-maven-plugin";
 
   public static final String SPRINGBOOT_TOMCAT = "springboot-tomcat";
   public static final String SPRINGBOOT_UNDERTOW = "springboot-undertow";
@@ -124,4 +124,6 @@ public class GeneratorAction {
   public static final String GITHUB_CODESPACES = "github-codespaces";
 
   public static final String SPRINGBOOT_WEBFLUX_NETTY = "springboot-webflux-netty";
+
+  public static final String CLIENT_COMMON_PLAYWRIGHT = "client-common-playwright";
 }

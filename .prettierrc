@@ -17,7 +17,7 @@ pluginSearchDirs:
 
 # java rules:
 overrides:
-  - files: "*.java"
+  - files: '*.java'
     options:
       tabWidth: 2
 

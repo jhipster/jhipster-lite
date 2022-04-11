@@ -264,7 +264,7 @@
               aria-controls="v-pills-home"
               aria-selected="true"
             >
-              <i class="bi bi-code-slash" style="font-size: 1.5rem; color: var(--primary-color)"></i>
+              <em class="bi bi-code-slash" style="font-size: 1.5rem; color: var(--primary-color)"></em>
               INITIALIZATION
             </button>
           </li>

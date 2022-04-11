@@ -6,12 +6,18 @@ public class GeneratorAction {
 
   // Init
   public static final String INIT = "init";
+  public static final String INIT_MINIMAL = "init-minimal";
   public static final String DOWNLOAD = "download";
 
   // Maven
   public static final String MAVEN_JAVA = "maven-java";
   public static final String MAVEN_JAVA_POM_XML = "maven-java-pom-xml";
   public static final String MAVEN_WRAPPER = "maven-wrapper";
+
+  // Gradle
+  public static final String GRADLE_JAVA = "gradle-java";
+  public static final String GRADLE_JAVA_BUILD_GRADLE_KTS = "gradle-java-build-gradle-kts";
+  public static final String GRADLE_WRAPPER = "gradle-wrapper";
 
   // Javatool: base
   public static final String JAVA_BASE = "java-base";
@@ -116,4 +122,6 @@ public class GeneratorAction {
   public static final String DOCKERFILE = "dockerfile";
 
   public static final String GITHUB_CODESPACES = "github-codespaces";
+
+  public static final String SPRINGBOOT_WEBFLUX_NETTY = "springboot-webflux-netty";
 }

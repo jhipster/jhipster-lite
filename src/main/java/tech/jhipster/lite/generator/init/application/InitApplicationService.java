@@ -17,6 +17,10 @@ public class InitApplicationService {
     initService.init(project);
   }
 
+  public void initMinimal(Project project) {
+    initService.initMinimal(project);
+  }
+
   public void addPackageJson(Project project) {
     initService.addPackageJson(project);
   }

@@ -139,11 +139,13 @@ jobs:
           - eurekaapp
           - consulapp
           - mongodbapp
+          - gradleapp
           - angularapp
           - reactapp
           - vueapp
           - svelteapp
           - kafkaapp
+          - reactiveapp
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v3
@@ -178,18 +180,26 @@ jobs:
       - name: 'Test: starting Sonar'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          docker-compose -f src/main/docker/sonar.yml up -d
-          sleep 30
-          docker ps -a
+          if [ -f 'src/main/docker/sonar.yml' ]; then
+            docker-compose -f src/main/docker/sonar.yml up -d
+            sleep 30
+            docker ps -a
+          fi
       - name: 'Test: verify ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          chmod +x mvnw
-          ./mvnw clean verify sonar:sonar
+          if [ -f 'mvnw' ]; then
+            chmod +x mvnw
+            ./mvnw clean verify sonar:sonar
+          elif [ -f 'gradlew' ]; then
+            ./gradlew check
+          fi
       - name: 'Test: check local Sonar Analysis'
         run: |
-          sleep 15
-          ./tests-ci/sonar.sh ${{ matrix.app }}
+          if [ -f '/tmp/jhlite/${{ matrix.app }}/src/main/docker/sonar.yml' ]; then
+            sleep 15
+            ./tests-ci/sonar.sh ${{ matrix.app }}
+          fi
   #--------------------------------------------------
   # Send analysis to Codecov
   #--------------------------------------------------

@@ -4,6 +4,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface InitService {
   void init(Project project);
+  void initMinimal(Project project);
 
   void addPackageJson(Project project);
   void addReadme(Project project);

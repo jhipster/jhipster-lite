@@ -250,7 +250,6 @@
         </div>
       </div>
     </div>
-
     <div class="row py-3 d-flex align-items-start">
       <div class="col-4 col-md-2">
         <ul id="v-pills-tab" class="nav nav-pills flex-column w-100" role="tablist" aria-orientation="vertical">

@@ -6,6 +6,7 @@ export interface ProjectServiceFixture extends ProjectService {
   addMaven: SinonStub;
   addFrontendMavenPlugin: SinonStub;
   addJavaBase: SinonStub;
+  download: SinonStub;
 }
 
 export const stubProjectService = (): ProjectServiceFixture => ({
@@ -13,4 +14,5 @@ export const stubProjectService = (): ProjectServiceFixture => ({
   addMaven: sinon.stub(),
   addFrontendMavenPlugin: sinon.stub(),
   addJavaBase: sinon.stub(),
+  download: sinon.stub(),
 });

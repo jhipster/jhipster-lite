@@ -10,7 +10,7 @@ import tech.jhipster.lite.generator.client.tools.cypress.domain.CypressDomainSer
 import tech.jhipster.lite.generator.client.tools.playwright.domain.PlaywrightDomainService;
 
 @IntegrationTest
-public class PlaywrightBeanConfigurationIT {
+class PlaywrightBeanConfigurationIT {
 
   @Autowired
   ApplicationContext applicationContext;

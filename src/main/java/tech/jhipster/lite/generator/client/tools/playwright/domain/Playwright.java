@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class Playwright {
 
+  private Playwright() {}
+
   private static final String PATH_INTEGRATION_TEST_PRIMARY_APP = "src/test/javascript/integration/common/primary/app";
 
   public static List<String> devDependencies() {

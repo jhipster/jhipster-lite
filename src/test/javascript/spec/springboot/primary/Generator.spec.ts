@@ -716,15 +716,4 @@ describe('Generator', () => {
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Downloading project failed');
   });
-
-  it('should not download when project path is not filled', async () => {
-    const projectService = stubProjectService();
-    projectService.download.resolves({});
-    await wrap({ projectService });
-
-    const button = wrapper.find('#download');
-    await button.trigger('click');
-
-    expect(projectService.download.called).toBe(false);
-  });
 });

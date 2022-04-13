@@ -1,6 +1,6 @@
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import { GeneratorVue } from '@/springboot/primary';
-import { mount, shallowMount, VueWrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { stubProjectService } from '../domain/ProjectService.fixture';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
 import { createProjectToUpdate } from './ProjectToUpdate.fixture';

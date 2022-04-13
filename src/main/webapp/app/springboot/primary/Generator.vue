@@ -407,7 +407,7 @@
               Frontend Maven Plugin
             </button>
             &nbsp;
-            <button class="jh-btn btn-primary" id="download" @click.prevent="download" data-selector="generator.download-button">
+            <button class="btn btn-outline-primary" id="download" @click.prevent="download" data-selector="generator.download-button">
               Download
             </button>
           </div>

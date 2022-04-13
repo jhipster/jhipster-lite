@@ -175,7 +175,7 @@ public class TestUtils {
       FileUtils.createFolder(project.getFolder());
       Files.copy(
         getPathOf("src/test/resources/generator/buildtool/gradle/build.test.gradle"),
-        getPathOf(project.getFolder(), "build.gradle")
+        getPathOf(project.getFolder(), "build.gradle.kts")
       );
     } catch (IOException e) {
       throw new AssertionError(e);

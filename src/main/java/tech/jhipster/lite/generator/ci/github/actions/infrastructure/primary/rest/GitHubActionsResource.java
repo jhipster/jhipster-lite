@@ -24,12 +24,21 @@ class GitHubActionsResource {
     this.gitHubActionsApplicationService = gitHubActionsApplicationService;
   }
 
-  @Operation(summary = "Add GitHub Actions")
+  @Operation(summary = "Add GitHub Actions for Maven Build")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding GitHub Actions")
   @PostMapping("/maven")
   @GeneratorStep(id = GeneratorAction.GITHUB_ACTIONS)
   public void addGitHubActionsForMaven(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     gitHubActionsApplicationService.addGitHubActionsForMaven(project);
+  }
+
+  @Operation(summary = "Add GitHub Actions for Gradle Build")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding GitHub Actions")
+  @PostMapping("/gradle")
+  @GeneratorStep(id = GeneratorAction.GITHUB_ACTIONS)
+  public void addGithubActionsForGradle(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    gitHubActionsApplicationService.addGithubActionsForGradle(project);
   }
 }

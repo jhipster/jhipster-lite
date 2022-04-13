@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.ci.github.actions.application;
 
-import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithBuildGradle;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,18 @@ class GitHubActionsApplicationServiceIT {
 
   @Test
   void shouldAddGitHubActionsForMaven() {
-    Project project = tmpProject();
+    Project project = tmpProjectWithPomXml();
 
     gitHubActionsApplicationService.addGitHubActionsForMaven(project);
+
+    GitHubActionsAssertFiles.assertFilesYml(project);
+  }
+
+  @Test
+  void shouldAddGitHubActionsForGradle() {
+    Project project = tmpProjectWithBuildGradle();
+
+    gitHubActionsApplicationService.addGithubActionsForGradle(project);
 
     GitHubActionsAssertFiles.assertFilesYml(project);
   }

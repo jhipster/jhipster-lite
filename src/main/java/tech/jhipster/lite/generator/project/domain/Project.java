@@ -156,7 +156,7 @@ public class Project {
   }
 
   public boolean isGradleProject() {
-    return FileUtils.exists(getPath(getFolder(), "build.gradle"));
+    return FileUtils.exists(getPath(getFolder(), "build.gradle.kts"));
   }
 
   public void checkBuildTool() {

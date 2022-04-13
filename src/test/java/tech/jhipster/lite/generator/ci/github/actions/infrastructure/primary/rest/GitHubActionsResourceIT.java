@@ -32,8 +32,32 @@ class GitHubActionsResourceIT {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
 
     mockMvc
+      .perform(post("/api/build-tools/maven").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+
+    mockMvc
       .perform(
         post("/api/developer-tools/github-actions/maven")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+
+    Project project = ProjectDTO.toProject(projectDTO);
+    assertFilesGitHubActions(project);
+  }
+
+  @Test
+  void shouldAddGitHubActionsForGradle() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+
+    mockMvc
+      .perform(post("/api/build-tools/gradle").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+
+    mockMvc
+      .perform(
+        post("/api/developer-tools/github-actions/gradle")
           .contentType(MediaType.APPLICATION_JSON)
           .content(convertObjectToJsonBytes(projectDTO))
       )

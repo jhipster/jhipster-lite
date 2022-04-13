@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.errors.WakeupException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,20 +36,11 @@ public abstract class AbstractConsumer<T> implements Runnable {
         }
         consumer.commitSync();
       }
-    } catch (final WakeupException e) {
-      // Ignore exception if closing
-      if (!closed.get()) throw e;
     } catch (final Exception e) {
       log.error("An error occurred while trying to poll records from topic!", e);
     } finally {
       consumer.close();
     }
-  }
-
-  // Shutdown hook which can be called from a separate thread
-  public void shutdown() {
-    closed.set(true);
-    consumer.wakeup();
   }
 
   public boolean isClosed() {

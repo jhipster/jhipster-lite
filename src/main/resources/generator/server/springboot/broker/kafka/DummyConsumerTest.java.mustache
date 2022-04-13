@@ -1,13 +1,14 @@
 package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Collections;
+import java.time.Duration;
+import java.util.*;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.TopicPartition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,16 +26,8 @@ class DummyConsumerTest {
   private DummyConsumer dummyConsumer;
 
   @BeforeEach
-  public void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+  public void setUp() {
     dummyConsumer = new DummyConsumer("queue.jhipster.dummy", 10_000, consumer);
-
-    Method postConstructInit = DummyConsumer.class.getDeclaredMethod("init");
-    postConstructInit.setAccessible(true);
-    postConstructInit.invoke(dummyConsumer);
-
-    Method postConstructDestroy = DummyConsumer.class.getDeclaredMethod("destroy");
-    postConstructDestroy.setAccessible(true);
-    postConstructDestroy.invoke(dummyConsumer);
   }
 
   @Test
@@ -53,6 +46,33 @@ class DummyConsumerTest {
 
   @Test
   void shouldExecuteKafkaRunner() {
+    Map<TopicPartition, List<ConsumerRecord<String, String>>> recordsMap = new HashMap<>();
+    List<ConsumerRecord<String, String>> recordsList = new ArrayList<>();
+    recordsList.add(new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, "dummy message"));
+    recordsMap.put(new TopicPartition("queue.jhipster", 0), recordsList);
+    ConsumerRecords<String, String> records = new ConsumerRecords(recordsMap);
+    when(consumer.poll(Duration.ofMillis(10000))).thenReturn(records);
+    dummyConsumer.setClosed(false);
+
+    dummyConsumer.executeKafkaRunner();
+
+    verify(consumer, atLeastOnce()).subscribe(Collections.singleton("queue.jhipster.dummy"));
+  }
+
+  @Test
+  void shouldExecuteKafkaRunnerNotPolling() {
+    dummyConsumer.setClosed(true);
+
+    dummyConsumer.executeKafkaRunner();
+
+    verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+  }
+
+  @Test
+  void shouldThrowsException() {
+    dummyConsumer.setClosed(false);
+    when(consumer.poll(Duration.ofMillis(10000))).thenThrow(NullPointerException.class);
+
     dummyConsumer.executeKafkaRunner();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));

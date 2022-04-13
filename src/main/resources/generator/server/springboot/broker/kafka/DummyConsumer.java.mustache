@@ -1,14 +1,12 @@
 package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,16 +20,6 @@ public class DummyConsumer extends AbstractConsumer<String> {
     final KafkaConsumer<String, String> kafkaConsumer
   ) {
     super(topicName, pollingTimeout, kafkaConsumer);
-  }
-
-  @PostConstruct
-  public void init() {
-    Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
-  }
-
-  @PreDestroy
-  public void destroy() {
-    shutdown();
   }
 
   @Override
@@ -52,6 +40,8 @@ public class DummyConsumer extends AbstractConsumer<String> {
 
   @Bean
   public void executeKafkaRunner() {
-    new SimpleAsyncTaskExecutor().execute(this);
+    final ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+    threadPoolTaskExecutor.initialize();
+    threadPoolTaskExecutor.execute(this);
   }
 }

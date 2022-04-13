@@ -717,7 +717,7 @@ describe('Generator', () => {
     expect(message).toBe('Downloading project failed');
   });
 
-  it('should not not download when project path is not filled', async () => {
+  it('should not download when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.download.resolves({});
     await wrap({ projectService });

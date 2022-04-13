@@ -18,6 +18,8 @@ export default defineComponent({
     const springBootService = inject('springBootService') as SpringBootService;
     const vueService = inject('vueService') as VueService;
 
+    const selectorPrefix = 'generator';
+
     const project = ref<ProjectToUpdate>({
       folder: '',
     });
@@ -110,19 +112,17 @@ export default defineComponent({
     };
 
     const download = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await projectService
-          .download(toProject(project.value))
-          .then(response => {
-            const url = window.URL.createObjectURL(new Blob([response], { type: 'application/zip' }));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', project.value.baseName + '.zip');
-            document.body.appendChild(link);
-            link.click();
-          })
-          .catch(error => logger.error('Downloading project failed', error));
-      }
+      await projectService
+        .download(toProject(project.value))
+        .then(response => {
+          const url = window.URL.createObjectURL(new Blob([response], { type: 'application/zip' }));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', project.value.baseName + '.zip');
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch(error => logger.error('Downloading project failed', error));
     };
 
     return {
@@ -144,6 +144,7 @@ export default defineComponent({
       addVue,
       addFrontendMavenPlugin,
       download,
+      selectorPrefix,
     };
   },
 });

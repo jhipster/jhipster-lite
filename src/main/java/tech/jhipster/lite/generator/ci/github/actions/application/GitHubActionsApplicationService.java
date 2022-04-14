@@ -13,11 +13,7 @@ public class GitHubActionsApplicationService {
     this.gitHubActionsService = gitHubActionsService;
   }
 
-  public void addGitHubActionsForMaven(Project project) {
-    gitHubActionsService.addGithubActions(project);
-  }
-
-  public void addGithubActionsForGradle(Project project) {
-    gitHubActionsService.addGithubActions(project);
+  public void addGitHubActions(Project project) {
+    gitHubActionsService.addGitHubActions(project);
   }
 }

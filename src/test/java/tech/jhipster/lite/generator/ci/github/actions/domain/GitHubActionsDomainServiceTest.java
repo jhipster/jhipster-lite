@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithBuildGradle;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
@@ -31,7 +30,7 @@ class GitHubActionsDomainServiceTest {
   void shouldAddGitHubActionsForGradle() {
     Project project = tmpProjectWithBuildGradle();
 
-    assertThatCode(() -> gitHubActionsDomainService.addGithubActions(project)).doesNotThrowAnyException();
+    assertThatCode(() -> gitHubActionsDomainService.addGitHubActions(project)).doesNotThrowAnyException();
 
     verify(projectRepository)
       .template(
@@ -54,7 +53,7 @@ class GitHubActionsDomainServiceTest {
   void shouldAddGitHubActionsForMaven() {
     Project project = tmpProjectWithPomXml();
 
-    assertThatCode(() -> gitHubActionsDomainService.addGithubActions(project)).doesNotThrowAnyException();
+    assertThatCode(() -> gitHubActionsDomainService.addGitHubActions(project)).doesNotThrowAnyException();
 
     verify(projectRepository)
       .template(

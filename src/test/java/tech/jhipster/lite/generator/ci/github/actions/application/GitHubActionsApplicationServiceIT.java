@@ -18,7 +18,7 @@ class GitHubActionsApplicationServiceIT {
   void shouldAddGitHubActionsForMaven() {
     Project project = tmpProjectWithPomXml();
 
-    gitHubActionsApplicationService.addGitHubActionsForMaven(project);
+    gitHubActionsApplicationService.addGitHubActions(project);
 
     GitHubActionsAssertFiles.assertFilesYml(project);
   }
@@ -27,7 +27,7 @@ class GitHubActionsApplicationServiceIT {
   void shouldAddGitHubActionsForGradle() {
     Project project = tmpProjectWithBuildGradle();
 
-    gitHubActionsApplicationService.addGithubActionsForGradle(project);
+    gitHubActionsApplicationService.addGitHubActions(project);
 
     GitHubActionsAssertFiles.assertFilesYml(project);
   }

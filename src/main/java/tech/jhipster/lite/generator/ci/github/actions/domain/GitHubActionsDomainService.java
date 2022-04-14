@@ -22,7 +22,7 @@ public class GitHubActionsDomainService implements GitHubActionsService {
   }
 
   @Override
-  public void addGithubActions(Project project) {
+  public void addGitHubActions(Project project) {
     addSetupYamls(project);
     if (project.isMavenProject()) {
       projectRepository.template(

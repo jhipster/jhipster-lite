@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/developer-tools/github-actions/")
+@RequestMapping("/api/developer-tools/github-actions")
 @Tag(name = "Continuous Integration")
 class GitHubActionsResource {
 
@@ -24,21 +24,12 @@ class GitHubActionsResource {
     this.gitHubActionsApplicationService = gitHubActionsApplicationService;
   }
 
-  @Operation(summary = "Add GitHub Actions for Maven Build")
+  @Operation(summary = "Add GitHub Actions for Maven or Gradle Build")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding GitHub Actions")
-  @PostMapping("/maven")
+  @PostMapping
   @GeneratorStep(id = GeneratorAction.GITHUB_ACTIONS)
   public void addGitHubActionsForMaven(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    gitHubActionsApplicationService.addGitHubActionsForMaven(project);
-  }
-
-  @Operation(summary = "Add GitHub Actions for Gradle Build")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding GitHub Actions")
-  @PostMapping("/gradle")
-  @GeneratorStep(id = GeneratorAction.GITHUB_ACTIONS)
-  public void addGithubActionsForGradle(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-    gitHubActionsApplicationService.addGithubActionsForGradle(project);
+    gitHubActionsApplicationService.addGitHubActions(project);
   }
 }

@@ -37,9 +37,7 @@ class GitHubActionsResourceIT {
 
     mockMvc
       .perform(
-        post("/api/developer-tools/github-actions/maven")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(convertObjectToJsonBytes(projectDTO))
+        post("/api/developer-tools/github-actions").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 
@@ -57,9 +55,7 @@ class GitHubActionsResourceIT {
 
     mockMvc
       .perform(
-        post("/api/developer-tools/github-actions/gradle")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(convertObjectToJsonBytes(projectDTO))
+        post("/api/developer-tools/github-actions").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

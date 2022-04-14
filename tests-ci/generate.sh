@@ -37,7 +37,7 @@ callApi() {
 springboot_mvc() {
   callApi "/api/projects"
   callApi "/api/build-tools/maven"
-  callApi "/api/developer-tools/github-actions/maven"
+  callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
@@ -48,7 +48,7 @@ springboot_mvc() {
 springboot_undertow() {
   callApi "/api/projects"
   callApi "/api/build-tools/maven"
-  callApi "/api/developer-tools/github-actions/maven"
+  callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
@@ -59,7 +59,7 @@ springboot_undertow() {
 springboot() {
   callApi "/api/projects"
   callApi "/api/build-tools/maven"
-  callApi "/api/developer-tools/github-actions/maven"
+  callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"

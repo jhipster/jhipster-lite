@@ -23,5 +23,11 @@ describe('Generator', () => {
     cy.get(generatorSelector('add-react-button')).contains('React');
     cy.get(generatorSelector('add-vue-button')).contains('Vue');
     cy.get(generatorSelector('add-frontend-maven-plugin-button')).contains('Frontend Maven Plugin');
+    cy.get(generatorSelector('download-button')).should('not.exist');
+  });
+
+  it('should diaply download button when project path is filled', () => {
+    cy.get('#path').type('/tmp/jhlite');
+    cy.get(generatorSelector('download-button')).contains('Download');
   });
 });

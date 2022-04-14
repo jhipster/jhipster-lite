@@ -673,7 +673,7 @@ describe('Generator', () => {
     expect(message).toBe('Adding Frontend Maven Plugin to project failed');
   });
 
-  it('should download initialized project', async () => {
+  it('should download initialized project with basename', async () => {
     const projectService = stubProjectService();
     projectService.download.resolves({});
     // @ts-ignore
@@ -702,10 +702,39 @@ describe('Generator', () => {
     });
   });
 
+  it('should download initialized project without basename', async () => {
+    const projectService = stubProjectService();
+    projectService.download.resolves({});
+    // @ts-ignore
+    global.URL.createObjectURL = jest.fn(() => new Blob([{}], { type: 'application/zip' }));
+
+    await wrap({ projectService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: '',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+
+    const button = wrapper.find('#download');
+    await button.trigger('click');
+
+    const args = projectService.download.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: '',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
   it('should not download an non existing project', async () => {
     const logger = stubLogger();
     const projectService = stubProjectService();
-    projectService.download.rejects({});
+    projectService.download.rejects(new Error('foo'));
     await wrap({ projectService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
@@ -713,7 +742,8 @@ describe('Generator', () => {
     const downloadButton = wrapper.find('#download');
     await downloadButton.trigger('click');
 
-    const [message] = logger.error.getCall(0).args;
+    const [message, error] = logger.error.getCall(0).args;
     expect(message).toBe('Downloading project failed');
+    expect(error).toStrictEqual(new Error('foo'));
   });
 });

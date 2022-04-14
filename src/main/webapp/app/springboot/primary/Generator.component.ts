@@ -33,7 +33,7 @@ export default defineComponent({
 
     const initProject = async (): Promise<void> => {
       if (project.value.folder !== '') {
-        await projectService.init(toProject(project.value)).catch(error => logger.error('Project initialization failed', error));
+        await projectService.init(toProject(project.value)).catch(error => logger.error('Project initialization failed', error.message));
       }
     };
 
@@ -118,7 +118,8 @@ export default defineComponent({
           const url = window.URL.createObjectURL(new Blob([response], { type: 'application/zip' }));
           const link = document.createElement('a');
           link.href = url;
-          link.setAttribute('download', project.value.baseName + '.zip');
+          const zipName = project.value.baseName || 'application';
+          link.setAttribute('download', zipName + '.zip');
           document.body.appendChild(link);
           link.click();
         })

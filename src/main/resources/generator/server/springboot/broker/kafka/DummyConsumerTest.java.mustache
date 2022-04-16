@@ -3,12 +3,15 @@ package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.*;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.errors.WakeupException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,8 +29,16 @@ class DummyConsumerTest {
   private DummyConsumer dummyConsumer;
 
   @BeforeEach
-  public void setUp() {
+  public void setUp() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
     dummyConsumer = new DummyConsumer("queue.jhipster.dummy", 10_000, consumer);
+
+    Method postConstructInit = DummyConsumer.class.getDeclaredMethod("init");
+    postConstructInit.setAccessible(true);
+    postConstructInit.invoke(dummyConsumer);
+
+    Method postConstructDestroy = DummyConsumer.class.getDeclaredMethod("destroy");
+    postConstructDestroy.setAccessible(true);
+    postConstructDestroy.invoke(dummyConsumer);
   }
 
   @Test
@@ -45,7 +56,7 @@ class DummyConsumerTest {
   }
 
   @Test
-  void shouldExecuteKafkaRunner() {
+  void shouldExecuteKafkaRunner() throws InterruptedException {
     Map<TopicPartition, List<ConsumerRecord<String, String>>> recordsMap = new HashMap<>();
     List<ConsumerRecord<String, String>> recordsList = new ArrayList<>();
     recordsList.add(new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, "dummy message"));
@@ -56,24 +67,54 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
+    Thread.sleep(3000);
+
     verify(consumer, atLeastOnce()).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
-  void shouldExecuteKafkaRunnerNotPolling() {
+  void shouldExecuteKafkaRunnerNotPolling() throws InterruptedException {
     dummyConsumer.setClosed(true);
 
     dummyConsumer.executeKafkaRunner();
+
+    Thread.sleep(3000);
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
-  void shouldThrowsException() {
+  void shouldThrowsException() throws InterruptedException {
     dummyConsumer.setClosed(false);
     when(consumer.poll(Duration.ofMillis(10000))).thenThrow(NullPointerException.class);
 
     dummyConsumer.executeKafkaRunner();
+
+    Thread.sleep(3000);
+
+    verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+  }
+
+  @Test
+  void shouldThrowsWakeupException() throws InterruptedException {
+    dummyConsumer.setClosed(false);
+    when(consumer.poll(Duration.ofMillis(10000))).thenThrow(WakeupException.class);
+
+    dummyConsumer.executeKafkaRunner();
+
+    Thread.sleep(3000);
+
+    verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+  }
+
+  @Test
+  void shouldThrowsWakeupExceptionWithClosing() throws InterruptedException {
+    dummyConsumer.setClosed(true);
+    doThrow(WakeupException.class).when(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+
+    dummyConsumer.executeKafkaRunner();
+
+    Thread.sleep(3000);
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }

@@ -35,18 +35,18 @@ public class DummyConsumer extends AbstractConsumer<String> {
   }
 
   @Override
-  protected boolean handleMessage(final ConsumerRecord<String, String> record) {
-    // TODO /!\ Maybe you could delete the next log calls to avoid disclosing personal user information
+  protected boolean handleMessage(final ConsumerRecord<String, String> consumerRecord) {
+    // /!\ Maybe you could delete the next log calls to avoid disclosing personal user information
 
-    final String value = record.value();
+    final String value = consumerRecord.value();
 
     if (value == null) {
-      log.error("Null value in record {}", record);
+      log.error("Null value in record {}", consumerRecord);
       return false;
     }
 
     log.info("Handling record: {}", value);
-    // TODO: Here is where you can handle your records
+    // Here is where you can handle your records
     return true;
   }
 

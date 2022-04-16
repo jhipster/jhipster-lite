@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.*;
+import javax.swing.Timer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -56,7 +57,7 @@ class DummyConsumerTest {
   }
 
   @Test
-  void shouldExecuteKafkaRunner() throws InterruptedException {
+  void shouldExecuteKafkaRunner() {
     Map<TopicPartition, List<ConsumerRecord<String, String>>> recordsMap = new HashMap<>();
     List<ConsumerRecord<String, String>> recordsList = new ArrayList<>();
     recordsList.add(new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, "dummy message"));
@@ -67,54 +68,54 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    Thread.sleep(3000);
+    new Timer(3000, actionEvent -> System.out.println()).start();
 
     verify(consumer, atLeastOnce()).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
-  void shouldExecuteKafkaRunnerNotPolling() throws InterruptedException {
+  void shouldExecuteKafkaRunnerNotPolling() {
     dummyConsumer.setClosed(true);
 
     dummyConsumer.executeKafkaRunner();
 
-    Thread.sleep(3000);
+    new Timer(3000, actionEvent -> System.out.println()).start();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
-  void shouldThrowsException() throws InterruptedException {
+  void shouldThrowsException() {
     dummyConsumer.setClosed(false);
     when(consumer.poll(Duration.ofMillis(10000))).thenThrow(NullPointerException.class);
 
     dummyConsumer.executeKafkaRunner();
 
-    Thread.sleep(3000);
+    new Timer(3000, actionEvent -> System.out.println()).start();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
-  void shouldThrowsWakeupException() throws InterruptedException {
+  void shouldThrowsWakeupException() {
     dummyConsumer.setClosed(false);
     when(consumer.poll(Duration.ofMillis(10000))).thenThrow(WakeupException.class);
 
     dummyConsumer.executeKafkaRunner();
 
-    Thread.sleep(3000);
+    new Timer(3000, actionEvent -> System.out.println()).start();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
-  void shouldThrowsWakeupExceptionWithClosing() throws InterruptedException {
+  void shouldThrowsWakeupExceptionWithClosing() {
     dummyConsumer.setClosed(true);
     doThrow(WakeupException.class).when(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
 
     dummyConsumer.executeKafkaRunner();
 
-    Thread.sleep(3000);
+    new Timer(3000, actionEvent -> System.out.println()).start();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }

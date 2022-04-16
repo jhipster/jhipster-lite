@@ -20,7 +20,7 @@ public abstract class AbstractConsumer<T> implements Runnable {
   private final String topicName;
   private final int pollingTimeout;
 
-  public AbstractConsumer(final String topicName, final int pollingTimeout, final KafkaConsumer<String, T> consumer) {
+  protected AbstractConsumer(final String topicName, final int pollingTimeout, final KafkaConsumer<String, T> consumer) {
     this.topicName = topicName;
     this.pollingTimeout = pollingTimeout;
     this.consumer = consumer;
@@ -32,7 +32,7 @@ public abstract class AbstractConsumer<T> implements Runnable {
       consumer.subscribe(Collections.singleton(topicName));
       while (!closed.get()) {
         final ConsumerRecords<String, T> records = consumer.poll(Duration.ofMillis(pollingTimeout));
-        records.forEach(record -> handleMessage(record));
+        records.forEach(this::handleMessage);
         consumer.commitSync();
       }
     } catch (final WakeupException e) {
@@ -61,5 +61,5 @@ public abstract class AbstractConsumer<T> implements Runnable {
     this.closed.set(closed);
   }
 
-  protected abstract boolean handleMessage(ConsumerRecord<String, T> record);
+  protected abstract boolean handleMessage(ConsumerRecord<String, T> consumerRecord);
 }

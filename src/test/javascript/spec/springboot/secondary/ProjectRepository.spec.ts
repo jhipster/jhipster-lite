@@ -70,7 +70,7 @@ describe('ProjectRepository', () => {
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
 
     expect(datas).toEqual([1, 2, 3]);
-    expect(uri).toBe('api/projects/download');
+    expect(uri).toBe('api/project-downloads');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

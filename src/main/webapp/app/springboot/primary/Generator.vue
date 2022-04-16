@@ -3,7 +3,7 @@
     <nav class="container-fluid flex-wrap flex-md-nowrap align-text-center" aria-label="Main navigation">
       <a class="navbar-brand text-decoration-none d-flex align-items-center" href="#">
         <img src="../../../content/JHipster-Lite-neon-blue.png" alt="" width="40" class="mx-2" />
-        <span class="fs-4 text-decoration-none" data-selector="generator.title">JHipster Lite</span>
+        <span class="fs-4 text-decoration-none" :data-selector="selectorPrefix + '.title'">JHipster Lite</span>
       </a>
       <button
         class="navbar-toggler text-primary"
@@ -381,18 +381,23 @@
       <div class="col-8 col-md-10">
         <div id="v-pills-tabContent" class="tab-content">
           <div id="v-pills-home" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <button id="init" class="btn btn-outline-primary" data-selector="generator.init-button" @click.prevent="initProject">
+            <button id="init" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.init-button'" @click.prevent="initProject">
               Init
             </button>
             &nbsp;
-            <button id="maven" class="btn btn-outline-primary" data-selector="generator.add-maven-button" @click.prevent="addMaven">
+            <button
+              id="maven"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-maven-button'"
+              @click.prevent="addMaven"
+            >
               Maven
             </button>
             &nbsp;
             <button
               id="javabase"
               class="btn btn-outline-primary"
-              data-selector="generator.add-java-base-button"
+              :data-selector="selectorPrefix + '.add-java-base-button'"
               @click.prevent="addJavaBase"
             >
               Java Base
@@ -401,17 +406,27 @@
             <button
               id="frontend-maven-plugin"
               class="btn btn-outline-primary"
-              data-selector="generator.add-frontend-maven-plugin-button"
+              :data-selector="selectorPrefix + '.add-frontend-maven-plugin-button'"
               @click.prevent="addFrontendMavenPlugin"
             >
               Frontend Maven Plugin
+            </button>
+            &nbsp;
+            <button
+              v-if="project.folder !== ''"
+              class="btn btn-outline-primary"
+              id="download"
+              @click.prevent="download"
+              :data-selector="selectorPrefix + '.download-button'"
+            >
+              Download
             </button>
           </div>
           <div id="v-pills-profile" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <button
               id="springboot"
               class="btn btn-outline-primary"
-              data-selector="generator.add-spring-boot-button"
+              :data-selector="selectorPrefix + '.add-spring-boot-button'"
               @click.prevent="addSpringBoot"
             >
               Spring Boot
@@ -420,7 +435,7 @@
             <button
               id="springbootmvctomcat"
               class="btn btn-outline-primary"
-              data-selector="generator.add-spring-boot-mvc-tomcat-button"
+              :data-selector="selectorPrefix + '.add-spring-boot-mvc-tomcat-button'"
               @click.prevent="addSpringBootMvcTomcat"
             >
               Spring MVC Tomcat
@@ -441,7 +456,12 @@
                 </span>
               </label>
             </div>
-            <button id="angular" class="btn btn-outline-primary" data-selector="generator.add-angular-button" @click.prevent="addAngular">
+            <button
+              id="angular"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-angular-button'"
+              @click.prevent="addAngular"
+            >
               Generate Angular
             </button>
           </div>
@@ -461,7 +481,12 @@
                 </span>
               </label>
             </div>
-            <button id="react" class="btn btn-outline-primary" data-selector="generator.add-react-button" @click.prevent="addReact">
+            <button
+              id="react"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-react-button'"
+              @click.prevent="addReact"
+            >
               Generate React
             </button>
           </div>
@@ -481,7 +506,7 @@
                 </span>
               </label>
             </div>
-            <button id="vue" class="btn btn-outline-primary" data-selector="generator.add-vue-button" @click.prevent="addVue">
+            <button id="vue" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.add-vue-button'" @click.prevent="addVue">
               Generate Vue.js
             </button>
           </div>

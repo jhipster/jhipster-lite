@@ -1,5 +1,5 @@
 <template>
-  <header class="navbar navbar-expand-md bg-light bd-navbar">
+  <header class="navbar navbar-expand-md bg-light bd-navbar shadow mb-3 rounded">
     <nav class="container-fluid flex-wrap flex-md-nowrap align-text-center" aria-label="Main navigation">
       <a class="navbar-brand text-decoration-none d-flex align-items-center" href="#">
         <img src="../../../content/JHipster-Lite-neon-blue.png" alt="" width="40" class="mx-2" />

@@ -48,7 +48,7 @@ class HistoryResourceIT {
       .andExpect(status().isOk());
     mockMvc
       .perform(
-        post("/api/developer-tools/github-actions/maven")
+        post("/api/developer-tools/github-actions")
           .contentType(MediaType.APPLICATION_JSON)
           .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )

@@ -57,13 +57,13 @@ class JHLiteAppTest {
   @Test
   void shouldAccessUrlLocalWithoutContextPath() {
     String result = JHLiteApp.accessUrlLocal("http", "8080", "/");
-    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/swagger-ui.html" + LF);
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/" + LF);
   }
 
   @Test
   void shouldAccessUrlLocalWithContextPath() {
     String result = JHLiteApp.accessUrlLocal("http", "8080", "/lite/");
-    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/lite/swagger-ui.html" + LF);
+    assertThat(result).isEqualTo("  Local: \thttp://localhost:8080/lite/" + LF);
   }
 
   @Test
@@ -75,13 +75,13 @@ class JHLiteAppTest {
   @Test
   void shouldAccessUrlExternalWithoutContextPath() {
     String result = JHLiteApp.accessUrlExternal("http", "127.0.1.1", "8080", "/");
-    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/swagger-ui.html" + LF);
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/" + LF);
   }
 
   @Test
   void shouldAccessUrlExternalWithContextPath() {
     String result = JHLiteApp.accessUrlExternal("http", "127.0.1.1", "8080", "/lite/");
-    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/lite/swagger-ui.html" + LF);
+    assertThat(result).isEqualTo("  External: \thttp://127.0.1.1:8080/lite/" + LF);
   }
 
   @Test

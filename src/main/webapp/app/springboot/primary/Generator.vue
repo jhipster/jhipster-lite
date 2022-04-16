@@ -29,12 +29,18 @@
 
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <li class="nav-item col-6 col-md-auto">
-            <a class="nav-link p-2" href="https://www.jhipster.tech/" target="_blank" rel="noopener">
-              <img src="../../../content/V2_JHipster_Bowtie_RGB_2x.png" alt="" height="24" class="d-inline-block align-text-center" />
-              <small class="d-md-none ms-2">JHipster</small>
+            <a class="nav-link p-2" href="./swagger-ui.html" target="_blank" rel="noopener">
+              <em class="bi bi-book-half"></em>
+              <small class="d-md-none ms-2">API</small>
             </a>
           </li>
           <hr class="separator--vertical mx-4 bg-primary" />
+          <li class="nav-item col-6 col-md-auto">
+            <a class="nav-link p-2" href="https://www.jhipster.tech/" target="_blank" rel="noopener">
+              <img src="../../../content/V2_JHipster_Bowtie_RGB_2x.png" alt="" height="18" class="d-inline-block align-text-center" />
+              <small class="d-md-none ms-2">JHipster</small>
+            </a>
+          </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://github.com/jhipster/jhipster-lite" target="_blank" rel="noopener">
               <em class="bi bi-github"></em>

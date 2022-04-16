@@ -27,7 +27,7 @@ class FrontendMavenResource {
   @Operation(summary = "Init", description = "Add Frontend Maven Plugin")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Frontend Maven Plugin")
   @PostMapping
-  @GeneratorStep(id = GeneratorAction.FRONTEND_MAVEN_PULGIN)
+  @GeneratorStep(id = GeneratorAction.FRONTEND_MAVEN_PLUGIN)
   public void addFrontendMavenPlugin(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     frontendMavenApplicationService.addFrontendMavenPlugin(project);

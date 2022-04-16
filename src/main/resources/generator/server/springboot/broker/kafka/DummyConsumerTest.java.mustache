@@ -68,7 +68,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(3000, actionEvent -> System.out.println()).start();
+    new Timer(5000, actionEvent -> System.out.println()).start();
 
     verify(consumer, atLeastOnce()).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
@@ -79,7 +79,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(3000, actionEvent -> System.out.println()).start();
+    new Timer(5000, actionEvent -> System.out.println()).start();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
@@ -91,7 +91,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(3000, actionEvent -> System.out.println()).start();
+    new Timer(5000, actionEvent -> System.out.println()).start();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
@@ -103,7 +103,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(3000, actionEvent -> System.out.println()).start();
+    new Timer(5000, actionEvent -> System.out.println()).start();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
@@ -115,7 +115,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(3000, actionEvent -> System.out.println()).start();
+    new Timer(5000, actionEvent -> System.out.println()).start();
 
     verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }

@@ -53,14 +53,14 @@ public class JHLiteApp {
     if (StringUtils.isBlank(serverPort)) {
       return "";
     }
-    return String.format("  Local: \t%s://localhost:%s%sswagger-ui.html", protocol, serverPort, contextPath) + LF;
+    return String.format("  Local: \t%s://localhost:%s%s", protocol, serverPort, contextPath) + LF;
   }
 
   public static String accessUrlExternal(String protocol, String hostAddress, String serverPort, String contextPath) {
     if (StringUtils.isBlank(serverPort)) {
       return "";
     }
-    return String.format("  External: \t%s://%s:%s%sswagger-ui.html", protocol, hostAddress, serverPort, contextPath) + LF;
+    return String.format("  External: \t%s://%s:%s%s", protocol, hostAddress, serverPort, contextPath) + LF;
   }
 
   public static String profile(String profiles) {

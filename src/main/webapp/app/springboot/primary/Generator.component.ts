@@ -26,8 +26,9 @@ export default defineComponent({
     const isAngularWithStyle = ref<boolean>(false);
     const isReactWithStyle = ref<boolean>(false);
     const isVueWithStyle = ref<boolean>(false);
+    const isSvelteWithStyle = ref<boolean>(false);
     const language = ref<string>();
-    const buildTool = ref<string>();
+    const buildTool = ref<string>('maven');
     const server = ref<string>();
     const client = ref<string>();
 
@@ -131,6 +132,7 @@ export default defineComponent({
       isAngularWithStyle,
       isReactWithStyle,
       isVueWithStyle,
+      isSvelteWithStyle,
       language,
       buildTool,
       server,

@@ -144,7 +144,15 @@
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="buildTool" class="form-check-input flex-shrink-0" type="radio" name="buildTool" value="maven" checked />
+                      <input
+                        id="buildTool"
+                        v-model="buildTool"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="buildTool"
+                        value="maven"
+                        checked
+                      />
                       <span> Maven </span>
                     </label>
                   </div>
@@ -153,7 +161,14 @@
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="buildTool" class="form-check-input flex-shrink-0" type="radio" name="buildTool" value="gradle" />
+                      <input
+                        id="buildTool"
+                        v-model="buildTool"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="buildTool"
+                        value="gradle"
+                      />
                       <span> Gradle </span>
                     </label>
                   </div>
@@ -176,7 +191,15 @@
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="server" class="form-check-input flex-shrink-0" type="radio" name="server" value="none" checked />
+                      <input
+                        id="option-no-server"
+                        v-model="server"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="server"
+                        value="none"
+                        checked
+                      />
                       <span>None</span>
                     </label>
                   </div>
@@ -185,7 +208,14 @@
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="server" class="form-check-input flex-shrink-0" type="radio" name="server" value="springboot" />
+                      <input
+                        id="option-springboot"
+                        v-model="server"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="server"
+                        value="springboot"
+                      />
                       <span> Spring Boot </span>
                     </label>
                   </div>
@@ -208,7 +238,15 @@
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="none" checked />
+                      <input
+                        id="option-none-client"
+                        v-model="client"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="none"
+                        checked
+                      />
                       <span>None</span>
                     </label>
                   </div>
@@ -217,7 +255,14 @@
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="angular" />
+                      <input
+                        id="option-angular"
+                        v-model="client"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="angular"
+                      />
                       <span>Angular</span>
                     </label>
                   </div>
@@ -226,7 +271,14 @@
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="react" />
+                      <input
+                        id="option-react"
+                        v-model="client"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="react"
+                      />
                       <span>React</span>
                     </label>
                   </div>
@@ -235,7 +287,14 @@
                 <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="vue" />
+                      <input
+                        id="option-vue"
+                        v-model="client"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="vue"
+                      />
                       <span>Vue.js</span>
                     </label>
                   </div>
@@ -244,7 +303,14 @@
                 <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
-                      <input id="client" class="form-check-input flex-shrink-0" type="radio" name="client" value="svelte" />
+                      <input
+                        id="option-svelte"
+                        v-model="client"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="svelte"
+                      />
                       <span>Svelte</span>
                     </label>
                   </div>
@@ -275,15 +341,15 @@
             </button>
           </li>
 
-          <li class="nav-item">
+          <li v-if="server === 'springboot'" class="nav-item">
             <div class="q-focus-helper" tabindex="-1"></div>
             <button
-              id="v-pills-profile-tab"
+              id="section-springboot"
               class="nav-link text-spring"
               data-bs-toggle="tab"
-              data-bs-target="#v-pills-profile"
+              data-bs-target="#v-pills-springboot"
               role="tab"
-              aria-controls="v-pills-profile"
+              aria-controls="v-pills-springboot"
               aria-selected="false"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" x="0px" y="0px" viewBox="0 0 64 64" xml:space="preserve">
@@ -296,15 +362,15 @@
             </button>
           </li>
 
-          <li class="nav-item">
+          <li v-if="client === 'angular'" class="nav-item">
             <button
-              id="v-pills-settings-tab"
+              id="section-angular"
               class="nav-link text-angular"
               data-bs-toggle="tab"
-              data-bs-target="#v-pills-settings"
+              data-bs-target="#v-pills-angular"
               type="button"
               role="tab"
-              aria-controls="v-pills-settings"
+              aria-controls="v-pills-angular"
               aria-selected="false"
             >
               <svg
@@ -338,9 +404,9 @@
               ANGULAR
             </button>
           </li>
-          <li class="nav-item">
+          <li v-if="client === 'react'" class="nav-item">
             <button
-              id="v-pills-react-tab"
+              id="section-react"
               class="nav-link text-react"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-react"
@@ -362,10 +428,9 @@
               REACT
             </button>
           </li>
-
-          <li class="nav-item">
+          <li v-if="client === 'vue'" class="nav-item">
             <button
-              id="v-pills-vue-tab"
+              id="section-vue"
               class="nav-link text-vue"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-vue"
@@ -381,6 +446,21 @@
               VUE.JS
             </button>
           </li>
+          <li v-if="client === 'svelte'" class="nav-item">
+            <button
+              id="v-pills-vue-tab"
+              class="nav-link text-svelte"
+              data-bs-toggle="tab"
+              data-bs-target="#v-pills-svelte"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-svelte"
+              aria-selected="false"
+            >
+              <img src="/content/SvelteLogo.png" alt="" width="24" height="24" class="rounded-circle flex-shrink-0" />
+              SVELTE
+            </button>
+          </li>
         </ul>
       </div>
 
@@ -393,6 +473,7 @@
             &nbsp;
             <button
               id="maven"
+              v-if="buildTool === 'maven'"
               class="btn btn-outline-primary"
               :data-selector="selectorPrefix + '.add-maven-button'"
               @click.prevent="addMaven"
@@ -447,7 +528,13 @@
               Spring MVC Tomcat
             </button>
           </div>
-          <div id="v-pills-settings" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+          <div
+            id="v-pills-settings"
+            v-if="client === 'angular'"
+            class="tab-pane fade"
+            role="tabpanel"
+            aria-labelledby="v-pills-settings-tab"
+          >
             <div class="list-group--inline py-2">
               <label for="angular-with-style" class="list-group-item gap-3">
                 <input
@@ -471,7 +558,7 @@
               Generate Angular
             </button>
           </div>
-          <div id="v-pills-react" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-react-tab">
+          <div id="v-pills-react" v-if="client === 'react'" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-react-tab">
             <div class="list-group--inline py-2">
               <label for="react-with-style" class="list-group-item gap-3">
                 <input
@@ -496,7 +583,7 @@
               Generate React
             </button>
           </div>
-          <div id="v-pills-vue" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-vue-tab">
+          <div id="v-pills-vue" v-if="client === 'vue'" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-vue-tab">
             <div class="list-group--inline py-2">
               <label for="react-with-style" class="list-group-item gap-3">
                 <input
@@ -514,6 +601,26 @@
             </div>
             <button id="vue" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.add-vue-button'" @click.prevent="addVue">
               Generate Vue.js
+            </button>
+          </div>
+          <div id="v-pills-svelte" v-if="client === 'svelte'" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-svelte-tab">
+            <div class="list-group--inline py-2">
+              <label for="svelte-with-style" class="list-group-item gap-3">
+                <input
+                  id="svelte-with-style"
+                  v-model="isSvelteWithStyle"
+                  type="checkbox"
+                  name="svelte-with-style"
+                  class="form-check-input flex-shrink-0"
+                  value=""
+                />
+                <span class="form-checked-content">
+                  <strong>Add Svelte style</strong>
+                </span>
+              </label>
+            </div>
+            <button id="svelte" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.add-svelte-button'" @click.prevent="">
+              Generate Svelte (not implemented)
             </button>
           </div>
         </div>

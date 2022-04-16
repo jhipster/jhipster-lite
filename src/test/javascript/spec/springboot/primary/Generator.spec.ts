@@ -63,6 +63,15 @@ const fillFullForm = async (projectToUpdate: ProjectToUpdate): Promise<void> => 
   await serverPortInput.setValue(projectToUpdate.serverPort);
 };
 
+const selectSection = async (value: string): Promise<void> => {
+  const radio = wrapper.find('#option-' + value);
+  await radio.setValue(value);
+  await radio.trigger('click');
+
+  const section = wrapper.find('#section-' + value);
+  await section.trigger('click');
+};
+
 describe('Generator', () => {
   it('should exist', () => {
     wrap();
@@ -230,6 +239,7 @@ describe('Generator', () => {
     const springBootService = stubSpringBootService();
     springBootService.addSpringBoot.resolves({});
     await wrap({ springBootService });
+    await selectSection('springboot');
 
     const button = wrapper.find('#springboot');
     await button.trigger('click');
@@ -249,6 +259,7 @@ describe('Generator', () => {
       serverPort: '8080',
     });
     await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
 
     const button = wrapper.find('#springboot');
     await button.trigger('click');
@@ -270,6 +281,7 @@ describe('Generator', () => {
     await wrap({ springBootService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
 
     const initButton = wrapper.find('#springboot');
     await initButton.trigger('click');
@@ -282,6 +294,7 @@ describe('Generator', () => {
     const springBootService = stubSpringBootService();
     springBootService.addSpringBootMvcTomcat.resolves({});
     await wrap({ springBootService });
+    await selectSection('springboot');
 
     const button = wrapper.find('#springbootmvctomcat');
     await button.trigger('click');
@@ -301,6 +314,7 @@ describe('Generator', () => {
       serverPort: '8080',
     });
     await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
 
     const button = wrapper.find('#springbootmvctomcat');
     await button.trigger('click');
@@ -322,6 +336,7 @@ describe('Generator', () => {
     await wrap({ springBootService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
 
     const initButton = wrapper.find('#springbootmvctomcat');
     await initButton.trigger('click');
@@ -334,6 +349,7 @@ describe('Generator', () => {
     const angularService = stubAngularService();
     angularService.add.resolves({});
     await wrap({ angularService });
+    await selectSection('angular');
 
     const button = wrapper.find('#angular');
     await button.trigger('click');
@@ -353,6 +369,7 @@ describe('Generator', () => {
       serverPort: '8080',
     });
     await fillFullForm(projectToUpdate);
+    await selectSection('angular');
 
     const button = wrapper.find('#angular');
     await button.trigger('click');
@@ -379,6 +396,7 @@ describe('Generator', () => {
       serverPort: '8080',
     });
     await fillFullForm(projectToUpdate);
+    await selectSection('angular');
 
     const checkbox = wrapper.find('#angular-with-style');
     await checkbox.setValue(true);
@@ -402,6 +420,7 @@ describe('Generator', () => {
     await wrap({ angularService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
+    await selectSection('angular');
 
     const initButton = wrapper.find('#angular');
     await initButton.trigger('click');
@@ -417,6 +436,7 @@ describe('Generator', () => {
     await wrap({ angularService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
+    await selectSection('angular');
 
     const checkbox = wrapper.find('#angular-with-style');
     await checkbox.setValue(true);
@@ -431,6 +451,7 @@ describe('Generator', () => {
     const reactService = stubReactService();
     reactService.add.resolves({});
     await wrap({ reactService });
+    await selectSection('react');
 
     const button = wrapper.find('#react');
     await button.trigger('click');
@@ -450,6 +471,7 @@ describe('Generator', () => {
       serverPort: '8080',
     });
     await fillFullForm(projectToUpdate);
+    await selectSection('react');
 
     const button = wrapper.find('#react');
     await button.trigger('click');
@@ -476,6 +498,7 @@ describe('Generator', () => {
       serverPort: '8080',
     });
     await fillFullForm(projectToUpdate);
+    await selectSection('react');
 
     const checkbox = wrapper.find('#react-with-style');
     await checkbox.setValue(true);
@@ -499,6 +522,7 @@ describe('Generator', () => {
     await wrap({ reactService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
+    await selectSection('react');
 
     const initButton = wrapper.find('#react');
     await initButton.trigger('click');
@@ -514,6 +538,7 @@ describe('Generator', () => {
     await wrap({ reactService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
+    await selectSection('react');
 
     const checkbox = wrapper.find('#react-with-style');
     await checkbox.setValue(true);
@@ -528,6 +553,7 @@ describe('Generator', () => {
     const vueService = stubVueService();
     vueService.add.resolves({});
     await wrap({ vueService });
+    await selectSection('vue');
 
     const button = wrapper.find('#vue');
     await button.trigger('click');
@@ -547,6 +573,7 @@ describe('Generator', () => {
       serverPort: '8080',
     });
     await fillFullForm(projectToUpdate);
+    await selectSection('vue');
 
     const button = wrapper.find('#vue');
     await button.trigger('click');
@@ -573,6 +600,7 @@ describe('Generator', () => {
       serverPort: '8080',
     });
     await fillFullForm(projectToUpdate);
+    await selectSection('vue');
 
     const checkbox = wrapper.find('#vue-with-style');
     await checkbox.setValue(true);
@@ -596,6 +624,7 @@ describe('Generator', () => {
     await wrap({ vueService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
+    await selectSection('vue');
 
     const initButton = wrapper.find('#vue');
     await initButton.trigger('click');
@@ -611,6 +640,7 @@ describe('Generator', () => {
     await wrap({ vueService, logger });
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
     await fillFullForm(projectToUpdate);
+    await selectSection('vue');
 
     const checkbox = wrapper.find('#vue-with-style');
     await checkbox.setValue(true);

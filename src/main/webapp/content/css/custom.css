@@ -170,3 +170,6 @@ input[type='radio'] {
 .text-angular {
   color: #c3002f !important;
 }
+.text-svelte {
+  color: #ff3e00 !important;
+}

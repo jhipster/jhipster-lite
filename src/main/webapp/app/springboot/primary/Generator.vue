@@ -334,12 +334,12 @@
           <li class="nav-item">
             <div class="focus-helper" tabindex="-1"></div>
             <button
-              id="v-pills-home-tab"
+              id="section-init"
               class="nav-link active"
               data-bs-toggle="tab"
-              data-bs-target="#v-pills-home"
+              data-bs-target="#v-pills-init"
               role="tab"
-              aria-controls="v-pills-home"
+              aria-controls="v-pills-init"
               aria-selected="true"
             >
               <em class="bi bi-code-slash" style="font-size: 1.5rem; color: var(--primary-color)"></em>
@@ -476,8 +476,8 @@
       </div>
 
       <div class="col-8 col-md-10">
-        <div id="v-pills-tabContent" class="tab-content">
-          <div id="v-pills-home" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        <div id="v-pills-tab" class="tab-content">
+          <div id="v-pills-init" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
             <button id="init" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.init-button'" @click.prevent="initProject">
               Init
             </button>
@@ -520,7 +520,13 @@
               Download
             </button>
           </div>
-          <div id="v-pills-profile" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <div
+            id="v-pills-springboot"
+            v-if="server === 'springboot'"
+            class="tab-pane fade"
+            role="tabpanel"
+            aria-labelledby="v-pills-profile-tab"
+          >
             <button
               id="springboot"
               class="btn btn-outline-primary"
@@ -540,7 +546,7 @@
             </button>
           </div>
           <div
-            id="v-pills-settings"
+            id="v-pills-angular"
             v-if="client === 'angular'"
             class="tab-pane fade"
             role="tabpanel"

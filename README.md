@@ -144,7 +144,9 @@ npm run e2e:headless
 
 ## Generate your project
 
-Go to http://localhost:7471/swagger-ui.html and build your own JSON to generate a project. Here an example:
+Go to http://localhost:7471, select your option and generate the code you want, step by step, and only what you need.
+
+If needed more advanced features, go to http://localhost:7471/swagger-ui.html and use your own JSON to generate the code you want. Here an example:
 
 <!-- prettier-ignore-start -->
 ```yaml

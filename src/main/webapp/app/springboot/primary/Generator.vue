@@ -73,7 +73,7 @@
                 ></path>
                 <path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"></path>
               </svg>
-              <small class="d-md-none ms-2">Open Collective</small>
+              <small class="d-md-none">Open Collective</small>
             </a>
           </li>
         </ul>
@@ -341,7 +341,7 @@
       </div>
     </div>
     <div class="row py-3 d-flex align-items-start">
-      <div class="col-4 col-md-2">
+      <div class="col-12 col-md-3 col-lg-2">
         <ul id="v-pills-tab" class="nav nav-pills flex-column w-100" role="tablist" aria-orientation="vertical">
           <li class="nav-item">
             <div class="focus-helper" tabindex="-1"></div>
@@ -486,7 +486,7 @@
         </ul>
       </div>
 
-      <div class="col-8 col-md-10">
+      <div class="col">
         <div id="v-pills-tab" class="tab-content">
           <div id="v-pills-init" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
             <button id="init" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.init-button'" @click.prevent="initProject">

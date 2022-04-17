@@ -30,6 +30,6 @@ class SpringBootWebfluxResource {
   @GeneratorStep(id = GeneratorAction.SPRINGBOOT_WEBFLUX_NETTY)
   public void addSpringBootWebflux(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    springBootWebfluxApplicationService.addSpringBootWebflux(project);
+    springBootWebfluxApplicationService.init(project);
   }
 }

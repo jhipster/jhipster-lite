@@ -11,4 +11,17 @@ public class SpringBootWebflux {
   public static Dependency springBootStarterWebfluxDependency() {
     return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-webflux").build();
   }
+
+  public static Dependency problemSpringWebfluxDependency() {
+    return Dependency
+      .builder()
+      .groupId("org.zalando")
+      .artifactId("problem-spring-webflux")
+      .version("\\${problem-spring-webflux.version}")
+      .build();
+  }
+
+  public static Dependency springBootStarterValidation() {
+    return Dependency.builder().groupId(SPRINGBOOT_PACKAGE).artifactId("spring-boot-starter-validation").build();
+  }
 }

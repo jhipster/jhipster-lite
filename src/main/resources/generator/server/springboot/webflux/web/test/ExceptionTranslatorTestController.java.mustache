@@ -1,6 +1,7 @@
 package {{packageName}}.technical.infrastructure.primary.exception;
 
 import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
@@ -60,6 +61,7 @@ public class ExceptionTranslatorTestController {
 
   // jhipster-needle-exception-translator-test-controller
 
+  @SuppressWarnings("unused")
   public static class TestDataDTO {
 
     @NotNull
@@ -71,6 +73,11 @@ public class ExceptionTranslatorTestController {
 
     public void setFieldName(String fieldName) {
       this.fieldName = fieldName;
+    }
+
+    @AssertTrue(message = "")
+    public boolean isValidWithoutErrorMessage() {
+      return false;
     }
   }
 

@@ -14,7 +14,18 @@ public class ProjectDTO {
   private String folder;
 
   @JsonProperty("generator-jhipster")
-  @Schema(description = "generator-jhipster configuration", required = true)
+  @Schema(
+    description = "generator-jhipster configuration",
+    example = """
+      {
+        "baseName": "jhipster",
+        "projectName": "jhipster project",
+        "packageName": "com.mycompany.myapp",
+        "serverPort": 8080
+      }
+    """,
+    required = true
+  )
   private Map<String, Object> generatorJhipster;
 
   public String getFolder() {

@@ -182,7 +182,7 @@ jobs:
         run: |
           if [ -f 'src/main/docker/sonar.yml' ]; then
             docker-compose -f src/main/docker/sonar.yml up -d
-            sleep 30
+            sleep 60
             docker ps -a
           fi
       - name: 'Test: verify ${{ matrix.app }}'

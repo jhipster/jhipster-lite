@@ -210,6 +210,7 @@
                     <label>
                       <input
                         id="option-springboot"
+                        :data-selector="selectorPrefix + '.option-springboot'"
                         v-model="server"
                         class="form-check-input flex-shrink-0"
                         type="radio"
@@ -240,6 +241,7 @@
                     <label>
                       <input
                         id="option-none-client"
+                        :data-selector="selectorPrefix + '.option-none-client'"
                         v-model="client"
                         class="form-check-input flex-shrink-0"
                         type="radio"
@@ -257,6 +259,7 @@
                     <label>
                       <input
                         id="option-angular"
+                        :data-selector="selectorPrefix + '.option-angular'"
                         v-model="client"
                         class="form-check-input flex-shrink-0"
                         type="radio"
@@ -273,6 +276,7 @@
                     <label>
                       <input
                         id="option-react"
+                        :data-selector="selectorPrefix + '.option-react'"
                         v-model="client"
                         class="form-check-input flex-shrink-0"
                         type="radio"
@@ -289,6 +293,7 @@
                     <label>
                       <input
                         id="option-vue"
+                        :data-selector="selectorPrefix + '.option-vue'"
                         v-model="client"
                         class="form-check-input flex-shrink-0"
                         type="radio"
@@ -305,6 +310,7 @@
                     <label>
                       <input
                         id="option-svelte"
+                        :data-selector="selectorPrefix + '.option-svelte'"
                         v-model="client"
                         class="form-check-input flex-shrink-0"
                         type="radio"
@@ -345,6 +351,7 @@
             <div class="q-focus-helper" tabindex="-1"></div>
             <button
               id="section-springboot"
+              :data-selector="selectorPrefix + '.section-springboot'"
               class="nav-link text-spring"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-springboot"
@@ -365,6 +372,7 @@
           <li v-if="client === 'angular'" class="nav-item">
             <button
               id="section-angular"
+              :data-selector="selectorPrefix + '.section-angular'"
               class="nav-link text-angular"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-angular"
@@ -407,6 +415,7 @@
           <li v-if="client === 'react'" class="nav-item">
             <button
               id="section-react"
+              :data-selector="selectorPrefix + '.section-react'"
               class="nav-link text-react"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-react"
@@ -431,6 +440,7 @@
           <li v-if="client === 'vue'" class="nav-item">
             <button
               id="section-vue"
+              :data-selector="selectorPrefix + '.section-vue'"
               class="nav-link text-vue"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-vue"
@@ -448,7 +458,8 @@
           </li>
           <li v-if="client === 'svelte'" class="nav-item">
             <button
-              id="v-pills-vue-tab"
+              id="section-svelte"
+              :data-selector="selectorPrefix + '.section-vue'"
               class="nav-link text-svelte"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-svelte"

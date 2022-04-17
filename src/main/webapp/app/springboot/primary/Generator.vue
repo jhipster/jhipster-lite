@@ -127,7 +127,7 @@
                       <span> Java </span>
                     </label>
                   </div>
-                  <img src="/content/java_rounded_40x40.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img src="../../../content/java_rounded_40x40.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
               </div>
             </div>
@@ -156,7 +156,7 @@
                       <span> Maven </span>
                     </label>
                   </div>
-                  <img src="/content/MavenLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img src="../../../content/MavenLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
@@ -172,7 +172,7 @@
                       <span> Gradle </span>
                     </label>
                   </div>
-                  <img src="/content/GradleLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img src="../../../content/GradleLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
               </div>
             </div>
@@ -203,15 +203,21 @@
                       <span>None</span>
                     </label>
                   </div>
-                  <img src="/content/JHipster-Lite-neon-blue_40x.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img
+                    src="../../../content/JHipster-Lite-neon-blue_40x.png"
+                    alt=""
+                    width="32"
+                    height="32"
+                    class="rounded-circle flex-shrink-0"
+                  />
                 </div>
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
                       <input
                         id="option-springboot"
-                        :data-selector="selectorPrefix + '.option-springboot'"
                         v-model="server"
+                        :data-selector="selectorPrefix + '.option-springboot'"
                         class="form-check-input flex-shrink-0"
                         type="radio"
                         name="server"
@@ -220,7 +226,7 @@
                       <span> Spring Boot </span>
                     </label>
                   </div>
-                  <img src="/content/SpringLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img src="../../../content/SpringLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
               </div>
             </div>
@@ -241,8 +247,8 @@
                     <label>
                       <input
                         id="option-none-client"
-                        :data-selector="selectorPrefix + '.option-none-client'"
                         v-model="client"
+                        :data-selector="selectorPrefix + '.option-none-client'"
                         class="form-check-input flex-shrink-0"
                         type="radio"
                         name="client"
@@ -252,15 +258,21 @@
                       <span>None</span>
                     </label>
                   </div>
-                  <img src="/content/JHipster-Lite-neon-blue_40x.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img
+                    src="../../../content/JHipster-Lite-neon-blue_40x.png"
+                    alt=""
+                    width="32"
+                    height="32"
+                    class="rounded-circle flex-shrink-0"
+                  />
                 </div>
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
                       <input
                         id="option-angular"
-                        :data-selector="selectorPrefix + '.option-angular'"
                         v-model="client"
+                        :data-selector="selectorPrefix + '.option-angular'"
                         class="form-check-input flex-shrink-0"
                         type="radio"
                         name="client"
@@ -269,15 +281,15 @@
                       <span>Angular</span>
                     </label>
                   </div>
-                  <img src="/content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img src="../../../content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
                 <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
                       <input
                         id="option-react"
-                        :data-selector="selectorPrefix + '.option-react'"
                         v-model="client"
+                        :data-selector="selectorPrefix + '.option-react'"
                         class="form-check-input flex-shrink-0"
                         type="radio"
                         name="client"
@@ -286,15 +298,15 @@
                       <span>React</span>
                     </label>
                   </div>
-                  <img src="/content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img src="../../../content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
                 <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
                       <input
                         id="option-vue"
-                        :data-selector="selectorPrefix + '.option-vue'"
                         v-model="client"
+                        :data-selector="selectorPrefix + '.option-vue'"
                         class="form-check-input flex-shrink-0"
                         type="radio"
                         name="client"
@@ -303,15 +315,15 @@
                       <span>Vue.js</span>
                     </label>
                   </div>
-                  <img src="/content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img src="../../../content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
                 <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
                       <input
                         id="option-svelte"
-                        :data-selector="selectorPrefix + '.option-svelte'"
                         v-model="client"
+                        :data-selector="selectorPrefix + '.option-svelte'"
                         class="form-check-input flex-shrink-0"
                         type="radio"
                         name="client"
@@ -320,7 +332,7 @@
                       <span>Svelte</span>
                     </label>
                   </div>
-                  <img src="/content/SvelteLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  <img src="../../../content/SvelteLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
               </div>
             </div>
@@ -382,7 +394,6 @@
               aria-selected="false"
             >
               <svg
-                version="1.1"
                 id="Layer_1"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -468,7 +479,7 @@
               aria-controls="v-pills-svelte"
               aria-selected="false"
             >
-              <img src="/content/SvelteLogo.png" alt="" width="24" height="24" class="rounded-circle flex-shrink-0" />
+              <img src="../../../content/SvelteLogo.png" alt="" width="24" height="24" class="rounded-circle flex-shrink-0" />
               SVELTE
             </button>
           </li>
@@ -483,8 +494,8 @@
             </button>
             &nbsp;
             <button
-              id="maven"
               v-if="buildTool === 'maven'"
+              id="maven"
               class="btn btn-outline-primary"
               :data-selector="selectorPrefix + '.add-maven-button'"
               @click.prevent="addMaven"
@@ -512,17 +523,17 @@
             &nbsp;
             <button
               v-if="project.folder !== ''"
-              class="btn btn-outline-primary"
               id="download"
-              @click.prevent="download"
+              class="btn btn-outline-primary"
               :data-selector="selectorPrefix + '.download-button'"
+              @click.prevent="download"
             >
               Download
             </button>
           </div>
           <div
-            id="v-pills-springboot"
             v-if="server === 'springboot'"
+            id="v-pills-springboot"
             class="tab-pane fade"
             role="tabpanel"
             aria-labelledby="v-pills-profile-tab"
@@ -546,8 +557,8 @@
             </button>
           </div>
           <div
-            id="v-pills-angular"
             v-if="client === 'angular'"
+            id="v-pills-angular"
             class="tab-pane fade"
             role="tabpanel"
             aria-labelledby="v-pills-settings-tab"
@@ -575,7 +586,7 @@
               Generate Angular
             </button>
           </div>
-          <div id="v-pills-react" v-if="client === 'react'" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-react-tab">
+          <div v-if="client === 'react'" id="v-pills-react" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-react-tab">
             <div class="list-group--inline py-2">
               <label for="react-with-style" class="list-group-item gap-3">
                 <input
@@ -600,7 +611,7 @@
               Generate React
             </button>
           </div>
-          <div id="v-pills-vue" v-if="client === 'vue'" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-vue-tab">
+          <div v-if="client === 'vue'" id="v-pills-vue" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-vue-tab">
             <div class="list-group--inline py-2">
               <label for="react-with-style" class="list-group-item gap-3">
                 <input
@@ -620,7 +631,7 @@
               Generate Vue.js
             </button>
           </div>
-          <div id="v-pills-svelte" v-if="client === 'svelte'" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-svelte-tab">
+          <div v-if="client === 'svelte'" id="v-pills-svelte" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-svelte-tab">
             <div class="list-group--inline py-2">
               <label for="svelte-with-style" class="list-group-item gap-3">
                 <input

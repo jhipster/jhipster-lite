@@ -35,7 +35,7 @@
     "bootstrap-icons": "1.8.1",
     "pinia": "2.0.13",
     "pinia-plugin-persist": "1.0.0",
-    "vue": "3.2.31",
+    "vue": "3.2.33",
     "vue-router": "4.0.14"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "@typescript-eslint/parser": "5.19.0",
     "@vitejs/plugin-vue": "2.3.1",
     "@vue/eslint-config-typescript": "10.0.0",
-    "@vue/test-utils": "2.0.0-rc.18",
+    "@vue/test-utils": "2.0.0-rc.20",
     "cypress": "9.5.4",
     "eslint": "8.13.0",
     "eslint-config-prettier": "8.5.0",

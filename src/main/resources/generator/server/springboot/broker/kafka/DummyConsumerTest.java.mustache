@@ -7,7 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.*;
-import javax.swing.Timer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -68,9 +67,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(5000, actionEvent -> System.out.println()).start();
-
-    verify(consumer, atLeastOnce()).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
@@ -79,9 +76,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(5000, actionEvent -> System.out.println()).start();
-
-    verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
@@ -91,9 +86,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(5000, actionEvent -> System.out.println()).start();
-
-    verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
@@ -103,9 +96,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(5000, actionEvent -> System.out.println()).start();
-
-    verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
@@ -115,9 +106,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    new Timer(5000, actionEvent -> System.out.println()).start();
-
-    verify(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test

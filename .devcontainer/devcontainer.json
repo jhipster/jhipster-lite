@@ -17,6 +17,6 @@
 	"extensions": [
 		"vscjava.vscode-java-pack"
 	],
-	"forwardPorts": [ 8080 ],
+	"forwardPorts": [ 7471 ],
 	"remoteUser": "vscode"
 }

@@ -53,7 +53,6 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addPropertyAndDependency(project);
     addJavaFiles(project);
     addProperties(project);
-    addLoggerInConfiguration(project);
 
     updateExceptionTranslator(project);
     updateIntegrationTestWithMockUser(project);
@@ -169,16 +168,5 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     result.put("application.security.authentication.jwt.token-validity-in-seconds", "86400");
     result.put("application.security.authentication.jwt.token-validity-in-seconds-for-remember-me", "2592000");
     return result;
-  }
-
-  @Override
-  public void addLoggerInConfiguration(Project project) {
-    project.addDefaultConfig(PACKAGE_NAME);
-    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
-    addLogger(project, packageName + ".security.jwt.infrastructure.config", Level.WARN);
-  }
-
-  public void addLogger(Project project, String packageName, Level level) {
-    springBootCommonService.addLoggerTest(project, packageName, level);
   }
 }

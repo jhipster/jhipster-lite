@@ -139,13 +139,4 @@ public class JwtSecurityAssertFiles {
     assertFileContent(project, getPath(MAIN_RESOURCES, "config/application.properties"), properties);
     assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), properties);
   }
-
-  public static void assertLoggerInConfiguration(Project project) {
-    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
-    assertFileContent(
-      project,
-      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
-      "<logger name=\"" + packageName + ".security.jwt.infrastructure.config\" level=\"WARN\" />"
-    );
-  }
 }

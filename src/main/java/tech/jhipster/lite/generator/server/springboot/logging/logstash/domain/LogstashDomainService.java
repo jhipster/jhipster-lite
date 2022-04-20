@@ -99,9 +99,7 @@ public class LogstashDomainService implements LogstashService {
   @Override
   public void addLoggerInConfiguration(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
-    String destinationPackage = DESTINATION.replace("/", ".");
-    addLogger(project, packageName + "." + destinationPackage, Level.WARN);
+    addLogger(project, "net.logstash.logback", Level.ERROR);
     addLogger(project, "org.jboss.logging", Level.WARN);
   }
 

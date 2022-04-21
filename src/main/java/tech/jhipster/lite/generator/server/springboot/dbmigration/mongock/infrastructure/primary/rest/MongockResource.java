@@ -16,7 +16,7 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 @RestController
 @RequestMapping("/api/servers/spring-boot/database-migration-tools/mongock")
 @Tag(name = "Spring Boot - Database Migration")
-public class MongockResource {
+class MongockResource {
 
   private final MongockApplicationService mongockApplicationService;
 

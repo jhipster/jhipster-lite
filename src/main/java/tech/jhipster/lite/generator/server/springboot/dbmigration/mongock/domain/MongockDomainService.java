@@ -40,6 +40,7 @@ public class MongockDomainService implements MongockService {
 
   @Override
   public void addMongockDependency(Project project) {
+    String mongockDependencyGroupId = "io.mongock";
     buildToolService
       .getVersion(project, "mongock")
       .ifPresentOrElse(
@@ -51,7 +52,7 @@ public class MongockDomainService implements MongockService {
 
     Dependency mongockBomDependency = Dependency
       .builder()
-      .groupId("io.mongock")
+      .groupId(mongockDependencyGroupId)
       .artifactId("mongock-bom")
       .version("\\${mongock.version}")
       .scope("import")
@@ -59,12 +60,12 @@ public class MongockDomainService implements MongockService {
       .build();
     buildToolService.addDependencyManagement(project, mongockBomDependency);
 
-    Dependency mongockSpringDependency = Dependency.builder().groupId("io.mongock").artifactId("mongock-springboot").build();
+    Dependency mongockSpringDependency = Dependency.builder().groupId(mongockDependencyGroupId).artifactId("mongock-springboot").build();
     buildToolService.addDependency(project, mongockSpringDependency);
 
     Dependency mongockSpringDataDriverDependency = Dependency
       .builder()
-      .groupId("io.mongock")
+      .groupId(mongockDependencyGroupId)
       .artifactId("mongodb-springdata-v3-driver")
       .build();
     buildToolService.addDependency(project, mongockSpringDataDriverDependency);

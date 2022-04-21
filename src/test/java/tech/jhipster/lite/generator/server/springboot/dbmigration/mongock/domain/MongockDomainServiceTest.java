@@ -63,7 +63,7 @@ class MongockDomainServiceTest {
       .type("pom")
       .build();
     List<Dependency> dependencyList = dependencyArgCaptor.getAllValues();
-    assertThat(dependencyList.size()).isEqualTo(3);
+    assertThat(dependencyList).hasSize(3);
     assertThat(dependencyList.get(0)).usingRecursiveComparison().isEqualTo(expectedDependency);
     expectedDependency = Dependency.builder().groupId("io.mongock").artifactId("mongock-springboot").build();
     assertThat(dependencyList.get(1)).usingRecursiveComparison().isEqualTo(expectedDependency);

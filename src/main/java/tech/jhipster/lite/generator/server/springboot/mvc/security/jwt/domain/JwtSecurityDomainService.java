@@ -17,7 +17,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -53,6 +52,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     addPropertyAndDependency(project);
     addJavaFiles(project);
     addProperties(project);
+    addLoggerInConfiguration(project);
 
     updateExceptionTranslator(project);
     updateIntegrationTestWithMockUser(project);
@@ -168,5 +168,10 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     result.put("application.security.authentication.jwt.token-validity-in-seconds", "86400");
     result.put("application.security.authentication.jwt.token-validity-in-seconds-for-remember-me", "2592000");
     return result;
+  }
+
+  private void addLoggerInConfiguration(Project project) {
+    springBootCommonService.addLogger(project, "org.springframework.security", Level.WARN);
+    springBootCommonService.addLoggerTest(project, "org.springframework.security", Level.WARN);
   }
 }

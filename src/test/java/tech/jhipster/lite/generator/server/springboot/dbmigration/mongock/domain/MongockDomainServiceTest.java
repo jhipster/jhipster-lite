@@ -11,6 +11,7 @@ import static tech.jhipster.lite.TestUtils.tmpProject;
 
 import java.util.List;
 import java.util.Optional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -18,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -93,5 +95,12 @@ class MongockDomainServiceTest {
         "mongock.migration-scan-package",
         "com.mycompany.myapp.technical.infrastructure.secondary.mongock.dbmigration"
       );
+  }
+
+  @Test
+  void shouldNotAddMongockDependencyWhenVersionIsNotAvailable() {
+    Project project = tmpProject();
+
+    Assertions.assertThatThrownBy(() -> mongockDomainService.addMongockDependency(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

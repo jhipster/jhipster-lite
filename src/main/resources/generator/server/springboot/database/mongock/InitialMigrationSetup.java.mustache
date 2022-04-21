@@ -1,0 +1,22 @@
+package tech.jhipster.fullapp.technical.infrastructure.secondary.mongock.dbmigration;
+
+import io.mongock.api.annotations.ChangeUnit;
+import io.mongock.api.annotations.Execution;
+import io.mongock.api.annotations.RollbackExecution;
+import org.springframework.data.mongodb.core.MongoTemplate;
+
+@ChangeUnit(id="init", order = "001")
+public class InitialMigrationSetup {
+  private final MongoTemplate template;
+
+  public InitialMigrationSetup(MongoTemplate template) {
+      this.template = template;
+  }
+
+  @Execution
+  public void changeSet() {}
+
+  @RollbackExecution
+  public void rollback() {}
+
+}

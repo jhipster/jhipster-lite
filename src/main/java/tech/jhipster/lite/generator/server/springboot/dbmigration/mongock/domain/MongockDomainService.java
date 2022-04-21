@@ -1,0 +1,109 @@
+package tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.domain;
+
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+
+import java.util.TreeMap;
+import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+
+public class MongockDomainService implements MongockService {
+
+  public static final String SOURCE = "server/springboot/database/mongock";
+
+  private final BuildToolService buildToolService;
+  private final ProjectRepository projectRepository;
+  private final SpringBootCommonService springBootCommonService;
+
+  public MongockDomainService(
+    BuildToolService buildToolService,
+    ProjectRepository projectRepository,
+    SpringBootCommonService springBootCommonService
+  ) {
+    this.buildToolService = buildToolService;
+    this.projectRepository = projectRepository;
+    this.springBootCommonService = springBootCommonService;
+  }
+
+  @Override
+  public void init(Project project) {
+    addMongockDependency(project);
+    addConfigurationJava(project);
+    addChangelogJava(project);
+    addProperties(project);
+  }
+
+  @Override
+  public void addMongockDependency(Project project) {
+    buildToolService
+      .getVersion(project, "mongock")
+      .ifPresentOrElse(
+        version -> buildToolService.addProperty(project, "mongock.version", version),
+        () -> {
+          throw new GeneratorException("Version not found: mongock");
+        }
+      );
+
+    Dependency mongockBomDependency = Dependency
+      .builder()
+      .groupId("io.mongock")
+      .artifactId("mongock-bom")
+      .version("\\${mongock.version}")
+      .scope("import")
+      .type("pom")
+      .build();
+    buildToolService.addDependencyManagement(project, mongockBomDependency);
+
+    Dependency mongockSpringDependency = Dependency.builder().groupId("io.mongock").artifactId("mongock-springboot").build();
+    buildToolService.addDependency(project, mongockSpringDependency);
+
+    Dependency mongockSpringDataDriverDependency = Dependency
+      .builder()
+      .groupId("io.mongock")
+      .artifactId("mongodb-springdata-v3-driver")
+      .build();
+    buildToolService.addDependency(project, mongockSpringDataDriverDependency);
+  }
+
+  @Override
+  public void addConfigurationJava(Project project) {
+    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String mongockConfigPath = "technical/infrastructure/secondary/mongock";
+    projectRepository.template(
+      project,
+      SOURCE,
+      "MongockDatabaseConfiguration.java",
+      getPath(MAIN_JAVA, packageNamePath, mongockConfigPath)
+    );
+  }
+
+  @Override
+  public void addChangelogJava(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
+    String mongockDBMigrationPath = "technical/infrastructure/secondary/mongock/dbmigration";
+
+    projectRepository.template(project, SOURCE, "InitialMigrationSetup.java", getPath(MAIN_JAVA, packageNamePath, mongockDBMigrationPath));
+  }
+
+  @Override
+  public void addProperties(Project project) {
+    getMongockProperties(project).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+  }
+
+  private TreeMap<String, Object> getMongockProperties(Project project) {
+    project.addDefaultConfig(PACKAGE_NAME);
+    String packageName = project.getPackageName().orElse("com.mycompany.app");
+    String mongockpackage = packageName + ".technical.infrastructure.secondary.mongock.dbmigration";
+    TreeMap<String, Object> result = new TreeMap<>();
+
+    result.put("mongock.migration-scan-package", mongockpackage);
+
+    return result;
+  }
+}

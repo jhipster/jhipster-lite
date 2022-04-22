@@ -221,6 +221,29 @@ class MavenApplicationServiceIT {
   }
 
   @Test
+  void shouldAddDependencyManagementOnlyOneTime() throws Exception {
+    Project project = tmpProjectWithPomXml();
+
+    Dependency dependency = Dependency
+      .builder()
+      .groupId("org.springframework.cloud")
+      .artifactId("spring-cloud-starter-bootstrap")
+      .version("\\${spring-cloud.version}")
+      .scope("import")
+      .type("pom")
+      .build();
+    mavenApplicationService.addDependencyManagement(project, dependency);
+    mavenApplicationService.addDependencyManagement(project, dependency);
+
+    assertFileContentManyTimes(
+      project,
+      POM_XML,
+      Maven.getDependencyHeader(dependency, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION),
+      1
+    );
+  }
+
+  @Test
   void shouldDeleteDependency() {
     Project project = tmpProjectWithPomXml();
 

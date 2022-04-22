@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/exception-translator-test")
-public class ExceptionTranslatorTestController {
+class ExceptionTranslatorTestController {
 
   @PostMapping("/method-argument")
   public Mono<TestDataDTO> methodArgument(@Valid @RequestBody Mono<TestDataDTO> testDataDTO) {

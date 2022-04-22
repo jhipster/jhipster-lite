@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommon.TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION;
 import static tech.jhipster.lite.generator.server.springboot.webflux.web.domain.SpringBootWebflux.*;
 import static tech.jhipster.lite.generator.server.springboot.webflux.web.domain.SpringBootWebflux.problemSpringWebfluxDependency;
@@ -66,19 +67,12 @@ public class SpringBootWebfluxDomainService implements SpringBootWebfluxService 
 
     addExceptionHandlerProperties(project);
 
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    templateToExceptionHandler(project, packageNamePath, "src", "ProblemConfiguration.java", MAIN_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "src", "HeaderUtil.java", MAIN_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "src", "BadRequestAlertException.java", MAIN_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "src", "ErrorConstants.java", MAIN_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "src", "ExceptionTranslator.java", MAIN_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "src", "FieldErrorDTO.java", MAIN_JAVA);
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    SpringBootWebflux.srcJavaFiles().forEach(fileName -> templateToExceptionHandler(project, packageNamePath, "src", fileName, MAIN_JAVA));
 
-    templateToExceptionHandler(project, packageNamePath, "test", "HeaderUtilTest.java", TEST_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "test", "BadRequestAlertExceptionTest.java", TEST_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "test", "ExceptionTranslatorIT.java", TEST_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "test", "ExceptionTranslatorTestController.java", TEST_JAVA);
-    templateToExceptionHandler(project, packageNamePath, "test", "FieldErrorDTOTest.java", TEST_JAVA);
+    SpringBootWebflux
+      .testJavaFiles()
+      .forEach(fileName -> templateToExceptionHandler(project, packageNamePath, "test", fileName, TEST_JAVA));
 
     projectRepository.template(project, getPath(SOURCE, "test"), "TestUtil.java", getPath(TEST_JAVA, packageNamePath));
   }

@@ -78,10 +78,7 @@ public class LogstashAssert {
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
-      List.of(
-        "<logger name=\"" + packageName + ".technical.infrastructure.secondary.logstash\" level=\"WARN\" />",
-        "<logger name=\"org.jboss.logging\" level=\"WARN\" />"
-      )
+      List.of("<logger name=\"org.jboss.logging\" level=\"WARN\" />")
     );
   }
 }

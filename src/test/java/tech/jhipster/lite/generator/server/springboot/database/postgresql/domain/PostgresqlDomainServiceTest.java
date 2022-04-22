@@ -71,7 +71,7 @@ class PostgresqlDomainServiceTest {
     verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
 
     verify(springBootCommonService).addLogger(any(Project.class), anyString(), any(Level.class));
-    verify(springBootCommonService, times(3)).addLoggerTest(any(Project.class), anyString(), any(Level.class));
+    verify(springBootCommonService, times(4)).addLoggerTest(any(Project.class), anyString(), any(Level.class));
 
     verify(sqlCommonService).addTestcontainers(any(Project.class), anyString(), anyMap());
     verify(sqlCommonService).addSpringDataJpa(project);

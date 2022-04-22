@@ -9,7 +9,7 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.ap
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertExceptionTranslatorWithSecurity;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertJwtSecurityFilesExists;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertJwtSecurityProperties;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertLoggerInConfiguration;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertLoggerInConfig;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertPomXmlProperties;
 
 import java.util.List;
@@ -56,6 +56,7 @@ class JwtSecurityApplicationServiceIT {
     assertJwtSecurityFilesExists(project);
     assertExceptionTranslatorWithSecurity(project);
     assertJwtSecurityProperties(project);
+    assertLoggerInConfig(project);
 
     String integrationTest = "com/mycompany/myapp/IntegrationTest.java";
     assertFileContent(
@@ -67,8 +68,6 @@ class JwtSecurityApplicationServiceIT {
       )
     );
     assertFileContent(project, getPath(TEST_JAVA, integrationTest), List.of("@WithMockUser", "public @interface"));
-
-    assertLoggerInConfiguration(project);
   }
 
   @Test

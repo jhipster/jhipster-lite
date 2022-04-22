@@ -22,7 +22,6 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
-import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.CommonSecurityService;
 
@@ -62,7 +61,8 @@ class JwtSecurityDomainServiceTest {
     verify(springBootCommonService, times(3)).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService, times(3)).addPropertiesTest(any(Project.class), anyString(), any());
 
-    verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any(Level.class));
+    verify(springBootCommonService).addLogger(any(Project.class), anyString(), any());
+    verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any());
 
     // The 4 replaces, managed by commonSecurityService
     verify(commonSecurityService).updateExceptionTranslator(project);

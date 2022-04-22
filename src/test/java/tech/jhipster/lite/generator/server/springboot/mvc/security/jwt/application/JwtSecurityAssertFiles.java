@@ -8,11 +8,11 @@ import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURC
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurityDomainService.SECURITY_JWT_PATH;
 
 import java.util.List;
-import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public class JwtSecurityAssertFiles {
@@ -140,12 +140,17 @@ public class JwtSecurityAssertFiles {
     assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), properties);
   }
 
-  public static void assertLoggerInConfiguration(Project project) {
-    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
+  public static void assertLoggerInConfig(Project project) {
+    assertFileContent(
+      project,
+      getPath(MAIN_RESOURCES, LOGGING_CONFIGURATION),
+      List.of("<logger name=\"org.springframework.security\" level=\"WARN\" />")
+    );
+
     assertFileContent(
       project,
       getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
-      "<logger name=\"" + packageName + ".security.jwt.infrastructure.config\" level=\"WARN\" />"
+      List.of("<logger name=\"org.springframework.security\" level=\"WARN\" />")
     );
   }
 }

@@ -7,6 +7,9 @@ import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_CONFIGURATION;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.LOGGING_TEST_CONFIGURATION;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
@@ -21,6 +24,7 @@ public class EhcacheAssert {
     assertEnableCaching(project);
     assertJavaFiles(project);
     assertProperties(project);
+    assertLoggerInConfig(project);
   }
 
   public static void assertInitXmlConfiguration(Project project) {
@@ -28,6 +32,7 @@ public class EhcacheAssert {
     assertXmlDependencies(project);
     assertEhcacheXml(project);
     assertXmlProperty(project);
+    assertLoggerInConfig(project);
   }
 
   public static void assertDependencies(Project project) {
@@ -108,6 +113,16 @@ public class EhcacheAssert {
       project,
       getPath(MAIN_RESOURCES, "config/application.properties"),
       List.of("spring.cache.jcache.config=classpath:config/ehcache/ehcache.xml")
+    );
+  }
+
+  public static void assertLoggerInConfig(Project project) {
+    assertFileContent(project, getPath(MAIN_RESOURCES, LOGGING_CONFIGURATION), List.of("<logger name=\"org.ehcache\" level=\"WARN\" />"));
+
+    assertFileContent(
+      project,
+      getPath(TEST_RESOURCES, LOGGING_TEST_CONFIGURATION),
+      List.of("<logger name=\"org.ehcache\" level=\"WARN\" />")
     );
   }
 }

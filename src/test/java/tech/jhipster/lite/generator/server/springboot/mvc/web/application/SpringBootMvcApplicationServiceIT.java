@@ -58,7 +58,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
-    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\" />");
+    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"ERROR\" />");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -78,7 +78,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
-    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\" />");
+    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"ERROR\" />");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -99,7 +99,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=7419");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
-    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\" />");
+    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"ERROR\" />");
 
     assertTestUtil(project);
     assertExceptionHandler(project);
@@ -120,7 +120,7 @@ class SpringBootMvcApplicationServiceIT {
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
     assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
-    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"WARN\" />");
+    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"ERROR\" />");
 
     assertTestUtil(project);
     assertExceptionHandler(project);

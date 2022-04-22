@@ -6,7 +6,6 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.ap
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertBasicAuthProperties;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertJwtSecurityFilesExists;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertJwtSecurityProperties;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertLoggerInConfiguration;
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertPomXmlProperties;
 
 import org.junit.jupiter.api.Test;
@@ -75,7 +74,6 @@ class JwtSecurityResourceIT {
     assertPomXmlProperties(project);
     assertJwtSecurityFilesExists(project);
     assertJwtSecurityProperties(project);
-    assertLoggerInConfiguration(project);
   }
 
   @Test

@@ -555,6 +555,16 @@
             >
               Spring MVC Tomcat
             </button>
+            <br />
+            <br />
+            <button
+              id="springboot-jwt"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-jwt-button'"
+              @click.prevent="addSpringBootSecurityJWT"
+            >
+              Security JWT
+            </button>
           </div>
           <div
             v-if="client === 'angular'"

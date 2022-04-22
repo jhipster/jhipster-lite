@@ -10,7 +10,7 @@ public class InitialMigrationSetup {
   private final MongoTemplate template;
 
   public InitialMigrationSetup(MongoTemplate template) {
-      this.template = template;
+    this.template = template;
   }
 
   @Execution
@@ -18,5 +18,4 @@ public class InitialMigrationSetup {
 
   @RollbackExecution
   public void rollback() {}
-
 }

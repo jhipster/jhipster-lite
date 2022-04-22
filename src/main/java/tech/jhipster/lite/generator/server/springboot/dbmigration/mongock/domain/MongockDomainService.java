@@ -2,7 +2,9 @@ package tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.domai
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.TECHNICAL_INFRASTRUCTURE_SECONDARY;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 
 import java.util.TreeMap;
 import tech.jhipster.lite.error.domain.GeneratorException;
@@ -73,8 +75,8 @@ public class MongockDomainService implements MongockService {
 
   @Override
   public void addConfigurationJava(Project project) {
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    String mongockConfigPath = "technical/infrastructure/secondary/mongock";
+    String packageNamePath = project.getPackageNamePath().orElse(PACKAGE_PATH);
+    String mongockConfigPath = TECHNICAL_INFRASTRUCTURE_SECONDARY + "/mongock";
     projectRepository.template(
       project,
       SOURCE,
@@ -86,8 +88,8 @@ public class MongockDomainService implements MongockService {
   @Override
   public void addChangelogJava(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    String mongockDBMigrationPath = "technical/infrastructure/secondary/mongock/dbmigration";
+    String packageNamePath = project.getPackageNamePath().orElse(PACKAGE_PATH);
+    String mongockDBMigrationPath = TECHNICAL_INFRASTRUCTURE_SECONDARY + "/mongock/dbmigration";
 
     projectRepository.template(project, SOURCE, "InitialMigrationSetup.java", getPath(MAIN_JAVA, packageNamePath, mongockDBMigrationPath));
   }

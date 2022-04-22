@@ -92,7 +92,7 @@ public class MavenDomainService implements MavenService {
 
     int level = NEEDLE_DEPENDENCY_MANAGEMENT.equals(needle) ? 3 : 2;
 
-    String dependencyNode = Maven.getDependencyHeader(dependency, indent).indent(2 * indent);
+    String dependencyNode = Maven.getDependencyHeader(dependency, indent).indent(level * indent);
     String dependencyRegexp = (REGEXP_PREFIX_MULTILINE + dependencyNode);
 
     if (!projectRepository.containsRegexp(project, "", POM_XML, dependencyRegexp)) {

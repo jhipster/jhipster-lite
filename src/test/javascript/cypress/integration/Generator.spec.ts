@@ -25,6 +25,7 @@ describe('Generator', () => {
     cy.get(generatorSelector('option-springboot')).check();
     cy.get(generatorSelector('add-spring-boot-button')).contains('Spring Boot');
     cy.get(generatorSelector('add-spring-boot-mvc-tomcat-button')).contains('Spring MVC Tomcat');
+    cy.get(generatorSelector('add-spring-boot-jwt-button')).contains('Security JWT');
   });
 
   it('should display angular', () => {

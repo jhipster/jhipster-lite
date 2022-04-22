@@ -16,7 +16,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.6</version>
+    <version>2.6.7</version>
     <relativePath />
   </parent>
 
@@ -38,7 +38,7 @@
     <maven.version>3.8.5</maven.version>
     <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
 
-    <spring-boot.version>2.6.6</spring-boot.version>
+    <spring-boot.version>2.6.7</spring-boot.version>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <assertj.version>3.22.0</assertj.version>
     <mockito.version>4.4.0</mockito.version>
@@ -49,7 +49,7 @@
     <guava.version>31.1-jre</guava.version>
     <jgit.version>6.1.0.202203080745-r</jgit.version>
     <archunit-junit5.version>0.23.1</archunit-junit5.version>
-    <springdoc-openapi-ui.version>1.6.7</springdoc-openapi-ui.version>
+    <springdoc-openapi-ui.version>1.6.8</springdoc-openapi-ui.version>
     <problem-spring.version>0.27.0</problem-spring.version>
     <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
     <properties-maven-plugin.version>1.1.0</properties-maven-plugin.version>
@@ -58,7 +58,7 @@
 
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
-    <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
+    <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <!-- jhipster-needle-maven-property -->
   </properties>
 

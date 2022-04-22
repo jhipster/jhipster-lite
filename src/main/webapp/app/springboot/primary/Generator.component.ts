@@ -68,6 +68,14 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootSecurityJWT = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addJWT(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Security JWT to project failed', error));
+      }
+    };
+
     const addAngular = async (): Promise<void> => {
       if (project.value.folder !== '') {
         if (isAngularWithStyle.value) {
@@ -142,6 +150,7 @@ export default defineComponent({
       addJavaBase,
       addSpringBoot,
       addSpringBootMvcTomcat,
+      addSpringBootSecurityJWT,
       addAngular,
       addReact,
       addVue,

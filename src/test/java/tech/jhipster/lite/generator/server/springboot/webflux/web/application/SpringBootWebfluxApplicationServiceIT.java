@@ -2,8 +2,10 @@ package tech.jhipster.lite.generator.server.springboot.webflux.web.application;
 
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertExceptionHandlerDependencies;
+import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertExceptionHandlerFiles;
+import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertExceptionHandlerProperties;
 import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertProperties;
 
 import org.junit.jupiter.api.Test;
@@ -30,10 +32,26 @@ class SpringBootWebfluxApplicationServiceIT {
   SpringBootApplicationService springBootApplicationService;
 
   @Test
+  void shouldInit() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "bar");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    springBootWebfluxApplicationService.init(project);
+
+    assertDependencies(project);
+    assertProperties(project);
+    assertExceptionHandlerDependencies(project);
+    assertExceptionHandlerProperties(project);
+    assertExceptionHandlerFiles(project);
+  }
+
+  @Test
   void shouldAddSpringBootWebflux() {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "bar");
-    project.addConfig(PACKAGE_NAME, "tech.jhipster.baz");
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
@@ -42,5 +60,20 @@ class SpringBootWebfluxApplicationServiceIT {
 
     assertDependencies(project);
     assertProperties(project);
+  }
+
+  @Test
+  void shouldAddExceptionHandler() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "bar");
+    initApplicationService.init(project);
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    springBootWebfluxApplicationService.addExceptionHandler(project);
+
+    assertExceptionHandlerDependencies(project);
+    assertExceptionHandlerProperties(project);
+    assertExceptionHandlerFiles(project);
   }
 }

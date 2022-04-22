@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Pacifico&display=swap');
+
 :root {
   box-sizing: border-box;
   --color-slate: #f1f5f9;
@@ -16,13 +18,20 @@
   --variant-color-pink: #ffe2fb;
   --variant-color-orange: #ffefcd;
   --default-border-color: #e2e8f0;
-  --bs-primary: #3474ab;
+  --bs-primary: #152e44;
+  --primary-color-light: #4ba8f8;
+  --success-color: #00543c;
   --bs-secondary: #b86f2f;
 }
 
 .bd-navbar .navbar-nav-svg {
-  width: 2rem;
   height: 2rem;
+}
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+.title {
+  font-family: Pacifico, cursive;
 }
 .navbar-brand {
   flex: 1 1 0%;
@@ -42,10 +51,14 @@ button:focus {
   outline-offset: 2px;
 }
 .form-check-input:checked {
-  background-color: var(--bs-primary);
-  border-color: var(--bs-primary);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
+.navbar .nav-link,
+a {
+  color: var(--color-slate);
+}
 .nav-link,
 a {
   color: var(--primary-color);
@@ -53,7 +66,7 @@ a {
 
 .nav-link:hover,
 a:hover {
-  color: var(--primary-color-hover);
+  color: var(--primary-color-light);
 }
 .nav-link:focus,
 a:focus {
@@ -80,15 +93,28 @@ a:focus {
   display: flex;
   flex-direction: column;
 }
+button:not(:last-child) {
+  margin-right: 0.75rem;
+}
+button {
+  margin-bottom: 0.5rem;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+}
 .nav-pills .nav-link:hover {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .separator--vertical {
-  width: 1px;
+  width: 2px;
   height: auto;
   align-self: stretch;
+  background-color: var(--color-slate);
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 hr:not([size]).separator--vertical {
@@ -127,6 +153,10 @@ hr:not([size]).separator--vertical {
 }
 .list-group-item-check:checked + label::before {
   box-shadow: inset 0 0 0 3px var(--w);
+}
+input[type='checkbox'],
+input[type='radio'] {
+  cursor: pointer;
 }
 input[type='radio'] {
   margin-right: 1rem;

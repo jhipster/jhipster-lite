@@ -1,10 +1,10 @@
 <template>
-  <header class="navbar navbar-expand-md bg-light bd-navbar shadow mb-3 rounded">
+  <header class="navbar navbar-expand-md bg-primary bd-navbar shadow mb-3 sticky-top">
     <nav class="container-fluid flex-wrap flex-md-nowrap align-text-center" aria-label="Main navigation">
-      <a class="navbar-brand text-decoration-none d-flex align-items-center" href="#">
-        <img src="../../../content/JHipster-Lite-neon-blue.png" alt="" width="40" class="mx-2" />
-        <span class="fs-4 text-decoration-none" :data-selector="selectorPrefix + '.title'">JHipster Lite</span>
-      </a>
+      <div class="navbar-brand text-decoration-none d-flex align-items-center gap-4">
+        <img src="../../../content/JHipster-Lite-neon-blue.png" alt="" width="48" />
+        <span class="fs-3 text-decoration-none text-white title" :data-selector="selectorPrefix + '.title'">JHipster Lite</span>
+      </div>
       <button
         class="navbar-toggler text-primary"
         type="button"
@@ -30,26 +30,55 @@
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="./swagger-ui.html" target="_blank" rel="noopener">
-              <em class="bi bi-book-half"></em>
+              <em class="bi bi-book-half" role="img" aria-label="API"></em>
               <small class="d-md-none ms-2">API</small>
             </a>
           </li>
-          <hr class="separator--vertical mx-4 bg-primary" />
+          <hr class="separator--vertical mx-2" />
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://www.jhipster.tech/" target="_blank" rel="noopener">
-              <img src="../../../content/V2_JHipster_Bowtie_RGB_2x.png" alt="" height="18" class="d-inline-block align-text-center" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="36"
+                fill="currentColor"
+                fill-rule="evenodd"
+                class="navbar-nav-svg d-inline-block"
+                viewBox="0 0 120 60"
+                role="img"
+                aria-label="JHipster"
+              >
+                <g id="a" />
+                <g id="b">
+                  <g id="c">
+                    <g id="d">
+                      <path
+                        fill-opacity=".4"
+                        id="e"
+                        class="g"
+                        d="M69.88,20.11S10.53-14.33,5.4,7.08C.27,28.5-5.5,44.79,10.31,47.8c15.81,3.01,59.57-27.69,59.57-27.69Z"
+                      />
+                      <path
+                        id="f"
+                        class="h"
+                        d="M59.62,14.93c17.04-8.81,50.67-23.88,54.52-7.92,5.18,21.49,10.98,37.84-4.78,40.91-11.08,2.16-35.99-12.37-49.82-21.2-.01-10.44,.1-1.51,.09-11.79Z"
+                      />
+                    </g>
+                  </g>
+                </g>
+              </svg>
               <small class="d-md-none ms-2">JHipster</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://github.com/jhipster/jhipster-lite" target="_blank" rel="noopener">
-              <em class="bi bi-github"></em>
+              <em class="bi bi-github" role="img" aria-label="GitHub"></em>
               <small class="d-md-none ms-2">GitHub</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://twitter.com/jhipster" target="_blank" rel="noopener">
-              <em class="bi bi-twitter"></em>
+              <em class="bi bi-twitter" role="img" aria-label="twitter"></em>
               <small class="d-md-none ms-2">Twitter</small>
             </a>
           </li>
@@ -65,6 +94,7 @@
                 class="navbar-nav-svg d-inline-block"
                 viewBox="0 0 52 52"
                 role="img"
+                aria-label="Open collective"
               >
                 <title>Open Collective</title>
                 <path
@@ -300,7 +330,7 @@
                   </div>
                   <img src="../../../content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
                       <input
@@ -317,7 +347,7 @@
                   </div>
                   <img src="../../../content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item list-group-item-action gap-3 py-3" aria-current="true">
+                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
                   <div class="gap-2 w-100 justify-content-between">
                     <label>
                       <input
@@ -340,8 +370,8 @@
         </div>
       </div>
     </div>
-    <div class="row py-3 d-flex align-items-start">
-      <div class="col-12 col-md-3 col-lg-2">
+    <div class="row my-4 py-3 d-flex align-items-start">
+      <div class="col-12 col-md-3 col-lg-4">
         <ul id="v-pills-tab" class="nav nav-pills flex-column w-100" role="tablist" aria-orientation="vertical">
           <li class="nav-item">
             <div class="focus-helper" tabindex="-1"></div>
@@ -354,7 +384,7 @@
               aria-controls="v-pills-init"
               aria-selected="true"
             >
-              <em class="bi bi-code-slash" style="font-size: 1.5rem; color: var(--primary-color)"></em>
+              <em class="bi bi-code-slash"></em>
               INITIALIZATION
             </button>
           </li>
@@ -492,7 +522,7 @@
             <button id="init" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.init-button'" @click.prevent="initProject">
               Init
             </button>
-            &nbsp;
+
             <button
               v-if="buildTool === 'maven'"
               id="maven"
@@ -502,7 +532,7 @@
             >
               Maven
             </button>
-            &nbsp;
+
             <button
               id="javabase"
               class="btn btn-outline-primary"
@@ -511,7 +541,7 @@
             >
               Java Base
             </button>
-            &nbsp;
+
             <button
               id="frontend-maven-plugin"
               class="btn btn-outline-primary"
@@ -520,7 +550,7 @@
             >
               Frontend Maven Plugin
             </button>
-            &nbsp;
+
             <button
               v-if="project.folder !== ''"
               id="download"
@@ -546,7 +576,7 @@
             >
               Spring Boot
             </button>
-            &nbsp;
+
             <button
               id="springbootmvctomcat"
               class="btn btn-outline-primary"

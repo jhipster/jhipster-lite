@@ -7,9 +7,8 @@ import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.DEFAULT_SQL_FILES_FOLDER;
 
 import java.time.Clock;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.TreeMap;
+import tech.jhipster.lite.common.domain.TimeUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -21,8 +20,6 @@ public class FlywayDomainService implements FlywayService {
   private static final String SQL_INIT_FILE_SOURCE = "server/springboot/dbmigration/flyway";
   private static final String SQL_INIT_FILE_NAME = "V%s__init.sql";
   private static final String SQL_USER_AUTHORITY_FILE_NAME = "V%s__create_user_authority_tables.sql";
-
-  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
@@ -110,9 +107,7 @@ public class FlywayDomainService implements FlywayService {
   }
 
   private String buildFileNameWithTimestamp(String fileNameFormat, int idxScript) {
-    LocalDateTime localDateTime = LocalDateTime.now(clock).plusSeconds(idxScript);
-    String formattedDate = localDateTime.format(DATE_TIME_FORMATTER);
-    return fileNameFormat.formatted(formattedDate);
+    return fileNameFormat.formatted(TimeUtils.getNowTimestamp(clock, idxScript));
   }
 
   private boolean isDatabaseUseSequences(Project project) {

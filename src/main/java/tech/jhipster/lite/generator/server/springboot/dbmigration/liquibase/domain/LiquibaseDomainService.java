@@ -12,8 +12,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
 
 import java.time.Clock;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import tech.jhipster.lite.common.domain.TimeUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -28,7 +27,6 @@ public class LiquibaseDomainService implements LiquibaseService {
   public static final String CONFIG_LIQUIBASE = "config/liquibase";
   public static final String CHANGELOG = CONFIG_LIQUIBASE + "/changelog";
   public static final String DATA = CONFIG_LIQUIBASE + "/data";
-  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -131,7 +129,7 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   private void addSqlSequenceUserChangelog(Project project) {
     if (isDatabaseWhichNeedsSequenceStrategy(project)) {
-      String sequenceUserChangelog = getTimestamp() + "_added_sequence_User.xml";
+      String sequenceUserChangelog = TimeUtils.getNowTimestamp(clock) + "_added_sequence_User.xml";
       addChangelogXml(project, "", sequenceUserChangelog);
       projectRepository.template(
         project,
@@ -144,7 +142,7 @@ public class LiquibaseDomainService implements LiquibaseService {
   }
 
   private void addSqlUserChangelog(Project project) {
-    String userChangelog = getTimestamp() + "_added_entity_User.xml";
+    String userChangelog = TimeUtils.getNowTimestamp(clock) + "_added_entity_User.xml";
     addChangelogXml(project, "", userChangelog);
     String userXmlFile = "user.xml";
     if (springBootCommonService.isSetWithMySQLOrMariaDBDatabase(project)) {
@@ -156,7 +154,7 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   private void addSqlUserAuthorityChangelog(Project project) {
     // Update liquibase master file
-    String authorityChangelog = getTimestamp() + "_added_entity_Authority.xml";
+    String authorityChangelog = TimeUtils.getNowTimestamp(clock) + "_added_entity_Authority.xml";
     addChangelogXml(project, "", authorityChangelog);
 
     // Copy liquibase files
@@ -167,11 +165,6 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   private String getUserResourcePath() {
     return getPath(SOURCE, "resources/user");
-  }
-
-  private String getTimestamp() {
-    LocalDateTime localDateTime = LocalDateTime.now(clock);
-    return localDateTime.format(DATE_TIME_FORMATTER);
   }
 
   private boolean isDatabaseWhichNeedsSequenceStrategy(Project project) {

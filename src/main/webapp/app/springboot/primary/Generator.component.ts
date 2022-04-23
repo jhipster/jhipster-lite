@@ -68,6 +68,14 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootWebfluxNetty = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addSpringBootWebfluxNetty(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Webflux with Netty to project failed', error));
+      }
+    };
+
     const addSpringBootSecurityJWT = async (): Promise<void> => {
       if (project.value.folder !== '') {
         await springBootService
@@ -150,6 +158,7 @@ export default defineComponent({
       addJavaBase,
       addSpringBoot,
       addSpringBootMvcTomcat,
+      addSpringBootWebfluxNetty,
       addSpringBootSecurityJWT,
       addAngular,
       addReact,

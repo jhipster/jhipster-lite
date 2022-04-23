@@ -585,6 +585,14 @@
             >
               Spring MVC Tomcat
             </button>
+            <button
+              id="springbootwebfluxnetty"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-webflux-netty-button'"
+              @click.prevent="addSpringBootWebfluxNetty"
+            >
+              Spring Webflux Netty
+            </button>
             <br />
             <br />
             <button

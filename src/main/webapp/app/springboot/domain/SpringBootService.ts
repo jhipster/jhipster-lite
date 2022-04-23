@@ -4,6 +4,7 @@ export interface SpringBootService {
   addSpringBoot(project: Project): Promise<void>;
 
   addSpringBootMvcTomcat(project: Project): Promise<void>;
+  addSpringBootWebfluxNetty(project: Project): Promise<void>;
   addJWT(project: Project): Promise<void>;
   addBasicAuthJWT(project: Project): Promise<void>;
   addOauth2(project: Project): Promise<void>;

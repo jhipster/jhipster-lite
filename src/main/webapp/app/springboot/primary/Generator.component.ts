@@ -92,6 +92,38 @@ export default defineComponent({
       }
     };
 
+    const addPostgreSQL = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addPostgres(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Database PostgreSQL to project failed', error));
+      }
+    };
+
+    const addMySQL = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addMySQL(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Database MySQL to project failed', error));
+      }
+    };
+
+    const addMariaDB = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addMariaDB(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Database MariaDB to project failed', error));
+      }
+    };
+
+    const addMongoDB = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addMongoDB(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Database MongoDB to project failed', error));
+      }
+    };
+
     const addAngular = async (): Promise<void> => {
       if (project.value.folder !== '') {
         if (isAngularWithStyle.value) {
@@ -169,6 +201,10 @@ export default defineComponent({
       addSpringBootWebfluxNetty,
       addSpringBootSecurityJWT,
       addSpringBootSecurityJWTBasicAuth,
+      addPostgreSQL,
+      addMySQL,
+      addMariaDB,
+      addMongoDB,
       addAngular,
       addReact,
       addVue,

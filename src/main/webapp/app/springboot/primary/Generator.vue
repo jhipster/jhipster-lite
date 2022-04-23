@@ -370,7 +370,7 @@
         </div>
       </div>
     </div>
-    <div class="row my-4 d-flex align-items-start border-bottom border-secondary border-2 shadow-lg">
+    <div class="row my-4 d-flex align-items-start shadow-lg">
       <div class="col-12 col-md-4 col-lg-4 px-0 bg-secondary">
         <ul id="v-pills-tab" class="nav nav-pills flex-column w-100" role="tablist" aria-orientation="vertical">
           <li class="nav-item">

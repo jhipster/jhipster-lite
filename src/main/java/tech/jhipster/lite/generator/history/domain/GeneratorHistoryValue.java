@@ -1,3 +1,3 @@
 package tech.jhipster.lite.generator.history.domain;
 
-public record GeneratorHistoryValue(String serviceId) {}
+public record GeneratorHistoryValue(String serviceId, String timestamp) {}

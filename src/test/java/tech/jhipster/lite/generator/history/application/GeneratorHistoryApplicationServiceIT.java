@@ -39,7 +39,7 @@ class GeneratorHistoryApplicationServiceIT {
     project.addConfig(BASE_NAME, "foo");
 
     // When
-    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("init-project");
+    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("init-project", "20220423111500");
     generatorHistoryApplicationService.addHistoryValue(project, generatorHistoryValue);
 
     // Then
@@ -53,7 +53,8 @@ class GeneratorHistoryApplicationServiceIT {
     return """
       {
         "values" : [ {
-          "serviceId" : "init-project"
+          "serviceId" : "init-project",
+          "timestamp" : "20220423111500"
         } ]
       }""";
   }

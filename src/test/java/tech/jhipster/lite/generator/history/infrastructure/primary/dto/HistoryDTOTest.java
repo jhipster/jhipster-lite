@@ -34,14 +34,14 @@ public class HistoryDTOTest {
   }
 
   public static List<GeneratorHistoryValue> values() {
-    return serviceIds();
+    return historyValues();
   }
 
-  private static List<GeneratorHistoryValue> serviceIds() {
+  private static List<GeneratorHistoryValue> historyValues() {
     return List.of(
-      new GeneratorHistoryValue("service51"),
-      new GeneratorHistoryValue("service1664"),
-      new GeneratorHistoryValue("service33")
+      new GeneratorHistoryValue("service51", null),
+      new GeneratorHistoryValue("service1664", "20220423111510"),
+      new GeneratorHistoryValue("service33", "20220423111520")
     );
   }
 

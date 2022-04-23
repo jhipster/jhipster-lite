@@ -62,7 +62,8 @@ class GeneratorHistoryLocalRepositoryTest {
 
       // Then
       GeneratorHistoryData expectedGeneratorHistoryData = new GeneratorHistoryData();
-      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("springboot-init"));
+      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("springboot-init", null));
+      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("java-init", "20220102030405"));
       assertThat(generatorHistoryData).usingRecursiveComparison().isEqualTo(expectedGeneratorHistoryData);
     }
   }
@@ -106,7 +107,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", "20220405060708");
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
@@ -137,7 +138,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.read(historyFilePath)).thenThrow(new IOException()).thenReturn(getFileContent());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", "20220405060708");
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
@@ -175,7 +176,7 @@ class GeneratorHistoryLocalRepositoryTest {
         fileUtils.when(() -> FileUtils.getPath(project.getFolder(), ".jhipster", "history.json")).thenReturn(historyFilePath);
         fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
-        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
+        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", "20220405060708");
 
         // When + Then
         assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
@@ -209,7 +210,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(new IOException());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", "20220423111500");
       assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
         .isInstanceOf(GeneratorException.class);
     }
@@ -219,7 +220,8 @@ class GeneratorHistoryLocalRepositoryTest {
     return """
         {
           "values": [
-            { "serviceId": "springboot-init"}
+            { "serviceId": "springboot-init"},
+            { "serviceId": "java-init", "timestamp": "20220102030405"}
           ]
         }
       """;
@@ -229,9 +231,14 @@ class GeneratorHistoryLocalRepositoryTest {
     return """
       {
         "values" : [ {
-          "serviceId" : "springboot-init"
+          "serviceId" : "springboot-init",
+          "timestamp" : null
         }, {
-          "serviceId" : "tomcat"
+          "serviceId" : "java-init",
+          "timestamp" : "20220102030405"
+        }, {
+          "serviceId" : "tomcat",
+          "timestamp" : "20220405060708"
         } ]
       }""".lines()
       .collect(Collectors.toList());

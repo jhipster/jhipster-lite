@@ -44,6 +44,28 @@ export default defineComponent({
       }
     };
 
+    const addJaCoCo = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addJaCoCo(toProject(project.value)).catch(error => logger.error('Adding JaCoCo to project failed', error));
+      }
+    };
+
+    const addSonarBackend = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService
+          .addSonarBackend(toProject(project.value))
+          .catch(error => logger.error('Adding Sonar Backend to project failed', error));
+      }
+    };
+
+    const addSonarBackendFrontend = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService
+          .addSonarBackendFrontend(toProject(project.value))
+          .catch(error => logger.error('Adding Sonar Backend+Frontend to project failed', error));
+      }
+    };
+
     const addJavaBase = async (): Promise<void> => {
       if (project.value.folder !== '') {
         await projectService
@@ -195,6 +217,9 @@ export default defineComponent({
       client,
       initProject,
       addMaven,
+      addJaCoCo,
+      addSonarBackend,
+      addSonarBackendFrontend,
       addJavaBase,
       addSpringBoot,
       addSpringBootMvcTomcat,

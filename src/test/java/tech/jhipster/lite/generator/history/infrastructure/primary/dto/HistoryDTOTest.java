@@ -21,7 +21,7 @@ public class HistoryDTOTest {
   void shouldConvertFromHistory() {
     HistoryDTO history = defaultHistory();
 
-    assertThat(history.getServiceIds()).isEqualTo(List.of("service51", "service1664", "service33"));
+    assertThat(history.getServiceIds()).isEqualTo(List.of("service1664", "service33", "service51"));
   }
 
   @Test
@@ -46,6 +46,6 @@ public class HistoryDTOTest {
   }
 
   public static String defaultJson() {
-    return ("{\"serviceIds\":[\"service51\",\"service1664\",\"service33\"]}");
+    return ("{\"serviceIds\":[\"service1664\",\"service33\",\"service51\"]}");
   }
 }

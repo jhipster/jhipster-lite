@@ -1,5 +1,5 @@
 <template>
-  <header class="navbar navbar-expand-md bg-primary bd-navbar shadow mb-3">
+  <header class="navbar navbar-expand-md bg-primary-dark bd-navbar shadow mb-3">
     <nav class="container-fluid flex-wrap flex-md-nowrap align-text-center" aria-label="Main navigation">
       <div class="navbar-brand text-decoration-none d-flex align-items-center gap-4">
         <img src="../../../content/JHipster-Lite-neon-blue.png" alt="" width="48" />
@@ -113,7 +113,7 @@
 
   <main class="container-fluid py-4">
     <div class="row">
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-4 p-4 shadow-primary bg-light">
         <h2>Project configuration</h2>
         <div class="row g-3">
           <div class="col-12">
@@ -140,251 +140,237 @@
       </div>
       <div class="col">
         <h2>Options</h2>
-        <div class="row gx-4">
-          <div class="col-12 col-md-6">
-            <h3 class="h5">Language</h3>
-            <hr
-              class="q-separator q-separator--horizontal q-separator--horizontal-item-inset"
-              aria-orientation="horizontal"
-              style="margin-bottom: 8px; margin-top: 8px"
-            />
-            <div class="row p-2">
-              <div class="list-group--inline mx-0">
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input id="language" class="form-check-input flex-shrink-0" type="radio" name="language" value="java" checked />
-                      <span> Java </span>
-                    </label>
-                  </div>
-                  <img src="../../../content/java_rounded_40x40.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-                </div>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+            <div class="card h-100 text-white bg-dark bg-gradient shadow">
+              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-journal-code" aria-hidden="true"></em>Language</h3>
+              <div class="card-body">
+                <ul class="list-group--inline">
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input id="language" class="form-check-input flex-shrink-0" type="radio" name="language" value="java" checked />
+                        <span> Java </span>
+                      </label>
+                    </div>
+                    <img src="../../../content/java_rounded_40x40.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6">
-            <h3 class="h5">Build tool</h3>
-            <hr
-              class="q-separator q-separator--horizontal q-separator--horizontal-item-inset"
-              aria-orientation="horizontal"
-              style="margin-bottom: 8px; margin-top: 8px"
-            />
-            <div class="row p-2">
-              <div class="list-group--inline mx-0">
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="buildTool"
-                        v-model="buildTool"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="buildTool"
-                        value="maven"
-                        checked
-                      />
-                      <span> Maven </span>
-                    </label>
-                  </div>
-                  <img src="../../../content/MavenLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-                </div>
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="buildTool"
-                        v-model="buildTool"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="buildTool"
-                        value="gradle"
-                      />
-                      <span> Gradle </span>
-                    </label>
-                  </div>
-                  <img src="../../../content/GradleLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-                </div>
+
+          <div class="col">
+            <div class="card h-100 text-white bg-primary bg-gradient shadow">
+              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-tools" aria-hidden="true"></em>Build tool</h3>
+              <div class="card-body">
+                <ul class="list-group--inline">
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="buildTool"
+                          v-model="buildTool"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="buildTool"
+                          value="maven"
+                          checked
+                        />
+                        <span> Maven </span>
+                      </label>
+                    </div>
+                    <img src="../../../content/MavenLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="buildTool"
+                          v-model="buildTool"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="buildTool"
+                          value="gradle"
+                        />
+                        <span> Gradle </span>
+                      </label>
+                    </div>
+                    <img src="../../../content/GradleLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row gx-4">
-          <div class="col-12 col-md-12">
-            <h3 class="h5">Server</h3>
-            <hr
-              class="q-separator q-separator--horizontal q-separator--horizontal-item-inset"
-              aria-orientation="horizontal"
-              style="margin-bottom: 8px; margin-top: 8px"
-            />
-            <div class="row p-2">
-              <div class="list-group--inline mx-0">
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="option-no-server"
-                        v-model="server"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="server"
-                        value="none"
-                        checked
-                      />
-                      <span>None</span>
-                    </label>
-                  </div>
-                  <img
-                    src="../../../content/JHipster-Lite-neon-blue_40x.png"
-                    alt=""
-                    width="32"
-                    height="32"
-                    class="rounded-circle flex-shrink-0"
-                  />
-                </div>
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="option-springboot"
-                        v-model="server"
-                        :data-selector="selectorPrefix + '.option-springboot'"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="server"
-                        value="springboot"
-                      />
-                      <span> Spring Boot </span>
-                    </label>
-                  </div>
-                  <img src="../../../content/SpringLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-                </div>
+
+          <div class="col">
+            <div class="card h-100 text-white bg-secondary bg-gradient shadow">
+              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-gear" aria-hidden="true"></em>Server</h3>
+              <div class="card-body">
+                <ul class="list-group--inline">
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="option-no-server"
+                          v-model="server"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="server"
+                          value="none"
+                          checked
+                        />
+                        <span>None</span>
+                      </label>
+                    </div>
+                    <img
+                      src="../../../content/JHipster-Lite-neon-blue_40x.png"
+                      alt=""
+                      width="32"
+                      height="32"
+                      class="rounded-circle flex-shrink-0"
+                    />
+                  </li>
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="option-springboot"
+                          v-model="server"
+                          :data-selector="selectorPrefix + '.option-springboot'"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="server"
+                          value="springboot"
+                        />
+                        <span> Spring Boot </span>
+                      </label>
+                    </div>
+                    <img src="../../../content/SpringLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row gx-4">
-          <div class="col-12 col-md-12">
-            <h3 class="h5">Client</h3>
-            <hr
-              class="q-separator q-separator--horizontal q-separator--horizontal-item-inset"
-              aria-orientation="horizontal"
-              style="margin-bottom: 8px; margin-top: 8px"
-            />
-            <div class="row p-2">
-              <div class="list-group--inline mx-0">
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="option-none-client"
-                        v-model="client"
-                        :data-selector="selectorPrefix + '.option-none-client'"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="client"
-                        value="none"
-                        checked
-                      />
-                      <span>None</span>
-                    </label>
-                  </div>
-                  <img
-                    src="../../../content/JHipster-Lite-neon-blue_40x.png"
-                    alt=""
-                    width="32"
-                    height="32"
-                    class="rounded-circle flex-shrink-0"
-                  />
-                </div>
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="option-angular"
-                        v-model="client"
-                        :data-selector="selectorPrefix + '.option-angular'"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="client"
-                        value="angular"
-                      />
-                      <span>Angular</span>
-                    </label>
-                  </div>
-                  <img src="../../../content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-                </div>
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="option-react"
-                        v-model="client"
-                        :data-selector="selectorPrefix + '.option-react'"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="client"
-                        value="react"
-                      />
-                      <span>React</span>
-                    </label>
-                  </div>
-                  <img src="../../../content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-                </div>
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="option-vue"
-                        v-model="client"
-                        :data-selector="selectorPrefix + '.option-vue'"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="client"
-                        value="vue"
-                      />
-                      <span>Vue.js</span>
-                    </label>
-                  </div>
-                  <img src="../../../content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-                </div>
-                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
-                  <div class="w-100 justify-content-between">
-                    <label>
-                      <input
-                        id="option-svelte"
-                        v-model="client"
-                        :data-selector="selectorPrefix + '.option-svelte'"
-                        class="form-check-input flex-shrink-0"
-                        type="radio"
-                        name="client"
-                        value="svelte"
-                      />
-                      <span>Svelte</span>
-                    </label>
-                  </div>
-                  <img src="../../../content/SvelteLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
-                </div>
+          <div class="col">
+            <div class="card h-100 text-dark bg-light shadow">
+              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-image-fill" aria-hidden="true"></em>Client</h3>
+              <div class="card-body">
+                <ul class="list-group--inline">
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="option-none-client"
+                          v-model="client"
+                          :data-selector="selectorPrefix + '.option-none-client'"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="client"
+                          value="none"
+                          checked
+                        />
+                        <span>None</span>
+                      </label>
+                    </div>
+                    <img
+                      src="../../../content/JHipster-Lite-neon-blue_40x.png"
+                      alt=""
+                      width="32"
+                      height="32"
+                      class="rounded-circle flex-shrink-0"
+                    />
+                  </li>
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="option-angular"
+                          v-model="client"
+                          :data-selector="selectorPrefix + '.option-angular'"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="client"
+                          value="angular"
+                        />
+                        <span>Angular</span>
+                      </label>
+                    </div>
+                    <img src="../../../content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="option-react"
+                          v-model="client"
+                          :data-selector="selectorPrefix + '.option-react'"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="client"
+                          value="react"
+                        />
+                        <span>React</span>
+                      </label>
+                    </div>
+                    <img src="../../../content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="option-vue"
+                          v-model="client"
+                          :data-selector="selectorPrefix + '.option-vue'"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="client"
+                          value="vue"
+                        />
+                        <span>Vue.js</span>
+                      </label>
+                    </div>
+                    <img src="../../../content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <label>
+                        <input
+                          id="option-svelte"
+                          v-model="client"
+                          :data-selector="selectorPrefix + '.option-svelte'"
+                          class="form-check-input flex-shrink-0"
+                          type="radio"
+                          name="client"
+                          value="svelte"
+                        />
+                        <span>Svelte</span>
+                      </label>
+                    </div>
+                    <img src="../../../content/SvelteLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row my-4 d-flex align-items-start shadow-lg">
-      <div class="col-12 col-md-4 col-lg-4 px-0 bg-secondary">
-        <ul id="v-pills-tab" class="nav nav-pills flex-column w-100" role="tablist" aria-orientation="vertical">
+    <div class="row my-4 d-flex align-items-start shadow">
+      <div class="col-12 col-md-4 col-lg-4 px-0">
+        <ul id="v-pills-tab" class="nav nav-pills flex-column nav-fill" role="tablist" aria-orientation="vertical">
           <li class="nav-item">
             <div class="focus-helper" tabindex="-1"></div>
             <button
               id="section-init"
-              class="nav-link fw-bold active"
+              class="nav-link text-primary bg-primary fw-bold active"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-init"
               role="tab"
               aria-controls="v-pills-init"
               aria-selected="true"
             >
-              <em class="bi bi-code-slash"></em>
+              <em class="bi bi-code-slash" aria-hidden="true"></em>
               INITIALIZATION
             </button>
           </li>
@@ -394,7 +380,7 @@
             <button
               id="section-springboot"
               :data-selector="selectorPrefix + '.section-springboot'"
-              class="nav-link fw-bold text-spring"
+              class="nav-link bg-spring fw-bold text-spring"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-springboot"
               role="tab"
@@ -415,7 +401,7 @@
             <button
               id="section-angular"
               :data-selector="selectorPrefix + '.section-angular'"
-              class="nav-link fw-bold text-angular"
+              class="nav-link bg-angular fw-bold text-angular"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-angular"
               type="button"
@@ -457,7 +443,7 @@
             <button
               id="section-react"
               :data-selector="selectorPrefix + '.section-react'"
-              class="nav-link fw-bold text-react"
+              class="nav-link text-primary bg-primary fw-bold text-react"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-react"
               type="button"
@@ -482,7 +468,7 @@
             <button
               id="section-vue"
               :data-selector="selectorPrefix + '.section-vue'"
-              class="nav-link fw-bold text-vue"
+              class="nav-link fw-bold bg-vue bg-opacity-25 text-vue"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-vue"
               type="button"
@@ -501,7 +487,7 @@
             <button
               id="section-svelte"
               :data-selector="selectorPrefix + '.section-vue'"
-              class="nav-link fw-bold text-svelte"
+              class="nav-link bg-svelte fw-bold text-svelte"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-svelte"
               type="button"

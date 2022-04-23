@@ -612,6 +612,43 @@
             >
               Security JWT Basic Auth
             </button>
+            <br />
+            <br />
+            <button
+              id="springboot-database-postgresql"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-database-postgresql-button'"
+              @click.prevent="addPostgreSQL"
+            >
+              PostgreSQL
+            </button>
+
+            <button
+              id="springboot-database-mysql"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-database-mysql-button'"
+              @click.prevent="addMySQL"
+            >
+              MySQL
+            </button>
+
+            <button
+              id="springboot-database-mariadb"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-database-mariadb-button'"
+              @click.prevent="addMariaDB"
+            >
+              MariaDB
+            </button>
+
+            <button
+              id="springboot-database-mongodb"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-database-mongodb-button'"
+              @click.prevent="addMongoDB"
+            >
+              MongoDB
+            </button>
           </div>
           <div
             v-if="client === 'angular'"

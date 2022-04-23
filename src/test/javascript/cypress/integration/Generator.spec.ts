@@ -28,6 +28,11 @@ describe('Generator', () => {
     cy.get(generatorSelector('add-spring-boot-webflux-netty-button')).contains('Spring Webflux Netty');
     cy.get(generatorSelector('add-spring-boot-jwt-button')).contains('Security JWT');
     cy.get(generatorSelector('add-spring-boot-jwt-basic-auth-button')).contains('Security JWT Basic Auth');
+
+    cy.get(generatorSelector('add-spring-boot-database-postgresql-button')).contains('PostgreSQL');
+    cy.get(generatorSelector('add-spring-boot-database-mysql-button')).contains('MySQL');
+    cy.get(generatorSelector('add-spring-boot-database-mariadb-button')).contains('MariaDB');
+    cy.get(generatorSelector('add-spring-boot-database-mongodb-button')).contains('MongoDB');
   });
 
   it('should display angular', () => {

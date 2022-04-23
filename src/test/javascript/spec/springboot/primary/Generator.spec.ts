@@ -345,6 +345,61 @@ describe('Generator', () => {
     expect(message).toBe('Adding SpringBoot MVC with Tomcat to project failed');
   });
 
+  it('should not add SpringBoot Webflux with Netty when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootWebfluxNetty.resolves({});
+    await wrap({ springBootService });
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springbootwebfluxnetty');
+    await button.trigger('click');
+
+    expect(springBootService.addSpringBootWebfluxNetty.called).toBe(false);
+  });
+
+  it('should add SpringBoot Webflux with Netty when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootWebfluxNetty.resolves({});
+    await wrap({ springBootService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springbootwebfluxnetty');
+    await button.trigger('click');
+
+    const args = springBootService.addSpringBootWebfluxNetty.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding SpringBoot Webflux with Netty failure', async () => {
+    const logger = stubLogger();
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootWebfluxNetty.rejects({});
+    await wrap({ springBootService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const initButton = wrapper.find('#springbootwebfluxnetty');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding SpringBoot Webflux with Netty to project failed');
+  });
+
   it('should not add SpringBoot Security JWT when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addJWT.resolves({});

@@ -33,6 +33,20 @@ describe('SpringBootRepository', () => {
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
+  it('should add SpringBoot Webflux with Netty', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const springBootRepository = new SpringBootRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    springBootRepository.addSpringBootWebfluxNetty(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/servers/spring-boot/reactive-servers/netty');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+
   it('should add Ippon Banner', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();

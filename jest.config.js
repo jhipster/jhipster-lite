@@ -16,7 +16,7 @@ module.exports = {
     '!src/main/webapp/app/router/index.ts',
     '!**/*.d.ts',
   ],
-  coverageReporters: ['html', 'json-summary', 'text-summary', 'lcov', 'clover'],
+  coverageReporters: ['html', 'json-summary', 'text', 'text-summary', 'lcov', 'clover'],
   coverageDirectory: '<rootDir>/target/test-results/',
   coverageThreshold: {
     global: {

@@ -595,6 +595,15 @@
             >
               Security JWT
             </button>
+
+            <button
+              id="springboot-jwt-basic-auth"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-jwt-basic-auth-button'"
+              @click.prevent="addSpringBootSecurityJWTBasicAuth"
+            >
+              Security JWT Basic Auth
+            </button>
           </div>
           <div
             v-if="client === 'angular'"

@@ -76,6 +76,14 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootSecurityJWTBasicAuth = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addBasicAuthJWT(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Security JWT Basic Auth to project failed', error));
+      }
+    };
+
     const addAngular = async (): Promise<void> => {
       if (project.value.folder !== '') {
         if (isAngularWithStyle.value) {
@@ -151,6 +159,7 @@ export default defineComponent({
       addSpringBoot,
       addSpringBootMvcTomcat,
       addSpringBootSecurityJWT,
+      addSpringBootSecurityJWTBasicAuth,
       addAngular,
       addReact,
       addVue,

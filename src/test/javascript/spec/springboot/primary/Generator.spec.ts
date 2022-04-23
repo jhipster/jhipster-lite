@@ -400,6 +400,61 @@ describe('Generator', () => {
     expect(message).toBe('Adding SpringBoot Security JWT to project failed');
   });
 
+  it('should not add SpringBoot Security JWT Basic Auth  when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addBasicAuthJWT.resolves({});
+    await wrap({ springBootService });
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springboot-jwt-basic-auth');
+    await button.trigger('click');
+
+    expect(springBootService.addBasicAuthJWT.called).toBe(false);
+  });
+
+  it('should add SpringBoot Security JWT Basic Auth when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addBasicAuthJWT.resolves({});
+    await wrap({ springBootService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springboot-jwt-basic-auth');
+    await button.trigger('click');
+
+    const args = springBootService.addBasicAuthJWT.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding SpringBoot Security JWT Basic Auth failure', async () => {
+    const logger = stubLogger();
+    const springBootService = stubSpringBootService();
+    springBootService.addBasicAuthJWT.rejects({});
+    await wrap({ springBootService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const initButton = wrapper.find('#springboot-jwt-basic-auth');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding SpringBoot Security JWT Basic Auth to project failed');
+  });
+
   it('should not add Angular when project path is not filled', async () => {
     const angularService = stubAngularService();
     angularService.add.resolves({});

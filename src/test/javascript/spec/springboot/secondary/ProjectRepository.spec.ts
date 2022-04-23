@@ -33,6 +33,48 @@ describe('ProjectRepository', () => {
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
+  it('should add JaCoCo', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addJaCoCo(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/servers/java/jacoco-minimum-coverage');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+
+  it('should add Sonar Backend', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSonarBackend(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/developer-tools/sonar/java-backend');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+
+  it('should add Sonar Backend+Frontend', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    projectRepository.addSonarBackendFrontend(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/developer-tools/sonar/java-backend-and-frontend');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+
   it('should add JavaBase', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();

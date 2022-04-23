@@ -16,6 +16,21 @@ export default class ProjectRepository implements ProjectService {
     await this.axiosHttp.post('api/build-tools/maven', restProject);
   }
 
+  async addJaCoCo(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('api/servers/java/jacoco-minimum-coverage', restProject);
+  }
+
+  async addSonarBackend(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('api/developer-tools/sonar/java-backend', restProject);
+  }
+
+  async addSonarBackendFrontend(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('api/developer-tools/sonar/java-backend-and-frontend', restProject);
+  }
+
   async addFrontendMavenPlugin(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('api/developer-tools/frontend-maven-plugin', restProject);

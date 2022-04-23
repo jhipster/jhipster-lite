@@ -16,6 +16,9 @@ describe('Generator', () => {
 
     cy.get(generatorSelector('init-button')).contains('Init');
     cy.get(generatorSelector('add-maven-button')).contains('Maven');
+    cy.get(generatorSelector('add-jacoco-button')).contains('JaCoCo');
+    cy.get(generatorSelector('add-sonar-backend-button')).contains('Sonar Backend');
+    cy.get(generatorSelector('add-sonar-backend-frontend-button')).contains('Sonar Backend+Frontend');
     cy.get(generatorSelector('add-java-base-button')).contains('Java Base');
     cy.get(generatorSelector('add-frontend-maven-plugin-button')).contains('Frontend Maven Plugin');
     cy.get(generatorSelector('download-button')).should('not.exist');

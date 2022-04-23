@@ -522,7 +522,8 @@
             <button id="init" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.init-button'" @click.prevent="initProject">
               Init
             </button>
-
+            <br />
+            <br />
             <button
               v-if="buildTool === 'maven'"
               id="maven"
@@ -534,6 +535,34 @@
             </button>
 
             <button
+              id="jacoco"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-jacoco-button'"
+              @click.prevent="addJaCoCo"
+            >
+              JaCoCo
+            </button>
+
+            <button
+              id="sonar-backend"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-sonar-backend-button'"
+              @click.prevent="addSonarBackend"
+            >
+              Sonar Backend
+            </button>
+
+            <button
+              id="sonar-backend-frontend"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-sonar-backend-frontend-button'"
+              @click.prevent="addSonarBackendFrontend"
+            >
+              Sonar Backend+Frontend
+            </button>
+            <br />
+            <br />
+            <button
               id="javabase"
               class="btn btn-outline-primary"
               :data-selector="selectorPrefix + '.add-java-base-button'"
@@ -541,7 +570,8 @@
             >
               Java Base
             </button>
-
+            <br />
+            <br />
             <button
               id="frontend-maven-plugin"
               class="btn btn-outline-primary"
@@ -550,7 +580,8 @@
             >
               Frontend Maven Plugin
             </button>
-
+            <br />
+            <br />
             <button
               v-if="project.folder !== ''"
               id="download"

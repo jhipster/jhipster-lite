@@ -19,9 +19,10 @@
   --variant-color-orange: #ffefcd;
   --default-border-color: #e2e8f0;
   --bs-primary: #152e44;
+  --bs-secondary-rgb-hover: 241, 226, 213;
+  --bs-secondary-rgb: 248, 241, 234;
   --primary-color-light: #4ba8f8;
   --success-color: #00543c;
-  --bs-secondary: #b86f2f;
 }
 
 .bd-navbar .navbar-nav-svg {
@@ -69,35 +70,37 @@ a:hover {
   color: var(--primary-color-light);
 }
 .nav-link:focus,
-a:focus {
-  color: var(--primary-color-focus);
+a:focus,
+button.nav-link {
+  color: var(--primary-color-light);
 }
 .nav-pills .nav-link {
   width: 100%;
   border-radius: 0;
 }
 .nav-pills {
-  padding: 0 16px;
+  padding: 0;
   min-height: 48px;
 }
 .nav-pills li {
-  padding: 4px 0;
+  padding: 0;
 }
 .nav-pills .nav-link.active {
   color: var(--primary-color);
-  border-bottom: 2px solid currentColor;
-  background: none;
+  box-shadow: inset -0.25em 0em currentColor;
+  background: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+  cursor: default;
+}
+.nav-pills .nav-link.active:hover {
+  background: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
 }
 .nav-pills button {
   align-items: center;
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  padding: 1rem;
 }
 button:not(:last-child) {
   margin-right: 0.75rem;
-}
-button {
-  margin-bottom: 0.5rem;
 }
 .btn-block {
   display: block;
@@ -105,7 +108,7 @@ button {
 }
 .nav-pills .nav-link:hover {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(var(--bs-secondary-rgb-hover), var(--bs-bg-opacity)) !important;
 }
 
 .separator--vertical {
@@ -124,7 +127,7 @@ hr:not([size]).separator--vertical {
   display: inline-flex;
   max-width: 100%;
   width: auto;
-  padding: 0.5rem 1.5rem;
+  padding: 0.25rem 1rem;
 }
 .list-group--inline > .list-group-item:not(:last-child) {
   margin-right: 0.75rem;
@@ -202,4 +205,17 @@ input[type='radio'] {
 }
 .text-svelte {
   color: #ff3e00 !important;
+}
+.border-secondary {
+  border-color: var(--secondary-color) !important;
+}
+.bg-secondary {
+  --bs-bg-opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .nav-pills .nav-link.active {
+    color: var(--primary-color);
+    box-shadow: inset 0em -0.15em currentColor;
+  }
 }

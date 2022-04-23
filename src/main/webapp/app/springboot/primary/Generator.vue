@@ -3,7 +3,7 @@
     <nav class="container-fluid flex-wrap flex-md-nowrap align-text-center" aria-label="Main navigation">
       <div class="navbar-brand text-decoration-none d-flex align-items-center gap-4">
         <img src="../../../content/JHipster-Lite-neon-blue.png" alt="" width="48" />
-        <span class="fs-3 text-decoration-none text-white title" :data-selector="selectorPrefix + '.title'">JHipster Lite</span>
+        <span class="fs-3 text-decoration-none text-white title" :data-selector="selectorPrefix + '.title'">JHipster lite</span>
       </div>
       <button
         class="navbar-toggler text-primary"
@@ -150,8 +150,8 @@
             />
             <div class="row p-2">
               <div class="list-group--inline mx-0">
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input id="language" class="form-check-input flex-shrink-0" type="radio" name="language" value="java" checked />
                       <span> Java </span>
@@ -171,8 +171,8 @@
             />
             <div class="row p-2">
               <div class="list-group--inline mx-0">
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="buildTool"
@@ -188,8 +188,8 @@
                   </div>
                   <img src="../../../content/MavenLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="buildTool"
@@ -218,8 +218,8 @@
             />
             <div class="row p-2">
               <div class="list-group--inline mx-0">
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="option-no-server"
@@ -241,8 +241,8 @@
                     class="rounded-circle flex-shrink-0"
                   />
                 </div>
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="option-springboot"
@@ -272,8 +272,8 @@
             />
             <div class="row p-2">
               <div class="list-group--inline mx-0">
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="option-none-client"
@@ -296,8 +296,8 @@
                     class="rounded-circle flex-shrink-0"
                   />
                 </div>
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="option-angular"
@@ -313,8 +313,8 @@
                   </div>
                   <img src="../../../content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="option-react"
@@ -330,8 +330,8 @@
                   </div>
                   <img src="../../../content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="option-vue"
@@ -347,8 +347,8 @@
                   </div>
                   <img src="../../../content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                 </div>
-                <div class="list-group-item align-items-center gap-3 py-3" aria-current="true">
-                  <div class="gap-2 w-100 justify-content-between">
+                <div class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                  <div class="w-100 justify-content-between">
                     <label>
                       <input
                         id="option-svelte"
@@ -370,14 +370,14 @@
         </div>
       </div>
     </div>
-    <div class="row my-4 py-3 d-flex align-items-start">
-      <div class="col-12 col-md-3 col-lg-4">
+    <div class="row my-4 d-flex align-items-start shadow-lg">
+      <div class="col-12 col-md-4 col-lg-4 px-0 bg-secondary">
         <ul id="v-pills-tab" class="nav nav-pills flex-column w-100" role="tablist" aria-orientation="vertical">
           <li class="nav-item">
             <div class="focus-helper" tabindex="-1"></div>
             <button
               id="section-init"
-              class="nav-link active"
+              class="nav-link fw-bold active"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-init"
               role="tab"
@@ -394,7 +394,7 @@
             <button
               id="section-springboot"
               :data-selector="selectorPrefix + '.section-springboot'"
-              class="nav-link text-spring"
+              class="nav-link fw-bold text-spring"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-springboot"
               role="tab"
@@ -415,7 +415,7 @@
             <button
               id="section-angular"
               :data-selector="selectorPrefix + '.section-angular'"
-              class="nav-link text-angular"
+              class="nav-link fw-bold text-angular"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-angular"
               type="button"
@@ -457,7 +457,7 @@
             <button
               id="section-react"
               :data-selector="selectorPrefix + '.section-react'"
-              class="nav-link text-react"
+              class="nav-link fw-bold text-react"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-react"
               type="button"
@@ -482,7 +482,7 @@
             <button
               id="section-vue"
               :data-selector="selectorPrefix + '.section-vue'"
-              class="nav-link text-vue"
+              class="nav-link fw-bold text-vue"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-vue"
               type="button"
@@ -501,7 +501,7 @@
             <button
               id="section-svelte"
               :data-selector="selectorPrefix + '.section-vue'"
-              class="nav-link text-svelte"
+              class="nav-link fw-bold text-svelte"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-svelte"
               type="button"
@@ -516,7 +516,7 @@
         </ul>
       </div>
 
-      <div class="col">
+      <div class="col py-2">
         <div id="v-pills-tab" class="tab-content">
           <div id="v-pills-init" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
             <button id="init" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.init-button'" @click.prevent="initProject">
@@ -749,14 +749,6 @@
       </div>
     </div>
   </main>
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-      <a href="https://www.jhipster.tech/" target="_blank" rel="noopener" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-        <img src="../../../content/JHipster-Lite-neon-blue_40x.png" alt="" />
-      </a>
-      <span class="text-muted">© 2022 JHipster Lite</span>
-    </div>
-  </footer>
 </template>
 
 <script lang="ts" src="./Generator.component.ts"></script>

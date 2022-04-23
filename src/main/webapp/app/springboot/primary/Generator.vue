@@ -113,7 +113,7 @@
 
   <main class="container-fluid py-4">
     <div class="row">
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-4 p-4 shadow-primary bg-light">
         <h2>Project configuration</h2>
         <div class="row g-3">
           <div class="col-12">
@@ -143,7 +143,7 @@
         <div class="row row-cols-1 row-cols-md-2 g-4">
           <div class="col">
             <div class="card h-100 text-white bg-dark bg-gradient shadow">
-              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-journal-code"></em>Language</h3>
+              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-journal-code" aria-hidden="true"></em>Language</h3>
               <div class="card-body">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
@@ -162,7 +162,7 @@
 
           <div class="col">
             <div class="card h-100 text-white bg-primary bg-gradient shadow">
-              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-tools"></em>Build tool</h3>
+              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-tools" aria-hidden="true"></em>Build tool</h3>
               <div class="card-body">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
@@ -205,7 +205,7 @@
 
           <div class="col">
             <div class="card h-100 text-white bg-secondary bg-gradient shadow">
-              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-gear"></em>Server</h3>
+              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-gear" aria-hidden="true"></em>Server</h3>
               <div class="card-body">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
@@ -254,7 +254,7 @@
           </div>
           <div class="col">
             <div class="card h-100 text-dark bg-light shadow">
-              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-image-fill"></em>Client</h3>
+              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-image-fill" aria-hidden="true"></em>Client</h3>
               <div class="card-body">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
@@ -370,7 +370,7 @@
               aria-controls="v-pills-init"
               aria-selected="true"
             >
-              <em class="bi bi-code-slash"></em>
+              <em class="bi bi-code-slash" aria-hidden="true"></em>
               INITIALIZATION
             </button>
           </li>

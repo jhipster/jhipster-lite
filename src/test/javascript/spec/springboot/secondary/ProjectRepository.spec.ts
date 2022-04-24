@@ -15,7 +15,7 @@ describe('ProjectRepository', () => {
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('api/projects');
+    expect(uri).toBe('api/inits/full');
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 

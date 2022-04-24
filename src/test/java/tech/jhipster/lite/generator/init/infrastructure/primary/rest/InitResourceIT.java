@@ -1,8 +1,6 @@
 package tech.jhipster.lite.generator.init.infrastructure.primary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.convertObjectToJsonBytes;
@@ -37,7 +35,7 @@ class InitResourceIT {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/inits/full").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);
@@ -52,26 +50,11 @@ class InitResourceIT {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/projects-minimal").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/inits/minimal").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
 
     Project project = ProjectDTO.toProject(projectDTO);
     assertFilesInitMinimal(project);
     assertFileContent(project, "README.md", "Chips Project");
-  }
-
-  @Test
-  void shouldDownload() throws Exception {
-    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
-    Project project = ProjectDTO.toProject(projectDTO);
-
-    initApplicationService.init(project);
-
-    mockMvc
-      .perform(post("/api/project-downloads").contentType(MediaType.APPLICATION_JSON).content(convertObjectToJsonBytes(projectDTO)))
-      .andExpect(status().isOk())
-      .andExpect(header().string("Content-Disposition", "attachment; filename=" + project.getBaseName().orElse("application") + ".zip"))
-      .andExpect(header().string("X-Suggested-Filename", project.getBaseName().orElse("application") + ".zip"))
-      .andExpect(content().contentType("application/octet-stream"));
   }
 }

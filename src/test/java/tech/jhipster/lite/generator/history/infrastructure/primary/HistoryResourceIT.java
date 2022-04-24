@@ -39,7 +39,7 @@ class HistoryResourceIT {
     projectDTO.folder(FileUtils.tmpDirForTest());
 
     mockMvc
-      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/inits/full").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
     mockMvc
       .perform(

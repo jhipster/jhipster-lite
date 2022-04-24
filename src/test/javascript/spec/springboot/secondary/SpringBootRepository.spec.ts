@@ -61,6 +61,36 @@ describe('SpringBootRepository', () => {
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
+  describe('Log tools', () => {
+    it('should add SpringBoot AOP Logging', () => {
+      const axiosHttpStub = stubAxiosHttp();
+      axiosHttpStub.post.resolves();
+      const springBootRepository = new SpringBootRepository(axiosHttpStub);
+      const project: Project = createProject({ folder: 'folder/path' });
+
+      springBootRepository.addSpringBootAopLogging(project);
+
+      const expectedRestProject: RestProject = toRestProject(project);
+      const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+      expect(uri).toBe('api/servers/spring-boot/log-tools/aop');
+      expect(payload).toEqual<RestProject>(expectedRestProject);
+    });
+
+    it('should add SpringBoot Logstash', () => {
+      const axiosHttpStub = stubAxiosHttp();
+      axiosHttpStub.post.resolves();
+      const springBootRepository = new SpringBootRepository(axiosHttpStub);
+      const project: Project = createProject({ folder: 'folder/path' });
+
+      springBootRepository.addSpringBootLogstash(project);
+
+      const expectedRestProject: RestProject = toRestProject(project);
+      const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+      expect(uri).toBe('api/servers/spring-boot/log-tools/logstash');
+      expect(payload).toEqual<RestProject>(expectedRestProject);
+    });
+  });
+
   it('should add Ippon Banner', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();

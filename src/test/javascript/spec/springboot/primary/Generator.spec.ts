@@ -611,6 +611,122 @@ describe('Generator', () => {
     expect(message).toBe('Adding SpringBoot Actuator to project failed');
   });
 
+  describe('Log tools', () => {
+    describe('AOP Logging', () => {
+      it('should not add SpringBoot AOP Logging when project path is not filled', async () => {
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootAopLogging.resolves({});
+        await wrap({ springBootService });
+        await selectSection('springboot');
+
+        const button = wrapper.find('#springboot-aop');
+        await button.trigger('click');
+
+        expect(springBootService.addSpringBootAopLogging.called).toBe(false);
+      });
+
+      it('should add SpringBoot AOP Logging when project path is filled', async () => {
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootAopLogging.resolves({});
+        await wrap({ springBootService });
+        const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+          folder: 'project/path',
+          baseName: 'beer',
+          projectName: 'Beer Project',
+          packageName: 'tech.jhipster.beer',
+          serverPort: '8080',
+        });
+        await fillFullForm(projectToUpdate);
+        await selectSection('springboot');
+
+        const button = wrapper.find('#springboot-aop');
+        await button.trigger('click');
+
+        const args = springBootService.addSpringBootAopLogging.getCall(0).args[0];
+        expect(args).toEqual({
+          baseName: 'beer',
+          folder: 'project/path',
+          projectName: 'Beer Project',
+          packageName: 'tech.jhipster.beer',
+          serverPort: 8080,
+        });
+      });
+
+      it('should handle error on adding SpringBoot AOP Logging failure', async () => {
+        const logger = stubLogger();
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootAopLogging.rejects({});
+        await wrap({ springBootService, logger });
+        const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+        await fillFullForm(projectToUpdate);
+        await selectSection('springboot');
+
+        const initButton = wrapper.find('#springboot-aop');
+        await initButton.trigger('click');
+
+        const [message] = logger.error.getCall(0).args;
+        expect(message).toBe('Adding SpringBoot AOP Logging to project failed');
+      });
+    });
+
+    describe('Logstash', () => {
+      it('should not add SpringBoot Logstash when project path is not filled', async () => {
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootLogstash.resolves({});
+        await wrap({ springBootService });
+        await selectSection('springboot');
+
+        const button = wrapper.find('#springboot-logstash');
+        await button.trigger('click');
+
+        expect(springBootService.addSpringBootLogstash.called).toBe(false);
+      });
+
+      it('should add SpringBoot Logstash when project path is filled', async () => {
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootLogstash.resolves({});
+        await wrap({ springBootService });
+        const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+          folder: 'project/path',
+          baseName: 'beer',
+          projectName: 'Beer Project',
+          packageName: 'tech.jhipster.beer',
+          serverPort: '8080',
+        });
+        await fillFullForm(projectToUpdate);
+        await selectSection('springboot');
+
+        const button = wrapper.find('#springboot-logstash');
+        await button.trigger('click');
+
+        const args = springBootService.addSpringBootLogstash.getCall(0).args[0];
+        expect(args).toEqual({
+          baseName: 'beer',
+          folder: 'project/path',
+          projectName: 'Beer Project',
+          packageName: 'tech.jhipster.beer',
+          serverPort: 8080,
+        });
+      });
+
+      it('should handle error on adding SpringBoot Logstash failure', async () => {
+        const logger = stubLogger();
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootLogstash.rejects({});
+        await wrap({ springBootService, logger });
+        const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+        await fillFullForm(projectToUpdate);
+        await selectSection('springboot');
+
+        const initButton = wrapper.find('#springboot-logstash');
+        await initButton.trigger('click');
+
+        const [message] = logger.error.getCall(0).args;
+        expect(message).toBe('Adding SpringBoot Logstash to project failed');
+      });
+    });
+  });
+
   it('should not add SpringBoot Security JWT when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addJWT.resolves({});

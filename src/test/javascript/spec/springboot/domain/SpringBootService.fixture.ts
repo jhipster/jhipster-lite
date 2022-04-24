@@ -3,9 +3,14 @@ import sinon, { SinonStub } from 'sinon';
 
 export interface SpringBootServiceFixture extends SpringBootService {
   addSpringBoot: SinonStub;
+
   addSpringBootMvcTomcat: SinonStub;
   addSpringBootWebfluxNetty: SinonStub;
   addSpringBootActuator: SinonStub;
+
+  addSpringBootAopLogging: SinonStub;
+  addSpringBootLogstash: SinonStub;
+
   addEhcacheWithJavaConf: SinonStub;
   addEhcacheWithXML: SinonStub;
   addSimpleCache: SinonStub;
@@ -38,9 +43,14 @@ export interface SpringBootServiceFixture extends SpringBootService {
 
 export const stubSpringBootService = (): SpringBootServiceFixture => ({
   addSpringBoot: sinon.stub(),
+
   addSpringBootMvcTomcat: sinon.stub(),
   addSpringBootWebfluxNetty: sinon.stub(),
   addSpringBootActuator: sinon.stub(),
+
+  addSpringBootAopLogging: sinon.stub(),
+  addSpringBootLogstash: sinon.stub(),
+
   addEhcacheWithJavaConf: sinon.stub(),
   addEhcacheWithXML: sinon.stub(),
   addSimpleCache: sinon.stub(),

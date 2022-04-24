@@ -12,4 +12,5 @@ public interface EhcacheService {
   void addJavaProperties(Project project);
   void addEhcacheXml(Project project);
   void addXmlProperty(Project project);
+  void addLoggerInConfiguration(Project project);
 }

@@ -35,7 +35,7 @@ callApi() {
 }
 
 springboot_mvc() {
-  callApi "/api/projects"
+  callApi "/api/inits/full"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"
@@ -46,7 +46,7 @@ springboot_mvc() {
 }
 
 springboot_undertow() {
-  callApi "/api/projects"
+  callApi "/api/inits/full"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"
@@ -57,7 +57,7 @@ springboot_undertow() {
 }
 
 springboot() {
-  callApi "/api/projects"
+  callApi "/api/inits/full"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"
@@ -187,7 +187,7 @@ elif [[ $application == 'mongodbapp' ]]; then
   callApi "/api/servers/spring-boot/database-migration-tools/mongock"
 
 elif [[ $application == 'gradleapp' ]]; then
-  callApi "/api/projects"
+  callApi "/api/inits/full"
   callApi "/api/build-tools/gradle"
   callApi "/api/servers/java/base"
 

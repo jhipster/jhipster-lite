@@ -13,7 +13,15 @@ public class SpringBootWebfluxApplicationService {
     this.springBootWebfluxService = springBootWebfluxService;
   }
 
+  public void init(Project project) {
+    springBootWebfluxService.init(project);
+  }
+
   public void addSpringBootWebflux(Project project) {
-    this.springBootWebfluxService.addSpringBootWebflux(project);
+    springBootWebfluxService.addSpringBootWebflux(project);
+  }
+
+  public void addExceptionHandler(Project project) {
+    springBootWebfluxService.addExceptionHandler(project);
   }
 }

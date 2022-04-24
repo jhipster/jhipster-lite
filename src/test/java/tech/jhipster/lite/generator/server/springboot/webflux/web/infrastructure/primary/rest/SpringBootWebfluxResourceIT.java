@@ -4,6 +4,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
 import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertExceptionHandlerDependencies;
+import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertExceptionHandlerFiles;
+import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertExceptionHandlerProperties;
 import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.assertProperties;
 
 import org.junit.jupiter.api.Test;
@@ -53,5 +56,10 @@ class SpringBootWebfluxResourceIT {
 
     assertDependencies(project);
     assertProperties(project);
+    assertDependencies(project);
+    assertProperties(project);
+    assertExceptionHandlerDependencies(project);
+    assertExceptionHandlerProperties(project);
+    assertExceptionHandlerFiles(project);
   }
 }

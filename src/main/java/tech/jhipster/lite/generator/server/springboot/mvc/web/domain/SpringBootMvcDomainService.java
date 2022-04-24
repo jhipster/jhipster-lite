@@ -55,7 +55,7 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
 
     addServerPortInProperties(project);
     addExceptionHandler(project);
-    addLoggerInConfiguration(project, "org.springframework.web", Level.WARN);
+    addLoggerInConfiguration(project, "org.springframework.web", Level.ERROR);
 
     addCorsFiles(project);
     addCorsProperties(project);

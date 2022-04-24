@@ -125,6 +125,7 @@ public class PostgresqlDomainService implements PostgresqlService {
 
     springBootCommonService.addLoggerTest(project, "com.github.dockerjava", Level.WARN);
     springBootCommonService.addLoggerTest(project, "org.testcontainers", Level.WARN);
+    springBootCommonService.addLoggerTest(project, "org.jboss.logging", Level.WARN);
   }
 
   public void addLogger(Project project, String packageName, Level level) {

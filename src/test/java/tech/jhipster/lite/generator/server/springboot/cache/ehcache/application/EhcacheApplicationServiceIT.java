@@ -9,6 +9,7 @@ import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.appli
 import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertInitJavaConfiguration;
 import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertInitXmlConfiguration;
 import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertJavaFiles;
+import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertLoggerInConfig;
 import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertProperties;
 import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertXmlDependencies;
 import static tech.jhipster.lite.generator.server.springboot.cache.ehcache.application.EhcacheAssert.assertXmlProperty;
@@ -156,5 +157,17 @@ class EhcacheApplicationServiceIT {
     ehcacheApplicationService.addXmlProperty(project);
 
     assertXmlProperty(project);
+  }
+
+  @Test
+  void shouldAddLoggerInConfiguration() {
+    Project project = tmpProject();
+    project.addConfig(BASE_NAME, "bar");
+    mavenApplicationService.addPomXml(project);
+    springBootApplicationService.init(project);
+
+    ehcacheApplicationService.addLoggerInConfiguration(project);
+
+    assertLoggerInConfig(project);
   }
 }

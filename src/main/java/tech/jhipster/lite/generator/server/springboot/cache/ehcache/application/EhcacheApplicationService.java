@@ -48,4 +48,8 @@ public class EhcacheApplicationService {
   public void addXmlProperty(Project project) {
     ehcacheService.addXmlProperty(project);
   }
+
+  public void addLoggerInConfiguration(Project project) {
+    ehcacheService.addLoggerInConfiguration(project);
+  }
 }

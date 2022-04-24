@@ -44,6 +44,28 @@ export default defineComponent({
       }
     };
 
+    const addJaCoCo = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService.addJaCoCo(toProject(project.value)).catch(error => logger.error('Adding JaCoCo to project failed', error));
+      }
+    };
+
+    const addSonarBackend = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService
+          .addSonarBackend(toProject(project.value))
+          .catch(error => logger.error('Adding Sonar Backend to project failed', error));
+      }
+    };
+
+    const addSonarBackendFrontend = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await projectService
+          .addSonarBackendFrontend(toProject(project.value))
+          .catch(error => logger.error('Adding Sonar Backend+Frontend to project failed', error));
+      }
+    };
+
     const addJavaBase = async (): Promise<void> => {
       if (project.value.folder !== '') {
         await projectService
@@ -68,11 +90,83 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootWebfluxNetty = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addSpringBootWebfluxNetty(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Webflux with Netty to project failed', error));
+      }
+    };
+
+    const addSpringBootActuator = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addSpringBootActuator(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Actuator to project failed', error));
+      }
+    };
+
+    const addSpringBootAopLogging = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addSpringBootAopLogging(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot AOP Logging to project failed', error));
+      }
+    };
+
+    const addSpringBootLogstash = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addSpringBootLogstash(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Logstash to project failed', error));
+      }
+    };
+
     const addSpringBootSecurityJWT = async (): Promise<void> => {
       if (project.value.folder !== '') {
         await springBootService
           .addJWT(toProject(project.value))
           .catch(error => logger.error('Adding SpringBoot Security JWT to project failed', error));
+      }
+    };
+
+    const addSpringBootSecurityJWTBasicAuth = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addBasicAuthJWT(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Security JWT Basic Auth to project failed', error));
+      }
+    };
+
+    const addPostgreSQL = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addPostgres(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Database PostgreSQL to project failed', error));
+      }
+    };
+
+    const addMySQL = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addMySQL(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Database MySQL to project failed', error));
+      }
+    };
+
+    const addMariaDB = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addMariaDB(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Database MariaDB to project failed', error));
+      }
+    };
+
+    const addMongoDB = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addMongoDB(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Database MongoDB to project failed', error));
       }
     };
 
@@ -147,10 +241,24 @@ export default defineComponent({
       client,
       initProject,
       addMaven,
+      addJaCoCo,
+      addSonarBackend,
+      addSonarBackendFrontend,
       addJavaBase,
       addSpringBoot,
       addSpringBootMvcTomcat,
+      addSpringBootWebfluxNetty,
+      addSpringBootActuator,
+
+      addSpringBootAopLogging,
+      addSpringBootLogstash,
+
       addSpringBootSecurityJWT,
+      addSpringBootSecurityJWTBasicAuth,
+      addPostgreSQL,
+      addMySQL,
+      addMariaDB,
+      addMongoDB,
       addAngular,
       addReact,
       addVue,

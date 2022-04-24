@@ -11,6 +11,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.cache.common.domain.SpringBootCacheService;
+import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class EhcacheDomainService implements EhcacheService {
@@ -40,6 +41,7 @@ public class EhcacheDomainService implements EhcacheService {
     addDependencies(project);
     addJavaConfig(project);
     addJavaProperties(project);
+    addLoggerInConfiguration(project);
   }
 
   @Override
@@ -49,6 +51,7 @@ public class EhcacheDomainService implements EhcacheService {
     addEnableCaching(project);
     addEhcacheXml(project);
     addXmlProperty(project);
+    addLoggerInConfiguration(project);
   }
 
   @Override
@@ -102,5 +105,11 @@ public class EhcacheDomainService implements EhcacheService {
 
   private void templateToEhcache(Project project, String source, String type, String sourceFilename, String destination) {
     projectRepository.template(project, getPath(SOURCE, type), sourceFilename, getPath(destination, source, DESTINATION));
+  }
+
+  @Override
+  public void addLoggerInConfiguration(Project project) {
+    springBootCommonService.addLogger(project, "org.ehcache", Level.WARN);
+    springBootCommonService.addLoggerTest(project, "org.ehcache", Level.WARN);
   }
 }

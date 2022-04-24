@@ -88,7 +88,7 @@ public class LiquibaseAssertFiles {
       List.of(
         "<logger name=\"liquibase\" level=\"WARN\" />",
         "<logger name=\"LiquibaseSchemaResolver\" level=\"INFO\" />",
-        "<logger name=\"com.zaxxer.hikari\" level=\"INFO\" />"
+        "<logger name=\"com.zaxxer.hikari\" level=\"WARN\" />"
       )
     );
   }

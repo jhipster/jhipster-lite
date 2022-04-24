@@ -12,10 +12,13 @@ describe('Generator', () => {
   });
 
   it('should display generator page', () => {
-    cy.get(generatorSelector('title')).contains('JHipster Lite');
+    cy.get(generatorSelector('title')).contains('JHipster lite');
 
     cy.get(generatorSelector('init-button')).contains('Init');
     cy.get(generatorSelector('add-maven-button')).contains('Maven');
+    cy.get(generatorSelector('add-jacoco-button')).contains('JaCoCo');
+    cy.get(generatorSelector('add-sonar-backend-button')).contains('Sonar Backend');
+    cy.get(generatorSelector('add-sonar-backend-frontend-button')).contains('Sonar Backend+Frontend');
     cy.get(generatorSelector('add-java-base-button')).contains('Java Base');
     cy.get(generatorSelector('add-frontend-maven-plugin-button')).contains('Frontend Maven Plugin');
     cy.get(generatorSelector('download-button')).should('not.exist');
@@ -25,7 +28,19 @@ describe('Generator', () => {
     cy.get(generatorSelector('option-springboot')).check();
     cy.get(generatorSelector('add-spring-boot-button')).contains('Spring Boot');
     cy.get(generatorSelector('add-spring-boot-mvc-tomcat-button')).contains('Spring MVC Tomcat');
+    cy.get(generatorSelector('add-spring-boot-webflux-netty-button')).contains('Spring Webflux Netty');
+    cy.get(generatorSelector('add-spring-boot-actuator-button')).contains('Spring Boot Actuator');
+
+    cy.get(generatorSelector('add-spring-boot-aop-button')).contains('AOP Logging');
+    cy.get(generatorSelector('add-spring-boot-logstash-button')).contains('Logstash');
+
     cy.get(generatorSelector('add-spring-boot-jwt-button')).contains('Security JWT');
+    cy.get(generatorSelector('add-spring-boot-jwt-basic-auth-button')).contains('Security JWT Basic Auth');
+
+    cy.get(generatorSelector('add-spring-boot-database-postgresql-button')).contains('PostgreSQL');
+    cy.get(generatorSelector('add-spring-boot-database-mysql-button')).contains('MySQL');
+    cy.get(generatorSelector('add-spring-boot-database-mariadb-button')).contains('MariaDB');
+    cy.get(generatorSelector('add-spring-boot-database-mongodb-button')).contains('MongoDB');
   });
 
   it('should display angular', () => {

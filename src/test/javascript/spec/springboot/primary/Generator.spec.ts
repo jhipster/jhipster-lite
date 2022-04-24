@@ -183,6 +183,162 @@ describe('Generator', () => {
     expect(message).toBe('Adding Maven to project failed');
   });
 
+  it('should not add JaCoCo when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addJaCoCo.resolves({});
+    await wrap({ projectService });
+
+    const button = wrapper.find('#jacoco');
+    await button.trigger('click');
+
+    expect(projectService.addJaCoCo.called).toBe(false);
+  });
+
+  it('should add JaCoCo when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addJaCoCo.resolves({});
+    await wrap({ projectService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+
+    const button = wrapper.find('#jacoco');
+    await button.trigger('click');
+
+    const args = projectService.addJaCoCo.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding JaCoCo failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addJaCoCo.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#jacoco');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding JaCoCo to project failed');
+  });
+
+  it('should not add Sonar Backend when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addSonarBackend.resolves({});
+    await wrap({ projectService });
+
+    const button = wrapper.find('#sonar-backend');
+    await button.trigger('click');
+
+    expect(projectService.addSonarBackend.called).toBe(false);
+  });
+
+  it('should add Sonar Backend when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addSonarBackend.resolves({});
+    await wrap({ projectService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+
+    const button = wrapper.find('#sonar-backend');
+    await button.trigger('click');
+
+    const args = projectService.addSonarBackend.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding Sonar Backend failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addSonarBackend.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#sonar-backend');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Sonar Backend to project failed');
+  });
+
+  it('should not add Sonar Backend+Frontend when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addSonarBackendFrontend.resolves({});
+    await wrap({ projectService });
+
+    const button = wrapper.find('#sonar-backend-frontend');
+    await button.trigger('click');
+
+    expect(projectService.addSonarBackendFrontend.called).toBe(false);
+  });
+
+  it('should add Sonar Backend+Frontend when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addSonarBackendFrontend.resolves({});
+    await wrap({ projectService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+
+    const button = wrapper.find('#sonar-backend-frontend');
+    await button.trigger('click');
+
+    const args = projectService.addSonarBackendFrontend.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding Sonar Backend+Frontend failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addSonarBackendFrontend.rejects({});
+    await wrap({ projectService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+
+    const initButton = wrapper.find('#sonar-backend-frontend');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Sonar Backend+Frontend to project failed');
+  });
+
   it('should not add JavaBase when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.addJavaBase.resolves({});
@@ -345,6 +501,232 @@ describe('Generator', () => {
     expect(message).toBe('Adding SpringBoot MVC with Tomcat to project failed');
   });
 
+  it('should not add SpringBoot Webflux with Netty when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootWebfluxNetty.resolves({});
+    await wrap({ springBootService });
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springbootwebfluxnetty');
+    await button.trigger('click');
+
+    expect(springBootService.addSpringBootWebfluxNetty.called).toBe(false);
+  });
+
+  it('should add SpringBoot Webflux with Netty when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootWebfluxNetty.resolves({});
+    await wrap({ springBootService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springbootwebfluxnetty');
+    await button.trigger('click');
+
+    const args = springBootService.addSpringBootWebfluxNetty.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding SpringBoot Webflux with Netty failure', async () => {
+    const logger = stubLogger();
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootWebfluxNetty.rejects({});
+    await wrap({ springBootService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const initButton = wrapper.find('#springbootwebfluxnetty');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding SpringBoot Webflux with Netty to project failed');
+  });
+
+  it('should not add SpringBoot Actuator when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootActuator.resolves({});
+    await wrap({ springBootService });
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springboot-actuator');
+    await button.trigger('click');
+
+    expect(springBootService.addSpringBootActuator.called).toBe(false);
+  });
+
+  it('should add SpringBoot Actuator when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootActuator.resolves({});
+    await wrap({ springBootService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springboot-actuator');
+    await button.trigger('click');
+
+    const args = springBootService.addSpringBootActuator.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding SpringBoot Actuator failure', async () => {
+    const logger = stubLogger();
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootActuator.rejects({});
+    await wrap({ springBootService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const initButton = wrapper.find('#springboot-actuator');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding SpringBoot Actuator to project failed');
+  });
+
+  describe('Log tools', () => {
+    describe('AOP Logging', () => {
+      it('should not add SpringBoot AOP Logging when project path is not filled', async () => {
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootAopLogging.resolves({});
+        await wrap({ springBootService });
+        await selectSection('springboot');
+
+        const button = wrapper.find('#springboot-aop');
+        await button.trigger('click');
+
+        expect(springBootService.addSpringBootAopLogging.called).toBe(false);
+      });
+
+      it('should add SpringBoot AOP Logging when project path is filled', async () => {
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootAopLogging.resolves({});
+        await wrap({ springBootService });
+        const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+          folder: 'project/path',
+          baseName: 'beer',
+          projectName: 'Beer Project',
+          packageName: 'tech.jhipster.beer',
+          serverPort: '8080',
+        });
+        await fillFullForm(projectToUpdate);
+        await selectSection('springboot');
+
+        const button = wrapper.find('#springboot-aop');
+        await button.trigger('click');
+
+        const args = springBootService.addSpringBootAopLogging.getCall(0).args[0];
+        expect(args).toEqual({
+          baseName: 'beer',
+          folder: 'project/path',
+          projectName: 'Beer Project',
+          packageName: 'tech.jhipster.beer',
+          serverPort: 8080,
+        });
+      });
+
+      it('should handle error on adding SpringBoot AOP Logging failure', async () => {
+        const logger = stubLogger();
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootAopLogging.rejects({});
+        await wrap({ springBootService, logger });
+        const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+        await fillFullForm(projectToUpdate);
+        await selectSection('springboot');
+
+        const initButton = wrapper.find('#springboot-aop');
+        await initButton.trigger('click');
+
+        const [message] = logger.error.getCall(0).args;
+        expect(message).toBe('Adding SpringBoot AOP Logging to project failed');
+      });
+    });
+
+    describe('Logstash', () => {
+      it('should not add SpringBoot Logstash when project path is not filled', async () => {
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootLogstash.resolves({});
+        await wrap({ springBootService });
+        await selectSection('springboot');
+
+        const button = wrapper.find('#springboot-logstash');
+        await button.trigger('click');
+
+        expect(springBootService.addSpringBootLogstash.called).toBe(false);
+      });
+
+      it('should add SpringBoot Logstash when project path is filled', async () => {
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootLogstash.resolves({});
+        await wrap({ springBootService });
+        const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+          folder: 'project/path',
+          baseName: 'beer',
+          projectName: 'Beer Project',
+          packageName: 'tech.jhipster.beer',
+          serverPort: '8080',
+        });
+        await fillFullForm(projectToUpdate);
+        await selectSection('springboot');
+
+        const button = wrapper.find('#springboot-logstash');
+        await button.trigger('click');
+
+        const args = springBootService.addSpringBootLogstash.getCall(0).args[0];
+        expect(args).toEqual({
+          baseName: 'beer',
+          folder: 'project/path',
+          projectName: 'Beer Project',
+          packageName: 'tech.jhipster.beer',
+          serverPort: 8080,
+        });
+      });
+
+      it('should handle error on adding SpringBoot Logstash failure', async () => {
+        const logger = stubLogger();
+        const springBootService = stubSpringBootService();
+        springBootService.addSpringBootLogstash.rejects({});
+        await wrap({ springBootService, logger });
+        const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+        await fillFullForm(projectToUpdate);
+        await selectSection('springboot');
+
+        const initButton = wrapper.find('#springboot-logstash');
+        await initButton.trigger('click');
+
+        const [message] = logger.error.getCall(0).args;
+        expect(message).toBe('Adding SpringBoot Logstash to project failed');
+      });
+    });
+  });
+
   it('should not add SpringBoot Security JWT when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addJWT.resolves({});
@@ -398,6 +780,283 @@ describe('Generator', () => {
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding SpringBoot Security JWT to project failed');
+  });
+
+  it('should not add SpringBoot Security JWT Basic Auth  when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addBasicAuthJWT.resolves({});
+    await wrap({ springBootService });
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springboot-jwt-basic-auth');
+    await button.trigger('click');
+
+    expect(springBootService.addBasicAuthJWT.called).toBe(false);
+  });
+
+  it('should add SpringBoot Security JWT Basic Auth when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addBasicAuthJWT.resolves({});
+    await wrap({ springBootService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springboot-jwt-basic-auth');
+    await button.trigger('click');
+
+    const args = springBootService.addBasicAuthJWT.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding SpringBoot Security JWT Basic Auth failure', async () => {
+    const logger = stubLogger();
+    const springBootService = stubSpringBootService();
+    springBootService.addBasicAuthJWT.rejects({});
+    await wrap({ springBootService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const initButton = wrapper.find('#springboot-jwt-basic-auth');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding SpringBoot Security JWT Basic Auth to project failed');
+  });
+
+  describe('Databases', () => {
+    it('should not add SpringBoot Database PostgreSQL  when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addPostgres.resolves({});
+      await wrap({ springBootService });
+      await selectSection('springboot');
+
+      const button = wrapper.find('#springboot-database-postgresql');
+      await button.trigger('click');
+
+      expect(springBootService.addPostgres.called).toBe(false);
+    });
+
+    it('should add SpringBoot Database PostgreSQL when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addPostgres.resolves({});
+      await wrap({ springBootService });
+      const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+        folder: 'project/path',
+        baseName: 'beer',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: '8080',
+      });
+      await fillFullForm(projectToUpdate);
+      await selectSection('springboot');
+
+      const button = wrapper.find('#springboot-database-postgresql');
+      await button.trigger('click');
+
+      const args = springBootService.addPostgres.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding SpringBoot Database PostgreSQL failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addPostgres.rejects({});
+      await wrap({ springBootService, logger });
+      const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+      await fillFullForm(projectToUpdate);
+      await selectSection('springboot');
+
+      const initButton = wrapper.find('#springboot-database-postgresql');
+      await initButton.trigger('click');
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding SpringBoot Database PostgreSQL to project failed');
+    });
+
+    it('should not add SpringBoot Database MySQL  when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMySQL.resolves({});
+      await wrap({ springBootService });
+      await selectSection('springboot');
+
+      const button = wrapper.find('#springboot-database-mysql');
+      await button.trigger('click');
+
+      expect(springBootService.addMySQL.called).toBe(false);
+    });
+
+    it('should add SpringBoot Database MySQL when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMySQL.resolves({});
+      await wrap({ springBootService });
+      const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+        folder: 'project/path',
+        baseName: 'beer',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: '8080',
+      });
+      await fillFullForm(projectToUpdate);
+      await selectSection('springboot');
+
+      const button = wrapper.find('#springboot-database-mysql');
+      await button.trigger('click');
+
+      const args = springBootService.addMySQL.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding SpringBoot Database MySQL failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addMySQL.rejects({});
+      await wrap({ springBootService, logger });
+      const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+      await fillFullForm(projectToUpdate);
+      await selectSection('springboot');
+
+      const initButton = wrapper.find('#springboot-database-mysql');
+      await initButton.trigger('click');
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding SpringBoot Database MySQL to project failed');
+    });
+
+    it('should not add SpringBoot Database MariaDB  when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMariaDB.resolves({});
+      await wrap({ springBootService });
+      await selectSection('springboot');
+
+      const button = wrapper.find('#springboot-database-mariadb');
+      await button.trigger('click');
+
+      expect(springBootService.addMariaDB.called).toBe(false);
+    });
+
+    it('should add SpringBoot Database MariaDB when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMariaDB.resolves({});
+      await wrap({ springBootService });
+      const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+        folder: 'project/path',
+        baseName: 'beer',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: '8080',
+      });
+      await fillFullForm(projectToUpdate);
+      await selectSection('springboot');
+
+      const button = wrapper.find('#springboot-database-mariadb');
+      await button.trigger('click');
+
+      const args = springBootService.addMariaDB.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding SpringBoot Database MariaDB failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addMariaDB.rejects({});
+      await wrap({ springBootService, logger });
+      const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+      await fillFullForm(projectToUpdate);
+      await selectSection('springboot');
+
+      const initButton = wrapper.find('#springboot-database-mariadb');
+      await initButton.trigger('click');
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding SpringBoot Database MariaDB to project failed');
+    });
+
+    it('should not add SpringBoot Database MongoDB  when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMongoDB.resolves({});
+      await wrap({ springBootService });
+      await selectSection('springboot');
+
+      const button = wrapper.find('#springboot-database-mongodb');
+      await button.trigger('click');
+
+      expect(springBootService.addMongoDB.called).toBe(false);
+    });
+
+    it('should add SpringBoot Database MongoDB when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMongoDB.resolves({});
+      await wrap({ springBootService });
+      const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+        folder: 'project/path',
+        baseName: 'beer',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: '8080',
+      });
+      await fillFullForm(projectToUpdate);
+      await selectSection('springboot');
+
+      const button = wrapper.find('#springboot-database-mongodb');
+      await button.trigger('click');
+
+      const args = springBootService.addMongoDB.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding SpringBoot Database MongoDB failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addMongoDB.rejects({});
+      await wrap({ springBootService, logger });
+      const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+      await fillFullForm(projectToUpdate);
+      await selectSection('springboot');
+
+      const initButton = wrapper.find('#springboot-database-mongodb');
+      await initButton.trigger('click');
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding SpringBoot Database MongoDB to project failed');
+    });
   });
 
   it('should not add Angular when project path is not filled', async () => {

@@ -113,6 +113,17 @@ class InitDomainServiceTest {
   void shouldDownload() {
     Project project = tmpProjectWithPomXml();
 
+    when(projectRepository.isJHipsterLiteProject(anyString())).thenReturn(true);
+
     assertThatCode(() -> initDomainService.download(project)).doesNotThrowAnyException();
+  }
+
+  @Test
+  void shouldNotDownload() {
+    Project project = tmpProjectWithPomXml();
+
+    when(projectRepository.isJHipsterLiteProject(anyString())).thenReturn(false);
+
+    assertThatThrownBy(() -> initDomainService.download(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

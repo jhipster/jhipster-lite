@@ -29,6 +29,7 @@ describe('Generator', () => {
     cy.get(generatorSelector('add-spring-boot-button')).contains('Spring Boot');
     cy.get(generatorSelector('add-spring-boot-mvc-tomcat-button')).contains('Spring MVC Tomcat');
     cy.get(generatorSelector('add-spring-boot-webflux-netty-button')).contains('Spring Webflux Netty');
+    cy.get(generatorSelector('add-spring-boot-actuator-button')).contains('Spring Boot Actuator');
     cy.get(generatorSelector('add-spring-boot-jwt-button')).contains('Security JWT');
     cy.get(generatorSelector('add-spring-boot-jwt-basic-auth-button')).contains('Security JWT Basic Auth');
 

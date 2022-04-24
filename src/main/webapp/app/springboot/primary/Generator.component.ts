@@ -98,6 +98,14 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootActuator = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addSpringBootActuator(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Actuator to project failed', error));
+      }
+    };
+
     const addSpringBootSecurityJWT = async (): Promise<void> => {
       if (project.value.folder !== '') {
         await springBootService
@@ -224,6 +232,7 @@ export default defineComponent({
       addSpringBoot,
       addSpringBootMvcTomcat,
       addSpringBootWebfluxNetty,
+      addSpringBootActuator,
       addSpringBootSecurityJWT,
       addSpringBootSecurityJWTBasicAuth,
       addPostgreSQL,

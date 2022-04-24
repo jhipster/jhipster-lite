@@ -556,6 +556,61 @@ describe('Generator', () => {
     expect(message).toBe('Adding SpringBoot Webflux with Netty to project failed');
   });
 
+  it('should not add SpringBoot Actuator when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootActuator.resolves({});
+    await wrap({ springBootService });
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springboot-actuator');
+    await button.trigger('click');
+
+    expect(springBootService.addSpringBootActuator.called).toBe(false);
+  });
+
+  it('should add SpringBoot Actuator when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootActuator.resolves({});
+    await wrap({ springBootService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const button = wrapper.find('#springboot-actuator');
+    await button.trigger('click');
+
+    const args = springBootService.addSpringBootActuator.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding SpringBoot Actuator failure', async () => {
+    const logger = stubLogger();
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootActuator.rejects({});
+    await wrap({ springBootService, logger });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
+    await fillFullForm(projectToUpdate);
+    await selectSection('springboot');
+
+    const initButton = wrapper.find('#springboot-actuator');
+    await initButton.trigger('click');
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding SpringBoot Actuator to project failed');
+  });
+
   it('should not add SpringBoot Security JWT when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addJWT.resolves({});

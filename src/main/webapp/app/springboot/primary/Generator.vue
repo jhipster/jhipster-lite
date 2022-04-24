@@ -623,6 +623,25 @@
             <br />
             <br />
             <button
+              id="springboot-aop"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-aop-button'"
+              @click.prevent="addSpringBootAopLogging"
+            >
+              AOP Logging
+            </button>
+
+            <button
+              id="springboot-logstash"
+              class="btn btn-outline-primary"
+              :data-selector="selectorPrefix + '.add-spring-boot-logstash-button'"
+              @click.prevent="addSpringBootLogstash"
+            >
+              Logstash
+            </button>
+            <br />
+            <br />
+            <button
               id="springboot-jwt"
               class="btn btn-outline-primary"
               :data-selector="selectorPrefix + '.add-spring-boot-jwt-button'"

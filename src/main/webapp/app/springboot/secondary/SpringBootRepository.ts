@@ -26,6 +26,16 @@ export default class SpringBootRepository implements SpringBootService {
     await this.axiosHttp.post('api/servers/spring-boot/technical-tools/actuator', restProject);
   }
 
+  async addSpringBootAopLogging(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('api/servers/spring-boot/log-tools/aop', restProject);
+  }
+
+  async addSpringBootLogstash(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('api/servers/spring-boot/log-tools/logstash', restProject);
+  }
+
   async addSpringBootBannerIppon(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('api/servers/spring-boot/banners/ippon', restProject);

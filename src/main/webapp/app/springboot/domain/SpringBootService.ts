@@ -5,12 +5,15 @@ export interface SpringBootService {
 
   addSpringBootMvcTomcat(project: Project): Promise<void>;
   addSpringBootWebfluxNetty(project: Project): Promise<void>;
+  addSpringBootActuator(project: Project): Promise<void>;
+
   addJWT(project: Project): Promise<void>;
   addBasicAuthJWT(project: Project): Promise<void>;
   addOauth2(project: Project): Promise<void>;
   addSpringdocJWT(project: Project): Promise<void>;
 
-  addSpringBootActuator(project: Project): Promise<void>;
+  addSpringBootAopLogging(project: Project): Promise<void>;
+  addSpringBootLogstash(project: Project): Promise<void>;
 
   addPostgres(project: Project): Promise<void>;
   addMySQL(project: Project): Promise<void>;

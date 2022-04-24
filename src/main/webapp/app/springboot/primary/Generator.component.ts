@@ -106,6 +106,22 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootAopLogging = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addSpringBootAopLogging(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot AOP Logging to project failed', error));
+      }
+    };
+
+    const addSpringBootLogstash = async (): Promise<void> => {
+      if (project.value.folder !== '') {
+        await springBootService
+          .addSpringBootLogstash(toProject(project.value))
+          .catch(error => logger.error('Adding SpringBoot Logstash to project failed', error));
+      }
+    };
+
     const addSpringBootSecurityJWT = async (): Promise<void> => {
       if (project.value.folder !== '') {
         await springBootService
@@ -233,6 +249,10 @@ export default defineComponent({
       addSpringBootMvcTomcat,
       addSpringBootWebfluxNetty,
       addSpringBootActuator,
+
+      addSpringBootAopLogging,
+      addSpringBootLogstash,
+
       addSpringBootSecurityJWT,
       addSpringBootSecurityJWTBasicAuth,
       addPostgreSQL,

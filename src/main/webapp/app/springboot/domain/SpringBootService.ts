@@ -10,6 +10,8 @@ export interface SpringBootService {
   addOauth2(project: Project): Promise<void>;
   addSpringdocJWT(project: Project): Promise<void>;
 
+  addSpringBootActuator(project: Project): Promise<void>;
+
   addPostgres(project: Project): Promise<void>;
   addMySQL(project: Project): Promise<void>;
   addMariaDB(project: Project): Promise<void>;

@@ -21,6 +21,11 @@ export default class SpringBootRepository implements SpringBootService {
     await this.axiosHttp.post('api/servers/spring-boot/reactive-servers/netty', restProject);
   }
 
+  async addSpringBootActuator(project: Project): Promise<void> {
+    const restProject: RestProject = toRestProject(project);
+    await this.axiosHttp.post('api/servers/spring-boot/technical-tools/actuator', restProject);
+  }
+
   async addSpringBootBannerIppon(project: Project): Promise<void> {
     const restProject: RestProject = toRestProject(project);
     await this.axiosHttp.post('api/servers/spring-boot/banners/ippon', restProject);

@@ -47,6 +47,20 @@ describe('SpringBootRepository', () => {
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 
+  it('should add SpringBoot Actuator', () => {
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const springBootRepository = new SpringBootRepository(axiosHttpStub);
+    const project: Project = createProject({ folder: 'folder/path' });
+
+    springBootRepository.addSpringBootActuator(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/servers/spring-boot/technical-tools/actuator');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+  });
+
   it('should add Ippon Banner', () => {
     const axiosHttpStub = stubAxiosHttp();
     axiosHttpStub.post.resolves();

@@ -1,7 +1,5 @@
 package {{packageName}}.security.oauth2.infrastructure.config;
 
-import java.util.HashSet;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -11,17 +9,21 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
-import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.jwt.JwtValidators;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.filter.CorsFilter;
@@ -29,10 +31,13 @@ import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 import {{packageName}}.security.oauth2.application.SecurityUtils;
 import {{packageName}}.security.oauth2.domain.AuthoritiesConstants;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
   private final ApplicationSecurityProperties applicationSecurityProperties;
   private final CorsFilter corsFilter;
@@ -52,9 +57,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     this.applicationSecurityProperties = applicationSecurityProperties;
   }
 
-  @Override
-  public void configure(WebSecurity web) {
-    web
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return web -> web
       .ignoring()
       .antMatchers(HttpMethod.OPTIONS, "/**")
       .antMatchers("/app/**/*.{js,html}")
@@ -65,10 +70,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .antMatchers("/test/**");
   }
 
-  @Override
-  public void configure(HttpSecurity http) throws Exception {
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     // @formatter:off
-    http
+    return http
       .csrf()
       .disable()
       .addFilterBefore(corsFilter, CsrfFilter.class)
@@ -104,7 +109,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .jwtAuthenticationConverter(authenticationConverter())
         .and()
       .and()
-        .oauth2Client();
+        .oauth2Client()
+      .and().build();
     // @formatter:on
   }
 

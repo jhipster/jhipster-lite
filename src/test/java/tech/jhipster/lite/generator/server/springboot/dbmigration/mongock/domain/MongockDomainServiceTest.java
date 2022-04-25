@@ -95,6 +95,7 @@ class MongockDomainServiceTest {
         "mongock.migration-scan-package",
         "com.mycompany.myapp.technical.infrastructure.secondary.mongock.dbmigration"
       );
+    verify(springBootCommonService).addPropertiesTest(project, "mongock.enabled", false);
   }
 
   @Test

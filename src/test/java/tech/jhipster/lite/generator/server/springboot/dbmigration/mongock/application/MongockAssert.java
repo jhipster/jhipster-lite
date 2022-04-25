@@ -5,6 +5,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 
 import java.util.List;
 import tech.jhipster.lite.TestUtils;
@@ -58,5 +59,6 @@ public class MongockAssert {
       getPath(MAIN_RESOURCES, "config/application.properties"),
       List.of("mongock.migration-scan-package=tech.jhipster.chips.technical.infrastructure.secondary.mongock")
     );
+    TestUtils.assertFileContent(project, getPath(TEST_RESOURCES, "config/application.properties"), List.of("mongock.enabled=false"));
   }
 }

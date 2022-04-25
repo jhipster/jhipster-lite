@@ -97,6 +97,7 @@ public class MongockDomainService implements MongockService {
   @Override
   public void addProperties(Project project) {
     getMongockProperties(project).forEach((k, v) -> springBootCommonService.addProperties(project, k, v));
+    springBootCommonService.addPropertiesTest(project, "mongock.enabled", false);
   }
 
   private TreeMap<String, Object> getMongockProperties(Project project) {

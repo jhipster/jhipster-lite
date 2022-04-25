@@ -148,10 +148,8 @@
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input id="language" class="form-check-input flex-shrink-0" type="radio" name="language" value="java" checked />
-                        <span> Java </span>
-                      </label>
+                      <input id="language" class="form-check-input flex-shrink-0" type="radio" name="language" value="java" checked />
+                      <label for="language" role="button"> Java </label>
                     </div>
                     <img src="../../../content/java_rounded_40x40.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
@@ -167,34 +165,30 @@
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="buildTool"
-                          v-model="buildTool"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="buildTool"
-                          value="maven"
-                          checked
-                        />
-                        <span> Maven </span>
-                      </label>
+                      <input
+                        id="build-tool-maven"
+                        v-model="buildTool"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="buildTool"
+                        value="maven"
+                        checked
+                      />
+                      <label for="build-tool-maven" role="button"> Maven </label>
                     </div>
                     <img src="../../../content/MavenLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="buildTool"
-                          v-model="buildTool"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="buildTool"
-                          value="gradle"
-                        />
-                        <span> Gradle </span>
-                      </label>
+                      <input
+                        id="build-tool-gradle"
+                        v-model="buildTool"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="buildTool"
+                        value="gradle"
+                      />
+                      <label for="build-tool-gradle" role="button"> Gradle </label>
                     </div>
                     <img src="../../../content/GradleLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
@@ -210,18 +204,16 @@
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-no-server"
-                          v-model="server"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="server"
-                          value="none"
-                          checked
-                        />
-                        <span>None</span>
-                      </label>
+                      <input
+                        id="option-no-server"
+                        v-model="server"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="server"
+                        value="none"
+                        checked
+                      />
+                      <label for="option-no-server" role="button"> None </label>
                     </div>
                     <img
                       src="../../../content/JHipster-Lite-neon-blue_40x.png"
@@ -233,18 +225,16 @@
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-springboot"
-                          v-model="server"
-                          :data-selector="selectorPrefix + '.option-springboot'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="server"
-                          value="springboot"
-                        />
-                        <span> Spring Boot </span>
-                      </label>
+                      <input
+                        id="option-springboot"
+                        v-model="server"
+                        :data-selector="selectorPrefix + '.option-springboot'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="server"
+                        value="springboot"
+                      />
+                      <label for="option-springboot" role="button"> Spring Boot </label>
                     </div>
                     <img src="../../../content/SpringLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
@@ -259,19 +249,17 @@
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-none-client"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-none-client'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="none"
-                          checked
-                        />
-                        <span>None</span>
-                      </label>
+                      <input
+                        id="option-none-client"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-none-client'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="none"
+                        checked
+                      />
+                      <label for="option-none-client" role="button"> None </label>
                     </div>
                     <img
                       src="../../../content/JHipster-Lite-neon-blue_40x.png"
@@ -283,69 +271,61 @@
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-angular"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-angular'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="angular"
-                        />
-                        <span>Angular</span>
-                      </label>
+                      <input
+                        id="option-angular"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-angular'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="angular"
+                      />
+                      <label for="option-angular" role="button"> Angular </label>
                     </div>
                     <img src="../../../content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-react"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-react'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="react"
-                        />
-                        <span>React</span>
-                      </label>
+                      <input
+                        id="option-react"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-react'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="react"
+                      />
+                      <label for="option-react" role="button"> React </label>
                     </div>
                     <img src="../../../content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-vue"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-vue'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="vue"
-                        />
-                        <span>Vue.js</span>
-                      </label>
+                      <input
+                        id="option-vue"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-vue'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="vue"
+                      />
+                      <label for="option-vue" role="button"> Vue.js </label>
                     </div>
                     <img src="../../../content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-svelte"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-svelte'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="svelte"
-                        />
-                        <span>Svelte</span>
-                      </label>
+                      <input
+                        id="option-svelte"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-svelte'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="svelte"
+                      />
+                      <label for="option-svelte" role="button"> Svelte </label>
                     </div>
                     <img src="../../../content/SvelteLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>

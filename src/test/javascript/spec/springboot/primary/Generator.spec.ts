@@ -6,17 +6,21 @@ import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
 import { createProjectToUpdate } from './ProjectToUpdate.fixture';
 import { stubLogger } from '../../common/domain/Logger.fixture';
 import { Logger } from '@/common/domain/Logger';
+import { FileDownloader } from '@/common/primary/FileDownloader';
+import { stubFileDownloader } from '../../common/primary/FileDownloader.fixture';
 
 let wrapper: VueWrapper;
 
 interface WrapperOptions {
   logger: Logger;
   projectService: ProjectService;
+  fileDownloader: FileDownloader;
 }
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { logger, projectService }: WrapperOptions = {
+  const { logger, fileDownloader, projectService }: WrapperOptions = {
     logger: stubLogger(),
+    fileDownloader: stubFileDownloader(),
     projectService: stubProjectService(),
     ...wrapperOptions,
   };
@@ -24,6 +28,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
     global: {
       provide: {
         logger,
+        fileDownloader,
         projectService,
       },
     },

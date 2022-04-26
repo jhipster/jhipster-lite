@@ -1,4 +1,5 @@
 import { Project } from '@/springboot/domain/Project';
+import { DocumentFile } from '@/common/domain/DocumentFile';
 
 export interface ProjectService {
   init(project: Project): Promise<void>;
@@ -8,5 +9,5 @@ export interface ProjectService {
   addSonarBackendFrontend(project: Project): Promise<void>;
   addFrontendMavenPlugin(project: Project): Promise<void>;
   addJavaBase(project: Project): Promise<void>;
-  download(project: Project): Promise<BlobPart>;
+  download(project: Project): Promise<DocumentFile>;
 }

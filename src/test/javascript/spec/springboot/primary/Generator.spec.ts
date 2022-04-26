@@ -7,7 +7,6 @@ import { createProjectToUpdate } from './ProjectToUpdate.fixture';
 import { stubSpringBootService } from '../domain/SpringBootService.fixture';
 import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import { stubVueService } from '../domain/client/VueService.fixture';
-import { VueService } from '@/springboot/domain/client/VueService';
 import { stubLogger } from '../../common/domain/Logger.fixture';
 import { Logger } from '@/common/domain/Logger';
 
@@ -17,15 +16,13 @@ interface WrapperOptions {
   logger: Logger;
   projectService: ProjectService;
   springBootService: SpringBootService;
-  vueService: VueService;
 }
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { logger, projectService, springBootService, vueService }: WrapperOptions = {
+  const { logger, projectService, springBootService }: WrapperOptions = {
     logger: stubLogger(),
     projectService: stubProjectService(),
     springBootService: stubSpringBootService(),
-    vueService: stubVueService(),
     ...wrapperOptions,
   };
   wrapper = shallowMount(GeneratorVue, {
@@ -34,7 +31,6 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
         logger,
         projectService,
         springBootService,
-        vueService,
       },
     },
   });
@@ -1047,108 +1043,6 @@ describe('Generator', () => {
       const [message] = logger.error.getCall(0).args;
       expect(message).toBe('Adding SpringBoot Database MongoDB to project failed');
     });
-  });
-
-  it('should not add Vue when project path is not filled', async () => {
-    const vueService = stubVueService();
-    vueService.add.resolves({});
-    await wrap({ vueService });
-    await selectSection('vue');
-
-    const button = wrapper.find('#vue');
-    await button.trigger('click');
-
-    expect(vueService.add.called).toBe(false);
-  });
-
-  it('should add Vue when project path is filled', async () => {
-    const vueService = stubVueService();
-    vueService.add.resolves({});
-    await wrap({ vueService });
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
-      folder: 'project/path',
-      baseName: 'beer',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: '8080',
-    });
-    await fillFullForm(projectToUpdate);
-    await selectSection('vue');
-
-    const button = wrapper.find('#vue');
-    await button.trigger('click');
-
-    const args = vueService.add.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
-  });
-
-  it('should add Vue with Style when checkbox is checked', async () => {
-    const vueService = stubVueService();
-    vueService.addWithStyle.resolves({});
-    await wrap({ vueService });
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
-      folder: 'project/path',
-      baseName: 'beer',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: '8080',
-    });
-    await fillFullForm(projectToUpdate);
-    await selectSection('vue');
-
-    const checkbox = wrapper.find('#vue-with-style');
-    await checkbox.setValue(true);
-    const button = wrapper.find('#vue');
-    await button.trigger('click');
-
-    const args = vueService.addWithStyle.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
-  });
-
-  it('should handle error on adding Vue failure', async () => {
-    const logger = stubLogger();
-    const vueService = stubVueService();
-    vueService.add.rejects({});
-    await wrap({ vueService, logger });
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
-    await fillFullForm(projectToUpdate);
-    await selectSection('vue');
-
-    const initButton = wrapper.find('#vue');
-    await initButton.trigger('click');
-
-    const [message] = logger.error.getCall(0).args;
-    expect(message).toBe('Adding Vue to project failed');
-  });
-
-  it('should handle error on adding Vue with style failure', async () => {
-    const logger = stubLogger();
-    const vueService = stubVueService();
-    vueService.addWithStyle.rejects({});
-    await wrap({ vueService, logger });
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
-    await fillFullForm(projectToUpdate);
-    await selectSection('vue');
-
-    const checkbox = wrapper.find('#vue-with-style');
-    await checkbox.setValue(true);
-    const initButton = wrapper.find('#vue');
-    await initButton.trigger('click');
-
-    const [message] = logger.error.getCall(0).args;
-    expect(message).toBe('Adding Vue with style to project failed');
   });
 
   it('should not add Frontend Maven Plugin when project path is not filled', async () => {

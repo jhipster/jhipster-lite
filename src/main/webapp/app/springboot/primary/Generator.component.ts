@@ -1,30 +1,29 @@
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import { defineComponent, inject, ref } from 'vue';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
-import { VueService } from '@/springboot/domain/client/VueService';
 import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import { Logger } from '@/common/domain/Logger';
 import { AngularGeneratorVue } from '@/springboot/primary/angular-generator';
 import { ReactGeneratorVue } from '@/springboot/primary/react-generator';
+import { VueGeneratorVue } from '@/springboot/primary/vue-generator';
 
 export default defineComponent({
   name: 'GeneratorComponent',
   components: {
     AngularGeneratorVue,
     ReactGeneratorVue,
+    VueGeneratorVue,
   },
   setup() {
     const logger = inject('logger') as Logger;
     const projectService = inject('projectService') as ProjectService;
     const springBootService = inject('springBootService') as SpringBootService;
-    const vueService = inject('vueService') as VueService;
 
     const selectorPrefix = 'generator';
 
     const project = ref<ProjectToUpdate>({
       folder: '',
     });
-    const isVueWithStyle = ref<boolean>(false);
     const isSvelteWithStyle = ref<boolean>(false);
     const language = ref<string>();
     const buildTool = ref<string>('maven');
@@ -169,18 +168,6 @@ export default defineComponent({
       }
     };
 
-    const addVue = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        if (isVueWithStyle.value) {
-          await vueService
-            .addWithStyle(toProject(project.value))
-            .catch(error => logger.error('Adding Vue with style to project failed', error));
-        } else {
-          await vueService.add(toProject(project.value)).catch(error => logger.error('Adding Vue to project failed', error));
-        }
-      }
-    };
-
     const addFrontendMavenPlugin = async (): Promise<void> => {
       if (project.value.folder !== '') {
         await projectService
@@ -206,7 +193,6 @@ export default defineComponent({
 
     return {
       project,
-      isVueWithStyle,
       isSvelteWithStyle,
       language,
       buildTool,
@@ -232,7 +218,6 @@ export default defineComponent({
       addMySQL,
       addMariaDB,
       addMongoDB,
-      addVue,
       addFrontendMavenPlugin,
       download,
       selectorPrefix,

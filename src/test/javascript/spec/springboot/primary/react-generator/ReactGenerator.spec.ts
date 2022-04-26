@@ -56,7 +56,7 @@ describe('ReactGenerator', () => {
   it('should add React when project path is filled', async () => {
     const reactService = stubReactService();
     reactService.add.resolves({});
-    await wrap({ reactService, project: createProjectToUpdate({ folder: 'path' }) });
+    await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
     const button = wrapper.find('#react');
     await button.trigger('click');
@@ -74,7 +74,7 @@ describe('ReactGenerator', () => {
   it('should add React with Style when checkbox is checked', async () => {
     const reactService = stubReactService();
     reactService.addWithStyle.resolves({});
-    await wrap({ reactService, project: createProjectToUpdate({ folder: 'path' }) });
+    await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
     const checkbox = wrapper.find('#react-with-style');
     await checkbox.setValue(true);
@@ -95,7 +95,7 @@ describe('ReactGenerator', () => {
     const logger = stubLogger();
     const reactService = stubReactService();
     reactService.add.rejects({});
-    await wrap({ reactService, logger, project: createProjectToUpdate({ folder: 'path' }) });
+    await wrap({ reactService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
     const initButton = wrapper.find('#react');
     await initButton.trigger('click');
@@ -108,7 +108,7 @@ describe('ReactGenerator', () => {
     const logger = stubLogger();
     const reactService = stubReactService();
     reactService.addWithStyle.rejects({});
-    await wrap({ reactService, logger, project: createProjectToUpdate({ folder: 'path' }) });
+    await wrap({ reactService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
     const checkbox = wrapper.find('#react-with-style');
     await checkbox.setValue(true);

@@ -3,6 +3,7 @@ import { composeSelector, dataSelector } from '../support/selector';
 const generatorSelector = (name: string) => dataSelector(composeSelector('generator', name));
 const angularGeneratorSelector = (name: string) => dataSelector(composeSelector('angular-generator', name));
 const reactGeneratorSelector = (name: string) => dataSelector(composeSelector('react-generator', name));
+const vueGeneratorSelector = (name: string) => dataSelector(composeSelector('vue-generator', name));
 
 describe('Generator', () => {
   beforeEach(() => {
@@ -57,7 +58,7 @@ describe('Generator', () => {
 
   it('should display vue', () => {
     cy.get(generatorSelector('option-vue')).check();
-    cy.get(generatorSelector('add-vue-button')).contains('Vue');
+    cy.get(vueGeneratorSelector('add-vue-button')).contains('Vue');
   });
 
   it('should display download button when project path is filled', () => {

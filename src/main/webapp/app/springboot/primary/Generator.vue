@@ -678,26 +678,7 @@
           </div>
           <AngularGeneratorVue v-if="client === 'angular'" :project="project" />
           <ReactGeneratorVue v-if="client === 'react'" :project="project" />
-          <div v-if="client === 'vue'" id="v-pills-vue" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-vue-tab">
-            <div class="list-group--inline py-2">
-              <label for="react-with-style" class="list-group-item gap-3">
-                <input
-                  id="vue-with-style"
-                  v-model="isVueWithStyle"
-                  type="checkbox"
-                  name="vue-with-style"
-                  class="form-check-input flex-shrink-0"
-                  value=""
-                />
-                <span class="form-checked-content">
-                  <strong>Add Vue.js style</strong>
-                </span>
-              </label>
-            </div>
-            <button id="vue" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.add-vue-button'" @click.prevent="addVue">
-              Generate Vue.js
-            </button>
-          </div>
+          <VueGeneratorVue v-if="client === 'vue'" :project="project" />
           <div v-if="client === 'svelte'" id="v-pills-svelte" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-svelte-tab">
             <div class="list-group--inline py-2">
               <label for="svelte-with-style" class="list-group-item gap-3">

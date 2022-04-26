@@ -1,6 +1,7 @@
 import { composeSelector, dataSelector } from '../support/selector';
 
 const generatorSelector = (name: string) => dataSelector(composeSelector('generator', name));
+const springBootGeneratorSelector = (name: string) => dataSelector(composeSelector('spring-boot-generator', name));
 const angularGeneratorSelector = (name: string) => dataSelector(composeSelector('angular-generator', name));
 const reactGeneratorSelector = (name: string) => dataSelector(composeSelector('react-generator', name));
 const vueGeneratorSelector = (name: string) => dataSelector(composeSelector('vue-generator', name));
@@ -30,21 +31,21 @@ describe('Generator', () => {
 
   it('should display spring boot', () => {
     cy.get(generatorSelector('option-springboot')).check();
-    cy.get(generatorSelector('add-spring-boot-button')).contains('Spring Boot');
-    cy.get(generatorSelector('add-spring-boot-mvc-tomcat-button')).contains('Spring MVC Tomcat');
-    cy.get(generatorSelector('add-spring-boot-webflux-netty-button')).contains('Spring Webflux Netty');
-    cy.get(generatorSelector('add-spring-boot-actuator-button')).contains('Spring Boot Actuator');
+    cy.get(springBootGeneratorSelector('add-spring-boot-button')).contains('Spring Boot');
+    cy.get(springBootGeneratorSelector('add-spring-boot-mvc-tomcat-button')).contains('Spring MVC Tomcat');
+    cy.get(springBootGeneratorSelector('add-spring-boot-webflux-netty-button')).contains('Spring Webflux Netty');
+    cy.get(springBootGeneratorSelector('add-spring-boot-actuator-button')).contains('Spring Boot Actuator');
 
-    cy.get(generatorSelector('add-spring-boot-aop-button')).contains('AOP Logging');
-    cy.get(generatorSelector('add-spring-boot-logstash-button')).contains('Logstash');
+    cy.get(springBootGeneratorSelector('add-spring-boot-aop-button')).contains('AOP Logging');
+    cy.get(springBootGeneratorSelector('add-spring-boot-logstash-button')).contains('Logstash');
 
-    cy.get(generatorSelector('add-spring-boot-jwt-button')).contains('Security JWT');
-    cy.get(generatorSelector('add-spring-boot-jwt-basic-auth-button')).contains('Security JWT Basic Auth');
+    cy.get(springBootGeneratorSelector('add-spring-boot-jwt-button')).contains('Security JWT');
+    cy.get(springBootGeneratorSelector('add-spring-boot-jwt-basic-auth-button')).contains('Security JWT Basic Auth');
 
-    cy.get(generatorSelector('add-spring-boot-database-postgresql-button')).contains('PostgreSQL');
-    cy.get(generatorSelector('add-spring-boot-database-mysql-button')).contains('MySQL');
-    cy.get(generatorSelector('add-spring-boot-database-mariadb-button')).contains('MariaDB');
-    cy.get(generatorSelector('add-spring-boot-database-mongodb-button')).contains('MongoDB');
+    cy.get(springBootGeneratorSelector('add-spring-boot-database-postgresql-button')).contains('PostgreSQL');
+    cy.get(springBootGeneratorSelector('add-spring-boot-database-mysql-button')).contains('MySQL');
+    cy.get(springBootGeneratorSelector('add-spring-boot-database-mariadb-button')).contains('MariaDB');
+    cy.get(springBootGeneratorSelector('add-spring-boot-database-mongodb-button')).contains('MongoDB');
   });
 
   it('should display angular', () => {

@@ -1,16 +1,17 @@
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import { defineComponent, inject, ref } from 'vue';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
-import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import { Logger } from '@/common/domain/Logger';
 import { AngularGeneratorVue } from '@/springboot/primary/angular-generator';
 import { ReactGeneratorVue } from '@/springboot/primary/react-generator';
 import { VueGeneratorVue } from '@/springboot/primary/vue-generator';
 import { SvelteGeneratorVue } from '@/springboot/primary/svelte-generator';
+import { SpringBootGeneratorVue } from '@/springboot/primary/spring-boot-generator';
 
 export default defineComponent({
   name: 'GeneratorComponent',
   components: {
+    SpringBootGeneratorVue,
     AngularGeneratorVue,
     ReactGeneratorVue,
     SvelteGeneratorVue,
@@ -19,7 +20,6 @@ export default defineComponent({
   setup() {
     const logger = inject('logger') as Logger;
     const projectService = inject('projectService') as ProjectService;
-    const springBootService = inject('springBootService') as SpringBootService;
 
     const selectorPrefix = 'generator';
 
@@ -73,102 +73,6 @@ export default defineComponent({
       }
     };
 
-    const addSpringBoot = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addSpringBoot(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot to project failed', error));
-      }
-    };
-
-    const addSpringBootMvcTomcat = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addSpringBootMvcTomcat(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot MVC with Tomcat to project failed', error));
-      }
-    };
-
-    const addSpringBootWebfluxNetty = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addSpringBootWebfluxNetty(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Webflux with Netty to project failed', error));
-      }
-    };
-
-    const addSpringBootActuator = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addSpringBootActuator(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Actuator to project failed', error));
-      }
-    };
-
-    const addSpringBootAopLogging = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addSpringBootAopLogging(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot AOP Logging to project failed', error));
-      }
-    };
-
-    const addSpringBootLogstash = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addSpringBootLogstash(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Logstash to project failed', error));
-      }
-    };
-
-    const addSpringBootSecurityJWT = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addJWT(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Security JWT to project failed', error));
-      }
-    };
-
-    const addSpringBootSecurityJWTBasicAuth = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addBasicAuthJWT(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Security JWT Basic Auth to project failed', error));
-      }
-    };
-
-    const addPostgreSQL = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addPostgres(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Database PostgreSQL to project failed', error));
-      }
-    };
-
-    const addMySQL = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addMySQL(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Database MySQL to project failed', error));
-      }
-    };
-
-    const addMariaDB = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addMariaDB(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Database MariaDB to project failed', error));
-      }
-    };
-
-    const addMongoDB = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        await springBootService
-          .addMongoDB(toProject(project.value))
-          .catch(error => logger.error('Adding SpringBoot Database MongoDB to project failed', error));
-      }
-    };
-
     const addFrontendMavenPlugin = async (): Promise<void> => {
       if (project.value.folder !== '') {
         await projectService
@@ -204,20 +108,6 @@ export default defineComponent({
       addSonarBackend,
       addSonarBackendFrontend,
       addJavaBase,
-      addSpringBoot,
-      addSpringBootMvcTomcat,
-      addSpringBootWebfluxNetty,
-      addSpringBootActuator,
-
-      addSpringBootAopLogging,
-      addSpringBootLogstash,
-
-      addSpringBootSecurityJWT,
-      addSpringBootSecurityJWTBasicAuth,
-      addPostgreSQL,
-      addMySQL,
-      addMariaDB,
-      addMongoDB,
       addFrontendMavenPlugin,
       download,
       selectorPrefix,

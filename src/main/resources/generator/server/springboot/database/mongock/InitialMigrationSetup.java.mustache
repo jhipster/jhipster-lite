@@ -3,19 +3,17 @@ package {{packageName}}.technical.infrastructure.secondary.mongock.dbmigration;
 import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
 import io.mongock.api.annotations.RollbackExecution;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 @ChangeUnit(id="init", order = "001")
 public class InitialMigrationSetup {
-  private final MongoTemplate template;
-
-  public InitialMigrationSetup(MongoTemplate template) {
-    this.template = template;
-  }
 
   @Execution
-  public void changeSet() {}
+  public void changeSet() {
+    // Add logic to generate change set
+  }
 
   @RollbackExecution
-  public void rollback() {}
+  public void rollback() {
+    // Add logic to rollback change set
+  }
 }

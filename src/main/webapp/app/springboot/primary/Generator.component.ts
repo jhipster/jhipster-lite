@@ -6,12 +6,14 @@ import { Logger } from '@/common/domain/Logger';
 import { AngularGeneratorVue } from '@/springboot/primary/angular-generator';
 import { ReactGeneratorVue } from '@/springboot/primary/react-generator';
 import { VueGeneratorVue } from '@/springboot/primary/vue-generator';
+import { SvelteGeneratorVue } from '@/springboot/primary/svelte-generator';
 
 export default defineComponent({
   name: 'GeneratorComponent',
   components: {
     AngularGeneratorVue,
     ReactGeneratorVue,
+    SvelteGeneratorVue,
     VueGeneratorVue,
   },
   setup() {
@@ -24,7 +26,6 @@ export default defineComponent({
     const project = ref<ProjectToUpdate>({
       folder: '',
     });
-    const isSvelteWithStyle = ref<boolean>(false);
     const language = ref<string>();
     const buildTool = ref<string>('maven');
     const server = ref<string>();
@@ -193,7 +194,6 @@ export default defineComponent({
 
     return {
       project,
-      isSvelteWithStyle,
       language,
       buildTool,
       server,

@@ -4,6 +4,7 @@ const generatorSelector = (name: string) => dataSelector(composeSelector('genera
 const angularGeneratorSelector = (name: string) => dataSelector(composeSelector('angular-generator', name));
 const reactGeneratorSelector = (name: string) => dataSelector(composeSelector('react-generator', name));
 const vueGeneratorSelector = (name: string) => dataSelector(composeSelector('vue-generator', name));
+const svelteGeneratorSelector = (name: string) => dataSelector(composeSelector('svelte-generator', name));
 
 describe('Generator', () => {
   beforeEach(() => {
@@ -59,6 +60,11 @@ describe('Generator', () => {
   it('should display vue', () => {
     cy.get(generatorSelector('option-vue')).check();
     cy.get(vueGeneratorSelector('add-vue-button')).contains('Vue');
+  });
+
+  it('should display svelte', () => {
+    cy.get(generatorSelector('option-svelte')).check();
+    cy.get(svelteGeneratorSelector('add-svelte-button')).contains('Svelte');
   });
 
   it('should display download button when project path is filled', () => {

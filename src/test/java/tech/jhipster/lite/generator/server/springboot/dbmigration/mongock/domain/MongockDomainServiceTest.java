@@ -88,6 +88,14 @@ class MongockDomainServiceTest {
         "src/main/java/com/mycompany/myapp/technical/infrastructure/secondary/mongock/dbmigration"
       );
 
+    verify(projectRepository)
+      .template(
+        project,
+        "server/springboot/database/mongock",
+        "InitialMigrationSetupTest.java",
+        "src/test/java/com/mycompany/myapp/technical/infrastructure/secondary/mongock/dbmigration"
+      );
+
     verify(springBootCommonService, times(1)).addProperties(any(), anyString(), any());
     verify(springBootCommonService)
       .addProperties(

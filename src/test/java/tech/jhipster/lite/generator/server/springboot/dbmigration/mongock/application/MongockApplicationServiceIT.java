@@ -5,6 +5,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAM
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.application.MongockAssert.assertConfigAndChangeLogFiles;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.application.MongockAssert.assertDependencies;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.application.MongockAssert.assertProperties;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.application.MongockAssert.assertTestFiles;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ class MongockApplicationServiceIT {
     // Then
     assertDependencies(project);
     assertConfigAndChangeLogFiles(project);
+    assertTestFiles(project);
     assertProperties(project);
   }
 }

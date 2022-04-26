@@ -5,6 +5,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 
 import java.util.List;
@@ -51,6 +52,16 @@ public class MongockAssert {
     );
     assertFileExist(project, getPath(mongockPath, "MongockDatabaseConfiguration.java"));
     assertFileExist(project, getPath(mongockPath + "/dbmigration", "InitialMigrationSetup.java"));
+    assertFileExist(project, getPath(mongockPath + "/dbmigration", "InitialMigrationSetup.java"));
+  }
+
+  public static void assertTestFiles(Project project) {
+    String mongockPath = getPath(
+      TEST_JAVA,
+      project.getPackageNamePath().orElse("com/mycompany/myapp"),
+      "technical/infrastructure/secondary/mongock"
+    );
+    assertFileExist(project, getPath(mongockPath + "/dbmigration", "InitialMigrationSetupTest.java"));
   }
 
   public static void assertProperties(Project project) {

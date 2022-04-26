@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.domai
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TECHNICAL_INFRASTRUCTURE_SECONDARY;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
 
@@ -92,6 +93,12 @@ public class MongockDomainService implements MongockService {
     String mongockDBMigrationPath = TECHNICAL_INFRASTRUCTURE_SECONDARY + "/mongock/dbmigration";
 
     projectRepository.template(project, SOURCE, "InitialMigrationSetup.java", getPath(MAIN_JAVA, packageNamePath, mongockDBMigrationPath));
+    projectRepository.template(
+      project,
+      SOURCE,
+      "InitialMigrationSetupTest.java",
+      getPath(TEST_JAVA, packageNamePath, mongockDBMigrationPath)
+    );
   }
 
   @Override

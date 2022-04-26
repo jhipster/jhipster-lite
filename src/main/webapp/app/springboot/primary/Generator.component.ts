@@ -1,21 +1,21 @@
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import { defineComponent, inject, ref } from 'vue';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
-import { ReactService } from '@/springboot/domain/client/ReactService';
 import { VueService } from '@/springboot/domain/client/VueService';
 import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import { Logger } from '@/common/domain/Logger';
 import { AngularGeneratorVue } from '@/springboot/primary/angular-generator';
+import { ReactGeneratorVue } from '@/springboot/primary/react-generator';
 
 export default defineComponent({
   name: 'GeneratorComponent',
   components: {
     AngularGeneratorVue,
+    ReactGeneratorVue,
   },
   setup() {
     const logger = inject('logger') as Logger;
     const projectService = inject('projectService') as ProjectService;
-    const reactService = inject('reactService') as ReactService;
     const springBootService = inject('springBootService') as SpringBootService;
     const vueService = inject('vueService') as VueService;
 
@@ -24,7 +24,6 @@ export default defineComponent({
     const project = ref<ProjectToUpdate>({
       folder: '',
     });
-    const isReactWithStyle = ref<boolean>(false);
     const isVueWithStyle = ref<boolean>(false);
     const isSvelteWithStyle = ref<boolean>(false);
     const language = ref<string>();
@@ -170,18 +169,6 @@ export default defineComponent({
       }
     };
 
-    const addReact = async (): Promise<void> => {
-      if (project.value.folder !== '') {
-        if (isReactWithStyle.value) {
-          await reactService
-            .addWithStyle(toProject(project.value))
-            .catch(error => logger.error('Adding React with style to project failed', error));
-        } else {
-          await reactService.add(toProject(project.value)).catch(error => logger.error('Adding React to project failed', error));
-        }
-      }
-    };
-
     const addVue = async (): Promise<void> => {
       if (project.value.folder !== '') {
         if (isVueWithStyle.value) {
@@ -219,7 +206,6 @@ export default defineComponent({
 
     return {
       project,
-      isReactWithStyle,
       isVueWithStyle,
       isSvelteWithStyle,
       language,
@@ -246,7 +232,6 @@ export default defineComponent({
       addMySQL,
       addMariaDB,
       addMongoDB,
-      addReact,
       addVue,
       addFrontendMavenPlugin,
       download,

@@ -4,8 +4,6 @@ import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { stubProjectService } from '../domain/ProjectService.fixture';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
 import { createProjectToUpdate } from './ProjectToUpdate.fixture';
-import { stubReactService } from '../domain/client/ReactService.fixture';
-import { ReactService } from '@/springboot/domain/client/ReactService';
 import { stubSpringBootService } from '../domain/SpringBootService.fixture';
 import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import { stubVueService } from '../domain/client/VueService.fixture';
@@ -18,16 +16,14 @@ let wrapper: VueWrapper;
 interface WrapperOptions {
   logger: Logger;
   projectService: ProjectService;
-  reactService: ReactService;
   springBootService: SpringBootService;
   vueService: VueService;
 }
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { logger, projectService, reactService, springBootService, vueService }: WrapperOptions = {
+  const { logger, projectService, springBootService, vueService }: WrapperOptions = {
     logger: stubLogger(),
     projectService: stubProjectService(),
-    reactService: stubReactService(),
     springBootService: stubSpringBootService(),
     vueService: stubVueService(),
     ...wrapperOptions,
@@ -37,7 +33,6 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       provide: {
         logger,
         projectService,
-        reactService,
         springBootService,
         vueService,
       },
@@ -1052,108 +1047,6 @@ describe('Generator', () => {
       const [message] = logger.error.getCall(0).args;
       expect(message).toBe('Adding SpringBoot Database MongoDB to project failed');
     });
-  });
-
-  it('should not add React when project path is not filled', async () => {
-    const reactService = stubReactService();
-    reactService.add.resolves({});
-    await wrap({ reactService });
-    await selectSection('react');
-
-    const button = wrapper.find('#react');
-    await button.trigger('click');
-
-    expect(reactService.add.called).toBe(false);
-  });
-
-  it('should add React when project path is filled', async () => {
-    const reactService = stubReactService();
-    reactService.add.resolves({});
-    await wrap({ reactService });
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
-      folder: 'project/path',
-      baseName: 'beer',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: '8080',
-    });
-    await fillFullForm(projectToUpdate);
-    await selectSection('react');
-
-    const button = wrapper.find('#react');
-    await button.trigger('click');
-
-    const args = reactService.add.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
-  });
-
-  it('should add React with Style when checkbox is checked', async () => {
-    const reactService = stubReactService();
-    reactService.addWithStyle.resolves({});
-    await wrap({ reactService });
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
-      folder: 'project/path',
-      baseName: 'beer',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: '8080',
-    });
-    await fillFullForm(projectToUpdate);
-    await selectSection('react');
-
-    const checkbox = wrapper.find('#react-with-style');
-    await checkbox.setValue(true);
-    const button = wrapper.find('#react');
-    await button.trigger('click');
-
-    const args = reactService.addWithStyle.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
-  });
-
-  it('should handle error on adding React failure', async () => {
-    const logger = stubLogger();
-    const reactService = stubReactService();
-    reactService.add.rejects({});
-    await wrap({ reactService, logger });
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
-    await fillFullForm(projectToUpdate);
-    await selectSection('react');
-
-    const initButton = wrapper.find('#react');
-    await initButton.trigger('click');
-
-    const [message] = logger.error.getCall(0).args;
-    expect(message).toBe('Adding React to project failed');
-  });
-
-  it('should handle error on adding React with style failure', async () => {
-    const logger = stubLogger();
-    const reactService = stubReactService();
-    reactService.addWithStyle.rejects({});
-    await wrap({ reactService, logger });
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate();
-    await fillFullForm(projectToUpdate);
-    await selectSection('react');
-
-    const checkbox = wrapper.find('#react-with-style');
-    await checkbox.setValue(true);
-    const initButton = wrapper.find('#react');
-    await initButton.trigger('click');
-
-    const [message] = logger.error.getCall(0).args;
-    expect(message).toBe('Adding React with style to project failed');
   });
 
   it('should not add Vue when project path is not filled', async () => {

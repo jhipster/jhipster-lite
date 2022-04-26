@@ -2,6 +2,7 @@ import { composeSelector, dataSelector } from '../support/selector';
 
 const generatorSelector = (name: string) => dataSelector(composeSelector('generator', name));
 const angularGeneratorSelector = (name: string) => dataSelector(composeSelector('angular-generator', name));
+const reactGeneratorSelector = (name: string) => dataSelector(composeSelector('react-generator', name));
 
 describe('Generator', () => {
   beforeEach(() => {
@@ -51,7 +52,7 @@ describe('Generator', () => {
 
   it('should display react', () => {
     cy.get(generatorSelector('option-react')).check();
-    cy.get(generatorSelector('add-react-button')).contains('React');
+    cy.get(reactGeneratorSelector('add-react-button')).contains('React');
   });
 
   it('should display vue', () => {

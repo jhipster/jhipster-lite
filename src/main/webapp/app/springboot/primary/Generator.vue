@@ -118,7 +118,7 @@
         <div class="row g-3">
           <div class="col-12">
             <label for="path" class="form-label">Path (required) : </label>
-            <input id="path" v-model="project.folder" type="text" class="form-control" required />
+            <input id="path" v-model="project.folder" type="text" class="form-control" required autofocus />
           </div>
           <div class="col-12">
             <label for="basename" class="form-label">Basename : </label>
@@ -148,10 +148,8 @@
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input id="language" class="form-check-input flex-shrink-0" type="radio" name="language" value="java" checked />
-                        <span> Java </span>
-                      </label>
+                      <input id="language" class="form-check-input flex-shrink-0" type="radio" name="language" value="java" checked />
+                      <label for="language" role="button"> Java </label>
                     </div>
                     <img src="../../../content/java_rounded_40x40.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
@@ -167,34 +165,30 @@
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="buildTool"
-                          v-model="buildTool"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="buildTool"
-                          value="maven"
-                          checked
-                        />
-                        <span> Maven </span>
-                      </label>
+                      <input
+                        id="build-tool-maven"
+                        v-model="buildTool"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="buildTool"
+                        value="maven"
+                        checked
+                      />
+                      <label for="build-tool-maven" role="button"> Maven </label>
                     </div>
                     <img src="../../../content/MavenLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="buildTool"
-                          v-model="buildTool"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="buildTool"
-                          value="gradle"
-                        />
-                        <span> Gradle </span>
-                      </label>
+                      <input
+                        id="build-tool-gradle"
+                        v-model="buildTool"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="buildTool"
+                        value="gradle"
+                      />
+                      <label for="build-tool-gradle" role="button"> Gradle </label>
                     </div>
                     <img src="../../../content/GradleLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
@@ -210,18 +204,16 @@
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-no-server"
-                          v-model="server"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="server"
-                          value="none"
-                          checked
-                        />
-                        <span>None</span>
-                      </label>
+                      <input
+                        id="option-no-server"
+                        v-model="server"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="server"
+                        value="none"
+                        checked
+                      />
+                      <label for="option-no-server" role="button"> None </label>
                     </div>
                     <img
                       src="../../../content/JHipster-Lite-neon-blue_40x.png"
@@ -233,18 +225,16 @@
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-springboot"
-                          v-model="server"
-                          :data-selector="selectorPrefix + '.option-springboot'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="server"
-                          value="springboot"
-                        />
-                        <span> Spring Boot </span>
-                      </label>
+                      <input
+                        id="option-springboot"
+                        v-model="server"
+                        :data-selector="selectorPrefix + '.option-springboot'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="server"
+                        value="springboot"
+                      />
+                      <label for="option-springboot" role="button"> Spring Boot </label>
                     </div>
                     <img src="../../../content/SpringLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
@@ -259,19 +249,17 @@
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-none-client"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-none-client'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="none"
-                          checked
-                        />
-                        <span>None</span>
-                      </label>
+                      <input
+                        id="option-none-client"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-none-client'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="none"
+                        checked
+                      />
+                      <label for="option-none-client" role="button"> None </label>
                     </div>
                     <img
                       src="../../../content/JHipster-Lite-neon-blue_40x.png"
@@ -283,69 +271,61 @@
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-angular"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-angular'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="angular"
-                        />
-                        <span>Angular</span>
-                      </label>
+                      <input
+                        id="option-angular"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-angular'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="angular"
+                      />
+                      <label for="option-angular" role="button"> Angular </label>
                     </div>
                     <img src="../../../content/AngularLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-react"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-react'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="react"
-                        />
-                        <span>React</span>
-                      </label>
+                      <input
+                        id="option-react"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-react'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="react"
+                      />
+                      <label for="option-react" role="button"> React </label>
                     </div>
                     <img src="../../../content/ReactLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-vue"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-vue'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="vue"
-                        />
-                        <span>Vue.js</span>
-                      </label>
+                      <input
+                        id="option-vue"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-vue'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="vue"
+                      />
+                      <label for="option-vue" role="button"> Vue.js </label>
                     </div>
                     <img src="../../../content/VueLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
-                      <label>
-                        <input
-                          id="option-svelte"
-                          v-model="client"
-                          :data-selector="selectorPrefix + '.option-svelte'"
-                          class="form-check-input flex-shrink-0"
-                          type="radio"
-                          name="client"
-                          value="svelte"
-                        />
-                        <span>Svelte</span>
-                      </label>
+                      <input
+                        id="option-svelte"
+                        v-model="client"
+                        :data-selector="selectorPrefix + '.option-svelte'"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="client"
+                        value="svelte"
+                      />
+                      <label for="option-svelte" role="button"> Svelte </label>
                     </div>
                     <img src="../../../content/SvelteLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
@@ -578,219 +558,11 @@
               Download
             </button>
           </div>
-          <div
-            v-if="server === 'springboot'"
-            id="v-pills-springboot"
-            class="tab-pane fade"
-            role="tabpanel"
-            aria-labelledby="v-pills-profile-tab"
-          >
-            <button
-              id="springboot"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-button'"
-              @click.prevent="addSpringBoot"
-            >
-              Spring Boot
-            </button>
-
-            <button
-              id="springbootmvctomcat"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-mvc-tomcat-button'"
-              @click.prevent="addSpringBootMvcTomcat"
-            >
-              Spring MVC Tomcat
-            </button>
-
-            <button
-              id="springbootwebfluxnetty"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-webflux-netty-button'"
-              @click.prevent="addSpringBootWebfluxNetty"
-            >
-              Spring Webflux Netty
-            </button>
-
-            <button
-              id="springboot-actuator"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-actuator-button'"
-              @click.prevent="addSpringBootActuator"
-            >
-              Spring Boot Actuator
-            </button>
-            <br />
-            <br />
-            <button
-              id="springboot-aop"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-aop-button'"
-              @click.prevent="addSpringBootAopLogging"
-            >
-              AOP Logging
-            </button>
-
-            <button
-              id="springboot-logstash"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-logstash-button'"
-              @click.prevent="addSpringBootLogstash"
-            >
-              Logstash
-            </button>
-            <br />
-            <br />
-            <button
-              id="springboot-jwt"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-jwt-button'"
-              @click.prevent="addSpringBootSecurityJWT"
-            >
-              Security JWT
-            </button>
-
-            <button
-              id="springboot-jwt-basic-auth"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-jwt-basic-auth-button'"
-              @click.prevent="addSpringBootSecurityJWTBasicAuth"
-            >
-              Security JWT Basic Auth
-            </button>
-            <br />
-            <br />
-            <button
-              id="springboot-database-postgresql"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-database-postgresql-button'"
-              @click.prevent="addPostgreSQL"
-            >
-              PostgreSQL
-            </button>
-
-            <button
-              id="springboot-database-mysql"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-database-mysql-button'"
-              @click.prevent="addMySQL"
-            >
-              MySQL
-            </button>
-
-            <button
-              id="springboot-database-mariadb"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-database-mariadb-button'"
-              @click.prevent="addMariaDB"
-            >
-              MariaDB
-            </button>
-
-            <button
-              id="springboot-database-mongodb"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-spring-boot-database-mongodb-button'"
-              @click.prevent="addMongoDB"
-            >
-              MongoDB
-            </button>
-          </div>
-          <div
-            v-if="client === 'angular'"
-            id="v-pills-angular"
-            class="tab-pane fade"
-            role="tabpanel"
-            aria-labelledby="v-pills-settings-tab"
-          >
-            <div class="list-group--inline py-2">
-              <label for="angular-with-style" class="list-group-item gap-3">
-                <input
-                  id="angular-with-style"
-                  v-model="isAngularWithStyle"
-                  type="checkbox"
-                  name="angular-with-style"
-                  class="form-check-input flex-shrink-0"
-                />
-                <span class="form-checked-content">
-                  <strong>Add Angular style</strong>
-                </span>
-              </label>
-            </div>
-            <button
-              id="angular"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-angular-button'"
-              @click.prevent="addAngular"
-            >
-              Generate Angular
-            </button>
-          </div>
-          <div v-if="client === 'react'" id="v-pills-react" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-react-tab">
-            <div class="list-group--inline py-2">
-              <label for="react-with-style" class="list-group-item gap-3">
-                <input
-                  id="react-with-style"
-                  v-model="isReactWithStyle"
-                  name="react-with-style"
-                  class="form-check-input flex-shrink-0"
-                  type="checkbox"
-                  value=""
-                />
-                <span class="form-checked-content">
-                  <strong>Add React style</strong>
-                </span>
-              </label>
-            </div>
-            <button
-              id="react"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-react-button'"
-              @click.prevent="addReact"
-            >
-              Generate React
-            </button>
-          </div>
-          <div v-if="client === 'vue'" id="v-pills-vue" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-vue-tab">
-            <div class="list-group--inline py-2">
-              <label for="react-with-style" class="list-group-item gap-3">
-                <input
-                  id="vue-with-style"
-                  v-model="isVueWithStyle"
-                  type="checkbox"
-                  name="vue-with-style"
-                  class="form-check-input flex-shrink-0"
-                  value=""
-                />
-                <span class="form-checked-content">
-                  <strong>Add Vue.js style</strong>
-                </span>
-              </label>
-            </div>
-            <button id="vue" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.add-vue-button'" @click.prevent="addVue">
-              Generate Vue.js
-            </button>
-          </div>
-          <div v-if="client === 'svelte'" id="v-pills-svelte" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-svelte-tab">
-            <div class="list-group--inline py-2">
-              <label for="svelte-with-style" class="list-group-item gap-3">
-                <input
-                  id="svelte-with-style"
-                  v-model="isSvelteWithStyle"
-                  type="checkbox"
-                  name="svelte-with-style"
-                  class="form-check-input flex-shrink-0"
-                  value=""
-                />
-                <span class="form-checked-content">
-                  <strong>Add Svelte style</strong>
-                </span>
-              </label>
-            </div>
-            <button id="svelte" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.add-svelte-button'" @click.prevent="">
-              Generate Svelte (not implemented)
-            </button>
-          </div>
+          <SpringBootGeneratorVue v-if="server === 'springboot'" :project="project" />
+          <AngularGeneratorVue v-if="client === 'angular'" :project="project" />
+          <ReactGeneratorVue v-if="client === 'react'" :project="project" />
+          <VueGeneratorVue v-if="client === 'vue'" :project="project" />
+          <SvelteGeneratorVue v-if="client === 'svelte'" :project="project" />
         </div>
       </div>
     </div>

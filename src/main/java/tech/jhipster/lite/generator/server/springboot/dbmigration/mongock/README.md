@@ -10,4 +10,4 @@ This context is used to add [Mongock](https://mongock.io/) to an existing projec
 
 ## Maintainers
 
-- [Pascal Grimaud](https://github.com/pascalgrimaud)
+- [Chintan Radia](https://github.com/beatfreaker)

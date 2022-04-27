@@ -2,7 +2,7 @@ import { Project } from '@/springboot/domain/Project';
 import ProjectRepository from '@/springboot/secondary/ProjectRepository';
 import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
-import { createProject, createStubedProjectRepository } from '../domain/Project.fixture';
+import { createProject } from '../domain/Project.fixture';
 
 describe('ProjectRepository', () => {
   it('should init project', () => {
@@ -104,15 +104,17 @@ describe('ProjectRepository', () => {
   });
 
   it('should download the project', async () => {
-    const [projectRepository, axiosHttpStub] = createStubedProjectRepository({ data: [1, 2, 3] });
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves({ headers: [], data: [1, 2, 3] });
+    const projectRepository = new ProjectRepository(axiosHttpStub);
     const project: Project = createProject({ folder: 'folder/path' });
-    const expectedRestProject: RestProject = toRestProject(project);
 
-    const datas = await projectRepository.download(project);
+    const data = await projectRepository.download(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
 
-    expect(datas).toEqual([1, 2, 3]);
+    expect(data.file).toEqual([1, 2, 3]);
     expect(uri).toBe('api/projects/download');
+    const expectedRestProject: RestProject = toRestProject(project);
     expect(payload).toEqual<RestProject>(expectedRestProject);
   });
 });

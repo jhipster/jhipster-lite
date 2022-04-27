@@ -2,6 +2,9 @@ import { Project } from '@/springboot/domain/Project';
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import { AxiosHttp } from '@/http/AxiosHttp';
 import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
+import { DocumentFile } from '@/common/domain/DocumentFile';
+import { toDocumentFile } from '@/common/secondary/ResponseDocumentFile';
+import { AxiosRequestConfig } from 'axios';
 
 export default class ProjectRepository implements ProjectService {
   constructor(private axiosHttp: AxiosHttp) {}
@@ -41,15 +44,16 @@ export default class ProjectRepository implements ProjectService {
     await this.axiosHttp.post('api/servers/java/base', restProject);
   }
 
-  async download(project: Project): Promise<BlobPart> {
+  async download(project: Project): Promise<DocumentFile> {
     const restProject: RestProject = toRestProject(project);
+    const requestConfig: AxiosRequestConfig = {
+      responseType: 'blob',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+    };
     return this.axiosHttp
-      .post<BlobPart, RestProject>('api/projects/download', restProject, {
-        responseType: 'blob',
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-      })
-      .then(response => response.data);
+      .post<ArrayBuffer, RestProject>('api/projects/download', restProject, requestConfig)
+      .then(toDocumentFile('export.xls'));
   }
 }

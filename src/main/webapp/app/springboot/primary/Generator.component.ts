@@ -7,6 +7,7 @@ import { ReactGeneratorVue } from '@/springboot/primary/react-generator';
 import { VueGeneratorVue } from '@/springboot/primary/vue-generator';
 import { SvelteGeneratorVue } from '@/springboot/primary/svelte-generator';
 import { SpringBootGeneratorVue } from '@/springboot/primary/spring-boot-generator';
+import { FileDownloader } from '@/common/primary/FileDownloader';
 
 export default defineComponent({
   name: 'GeneratorComponent',
@@ -19,6 +20,7 @@ export default defineComponent({
   },
   setup() {
     const logger = inject('logger') as Logger;
+    const fileDownloader = inject('fileDownloader') as FileDownloader;
     const projectService = inject('projectService') as ProjectService;
 
     const selectorPrefix = 'generator';
@@ -84,14 +86,8 @@ export default defineComponent({
     const download = async (): Promise<void> => {
       await projectService
         .download(toProject(project.value))
-        .then(response => {
-          const url = window.URL.createObjectURL(new Blob([response], { type: 'application/zip' }));
-          const link = document.createElement('a');
-          link.href = url;
-          const zipName = project.value.baseName || 'application';
-          link.setAttribute('download', zipName + '.zip');
-          document.body.appendChild(link);
-          link.click();
+        .then(file => {
+          fileDownloader.download(file);
         })
         .catch(error => logger.error('Downloading project failed', error));
     };

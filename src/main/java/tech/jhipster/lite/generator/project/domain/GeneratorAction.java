@@ -74,6 +74,8 @@ public class GeneratorAction {
   public static final String FLYWAY = "flyway";
   public static final String FLYWAY_USER_AND_AUTHORITY_CHANGELOGS = "flyway-user-and-authority-changelogs";
 
+  public static final String MONGOCK = "mongock";
+
   public static final String JAVA_ARCHUNIT = "java-archunit";
 
   public static final String MARIADB = "mariadb";

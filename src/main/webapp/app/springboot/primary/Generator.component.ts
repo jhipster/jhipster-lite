@@ -8,10 +8,12 @@ import { VueGeneratorVue } from '@/springboot/primary/vue-generator';
 import { SvelteGeneratorVue } from '@/springboot/primary/svelte-generator';
 import { SpringBootGeneratorVue } from '@/springboot/primary/spring-boot-generator';
 import { FileDownloader } from '@/common/primary/FileDownloader';
+import { DefaultButtonVue } from '@/common/primary/default-button';
 
 export default defineComponent({
   name: 'GeneratorComponent',
   components: {
+    DefaultButtonVue,
     SpringBootGeneratorVue,
     AngularGeneratorVue,
     ReactGeneratorVue,

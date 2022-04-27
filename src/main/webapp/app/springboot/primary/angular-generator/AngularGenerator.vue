@@ -14,14 +14,12 @@
         </span>
       </label>
     </div>
-    <button
+    <DefaultButtonVue
       id="angular"
-      class="btn btn-outline-primary"
+      :label="'Generate Angular'"
       :data-selector="selectorPrefix + '.add-angular-button'"
       @click.prevent="addAngular"
-    >
-      Generate Angular
-    </button>
+    />
   </div>
 </template>
 

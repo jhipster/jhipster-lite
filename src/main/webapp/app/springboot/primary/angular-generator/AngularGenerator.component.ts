@@ -2,9 +2,14 @@ import { defineComponent, inject, ref } from 'vue';
 import { AngularService } from '@/springboot/domain/client/AngularService';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
 import { Logger } from '@/common/domain/Logger';
+import { DefaultButtonVue } from '@/common/primary/default-button';
 
 export default defineComponent({
   name: 'AngularGeneratorComponent',
+
+  components: {
+    DefaultButtonVue,
+  },
 
   props: {
     project: {

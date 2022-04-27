@@ -336,7 +336,7 @@
         </div>
       </div>
     </div>
-    <div class="row my-4 d-flex align-items-start shadow">
+    <div class="row mt-4 d-flex align-items-start shadow">
       <div class="col-12 col-md-4 col-lg-4 px-0">
         <ul id="v-pills-tab" class="nav nav-pills flex-column nav-fill" role="tablist" aria-orientation="vertical">
           <li class="nav-item">
@@ -411,8 +411,7 @@
                   />
                   <path
                     fill="#FFFFFF"
-                    d="M125,52.1L66.8,182.6h0h21.7h0l11.7-29.2h49.4l11.7,29.2h0h21.7h0L125,52.1L125,52.1L125,52.1L125,52.1
-		L125,52.1z M142,135.4H108l17-40.9L142,135.4z"
+                    d="M125,52.1L66.8,182.6h0h21.7h0l11.7-29.2h49.4l11.7,29.2h0h21.7h0L125,52.1L125,52.1L125,52.1L125,52.1L125,52.1z M142,135.4H108l17-40.9L142,135.4z"
                   />
                 </g>
               </svg>
@@ -485,78 +484,63 @@
       <div class="col py-2">
         <div id="v-pills-tab" class="tab-content">
           <div id="v-pills-init" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
-            <button id="init" class="btn btn-outline-primary" :data-selector="selectorPrefix + '.init-button'" @click.prevent="initProject">
-              Init
-            </button>
-            <br />
-            <br />
-            <button
-              v-if="buildTool === 'maven'"
-              id="maven"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-maven-button'"
-              @click.prevent="addMaven"
-            >
-              Maven
-            </button>
-
-            <button
-              id="jacoco"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-jacoco-button'"
-              @click.prevent="addJaCoCo"
-            >
-              JaCoCo
-            </button>
-
-            <button
-              id="sonar-backend"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-sonar-backend-button'"
-              @click.prevent="addSonarBackend"
-            >
-              Sonar Backend
-            </button>
-
-            <button
-              id="sonar-backend-frontend"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-sonar-backend-frontend-button'"
-              @click.prevent="addSonarBackendFrontend"
-            >
-              Sonar Backend+Frontend
-            </button>
-            <br />
-            <br />
-            <button
-              id="javabase"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-java-base-button'"
-              @click.prevent="addJavaBase"
-            >
-              Java Base
-            </button>
-            <br />
-            <br />
-            <button
-              id="frontend-maven-plugin"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.add-frontend-maven-plugin-button'"
-              @click.prevent="addFrontendMavenPlugin"
-            >
-              Frontend Maven Plugin
-            </button>
-            <br />
-            <br />
-            <button
-              v-if="project.folder !== ''"
-              id="download"
-              class="btn btn-outline-primary"
-              :data-selector="selectorPrefix + '.download-button'"
-              @click.prevent="download"
-            >
-              Download
-            </button>
+            <div class="d-flex flex-column gap-3">
+              <div>
+                <DefaultButtonVue id="init" :label="'Init'" :data-selector="selectorPrefix + '.init-button'" @click.prevent="initProject" />
+              </div>
+              <div>
+                <DefaultButtonVue
+                  v-if="buildTool === 'maven'"
+                  id="maven"
+                  :label="'Maven'"
+                  :data-selector="selectorPrefix + '.add-maven-button'"
+                  @click.prevent="addMaven"
+                />
+                <DefaultButtonVue
+                  id="jacoco"
+                  :label="'JaCoCo'"
+                  :data-selector="selectorPrefix + '.add-jacoco-button'"
+                  @click.prevent="addJaCoCo"
+                />
+                <DefaultButtonVue
+                  id="sonar-backend"
+                  :label="'Sonar Backend'"
+                  :data-selector="selectorPrefix + '.add-sonar-backend-button'"
+                  @click.prevent="addSonarBackend"
+                />
+                <DefaultButtonVue
+                  id="sonar-backend-frontend"
+                  :label="'Sonar Backend+Frontend'"
+                  :data-selector="selectorPrefix + '.add-sonar-backend-frontend-button'"
+                  @click.prevent="addSonarBackendFrontend"
+                />
+              </div>
+              <div>
+                <DefaultButtonVue
+                  id="javabase"
+                  :label="'Java Base'"
+                  :data-selector="selectorPrefix + '.add-java-base-button'"
+                  @click.prevent="addJavaBase"
+                />
+              </div>
+              <div>
+                <DefaultButtonVue
+                  id="frontend-maven-plugin"
+                  :label="'Frontend Maven Plugin'"
+                  :data-selector="selectorPrefix + '.add-frontend-maven-plugin-button'"
+                  @click.prevent="addFrontendMavenPlugin"
+                />
+              </div>
+              <div>
+                <DefaultButtonVue
+                  v-if="project.folder !== ''"
+                  id="download"
+                  :label="'Download'"
+                  :data-selector="selectorPrefix + '.download-button'"
+                  @click.prevent="download"
+                />
+              </div>
+            </div>
           </div>
           <SpringBootGeneratorVue v-if="server === 'springboot'" :project="project" />
           <AngularGeneratorVue v-if="client === 'angular'" :project="project" />

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import java.time.Instant;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -40,8 +41,8 @@ public class HistoryDTOTest {
   private static List<GeneratorHistoryValue> historyValues() {
     return List.of(
       new GeneratorHistoryValue("service51", null),
-      new GeneratorHistoryValue("service1664", "20220423111510"),
-      new GeneratorHistoryValue("service33", "20220423111520")
+      new GeneratorHistoryValue("service1664", Instant.ofEpochSecond(1000000)),
+      new GeneratorHistoryValue("service33", Instant.ofEpochSecond(5000000))
     );
   }
 

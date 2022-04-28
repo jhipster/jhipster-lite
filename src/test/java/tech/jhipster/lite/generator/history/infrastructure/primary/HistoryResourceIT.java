@@ -1,23 +1,24 @@
 package tech.jhipster.lite.generator.history.infrastructure.primary;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.Clock;
+import java.time.Instant;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.common.domain.TimeUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
@@ -29,8 +30,11 @@ class HistoryResourceIT {
   @Autowired
   MockMvc mockMvc;
 
-  @Autowired
+  @Mock
   Clock clock;
+
+  @Autowired
+  GeneratorHistoryInterceptor generatorHistoryInterceptor;
 
   @Test
   void shouldNotGetHistoryWithoutFolder() throws Exception {
@@ -81,40 +85,39 @@ class HistoryResourceIT {
     }
     projectDTO.folder(FileUtils.tmpDirForTest());
 
-    try (MockedStatic<TimeUtils> timeUtils = Mockito.mockStatic(TimeUtils.class)) {
-      timeUtils.when(() -> TimeUtils.getNowTimestamp(clock)).thenReturn("20220102030405");
-      mockMvc
-        .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
-        .andExpect(status().isOk());
-    }
-    try (MockedStatic<TimeUtils> timeUtils = Mockito.mockStatic(TimeUtils.class)) {
-      timeUtils.when(() -> TimeUtils.getNowTimestamp(clock)).thenReturn("20220102030406");
-      mockMvc
-        .perform(
-          post("/api/build-tools/maven").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
-        )
-        .andExpect(status().isOk());
-    }
-    try (MockedStatic<TimeUtils> timeUtils = Mockito.mockStatic(TimeUtils.class)) {
-      timeUtils.when(() -> TimeUtils.getNowTimestamp(clock)).thenReturn("20220102030407");
-      mockMvc
-        .perform(
-          post("/api/developer-tools/github-actions")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.convertObjectToJsonBytes(projectDTO))
-        )
-        .andExpect(status().isOk());
-    }
+    when(clock.instant())
+      .thenReturn(
+        Instant.parse("2022-01-22T14:01:54.954396664Z"),
+        Instant.parse("2022-01-23T14:01:55.954396664Z"),
+        Instant.parse("2022-01-24T14:01:56.954396664Z")
+      );
+    ReflectionTestUtils.setField(generatorHistoryInterceptor, "clock", clock);
+
+    mockMvc
+      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .andExpect(status().isOk());
+    mockMvc
+      .perform(
+        post("/api/build-tools/maven").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
+    mockMvc
+      .perform(
+        post("/api/developer-tools/github-actions")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isOk());
 
     mockMvc
       .perform(get("/api/project-histories").param("folder", projectDTO.getFolder()))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$", Matchers.hasSize(3)))
       .andExpect(jsonPath("$[0].serviceId").value(GeneratorAction.INIT))
-      .andExpect(jsonPath("$[0].timestamp").value("20220102030405"))
+      .andExpect(jsonPath("$[0].timestamp").value("2022-01-22 14:01:54"))
       .andExpect(jsonPath("$[1].serviceId").value(GeneratorAction.MAVEN_JAVA))
-      .andExpect(jsonPath("$[1].timestamp").value("20220102030406"))
+      .andExpect(jsonPath("$[1].timestamp").value("2022-01-23 14:01:55"))
       .andExpect(jsonPath("$[2].serviceId").value(GeneratorAction.GITHUB_ACTIONS))
-      .andExpect(jsonPath("$[2].timestamp").value("20220102030407"));
+      .andExpect(jsonPath("$[2].timestamp").value("2022-01-24 14:01:56"));
   }
 }

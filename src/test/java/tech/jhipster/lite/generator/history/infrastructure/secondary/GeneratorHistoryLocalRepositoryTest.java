@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -63,7 +64,7 @@ class GeneratorHistoryLocalRepositoryTest {
       // Then
       GeneratorHistoryData expectedGeneratorHistoryData = new GeneratorHistoryData();
       expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("springboot-init", null));
-      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("java-init", "20220102030405"));
+      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("java-init", Instant.parse("2022-01-22T10:11:12.000Z")));
       assertThat(generatorHistoryData).usingRecursiveComparison().isEqualTo(expectedGeneratorHistoryData);
     }
   }
@@ -107,7 +108,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", "20220405060708");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", Instant.parse("2022-01-24T10:11:12.000Z"));
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
@@ -138,7 +139,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.read(historyFilePath)).thenThrow(new IOException()).thenReturn(getFileContent());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", "20220405060708");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", Instant.parse("2022-01-24T10:11:12.000Z"));
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
@@ -176,7 +177,7 @@ class GeneratorHistoryLocalRepositoryTest {
         fileUtils.when(() -> FileUtils.getPath(project.getFolder(), ".jhipster", "history.json")).thenReturn(historyFilePath);
         fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
-        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", "20220405060708");
+        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", Instant.parse("2022-01-24T10:11:12.000Z"));
 
         // When + Then
         assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
@@ -210,7 +211,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(new IOException());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", "20220423111500");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", Instant.parse("2022-01-25T10:11:12.000Z"));
       assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
         .isInstanceOf(GeneratorException.class);
     }
@@ -221,10 +222,10 @@ class GeneratorHistoryLocalRepositoryTest {
         {
           "values": [
             { "serviceId": "springboot-init"},
-            { "serviceId": "java-init", "timestamp": "20220102030405"}
+            { "serviceId": "java-init", "timestamp": "2022-01-22 10:11:12" }
           ]
         }
-      """;
+          """;
   }
 
   private List<String> getExpectedFileContentLines() {
@@ -235,10 +236,10 @@ class GeneratorHistoryLocalRepositoryTest {
           "timestamp" : null
         }, {
           "serviceId" : "java-init",
-          "timestamp" : "20220102030405"
+          "timestamp" : "2022-01-22 10:11:12"
         }, {
           "serviceId" : "tomcat",
-          "timestamp" : "20220405060708"
+          "timestamp" : "2022-01-24 10:11:12"
         } ]
       }""".lines()
       .collect(Collectors.toList());

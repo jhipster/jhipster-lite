@@ -5,7 +5,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.common.domain.TimeUtils;
 import tech.jhipster.lite.generator.history.application.GeneratorHistoryApplicationService;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -29,7 +28,7 @@ public class GeneratorHistoryInterceptor {
     String serviceId = generatorStep.id();
     ProjectDTO projectDTO = (ProjectDTO) joinPoint.getArgs()[0];
     Project project = ProjectDTO.toProject(projectDTO);
-    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue(serviceId, TimeUtils.getNowTimestamp(clock));
+    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue(serviceId, clock.instant());
     generatorHistoryApplicationService.addHistoryValue(project, generatorHistoryValue);
   }
 }

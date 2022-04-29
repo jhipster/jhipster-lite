@@ -9,11 +9,13 @@ import { SvelteGeneratorVue } from '@/springboot/primary/svelte-generator';
 import { SpringBootGeneratorVue } from '@/springboot/primary/spring-boot-generator';
 import { FileDownloader } from '@/common/primary/FileDownloader';
 import { DefaultButtonVue } from '@/common/primary/default-button';
+import { HeaderVue } from '@/springboot/primary/header';
 import { IconVue } from '@/common/primary/icon';
 
 export default defineComponent({
   name: 'GeneratorComponent',
   components: {
+    HeaderVue,
     IconVue,
     DefaultButtonVue,
     SpringBootGeneratorVue,

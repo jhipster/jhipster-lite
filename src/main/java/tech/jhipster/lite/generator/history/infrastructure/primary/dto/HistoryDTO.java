@@ -13,8 +13,4 @@ public record HistoryDTO(@Schema(name = "Service Ids applied to project", requir
     }
     return new HistoryDTO(serviceIds.stream().map(GeneratorHistoryValue::serviceId).distinct().sorted().toList());
   }
-
-  public Collection<String> getServiceIds() {
-    return serviceIds;
-  }
 }

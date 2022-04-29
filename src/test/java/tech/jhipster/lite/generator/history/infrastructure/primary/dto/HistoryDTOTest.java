@@ -15,14 +15,14 @@ public class HistoryDTOTest {
 
   @Test
   void shouldHaveEmptyListFromNullDomain() {
-    assertThat(HistoryDTO.from(null).getServiceIds()).isEmpty();
+    assertThat(HistoryDTO.from(null).serviceIds()).isEmpty();
   }
 
   @Test
   void shouldConvertFromHistory() {
     HistoryDTO history = defaultHistory();
 
-    assertThat(history.getServiceIds()).isEqualTo(List.of("service1664", "service33", "service51"));
+    assertThat(history.serviceIds()).isEqualTo(List.of("service1664", "service33", "service51"));
   }
 
   @Test

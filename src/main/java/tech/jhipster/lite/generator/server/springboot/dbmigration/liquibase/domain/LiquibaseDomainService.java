@@ -129,7 +129,7 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   private void addSqlSequenceUserChangelog(Project project) {
     if (isDatabaseWhichNeedsSequenceStrategy(project)) {
-      String sequenceUserChangelog = TimeUtils.getNowTimestamp(clock) + "_added_sequence_User.xml";
+      String sequenceUserChangelog = TimeUtils.getDateString(clock) + "_added_sequence_User.xml";
       addChangelogXml(project, "", sequenceUserChangelog);
       projectRepository.template(
         project,
@@ -142,7 +142,7 @@ public class LiquibaseDomainService implements LiquibaseService {
   }
 
   private void addSqlUserChangelog(Project project) {
-    String userChangelog = TimeUtils.getNowTimestamp(clock) + "_added_entity_User.xml";
+    String userChangelog = TimeUtils.getDateString(clock) + "_added_entity_User.xml";
     addChangelogXml(project, "", userChangelog);
     String userXmlFile = "user.xml";
     if (springBootCommonService.isSetWithMySQLOrMariaDBDatabase(project)) {
@@ -154,7 +154,7 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   private void addSqlUserAuthorityChangelog(Project project) {
     // Update liquibase master file
-    String authorityChangelog = TimeUtils.getNowTimestamp(clock) + "_added_entity_Authority.xml";
+    String authorityChangelog = TimeUtils.getDateString(clock) + "_added_entity_Authority.xml";
     addChangelogXml(project, "", authorityChangelog);
 
     // Copy liquibase files

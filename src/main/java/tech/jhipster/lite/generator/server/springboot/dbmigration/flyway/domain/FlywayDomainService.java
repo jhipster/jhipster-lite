@@ -107,7 +107,7 @@ public class FlywayDomainService implements FlywayService {
   }
 
   private String buildFileNameWithTimestamp(String fileNameFormat, int idxScript) {
-    return fileNameFormat.formatted(TimeUtils.getNowTimestamp(clock, idxScript));
+    return fileNameFormat.formatted(TimeUtils.getDateString(clock, idxScript));
   }
 
   private boolean isDatabaseUseSequences(Project project) {

@@ -10,11 +10,11 @@ public class TimeUtils {
 
   private TimeUtils() {}
 
-  public static String getNowTimestamp(Clock clock) {
-    return getNowTimestamp(clock, 0);
+  public static String getDateString(Clock clock) {
+    return getDateString(clock, 0);
   }
 
-  public static String getNowTimestamp(Clock clock, int plusSecond) {
+  public static String getDateString(Clock clock, int plusSecond) {
     LocalDateTime localDateTime = LocalDateTime.now(clock).plusSeconds(plusSecond);
     return localDateTime.format(DATE_TIME_FORMATTER);
   }

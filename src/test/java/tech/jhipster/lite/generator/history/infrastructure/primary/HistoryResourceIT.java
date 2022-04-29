@@ -58,7 +58,7 @@ class HistoryResourceIT {
       )
       .andExpect(status().isOk());
     mockMvc
-      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/inits/full").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
     mockMvc
       .perform(
@@ -86,15 +86,11 @@ class HistoryResourceIT {
     projectDTO.folder(FileUtils.tmpDirForTest());
 
     when(clock.instant())
-      .thenReturn(
-        Instant.parse("2022-01-22T14:01:54.954396664Z"),
-        Instant.parse("2022-01-23T14:01:55.954396664Z"),
-        Instant.parse("2022-01-24T14:01:56.954396664Z")
-      );
+      .thenReturn(Instant.parse("2022-01-22T14:01:54Z"), Instant.parse("2022-01-23T14:01:55Z"), Instant.parse("2022-01-24T14:01:56Z"));
     ReflectionTestUtils.setField(generatorHistoryInterceptor, "clock", clock);
 
     mockMvc
-      .perform(post("/api/projects").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
+      .perform(post("/api/inits/full").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
       .andExpect(status().isOk());
     mockMvc
       .perform(
@@ -114,10 +110,10 @@ class HistoryResourceIT {
       .andExpect(status().isOk())
       .andExpect(jsonPath("$", Matchers.hasSize(3)))
       .andExpect(jsonPath("$[0].serviceId").value(GeneratorAction.INIT))
-      .andExpect(jsonPath("$[0].timestamp").value("2022-01-22 14:01:54"))
+      .andExpect(jsonPath("$[0].timestamp").value("2022-01-22T14:01:54Z"))
       .andExpect(jsonPath("$[1].serviceId").value(GeneratorAction.MAVEN_JAVA))
-      .andExpect(jsonPath("$[1].timestamp").value("2022-01-23 14:01:55"))
+      .andExpect(jsonPath("$[1].timestamp").value("2022-01-23T14:01:55Z"))
       .andExpect(jsonPath("$[2].serviceId").value(GeneratorAction.GITHUB_ACTIONS))
-      .andExpect(jsonPath("$[2].timestamp").value("2022-01-24 14:01:56"));
+      .andExpect(jsonPath("$[2].timestamp").value("2022-01-24T14:01:56Z"));
   }
 }

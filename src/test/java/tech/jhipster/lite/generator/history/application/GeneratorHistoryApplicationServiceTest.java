@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,9 +37,9 @@ class GeneratorHistoryApplicationServiceTest {
   @Test
   void shouldGetHistory() {
     final Project project = tmpProject();
-    final GeneratorHistoryData historyData = new GeneratorHistoryData();
+    final GeneratorHistoryData historyData = new GeneratorHistoryData(new ArrayList<>());
     when(generatorHistoryRepository.getHistoryData(project)).thenReturn(historyData);
 
-    assertThat(generatorHistoryApplicationService.getValues(project)).isEqualTo(historyData.getValues());
+    assertThat(generatorHistoryApplicationService.getValues(project)).isEqualTo(historyData.values());
   }
 }

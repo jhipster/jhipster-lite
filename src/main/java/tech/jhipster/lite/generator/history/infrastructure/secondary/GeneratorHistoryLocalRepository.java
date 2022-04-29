@@ -2,6 +2,8 @@ package tech.jhipster.lite.generator.history.infrastructure.secondary;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.domain.JsonUtils;
@@ -9,6 +11,8 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryData;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryRepository;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
+import tech.jhipster.lite.generator.history.infrastructure.secondary.dto.GeneratorHistoryDataDTO;
+import tech.jhipster.lite.generator.history.infrastructure.secondary.dto.GeneratorHistoryValueDTO;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
@@ -34,28 +38,30 @@ public class GeneratorHistoryLocalRepository implements GeneratorHistoryReposito
     } catch (IOException e) {
       throw new GeneratorException("Error on file " + filePath + " : " + e.getMessage());
     }
-    return deserializeHistoryFile(filePath, historyFileContent);
+    return GeneratorHistoryDataDTO.to(deserializeHistoryFile(filePath, historyFileContent));
   }
 
   @Override
   public void addHistoryValue(Project project, GeneratorHistoryValue generatorHistoryValue) {
     String filePath = getHistoryFilePath(project);
-    GeneratorHistoryData generatorHistoryData;
+    List<GeneratorHistoryValueDTO> generatorHistoryValueDTOs = new ArrayList<>();
     try {
       String historyFileContent = FileUtils.read(filePath);
-      generatorHistoryData = deserializeHistoryFile(filePath, historyFileContent);
+      generatorHistoryValueDTOs.addAll(deserializeHistoryFile(filePath, historyFileContent));
     } catch (IOException e) {
       // The file does not exist
       createHistoryFile(project);
-      generatorHistoryData = getHistoryData(project);
+      GeneratorHistoryData data = getHistoryData(project);
+      generatorHistoryValueDTOs.addAll(GeneratorHistoryDataDTO.from(data.values()).values());
     }
 
-    generatorHistoryData.getValues().add(generatorHistoryValue);
+    generatorHistoryValueDTOs.add(GeneratorHistoryValueDTO.from(generatorHistoryValue));
+    GeneratorHistoryDataDTO generatorHistoryDataDTO = new GeneratorHistoryDataDTO(generatorHistoryValueDTOs);
     String newHistoryFileContent;
     try {
-      newHistoryFileContent = JsonUtils.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(generatorHistoryData);
+      newHistoryFileContent = JsonUtils.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(generatorHistoryDataDTO);
     } catch (JsonProcessingException e) {
-      throw new GeneratorException("Cannot serialize the history data " + generatorHistoryData + " : " + e.getMessage());
+      throw new GeneratorException("Cannot serialize the history data " + generatorHistoryDataDTO + " : " + e.getMessage());
     }
     try {
       FileUtils.write(filePath, newHistoryFileContent, project.getEndOfLine());
@@ -72,9 +78,9 @@ public class GeneratorHistoryLocalRepository implements GeneratorHistoryReposito
     return FileUtils.getPath(project.getFolder(), HISTORY_FOLDER_PATH_DEST, HISTORY_FILE_NAME);
   }
 
-  private GeneratorHistoryData deserializeHistoryFile(String filePath, String historyFileContent) {
+  private List<GeneratorHistoryValueDTO> deserializeHistoryFile(String filePath, String historyFileContent) {
     try {
-      return JsonUtils.getObjectMapper().readValue(historyFileContent, GeneratorHistoryData.class);
+      return JsonUtils.getObjectMapper().readValue(historyFileContent, GeneratorHistoryDataDTO.class).values();
     } catch (JsonProcessingException e) {
       throw new GeneratorException("Cannot deserialize JSON of file " + filePath + " : " + e.getMessage());
     }

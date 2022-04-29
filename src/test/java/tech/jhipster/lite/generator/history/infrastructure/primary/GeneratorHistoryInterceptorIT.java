@@ -37,7 +37,7 @@ class GeneratorHistoryInterceptorIT {
   @Test
   void shouldAddInHistory() throws Exception {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
-    when(clock.instant()).thenReturn(Instant.parse("2022-01-22T14:01:54.954396664Z"));
+    when(clock.instant()).thenReturn(Instant.parse("2022-01-22T14:01:54Z"));
     ReflectionTestUtils.setField(generatorHistoryInterceptor, "clock", clock);
 
     mockMvc
@@ -69,7 +69,7 @@ class GeneratorHistoryInterceptorIT {
       {
         "values" : [ {
           "serviceId" : "init",
-          "timestamp" : "2022-01-22 14:01:54"
+          "timestamp" : "2022-01-22T14:01:54Z"
         } ]
       }""";
   }

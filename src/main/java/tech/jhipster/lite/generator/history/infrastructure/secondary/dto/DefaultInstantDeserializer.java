@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.history.domain;
+package tech.jhipster.lite.generator.history.infrastructure.secondary.dto;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import java.time.Instant;

@@ -22,6 +22,6 @@ public class GeneratorHistoryApplicationService {
 
   public List<GeneratorHistoryValue> getValues(Project project) {
     Assert.notNull("project", project);
-    return generatorHistoryRepository.getHistoryData(project).getValues();
+    return generatorHistoryRepository.getHistoryData(project).values();
   }
 }

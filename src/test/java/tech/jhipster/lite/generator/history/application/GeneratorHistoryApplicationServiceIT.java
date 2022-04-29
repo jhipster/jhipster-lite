@@ -56,7 +56,7 @@ class GeneratorHistoryApplicationServiceIT {
       {
         "values" : [ {
           "serviceId" : "init-project",
-          "timestamp" : "2022-02-22 10:11:12"
+          "timestamp" : "2022-02-22T10:11:12Z"
         } ]
       }""";
   }

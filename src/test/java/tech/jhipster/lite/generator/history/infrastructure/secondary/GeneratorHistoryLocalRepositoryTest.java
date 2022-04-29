@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -62,9 +63,10 @@ class GeneratorHistoryLocalRepositoryTest {
       GeneratorHistoryData generatorHistoryData = generatorHistoryLocalRepository.getHistoryData(project);
 
       // Then
-      GeneratorHistoryData expectedGeneratorHistoryData = new GeneratorHistoryData();
-      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("springboot-init", null));
-      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("java-init", Instant.parse("2022-01-22T10:11:12.000Z")));
+      List<GeneratorHistoryValue> values = new ArrayList<>();
+      values.add(new GeneratorHistoryValue("springboot-init", null));
+      values.add(new GeneratorHistoryValue("java-init", Instant.parse("2022-01-22T10:11:12.000Z")));
+      GeneratorHistoryData expectedGeneratorHistoryData = new GeneratorHistoryData(values);
       assertThat(generatorHistoryData).usingRecursiveComparison().isEqualTo(expectedGeneratorHistoryData);
     }
   }
@@ -222,7 +224,7 @@ class GeneratorHistoryLocalRepositoryTest {
         {
           "values": [
             { "serviceId": "springboot-init"},
-            { "serviceId": "java-init", "timestamp": "2022-01-22 10:11:12" }
+            { "serviceId": "java-init", "timestamp": "2022-01-22T10:11:12Z" }
           ]
         }
           """;
@@ -236,10 +238,10 @@ class GeneratorHistoryLocalRepositoryTest {
           "timestamp" : null
         }, {
           "serviceId" : "java-init",
-          "timestamp" : "2022-01-22 10:11:12"
+          "timestamp" : "2022-01-22T10:11:12Z"
         }, {
           "serviceId" : "tomcat",
-          "timestamp" : "2022-01-24 10:11:12"
+          "timestamp" : "2022-01-24T10:11:12Z"
         } ]
       }""".lines()
       .collect(Collectors.toList());

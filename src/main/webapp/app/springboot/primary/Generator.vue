@@ -30,7 +30,7 @@
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="./swagger-ui.html" target="_blank" rel="noopener">
-              <em class="bi bi-book-half" role="img" aria-label="API"></em>
+              <IconVue :name="'book-half'" :aria-label="'API'" />
               <small class="d-md-none ms-2">API</small>
             </a>
           </li>
@@ -72,13 +72,13 @@
           </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://github.com/jhipster/jhipster-lite" target="_blank" rel="noopener">
-              <em class="bi bi-github" role="img" aria-label="GitHub"></em>
+              <IconVue :name="'github'" :aria-label="'GitHub'" />
               <small class="d-md-none ms-2">GitHub</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://twitter.com/jhipster" target="_blank" rel="noopener">
-              <em class="bi bi-twitter" role="img" aria-label="twitter"></em>
+              <IconVue :name="'twitter'" :aria-label="'Twitter'" />
               <small class="d-md-none ms-2">Twitter</small>
             </a>
           </li>
@@ -143,7 +143,10 @@
         <div class="row row-cols-1 row-cols-md-2 g-4">
           <div class="col">
             <div class="card h-100 text-white bg-dark bg-gradient shadow">
-              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-journal-code" aria-hidden="true"></em>Language</h3>
+              <h3 class="card-header h5 d-flex gap-3">
+                <IconVue :name="'journal-code'" :aria-hidden="true" />
+                Language
+              </h3>
               <div class="card-body">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
@@ -160,7 +163,10 @@
 
           <div class="col">
             <div class="card h-100 text-white bg-primary bg-gradient shadow">
-              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-tools" aria-hidden="true"></em>Build tool</h3>
+              <h3 class="card-header h5 d-flex gap-3">
+                <IconVue :name="'tools'" :aria-hidden="true" />
+                Build tool
+              </h3>
               <div class="card-body">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
@@ -199,7 +205,10 @@
 
           <div class="col">
             <div class="card h-100 text-white bg-secondary bg-gradient shadow">
-              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-gear" aria-hidden="true"></em>Server</h3>
+              <h3 class="card-header h5 d-flex gap-3">
+                <IconVue :name="'gear'" :aria-hidden="true" />
+                Server
+              </h3>
               <div class="card-body">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
@@ -244,7 +253,10 @@
           </div>
           <div class="col">
             <div class="card h-100 text-dark bg-light shadow">
-              <h3 class="card-header h5 d-flex gap-3"><em class="bi bi-image-fill" aria-hidden="true"></em>Client</h3>
+              <h3 class="card-header h5 d-flex gap-3">
+                <IconVue :name="'image-fill'" :aria-hidden="true" />
+                Client
+              </h3>
               <div class="card-body">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
@@ -350,7 +362,7 @@
               aria-controls="v-pills-init"
               aria-selected="true"
             >
-              <em class="bi bi-code-slash" aria-hidden="true"></em>
+              <IconVue :name="'code-slash'" :aria-hidden="true" />
               INITIALIZATION
             </button>
           </li>

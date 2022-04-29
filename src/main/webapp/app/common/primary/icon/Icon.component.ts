@@ -1,25 +1,20 @@
 import { defineComponent } from 'vue';
-import { IconVue } from '@/common/primary/icon';
 
 export default defineComponent({
-  name: 'DefaultButton',
-
-  components: {
-    IconVue,
-  },
+  name: 'Icon',
 
   props: {
-    label: {
+    name: {
       type: String,
       required: true,
     },
-    disabled: {
+    ariaHidden: {
       type: Boolean,
       default: false,
     },
-    icon: {
+    ariaLabel: {
       type: String,
-      default: undefined,
+      default: '',
     },
   },
 });

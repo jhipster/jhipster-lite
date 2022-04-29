@@ -10,13 +10,13 @@ public record GeneratorHistoryDataDTO(List<GeneratorHistoryValueDTO> values) {
     if (values == null) {
       return new GeneratorHistoryDataDTO(Collections.emptyList());
     }
-    return new GeneratorHistoryDataDTO(values.stream().map(value -> GeneratorHistoryValueDTO.from(value)).distinct().toList());
+    return new GeneratorHistoryDataDTO(values.stream().map(GeneratorHistoryValueDTO::from).distinct().toList());
   }
 
   public static GeneratorHistoryData to(List<GeneratorHistoryValueDTO> values) {
     if (values == null) {
       return new GeneratorHistoryData(Collections.emptyList());
     }
-    return new GeneratorHistoryData(values.stream().map(value -> GeneratorHistoryValueDTO.to(value)).distinct().toList());
+    return new GeneratorHistoryData(values.stream().map(GeneratorHistoryValueDTO::to).distinct().toList());
   }
 }

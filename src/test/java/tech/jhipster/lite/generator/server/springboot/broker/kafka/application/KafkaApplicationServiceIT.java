@@ -72,7 +72,7 @@ class KafkaApplicationServiceIT {
     springBootApplicationService.init(project);
     kafkaApplicationService.init(project);
 
-    kafkaApplicationService.addDummyProducer(project);
+    kafkaApplicationService.addDummyProducerConsumer(project);
 
     String configKafkaPath = getPath("com/mycompany/myapp/technical/infrastructure/config/kafka");
 
@@ -89,17 +89,6 @@ class KafkaApplicationServiceIT {
 
     assertFileExist(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"));
     assertFileContent(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"), "class DummyProducerIT");
-  }
-
-  @Test
-  void shouldAddConsumer() {
-    Project project = tmpProject();
-    initApplicationService.init(project);
-    mavenApplicationService.addPomXml(project);
-    springBootApplicationService.init(project);
-    kafkaApplicationService.init(project);
-
-    kafkaApplicationService.addDummyConsumer(project);
 
     String dummyConsumerPath = getPath("com/mycompany/myapp/dummy/infrastructure/primary/kafka/consumer");
     assertFileExist(project, getPath(MAIN_JAVA, dummyConsumerPath, "AbstractConsumer.java"));

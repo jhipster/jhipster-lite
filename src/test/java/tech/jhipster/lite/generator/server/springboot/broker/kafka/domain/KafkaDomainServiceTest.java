@@ -62,11 +62,11 @@ class KafkaDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.empty());
-    kafkaDomainService.addDummyProducer(project);
+    kafkaDomainService.addDummyProducerConsumer(project);
 
     verify(springBootCommonService).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(projectRepository, times(4)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -85,7 +85,7 @@ class KafkaDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.of("queue.jhipster.dummy"));
-    kafkaDomainService.addDummyProducer(project);
+    kafkaDomainService.addDummyProducerConsumer(project);
 
     verify(springBootCommonService).getProperty(any(Project.class), anyString());
   }
@@ -95,14 +95,5 @@ class KafkaDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     assertThatThrownBy(() -> kafkaDomainService.addTestcontainers(project)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldAddConsumer() {
-    Project project = tmpProjectWithPomXml();
-
-    kafkaDomainService.addDummyConsumer(project);
-
-    verify(projectRepository, times(4)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

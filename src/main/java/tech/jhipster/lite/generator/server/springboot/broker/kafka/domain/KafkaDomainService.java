@@ -64,7 +64,7 @@ public class KafkaDomainService implements KafkaService {
   }
 
   @Override
-  public void addDummyProducer(final Project project) {
+  public void addDummyProducerConsumer(final Project project) {
     if (!springBootCommonService.getProperty(project, DUMMY_TOPIC_NAME).isPresent()) {
       project.addDefaultConfig(PACKAGE_NAME);
       project.addDefaultConfig(BASE_NAME);
@@ -83,6 +83,11 @@ public class KafkaDomainService implements KafkaService {
         "KafkaConfiguration.java",
         getPath(MAIN_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka")
       );
+
+      projectRepository.template(project, SOURCE, "AbstractConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+      projectRepository.template(project, SOURCE, "DummyConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+      projectRepository.template(project, SOURCE, "DummyConsumerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+      projectRepository.template(project, SOURCE, "DummyConsumerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
     }
   }
 
@@ -91,15 +96,6 @@ public class KafkaDomainService implements KafkaService {
     final String akhqDockerImage = dockerService.getImageNameWithVersion(AKHQ_DOCKER_IMAGE).orElseThrow();
     project.addConfig("akhqDockerImage", akhqDockerImage);
     projectRepository.template(project, SOURCE, AKHQ_DOCKER_COMPOSE_FILE, MAIN_DOCKER, AKHQ_DOCKER_COMPOSE_FILE);
-  }
-
-  @Override
-  public void addDummyConsumer(final Project project) {
-    final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    projectRepository.template(project, SOURCE, "AbstractConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
-    projectRepository.template(project, SOURCE, "DummyConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
-    projectRepository.template(project, SOURCE, "DummyConsumerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
-    projectRepository.template(project, SOURCE, "DummyConsumerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
   }
 
   private void addApacheKafkaClient(final Project project) {

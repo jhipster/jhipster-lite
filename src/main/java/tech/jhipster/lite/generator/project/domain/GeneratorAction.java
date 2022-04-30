@@ -113,9 +113,8 @@ public class GeneratorAction {
   public static final String REACT_CYPRESS = "react-cypress";
 
   public static final String SPRINGBOOT_KAFKA = "springboot-kafka";
-  public static final String SPRINGBOOT_KAFKA_DUMMY_PRODUCER = "springboot-kafka-dummy-producer";
+  public static final String SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER = "springboot-kafka-dummy-producer";
   public static final String SPRINGBOOT_KAFKA_AKHQ = "springboot-kafka-akhq";
-  public static final String SPRINGBOOT_KAFKA_DUMMY_CONSUMER = "springboot-kafka-dummy-consumer";
 
   public static final String VUE = "vue";
   public static final String VUE_STYLED = "vue-styled";

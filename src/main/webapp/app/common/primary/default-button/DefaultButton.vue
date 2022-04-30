@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-outline-primary" :disabled="disabled">
+  <button class="btn" :class="outlined ? 'btn-outline-primary' : 'btn-primary'" :disabled="disabled">
     <IconVue v-if="icon" class="me-1" :name="icon" :aria-hidden="true" />
     {{ label }}
   </button>

@@ -2,6 +2,7 @@ import { composeSelector, dataSelector } from '../support/selector';
 
 const generatorSelector = (name: string) => dataSelector(composeSelector('generator', name));
 const headerSelector = (name: string) => dataSelector(composeSelector('header', name));
+const projectGeneratorSelector = (name: string) => dataSelector(composeSelector('project-generator', name));
 const springBootGeneratorSelector = (name: string) => dataSelector(composeSelector('spring-boot-generator', name));
 const angularGeneratorSelector = (name: string) => dataSelector(composeSelector('angular-generator', name));
 const reactGeneratorSelector = (name: string) => dataSelector(composeSelector('react-generator', name));
@@ -20,14 +21,14 @@ describe('Generator', () => {
   it('should display generator page', () => {
     cy.get(headerSelector('title')).contains('JHipster lite');
 
-    cy.get(generatorSelector('init-button')).contains('Init');
-    cy.get(generatorSelector('add-maven-button')).contains('Maven');
-    cy.get(generatorSelector('add-jacoco-button')).contains('JaCoCo');
-    cy.get(generatorSelector('add-sonar-backend-button')).contains('Sonar Backend');
-    cy.get(generatorSelector('add-sonar-backend-frontend-button')).contains('Sonar Backend+Frontend');
-    cy.get(generatorSelector('add-java-base-button')).contains('Java Base');
-    cy.get(generatorSelector('add-frontend-maven-plugin-button')).contains('Frontend Maven Plugin');
-    cy.get(generatorSelector('download-button')).should('not.exist');
+    cy.get(projectGeneratorSelector('init-button')).contains('Init');
+    cy.get(projectGeneratorSelector('add-maven-button')).contains('Maven');
+    cy.get(projectGeneratorSelector('add-jacoco-button')).contains('JaCoCo');
+    cy.get(projectGeneratorSelector('add-sonar-backend-button')).contains('Sonar Backend');
+    cy.get(projectGeneratorSelector('add-sonar-backend-frontend-button')).contains('Sonar Backend+Frontend');
+    cy.get(projectGeneratorSelector('add-java-base-button')).contains('Java Base');
+    cy.get(projectGeneratorSelector('add-frontend-maven-plugin-button')).contains('Frontend Maven Plugin');
+    cy.get(projectGeneratorSelector('download-button')).should('not.exist');
   });
 
   it('should display spring boot', () => {
@@ -72,6 +73,6 @@ describe('Generator', () => {
 
   it('should display download button when project path is filled', () => {
     cy.get('#path').type('/tmp/jhlite');
-    cy.get(generatorSelector('download-button')).contains('Download');
+    cy.get(projectGeneratorSelector('download-button')).contains('Download');
   });
 });

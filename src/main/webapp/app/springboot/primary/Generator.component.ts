@@ -1,14 +1,14 @@
 import { defineComponent, ref } from 'vue';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
-import { AngularGeneratorVue } from '@/springboot/primary/angular-generator';
-import { ReactGeneratorVue } from '@/springboot/primary/react-generator';
-import { VueGeneratorVue } from '@/springboot/primary/vue-generator';
-import { SvelteGeneratorVue } from '@/springboot/primary/svelte-generator';
-import { SpringBootGeneratorVue } from '@/springboot/primary/spring-boot-generator';
+import { AngularGeneratorVue } from '@/springboot/primary/generator/angular-generator';
+import { ReactGeneratorVue } from '@/springboot/primary/generator/react-generator';
+import { VueGeneratorVue } from '@/springboot/primary/generator/vue-generator';
+import { SvelteGeneratorVue } from '@/springboot/primary/generator/svelte-generator';
+import { SpringBootGeneratorVue } from '@/springboot/primary/generator/spring-boot-generator';
 import { DefaultButtonVue } from '@/common/primary/default-button';
 import { HeaderVue } from '@/springboot/primary/header';
 import { IconVue } from '@/common/primary/icon';
-import { ProjectGeneratorVue } from '@/springboot/primary/project-generator';
+import { ProjectGeneratorVue } from '@/springboot/primary/generator/project-generator';
 
 export default defineComponent({
   name: 'GeneratorComponent',

@@ -1,13 +1,14 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
-import { createProjectToUpdate } from '../ProjectToUpdate.fixture';
-import { stubLogger } from '../../../common/domain/Logger.fixture';
+import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
+import { stubLogger } from '../../../../common/domain/Logger.fixture';
 import { Logger } from '@/common/domain/Logger';
 import { ReactService } from '@/springboot/domain/client/ReactService';
-import { stubReactService } from '../../domain/client/ReactService.fixture';
-import { ReactGeneratorVue } from '@/springboot/primary/react-generator';
+import { stubReactService } from '../../../domain/client/ReactService.fixture';
+import { ReactGeneratorVue } from '@/springboot/primary/generator/react-generator';
 
 let wrapper: VueWrapper;
+let component: any;
 
 interface WrapperOptions {
   reactService: ReactService;
@@ -33,6 +34,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       },
     },
   });
+  component = wrapper.vm;
 };
 
 describe('ReactGenerator', () => {
@@ -47,8 +49,7 @@ describe('ReactGenerator', () => {
     reactService.add.resolves({});
     await wrap({ reactService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#react');
-    await button.trigger('click');
+    await component.addReact();
 
     expect(reactService.add.called).toBe(false);
   });
@@ -58,8 +59,7 @@ describe('ReactGenerator', () => {
     reactService.add.resolves({});
     await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#react');
-    await button.trigger('click');
+    await component.addReact();
 
     const args = reactService.add.getCall(0).args[0];
     expect(args).toEqual({
@@ -78,8 +78,7 @@ describe('ReactGenerator', () => {
 
     const checkbox = wrapper.find('#react-with-style');
     await checkbox.setValue(true);
-    const button = wrapper.find('#react');
-    await button.trigger('click');
+    await component.addReact();
 
     const args = reactService.addWithStyle.getCall(0).args[0];
     expect(args).toEqual({
@@ -97,8 +96,7 @@ describe('ReactGenerator', () => {
     reactService.add.rejects({});
     await wrap({ reactService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#react');
-    await initButton.trigger('click');
+    await component.addReact();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding React to project failed');
@@ -112,8 +110,7 @@ describe('ReactGenerator', () => {
 
     const checkbox = wrapper.find('#react-with-style');
     await checkbox.setValue(true);
-    const initButton = wrapper.find('#react');
-    await initButton.trigger('click');
+    await component.addReact();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding React with style to project failed');

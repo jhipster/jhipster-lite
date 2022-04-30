@@ -1,15 +1,16 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
-import { createProjectToUpdate } from '../ProjectToUpdate.fixture';
-import { stubLogger } from '../../../common/domain/Logger.fixture';
+import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
+import { stubLogger } from '../../../../common/domain/Logger.fixture';
 import { Logger } from '@/common/domain/Logger';
 import { ProjectService } from '@/springboot/domain/ProjectService';
-import { stubProjectService } from '../../domain/ProjectService.fixture';
-import { ProjectGeneratorVue } from '@/springboot/primary/project-generator';
+import { stubProjectService } from '../../../domain/ProjectService.fixture';
+import { ProjectGeneratorVue } from '@/springboot/primary/generator/project-generator';
 import { FileDownloader } from '@/common/primary/FileDownloader';
-import { stubFileDownloader } from '../../../common/primary/FileDownloader.fixture';
+import { stubFileDownloader } from '../../../../common/primary/FileDownloader.fixture';
 
 let wrapper: VueWrapper;
+let component: any;
 
 interface WrapperOptions {
   projectService: ProjectService;
@@ -39,6 +40,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       },
     },
   });
+  component = wrapper.vm;
 };
 
 describe('ProjectGenerator', () => {
@@ -53,8 +55,7 @@ describe('ProjectGenerator', () => {
     projectService.init.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    const initButton = wrapper.find('#init');
-    await initButton.trigger('click');
+    await component.initProject();
 
     expect(projectService.init.called).toBe(false);
   });
@@ -71,8 +72,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const initButton = wrapper.find('#init');
-    await initButton.trigger('click');
+    await component.initProject();
 
     const args = projectService.init.getCall(0).args[0];
     expect(args).toEqual({
@@ -90,8 +90,7 @@ describe('ProjectGenerator', () => {
     projectService.init.rejects({});
     await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#init');
-    await initButton.trigger('click');
+    await component.initProject();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Project initialization failed');
@@ -102,8 +101,7 @@ describe('ProjectGenerator', () => {
     projectService.addMaven.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#maven');
-    await button.trigger('click');
+    await component.addMaven();
 
     expect(projectService.addMaven.called).toBe(false);
   });
@@ -120,8 +118,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const button = wrapper.find('#maven');
-    await button.trigger('click');
+    await component.addMaven();
 
     const args = projectService.addMaven.getCall(0).args[0];
     expect(args).toEqual({
@@ -139,8 +136,7 @@ describe('ProjectGenerator', () => {
     projectService.addMaven.rejects({});
     await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#maven');
-    await initButton.trigger('click');
+    await component.addMaven();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Maven to project failed');
@@ -151,8 +147,7 @@ describe('ProjectGenerator', () => {
     projectService.addJaCoCo.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#jacoco');
-    await button.trigger('click');
+    await component.addJaCoCo();
 
     expect(projectService.addJaCoCo.called).toBe(false);
   });
@@ -169,8 +164,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const button = wrapper.find('#jacoco');
-    await button.trigger('click');
+    await component.addJaCoCo();
 
     const args = projectService.addJaCoCo.getCall(0).args[0];
     expect(args).toEqual({
@@ -188,8 +182,7 @@ describe('ProjectGenerator', () => {
     projectService.addJaCoCo.rejects({});
     await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#jacoco');
-    await initButton.trigger('click');
+    await component.addJaCoCo();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding JaCoCo to project failed');
@@ -200,8 +193,7 @@ describe('ProjectGenerator', () => {
     projectService.addSonarBackend.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#sonar-backend');
-    await button.trigger('click');
+    await component.addSonarBackend();
 
     expect(projectService.addSonarBackend.called).toBe(false);
   });
@@ -218,8 +210,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const button = wrapper.find('#sonar-backend');
-    await button.trigger('click');
+    await component.addSonarBackend();
 
     const args = projectService.addSonarBackend.getCall(0).args[0];
     expect(args).toEqual({
@@ -237,8 +228,7 @@ describe('ProjectGenerator', () => {
     projectService.addSonarBackend.rejects({});
     await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#sonar-backend');
-    await initButton.trigger('click');
+    await component.addSonarBackend();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Sonar Backend to project failed');
@@ -249,8 +239,7 @@ describe('ProjectGenerator', () => {
     projectService.addSonarBackendFrontend.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#sonar-backend-frontend');
-    await button.trigger('click');
+    await component.addSonarBackendFrontend();
 
     expect(projectService.addSonarBackendFrontend.called).toBe(false);
   });
@@ -267,8 +256,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const button = wrapper.find('#sonar-backend-frontend');
-    await button.trigger('click');
+    await component.addSonarBackendFrontend();
 
     const args = projectService.addSonarBackendFrontend.getCall(0).args[0];
     expect(args).toEqual({
@@ -286,8 +274,7 @@ describe('ProjectGenerator', () => {
     projectService.addSonarBackendFrontend.rejects({});
     await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#sonar-backend-frontend');
-    await initButton.trigger('click');
+    await component.addSonarBackendFrontend();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Sonar Backend+Frontend to project failed');
@@ -298,8 +285,7 @@ describe('ProjectGenerator', () => {
     projectService.addJavaBase.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#javabase');
-    await button.trigger('click');
+    await component.addJavaBase();
 
     expect(projectService.addJavaBase.called).toBe(false);
   });
@@ -316,8 +302,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const button = wrapper.find('#javabase');
-    await button.trigger('click');
+    await component.addJavaBase();
 
     const args = projectService.addJavaBase.getCall(0).args[0];
     expect(args).toEqual({
@@ -335,8 +320,7 @@ describe('ProjectGenerator', () => {
     projectService.addJavaBase.rejects({});
     await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#javabase');
-    await initButton.trigger('click');
+    await component.addJavaBase();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Java Base to project failed');
@@ -347,8 +331,7 @@ describe('ProjectGenerator', () => {
     projectService.addFrontendMavenPlugin.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#frontend-maven-plugin');
-    await button.trigger('click');
+    await component.addFrontendMavenPlugin();
 
     expect(projectService.addFrontendMavenPlugin.called).toBe(false);
   });
@@ -365,8 +348,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const button = wrapper.find('#frontend-maven-plugin');
-    await button.trigger('click');
+    await component.addFrontendMavenPlugin();
 
     const args = projectService.addFrontendMavenPlugin.getCall(0).args[0];
     expect(args).toEqual({
@@ -384,8 +366,7 @@ describe('ProjectGenerator', () => {
     projectService.addFrontendMavenPlugin.rejects({});
     await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#frontend-maven-plugin');
-    await initButton.trigger('click');
+    await component.addFrontendMavenPlugin();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Frontend Maven Plugin to project failed');
@@ -403,8 +384,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const button = wrapper.find('#download');
-    await button.trigger('click');
+    await component.download();
 
     const args = projectService.download.getCall(0).args[0];
     expect(args).toEqual({
@@ -428,8 +408,7 @@ describe('ProjectGenerator', () => {
     });
     await wrap({ projectService, project: projectToUpdate });
 
-    const button = wrapper.find('#download');
-    await button.trigger('click');
+    await component.download();
 
     const args = projectService.download.getCall(0).args[0];
     expect(args).toEqual({
@@ -447,8 +426,7 @@ describe('ProjectGenerator', () => {
     projectService.download.rejects(new Error('foo'));
     await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const downloadButton = wrapper.find('#download');
-    await downloadButton.trigger('click');
+    await component.download();
 
     const [message, error] = logger.error.getCall(0).args;
     expect(message).toBe('Downloading project failed');

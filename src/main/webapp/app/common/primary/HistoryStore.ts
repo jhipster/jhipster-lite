@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { History } from '@/common/domain/History';
+import { Service } from '@/common/domain/Service';
 
 const emptyHistory = (): History => ({
   services: [],
@@ -14,6 +15,10 @@ export const useHistoryStore = defineStore('HistoryStore', {
 
   getters: {
     getHistory: state => state.history,
+    hasCalledService:
+      state =>
+      (service: Service): boolean =>
+        state.history.services.includes(service),
   },
 
   actions: {

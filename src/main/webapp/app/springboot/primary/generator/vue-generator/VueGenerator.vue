@@ -15,7 +15,12 @@
         </span>
       </label>
     </div>
-    <DefaultButtonVue id="vue" :label="'Generate Vue.js'" :data-selector="selectorPrefix + '.add-vue-button'" @click.prevent="addVue" />
+    <GeneratorButtonVue
+      :label="'Generate Vue.js'"
+      :service="isVueWithStyle ? 'vue-styled' : 'vue'"
+      :selector-prefix="selectorPrefix"
+      @click.prevent="addVue"
+    />
   </div>
 </template>
 

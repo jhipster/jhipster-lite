@@ -1,15 +1,15 @@
 import { defineComponent, inject } from 'vue';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
 import { Logger } from '@/common/domain/Logger';
-import { DefaultButtonVue } from '@/common/primary/default-button';
 import { ProjectService } from '@/springboot/domain/ProjectService';
 import { FileDownloader } from '@/common/primary/FileDownloader';
+import { GeneratorButtonVue } from '@/springboot/primary/generator/generator-button';
 
 export default defineComponent({
   name: 'ProjectGeneratorComponent',
 
   components: {
-    DefaultButtonVue,
+    GeneratorButtonVue,
   },
 
   props: {

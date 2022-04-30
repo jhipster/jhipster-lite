@@ -1,7 +1,6 @@
 package {{packageName}}.technical.infrastructure.config.kafka;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,7 +30,7 @@ class KafkaPropertiesTest {
 
   @Test
   void shouldGetConsumer() {
-    assertThat(kafkaProperties.getConsumer().get(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG)).isEqualTo("localhost:9092");
+    assertThat(kafkaProperties.getConsumer()).containsEntry(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
   }
 
   @Test
@@ -44,12 +43,12 @@ class KafkaPropertiesTest {
     postConstruct.invoke(kafkaProperties);
     kafkaProperties.setConsumer(consumer);
 
-    assertThat(kafkaProperties.getConsumer().get(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG)).isEqualTo("localhost:9092");
+    assertThat(kafkaProperties.getConsumer()).containsEntry(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
   }
 
   @Test
   void shouldGetProducer() {
-    assertThat(kafkaProperties.getProducer().get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG)).isEqualTo("localhost:9092");
+    assertThat(kafkaProperties.getConsumer()).containsEntry(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
   }
 
   @Test
@@ -62,7 +61,7 @@ class KafkaPropertiesTest {
     postConstruct.invoke(kafkaProperties);
     kafkaProperties.setProducer(producer);
 
-    assertThat(kafkaProperties.getProducer().get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG)).isEqualTo("localhost:9092");
+    assertThat(kafkaProperties.getConsumer()).containsEntry(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
   }
 
   @Test

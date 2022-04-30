@@ -33,7 +33,7 @@ class DummyProducerTest {
   void shouldSend() {
     dummyProducer.send("dummy message");
 
-    assertThat(mockProducer.history().size()).isEqualTo(1);
+    assertThat(mockProducer.history()).hasSize(1);
     assertThat(((ProducerRecord) mockProducer.history().get(0)).value()).isEqualTo("dummy message");
   }
 
@@ -51,6 +51,6 @@ class DummyProducerTest {
     } catch (ExecutionException | InterruptedException ex) {
       assertThat(ex.getCause()).isEqualTo(expectedException);
     }
-    assertThat(producerRecord.isDone()).isEqualTo(true);
+    assertThat(producerRecord.isDone()).isTrue();
   }
 }

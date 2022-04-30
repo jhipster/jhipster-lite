@@ -25,6 +25,6 @@ class DummyConsumerIT {
     ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.kafkaapp.dummy", 0, 0, null, messageToSend);
     boolean actualResult = dummyConsumer.handleMessage(record);
 
-    assertThat(actualResult).isEqualTo(true);
+    assertThat(actualResult).isTrue();
   }
 }

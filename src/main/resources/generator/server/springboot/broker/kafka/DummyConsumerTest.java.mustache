@@ -47,14 +47,14 @@ class DummyConsumerTest {
   void shouldHandleMessage() {
     ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, "dummy message");
     boolean actualResult = dummyConsumer.handleMessage(record);
-    assertThat(actualResult).isEqualTo(true);
+    assertThat(actualResult).isTrue();
   }
 
   @Test
   void shouldNotHandleMessage() {
     ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, null);
     boolean actualResult = dummyConsumer.handleMessage(record);
-    assertThat(actualResult).isEqualTo(false);
+    assertThat(actualResult).isFalse();
   }
 
   @Test
@@ -114,6 +114,6 @@ class DummyConsumerTest {
   @Test
   void shouldSetClosed() {
     dummyConsumer.setClosed(true);
-    assertThat(dummyConsumer.isClosed()).isEqualTo(true);
+    assertThat(dummyConsumer.isClosed()).isTrue();
   }
 }

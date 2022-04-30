@@ -1,6 +1,6 @@
 package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.Test;
@@ -25,6 +25,6 @@ class DummyConsumerIT {
     ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.kafkaapp.dummy", 0, 0, null, messageToSend);
     boolean actualResult = dummyConsumer.handleMessage(record);
 
-    assertEquals(true, actualResult);
+    assertThat(actualResult).isEqualTo(true);
   }
 }

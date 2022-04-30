@@ -1,5 +1,6 @@
 package {{packageName}}.technical.infrastructure.config.kafka;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +31,7 @@ class KafkaPropertiesTest {
 
   @Test
   void shouldGetConsumer() {
-    assertEquals("localhost:9092", kafkaProperties.getConsumer().get(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG));
+    assertThat(kafkaProperties.getConsumer().get(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG)).isEqualTo("localhost:9092");
   }
 
   @Test
@@ -43,12 +44,12 @@ class KafkaPropertiesTest {
     postConstruct.invoke(kafkaProperties);
     kafkaProperties.setConsumer(consumer);
 
-    assertEquals("localhost:9092", kafkaProperties.getConsumer().get(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG));
+    assertThat(kafkaProperties.getConsumer().get(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG)).isEqualTo("localhost:9092");
   }
 
   @Test
   void shouldGetProducer() {
-    assertEquals("localhost:9092", kafkaProperties.getProducer().get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG));
+    assertThat(kafkaProperties.getProducer().get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG)).isEqualTo("localhost:9092");
   }
 
   @Test
@@ -61,18 +62,18 @@ class KafkaPropertiesTest {
     postConstruct.invoke(kafkaProperties);
     kafkaProperties.setProducer(producer);
 
-    assertEquals("localhost:9092", kafkaProperties.getProducer().get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG));
+    assertThat(kafkaProperties.getProducer().get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG)).isEqualTo("localhost:9092");
   }
 
   @Test
   void shouldGetPollingTimeout() {
-    assertEquals(10_000, kafkaProperties.getPollingTimeout());
+    assertThat(kafkaProperties.getPollingTimeout()).isEqualTo(10_000);
   }
 
   @Test
   void shouldSetPollingTimeout() {
     kafkaProperties.setPollingTimeout(20_000);
 
-    assertEquals(20_000, kafkaProperties.getPollingTimeout());
+    assertThat(kafkaProperties.getPollingTimeout()).isEqualTo(20_000);
   }
 }

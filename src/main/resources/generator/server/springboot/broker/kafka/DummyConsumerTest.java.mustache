@@ -1,6 +1,6 @@
 package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +22,8 @@ import {{packageName}}.UnitTest;
 @UnitTest
 @ExtendWith(MockitoExtension.class)
 class DummyConsumerTest {
+
+  public static final int TIMEOUT_FOR_EXECUTOR = 3000;
 
   @Mock
   private KafkaConsumer<String, String> consumer;
@@ -45,14 +47,14 @@ class DummyConsumerTest {
   void shouldHandleMessage() {
     ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, "dummy message");
     boolean actualResult = dummyConsumer.handleMessage(record);
-    assertEquals(true, actualResult);
+    assertThat(actualResult).isEqualTo(true);
   }
 
   @Test
   void shouldNotHandleMessage() {
     ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, null);
     boolean actualResult = dummyConsumer.handleMessage(record);
-    assertEquals(false, actualResult);
+    assertThat(actualResult).isEqualTo(false);
   }
 
   @Test
@@ -67,7 +69,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
@@ -76,7 +78,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
@@ -86,7 +88,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
@@ -96,7 +98,7 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
@@ -106,12 +108,12 @@ class DummyConsumerTest {
 
     dummyConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(3000)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
   }
 
   @Test
   void shouldSetClosed() {
     dummyConsumer.setClosed(true);
-    assertEquals(true, dummyConsumer.isClosed());
+    assertThat(dummyConsumer.isClosed()).isEqualTo(true);
   }
 }

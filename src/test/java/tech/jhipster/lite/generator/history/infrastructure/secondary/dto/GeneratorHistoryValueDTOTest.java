@@ -8,7 +8,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
 
 @UnitTest
-public class GeneratorHistoryValueDTOTest {
+class GeneratorHistoryValueDTOTest {
 
   @Test
   void shouldConvertFromHistoryValue() {

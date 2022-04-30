@@ -9,7 +9,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
 
 @UnitTest
-public class GeneratorHistoryDataDTOTest {
+class GeneratorHistoryDataDTOTest {
 
   @Test
   void shouldHaveEmptyListFromNullDomain() {

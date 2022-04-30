@@ -124,6 +124,7 @@ public class GeneratorAction {
   public static final String DOCKERFILE = "dockerfile";
 
   public static final String GITHUB_CODESPACES = "github-codespaces";
+  public static final String GITPOD = "gitpod";
 
   public static final String SPRINGBOOT_WEBFLUX_NETTY = "springboot-webflux-netty";
 

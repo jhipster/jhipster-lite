@@ -90,6 +90,10 @@ export default class SpringBootRepository implements SpringBootService {
     await this.postAndGetHistory('/api/servers/spring-boot/database-migration-tools/liquibase/user', toRestProject(project));
   }
 
+  async addSpringBootMongockInit(project: Project): Promise<void> {
+    await this.postAndGetHistory('/api/servers/spring-boot/database-migration-tools/mongock', toRestProject(project));
+  }
+
   async addJWT(project: Project): Promise<void> {
     await this.postAndGetHistory('/api/servers/spring-boot/security-systems/jwt', toRestProject(project));
   }

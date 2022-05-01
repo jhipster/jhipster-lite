@@ -120,6 +120,14 @@ export default defineComponent({
       }
     };
 
+    const addMongock = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootMongockInit(toProject(props.project as ProjectToUpdate))
+          .catch(error => logger.error('Adding SpringBoot Database Migration Mongock to project failed', error));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -134,6 +142,7 @@ export default defineComponent({
       addMySQL,
       addMariaDB,
       addMongoDB,
+      addMongock,
     };
   },
 });

@@ -67,12 +67,7 @@
         <GeneratorButtonVue :label="'MongoDB'" :service="'mongodb'" :selector-prefix="selectorPrefix" @click.prevent="addMongoDB" />
       </div>
       <div>
-        <GeneratorButtonVue
-          :label="'Mongock'"
-          :service="'mongock'"
-          :selector-prefix="selectorPrefix"
-          @click.prevent="addMongock"
-        />
+        <GeneratorButtonVue :label="'Mongock'" :service="'mongock'" :selector-prefix="selectorPrefix" @click.prevent="addMongock" />
       </div>
     </div>
   </div>

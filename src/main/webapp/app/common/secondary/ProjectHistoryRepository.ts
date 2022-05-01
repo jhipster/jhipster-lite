@@ -10,6 +10,7 @@ export default class ProjectHistoryRepository implements ProjectHistoryService {
   async get(folder: Folder): Promise<History> {
     return this.axiosHttp
       .get<RestHistory>('api/project-histories', { params: { folder } })
-      .then(response => this.historyStore.setHistory(toHistory(response.data)));
+      .then(response => this.historyStore.setHistory(toHistory(response.data)))
+      .catch(() => this.historyStore.setHistory({ services: [] }));
   }
 }

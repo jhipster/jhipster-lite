@@ -7,7 +7,15 @@
         <div class="row g-3">
           <div class="col-12">
             <label for="path" class="form-label">Path (required) : </label>
-            <input id="path" v-model="project.folder" type="text" class="form-control" required autofocus />
+            <input
+              id="path"
+              v-model="project.folder"
+              type="text"
+              class="form-control"
+              required
+              autofocus
+              @input="debounceGetProjectHistory"
+            />
           </div>
           <div class="col-12">
             <label for="basename" class="form-label">Basename : </label>

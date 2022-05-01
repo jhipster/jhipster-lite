@@ -32,9 +32,11 @@ public class Angular {
   public static List<String> dependencies() {
     return List.of(
       "@angular/animations",
+      "@angular/cdk",
       "@angular/common",
       "@angular/compiler",
       "@angular/core",
+      "@angular/material",
       "@angular/forms",
       "@angular/platform-browser",
       "@angular/platform-browser-dynamic",

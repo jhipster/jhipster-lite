@@ -3,6 +3,7 @@ import { AngularService } from '@/springboot/domain/client/AngularService';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
 import { Logger } from '@/common/domain/Logger';
 import { GeneratorButtonVue } from '@/springboot/primary/generator/generator-button';
+import ToastService from '@/common/secondary/ToastService';
 
 export default defineComponent({
   name: 'AngularGeneratorComponent',
@@ -21,6 +22,7 @@ export default defineComponent({
   setup(props) {
     const logger = inject('logger') as Logger;
     const angularService = inject('angularService') as AngularService;
+    const toastService = inject('toastService') as ToastService;
 
     const selectorPrefix = 'angular-generator';
 
@@ -28,7 +30,11 @@ export default defineComponent({
       if (props.project.folder !== '') {
         await angularService
           .add(toProject(props.project as ProjectToUpdate))
-          .catch(error => logger.error('Adding Angular to project failed', error));
+          .then(() => toastService.success('Angular successfully added'))
+          .catch(error => {
+            logger.error('Adding Angular to project failed', error);
+            toastService.error('Adding Angular to project failed ' + error);
+          });
       }
     };
 

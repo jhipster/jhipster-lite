@@ -11,6 +11,8 @@ import { IconVue } from '@/common/primary/icon';
 import { ProjectGeneratorVue } from '@/springboot/primary/generator/project-generator';
 import { ProjectHistoryService } from '@/common/domain/ProjectHistoryService';
 import { History } from '@/common/domain/History';
+import { ToastVue } from '@/common/primary/toast';
+import ToastService from '@/common/secondary/ToastService';
 
 export default defineComponent({
   name: 'GeneratorComponent',
@@ -24,10 +26,12 @@ export default defineComponent({
     ReactGeneratorVue,
     SvelteGeneratorVue,
     VueGeneratorVue,
+    ToastVue,
   },
   setup() {
     const projectHistoryService = inject('projectHistoryService') as ProjectHistoryService;
     const globalWindow = inject('globalWindow') as Window;
+
     const selectorPrefix = 'generator';
 
     const project = ref<ProjectToUpdate>({
@@ -55,5 +59,9 @@ export default defineComponent({
       getCurrentProjectHistory,
       debounceGetProjectHistory,
     };
+  },
+  mounted() {
+    const toastService = inject('toastService') as ToastService;
+    toastService.register(this.$refs.toast);
   },
 });

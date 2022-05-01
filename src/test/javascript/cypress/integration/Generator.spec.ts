@@ -47,6 +47,7 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-spring-boot-database-mysql-button')).contains('MySQL');
     cy.get(springBootGeneratorSelector('add-spring-boot-database-mariadb-button')).contains('MariaDB');
     cy.get(springBootGeneratorSelector('add-spring-boot-database-mongodb-button')).contains('MongoDB');
+    cy.get(springBootGeneratorSelector('add-spring-boot-database-migration-mongock-button')).contains('Mongock');
   });
 
   it('should display angular', () => {

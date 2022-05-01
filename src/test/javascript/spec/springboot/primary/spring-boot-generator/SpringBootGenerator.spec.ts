@@ -553,4 +553,48 @@ describe('SpringBootGenerator', () => {
       expect(message).toBe('Adding SpringBoot Database MongoDB to project failed');
     });
   });
+
+  describe('Databases migration', () => {
+    it('should not add SpringBoot Database Migration Mongock when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootMongockInit.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      const button = wrapper.find('#springboot-database-migration-mongock');
+      await button.trigger('click');
+
+      expect(springBootService.addSpringBootMongockInit.called).toBe(false);
+    });
+
+    it('should add SpringBoot Database Migration Mongock when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootMongockInit.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      const button = wrapper.find('#springboot-database-migration-mongock');
+      await button.trigger('click');
+
+      const args = springBootService.addSpringBootMongockInit.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding SpringBoot Database Migration Mongock failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootMongockInit.rejects({});
+      await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      const initButton = wrapper.find('#springboot-database-migration-mongock');
+      await initButton.trigger('click');
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding SpringBoot Database Migration Mongock to project failed');
+    });
+  });
 });

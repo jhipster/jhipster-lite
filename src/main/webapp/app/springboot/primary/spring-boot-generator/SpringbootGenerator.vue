@@ -81,6 +81,14 @@
           @click.prevent="addMongoDB"
         />
       </div>
+      <div>
+        <DefaultButtonVue
+          id="springboot-database-migration-mongock"
+          :label="'Mongock'"
+          :data-selector="selectorPrefix + '.add-spring-boot-database-migration-mongock-button'"
+          @click.prevent="addMongock"
+        />
+      </div>
     </div>
   </div>
 </template>

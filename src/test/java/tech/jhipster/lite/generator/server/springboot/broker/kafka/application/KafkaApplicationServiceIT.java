@@ -1,14 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.application;
 
-import static tech.jhipster.lite.TestUtils.assertFileContent;
-import static tech.jhipster.lite.TestUtils.assertFileExist;
-import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.APPLICATION_PROPERTIES;
@@ -60,35 +54,30 @@ class KafkaApplicationServiceIT {
     assertFileContent(project, POM_XML, "<testcontainers.version>");
     assertFileContent(project, POM_XML, "</testcontainers.version>");
     assertFileContent(project, POM_XML, testcontainers());
+
+    String configKafkaPath = getPath("com/mycompany/myapp/technical/infrastructure/config/kafka");
+    assertFileExist(project, getPath(MAIN_JAVA, configKafkaPath, "KafkaProperties.java"));
+    assertFileContent(project, getPath(MAIN_JAVA, configKafkaPath, "KafkaProperties.java"), "public class KafkaProperties");
+
+    String kafkaPropertiesTestPath = getPath("com/mycompany/myapp/technical/infrastructure/config/kafka");
+    assertFileExist(project, getPath(TEST_JAVA, kafkaPropertiesTestPath, "KafkaPropertiesTest.java"));
+    assertFileContent(project, getPath(TEST_JAVA, kafkaPropertiesTestPath, "KafkaPropertiesTest.java"), "class KafkaPropertiesTest");
+
+    assertFileExist(project, getPath(MAIN_JAVA, configKafkaPath, "KafkaConfiguration.java"));
+    assertFileContent(project, getPath(MAIN_JAVA, configKafkaPath, "KafkaConfiguration.java"), "public class KafkaConfiguration");
   }
 
   @Test
-  void shouldAddProducer() {
+  void shouldAddProducerConsumer() {
     Project project = tmpProject();
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
     kafkaApplicationService.init(project);
 
-    kafkaApplicationService.addDummyProducer(project);
+    kafkaApplicationService.addDummyProducerConsumer(project);
 
-    String secondaryKafkaPath = getPath("com/mycompany/myapp/technical/infrastructure/secondary/kafka");
-    assertFileExist(project, getPath(MAIN_JAVA, secondaryKafkaPath, "KafkaProducerProperties.java"));
-    assertFileContent(
-      project,
-      getPath(MAIN_JAVA, secondaryKafkaPath, "KafkaProducerProperties.java"),
-      "public class KafkaProducerProperties"
-    );
-    assertFileExist(project, getPath(MAIN_JAVA, secondaryKafkaPath, "KafkaConfiguration.java"));
-    assertFileContent(project, getPath(MAIN_JAVA, secondaryKafkaPath, "KafkaConfiguration.java"), "public class KafkaConfiguration");
-
-    String kafkaProducerPropertiesTestPath = getPath("com/mycompany/myapp/technical/infrastructure/secondary/kafka");
-    assertFileExist(project, getPath(TEST_JAVA, kafkaProducerPropertiesTestPath, "KafkaProducerPropertiesTest.java"));
-    assertFileContent(
-      project,
-      getPath(TEST_JAVA, kafkaProducerPropertiesTestPath, "KafkaProducerPropertiesTest.java"),
-      "class KafkaProducerPropertiesTest"
-    );
+    String configKafkaPath = getPath("com/mycompany/myapp/technical/infrastructure/config/kafka");
 
     String dummyProducerPath = getPath("com/mycompany/myapp/dummy/infrastructure/secondary/kafka/producer");
     assertFileExist(project, getPath(MAIN_JAVA, dummyProducerPath, "DummyProducer.java"));
@@ -100,6 +89,27 @@ class KafkaApplicationServiceIT {
 
     assertFileExist(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"));
     assertFileContent(project, getPath(TEST_JAVA, dummyProducerTestPath, "DummyProducerIT.java"), "class DummyProducerIT");
+
+    String dummyConsumerPath = getPath("com/mycompany/myapp/dummy/infrastructure/primary/kafka/consumer");
+    assertFileExist(project, getPath(MAIN_JAVA, dummyConsumerPath, "AbstractConsumer.java"));
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, dummyConsumerPath, "AbstractConsumer.java"),
+      "public abstract class AbstractConsumer<T> implements Runnable"
+    );
+
+    assertFileExist(project, getPath(MAIN_JAVA, dummyConsumerPath, "DummyConsumer.java"));
+    assertFileContent(
+      project,
+      getPath(MAIN_JAVA, dummyConsumerPath, "DummyConsumer.java"),
+      "public class DummyConsumer extends AbstractConsumer<String>"
+    );
+
+    assertFileExist(project, getPath(TEST_JAVA, dummyConsumerPath, "DummyConsumerIT.java"));
+    assertFileContent(project, getPath(TEST_JAVA, dummyConsumerPath, "DummyConsumerIT.java"), "class DummyConsumerIT");
+
+    assertFileExist(project, getPath(TEST_JAVA, dummyConsumerPath, "DummyConsumerTest.java"));
+    assertFileContent(project, getPath(TEST_JAVA, dummyConsumerPath, "DummyConsumerTest.java"), "class DummyConsumerTest");
   }
 
   @Test

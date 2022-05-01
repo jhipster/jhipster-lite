@@ -5,7 +5,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public interface KafkaService {
   void init(Project project);
 
-  void addDummyProducer(Project project);
+  void addDummyProducerConsumer(Project project);
 
   void addAkhq(Project project);
 }

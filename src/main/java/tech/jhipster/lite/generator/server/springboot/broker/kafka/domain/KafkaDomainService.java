@@ -1,13 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.TECHNICAL_INFRASTRUCTURE_SECONDARY;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.DEFAULT_BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_IMAGE;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_COMPOSE_FILE;
@@ -29,6 +24,7 @@ public class KafkaDomainService implements KafkaService {
   private static final String SOURCE = "server/springboot/broker/kafka";
   private static final String DUMMY_TOPIC_NAME = "kafka.topic.dummy";
   private static final String DUMMY_PRODUCER_PATH = "dummy/infrastructure/secondary/kafka/producer";
+  private static final String DUMMY_CONSUMER_PATH = "dummy/infrastructure/primary/kafka/consumer";
 
   private final BuildToolService buildToolService;
 
@@ -56,36 +52,48 @@ public class KafkaDomainService implements KafkaService {
     addDockerCompose(project);
     addProperties(project);
     addTestcontainers(project);
+    addConfiguration(project);
+  }
+
+  private void addConfiguration(final Project project) {
+    final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
+    final String configKafkaPath = TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka";
+
+    projectRepository.template(project, SOURCE, "KafkaProperties.java", getPath(MAIN_JAVA, packageNamePath, configKafkaPath));
+    projectRepository.template(project, SOURCE, "KafkaPropertiesTest.java", getPath(TEST_JAVA, packageNamePath, configKafkaPath));
+
+    projectRepository.template(
+      project,
+      SOURCE,
+      "KafkaConfiguration.java",
+      getPath(MAIN_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka")
+    );
   }
 
   @Override
-  public void addDummyProducer(final Project project) {
+  public void addDummyProducerConsumer(final Project project) {
     if (!springBootCommonService.getProperty(project, DUMMY_TOPIC_NAME).isPresent()) {
       project.addDefaultConfig(PACKAGE_NAME);
       project.addDefaultConfig(BASE_NAME);
       final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-      final String secondaryKafkaPath = TECHNICAL_INFRASTRUCTURE_SECONDARY + "/kafka";
 
       final String topicName = "queue." + project.getBaseName().orElse("jhipster") + ".dummy";
       springBootCommonService.addProperties(project, DUMMY_TOPIC_NAME, topicName);
       springBootCommonService.addPropertiesTest(project, DUMMY_TOPIC_NAME, topicName);
 
-      projectRepository.template(project, SOURCE, "KafkaProducerProperties.java", getPath(MAIN_JAVA, packageNamePath, secondaryKafkaPath));
-      projectRepository.template(
-        project,
-        SOURCE,
-        "KafkaProducerPropertiesTest.java",
-        getPath(TEST_JAVA, packageNamePath, secondaryKafkaPath)
-      );
       projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
       projectRepository.template(project, SOURCE, "DummyProducerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
       projectRepository.template(project, SOURCE, "DummyProducerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
-      projectRepository.template(project, SOURCE, "KafkaConfiguration.java", getPath(MAIN_JAVA, packageNamePath, secondaryKafkaPath));
+
+      projectRepository.template(project, SOURCE, "AbstractConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+      projectRepository.template(project, SOURCE, "DummyConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+      projectRepository.template(project, SOURCE, "DummyConsumerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+      projectRepository.template(project, SOURCE, "DummyConsumerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
     }
   }
 
   @Override
-  public void addAkhq(Project project) {
+  public void addAkhq(final Project project) {
     final String akhqDockerImage = dockerService.getImageNameWithVersion(AKHQ_DOCKER_IMAGE).orElseThrow();
     project.addConfig("akhqDockerImage", akhqDockerImage);
     projectRepository.template(project, SOURCE, AKHQ_DOCKER_COMPOSE_FILE, MAIN_DOCKER, AKHQ_DOCKER_COMPOSE_FILE);

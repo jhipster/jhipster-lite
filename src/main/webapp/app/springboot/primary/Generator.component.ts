@@ -42,7 +42,7 @@ export default defineComponent({
     const getCurrentProjectHistory = (): Promise<History> => projectHistoryService.get(project.value.folder);
     const debounceGetProjectHistory = (): void => {
       if (timeoutId) globalWindow.clearTimeout(timeoutId);
-      timeoutId = globalWindow.setTimeout(() => getCurrentProjectHistory, 400);
+      timeoutId = globalWindow.setTimeout(() => getCurrentProjectHistory(), 400);
     };
 
     return {

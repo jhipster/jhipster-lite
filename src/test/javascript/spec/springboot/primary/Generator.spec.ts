@@ -67,7 +67,7 @@ describe('Generator', () => {
     component.debounceGetProjectHistory();
 
     const [delayedMethod, timeout] = globalWindow.setTimeout.getCall(0).args;
-    expect(delayedMethod()).toEqual(component.getCurrentProjectHistory);
+    expect(delayedMethod()).toEqual(component.getCurrentProjectHistory());
     expect(timeout).toBe(400);
     expect(globalWindow.clearTimeout.called).toBe(false);
   });

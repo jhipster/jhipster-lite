@@ -14,6 +14,7 @@ describe('RestServiceId', () => {
     expect(toService('mariadb')).toEqual<Service>(Service.MARIADB);
     expect(toService('maven-java')).toEqual<Service>(Service.MAVEN_JAVA);
     expect(toService('mongodb')).toEqual<Service>(Service.MONGODB);
+    expect(toService('mongock')).toEqual<Service>(Service.MONGOCK);
     expect(toService('mysql')).toEqual<Service>(Service.MYSQL);
     expect(toService('postgresql')).toEqual<Service>(Service.POSTGRESQL);
     expect(toService('sonar-java-backend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND);

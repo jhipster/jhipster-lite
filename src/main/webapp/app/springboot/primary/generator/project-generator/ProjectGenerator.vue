@@ -1,0 +1,58 @@
+<template>
+  <div id="v-pills-init" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
+    <div class="d-flex flex-column gap-3">
+      <div>
+        <GeneratorButtonVue :label="'Init'" :service="'initialization'" :selector-prefix="selectorPrefix" @click.prevent="initProject" />
+      </div>
+      <div>
+        <GeneratorButtonVue
+          v-if="buildTool === 'maven'"
+          :label="'Maven'"
+          :service="'maven-java'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addMaven"
+        />
+        <GeneratorButtonVue
+          :label="'JaCoCo'"
+          :service="'jacoco-check-minimal-coverage'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addJaCoCo"
+        />
+        <GeneratorButtonVue
+          :label="'Sonar Backend'"
+          :service="'sonar-java-backend'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSonarBackend"
+        />
+        <GeneratorButtonVue
+          :label="'Sonar Backend+Frontend'"
+          :service="'sonar-java-backend-and-frontend'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSonarBackendFrontend"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue :label="'Java Base'" :service="'java-base'" :selector-prefix="selectorPrefix" @click.prevent="addJavaBase" />
+      </div>
+      <div>
+        <GeneratorButtonVue
+          :label="'Frontend Maven Plugin'"
+          :service="'frontend-maven-plugin'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addFrontendMavenPlugin"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue
+          v-if="project.folder !== ''"
+          :label="'Download'"
+          :service="'download'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="download"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" src="./ProjectGenerator.component.ts"></script>

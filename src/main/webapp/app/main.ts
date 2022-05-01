@@ -38,9 +38,11 @@ const springBootRepository = new SpringBootRepository(axiosHttp, projectHistoryR
 
 app.provide('angularService', angularRepository);
 app.provide('fileDownloader', fileDownloader);
+app.provide('globalWindow', window);
 app.provide('historyStore', historyStore);
 app.provide('logger', consoleLogger);
 app.provide('projectService', projectRepository);
+app.provide('projectHistoryService', projectHistoryRepository);
 app.provide('reactService', reactRepository);
 app.provide('springBootService', springBootRepository);
 app.provide('vueService', vueRepository);

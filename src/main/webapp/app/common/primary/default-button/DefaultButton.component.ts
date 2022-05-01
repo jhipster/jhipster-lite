@@ -17,6 +17,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    outlined: {
+      type: Boolean,
+      default: false,
+    },
     icon: {
       type: String,
       default: undefined,

@@ -1,13 +1,14 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
-import { createProjectToUpdate } from '../ProjectToUpdate.fixture';
-import { stubLogger } from '../../../common/domain/Logger.fixture';
+import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
+import { stubLogger } from '../../../../common/domain/Logger.fixture';
 import { Logger } from '@/common/domain/Logger';
 import { SpringBootService } from '@/springboot/domain/SpringBootService';
-import { stubSpringBootService } from '../../domain/SpringBootService.fixture';
-import { SpringBootGeneratorVue } from '@/springboot/primary/spring-boot-generator';
+import { stubSpringBootService } from '../../../domain/SpringBootService.fixture';
+import { SpringBootGeneratorVue } from '@/springboot/primary/generator/spring-boot-generator';
 
 let wrapper: VueWrapper;
+let component: any;
 
 interface WrapperOptions {
   springBootService: SpringBootService;
@@ -33,6 +34,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       },
     },
   });
+  component = wrapper.vm;
 };
 
 describe('SpringBootGenerator', () => {
@@ -47,8 +49,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBoot.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#springboot');
-    await button.trigger('click');
+    await component.addSpringBoot();
 
     expect(springBootService.addSpringBoot.called).toBe(false);
   });
@@ -58,8 +59,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBoot.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#springboot');
-    await button.trigger('click');
+    await component.addSpringBoot();
 
     const args = springBootService.addSpringBoot.getCall(0).args[0];
     expect(args).toEqual({
@@ -77,8 +77,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBoot.rejects({});
     await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#springboot');
-    await initButton.trigger('click');
+    await component.addSpringBoot();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding SpringBoot to project failed');
@@ -89,8 +88,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootMvcTomcat.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#springbootmvctomcat');
-    await button.trigger('click');
+    await component.addSpringBootMvcTomcat();
 
     expect(springBootService.addSpringBootMvcTomcat.called).toBe(false);
   });
@@ -100,8 +98,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootMvcTomcat.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#springbootmvctomcat');
-    await button.trigger('click');
+    await component.addSpringBootMvcTomcat();
 
     const args = springBootService.addSpringBootMvcTomcat.getCall(0).args[0];
     expect(args).toEqual({
@@ -119,8 +116,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootMvcTomcat.rejects({});
     await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#springbootmvctomcat');
-    await initButton.trigger('click');
+    await component.addSpringBootMvcTomcat();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding SpringBoot MVC with Tomcat to project failed');
@@ -131,8 +127,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootWebfluxNetty.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#springbootwebfluxnetty');
-    await button.trigger('click');
+    await component.addSpringBootWebfluxNetty();
 
     expect(springBootService.addSpringBootWebfluxNetty.called).toBe(false);
   });
@@ -142,8 +137,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootWebfluxNetty.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#springbootwebfluxnetty');
-    await button.trigger('click');
+    await component.addSpringBootWebfluxNetty();
 
     const args = springBootService.addSpringBootWebfluxNetty.getCall(0).args[0];
     expect(args).toEqual({
@@ -161,8 +155,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootWebfluxNetty.rejects({});
     await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#springbootwebfluxnetty');
-    await initButton.trigger('click');
+    await component.addSpringBootWebfluxNetty();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding SpringBoot Webflux with Netty to project failed');
@@ -173,8 +166,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootActuator.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#springboot-actuator');
-    await button.trigger('click');
+    await component.addSpringBootActuator();
 
     expect(springBootService.addSpringBootActuator.called).toBe(false);
   });
@@ -184,8 +176,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootActuator.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#springboot-actuator');
-    await button.trigger('click');
+    await component.addSpringBootActuator();
 
     const args = springBootService.addSpringBootActuator.getCall(0).args[0];
     expect(args).toEqual({
@@ -203,8 +194,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addSpringBootActuator.rejects({});
     await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#springboot-actuator');
-    await initButton.trigger('click');
+    await component.addSpringBootActuator();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding SpringBoot Actuator to project failed');
@@ -217,8 +207,7 @@ describe('SpringBootGenerator', () => {
         springBootService.addSpringBootAopLogging.resolves({});
         await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-        const button = wrapper.find('#springboot-aop');
-        await button.trigger('click');
+        await component.addSpringBootAopLogging();
 
         expect(springBootService.addSpringBootAopLogging.called).toBe(false);
       });
@@ -228,8 +217,7 @@ describe('SpringBootGenerator', () => {
         springBootService.addSpringBootAopLogging.resolves({});
         await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-        const button = wrapper.find('#springboot-aop');
-        await button.trigger('click');
+        await component.addSpringBootAopLogging();
 
         const args = springBootService.addSpringBootAopLogging.getCall(0).args[0];
         expect(args).toEqual({
@@ -247,8 +235,7 @@ describe('SpringBootGenerator', () => {
         springBootService.addSpringBootAopLogging.rejects({});
         await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-        const initButton = wrapper.find('#springboot-aop');
-        await initButton.trigger('click');
+        await component.addSpringBootAopLogging();
 
         const [message] = logger.error.getCall(0).args;
         expect(message).toBe('Adding SpringBoot AOP Logging to project failed');
@@ -261,8 +248,7 @@ describe('SpringBootGenerator', () => {
         springBootService.addSpringBootLogstash.resolves({});
         await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-        const button = wrapper.find('#springboot-logstash');
-        await button.trigger('click');
+        await component.addSpringBootLogstash();
 
         expect(springBootService.addSpringBootLogstash.called).toBe(false);
       });
@@ -272,8 +258,7 @@ describe('SpringBootGenerator', () => {
         springBootService.addSpringBootLogstash.resolves({});
         await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-        const button = wrapper.find('#springboot-logstash');
-        await button.trigger('click');
+        await component.addSpringBootLogstash();
 
         const args = springBootService.addSpringBootLogstash.getCall(0).args[0];
         expect(args).toEqual({
@@ -291,8 +276,7 @@ describe('SpringBootGenerator', () => {
         springBootService.addSpringBootLogstash.rejects({});
         await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-        const initButton = wrapper.find('#springboot-logstash');
-        await initButton.trigger('click');
+        await component.addSpringBootLogstash();
 
         const [message] = logger.error.getCall(0).args;
         expect(message).toBe('Adding SpringBoot Logstash to project failed');
@@ -305,8 +289,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addJWT.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#springboot-jwt');
-    await button.trigger('click');
+    await component.addSpringBootSecurityJWT();
 
     expect(springBootService.addJWT.called).toBe(false);
   });
@@ -316,8 +299,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addJWT.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#springboot-jwt');
-    await button.trigger('click');
+    await component.addSpringBootSecurityJWT();
 
     const args = springBootService.addJWT.getCall(0).args[0];
     expect(args).toEqual({
@@ -335,8 +317,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addJWT.rejects({});
     await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#springboot-jwt');
-    await initButton.trigger('click');
+    await component.addSpringBootSecurityJWT();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding SpringBoot Security JWT to project failed');
@@ -347,8 +328,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addBasicAuthJWT.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#springboot-jwt-basic-auth');
-    await button.trigger('click');
+    await component.addSpringBootSecurityJWTBasicAuth();
 
     expect(springBootService.addBasicAuthJWT.called).toBe(false);
   });
@@ -358,8 +338,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addBasicAuthJWT.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#springboot-jwt-basic-auth');
-    await button.trigger('click');
+    await component.addSpringBootSecurityJWTBasicAuth();
 
     const args = springBootService.addBasicAuthJWT.getCall(0).args[0];
     expect(args).toEqual({
@@ -377,8 +356,7 @@ describe('SpringBootGenerator', () => {
     springBootService.addBasicAuthJWT.rejects({});
     await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#springboot-jwt-basic-auth');
-    await initButton.trigger('click');
+    await component.addSpringBootSecurityJWTBasicAuth();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding SpringBoot Security JWT Basic Auth to project failed');
@@ -390,8 +368,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addPostgres.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-      const button = wrapper.find('#springboot-database-postgresql');
-      await button.trigger('click');
+      await component.addPostgreSQL();
 
       expect(springBootService.addPostgres.called).toBe(false);
     });
@@ -401,8 +378,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addPostgres.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const button = wrapper.find('#springboot-database-postgresql');
-      await button.trigger('click');
+      await component.addPostgreSQL();
 
       const args = springBootService.addPostgres.getCall(0).args[0];
       expect(args).toEqual({
@@ -420,8 +396,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addPostgres.rejects({});
       await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const initButton = wrapper.find('#springboot-database-postgresql');
-      await initButton.trigger('click');
+      await component.addPostgreSQL();
 
       const [message] = logger.error.getCall(0).args;
       expect(message).toBe('Adding SpringBoot Database PostgreSQL to project failed');
@@ -432,8 +407,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMySQL.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-      const button = wrapper.find('#springboot-database-mysql');
-      await button.trigger('click');
+      await component.addMySQL();
 
       expect(springBootService.addMySQL.called).toBe(false);
     });
@@ -443,8 +417,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMySQL.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const button = wrapper.find('#springboot-database-mysql');
-      await button.trigger('click');
+      await component.addMySQL();
 
       const args = springBootService.addMySQL.getCall(0).args[0];
       expect(args).toEqual({
@@ -462,8 +435,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMySQL.rejects({});
       await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const initButton = wrapper.find('#springboot-database-mysql');
-      await initButton.trigger('click');
+      await component.addMySQL();
 
       const [message] = logger.error.getCall(0).args;
       expect(message).toBe('Adding SpringBoot Database MySQL to project failed');
@@ -474,8 +446,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMariaDB.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-      const button = wrapper.find('#springboot-database-mariadb');
-      await button.trigger('click');
+      await component.addMariaDB();
 
       expect(springBootService.addMariaDB.called).toBe(false);
     });
@@ -485,8 +456,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMariaDB.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const button = wrapper.find('#springboot-database-mariadb');
-      await button.trigger('click');
+      await component.addMariaDB();
 
       const args = springBootService.addMariaDB.getCall(0).args[0];
       expect(args).toEqual({
@@ -504,8 +474,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMariaDB.rejects({});
       await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const initButton = wrapper.find('#springboot-database-mariadb');
-      await initButton.trigger('click');
+      await component.addMariaDB();
 
       const [message] = logger.error.getCall(0).args;
       expect(message).toBe('Adding SpringBoot Database MariaDB to project failed');
@@ -516,8 +485,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMongoDB.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-      const button = wrapper.find('#springboot-database-mongodb');
-      await button.trigger('click');
+      await component.addMongoDB();
 
       expect(springBootService.addMongoDB.called).toBe(false);
     });
@@ -527,8 +495,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMongoDB.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const button = wrapper.find('#springboot-database-mongodb');
-      await button.trigger('click');
+      await component.addMongoDB();
 
       const args = springBootService.addMongoDB.getCall(0).args[0];
       expect(args).toEqual({
@@ -546,8 +513,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addMongoDB.rejects({});
       await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const initButton = wrapper.find('#springboot-database-mongodb');
-      await initButton.trigger('click');
+      await component.addMongoDB();
 
       const [message] = logger.error.getCall(0).args;
       expect(message).toBe('Adding SpringBoot Database MongoDB to project failed');
@@ -560,8 +526,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addSpringBootMongockInit.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
 
-      const button = wrapper.find('#springboot-database-migration-mongock');
-      await button.trigger('click');
+      await component.addMongock();
 
       expect(springBootService.addSpringBootMongockInit.called).toBe(false);
     });
@@ -571,8 +536,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addSpringBootMongockInit.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const button = wrapper.find('#springboot-database-migration-mongock');
-      await button.trigger('click');
+      await component.addMongock();
 
       const args = springBootService.addSpringBootMongockInit.getCall(0).args[0];
       expect(args).toEqual({
@@ -590,8 +554,7 @@ describe('SpringBootGenerator', () => {
       springBootService.addSpringBootMongockInit.rejects({});
       await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-      const initButton = wrapper.find('#springboot-database-migration-mongock');
-      await initButton.trigger('click');
+      await component.addMongock();
 
       const [message] = logger.error.getCall(0).args;
       expect(message).toBe('Adding SpringBoot Database Migration Mongock to project failed');

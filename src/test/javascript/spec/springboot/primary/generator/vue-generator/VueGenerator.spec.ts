@@ -1,13 +1,14 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
-import { createProjectToUpdate } from '../ProjectToUpdate.fixture';
-import { stubLogger } from '../../../common/domain/Logger.fixture';
+import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
+import { stubLogger } from '../../../../common/domain/Logger.fixture';
 import { Logger } from '@/common/domain/Logger';
 import { VueService } from '@/springboot/domain/client/VueService';
-import { stubVueService } from '../../domain/client/VueService.fixture';
-import { VueGeneratorVue } from '@/springboot/primary/vue-generator';
+import { stubVueService } from '../../../domain/client/VueService.fixture';
+import { VueGeneratorVue } from '@/springboot/primary/generator/vue-generator';
 
 let wrapper: VueWrapper;
+let component: any;
 
 interface WrapperOptions {
   vueService: VueService;
@@ -33,6 +34,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       },
     },
   });
+  component = wrapper.vm;
 };
 
 describe('VueGenerator', () => {
@@ -47,8 +49,7 @@ describe('VueGenerator', () => {
     vueService.add.resolves({});
     await wrap({ vueService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#vue');
-    await button.trigger('click');
+    await component.addVue();
 
     expect(vueService.add.called).toBe(false);
   });
@@ -58,8 +59,7 @@ describe('VueGenerator', () => {
     vueService.add.resolves({});
     await wrap({ vueService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#vue');
-    await button.trigger('click');
+    await component.addVue();
 
     const args = vueService.add.getCall(0).args[0];
     expect(args).toEqual({
@@ -78,8 +78,7 @@ describe('VueGenerator', () => {
 
     const checkbox = wrapper.find('#vue-with-style');
     await checkbox.setValue(true);
-    const button = wrapper.find('#vue');
-    await button.trigger('click');
+    await component.addVue();
 
     const args = vueService.addWithStyle.getCall(0).args[0];
     expect(args).toEqual({
@@ -97,8 +96,7 @@ describe('VueGenerator', () => {
     vueService.add.rejects({});
     await wrap({ vueService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const initButton = wrapper.find('#vue');
-    await initButton.trigger('click');
+    await component.addVue();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Vue to project failed');
@@ -112,8 +110,7 @@ describe('VueGenerator', () => {
 
     const checkbox = wrapper.find('#vue-with-style');
     await checkbox.setValue(true);
-    const initButton = wrapper.find('#vue');
-    await initButton.trigger('click');
+    await component.addVue();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Vue with style to project failed');

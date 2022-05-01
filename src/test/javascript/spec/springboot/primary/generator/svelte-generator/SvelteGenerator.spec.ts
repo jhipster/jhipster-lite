@@ -1,7 +1,7 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
-import { createProjectToUpdate } from '../ProjectToUpdate.fixture';
-import { SvelteGeneratorVue } from '@/springboot/primary/svelte-generator';
+import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
+import { SvelteGeneratorVue } from '@/springboot/primary/generator/svelte-generator';
 
 let wrapper: VueWrapper;
 

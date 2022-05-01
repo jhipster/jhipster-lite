@@ -26,6 +26,8 @@ export const toService = (restServiceId: RestServiceId): Service => {
       return Service.MAVEN_JAVA;
     case 'mongodb':
       return Service.MONGODB;
+    case 'mongock':
+      return Service.MONGOCK;
     case 'mysql':
       return Service.MYSQL;
     case 'postgresql':

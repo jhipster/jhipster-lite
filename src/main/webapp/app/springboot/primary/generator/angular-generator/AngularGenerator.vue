@@ -1,11 +1,6 @@
 <template>
   <div id="v-pills-angular" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-    <DefaultButtonVue
-      id="angular"
-      :label="'Generate Angular'"
-      :data-selector="selectorPrefix + '.add-angular-button'"
-      @click.prevent="addAngular"
-    />
+    <GeneratorButtonVue :label="'Generate Angular'" :service="'angular'" :selector-prefix="selectorPrefix" @click.prevent="addAngular" />
   </div>
 </template>
 

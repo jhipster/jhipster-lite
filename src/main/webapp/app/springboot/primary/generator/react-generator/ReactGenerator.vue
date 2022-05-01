@@ -15,10 +15,10 @@
         </span>
       </label>
     </div>
-    <DefaultButtonVue
-      id="react"
+    <GeneratorButtonVue
       :label="'Generate React'"
-      :data-selector="selectorPrefix + '.add-react-button'"
+      :service="isReactWithStyle ? 'react-styled' : 'react'"
+      :selector-prefix="selectorPrefix"
       @click.prevent="addReact"
     />
   </div>

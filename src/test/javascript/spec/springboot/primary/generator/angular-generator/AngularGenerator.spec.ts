@@ -1,13 +1,14 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
-import { stubAngularService } from '../../domain/client/AngularService.fixture';
+import { stubAngularService } from '../../../domain/client/AngularService.fixture';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
-import { createProjectToUpdate } from '../ProjectToUpdate.fixture';
-import { stubLogger } from '../../../common/domain/Logger.fixture';
+import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
+import { stubLogger } from '../../../../common/domain/Logger.fixture';
 import { AngularService } from '@/springboot/domain/client/AngularService';
 import { Logger } from '@/common/domain/Logger';
-import { AngularGeneratorVue } from '@/springboot/primary/angular-generator';
+import { AngularGeneratorVue } from '@/springboot/primary/generator/angular-generator';
 
 let wrapper: VueWrapper;
+let component: any;
 
 interface WrapperOptions {
   angularService: AngularService;
@@ -33,6 +34,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       },
     },
   });
+  component = wrapper.vm;
 };
 
 describe('AngularGenerator', () => {
@@ -47,8 +49,7 @@ describe('AngularGenerator', () => {
     angularService.add.resolves({});
     await wrap({ angularService, project: createProjectToUpdate({ folder: '' }) });
 
-    const button = wrapper.find('#angular');
-    await button.trigger('click');
+    await component.addAngular();
 
     expect(angularService.add.called).toBe(false);
   });
@@ -58,8 +59,7 @@ describe('AngularGenerator', () => {
     angularService.add.resolves({});
     await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const button = wrapper.find('#angular');
-    await button.trigger('click');
+    await component.addAngular();
 
     const args = angularService.add.getCall(0).args[0];
     expect(args).toEqual({
@@ -77,8 +77,7 @@ describe('AngularGenerator', () => {
     angularService.add.rejects({});
     await wrap({ angularService, logger, project: createProjectToUpdate({ folder: 'path' }) });
 
-    const initButton = wrapper.find('#angular');
-    await initButton.trigger('click');
+    await component.addAngular();
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Angular to project failed');

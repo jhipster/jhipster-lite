@@ -350,6 +350,23 @@ describe('SpringBootRepository', () => {
     expect(projectFolder).toBe(PROJECT_FOLDER);
   });
 
+  it('should add Mongock', async () => {
+    const projectHistoryService = stubProjectHistoryService();
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const springBootRepository = new SpringBootRepository(axiosHttpStub, projectHistoryService);
+    const project: Project = createProject({ folder: PROJECT_FOLDER });
+
+    await springBootRepository.addSpringBootMongockInit(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/database-migration-tools/mongock');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+    const [projectFolder] = projectHistoryService.get.getCall(0).args;
+    expect(projectFolder).toBe(PROJECT_FOLDER);
+  });
+
   it('should add Spring Security JWT', async () => {
     const projectHistoryService = stubProjectHistoryService();
     const axiosHttpStub = stubAxiosHttp();

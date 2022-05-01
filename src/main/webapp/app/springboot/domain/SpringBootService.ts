@@ -23,6 +23,7 @@ export interface SpringBootService {
   addSpringBootFlywayUser(project: Project): Promise<void>;
   addSpringBootLiquibaseInit(project: Project): Promise<void>;
   addSpringBootLiquibaseUser(project: Project): Promise<void>;
+  addSpringBootMongockInit(project: Project): Promise<void>;
 
   addEhcacheWithJavaConf(project: Project): Promise<void>;
   addEhcacheWithXML(project: Project): Promise<void>;

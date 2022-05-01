@@ -35,6 +35,7 @@ export interface SpringBootServiceFixture extends SpringBootService {
   addSpringBootFlywayUser: SinonStub;
   addSpringBootLiquibaseInit: SinonStub;
   addSpringBootLiquibaseUser: SinonStub;
+  addSpringBootMongockInit: SinonStub;
   addJWT: SinonStub;
   addBasicAuthJWT: SinonStub;
   addOauth2: SinonStub;
@@ -75,6 +76,7 @@ export const stubSpringBootService = (): SpringBootServiceFixture => ({
   addSpringBootFlywayUser: sinon.stub(),
   addSpringBootLiquibaseInit: sinon.stub(),
   addSpringBootLiquibaseUser: sinon.stub(),
+  addSpringBootMongockInit: sinon.stub(),
   addJWT: sinon.stub(),
   addBasicAuthJWT: sinon.stub(),
   addOauth2: sinon.stub(),

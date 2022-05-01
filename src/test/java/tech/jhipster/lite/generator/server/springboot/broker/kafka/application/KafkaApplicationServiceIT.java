@@ -62,10 +62,13 @@ class KafkaApplicationServiceIT {
     String kafkaPropertiesTestPath = getPath("com/mycompany/myapp/technical/infrastructure/config/kafka");
     assertFileExist(project, getPath(TEST_JAVA, kafkaPropertiesTestPath, "KafkaPropertiesTest.java"));
     assertFileContent(project, getPath(TEST_JAVA, kafkaPropertiesTestPath, "KafkaPropertiesTest.java"), "class KafkaPropertiesTest");
+
+    assertFileExist(project, getPath(MAIN_JAVA, configKafkaPath, "KafkaConfiguration.java"));
+    assertFileContent(project, getPath(MAIN_JAVA, configKafkaPath, "KafkaConfiguration.java"), "public class KafkaConfiguration");
   }
 
   @Test
-  void shouldAddProducer() {
+  void shouldAddProducerConsumer() {
     Project project = tmpProject();
     initApplicationService.init(project);
     mavenApplicationService.addPomXml(project);
@@ -75,9 +78,6 @@ class KafkaApplicationServiceIT {
     kafkaApplicationService.addDummyProducerConsumer(project);
 
     String configKafkaPath = getPath("com/mycompany/myapp/technical/infrastructure/config/kafka");
-
-    assertFileExist(project, getPath(MAIN_JAVA, configKafkaPath, "KafkaConfiguration.java"));
-    assertFileContent(project, getPath(MAIN_JAVA, configKafkaPath, "KafkaConfiguration.java"), "public class KafkaConfiguration");
 
     String dummyProducerPath = getPath("com/mycompany/myapp/dummy/infrastructure/secondary/kafka/producer");
     assertFileExist(project, getPath(MAIN_JAVA, dummyProducerPath, "DummyProducer.java"));

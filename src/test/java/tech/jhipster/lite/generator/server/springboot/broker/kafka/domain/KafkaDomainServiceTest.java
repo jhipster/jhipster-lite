@@ -51,14 +51,14 @@ class KafkaDomainServiceTest {
     verify(buildToolService, times(2)).addDependency(any(Project.class), any(Dependency.class));
     verify(dockerService, times(2)).getImageNameWithVersion(anyString());
     verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
-    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).template(any(Project.class), anyString(), anyString(), anyString());
     verify(springBootCommonService, times(9)).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
     verify(springBootCommonService).updateIntegrationTestAnnotation(any(Project.class), anyString());
   }
 
   @Test
-  void shouldAddProducer() {
+  void shouldAddProducerConsumer() {
     Project project = tmpProjectWithPomXml();
 
     when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.empty());
@@ -66,7 +66,7 @@ class KafkaDomainServiceTest {
 
     verify(springBootCommonService).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(7)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
   @Test
@@ -81,7 +81,7 @@ class KafkaDomainServiceTest {
   }
 
   @Test
-  void shouldNotAddProducer() {
+  void shouldNotAddProducerConsumer() {
     Project project = tmpProjectWithPomXml();
 
     when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.of("queue.jhipster.dummy"));

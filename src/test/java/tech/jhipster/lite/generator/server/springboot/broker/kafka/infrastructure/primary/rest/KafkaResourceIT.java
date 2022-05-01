@@ -69,10 +69,11 @@ class KafkaResourceIT {
     assertFileExist(projectPath, MAIN_DOCKER + "/" + KAFKA_DOCKER_COMPOSE_FILE);
     assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/config/kafka/KafkaProperties.java");
     assertFileExist(projectPath, "src/test/java/tech/jhipster/chips/technical/infrastructure/config/kafka/KafkaPropertiesTest.java");
+    assertFileExist(projectPath, "src/main/java/tech/jhipster/chips/technical/infrastructure/config/kafka/KafkaConfiguration.java");
   }
 
   @Test
-  void shouldAddProducer() throws Exception {
+  void shouldAddProducerConsumer() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");

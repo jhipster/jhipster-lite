@@ -6,8 +6,8 @@ import { Logger } from '@/common/domain/Logger';
 import { ReactService } from '@/springboot/domain/client/ReactService';
 import { stubReactService } from '../../../domain/client/ReactService.fixture';
 import { ReactGeneratorVue } from '@/springboot/primary/generator/react-generator';
-import { stubNotificationService } from '../../../common/domain/NotificationService.fixture';
 import { NotificationService } from '@/common/domain/NotificationService';
+import { stubNotificationService } from '../../../../common/domain/NotificationService.fixture';
 
 let wrapper: VueWrapper;
 let component: any;

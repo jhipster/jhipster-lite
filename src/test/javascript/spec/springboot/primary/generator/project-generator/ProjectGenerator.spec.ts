@@ -8,6 +8,8 @@ import { stubProjectService } from '../../../domain/ProjectService.fixture';
 import { ProjectGeneratorVue } from '@/springboot/primary/generator/project-generator';
 import { FileDownloader } from '@/common/primary/FileDownloader';
 import { stubFileDownloader } from '../../../../common/primary/FileDownloader.fixture';
+import { NotificationService } from '@/common/domain/NotificationService';
+import { stubNotificationService } from '../../../../common/domain/NotificationService.fixture';
 
 let wrapper: VueWrapper;
 let component: any;
@@ -17,14 +19,16 @@ interface WrapperOptions {
   fileDownloader: FileDownloader;
   logger: Logger;
   project: ProjectToUpdate;
+  toastService: NotificationService;
 }
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { projectService, fileDownloader, logger, project }: WrapperOptions = {
+  const { projectService, fileDownloader, logger, project, toastService }: WrapperOptions = {
     projectService: stubProjectService(),
     fileDownloader: stubFileDownloader(),
     logger: stubLogger(),
     project: createProjectToUpdate(),
+    toastService: stubNotificationService(),
     ...wrapperOptions,
   };
   wrapper = shallowMount(ProjectGeneratorVue, {
@@ -37,6 +41,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
         projectService,
         fileDownloader,
         logger,
+        toastService,
       },
     },
   });

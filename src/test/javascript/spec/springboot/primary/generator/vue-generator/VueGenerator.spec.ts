@@ -7,7 +7,7 @@ import { VueService } from '@/springboot/domain/client/VueService';
 import { stubVueService } from '../../../domain/client/VueService.fixture';
 import { VueGeneratorVue } from '@/springboot/primary/generator/vue-generator';
 import { NotificationService } from '@/common/domain/NotificationService';
-import { stubNotificationService } from '../../../common/domain/NotificationService.fixture';
+import { stubNotificationService } from '../../../../common/domain/NotificationService.fixture';
 
 let wrapper: VueWrapper;
 let component: any;

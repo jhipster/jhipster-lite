@@ -1,7 +1,7 @@
 <template>
   <div
     ref="el"
-    :class="{ 'bg-success': toastType === 'success', 'bg-danger': toastType === 'error' }"
+    :class="{ 'bg-success': toastType === 'SUCCESS', 'bg-danger': toastType === 'ERROR' }"
     class="overlay-toast toast align-items-center text-white border-0 position-fixed top-1 end-0 p-3 shadow"
     role="alert"
     aria-live="assertive"

@@ -4,11 +4,16 @@ import { nextTick } from '@vue/runtime-core';
 
 let toast: Toast;
 
+enum ToastType {
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+}
+
 export default defineComponent({
   name: 'Toast',
   data() {
     return {
-      toastType: 'success',
+      toastType: ToastType.SUCCESS,
       message: '',
     };
   },
@@ -17,12 +22,12 @@ export default defineComponent({
   },
   methods: {
     success(message: string) {
-      this.toastType = 'success';
+      this.toastType = ToastType.SUCCESS;
       this.message = message;
       this.showToast();
     },
     error(message: string) {
-      this.toastType = 'error';
+      this.toastType = ToastType.ERROR;
       this.message = message;
       this.showToast();
     },

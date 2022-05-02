@@ -102,6 +102,69 @@
           </div>
 
           <div class="col">
+            <div class="card h-100 text-white bg-primary bg-gradient shadow">
+              <h3 class="card-header h5 d-flex gap-3">
+                <IconVue :name="'body-text'" :aria-hidden="true" />
+                Setup
+              </h3>
+              <div class="card-body">
+                <ul class="list-group--inline">
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <input
+                        id="option-no-setup"
+                        v-model="server"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="setup"
+                        value="none"
+                        checked
+                      />
+                      <label for="option-no-setup" role="button"> None </label>
+                    </div>
+                    <img
+                      src="../../../content/JHipster-Lite-neon-blue_40x.png"
+                      alt=""
+                      width="32"
+                      height="32"
+                      class="rounded-circle flex-shrink-0"
+                    />
+                  </li>
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <input
+                        id="setup-codespaces"
+                        v-model="setup"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="setup"
+                        value="codespaces"
+                        checked
+                      />
+                      <label for="setup-codespaces" role="button"> Codespaces </label>
+                    </div>
+                    <img src="../../../content/CodespaceLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                  <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
+                    <div class="w-100 justify-content-between">
+                      <input
+                        id="setup-gitpod"
+                        v-model="setup"
+                        class="form-check-input flex-shrink-0"
+                        type="radio"
+                        name="setup"
+                        value="gitpod"
+                      />
+                      <label for="setup-gitpod" role="button"> Gitpod </label>
+                    </div>
+                    <img src="../../../content/GitpodLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
             <div class="card h-100 text-white bg-secondary bg-gradient shadow">
               <h3 class="card-header h5 d-flex gap-3">
                 <IconVue :name="'gear'" :aria-hidden="true" />
@@ -149,6 +212,7 @@
               </div>
             </div>
           </div>
+
           <div class="col">
             <div class="card h-100 text-dark bg-light shadow">
               <h3 class="card-header h5 d-flex gap-3">

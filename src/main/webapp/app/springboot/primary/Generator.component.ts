@@ -42,6 +42,7 @@ export default defineComponent({
     const buildTool = ref<string>('maven');
     const server = ref<string>();
     const client = ref<string>();
+    const setup = ref<string>();
     const toast = ref<typeof ToastVue | undefined>(undefined);
 
     onMounted(() => {
@@ -59,6 +60,7 @@ export default defineComponent({
       project,
       language,
       buildTool,
+      setup,
       server,
       client,
       selectorPrefix,

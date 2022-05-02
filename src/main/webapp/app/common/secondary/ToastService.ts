@@ -12,7 +12,6 @@ export default class ToastService implements NotificationService {
   }
 
   error(message: string): void {
-    console.log(this.toastRef);
     this.toastRef.error(message);
   }
 }

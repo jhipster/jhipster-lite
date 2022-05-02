@@ -14,12 +14,12 @@ import { FileDownloader } from '@/common/primary/FileDownloader';
 import { useHistoryStore } from '@/common/primary/HistoryStore';
 import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
+import ToastService from './common/secondary/ToastService';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap';
 import '../content/css/custom.css';
-import ToastService from './common/secondary/ToastService';
 
 const app = createApp(App);
 const pinia = createPinia();

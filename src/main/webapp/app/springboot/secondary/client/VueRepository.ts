@@ -8,7 +8,7 @@ export default class VueRepository implements VueService {
   constructor(private axiosHttp: AxiosHttp, private projectHistoryService: ProjectHistoryService) {}
 
   private async postAndGetHistory(url: string, restProject: RestProject): Promise<void> {
-    this.axiosHttp.post(url, restProject).then(() => this.projectHistoryService.get(restProject.folder));
+    await this.axiosHttp.post(url, restProject).then(() => this.projectHistoryService.get(restProject.folder));
   }
 
   async addWithStyle(project: Project): Promise<void> {

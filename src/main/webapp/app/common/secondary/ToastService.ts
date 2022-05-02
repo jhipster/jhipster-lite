@@ -1,7 +1,7 @@
 import { NotificationService } from '@/common/domain/NotificationService';
 
 export default class ToastService implements NotificationService {
-  private toastRef: any;
+  toastRef: any;
 
   register(toast: any) {
     this.toastRef = toast;

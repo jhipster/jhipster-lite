@@ -3,6 +3,8 @@ import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { ProjectHistoryService } from '@/common/domain/ProjectHistoryService';
 import { stubProjectHistoryService } from '../../common/domain/ProjectHistoryService.fixture';
 import sinon, { SinonStub } from 'sinon';
+import { NotificationService } from '@/common/domain/NotificationService';
+import { stubNotificationService } from '../../common/domain/NotificationService.fixture';
 
 let wrapper: VueWrapper;
 let component: any;
@@ -10,6 +12,7 @@ let component: any;
 interface WrapperOptions {
   projectHistoryService: ProjectHistoryService;
   globalWindow: WindowStub;
+  toastService: NotificationService;
 }
 
 interface WindowStub {
@@ -24,9 +27,10 @@ const stubGlobalWindow = (): WindowStub =>
   } as WindowStub);
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { projectHistoryService, globalWindow }: WrapperOptions = {
+  const { projectHistoryService, globalWindow, toastService }: WrapperOptions = {
     projectHistoryService: stubProjectHistoryService(),
     globalWindow: stubGlobalWindow(),
+    toastService: stubNotificationService(),
     ...wrapperOptions,
   };
   wrapper = shallowMount(GeneratorVue, {
@@ -34,6 +38,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       provide: {
         projectHistoryService,
         globalWindow,
+        toastService,
       },
     },
   });

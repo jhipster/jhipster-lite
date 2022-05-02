@@ -1,13 +1,9 @@
 import { defineComponent } from 'vue';
 import { Toast } from 'bootstrap';
 import { nextTick } from '@vue/runtime-core';
+import { ToastType } from './ToastType.enum';
 
 let toast: Toast;
-
-enum ToastType {
-  SUCCESS = 'SUCCESS',
-  ERROR = 'ERROR',
-}
 
 export default defineComponent({
   name: 'Toast',

@@ -11,12 +11,6 @@ class MissingMandatoryValueExceptionTest {
   public static final String FIELD = "field";
 
   @Test
-  void shouldGetExceptionInformation() {
-    MissingMandatoryValueException exception = new MissingMandatoryValueException(FIELD);
-    assertThat(exception.getMessage()).isEqualTo("The field \"field\" is mandatory and wasn't set");
-  }
-
-  @Test
   void shouldGetExceptionForBlankValue() {
     MissingMandatoryValueException exception = MissingMandatoryValueException.forBlankValue(FIELD);
 

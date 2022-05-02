@@ -30,6 +30,7 @@ class CodespacesDomainServiceTest {
     Project project = tmpProjectWithPackageJson();
 
     codespacesDomainService.init(project);
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    verify(projectRepository).add(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }
 }

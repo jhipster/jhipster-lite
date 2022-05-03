@@ -67,6 +67,20 @@
         <GeneratorButtonVue :label="'MongoDB'" :service="'mongodb'" :selector-prefix="selectorPrefix" @click.prevent="addMongoDB" />
       </div>
       <div>
+        <GeneratorButtonVue :label="'Flyway'" :service="'flyway'" :selector-prefix="selectorPrefix" @click.prevent="addFlyway" />
+        <GeneratorButtonVue
+          :label="'Flyway with users'"
+          :service="'flyway-with-users-and-authority-changelogs'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addFlywayUser"
+        />
+        <GeneratorButtonVue :label="'Liquibase'" :service="'liquibase'" :selector-prefix="selectorPrefix" @click.prevent="addLiquibase" />
+        <GeneratorButtonVue
+          :label="'Liquibase with users'"
+          :service="'liquibase-with-users-and-authority-changelogs'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addLiquibaseUser"
+        />
         <GeneratorButtonVue :label="'Mongock'" :service="'mongock'" :selector-prefix="selectorPrefix" @click.prevent="addMongock" />
       </div>
     </div>

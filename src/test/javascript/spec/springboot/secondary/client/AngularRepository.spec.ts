@@ -24,4 +24,21 @@ describe('AngularRepository', () => {
     const [projectFolder] = projectHistoryService.get.getCall(0).args;
     expect(projectFolder).toBe(PROJECT_FOLDER);
   });
+
+  it('should add Angular with JWT', async () => {
+    const projectHistoryService = stubProjectHistoryService();
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const angularRepository = new AngularRepository(axiosHttpStub, projectHistoryService);
+    const project: Project = createProject({ folder: PROJECT_FOLDER });
+
+    await angularRepository.addWithJWT(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/clients/angular/jwt');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+    const [projectFolder] = projectHistoryService.get.getCall(0).args;
+    expect(projectFolder).toBe(PROJECT_FOLDER);
+  });
 });

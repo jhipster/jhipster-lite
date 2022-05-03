@@ -3,10 +3,10 @@ import { AngularService } from '@/springboot/domain/client/AngularService';
 
 export interface AngularServiceFixture extends AngularService {
   add: SinonStub;
-  addWithStyle: SinonStub;
+  addWithJWT: SinonStub;
 }
 
 export const stubAngularService = (): AngularServiceFixture => ({
   add: sinon.stub(),
-  addWithStyle: sinon.stub(),
+  addWithJWT: sinon.stub(),
 });

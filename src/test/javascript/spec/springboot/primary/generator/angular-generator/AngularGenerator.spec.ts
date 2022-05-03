@@ -82,4 +82,43 @@ describe('AngularGenerator', () => {
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Angular to project failed');
   });
+
+  it('should not add Angular with JWT when project path is not filled', async () => {
+    const angularService = stubAngularService();
+    angularService.addWithJWT.resolves({});
+    await wrap({ angularService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addAngularWithJWT();
+
+    expect(angularService.addWithJWT.called).toBe(false);
+  });
+
+  it('should add Angular with JWT when project path is filled', async () => {
+    const angularService = stubAngularService();
+    angularService.addWithJWT.resolves({});
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addAngularWithJWT();
+
+    const args = angularService.addWithJWT.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding Angular with JWT failure', async () => {
+    const logger = stubLogger();
+    const angularService = stubAngularService();
+    angularService.addWithJWT.rejects({});
+    await wrap({ angularService, logger, project: createProjectToUpdate({ folder: 'path' }) });
+
+    await component.addAngularWithJWT();
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Angular with authentication JWT to project failed');
+  });
 });

@@ -5,11 +5,20 @@ describe('ServiceProjection', () => {
   it('should convert from Service to ServiceProjection', () => {
     expect(toServiceProjection(Service.AOP_LOGGING)).toEqual<ServiceProjection>('aop-logging');
     expect(toServiceProjection(Service.ANGULAR)).toEqual<ServiceProjection>('angular');
+    expect(toServiceProjection(Service.ANGULAR_WITH_JWT)).toEqual<ServiceProjection>('angular-with-jwt');
     expect(toServiceProjection(Service.DOWNLOAD)).toEqual<ServiceProjection>('download');
     expect(toServiceProjection(Service.INITIALIZATION)).toEqual<ServiceProjection>('initialization');
+    expect(toServiceProjection(Service.FLYWAY)).toEqual<ServiceProjection>('flyway');
+    expect(toServiceProjection(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS)).toEqual<ServiceProjection>(
+      'flyway-with-users-and-authority-changelogs'
+    );
     expect(toServiceProjection(Service.FRONTEND_MAVEN_PLUGIN)).toEqual<ServiceProjection>('frontend-maven-plugin');
     expect(toServiceProjection(Service.JACOCO_CHECK_MINIMAL_COVERAGE)).toEqual<ServiceProjection>('jacoco-check-minimal-coverage');
     expect(toServiceProjection(Service.JAVA_BASE)).toEqual<ServiceProjection>('java-base');
+    expect(toServiceProjection(Service.LIQUIBASE)).toEqual<ServiceProjection>('liquibase');
+    expect(toServiceProjection(Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS)).toEqual<ServiceProjection>(
+      'liquibase-with-users-and-authority-changelogs'
+    );
     expect(toServiceProjection(Service.LOGSTASH)).toEqual<ServiceProjection>('logstash');
     expect(toServiceProjection(Service.MAVEN_JAVA)).toEqual<ServiceProjection>('maven-java');
     expect(toServiceProjection(Service.MARIADB)).toEqual<ServiceProjection>('mariadb');
@@ -37,11 +46,20 @@ describe('ServiceProjection', () => {
   it('should convert from ServiceProjection to Service', () => {
     expect(fromServiceProjection('aop-logging')).toEqual<Service>(Service.AOP_LOGGING);
     expect(fromServiceProjection('angular')).toEqual<Service>(Service.ANGULAR);
+    expect(fromServiceProjection('angular-with-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(fromServiceProjection('download')).toEqual<Service>(Service.DOWNLOAD);
     expect(fromServiceProjection('initialization')).toEqual<Service>(Service.INITIALIZATION);
+    expect(fromServiceProjection('flyway')).toEqual<Service>(Service.FLYWAY);
+    expect(fromServiceProjection('flyway-with-users-and-authority-changelogs')).toEqual<Service>(
+      Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS
+    );
     expect(fromServiceProjection('frontend-maven-plugin')).toEqual<Service>(Service.FRONTEND_MAVEN_PLUGIN);
     expect(fromServiceProjection('jacoco-check-minimal-coverage')).toEqual<Service>(Service.JACOCO_CHECK_MINIMAL_COVERAGE);
     expect(fromServiceProjection('java-base')).toEqual<Service>(Service.JAVA_BASE);
+    expect(fromServiceProjection('liquibase')).toEqual<Service>(Service.LIQUIBASE);
+    expect(fromServiceProjection('liquibase-with-users-and-authority-changelogs')).toEqual<Service>(
+      Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS
+    );
     expect(fromServiceProjection('logstash')).toEqual<Service>(Service.LOGSTASH);
     expect(fromServiceProjection('maven-java')).toEqual<Service>(Service.MAVEN_JAVA);
     expect(fromServiceProjection('mariadb')).toEqual<Service>(Service.MARIADB);

@@ -3,11 +3,16 @@ import { Service } from '@/common/domain/Service';
 export type ServiceProjection =
   | 'aop-logging'
   | 'angular'
+  | 'angular-with-jwt'
   | 'download'
   | 'initialization'
+  | 'flyway'
+  | 'flyway-with-users-and-authority-changelogs'
   | 'frontend-maven-plugin'
   | 'jacoco-check-minimal-coverage'
   | 'java-base'
+  | 'liquibase'
+  | 'liquibase-with-users-and-authority-changelogs'
   | 'logstash'
   | 'maven-java'
   | 'mariadb'
@@ -35,16 +40,26 @@ export const toServiceProjection = (service: Service): ServiceProjection => {
       return 'aop-logging';
     case Service.ANGULAR:
       return 'angular';
+    case Service.ANGULAR_WITH_JWT:
+      return 'angular-with-jwt';
     case Service.DOWNLOAD:
       return 'download';
     case Service.INITIALIZATION:
       return 'initialization';
+    case Service.FLYWAY:
+      return 'flyway';
+    case Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS:
+      return 'flyway-with-users-and-authority-changelogs';
     case Service.FRONTEND_MAVEN_PLUGIN:
       return 'frontend-maven-plugin';
     case Service.JACOCO_CHECK_MINIMAL_COVERAGE:
       return 'jacoco-check-minimal-coverage';
     case Service.JAVA_BASE:
       return 'java-base';
+    case Service.LIQUIBASE:
+      return 'liquibase';
+    case Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS:
+      return 'liquibase-with-users-and-authority-changelogs';
     case Service.LOGSTASH:
       return 'logstash';
     case Service.MAVEN_JAVA:
@@ -94,16 +109,26 @@ export const fromServiceProjection = (serviceProjection: ServiceProjection): Ser
       return Service.AOP_LOGGING;
     case 'angular':
       return Service.ANGULAR;
+    case 'angular-with-jwt':
+      return Service.ANGULAR_WITH_JWT;
     case 'download':
       return Service.DOWNLOAD;
     case 'initialization':
       return Service.INITIALIZATION;
+    case 'flyway':
+      return Service.FLYWAY;
+    case 'flyway-with-users-and-authority-changelogs':
+      return Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS;
     case 'frontend-maven-plugin':
       return Service.FRONTEND_MAVEN_PLUGIN;
     case 'jacoco-check-minimal-coverage':
       return Service.JACOCO_CHECK_MINIMAL_COVERAGE;
     case 'java-base':
       return Service.JAVA_BASE;
+    case 'liquibase':
+      return Service.LIQUIBASE;
+    case 'liquibase-with-users-and-authority-changelogs':
+      return Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS;
     case 'logstash':
       return Service.LOGSTASH;
     case 'maven-java':

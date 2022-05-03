@@ -8,8 +8,14 @@ export const toService = (restServiceId: RestServiceId): Service => {
       return Service.AOP_LOGGING;
     case 'angular':
       return Service.ANGULAR;
+    case 'angular-jwt':
+      return Service.ANGULAR_WITH_JWT;
     case 'download':
       return Service.DOWNLOAD;
+    case 'flyway':
+      return Service.FLYWAY;
+    case 'flyway-user-and-authority-changelogs':
+      return Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS;
     case 'frontend-maven-plugin':
       return Service.FRONTEND_MAVEN_PLUGIN;
     case 'init':
@@ -18,6 +24,10 @@ export const toService = (restServiceId: RestServiceId): Service => {
       return Service.JACOCO_CHECK_MINIMAL_COVERAGE;
     case 'java-base':
       return Service.JAVA_BASE;
+    case 'liquibase':
+      return Service.LIQUIBASE;
+    case 'liquibase-user-and-authority-changelogs':
+      return Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS;
     case 'logstash':
       return Service.LOGSTASH;
     case 'mariadb':

@@ -42,7 +42,7 @@ export default defineComponent({
     const buildTool = ref<string>('maven');
     const server = ref<string>();
     const client = ref<string>();
-    const toast = ref(null);
+    const toast = ref<typeof ToastVue | undefined>(undefined);
 
     onMounted(() => {
       toastService.register(toast.value);

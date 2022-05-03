@@ -18,10 +18,10 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 @Tag(name = "Gitpod")
 class GitpodResource {
 
-  private final GitpodApplicationService GitpodApplicationService;
+  private final GitpodApplicationService gitpodApplicationService;
 
-  public GitpodResource(GitpodApplicationService GitpodApplicationService) {
-    this.GitpodApplicationService = GitpodApplicationService;
+  public GitpodResource(GitpodApplicationService gitpodApplicationService) {
+    this.gitpodApplicationService = gitpodApplicationService;
   }
 
   @Operation(summary = "Gitpod", description = "Init Gitpod configuration files")
@@ -30,6 +30,6 @@ class GitpodResource {
   @GeneratorStep(id = GeneratorAction.GITPOD)
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    GitpodApplicationService.init(project);
+    gitpodApplicationService.init(project);
   }
 }

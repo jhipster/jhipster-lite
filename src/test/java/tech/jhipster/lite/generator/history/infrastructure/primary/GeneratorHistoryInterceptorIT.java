@@ -7,6 +7,7 @@ import static tech.jhipster.lite.TestUtils.convertObjectToJsonBytes;
 import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,6 +34,22 @@ class GeneratorHistoryInterceptorIT {
     // Then
     String content = FileUtils.read(getPath(projectDTO.getFolder(), ".jhipster", "history.json"));
     assertThat(content).isEqualTo(getExpectedHistoryFileContent());
+  }
+
+  @Test
+  void shouldNotAddHistoryWhenException() throws Exception {
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+
+    mockMvc
+      .perform(
+        post("/api/servers/spring-boot/databases/postgresql")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(convertObjectToJsonBytes(projectDTO))
+      )
+      .andExpect(status().isBadRequest());
+
+    // Then
+    assertThat(FileUtils.exists(getPath(projectDTO.getFolder(), ".jhipster", "history.json"))).isFalse();
   }
 
   private String getExpectedHistoryFileContent() {

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.history.infrastructure.primary;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.history.application.GeneratorHistoryApplicationService;
@@ -20,7 +20,7 @@ public class GeneratorHistoryInterceptor {
     this.generatorHistoryApplicationService = generatorHistoryApplicationService;
   }
 
-  @After(value = "@annotation(generatorStep)")
+  @AfterReturning(value = "@annotation(generatorStep)")
   public void addInHistory(JoinPoint joinPoint, GeneratorStep generatorStep) {
     String serviceId = generatorStep.id();
     ProjectDTO projectDTO = (ProjectDTO) joinPoint.getArgs()[0];

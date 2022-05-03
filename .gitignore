@@ -142,6 +142,7 @@ Desktop.ini
 ######################
 # Others
 ######################
+infinitest.filters
 *.class
 *.*~
 *~

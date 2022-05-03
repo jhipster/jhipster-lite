@@ -1,10 +1,13 @@
 package tech.jhipster.lite.error.domain;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import tech.jhipster.lite.UnitTest;
 
 @UnitTest
@@ -144,5 +147,493 @@ class AssertTest {
   @Test
   void shouldValidateIsEqualTo() {
     assertThatCode(() -> Assert.isEqualTo("field", "radish", "radish")).doesNotThrowAnyException();
+  }
+
+  @Nested
+  @DisplayName("String")
+  class AssertStringTest {
+
+    @Test
+    void shouldNotValidateNullStringAsNotBlank() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (String) null).notBlank())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("(null)");
+    }
+
+    @Test
+    void shouldNotValidateBlankStringAsNotBlank() {
+      assertThatThrownBy(() -> Assert.field("fieldName", " ").notBlank())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("(blank)");
+    }
+
+    @Test
+    void shouldValidateStringWithValueAsNotBlank() {
+      assertThatCode(() -> Assert.field("fieldName", "value").notBlank()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateTooShortStringValue() {
+      assertThatThrownBy(() -> Assert.field("fieldName", "value").minLength(6))
+        .isExactlyInstanceOf(StringTooShortException.class)
+        .hasMessageContaining(String.valueOf(6))
+        .hasMessageContaining(String.valueOf("value".length()))
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateNullStringWithLength() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (String) null).minLength(1))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { -1, 0 })
+    void shouldValidateZeroOrNegativeMinLengthWithStringValue(int minLength) {
+      assertThatCode(() -> Assert.field("fieldName", "value").minLength(minLength)).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { -1, 0 })
+    void shouldValidateZeroOrNegativeMinLengthForNullInput(int minLength) {
+      assertThatCode(() -> Assert.field("fieldName", (String) null).minLength(minLength)).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 4, 5 })
+    void shouldValidateLongEnoughString(int minLength) {
+      assertThatCode(() -> Assert.field("fieldName", "value").minLength(minLength)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateTooLongStringValue() {
+      assertThatThrownBy(() -> Assert.field("fieldName", "value").maxLength(4))
+        .isExactlyInstanceOf(StringTooLongException.class)
+        .hasMessageContaining(String.valueOf(4))
+        .hasMessageContaining(String.valueOf("value".length()))
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldValidateNullInputUnderMaxLength() {
+      assertThatCode(() -> Assert.field("fieldName", (String) null).maxLength(5)).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 5, 6 })
+    void shouldValidateShortEnoughString(int maxLength) {
+      assertThatCode(() -> Assert.field("fieldName", "value").maxLength(maxLength)).doesNotThrowAnyException();
+    }
+  }
+
+  @Nested
+  @DisplayName("Integer")
+  class AssertIntegerTest {
+
+    @Test
+    void shouldNotValidateNullAsPositive() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Integer) null).positive())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateNegativeValueAsPositive() {
+      assertThatThrownBy(() -> Assert.field("fieldName", -4).positive())
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("0")
+        .hasMessageContaining("-4");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 0, 42 })
+    void shouldValidatePositiveValuesAsPositive(int value) {
+      assertThatCode(() -> Assert.field("fieldName", value).positive()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsOverMin() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Integer) null).min(0))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateValueUnderMin() {
+      assertThatThrownBy(() -> Assert.field("fieldName", 42).min(1337))
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("42")
+        .hasMessageContaining("1337");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 41, 42 })
+    void shouldValidateValueOverMin(int min) {
+      assertThatCode(() -> Assert.field("fieldName", 42).min(min)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsUnderMax() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Integer) null).max(42))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateValueOverMax() {
+      assertThatThrownBy(() -> Assert.field("fieldName", 42).max(12))
+        .isExactlyInstanceOf(NumberValueTooHighException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("12")
+        .hasMessageContaining("42");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 42, 43 })
+    void shouldValidateValueUnderMax(int max) {
+      assertThatCode(() -> Assert.field("fieldName", 42).max(max)).doesNotThrowAnyException();
+    }
+  }
+
+  @Nested
+  @DisplayName("Long")
+  class AssertLongTest {
+
+    @Test
+    void shouldNotValidateNullAsPositive() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Long) null).positive())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateNegativeValueAsPositive() {
+      assertThatThrownBy(() -> Assert.field("fieldName", -4L).positive())
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("0")
+        .hasMessageContaining("-4");
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = { 0, 42 })
+    void shouldValidatePositiveValuesAsPositive(long value) {
+      assertThatCode(() -> Assert.field("fieldName", value).positive()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsOverMin() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Long) null).min(0))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateValueUnderMin() {
+      assertThatThrownBy(() -> Assert.field("fieldName", 42L).min(1337))
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("42")
+        .hasMessageContaining("1337");
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = { 41, 42 })
+    void shouldValidateValueOverMin(long min) {
+      assertThatCode(() -> Assert.field("fieldName", 42L).min(min)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsUnderMax() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Long) null).max(42L))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateValueOverMax() {
+      assertThatThrownBy(() -> Assert.field("fieldName", 42L).max(12))
+        .isExactlyInstanceOf(NumberValueTooHighException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("12")
+        .hasMessageContaining("42");
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = { 42, 43 })
+    void shouldValidateValueUnderMax(long max) {
+      assertThatCode(() -> Assert.field("fieldName", 42L).max(max)).doesNotThrowAnyException();
+    }
+  }
+
+  @Nested
+  @DisplayName("Float")
+  class AssertFloatTest {
+
+    @Test
+    void shouldNotValidateNullAsPositive() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Float) null).positive())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateNegativeValueAsPositive() {
+      assertThatThrownBy(() -> Assert.field("fieldName", -4F).positive())
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("0")
+        .hasMessageContaining("-4");
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { 0, 42 })
+    void shouldValidatePositiveValuesAsPositive(float value) {
+      assertThatCode(() -> Assert.field("fieldName", value).positive()).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { -0.1F, 0 })
+    void shouldNotValidateNegativeAndZeroValueAsStricltyPositive(float value) {
+      assertThatThrownBy(() -> Assert.field("fieldName", value).strictlyPositive())
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("0")
+        .hasMessageContaining(String.valueOf(value));
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { 0.1F, 1 })
+    void shouldValidatePositiveValueAsStricltyPositive(float value) {
+      assertThatCode(() -> Assert.field("fieldName", value).strictlyPositive()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsOverMin() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Float) null).min(0))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateValueUnderMin() {
+      assertThatThrownBy(() -> Assert.field("fieldName", 42F).min(1337))
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("42")
+        .hasMessageContaining("1337");
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { 41, 42 })
+    void shouldValidateValueOverMin(float min) {
+      assertThatCode(() -> Assert.field("fieldName", 42F).min(min)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsOverFloor() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Float) null).over(42))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { 41.9F, 42 })
+    void shouldNotValidateValueUnderFloor(float value) {
+      assertThatThrownBy(() -> Assert.field("fieldName", value).over(42))
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining(String.valueOf(value))
+        .hasMessageContaining("42");
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { 42.1F, 43 })
+    void shouldValidateValueOverFloor(float value) {
+      assertThatCode(() -> Assert.field("fieldName", value).over(42)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsUnderMax() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Float) null).max(42))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateValueOverMax() {
+      assertThatThrownBy(() -> Assert.field("fieldName", 42F).max(12))
+        .isExactlyInstanceOf(NumberValueTooHighException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("12")
+        .hasMessageContaining("42");
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { 42, 43 })
+    void shouldValidateValueUnderMax(float max) {
+      assertThatCode(() -> Assert.field("fieldName", 42F).max(max)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsUnderCeil() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Float) null).under(42))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { 42, 42.5F })
+    void shouldNotValidateValueOverCeil(float value) {
+      assertThatThrownBy(() -> Assert.field("fieldName", value).under(42))
+        .isExactlyInstanceOf(NumberValueTooHighException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining(String.valueOf(value))
+        .hasMessageContaining("42");
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = { 41, 41.9F })
+    void shouldValidateValueUnderCeil(float value) {
+      assertThatCode(() -> Assert.field("fieldName", value).under(42)).doesNotThrowAnyException();
+    }
+  }
+
+  @Nested
+  @DisplayName("Double")
+  class AssertDoubleTest {
+
+    @Test
+    void shouldNotValidateNullAsPositive() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Double) null).positive())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateNegativeValueAsPositive() {
+      assertThatThrownBy(() -> Assert.field("fieldName", -4D).positive())
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("0")
+        .hasMessageContaining("-4");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 0, 42 })
+    void shouldValidatePositiveValuesAsPositive(double value) {
+      assertThatCode(() -> Assert.field("fieldName", value).positive()).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { -0.1F, 0 })
+    void shouldNotValidateNegativeAndZeroValueAsStricltyPositive(double value) {
+      assertThatThrownBy(() -> Assert.field("fieldName", value).strictlyPositive())
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("0")
+        .hasMessageContaining(String.valueOf(value));
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 0.1F, 1 })
+    void shouldValidatePositiveValueAsStricltyPositive(double value) {
+      assertThatCode(() -> Assert.field("fieldName", value).strictlyPositive()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsOverMin() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Double) null).min(0))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateValueUnderMin() {
+      assertThatThrownBy(() -> Assert.field("fieldName", 42D).min(1337))
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("42")
+        .hasMessageContaining("1337");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 41, 42 })
+    void shouldValidateValueOverMin(double min) {
+      assertThatCode(() -> Assert.field("fieldName", 42D).min(min)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsOverFloor() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Double) null).over(42))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 41.9D, 42 })
+    void shouldNotValidateValueUnderFloor(double value) {
+      assertThatThrownBy(() -> Assert.field("fieldName", value).over(42))
+        .isExactlyInstanceOf(NumberValueTooLowException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining(String.valueOf(value))
+        .hasMessageContaining("42");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 42.1D, 43 })
+    void shouldValidateValueOverFloor(double value) {
+      assertThatCode(() -> Assert.field("fieldName", value).over(42)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsUnderMax() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Double) null).max(42))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateValueOverMax() {
+      assertThatThrownBy(() -> Assert.field("fieldName", 42D).max(12))
+        .isExactlyInstanceOf(NumberValueTooHighException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("12")
+        .hasMessageContaining("42");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 42, 43 })
+    void shouldValidateValueUnderMax(double max) {
+      assertThatCode(() -> Assert.field("fieldName", 42D).max(max)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsUnderCeil() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Double) null).under(42))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 42, 42.5F })
+    void shouldNotValidateValueOverCeil(double value) {
+      assertThatThrownBy(() -> Assert.field("fieldName", value).under(42))
+        .isExactlyInstanceOf(NumberValueTooHighException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining(String.valueOf(value))
+        .hasMessageContaining("42");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 41, 41.9F })
+    void shouldValidateValueUnderCeil(double value) {
+      assertThatCode(() -> Assert.field("fieldName", value).under(42)).doesNotThrowAnyException();
+    }
   }
 }

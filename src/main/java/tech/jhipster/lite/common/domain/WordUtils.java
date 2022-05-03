@@ -43,8 +43,9 @@ public class WordUtils {
   }
 
   public static String indent(int times, int spaceNumber) {
-    Assert.notLowerThan("times", times, 1);
-    Assert.notLowerThan("spaceNumber", spaceNumber, 1);
+    Assert.field("times", times).min(1);
+    Assert.field("spaceNumber", spaceNumber).min(1);
+
     return " ".repeat(times * spaceNumber);
   }
 }

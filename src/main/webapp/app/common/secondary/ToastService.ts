@@ -1,17 +1,18 @@
 import { NotificationService } from '@/common/domain/NotificationService';
+import { ToastVue } from '@/common/primary/toast';
 
 export default class ToastService implements NotificationService {
-  toastRef: any;
+  toastRef: typeof ToastVue | undefined;
 
-  register(toast: any) {
+  register(toast: typeof ToastVue) {
     this.toastRef = toast;
   }
 
   success(message: string): void {
-    this.toastRef.success(message);
+    this.toastRef?.success(message);
   }
 
   error(message: string): void {
-    this.toastRef.error(message);
+    this.toastRef?.error(message);
   }
 }

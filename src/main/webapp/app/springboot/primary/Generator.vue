@@ -139,7 +139,6 @@
                         type="radio"
                         name="setup"
                         value="codespaces"
-                        checked
                       />
                       <label for="setup-codespaces" role="button"> Codespaces </label>
                     </div>

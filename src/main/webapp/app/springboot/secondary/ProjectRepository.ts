@@ -22,6 +22,14 @@ export default class ProjectRepository implements ProjectService {
     await this.postAndGetHistory('api/build-tools/maven', toRestProject(project));
   }
 
+  async addCodespacesSetup(project: Project): Promise<void> {
+    await this.postAndGetHistory('api/developer-tools/codespaces', toRestProject(project));
+  }
+
+  async addGitpodSetup(project: Project): Promise<void> {
+    await this.postAndGetHistory('api/developer-tools/gitpod', toRestProject(project));
+  }
+
   async addJaCoCo(project: Project): Promise<void> {
     await this.postAndGetHistory('api/servers/java/jacoco-minimum-coverage', toRestProject(project));
   }

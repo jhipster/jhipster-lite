@@ -74,6 +74,7 @@ export default class SpringBootRepository implements SpringBootService {
   async addMongoDB(project: Project): Promise<void> {
     await this.postAndGetHistory('/api/servers/spring-boot/databases/mongodb', toRestProject(project));
   }
+
   async addSpringBootFlywayInit(project: Project): Promise<void> {
     await this.postAndGetHistory('/api/servers/spring-boot/database-migration-tools/flyway', toRestProject(project));
   }

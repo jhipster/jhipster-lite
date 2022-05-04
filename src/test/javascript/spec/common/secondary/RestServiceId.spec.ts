@@ -5,11 +5,16 @@ describe('RestServiceId', () => {
   it('should convert to Service', () => {
     expect(toService('aop-logging')).toEqual<Service>(Service.AOP_LOGGING);
     expect(toService('angular')).toEqual<Service>(Service.ANGULAR);
+    expect(toService('angular-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(toService('download')).toEqual<Service>(Service.DOWNLOAD);
+    expect(toService('flyway')).toEqual<Service>(Service.FLYWAY);
+    expect(toService('flyway-user-and-authority-changelogs')).toEqual<Service>(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS);
     expect(toService('frontend-maven-plugin')).toEqual<Service>(Service.FRONTEND_MAVEN_PLUGIN);
     expect(toService('init')).toEqual<Service>(Service.INITIALIZATION);
     expect(toService('jacoco-check-min-coverage')).toEqual<Service>(Service.JACOCO_CHECK_MINIMAL_COVERAGE);
     expect(toService('java-base')).toEqual<Service>(Service.JAVA_BASE);
+    expect(toService('liquibase')).toEqual<Service>(Service.LIQUIBASE);
+    expect(toService('liquibase-user-and-authority-changelogs')).toEqual<Service>(Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS);
     expect(toService('logstash')).toEqual<Service>(Service.LOGSTASH);
     expect(toService('mariadb')).toEqual<Service>(Service.MARIADB);
     expect(toService('maven-java')).toEqual<Service>(Service.MAVEN_JAVA);

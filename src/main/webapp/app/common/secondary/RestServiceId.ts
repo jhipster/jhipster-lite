@@ -2,61 +2,40 @@ import { Service } from '@/common/domain/Service';
 
 export type RestServiceId = string;
 
-export const toService = (restServiceId: RestServiceId): Service => {
-  switch (restServiceId) {
-    case 'aop-logging':
-      return Service.AOP_LOGGING;
-    case 'angular':
-      return Service.ANGULAR;
-    case 'download':
-      return Service.DOWNLOAD;
-    case 'frontend-maven-plugin':
-      return Service.FRONTEND_MAVEN_PLUGIN;
-    case 'init':
-      return Service.INITIALIZATION;
-    case 'jacoco-check-min-coverage':
-      return Service.JACOCO_CHECK_MINIMAL_COVERAGE;
-    case 'java-base':
-      return Service.JAVA_BASE;
-    case 'logstash':
-      return Service.LOGSTASH;
-    case 'mariadb':
-      return Service.MARIADB;
-    case 'maven-java':
-      return Service.MAVEN_JAVA;
-    case 'mongodb':
-      return Service.MONGODB;
-    case 'mongock':
-      return Service.MONGOCK;
-    case 'mysql':
-      return Service.MYSQL;
-    case 'postgresql':
-      return Service.POSTGRESQL;
-    case 'sonar-java-backend':
-      return Service.SONAR_JAVA_BACKEND;
-    case 'sonar-java-backend-and-frontend':
-      return Service.SONAR_JAVA_BACKEND_AND_FRONTEND;
-    case 'springboot':
-      return Service.SPRINGBOOT;
-    case 'springboot-jwt':
-      return Service.SPRINGBOOT_JWT;
-    case 'springboot-jwt-basic-auth':
-      return Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION;
-    case 'springboot-actuator':
-      return Service.SPRINGBOOT_ACTUATOR;
-    case 'springboot-tomcat':
-      return Service.SPRINGBOOT_MVC_WITH_TOMCAT;
-    case 'springboot-webflux-netty':
-      return Service.SPRINGBOOT_WEBFLUX_NETTY;
-    case 'react':
-      return Service.REACT;
-    case 'react-styled':
-      return Service.REACT_STYLED;
-    case 'vue':
-      return Service.VUE;
-    case 'vue-styled':
-      return Service.VUE_STYLED;
-    default:
-      return Service.UNKNOWN;
-  }
+const SERVICES: Record<string, Service> = {
+  'aop-logging': Service.AOP_LOGGING,
+  angular: Service.ANGULAR,
+  'angular-jwt': Service.ANGULAR_WITH_JWT,
+  download: Service.DOWNLOAD,
+  flyway: Service.FLYWAY,
+  'flyway-user-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
+  'frontend-maven-plugin': Service.FRONTEND_MAVEN_PLUGIN,
+  init: Service.INITIALIZATION,
+  'jacoco-check-min-coverage': Service.JACOCO_CHECK_MINIMAL_COVERAGE,
+  'java-base': Service.JAVA_BASE,
+  liquibase: Service.LIQUIBASE,
+  'liquibase-user-and-authority-changelogs': Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
+  logstash: Service.LOGSTASH,
+  'maven-java': Service.MAVEN_JAVA,
+  mariadb: Service.MARIADB,
+  mysql: Service.MYSQL,
+  mongodb: Service.MONGODB,
+  mongock: Service.MONGOCK,
+  postgresql: Service.POSTGRESQL,
+  'sonar-java-backend': Service.SONAR_JAVA_BACKEND,
+  'sonar-java-backend-and-frontend': Service.SONAR_JAVA_BACKEND_AND_FRONTEND,
+  springboot: Service.SPRINGBOOT,
+  'springboot-actuator': Service.SPRINGBOOT_ACTUATOR,
+  'springboot-jwt': Service.SPRINGBOOT_JWT,
+  'springboot-jwt-basic-auth': Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION,
+  'springboot-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,
+  'springboot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
+  react: Service.REACT,
+  'react-styled': Service.REACT_STYLED,
+  vue: Service.VUE,
+  'vue-styled': Service.VUE_STYLED,
+  unknown: Service.UNKNOWN,
 };
+
+export const toService = (restServiceId: RestServiceId): Service =>
+  Object.keys(SERVICES).includes(restServiceId) ? SERVICES[restServiceId] : Service.UNKNOWN;

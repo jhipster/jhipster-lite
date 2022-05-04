@@ -38,9 +38,18 @@ export default defineComponent({
       }
     };
 
+    const addAngularWithJWT = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await angularService
+          .addWithJWT(toProject(props.project as ProjectToUpdate))
+          .catch(error => logger.error('Adding Angular with authentication JWT to project failed', error));
+      }
+    };
+
     return {
       selectorPrefix,
       addAngular,
+      addAngularWithJWT,
       props,
     };
   },

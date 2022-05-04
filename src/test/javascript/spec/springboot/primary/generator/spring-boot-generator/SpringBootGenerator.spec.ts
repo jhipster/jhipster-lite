@@ -526,6 +526,162 @@ describe('SpringBootGenerator', () => {
   });
 
   describe('Databases migration', () => {
+    it('should not add SpringBoot Database Migration Flyway when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootFlywayInit.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addFlyway();
+
+      expect(springBootService.addSpringBootFlywayInit.called).toBe(false);
+    });
+
+    it('should add SpringBoot Database Migration Flyway when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootFlywayInit.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addFlyway();
+
+      const args = springBootService.addSpringBootFlywayInit.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding SpringBoot Database Migration Flyway failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootFlywayInit.rejects({});
+      await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addFlyway();
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding SpringBoot Database Migration Flyway to project failed');
+    });
+
+    it('should not add Flyway User and Authority changelogs when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootFlywayUser.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addFlywayUser();
+
+      expect(springBootService.addSpringBootFlywayUser.called).toBe(false);
+    });
+
+    it('should add Flyway User and Authority changelogs when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootFlywayUser.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addFlywayUser();
+
+      const args = springBootService.addSpringBootFlywayUser.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding Flyway User and Authority changelogs failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootFlywayUser.rejects({});
+      await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addFlywayUser();
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding Flyway with Users and Authority changelogs failed');
+    });
+
+    it('should not add SpringBoot Database Migration Liquibase when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootLiquibaseInit.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addLiquibase();
+
+      expect(springBootService.addSpringBootLiquibaseInit.called).toBe(false);
+    });
+
+    it('should add SpringBoot Database Migration Liquibase when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootLiquibaseInit.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addLiquibase();
+
+      const args = springBootService.addSpringBootLiquibaseInit.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding SpringBoot Database Migration Liquibase failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootLiquibaseInit.rejects({});
+      await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addLiquibase();
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding SpringBoot Database Migration Liquibase to project failed');
+    });
+
+    it('should not add Liquibase User and Authority changelogs when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootLiquibaseUser.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addLiquibaseUser();
+
+      expect(springBootService.addSpringBootLiquibaseUser.called).toBe(false);
+    });
+
+    it('should add Liquibase User and Authority changelogs when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootLiquibaseUser.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addLiquibaseUser();
+
+      const args = springBootService.addSpringBootLiquibaseUser.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+    });
+
+    it('should handle error on adding Liquibase with Users and Authority changelogs failure', async () => {
+      const logger = stubLogger();
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootLiquibaseUser.rejects({});
+      await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addLiquibaseUser();
+
+      const [message] = logger.error.getCall(0).args;
+      expect(message).toBe('Adding Liquibase with Users and Authority changelogs failed');
+    });
+
     it('should not add SpringBoot Database Migration Mongock when project path is not filled', async () => {
       const springBootService = stubSpringBootService();
       springBootService.addSpringBootMongockInit.resolves({});

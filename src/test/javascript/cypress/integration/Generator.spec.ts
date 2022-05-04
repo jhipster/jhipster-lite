@@ -49,12 +49,17 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-mysql-button')).contains('MySQL');
     cy.get(springBootGeneratorSelector('add-mariadb-button')).contains('MariaDB');
     cy.get(springBootGeneratorSelector('add-mongodb-button')).contains('MongoDB');
+    cy.get(springBootGeneratorSelector('add-flyway-button')).contains('Flyway');
+    cy.get(springBootGeneratorSelector('add-flyway-with-users-and-authority-changelogs-button')).contains('Flyway with users');
+    cy.get(springBootGeneratorSelector('add-liquibase-button')).contains('Liquibase');
+    cy.get(springBootGeneratorSelector('add-liquibase-with-users-and-authority-changelogs-button')).contains('Liquibase with users');
     cy.get(springBootGeneratorSelector('add-mongock-button')).contains('Mongock');
   });
 
   it('should display angular', () => {
     cy.get(generatorSelector('option-angular')).check();
     cy.get(angularGeneratorSelector('add-angular-button')).contains('Angular');
+    cy.get(angularGeneratorSelector('add-angular-with-jwt-button')).contains('Angular with JWT');
   });
 
   it('should display react', () => {

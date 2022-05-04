@@ -170,6 +170,38 @@ export default defineComponent({
       }
     };
 
+    const addFlyway = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootFlywayInit(toProject(props.project as ProjectToUpdate))
+          .catch(error => logger.error('Adding SpringBoot Database Migration Flyway to project failed', error));
+      }
+    };
+
+    const addFlywayUser = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootFlywayUser(toProject(props.project as ProjectToUpdate))
+          .catch(error => logger.error('Adding Flyway with Users and Authority changelogs failed', error));
+      }
+    };
+
+    const addLiquibase = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootLiquibaseInit(toProject(props.project as ProjectToUpdate))
+          .catch(error => logger.error('Adding SpringBoot Database Migration Liquibase to project failed', error));
+      }
+    };
+
+    const addLiquibaseUser = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootLiquibaseUser(toProject(props.project as ProjectToUpdate))
+          .catch(error => logger.error('Adding Liquibase with Users and Authority changelogs failed', error));
+      }
+    };
+
     const addMongock = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -196,6 +228,10 @@ export default defineComponent({
       addMySQL,
       addMariaDB,
       addMongoDB,
+      addFlyway,
+      addFlywayUser,
+      addLiquibase,
+      addLiquibaseUser,
       addMongock,
     };
   },

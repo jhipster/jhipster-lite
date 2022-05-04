@@ -11,7 +11,7 @@ export default class ProjectRepository implements ProjectService {
   constructor(private axiosHttp: AxiosHttp, private projectHistoryService: ProjectHistoryService) {}
 
   private async postAndGetHistory(url: string, restProject: RestProject): Promise<void> {
-    this.axiosHttp.post(url, restProject).then(() => this.projectHistoryService.get(restProject.folder));
+    await this.axiosHttp.post(url, restProject).then(() => this.projectHistoryService.get(restProject.folder));
   }
 
   async init(project: Project): Promise<void> {

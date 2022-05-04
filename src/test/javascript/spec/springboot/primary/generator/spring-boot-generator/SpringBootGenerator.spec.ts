@@ -6,6 +6,8 @@ import { Logger } from '@/common/domain/Logger';
 import { SpringBootService } from '@/springboot/domain/SpringBootService';
 import { stubSpringBootService } from '../../../domain/SpringBootService.fixture';
 import { SpringBootGeneratorVue } from '@/springboot/primary/generator/spring-boot-generator';
+import { NotificationService } from '@/common/domain/NotificationService';
+import { stubNotificationService } from '../../../../common/domain/NotificationService.fixture';
 
 let wrapper: VueWrapper;
 let component: any;
@@ -14,13 +16,15 @@ interface WrapperOptions {
   springBootService: SpringBootService;
   logger: Logger;
   project: ProjectToUpdate;
+  toastService: NotificationService;
 }
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { springBootService, logger, project }: WrapperOptions = {
+  const { springBootService, logger, project, toastService }: WrapperOptions = {
     springBootService: stubSpringBootService(),
     logger: stubLogger(),
     project: createProjectToUpdate(),
+    toastService: stubNotificationService(),
     ...wrapperOptions,
   };
   wrapper = shallowMount(SpringBootGeneratorVue, {
@@ -31,6 +35,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       provide: {
         springBootService,
         logger,
+        toastService,
       },
     },
   });

@@ -14,6 +14,7 @@ import { FileDownloader } from '@/common/primary/FileDownloader';
 import { useHistoryStore } from '@/common/primary/HistoryStore';
 import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persist';
+import ToastService from './common/secondary/ToastService';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -35,6 +36,7 @@ const angularRepository = new AngularRepository(axiosHttp, projectHistoryReposit
 const reactRepository = new ReactRepository(axiosHttp, projectHistoryRepository);
 const vueRepository = new VueRepository(axiosHttp, projectHistoryRepository);
 const springBootRepository = new SpringBootRepository(axiosHttp, projectHistoryRepository);
+const toastService = new ToastService();
 
 app.provide('angularService', angularRepository);
 app.provide('fileDownloader', fileDownloader);
@@ -46,6 +48,7 @@ app.provide('projectHistoryService', projectHistoryRepository);
 app.provide('reactService', reactRepository);
 app.provide('springBootService', springBootRepository);
 app.provide('vueService', vueRepository);
+app.provide('toastService', toastService);
 app.use(router);
 
 app.mount('#app');

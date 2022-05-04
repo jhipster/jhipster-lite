@@ -65,6 +65,7 @@ public class VueDomainService implements VueService {
     addScripts(project);
     addJestSonar(project);
     addViteConfigFiles(project);
+    addAxios(project);
     addRootFiles(project);
     addAppFiles(project);
     addRouter(project);
@@ -84,6 +85,28 @@ public class VueDomainService implements VueService {
     Vue.PINIA_PROVIDERS.forEach(providerLine ->
       addNewNeedleLineToFile(project, providerLine, DESTINATION_APP, MAIN_TYPESCRIPT, NEEDLE_PROVIDER)
     );
+  }
+
+  public void addAxios(Project project) {
+    addAxiosDependency(project);
+    addAxiosFile(project);
+    addAxiosTestFiles(project);
+  }
+
+  private void addAxiosTestFiles(Project project) {
+    String destinationAxiosTest = "src/test/javascript/spec/http";
+    String sourceAxiosTest = "test/spec/http";
+    projectRepository.template(project, getPath(SOURCE, sourceAxiosTest), "AxiosHttp.spec.ts", destinationAxiosTest);
+    projectRepository.template(project, getPath(SOURCE, sourceAxiosTest), "AxiosHttpStub.ts", destinationAxiosTest);
+    projectRepository.template(project, getPath(SOURCE, sourceAxiosTest), "AxiosStub.ts", destinationAxiosTest);
+  }
+
+  private void addAxiosDependency(Project project) {
+    Vue.axiosDependency().forEach(dependency -> addDependency(project, dependency));
+  }
+
+  private void addAxiosFile(Project project) {
+    projectRepository.template(project, getPath(SOURCE, "webapp/app/http"), "AxiosHttp.ts", "src/main/webapp/app/http");
   }
 
   public void addDevDependencies(Project project) {

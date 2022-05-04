@@ -27,6 +27,7 @@ class VueApplicationServiceIT {
     VueAssert.assertAppFiles(project);
     VueAssert.assertRouterFiles(project);
     VueAssert.assertAppWithoutCss(project);
+    VueAssert.assertAxiosFile(project);
 
     VueAssert.assertJestSonar(project);
   }

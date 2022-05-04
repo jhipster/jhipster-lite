@@ -132,7 +132,7 @@ class VueDomainServiceTest {
 
     vueDomainService.addDevDependencies(project);
 
-    verify(npmService, times(17)).addDevDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(19)).addDevDependency(any(Project.class), anyString(), anyString());
   }
 
   @Test
@@ -220,5 +220,27 @@ class VueDomainServiceTest {
     vueDomainService.addPinia(project);
 
     verify(projectRepository, times(5)).replaceText(eq(project), anyString(), eq("main.ts"), anyString(), anyString());
+  }
+
+  @Test
+  void shouldAddAxiosDependency() {
+    Project project = tmpProjectWithPackageJson();
+    final String version = "0.0.0";
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of(version));
+
+    vueDomainService.addAxios(project);
+
+    verify(npmService).addDependency(project, "axios", version);
+  }
+
+  @Test
+  void shouldAddAxiosFile() {
+    Project project = tmpProjectWithPackageJson();
+    final String version = "0.0.0";
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of(version));
+
+    vueDomainService.addAxios(project);
+
+    verify(projectRepository, times(4)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

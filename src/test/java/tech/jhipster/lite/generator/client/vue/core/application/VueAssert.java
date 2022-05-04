@@ -20,6 +20,7 @@ public class VueAssert {
     Vue.dependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
     Vue.routerDependencies().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
     Vue.devDependencies().forEach(devDependency -> assertFileContent(project, PACKAGE_JSON, DQ + devDependency + DQ));
+    Vue.axiosDependency().forEach(dependency -> assertFileContent(project, PACKAGE_JSON, DQ + dependency + DQ));
   }
 
   public static void assertPiniaDependency(Project project) {
@@ -82,5 +83,12 @@ public class VueAssert {
       PACKAGE_JSON,
       List.of("\"jestSonar\": {", "\"reportPath\": \"target/test-results/jest\",", "\"reportFile\": \"TESTS-results-sonar.xml\"", "}")
     );
+  }
+
+  public static void assertAxiosFile(Project project) {
+    assertFileExist(project, "src/main/webapp/app/http/AxiosHttp.ts");
+    assertFileExist(project, "src/test/javascript/spec/http/AxiosHttp.spec.ts");
+    assertFileExist(project, "src/test/javascript/spec/http/AxiosHttpStub.ts");
+    assertFileExist(project, "src/test/javascript/spec/http/AxiosStub.ts");
   }
 }

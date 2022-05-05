@@ -231,7 +231,6 @@ elif [[ $application == 'kafkaapp' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/brokers/kafka"
-  callApi "/api/servers/spring-boot/brokers/kafka/dummy-producer-consumer"
   callApi "/api/servers/spring-boot/brokers/kafka/akhq"
 
 elif [[ $application == 'reactiveapp' ]]; then

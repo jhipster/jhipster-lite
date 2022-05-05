@@ -42,7 +42,11 @@ export default defineComponent({
       if (props.project.folder !== '') {
         await angularService
           .addWithJWT(toProject(props.project as ProjectToUpdate))
-          .catch(error => logger.error('Adding Angular with authentication JWT to project failed', error));
+          .then(() => toastService.success('Angular with authentication JWT successfully added'))
+          .catch(error => {
+            logger.error('Adding Angular with authentication JWT to project failed', error);
+            toastService.error('Adding Angular with authentication JWT to project failed ' + error);
+          });
       }
     };
 

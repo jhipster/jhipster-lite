@@ -174,7 +174,11 @@ export default defineComponent({
       if (props.project.folder !== '') {
         await springBootService
           .addSpringBootFlywayInit(toProject(props.project as ProjectToUpdate))
-          .catch(error => logger.error('Adding SpringBoot Database Migration Flyway to project failed', error));
+          .then(() => toastService.success('SpringBoot Database Migration Flyway successfully added'))
+          .catch(error => {
+            logger.error('Adding SpringBoot Database Migration Flyway to project failed', error);
+            toastService.error('Adding SpringBoot Database Migration Flyway to project failed ' + error);
+          });
       }
     };
 
@@ -182,7 +186,11 @@ export default defineComponent({
       if (props.project.folder !== '') {
         await springBootService
           .addSpringBootFlywayUser(toProject(props.project as ProjectToUpdate))
-          .catch(error => logger.error('Adding Flyway with Users and Authority changelogs failed', error));
+          .then(() => toastService.success('SpringBoot Database Migration Flyway with Users and Authority changelogs successfully added'))
+          .catch(error => {
+            logger.error('Adding Flyway with Users and Authority changelogs failed', error);
+            toastService.error('Adding Flyway with Users and Authority changelogs failed ' + error);
+          });
       }
     };
 
@@ -190,7 +198,11 @@ export default defineComponent({
       if (props.project.folder !== '') {
         await springBootService
           .addSpringBootLiquibaseInit(toProject(props.project as ProjectToUpdate))
-          .catch(error => logger.error('Adding SpringBoot Database Migration Liquibase to project failed', error));
+          .then(() => toastService.success('SpringBoot Database Migration Liquibase successfully added'))
+          .catch(error => {
+            logger.error('Adding SpringBoot Database Migration Liquibase to project failed', error);
+            toastService.error('Adding SpringBoot Database Migration Liquibase to project failed ' + error);
+          });
       }
     };
 
@@ -198,7 +210,13 @@ export default defineComponent({
       if (props.project.folder !== '') {
         await springBootService
           .addSpringBootLiquibaseUser(toProject(props.project as ProjectToUpdate))
-          .catch(error => logger.error('Adding Liquibase with Users and Authority changelogs failed', error));
+          .then(() =>
+            toastService.success('SpringBoot Database Migration Liquibase with Users and Authority changelogs successfully added')
+          )
+          .catch(error => {
+            logger.error('Adding Liquibase with Users and Authority changelogs failed', error);
+            toastService.error('Adding Liquibase with Users and Authority changelogs failed ' + error);
+          });
       }
     };
 

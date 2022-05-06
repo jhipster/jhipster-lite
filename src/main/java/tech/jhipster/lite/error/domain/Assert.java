@@ -1,5 +1,6 @@
 package tech.jhipster.lite.error.domain;
 
+import java.time.Instant;
 import java.util.Collection;
 
 /**
@@ -190,6 +191,31 @@ public class Assert {
    */
   public static DoubleAsserter field(String field, Double input) {
     return new DoubleAsserter(field, input);
+  }
+
+  /**
+   * Create a fluent asserter for an Instant
+   *
+   * <p>
+   * Usage:
+   *
+   * <code>
+   * <pre>
+   * Assert.field("date", date)
+   *   .inPast()
+   *   .after(otherDate);
+   * </pre>
+   * </code>
+   * </p>
+   *
+   * @param field
+   *          name of the field to check (will be displayed in exception message)
+   * @param input
+   *          value to check
+   * @return An {@link InstantAsserter} for this field and value
+   */
+  public static InstantAsserter field(String field, Instant input) {
+    return new InstantAsserter(field, input);
   }
 
   /**
@@ -814,6 +840,169 @@ public class Assert {
 
     private NumberValueTooHighException tooHigh(double ceil) {
       return NumberValueTooHighException.builder().field(field).maxValue(ceil).value(value).build();
+    }
+  }
+
+  /**
+   * Asserter dedicated to instant value
+   */
+  public static class InstantAsserter {
+
+    private static final String OTHER_FIELD_NAME = "other";
+
+    private final String field;
+    private final Instant value;
+
+    private InstantAsserter(String field, Instant value) {
+      this.field = field;
+      this.value = value;
+    }
+
+    /**
+     * Ensure that the given instant is in the past or at current Instant (considering this method invocation time)
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input value is null
+     * @throws NotPastTimeException
+     *           if the date is not in the past
+     */
+    public InstantAsserter inPast() {
+      notNull();
+
+      if (isInFuture()) {
+        throw new NotPastTimeException(field);
+      }
+
+      return this;
+    }
+
+    private boolean isInFuture() {
+      return value.compareTo(Instant.now()) >= 0;
+    }
+
+    /**
+     * Ensure that the given instant is in the future or at current Instant (considering this method invocation time)
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input value is null
+     * @throws NotFutureTimeException
+     *           if the date is not in the future
+     */
+    public InstantAsserter inFuture() {
+      notNull();
+
+      if (isInPast()) {
+        throw new NotFutureTimeException(field);
+      }
+
+      return this;
+    }
+
+    private boolean isInPast() {
+      return value.compareTo(Instant.now()) <= 0;
+    }
+
+    /**
+     * Ensure that the input instant is after the given instant
+     *
+     * @param other
+     *          exclusive after instant
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if input or other are null
+     * @throws NotAfterTimeException
+     *           if the input instant is not after the other instant
+     */
+    public InstantAsserter after(Instant other) {
+      notNull();
+      Assert.notNull(OTHER_FIELD_NAME, other);
+
+      if (value.compareTo(other) <= 0) {
+        throw NotAfterTimeException.notStrictlyAfter(field, other);
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that the input instant is after the given instant
+     *
+     * @param other
+     *          inclusive after instant
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if input or other are null
+     * @throws NotAfterTimeException
+     *           if the input instant is not after the other instant
+     */
+    public InstantAsserter afterOrAt(Instant other) {
+      notNull();
+      Assert.notNull(OTHER_FIELD_NAME, other);
+
+      if (value.compareTo(other) < 0) {
+        throw NotAfterTimeException.notAfter(field, other);
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that the input instant is before the given instant
+     *
+     * @param other
+     *          exclusive before instant
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if input or other are null
+     * @throws NotBeforeTimeException
+     *           if the input instant is not before the other instant
+     */
+    public InstantAsserter before(Instant other) {
+      notNull();
+      Assert.notNull(OTHER_FIELD_NAME, other);
+
+      if (value.compareTo(other) >= 0) {
+        throw NotBeforeTimeException.notStrictlyBefore(field, other);
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that the input instant is before the given instant
+     *
+     * @param other
+     *          inclusive before instant
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if input or other are null
+     * @throws NotBeforeTimeException
+     *           if the input instant is not before the other instant
+     */
+    public InstantAsserter beforeOrAt(Instant other) {
+      notNull();
+      Assert.notNull(OTHER_FIELD_NAME, other);
+
+      if (value.compareTo(other) > 0) {
+        throw NotBeforeTimeException.notBefore(field, other);
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that the instant is not null
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the instant is null
+     */
+    public InstantAsserter notNull() {
+      Assert.notNull(field, value);
+
+      return this;
     }
   }
 }

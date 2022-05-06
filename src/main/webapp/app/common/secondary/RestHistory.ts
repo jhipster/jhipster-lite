@@ -1,10 +1,9 @@
-import { RestServiceId, toService } from '@/common/secondary/RestServiceId';
+import { toService } from '@/common/secondary/RestServiceId';
 import { History } from '@/common/domain/History';
+import { RestService } from '@/common/secondary/RestService';
 
-export interface RestHistory {
-  serviceIds: RestServiceId[];
-}
+export type RestHistory = RestService[];
 
 export const toHistory = (restHistory: RestHistory): History => ({
-  services: restHistory.serviceIds.map(toService),
+  services: restHistory.map(service => toService(service.serviceId)),
 });

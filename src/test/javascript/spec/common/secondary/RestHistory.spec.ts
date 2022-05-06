@@ -8,7 +8,7 @@ describe('RestHistory', () => {
     const restHistory: RestHistory = createRestHistory();
 
     expect(toHistory(restHistory)).toEqual<History>({
-      services: restHistory.serviceIds.map(toService),
+      services: restHistory.map(service => toService(service.serviceId)),
     });
   });
 });

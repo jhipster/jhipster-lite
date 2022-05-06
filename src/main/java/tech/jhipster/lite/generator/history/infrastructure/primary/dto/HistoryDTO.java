@@ -11,10 +11,6 @@ public record HistoryDTO(@Schema(name = "Service Ids applied to project", requir
     if (serviceIds == null) {
       return new HistoryDTO(Collections.emptyList());
     }
-    return new HistoryDTO(serviceIds.stream().map(GeneratorHistoryValue::serviceId).toList());
-  }
-
-  public Collection<String> getServiceIds() {
-    return serviceIds;
+    return new HistoryDTO(serviceIds.stream().map(GeneratorHistoryValue::serviceId).distinct().sorted().toList());
   }
 }

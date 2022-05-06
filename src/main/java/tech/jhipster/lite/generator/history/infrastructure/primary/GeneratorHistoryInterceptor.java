@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.history.infrastructure.primary;
 
+import java.time.Clock;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,9 +16,11 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 public class GeneratorHistoryInterceptor {
 
   private final GeneratorHistoryApplicationService generatorHistoryApplicationService;
+  private Clock clock;
 
-  public GeneratorHistoryInterceptor(GeneratorHistoryApplicationService generatorHistoryApplicationService) {
+  public GeneratorHistoryInterceptor(GeneratorHistoryApplicationService generatorHistoryApplicationService, Clock clock) {
     this.generatorHistoryApplicationService = generatorHistoryApplicationService;
+    this.clock = clock;
   }
 
   @AfterReturning(value = "@annotation(generatorStep)")
@@ -25,7 +28,7 @@ public class GeneratorHistoryInterceptor {
     String serviceId = generatorStep.id();
     ProjectDTO projectDTO = (ProjectDTO) joinPoint.getArgs()[0];
     Project project = ProjectDTO.toProject(projectDTO);
-    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue(serviceId);
+    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue(serviceId, clock.instant());
     generatorHistoryApplicationService.addHistoryValue(project, generatorHistoryValue);
   }
 }

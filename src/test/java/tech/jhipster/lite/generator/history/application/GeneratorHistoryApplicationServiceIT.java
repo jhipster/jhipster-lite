@@ -6,6 +6,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,10 @@ class GeneratorHistoryApplicationServiceIT {
     // Given
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "foo");
+    Instant instant = Instant.parse("2022-02-22T10:11:12.000Z");
 
     // When
-    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("init-project");
+    GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("init-project", instant);
     generatorHistoryApplicationService.addHistoryValue(project, generatorHistoryValue);
 
     // Then
@@ -53,7 +55,8 @@ class GeneratorHistoryApplicationServiceIT {
     return """
       {
         "values" : [ {
-          "serviceId" : "init-project"
+          "serviceId" : "init-project",
+          "timestamp" : "2022-02-22T10:11:12Z"
         } ]
       }""";
   }

@@ -30,13 +30,24 @@ class HistoryResourceTest {
   private HistoryResource resource;
 
   @Test
+  void shouldGetHistoryServiceIdFromService() {
+    final List<GeneratorHistoryValue> values = values();
+    when(service.getValues(any(Project.class))).thenReturn(values);
+
+    ResponseEntity<HistoryDTO> result = resource.serviceIds("/tmp/chips");
+
+    assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(result.getBody()).usingRecursiveComparison().isEqualTo(HistoryDTO.from(values));
+  }
+
+  @Test
   void shouldGetHistoryFromService() {
     final List<GeneratorHistoryValue> values = values();
     when(service.getValues(any(Project.class))).thenReturn(values);
 
-    ResponseEntity<HistoryDTO> result = resource.get("/tmp/chips");
+    ResponseEntity<List<GeneratorHistoryValue>> result = resource.history("/tmp/chips");
 
     assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(result.getBody()).usingRecursiveComparison().isEqualTo(HistoryDTO.from(values));
+    assertThat(result.getBody()).usingRecursiveComparison().isEqualTo(values);
   }
 }

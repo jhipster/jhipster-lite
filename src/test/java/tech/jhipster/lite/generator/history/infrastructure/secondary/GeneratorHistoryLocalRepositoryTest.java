@@ -18,6 +18,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -61,8 +63,10 @@ class GeneratorHistoryLocalRepositoryTest {
       GeneratorHistoryData generatorHistoryData = generatorHistoryLocalRepository.getHistoryData(project);
 
       // Then
-      GeneratorHistoryData expectedGeneratorHistoryData = new GeneratorHistoryData();
-      expectedGeneratorHistoryData.getValues().add(new GeneratorHistoryValue("springboot-init"));
+      List<GeneratorHistoryValue> values = new ArrayList<>();
+      values.add(new GeneratorHistoryValue("springboot-init", null));
+      values.add(new GeneratorHistoryValue("java-init", Instant.parse("2022-01-22T10:11:12.000Z")));
+      GeneratorHistoryData expectedGeneratorHistoryData = new GeneratorHistoryData(values);
       assertThat(generatorHistoryData).usingRecursiveComparison().isEqualTo(expectedGeneratorHistoryData);
     }
   }
@@ -106,7 +110,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", Instant.parse("2022-01-24T10:11:12.000Z"));
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
@@ -137,7 +141,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.read(historyFilePath)).thenThrow(new IOException()).thenReturn(getFileContent());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", Instant.parse("2022-01-24T10:11:12.000Z"));
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
@@ -175,7 +179,7 @@ class GeneratorHistoryLocalRepositoryTest {
         fileUtils.when(() -> FileUtils.getPath(project.getFolder(), ".jhipster", "history.json")).thenReturn(historyFilePath);
         fileUtils.when(() -> FileUtils.read(historyFilePath)).thenReturn(getFileContent());
 
-        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
+        GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", Instant.parse("2022-01-24T10:11:12.000Z"));
 
         // When + Then
         assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
@@ -209,7 +213,7 @@ class GeneratorHistoryLocalRepositoryTest {
       fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(new IOException());
 
       // When
-      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat");
+      GeneratorHistoryValue generatorHistoryValue = new GeneratorHistoryValue("tomcat", Instant.parse("2022-01-25T10:11:12.000Z"));
       assertThatThrownBy(() -> generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue))
         .isInstanceOf(GeneratorException.class);
     }
@@ -219,19 +223,25 @@ class GeneratorHistoryLocalRepositoryTest {
     return """
         {
           "values": [
-            { "serviceId": "springboot-init"}
+            { "serviceId": "springboot-init"},
+            { "serviceId": "java-init", "timestamp": "2022-01-22T10:11:12Z" }
           ]
         }
-      """;
+          """;
   }
 
   private List<String> getExpectedFileContentLines() {
     return """
       {
         "values" : [ {
-          "serviceId" : "springboot-init"
+          "serviceId" : "springboot-init",
+          "timestamp" : null
         }, {
-          "serviceId" : "tomcat"
+          "serviceId" : "java-init",
+          "timestamp" : "2022-01-22T10:11:12Z"
+        }, {
+          "serviceId" : "tomcat",
+          "timestamp" : "2022-01-24T10:11:12Z"
         } ]
       }""".lines()
       .collect(Collectors.toList());

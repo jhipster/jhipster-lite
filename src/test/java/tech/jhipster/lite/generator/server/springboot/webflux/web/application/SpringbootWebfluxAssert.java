@@ -10,8 +10,6 @@ import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TECHNICAL_INFRASTRUCTURE_PRIMARY;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
-import static tech.jhipster.lite.generator.server.springboot.mvc.web.application.SpringBootMvcAssertFiles.springBootStarterValidationDependency;
-import static tech.jhipster.lite.generator.server.springboot.mvc.web.application.SpringBootMvcAssertFiles.zalandoProblemDependency;
 
 import java.util.List;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;

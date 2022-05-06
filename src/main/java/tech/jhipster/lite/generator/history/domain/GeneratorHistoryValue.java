@@ -1,3 +1,5 @@
 package tech.jhipster.lite.generator.history.domain;
 
-public record GeneratorHistoryValue(String serviceId) {}
+import java.time.Instant;
+
+public record GeneratorHistoryValue(String serviceId, Instant timestamp) {}

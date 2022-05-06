@@ -2,6 +2,7 @@ package tech.jhipster.lite.error.domain;
 
 import java.time.Instant;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * This class provide utilities for input assertions.
@@ -61,11 +62,7 @@ public class Assert {
    *           if the collection is null or empty
    */
   public static void notEmpty(String field, Collection<?> collection) {
-    notNull(field, collection);
-
-    if (collection.isEmpty()) {
-      throw MissingMandatoryValueException.forEmptyValue(field);
-    }
+    field(field, collection).notEmpty();
   }
 
   /**
@@ -191,6 +188,29 @@ public class Assert {
    */
   public static DoubleAsserter field(String field, Double input) {
     return new DoubleAsserter(field, input);
+  }
+
+  /**
+   * Create a fluent asserter for {@link Collection}
+   *
+   * <p>
+   * Usage:
+   *
+   * Assert.field("name", name)
+   *   .notEmpty()
+   *   .maxSize(150);
+   * </pre>
+   * </code>
+   * </p>
+   *
+   * @param field
+   *          name of the field to check (will be displayed in exception message)
+   * @param input
+   *          collection to check
+   * @return A {@link CollectionAsserter} for this field and value
+   */
+  public static <T> CollectionAsserter<T> field(String field, Collection<T> input) {
+    return new CollectionAsserter<>(field, input);
   }
 
   /**
@@ -377,6 +397,19 @@ public class Assert {
     }
 
     /**
+     * Ensure that the value is not null
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the value is null
+     */
+    public StringAsserter notNull() {
+      Assert.notNull(field, value);
+
+      return this;
+    }
+
+    /**
      * Ensure that the value is not blank (null, empty or only whitespace)
      *
      * @return The current asserter
@@ -384,7 +417,7 @@ public class Assert {
      *           if the value is blank
      */
     public StringAsserter notBlank() {
-      notNull(field, value);
+      notNull();
 
       if (value.isBlank()) {
         throw MissingMandatoryValueException.forBlankValue(field);
@@ -394,14 +427,14 @@ public class Assert {
     }
 
     /**
-     * Ensure that the the input value is at least of the given length
+     * Ensure that the input value is at least of the given length
      *
      * @param length
      *          inclusive min length of the {@link String}
      *
      * @return The current asserter
      * @throws MissingMandatoryValueException
-     *           if the expected length is strceilictly positive and the value is null
+     *           if the expected length is strictly positive and the value is null
      * @throws StringTooShortException
      *           if the value is shorter than min length
      */
@@ -410,7 +443,7 @@ public class Assert {
         return this;
       }
 
-      notNull(field, value);
+      notNull();
 
       if (value.length() < length) {
         throw StringTooShortException.builder().field(field).value(value).minLength(length).build();
@@ -840,6 +873,94 @@ public class Assert {
 
     private NumberValueTooHighException tooHigh(double ceil) {
       return NumberValueTooHighException.builder().field(field).maxValue(ceil).value(value).build();
+    }
+  }
+
+  /**
+   * Asserter dedicated to {@link Collection} assertions
+   */
+  public static class CollectionAsserter<T> {
+
+    private final String field;
+    private final Collection<T> value;
+
+    private CollectionAsserter(String field, Collection<T> value) {
+      this.field = field;
+      this.value = value;
+    }
+
+    /**
+     * Ensure that the value is not null
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the value is null
+     */
+    public CollectionAsserter<T> notNull() {
+      Assert.notNull(field, value);
+
+      return this;
+    }
+
+    /**
+     * Ensure that the value is not empty (null or empty)
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the value is null or empty
+     */
+    public CollectionAsserter<T> notEmpty() {
+      notNull();
+
+      if (value.isEmpty()) {
+        throw MissingMandatoryValueException.forEmptyValue(field);
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that the size of the given input value is not over the given size
+     *
+     * @param maxSize
+     *          inclusive max size of the {@link Collection}
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the expected size is strictly positive and the value is null
+     * @throws TooManyElementsException
+     *           if the size of value is over the max size
+     */
+    public CollectionAsserter<T> maxSize(int maxSize) {
+      if (maxSize <= 0 && value == null) {
+        return this;
+      }
+
+      notNull();
+
+      if (value.size() > maxSize) {
+        throw TooManyElementsException.builder().field(field).maxSize(maxSize).size(value.size()).build();
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that no element in this {@link Collection} is null
+     *
+     * @return The current asserter
+     * @throws NullElementInCollectionException
+     *           if an element is null
+     */
+    public CollectionAsserter<T> noNullElement() {
+      if (value == null) {
+        return this;
+      }
+
+      if (value.stream().anyMatch(Objects::isNull)) {
+        throw new NullElementInCollectionException(field);
+      }
+
+      return this;
     }
   }
 

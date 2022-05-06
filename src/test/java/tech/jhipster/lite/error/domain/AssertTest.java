@@ -3,6 +3,8 @@ package tech.jhipster.lite.error.domain;
 import static org.assertj.core.api.Assertions.*;
 
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -153,6 +155,19 @@ class AssertTest {
   @Nested
   @DisplayName("String")
   class AssertStringTest {
+
+    @Test
+    void shouldNotValidateNullStringAsNotNull() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (String) null).notNull())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("(null)");
+    }
+
+    @Test
+    void shouldValidateActualStringAsNotNull() {
+      assertThatCode(() -> Assert.field("fieldName", "").notNull()).doesNotThrowAnyException();
+    }
 
     @Test
     void shouldNotValidateNullStringAsNotBlank() {
@@ -635,6 +650,106 @@ class AssertTest {
     @ValueSource(doubles = { 41, 41.9F })
     void shouldValidateValueUnderCeil(double value) {
       assertThatCode(() -> Assert.field("fieldName", value).under(42)).doesNotThrowAnyException();
+    }
+  }
+
+  @Nested
+  @DisplayName("Collection")
+  class CollectionAssertTest {
+
+    @Test
+    void shouldNotValidateNullAsNotNull() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Collection<Object>) null).notNull())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("(null)");
+    }
+
+    @Test
+    void shouldValidateActualCollectionAsNotNull() {
+      assertThatCode(() -> Assert.field("fieldName", List.of()).notNull()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullAsNotEmpty() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Collection<Object>) null).notEmpty())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("(null)");
+    }
+
+    @Test
+    void shouldNotValidateEmptyCollectionAsNotEmpty() {
+      assertThatThrownBy(() -> Assert.field("fieldName", List.of()).notEmpty())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("(empty)");
+    }
+
+    @Test
+    void shouldValidateCollectionWithElementAsNotEmpty() {
+      assertThatCode(() -> Assert.field("fieldName", List.of("value")).notEmpty()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullCollectionAsMaxSizeOverZero() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Collection<Object>) null).maxSize(1))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("(null)");
+    }
+
+    @Test
+    void shouldNotValidateNotNullCollectionAsNegativeMaxSize() {
+      assertThatThrownBy(() -> Assert.field("fieldName", List.of("value1", "value2", "value3")).maxSize(-1))
+        .isExactlyInstanceOf(TooManyElementsException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("-1")
+        .hasMessageContaining("3");
+    }
+
+    @Test
+    void shouldNotValidateCollectionWithTooManyElements() {
+      assertThatThrownBy(() -> Assert.field("fieldName", List.of("value1", "value2", "value3")).maxSize(2))
+        .isExactlyInstanceOf(TooManyElementsException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("2")
+        .hasMessageContaining("3");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { -1, 0 })
+    void shouldValidateNullAsMaxSizeZeroOrNegative(int maxSize) {
+      assertThatCode(() -> Assert.field("fieldName", (Collection<Object>) null).maxSize(maxSize)).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 3, 4 })
+    void shouldValidateCollectionWithSizeUnderMaxSize(int maxSize) {
+      assertThatCode(() -> Assert.field("fieldName", List.of("value1", "value2", "value3")).maxSize(maxSize)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldValidateNullAsNegativeMaxSize() {
+      assertThatCode(() -> Assert.field("fieldName", (Collection<Object>) null).maxSize(-1)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateCollectionWithNullElementAsNoNullElement() {
+      assertThatThrownBy(() -> Assert.field("fieldName", Arrays.asList("value1", null)).noNullElement())
+        .isExactlyInstanceOf(NullElementInCollectionException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("null element");
+    }
+
+    @Test
+    void shouldValidateNullCollectionAsNoNullElement() {
+      assertThatCode(() -> Assert.field("fieldName", (Collection<Object>) null).noNullElement()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldValidateCollectionWithNoNullElementAsNoNullElement() {
+      assertThatCode(() -> Assert.field("fieldName", List.of("value1", "value2")).noNullElement()).doesNotThrowAnyException();
     }
   }
 

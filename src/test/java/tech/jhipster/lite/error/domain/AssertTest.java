@@ -2,6 +2,7 @@ package tech.jhipster.lite.error.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.time.Instant;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -634,6 +635,211 @@ class AssertTest {
     @ValueSource(doubles = { 41, 41.9F })
     void shouldValidateValueUnderCeil(double value) {
       assertThatCode(() -> Assert.field("fieldName", value).under(42)).doesNotThrowAnyException();
+    }
+  }
+
+  @Nested
+  @DisplayName("Instant")
+  class AssertInstantTest {
+
+    @Test
+    void shouldNotValidateNullAsNotNull() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Instant) null).notNull())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldValidateActualInstantAsNotNull() {
+      assertThatCode(() -> Assert.field("fieldName", Instant.now()).notNull()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullInstantAsPast() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Instant) null).inPast())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateFutureInstantAsPast() {
+      assertThatThrownBy(() -> Assert.field("fieldName", future()).inPast())
+        .isExactlyInstanceOf(NotPastTimeException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldValidatePastDateAsPast() {
+      assertThatCode(() -> Assert.field("fieldName", past()).inPast()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateNullInstantAsFuture() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Instant) null).inFuture())
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidatePastInstantAsFuture() {
+      assertThatThrownBy(() -> Assert.field("fieldName", past()).inFuture())
+        .isExactlyInstanceOf(NotFutureTimeException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldValidateFutureDateAsFuture() {
+      assertThatCode(() -> Assert.field("fieldName", future()).inFuture()).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateInstantAfterNullInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", past()).after(null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("other");
+    }
+
+    @Test
+    void shouldNotValidateNullInstantAfterInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Instant) null).after(past()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateSameInstantAsAfterInstant() {
+      Instant date = past();
+
+      assertThatThrownBy(() -> Assert.field("fieldName", date).after(date))
+        .isExactlyInstanceOf(NotAfterTimeException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("strictly");
+    }
+
+    @Test
+    void shouldNotValidatePastInstantAsAfterFutureInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", past()).after(future()))
+        .isExactlyInstanceOf(NotAfterTimeException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("strictly");
+    }
+
+    @Test
+    void shouldValidateFutureInstantAsAfterPastInstant() {
+      assertThatCode(() -> Assert.field("fieldName", future()).after(past())).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateInstantAfterOrAtNullInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", past()).afterOrAt(null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("other");
+    }
+
+    @Test
+    void shouldNotValidateNullInstantAfterOrAtInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Instant) null).afterOrAt(past()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidatePastInstantAsAfterOrAtFutureInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", past()).afterOrAt(future()))
+        .isExactlyInstanceOf(NotAfterTimeException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageNotContaining("strictly");
+    }
+
+    @Test
+    void shouldValidateFutureInstantAsAfterOrAtPastInstant() {
+      assertThatCode(() -> Assert.field("fieldName", future()).afterOrAt(past())).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldValidateSameInstantAsAfterOrAtInstant() {
+      Instant date = past();
+
+      assertThatCode(() -> Assert.field("fieldName", date).afterOrAt(date)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateInstantBeforeNullInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", past()).before(null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("other");
+    }
+
+    @Test
+    void shouldNotValidateNullInstantBeforeInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Instant) null).before(past()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateSameInstantAsBeforeInstant() {
+      Instant date = past();
+
+      assertThatThrownBy(() -> Assert.field("fieldName", date).before(date))
+        .isExactlyInstanceOf(NotBeforeTimeException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("strictly");
+    }
+
+    @Test
+    void shouldNotValidateFutureInstantAsBeforePastInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", future()).before(past()))
+        .isExactlyInstanceOf(NotBeforeTimeException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageContaining("strictly");
+    }
+
+    @Test
+    void shouldValidatePastInstantAsBeforeFutureInstant() {
+      assertThatCode(() -> Assert.field("fieldName", past()).before(future())).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldNotValidateInstantBeforeOrAtNullInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", past()).beforeOrAt(null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("other");
+    }
+
+    @Test
+    void shouldNotValidateNullInstantBeforeOrAtInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", (Instant) null).beforeOrAt(past()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("fieldName");
+    }
+
+    @Test
+    void shouldNotValidateFutureInstantAsBeforeOrAtPastInstant() {
+      assertThatThrownBy(() -> Assert.field("fieldName", future()).beforeOrAt(past()))
+        .isExactlyInstanceOf(NotBeforeTimeException.class)
+        .hasMessageContaining("fieldName")
+        .hasMessageNotContaining("strictly");
+    }
+
+    @Test
+    void shouldValidatePastInstantAsAfterOrAtFutureInstant() {
+      assertThatCode(() -> Assert.field("fieldName", past()).beforeOrAt(future())).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldValidateSameInstantAsBeforeOrAtInstant() {
+      Instant date = past();
+
+      assertThatCode(() -> Assert.field("fieldName", date).beforeOrAt(date)).doesNotThrowAnyException();
+    }
+
+    private Instant past() {
+      return Instant.now().minusSeconds(10);
+    }
+
+    private Instant future() {
+      return Instant.now().plusSeconds(10);
     }
   }
 }

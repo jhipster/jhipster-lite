@@ -69,7 +69,7 @@ jobs:
           ./mvnw clean verify sonar:sonar
       - name: 'Analysis: local Sonar'
         run: |
-          sleep 15
+          ./tests-ci/wait_sonar_analysis.sh
           ./tests-ci/sonar.sh
       - name: 'Analysis: SonarCloud'
         if: github.repository == 'jhipster/jhipster-lite' && github.ref == 'refs/heads/main'
@@ -182,7 +182,7 @@ jobs:
         run: |
           if [ -f 'src/main/docker/sonar.yml' ]; then
             docker-compose -f src/main/docker/sonar.yml up -d
-            sleep 60
+            ${{ github.workspace }}/tests-ci/wait_sonar.sh
             docker ps -a
           fi
       - name: 'Test: verify ${{ matrix.app }}'
@@ -197,7 +197,7 @@ jobs:
       - name: 'Test: check local Sonar Analysis'
         run: |
           if [ -f '/tmp/jhlite/${{ matrix.app }}/src/main/docker/sonar.yml' ]; then
-            sleep 15
+            ${{ github.workspace }}/tests-ci/wait_sonar_analysis.sh
             ./tests-ci/sonar.sh ${{ matrix.app }}
           fi
   #--------------------------------------------------

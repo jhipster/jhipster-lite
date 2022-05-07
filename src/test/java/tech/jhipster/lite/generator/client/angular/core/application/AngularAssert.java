@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.client.angular.core.application;
 
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
-import static tech.jhipster.lite.TestUtils.assertFileNoContent;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
@@ -59,11 +58,6 @@ public class AngularAssert {
     assertFileExist(project, getPath(pathEnvironments, "environment.prod.spec.ts"));
     assertFileExist(project, getPath(pathEnvironments, "environment.ts"));
     assertFileExist(project, getPath(pathEnvironments, "environment.spec.ts"));
-  }
-
-  public static void assertAppJwt(Project project) {
-    String rootPath = "src/main/webapp/";
-    Angular.angularJwtFiles().forEach((file, path) -> assertFileExist(project, getPath(rootPath + path, file)));
   }
 
   public static void assertLogos(Project project) {

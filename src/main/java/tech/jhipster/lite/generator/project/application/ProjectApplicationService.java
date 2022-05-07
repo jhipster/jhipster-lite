@@ -21,7 +21,7 @@ public class ProjectApplicationService {
     return projectRepository.download(project);
   }
 
-  public ProjectDTO getProjectDetails(String folderPath) {
+  public Project getProjectDetails(String folderPath) {
     return projectService.getProjectDetails(folderPath);
   }
 }

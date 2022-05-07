@@ -50,7 +50,8 @@ class ProjectResource {
   public ResponseEntity<ProjectDTO> getProjectDetails(
     @Parameter(description = "Project path to get details") @RequestParam(value = "folder") String folder
   ) {
-    return ResponseEntity.ok(this.projectApplicationService.getProjectDetails(folder));
+    ProjectDTO projectDTO = ProjectDTO.fromProject(this.projectApplicationService.getProjectDetails(folder));
+    return ResponseEntity.ok(projectDTO);
   }
 
   private String getZipFilename(Project project) {

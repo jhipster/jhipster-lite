@@ -5,10 +5,8 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
-import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class ProjectDomainService implements ProjectService {
@@ -24,28 +22,24 @@ public class ProjectDomainService implements ProjectService {
   }
 
   @Override
-  public ProjectDTO getProjectDetails(String folderPath) {
-    ProjectDTO projectDTO = new ProjectDTO();
-    projectDTO.folder(folderPath);
-    Project project = ProjectDTO.toProject(projectDTO);
+  public Project getProjectDetails(String folderPath) {
+    Project project = Project.builder().folder(folderPath).build();
 
-    Map<String, Object> configMap = new HashMap<>();
-    configMap.put(PROJECT_NAME, npmService.getDescription(projectDTO.getFolder()));
-    configMap.put(BASE_NAME, npmService.getName(projectDTO.getFolder()));
+    Map<String, Object> config = new HashMap<>();
+    config.put(PROJECT_NAME, npmService.getDescription(project.getFolder()));
 
     if (project.isMavenProject()) {
-      configMap.put(PACKAGE_NAME, buildToolService.getGroup(project));
-      configMap.put(BASE_NAME, buildToolService.getName(project));
+      config.put(PACKAGE_NAME, buildToolService.getGroup(project));
+      config.put(BASE_NAME, buildToolService.getName(project));
     } else if (project.isGradleProject()) {
-      configMap.put(PACKAGE_NAME, buildToolService.getGroup(project));
+      config.put(PACKAGE_NAME, buildToolService.getGroup(project));
     }
 
     Optional<String> serverPort = springBootCommonService.getProperty(project, "server.port");
     if (serverPort.isPresent()) {
-      configMap.put("serverPort", Integer.parseInt(serverPort.get()));
+      config.put("serverPort", Integer.parseInt(serverPort.get()));
     }
 
-    projectDTO.generatorJhipster(configMap);
-    return projectDTO;
+    return Project.builder().folder(folderPath).config(config).build();
   }
 }

@@ -4,6 +4,7 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 15
     rebase-strategy: 'disabled'
     labels:
@@ -13,6 +14,7 @@ updates:
     directory: '/src/main/resources/generator/dependencies/'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 20
     rebase-strategy: 'disabled'
     labels:
@@ -22,6 +24,7 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 10
     rebase-strategy: 'disabled'
     labels:
@@ -30,6 +33,7 @@ updates:
     directory: '/.github/actions/setup'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 10
     rebase-strategy: 'disabled'
     labels:
@@ -38,6 +42,7 @@ updates:
     directory: '/.github/workflows'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 10
     rebase-strategy: 'disabled'
     labels:
@@ -47,6 +52,7 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 10
     rebase-strategy: 'disabled'
     labels:
@@ -55,6 +61,7 @@ updates:
     directory: '/src/main/resources/generator/dependencies/common'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 20
     rebase-strategy: 'disabled'
     labels:
@@ -63,6 +70,7 @@ updates:
     directory: '/src/main/resources/generator/dependencies/vue'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 20
     rebase-strategy: 'disabled'
     labels:
@@ -71,6 +79,7 @@ updates:
     directory: '/src/main/resources/generator/dependencies/react'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 20
     rebase-strategy: 'disabled'
     labels:
@@ -79,6 +88,7 @@ updates:
     directory: '/src/main/resources/generator/dependencies/svelte'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 20
     labels:
       - 'area: dependencies'
@@ -86,6 +96,7 @@ updates:
     directory: '/src/main/resources/generator/dependencies/angular'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 20
     rebase-strategy: 'disabled'
     labels:
@@ -95,6 +106,7 @@ updates:
     directory: '/src/main/docker'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 20
     rebase-strategy: 'disabled'
     labels:
@@ -103,6 +115,7 @@ updates:
     directory: '/src/main/resources/generator/dependencies'
     schedule:
       interval: 'daily'
+      time: '00:00'
     open-pull-requests-limit: 20
     rebase-strategy: 'disabled'
     labels:

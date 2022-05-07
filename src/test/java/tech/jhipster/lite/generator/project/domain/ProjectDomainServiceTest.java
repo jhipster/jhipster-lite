@@ -19,7 +19,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-public class ProjectDomainServiceTest {
+class ProjectDomainServiceTest {
 
   @Mock
   NpmService npmService;
@@ -40,7 +40,7 @@ public class ProjectDomainServiceTest {
     when(this.springBootCommonService.getProperty(Mockito.any(), Mockito.any())).thenReturn(Optional.empty());
     Project projectResponse = projectDomainService.getProjectDetails(project.getFolder());
 
-    assertThat(projectResponse.getConfig(PROJECT_NAME).get()).isEqualTo("Cool Project");
+    assertThat(projectResponse.getConfig(PROJECT_NAME)).contains("Cool Project");
     verify(this.buildToolService, never()).getGroup(Mockito.any());
     verify(this.buildToolService, never()).getName(Mockito.any());
   }
@@ -54,10 +54,10 @@ public class ProjectDomainServiceTest {
     when(this.springBootCommonService.getProperty(Mockito.any(), Mockito.any())).thenReturn(Optional.of("8084"));
     Project projectResponse = projectDomainService.getProjectDetails(project.getFolder());
 
-    assertThat(projectResponse.getConfig(PROJECT_NAME).get()).isEqualTo("Cool Project");
-    assertThat(projectResponse.getConfig(BASE_NAME).get()).isEqualTo("coolProject");
-    assertThat(projectResponse.getConfig(PACKAGE_NAME).get()).isEqualTo("com.cool.project");
-    assertThat(projectResponse.getConfig("serverPort").get()).isEqualTo(8084);
+    assertThat(projectResponse.getConfig(PROJECT_NAME)).contains("Cool Project");
+    assertThat(projectResponse.getConfig(BASE_NAME)).contains("coolProject");
+    assertThat(projectResponse.getConfig(PACKAGE_NAME)).contains("com.cool.project");
+    assertThat(projectResponse.getConfig("serverPort")).contains(8084);
 
     verify(this.buildToolService, times(1)).getGroup(Mockito.any());
     verify(this.buildToolService, times(1)).getName(Mockito.any());
@@ -71,9 +71,9 @@ public class ProjectDomainServiceTest {
     when(this.springBootCommonService.getProperty(Mockito.any(), Mockito.any())).thenReturn(Optional.of("8084"));
     Project projectResponse = projectDomainService.getProjectDetails(project.getFolder());
 
-    assertThat(projectResponse.getConfig(PROJECT_NAME).get()).isEqualTo("Cool Project");
-    assertThat(projectResponse.getConfig(PACKAGE_NAME).get()).isEqualTo("com.cool.project");
-    assertThat(projectResponse.getConfig("serverPort").get()).isEqualTo(8084);
+    assertThat(projectResponse.getConfig(PROJECT_NAME)).contains("Cool Project");
+    assertThat(projectResponse.getConfig(PACKAGE_NAME)).contains("com.cool.project");
+    assertThat(projectResponse.getConfig("serverPort")).contains(8084);
 
     verify(this.buildToolService, times(1)).getGroup(Mockito.any());
     verify(this.buildToolService, never()).getName(Mockito.any());

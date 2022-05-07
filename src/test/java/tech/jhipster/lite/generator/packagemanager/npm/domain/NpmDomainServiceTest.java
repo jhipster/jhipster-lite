@@ -160,7 +160,7 @@ class NpmDomainServiceTest {
     void shouldGetName() {
       Project project = tmpProjectWithPackageJson();
       assertThat(npmDomainService.getName(project.getFolder())).isNotEmpty();
-      assertThat(npmDomainService.getName(project.getFolder()).get()).isEqualTo("jhlitetest");
+      assertThat(npmDomainService.getName(project.getFolder())).contains("jhlitetest");
     }
 
     @Test
@@ -191,7 +191,7 @@ class NpmDomainServiceTest {
     void shouldGetName() {
       Project project = tmpProjectWithPackageJsonComplete();
       assertThat(npmDomainService.getDescription(project.getFolder())).isNotEmpty();
-      assertThat(npmDomainService.getDescription(project.getFolder()).get()).isEqualTo("Jhipster lite");
+      assertThat(npmDomainService.getDescription(project.getFolder())).contains("Jhipster lite");
     }
 
     @Test

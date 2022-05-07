@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.project.domain.ProjectService;
-import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
 @Service
 public class ProjectApplicationService {

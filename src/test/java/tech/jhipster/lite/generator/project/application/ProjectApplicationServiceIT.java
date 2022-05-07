@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.project.application;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
@@ -34,7 +34,7 @@ class ProjectApplicationServiceIT {
     Project projectDetails = projectApplicationService.getProjectDetails(project.getFolder());
     assertThat(projectDetails).isNotNull();
     assertThat(projectDetails.getConfig()).isNotNull();
-    assertThat(projectDetails.getConfig().get(PROJECT_NAME)).isEqualTo("Jhipster lite");
+    assertThat(projectDetails.getConfig()).containsEntry(PROJECT_NAME, "Jhipster lite");
   }
 
   @Test
@@ -45,9 +45,9 @@ class ProjectApplicationServiceIT {
     Project projectDetails = projectApplicationService.getProjectDetails(project.getFolder());
     assertThat(projectDetails).isNotNull();
     assertThat(projectDetails.getConfig()).isNotNull();
-    assertThat(projectDetails.getConfig().get(PROJECT_NAME)).isEqualTo("Jhipster lite");
-    assertThat(projectDetails.getConfig().get(BASE_NAME)).isEqualTo("jhipster");
-    assertThat(projectDetails.getConfig().get(PACKAGE_NAME)).isEqualTo("com.mycompany.myapp");
+    assertThat(projectDetails.getConfig()).containsEntry(PROJECT_NAME, "Jhipster lite");
+    assertThat(projectDetails.getConfig()).containsEntry(BASE_NAME, "jhipster");
+    assertThat(projectDetails.getConfig()).containsEntry(PACKAGE_NAME, "com.mycompany.myapp");
   }
 
   @Test
@@ -58,8 +58,8 @@ class ProjectApplicationServiceIT {
     Project projectDetails = projectApplicationService.getProjectDetails(project.getFolder());
     assertThat(projectDetails).isNotNull();
     assertThat(projectDetails.getConfig()).isNotNull();
-    assertThat(projectDetails.getConfig().get(PROJECT_NAME)).isEqualTo("Jhipster lite");
-    assertThat(projectDetails.getConfig().get(PACKAGE_NAME)).isEqualTo("com.mycompany.myapp");
+    assertThat(projectDetails.getConfig()).containsEntry(PROJECT_NAME, "Jhipster lite");
+    assertThat(projectDetails.getConfig()).containsEntry(PACKAGE_NAME, "com.mycompany.myapp");
   }
 
   @Test
@@ -72,9 +72,9 @@ class ProjectApplicationServiceIT {
     Project projectDetails = projectApplicationService.getProjectDetails(project.getFolder());
     assertThat(projectDetails).isNotNull();
     assertThat(projectDetails.getConfig()).isNotNull();
-    assertThat(projectDetails.getConfig().get(PROJECT_NAME)).isEqualTo("Jhipster lite");
-    assertThat(projectDetails.getConfig().get(BASE_NAME)).isEqualTo("jhipster");
-    assertThat(projectDetails.getConfig().get(PACKAGE_NAME)).isEqualTo("com.mycompany.myapp");
-    assertThat(projectDetails.getConfig().get("serverPort")).isEqualTo(8084);
+    assertThat(projectDetails.getConfig()).containsEntry(PROJECT_NAME, "Jhipster lite");
+    assertThat(projectDetails.getConfig()).containsEntry(BASE_NAME, "jhipster");
+    assertThat(projectDetails.getConfig()).containsEntry(PACKAGE_NAME, "com.mycompany.myapp");
+    assertThat(projectDetails.getConfig()).containsEntry("serverPort", 8084);
   }
 }

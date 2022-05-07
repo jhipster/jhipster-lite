@@ -85,7 +85,7 @@ public class NpmDomainService implements NpmService {
 
   @Override
   public Optional<String> getVersion(String folder, String name) {
-    Assert.notBlank("folder", folder);
+    assertFolder(folder);
     Assert.notBlank("name", name);
     return FileUtils
       .readLineInClasspath(getPath(TEMPLATE_FOLDER, DEPENDENCIES_FOLDER, folder, PACKAGE_JSON), DQ + name + DQ)
@@ -105,13 +105,17 @@ public class NpmDomainService implements NpmService {
 
   @Override
   public Optional<String> getName(String folder) {
-    Assert.notBlank("folder", folder);
+    assertFolder(folder);
     return FileUtils.getValueBetween(getPath(folder, PACKAGE_JSON), NAME + ": " + DQ, DQ);
   }
 
   @Override
   public Optional<String> getDescription(String folder) {
-    Assert.notBlank("folder", folder);
+    assertFolder(folder);
     return FileUtils.getValueBetween(getPath(folder, PACKAGE_JSON), DESCRIPTION + ": " + DQ, DQ);
+  }
+
+  private void assertFolder(String folder) {
+    Assert.notBlank("folder", folder);
   }
 }

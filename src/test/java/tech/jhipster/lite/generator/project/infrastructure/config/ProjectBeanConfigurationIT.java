@@ -9,7 +9,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.ProjectService;
 
 @IntegrationTest
-public class ProjectBeanConfigurationIT {
+class ProjectBeanConfigurationIT {
 
   @Autowired
   ApplicationContext applicationContext;

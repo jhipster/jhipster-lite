@@ -60,9 +60,9 @@ class ProjectDTOTest {
     ProjectDTO projectDTO = ProjectDTO.fromProject(project);
     assertThat(projectDTO.getFolder()).isEqualTo(projectDTO.getFolder());
     assertThat(projectDTO.getGeneratorJhipster()).isNotNull();
-    assertThat(projectDTO.getGeneratorJhipster().get(BASE_NAME)).isEqualTo(project.getBaseName().get());
-    assertThat(projectDTO.getGeneratorJhipster().get(PACKAGE_NAME)).isEqualTo(project.getPackageName().get());
-    assertThat(projectDTO.getGeneratorJhipster().get(PROJECT_NAME)).isEqualTo(project.getConfig(PROJECT_NAME).get());
+    assertThat(projectDTO.getGeneratorJhipster()).containsEntry(BASE_NAME, project.getBaseName().get());
+    assertThat(projectDTO.getGeneratorJhipster()).containsEntry(PACKAGE_NAME, project.getPackageName().get());
+    assertThat(projectDTO.getGeneratorJhipster()).containsEntry(PROJECT_NAME, project.getConfig(PROJECT_NAME).get());
   }
 
   private ProjectDTO buildProjectDTO() {

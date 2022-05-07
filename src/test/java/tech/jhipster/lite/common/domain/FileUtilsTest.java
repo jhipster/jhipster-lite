@@ -719,8 +719,8 @@ class FileUtilsTest {
         "version":"0.0.1"
         """.getBytes());
 
-      assertThat(FileUtils.getValueBetween(filePath.toString(), "<name>", "</name>").get()).isEqualTo("jhipster");
-      assertThat(FileUtils.getValueBetween(filePath.toString(), "\"version\":\"", "\"").get()).isEqualTo("0.0.1");
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "<name>", "</name>")).contains("jhipster");
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "\"version\":\"", "\"")).contains("0.0.1");
     }
 
     @Test
@@ -742,7 +742,7 @@ class FileUtilsTest {
          <name>jhipster2</name>
         """.getBytes());
 
-      assertThat(FileUtils.getValueBetween(filePath.toString(), "<name>", "</name>").get()).isEqualTo("jhipster");
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "<name>", "</name>")).contains("jhipster");
     }
 
     @Test

@@ -18,7 +18,9 @@ import static tech.jhipster.lite.common.domain.WordUtils.DQ;
 import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.BUILD_GRADLE_KTS;
 import static tech.jhipster.lite.generator.project.domain.Constants.SETTINGS_GRADLE_KTS;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
 
 public class GradleDomainService implements GradleService {
 

@@ -44,7 +44,7 @@ public class ProjectDTO {
 
   public static ProjectDTO fromProject(Project project) {
     ProjectDTO projectDTO = new ProjectDTO();
-    projectDTO.folder(projectDTO.getFolder());
+    projectDTO.folder(project.getFolder());
     projectDTO.generatorJhipster(project.getConfig());
     return projectDTO;
   }

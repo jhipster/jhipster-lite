@@ -9,13 +9,17 @@ import tech.jhipster.lite.generator.project.domain.ProjectService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @Configuration
-public class ProjectBeanConfig {
+public class ProjectBeanConfiguration {
 
   private final NpmService npmService;
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
 
-  public ProjectBeanConfig(NpmService npmService, BuildToolService buildToolService, SpringBootCommonService springBootCommonService) {
+  public ProjectBeanConfiguration(
+    NpmService npmService,
+    BuildToolService buildToolService,
+    SpringBootCommonService springBootCommonService
+  ) {
     this.npmService = npmService;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;

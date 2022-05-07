@@ -1,12 +1,5 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithBuildGradle;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
-
-import java.util.List;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +12,12 @@ import tech.jhipster.lite.generator.buildtool.gradle.domain.GradleService;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.Project;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.TestUtils.*;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -162,6 +161,24 @@ class BuildToolDomainServiceTest {
 
       verify(mavenService).getVersion("spring-boot");
     }
+
+    @Test
+    void shouldGetGroup() {
+      Project project = tmpProjectWithPomXml();
+
+      buildToolDomainService.getGroup(project);
+
+      verify(mavenService).getGroupId(project.getFolder());
+    }
+
+    @Test
+    void shouldGetName() {
+      Project project = tmpProjectWithPomXml();
+
+      buildToolDomainService.getName(project);
+
+      verify(mavenService).getName(project.getFolder());
+    }
   }
 
   @Nested
@@ -179,6 +196,15 @@ class BuildToolDomainServiceTest {
       Project project = tmpProjectWithBuildGradle();
 
       assertThatThrownBy(() -> buildToolDomainService.init(project, BuildToolType.GRADLE)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldGetGroup() {
+      Project project = tmpProjectWithBuildGradle();
+
+      buildToolDomainService.getGroup(project);
+
+      verify(gradleService).getGroup(project.getFolder());
     }
 
     @Test
@@ -301,6 +327,20 @@ class BuildToolDomainServiceTest {
       Project project = tmpProject();
 
       assertThatThrownBy(() -> buildToolDomainService.getVersion(project, "spring-boot")).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotGetGroup() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> buildToolDomainService.getGroup(project)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotGetName() {
+      Project project = tmpProject();
+
+      assertThatThrownBy(() -> buildToolDomainService.getName(project)).isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test

@@ -26,13 +26,13 @@ public class ProjectDomainService implements ProjectService {
     Project project = Project.builder().folder(folderPath).build();
 
     Map<String, Object> config = new HashMap<>();
-    config.put(PROJECT_NAME, npmService.getDescription(project.getFolder()));
+    config.put(PROJECT_NAME, npmService.getDescription(project.getFolder()).orElse(null));
 
     if (project.isMavenProject()) {
-      config.put(PACKAGE_NAME, buildToolService.getGroup(project));
-      config.put(BASE_NAME, buildToolService.getName(project));
+      config.put(PACKAGE_NAME, buildToolService.getGroup(project).orElse(null));
+      config.put(BASE_NAME, buildToolService.getName(project).orElse(null));
     } else if (project.isGradleProject()) {
-      config.put(PACKAGE_NAME, buildToolService.getGroup(project));
+      config.put(PACKAGE_NAME, buildToolService.getGroup(project).orElse(null));
     }
 
     Optional<String> serverPort = springBootCommonService.getProperty(project, "server.port");

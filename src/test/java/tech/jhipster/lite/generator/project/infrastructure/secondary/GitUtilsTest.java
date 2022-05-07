@@ -7,13 +7,11 @@ import static tech.jhipster.lite.generator.project.domain.Constants.TEST_TEMPLAT
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 
 @UnitTest
-@Disabled
 class GitUtilsTest {
 
   @Test

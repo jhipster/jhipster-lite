@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.javatool.jacoco.application;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
@@ -11,7 +10,6 @@ import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
-@Disabled
 class JacocoApplicationServiceIT {
 
   @Autowired

@@ -21,7 +21,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.eclipse.jgit.api.errors.InvalidConfigurationException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,7 +36,6 @@ import tech.jhipster.lite.generator.project.domain.ProjectFile;
 
 @UnitTest
 @ExtendWith(SpringExtension.class)
-@Disabled
 class ProjectLocalRepositoryTest {
 
   @InjectMocks

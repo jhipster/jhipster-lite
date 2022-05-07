@@ -7,7 +7,6 @@ import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
 import java.util.List;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +21,6 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 
 @IntegrationTest
 @AutoConfigureMockMvc
-@Disabled
 class JacocoResourceIT {
 
   @Autowired

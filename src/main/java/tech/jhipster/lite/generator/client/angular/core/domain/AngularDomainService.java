@@ -81,31 +81,30 @@ public class AngularDomainService implements AngularService {
   }
 
   public void updateAngularFilesForJwt(Project project) {
-    String oldHtml = "<router-outlet></router-outlet>";
+    String oldHtml = "<!-- jhipster-needle-angular-jwt-login-form -->";
     String newHtml =
       """
-        <div [ngSwitch]="account !== null">
-
-          <form role="form" (ngSubmit)="login()" [formGroup]="loginForm" *ngSwitchCase="false">
-            <div>
-              <label class="username-label" for="username">Login</label>
-              <input type="text" name="username" id="username" formControlName="username" #username />
+      <mat-card>
+        <mat-card-content>
+          <div [ngSwitch]="account !== null">
+            <form class="login-form" (ngSubmit)="login()" [formGroup]="loginForm" *ngSwitchCase="false">
+              <mat-form-field class="form-field-full-width" appearance="fill">
+                <mat-label>Login</mat-label>
+                <input type="text" name="username" id="username" formControlName="username" #username matInput placeholder="Login" value="">
+              </mat-form-field>
+              <mat-form-field class="form-field-full-width" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" name="password" id="password" formControlName="password" #password matInput placeholder="Password" value="">
+              </mat-form-field>
+              <button type="submit" mat-flat-button color="primary">Sign in</button>
+            </form>
+            <div *ngSwitchCase="true">
+              <div>You are logged in as user "{{ account?.login }}".</div>
+              <button (click)="logout()" mat-flat-button color="primary">Logout</button>
             </div>
-            <div>
-              <label for="password">Password</label>
-              <input type="password" name="password" id="password" formControlName="password" />
-            </div>
-            <button type="submit">Sign in</button>
-          </form>
-
-          <div *ngSwitchCase="true">
-            <div>You are logged in as user "{{ account?.login }}".</div>
-            <button (click)="logout()">Logout</button>
           </div>
-
-        </div>
-
-        <router-outlet></router-outlet>""";
+        </mat-card-content>
+      </mat-card>""";
     projectRepository.replaceText(project, APP, APP_COMPONENT_HTML, oldHtml, newHtml);
 
     oldHtml = "import \\{ Component, OnInit \\} from '@angular/core';";
@@ -194,8 +193,10 @@ public class AngularDomainService implements AngularService {
         """;
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
-    oldHtml = "imports: \\[BrowserModule, AppRoutingModule\\],";
-    newHtml = "imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, NgxWebstorageModule.forRoot()],";
+    oldHtml =
+      "imports: \\[BrowserAnimationsModule, MatToolbarModule, MatIconModule, MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatDividerModule, BrowserModule, AppRoutingModule\\],";
+    newHtml =
+      "imports: [BrowserAnimationsModule, MatToolbarModule, MatIconModule, MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatDividerModule, BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, NgxWebstorageModule.forRoot()],";
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
     oldHtml = "bootstrap: \\[AppComponent\\],";

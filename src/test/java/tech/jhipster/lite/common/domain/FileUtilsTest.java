@@ -735,6 +735,16 @@ class FileUtilsTest {
     }
 
     @Test
+    void shouldNotGetValueForPartialPrefixMatch() throws IOException {
+      Path filePath = Files.createTempFile("values-between", null);
+      Files.write(filePath, """
+        <name>jhipster
+        """.getBytes());
+
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "<name>", "</name>")).isEmpty();
+    }
+
+    @Test
     void shouldGetFirstOccuringValue() throws IOException {
       Path filePath = Files.createTempFile("values-between", null);
       Files.write(filePath, """

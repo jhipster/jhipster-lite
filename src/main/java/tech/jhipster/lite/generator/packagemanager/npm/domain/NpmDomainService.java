@@ -23,6 +23,8 @@ public class NpmDomainService implements NpmService {
   public static final String DEPENDENCIES = DQ + "dependencies" + DQ;
   public static final String DEV_DEPENDENCIES = DQ + "devDependencies" + DQ;
   public static final String SCRIPTS = DQ + "scripts" + DQ;
+  public static final String NAME = DQ + "name" + DQ;
+  public static final String DESCRIPTION = DQ + "description" + DQ;
 
   private final NpmRepository npmRepository;
   private final ProjectRepository projectRepository;
@@ -99,5 +101,17 @@ public class NpmDomainService implements NpmService {
   @Override
   public Optional<String> getVersionInReact(String name) {
     return getVersion("react", name);
+  }
+
+  @Override
+  public Optional<String> getName(String folder) {
+    Assert.notBlank("folder", folder);
+    return FileUtils.getValueBetween(getPath(folder, PACKAGE_JSON), NAME + ": " + DQ, DQ);
+  }
+
+  @Override
+  public Optional<String> getDescription(String folder) {
+    Assert.notBlank("folder", folder);
+    return FileUtils.getValueBetween(getPath(folder, PACKAGE_JSON), DESCRIPTION + ": " + DQ, DQ);
   }
 }

@@ -95,7 +95,7 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/containers/docker/dockerfile"
   callApi "/api/servers/java/arch"
   callApi "/api/developer-tools/codespaces"
-  callApi "/api/developer-tools/gitpo"
+  callApi "/api/developer-tools/gitpod"
 
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"

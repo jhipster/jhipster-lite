@@ -21,6 +21,8 @@ describe('ServiceProjection', () => {
     );
     expect(toServiceProjection(Service.LOGSTASH)).toEqual<ServiceProjection>('logstash');
     expect(toServiceProjection(Service.MAVEN_JAVA)).toEqual<ServiceProjection>('maven-java');
+    expect(toServiceProjection(Service.CODESPACES_SETUP)).toEqual<ServiceProjection>('codespaces-setup');
+    expect(toServiceProjection(Service.GITPOD_SETUP)).toEqual<ServiceProjection>('gitpod-setup');
     expect(toServiceProjection(Service.MARIADB)).toEqual<ServiceProjection>('mariadb');
     expect(toServiceProjection(Service.MYSQL)).toEqual<ServiceProjection>('mysql');
     expect(toServiceProjection(Service.MONGODB)).toEqual<ServiceProjection>('mongodb');
@@ -62,6 +64,8 @@ describe('ServiceProjection', () => {
     );
     expect(fromServiceProjection('logstash')).toEqual<Service>(Service.LOGSTASH);
     expect(fromServiceProjection('maven-java')).toEqual<Service>(Service.MAVEN_JAVA);
+    expect(fromServiceProjection('codespaces-setup')).toEqual<Service>(Service.CODESPACES_SETUP);
+    expect(fromServiceProjection('gitpod-setup')).toEqual<Service>(Service.GITPOD_SETUP);
     expect(fromServiceProjection('mariadb')).toEqual<Service>(Service.MARIADB);
     expect(fromServiceProjection('mysql')).toEqual<Service>(Service.MYSQL);
     expect(fromServiceProjection('mongodb')).toEqual<Service>(Service.MONGODB);

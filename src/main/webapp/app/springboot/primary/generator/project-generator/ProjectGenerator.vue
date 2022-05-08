@@ -17,14 +17,14 @@
           :label="'Codespaces'"
           :service="'codespaces-setup'"
           :selector-prefix="selectorPrefix"
-          @click.prevent="addCodespaces"
+          @click.prevent="addCodespacesSetup"
         />
         <GeneratorButtonVue
           v-if="setupTool === 'gitpod'"
           :label="'Gitpod'"
           :service="'gitpod-setup'"
           :selector-prefix="selectorPrefix"
-          @click.prevent="addGitpod"
+          @click.prevent="addGitpodSetup"
         />
         <GeneratorButtonVue
           :label="'JaCoCo'"

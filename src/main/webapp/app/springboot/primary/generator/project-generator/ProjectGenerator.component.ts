@@ -60,7 +60,7 @@ export default defineComponent({
       }
     };
 
-    const addCodespaces = async (): Promise<void> => {
+    const addCodespacesSetup = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await projectService
           .addCodespacesSetup(toProject(props.project as ProjectToUpdate))
@@ -72,7 +72,7 @@ export default defineComponent({
       }
     };
 
-    const addGitpod = async (): Promise<void> => {
+    const addGitpodSetup = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await projectService
           .addGitpodSetup(toProject(props.project as ProjectToUpdate))
@@ -167,8 +167,8 @@ export default defineComponent({
       addSonarBackendFrontend,
       addJavaBase,
       addFrontendMavenPlugin,
-      addCodespaces,
-      addGitpod,
+      addCodespacesSetup,
+      addGitpodSetup,
       download,
     };
   },

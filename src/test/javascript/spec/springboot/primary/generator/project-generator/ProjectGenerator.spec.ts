@@ -35,6 +35,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
     props: {
       project,
       buildTool: 'maven',
+      setupTool: '',
     },
     global: {
       provide: {
@@ -145,6 +146,100 @@ describe('ProjectGenerator', () => {
 
     const [message] = logger.error.getCall(0).args;
     expect(message).toBe('Adding Maven to project failed');
+  });
+
+  it('should not add Codespaces setup when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addCodespacesSetup.resolves({});
+    await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addCodespacesSetup();
+
+    expect(projectService.addCodespacesSetup.called).toBe(false);
+  });
+
+  it('should add Codespaces setup when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addCodespacesSetup.resolves({});
+    await wrap({ projectService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await wrap({ projectService, project: projectToUpdate });
+
+    await component.addCodespacesSetup();
+
+    const args = projectService.addCodespacesSetup.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding Codespaces failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addCodespacesSetup.rejects({});
+    await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addCodespacesSetup();
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Codespaces setup to project failed');
+  });
+
+  it('should not add Gitpod setup when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addGitpodSetup.resolves({});
+    await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addGitpodSetup();
+
+    expect(projectService.addGitpodSetup.called).toBe(false);
+  });
+
+  it('should add Gitpod setup when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addGitpodSetup.resolves({});
+    await wrap({ projectService });
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
+      folder: 'project/path',
+      baseName: 'beer',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: '8080',
+    });
+    await wrap({ projectService, project: projectToUpdate });
+
+    await component.addGitpodSetup();
+
+    const args = projectService.addGitpodSetup.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+  });
+
+  it('should handle error on adding Codespaces failure', async () => {
+    const logger = stubLogger();
+    const projectService = stubProjectService();
+    projectService.addGitpodSetup.rejects({});
+    await wrap({ projectService, logger, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addGitpodSetup();
+
+    const [message] = logger.error.getCall(0).args;
+    expect(message).toBe('Adding Gitpod setup to project failed');
   });
 
   it('should not add JaCoCo when project path is not filled', async () => {

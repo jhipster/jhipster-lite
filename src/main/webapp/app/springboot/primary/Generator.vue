@@ -147,7 +147,7 @@
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
                       <input
-                        id="setup-tool-gradle"
+                        id="setup-tool-gitpod"
                         v-model="setupTool"
                         class="form-check-input flex-shrink-0"
                         type="radio"

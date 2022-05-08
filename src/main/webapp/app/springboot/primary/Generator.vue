@@ -135,6 +135,7 @@
                       <input
                         id="setup-tool-codespaces"
                         v-model="setupTool"
+                        :data-selector="selectorPrefix + '.setup-tool-codespaces'"
                         class="form-check-input flex-shrink-0"
                         type="radio"
                         name="setupTool"
@@ -149,6 +150,7 @@
                       <input
                         id="setup-tool-gitpod"
                         v-model="setupTool"
+                        :data-selector="selectorPrefix + '.setup-tool-gitpod'"
                         class="form-check-input flex-shrink-0"
                         type="radio"
                         name="setupTool"

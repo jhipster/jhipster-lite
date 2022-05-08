@@ -8,8 +8,6 @@ const angularGeneratorSelector = (name: string) => dataSelector(composeSelector(
 const reactGeneratorSelector = (name: string) => dataSelector(composeSelector('react-generator', name));
 const vueGeneratorSelector = (name: string) => dataSelector(composeSelector('vue-generator', name));
 const svelteGeneratorSelector = (name: string) => dataSelector(composeSelector('svelte-generator', name));
-const codespacesGeneratorSelector = (name: string) => dataSelector(composeSelector('codespaces-generator', name));
-const gitpodGeneratorSelector = (name: string) => dataSelector(composeSelector('gitpod-generator', name));
 
 describe('Generator', () => {
   beforeEach(() => {
@@ -80,13 +78,13 @@ describe('Generator', () => {
   });
 
   it('should display Codespaces', () => {
-    cy.get(generatorSelector('option-codespaces')).check();
-    cy.get(codespacesGeneratorSelector('add-codespaces-button')).contains('Codespaces');
+    cy.get(generatorSelector('setup-tool-codespaces')).check();
+    cy.get(projectGeneratorSelector('add-codespaces-setup-button')).contains('Codespaces');
   });
 
   it('should display Gitpod', () => {
-    cy.get(generatorSelector('option-gitpod')).check();
-    cy.get(gitpodGeneratorSelector('add-gitpod-button')).contains('Gitpod');
+    cy.get(generatorSelector('setup-tool-gitpod')).check();
+    cy.get(projectGeneratorSelector('add-gitpod-setup-button')).contains('Gitpod');
   });
 
   it('should display download button when project path is filled', () => {

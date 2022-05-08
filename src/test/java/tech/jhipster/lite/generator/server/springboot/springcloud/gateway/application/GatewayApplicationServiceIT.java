@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.gateway.appli
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.springcloud.gateway.application.GatewayAssert.assertDependencies;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.gateway.application.GatewayAssert.assertJavaFiles;
 import static tech.jhipster.lite.generator.server.springboot.springcloud.gateway.application.GatewayAssert.assertProperties;
 
 import org.junit.jupiter.api.Test;
@@ -42,5 +43,6 @@ class GatewayApplicationServiceIT {
 
     assertDependencies(project);
     assertProperties(project);
+    assertJavaFiles(project);
   }
 }

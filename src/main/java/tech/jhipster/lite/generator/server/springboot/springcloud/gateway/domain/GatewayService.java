@@ -7,4 +7,5 @@ public interface GatewayService {
 
   void addDependencies(Project project);
   void addProperties(Project project);
+  void addJavaFiles(Project project);
 }

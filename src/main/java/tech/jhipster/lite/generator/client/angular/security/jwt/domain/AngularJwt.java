@@ -27,7 +27,13 @@ public class AngularJwt {
       Map.entry("auth-jwt.service.spec.ts", primaryAppAuth),
       Map.entry("login.service.ts", primaryAppLogin),
       Map.entry("login.service.spec.ts", primaryAppLogin),
-      Map.entry("login.model.ts", primaryAppLogin)
+      Map.entry("login.model.ts", primaryAppLogin),
+      Map.entry("login.component.css", primaryAppLogin),
+      Map.entry("login.component.html", primaryAppLogin),
+      Map.entry("login.component.spec.ts", primaryAppLogin),
+      Map.entry("login.component.ts", primaryAppLogin),
+      Map.entry("login.module.ts", primaryAppLogin),
+      Map.entry("login.route.ts", primaryAppLogin)
     );
   }
 }

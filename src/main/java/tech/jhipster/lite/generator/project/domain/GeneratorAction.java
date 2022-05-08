@@ -54,6 +54,8 @@ public class GeneratorAction {
 
   public static final String EUREKA_CLIENT = "eureka-client";
 
+  public static final String GATEWAY = "gateway";
+
   public static final String SPRINGBOOT_CACHE = "springboot-cache";
 
   public static final String SPRINGBOOT_JWT = "springboot-jwt";

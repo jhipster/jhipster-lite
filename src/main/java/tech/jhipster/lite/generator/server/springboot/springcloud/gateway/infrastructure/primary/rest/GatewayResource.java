@@ -26,7 +26,7 @@ class GatewayResource {
   @Operation(summary = "Add Spring Cloud Gateway")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Spring Cloud Gateway")
   @PostMapping
-  @GeneratorStep(id = GeneratorAction.EUREKA_CLIENT)
+  @GeneratorStep(id = GeneratorAction.GATEWAY)
   public void init(@RequestBody ProjectDTO projectDTO) {
     gatewayApplicationService.init(ProjectDTO.toProject(projectDTO));
   }

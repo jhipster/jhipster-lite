@@ -13,6 +13,20 @@
           @click.prevent="addMaven"
         />
         <GeneratorButtonVue
+          v-if="setupTool === 'codespaces'"
+          :label="'Codespaces'"
+          :service="'codespaces-setup'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addCodespaces"
+        />
+        <GeneratorButtonVue
+          v-if="setupTool === 'gitpod'"
+          :label="'Gitpod'"
+          :service="'gitpod-setup'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addGitpod"
+        />
+        <GeneratorButtonVue
           :label="'JaCoCo'"
           :service="'jacoco-check-minimal-coverage'"
           :selector-prefix="selectorPrefix"

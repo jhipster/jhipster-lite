@@ -105,7 +105,7 @@
             <div class="card h-100 text-white bg-primary bg-gradient shadow">
               <h3 class="card-header h5 d-flex gap-3">
                 <IconVue :name="'body-text'" :aria-hidden="true" />
-                Setup
+                Setup tool
               </h3>
               <div class="card-body">
                 <ul class="list-group--inline">
@@ -113,10 +113,10 @@
                     <div class="w-100 justify-content-between">
                       <input
                         id="option-no-setup"
-                        v-model="server"
+                        v-model="setupTool"
                         class="form-check-input flex-shrink-0"
                         type="radio"
-                        name="setup"
+                        name="setupTool"
                         value="none"
                         checked
                       />
@@ -133,28 +133,28 @@
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
                       <input
-                        id="setup-codespaces"
-                        v-model="setup"
+                        id="setup-tool-codespaces"
+                        v-model="setupTool"
                         class="form-check-input flex-shrink-0"
                         type="radio"
-                        name="setup"
+                        name="setupTool"
                         value="codespaces"
                       />
-                      <label for="setup-codespaces" role="button"> Codespaces </label>
+                      <label for="setup-tool-codespaces" role="button"> Codespaces </label>
                     </div>
-                    <img src="../../../content/CodespaceLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
+                    <img src="../../../content/CodespacesLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
                       <input
-                        id="setup-gitpod"
-                        v-model="setup"
+                        id="setup-tool-gradle"
+                        v-model="setupTool"
                         class="form-check-input flex-shrink-0"
                         type="radio"
-                        name="setup"
+                        name="setupTool"
                         value="gitpod"
                       />
-                      <label for="setup-gitpod" role="button"> Gitpod </label>
+                      <label for="setup-tool-gitpod" role="button"> Gitpod </label>
                     </div>
                     <img src="../../../content/GitpodLogo.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0" />
                   </li>
@@ -456,7 +456,7 @@
 
       <div class="col py-2">
         <div id="v-pills-tab" class="tab-content">
-          <ProjectGeneratorVue :build-tool="buildTool" :project="project" />
+          <ProjectGeneratorVue :build-tool="buildTool" :setup-tool="setupTool" :project="project" />
           <SpringBootGeneratorVue v-if="server === 'springboot'" :project="project" />
           <AngularGeneratorVue v-if="client === 'angular'" :project="project" />
           <ReactGeneratorVue v-if="client === 'react'" :project="project" />

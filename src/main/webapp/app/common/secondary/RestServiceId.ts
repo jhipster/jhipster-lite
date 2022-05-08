@@ -17,6 +17,8 @@ const SERVICES: Record<string, Service> = {
   'liquibase-user-and-authority-changelogs': Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   logstash: Service.LOGSTASH,
   'maven-java': Service.MAVEN_JAVA,
+  'codespaces-setup': Service.CODESPACES_SETUP,
+  'gitpod-setup': Service.GITPOD_SETUP,
   mariadb: Service.MARIADB,
   mysql: Service.MYSQL,
   mongodb: Service.MONGODB,

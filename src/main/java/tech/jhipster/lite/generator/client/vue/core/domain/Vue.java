@@ -53,7 +53,13 @@ public class Vue {
       "typescript",
       "vite",
       "vue-jest",
-      "vue-tsc"
+      "vue-tsc",
+      "@types/sinon",
+      "sinon"
     );
+  }
+
+  public static List<String> axiosDependency() {
+    return List.of("axios");
   }
 }

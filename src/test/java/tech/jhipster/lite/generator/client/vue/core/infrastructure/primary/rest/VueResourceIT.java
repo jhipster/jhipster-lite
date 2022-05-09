@@ -44,6 +44,7 @@ class VueResourceIT {
     VueAssert.assertRootFiles(project);
     VueAssert.assertAppFiles(project);
     VueAssert.assertAppWithoutCss(project);
+    VueAssert.assertAxiosFile(project);
 
     VueAssert.assertJestSonar(project);
   }

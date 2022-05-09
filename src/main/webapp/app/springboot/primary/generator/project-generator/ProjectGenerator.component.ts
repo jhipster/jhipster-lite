@@ -36,7 +36,7 @@ export default defineComponent({
       if (props.project.folder !== '') {
         await projectService
           .init(toProject(props.project as ProjectToUpdate))
-          .then(() => toastService.success('Project successfully intialized'))
+          .then(() => toastService.success('Project successfully initialized'))
           .catch(error => {
             logger.error('Project initialization failed', error.message);
             toastService.error('Project initialization failed ' + error.message);

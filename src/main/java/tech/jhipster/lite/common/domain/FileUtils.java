@@ -19,8 +19,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.text.html.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.error.domain.Assert;
@@ -84,14 +86,15 @@ public class FileUtils {
 
   public static Optional<String> getValueBetween(String filename, String prefix, String suffix) {
     Assert.notBlank(FILENAME, filename);
+    Optional<String> matchingLine = readLine(filename, prefix);
+    return matchingLine.map(line -> getValueFromLine(prefix, suffix, line)).orElse(Optional.empty());
+  }
 
-    Optional<String> line = readLine(filename, prefix);
+  public static Optional<String> getValueFromLine(String prefix, String suffix, String line) {
     Pattern pattern = Pattern.compile(prefix + REGEXP_DOT_PLUS_MIN + suffix, Pattern.DOTALL);
-    if (line.isPresent()) {
-      Matcher matcher = pattern.matcher(line.get());
-      if (matcher.find()) {
-        return Optional.of(matcher.group(1));
-      }
+    Matcher matcher = pattern.matcher(line);
+    if (matcher.find()) {
+      return Optional.of(matcher.group(1));
     }
     return Optional.empty();
   }

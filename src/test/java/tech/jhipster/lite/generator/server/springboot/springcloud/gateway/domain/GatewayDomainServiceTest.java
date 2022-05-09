@@ -18,6 +18,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudCommonService;
 
 @UnitTest
@@ -26,6 +27,9 @@ class GatewayDomainServiceTest {
 
   @Mock
   BuildToolService buildToolService;
+
+  @Mock
+  ProjectRepository projectRepository;
 
   @Mock
   SpringCloudCommonService springCloudCommonService;
@@ -47,17 +51,31 @@ class GatewayDomainServiceTest {
     verify(springCloudCommonService).addSpringCloudCommonDependencies(project);
     verify(buildToolService).addDependency(any(Project.class), any(Dependency.class));
 
+    verify(projectRepository)
+      .template(
+        project,
+        "server/springboot/springcloud/gateway/java",
+        "GatewayResource.java",
+        "src/main/java/com/mycompany/myapp/technical/infrastructure/primary/rest"
+      );
+    verify(projectRepository)
+      .template(
+        project,
+        "server/springboot/springcloud/gateway/java",
+        "RouteVM.java",
+        "src/main/java/com/mycompany/myapp/technical/infrastructure/primary/rest/vm"
+      );
     verify(springCloudCommonService)
       .addOrMergeBootstrapProperties(
         project,
-        "server/springboot/springcloud/gateway/src",
+        "server/springboot/springcloud/gateway/resources",
         "bootstrap.properties",
         "src/main/resources/config"
       );
     verify(springCloudCommonService)
       .addOrMergeBootstrapProperties(
         project,
-        "server/springboot/springcloud/gateway/src/test",
+        "server/springboot/springcloud/gateway/resources/test",
         "bootstrap.properties",
         "src/test/resources/config"
       );

@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.webflux.web.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.assertj.core.data.Index;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -66,10 +68,11 @@ class SpringBootWebfluxDomainServiceTest {
     springBootWebfluxDomainService.addSpringBootWebflux(project);
 
     ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
-    verify(buildToolService).addDependency(eq(project), dependencyArgCaptor.capture());
-    assertThat(dependencyArgCaptor.getValue())
-      .usingRecursiveComparison()
-      .isEqualTo(Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-webflux").build());
+    verify(buildToolService, times(2)).addDependency(eq(project), dependencyArgCaptor.capture());
+    assertThat(dependencyArgCaptor.getAllValues())
+      .extracting(Dependency::getGroupId, Dependency::getArtifactId, Dependency::getScope)
+      .contains(tuple("org.springframework.boot", "spring-boot-starter-webflux", Optional.empty()), Index.atIndex(0))
+      .contains(tuple("io.projectreactor", "reactor-test", Optional.of("test")), Index.atIndex(1));
 
     verify(springBootCommonService).addPropertiesComment(project, "Spring Boot Webflux");
     verify(springBootCommonService).addProperties(project, "server.port", 8081);

@@ -44,6 +44,7 @@ public class SpringBootWebfluxDomainService implements SpringBootWebfluxService 
   @Override
   public void addSpringBootWebflux(Project project) {
     buildToolService.addDependency(project, springBootStarterWebfluxDependency());
+    buildToolService.addDependency(project, reactorTestDependency());
     addProperties(project);
   }
 

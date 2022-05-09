@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * This class provide utilities for input assertions.
+ * This class provides utilities for input assertions.
  *
  * <p>
  * It is designed to validate domain input, if you want to validate application input it's better to stick to

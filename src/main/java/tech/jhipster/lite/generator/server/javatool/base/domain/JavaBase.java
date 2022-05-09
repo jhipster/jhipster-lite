@@ -7,7 +7,22 @@ public class JavaBase {
   private JavaBase() {}
 
   public static List<String> errorDomainFiles() {
-    return List.of("Assert.java", "MissingMandatoryValueException.java", "UnauthorizedValueException.java");
+    return List.of(
+      "Assert.java",
+      "MissingMandatoryValueException.java",
+      "UnauthorizedValueException.java",
+      "AssertionException.java",
+      "NotAfterTimeException.java",
+      "NotBeforeTimeException.java",
+      "NotFutureTimeException.java",
+      "NotPastTimeException.java",
+      "NullElementInCollectionException.java",
+      "NumberValueTooHighException.java",
+      "NumberValueTooLowException.java",
+      "StringTooLongException.java",
+      "StringTooShortException.java",
+      "TooManyElementsException.java"
+    );
   }
 
   public static List<String> errorDomainTestFiles() {

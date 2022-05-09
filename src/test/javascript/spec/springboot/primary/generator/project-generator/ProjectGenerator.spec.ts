@@ -10,6 +10,7 @@ import { FileDownloader } from '@/common/primary/FileDownloader';
 import { stubFileDownloader } from '../../../../common/primary/FileDownloader.fixture';
 import { NotificationService } from '@/common/domain/NotificationService';
 import { stubNotificationService } from '../../../../common/domain/NotificationService.fixture';
+import { stubToastService } from '../../../../common/secondary/ToastService.fixture';
 
 let wrapper: VueWrapper;
 let component: any;
@@ -68,6 +69,7 @@ describe('ProjectGenerator', () => {
   it('should init project when project path is filled', async () => {
     const projectService = stubProjectService();
     projectService.init.resolves({});
+    const toastService = stubToastService();
     const projectToUpdate: ProjectToUpdate = createProjectToUpdate({
       folder: 'project/path',
       baseName: 'beer',
@@ -75,7 +77,7 @@ describe('ProjectGenerator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: '8080',
     });
-    await wrap({ projectService, project: projectToUpdate });
+    await wrap({ projectService, project: projectToUpdate, toastService });
 
     await component.initProject();
 
@@ -87,6 +89,8 @@ describe('ProjectGenerator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
+    const toastMessage = toastService.success.getCall(0).args[0];
+    expect(toastMessage).toBe('Project successfully initialized');
   });
 
   it('should handle error on init failure', async () => {

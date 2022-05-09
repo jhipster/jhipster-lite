@@ -1,5 +1,6 @@
 package tech.jhipster.lite.error.domain;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Objects;
@@ -191,14 +192,41 @@ public class Assert {
   }
 
   /**
+   * Create a fluent asserter for {@link BigDecimal} values
+   *
+   * <p>
+   * Usage:
+   *
+   * <code>
+   * <pre>
+   * Assert.field("rate", rate)
+   *   .min(0)
+   *   .max(1);
+   * </pre>
+   * </code>
+   * </p>
+   *
+   * @param field
+   *          name of the field to check (will be displayed in exception message)
+   * @param input
+   *          value to check
+   * @return An {@link BigDecimalAsserter} for this field and value
+   */
+  public static BigDecimalAsserter field(String field, BigDecimal input) {
+    return new BigDecimalAsserter(field, input);
+  }
+
+  /**
    * Create a fluent asserter for {@link Collection}
    *
    * <p>
    * Usage:
    *
+   * <code>
+   * <pre>
    * Assert.field("name", name)
-   *   .notEmpty()
-   *   .maxSize(150);
+   *  .notEmpty()
+   *  .maxSize(150);
    * </pre>
    * </code>
    * </p>
@@ -515,7 +543,7 @@ public class Assert {
       notNull(field, value);
 
       if (value.intValue() < minValue) {
-        throw NumberValueTooLowException.builder().field(field).minValue(minValue).value(value).build();
+        throw NumberValueTooLowException.builder().field(field).minValue(String.valueOf(minValue)).value(String.valueOf(value)).build();
       }
 
       return this;
@@ -536,7 +564,7 @@ public class Assert {
       notNull(field, value);
 
       if (value.intValue() > maxValue) {
-        throw NumberValueTooHighException.builder().field(field).maxValue(maxValue).value(value).build();
+        throw NumberValueTooHighException.builder().field(field).maxValue(String.valueOf(maxValue)).value(String.valueOf(value)).build();
       }
 
       return this;
@@ -584,7 +612,7 @@ public class Assert {
       notNull(field, value);
 
       if (value.longValue() < minValue) {
-        throw NumberValueTooLowException.builder().field(field).minValue(minValue).value(value).build();
+        throw NumberValueTooLowException.builder().field(field).minValue(String.valueOf(minValue)).value(String.valueOf(value)).build();
       }
 
       return this;
@@ -605,7 +633,7 @@ public class Assert {
       notNull(field, value);
 
       if (value.longValue() > maxValue) {
-        throw NumberValueTooHighException.builder().field(field).maxValue(maxValue).value(value).build();
+        throw NumberValueTooHighException.builder().field(field).maxValue(String.valueOf(maxValue)).value(String.valueOf(value)).build();
       }
 
       return this;
@@ -694,7 +722,7 @@ public class Assert {
     }
 
     private NumberValueTooLowException tooLow(float floor) {
-      return NumberValueTooLowException.builder().field(field).minValue(floor).value(value).build();
+      return NumberValueTooLowException.builder().field(field).minValue(String.valueOf(floor)).value(String.valueOf(value)).build();
     }
 
     /**
@@ -740,7 +768,7 @@ public class Assert {
     }
 
     private NumberValueTooHighException tooHigh(float ceil) {
-      return NumberValueTooHighException.builder().field(field).maxValue(ceil).value(value).build();
+      return NumberValueTooHighException.builder().field(field).maxValue(String.valueOf(ceil)).value(String.valueOf(value)).build();
     }
   }
 
@@ -826,7 +854,7 @@ public class Assert {
     }
 
     private NumberValueTooLowException tooLow(double floor) {
-      return NumberValueTooLowException.builder().field(field).minValue(floor).value(value).build();
+      return NumberValueTooLowException.builder().field(field).minValue(String.valueOf(floor)).value(String.valueOf(value)).build();
     }
 
     /**
@@ -872,7 +900,216 @@ public class Assert {
     }
 
     private NumberValueTooHighException tooHigh(double ceil) {
-      return NumberValueTooHighException.builder().field(field).maxValue(ceil).value(value).build();
+      return NumberValueTooHighException.builder().field(field).maxValue(String.valueOf(ceil)).value(String.valueOf(value)).build();
+    }
+  }
+
+  /**
+   * Asserter dedicated to {@link BigDecimal} assertions
+   */
+  public static class BigDecimalAsserter {
+
+    private final String field;
+    private final BigDecimal value;
+
+    private BigDecimalAsserter(String field, BigDecimal value) {
+      this.field = field;
+      this.value = value;
+    }
+
+    /**
+     * Ensure that the input value is positive (0 is positive)
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input value is null
+     * @throws NumberValueTooLowException
+     *           if the input value is negative
+     */
+    public BigDecimalAsserter positive() {
+      return min(0);
+    }
+
+    /**
+     * Ensure that the input value is strictly positive (0 is not strictly positive)
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input value is null
+     * @throws NumberValueTooLowException
+     *           if the input value is negative
+     */
+    public BigDecimalAsserter strictlyPositive() {
+      return over(0);
+    }
+
+    /**
+     * Ensure that the input value is at least at min value
+     *
+     * @param minValue
+     *          inclusive min value
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input value is null
+     * @throws NumberValueTooLowException
+     *           if the input value is under the min value
+     */
+    public BigDecimalAsserter min(long minValue) {
+      return min(new BigDecimal(minValue));
+    }
+
+    /**
+     * Ensure that the input value is at least at min value
+     *
+     * @param minValue
+     *          inclusive min value
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input or min value is null
+     * @throws NumberValueTooLowException
+     *           if the input value is under the min value
+     */
+    public BigDecimalAsserter min(BigDecimal minValue) {
+      notNull();
+      Assert.notNull("minValue", minValue);
+
+      if (value.compareTo(minValue) < 0) {
+        throw tooLow(minValue);
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that the input value is over the given floor
+     *
+     * @param floor
+     *          exclusive floor value
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if value is null
+     * @throws NumberValueTooLowException
+     *           if the value is under floor
+     */
+    public BigDecimalAsserter over(long floor) {
+      return over(new BigDecimal(floor));
+    }
+
+    /**
+     * Ensure that the input value is over the given floor
+     *
+     * @param floor
+     *          exclusive floor value
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if value or floor is null
+     * @throws NumberValueTooLowException
+     *           if the value is under floor
+     */
+    public BigDecimalAsserter over(BigDecimal floor) {
+      notNull();
+      Assert.notNull("floor", floor);
+
+      if (value.compareTo(floor) <= 0) {
+        throw tooLow(floor);
+      }
+
+      return this;
+    }
+
+    private NumberValueTooLowException tooLow(BigDecimal floor) {
+      return NumberValueTooLowException.builder().field(field).minValue(String.valueOf(floor)).value(value.toPlainString()).build();
+    }
+
+    /**
+     * Ensure that the input value is at most at max value
+     *
+     * @param maxValue
+     *          inclusive max value
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input value is null
+     * @throws NumberValueTooHighException
+     *           if the input value is over max
+     */
+    public BigDecimalAsserter max(long maxValue) {
+      return max(new BigDecimal(maxValue));
+    }
+
+    /**
+     * Ensure that the input value is at most at max value
+     *
+     * @param maxValue
+     *          inclusive max value
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input or max value is null
+     * @throws NumberValueTooHighException
+     *           if the input value is over max
+     */
+    public BigDecimalAsserter max(BigDecimal maxValue) {
+      notNull();
+      Assert.notNull("maxValue", maxValue);
+
+      if (value.compareTo(maxValue) > 0) {
+        throw tooHigh(maxValue);
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that the input value is under the given ceil
+     *
+     * @param ceil
+     *          exclusive ceil value
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if value is null
+     * @throws NumberValueTooHighException
+     *           if the value is under floor
+     */
+    public BigDecimalAsserter under(long ceil) {
+      return under(new BigDecimal(ceil));
+    }
+
+    /**
+     * Ensure that the input value is under the given ceil
+     *
+     * @param ceil
+     *          exclusive ceil value
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if value or ceil is null
+     * @throws NumberValueTooHighException
+     *           if the value is under floor
+     */
+    public BigDecimalAsserter under(BigDecimal ceil) {
+      notNull();
+      Assert.notNull("ceil", ceil);
+
+      if (value.compareTo(ceil) >= 0) {
+        throw tooHigh(ceil);
+      }
+
+      return this;
+    }
+
+    private NumberValueTooHighException tooHigh(BigDecimal ceil) {
+      return NumberValueTooHighException.builder().field(field).maxValue(String.valueOf(ceil)).value(value.toPlainString()).build();
+    }
+
+    /**
+     * Ensure that the input value is not null
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the input value is null
+     */
+    public BigDecimalAsserter notNull() {
+      Assert.notNull(field, value);
+
+      return this;
     }
   }
 

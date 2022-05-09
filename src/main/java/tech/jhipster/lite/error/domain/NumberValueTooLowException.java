@@ -13,8 +13,8 @@ public class NumberValueTooLowException extends AssertionException {
   public static class NumberValueTooLowExceptionBuilder {
 
     private String field;
-    private double minValue;
-    private double value;
+    private String minValue;
+    private String value;
 
     public NumberValueTooLowExceptionBuilder field(String field) {
       this.field = field;
@@ -22,13 +22,13 @@ public class NumberValueTooLowException extends AssertionException {
       return this;
     }
 
-    public NumberValueTooLowExceptionBuilder minValue(double minValue) {
+    public NumberValueTooLowExceptionBuilder minValue(String minValue) {
       this.minValue = minValue;
 
       return this;
     }
 
-    public NumberValueTooLowExceptionBuilder value(double value) {
+    public NumberValueTooLowExceptionBuilder value(String value) {
       this.value = value;
 
       return this;

@@ -7,6 +7,7 @@ import App from '@/common/primary/app/App.vue';
 import AngularRepository from '@/springboot/secondary/client/AngularRepository';
 import ReactRepository from '@/springboot/secondary/client/ReactRepository';
 import VueRepository from '@/springboot/secondary/client/VueRepository';
+import SvelteRepository from '@/springboot/secondary/client/SvelteRepository';
 import SpringBootRepository from './springboot/secondary/SpringBootRepository';
 import ProjectHistoryRepository from '@/common/secondary/ProjectHistoryRepository';
 import ConsoleLogger from '@/common/secondary/ConsoleLogger';
@@ -35,6 +36,7 @@ const projectRepository = new ProjectRepository(axiosHttp, projectHistoryReposit
 const angularRepository = new AngularRepository(axiosHttp, projectHistoryRepository);
 const reactRepository = new ReactRepository(axiosHttp, projectHistoryRepository);
 const vueRepository = new VueRepository(axiosHttp, projectHistoryRepository);
+const svelteRepository = new SvelteRepository(axiosHttp, projectHistoryRepository);
 const springBootRepository = new SpringBootRepository(axiosHttp, projectHistoryRepository);
 const toastService = new ToastService();
 
@@ -48,6 +50,7 @@ app.provide('projectHistoryService', projectHistoryRepository);
 app.provide('reactService', reactRepository);
 app.provide('springBootService', springBootRepository);
 app.provide('vueService', vueRepository);
+app.provide('svelteService', svelteRepository);
 app.provide('toastService', toastService);
 app.use(router);
 

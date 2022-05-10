@@ -17,9 +17,9 @@
     </div>
     <DefaultButtonVue
       id="svelte"
-      :label="'Generate Svelte (not implemented)'"
+      :label="'Generate Svelte'"
       :data-selector="selectorPrefix + '.add-svelte-button'"
-      @click.prevent=""
+      @click.prevent="addSvelte"
     />
   </div>
 </template>

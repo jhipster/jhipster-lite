@@ -13,6 +13,7 @@ public class ArchUnit {
       .builder()
       .groupId("com.tngtech.archunit")
       .artifactId("archunit-junit5-api")
+      .scope("test")
       .version("\\${" + ARCHUNIT_JUNIT5_VERSION + "}")
       .build();
   }

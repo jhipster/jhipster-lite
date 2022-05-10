@@ -46,6 +46,7 @@ public class JavaArchUnitAssertFiles {
         "<groupId>com.tngtech.archunit</groupId>",
         "<artifactId>archunit-junit5-api</artifactId>",
         "<version>${archunit-junit5.version}</version>",
+        "<scope>test</scope>",
         "</dependency>"
       )
     );

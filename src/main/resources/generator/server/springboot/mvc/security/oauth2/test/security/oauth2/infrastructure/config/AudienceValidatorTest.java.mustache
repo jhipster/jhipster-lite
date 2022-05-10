@@ -22,19 +22,17 @@ class AudienceValidatorTest {
 
   @Test
   void shouldInvalidAudience() {
-    Map<String, Object> claims = new HashMap<>();
-    claims.put("aud", "bar");
     Jwt badJwt = mock(Jwt.class);
-    when(badJwt.getAudience()).thenReturn(new ArrayList(claims.values()));
+    when(badJwt.getAudience()).thenReturn(List.of("bar"));
+
     assertThat(validator.validate(badJwt).hasErrors()).isTrue();
   }
 
   @Test
   void shouldValidAudience() {
-    Map<String, Object> claims = new HashMap<>();
-    claims.put("aud", "api://default");
     Jwt jwt = mock(Jwt.class);
-    when(jwt.getAudience()).thenReturn(new ArrayList(claims.values()));
+    when(jwt.getAudience()).thenReturn(List.of("api://default"));
+
     assertThat(validator.validate(jwt).hasErrors()).isFalse();
   }
 }

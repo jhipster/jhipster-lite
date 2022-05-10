@@ -10,7 +10,6 @@ public class JavaBase {
     return List.of(
       "Assert.java",
       "MissingMandatoryValueException.java",
-      "UnauthorizedValueException.java",
       "AssertionException.java",
       "NotAfterTimeException.java",
       "NotBeforeTimeException.java",
@@ -26,7 +25,7 @@ public class JavaBase {
   }
 
   public static List<String> errorDomainTestFiles() {
-    return List.of("AssertTest.java", "MissingMandatoryValueExceptionTest.java", "UnauthorizedValueExceptionTest.java");
+    return List.of("AssertTest.java", "MissingMandatoryValueExceptionTest.java");
   }
 
   public static List<String> annotationsFiles() {

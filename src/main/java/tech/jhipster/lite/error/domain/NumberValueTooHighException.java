@@ -13,8 +13,8 @@ public class NumberValueTooHighException extends AssertionException {
   public static class NumberValueTooHighExceptionBuilder {
 
     private String field;
-    private double maxValue;
-    private double value;
+    private String maxValue;
+    private String value;
 
     public NumberValueTooHighExceptionBuilder field(String field) {
       this.field = field;
@@ -22,13 +22,13 @@ public class NumberValueTooHighException extends AssertionException {
       return this;
     }
 
-    public NumberValueTooHighExceptionBuilder maxValue(double minValue) {
-      this.maxValue = minValue;
+    public NumberValueTooHighExceptionBuilder maxValue(String maxValue) {
+      this.maxValue = maxValue;
 
       return this;
     }
 
-    public NumberValueTooHighExceptionBuilder value(double value) {
+    public NumberValueTooHighExceptionBuilder value(String value) {
       this.value = value;
 
       return this;

@@ -31,6 +31,6 @@ class JavaBaseDomainServiceTest {
 
     javaBaseDomainService.addJavaBase(project);
 
-    verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(19)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 }

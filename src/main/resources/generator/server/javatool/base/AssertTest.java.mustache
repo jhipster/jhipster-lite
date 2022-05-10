@@ -69,54 +69,6 @@ class AssertTest {
   }
 
   @Test
-  void shouldNotValidateNegative() {
-    assertThatThrownBy(() -> Assert.notNegative("field", -1))
-      .isExactlyInstanceOf(UnauthorizedValueException.class)
-      .hasMessageContaining("(negative)");
-  }
-
-  @Test
-  void shouldValidatePositive() {
-    assertThatCode(() -> Assert.notNegative("field", 11)).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldNotValidateValueGreaterThanCeil() {
-    assertThatThrownBy(() -> Assert.notGreaterThan("field", 2, 1))
-      .isExactlyInstanceOf(UnauthorizedValueException.class)
-      .hasMessageContaining("inconsistent");
-  }
-
-  @Test
-  void shouldValidateValueGreaterThan() {
-    assertThatCode(() -> Assert.notGreaterThan("field", 1, 2)).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldNotValidateValueLowerThanFloor() {
-    assertThatThrownBy(() -> Assert.notLowerThan("field", 0, 1))
-      .isExactlyInstanceOf(UnauthorizedValueException.class)
-      .hasMessageContaining("inconsistent");
-  }
-
-  @Test
-  void shouldValidateValueLowerThanFloor() {
-    assertThatCode(() -> Assert.notLowerThan("field", 0, 0)).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldNotValidateValueNotEquals() {
-    assertThatThrownBy(() -> Assert.areEqual("field1", "field2", 1, 2))
-      .isExactlyInstanceOf(UnauthorizedValueException.class)
-      .hasMessageContaining("not equal");
-  }
-
-  @Test
-  void shouldValidateValueEquals() {
-    assertThatCode(() -> Assert.areEqual("field1", "field2", 1, 1)).doesNotThrowAnyException();
-  }
-
-  @Test
   void shouldNotValidateEmptyCollection() {
     List<String> list = List.of();
     assertThatThrownBy(() -> Assert.notEmpty("field", list))
@@ -127,32 +79,6 @@ class AssertTest {
   @Test
   void shouldValidateNotEmptyCollection() {
     assertThatCode(() -> Assert.notEmpty("field", List.of("Hello"))).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldNotValidateTooShortString() {
-    assertThatThrownBy(() -> Assert.hasMinimumLength("field", 10, "dix"))
-      .isExactlyInstanceOf(UnauthorizedValueException.class)
-      .hasMessageContaining("too short");
-  }
-
-  @Test
-  void shouldValidateHasMinimumLength() {
-    assertThatCode(() -> Assert.hasMinimumLength("field", 4, "four")).doesNotThrowAnyException();
-    assertThatCode(() -> Assert.hasMinimumLength("field", 3, "three")).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldNotValidateIsEqualTo() {
-    assertThatThrownBy(() -> Assert.isEqualTo("field", 3, 4))
-      .isExactlyInstanceOf(UnauthorizedValueException.class)
-      .hasMessageContaining("field")
-      .hasMessageContaining("expected");
-  }
-
-  @Test
-  void shouldValidateIsEqualTo() {
-    assertThatCode(() -> Assert.isEqualTo("field", "radish", "radish")).doesNotThrowAnyException();
   }
 
   @Nested

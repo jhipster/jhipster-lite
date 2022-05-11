@@ -1,7 +1,6 @@
 package tech.jhipster.lite.generator.server.javatool.base.domain;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static tech.jhipster.lite.TestUtils.tmpProject;
@@ -32,5 +31,7 @@ class JavaBaseDomainServiceTest {
     javaBaseDomainService.addJavaBase(project);
 
     verify(projectRepository, times(17)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), eq("JhipsterCollections.java"));
+    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), eq("JhipsterCollectionsTest.java"));
   }
 }

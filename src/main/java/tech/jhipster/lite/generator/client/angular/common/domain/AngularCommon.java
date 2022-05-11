@@ -21,7 +21,7 @@ public class AngularCommon {
   );
 
   protected static final List<String> ENV_VARIABLES_WITH_VALUES_REGEX_LIST = List.of(
-    "(export const environment = [^(\\};)]+[\\}]?\\s*)\\};"
+    "(export const environment = [^(\\};)]+[\\}]?[\\s,]*)\\};"
   );
 
   protected static final String COMA = ",";

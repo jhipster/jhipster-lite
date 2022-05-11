@@ -73,7 +73,7 @@ public class AngularCommonDomainService implements AngularCommonService {
     String newFileContent = getFirstMatchInFile(ENV_VARIABLES_WITH_VALUES_REGEX_LIST, fileContent)
       .map(prefixEnvVariables -> {
         String updatedEnvVariablesStr = prefixEnvVariables.stripTrailing();
-        if (!prefixEnvVariables.endsWith(COMA)) {
+        if (!updatedEnvVariablesStr.endsWith(COMA)) {
           updatedEnvVariablesStr += COMA;
         }
         updatedEnvVariablesStr += project.getEndOfLine() + values.stripTrailing() + project.getEndOfLine();
@@ -149,10 +149,8 @@ public class AngularCommonDomainService implements AngularCommonService {
   private String appendProvidersAfterDeclarations(String fileContent, String fullFilePath, String providers, Project project) {
     String declarationsStr = getFirstMatchInFile(List.of(DECLARATIONS_REGEX), fileContent)
       .orElseThrow(() -> new GeneratorException("Missing declarations in file: " + fullFilePath));
-
-    String endComma = !providers.trim().endsWith(COMA) ? COMA : "";
     String newProvidersArrayStr =
-      indent(1) + "providers: [" + project.getEndOfLine() + providers.stripTrailing() + endComma + project.getEndOfLine() + indent(1) + "]";
+      indent(1) + "providers: [" + project.getEndOfLine() + providers.stripTrailing() + project.getEndOfLine() + indent(1) + "]";
     String declarationsAndProvidersStr = declarationsStr.trim().endsWith(COMA) ? declarationsStr : declarationsStr + COMA;
     declarationsAndProvidersStr += project.getEndOfLine() + newProvidersArrayStr;
     return fileContent.replace(declarationsStr, declarationsAndProvidersStr);

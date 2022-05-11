@@ -446,7 +446,23 @@ class AngularCommonDomainServiceTest {
             ],
           })
           """,
-          "New providers array after declarations"
+          "New providers array after declarations (and existing comma)"
+        ),
+        Arguments.of(
+          """
+          @NgModule({
+            declarations: [AppComponent]
+          })
+          """,
+          """
+          @NgModule({
+            declarations: [AppComponent],
+            providers: [
+              { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
+            ]
+          })
+          """,
+          "New providers array after declarations (without comma)"
         ),
         Arguments.of(
           """
@@ -589,7 +605,7 @@ class AngularCommonDomainServiceTest {
             production: false,
             objet: {
               key: 'value',
-            }
+            },
           };
           """,
           """

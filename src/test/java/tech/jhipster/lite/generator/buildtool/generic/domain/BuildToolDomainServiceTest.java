@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.buildtool.gradle.domain.GradleService;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -25,6 +26,9 @@ class BuildToolDomainServiceTest {
 
   @Mock
   MavenService mavenService;
+
+  @Mock
+  GradleService gradleService;
 
   @InjectMocks
   BuildToolDomainService buildToolDomainService;
@@ -165,6 +169,16 @@ class BuildToolDomainServiceTest {
       Project project = tmpProjectWithBuildGradle();
 
       assertThatThrownBy(() -> buildToolDomainService.init(project, BuildToolType.GRADLE)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldAddDependency() {
+      Project project = tmpProjectWithBuildGradle();
+      Dependency dependency = getDependency();
+
+      buildToolDomainService.addDependency(project, dependency);
+
+      verify(gradleService).addDependency(project, dependency);
     }
   }
 

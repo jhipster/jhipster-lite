@@ -40,7 +40,7 @@ public class AngularAssert {
 
   public static void assertAngularFiles(Project project) {
     String pathWebapp = "src/main/webapp";
-    String pathApp = "src/main/webapp/app/common/primary/app";
+    String pathApp = "src/main/webapp/app";
     String pathEnvironments = "src/main/webapp/environments";
 
     assertFileExist(project, getPath(pathApp, "app.component.html"));

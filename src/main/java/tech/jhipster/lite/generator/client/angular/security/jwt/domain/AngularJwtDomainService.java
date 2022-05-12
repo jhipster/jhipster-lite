@@ -12,11 +12,9 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class AngularJwtDomainService implements AngularJwtService {
 
-  public static final String SOURCE = "client/angular";
-  public static final String SOURCE_WEBAPP = "client/angular/src/main/webapp";
-  private static final String APP = "src/main/webapp/app/common/primary/app";
-  public static final String SOURCE_PRIMARY = getPath(SOURCE, APP);
-  public static final String DESTINATION_PRIMARY = APP;
+  public static final String SOURCE = "client/angular/security/jwt";
+  public static final String SOURCE_WEBAPP = "client/angular/security/jwt/src/main/webapp";
+  private static final String APP = "src/main/webapp/app";
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
@@ -50,7 +48,7 @@ public class AngularJwtDomainService implements AngularJwtService {
       """
       {
         path: '',
-        loadChildren: () => import('./../../../login/login.module').then(m => m.LoginModule),
+        loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
       }""";
     projectRepository.replaceText(project, APP, APP_ROUTING_MODULE, oldHtml, newHtml);
 
@@ -91,7 +89,7 @@ public class AngularJwtDomainService implements AngularJwtService {
     newHtml =
       """
         import { AppComponent } from './app.component';
-        import { AuthInterceptor } from '../../../auth/auth.interceptor';
+        import { AuthInterceptor } from './auth/auth.interceptor';
         """;
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 

@@ -14,9 +14,9 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class AngularDomainService implements AngularService {
 
-  public static final String SOURCE = "client/angular";
-  public static final String SOURCE_WEBAPP = "client/angular/src/main/webapp";
-  private static final String APP = "src/main/webapp/app/common/primary/app";
+  public static final String SOURCE = "client/angular/core";
+  public static final String SOURCE_WEBAPP = "client/angular/core/src/main/webapp";
+  private static final String APP = "src/main/webapp/app";
   public static final String SOURCE_PRIMARY = getPath(SOURCE, APP);
   public static final String DESTINATION_PRIMARY = APP;
 

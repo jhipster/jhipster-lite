@@ -66,20 +66,20 @@ public class Angular {
   }
 
   public static Map<String, String> angularFiles() {
-    String primaryApp = "app/common/primary/app";
+    String appFolderPath = "app";
     String environments = "environments";
     return Map.ofEntries(
       Map.entry("index.html", ""),
       Map.entry("main.ts", ""),
       Map.entry("polyfills.ts", ""),
       Map.entry("styles.css", ""),
-      Map.entry(APP_MODULE, primaryApp),
-      Map.entry(APP_COMPONENT, primaryApp),
-      Map.entry(APP_COMPONENT_HTML, primaryApp),
-      Map.entry(APP_COMPONENT_CSS, primaryApp),
-      Map.entry(APP_ROUTING_MODULE, primaryApp),
-      Map.entry(APP_ROUTING_MODULE_SPEC, primaryApp),
-      Map.entry(APP_COMPONENT_SPEC, primaryApp),
+      Map.entry(APP_MODULE, appFolderPath),
+      Map.entry(APP_COMPONENT, appFolderPath),
+      Map.entry(APP_COMPONENT_HTML, appFolderPath),
+      Map.entry(APP_COMPONENT_CSS, appFolderPath),
+      Map.entry(APP_ROUTING_MODULE, appFolderPath),
+      Map.entry(APP_ROUTING_MODULE_SPEC, appFolderPath),
+      Map.entry(APP_COMPONENT_SPEC, appFolderPath),
       Map.entry("environment.prod.ts", environments),
       Map.entry("environment.prod.spec.ts", environments),
       Map.entry("environment.ts", environments),

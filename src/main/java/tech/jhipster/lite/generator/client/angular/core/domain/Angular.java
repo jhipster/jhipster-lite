@@ -6,6 +6,8 @@ import java.util.Map;
 public class Angular {
 
   public static final String APP_MODULE = "app.module.ts";
+  public static final String APP_ROUTING_MODULE = "app-routing.module.ts";
+  public static final String APP_ROUTING_MODULE_SPEC = "app-routing.module.spec.ts";
   public static final String APP_COMPONENT = "app.component.ts";
   public static final String APP_COMPONENT_SPEC = "app.component.spec.ts";
   public static final String APP_COMPONENT_HTML = "app.component.html";
@@ -75,8 +77,8 @@ public class Angular {
       Map.entry(APP_COMPONENT, primaryApp),
       Map.entry(APP_COMPONENT_HTML, primaryApp),
       Map.entry(APP_COMPONENT_CSS, primaryApp),
-      Map.entry("app-routing.module.ts", primaryApp),
-      Map.entry("app-routing.module.spec.ts", primaryApp),
+      Map.entry(APP_ROUTING_MODULE, primaryApp),
+      Map.entry(APP_ROUTING_MODULE_SPEC, primaryApp),
       Map.entry(APP_COMPONENT_SPEC, primaryApp),
       Map.entry("environment.prod.ts", environments),
       Map.entry("environment.prod.spec.ts", environments),

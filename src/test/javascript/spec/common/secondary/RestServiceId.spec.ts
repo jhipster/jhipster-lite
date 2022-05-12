@@ -18,6 +18,8 @@ describe('RestServiceId', () => {
     expect(toService('logstash')).toEqual<Service>(Service.LOGSTASH);
     expect(toService('mariadb')).toEqual<Service>(Service.MARIADB);
     expect(toService('maven-java')).toEqual<Service>(Service.MAVEN_JAVA);
+    expect(toService('codespaces-setup')).toEqual<Service>(Service.CODESPACES_SETUP);
+    expect(toService('gitpod-setup')).toEqual<Service>(Service.GITPOD_SETUP);
     expect(toService('mongodb')).toEqual<Service>(Service.MONGODB);
     expect(toService('mongock')).toEqual<Service>(Service.MONGOCK);
     expect(toService('mysql')).toEqual<Service>(Service.MYSQL);

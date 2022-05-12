@@ -22,6 +22,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    setupTool: {
+      type: String,
+      required: true,
+    },
   },
 
   setup(props) {
@@ -52,6 +56,30 @@ export default defineComponent({
           .catch(error => {
             logger.error('Adding Maven to project failed', error);
             toastService.error('Adding Maven to project failed ' + error.message);
+          });
+      }
+    };
+
+    const addCodespacesSetup = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await projectService
+          .addCodespacesSetup(toProject(props.project as ProjectToUpdate))
+          .then(() => toastService.success('Codespaces setup successfully added'))
+          .catch(error => {
+            logger.error('Adding Codespaces setup to project failed', error);
+            toastService.error('Adding Codespaces setup to project failed ' + error.message);
+          });
+      }
+    };
+
+    const addGitpodSetup = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await projectService
+          .addGitpodSetup(toProject(props.project as ProjectToUpdate))
+          .then(() => toastService.success('Gitpod setup successfully added'))
+          .catch(error => {
+            logger.error('Adding Gitpod setup to project failed', error);
+            toastService.error('Adding Gitpod setup to project failed ' + error.message);
           });
       }
     };
@@ -139,6 +167,8 @@ export default defineComponent({
       addSonarBackendFrontend,
       addJavaBase,
       addFrontendMavenPlugin,
+      addCodespacesSetup,
+      addGitpodSetup,
       download,
     };
   },

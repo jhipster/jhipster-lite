@@ -10,4 +10,6 @@ export interface ProjectService {
   addFrontendMavenPlugin(project: Project): Promise<void>;
   addJavaBase(project: Project): Promise<void>;
   download(project: Project): Promise<DocumentFile>;
+  addCodespacesSetup(project: Project): Promise<void>;
+  addGitpodSetup(project: Project): Promise<void>;
 }

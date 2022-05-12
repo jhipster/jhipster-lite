@@ -40,6 +40,7 @@ export default defineComponent({
     });
     const language = ref<string>();
     const buildTool = ref<string>('maven');
+    const setupTool = ref<string>();
     const server = ref<string>();
     const client = ref<string>();
     const toast = ref<typeof ToastVue | undefined>(undefined);
@@ -59,6 +60,7 @@ export default defineComponent({
       project,
       language,
       buildTool,
+      setupTool,
       server,
       client,
       selectorPrefix,

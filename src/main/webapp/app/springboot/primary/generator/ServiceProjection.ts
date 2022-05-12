@@ -15,6 +15,8 @@ export type ServiceProjection =
   | 'liquibase-with-users-and-authority-changelogs'
   | 'logstash'
   | 'maven-java'
+  | 'codespaces-setup'
+  | 'gitpod-setup'
   | 'mariadb'
   | 'mysql'
   | 'mongodb'
@@ -49,6 +51,8 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'liquibase-with-users-and-authority-changelogs',
   [Service.LOGSTASH]: 'logstash',
   [Service.MAVEN_JAVA]: 'maven-java',
+  [Service.CODESPACES_SETUP]: 'codespaces-setup',
+  [Service.GITPOD_SETUP]: 'gitpod-setup',
   [Service.MARIADB]: 'mariadb',
   [Service.MYSQL]: 'mysql',
   [Service.MONGODB]: 'mongodb',
@@ -86,6 +90,8 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'liquibase-with-users-and-authority-changelogs': Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   logstash: Service.LOGSTASH,
   'maven-java': Service.MAVEN_JAVA,
+  'codespaces-setup': Service.CODESPACES_SETUP,
+  'gitpod-setup': Service.GITPOD_SETUP,
   mariadb: Service.MARIADB,
   mysql: Service.MYSQL,
   mongodb: Service.MONGODB,

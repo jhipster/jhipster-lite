@@ -181,6 +181,7 @@ List of optional tools for Java:
 Setup:
 
 - GitHub Codespaces
+- Gitpod
 
 Spring Boot:
 

@@ -77,6 +77,16 @@ describe('Generator', () => {
     cy.get(svelteGeneratorSelector('add-svelte-button')).contains('Svelte');
   });
 
+  it('should display Codespaces', () => {
+    cy.get(generatorSelector('setup-tool-codespaces')).check();
+    cy.get(projectGeneratorSelector('add-codespaces-setup-button')).contains('Codespaces');
+  });
+
+  it('should display Gitpod', () => {
+    cy.get(generatorSelector('setup-tool-gitpod')).check();
+    cy.get(projectGeneratorSelector('add-gitpod-setup-button')).contains('Gitpod');
+  });
+
   it('should display download button when project path is filled', () => {
     cy.get('#path').type('/tmp/jhlite');
     cy.get(projectGeneratorSelector('add-download-button')).contains('Download');

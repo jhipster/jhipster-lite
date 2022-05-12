@@ -86,5 +86,11 @@ public class GatewayDomainService implements GatewayService {
 
     projectRepository.template(project, getPath(SOURCE, "java"), "GatewayResource.java", getPath(MAIN_JAVA, packageNamePath, resourcePath));
     projectRepository.template(project, getPath(SOURCE, "java"), "RouteVM.java", getPath(MAIN_JAVA, packageNamePath, resourcePath + "/vm"));
+    projectRepository.template(
+      project,
+      getPath(SOURCE, "java/test"),
+      "GatewayResourceIT.java",
+      getPath(TEST_JAVA, packageNamePath, resourcePath)
+    );
   }
 }

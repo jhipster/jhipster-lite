@@ -5,6 +5,7 @@ import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
 
 import java.util.List;
@@ -97,6 +98,13 @@ public class GatewayAssert {
       project,
       FileUtils.getPath(MAIN_JAVA, primaryResourceVMPath, "RouteVM.java"),
       "package " + packageName + ".technical.infrastructure.primary.rest.vm;"
+    );
+
+    assertFileExist(project, getPath(TEST_JAVA, primaryResourcePath, "GatewayResourceIT.java"));
+    assertFileContent(
+      project,
+      FileUtils.getPath(TEST_JAVA, primaryResourcePath, "GatewayResourceIT.java"),
+      "package " + packageName + ".technical.infrastructure.primary.rest;"
     );
   }
 }

@@ -65,6 +65,13 @@ class GatewayDomainServiceTest {
         "RouteVM.java",
         "src/main/java/com/mycompany/myapp/technical/infrastructure/primary/rest/vm"
       );
+    verify(projectRepository)
+      .template(
+        project,
+        "server/springboot/springcloud/gateway/java/test",
+        "GatewayResourceIT.java",
+        "src/test/java/com/mycompany/myapp/technical/infrastructure/primary/rest"
+      );
     verify(springCloudCommonService)
       .addOrMergeBootstrapProperties(
         project,

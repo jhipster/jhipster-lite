@@ -2,11 +2,12 @@ package tech.jhipster.lite.generator.client.angular.common.domain;
 
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.COMA;
+import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.C_BRACKET;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECLARATIONS_REGEX;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECLARATIONS_WITH_ARRAY_VALUES_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECORATOR_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.ENV_VARIABLES_WITH_VALUES_REGEX_LIST;
-import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.OPENING_BRACKET;
+import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.O_BRACKET;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.PROVIDERS_WITH_ARRAY_VALUES_REGEX_LIST;
 
 import java.io.IOException;
@@ -139,7 +140,7 @@ public class AngularCommonDomainService implements AngularCommonService {
 
   private String appendValuesInArray(String fileContent, String prefixWithArrayValuesStr, String arrayValuesToAdd, String endOfLine) {
     StringBuilder updatedArrayValuesStr = new StringBuilder(prefixWithArrayValuesStr.stripTrailing());
-    if (!prefixWithArrayValuesStr.trim().endsWith(OPENING_BRACKET) && !updatedArrayValuesStr.toString().endsWith(COMA)) {
+    if (!prefixWithArrayValuesStr.trim().endsWith(O_BRACKET) && !updatedArrayValuesStr.toString().endsWith(COMA)) {
       updatedArrayValuesStr.append(COMA);
     }
     updatedArrayValuesStr.append(endOfLine).append(arrayValuesToAdd.stripTrailing()).append(endOfLine).append(indent(1));
@@ -148,9 +149,18 @@ public class AngularCommonDomainService implements AngularCommonService {
 
   private String appendProvidersAfterDeclarations(String fileContent, String fullFilePath, String providers, Project project) {
     String declarationsStr = getFirstMatchInFile(List.of(DECLARATIONS_REGEX), fileContent)
+      .map(String::stripTrailing)
       .orElseThrow(() -> new GeneratorException("Missing declarations in file: " + fullFilePath));
     String newProvidersArrayStr =
-      indent(1) + "providers: [" + project.getEndOfLine() + providers.stripTrailing() + project.getEndOfLine() + indent(1) + "]";
+      indent(1) +
+      "providers: " +
+      O_BRACKET +
+      project.getEndOfLine() +
+      providers.stripTrailing() +
+      project.getEndOfLine() +
+      indent(1) +
+      C_BRACKET +
+      COMA;
     String declarationsAndProvidersStr = declarationsStr.trim().endsWith(COMA) ? declarationsStr : declarationsStr + COMA;
     declarationsAndProvidersStr += project.getEndOfLine() + newProvidersArrayStr;
     return fileContent.replace(declarationsStr, declarationsAndProvidersStr);

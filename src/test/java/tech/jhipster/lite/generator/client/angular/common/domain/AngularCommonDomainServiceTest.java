@@ -459,7 +459,7 @@ class AngularCommonDomainServiceTest {
             declarations: [AppComponent],
             providers: [
               { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
-            ]
+            ],
           })
           """,
           "New providers array after declarations (without comma)"
@@ -533,6 +533,24 @@ class AngularCommonDomainServiceTest {
     }
 
     @Test
+    void shouldNotAddWhenProvidersAndDeclarationsNotFoundInFile() {
+      // Given
+      Project project = Project.builder().folder("/project/path").build();
+      String filePath = "file/path";
+      String providers = "{ provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, }";
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
+        fileUtils.when(() -> FileUtils.read(fullFilePath)).thenReturn("");
+
+        // When + Then
+        assertThatThrownBy(() -> angularCommonDomainService.addProviders(project, filePath, providers))
+          .isInstanceOf(GeneratorException.class)
+          .hasMessageContaining(fullFilePath);
+      }
+    }
+
+    @Test
     void shouldNotAddWhenFileCannotBeRead() {
       // Given
       Project project = Project.builder().folder("/project/path").build();
@@ -573,7 +591,7 @@ class AngularCommonDomainServiceTest {
         fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(IOException.class);
 
         // When + Then
-        assertThatThrownBy(() -> angularCommonDomainService.addDeclarations(project, filePath, providers))
+        assertThatThrownBy(() -> angularCommonDomainService.addProviders(project, filePath, providers))
           .isInstanceOf(GeneratorException.class)
           .hasMessageContaining(fullFilePath);
       }

@@ -1,8 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
-import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-
 import java.util.Map;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class Gradle {
 
@@ -33,7 +32,11 @@ public class Gradle {
       .append(dependency.getArtifactId())
       .append(END_IMPLEMENTATION)
       .append(LF)
-      .append(GRADLE_NEEDLE_DEPENDENCY)
-      .toString().indent(2);
+      .toString()
+      .indent(2);
+  }
+
+  public static String getDependencyWithNeedle(Dependency dependency) {
+    return getDependency(dependency) + GRADLE_NEEDLE_DEPENDENCY.indent(2);
   }
 }

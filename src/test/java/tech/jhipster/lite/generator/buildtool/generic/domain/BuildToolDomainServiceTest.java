@@ -57,6 +57,16 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
+    void shouldDeleteDependency() {
+      Project project = tmpProjectWithPomXml();
+      Dependency dependency = getDependency();
+
+      buildToolDomainService.deleteDependency(project, dependency);
+
+      verify(mavenService).deleteDependency(project, dependency);
+    }
+
+    @Test
     void shouldAddDependencyWithExclusion() {
       Project project = tmpProjectWithPomXml();
       Dependency dependency = getDependency();
@@ -180,6 +190,16 @@ class BuildToolDomainServiceTest {
 
       verify(gradleService).addDependency(project, dependency);
     }
+
+    @Test
+    void shouldDeleteDependency() {
+      Project project = tmpProjectWithBuildGradle();
+      Dependency dependency = getDependency();
+
+      buildToolDomainService.deleteDependency(project, dependency);
+
+      verify(gradleService).deleteDependency(project, dependency);
+    }
   }
 
   @Nested
@@ -271,6 +291,14 @@ class BuildToolDomainServiceTest {
       Project project = tmpProject();
 
       assertThatThrownBy(() -> buildToolDomainService.getVersion(project, "spring-boot")).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotDeleteDependency() {
+      Project project = tmpProject();
+      Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
+
+      assertThatThrownBy(() -> buildToolDomainService.deleteDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 

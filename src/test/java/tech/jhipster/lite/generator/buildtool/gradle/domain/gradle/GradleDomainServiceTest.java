@@ -13,9 +13,9 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithBuildGradle;
 import static tech.jhipster.lite.common.domain.FileUtils.REGEXP_SPACE_STAR;
 import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.GRADLE_NEEDLE_DEPENDENCY;
 import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.filesCountArgument;
@@ -68,6 +68,17 @@ class GradleDomainServiceTest {
     gradleDomainService.addDependency(project, dependency);
 
     String newTextExpected = ("implementation(\"org.springframework.boot:spring-boot-starter\")\n" + GRADLE_NEEDLE_DEPENDENCY).indent(2);
-    verify(projectRepository).replaceText(project, "", "build.gradle.kts",REGEXP_SPACE_STAR + GRADLE_NEEDLE_DEPENDENCY, newTextExpected);
+    verify(projectRepository).replaceText(project, "", "build.gradle.kts", REGEXP_SPACE_STAR + GRADLE_NEEDLE_DEPENDENCY, newTextExpected);
+  }
+
+  @Test
+  void shouldDeleteDependency() {
+    Project project = tmpProjectWithBuildGradle();
+    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
+
+    gradleDomainService.deleteDependency(project, dependency);
+
+    String regexToReplace = "(?s)" + "implementation(\"org.springframework.boot:spring-boot-starter.*\")\n".indent(2);
+    verify(projectRepository).replaceRegexp(project, "", "build.gradle.kts", regexToReplace, "");
   }
 }

@@ -105,6 +105,17 @@ public class BuildToolDomainService implements BuildToolService {
   }
 
   @Override
+  public void deleteDependency(Project project, Dependency dependency) {
+    if (project.isMavenProject()) {
+      mavenService.deleteDependency(project, dependency);
+    } else if (project.isGradleProject()) {
+      gradleService.deleteDependency(project, dependency);
+    } else {
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
+    }
+  }
+
+  @Override
   public void init(Project project, BuildToolType buildTool) {
     if (buildTool == MAVEN) {
       mavenService.initJava(project);

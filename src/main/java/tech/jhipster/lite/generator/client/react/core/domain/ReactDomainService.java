@@ -1,11 +1,12 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class ReactDomainService implements ReactService {
@@ -79,7 +80,7 @@ public class ReactDomainService implements ReactService {
   }
 
   public void addFiles(Project project) {
-    React.files().forEach(file -> projectRepository.add(project, SOURCE, file));
+    projectRepository.add(ProjectFile.forProject(project).all(SOURCE, React.files()));
   }
 
   public void addReactCommonFiles(Project project) {
@@ -94,19 +95,27 @@ public class ReactDomainService implements ReactService {
     String imagesPath = "src/main/webapp/content/images";
     projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "StyledApp.tsx", SOURCE_APP, "App.tsx");
     projectRepository.template(project, getPath(SOURCE, SOURCE_APP), "App.css", SOURCE_APP);
-    projectRepository.add(project, getPath(SOURCE, imagesPath), "ReactLogo.png", imagesPath);
-    projectRepository.add(project, getPath(SOURCE, imagesPath), "JHipster-Lite-neon-blue.png", imagesPath);
+
+    projectRepository.add(
+      ProjectFile.forProject(project).withSource(getPath(SOURCE, imagesPath), "ReactLogo.png").withDestinationFolder(imagesPath)
+    );
+    projectRepository.add(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, imagesPath), "JHipster-Lite-neon-blue.png")
+        .withDestinationFolder(imagesPath)
+    );
   }
 
   public void addJestSonar(Project project) {
     String oldText = "\"cacheDirectories\": \\[";
     String newText =
       """
-      "jestSonar": \\{
-          "reportPath": "target/test-results/jest",
-          "reportFile": "TESTS-results-sonar.xml"
-        \\},
-        "cacheDirectories": \\[""";
+        "jestSonar": \\{
+            "reportPath": "target/test-results/jest",
+            "reportFile": "TESTS-results-sonar.xml"
+          \\},
+          "cacheDirectories": \\[""";
     projectRepository.replaceText(project, "", "package.json", oldText, newText);
   }
 }

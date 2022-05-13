@@ -38,6 +38,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class MavenDomainService implements MavenService {
@@ -139,7 +140,7 @@ public class MavenDomainService implements MavenService {
 
     String pluginRegexp;
     if (NEEDLE_PLUGIN_MANAGEMENT.equals(needle)) {
-      //Checking for plugin declaration in <pluginManagement> section
+      // Checking for plugin declaration in <pluginManagement> section
       pluginRegexp =
         (
           FileUtils.REGEXP_PREFIX_DOTALL +
@@ -150,7 +151,8 @@ public class MavenDomainService implements MavenService {
           PLUGIN_MANAGEMENT_END
         );
     } else {
-      //Checking for plugin declaration between <plugin> section and needle (not </plugin> as it can conflict with <plugin> section in <pluginManagement>)
+      // Checking for plugin declaration between <plugin> section and needle (not </plugin> as it can conflict with
+      // <plugin> section in <pluginManagement>)
       pluginRegexp =
         FileUtils.REGEXP_PREFIX_DOTALL + PLUGIN_BEGIN + FileUtils.REGEXP_DOT_STAR + pluginNode + FileUtils.REGEXP_DOT_STAR + NEEDLE_PLUGIN;
     }
@@ -245,16 +247,20 @@ public class MavenDomainService implements MavenService {
 
   @Override
   public void addMavenWrapper(Project project) {
-    projectRepository.add(project, SOURCE, "mvnw");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, "mvnw").withSameDestination());
     projectRepository.setExecutable(project, "", "mvnw");
 
-    projectRepository.add(project, SOURCE, "mvnw.cmd");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, "mvnw.cmd").withSameDestination());
     projectRepository.setExecutable(project, "", "mvnw.cmd");
 
     String sourceWrapper = getPath(SOURCE, ".mvn", "wrapper");
     String destinationWrapper = getPath(".mvn", "wrapper");
-    projectRepository.add(project, sourceWrapper, "maven-wrapper.jar", destinationWrapper);
-    projectRepository.add(project, sourceWrapper, "maven-wrapper.properties", destinationWrapper);
+    projectRepository.add(
+      ProjectFile.forProject(project).withSource(sourceWrapper, "maven-wrapper.jar").withDestinationFolder(destinationWrapper)
+    );
+    projectRepository.add(
+      ProjectFile.forProject(project).withSource(sourceWrapper, "maven-wrapper.properties").withDestinationFolder(destinationWrapper)
+    );
   }
 
   @Override

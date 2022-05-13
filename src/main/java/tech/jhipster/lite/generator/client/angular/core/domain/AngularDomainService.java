@@ -1,15 +1,14 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.client.angular.core.domain.Angular.APP_COMPONENT;
-import static tech.jhipster.lite.generator.client.angular.core.domain.Angular.APP_COMPONENT_HTML;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
-import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.client.angular.core.domain.Angular.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class AngularDomainService implements AngularService {
@@ -87,7 +86,7 @@ public class AngularDomainService implements AngularService {
   }
 
   public void addFiles(Project project) {
-    Angular.files().forEach(file -> projectRepository.add(project, SOURCE, file));
+    projectRepository.add(ProjectFile.forProject(project).all(SOURCE, Angular.files()));
   }
 
   public void addAngularFiles(Project project) {
@@ -99,23 +98,29 @@ public class AngularDomainService implements AngularService {
 
   public void addImages(Project project) {
     projectRepository.add(
-      project,
-      getPath(SOURCE_WEBAPP, "content/images"),
-      "JHipster-Lite-neon-red.png",
-      "src/main/webapp/content/images"
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE_WEBAPP, "content/images"), "JHipster-Lite-neon-red.png")
+        .withDestinationFolder("src/main/webapp/content/images")
     );
-    projectRepository.add(project, getPath(SOURCE_WEBAPP, "content/images"), "AngularLogo.svg", "src/main/webapp/content/images");
+
+    projectRepository.add(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE_WEBAPP, "content/images"), "AngularLogo.svg")
+        .withDestinationFolder("src/main/webapp/content/images")
+    );
   }
 
   public void addJestSonar(Project project) {
     String oldText = "\"cacheDirectories\": \\[";
     String newText =
       """
-      "jestSonar": \\{
-          "reportPath": "target/test-results/jest",
-          "reportFile": "TESTS-results-sonar.xml"
-        \\},
-        "cacheDirectories": \\[""";
+        "jestSonar": \\{
+            "reportPath": "target/test-results/jest",
+            "reportFile": "TESTS-results-sonar.xml"
+          \\},
+          "cacheDirectories": \\[""";
     projectRepository.replaceText(project, "", PACKAGE_JSON, oldText, newText);
   }
 }

@@ -14,6 +14,7 @@ import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
 import tech.jhipster.lite.generator.history.infrastructure.secondary.dto.GeneratorHistoryDataDTO;
 import tech.jhipster.lite.generator.history.infrastructure.secondary.dto.GeneratorHistoryValueDTO;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @Repository
@@ -71,7 +72,12 @@ public class GeneratorHistoryLocalRepository implements GeneratorHistoryReposito
   }
 
   private void createHistoryFile(Project project) {
-    projectRepository.add(project, HISTORY_FILE_FOLDER_SOURCE, HISTORY_FILE_NAME, HISTORY_FOLDER_PATH_DEST, HISTORY_FILE_NAME);
+    projectRepository.add(
+      ProjectFile
+        .forProject(project)
+        .withSource(HISTORY_FILE_FOLDER_SOURCE, HISTORY_FILE_NAME)
+        .withDestination(HISTORY_FOLDER_PATH_DEST, HISTORY_FILE_NAME)
+    );
   }
 
   private String getHistoryFilePath(Project project) {

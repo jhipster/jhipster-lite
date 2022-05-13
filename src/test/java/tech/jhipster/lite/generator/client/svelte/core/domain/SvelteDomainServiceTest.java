@@ -1,14 +1,10 @@
 package tech.jhipster.lite.generator.client.svelte.core.domain;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.*;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -27,10 +23,10 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class SvelteDomainServiceTest {
 
   @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @Mock
-  NpmService npmService;
+  private NpmService npmService;
 
   @InjectMocks
   private SvelteDomainService svelteDomainService;
@@ -92,7 +88,7 @@ class SvelteDomainServiceTest {
 
     svelteDomainService.addSvelteConfigFile(project);
 
-    verify(projectRepository, times(4)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository).add(filesCountArgument(4));
   }
 
   @Test

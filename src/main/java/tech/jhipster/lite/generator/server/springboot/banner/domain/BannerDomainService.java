@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.banner.domain;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class BannerDomainService implements BannerService {
@@ -46,6 +47,6 @@ public class BannerDomainService implements BannerService {
   }
 
   private void addBanner(Project project, String bannerFilename) {
-    projectRepository.add(project, SOURCE, bannerFilename, MAIN_RESOURCES, "banner.txt");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, bannerFilename).withDestination(MAIN_RESOURCES, "banner.txt"));
   }
 }

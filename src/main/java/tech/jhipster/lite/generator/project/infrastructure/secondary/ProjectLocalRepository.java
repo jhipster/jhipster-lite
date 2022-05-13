@@ -1,11 +1,7 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.read;
-import static tech.jhipster.lite.common.domain.FileUtils.tmpDir;
-import static tech.jhipster.lite.generator.project.domain.Constants.HISTORY_JSON;
-import static tech.jhipster.lite.generator.project.domain.Constants.JHIPSTER_FOLDER;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.PosixFilePermission;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -26,11 +23,15 @@ import org.zeroturnaround.zip.ZipUtil;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.project.domain.FilePath;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @Repository
 public class ProjectLocalRepository implements ProjectRepository {
+
+  private static final String FILE_SEPARATOR = "/";
 
   private final Logger log = LoggerFactory.getLogger(ProjectLocalRepository.class);
 
@@ -44,29 +45,32 @@ public class ProjectLocalRepository implements ProjectRepository {
   }
 
   @Override
-  public void add(Project project, String source, String sourceFilename) {
-    add(project, source, sourceFilename, ".");
+  public void add(Collection<ProjectFile> files) {
+    Assert.notEmpty("files", files);
+
+    files.forEach(file -> {
+      try (InputStream in = getInputStream(file.source())) {
+        String destinationFolder = FileUtils.getPath(file.project().getFolder(), file.destination().folder());
+        Path destinationPath = FileUtils.getPathOf(destinationFolder, file.destination().file());
+
+        FileUtils.createFolder(destinationFolder);
+        Files.copy(in, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException ex) {
+        throw new GeneratorException("The file '" + file.destination().file() + "' can't be added");
+      }
+    });
   }
 
-  @Override
-  public void add(Project project, String source, String sourceFilename, String destination) {
-    add(project, source, sourceFilename, destination, sourceFilename);
-  }
+  private static InputStream getInputStream(FilePath path) {
+    String resolvedPath = getPath(TEMPLATE_FOLDER, path.folder(), path.file());
 
-  @Override
-  public void add(Project project, String source, String sourceFilename, String destination, String destinationFilename) {
-    log.info("Adding file '{}'", destinationFilename);
-    try {
-      InputStream in = FileUtils.getInputStream(TEMPLATE_FOLDER, source, sourceFilename);
+    InputStream in = ProjectLocalRepository.class.getResourceAsStream(FILE_SEPARATOR + resolvedPath);
 
-      String destinationFolder = FileUtils.getPath(project.getFolder(), destination);
-      Path destinationPath = FileUtils.getPathOf(destinationFolder, destinationFilename);
-
-      FileUtils.createFolder(destinationFolder);
-      Files.copy(in, destinationPath, StandardCopyOption.REPLACE_EXISTING);
-    } catch (IOException ex) {
-      throw new GeneratorException("The file '" + destinationFilename + "' can't be added");
+    if (in == null) {
+      throw new GeneratorException("File '" + resolvedPath + "' not found in classpath");
     }
+
+    return in;
   }
 
   @Override

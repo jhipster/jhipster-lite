@@ -1,13 +1,13 @@
 package tech.jhipster.lite.generator.client.svelte.core.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
-import java.util.List;
 import java.util.Map;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class SvelteDomainService implements SvelteService {
@@ -85,26 +85,19 @@ public class SvelteDomainService implements SvelteService {
 
   public void addScripts(Project project) {
     // prettier-ignore
-    Map
-      .of(
-        "dev", "svelte-kit dev --port 9000",
-        "start", "svelte-kit dev --port 9000",
-        "build", "svelte-kit build",
-        "package", "svelte-kit package",
-        "preview", "svelte-kit preview",
-        "check", "svelte-check --tsconfig ./tsconfig.json",
-        "check:watch", "svelte-check --tsconfig ./tsconfig.json --watch",
-        "lint", "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-        "format", "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-        "test", "jest"
-      )
-      .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
+    Map.of("dev", "svelte-kit dev --port 9000", "start", "svelte-kit dev --port 9000", "build", "svelte-kit build",
+        "package", "svelte-kit package", "preview", "svelte-kit preview", "check",
+        "svelte-check --tsconfig ./tsconfig.json", "check:watch", "svelte-check --tsconfig ./tsconfig.json --watch",
+        "lint",
+        "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+        "format", "prettier --ignore-path .gitignore --write --plugin-search-dir=. .", "test", "jest")
+        .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
   }
 
   public void addSvelteConfigFile(Project project) {
-    List
-      .of(".eslintrc.cjs", "tsconfig.json", "svelte.config.js", "jest.config.cjs")
-      .forEach(file -> projectRepository.add(project, SOURCE, file));
+    projectRepository.add(
+      ProjectFile.forProject(project).all(SOURCE, ".eslintrc.cjs", "tsconfig.json", "svelte.config.js", "jest.config.cjs")
+    );
   }
 
   public void addRootFiles(Project project) {
@@ -138,27 +131,32 @@ public class SvelteDomainService implements SvelteService {
 
     projectRepository.template(project, SOURCE_PRIMARY, "StyledApp.svelte", DESTINATION_PRIMARY, "App.svelte");
 
-    projectRepository.add(project, getPath(SOURCE, assets), "JHipster-Lite-neon-orange.png", assets);
-    projectRepository.add(project, getPath(SOURCE, assets), "svelte-logo.png", assets);
+    projectRepository.add(
+      ProjectFile.forProject(project).withSource(getPath(SOURCE, assets), "JHipster-Lite-neon-orange.png").withDestinationFolder(assets)
+    );
+
+    projectRepository.add(
+      ProjectFile.forProject(project).withSource(getPath(SOURCE, assets), "svelte-logo.png").withDestinationFolder(assets)
+    );
   }
 
   public void addJestSonar(Project project) {
     String oldText = "\"cacheDirectories\": \\[";
     String newText =
       """
-      "jestSonar": \\{
-          "reportPath": "target/test-results/jest",
-          "reportFile": "TESTS-results-sonar.xml"
-        \\},
-        "cacheDirectories": \\[""";
+        "jestSonar": \\{
+            "reportPath": "target/test-results/jest",
+            "reportFile": "TESTS-results-sonar.xml"
+          \\},
+          "cacheDirectories": \\[""";
     projectRepository.replaceText(project, "", PACKAGE_JSON, oldText, newText);
   }
 
   public void addType(Project project) {
     String oldText = "\"cacheDirectories\": \\[";
     String newText = """
-      "type": "module",
-        "cacheDirectories": \\[""";
+        "type": "module",
+          "cacheDirectories": \\[""";
     projectRepository.replaceText(project, "", PACKAGE_JSON, oldText, newText);
   }
 }

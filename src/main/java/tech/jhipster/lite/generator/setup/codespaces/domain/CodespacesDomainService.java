@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.setup.codespaces.domain;
 
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class CodespacesDomainService implements CodespacesService {
@@ -26,6 +27,6 @@ public class CodespacesDomainService implements CodespacesService {
   }
 
   private void addDockerfile(Project project) {
-    projectRepository.add(project, SOURCE, "Dockerfile", DEVCONTAINER_DEST, "Dockerfile");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, "Dockerfile").withDestinationFolder(DEVCONTAINER_DEST));
   }
 }

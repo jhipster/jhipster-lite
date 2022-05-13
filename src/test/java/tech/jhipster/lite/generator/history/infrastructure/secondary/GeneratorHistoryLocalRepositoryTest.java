@@ -1,18 +1,9 @@
 package tech.jhipster.lite.generator.history.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProject;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +27,9 @@ import tech.jhipster.lite.common.domain.JsonUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryData;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
+import tech.jhipster.lite.generator.project.domain.FilePath;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -145,7 +138,14 @@ class GeneratorHistoryLocalRepositoryTest {
       generatorHistoryLocalRepository.addHistoryValue(project, generatorHistoryValue);
 
       // Then
-      verify(projectRepository).add(project, "history", "history.json", ".jhipster", "history.json");
+      verify(projectRepository)
+        .add(
+          ProjectFilesAsserter.projectFileArgument(
+            project,
+            new FilePath("history", "history.json"),
+            new FilePath(".jhipster", "history.json")
+          )
+        );
 
       fileUtils.verify(() -> FileUtils.read(anyString()), times(2));
       fileUtils.verify(() -> {
@@ -232,18 +232,18 @@ class GeneratorHistoryLocalRepositoryTest {
 
   private List<String> getExpectedFileContentLines() {
     return """
-      {
-        "values" : [ {
-          "serviceId" : "springboot-init",
-          "timestamp" : null
-        }, {
-          "serviceId" : "java-init",
-          "timestamp" : "2022-01-22T10:11:12Z"
-        }, {
-          "serviceId" : "tomcat",
-          "timestamp" : "2022-01-24T10:11:12Z"
-        } ]
-      }""".lines()
+        {
+          "values" : [ {
+            "serviceId" : "springboot-init",
+            "timestamp" : null
+          }, {
+            "serviceId" : "java-init",
+            "timestamp" : "2022-01-22T10:11:12Z"
+          }, {
+            "serviceId" : "tomcat",
+            "timestamp" : "2022-01-24T10:11:12Z"
+          } ]
+        }""".lines()
       .collect(Collectors.toList());
   }
 }

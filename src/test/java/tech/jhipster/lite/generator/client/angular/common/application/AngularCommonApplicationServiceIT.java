@@ -19,9 +19,9 @@ import tech.jhipster.lite.generator.project.domain.Project;
 @IntegrationTest
 class AngularCommonApplicationServiceIT {
 
-  private static final String APP_MODULE_TS_FILE_PATH = "src/main/webapp/app/common/primary/app/app.module.ts";
+  private static final String APP_MODULE_TS_FILE_PATH = "src/main/webapp/app/app.module.ts";
   private static final String ENVIRONMENT_TS_FILE_PATH = "src/main/webapp/environments/environment.ts";
-  private static final String APP_COMPONENT_HTML_FILE_PATH = "src/main/webapp/app/common/primary/app/app.component.html";
+  private static final String APP_COMPONENT_HTML_FILE_PATH = "src/main/webapp/app/app.component.html";
 
   @Autowired
   AngularCommonApplicationService angularCommonApplicationService;
@@ -50,7 +50,7 @@ class AngularCommonApplicationServiceIT {
     List<String> expectedContentLines =
       """
         import { NgModule } from '@angular/core';
-        import { MatDividerModule } from '@angular/material/divider';
+        import { MatButtonToggleModule } from '@angular/material/button-toggle';
         import {Oauth2AuthService} from '../../../auth/infrastructure/primary/oauth2-auth.service';
         import {HTTP_INTERCEPTORS} from '@angular/common/http';
         """.lines()
@@ -77,7 +77,7 @@ class AngularCommonApplicationServiceIT {
     List<String> expectedContentLines =
       """
         import { NgModule } from '@angular/core';
-        import { MatDividerModule } from '@angular/material/divider';
+        import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
         const myFn = () => {
           return 'hello world';

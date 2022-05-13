@@ -180,6 +180,15 @@ elif [[ $application == 'consulapp' ]]; then
 
   callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/consul"
 
+elif [[ $application == 'gatewayapp' ]]; then
+  springboot
+  sonar_back
+
+  callApi "/api/servers/spring-boot/reactive-servers/netty"
+  callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/eureka-client"
+  callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/config-client"
+  callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/gateway"
+
 elif [[ $application == 'mongodbapp' ]]; then
   springboot_mvc
   sonar_back

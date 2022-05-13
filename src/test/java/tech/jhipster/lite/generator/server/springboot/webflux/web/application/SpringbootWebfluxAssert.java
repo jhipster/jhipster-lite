@@ -28,6 +28,17 @@ public class SpringbootWebfluxAssert {
         "</dependency>"
       )
     );
+    assertFileContent(
+      project,
+      POM_XML,
+      List.of(
+        "<dependency>",
+        "<groupId>io.projectreactor</groupId>",
+        "<artifactId>reactor-test</artifactId>",
+        "<scope>test</scope>",
+        "</dependency>"
+      )
+    );
   }
 
   public static void assertProperties(Project project) {

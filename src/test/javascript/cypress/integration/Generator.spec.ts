@@ -60,7 +60,8 @@ describe('Generator', () => {
   it('should display angular', () => {
     cy.get(generatorSelector('option-angular')).check();
     cy.get(angularGeneratorSelector('add-angular-button')).contains('Angular');
-    cy.get(angularGeneratorSelector('add-angular-with-jwt-button')).contains('Angular with JWT');
+    cy.get(angularGeneratorSelector('add-angular-with-jwt-button')).contains('Add JWT');
+    cy.get(angularGeneratorSelector('add-angular-oauth2-button')).contains('Add Oauth2');
   });
 
   it('should display react', () => {

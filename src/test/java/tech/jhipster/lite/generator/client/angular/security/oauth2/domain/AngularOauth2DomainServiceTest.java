@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_COMPONENT_HTML_FILE_PATH;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_COMPONENT_SPEC_TS_FILE_PATH;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_MODULE_TS_FILE_PATH;
+import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.ENVIRONMENT_PROD_TS_FILE_PATH;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.ENVIRONMENT_TS_FILE_PATH;
 
 import java.util.Optional;
@@ -106,7 +107,7 @@ class AngularOauth2DomainServiceTest {
     verify(angularCommonService, times(1)).addConstants(any(Project.class), anyString(), anyString());
     verify(angularCommonService, times(2)).addDeclarations(any(Project.class), anyString(), anyString());
     verify(angularCommonService, times(1)).addProviders(any(Project.class), anyString(), anyString());
-    verify(angularCommonService, times(1)).addEnvVariables(any(Project.class), anyString(), anyString());
+    verify(angularCommonService, times(2)).addEnvVariables(any(Project.class), anyString(), anyString());
     verify(angularCommonService, times(1)).addAllowedCommonJsDependenciesAngularJson(any(Project.class), anyString());
     verify(angularCommonService, times(1)).addHtml(any(Project.class), anyString(), anyString(), anyString());
     verify(angularCommonService, times(1)).addTest(any(Project.class), anyString(), anyString(), anyString());
@@ -152,18 +153,16 @@ class AngularOauth2DomainServiceTest {
         """
       );
 
-    verify(angularCommonService)
-      .addEnvVariables(
-        project,
-        ENVIRONMENT_TS_FILE_PATH,
-        """
+    String envVariables =
+      """
         keycloak: {
           url: 'http://localhost:9080/auth',
           realm: 'jhipster',
           client_id: 'web_app'
         }
-      """
-      );
+      """;
+    verify(angularCommonService).addEnvVariables(project, ENVIRONMENT_TS_FILE_PATH, envVariables);
+    verify(angularCommonService).addEnvVariables(project, ENVIRONMENT_PROD_TS_FILE_PATH, envVariables);
 
     verify(angularCommonService).addAllowedCommonJsDependenciesAngularJson(project, "              \"keycloak-js\"");
 

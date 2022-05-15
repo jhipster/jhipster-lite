@@ -11,6 +11,7 @@ public class AngularOauth2 {
 
   protected static final String APP_MODULE_TS_FILE_PATH = "src/main/webapp/app/app.module.ts";
   protected static final String ENVIRONMENT_TS_FILE_PATH = "src/main/webapp/environments/environment.ts";
+  protected static final String ENVIRONMENT_PROD_TS_FILE_PATH = "src/main/webapp/environments/environment.prod.ts";
   protected static final String APP_COMPONENT_HTML_FILE_PATH = "src/main/webapp/app/app.component.html";
   protected static final String APP_COMPONENT_SPEC_TS_FILE_PATH = "src/main/webapp/app/app.component.spec.ts";
 

@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_COMPONENT_HTML_FILE_PATH;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_COMPONENT_SPEC_TS_FILE_PATH;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_MODULE_TS_FILE_PATH;
+import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.ENVIRONMENT_PROD_TS_FILE_PATH;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.ENVIRONMENT_TS_FILE_PATH;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
@@ -107,17 +108,16 @@ public class AngularOauth2DomainService implements AngularOauth2Service {
   }
 
   private void addEnvVariables(Project project) {
-    angularCommonService.addEnvVariables(
-      project,
-      ENVIRONMENT_TS_FILE_PATH,
+    String envVariables =
       """
         keycloak: {
           url: 'http://localhost:9080/auth',
           realm: 'jhipster',
           client_id: 'web_app'
         }
-      """
-    );
+      """;
+    angularCommonService.addEnvVariables(project, ENVIRONMENT_TS_FILE_PATH, envVariables);
+    angularCommonService.addEnvVariables(project, ENVIRONMENT_PROD_TS_FILE_PATH, envVariables);
   }
 
   private void addKeycloakJsAllowedCommonJsDependency(Project project) {

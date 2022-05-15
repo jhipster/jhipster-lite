@@ -69,7 +69,7 @@ public class AngularOauth2Assert {
         .toList();
     assertThat(appModuleTsLines).containsAll(expectedContentLines);
 
-    // ENvironnement.ts
+    // Environnement.ts
     assertFileContent(
       project,
       "src/main/webapp/environments/environment.ts",
@@ -83,6 +83,23 @@ public class AngularOauth2Assert {
       }
     };
     """.lines()
+        .toList()
+    );
+
+    // Environnement-prod.ts
+    assertFileContent(
+      project,
+      "src/main/webapp/environments/environment.prod.ts",
+      """
+      export const environment = {
+        production: true,
+        keycloak: {
+          url: 'http://localhost:9080/auth',
+          realm: 'jhipster',
+          client_id: 'web_app'
+        }
+      };
+      """.lines()
         .toList()
     );
 

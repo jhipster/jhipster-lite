@@ -134,7 +134,7 @@ public class AngularOauth2Assert {
           beforeEach(
             waitForAsync(() => {
               TestBed.configureTestingModule({
-                imports: [RouterTestingModule.withRoutes([]), MatToolbarModule, MatIconModule],
+                imports: [RouterTestingModule.withRoutes([]), MatToolbarModule, MatIconModule, MatMenuModule],
                 declarations: [AppComponent,
                   LoginComponent,
                 ],

@@ -12,6 +12,7 @@ public class Angular {
   public static final String APP_COMPONENT_SPEC = "app.component.spec.ts";
   public static final String APP_COMPONENT_HTML = "app.component.html";
   public static final String APP_COMPONENT_CSS = "app.component.css";
+  public static final String ADMIN_ROUTING_MODULE_SPEC = "admin/admin-routing.module.spec.ts";
 
   private Angular() {}
 

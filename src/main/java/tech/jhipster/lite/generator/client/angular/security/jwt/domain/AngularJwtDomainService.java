@@ -51,32 +51,8 @@ public class AngularJwtDomainService implements AngularJwtService {
         {
           path: '',
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
-        }""";
+        },""";
     projectRepository.replaceText(project, APP, APP_ROUTING_MODULE, oldHtml, newHtml);
-
-    oldHtml = "import \\{ AppRoutingModule \\} from './app-routing.module';";
-    newHtml =
-      """
-        import { TestBed } from '@angular/core/testing';
-        import { Router } from '@angular/router';
-        import { RouterTestingModule } from '@angular/router/testing';
-        import { AppRoutingModule, routes } from './app-routing.module';""";
-    projectRepository.replaceText(project, APP, APP_ROUTING_MODULE_SPEC, oldHtml, newHtml);
-
-    oldHtml = "// jhipster-needle-angular-jwt-login-form";
-    newHtml =
-      """
-        let router: Router;
-
-        beforeEach(() => {
-          TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes(routes)]
-          }).compileComponents();
-          router = TestBed.get(Router);
-          router.initialNavigation();
-        });
-        """;
-    projectRepository.replaceText(project, APP, APP_ROUTING_MODULE_SPEC, oldHtml, newHtml);
 
     oldHtml = "import \\{ NgModule \\} from '@angular/core';";
     newHtml =
@@ -96,9 +72,9 @@ public class AngularJwtDomainService implements AngularJwtService {
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
     oldHtml =
-      "imports: \\[BrowserAnimationsModule, MatToolbarModule, MatIconModule, MatButtonModule, MatButtonToggleModule, BrowserModule, AppRoutingModule\\],";
+      "imports: \\[BrowserAnimationsModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, MatButtonToggleModule, BrowserModule, AppRoutingModule\\],";
     newHtml =
-      "imports: [BrowserAnimationsModule, MatToolbarModule, MatIconModule, MatButtonModule, MatButtonToggleModule, BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, NgxWebstorageModule.forRoot()],";
+      "imports: [BrowserAnimationsModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, MatButtonToggleModule, BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, NgxWebstorageModule.forRoot()],";
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
     oldHtml = "bootstrap: \\[AppComponent\\],";

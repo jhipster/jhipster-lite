@@ -7,6 +7,7 @@ export interface SpringBootServiceFixture extends SpringBootService {
   addSpringBootMvcTomcat: SinonStub;
   addSpringBootWebfluxNetty: SinonStub;
   addSpringBootActuator: SinonStub;
+  addSpringDoc: SinonStub;
 
   addSpringBootAopLogging: SinonStub;
   addSpringBootLogstash: SinonStub;
@@ -48,6 +49,7 @@ export const stubSpringBootService = (): SpringBootServiceFixture => ({
   addSpringBootMvcTomcat: sinon.stub(),
   addSpringBootWebfluxNetty: sinon.stub(),
   addSpringBootActuator: sinon.stub(),
+  addSpringDoc: sinon.stub(),
 
   addSpringBootAopLogging: sinon.stub(),
   addSpringBootLogstash: sinon.stub(),

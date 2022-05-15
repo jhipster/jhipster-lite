@@ -76,6 +76,23 @@ describe('SpringBootRepository', () => {
     expect(projectFolder).toBe(PROJECT_FOLDER);
   });
 
+  it('should add Springdoc', async () => {
+    const projectHistoryService = stubProjectHistoryService();
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const springBootRepository = new SpringBootRepository(axiosHttpStub, projectHistoryService);
+    const project: Project = createProject({ folder: PROJECT_FOLDER });
+
+    await springBootRepository.addSpringDoc(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/servers/spring-boot/api-documentations/springdoc/init');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+    const [projectFolder] = projectHistoryService.get.getCall(0).args;
+    expect(projectFolder).toBe(PROJECT_FOLDER);
+  });
+
   describe('Log tools', () => {
     it('should add SpringBoot AOP Logging', async () => {
       const projectHistoryService = stubProjectHistoryService();

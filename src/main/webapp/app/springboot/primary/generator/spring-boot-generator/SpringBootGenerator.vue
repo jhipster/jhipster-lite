@@ -26,6 +26,7 @@
           :selector-prefix="selectorPrefix"
           @click.prevent="addSpringBootActuator"
         />
+        <GeneratorButtonVue :label="'Spring Doc'" :service="'spring-doc'" :selector-prefix="selectorPrefix" @click.prevent="addSpringDoc" />
       </div>
       <div>
         <GeneratorButtonVue

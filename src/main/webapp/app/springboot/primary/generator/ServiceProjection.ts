@@ -4,6 +4,7 @@ export type ServiceProjection =
   | 'aop-logging'
   | 'angular'
   | 'angular-with-jwt'
+  | 'angular-oauth2'
   | 'download'
   | 'initialization'
   | 'flyway'
@@ -41,6 +42,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.AOP_LOGGING]: 'aop-logging',
   [Service.ANGULAR]: 'angular',
   [Service.ANGULAR_WITH_JWT]: 'angular-with-jwt',
+  [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
   [Service.DOWNLOAD]: 'download',
   [Service.FLYWAY]: 'flyway',
   [Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'flyway-with-users-and-authority-changelogs',
@@ -81,6 +83,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'aop-logging': Service.AOP_LOGGING,
   angular: Service.ANGULAR,
   'angular-with-jwt': Service.ANGULAR_WITH_JWT,
+  'angular-oauth2': Service.ANGULAR_OAUTH2,
   download: Service.DOWNLOAD,
   flyway: Service.FLYWAY,
   'flyway-with-users-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,

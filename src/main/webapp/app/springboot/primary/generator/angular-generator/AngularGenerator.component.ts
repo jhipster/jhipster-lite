@@ -42,10 +42,23 @@ export default defineComponent({
       }
     };
 
+    const addOauth2 = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await angularService
+          .addOauth2(toProject(props.project as ProjectToUpdate))
+          .then(() => toastService.success('Oauth2 successfully added'))
+          .catch(error => {
+            logger.error('Adding Oauth2 to project failed', error);
+            toastService.error('Adding Oauth2 to project failed ' + error);
+          });
+      }
+    };
+
     return {
       selectorPrefix,
       addAngular,
       addAngularWithJWT,
+      addOauth2,
       props,
     };
   },

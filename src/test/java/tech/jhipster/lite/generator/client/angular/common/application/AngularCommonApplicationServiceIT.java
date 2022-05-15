@@ -22,6 +22,7 @@ class AngularCommonApplicationServiceIT {
   private static final String APP_MODULE_TS_FILE_PATH = "src/main/webapp/app/app.module.ts";
   private static final String ENVIRONMENT_TS_FILE_PATH = "src/main/webapp/environments/environment.ts";
   private static final String APP_COMPONENT_HTML_FILE_PATH = "src/main/webapp/app/app.component.html";
+  private static final String APP_COMPONENT_SPEC_TS_FILE_PATH = "src/main/webapp/app/app.component.spec.ts";
 
   @Autowired
   AngularCommonApplicationService angularCommonApplicationService;
@@ -56,6 +57,21 @@ class AngularCommonApplicationServiceIT {
         """.lines()
         .toList();
 
+    assertThat(allLinesFile).containsAll(expectedContentLines);
+  }
+
+  @Test
+  void shouldAddImportInExistingImport() throws IOException {
+    // Given
+    Project project = initAngularProject();
+
+    // When
+    String imports = " APP_INITIALIZER";
+    angularCommonApplicationService.addInExistingImport(project, APP_MODULE_TS_FILE_PATH, imports, "@angular/core");
+
+    // Then
+    List<String> allLinesFile = Files.readAllLines(Path.of(getPath(project.getFolder(), APP_MODULE_TS_FILE_PATH)));
+    List<String> expectedContentLines = List.of("import { NgModule, APP_INITIALIZER} from '@angular/core';");
     assertThat(allLinesFile).containsAll(expectedContentLines);
   }
 
@@ -169,7 +185,7 @@ class AngularCommonApplicationServiceIT {
   }
 
   @Test
-  void shouldPrependHtml() throws IOException {
+  void shouldAddHtml() throws IOException {
     // Given
     Project project = initAngularProject();
 
@@ -179,7 +195,7 @@ class AngularCommonApplicationServiceIT {
           <h1>Hello World</h1>
         </div>
       """;
-    angularCommonApplicationService.prependHtml(project, APP_COMPONENT_HTML_FILE_PATH, htmlToAdd, "(<div id=\"footer\">)");
+    angularCommonApplicationService.addHtml(project, APP_COMPONENT_HTML_FILE_PATH, htmlToAdd, "(<div id=\"footer\">)");
 
     // Then
     List<String> allLinesFile = Files.readAllLines(Path.of(getPath(project.getFolder(), APP_COMPONENT_HTML_FILE_PATH)));
@@ -190,6 +206,51 @@ class AngularCommonApplicationServiceIT {
           <h1>Hello World</h1>
         </div>
       """.lines().toList();
+
+    assertThat(allLinesFile).containsAll(expectedContentLines);
+  }
+
+  @Test
+  void shouldAddTest() throws IOException {
+    // Given
+    Project project = initAngularProject();
+
+    // When
+    String testToAdd =
+      """
+          it('should display login component',() => {
+            // WHEN
+            fixture.detectChanges();
+
+            // THEN
+            expect(fixture.debugElement.query(By.directive(LoginComponent))).toBeTruthy();
+          });
+      """;
+    angularCommonApplicationService.addTest(project, APP_COMPONENT_SPEC_TS_FILE_PATH, testToAdd, "should have appName");
+
+    // Then
+    List<String> allLinesFile = Files.readAllLines(Path.of(getPath(project.getFolder(), APP_COMPONENT_SPEC_TS_FILE_PATH)));
+    List<String> expectedContentLines =
+      """
+          describe('ngOnInit', () => {
+            it('should have appName', () => {
+              // WHEN
+              fixture.detectChanges();
+
+              // THEN
+              expect(comp.appName).toEqual('foo');
+            });
+
+            it('should display login component',() => {
+              // WHEN
+              fixture.detectChanges();
+
+              // THEN
+              expect(fixture.debugElement.query(By.directive(LoginComponent))).toBeTruthy();
+            });
+          });
+        """.lines()
+        .toList();
 
     assertThat(allLinesFile).containsAll(expectedContentLines);
   }

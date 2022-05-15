@@ -3,15 +3,19 @@ package tech.jhipster.lite.generator.client.angular.common.domain;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface AngularCommonService {
-  void addImports(Project project, String filePath, String imports);
+  void addImports(Project project, String tsFilePath, String imports);
 
-  void addConstants(Project project, String filePath, String constants);
+  void addInExistingImport(Project project, String tsFilePath, String importToAdd, String existingImportName);
 
-  void addDeclarations(Project project, String filePath, String declarations);
+  void addConstants(Project project, String tsFilePath, String constants);
 
-  void addProviders(Project project, String filePath, String providers);
+  void addDeclarations(Project project, String tsFilePath, String declarations);
+
+  void addProviders(Project project, String tsFilePath, String providers);
 
   void addEnvVariables(Project project, String envFilePath, String values);
 
-  void prependHtml(Project project, String filePath, String html, String inHtmlTagRegex);
+  void addHtml(Project project, String htmlFilePath, String htmlToAdd, String htmlTagRegexToReplace);
+
+  void addTest(Project project, String specTsFilePath, String testToAdd, String afterTestName);
 }

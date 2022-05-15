@@ -17,6 +17,10 @@ public class AngularCommonApplicationService {
     angularCommonService.addImports(project, filePath, imports);
   }
 
+  public void addInExistingImport(Project project, String filePath, String imports, String existingImportName) {
+    angularCommonService.addInExistingImport(project, filePath, imports, existingImportName);
+  }
+
   public void addConstants(Project project, String filePath, String constants) {
     angularCommonService.addConstants(project, filePath, constants);
   }
@@ -33,7 +37,11 @@ public class AngularCommonApplicationService {
     angularCommonService.addEnvVariables(project, envFilePath, values);
   }
 
-  public void prependHtml(Project project, String filePath, String html, String inHtmlTagRegex) {
-    angularCommonService.prependHtml(project, filePath, html, inHtmlTagRegex);
+  public void addHtml(Project project, String htmlFilePath, String htmlToAdd, String htmlTagRegexToReplace) {
+    angularCommonService.addHtml(project, htmlFilePath, htmlToAdd, htmlTagRegexToReplace);
+  }
+
+  public void addTest(Project project, String specTsFilePath, String testToAdd, String afterTestName) {
+    angularCommonService.addTest(project, specTsFilePath, testToAdd, afterTestName);
   }
 }

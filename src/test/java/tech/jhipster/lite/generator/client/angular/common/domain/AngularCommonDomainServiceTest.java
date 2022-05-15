@@ -51,9 +51,9 @@ class AngularCommonDomainServiceTest {
       String filePath = "file/path";
       String imports =
         """
-        import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
-        import {LoginComponent} from './login/login.component';
-        """;
+          import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
+          import {LoginComponent} from './login/login.component';
+          """;
       try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
         String fullFilePath = "/project/path/file/path";
         fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
@@ -61,16 +61,16 @@ class AngularCommonDomainServiceTest {
           .when(() -> FileUtils.read(fullFilePath))
           .thenReturn(
             """
-            import { AppRoutingModule } from './app-routing.module';
-            import { AppComponent } from './app.component';
-            import {
-              HttpRequest,
-              HttpHandler,
-              HttpEvent,
-              HttpInterceptor
-            } from '@angular/common/http';
-            // import { x } from y;
-            """
+              import { AppRoutingModule } from './app-routing.module';
+              import { AppComponent } from './app.component';
+              import {
+                HttpRequest,
+                HttpHandler,
+                HttpEvent,
+                HttpInterceptor
+              } from '@angular/common/http';
+              // import { x } from y;
+              """
           );
 
         // When
@@ -82,19 +82,19 @@ class AngularCommonDomainServiceTest {
           fileUtils,
           fullFilePath,
           """
-          import { AppRoutingModule } from './app-routing.module';
-          import { AppComponent } from './app.component';
-          import {
-            HttpRequest,
-            HttpHandler,
-            HttpEvent,
-            HttpInterceptor
-          } from '@angular/common/http';
-          import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
-          import {LoginComponent} from './login/login.component';
+            import { AppRoutingModule } from './app-routing.module';
+            import { AppComponent } from './app.component';
+            import {
+              HttpRequest,
+              HttpHandler,
+              HttpEvent,
+              HttpInterceptor
+            } from '@angular/common/http';
+            import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
+            import {LoginComponent} from './login/login.component';
 
-          // import { x } from y;
-          """
+            // import { x } from y;
+            """
         );
       }
     }
@@ -106,9 +106,9 @@ class AngularCommonDomainServiceTest {
       String filePath = "file/path";
       String imports =
         """
-        import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
-        import {LoginComponent} from './login/login.component';
-        """;
+          import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
+          import {LoginComponent} from './login/login.component';
+          """;
       try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
         String fullFilePath = "/project/path/file/path";
         fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
@@ -129,13 +129,13 @@ class AngularCommonDomainServiceTest {
           fileUtils,
           fullFilePath,
           """
-          import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
-          import {LoginComponent} from './login/login.component';
+            import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
+            import {LoginComponent} from './login/login.component';
 
-          @Injectable({ providedIn: 'root' })
-          export class MyService {
-          }
-          """
+            @Injectable({ providedIn: 'root' })
+            export class MyService {
+            }
+            """
         );
       }
     }
@@ -147,9 +147,9 @@ class AngularCommonDomainServiceTest {
       String filePath = "file/path";
       String imports =
         """
-        import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
-        import {LoginComponent} from './login/login.component';
-        """;
+          import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
+          import {LoginComponent} from './login/login.component';
+          """;
       try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
         String fullFilePath = "/project/path/file/path";
         fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
@@ -169,9 +169,9 @@ class AngularCommonDomainServiceTest {
       String filePath = "file/path";
       String imports =
         """
-        import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
-        import {LoginComponent} from './login/login.component';
-        """;
+          import {HttpAuthInterceptor} from '../../../auth/infrastructure/primary/http-auth.interceptor';
+          import {LoginComponent} from './login/login.component';
+          """;
       try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
         String fullFilePath = "/project/path/file/path";
         fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
@@ -180,6 +180,83 @@ class AngularCommonDomainServiceTest {
 
         // When + Then
         assertThatThrownBy(() -> angularCommonDomainService.addImports(project, filePath, imports))
+          .isInstanceOf(GeneratorException.class)
+          .hasMessageContaining(fullFilePath);
+      }
+    }
+  }
+
+  @Nested
+  class AddInExistingImportTest {
+
+    @Test
+    void shouldAdd() {
+      Project project = Project.builder().folder("/project/path").build();
+      String filePath = "file/path";
+      String imports = " APP_INITIALIZER";
+      String existingImport = "@angular/core";
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
+        fileUtils
+          .when(() -> FileUtils.read(fullFilePath))
+          .thenReturn(
+            """
+              import {NgModule} from '@angular/core';
+              import { BrowserModule } from '@angular/platform-browser';
+              """
+          );
+
+        // When
+        angularCommonDomainService.addInExistingImport(project, filePath, imports, existingImport);
+
+        // Then
+        assertWrittenFileContent(
+          project,
+          fileUtils,
+          fullFilePath,
+          """
+            import {NgModule, APP_INITIALIZER} from '@angular/core';
+            import { BrowserModule } from '@angular/platform-browser';
+            """
+        );
+      }
+    }
+
+    @Test
+    void shouldNotAddWhenFileCannotBeRead() {
+      // Given
+      Project project = Project.builder().folder("/project/path").build();
+      String filePath = "file/path";
+      String imports = "APP_INITIALIZER";
+      String existingImport = "@angular/core";
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
+        fileUtils.when(() -> FileUtils.read(fullFilePath)).thenThrow(IOException.class);
+
+        // When + Then
+        assertThatThrownBy(() -> angularCommonDomainService.addInExistingImport(project, filePath, imports, existingImport))
+          .isInstanceOf(GeneratorException.class)
+          .hasMessageContaining(fullFilePath);
+      }
+    }
+
+    @Test
+    void shouldNotAddWhenFileCannotBeWritten() {
+      // Given
+      Project project = Project.builder().folder("/project/path").build();
+      String filePath = "file/path";
+      String imports = "APP_INITIALIZER";
+      String existingImport = "@angular/core";
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
+        fileUtils.when(() -> FileUtils.read(fullFilePath)).thenReturn("import {NgModule} from '@angular/core';");
+        fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(IOException.class);
+
+        // When + Then
+        assertThatThrownBy(() -> angularCommonDomainService.addInExistingImport(project, filePath, imports, existingImport))
           .isInstanceOf(GeneratorException.class)
           .hasMessageContaining(fullFilePath);
       }
@@ -410,12 +487,12 @@ class AngularCommonDomainServiceTest {
           .when(() -> FileUtils.read(fullFilePath))
           .thenReturn(
             """
-          @NgModule({
-              declarations: [
-                AppComponent
-              ],
-            })
-          """
+              @NgModule({
+                  declarations: [
+                    AppComponent
+                  ],
+                })
+              """
           );
         fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(IOException.class);
 
@@ -434,79 +511,79 @@ class AngularCommonDomainServiceTest {
       return Stream.of(
         Arguments.of(
           """
-          @NgModule({
-            declarations: [AppComponent],
-          })
-          """,
+            @NgModule({
+              declarations: [AppComponent],
+            })
+            """,
           """
-          @NgModule({
-            declarations: [AppComponent],
-            providers: [
-              { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
-            ],
-          })
-          """,
+            @NgModule({
+              declarations: [AppComponent],
+              providers: [
+                { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
+              ],
+            })
+            """,
           "New providers array after declarations (and existing comma)"
         ),
         Arguments.of(
           """
-          @NgModule({
-            declarations: [AppComponent]
-          })
-          """,
+            @NgModule({
+              declarations: [AppComponent]
+            })
+            """,
           """
-          @NgModule({
-            declarations: [AppComponent],
-            providers: [
-              { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
-            ],
-          })
-          """,
+            @NgModule({
+              declarations: [AppComponent],
+              providers: [
+                { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
+              ],
+            })
+            """,
           "New providers array after declarations (without comma)"
         ),
         Arguments.of(
           """
-          @NgModule({
-            declarations: [
-              AppComponent
-            ],
-            providers: [
-              { provide: 'providerName', useClass: MyProviderClass, multi: true, },
-            ]
-          })
-          """,
+            @NgModule({
+              declarations: [
+                AppComponent
+              ],
+              providers: [
+                { provide: 'providerName', useClass: MyProviderClass, multi: true, },
+              ]
+            })
+            """,
           """
-          @NgModule({
-            declarations: [
-              AppComponent
-            ],
-            providers: [
-              { provide: 'providerName', useClass: MyProviderClass, multi: true, },
-              { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
-            ]
-          })
-          """,
+            @NgModule({
+              declarations: [
+                AppComponent
+              ],
+              providers: [
+                { provide: 'providerName', useClass: MyProviderClass, multi: true, },
+                { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
+              ]
+            })
+            """,
           "Provider in existing providers array with values"
         ),
         Arguments.of(
           """
-          @NgModule({
-            declarations: [
-              AppComponent
-            ],
-            providers: [],
-          })
-          """,
+            @NgModule({
+              declarations: [
+                AppComponent
+              ],
+              providers: [],
+            })
+            """,
           """
-          @NgModule({
-            declarations: [
-              AppComponent
-            ],
-            providers: [
-              { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
-            ],
-          })
-          """,
+            @NgModule({
+              declarations: [
+                AppComponent
+              ],
+              providers: [
+                { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true, },
+              ],
+            })
+            """,
           "Provider in existing empty providers array"
         )
       );
@@ -581,12 +658,12 @@ class AngularCommonDomainServiceTest {
           .when(() -> FileUtils.read(fullFilePath))
           .thenReturn(
             """
-          @NgModule({
-              declarations: [
-                AppComponent
-              ],
-            })
-          """
+              @NgModule({
+                  declarations: [
+                    AppComponent
+                  ],
+                })
+              """
           );
         fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(IOException.class);
 
@@ -605,36 +682,36 @@ class AngularCommonDomainServiceTest {
       return Stream.of(
         Arguments.of(
           """
-          export const environment = {
-            production: false
-          };
-          """,
+            export const environment = {
+              production: false
+            };
+            """,
           """
-          export const environment = {
-            production: false,
-            value1: true,
-          };
-          """,
+            export const environment = {
+              production: false,
+              value1: true,
+            };
+            """,
           "Add after key / value"
         ),
         Arguments.of(
           """
-          export const environment = {
-            production: false,
-            objet: {
-              key: 'value',
-            },
-          };
-          """,
+            export const environment = {
+              production: false,
+              objet: {
+                key: 'value',
+              },
+            };
+            """,
           """
-          export const environment = {
-            production: false,
-            objet: {
-              key: 'value',
-            },
-            value1: true,
-          };
-          """,
+            export const environment = {
+              production: false,
+              objet: {
+                key: 'value',
+              },
+              value1: true,
+            };
+            """,
           "After an object"
         )
       );
@@ -708,10 +785,10 @@ class AngularCommonDomainServiceTest {
         fileUtils
           .when(() -> FileUtils.read(fullFilePath))
           .thenReturn("""
-          export const environment = {
-            production: false,
-          };
-          """);
+            export const environment = {
+              production: false,
+            };
+            """);
         fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(IOException.class);
 
         // When + Then
@@ -723,7 +800,7 @@ class AngularCommonDomainServiceTest {
   }
 
   @Nested
-  class PrependHtmlTest {
+  class AddHtmlTest {
 
     @Test
     void shouldAddHtmlTag() {
@@ -739,25 +816,25 @@ class AngularCommonDomainServiceTest {
           .when(() -> FileUtils.read(fullFilePath))
           .thenReturn(
             """
-          <div id="elem1"></div>
-          <div id="app">
-            <div>content</div>
-          </div>
-          """
+              <div id="elem1"></div>
+              <div id="app">
+                <div>content</div>
+              </div>
+              """
           );
 
         // When
-        angularCommonDomainService.prependHtml(project, filePath, htmlTag, tagRegex);
+        angularCommonDomainService.addHtml(project, filePath, htmlTag, tagRegex);
 
         // Then
         String expectedNewFileContent =
           """
-           <div id="elem1"></div>
-           <div id="app">
-             <app-login></app-login>
-             <div>content</div>
-           </div>
-           """;
+            <div id="elem1"></div>
+            <div id="app">
+              <app-login></app-login>
+              <div>content</div>
+            </div>
+            """;
         assertWrittenFileContent(project, fileUtils, fullFilePath, expectedNewFileContent);
       }
     }
@@ -777,7 +854,7 @@ class AngularCommonDomainServiceTest {
           """);
 
         // When + Then
-        assertThatThrownBy(() -> angularCommonDomainService.prependHtml(project, filePath, htmlTag, tagRegex))
+        assertThatThrownBy(() -> angularCommonDomainService.addHtml(project, filePath, htmlTag, tagRegex))
           .isInstanceOf(GeneratorException.class)
           .hasMessageContaining(fullFilePath);
       }
@@ -796,7 +873,7 @@ class AngularCommonDomainServiceTest {
         fileUtils.when(() -> FileUtils.read(fullFilePath)).thenThrow(IOException.class);
 
         // When + Then
-        assertThatThrownBy(() -> angularCommonDomainService.prependHtml(project, filePath, htmlTag, tagRegex))
+        assertThatThrownBy(() -> angularCommonDomainService.addHtml(project, filePath, htmlTag, tagRegex))
           .isInstanceOf(GeneratorException.class)
           .hasMessageContaining(fullFilePath);
       }
@@ -816,7 +893,120 @@ class AngularCommonDomainServiceTest {
         fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(IOException.class);
 
         // When + Then
-        assertThatThrownBy(() -> angularCommonDomainService.prependHtml(project, filePath, htmlTag, tagRegex))
+        assertThatThrownBy(() -> angularCommonDomainService.addHtml(project, filePath, htmlTag, tagRegex))
+          .isInstanceOf(GeneratorException.class)
+          .hasMessageContaining(fullFilePath);
+      }
+    }
+  }
+
+  @Nested
+  class AddTestTest {
+
+    @Test
+    void shouldAddTest() {
+      // Given
+      Project project = Project.builder().folder("/project/path").build();
+      String filePath = "file/path";
+      String testName = "should have appName";
+      String newTest =
+        """
+
+            it('should had 2nd test', () => {
+              expect(comp.otherField).toEqual('hello world');
+            });
+        """;
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
+        fileUtils
+          .when(() -> FileUtils.read(fullFilePath))
+          .thenReturn(
+            """
+                describe(() => {
+                  it('should have appName', () => {
+                    expect(comp.appName).toEqual('oauth2');
+                  });
+                });
+              """
+          );
+
+        // When
+        angularCommonDomainService.addTest(project, filePath, newTest, testName);
+
+        // Then
+        String expectedNewFileContent =
+          """
+              describe(() => {
+                it('should have appName', () => {
+                  expect(comp.appName).toEqual('oauth2');
+                });
+
+                it('should had 2nd test', () => {
+                  expect(comp.otherField).toEqual('hello world');
+                });
+
+              });
+            """;
+        assertWrittenFileContent(project, fileUtils, fullFilePath, expectedNewFileContent);
+      }
+    }
+
+    @Test
+    void shouldNotAddWhenTestToReplaceNotFound() {
+      // Given
+      Project project = Project.builder().folder("/project/path").build();
+      String filePath = "file/path";
+      String testName = "should have appName";
+      String newTest = "it('should be ok ', () => {});";
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
+        fileUtils.when(() -> FileUtils.read(fullFilePath)).thenReturn("""
+          <div></div>
+          """);
+
+        // When + Then
+        assertThatThrownBy(() -> angularCommonDomainService.addTest(project, filePath, newTest, testName))
+          .isInstanceOf(GeneratorException.class)
+          .hasMessageContaining(fullFilePath);
+      }
+    }
+
+    @Test
+    void shouldNotAddWhenFileCannotBeRead() {
+      // Given
+      Project project = Project.builder().folder("/project/path").build();
+      String filePath = "file/path";
+      String testName = "should have appName";
+      String newTest = "it('should be ok ', () => {});";
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
+        fileUtils.when(() -> FileUtils.read(fullFilePath)).thenThrow(IOException.class);
+
+        // When + Then
+        assertThatThrownBy(() -> angularCommonDomainService.addTest(project, filePath, newTest, testName))
+          .isInstanceOf(GeneratorException.class)
+          .hasMessageContaining(fullFilePath);
+      }
+    }
+
+    @Test
+    void shouldNotAddWhenFileCannotBeWritten() {
+      // Given
+      Project project = Project.builder().folder("/project/path").build();
+      String filePath = "file/path";
+      String testName = "should have appName";
+      String newTest = "it('should be ok ', () => {});";
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", filePath)).thenReturn(fullFilePath);
+        fileUtils.when(() -> FileUtils.read(fullFilePath)).thenReturn("it('should have appName ', () => { });");
+        fileUtils.when(() -> FileUtils.write(anyString(), anyString(), anyString())).thenThrow(IOException.class);
+
+        // When + Then
+        assertThatThrownBy(() -> angularCommonDomainService.addTest(project, filePath, newTest, testName))
           .isInstanceOf(GeneratorException.class)
           .hasMessageContaining(fullFilePath);
       }

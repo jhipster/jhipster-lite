@@ -7,8 +7,10 @@ import static tech.jhipster.lite.generator.client.angular.common.domain.AngularC
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECLARATIONS_WITH_ARRAY_VALUES_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECORATOR_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.ENV_VARIABLES_WITH_VALUES_REGEX_LIST;
+import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.EXISTING_IMPORT_PATTERN;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.O_BRACKET;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.PROVIDERS_WITH_ARRAY_VALUES_REGEX_LIST;
+import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.TEST_REGEX_FORMAT;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,8 +24,8 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class AngularCommonDomainService implements AngularCommonService {
 
   @Override
-  public void addImports(Project project, String filePath, String imports) {
-    String fullFilePath = FileUtils.getPath(project.getFolder(), filePath);
+  public void addImports(Project project, String tsFilePath, String imports) {
+    String fullFilePath = FileUtils.getPath(project.getFolder(), tsFilePath);
     String fileContent = getFileContent(fullFilePath);
 
     String newFileContent = getLastImportInFile(fileContent)
@@ -34,8 +36,20 @@ public class AngularCommonDomainService implements AngularCommonService {
   }
 
   @Override
-  public void addConstants(Project project, String filePath, String constants) {
-    String fullFilePath = FileUtils.getPath(project.getFolder(), filePath);
+  public void addInExistingImport(Project project, String tsFilePath, String importToAdd, String existingImportName) {
+    String fullFilePath = FileUtils.getPath(project.getFolder(), tsFilePath);
+    String fileContent = getFileContent(fullFilePath);
+
+    String newFileContent = getFirstMatchInFile(List.of(String.format(EXISTING_IMPORT_PATTERN, existingImportName)), fileContent)
+      .map(importPrefix -> appendValuesInList(fileContent, importPrefix, importToAdd, ""))
+      .orElseThrow(() -> new GeneratorException("Cannot find declarations array in file " + fullFilePath));
+
+    writeInFile(fullFilePath, newFileContent, project);
+  }
+
+  @Override
+  public void addConstants(Project project, String tsFilePath, String constants) {
+    String fullFilePath = FileUtils.getPath(project.getFolder(), tsFilePath);
     String fileContent = getFileContent(fullFilePath);
     String newFileContent = getFirstMatchInFile(DECORATOR_REGEX_LIST, fileContent)
       .map(decoratorPrefix -> fileContent.replace(decoratorPrefix, constants + project.getEndOfLine() + decoratorPrefix))
@@ -45,23 +59,23 @@ public class AngularCommonDomainService implements AngularCommonService {
   }
 
   @Override
-  public void addDeclarations(Project project, String filePath, String declarations) {
-    String fullFilePath = FileUtils.getPath(project.getFolder(), filePath);
+  public void addDeclarations(Project project, String tsFilePath, String declarations) {
+    String fullFilePath = FileUtils.getPath(project.getFolder(), tsFilePath);
     String fileContent = getFileContent(fullFilePath);
     String newFileContent = getFirstMatchInFile(DECLARATIONS_WITH_ARRAY_VALUES_REGEX_LIST, fileContent)
-      .map(declarationsPrefix -> appendValuesInArray(fileContent, declarationsPrefix, declarations, project.getEndOfLine()))
+      .map(declarationsPrefix -> appendValuesInList(fileContent, declarationsPrefix, declarations, project.getEndOfLine()))
       .orElseThrow(() -> new GeneratorException("Cannot find declarations array in file " + fullFilePath));
 
     writeInFile(fullFilePath, newFileContent, project);
   }
 
   @Override
-  public void addProviders(Project project, String filePath, String providers) {
-    String fullFilePath = FileUtils.getPath(project.getFolder(), filePath);
+  public void addProviders(Project project, String tsFilePath, String providers) {
+    String fullFilePath = FileUtils.getPath(project.getFolder(), tsFilePath);
     String fileContent = getFileContent(fullFilePath);
 
     String newFileContent = getFirstMatchInFile(PROVIDERS_WITH_ARRAY_VALUES_REGEX_LIST, fileContent)
-      .map(providersPrefix -> appendValuesInArray(fileContent, providersPrefix, providers, project.getEndOfLine()))
+      .map(providersPrefix -> appendValuesInList(fileContent, providersPrefix, providers, project.getEndOfLine()))
       .orElseGet(() -> appendProvidersAfterDeclarations(fileContent, fullFilePath, providers, project));
 
     writeInFile(fullFilePath, newFileContent, project);
@@ -85,17 +99,14 @@ public class AngularCommonDomainService implements AngularCommonService {
   }
 
   @Override
-  public void prependHtml(Project project, String htmlFilePath, String html, String inHtmlTagRegex) {
-    String fullFilePath = FileUtils.getPath(project.getFolder(), htmlFilePath);
-    String fileContent = getFileContent(fullFilePath);
-    Pattern pattern = Pattern.compile(inHtmlTagRegex, Pattern.MULTILINE);
-    Matcher matcher = pattern.matcher(fileContent);
-    if (!matcher.find()) {
-      throw new GeneratorException("Cannot find " + inHtmlTagRegex + " in file " + fullFilePath);
-    }
-    String foundHtmlTag = matcher.group(1);
-    String newFileContent = fileContent.replace(foundHtmlTag, foundHtmlTag.stripTrailing() + project.getEndOfLine() + html);
-    writeInFile(fullFilePath, newFileContent, project);
+  public void addHtml(Project project, String htmlFilePath, String htmlToAdd, String htmlTagRegexToReplace) {
+    replaceTextByRegex(project, htmlFilePath, htmlToAdd, htmlTagRegexToReplace);
+  }
+
+  @Override
+  public void addTest(Project project, String specTsFilePath, String testToAdd, String afterTestName) {
+    String testRegex = String.format(TEST_REGEX_FORMAT, afterTestName.replaceAll("\\s", "[\\\\s]+"));
+    replaceTextByRegex(project, specTsFilePath, testToAdd, testRegex);
   }
 
   private String getFileContent(String fullFilePath) {
@@ -117,7 +128,7 @@ public class AngularCommonDomainService implements AngularCommonService {
   }
 
   private Optional<String> getLastImportInFile(String fileContent) {
-    Pattern pattern = Pattern.compile(AngularCommon.IMPORT_PATTERN, Pattern.MULTILINE);
+    Pattern pattern = Pattern.compile(AngularCommon.IMPORT_REGEX, Pattern.MULTILINE);
     Matcher matcher = pattern.matcher(fileContent);
     String lastMatchFound = null;
     while (matcher.find()) {
@@ -138,12 +149,14 @@ public class AngularCommonDomainService implements AngularCommonService {
       .map(matcher -> matcher.group(1));
   }
 
-  private String appendValuesInArray(String fileContent, String prefixWithArrayValuesStr, String arrayValuesToAdd, String endOfLine) {
+  private String appendValuesInList(String fileContent, String prefixWithArrayValuesStr, String arrayValuesToAdd, String endOfLine) {
     StringBuilder updatedArrayValuesStr = new StringBuilder(prefixWithArrayValuesStr.stripTrailing());
     if (!prefixWithArrayValuesStr.trim().endsWith(O_BRACKET) && !updatedArrayValuesStr.toString().endsWith(COMA)) {
       updatedArrayValuesStr.append(COMA);
     }
-    updatedArrayValuesStr.append(endOfLine).append(arrayValuesToAdd.stripTrailing()).append(endOfLine).append(indent(1));
+    int prefixIdx = prefixWithArrayValuesStr.indexOf(prefixWithArrayValuesStr.trim());
+    String spaceBeforePrefix = prefixWithArrayValuesStr.substring(0, prefixIdx);
+    updatedArrayValuesStr.append(endOfLine).append(arrayValuesToAdd.stripTrailing()).append(endOfLine).append(spaceBeforePrefix);
     return fileContent.replace(prefixWithArrayValuesStr, updatedArrayValuesStr.toString());
   }
 
@@ -164,5 +177,18 @@ public class AngularCommonDomainService implements AngularCommonService {
     String declarationsAndProvidersStr = declarationsStr.trim().endsWith(COMA) ? declarationsStr : declarationsStr + COMA;
     declarationsAndProvidersStr += project.getEndOfLine() + newProvidersArrayStr;
     return fileContent.replace(declarationsStr, declarationsAndProvidersStr);
+  }
+
+  private void replaceTextByRegex(Project project, String filePah, String textToAdd, String textToReplaceRegex) {
+    String fullFilePath = FileUtils.getPath(project.getFolder(), filePah);
+    String fileContent = getFileContent(fullFilePath);
+    Pattern pattern = Pattern.compile(textToReplaceRegex, Pattern.MULTILINE);
+    Matcher matcher = pattern.matcher(fileContent);
+    if (!matcher.find()) {
+      throw new GeneratorException("Cannot find " + textToReplaceRegex + " in file " + fullFilePath);
+    }
+    String textFound = matcher.group(1);
+    String newFileContent = fileContent.replace(textFound, textFound.stripTrailing() + project.getEndOfLine() + textToAdd);
+    writeInFile(fullFilePath, newFileContent, project);
   }
 }

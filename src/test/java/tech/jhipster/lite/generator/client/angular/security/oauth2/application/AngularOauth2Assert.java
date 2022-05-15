@@ -38,6 +38,7 @@ public class AngularOauth2Assert {
   }
 
   public static void assertUpdatedFiles(Project project) throws IOException {
+    // App.module.ts
     List<String> appModuleTsLines = Files.readAllLines(Path.of(getPath(project.getFolder(), "src/main/webapp/app/app.module.ts")));
     List<String> expectedContentLines =
       """
@@ -68,6 +69,7 @@ public class AngularOauth2Assert {
         .toList();
     assertThat(appModuleTsLines).containsAll(expectedContentLines);
 
+    // ENvironnement.ts
     assertFileContent(
       project,
       "src/main/webapp/environments/environment.ts",
@@ -84,8 +86,24 @@ public class AngularOauth2Assert {
         .toList()
     );
 
+    // Angular.json
+    List<String> angularJsonTsLines = Files.readAllLines(Path.of(getPath(project.getFolder(), "angular.json")));
+    expectedContentLines =
+      """
+                  "scripts": [],
+                  "allowedCommonJsDependencies": [
+                    "keycloak-js"
+                  ]
+                },
+      """.lines()
+        .toList();
+
+    assertThat(angularJsonTsLines).containsAll(expectedContentLines);
+
+    // App.component.html
     assertFileContent(project, "src/main/webapp/app/app.component.html", "  <jh-lite-login></jh-lite-login>");
 
+    // App.component.spec.ts
     List<String> appComponentSpecTsLines = Files.readAllLines(
       Path.of(getPath(project.getFolder(), "src/main/webapp/app/app.component.spec.ts"))
     );

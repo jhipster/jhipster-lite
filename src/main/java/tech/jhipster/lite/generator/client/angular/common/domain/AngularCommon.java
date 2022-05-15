@@ -27,6 +27,10 @@ public class AngularCommon {
 
   protected static final String TEST_REGEX_FORMAT = "([\\s]+it\\('%s',[^}]+}\\);)";
 
+  protected static final List<String> ALLOWED_COMMON_JS_DEPENDENCIES_REGEX_LIST = List.of(
+    "^([\\s]+\"allowedCommonJsDependencies\": [^\\]]+)\\]"
+  );
+
   protected static final String COMA = ",";
   protected static final String O_BRACKET = "[";
   protected static final String C_BRACKET = "]";

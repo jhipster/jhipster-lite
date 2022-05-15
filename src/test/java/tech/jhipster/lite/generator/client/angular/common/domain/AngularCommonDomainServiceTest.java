@@ -1012,4 +1012,46 @@ class AngularCommonDomainServiceTest {
       }
     }
   }
+
+  @Nested
+  class AddAllowedCommonJsDependenciesAngularJsonTest {
+
+    @Test
+    void shouldAdd() {
+      // Given
+      Project project = Project.builder().folder("/project/path").build();
+      String libToAdd = "     \"keycloak-js\"";
+      try (MockedStatic<FileUtils> fileUtils = mockStatic(FileUtils.class)) {
+        String fullFilePath = "/project/path/file/path";
+        fileUtils.when(() -> FileUtils.getPath("/project/path", "angular.json")).thenReturn(fullFilePath);
+        fileUtils
+          .when(() -> FileUtils.read(fullFilePath))
+          .thenReturn(
+            """
+              {
+                "projects": {
+                  "allowedCommonJsDependencies": ["libA"]
+                }
+              }
+              """
+          );
+
+        // When
+        angularCommonDomainService.addAllowedCommonJsDependenciesAngularJson(project, libToAdd);
+
+        // Then
+        String expectedNewFileContent =
+          """
+            {
+              "projects": {
+                "allowedCommonJsDependencies": ["libA",
+                 "keycloak-js"
+                ]
+              }
+            }
+            """;
+        assertWrittenFileContent(project, fileUtils, fullFilePath, expectedNewFileContent);
+      }
+    }
+  }
 }

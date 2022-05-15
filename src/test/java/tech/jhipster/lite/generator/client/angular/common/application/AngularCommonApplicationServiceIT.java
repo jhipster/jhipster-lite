@@ -23,6 +23,7 @@ class AngularCommonApplicationServiceIT {
   private static final String ENVIRONMENT_TS_FILE_PATH = "src/main/webapp/environments/environment.ts";
   private static final String APP_COMPONENT_HTML_FILE_PATH = "src/main/webapp/app/app.component.html";
   private static final String APP_COMPONENT_SPEC_TS_FILE_PATH = "src/main/webapp/app/app.component.spec.ts";
+  private static final String ANGULAR_JSON_FILE_PATH = "angular.json";
 
   @Autowired
   AngularCommonApplicationService angularCommonApplicationService;
@@ -252,6 +253,25 @@ class AngularCommonApplicationServiceIT {
         """.lines()
         .toList();
 
+    assertThat(allLinesFile).containsAll(expectedContentLines);
+  }
+
+  @Test
+  void shouldAddAllowedCommonJsDependenciesAngularJson() throws IOException {
+    // Given
+    Project project = initAngularProject();
+    String lib = "  \"libA\"";
+    // When
+    angularCommonApplicationService.addAllowedCommonJsDependenciesAngularJson(project, lib);
+
+    // Then
+    List<String> allLinesFile = Files.readAllLines(Path.of(getPath(project.getFolder(), ANGULAR_JSON_FILE_PATH)));
+    List<String> expectedContentLines =
+      """
+                  "allowedCommonJsDependencies": [
+        "libA"
+                  ]
+      """.lines().toList();
     assertThat(allLinesFile).containsAll(expectedContentLines);
   }
 

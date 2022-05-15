@@ -18,4 +18,6 @@ public interface AngularCommonService {
   void addHtml(Project project, String htmlFilePath, String htmlToAdd, String htmlTagRegexToReplace);
 
   void addTest(Project project, String specTsFilePath, String testToAdd, String afterTestName);
+
+  void addAllowedCommonJsDependenciesAngularJson(Project project, String libToAdd);
 }

@@ -107,6 +107,7 @@ class AngularOauth2DomainServiceTest {
     verify(angularCommonService, times(2)).addDeclarations(any(Project.class), anyString(), anyString());
     verify(angularCommonService, times(1)).addProviders(any(Project.class), anyString(), anyString());
     verify(angularCommonService, times(1)).addEnvVariables(any(Project.class), anyString(), anyString());
+    verify(angularCommonService, times(1)).addAllowedCommonJsDependenciesAngularJson(any(Project.class), anyString());
     verify(angularCommonService, times(1)).addHtml(any(Project.class), anyString(), anyString(), anyString());
     verify(angularCommonService, times(1)).addTest(any(Project.class), anyString(), anyString(), anyString());
 
@@ -163,6 +164,8 @@ class AngularOauth2DomainServiceTest {
         }
       """
       );
+
+    verify(angularCommonService).addAllowedCommonJsDependenciesAngularJson(project, "              \"keycloak-js\"");
 
     verify(angularCommonService)
       .addHtml(

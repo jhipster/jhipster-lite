@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.common.domain;
 
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.ALLOWED_COMMON_JS_DEPENDENCIES_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.COMA;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.C_BRACKET;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECLARATIONS_REGEX;
@@ -109,6 +110,17 @@ public class AngularCommonDomainService implements AngularCommonService {
     replaceTextByRegex(project, specTsFilePath, testToAdd, testRegex);
   }
 
+  @Override
+  public void addAllowedCommonJsDependenciesAngularJson(Project project, String libToAdd) {
+    String fullFilePath = FileUtils.getPath(project.getFolder(), "angular.json");
+    String fileContent = getFileContent(fullFilePath);
+    String newFileContent = getFirstMatchInFile(ALLOWED_COMMON_JS_DEPENDENCIES_REGEX_LIST, fileContent)
+      .map(dependenciesPrefix -> appendValuesInList(fileContent, dependenciesPrefix, libToAdd, project.getEndOfLine()))
+      .orElseThrow(() -> new GeneratorException("Cannot find allowed common js dependencies array in file " + fullFilePath));
+
+    writeInFile(fullFilePath, newFileContent, project);
+  }
+
   private String getFileContent(String fullFilePath) {
     String fileContent;
     try {
@@ -179,8 +191,8 @@ public class AngularCommonDomainService implements AngularCommonService {
     return fileContent.replace(declarationsStr, declarationsAndProvidersStr);
   }
 
-  private void replaceTextByRegex(Project project, String filePah, String textToAdd, String textToReplaceRegex) {
-    String fullFilePath = FileUtils.getPath(project.getFolder(), filePah);
+  private void replaceTextByRegex(Project project, String filePath, String textToAdd, String textToReplaceRegex) {
+    String fullFilePath = FileUtils.getPath(project.getFolder(), filePath);
     String fileContent = getFileContent(fullFilePath);
     Pattern pattern = Pattern.compile(textToReplaceRegex, Pattern.MULTILINE);
     Matcher matcher = pattern.matcher(fileContent);

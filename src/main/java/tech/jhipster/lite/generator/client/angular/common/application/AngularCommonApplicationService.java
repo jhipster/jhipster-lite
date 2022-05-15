@@ -44,4 +44,8 @@ public class AngularCommonApplicationService {
   public void addTest(Project project, String specTsFilePath, String testToAdd, String afterTestName) {
     angularCommonService.addTest(project, specTsFilePath, testToAdd, afterTestName);
   }
+
+  public void addAllowedCommonJsDependenciesAngularJson(Project project, String libToAdd) {
+    angularCommonService.addAllowedCommonJsDependenciesAngularJson(project, libToAdd);
+  }
 }

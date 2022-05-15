@@ -61,6 +61,7 @@ public class AngularOauth2DomainService implements AngularOauth2Service {
   private void updateExistingFiles(Project project) {
     updateAppModuleTsFile(project);
     addEnvVariables(project);
+    addKeycloakJsAllowedCommonJsDependency(project);
     addLoginComponentInAppHtmlFile(project);
     addTestInAppSpecTsFile(project);
   }
@@ -117,6 +118,10 @@ public class AngularOauth2DomainService implements AngularOauth2Service {
         }
       """
     );
+  }
+
+  private void addKeycloakJsAllowedCommonJsDependency(Project project) {
+    angularCommonService.addAllowedCommonJsDependenciesAngularJson(project, "              \"keycloak-js\"");
   }
 
   private void addLoginComponentInAppHtmlFile(Project project) {

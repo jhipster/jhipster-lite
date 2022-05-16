@@ -1,18 +1,17 @@
 package tech.jhipster.lite.generator.buildtool.gradle.application;
 
-import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.generator.project.domain.Project;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.attribute.PosixFilePermission;
-import java.util.Set;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
 import static tech.jhipster.lite.generator.project.domain.Constants.BUILD_GRADLE_KTS;
 import static tech.jhipster.lite.generator.project.domain.Constants.SETTINGS_GRADLE_KTS;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.PosixFilePermission;
+import java.util.Set;
+import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.generator.project.domain.Project;
 
 public class GradleAssertFiles {
 

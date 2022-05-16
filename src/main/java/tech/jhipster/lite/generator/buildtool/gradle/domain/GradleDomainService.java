@@ -1,10 +1,5 @@
 package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
-import tech.jhipster.lite.common.domain.WordUtils;
-import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.domain.ProjectFile;
-import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.project.domain.Constants.BUILD_GRADLE_KTS;
 import static tech.jhipster.lite.generator.project.domain.Constants.SETTINGS_GRADLE_KTS;
@@ -13,6 +8,10 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
 
 import java.util.List;
+import tech.jhipster.lite.common.domain.WordUtils;
+import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
+import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class GradleDomainService implements GradleService {
 
@@ -36,8 +35,7 @@ public class GradleDomainService implements GradleService {
     project.addDefaultConfig(PROJECT_NAME);
     project.addDefaultConfig(BASE_NAME);
 
-    String baseName = project.getBaseName()
-        .orElse("");
+    String baseName = project.getBaseName().orElse("");
     project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
     projectRepository.template(project, SOURCE, BUILD_GRADLE_KTS);
@@ -46,13 +44,17 @@ public class GradleDomainService implements GradleService {
 
   @Override
   public void addGradleWrapper(Project project) {
-    List<ProjectFile> files = Gradle.gradleWrapper()
-        .entrySet()
-        .stream()
-        .map(entry -> ProjectFile.forProject(project)
-            .withSource(getPath(SOURCE, entry.getValue()), entry.getKey())
-            .withDestinationFolder(entry.getValue()))
-        .toList();
+    List<ProjectFile> files = Gradle
+      .gradleWrapper()
+      .entrySet()
+      .stream()
+      .map(entry ->
+        ProjectFile
+          .forProject(project)
+          .withSource(getPath(SOURCE, entry.getValue()), entry.getKey())
+          .withDestinationFolder(entry.getValue())
+      )
+      .toList();
 
     projectRepository.add(files);
     projectRepository.setExecutable(project, "", "gradlew");

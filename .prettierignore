@@ -6,3 +6,5 @@ package-lock.json
 .mvn
 gradle
 .gradle
+!src/main/java/tech/jhipster/lite/generator/buildtool/gradle
+!src/test/java/tech/jhipster/lite/generator/buildtool/gradle

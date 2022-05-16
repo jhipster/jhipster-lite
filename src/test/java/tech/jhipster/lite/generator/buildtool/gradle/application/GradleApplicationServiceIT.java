@@ -1,15 +1,15 @@
 package tech.jhipster.lite.generator.buildtool.gradle.application;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.generator.project.domain.Project;
-
 import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.generator.buildtool.gradle.application.GradleAssertFiles.assertFilesGradle;
 import static tech.jhipster.lite.generator.project.domain.Constants.BUILD_GRADLE_KTS;
 import static tech.jhipster.lite.generator.project.domain.Constants.SETTINGS_GRADLE_KTS;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.generator.project.domain.Project;
 
 @IntegrationTest
 class GradleApplicationServiceIT {

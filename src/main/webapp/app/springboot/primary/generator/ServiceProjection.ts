@@ -26,6 +26,7 @@ export type ServiceProjection =
   | 'sonar-java-backend-and-frontend'
   | 'spring-boot'
   | 'spring-boot-actuator'
+  | 'spring-doc'
   | 'spring-boot-jwt'
   | 'spring-boot-jwt-with-basic-authentication'
   | 'spring-boot-mvc-with-tomcat'
@@ -62,6 +63,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SONAR_JAVA_BACKEND_AND_FRONTEND]: 'sonar-java-backend-and-frontend',
   [Service.SPRINGBOOT]: 'spring-boot',
   [Service.SPRINGBOOT_ACTUATOR]: 'spring-boot-actuator',
+  [Service.SPRING_DOC]: 'spring-doc',
   [Service.SPRINGBOOT_JWT]: 'spring-boot-jwt',
   [Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION]: 'spring-boot-jwt-with-basic-authentication',
   [Service.SPRINGBOOT_MVC_WITH_TOMCAT]: 'spring-boot-mvc-with-tomcat',
@@ -101,6 +103,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'sonar-java-backend-and-frontend': Service.SONAR_JAVA_BACKEND_AND_FRONTEND,
   'spring-boot': Service.SPRINGBOOT,
   'spring-boot-actuator': Service.SPRINGBOOT_ACTUATOR,
+  'spring-doc': Service.SPRING_DOC,
   'spring-boot-jwt': Service.SPRINGBOOT_JWT,
   'spring-boot-jwt-with-basic-authentication': Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION,
   'spring-boot-mvc-with-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,

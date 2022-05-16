@@ -233,6 +233,48 @@ describe('SpringBootGenerator', () => {
     expectToastErrorToBe(toastService, 'Adding SpringBoot Actuator to project failed error');
   });
 
+  it('should not add SpringDoc when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringDoc.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringDoc();
+
+    expect(springBootService.addSpringDoc.called).toBe(false);
+  });
+
+  it('should add SpringDoc when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringDoc.resolves({});
+    const toastService = stubToastService();
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: 'project/path' }), toastService });
+
+    await component.addSpringDoc();
+
+    const args = springBootService.addSpringDoc.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectToastSuccessToBe(toastService, 'SpringDoc successfully added');
+  });
+
+  it('should handle error on adding SpringDoc failure', async () => {
+    const logger = stubLogger();
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringDoc.rejects('error');
+    const toastService = stubToastService();
+    await wrap({ springBootService, logger, project: createProjectToUpdate({ folder: 'project/path' }), toastService });
+
+    await component.addSpringDoc();
+
+    expectLoggerErrorToBe(logger, 'Adding SpringDoc to project failed');
+    expectToastErrorToBe(toastService, 'Adding SpringDoc to project failed error');
+  });
+
   describe('Log tools', () => {
     describe('AOP Logging', () => {
       it('should not add SpringBoot AOP Logging when project path is not filled', async () => {

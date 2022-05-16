@@ -74,6 +74,18 @@ export default defineComponent({
       }
     };
 
+    const addSpringDoc = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringDoc(toProject(props.project as ProjectToUpdate))
+          .then(() => toastService.success('SpringDoc successfully added'))
+          .catch(error => {
+            logger.error('Adding SpringDoc to project failed', error);
+            toastService.error('Adding SpringDoc to project failed ' + error);
+          });
+      }
+    };
+
     const addSpringBootAopLogging = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -238,6 +250,7 @@ export default defineComponent({
       addSpringBootMvcTomcat,
       addSpringBootWebfluxNetty,
       addSpringBootActuator,
+      addSpringDoc,
       addSpringBootAopLogging,
       addSpringBootLogstash,
       addSpringBootSecurityJWT,

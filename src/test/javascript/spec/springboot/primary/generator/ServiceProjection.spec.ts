@@ -32,6 +32,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SONAR_JAVA_BACKEND_AND_FRONTEND)).toEqual<ServiceProjection>('sonar-java-backend-and-frontend');
     expect(toServiceProjection(Service.SPRINGBOOT)).toEqual<ServiceProjection>('spring-boot');
     expect(toServiceProjection(Service.SPRINGBOOT_ACTUATOR)).toEqual<ServiceProjection>('spring-boot-actuator');
+    expect(toServiceProjection(Service.SPRING_DOC)).toEqual<ServiceProjection>('spring-doc');
     expect(toServiceProjection(Service.SPRINGBOOT_JWT)).toEqual<ServiceProjection>('spring-boot-jwt');
     expect(toServiceProjection(Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION)).toEqual<ServiceProjection>(
       'spring-boot-jwt-with-basic-authentication'
@@ -75,6 +76,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('sonar-java-backend-and-frontend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND_AND_FRONTEND);
     expect(fromServiceProjection('spring-boot')).toEqual<Service>(Service.SPRINGBOOT);
     expect(fromServiceProjection('spring-boot-actuator')).toEqual<Service>(Service.SPRINGBOOT_ACTUATOR);
+    expect(fromServiceProjection('spring-doc')).toEqual<Service>(Service.SPRING_DOC);
     expect(fromServiceProjection('spring-boot-jwt')).toEqual<Service>(Service.SPRINGBOOT_JWT);
     expect(fromServiceProjection('spring-boot-jwt-with-basic-authentication')).toEqual<Service>(
       Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION

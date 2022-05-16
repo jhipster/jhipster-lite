@@ -28,6 +28,7 @@ const SERVICES: Record<string, Service> = {
   'sonar-java-backend-and-frontend': Service.SONAR_JAVA_BACKEND_AND_FRONTEND,
   springboot: Service.SPRINGBOOT,
   'springboot-actuator': Service.SPRINGBOOT_ACTUATOR,
+  'springdoc-openapi': Service.SPRING_DOC,
   'springboot-jwt': Service.SPRINGBOOT_JWT,
   'springboot-jwt-basic-auth': Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION,
   'springboot-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,

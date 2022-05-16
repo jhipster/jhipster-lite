@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.client.angular.security.oauth2.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.groups.Tuple.tuple;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.eq;
@@ -14,10 +15,12 @@ import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.ENVIRONMENT_PROD_TS_FILE_PATH;
 import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.ENVIRONMENT_TS_FILE_PATH;
 
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,6 +29,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.client.angular.common.domain.AngularCommonService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -44,6 +48,9 @@ class AngularOauth2DomainServiceTest {
   @InjectMocks
   AngularOauth2DomainService angularOauth2DomainService;
 
+  @Captor
+  ArgumentCaptor<List<ProjectFile>> projectFilesArgCaptor;
+
   @Test
   void shouldAddOauth2() {
     // Given
@@ -60,33 +67,22 @@ class AngularOauth2DomainServiceTest {
   }
 
   private void verifyAddedFiles(Project project) {
-    verify(projectRepository, times(7)).template(any(Project.class), anyString(), anyString(), anyString());
-    ArgumentCaptor<String> fileNameArgCaptor = ArgumentCaptor.forClass(String.class);
-    verify(projectRepository, times(4))
-      .template(
-        eq(project),
-        eq("client/angular/security/oauth2/src/main/webapp/app/auth"),
-        fileNameArgCaptor.capture(),
-        eq("src/main/webapp/app/auth")
-      );
-    assertThat(fileNameArgCaptor.getAllValues())
+    verify(projectRepository).add(projectFilesArgCaptor.capture());
+    String authSourcePath = "client/angular/security/oauth2/src/main/webapp/app/auth";
+    String authDestinationPath = "src/main/webapp/app/auth";
+    String loginSourcePath = "client/angular/security/oauth2/src/main/webapp/app/login";
+    String loginDestinationPath = "src/main/webapp/app/login";
+    assertThat(projectFilesArgCaptor.getValue())
+      .extracting(ProjectFile::project, p -> p.source().folder(), p -> p.source().file(), p -> p.destination().folder())
       .containsExactlyInAnyOrder(
-        "oauth2-auth.service.ts",
-        "oauth2-auth.service.spec.ts",
-        "http-auth.interceptor.ts",
-        "http-auth.interceptor.spec.ts"
+        tuple(project, authSourcePath, "oauth2-auth.service.ts", authDestinationPath),
+        tuple(project, authSourcePath, "oauth2-auth.service.spec.ts", authDestinationPath),
+        tuple(project, authSourcePath, "http-auth.interceptor.ts", authDestinationPath),
+        tuple(project, authSourcePath, "http-auth.interceptor.spec.ts", authDestinationPath),
+        tuple(project, loginSourcePath, "login.component.html", loginDestinationPath),
+        tuple(project, loginSourcePath, "login.component.ts", loginDestinationPath),
+        tuple(project, loginSourcePath, "login.component.spec.ts", loginDestinationPath)
       );
-
-    fileNameArgCaptor = ArgumentCaptor.forClass(String.class);
-    verify(projectRepository, times(3))
-      .template(
-        eq(project),
-        eq("client/angular/security/oauth2/src/main/webapp/app/login"),
-        fileNameArgCaptor.capture(),
-        eq("src/main/webapp/app/login")
-      );
-    assertThat(fileNameArgCaptor.getAllValues())
-      .containsExactlyInAnyOrder("login.component.html", "login.component.ts", "login.component.spec.ts");
   }
 
   @Test

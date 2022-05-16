@@ -9,10 +9,12 @@ import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
+import java.util.List;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.client.angular.common.domain.AngularCommonService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class AngularOauth2DomainService implements AngularOauth2Service {
@@ -54,9 +56,18 @@ public class AngularOauth2DomainService implements AngularOauth2Service {
 
   private void addFiles(Project project) {
     project.addDefaultConfig(BASE_NAME);
-    AngularOauth2
+    List<ProjectFile> projectFiles = AngularOauth2
       .getFilesToAdd()
-      .forEach((fileName, path) -> projectRepository.template(project, getPath(SOURCE_WEBAPP, path), fileName, getPath(MAIN_WEBAPP, path)));
+      .entrySet()
+      .stream()
+      .map(e ->
+        ProjectFile
+          .forProject(project)
+          .withSource(getPath(SOURCE_WEBAPP, e.getValue()), e.getKey())
+          .withDestinationFolder(getPath(MAIN_WEBAPP, e.getValue()))
+      )
+      .toList();
+    projectRepository.add(projectFiles);
   }
 
   private void updateExistingFiles(Project project) {

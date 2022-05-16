@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {By} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { LoginComponent } from './login.component';
-import {Oauth2AuthService} from '../auth/oauth2-auth.service';
+import { Oauth2AuthService } from '../auth/oauth2-auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -12,9 +12,8 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
-    })
-    .compileComponents();
+      declarations: [LoginComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -36,5 +35,5 @@ describe('LoginComponent', () => {
     fixture.debugElement.query(By.css('#btn-logout')).nativeElement.click();
 
     expect(oauth2AuthService.logout).toHaveBeenCalledWith();
-  })
+  });
 });

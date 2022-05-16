@@ -1,7 +1,7 @@
-import {Oauth2AuthService} from './oauth2-auth.service';
-import {TestBed} from '@angular/core/testing';
-import Keycloak, {KeycloakError, KeycloakInitOptions, KeycloakInstance, KeycloakPromise} from 'keycloak-js';
-import {lastValueFrom} from 'rxjs';
+import { Oauth2AuthService } from './oauth2-auth.service';
+import { TestBed } from '@angular/core/testing';
+import Keycloak, { KeycloakError, KeycloakInitOptions, KeycloakInstance, KeycloakPromise } from 'keycloak-js';
+import { lastValueFrom } from 'rxjs';
 import SpyInstance = jest.SpyInstance;
 
 jest.mock('keycloak-js', () => ({
@@ -25,8 +25,8 @@ jest.mock('../../environments/environment', () => ({
     keycloak: {
       url: 'http://localhost:1234',
       realm: 'jhipster',
-      client_id: 'web_app'
-    }
+      client_id: 'web_app',
+    },
   },
 }));
 
@@ -71,7 +71,8 @@ describe('Oauth2 Auth Service', () => {
 
     it('should init refresh token and return true when the user is authenticated', async () => {
       // Given
-      jest.spyOn(keycloakInstance, 'init')
+      jest
+        .spyOn(keycloakInstance, 'init')
         .mockReturnValue(Promise.resolve(true).then() as unknown as KeycloakPromise<boolean, KeycloakError>);
 
       // When
@@ -92,7 +93,8 @@ describe('Oauth2 Auth Service', () => {
 
     it('should reload window and return false when the user is not authenticated', async () => {
       // Given
-      jest.spyOn(keycloakInstance, 'init')
+      jest
+        .spyOn(keycloakInstance, 'init')
         .mockReturnValue(Promise.resolve(false).then() as unknown as KeycloakPromise<boolean, KeycloakError>);
 
       // When
@@ -126,8 +128,7 @@ describe('Oauth2 Auth Service', () => {
       jest.spyOn(Date, 'now').mockReturnValue(1651318847714); // 2022-04-30 13:40:47
 
       let updateTokenPromise = Promise.resolve(false);
-      jest.spyOn(keycloakInstance, 'updateToken')
-        .mockReturnValue(updateTokenPromise as unknown as KeycloakPromise<boolean, boolean>);
+      jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as KeycloakPromise<boolean, boolean>);
 
       // When
       await lastValueFrom(service.initAuthentication());
@@ -143,8 +144,7 @@ describe('Oauth2 Auth Service', () => {
     it('should call update token and log debug "refreshed" message when token is refreshed', async () => {
       // Given
       let updateTokenPromise = Promise.resolve(true);
-      jest.spyOn(keycloakInstance, 'updateToken')
-        .mockReturnValue(updateTokenPromise as unknown as KeycloakPromise<boolean, boolean>);
+      jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as KeycloakPromise<boolean, boolean>);
 
       // When
       await lastValueFrom(service.initAuthentication());
@@ -160,8 +160,7 @@ describe('Oauth2 Auth Service', () => {
     it('should call update token and log error message on error', async () => {
       // Given
       let updateTokenPromise = Promise.reject(new Error('unknown error'));
-      jest.spyOn(keycloakInstance, 'updateToken')
-        .mockReturnValue(updateTokenPromise as unknown as KeycloakPromise<boolean, boolean>);
+      jest.spyOn(keycloakInstance, 'updateToken').mockReturnValue(updateTokenPromise as unknown as KeycloakPromise<boolean, boolean>);
 
       // When
       await lastValueFrom(service.initAuthentication());

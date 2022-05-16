@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Oauth2AuthService} from '../auth/oauth2-auth.service';
+import { Oauth2AuthService } from '../auth/oauth2-auth.service';
 
 @Component({
   selector: 'jh-lite-login',
@@ -7,8 +7,7 @@ import {Oauth2AuthService} from '../auth/oauth2-auth.service';
   styleUrls: [],
 })
 export class LoginComponent {
-
-  constructor(private oauth2AuthService: Oauth2AuthService) { }
+  constructor(private oauth2AuthService: Oauth2AuthService) {}
 
   logout(): void {
     this.oauth2AuthService.logout();

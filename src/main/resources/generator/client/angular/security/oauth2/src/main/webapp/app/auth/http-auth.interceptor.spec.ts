@@ -1,9 +1,9 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {HttpAuthInterceptor} from './http-auth.interceptor';
-import {Oauth2AuthService} from './oauth2-auth.service';
-import {HttpHandler, HttpRequest} from '@angular/common/http';
-import {lastValueFrom, of} from 'rxjs';
+import { HttpAuthInterceptor } from './http-auth.interceptor';
+import { Oauth2AuthService } from './oauth2-auth.service';
+import { HttpHandler, HttpRequest } from '@angular/common/http';
+import { lastValueFrom, of } from 'rxjs';
 import Mock = jest.Mock;
 
 const URL = 'http://localhost:8080/api/dummy';
@@ -15,7 +15,7 @@ const buildHttpRequest = () => {
   return originalRequest.clone({
     headers: originalRequest.headers.append('ContentType', 'application/json'),
   });
-}
+};
 
 describe('HttpAuthInterceptor', () => {
   let interceptor: HttpAuthInterceptor;

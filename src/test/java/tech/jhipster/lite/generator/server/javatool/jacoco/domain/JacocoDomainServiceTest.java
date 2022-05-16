@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -31,7 +32,7 @@ class JacocoDomainServiceTest {
     jacocoDomainService.addCheckMinimumCoverage(project);
 
     verify(projectRepository).gitInit(any(Project.class));
-    verify(projectRepository).add(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository).add(any(ProjectFile.class));
     verify(projectRepository).gitApplyPatch(any(Project.class), anyString());
   }
 }

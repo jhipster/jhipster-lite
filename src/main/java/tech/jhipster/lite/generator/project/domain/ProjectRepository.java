@@ -1,11 +1,13 @@
 package tech.jhipster.lite.generator.project.domain;
 
+import java.util.Collection;
+import java.util.List;
+import tech.jhipster.lite.error.domain.Assert;
+
 public interface ProjectRepository {
   void create(Project project);
 
-  void add(Project project, String source, String sourceFilename);
-  void add(Project project, String source, String sourceFilename, String destination);
-  void add(Project project, String source, String sourceFilename, String destination, String destinationFilename);
+  void add(Collection<ProjectFile> files);
 
   void template(Project project, String source, String sourceFilename);
   void template(Project project, String source, String sourceFilename, String destination);
@@ -30,4 +32,10 @@ public interface ProjectRepository {
   byte[] download(Project project);
 
   boolean isJHipsterLiteProject(String path);
+
+  default void add(ProjectFile file) {
+    Assert.notNull("file", file);
+
+    add(List.of(file));
+  }
 }

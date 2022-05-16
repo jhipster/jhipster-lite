@@ -20,6 +20,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -84,7 +85,7 @@ class InitDomainServiceTest {
 
     assertThatCode(() -> initDomainService.addGitConfiguration(project)).doesNotThrowAnyException();
 
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    verify(projectRepository, times(2)).add(any(ProjectFile.class));
   }
 
   @Test
@@ -94,7 +95,7 @@ class InitDomainServiceTest {
     assertThatCode(() -> initDomainService.addEditorConfiguration(project)).doesNotThrowAnyException();
 
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
-    verify(projectRepository).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository).add(any(ProjectFile.class));
   }
 
   @Test
@@ -103,8 +104,7 @@ class InitDomainServiceTest {
 
     assertThatCode(() -> initDomainService.addPrettier(project)).doesNotThrowAnyException();
 
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString());
-    verify(projectRepository, times(1)).add(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(3)).add(any(ProjectFile.class));
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
     verify(projectRepository).setExecutable(any(Project.class), anyString(), anyString());
   }

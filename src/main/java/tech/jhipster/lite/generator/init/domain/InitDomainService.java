@@ -13,6 +13,7 @@ import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class InitDomainService implements InitService {
@@ -97,8 +98,9 @@ public class InitDomainService implements InitService {
 
   @Override
   public void addGitConfiguration(Project project) {
-    projectRepository.add(project, SOURCE, "gitignore", ".", ".gitignore");
-    projectRepository.add(project, SOURCE, "gitattributes", ".", ".gitattributes");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, "gitignore").withDestinationFile(".gitignore"));
+
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, "gitattributes").withDestinationFile(".gitattributes"));
   }
 
   @Override
@@ -108,14 +110,16 @@ public class InitDomainService implements InitService {
     project.addConfig("editorConfigEndOfLine", CRLF.equals(project.getEndOfLine()) ? "crlf" : "lf");
     projectRepository.template(project, SOURCE, ".editorconfig");
 
-    projectRepository.add(project, SOURCE, ".eslintignore");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, ".eslintignore").withSameDestination());
   }
 
   @Override
   public void addPrettier(Project project) {
-    projectRepository.add(project, SOURCE, ".lintstagedrc.js");
-    projectRepository.add(project, SOURCE, ".prettierignore");
-    projectRepository.add(project, getPath(SOURCE, HUSKY_FOLDER), "pre-commit", HUSKY_FOLDER);
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, ".lintstagedrc.js").withSameDestination());
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, ".prettierignore").withSameDestination());
+    projectRepository.add(
+      ProjectFile.forProject(project).withSource(getPath(SOURCE, HUSKY_FOLDER), "pre-commit").withDestinationFolder(HUSKY_FOLDER)
+    );
     projectRepository.setExecutable(project, HUSKY_FOLDER, "pre-commit");
 
     project.addConfig("prettierEndOfLine", CRLF.equals(project.getEndOfLine()) ? "crlf" : "lf");

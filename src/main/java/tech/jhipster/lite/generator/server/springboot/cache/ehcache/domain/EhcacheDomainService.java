@@ -9,6 +9,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.cache.common.domain.SpringBootCacheService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -74,7 +75,12 @@ public class EhcacheDomainService implements EhcacheService {
 
   @Override
   public void addEhcacheXml(Project project) {
-    projectRepository.add(project, getPath(SOURCE, "resources"), "ehcache.xml", getPath(MAIN_RESOURCES, "config/ehcache"));
+    projectRepository.add(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, "resources"), "ehcache.xml")
+        .withDestinationFolder(getPath(MAIN_RESOURCES, "config/ehcache"))
+    );
   }
 
   @Override

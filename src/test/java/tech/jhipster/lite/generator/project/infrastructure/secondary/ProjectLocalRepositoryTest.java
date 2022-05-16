@@ -1,23 +1,11 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.never;
-import static tech.jhipster.lite.TestUtils.assertFileContent;
-import static tech.jhipster.lite.TestUtils.assertFileExist;
-import static tech.jhipster.lite.TestUtils.assertFileNotExist;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
-import static tech.jhipster.lite.common.domain.FileUtils.tmpDir;
-import static tech.jhipster.lite.generator.project.domain.Constants.HISTORY_JSON;
-import static tech.jhipster.lite.generator.project.domain.Constants.JHIPSTER_FOLDER;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_TEMPLATE_RESOURCES;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import com.github.mustachejava.MustacheNotFoundException;
 import java.io.File;
@@ -27,6 +15,7 @@ import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFilePermission;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -43,13 +32,14 @@ import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 
 @UnitTest
 @ExtendWith(SpringExtension.class)
 class ProjectLocalRepositoryTest {
 
   @InjectMocks
-  ProjectLocalRepository repository;
+  private ProjectLocalRepository repository;
 
   @Test
   void shouldCreate() {
@@ -72,49 +62,33 @@ class ProjectLocalRepositoryTest {
   }
 
   @Test
-  void shouldAdd() {
-    Project project = tmpProject();
+  void shouldNotAddFileToUnknownFolder() {
+    ProjectFile file = ProjectFile.forProject(tmpProject()).withSource("common", UUID.randomUUID().toString()).withSameDestination();
 
-    repository.add(project, "mustache", "README.txt");
-
-    assertFileExist(project, "README.txt");
+    assertThatThrownBy(() -> repository.add(file)).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
-  void shouldNotAdd() {
-    Project project = tmpProject();
-    String randomString = UUID.randomUUID().toString();
-
-    assertThatThrownBy(() -> repository.add(project, "common", randomString)).isInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldNotAddWhenErrorOnCopy() {
+  void shouldHandleCopyError() {
     Project project = tmpProject();
 
     try (MockedStatic<Files> files = Mockito.mockStatic(Files.class)) {
       files.when(() -> Files.copy(any(InputStream.class), any(Path.class), any(CopyOption.class))).thenThrow(new IOException());
 
-      assertThatThrownBy(() -> repository.add(project, "mustache", "README.txt")).isInstanceOf(GeneratorException.class);
+      ProjectFile file = ProjectFile.forProject(project).withSource("mustache", "README.txt").withSameDestination();
+      assertThatThrownBy(() -> repository.add(file)).isInstanceOf(GeneratorException.class);
     }
   }
 
   @Test
-  void shouldAddWithDestination() {
+  void shouldAddFiles() {
     Project project = tmpProject();
 
-    repository.add(project, "mustache", "README.txt", getPath(MAIN_RESOURCES));
+    Collection<ProjectFile> files = ProjectFile.forProject(project).all("init", "gitattributes", "gitignore");
+    repository.add(files);
 
-    assertFileExist(project, MAIN_RESOURCES, "README.txt");
-  }
-
-  @Test
-  void shouldAddWithDestinationAndDestinationFilename() {
-    Project project = tmpProject();
-
-    repository.add(project, "mustache", "README.txt", getPath(MAIN_RESOURCES), "FINAL-README.txt");
-
-    assertFileExist(project, MAIN_RESOURCES, "FINAL-README.txt");
+    assertFileExist(project, "gitattributes");
+    assertFileExist(project, "gitignore");
   }
 
   @Test
@@ -224,11 +198,11 @@ class ProjectLocalRepositoryTest {
     Project project = tmpProjectWithPomXml();
 
     String oldText = """
-      <name>jhipster</name>
-        <description>JHipster Project</description>""";
+        <name>jhipster</name>
+          <description>JHipster Project</description>""";
     String newText = """
-      <name>chips</name>
-        <description>Chips Project</description>""";
+        <name>chips</name>
+          <description>Chips Project</description>""";
 
     repository.replaceText(project, "", POM_XML, oldText, newText);
 
@@ -239,11 +213,11 @@ class ProjectLocalRepositoryTest {
   void shouldNotReplaceText() {
     Project project = tmpProject();
     String oldText = """
-      <name>jhipster</name>
-        <description>JHipster Project</description>""";
+        <name>jhipster</name>
+          <description>JHipster Project</description>""";
     String newText = """
-      <name>chips</name>
-        <description>Chips Project</description>""";
+        <name>chips</name>
+          <description>Chips Project</description>""";
 
     assertThatThrownBy(() -> repository.replaceText(project, "", POM_XML, oldText, newText)).isExactlyInstanceOf(GeneratorException.class);
   }

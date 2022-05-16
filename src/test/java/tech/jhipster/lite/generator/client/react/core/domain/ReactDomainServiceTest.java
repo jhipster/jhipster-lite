@@ -1,12 +1,10 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProject;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.*;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -25,13 +23,13 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class ReactDomainServiceTest {
 
   @InjectMocks
-  ReactDomainService reactDomainService;
+  private ReactDomainService reactDomainService;
 
   @Mock
-  NpmService npmService;
+  private NpmService npmService;
 
   @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @Test
   void shouldAddReact() {
@@ -44,7 +42,7 @@ class ReactDomainServiceTest {
     verify(npmService, times(16)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(6)).addScript(any(Project.class), anyString(), anyString());
 
-    verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository).add(filesCountArgument(3));
     verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 
@@ -59,7 +57,7 @@ class ReactDomainServiceTest {
     verify(npmService, times(16)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(6)).addScript(any(Project.class), anyString(), anyString());
 
-    verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository).add(filesCountArgument(3));
     verify(projectRepository, times(8)).template(any(Project.class), anyString(), anyString(), anyString());
   }
 

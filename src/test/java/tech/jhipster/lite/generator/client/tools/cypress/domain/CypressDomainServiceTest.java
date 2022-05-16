@@ -1,13 +1,11 @@
 package tech.jhipster.lite.generator.client.tools.cypress.domain;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.generator.client.tools.cypress.domain.Cypress.JAVASCRIPT_INTEGRATION;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.client.tools.cypress.domain.Cypress.*;
+import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.*;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -27,16 +25,16 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class CypressDomainServiceTest {
 
   @InjectMocks
-  CypressDomainService cypressDomainService;
+  private CypressDomainService cypressDomainService;
 
   @Mock
-  NpmService npmService;
+  private NpmService npmService;
 
   @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @Mock
-  ClientCommonService clientCommonService;
+  private ClientCommonService clientCommonService;
 
   @Test
   void shouldAddCypress() {
@@ -62,10 +60,7 @@ class CypressDomainServiceTest {
         "cypress run --headless --config-file src/test/javascript/integration/cypress-config.json"
       );
 
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
-    verify(projectRepository).add(project, "client/common/cypress/src/test/javascript/integration", ".eslintrc.js", JAVASCRIPT_INTEGRATION);
-    verify(projectRepository)
-      .add(project, "client/common/cypress/src/test/javascript/integration", "tsconfig.json", JAVASCRIPT_INTEGRATION);
+    verify(projectRepository).add(filesCountArgument(2));
 
     verify(projectRepository)
       .template(project, "client/common/cypress/src/test/javascript/integration", "cypress-config.json", JAVASCRIPT_INTEGRATION);

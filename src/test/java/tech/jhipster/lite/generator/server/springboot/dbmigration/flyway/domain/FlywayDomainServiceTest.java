@@ -1,15 +1,11 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.DEFAULT_FLYWAY_ENABLED;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.DEFAULT_FLYWAY_LOCATIONS;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.*;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain.Flyway.*;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -28,6 +24,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.project.domain.FilePath;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -75,11 +72,11 @@ class FlywayDomainServiceTest {
 
     verify(projectRepository)
       .add(
-        project,
-        "server/springboot/dbmigration/flyway/resources",
-        "V00000000000000__init.sql",
-        "src/main/resources/db/migration",
-        "V20220122150154__init.sql"
+        projectFileArgument(
+          project,
+          new FilePath("server/springboot/dbmigration/flyway/resources", "V00000000000000__init.sql"),
+          new FilePath("src/main/resources/db/migration", "V20220122150154__init.sql")
+        )
       );
 
     verify(springBootCommonService, times(2)).addProperties(any(), anyString(), any());
@@ -127,11 +124,11 @@ class FlywayDomainServiceTest {
 
     verify(projectRepository)
       .add(
-        project,
-        "server/springboot/dbmigration/flyway/resources",
-        "V00000000000000__init.sql",
-        "src/main/resources/db/migration",
-        "V20220122150154__init.sql"
+        projectFileArgument(
+          project,
+          new FilePath("server/springboot/dbmigration/flyway/resources", "V00000000000000__init.sql"),
+          new FilePath("src/main/resources/db/migration", "V20220122150154__init.sql")
+        )
       );
 
     verify(springBootCommonService, times(2)).addProperties(any(), anyString(), any());
@@ -152,11 +149,14 @@ class FlywayDomainServiceTest {
     // Then
     verify(projectRepository)
       .add(
-        project,
-        "server/springboot/dbmigration/flyway/resources/user",
-        "V00000000000000__create_user_authority_tables_postgresql.sql",
-        "src/main/resources/db/migration",
-        "V20220122150155__create_user_authority_tables.sql"
+        projectFileArgument(
+          project,
+          new FilePath(
+            "server/springboot/dbmigration/flyway/resources/user",
+            "V00000000000000__create_user_authority_tables_postgresql.sql"
+          ),
+          new FilePath("src/main/resources/db/migration", "V20220122150155__create_user_authority_tables.sql")
+        )
       );
   }
 
@@ -170,14 +170,14 @@ class FlywayDomainServiceTest {
     // When
     flywayDomainService.addUserAuthorityChangelog(project);
 
-    // Then
+    // ThenO
     verify(projectRepository)
       .add(
-        project,
-        "server/springboot/dbmigration/flyway/resources/user",
-        "V00000000000000__create_user_authority_tables.sql",
-        "src/main/resources/db/migration",
-        "V20220122150155__create_user_authority_tables.sql"
+        projectFileArgument(
+          project,
+          new FilePath("server/springboot/dbmigration/flyway/resources/user", "V00000000000000__create_user_authority_tables.sql"),
+          new FilePath("src/main/resources/db/migration", "V20220122150155__create_user_authority_tables.sql")
+        )
       );
   }
 }

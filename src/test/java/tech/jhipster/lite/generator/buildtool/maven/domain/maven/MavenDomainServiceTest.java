@@ -28,6 +28,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -35,10 +36,10 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class MavenDomainServiceTest {
 
   @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @InjectMocks
-  MavenDomainService mavenDomainService;
+  private MavenDomainService mavenDomainService;
 
   @Test
   void shouldAddParent() {
@@ -165,7 +166,7 @@ class MavenDomainServiceTest {
     mavenDomainService.initJava(project);
 
     verify(projectRepository).template(any(Project.class), anyString(), anyString());
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).add(any(ProjectFile.class));
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
   }
 
@@ -184,7 +185,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.addMavenWrapper(project);
 
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).add(any(ProjectFile.class));
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
   }
 

@@ -1,8 +1,7 @@
 package tech.jhipster.lite.generator.typescript.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,6 +17,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -43,7 +43,7 @@ class TypescriptDomainServiceTest {
     verify(npmService, times(10)).addDevDependency(any(Project.class), anyString(), anyString());
     verify(npmService, times(5)).addScript(any(Project.class), anyString(), anyString());
 
-    verify(projectRepository, times(3)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository).add(ProjectFilesAsserter.filesCountArgument(3));
   }
 
   @Test

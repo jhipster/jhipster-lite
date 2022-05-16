@@ -1,10 +1,8 @@
 package tech.jhipster.lite.generator.setup.gitpod.domain;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -30,6 +29,6 @@ class GitpodDomainServiceTest {
     Project project = tmpProjectWithPackageJson();
 
     gitpodDomainService.init(project);
-    verify(projectRepository, times(2)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository, times(2)).add(any(ProjectFile.class));
   }
 }

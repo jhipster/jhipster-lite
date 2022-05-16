@@ -12,6 +12,7 @@ import tech.jhipster.lite.common.domain.TimeUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
@@ -64,11 +65,10 @@ public class FlywayDomainService implements FlywayService {
   @Override
   public void addChangelogSql(Project project) {
     projectRepository.add(
-      project,
-      getPath(SQL_INIT_FILE_SOURCE, "resources"),
-      "V00000000000000__init.sql",
-      getPath(MAIN_RESOURCES, DEFAULT_SQL_FILES_FOLDER),
-      buildFileNameWithTimestamp(SQL_INIT_FILE_NAME, 0)
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SQL_INIT_FILE_SOURCE, "resources"), "V00000000000000__init.sql")
+        .withDestination(getPath(MAIN_RESOURCES, DEFAULT_SQL_FILES_FOLDER), buildFileNameWithTimestamp(SQL_INIT_FILE_NAME, 0))
     );
   }
 
@@ -80,12 +80,12 @@ public class FlywayDomainService implements FlywayService {
   @Override
   public void addUserAuthorityChangelog(Project project) {
     String sqlFileSource = buildSqlFileSource(project);
+
     projectRepository.add(
-      project,
-      getPath(SQL_INIT_FILE_SOURCE, "resources/user"),
-      sqlFileSource,
-      getPath(MAIN_RESOURCES, DEFAULT_SQL_FILES_FOLDER),
-      buildFileNameWithTimestamp(SQL_USER_AUTHORITY_FILE_NAME, 1)
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SQL_INIT_FILE_SOURCE, "resources/user"), sqlFileSource)
+        .withDestination(getPath(MAIN_RESOURCES, DEFAULT_SQL_FILES_FOLDER), buildFileNameWithTimestamp(SQL_USER_AUTHORITY_FILE_NAME, 1))
     );
   }
 

@@ -16,6 +16,7 @@ import tech.jhipster.lite.common.domain.TimeUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -64,7 +65,12 @@ public class LiquibaseDomainService implements LiquibaseService {
 
   @Override
   public void addChangelogMasterXml(Project project) {
-    projectRepository.add(project, getPath(SOURCE, "resources"), LIQUIBASE_MASTER_XML, getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE));
+    projectRepository.add(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, "resources"), LIQUIBASE_MASTER_XML)
+        .withDestinationFolder(getPath(MAIN_RESOURCES, CONFIG_LIQUIBASE))
+    );
   }
 
   @Override
@@ -149,7 +155,10 @@ public class LiquibaseDomainService implements LiquibaseService {
       userXmlFile = "user_with_autoincrement.xml";
     }
     projectRepository.template(project, getUserResourcePath(), userXmlFile, getPath(MAIN_RESOURCES, CHANGELOG), userChangelog);
-    projectRepository.add(project, getUserResourcePath(), "user.csv", getPath(MAIN_RESOURCES, DATA));
+
+    projectRepository.add(
+      ProjectFile.forProject(project).withSource(getUserResourcePath(), "user.csv").withDestinationFolder(getPath(MAIN_RESOURCES, DATA))
+    );
   }
 
   private void addSqlUserAuthorityChangelog(Project project) {
@@ -159,8 +168,19 @@ public class LiquibaseDomainService implements LiquibaseService {
 
     // Copy liquibase files
     projectRepository.template(project, getUserResourcePath(), "authority.xml", getPath(MAIN_RESOURCES, CHANGELOG), authorityChangelog);
-    projectRepository.add(project, getUserResourcePath(), "authority.csv", getPath(MAIN_RESOURCES, DATA));
-    projectRepository.add(project, getUserResourcePath(), "user_authority.csv", getPath(MAIN_RESOURCES, DATA));
+    projectRepository.add(
+      ProjectFile
+        .forProject(project)
+        .withSource(getUserResourcePath(), "authority.csv")
+        .withDestinationFolder(getPath(MAIN_RESOURCES, DATA))
+    );
+
+    projectRepository.add(
+      ProjectFile
+        .forProject(project)
+        .withSource(getUserResourcePath(), "user_authority.csv")
+        .withDestinationFolder(getPath(MAIN_RESOURCES, DATA))
+    );
   }
 
   private String getUserResourcePath() {

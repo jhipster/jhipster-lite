@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.javatool.jacoco.domain;
 
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class JacocoDomainService implements JacocoService {
@@ -18,7 +19,7 @@ public class JacocoDomainService implements JacocoService {
   @Override
   public void addCheckMinimumCoverage(Project project) {
     projectRepository.gitInit(project);
-    projectRepository.add(project, SOURCE, PATCH, ".jhipster");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, PATCH).withDestinationFolder(".jhipster"));
     projectRepository.gitApplyPatch(project, FileUtils.getPath(project.getFolder(), ".jhipster", PATCH));
   }
 }

@@ -1,18 +1,16 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_TYPESCRIPT;
-import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
-import static tech.jhipster.lite.generator.project.domain.Constants.ROUTER_TYPESCRIPT;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
-import java.util.List;
 import java.util.Map;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class VueDomainService implements VueService {
@@ -146,23 +144,14 @@ public class VueDomainService implements VueService {
 
   public void addScripts(Project project) {
     // prettier-ignore
-    Map
-      .of(
-        "build", "vue-tsc --noEmit && vite build --emptyOutDir",
-        "dev", "vite",
-        "jest", "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache",
-        "preview", "vite preview",
-        "start", "vite",
-        "test", "npm run jest --",
-        "test:watch", "npm run jest -- --watch"
-      )
-      .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
+    Map.of("build", "vue-tsc --noEmit && vite build --emptyOutDir", "dev", "vite", "jest",
+        "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache", "preview", "vite preview", "start",
+        "vite", "test", "npm run jest --", "test:watch", "npm run jest -- --watch")
+        .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
   }
 
   public void addViteConfigFiles(Project project) {
-    List
-      .of(".eslintrc.js", "jest.config.js", "tsconfig.json", "vite.config.ts")
-      .forEach(file -> projectRepository.add(project, SOURCE, file));
+    projectRepository.add(ProjectFile.forProject(project).all(SOURCE, ".eslintrc.js", "jest.config.js", "tsconfig.json", "vite.config.ts"));
   }
 
   public void addRootFiles(Project project) {
@@ -214,23 +203,28 @@ public class VueDomainService implements VueService {
     projectRepository.template(project, SOURCE_PRIMARY_APP, "StyledApp.vue", DESTINATION_PRIMARY_APP, "App.vue");
 
     projectRepository.add(
-      project,
-      getPath(SOURCE, "webapp/content/images"),
-      "JHipster-Lite-neon-green.png",
-      "src/main/webapp/content/images"
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, "webapp/content/images"), "JHipster-Lite-neon-green.png")
+        .withDestinationFolder("src/main/webapp/content/images")
     );
-    projectRepository.add(project, getPath(SOURCE, "webapp/content/images"), "VueLogo.png", "src/main/webapp/content/images");
+    projectRepository.add(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, "webapp/content/images"), "VueLogo.png")
+        .withDestinationFolder("src/main/webapp/content/images")
+    );
   }
 
   public void addJestSonar(Project project) {
     String oldText = "\"cacheDirectories\": \\[";
     String newText =
       """
-      "jestSonar": \\{
-          "reportPath": "target/test-results/jest",
-          "reportFile": "TESTS-results-sonar.xml"
-        \\},
-        "cacheDirectories": \\[""";
+        "jestSonar": \\{
+            "reportPath": "target/test-results/jest",
+            "reportFile": "TESTS-results-sonar.xml"
+          \\},
+          "cacheDirectories": \\[""";
     projectRepository.replaceText(project, "", PACKAGE_JSON, oldText, newText);
   }
 }

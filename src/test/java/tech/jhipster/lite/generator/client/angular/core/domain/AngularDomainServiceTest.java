@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
+import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.*;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -98,7 +100,7 @@ class AngularDomainServiceTest {
 
     angularDomainService.addFiles(project);
 
-    verify(projectRepository, times(5)).add(any(Project.class), anyString(), anyString());
+    verify(projectRepository).add(filesCountArgument(5));
   }
 
   @Test

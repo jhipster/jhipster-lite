@@ -1,7 +1,6 @@
 package tech.jhipster.lite.common.domain;
 
-import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,16 +39,16 @@ public class FileUtils {
 
   private FileUtils() {}
 
-  public static boolean exists(String path) {
-    Assert.notBlank("path", path);
-
-    return Files.exists(Path.of(path));
-  }
-
   public static void createFolder(String path) throws IOException {
     Assert.notBlank("path", path);
 
     Files.createDirectories(Paths.get(path));
+  }
+
+  public static boolean exists(String path) {
+    Assert.notBlank("path", path);
+
+    return Files.exists(Path.of(path));
   }
 
   public static String tmpDir() {
@@ -71,14 +70,6 @@ public class FileUtils {
 
   public static Path getPathOf(String... paths) {
     return Path.of(getPath(paths));
-  }
-
-  public static InputStream getInputStream(String... paths) {
-    InputStream in = FileUtils.class.getResourceAsStream(FILE_SEPARATOR + getPath(paths));
-    if (in == null) {
-      throw new GeneratorException("File '" + getPath(paths) + "' not found in classpath");
-    }
-    return in;
   }
 
   public static String read(String filename) throws IOException {
@@ -141,7 +132,17 @@ public class FileUtils {
 
   public static List<String> readLinesInClasspath(String filename) {
     Assert.notBlank(FILENAME, filename);
+
     return new BufferedReader(new InputStreamReader(getInputStream(filename))).lines().toList();
+  }
+
+  private static InputStream getInputStream(String... paths) {
+    InputStream in = FileUtils.class.getResourceAsStream(FILE_SEPARATOR + getPath(paths));
+
+    if (in == null) {
+      throw new GeneratorException("File '" + getPath(paths) + "' not found in classpath");
+    }
+    return in;
   }
 
   public static boolean containsLines(String filename, List<String> lines) {

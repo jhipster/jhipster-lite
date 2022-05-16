@@ -77,8 +77,6 @@ class KafkaApplicationServiceIT {
 
     kafkaApplicationService.addDummyProducerConsumer(project);
 
-    String configKafkaPath = getPath("com/mycompany/myapp/technical/infrastructure/config/kafka");
-
     String dummyProducerPath = getPath("com/mycompany/myapp/dummy/infrastructure/secondary/kafka/producer");
     assertFileExist(project, getPath(MAIN_JAVA, dummyProducerPath, "DummyProducer.java"));
     assertFileContent(project, getPath(MAIN_JAVA, dummyProducerPath, "DummyProducer.java"), "public class DummyProducer");

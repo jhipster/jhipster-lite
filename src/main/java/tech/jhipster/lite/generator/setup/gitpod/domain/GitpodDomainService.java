@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.setup.gitpod.domain;
 
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class GitpodDomainService implements GitpodService {
@@ -20,10 +21,10 @@ public class GitpodDomainService implements GitpodService {
   }
 
   private void addConfig(Project project) {
-    projectRepository.add(project, SOURCE, ".gitpod.yml");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, ".gitpod.yml").withSameDestination());
   }
 
   private void addDockerfile(Project project) {
-    projectRepository.add(project, SOURCE, ".gitpod.Dockerfile");
+    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, ".gitpod.Dockerfile").withSameDestination());
   }
 }

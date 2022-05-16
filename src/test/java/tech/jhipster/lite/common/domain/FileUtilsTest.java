@@ -1,27 +1,13 @@
 package tech.jhipster.lite.common.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tech.jhipster.lite.TestUtils.assertFileExist;
-import static tech.jhipster.lite.TestUtils.assertFileNotExist;
-import static tech.jhipster.lite.common.domain.FileUtils.createFolder;
-import static tech.jhipster.lite.common.domain.FileUtils.detectEndOfLine;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.isPosix;
-import static tech.jhipster.lite.common.domain.FileUtils.normalizeEndOfLine;
-import static tech.jhipster.lite.common.domain.FileUtils.tmpDir;
-import static tech.jhipster.lite.common.domain.FileUtils.tmpDirForTest;
-import static tech.jhipster.lite.common.domain.FileUtils.transformEndOfLine;
-import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -91,7 +77,7 @@ class FileUtilsTest {
 
     @Test
     void shouldNotCreateFolderForBlank() {
-      assertThatThrownBy(() -> FileUtils.createFolder(null))
+      assertThatThrownBy(() -> FileUtils.createFolder(" "))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)
         .hasMessageContaining("path");
     }
@@ -154,18 +140,6 @@ class FileUtilsTest {
       Path result = FileUtils.getPathOf("chips", "beer");
 
       assertThat(result).isEqualTo(Path.of("chips" + File.separator + "beer"));
-    }
-
-    @Test
-    void shouldGetInputStream() {
-      InputStream in = FileUtils.getInputStream("generator/mustache/README.txt");
-
-      assertThat(in).isNotNull();
-    }
-
-    @Test
-    void shouldNotGetInputStream() {
-      assertThatThrownBy(() -> FileUtils.getInputStream("generator/mustache/chips.txt")).isExactlyInstanceOf(GeneratorException.class);
     }
   }
 

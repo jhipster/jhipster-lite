@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpHandler, HttpRequest } from '@angular/common/http';
+import { lastValueFrom, of } from 'rxjs';
 
 import { HttpAuthInterceptor } from './http-auth.interceptor';
 import { Oauth2AuthService } from './oauth2-auth.service';
-import { HttpHandler, HttpRequest } from '@angular/common/http';
-import { lastValueFrom, of } from 'rxjs';
+
 import Mock = jest.Mock;
 
 const URL = 'http://localhost:8080/api/dummy';

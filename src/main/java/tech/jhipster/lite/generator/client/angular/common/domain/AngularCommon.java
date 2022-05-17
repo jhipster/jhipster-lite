@@ -4,6 +4,8 @@ import java.util.List;
 
 public class AngularCommon {
 
+  protected static final String ANGULAR_JSON_FILE_NAME = "angular.json";
+
   protected static final String IMPORT_REGEX = "(^import[\\s]+[^;]+;)";
   protected static final String EXISTING_IMPORT_PATTERN = "^(import[\\s]+\\{[^\\}]+)\\} from '[%s]+';";
 

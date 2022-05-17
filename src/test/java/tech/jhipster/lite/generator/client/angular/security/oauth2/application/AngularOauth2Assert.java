@@ -44,10 +44,10 @@ public class AngularOauth2Assert {
       """
         import { NgModule, APP_INITIALIZER} from '@angular/core';
         import { MatButtonToggleModule } from '@angular/material/button-toggle';
-        import {HTTP_INTERCEPTORS} from '@angular/common/http';
-        import {LoginComponent} from './login/login.component';
-        import {Oauth2AuthService} from './auth/oauth2-auth.service';
-        import {HttpAuthInterceptor} from './auth/http-auth.interceptor';
+        import { HTTP_INTERCEPTORS } from '@angular/common/http';
+        import { LoginComponent } from './login/login.component';
+        import { Oauth2AuthService } from './auth/oauth2-auth.service';
+        import { HttpAuthInterceptor } from './auth/http-auth.interceptor';
 
         const initializeApp = (oauth2AuthService: Oauth2AuthService) => {
           return () => {
@@ -127,8 +127,8 @@ public class AngularOauth2Assert {
     expectedContentLines =
       """
         import { AppComponent } from './app.component';
-        import {By} from '@angular/platform-browser';
-        import {LoginComponent} from './login/login.component';
+        import { By } from '@angular/platform-browser';
+        import { LoginComponent } from './login/login.component';
 
           beforeEach(
             waitForAsync(() => {

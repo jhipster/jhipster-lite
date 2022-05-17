@@ -4,7 +4,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.generator.client.tools.cypress.domain.Cypress.*;
 import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.*;
 
 import java.util.Optional;
@@ -18,6 +17,8 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.client.common.domain.ClientCommonService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
+import tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -62,15 +63,8 @@ class CypressDomainServiceTest {
 
     verify(projectRepository).add(filesCountArgument(2));
 
-    verify(projectRepository)
-      .template(project, "client/common/cypress/src/test/javascript/integration", "cypress-config.json", JAVASCRIPT_INTEGRATION);
-    verify(projectRepository)
-      .template(
-        project,
-        "client/common/cypress/src/test/javascript/integration/common/primary/app",
-        "Home.spec.ts",
-        "src/test/javascript/integration/common/primary/app"
-      );
+    verify(projectRepository).template(any(ProjectFile.class));
+    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(1));
 
     verify(clientCommonService).excludeInTsconfigJson(project, "src/test/javascript/integration/**/*spec.ts");
   }

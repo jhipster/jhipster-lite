@@ -1,12 +1,10 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
-import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
-import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_IMAGE;
-import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_COMPOSE_FILE;
-import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.KAFKA_DOCKER_IMAGE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.*;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.*;
 
 import java.util.TreeMap;
 import tech.jhipster.lite.common.domain.WordUtils;
@@ -16,6 +14,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
@@ -59,14 +58,24 @@ public class KafkaDomainService implements KafkaService {
     final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
     final String configKafkaPath = TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka";
 
-    projectRepository.template(project, SOURCE, "KafkaProperties.java", getPath(MAIN_JAVA, packageNamePath, configKafkaPath));
-    projectRepository.template(project, SOURCE, "KafkaPropertiesTest.java", getPath(TEST_JAVA, packageNamePath, configKafkaPath));
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE, "KafkaProperties.java")
+        .withDestinationFolder(getPath(MAIN_JAVA, packageNamePath, configKafkaPath))
+    );
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE, "KafkaPropertiesTest.java")
+        .withDestinationFolder(getPath(TEST_JAVA, packageNamePath, configKafkaPath))
+    );
 
     projectRepository.template(
-      project,
-      SOURCE,
-      "KafkaConfiguration.java",
-      getPath(MAIN_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka")
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE, "KafkaConfiguration.java")
+        .withDestinationFolder(getPath(MAIN_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka"))
     );
   }
 
@@ -81,14 +90,50 @@ public class KafkaDomainService implements KafkaService {
       springBootCommonService.addProperties(project, DUMMY_TOPIC_NAME, topicName);
       springBootCommonService.addPropertiesTest(project, DUMMY_TOPIC_NAME, topicName);
 
-      projectRepository.template(project, SOURCE, "DummyProducer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
-      projectRepository.template(project, SOURCE, "DummyProducerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
-      projectRepository.template(project, SOURCE, "DummyProducerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH));
+      projectRepository.template(
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, "DummyProducer.java")
+          .withDestinationFolder(getPath(MAIN_JAVA, packageNamePath, DUMMY_PRODUCER_PATH))
+      );
+      projectRepository.template(
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, "DummyProducerTest.java")
+          .withDestinationFolder(getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH))
+      );
 
-      projectRepository.template(project, SOURCE, "AbstractConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
-      projectRepository.template(project, SOURCE, "DummyConsumer.java", getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
-      projectRepository.template(project, SOURCE, "DummyConsumerIT.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
-      projectRepository.template(project, SOURCE, "DummyConsumerTest.java", getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH));
+      projectRepository.template(
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, "DummyProducerIT.java")
+          .withDestinationFolder(getPath(TEST_JAVA, packageNamePath, DUMMY_PRODUCER_PATH))
+      );
+
+      projectRepository.template(
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, "AbstractConsumer.java")
+          .withDestinationFolder(getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH))
+      );
+      projectRepository.template(
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, "DummyConsumer.java")
+          .withDestinationFolder(getPath(MAIN_JAVA, packageNamePath, DUMMY_CONSUMER_PATH))
+      );
+      projectRepository.template(
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, "DummyConsumerIT.java")
+          .withDestinationFolder(getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH))
+      );
+      projectRepository.template(
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, "DummyConsumerTest.java")
+          .withDestinationFolder(getPath(TEST_JAVA, packageNamePath, DUMMY_CONSUMER_PATH))
+      );
     }
   }
 
@@ -96,7 +141,9 @@ public class KafkaDomainService implements KafkaService {
   public void addAkhq(final Project project) {
     final String akhqDockerImage = dockerService.getImageNameWithVersion(AKHQ_DOCKER_IMAGE).orElseThrow();
     project.addConfig("akhqDockerImage", akhqDockerImage);
-    projectRepository.template(project, SOURCE, AKHQ_DOCKER_COMPOSE_FILE, MAIN_DOCKER, AKHQ_DOCKER_COMPOSE_FILE);
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE, AKHQ_DOCKER_COMPOSE_FILE).withDestination(MAIN_DOCKER, AKHQ_DOCKER_COMPOSE_FILE)
+    );
   }
 
   private void addApacheKafkaClient(final Project project) {
@@ -111,7 +158,9 @@ public class KafkaDomainService implements KafkaService {
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("zookeeperDockerImage", zookeeperDockerImage);
     project.addConfig("kafkaDockerImage", kafkaDockerImage);
-    projectRepository.template(project, SOURCE, KAFKA_DOCKER_COMPOSE_FILE, MAIN_DOCKER, KAFKA_DOCKER_COMPOSE_FILE);
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE, KAFKA_DOCKER_COMPOSE_FILE).withDestination(MAIN_DOCKER, KAFKA_DOCKER_COMPOSE_FILE)
+    );
   }
 
   private void addProperties(final Project project) {
@@ -141,7 +190,12 @@ public class KafkaDomainService implements KafkaService {
 
   void addTestcontainers(final Project project) {
     final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    projectRepository.template(project, SOURCE, "KafkaTestContainerExtension.java", getPath(TEST_JAVA, packageNamePath));
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE, "KafkaTestContainerExtension.java")
+        .withDestinationFolder(getPath(TEST_JAVA, packageNamePath))
+    );
     this.buildToolService.getVersion(project, "testcontainers")
       .ifPresentOrElse(
         version -> {

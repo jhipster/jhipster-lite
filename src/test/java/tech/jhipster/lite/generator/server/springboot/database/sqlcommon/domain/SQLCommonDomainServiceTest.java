@@ -1,13 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
 
 import java.util.Map;
 import java.util.Optional;
@@ -22,6 +18,7 @@ import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
@@ -174,7 +171,7 @@ class SQLCommonDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     sqlCommonDomainService.addDockerComposeTemplate(project, "anyDB");
-    verify(projectRepository).template(eq(project), any(String.class), eq("anyDB.yml"), any(String.class), eq("anyDB.yml"));
+    verify(projectRepository).template(any(ProjectFile.class));
   }
 
   @Test
@@ -182,7 +179,7 @@ class SQLCommonDomainServiceTest {
     Project project = tmpProjectWithPomXml();
 
     sqlCommonDomainService.addJavaFiles(project, "anyDB");
-    verify(projectRepository).template(eq(project), any(String.class), eq("DatabaseConfiguration.java"), any(String.class));
+    verify(projectRepository).template(any(ProjectFile.class));
   }
 
   @Test

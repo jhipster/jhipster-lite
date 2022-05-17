@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.gradle.domain.GradleDomainService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -32,7 +33,7 @@ class GradleDomainServiceTest {
 
     gradleDomainService.initJava(project);
 
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString());
+    verify(projectRepository, times(2)).template(any(ProjectFile.class));
     verify(projectRepository).add(filesCountArgument(4));
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
   }
@@ -43,7 +44,7 @@ class GradleDomainServiceTest {
 
     gradleDomainService.addJavaBuildGradleKts(project);
 
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString());
+    verify(projectRepository, times(2)).template(any(ProjectFile.class));
   }
 
   @Test

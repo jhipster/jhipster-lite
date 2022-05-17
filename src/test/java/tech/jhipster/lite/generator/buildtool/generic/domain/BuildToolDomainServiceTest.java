@@ -200,6 +200,16 @@ class BuildToolDomainServiceTest {
 
       verify(gradleService).deleteDependency(project, dependency);
     }
+
+    @Test
+    void shouldAddRepository() {
+      Project project = tmpProjectWithBuildGradle();
+      Repository repository = getRepository();
+
+      buildToolDomainService.addRepository(project, repository);
+
+      verify(gradleService).addRepository(project, repository);
+    }
   }
 
   @Nested

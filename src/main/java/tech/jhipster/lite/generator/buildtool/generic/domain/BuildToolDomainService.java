@@ -90,6 +90,8 @@ public class BuildToolDomainService implements BuildToolService {
   public void addRepository(Project project, Repository repository) {
     if (project.isMavenProject()) {
       mavenService.addRepository(project, repository);
+    } else if (project.isGradleProject()) {
+      gradleService.addRepository(project, repository);
     } else {
       throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }

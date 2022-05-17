@@ -5,10 +5,10 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.*;
+import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommon.testContainersDependency;
 
 import java.util.TreeMap;
 import tech.jhipster.lite.common.domain.WordUtils;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.docker.domain.DockerService;
@@ -202,23 +202,7 @@ public class KafkaDomainService implements KafkaService {
         .withSource(SOURCE, "KafkaTestContainerExtension.java")
         .withDestinationFolder(getPath(TEST_JAVA, packageNamePath))
     );
-    this.buildToolService.getVersion(project, "testcontainers")
-      .ifPresentOrElse(
-        version -> {
-          Dependency dependency = Dependency
-            .builder()
-            .groupId("org.testcontainers")
-            .artifactId("kafka")
-            .version("\\${testcontainers.version}")
-            .scope("test")
-            .build();
-          buildToolService.addProperty(project, "testcontainers.version", version);
-          buildToolService.addDependency(project, dependency);
-        },
-        () -> {
-          throw new GeneratorException("Testcontainers version not found");
-        }
-      );
+    buildToolService.addVersionPropertyAndDependency(project, "testcontainers", testContainersDependency("kafka"));
     springBootCommonService.updateIntegrationTestAnnotation(project, "KafkaTestContainerExtension");
   }
 

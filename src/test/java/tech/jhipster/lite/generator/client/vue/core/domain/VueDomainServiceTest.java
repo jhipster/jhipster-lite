@@ -102,15 +102,11 @@ class VueDomainServiceTest {
   @Test
   void shouldAddRouterFiles() {
     Project project = tmpProjectWithPackageJson();
-    final String version = "0.0.0";
-    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of(version));
+    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
 
     vueDomainService.addRouter(project);
-    ArgumentCaptor<String> filesCaptor = ArgumentCaptor.forClass(String.class);
-    verify(projectRepository, times(2)).template(eq(project), any(String.class), filesCaptor.capture(), anyString());
+    verify(projectRepository, times(2)).template(any(ProjectFile.class));
     verify(projectRepository, times(2)).replaceText(eq(project), anyString(), anyString(), anyString(), anyString());
-
-    assertThat(filesCaptor.getAllValues()).contains("router.ts", "Router.spec.ts");
   }
 
   @Test
@@ -161,7 +157,7 @@ class VueDomainServiceTest {
 
     vueDomainService.addRootFiles(project);
 
-    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(3)).template(any(ProjectFile.class));
   }
 
   @Test
@@ -170,7 +166,7 @@ class VueDomainServiceTest {
 
     vueDomainService.addAppFiles(project);
 
-    verify(projectRepository, times(3)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(3)).template(any(ProjectFile.class));
   }
 
   @Test
@@ -179,7 +175,7 @@ class VueDomainServiceTest {
 
     vueDomainService.addAppFilesWithoutCss(project);
 
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(2)).template(any(ProjectFile.class));
   }
 
   @Test
@@ -188,7 +184,7 @@ class VueDomainServiceTest {
 
     vueDomainService.addAppFilesWithCss(project);
 
-    verify(projectRepository, times(2)).template(any(Project.class), anyString(), anyString(), anyString(), anyString());
+    verify(projectRepository, times(2)).template(any(ProjectFile.class));
     verify(projectRepository, times(2)).add(any(ProjectFile.class));
   }
 
@@ -236,6 +232,6 @@ class VueDomainServiceTest {
 
     vueDomainService.addAxios(project);
 
-    verify(projectRepository, times(4)).template(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, times(4)).template(any(ProjectFile.class));
   }
 }

@@ -1,9 +1,7 @@
 package tech.jhipster.lite.generator.server.javatool.base.domain;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.TestUtils.tmpProject;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -30,8 +29,7 @@ class JavaBaseDomainServiceTest {
 
     javaBaseDomainService.addJavaBase(project);
 
-    verify(projectRepository, times(17)).template(any(Project.class), anyString(), anyString(), anyString());
-    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), eq("JhipsterCollections.java"));
-    verify(projectRepository).template(any(Project.class), anyString(), anyString(), anyString(), eq("JhipsterCollectionsTest.java"));
+    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(13));
+    verify(projectRepository, times(2)).template(ProjectFilesAsserter.filesCountArgument(2));
   }
 }

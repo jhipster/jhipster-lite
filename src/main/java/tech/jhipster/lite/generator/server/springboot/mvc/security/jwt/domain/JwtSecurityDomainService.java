@@ -14,10 +14,12 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.do
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain.JwtSecurity.springSecurityTestDependency;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
@@ -100,28 +102,61 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     String destinationSrc = getPath(MAIN_JAVA, packageNamePath, SECURITY_JWT_PATH);
     String destinationTest = getPath(TEST_JAVA, packageNamePath, SECURITY_JWT_PATH);
 
-    jwtSecurityFiles()
-      .forEach((javaFile, destination) -> projectRepository.template(project, sourceSrc, javaFile, getPath(destinationSrc, destination)));
+    List<ProjectFile> sourceFiles = jwtSecurityFiles()
+      .entrySet()
+      .stream()
+      .map(entry ->
+        ProjectFile
+          .forProject(project)
+          .withSource(sourceSrc, entry.getKey())
+          .withDestinationFolder(getPath(destinationSrc, entry.getValue()))
+      )
+      .toList();
+    projectRepository.template(sourceFiles);
 
-    jwtTestSecurityFiles()
-      .forEach((javaFile, destination) -> projectRepository.template(project, sourceTest, javaFile, getPath(destinationTest, destination)));
+    List<ProjectFile> testFiles = jwtTestSecurityFiles()
+      .entrySet()
+      .stream()
+      .map(entry ->
+        ProjectFile
+          .forProject(project)
+          .withSource(sourceTest, entry.getKey())
+          .withDestinationFolder(getPath(destinationTest, entry.getValue()))
+      )
+      .toList();
+    projectRepository.template(testFiles);
   }
 
   private void addBasicAuthJavaFiles(Project project) {
     project.addDefaultConfig(PACKAGE_NAME);
     String sourceSrc = getPath(SOURCE, "src/account");
-    String sourceTest = getPath(SOURCE, "test/account");
-
     String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
     String destinationSrc = getPath(MAIN_JAVA, packageNamePath, "account/infrastructure/primary/rest");
-    String destinationTest = getPath(TEST_JAVA, packageNamePath, "account/infrastructure/primary/rest");
 
-    projectRepository.template(project, sourceSrc, "AuthenticationResource.java", getPath(destinationSrc));
-    projectRepository.template(project, sourceSrc, "AccountResource.java", getPath(destinationSrc));
-    projectRepository.template(project, sourceSrc, "LoginDTO.java", getPath(destinationSrc));
-    projectRepository.template(project, sourceTest, "AuthenticationResourceIT.java", getPath(destinationTest));
-    projectRepository.template(project, sourceTest, "AccountResourceIT.java", getPath(destinationTest));
-    projectRepository.template(project, sourceTest, "LoginDTOTest.java", getPath(destinationTest));
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(sourceSrc, "AuthenticationResource.java").withDestinationFolder(destinationSrc)
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(sourceSrc, "AccountResource.java").withDestinationFolder(destinationSrc)
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(sourceSrc, "LoginDTO.java").withDestinationFolder(destinationSrc)
+    );
+
+    String sourceTest = getPath(SOURCE, "test/account");
+    String destinationTest = getPath(TEST_JAVA, packageNamePath, "account/infrastructure/primary/rest");
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(sourceTest, "AuthenticationResourceIT.java")
+        .withDestinationFolder(getPath(destinationTest))
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(sourceTest, "AccountResourceIT.java").withDestinationFolder(getPath(destinationTest))
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(sourceTest, "LoginDTOTest.java").withDestinationFolder(getPath(destinationTest))
+    );
   }
 
   private void addBasicAuthProperties(Project project) {

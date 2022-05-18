@@ -5,9 +5,11 @@ import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
 
+import java.util.List;
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class JavaBaseDomainService implements JavaBaseService {
@@ -33,13 +35,30 @@ public class JavaBaseDomainService implements JavaBaseService {
   }
 
   private void addErrors(Project project, String packageNamePath) {
-    JavaBase
+    List<ProjectFile> errorFiles = JavaBase
       .errorDomainFiles()
-      .forEach(file -> projectRepository.template(project, SOURCE, file, getPath(MAIN_JAVA, packageNamePath, ERROR_DOMAIN_PATH)));
+      .stream()
+      .map(file ->
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, file)
+          .withDestinationFolder(getPath(MAIN_JAVA, packageNamePath, ERROR_DOMAIN_PATH))
+      )
+      .toList();
 
-    JavaBase
+    projectRepository.template(errorFiles);
+
+    List<ProjectFile> testFiles = JavaBase
       .errorDomainTestFiles()
-      .forEach(file -> projectRepository.template(project, SOURCE, file, getPath(TEST_JAVA, packageNamePath, ERROR_DOMAIN_PATH)));
+      .stream()
+      .map(file ->
+        ProjectFile
+          .forProject(project)
+          .withSource(SOURCE, file)
+          .withDestinationFolder(getPath(TEST_JAVA, packageNamePath, ERROR_DOMAIN_PATH))
+      )
+      .toList();
+    projectRepository.template(testFiles);
   }
 
   private void addCollections(Project project, String packageNamePath) {
@@ -47,22 +66,26 @@ public class JavaBaseDomainService implements JavaBaseService {
     project.addConfig("collectionClass", className);
 
     projectRepository.template(
-      project,
-      SOURCE,
-      "ProjectCollections.java",
-      getPath(MAIN_JAVA, packageNamePath, COMMON_DOMAIN_PATH),
-      className + "Collections.java"
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE, "ProjectCollections.java")
+        .withDestination(getPath(MAIN_JAVA, packageNamePath, COMMON_DOMAIN_PATH), className + "Collections.java")
     );
     projectRepository.template(
-      project,
-      SOURCE,
-      "ProjectCollectionsTest.java",
-      getPath(TEST_JAVA, packageNamePath, COMMON_DOMAIN_PATH),
-      className + "CollectionsTest.java"
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE, "ProjectCollectionsTest.java")
+        .withDestination(getPath(TEST_JAVA, packageNamePath, COMMON_DOMAIN_PATH), className + "CollectionsTest.java")
     );
   }
 
   private void addAnnotations(Project project, String packageNamePath) {
-    JavaBase.annotationsFiles().forEach(file -> projectRepository.template(project, SOURCE, file, getPath(TEST_JAVA, packageNamePath)));
+    List<ProjectFile> files = JavaBase
+      .annotationsFiles()
+      .stream()
+      .map(file -> ProjectFile.forProject(project).withSource(SOURCE, file).withDestinationFolder(getPath(TEST_JAVA, packageNamePath)))
+      .toList();
+
+    projectRepository.template(files);
   }
 }

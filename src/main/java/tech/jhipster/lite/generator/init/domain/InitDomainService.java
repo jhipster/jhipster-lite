@@ -56,7 +56,7 @@ public class InitDomainService implements InitService {
     String baseName = project.getBaseName().orElse("");
     project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
-    projectRepository.template(project, SOURCE, PACKAGE_JSON);
+    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, PACKAGE_JSON).withSameDestination());
     addDevDependencies(project);
     addScripts(project);
   }
@@ -93,7 +93,7 @@ public class InitDomainService implements InitService {
   public void addReadme(Project project) {
     project.addDefaultConfig(PROJECT_NAME);
 
-    projectRepository.template(project, SOURCE, "README.md");
+    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, "README.md").withSameDestination());
   }
 
   @Override
@@ -108,7 +108,7 @@ public class InitDomainService implements InitService {
     project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
 
     project.addConfig("editorConfigEndOfLine", CRLF.equals(project.getEndOfLine()) ? "crlf" : "lf");
-    projectRepository.template(project, SOURCE, ".editorconfig");
+    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, ".editorconfig").withSameDestination());
 
     projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, ".eslintignore").withSameDestination());
   }
@@ -123,7 +123,7 @@ public class InitDomainService implements InitService {
     projectRepository.setExecutable(project, HUSKY_FOLDER, "pre-commit");
 
     project.addConfig("prettierEndOfLine", CRLF.equals(project.getEndOfLine()) ? "crlf" : "lf");
-    projectRepository.template(project, SOURCE, ".prettierrc");
+    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, ".prettierrc").withSameDestination());
   }
 
   @Override

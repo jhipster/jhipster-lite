@@ -1,13 +1,9 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain.maven;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -165,7 +161,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.initJava(project);
 
-    verify(projectRepository).template(any(Project.class), anyString(), anyString());
+    verify(projectRepository).template(any(ProjectFile.class));
     verify(projectRepository, times(4)).add(any(ProjectFile.class));
     verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
   }
@@ -176,7 +172,7 @@ class MavenDomainServiceTest {
 
     mavenDomainService.addJavaPomXml(project);
 
-    verify(projectRepository).template(any(Project.class), anyString(), anyString());
+    verify(projectRepository).template(any(ProjectFile.class));
   }
 
   @Test

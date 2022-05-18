@@ -94,9 +94,24 @@ public class VueDomainService implements VueService {
   private void addAxiosTestFiles(Project project) {
     String destinationAxiosTest = "src/test/javascript/spec/http";
     String sourceAxiosTest = "test/spec/http";
-    projectRepository.template(project, getPath(SOURCE, sourceAxiosTest), "AxiosHttp.spec.ts", destinationAxiosTest);
-    projectRepository.template(project, getPath(SOURCE, sourceAxiosTest), "AxiosHttpStub.ts", destinationAxiosTest);
-    projectRepository.template(project, getPath(SOURCE, sourceAxiosTest), "AxiosStub.ts", destinationAxiosTest);
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, sourceAxiosTest), "AxiosHttp.spec.ts")
+        .withDestinationFolder(destinationAxiosTest)
+    );
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, sourceAxiosTest), "AxiosHttpStub.ts")
+        .withDestinationFolder(destinationAxiosTest)
+    );
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, sourceAxiosTest), "AxiosStub.ts")
+        .withDestinationFolder(destinationAxiosTest)
+    );
   }
 
   private void addAxiosDependency(Project project) {
@@ -104,7 +119,12 @@ public class VueDomainService implements VueService {
   }
 
   private void addAxiosFile(Project project) {
-    projectRepository.template(project, getPath(SOURCE, "webapp/app/http"), "AxiosHttp.ts", "src/main/webapp/app/http");
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, "webapp/app/http"), "AxiosHttp.ts")
+        .withDestinationFolder("src/main/webapp/app/http")
+    );
   }
 
   public void addDevDependencies(Project project) {
@@ -155,9 +175,15 @@ public class VueDomainService implements VueService {
   }
 
   public void addRootFiles(Project project) {
-    projectRepository.template(project, getPath(SOURCE, "webapp"), "index.html", "src/main/webapp");
-    projectRepository.template(project, getPath(SOURCE, "webapp/app"), "env.d.ts", DESTINATION_APP);
-    projectRepository.template(project, getPath(SOURCE, "webapp/app"), MAIN_TYPESCRIPT, DESTINATION_APP);
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(getPath(SOURCE, "webapp"), "index.html").withDestinationFolder("src/main/webapp")
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(getPath(SOURCE, "webapp/app"), "env.d.ts").withDestinationFolder(DESTINATION_APP)
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(getPath(SOURCE, "webapp/app"), MAIN_TYPESCRIPT).withDestinationFolder(DESTINATION_APP)
+    );
   }
 
   private void addRouterFiles(Project project) {
@@ -166,8 +192,18 @@ public class VueDomainService implements VueService {
   }
 
   private void addRouterConfigAndTestFiles(Project project) {
-    projectRepository.template(project, getPath(SOURCE, "webapp/app/router"), ROUTER_TYPESCRIPT, "src/main/webapp/app/router");
-    projectRepository.template(project, getPath(SOURCE, "test/spec/router"), "Router.spec.ts", "src/test/javascript/spec/router");
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, "webapp/app/router"), ROUTER_TYPESCRIPT)
+        .withDestinationFolder("src/main/webapp/app/router")
+    );
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE, "test/spec/router"), "Router.spec.ts")
+        .withDestinationFolder("src/test/javascript/spec/router")
+    );
   }
 
   private void addRouterMainConfiguration(Project project) {
@@ -183,24 +219,41 @@ public class VueDomainService implements VueService {
   public void addAppFiles(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE_PRIMARY_APP, "App.component.ts", DESTINATION_PRIMARY_APP);
-    projectRepository.template(project, SOURCE_PRIMARY_APP, "index.ts", DESTINATION_PRIMARY_APP);
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "App.component.ts").withDestinationFolder(DESTINATION_PRIMARY_APP)
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "index.ts").withDestinationFolder(DESTINATION_PRIMARY_APP)
+    );
 
-    projectRepository.template(project, getPath(SOURCE_TEST_PRIMARY, "app"), "App.spec.ts", DESTINATION_PRIMARY_TEST + "/app");
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE_TEST_PRIMARY, "app"), "App.spec.ts")
+        .withDestinationFolder(DESTINATION_PRIMARY_TEST + "/app")
+    );
   }
 
   public void addAppFilesWithoutCss(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE_PRIMARY_APP, "App.html", DESTINATION_PRIMARY_APP);
-    projectRepository.template(project, SOURCE_PRIMARY_APP, "App.vue", DESTINATION_PRIMARY_APP);
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "App.html").withDestinationFolder(DESTINATION_PRIMARY_APP)
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "App.vue").withDestinationFolder(DESTINATION_PRIMARY_APP)
+    );
   }
 
   public void addAppFilesWithCss(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    projectRepository.template(project, SOURCE_PRIMARY_APP, "StyledApp.html", DESTINATION_PRIMARY_APP, "App.html");
-    projectRepository.template(project, SOURCE_PRIMARY_APP, "StyledApp.vue", DESTINATION_PRIMARY_APP, "App.vue");
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "StyledApp.html").withDestination(DESTINATION_PRIMARY_APP, "App.html")
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "StyledApp.vue").withDestination(DESTINATION_PRIMARY_APP, "App.vue")
+    );
 
     projectRepository.add(
       ProjectFile

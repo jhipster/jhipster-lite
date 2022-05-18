@@ -38,8 +38,8 @@ public class GradleDomainService implements GradleService {
     String baseName = project.getBaseName().orElse("");
     project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
-    projectRepository.template(project, SOURCE, BUILD_GRADLE_KTS);
-    projectRepository.template(project, SOURCE, SETTINGS_GRADLE_KTS);
+    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, BUILD_GRADLE_KTS).withSameDestination());
+    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, SETTINGS_GRADLE_KTS).withSameDestination());
   }
 
   @Override

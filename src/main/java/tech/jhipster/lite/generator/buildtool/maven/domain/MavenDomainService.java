@@ -242,7 +242,7 @@ public class MavenDomainService implements MavenService {
     String baseName = project.getBaseName().orElse("");
     project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
 
-    projectRepository.template(project, SOURCE, POM_XML);
+    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, POM_XML).withSameDestination());
   }
 
   @Override

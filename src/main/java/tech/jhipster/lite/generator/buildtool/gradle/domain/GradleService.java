@@ -1,10 +1,9 @@
 package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
+import java.util.Optional;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.project.domain.Project;
-
-import java.util.Optional;
 
 public interface GradleService {
   void initJava(Project project);
@@ -16,5 +15,5 @@ public interface GradleService {
   void addJavaBuildGradleKts(Project project);
   void addGradleWrapper(Project project);
 
-    Optional<String> getGroup(String folder);
+  Optional<String> getGroup(String folder);
 }

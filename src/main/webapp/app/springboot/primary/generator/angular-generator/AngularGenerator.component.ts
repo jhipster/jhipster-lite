@@ -46,11 +46,8 @@ export default defineComponent({
       if (props.project.folder !== '') {
         await angularService
           .addOauth2(toProject(props.project as ProjectToUpdate))
-          .then(() => toastService.success('Oauth2 successfully added'))
-          .catch(error => {
-            logger.error('Adding Oauth2 to project failed', error);
-            toastService.error('Adding Oauth2 to project failed ' + error);
-          });
+          .then(() => alertBus.success('OAuth2 successfully added'))
+          .catch(error => alertBus.error(`Adding Oauth2 to project failed ${error}`));
       }
     };
 

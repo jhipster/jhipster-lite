@@ -2,7 +2,6 @@ import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { stubAngularService } from '../../../domain/client/AngularService.fixture';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
 import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
-import { stubLogger } from '../../../../common/domain/Logger.fixture';
 import { AngularService } from '@/springboot/domain/client/AngularService';
 import { AngularGeneratorVue } from '@/springboot/primary/generator/angular-generator';
 import { AlertBusFixture, stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
@@ -148,8 +147,8 @@ describe('AngularGenerator', () => {
   it('should add Oauth2 when project path is filled', async () => {
     const angularService = stubAngularService();
     angularService.addOauth2.resolves({});
-    const toastService = stubToastService();
-    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }), toastService });
+    const alertBus = stubAlertBus();
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
 
     await component.addOauth2();
 
@@ -161,19 +160,17 @@ describe('AngularGenerator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
-    expectToastSuccessToBe(toastService, 'Oauth2 successfully added');
+    expectAlertSuccessToBe(alertBus, 'OAuth2 successfully added');
   });
 
   it('should handle error on adding Oauth2 failure', async () => {
-    const logger = stubLogger();
     const angularService = stubAngularService();
-    const toastService = stubToastService();
+    const alertBus = stubAlertBus();
     angularService.addOauth2.rejects('error');
-    await wrap({ angularService, logger, project: createProjectToUpdate({ folder: 'path' }), toastService });
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
 
     await component.addOauth2();
 
-    expectLoggerErrorToBe(logger, 'Adding Oauth2 to project failed');
-    expectToastErrorToBe(toastService, 'Adding Oauth2 to project failed error');
+    expectAlertErrorToBe(alertBus, 'Adding Oauth2 to project failed error');
   });
 });

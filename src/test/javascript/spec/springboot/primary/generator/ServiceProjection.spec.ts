@@ -43,7 +43,6 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.REACT)).toEqual<ServiceProjection>('react');
     expect(toServiceProjection(Service.REACT_STYLED)).toEqual<ServiceProjection>('react-styled');
     expect(toServiceProjection(Service.VUE)).toEqual<ServiceProjection>('vue');
-    expect(toServiceProjection(Service.VUE_STYLED)).toEqual<ServiceProjection>('vue-styled');
     expect(toServiceProjection(Service.UNKNOWN)).toEqual<ServiceProjection>('unknown');
   });
 
@@ -88,7 +87,6 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('react')).toEqual<Service>(Service.REACT);
     expect(fromServiceProjection('react-styled')).toEqual<Service>(Service.REACT_STYLED);
     expect(fromServiceProjection('vue')).toEqual<Service>(Service.VUE);
-    expect(fromServiceProjection('vue-styled')).toEqual<Service>(Service.VUE_STYLED);
     expect(fromServiceProjection('unknown')).toEqual<Service>(Service.UNKNOWN);
   });
 });

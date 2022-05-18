@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.init.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.Constants.README_MD;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
@@ -93,7 +94,7 @@ public class InitDomainService implements InitService {
   public void addReadme(Project project) {
     project.addDefaultConfig(PROJECT_NAME);
 
-    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, "README.md").withSameDestination());
+    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, README_MD).withSameDestination());
   }
 
   @Override

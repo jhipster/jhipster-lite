@@ -41,6 +41,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SPRINGBOOT_WEBFLUX_NETTY)).toEqual<ServiceProjection>('spring-boot-webflux-netty');
     expect(toServiceProjection(Service.REACT)).toEqual<ServiceProjection>('react');
     expect(toServiceProjection(Service.REACT_STYLED)).toEqual<ServiceProjection>('react-styled');
+    expect(toServiceProjection(Service.REACT_JWT)).toEqual<ServiceProjection>('react-jwt');
     expect(toServiceProjection(Service.VUE)).toEqual<ServiceProjection>('vue');
     expect(toServiceProjection(Service.VUE_STYLED)).toEqual<ServiceProjection>('vue-styled');
     expect(toServiceProjection(Service.UNKNOWN)).toEqual<ServiceProjection>('unknown');
@@ -85,6 +86,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('spring-boot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(fromServiceProjection('react')).toEqual<Service>(Service.REACT);
     expect(fromServiceProjection('react-styled')).toEqual<Service>(Service.REACT_STYLED);
+    expect(fromServiceProjection('react-jwt')).toEqual<Service>(Service.REACT_JWT);
     expect(fromServiceProjection('vue')).toEqual<Service>(Service.VUE);
     expect(fromServiceProjection('vue-styled')).toEqual<Service>(Service.VUE_STYLED);
     expect(fromServiceProjection('unknown')).toEqual<Service>(Service.UNKNOWN);

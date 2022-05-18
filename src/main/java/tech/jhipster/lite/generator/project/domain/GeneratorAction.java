@@ -69,6 +69,7 @@ public class GeneratorAction {
 
   public static final String REACT = "react";
   public static final String REACT_STYLED = "react-styled";
+  public static final String REACT_JWT = "react-jwt";
 
   public static final String GITHUB_ACTIONS = "github-actions";
 

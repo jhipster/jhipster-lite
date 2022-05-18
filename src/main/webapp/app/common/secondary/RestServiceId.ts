@@ -35,6 +35,7 @@ const SERVICES: Record<string, Service> = {
   'springboot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
+  'react-jwt': Service.REACT_JWT,
   vue: Service.VUE,
   'vue-styled': Service.VUE_STYLED,
   unknown: Service.UNKNOWN,

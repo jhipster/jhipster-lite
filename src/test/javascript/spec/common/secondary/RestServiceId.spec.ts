@@ -35,6 +35,7 @@ describe('RestServiceId', () => {
     expect(toService('springboot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(toService('react')).toEqual<Service>(Service.REACT);
     expect(toService('react-styled')).toEqual<Service>(Service.REACT_STYLED);
+    expect(toService('react-jwt')).toEqual<Service>(Service.REACT_JWT);
     expect(toService('vue')).toEqual<Service>(Service.VUE);
     expect(toService('vue-styled')).toEqual<Service>(Service.VUE_STYLED);
     expect(toService('beer')).toEqual<Service>(Service.UNKNOWN);

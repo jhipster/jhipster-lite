@@ -33,6 +33,7 @@ export type ServiceProjection =
   | 'spring-boot-webflux-netty'
   | 'react'
   | 'react-styled'
+  | 'react-jwt'
   | 'vue'
   | 'vue-styled'
   | 'unknown';
@@ -70,6 +71,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SPRINGBOOT_WEBFLUX_NETTY]: 'spring-boot-webflux-netty',
   [Service.REACT]: 'react',
   [Service.REACT_STYLED]: 'react-styled',
+  [Service.REACT_JWT]: 'react-jwt',
   [Service.VUE]: 'vue',
   [Service.VUE_STYLED]: 'vue-styled',
   [Service.UNKNOWN]: 'unknown',
@@ -110,6 +112,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'spring-boot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
+  'react-jwt': Service.REACT_JWT,
   vue: Service.VUE,
   'vue-styled': Service.VUE_STYLED,
   unknown: Service.UNKNOWN,

@@ -30,6 +30,8 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   public static final String SOURCE = "server/springboot/mvc/security/jwt";
   public static final String SECURITY_JWT_PATH = "security/jwt";
+
+  @SuppressWarnings("java:S110")
   public static final String ADMIN_PASSWORD_COMMENT =
     "# Be sure to change it with any Bcrypt tool like https://bcrypt-generator.com before going to production";
 

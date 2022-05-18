@@ -39,12 +39,6 @@ public class VueDomainService implements VueService {
   @Override
   public void addVue(Project project) {
     addCommonVue(project);
-    addAppFilesWithoutCss(project);
-  }
-
-  @Override
-  public void addStyledVue(Project project) {
-    addCommonVue(project);
     addAppFilesWithCss(project);
   }
 
@@ -163,11 +157,19 @@ public class VueDomainService implements VueService {
   }
 
   public void addScripts(Project project) {
-    // prettier-ignore
-    Map.of("build", "vue-tsc --noEmit && vite build --emptyOutDir", "dev", "vite", "jest",
-        "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache", "preview", "vite preview", "start",
-        "vite", "test", "npm run jest --", "test:watch", "npm run jest -- --watch")
-        .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
+    // @formatter:off
+    Map
+      .of(
+        "build", "vue-tsc --noEmit && vite build --emptyOutDir",
+        "dev", "vite",
+        "jest", "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache",
+        "preview", "vite preview",
+        "start", "vite",
+        "test", "npm run jest --",
+        "test:watch", "npm run jest -- --watch"
+      )
+      .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
+    // @formatter:on
   }
 
   public void addViteConfigFiles(Project project) {
@@ -234,25 +236,14 @@ public class VueDomainService implements VueService {
     );
   }
 
-  public void addAppFilesWithoutCss(Project project) {
-    project.addDefaultConfig(BASE_NAME);
-
-    projectRepository.template(
-      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "App.html").withDestinationFolder(DESTINATION_PRIMARY_APP)
-    );
-    projectRepository.template(
-      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "App.vue").withDestinationFolder(DESTINATION_PRIMARY_APP)
-    );
-  }
-
   public void addAppFilesWithCss(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
     projectRepository.template(
-      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "StyledApp.html").withDestination(DESTINATION_PRIMARY_APP, "App.html")
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "App.html").withDestination(DESTINATION_PRIMARY_APP, "App.html")
     );
     projectRepository.template(
-      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "StyledApp.vue").withDestination(DESTINATION_PRIMARY_APP, "App.vue")
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_APP, "App.vue").withDestination(DESTINATION_PRIMARY_APP, "App.vue")
     );
 
     projectRepository.add(

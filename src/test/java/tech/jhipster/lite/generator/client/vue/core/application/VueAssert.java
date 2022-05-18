@@ -64,10 +64,6 @@ public class VueAssert {
     assertFileExist(project, "src/test/javascript/spec/common/primary/app/App.spec.ts");
   }
 
-  public static void assertAppWithoutCss(Project project) {
-    assertFileNoContent(project, "src/main/webapp/app/common/primary/app/App.vue", "<style>");
-  }
-
   public static void assertAppWithCss(Project project) {
     assertFileContent(project, "src/main/webapp/app/common/primary/app/App.vue", "<style>");
   }

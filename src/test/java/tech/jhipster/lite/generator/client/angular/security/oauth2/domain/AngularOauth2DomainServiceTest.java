@@ -1,19 +1,10 @@
 package tech.jhipster.lite.generator.client.angular.security.oauth2.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.groups.Tuple.tuple;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_COMPONENT_HTML_FILE_PATH;
-import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_COMPONENT_SPEC_TS_FILE_PATH;
-import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.APP_MODULE_TS_FILE_PATH;
-import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.ENVIRONMENT_PROD_TS_FILE_PATH;
-import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.ENVIRONMENT_TS_FILE_PATH;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.generator.client.angular.security.oauth2.domain.AngularOauth2.*;
 
 import java.util.List;
 import java.util.Optional;

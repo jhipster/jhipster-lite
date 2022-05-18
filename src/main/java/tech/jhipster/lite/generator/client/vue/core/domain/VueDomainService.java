@@ -5,7 +5,6 @@ import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
-import java.util.Map;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
@@ -157,19 +156,7 @@ public class VueDomainService implements VueService {
   }
 
   public void addScripts(Project project) {
-    // @formatter:off
-    Map
-      .of(
-        "build", "vue-tsc --noEmit && vite build --emptyOutDir",
-        "dev", "vite",
-        "jest", "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache",
-        "preview", "vite preview",
-        "start", "vite",
-        "test", "npm run jest --",
-        "test:watch", "npm run jest -- --watch"
-      )
-      .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
-    // @formatter:on
+    Vue.scripts().forEach((name, cmd) -> npmService.addScript(project, name, cmd));
   }
 
   public void addViteConfigFiles(Project project) {

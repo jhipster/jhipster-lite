@@ -2,8 +2,7 @@ package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.REGEXP_SPACE_STAR;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.END_IMPLEMENTATION;
-import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.GRADLE_NEEDLE_DEPENDENCY;
+import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.BUILD_GRADLE_KTS;
 import static tech.jhipster.lite.generator.project.domain.Constants.SETTINGS_GRADLE_KTS;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
@@ -11,6 +10,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import java.util.List;
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -77,5 +77,11 @@ public class GradleDomainService implements GradleService {
     String dependencyNodeRegExp = ("(?s)" + dependencyNode.replace(endNode, ".*" + endNode));
 
     projectRepository.replaceRegexp(project, "", BUILD_GRADLE_KTS, dependencyNodeRegExp, "");
+  }
+
+  @Override
+  public void addRepository(Project project, Repository repository) {
+    String repositoryString = Gradle.getRepositoryString(repository);
+    projectRepository.replaceText(project, "", BUILD_GRADLE_KTS, REGEXP_SPACE_STAR + GRADLE_NEEDLE_REPOSITORY, repositoryString);
   }
 }

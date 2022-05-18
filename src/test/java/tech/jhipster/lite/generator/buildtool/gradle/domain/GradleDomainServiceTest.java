@@ -1,4 +1,15 @@
-package tech.jhipster.lite.generator.buildtool.gradle.domain.gradle;
+package tech.jhipster.lite.generator.buildtool.gradle.domain;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.TestUtils.tmpProject;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithBuildGradle;
+import static tech.jhipster.lite.common.domain.FileUtils.REGEXP_SPACE_STAR;
+import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.GRADLE_NEEDLE_DEPENDENCY;
+import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.GRADLE_NEEDLE_REPOSITORY;
+import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.filesCountArgument;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,19 +18,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.gradle.domain.GradleDomainService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithBuildGradle;
-import static tech.jhipster.lite.common.domain.FileUtils.REGEXP_SPACE_STAR;
-import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.GRADLE_NEEDLE_DEPENDENCY;
-import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.filesCountArgument;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -81,5 +84,22 @@ class GradleDomainServiceTest {
 
     String regexToReplace = "(?s)" + "implementation(\"org.springframework.boot:spring-boot-starter.*\")\n".indent(2);
     verify(projectRepository).replaceRegexp(project, "", "build.gradle.kts", regexToReplace, "");
+  }
+
+  @Test
+  void shouldAddRepository() {
+    Project project = tmpProjectWithBuildGradle();
+    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
+
+    gradleDomainService.addRepository(project, repository);
+
+    String repositoryString =
+      """
+        maven {
+          url = uri("https://repo.spring.io/milestone")
+        }
+        // jhipster-needle-gradle-repository
+      """;
+    verify(projectRepository).replaceText(project, "", "build.gradle.kts", REGEXP_SPACE_STAR + GRADLE_NEEDLE_REPOSITORY, repositoryString);
   }
 }

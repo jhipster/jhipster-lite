@@ -7,7 +7,7 @@
       :selector-prefix="selectorPrefix"
       @click.prevent="addAngularWithJWT"
     />
-    <GeneratorButtonVue :label="'Add Oauth2'" :service="'angular-oauth2'" :selector-prefix="selectorPrefix" @click.prevent="addOauth2" />
+    <GeneratorButtonVue :label="'Add OAuth2'" :service="'angular-oauth2'" :selector-prefix="selectorPrefix" @click.prevent="addOauth2" />
   </div>
 </template>
 

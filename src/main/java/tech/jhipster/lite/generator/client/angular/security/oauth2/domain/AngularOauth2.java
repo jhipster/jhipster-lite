@@ -1,5 +1,8 @@
 package tech.jhipster.lite.generator.client.angular.security.oauth2.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,11 +12,11 @@ public class AngularOauth2 {
     // Cannot be instantiated
   }
 
-  protected static final String APP_MODULE_TS_FILE_PATH = "src/main/webapp/app/app.module.ts";
-  protected static final String ENVIRONMENT_TS_FILE_PATH = "src/main/webapp/environments/environment.ts";
-  protected static final String ENVIRONMENT_PROD_TS_FILE_PATH = "src/main/webapp/environments/environment.prod.ts";
-  protected static final String APP_COMPONENT_HTML_FILE_PATH = "src/main/webapp/app/app.component.html";
-  protected static final String APP_COMPONENT_SPEC_TS_FILE_PATH = "src/main/webapp/app/app.component.spec.ts";
+  protected static final String APP_MODULE_TS_FILE_PATH = getPath(MAIN_WEBAPP, "app/app.module.ts");
+  protected static final String ENVIRONMENT_TS_FILE_PATH = getPath(MAIN_WEBAPP, "environments/environment.ts");
+  protected static final String ENVIRONMENT_PROD_TS_FILE_PATH = getPath(MAIN_WEBAPP, "environments/environment.prod.ts");
+  protected static final String APP_COMPONENT_HTML_FILE_PATH = getPath(MAIN_WEBAPP, "app/app.component.html");
+  protected static final String APP_COMPONENT_SPEC_TS_FILE_PATH = getPath(MAIN_WEBAPP, "app/app.component.spec.ts");
 
   protected static List<String> getDependencies() {
     return List.of("keycloak-js");

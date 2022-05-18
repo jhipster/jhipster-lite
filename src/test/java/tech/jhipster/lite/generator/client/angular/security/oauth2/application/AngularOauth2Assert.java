@@ -5,6 +5,7 @@ import static tech.jhipster.lite.TestUtils.assertFileContent;
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.common.domain.WordUtils.DQ;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
 
 import java.io.IOException;
@@ -16,13 +17,13 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class AngularOauth2Assert {
 
   private static final List<String> ADDED_FILES_PATHS = List.of(
-    "src/main/webapp/app/auth/oauth2-auth.service.ts",
-    "src/main/webapp/app/auth/oauth2-auth.service.spec.ts",
-    "src/main/webapp/app/auth/http-auth.interceptor.ts",
-    "src/main/webapp/app/auth/http-auth.interceptor.spec.ts",
-    "src/main/webapp/app/login/login.component.html",
-    "src/main/webapp/app/login/login.component.ts",
-    "src/main/webapp/app/login/login.component.spec.ts"
+    getPath(MAIN_WEBAPP, "app/auth/oauth2-auth.service.ts"),
+    getPath(MAIN_WEBAPP, "app/auth/oauth2-auth.service.spec.ts"),
+    getPath(MAIN_WEBAPP, "app/auth/http-auth.interceptor.ts"),
+    getPath(MAIN_WEBAPP, "app/auth/http-auth.interceptor.spec.ts"),
+    getPath(MAIN_WEBAPP, "app/login/login.component.html"),
+    getPath(MAIN_WEBAPP, "app/login/login.component.ts"),
+    getPath(MAIN_WEBAPP, "app/login/login.component.spec.ts")
   );
 
   private static final List<String> ADDED_DEPENDENCIES = List.of("keycloak-js");

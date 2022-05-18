@@ -33,10 +33,6 @@ public class AngularCommon {
     "^([\\s]+\"allowedCommonJsDependencies\": [^\\]]+)\\]"
   );
 
-  protected static final String COMA = ",";
-  protected static final String O_BRACKET = "[";
-  protected static final String C_BRACKET = "]";
-
   private AngularCommon() {
     // Cannot be instantiated
   }

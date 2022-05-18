@@ -28,7 +28,7 @@ class AngularOauth2ResourceIT {
   InitApplicationService initApplicationService;
 
   @Test
-  void shouldAddJwtAngular() throws Exception {
+  void shouldAddOauth2() throws Exception {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     initApplicationService.init(project);

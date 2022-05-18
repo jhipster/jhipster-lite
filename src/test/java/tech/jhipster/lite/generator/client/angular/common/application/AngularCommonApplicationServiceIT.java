@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.client.angular.common.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestUtils.tmpProject;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import java.io.IOException;
@@ -19,11 +20,11 @@ import tech.jhipster.lite.generator.project.domain.Project;
 @IntegrationTest
 class AngularCommonApplicationServiceIT {
 
-  private static final String APP_MODULE_TS_FILE_PATH = "src/main/webapp/app/app.module.ts";
-  private static final String ENVIRONMENT_TS_FILE_PATH = "src/main/webapp/environments/environment.ts";
-  private static final String APP_COMPONENT_HTML_FILE_PATH = "src/main/webapp/app/app.component.html";
-  private static final String APP_COMPONENT_SPEC_TS_FILE_PATH = "src/main/webapp/app/app.component.spec.ts";
-  private static final String ANGULAR_JSON_FILE_PATH = "angular.json";
+  private static final String APP_MODULE_TS_FILE_PATH = getPath(MAIN_WEBAPP, "app/app.module.ts");
+  private static final String ENVIRONMENT_TS_FILE_PATH = getPath(MAIN_WEBAPP, "environments/environment.ts");
+  private static final String APP_COMPONENT_HTML_FILE_PATH = getPath(MAIN_WEBAPP, "app/app.component.html");
+  private static final String APP_COMPONENT_SPEC_TS_FILE_PATH = getPath(MAIN_WEBAPP, "app/app.component.spec.ts");
+  private static final String ANGULAR_JSON_FILE_NAME = "angular.json";
 
   @Autowired
   AngularCommonApplicationService angularCommonApplicationService;
@@ -265,7 +266,7 @@ class AngularCommonApplicationServiceIT {
     angularCommonApplicationService.addAllowedCommonJsDependenciesAngularJson(project, lib);
 
     // Then
-    List<String> allLinesFile = Files.readAllLines(Path.of(getPath(project.getFolder(), ANGULAR_JSON_FILE_PATH)));
+    List<String> allLinesFile = Files.readAllLines(Path.of(getPath(project.getFolder(), ANGULAR_JSON_FILE_NAME)));
     List<String> expectedContentLines =
       """
                   "allowedCommonJsDependencies": [

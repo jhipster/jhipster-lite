@@ -1,16 +1,16 @@
 package tech.jhipster.lite.generator.client.angular.common.domain;
 
+import static tech.jhipster.lite.common.domain.WordUtils.COMA;
+import static tech.jhipster.lite.common.domain.WordUtils.C_BRACKET;
+import static tech.jhipster.lite.common.domain.WordUtils.O_BRACKET;
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.ALLOWED_COMMON_JS_DEPENDENCIES_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.ANGULAR_JSON_FILE_NAME;
-import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.COMA;
-import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.C_BRACKET;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECLARATIONS_REGEX;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECLARATIONS_WITH_ARRAY_VALUES_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.DECORATOR_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.ENV_VARIABLES_WITH_VALUES_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.EXISTING_IMPORT_PATTERN;
-import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.O_BRACKET;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.PROVIDERS_WITH_ARRAY_VALUES_REGEX_LIST;
 import static tech.jhipster.lite.generator.client.angular.common.domain.AngularCommon.TEST_REGEX_FORMAT;
 

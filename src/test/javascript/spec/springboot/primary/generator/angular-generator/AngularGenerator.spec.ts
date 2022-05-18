@@ -2,14 +2,13 @@ import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { stubAngularService } from '../../../domain/client/AngularService.fixture';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
 import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
-import { stubLogger } from '../../../../common/domain/Logger.fixture';
 import { AngularService } from '@/springboot/domain/client/AngularService';
 import { AngularGeneratorVue } from '@/springboot/primary/generator/angular-generator';
 import { AlertBusFixture, stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
 
 let wrapper: VueWrapper;
-let component: any;
+let component: InstanceType<typeof AngularGeneratorVue>;
 
 interface WrapperOptions {
   alertBus: AlertBus;
@@ -133,5 +132,45 @@ describe('AngularGenerator', () => {
     await component.addAngularWithJWT();
 
     expectAlertErrorToBe(alertBus, 'Adding Angular with authentication JWT to project failed error');
+  });
+
+  it('should not add Oauth2 when project path is not filled', async () => {
+    const angularService = stubAngularService();
+    angularService.addOauth2.resolves({});
+    await wrap({ angularService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addOauth2();
+
+    expect(angularService.addOauth2.called).toBe(false);
+  });
+
+  it('should add Oauth2 when project path is filled', async () => {
+    const angularService = stubAngularService();
+    angularService.addOauth2.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
+
+    await component.addOauth2();
+
+    const args = angularService.addOauth2.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'OAuth2 successfully added');
+  });
+
+  it('should handle error on adding Oauth2 failure', async () => {
+    const angularService = stubAngularService();
+    const alertBus = stubAlertBus();
+    angularService.addOauth2.rejects('error');
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
+
+    await component.addOauth2();
+
+    expectAlertErrorToBe(alertBus, 'Adding Oauth2 to project failed error');
   });
 });

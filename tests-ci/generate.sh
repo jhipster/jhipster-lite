@@ -212,6 +212,16 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/clients/angular/jwt"
 
+elif [[ $application == 'angularoauth2app' ]]; then
+  springboot_mvc
+  sonar_back_front
+
+  callApi "/api/developer-tools/frontend-maven-plugin"
+  callApi "/api/clients/angular"
+  callApi "/api/clients/angular/oauth2"
+  callApi "/api/servers/spring-boot/security-systems/oauth2"
+  callApi "/api/servers/spring-boot/security-systems/oauth2/account"
+
 elif [[ $application == 'reactapp' ]]; then
   springboot_mvc
   sonar_back_front

@@ -149,6 +149,15 @@ elif [[ $application == 'mariadbapp' ]]; then
 
   callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
+elif [[ $application == 'mssqlapp' ]]; then
+  springboot_mvc
+  sonar_back
+
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/servers/spring-boot/features/dummy"
+
+  callApi "/api/servers/spring-boot/databases/mssql"
+
 elif [[ $application == 'flywayapp' ]]; then
   springboot_mvc
   sonar_back

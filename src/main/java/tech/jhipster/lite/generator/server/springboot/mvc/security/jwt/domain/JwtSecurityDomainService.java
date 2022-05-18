@@ -16,6 +16,7 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.do
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import tech.jhipster.lite.common.domain.Base64Utils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -29,6 +30,10 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   public static final String SOURCE = "server/springboot/mvc/security/jwt";
   public static final String SECURITY_JWT_PATH = "security/jwt";
+
+  @SuppressWarnings("java:S2068")
+  public static final String ADMIN_PASSWORD_COMMENT =
+    "Be sure to change it with any Bcrypt tool like https://bcrypt-generator.com before going to production";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;
@@ -161,6 +166,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   private void addBasicAuthProperties(Project project) {
     springBootCommonService.addProperties(project, "spring.security.user.name", "admin");
+    springBootCommonService.addPropertiesComment(project, ADMIN_PASSWORD_COMMENT);
     springBootCommonService.addProperties(
       project,
       "spring.security.user.password",
@@ -170,6 +176,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
     springBootCommonService.addPropertiesNewLine(project);
 
     springBootCommonService.addPropertiesTest(project, "spring.security.user.name", "admin");
+    springBootCommonService.addPropertiesTestComment(project, ADMIN_PASSWORD_COMMENT);
     springBootCommonService.addPropertiesTest(
       project,
       "spring.security.user.password",
@@ -196,10 +203,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   private Map<String, Object> jwtProperties() {
     Map<String, Object> result = new LinkedHashMap<>();
-    result.put(
-      "application.security.authentication.jwt.base64-secret",
-      "bXktc2VjcmV0LWtleS13aGljaC1zaG91bGQtYmUtY2hhbmdlZC1pbi1wcm9kdWN0aW9uLWFuZC1iZS1iYXNlNjQtZW5jb2RlZAo="
-    );
+    result.put("application.security.authentication.jwt.base64-secret", Base64Utils.getBase64Secret());
     result.put("application.security.authentication.jwt.token-validity-in-seconds", "86400");
     result.put("application.security.authentication.jwt.token-validity-in-seconds-for-remember-me", "2592000");
     return result;

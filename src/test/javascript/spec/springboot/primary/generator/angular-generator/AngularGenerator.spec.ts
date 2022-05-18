@@ -2,30 +2,26 @@ import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { stubAngularService } from '../../../domain/client/AngularService.fixture';
 import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
 import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
-import { LoggerFixture, stubLogger } from '../../../../common/domain/Logger.fixture';
+import { stubLogger } from '../../../../common/domain/Logger.fixture';
 import { AngularService } from '@/springboot/domain/client/AngularService';
-import { Logger } from '@/common/domain/Logger';
 import { AngularGeneratorVue } from '@/springboot/primary/generator/angular-generator';
-import { NotificationService } from '@/common/domain/NotificationService';
-import { stubNotificationService } from '../../../../common/domain/NotificationService.fixture';
-import { stubToastService, ToastServiceFixture } from '../../../../common/secondary/ToastService.fixture';
+import { AlertBusFixture, stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
+import { AlertBus } from '@/common/domain/alert/AlertBus';
 
 let wrapper: VueWrapper;
 let component: any;
 
 interface WrapperOptions {
+  alertBus: AlertBus;
   angularService: AngularService;
-  logger: Logger;
   project: ProjectToUpdate;
-  toastService: NotificationService;
 }
 
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { angularService, logger, project, toastService }: WrapperOptions = {
+  const { alertBus, angularService, project }: WrapperOptions = {
+    alertBus: stubAlertBus(),
     angularService: stubAngularService(),
-    logger: stubLogger(),
     project: createProjectToUpdate(),
-    toastService: stubNotificationService(),
     ...wrapperOptions,
   };
   wrapper = shallowMount(AngularGeneratorVue, {
@@ -34,28 +30,22 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
     },
     global: {
       provide: {
+        alertBus,
         angularService,
-        logger,
-        toastService,
       },
     },
   });
   component = wrapper.vm;
 };
 
-const expectLoggerErrorToBe = (logger: LoggerFixture, message: string) => {
-  const [loggerMessage] = logger.error.getCall(0).args;
-  expect(loggerMessage).toBe(message);
+const expectAlertErrorToBe = (alertBus: AlertBusFixture, message: string) => {
+  const [alertMessage] = alertBus.error.getCall(0).args;
+  expect(alertMessage).toBe(message);
 };
 
-const expectToastErrorToBe = (toastService: ToastServiceFixture, message: string) => {
-  const [toastMessage] = toastService.error.getCall(0).args;
-  expect(toastMessage).toBe(message);
-};
-
-const expectToastSuccessToBe = (toastService: ToastServiceFixture, message: string) => {
-  const [toastMessage] = toastService.success.getCall(0).args;
-  expect(toastMessage).toBe(message);
+const expectAlertSuccessToBe = (alertBus: AlertBusFixture, message: string) => {
+  const [alertMessage] = alertBus.success.getCall(0).args;
+  expect(alertMessage).toBe(message);
 };
 
 describe('AngularGenerator', () => {
@@ -78,8 +68,8 @@ describe('AngularGenerator', () => {
   it('should add Angular when project path is filled', async () => {
     const angularService = stubAngularService();
     angularService.add.resolves({});
-    const toastService = stubToastService();
-    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }), toastService });
+    const alertBus = stubAlertBus();
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
 
     await component.addAngular();
 
@@ -91,20 +81,18 @@ describe('AngularGenerator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
-    expectToastSuccessToBe(toastService, 'Angular successfully added');
+    expectAlertSuccessToBe(alertBus, 'Angular successfully added');
   });
 
   it('should handle error on adding Angular failure', async () => {
-    const logger = stubLogger();
     const angularService = stubAngularService();
-    const toastService = stubToastService();
+    const alertBus = stubAlertBus();
     angularService.add.rejects('error');
-    await wrap({ angularService, logger, project: createProjectToUpdate({ folder: 'path' }), toastService });
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
 
     await component.addAngular();
 
-    expectLoggerErrorToBe(logger, 'Adding Angular to project failed');
-    expectToastErrorToBe(toastService, 'Adding Angular to project failed error');
+    expectAlertErrorToBe(alertBus, 'Adding Angular to project failed error');
   });
 
   it('should not add Angular with JWT when project path is not filled', async () => {
@@ -120,8 +108,8 @@ describe('AngularGenerator', () => {
   it('should add Angular with JWT when project path is filled', async () => {
     const angularService = stubAngularService();
     angularService.addWithJWT.resolves({});
-    const toastService = stubToastService();
-    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }), toastService });
+    const alertBus = stubAlertBus();
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
 
     await component.addAngularWithJWT();
 
@@ -133,19 +121,17 @@ describe('AngularGenerator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
-    expectToastSuccessToBe(toastService, 'Angular with authentication JWT successfully added');
+    expectAlertSuccessToBe(alertBus, 'Angular with authentication JWT successfully added');
   });
 
   it('should handle error on adding Angular with JWT failure', async () => {
-    const logger = stubLogger();
     const angularService = stubAngularService();
-    const toastService = stubToastService();
+    const alertBus = stubAlertBus();
     angularService.addWithJWT.rejects('error');
-    await wrap({ angularService, logger, project: createProjectToUpdate({ folder: 'path' }), toastService });
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
 
     await component.addAngularWithJWT();
 
-    expectLoggerErrorToBe(logger, 'Adding Angular with authentication JWT to project failed');
-    expectToastErrorToBe(toastService, 'Adding Angular with authentication JWT to project failed error');
+    expectAlertErrorToBe(alertBus, 'Adding Angular with authentication JWT to project failed error');
   });
 });

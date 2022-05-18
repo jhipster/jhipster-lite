@@ -1,6 +1,5 @@
 <template>
   <HeaderVue />
-  <ToastVue ref="toast" />
   <main class="container-fluid py-4">
     <div class="row">
       <div class="col-12 col-md-4 p-4 shadow-primary bg-light">

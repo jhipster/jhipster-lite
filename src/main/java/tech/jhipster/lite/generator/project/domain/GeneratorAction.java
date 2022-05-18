@@ -120,7 +120,6 @@ public class GeneratorAction {
   public static final String SPRINGBOOT_KAFKA_AKHQ = "springboot-kafka-akhq";
 
   public static final String VUE = "vue";
-  public static final String VUE_STYLED = "vue-styled";
   public static final String VUE_PINIA = "vue-pinia";
 
   public static final String JIB = "jib";

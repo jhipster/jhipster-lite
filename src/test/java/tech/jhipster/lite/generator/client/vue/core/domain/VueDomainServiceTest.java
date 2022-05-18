@@ -64,21 +64,6 @@ class VueDomainServiceTest {
   }
 
   @Test
-  void shouldAddStyledVue() {
-    Project project = tmpProjectWithPackageJson();
-    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
-
-    assertThatCode(() -> vueDomainService.addStyledVue(project)).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldNotAddStyledIndex() {
-    Project project = tmpProjectWithPackageJson();
-
-    assertThatThrownBy(() -> vueDomainService.addStyledVue(project)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
   void shouldAddDependencies() {
     Project project = tmpProjectWithPackageJson();
     when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
@@ -167,15 +152,6 @@ class VueDomainServiceTest {
     vueDomainService.addAppFiles(project);
 
     verify(projectRepository, times(3)).template(any(ProjectFile.class));
-  }
-
-  @Test
-  void shouldAddAppFilesWithoutCss() {
-    Project project = tmpProject();
-
-    vueDomainService.addAppFilesWithoutCss(project);
-
-    verify(projectRepository, times(2)).template(any(ProjectFile.class));
   }
 
   @Test

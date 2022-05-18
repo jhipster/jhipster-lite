@@ -1,4 +1,4 @@
-import { defineComponent, inject, ref } from 'vue';
+import { defineComponent, inject } from 'vue';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
 import { VueService } from '@/springboot/domain/client/VueService';
 import { GeneratorButtonVue } from '@/springboot/primary/generator/generator-button';
@@ -23,27 +23,18 @@ export default defineComponent({
     const vueService = inject('vueService') as VueService;
 
     const selectorPrefix = 'vue-generator';
-    const isVueWithStyle = ref<boolean>(false);
 
     const addVue = async (): Promise<void> => {
       if (props.project.folder !== '') {
-        if (isVueWithStyle.value) {
-          await vueService
-            .addWithStyle(toProject(props.project as ProjectToUpdate))
-            .then(() => alertBus.success('Vue with style successfully added'))
-            .catch(error => alertBus.error(`Adding Vue with style to project failed ${error}`));
-        } else {
-          await vueService
-            .add(toProject(props.project as ProjectToUpdate))
-            .then(() => alertBus.success('Vue successfully added'))
-            .catch(error => alertBus.error(`Adding Vue to project failed ${error}`));
-        }
+        await vueService
+          .add(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Vue successfully added'))
+          .catch(error => alertBus.error(`Adding Vue to project failed ${error}`));
       }
     };
 
     return {
       selectorPrefix,
-      isVueWithStyle,
       addVue,
       props,
     };

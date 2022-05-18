@@ -37,7 +37,6 @@ const SERVICES: Record<string, Service> = {
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
   vue: Service.VUE,
-  'vue-styled': Service.VUE_STYLED,
   unknown: Service.UNKNOWN,
 };
 

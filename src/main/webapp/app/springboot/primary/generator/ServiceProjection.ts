@@ -35,7 +35,6 @@ export type ServiceProjection =
   | 'react'
   | 'react-styled'
   | 'vue'
-  | 'vue-styled'
   | 'unknown';
 
 const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
@@ -73,7 +72,6 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.REACT]: 'react',
   [Service.REACT_STYLED]: 'react-styled',
   [Service.VUE]: 'vue',
-  [Service.VUE_STYLED]: 'vue-styled',
   [Service.UNKNOWN]: 'unknown',
 };
 
@@ -114,7 +112,6 @@ const SERVICES: Record<ServiceProjection, Service> = {
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
   vue: Service.VUE,
-  'vue-styled': Service.VUE_STYLED,
   unknown: Service.UNKNOWN,
 };
 

@@ -33,6 +33,5 @@ export enum Service {
   REACT = 'REACT',
   REACT_STYLED = 'REACT_STYLED',
   VUE = 'VUE',
-  VUE_STYLED = 'VUE_STYLED',
   UNKNOWN = 'UNKNOWN',
 }

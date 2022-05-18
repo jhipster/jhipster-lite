@@ -21,7 +21,7 @@ public class ReadMeDomainService implements ReadMeService {
         "",
         README_MD,
         "<!-- jhipster-needle-readme -->",
-        body + "\n\n<!-- jhipster-needle-readme -->"
+        header + "\n\n" + body + "\n\n<!-- jhipster-needle-readme -->"
       );
     }
   }

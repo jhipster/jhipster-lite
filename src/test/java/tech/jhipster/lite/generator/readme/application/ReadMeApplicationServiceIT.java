@@ -29,6 +29,7 @@ class ReadMeApplicationServiceIT {
       "# Apache Kafka",
       """
       # Apache Kafka
+
       Description of the tasks to be launched.
       """
     );
@@ -46,11 +47,13 @@ class ReadMeApplicationServiceIT {
       "# Apache Kafka",
       """
       # Apache Kafka
+
       Description of the tasks to be launched.
       """
     );
     readMeApplicationService.addSection(project, "# Apache Kafka", """
       # Apache Kafka
+
       Update section content.
       """);
 

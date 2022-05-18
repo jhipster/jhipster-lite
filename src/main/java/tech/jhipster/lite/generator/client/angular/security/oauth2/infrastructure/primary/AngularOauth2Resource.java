@@ -24,7 +24,7 @@ class AngularOauth2Resource {
     this.angularOauth2ApplicationService = angularOauth2ApplicationService;
   }
 
-  @Operation(summary = "Add Oauth2 authentication")
+  @Operation(summary = "Add OAuth2 authentication")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding Oauth2 authentication")
   @PostMapping
   @GeneratorStep(id = GeneratorAction.ANGULAR_OAUTH2)

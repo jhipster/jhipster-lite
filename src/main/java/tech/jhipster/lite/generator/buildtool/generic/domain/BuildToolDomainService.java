@@ -5,6 +5,7 @@ import static tech.jhipster.lite.generator.project.domain.BuildToolType.MAVEN;
 import java.util.List;
 import java.util.Optional;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.buildtool.gradle.domain.GradleService;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -13,9 +14,11 @@ public class BuildToolDomainService implements BuildToolService {
 
   public static final String EXCEPTION_NO_BUILD_TOOL = "No build tool";
   private final MavenService mavenService;
+  private final GradleService gradleService;
 
-  public BuildToolDomainService(MavenService mavenService) {
+  public BuildToolDomainService(MavenService mavenService, GradleService gradleService) {
     this.mavenService = mavenService;
+    this.gradleService = gradleService;
   }
 
   @Override
@@ -31,6 +34,8 @@ public class BuildToolDomainService implements BuildToolService {
   public void addDependency(Project project, Dependency dependency) {
     if (project.isMavenProject()) {
       mavenService.addDependency(project, dependency);
+    } else if (project.isGradleProject()) {
+      gradleService.addDependency(project, dependency);
     } else {
       throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }
@@ -94,6 +99,17 @@ public class BuildToolDomainService implements BuildToolService {
   public void addPluginRepository(Project project, Repository repository) {
     if (project.isMavenProject()) {
       mavenService.addPluginRepository(project, repository);
+    } else {
+      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
+    }
+  }
+
+  @Override
+  public void deleteDependency(Project project, Dependency dependency) {
+    if (project.isMavenProject()) {
+      mavenService.deleteDependency(project, dependency);
+    } else if (project.isGradleProject()) {
+      gradleService.deleteDependency(project, dependency);
     } else {
       throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
     }

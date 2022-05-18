@@ -33,7 +33,7 @@ public class JwtSecurityDomainService implements JwtSecurityService {
 
   @SuppressWarnings("java:S110")
   public static final String ADMIN_PASSWORD_COMMENT =
-    "# Be sure to change it with any Bcrypt tool like https://bcrypt-generator.com before going to production";
+    "Be sure to change it with any Bcrypt tool like https://bcrypt-generator.com before going to production";
 
   private final ProjectRepository projectRepository;
   private final BuildToolService buildToolService;

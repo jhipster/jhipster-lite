@@ -19,6 +19,7 @@ import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.readme.domain.ReadMeService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
@@ -37,6 +38,9 @@ class KafkaDomainServiceTest {
   @Mock
   DockerService dockerService;
 
+  @Mock
+  ReadMeService readMeService;
+
   @InjectMocks
   KafkaDomainService kafkaDomainService;
 
@@ -54,6 +58,7 @@ class KafkaDomainServiceTest {
     verify(springBootCommonService, times(9)).addProperties(any(Project.class), anyString(), any());
     verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
     verify(springBootCommonService).updateIntegrationTestAnnotation(any(Project.class), anyString());
+    verify(readMeService).addSection(any(Project.class), anyString(), anyString());
   }
 
   @Test

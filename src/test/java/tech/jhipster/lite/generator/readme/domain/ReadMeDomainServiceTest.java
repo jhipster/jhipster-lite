@@ -25,7 +25,7 @@ class ReadMeDomainServiceTest {
   private ReadMeDomainService readMeDomainService;
 
   @Test
-  public void shouldAddSection() {
+  void shouldAddSection() {
     Project project = tmpProject();
 
     readMeDomainService.addSection(
@@ -33,6 +33,7 @@ class ReadMeDomainServiceTest {
       "# Apache Kafka",
       """
       # Apache Kafka
+
       Description of the tasks to be launched.
       """
     );

@@ -235,7 +235,7 @@ elif [[ $application == 'vueapp' ]]; then
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
-  callApi "/api/clients/vue/styles"
+  callApi "/api/clients/vue"
   callApi "/api/clients/vue/stores/pinia"
   callApi "/api/clients/cypress"
 

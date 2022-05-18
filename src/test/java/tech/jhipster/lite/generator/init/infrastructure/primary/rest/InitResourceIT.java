@@ -8,6 +8,7 @@ import static tech.jhipster.lite.TestUtils.readFileToObject;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesInit;
 import static tech.jhipster.lite.generator.init.application.InitAssertFiles.assertFilesInitMinimal;
 import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
+import static tech.jhipster.lite.generator.project.domain.Constants.README_MD;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ class InitResourceIT {
 
     Project project = ProjectDTO.toProject(projectDTO);
     assertFilesInit(project);
-    assertFileContent(project, "README.md", "Chips Project");
+    assertFileContent(project, README_MD, "Chips Project");
     assertFileContent(project, ".prettierrc", "tabWidth: 2");
     assertFileContent(project, PACKAGE_JSON, "chips");
   }
@@ -55,6 +56,6 @@ class InitResourceIT {
 
     Project project = ProjectDTO.toProject(projectDTO);
     assertFilesInitMinimal(project);
-    assertFileContent(project, "README.md", "Chips Project");
+    assertFileContent(project, README_MD, "Chips Project");
   }
 }

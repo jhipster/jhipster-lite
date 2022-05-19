@@ -13,8 +13,6 @@ public class JavaBase {
       "AssertionException.java",
       "NotAfterTimeException.java",
       "NotBeforeTimeException.java",
-      "NotFutureTimeException.java",
-      "NotPastTimeException.java",
       "NullElementInCollectionException.java",
       "NumberValueTooHighException.java",
       "NumberValueTooLowException.java",

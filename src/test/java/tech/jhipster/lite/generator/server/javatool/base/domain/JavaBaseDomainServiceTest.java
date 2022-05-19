@@ -29,7 +29,7 @@ class JavaBaseDomainServiceTest {
 
     javaBaseDomainService.addJavaBase(project);
 
-    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(13));
+    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(11));
     verify(projectRepository, times(2)).template(ProjectFilesAsserter.filesCountArgument(2));
   }
 }

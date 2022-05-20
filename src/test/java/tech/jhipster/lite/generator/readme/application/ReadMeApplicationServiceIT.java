@@ -26,9 +26,9 @@ class ReadMeApplicationServiceIT {
     initApplicationService.addReadme(project);
     readMeApplicationService.addSection(
       project,
-      "# Apache Kafka",
+      "## Apache Kafka",
       """
-      # Apache Kafka
+      ## Apache Kafka
 
       Description of the tasks to be launched.
       """
@@ -44,15 +44,15 @@ class ReadMeApplicationServiceIT {
     initApplicationService.addReadme(project);
     readMeApplicationService.addSection(
       project,
-      "# Apache Kafka",
+      "## Apache Kafka",
       """
-      # Apache Kafka
+      ## Apache Kafka
 
       Description of the tasks to be launched.
       """
     );
-    readMeApplicationService.addSection(project, "# Apache Kafka", """
-      # Apache Kafka
+    readMeApplicationService.addSection(project, "## Apache Kafka", """
+      ## Apache Kafka
 
       Update section content.
       """);

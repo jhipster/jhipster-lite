@@ -30,9 +30,9 @@ class ReadMeDomainServiceTest {
 
     readMeDomainService.addSection(
       project,
-      "# Apache Kafka",
+      "## Apache Kafka",
       """
-      # Apache Kafka
+      ## Apache Kafka
 
       Description of the tasks to be launched.
       """

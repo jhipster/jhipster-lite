@@ -358,11 +358,9 @@ class BuildToolDomainServiceTest {
     @Test
     void shouldNotDeleteDependency() {
       Project project = tmpProject();
-      Dependency dependency =
-        Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
+      Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
 
-      assertThatThrownBy(() -> buildToolDomainService.deleteDependency(project, dependency))
-        .isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(() -> buildToolDomainService.deleteDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test

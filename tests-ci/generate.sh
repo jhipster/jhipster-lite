@@ -255,6 +255,12 @@ elif [[ $application == 'kafkaapp' ]]; then
   callApi "/api/servers/spring-boot/brokers/kafka/dummy-producer-consumer"
   callApi "/api/servers/spring-boot/brokers/kafka/akhq"
 
+elif [[ $application == 'pulsarapp' ]]; then
+  springboot_mvc
+  sonar_back
+
+  callApi "/api/servers/spring-boot/brokers/pulsar"
+
 elif [[ $application == 'reactiveapp' ]]; then
   springboot
   sonar_back

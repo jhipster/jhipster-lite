@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import {{packageName}}.IntegrationTest;
 
 @IntegrationTest
-public class PulsarConfigurationIT {
+class PulsarConfigurationIT {
 
   private static final String TEST_PAYLOAD = "test-payload";
 
@@ -29,14 +29,14 @@ public class PulsarConfigurationIT {
     Map<String, Object> producerProps = config.getProducerProps();
     Map<String, Object> consumerProps = config.getConsumerProps();
 
-    assertThat(config.getClientProps().get("numIoThreads")).isEqualTo(8);
+    assertThat(config.getClientProps()).containsEntry("numIoThreads", 8);
 
-    assertThat(producerProps.get("topicName")).isEqualTo("test-topic");
+    assertThat(producerProps).containsEntry("topicName", "test-topic");
 
     List<String> consumerTopicNames = (List<String>) consumerProps.get("topicNames");
-    assertThat(consumerTopicNames.size()).isEqualTo(1);
+    assertThat(consumerTopicNames).hasSize(1);
     assertThat(consumerTopicNames.get(0)).isEqualTo("test-topic");
-    assertThat(consumerProps.get("subscriptionName")).isEqualTo("test-subscription");
+    assertThat(consumerProps).containsEntry("subscriptionName", "test-subscription");
 
     Consumer<String> consumer = pulsarClient.newConsumer(Schema.STRING)
       .loadConf(consumerProps)

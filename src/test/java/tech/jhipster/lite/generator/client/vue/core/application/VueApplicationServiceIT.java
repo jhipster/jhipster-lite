@@ -28,6 +28,7 @@ class VueApplicationServiceIT {
     VueAssert.assertAppFiles(project);
     VueAssert.assertAppWithCss(project);
     VueAssert.assertLogos(project);
+    VueAssert.assertLogger(project);
 
     VueAssert.assertJestSonar(project);
   }

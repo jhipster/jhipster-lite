@@ -45,6 +45,25 @@ public class ProjectsSteps {
     return () -> "Can't find file " + path + " in project folder, found " + projectFiles();
   }
 
+  @Then("I should not have files in {string}")
+  public void shouldNotHaveFiles(String basePath, List<String> files) {
+    CucumberAssertions.assertThatLastResponse().hasOkStatus();
+
+    SoftAssertions assertions = new SoftAssertions();
+
+    files.stream().map(file -> Paths.get(lastProjectFolder, basePath, file)).forEach(assertFileNotExist(assertions));
+
+    assertions.assertAll();
+  }
+
+  private Consumer<Path> assertFileNotExist(SoftAssertions assertions) {
+    return path -> assertions.assertThat(!Files.exists(path)).as(fileFoundMessage(path)).isTrue();
+  }
+
+  private Supplier<String> fileFoundMessage(Path path) {
+    return () -> "Can find file " + path + " in project folder, found " + projectFiles();
+  }
+
   private String projectFiles() {
     try {
       return Files.walk(Paths.get(lastProjectFolder)).filter(Files::isRegularFile).map(Path::toString).collect(Collectors.joining(", "));

@@ -86,4 +86,12 @@ public class VueAssert {
     assertFileExist(project, "src/test/javascript/spec/http/AxiosHttpStub.ts");
     assertFileExist(project, "src/test/javascript/spec/http/AxiosStub.ts");
   }
+
+  public static void assertLogger(Project project) {
+    assertFileExist(project, "src/main/webapp/app/common/domain/Logger.ts");
+    assertFileExist(project, "src/main/webapp/app/common/domain/Message.ts");
+    assertFileExist(project, "src/main/webapp/app/common/secondary/ConsoleLogger.ts");
+    assertFileExist(project, "src/test/javascript/spec/common/domain/Logger.fixture.ts");
+    assertFileExist(project, "src/test/javascript/spec/common/secondary/ConsoleLogger.spec.ts");
+  }
 }

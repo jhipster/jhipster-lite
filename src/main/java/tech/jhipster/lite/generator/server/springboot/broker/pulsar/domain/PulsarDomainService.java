@@ -94,12 +94,14 @@ public class PulsarDomainService implements PulsarService {
   private void addProperties(final Project project) {
     springBootCommonService.addPropertiesComment(project, "Pulsar Configuration");
     springBootCommonService.addProperties(project, "pulsar.client.service-url", "pulsar://localhost:6650");
+    springBootCommonService.addPropertiesNewLine(project);
 
     springBootCommonService.addPropertiesTestComment(project, "Pulsar Configuration");
     springBootCommonService.addPropertiesTest(project, "pulsar.client.num-io-threads", 8);
     springBootCommonService.addPropertiesTest(project, "pulsar.producer.topic-name", "test-topic");
     springBootCommonService.addPropertiesTest(project, "pulsar.consumer.topic-names[0]", "test-topic");
     springBootCommonService.addPropertiesTest(project, "pulsar.consumer.subscription-name", "test-subscription");
+    springBootCommonService.addPropertiesTestNewLine(project);
   }
 
   void addTestcontainers(final Project project) {

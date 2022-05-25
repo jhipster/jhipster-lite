@@ -49,11 +49,13 @@ class PulsarApplicationServiceIT {
     springBootApplicationService.init(project);
 
     pulsarApplicationService.init(project);
+    assertFileContent(project, POM_XML, "<pulsar.version>");
+    assertFileContent(project, POM_XML, "</pulsar.version>");
     assertFileContent(project, POM_XML, pulsarClient());
 
     String pathToPulsarDockerComposeFile = MAIN_DOCKER + "/" + PULSAR_DOCKER_COMPOSE_FILE;
     assertFileExist(project, pathToPulsarDockerComposeFile);
-    assertFileContent(project, pathToPulsarDockerComposeFile, "PULSAR_MEM=");
+    assertFileContent(project, pathToPulsarDockerComposeFile, "PULSAR_MEM:");
 
     assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "# Pulsar Configuration");
     assertFileContent(
@@ -93,7 +95,7 @@ class PulsarApplicationServiceIT {
       "<dependency>",
       "<groupId>org.apache.pulsar</groupId>",
       "<artifactId>pulsar-client</artifactId>",
-      "<version>2.10.0</version>",
+      "<version>${pulsar.version}</version>",
       "</dependency>"
     );
   }

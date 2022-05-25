@@ -49,7 +49,7 @@ class PulsarDomainServiceTest {
 
     pulsarDomainService.init(project);
 
-    verify(buildToolService, times(1)).addDependency(eq(project), any(Dependency.class));
+    verify(buildToolService, times(1)).addVersionPropertyAndDependency(eq(project), eq("pulsar"), any(Dependency.class));
     verify(buildToolService, times(1)).addVersionPropertyAndDependency(eq(project), eq("testcontainers"), any(Dependency.class));
     verify(dockerService, times(1)).getImageNameWithVersion(anyString());
     verify(projectRepository, times(5)).template(any(ProjectFile.class));

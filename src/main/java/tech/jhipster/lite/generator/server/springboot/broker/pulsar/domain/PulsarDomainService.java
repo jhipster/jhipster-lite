@@ -5,8 +5,10 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.pulsar.domain.Pulsar.PULSAR_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.broker.pulsar.domain.Pulsar.PULSAR_DOCKER_IMAGE;
+import static tech.jhipster.lite.generator.server.springboot.broker.pulsar.domain.Pulsar.PULSAR_PROPERTY_VERSION;
 import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommon.testContainersDependency;
 
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.docker.domain.DockerService;
@@ -74,12 +76,14 @@ public class PulsarDomainService implements PulsarService {
   }
 
   private void addApachePulsarClient(final Project project) {
-    final Dependency dependency = Dependency.builder().groupId("org.apache.pulsar").artifactId("pulsar-client").version("2.10.0").build();
-    buildToolService.addDependency(project, dependency);
+    final Dependency dependency = Dependency.builder().groupId("org.apache.pulsar").artifactId("pulsar-client").build();
+    buildToolService.addVersionPropertyAndDependency(project, PULSAR_PROPERTY_VERSION, dependency);
   }
 
   private void addDockerCompose(final Project project) {
-    final String pulsarDockerImage = dockerService.getImageNameWithVersion(PULSAR_DOCKER_IMAGE).orElseThrow();
+    final String pulsarDockerImage = dockerService
+      .getImageNameWithVersion(PULSAR_DOCKER_IMAGE)
+      .orElseThrow(() -> new GeneratorException("Pulsar docker image version not found"));
 
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("pulsarDockerImage", pulsarDockerImage);

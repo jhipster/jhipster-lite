@@ -59,6 +59,8 @@
     <apache-commons-io.version>2.11.0</apache-commons-io.version>
     <cucumber.version>7.3.4</cucumber.version>
     <testng.version>7.6.0</testng.version>
+    <maven-model.version>3.8.5</maven-model.version>
+    <joox.version>1.6.2</joox.version>
 
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
@@ -127,6 +129,17 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>${maven-model.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>joox</artifactId>
+      <version>${joox.version}</version>
+    </dependency>
+
     <!-- jhipster-needle-maven-add-dependency -->
 
     <dependency>

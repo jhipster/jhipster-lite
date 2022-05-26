@@ -11,7 +11,6 @@ import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.Spri
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.corsFiles;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.corsProperties;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.problemSpringDependency;
-import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.springBootActuatorDependency;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.springBootStarterValidation;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.springBootStarterWebDependency;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvc.tomcatDependency;
@@ -73,23 +72,6 @@ public class SpringBootMvcDomainService implements SpringBootMvcService {
 
     addCorsFiles(project);
     addCorsProperties(project);
-  }
-
-  @Override
-  public void addSpringBootActuator(Project project) {
-    buildToolService.addDependency(project, springBootActuatorDependency());
-
-    springBootCommonService.addPropertiesComment(project, "Spring Boot Actuator");
-    springBootCommonService.addProperties(project, "management.endpoints.web.base-path", "/management");
-    springBootCommonService.addProperties(
-      project,
-      "management.endpoints.web.exposure.include",
-      "configprops, env, health, info, logfile, loggers, threaddump"
-    );
-    springBootCommonService.addProperties(project, "management.endpoint.health.probes.enabled", "true");
-    springBootCommonService.addProperties(project, "management.endpoint.health.group.liveness.include", "livenessState");
-    springBootCommonService.addProperties(project, "management.endpoint.health.group.readiness.include", "readinessState");
-    springBootCommonService.addPropertiesNewLine(project);
   }
 
   @Override

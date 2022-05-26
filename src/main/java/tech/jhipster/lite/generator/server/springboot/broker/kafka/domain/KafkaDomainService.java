@@ -16,6 +16,7 @@ import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.readme.domain.ReadMeService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class KafkaDomainService implements KafkaService {
@@ -33,16 +34,20 @@ public class KafkaDomainService implements KafkaService {
 
   private final DockerService dockerService;
 
+  private final ReadMeService readMeService;
+
   public KafkaDomainService(
     final BuildToolService buildToolService,
     final ProjectRepository projectRepository,
     final SpringBootCommonService springBootCommonService,
-    DockerService dockerService
+    final DockerService dockerService,
+    final ReadMeService readMeService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
     this.dockerService = dockerService;
+    this.readMeService = readMeService;
   }
 
   @Override
@@ -52,6 +57,7 @@ public class KafkaDomainService implements KafkaService {
     addProperties(project);
     addTestcontainers(project);
     addConfiguration(project);
+    addReadMeSection(project);
   }
 
   private void addConfiguration(final Project project) {
@@ -214,5 +220,15 @@ public class KafkaDomainService implements KafkaService {
         }
       );
     springBootCommonService.updateIntegrationTestAnnotation(project, "KafkaTestContainerExtension");
+  }
+
+  private void addReadMeSection(final Project project) {
+    readMeService.addSection(
+      project,
+      "## Apache Kafka",
+      """
+      Before to launch `./mvnw spring-boot:run`, please launch the following command in the root directory: `docker-compose -f src/main/docker/kafka.yml up`.
+      """
+    );
   }
 }

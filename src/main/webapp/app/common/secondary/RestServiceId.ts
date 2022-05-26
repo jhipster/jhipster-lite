@@ -6,6 +6,7 @@ const SERVICES: Record<string, Service> = {
   'aop-logging': Service.AOP_LOGGING,
   angular: Service.ANGULAR,
   'angular-jwt': Service.ANGULAR_WITH_JWT,
+  'angular-oauth2': Service.ANGULAR_OAUTH2,
   download: Service.DOWNLOAD,
   flyway: Service.FLYWAY,
   'flyway-user-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
@@ -36,7 +37,6 @@ const SERVICES: Record<string, Service> = {
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
   vue: Service.VUE,
-  'vue-styled': Service.VUE_STYLED,
   unknown: Service.UNKNOWN,
 };
 

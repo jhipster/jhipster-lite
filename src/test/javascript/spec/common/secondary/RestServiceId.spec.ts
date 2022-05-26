@@ -6,6 +6,7 @@ describe('RestServiceId', () => {
     expect(toService('aop-logging')).toEqual<Service>(Service.AOP_LOGGING);
     expect(toService('angular')).toEqual<Service>(Service.ANGULAR);
     expect(toService('angular-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
+    expect(toService('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
     expect(toService('download')).toEqual<Service>(Service.DOWNLOAD);
     expect(toService('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(toService('flyway-user-and-authority-changelogs')).toEqual<Service>(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS);
@@ -36,7 +37,6 @@ describe('RestServiceId', () => {
     expect(toService('react')).toEqual<Service>(Service.REACT);
     expect(toService('react-styled')).toEqual<Service>(Service.REACT_STYLED);
     expect(toService('vue')).toEqual<Service>(Service.VUE);
-    expect(toService('vue-styled')).toEqual<Service>(Service.VUE_STYLED);
     expect(toService('beer')).toEqual<Service>(Service.UNKNOWN);
   });
 });

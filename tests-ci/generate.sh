@@ -212,6 +212,16 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/clients/angular/jwt"
 
+elif [[ $application == 'angularoauth2app' ]]; then
+  springboot_mvc
+  sonar_back_front
+
+  callApi "/api/developer-tools/frontend-maven-plugin"
+  callApi "/api/clients/angular"
+  callApi "/api/clients/angular/oauth2"
+  callApi "/api/servers/spring-boot/security-systems/oauth2"
+  callApi "/api/servers/spring-boot/security-systems/oauth2/account"
+
 elif [[ $application == 'reactapp' ]]; then
   springboot_mvc
   sonar_back_front
@@ -225,7 +235,7 @@ elif [[ $application == 'vueapp' ]]; then
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
-  callApi "/api/clients/vue/styles"
+  callApi "/api/clients/vue"
   callApi "/api/clients/vue/stores/pinia"
   callApi "/api/clients/cypress"
 
@@ -241,6 +251,7 @@ elif [[ $application == 'kafkaapp' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/brokers/kafka"
+  callApi "/api/servers/spring-boot/brokers/kafka/dummy-producer-consumer"
   callApi "/api/servers/spring-boot/brokers/kafka/akhq"
 
 elif [[ $application == 'reactiveapp' ]]; then

@@ -4,6 +4,7 @@ export type ServiceProjection =
   | 'aop-logging'
   | 'angular'
   | 'angular-with-jwt'
+  | 'angular-oauth2'
   | 'download'
   | 'initialization'
   | 'flyway'
@@ -34,13 +35,13 @@ export type ServiceProjection =
   | 'react'
   | 'react-styled'
   | 'vue'
-  | 'vue-styled'
   | 'unknown';
 
 const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.AOP_LOGGING]: 'aop-logging',
   [Service.ANGULAR]: 'angular',
   [Service.ANGULAR_WITH_JWT]: 'angular-with-jwt',
+  [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
   [Service.DOWNLOAD]: 'download',
   [Service.FLYWAY]: 'flyway',
   [Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'flyway-with-users-and-authority-changelogs',
@@ -71,7 +72,6 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.REACT]: 'react',
   [Service.REACT_STYLED]: 'react-styled',
   [Service.VUE]: 'vue',
-  [Service.VUE_STYLED]: 'vue-styled',
   [Service.UNKNOWN]: 'unknown',
 };
 
@@ -81,6 +81,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'aop-logging': Service.AOP_LOGGING,
   angular: Service.ANGULAR,
   'angular-with-jwt': Service.ANGULAR_WITH_JWT,
+  'angular-oauth2': Service.ANGULAR_OAUTH2,
   download: Service.DOWNLOAD,
   flyway: Service.FLYWAY,
   'flyway-with-users-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
@@ -111,7 +112,6 @@ const SERVICES: Record<ServiceProjection, Service> = {
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
   vue: Service.VUE,
-  'vue-styled': Service.VUE_STYLED,
   unknown: Service.UNKNOWN,
 };
 

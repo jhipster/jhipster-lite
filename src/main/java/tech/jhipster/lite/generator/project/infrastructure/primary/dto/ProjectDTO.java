@@ -28,6 +28,10 @@ public class ProjectDTO {
   )
   private Map<String, Object> generatorJhipster;
 
+  @JsonProperty("remoteUrl")
+  @Schema(description = "remoteUrl", example = "https://github.com/jhipster/jhipster-lite", required = true)
+  private String remoteUrl;
+
   public String getFolder() {
     return folder;
   }
@@ -36,10 +40,19 @@ public class ProjectDTO {
     return generatorJhipster;
   }
 
+  public String getRemoteUrl() {
+    return remoteUrl;
+  }
+
   public static Project toProject(ProjectDTO projectDTO) {
     Assert.notNull("projectDTO", projectDTO);
 
-    return Project.builder().folder(projectDTO.getFolder()).config(projectDTO.getGeneratorJhipster()).build();
+    return Project
+      .builder()
+      .folder(projectDTO.getFolder())
+      .remoteUrl(projectDTO.getRemoteUrl())
+      .config(projectDTO.getGeneratorJhipster())
+      .build();
   }
 
   public static ProjectDTO fromProject(Project project) {
@@ -56,6 +69,11 @@ public class ProjectDTO {
 
   public ProjectDTO generatorJhipster(Map<String, Object> generatorJhipster) {
     this.generatorJhipster = generatorJhipster;
+    return this;
+  }
+
+  public ProjectDTO remoteUrl(String remoteUrl) {
+    this.remoteUrl = remoteUrl;
     return this;
   }
 }

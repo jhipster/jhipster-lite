@@ -47,8 +47,8 @@ public class GeneratorAction {
   public static final String POSTGRESQL = "postgresql";
 
   public static final String ANGULAR = "angular";
-  public static final String ANGULAR_STYLED = "angular-styled";
   public static final String ANGULAR_JWT = "angular-jwt";
+  public static final String ANGULAR_OAUTH2 = "angular-oauth2";
 
   public static final String LIQUIBASE = "liquibase";
   public static final String LIQUIBASE_USER_AND_AUTHORITY_CHANGELOGS = "liquibase-user-and-authority-changelogs";
@@ -120,7 +120,6 @@ public class GeneratorAction {
   public static final String SPRINGBOOT_KAFKA_AKHQ = "springboot-kafka-akhq";
 
   public static final String VUE = "vue";
-  public static final String VUE_STYLED = "vue-styled";
   public static final String VUE_PINIA = "vue-pinia";
 
   public static final String JIB = "jib";

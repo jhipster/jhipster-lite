@@ -6,6 +6,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.AOP_LOGGING)).toEqual<ServiceProjection>('aop-logging');
     expect(toServiceProjection(Service.ANGULAR)).toEqual<ServiceProjection>('angular');
     expect(toServiceProjection(Service.ANGULAR_WITH_JWT)).toEqual<ServiceProjection>('angular-with-jwt');
+    expect(toServiceProjection(Service.ANGULAR_OAUTH2)).toEqual<ServiceProjection>('angular-oauth2');
     expect(toServiceProjection(Service.DOWNLOAD)).toEqual<ServiceProjection>('download');
     expect(toServiceProjection(Service.FLYWAY)).toEqual<ServiceProjection>('flyway');
     expect(toServiceProjection(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS)).toEqual<ServiceProjection>(
@@ -42,7 +43,6 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.REACT)).toEqual<ServiceProjection>('react');
     expect(toServiceProjection(Service.REACT_STYLED)).toEqual<ServiceProjection>('react-styled');
     expect(toServiceProjection(Service.VUE)).toEqual<ServiceProjection>('vue');
-    expect(toServiceProjection(Service.VUE_STYLED)).toEqual<ServiceProjection>('vue-styled');
     expect(toServiceProjection(Service.UNKNOWN)).toEqual<ServiceProjection>('unknown');
   });
 
@@ -50,6 +50,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('aop-logging')).toEqual<Service>(Service.AOP_LOGGING);
     expect(fromServiceProjection('angular')).toEqual<Service>(Service.ANGULAR);
     expect(fromServiceProjection('angular-with-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
+    expect(fromServiceProjection('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
     expect(fromServiceProjection('download')).toEqual<Service>(Service.DOWNLOAD);
     expect(fromServiceProjection('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(fromServiceProjection('flyway-with-users-and-authority-changelogs')).toEqual<Service>(
@@ -86,7 +87,6 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('react')).toEqual<Service>(Service.REACT);
     expect(fromServiceProjection('react-styled')).toEqual<Service>(Service.REACT_STYLED);
     expect(fromServiceProjection('vue')).toEqual<Service>(Service.VUE);
-    expect(fromServiceProjection('vue-styled')).toEqual<Service>(Service.VUE_STYLED);
     expect(fromServiceProjection('unknown')).toEqual<Service>(Service.UNKNOWN);
   });
 });

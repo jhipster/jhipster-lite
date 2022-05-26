@@ -1,7 +1,7 @@
 import { defineComponent, inject, ref } from 'vue';
 import { DefaultButtonVue } from '@/common/primary/default-button';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
-import { VueService } from '@/springboot/domain/client/VueService';
+import { SvelteService } from '@/springboot/domain/client/SvelteService';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
 
 export default defineComponent({
@@ -20,7 +20,7 @@ export default defineComponent({
 
   setup(props) {
     const alertBus = inject('alertBus') as AlertBus;
-    const svelteService = inject('svelteService') as VueService;
+    const svelteService = inject('svelteService') as SvelteService;
 
     const selectorPrefix = 'svelte-generator';
     const isSvelteWithStyle = ref<boolean>(false);

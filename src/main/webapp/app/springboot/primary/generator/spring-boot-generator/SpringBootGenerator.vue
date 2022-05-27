@@ -55,6 +55,18 @@
           :selector-prefix="selectorPrefix"
           @click.prevent="addSpringBootSecurityJWTBasicAuth"
         />
+        <GeneratorButtonVue
+          :label="'Security OAuth2'"
+          :service="'spring-boot-oauth2'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootSecurityOAuth2"
+        />
+        <GeneratorButtonVue
+          :label="'OAuth2 Account Context'"
+          :service="'spring-boot-oauth2-account'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootSecurityOAuth2Account"
+        />
       </div>
       <div>
         <GeneratorButtonVue

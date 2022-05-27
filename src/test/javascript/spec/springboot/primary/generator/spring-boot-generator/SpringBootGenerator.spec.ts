@@ -380,7 +380,7 @@ describe('SpringBootGenerator', () => {
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security JWT to project failed error');
   });
 
-  it('should not add SpringBoot Security JWT Basic Auth  when project path is not filled', async () => {
+  it('should not add SpringBoot Security JWT Basic Auth when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addBasicAuthJWT.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
@@ -406,7 +406,7 @@ describe('SpringBootGenerator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
-    expectAlertSuccessToBe(alertBus, 'SpringBoot Security JWT Basic Auth  successfully added');
+    expectAlertSuccessToBe(alertBus, 'SpringBoot Security JWT Basic Auth successfully added');
   });
 
   it('should handle error on adding SpringBoot Security JWT Basic Auth failure', async () => {
@@ -418,6 +418,86 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootSecurityJWTBasicAuth();
 
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security JWT Basic Auth to project failed error');
+  });
+
+  it('should not add SpringBoot Security OAuth2 when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringBootSecurityOAuth2();
+
+    expect(springBootService.addOAuth2.called).toBe(false);
+  });
+
+  it('should add SpringBoot Security OAuth2 when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootSecurityOAuth2();
+
+    const args = springBootService.addOAuth2.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringBoot Security OAuth2 successfully added');
+  });
+
+  it('should handle error on adding SpringBoot Security OAuth2 failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootSecurityOAuth2();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security OAuth2 to project failed error');
+  });
+
+  it('should not add SpringBoot Security OAuth2 Account Context when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2Account.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringBootSecurityOAuth2Account();
+
+    expect(springBootService.addOAuth2Account.called).toBe(false);
+  });
+
+  it('should add SpringBoot Security OAuth2 Account Context when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2Account.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootSecurityOAuth2Account();
+
+    const args = springBootService.addOAuth2Account.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringBoot Security OAuth2 Account Context successfully added');
+  });
+
+  it('should handle error on adding SpringBoot Security OAuth2 Account Context failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2Account.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootSecurityOAuth2Account();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security OAuth2 Account Context to project failed error');
   });
 
   describe('Databases', () => {

@@ -425,11 +425,28 @@ describe('SpringBootRepository', () => {
     const springBootRepository = new SpringBootRepository(axiosHttpStub, projectHistoryService);
     const project: Project = createProject({ folder: PROJECT_FOLDER });
 
-    await springBootRepository.addOauth2(project);
+    await springBootRepository.addOAuth2(project);
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
     expect(uri).toBe('/api/servers/spring-boot/security-systems/oauth2');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+    const [projectFolder] = projectHistoryService.get.getCall(0).args;
+    expect(projectFolder).toBe(PROJECT_FOLDER);
+  });
+
+  it('should add a Spring Security OAuth Account Context', async () => {
+    const projectHistoryService = stubProjectHistoryService();
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const springBootRepository = new SpringBootRepository(axiosHttpStub, projectHistoryService);
+    const project: Project = createProject({ folder: PROJECT_FOLDER });
+
+    await springBootRepository.addOAuth2Account(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('/api/servers/spring-boot/security-systems/oauth2/account');
     expect(payload).toEqual<RestProject>(expectedRestProject);
     const [projectFolder] = projectHistoryService.get.getCall(0).args;
     expect(projectFolder).toBe(PROJECT_FOLDER);

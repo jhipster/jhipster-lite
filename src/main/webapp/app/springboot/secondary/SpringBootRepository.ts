@@ -107,8 +107,12 @@ export default class SpringBootRepository implements SpringBootService {
     await this.postAndGetHistory('/api/servers/spring-boot/security-systems/jwt/basic-auth', toRestProject(project));
   }
 
-  async addOauth2(project: Project): Promise<void> {
+  async addOAuth2(project: Project): Promise<void> {
     await this.postAndGetHistory('/api/servers/spring-boot/security-systems/oauth2', toRestProject(project));
+  }
+
+  async addOAuth2Account(project: Project): Promise<void> {
+    await this.postAndGetHistory('/api/servers/spring-boot/security-systems/oauth2/account', toRestProject(project));
   }
 
   async addSpringdocJWT(project: Project): Promise<void> {

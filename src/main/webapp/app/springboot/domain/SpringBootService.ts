@@ -10,7 +10,8 @@ export interface SpringBootService {
 
   addJWT(project: Project): Promise<void>;
   addBasicAuthJWT(project: Project): Promise<void>;
-  addOauth2(project: Project): Promise<void>;
+  addOAuth2(project: Project): Promise<void>;
+  addOAuth2Account(project: Project): Promise<void>;
   addSpringdocJWT(project: Project): Promise<void>;
 
   addSpringBootAopLogging(project: Project): Promise<void>;

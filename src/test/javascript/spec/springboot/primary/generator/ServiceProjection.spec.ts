@@ -38,6 +38,8 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION)).toEqual<ServiceProjection>(
       'spring-boot-jwt-with-basic-authentication'
     );
+    expect(toServiceProjection(Service.SPRINGBOOT_OAUTH2)).toEqual<ServiceProjection>('spring-boot-oauth2');
+    expect(toServiceProjection(Service.SPRINGBOOT_OAUTH2_ACCOUNT)).toEqual<ServiceProjection>('spring-boot-oauth2-account');
     expect(toServiceProjection(Service.SPRINGBOOT_MVC_WITH_TOMCAT)).toEqual<ServiceProjection>('spring-boot-mvc-with-tomcat');
     expect(toServiceProjection(Service.SPRINGBOOT_WEBFLUX_NETTY)).toEqual<ServiceProjection>('spring-boot-webflux-netty');
     expect(toServiceProjection(Service.REACT)).toEqual<ServiceProjection>('react');

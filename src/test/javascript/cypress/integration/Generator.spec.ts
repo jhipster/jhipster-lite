@@ -45,6 +45,8 @@ describe('Generator', () => {
 
     cy.get(springBootGeneratorSelector('add-spring-boot-jwt-button')).contains('Security JWT');
     cy.get(springBootGeneratorSelector('add-spring-boot-jwt-with-basic-authentication-button')).contains('Security JWT Basic Auth');
+    cy.get(springBootGeneratorSelector('add-spring-boot-oauth2-button')).contains('Security OAuth2');
+    cy.get(springBootGeneratorSelector('add-spring-boot-oauth2-account-button')).contains('OAuth2 Account Context');
 
     cy.get(springBootGeneratorSelector('add-postgresql-button')).contains('PostgreSQL');
     cy.get(springBootGeneratorSelector('add-mysql-button')).contains('MySQL');

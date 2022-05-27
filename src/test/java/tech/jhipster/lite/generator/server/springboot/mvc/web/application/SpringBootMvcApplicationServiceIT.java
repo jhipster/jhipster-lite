@@ -169,36 +169,6 @@ class SpringBootMvcApplicationServiceIT {
   }
 
   @Test
-  void shouldAddSpringBootActuator() {
-    Project project = tmpProject();
-    initApplicationService.init(project);
-    mavenApplicationService.addPomXml(project);
-    springBootApplicationService.init(project);
-
-    springBootMvcApplicationService.addSpringBootActuator(project);
-
-    assertFileContent(project, POM_XML, springBootStarterActuatorDependency());
-
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "management.endpoints.web.base-path=/management");
-    assertFileContent(
-      project,
-      getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
-      "management.endpoints.web.exposure.include=configprops, env, health, info, logfile, loggers, threaddump"
-    );
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "management.endpoint.health.probes.enabled=true");
-    assertFileContent(
-      project,
-      getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
-      "management.endpoint.health.group.liveness.include=livenessState"
-    );
-    assertFileContent(
-      project,
-      getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES),
-      "management.endpoint.health.group.readiness.include=readinessState"
-    );
-  }
-
-  @Test
   void shouldAddExceptionHandler() {
     Project project = tmpProject();
     initApplicationService.init(project);

@@ -259,6 +259,7 @@ elif [[ $application == 'reactiveapp' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/reactive-servers/netty"
+  callApi "/api/servers/spring-boot/technical-tools/actuator"
 
 else
   echo "*** Unknown configuration..."

@@ -79,19 +79,6 @@ class SpringBootMvcDomainServiceTest {
   }
 
   @Test
-  void shouldAddSpringBootActuator() {
-    Project project = tmpProjectWithPomXml();
-
-    springBootMvcDomainService.addSpringBootActuator(project);
-
-    verify(buildToolService).addDependency(any(Project.class), any(Dependency.class));
-
-    verify(springBootCommonService).addPropertiesComment(any(Project.class), anyString());
-    verify(springBootCommonService, times(5)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootCommonService).addPropertiesNewLine(any(Project.class));
-  }
-
-  @Test
   void shouldNotAddExceptionHandler() {
     Project project = tmpProjectWithPomXml();
 

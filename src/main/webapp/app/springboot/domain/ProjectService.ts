@@ -1,5 +1,6 @@
 import { Project } from '@/springboot/domain/Project';
 import { DocumentFile } from '@/common/domain/DocumentFile';
+import { RestProject } from '../secondary/RestProject';
 
 export interface ProjectService {
   init(project: Project): Promise<void>;
@@ -12,4 +13,5 @@ export interface ProjectService {
   download(project: Project): Promise<DocumentFile>;
   addCodespacesSetup(project: Project): Promise<void>;
   addGitpodSetup(project: Project): Promise<void>;
+  getProjectDetails(folder: string): Promise<RestProject>;
 }

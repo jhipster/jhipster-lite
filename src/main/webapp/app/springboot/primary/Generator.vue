@@ -15,7 +15,7 @@
               class="form-control"
               required
               autofocus
-              @input="debounceGetProjectHistory"
+              @input="debounceGetProjectDetails"
             />
           </div>
           <div class="col-12">

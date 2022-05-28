@@ -6,6 +6,7 @@ import java.util.List;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleContext.JHipsterModuleContextBuilder;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
+import tech.jhipster.lite.generator.module.domain.JHipsterModulePreActions.JHipsterModulePreActionsBuilder;
 import tech.jhipster.lite.generator.module.domain.javadependency.ArtifactId;
 import tech.jhipster.lite.generator.module.domain.javadependency.GroupId;
 import tech.jhipster.lite.generator.module.domain.javadependency.JHipsterModuleJavaDependencies;
@@ -20,6 +21,7 @@ public class JHipsterModule {
   private final Collection<JHipsterModuleFile> files;
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
+  private final JHipsterModulePreActions preActions;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
     projectFolder = builder.projectFolder;
@@ -27,6 +29,7 @@ public class JHipsterModule {
     files = builder.files.build().get();
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
+    preActions = builder.preActions.build();
   }
 
   public static JHipsterModuleBuilder moduleForProject(JHipsterProjectFolder project) {
@@ -81,12 +84,17 @@ public class JHipsterModule {
     return javaDependencies;
   }
 
+  public JHipsterModulePreActions preActions() {
+    return preActions;
+  }
+
   public static class JHipsterModuleBuilder {
 
     private final JHipsterProjectFolder projectFolder;
     private final JHipsterModuleContextBuilder context = JHipsterModuleContext.builder(this);
     private final JHipsterModuleFilesBuilder files = JHipsterModuleFiles.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
+    private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
 
     private JHipsterModuleBuilder(JHipsterProjectFolder projectFolder) {
       Assert.notNull("projectFolder", projectFolder);
@@ -104,6 +112,10 @@ public class JHipsterModule {
 
     public JHipsterModuleJavaDependenciesBuilder javaDependencies() {
       return javaDependencies;
+    }
+
+    public JHipsterModulePreActionsBuilder preActions() {
+      return preActions;
     }
 
     public JHipsterModule build() {

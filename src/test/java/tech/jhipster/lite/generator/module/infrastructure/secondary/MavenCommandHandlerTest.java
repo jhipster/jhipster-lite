@@ -14,6 +14,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.module.domain.Indentation;
+import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.AddJavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.RemoveJavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJavaDependencyVersion;
@@ -58,6 +59,17 @@ class MavenCommandHandlerTest {
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(springBootVersion()));
 
       assertThat(content(pom)).contains("    <spring-boot.version>1.2.3</spring-boot.version>");
+    }
+
+    @Test
+    void shouldUpdateExistingProperty() {
+      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(new JavaDependencyVersion("jjwt", "0.12.0")));
+
+      assertThat(content(pom))
+        .contains("    <jjwt.version>0.12.0</jjwt.version>")
+        .doesNotContain("    <jjwt.version>0.11.5</jjwt.version>");
     }
   }
 

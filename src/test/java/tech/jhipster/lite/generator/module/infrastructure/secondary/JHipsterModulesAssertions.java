@@ -25,6 +25,28 @@ public final class JHipsterModulesAssertions {
     return new ModuleAsserter(module);
   }
 
+  public static ModuleAsserter assertThatModuleOnProjectWithDefaultPom(JHipsterModule module) {
+    addPomToproject(module.projectFolder());
+
+    return new ModuleAsserter(module);
+  }
+
+  private static void addPomToproject(JHipsterProjectFolder project) {
+    Path folder = Paths.get(project.folder());
+    try {
+      Files.createDirectories(folder);
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+
+    Path pomPath = folder.resolve("pom.xml");
+    try {
+      Files.copy(Paths.get("src/test/resources/projects/maven/pom.xml"), pomPath);
+    } catch (IOException e) {
+      throw new AssertionError(e);
+    }
+  }
+
   public static class ModuleAsserter {
 
     private static final String SLASH = "/";

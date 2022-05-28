@@ -11,6 +11,7 @@ import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.banner.application.BannerApplicationService;
+import tech.jhipster.lite.generator.server.springboot.banner.domain.BannerModuleProperties;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
@@ -28,53 +29,53 @@ class BannerResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7")
   @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V7)
-  public void addBannerJHipsterV7(@RequestBody ProjectDTO projectDTO) {
+  void addBannerJHipsterV7(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    bannerApplicationService.addBannerJHipsterV7(project);
-  }
-
-  @Operation(summary = "Add banner for Ippon applications")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
-  @PostMapping("/ippon")
-  @GeneratorStep(id = GeneratorAction.BANNER_IPPON)
-  public void addBannerIppon(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-    bannerApplicationService.addBannerIppon(project);
+    bannerApplicationService.addBannerJHipsterV7(BannerModuleProperties.from(project));
   }
 
   @Operation(summary = "Add banner JHipster v7 for React")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7-react")
   @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V7_REACT)
-  public void addBannerJHipsterV7React(@RequestBody ProjectDTO projectDTO) {
+  void addBannerJHipsterV7React(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    bannerApplicationService.addBannerJHipsterV7React(project);
+    bannerApplicationService.addBannerJHipsterV7React(BannerModuleProperties.from(project));
   }
 
   @Operation(summary = "Add banner JHipster v7 for Vue")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v7-vue")
   @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V7_VUE)
-  public void addBannerJHipsterV7Vue(@RequestBody ProjectDTO projectDTO) {
+  void addBannerJHipsterV7Vue(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    bannerApplicationService.addBannerJHipsterV7Vue(project);
+    bannerApplicationService.addBannerJHipsterV7Vue(BannerModuleProperties.from(project));
   }
 
   @Operation(summary = "Add banner JHipster v2")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v2")
   @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V2)
-  public void addBannerJHipsterV2(@RequestBody ProjectDTO projectDTO) {
+  void addBannerJHipsterV2(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    bannerApplicationService.addBannerJHipsterV2(project);
+    bannerApplicationService.addBannerJHipsterV2(BannerModuleProperties.from(project));
   }
 
   @Operation(summary = "Add banner JHipster v3")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
   @PostMapping("/jhipster-v3")
   @GeneratorStep(id = GeneratorAction.BANNER_JHIPSTER_V3)
-  public void addBannerJHipsterV3(@RequestBody ProjectDTO projectDTO) {
+  void addBannerJHipsterV3(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
-    bannerApplicationService.addBannerJHipsterV3(project);
+    bannerApplicationService.addBannerJHipsterV3(BannerModuleProperties.from(project));
+  }
+
+  @Operation(summary = "Add banner for Ippon applications")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding banner")
+  @PostMapping("/ippon")
+  @GeneratorStep(id = GeneratorAction.BANNER_IPPON)
+  void addBannerIppon(@RequestBody ProjectDTO projectDTO) {
+    Project project = ProjectDTO.toProject(projectDTO);
+    bannerApplicationService.addBannerIppon(BannerModuleProperties.from(project));
   }
 }

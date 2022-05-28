@@ -1,9 +1,6 @@
 package tech.jhipster.lite.generator.project.infrastructure.primary.dto;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
+import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.util.Map;

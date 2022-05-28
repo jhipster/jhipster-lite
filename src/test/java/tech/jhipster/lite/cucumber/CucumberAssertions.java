@@ -3,6 +3,8 @@ package tech.jhipster.lite.cucumber;
 import static org.assertj.core.api.Assertions.*;
 
 import java.time.Duration;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.assertj.core.description.Description;
 import org.springframework.http.HttpStatus;
 
@@ -28,8 +30,22 @@ public final class CucumberAssertions {
 
   static void assertHttpStatus(HttpStatus status) {
     assertThat(CucumberTestContext.getStatus())
-      .as("Expecting request to result in " + status + " but got " + CucumberTestContext.getStatus() + callContext())
+      .as(() -> "Expecting request to result in " + status + " but got " + CucumberTestContext.getStatus() + callContext())
       .isEqualTo(status);
+  }
+
+  static void assertHttpStatusIn(HttpStatus[] statuses) {
+    assertThat(statuses).as("Can't check statuses without statuses").isNotEmpty();
+
+    assertThat(CucumberTestContext.getStatus())
+      .as(() ->
+        "Expecting request to result in any of " +
+        Stream.of(statuses).map(HttpStatus::toString).collect(Collectors.joining(", ")) +
+        " but got " +
+        CucumberTestContext.getStatus() +
+        callContext()
+      )
+      .isIn((Object[]) statuses);
   }
 
   static Description callContext() {

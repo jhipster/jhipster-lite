@@ -14,6 +14,13 @@ class SyncResponseAsserter implements ResponseAsserter {
   }
 
   @Override
+  public ResponseAsserter hasHttpStatusIn(HttpStatus... statuses) {
+    CucumberAssertions.assertHttpStatusIn(statuses);
+
+    return this;
+  }
+
+  @Override
   public SyncElementAsserter hasElement(String jsonPath) {
     return new SyncElementAsserter(this, jsonPath);
   }

@@ -21,6 +21,13 @@ class AsyncResponseAsserter implements ResponseAsserter {
   }
 
   @Override
+  public ResponseAsserter hasHttpStatusIn(HttpStatus... statuses) {
+    Awaiter.await(maxTime, () -> CucumberAssertions.assertHttpStatusIn(statuses));
+
+    return this;
+  }
+
+  @Override
   public AsyncElementAsserter hasElement(String jsonPath) {
     return new AsyncElementAsserter(this, jsonPath, maxTime);
   }

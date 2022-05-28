@@ -47,7 +47,7 @@ public class ProjectsSteps {
 
   @Then("I should not have files in {string}")
   public void shouldNotHaveFiles(String basePath, List<String> files) {
-    CucumberAssertions.assertThatLastResponse().hasOkStatus();
+    CucumberAssertions.assertThatLastResponse().hasHttpStatusIn(200, 201);
 
     SoftAssertions assertions = new SoftAssertions();
 

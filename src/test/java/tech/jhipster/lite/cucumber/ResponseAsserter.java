@@ -1,13 +1,18 @@
 package tech.jhipster.lite.cucumber;
 
+import java.util.stream.Stream;
 import org.springframework.http.HttpStatus;
 
 public interface ResponseAsserter {
   ResponseAsserter hasHttpStatus(HttpStatus status);
 
+  ResponseAsserter hasHttpStatusIn(HttpStatus... statuses);
+
   ElementAsserter<?> hasElement(String jsonPath);
 
   HeaderAsserter<?> hasHeader(String header);
+
+  public ResponseAsserter hasRawBody(String info);
 
   default ElementAsserter<?> hasResponse() {
     return hasElement(null);
@@ -21,5 +26,7 @@ public interface ResponseAsserter {
     return hasHttpStatus(HttpStatus.valueOf(status));
   }
 
-  public ResponseAsserter hasRawBody(String info);
+  default ResponseAsserter hasHttpStatusIn(Integer... statuses) {
+    return hasHttpStatusIn(Stream.of(statuses).map(HttpStatus::valueOf).toArray(HttpStatus[]::new));
+  }
 }

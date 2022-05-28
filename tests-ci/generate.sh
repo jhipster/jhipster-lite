@@ -211,7 +211,7 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/clients/angular/jwt"
-  callApi "/api/clients/angular/health"
+  callApi "/api/clients/angular/admin-pages/health"
 
 elif [[ $application == 'angularoauth2app' ]]; then
   springboot_mvc

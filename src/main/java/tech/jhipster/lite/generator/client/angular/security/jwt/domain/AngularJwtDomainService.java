@@ -6,7 +6,9 @@ import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.generator.client.angular.common.domain.AngularCommonService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
@@ -20,10 +22,12 @@ public class AngularJwtDomainService implements AngularJwtService {
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
+  private final AngularCommonService angularCommonService;
 
-  public AngularJwtDomainService(ProjectRepository projectRepository, NpmService npmService) {
+  public AngularJwtDomainService(ProjectRepository projectRepository, NpmService npmService, AngularCommonService angularCommonService) {
     this.projectRepository = projectRepository;
     this.npmService = npmService;
+    this.angularCommonService = angularCommonService;
   }
 
   @Override
@@ -71,10 +75,11 @@ public class AngularJwtDomainService implements AngularJwtService {
         """;
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
-    oldHtml =
-      "imports: \\[BrowserAnimationsModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, MatButtonToggleModule, BrowserModule, AppRoutingModule\\],";
+    oldHtml = "imports: \\[" + angularCommonService.getAngularModules().stream().collect(Collectors.joining(", ")) + "\\],";
     newHtml =
-      "imports: [BrowserAnimationsModule, MatMenuModule, MatToolbarModule, MatIconModule, MatButtonModule, MatButtonToggleModule, BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, NgxWebstorageModule.forRoot()],";
+      "imports: \\[" +
+      angularCommonService.getAngularModules().stream().collect(Collectors.joining(", ")) +
+      ", HttpClientModule, ReactiveFormsModule, NgxWebstorageModule.forRoot()\\],";
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
     oldHtml = "bootstrap: \\[AppComponent\\],";

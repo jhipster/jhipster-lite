@@ -14,7 +14,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@RequestMapping("/api/clients/angular/health")
+@RequestMapping("/api/clients/angular/admin-pages/health")
 @Tag(name = "Angular")
 class AngularHealthResource {
 
@@ -24,8 +24,8 @@ class AngularHealthResource {
     this.angularHealthApplicationService = angularHealthApplicationService;
   }
 
-  @Operation(summary = "Add Angular with health")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular with health")
+  @Operation(summary = "Angular Health")
+  @ApiResponse(responseCode = "500", description = "An error occurred while adding Angular Health")
   @PostMapping
   @GeneratorStep(id = GeneratorAction.ANGULAR_HEALTH)
   public void addHealthAngular(@RequestBody ProjectDTO projectDTO) {

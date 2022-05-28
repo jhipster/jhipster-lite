@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { HealthService } from './health.service';
-import { HealthStatus } from './health.model';
+import { Health, HealthStatus } from './health.model';
 import { HealthModalComponent } from './modal/health-modal.component';
 
 @Component({
@@ -30,20 +30,20 @@ export class HealthComponent implements OnInit {
   refresh(): void {
     this.healthService.checkHealth().subscribe({
       next: health => {
-        this.datasource = Object.keys(health.components).map((key) => { return {
-          key: key,
-          status: health.components[key].status,
-          details: health.components[key].details
-        }});
-      }
+        this.datasource = Object.keys(health.components).map(key => {
+          return {
+            key: key,
+            status: health.components[key].status,
+            details: health.components[key].details,
+          };
+        });
+      },
     });
   }
 
-  showHealth(health: any): void {
+  showHealth(health: Health): void {
     this.dialog.open(HealthModalComponent, {
-      data: {
-        health,
-      },
+      data: health,
     });
   }
 }

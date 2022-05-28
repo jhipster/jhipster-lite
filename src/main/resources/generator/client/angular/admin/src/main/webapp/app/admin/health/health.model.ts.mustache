@@ -14,12 +14,11 @@ export type HealthKey =
 
 export interface Health {
   status: HealthStatus;
-  components: {
-    [key in HealthKey]?: HealthDetails;
-  };
+  components: any;
 }
 
 export interface HealthDetails {
+  key: HealthKey;
   status: HealthStatus;
-  details?: { [key: string]: unknown };
+  details?: any;
 }

@@ -122,6 +122,20 @@ public class AngularCommonDomainService implements AngularCommonService {
     writeInFile(fullFilePath, newFileContent, project);
   }
 
+  @Override
+  public List<String> getAngularModules() {
+    return List.of(
+      "BrowserAnimationsModule",
+      "MatMenuModule",
+      "MatToolbarModule",
+      "MatIconModule",
+      "MatButtonModule",
+      "MatButtonToggleModule",
+      "BrowserModule",
+      "AppRoutingModule"
+    );
+  }
+
   private String getFileContent(String fullFilePath) {
     String fileContent;
     try {

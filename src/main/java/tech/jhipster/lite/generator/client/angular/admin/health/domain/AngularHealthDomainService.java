@@ -27,14 +27,14 @@ public class AngularHealthDomainService implements AngularHealthService {
     addAppHealthFiles(project);
   }
 
-  public void addAppHealthFiles(Project project) {
+  private void addAppHealthFiles(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
     addHealthFiles(project);
     updateAngularFilesForHealth(project);
   }
 
-  public void addHealthFiles(Project project) {
+  private void addHealthFiles(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
     List<ProjectFile> files = AngularHealth
@@ -51,10 +51,11 @@ public class AngularHealthDomainService implements AngularHealthService {
     projectRepository.template(files);
   }
 
-  public void updateAngularFilesForHealth(Project project) {
+  private void updateAngularFilesForHealth(Project project) {
     String oldHtml = "// jhipster-needle-angular-admin";
     String newHtml =
       """
+
       {
         path: 'admin',
         loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
@@ -63,23 +64,24 @@ public class AngularHealthDomainService implements AngularHealthService {
 
     oldHtml = "<!-- jhipster-needle-angular-health -->";
     newHtml = """
-      <a routerLink="admin/health" mat-menu-item>
-        <span>Health</span>
-      </a>""";
+      <a routerLink="admin/health" mat-menu-item><span>Health</span></a>
+      """;
     projectRepository.replaceText(project, APP, APP_COMPONENT_HTML, oldHtml, newHtml);
 
     oldHtml = "// jhipster-needle-angular-health";
     newHtml = """
       it('should navigate on admin endpoint', () => {
-        router.navigateByUrl('/admin');
-      });""";
+          router.navigateByUrl('/admin');
+      });
+      """;
     projectRepository.replaceText(project, APP, APP_ROUTING_MODULE_SPEC, oldHtml, newHtml);
 
     oldHtml = "// jhipster-needle-angular-health";
     newHtml = """
-      it('should navigate on health endpoint', () => {
-        router.navigateByUrl('/health');
-      });""";
+        it('should navigate on health endpoint', () => {
+            router.navigateByUrl('/health');
+        });
+        """;
     projectRepository.replaceText(project, APP, ADMIN_ROUTING_MODULE_SPEC, oldHtml, newHtml);
   }
 }

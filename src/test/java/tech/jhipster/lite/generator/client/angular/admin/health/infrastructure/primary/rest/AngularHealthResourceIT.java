@@ -39,7 +39,9 @@ class AngularHealthResourceIT {
       .andExpect(status().isOk());
     mockMvc
       .perform(
-        post("/api/clients/angular/health").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO))
+        post("/api/clients/angular/admin-pages/health")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(TestUtils.convertObjectToJsonBytes(projectDTO))
       )
       .andExpect(status().isOk());
 

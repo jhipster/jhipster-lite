@@ -14,9 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.client.angular.security.jwt.domain.AngularJwtDomainService;
-import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -29,16 +26,13 @@ class AngularHealthDomainServiceTest {
   AngularHealthDomainService angularHealthDomainService;
 
   @Mock
-  NpmService npmService;
-
-  @Mock
   ProjectRepository projectRepository;
 
   @Test
   void shouldAddHealthFiles() {
     Project project = tmpProjectWithPackageJson();
 
-    angularHealthDomainService.addHealthFiles(project);
+    angularHealthDomainService.addHealthAngular(project);
 
     verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(17));
   }

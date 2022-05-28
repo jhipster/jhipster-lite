@@ -37,7 +37,10 @@ describe('HealthModalComponent', () => {
   describe('readableValue', () => {
     it('should return stringify value', () => {
       // GIVEN
-      comp.health = undefined;
+      comp.healthDetails = {
+        key: 'hystrix',
+        status: 'UP',
+      };
 
       // WHEN
       const result = comp.readableValue({ name: 'jhipster' });
@@ -48,7 +51,10 @@ describe('HealthModalComponent', () => {
 
     it('should return string value', () => {
       // GIVEN
-      comp.health = undefined;
+      comp.healthDetails = {
+        key: 'hystrix',
+        status: 'UP',
+      };
 
       // WHEN
       const result = comp.readableValue('jhipster');
@@ -59,11 +65,9 @@ describe('HealthModalComponent', () => {
 
     it('should return storage space in an human readable unit (GB)', () => {
       // GIVEN
-      comp.health = {
+      comp.healthDetails = {
         key: 'diskSpace',
-        value: {
-          status: 'UP',
-        },
+        status: 'UP',
       };
 
       // WHEN
@@ -75,11 +79,9 @@ describe('HealthModalComponent', () => {
 
     it('should return storage space in an human readable unit (MB)', () => {
       // GIVEN
-      comp.health = {
+      comp.healthDetails = {
         key: 'diskSpace',
-        value: {
-          status: 'UP',
-        },
+        status: 'UP',
       };
 
       // WHEN
@@ -91,11 +93,9 @@ describe('HealthModalComponent', () => {
 
     it('should return string value', () => {
       // GIVEN
-      comp.health = {
+      comp.healthDetails = {
         key: 'mail',
-        value: {
-          status: 'UP',
-        },
+        status: 'UP',
       };
 
       // WHEN

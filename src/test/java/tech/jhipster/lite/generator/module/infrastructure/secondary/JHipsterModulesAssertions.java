@@ -11,6 +11,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.assertj.core.api.SoftAssertions;
+import tech.jhipster.lite.generator.module.JHipsterModules;
+import tech.jhipster.lite.generator.module.application.JHipsterModulesApplicationService;
+import tech.jhipster.lite.generator.module.domain.Indentation;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
 
@@ -26,14 +29,29 @@ public final class JHipsterModulesAssertions {
 
     private static final String SLASH = "/";
 
-    private static final FileSystemJHipsterModulesRepository repository = new FileSystemJHipsterModulesRepository();
+    private static final JHipsterModules modules = buildModules();
 
     private final JHipsterProjectFolder projectFolder;
+
+    private static JHipsterModules buildModules() {
+      FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
+        new FileSystemJHipsterModuleFiles(),
+        new FileSystemJavaDependenciesCommandsHandler()
+      );
+
+      JHipsterModulesApplicationService applicationService = new JHipsterModulesApplicationService(
+        modulesRepository,
+        new FileSystemCurrentJavaDependenciesVersionsRepository(),
+        new FileSystemProjectJavaDependenciesRepository()
+      );
+
+      return new JHipsterModules(applicationService);
+    }
 
     private ModuleAsserter(JHipsterModule module) {
       assertThat(module).as("Can't make assertions on a module without module").isNotNull();
 
-      repository.apply(module);
+      modules.apply(Indentation.DEFAULT, module);
       projectFolder = module.projectFolder();
     }
 
@@ -98,6 +116,20 @@ public final class JHipsterModulesAssertions {
         Path path = moduleAsserter.projectFolder.filePath(file);
 
         assertThat(Files.readString(path)).as(() -> "Can't find " + content + " in " + path.toString()).contains(content);
+      } catch (IOException e) {
+        throw new AssertionError("Can't check file content: " + e.getMessage(), e);
+      }
+
+      return this;
+    }
+
+    public ModuleFileAsserter notContaining(String content) {
+      assertThat(content).as("Can't check blank content").isNotBlank();
+
+      try {
+        Path path = moduleAsserter.projectFolder.filePath(file);
+
+        assertThat(Files.readString(path)).as(() -> "Found " + content + " in " + path.toString()).doesNotContain(content);
       } catch (IOException e) {
         throw new AssertionError("Can't check file content: " + e.getMessage(), e);
       }

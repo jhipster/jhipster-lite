@@ -2,6 +2,8 @@ package tech.jhipster.lite.common.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +13,30 @@ import tech.jhipster.lite.UnitTest;
 
 @UnitTest
 class JHipsterCollectionsTest {
+
+  @Nested
+  @DisplayName("Collection")
+  class JHipsterCollectionsCollectionTest {
+
+    @Test
+    void shouldGetEmptyImmutableCollectionFromNullCollection() {
+      Collection<String> source = null;
+      Collection<String> collection = JHipsterCollections.immutable(source);
+
+      assertThat(collection).isEmpty();
+      assertThatThrownBy(() -> collection.clear()).isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    void shouldGetmmutableCollectionFromCollection() {
+      Collection<String> source = new ArrayList<>();
+      source.add("test");
+      Collection<String> collection = JHipsterCollections.immutable(source);
+
+      assertThat(collection).containsExactly("test");
+      assertThatThrownBy(() -> collection.clear()).isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+  }
 
   @Nested
   @DisplayName("Map")

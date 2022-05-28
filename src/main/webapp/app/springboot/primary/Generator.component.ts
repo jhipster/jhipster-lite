@@ -71,6 +71,7 @@ export default defineComponent({
       client,
       selectorPrefix,
       getCurrentProjectHistory,
+      getProjectDetails,
       debounceGetProjectDetails,
     };
   },

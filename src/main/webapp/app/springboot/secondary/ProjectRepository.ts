@@ -68,6 +68,6 @@ export default class ProjectRepository implements ProjectService {
     return this.axiosHttp
       .get<RestProject>('api/projects/details', { params: { folder } })
       .then(response => this.projectStore.setProject(toProject(response.data)))
-      .catch(() => this.projectStore.setProject({ services: [] }));
+      .catch(() => this.projectStore.setProject({ folder }));
   }
 }

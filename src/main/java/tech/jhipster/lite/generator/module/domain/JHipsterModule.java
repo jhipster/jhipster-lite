@@ -14,11 +14,14 @@ import tech.jhipster.lite.generator.module.domain.javadependency.JHipsterModuleJ
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency.JavaDependencyGroupIdBuilder;
 import tech.jhipster.lite.generator.module.domain.javadependency.VersionSlug;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements.JHipsterModuleReplacementsBuilder;
 
 public class JHipsterModule {
 
   private final JHipsterProjectFolder projectFolder;
   private final Collection<JHipsterModuleFile> files;
+  private final JHipsterModuleReplacements replacements;
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
   private final JHipsterModulePreActions preActions;
@@ -27,6 +30,7 @@ public class JHipsterModule {
     projectFolder = builder.projectFolder;
 
     files = builder.files.build().get();
+    replacements = builder.replacements.build();
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
     preActions = builder.preActions.build();
@@ -80,6 +84,10 @@ public class JHipsterModule {
     return new TemplatedFiles(templatedFiles);
   }
 
+  public JHipsterModuleReplacements replacements() {
+    return replacements;
+  }
+
   public JHipsterModuleJavaDependencies javaDependencies() {
     return javaDependencies;
   }
@@ -93,6 +101,7 @@ public class JHipsterModule {
     private final JHipsterProjectFolder projectFolder;
     private final JHipsterModuleContextBuilder context = JHipsterModuleContext.builder(this);
     private final JHipsterModuleFilesBuilder files = JHipsterModuleFiles.builder(this);
+    private final JHipsterModuleReplacementsBuilder replacements = JHipsterModuleReplacements.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
 
@@ -108,6 +117,10 @@ public class JHipsterModule {
 
     public JHipsterModuleFilesBuilder files() {
       return files;
+    }
+
+    public JHipsterModuleReplacementsBuilder replacements() {
+      return replacements;
     }
 
     public JHipsterModuleJavaDependenciesBuilder javaDependencies() {

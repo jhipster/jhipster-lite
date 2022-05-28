@@ -2,12 +2,14 @@ package tech.jhipster.lite.generator.module.domain;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
 
 public class JHipsterModuleChanges {
 
   private final JHipsterProjectFolder projectFolder;
   private final Indentation indentation;
   private final TemplatedFiles files;
+  private final JHipsterModuleReplacements replacements;
   private final JavaDependenciesCommands javaDependencies;
   private final JHipsterModulePreActions preActions;
 
@@ -17,6 +19,7 @@ public class JHipsterModuleChanges {
     projectFolder = builder.projectFolder;
     indentation = builder.indentation;
     files = builder.files;
+    replacements = builder.replacements;
     javaDependencies = builder.javaDependencies;
     preActions = builder.preActions;
   }
@@ -25,6 +28,7 @@ public class JHipsterModuleChanges {
     Assert.notNull("projectFolder", builder.projectFolder);
     Assert.notNull("indentation", builder.indentation);
     Assert.notNull("files", builder.files);
+    Assert.notNull("replacements", builder.replacements);
     Assert.notNull("javaDependencies", builder.javaDependencies);
     Assert.notNull("preActions", builder.preActions);
   }
@@ -45,6 +49,10 @@ public class JHipsterModuleChanges {
     return files;
   }
 
+  public JHipsterModuleReplacements replacements() {
+    return replacements;
+  }
+
   public JavaDependenciesCommands javaDependenciesCommands() {
     return javaDependencies;
   }
@@ -58,11 +66,13 @@ public class JHipsterModuleChanges {
       JHipsterModuleChangesProjectFolderBuilder,
       JHipsterModuleChangesIndentationBuilder,
       JHipsterModuleChangesFilesBuilder,
+      JHipsterModuleChangesReplacementsBuilder,
       JHipsterModuleChangesJavaDependenciesBuilder,
       JHipsterModuleChangesPreActionsBuilder {
 
     private JHipsterProjectFolder projectFolder;
     private TemplatedFiles files;
+    private JHipsterModuleReplacements replacements;
     private JavaDependenciesCommands javaDependencies;
     private Indentation indentation;
     private JHipsterModulePreActions preActions;
@@ -84,8 +94,15 @@ public class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesJavaDependenciesBuilder files(TemplatedFiles files) {
+    public JHipsterModuleChangesReplacementsBuilder files(TemplatedFiles files) {
       this.files = files;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChangesJavaDependenciesBuilder replacements(JHipsterModuleReplacements replacements) {
+      this.replacements = replacements;
 
       return this;
     }
@@ -114,7 +131,11 @@ public class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesFilesBuilder {
-    JHipsterModuleChangesJavaDependenciesBuilder files(TemplatedFiles files);
+    JHipsterModuleChangesReplacementsBuilder files(TemplatedFiles files);
+  }
+
+  public interface JHipsterModuleChangesReplacementsBuilder {
+    JHipsterModuleChangesJavaDependenciesBuilder replacements(JHipsterModuleReplacements replacements);
   }
 
   public interface JHipsterModuleChangesJavaDependenciesBuilder {

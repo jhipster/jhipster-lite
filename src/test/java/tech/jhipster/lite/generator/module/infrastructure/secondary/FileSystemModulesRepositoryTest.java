@@ -30,6 +30,7 @@ class FileSystemModulesRepositoryTest {
     JHipsterModule module = module();
     addPomToproject(module.projectFolder());
 
+    // @formatter:off
     assertThatModule(module)
       .createFiles(
         "src/main/java/com/company/myapp/MyApp.java",
@@ -38,32 +39,36 @@ class FileSystemModulesRepositoryTest {
         ".gitignore"
       )
       .createFile("src/main/java/com/company/myapp/MyApp.java")
-      .containing("com.test.myapp")
-      .and()
+        .containing("com.test.myapp")
+        .and()
       .createFile("pom.xml")
-      .containing(
-        """
-                <dependency>
-                  <groupId>org.junit.jupiter</groupId>
-                  <artifactId>junit-jupiter-engine</artifactId>
-                  <version>${spring-boot.version}</version>
-                  <scope>test</scope>
-                  <optional>true</optional>
-                </dependency>
-            """
-      )
-      .containing("<spring-boot.version>")
-      .containing("</spring-boot.version>")
-      .containing("<artifactId>spring-boot-starter</artifactId>")
-      .containing("<artifactId>problem-spring-web</artifactId>")
-      .notContaining(
-        "    <dependency>\n" +
-        "      <groupId>org.assertj</groupId>\n" +
-        "      <artifactId>assertj-core</artifactId>\n" +
-        "      <version>${assertj.version}</version>\n" +
-        "      <scope>test</scope>\n" +
-        "    </dependency>"
-      );
+        .containing(
+          """
+                  <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <scope>test</scope>
+                    <optional>true</optional>
+                  </dependency>
+              """
+        )
+        .containing("<spring-boot.version>")
+        .containing("</spring-boot.version>")
+        .containing("<artifactId>spring-boot-starter</artifactId>")
+        .containing("<artifactId>problem-spring-web</artifactId>")
+        .notContaining(
+          "    <dependency>\n" +
+          "      <groupId>org.assertj</groupId>\n" +
+          "      <artifactId>assertj-core</artifactId>\n" +
+          "      <version>${assertj.version}</version>\n" +
+          "      <scope>test</scope>\n" +
+          "    </dependency>"
+        )
+        .and()
+      .createFile("src/main/java/com/company/myapp/errors/Assert.java")
+        .containing("Dummy replacement");
+    // @formatter:on
 
     logs.assertLogged(Level.DEBUG, "Applying fixture module");
     logs.assertLogged(Level.DEBUG, "You shouldn't add this by default in your modules :D");

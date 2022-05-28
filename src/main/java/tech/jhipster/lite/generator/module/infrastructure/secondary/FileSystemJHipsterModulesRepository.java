@@ -27,5 +27,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
 
     files.create(changes.projectFolder(), changes.files());
     javaDependencies.handle(changes.indentation(), changes.projectFolder(), changes.javaDependenciesCommands());
+
+    changes.replacements().apply(changes.projectFolder());
   }
 }

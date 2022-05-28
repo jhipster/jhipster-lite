@@ -47,6 +47,7 @@ public class JavaBaseModuleFactory {
           .and()
         .batch(source(), testDestination)
           .add("UnitTest.java")
+          .add("ComponentTest.java")
           .add("ReplaceCamelCase.java")
           .and()
         .add(source().template("ProjectCollections.java"), collectionsDestination(baseClassName, mainDestination))

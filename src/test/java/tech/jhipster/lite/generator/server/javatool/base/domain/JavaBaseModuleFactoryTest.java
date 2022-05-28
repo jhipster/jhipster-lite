@@ -43,6 +43,7 @@ class JavaBaseModuleFactoryTest {
         "com/jhipster/test/error/domain/MissingMandatoryValueExceptionTest.java",
         "com/jhipster/test/common/domain/MyappCollectionsTest.java",
         "com/jhipster/test/UnitTest.java",
+        "com/jhipster/test/ComponentTest.java",
         "com/jhipster/test/ReplaceCamelCase.java"
       )
       .createFile("src/main/java/com/jhipster/test/common/domain/MyappCollections.java")

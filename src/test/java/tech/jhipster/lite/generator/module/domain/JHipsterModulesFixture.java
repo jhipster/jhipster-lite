@@ -55,6 +55,10 @@ public final class JHipsterModulesFixture {
       .add(() -> log.debug("Applying fixture module"))
       .add(() -> log.debug("You shouldn't add this by default in your modules :D"))
       .and()
+    .postActions()
+      .add(() -> log.debug("Fixture module applied"))
+      .add(context -> log.debug("Applied on {}", context.projectFolder().get()))
+      .and()
     .build();
     // @formatter:on
   }

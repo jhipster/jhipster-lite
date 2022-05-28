@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.module.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import tech.jhipster.lite.common.domain.JHipsterCollections;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
 
@@ -11,14 +10,14 @@ public class JHipsterModulePreActions {
   private final Collection<Runnable> actions;
 
   private JHipsterModulePreActions(JHipsterModulePreActionsBuilder builder) {
-    actions = JHipsterCollections.immutable(builder.actions);
+    actions = builder.actions;
   }
 
   public static JHipsterModulePreActionsBuilder builder(JHipsterModuleBuilder module) {
     return new JHipsterModulePreActionsBuilder(module);
   }
 
-  public void apply() {
+  public void run() {
     actions.forEach(Runnable::run);
   }
 

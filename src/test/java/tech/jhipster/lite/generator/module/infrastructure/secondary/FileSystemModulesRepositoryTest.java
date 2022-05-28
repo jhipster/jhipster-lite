@@ -70,8 +70,8 @@ class FileSystemModulesRepositoryTest {
         .containing("Dummy replacement");
     // @formatter:on
 
-    logs.assertLogged(Level.DEBUG, "Applying fixture module");
-    logs.assertLogged(Level.DEBUG, "You shouldn't add this by default in your modules :D");
+    assertPreActions();
+    assertPostActions();
   }
 
   private static void addPomToproject(JHipsterProjectFolder project) {
@@ -88,5 +88,16 @@ class FileSystemModulesRepositoryTest {
     } catch (IOException e) {
       throw new AssertionError(e);
     }
+  }
+
+  private void assertPreActions() {
+    logs.assertLogged(Level.DEBUG, "Applying fixture module");
+    logs.assertLogged(Level.DEBUG, "You shouldn't add this by default in your modules :D");
+  }
+
+  private void assertPostActions() {
+    logs.assertLogged(Level.DEBUG, "Fixture module applied");
+    logs.assertLogged(Level.DEBUG, "Applied on");
+    logs.assertLogged(Level.DEBUG, System.getProperty("java.io.tmpdir"));
   }
 }

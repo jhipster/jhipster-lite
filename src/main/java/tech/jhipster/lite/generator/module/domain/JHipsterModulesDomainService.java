@@ -32,7 +32,8 @@ public class JHipsterModulesDomainService {
       .files(module.templatedFiles())
       .replacements(module.replacements())
       .javaDependencies(buildDependenciesChanges(module))
-      .preActions(module.preActions());
+      .preActions(module.preActions())
+      .postActions(module.postActions());
 
     modules.apply(changes);
   }

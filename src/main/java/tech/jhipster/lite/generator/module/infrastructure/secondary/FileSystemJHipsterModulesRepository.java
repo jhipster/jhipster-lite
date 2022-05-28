@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleChanges;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesRepository;
+import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModuleExecutionContext;
 
 @Repository
 class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
@@ -23,11 +24,12 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   public void apply(JHipsterModuleChanges changes) {
     Assert.notNull("changes", changes);
 
-    changes.preActions().apply();
+    changes.preActions().run();
 
     files.create(changes.projectFolder(), changes.files());
     javaDependencies.handle(changes.indentation(), changes.projectFolder(), changes.javaDependenciesCommands());
 
     changes.replacements().apply(changes.projectFolder());
+    changes.postActions().run(new JHipsterModuleExecutionContext(changes.projectFolder()));
   }
 }

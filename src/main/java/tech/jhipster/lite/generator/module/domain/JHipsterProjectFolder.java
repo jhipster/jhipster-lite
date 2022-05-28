@@ -14,4 +14,8 @@ public record JHipsterProjectFolder(String folder) {
 
     return Paths.get(folder(), file);
   }
+
+  public String get() {
+    return folder();
+  }
 }

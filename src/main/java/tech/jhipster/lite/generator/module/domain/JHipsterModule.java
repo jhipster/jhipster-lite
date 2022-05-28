@@ -14,6 +14,8 @@ import tech.jhipster.lite.generator.module.domain.javadependency.JHipsterModuleJ
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency.JavaDependencyGroupIdBuilder;
 import tech.jhipster.lite.generator.module.domain.javadependency.VersionSlug;
+import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions;
+import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements.JHipsterModuleReplacementsBuilder;
 
@@ -25,6 +27,7 @@ public class JHipsterModule {
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
   private final JHipsterModulePreActions preActions;
+  private final JHipsterModulePostActions postActions;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
     projectFolder = builder.projectFolder;
@@ -34,6 +37,7 @@ public class JHipsterModule {
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
     preActions = builder.preActions.build();
+    postActions = builder.postActions.build();
   }
 
   public static JHipsterModuleBuilder moduleForProject(JHipsterProjectFolder project) {
@@ -96,6 +100,10 @@ public class JHipsterModule {
     return preActions;
   }
 
+  public JHipsterModulePostActions postActions() {
+    return postActions;
+  }
+
   public static class JHipsterModuleBuilder {
 
     private final JHipsterProjectFolder projectFolder;
@@ -104,6 +112,7 @@ public class JHipsterModule {
     private final JHipsterModuleReplacementsBuilder replacements = JHipsterModuleReplacements.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
+    private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
 
     private JHipsterModuleBuilder(JHipsterProjectFolder projectFolder) {
       Assert.notNull("projectFolder", projectFolder);
@@ -129,6 +138,10 @@ public class JHipsterModule {
 
     public JHipsterModulePreActionsBuilder preActions() {
       return preActions;
+    }
+
+    public JHipsterModulePostActionsBuilder postActions() {
+      return postActions;
     }
 
     public JHipsterModule build() {

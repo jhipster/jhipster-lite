@@ -6,6 +6,6 @@ import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
 class MissingPomException extends GeneratorException {
 
   public MissingPomException(JHipsterProjectFolder folder) {
-    super("Can't find pom.xml in " + folder.folder());
+    super("Can't find pom.xml in " + folder.get());
   }
 }

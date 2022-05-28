@@ -3,17 +3,27 @@ package tech.jhipster.lite.generator.module.infrastructure.secondary;
 import static tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture.*;
 import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
+import ch.qos.logback.classic.Level;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import tech.jhipster.lite.LogSpy;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
 
 @UnitTest
+@ExtendWith(LogSpy.class)
 class FileSystemModulesRepositoryTest {
+
+  private final LogSpy logs;
+
+  public FileSystemModulesRepositoryTest(LogSpy logs) {
+    this.logs = logs;
+  }
 
   @Test
   void shouldApplyModule() {
@@ -54,6 +64,9 @@ class FileSystemModulesRepositoryTest {
         "      <scope>test</scope>\n" +
         "    </dependency>"
       );
+
+    logs.assertLogged(Level.DEBUG, "Applying fixture module");
+    logs.assertLogged(Level.DEBUG, "You shouldn't add this by default in your modules :D");
   }
 
   private static void addPomToproject(JHipsterProjectFolder project) {

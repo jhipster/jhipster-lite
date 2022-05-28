@@ -30,7 +30,8 @@ public class JHipsterModulesDomainService {
       .projectFolder(module.projectFolder())
       .indentation(indentation)
       .files(module.templatedFiles())
-      .javaDependencies(buildDependenciesChanges(module));
+      .javaDependencies(buildDependenciesChanges(module))
+      .preActions(module.preActions());
 
     modules.apply(changes);
   }

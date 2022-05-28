@@ -3,6 +3,8 @@ package tech.jhipster.lite.generator.module.domain;
 import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.generator.module.domain.javadependency.ArtifactId;
@@ -19,6 +21,8 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.RemoveJ
 import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJavaDependencyVersion;
 
 public final class JHipsterModulesFixture {
+
+  private static final Logger log = LoggerFactory.getLogger(JHipsterModulesFixture.class);
 
   private JHipsterModulesFixture() {}
 
@@ -41,6 +45,10 @@ public final class JHipsterModulesFixture {
       .add(groupId("org.zalando"), artifactId("problem-spring-web"), versionSlug("problem-spring"))
       .add(optionalTestDependency())
       .add(groupId("io.jsonwebtoken"), artifactId("jjwt-api"), versionSlug("jjwt.version"))
+      .and()
+    .preActions()
+      .add(() -> log.debug("Applying fixture module"))
+      .add(() -> log.debug("You shouldn't add this by default in your modules :D"))
       .and()
     .build();
     // @formatter:on

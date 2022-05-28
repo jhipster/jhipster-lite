@@ -9,6 +9,7 @@ public class JHipsterModuleChanges {
   private final Indentation indentation;
   private final TemplatedFiles files;
   private final JavaDependenciesCommands javaDependencies;
+  private final JHipsterModulePreActions preActions;
 
   private JHipsterModuleChanges(JHipsterModuleChangesBuilder builder) {
     assertMandatoryFields(builder);
@@ -17,6 +18,7 @@ public class JHipsterModuleChanges {
     indentation = builder.indentation;
     files = builder.files;
     javaDependencies = builder.javaDependencies;
+    preActions = builder.preActions;
   }
 
   private void assertMandatoryFields(JHipsterModuleChangesBuilder builder) {
@@ -24,6 +26,7 @@ public class JHipsterModuleChanges {
     Assert.notNull("indentation", builder.indentation);
     Assert.notNull("files", builder.files);
     Assert.notNull("javaDependencies", builder.javaDependencies);
+    Assert.notNull("preActions", builder.preActions);
   }
 
   public static JHipsterModuleChangesProjectFolderBuilder builder() {
@@ -46,17 +49,23 @@ public class JHipsterModuleChanges {
     return javaDependencies;
   }
 
+  public JHipsterModulePreActions preActions() {
+    return preActions;
+  }
+
   public static class JHipsterModuleChangesBuilder
     implements
       JHipsterModuleChangesProjectFolderBuilder,
       JHipsterModuleChangesIndentationBuilder,
       JHipsterModuleChangesFilesBuilder,
-      JHipsterModuleChangesJavaDependenciesBuilder {
+      JHipsterModuleChangesJavaDependenciesBuilder,
+      JHipsterModuleChangesPreActionsBuilder {
 
     private JHipsterProjectFolder projectFolder;
     private TemplatedFiles files;
     private JavaDependenciesCommands javaDependencies;
     private Indentation indentation;
+    private JHipsterModulePreActions preActions;
 
     private JHipsterModuleChangesBuilder() {}
 
@@ -82,8 +91,15 @@ public class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChanges javaDependencies(JavaDependenciesCommands javaDependencies) {
+    public JHipsterModuleChangesPreActionsBuilder javaDependencies(JavaDependenciesCommands javaDependencies) {
       this.javaDependencies = javaDependencies;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChanges preActions(JHipsterModulePreActions preActions) {
+      this.preActions = preActions;
 
       return new JHipsterModuleChanges(this);
     }
@@ -102,6 +118,10 @@ public class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesJavaDependenciesBuilder {
-    JHipsterModuleChanges javaDependencies(JavaDependenciesCommands buildDependenciesChanges);
+    JHipsterModuleChangesPreActionsBuilder javaDependencies(JavaDependenciesCommands buildDependenciesChanges);
+  }
+
+  public interface JHipsterModuleChangesPreActionsBuilder {
+    JHipsterModuleChanges preActions(JHipsterModulePreActions preActions);
   }
 }

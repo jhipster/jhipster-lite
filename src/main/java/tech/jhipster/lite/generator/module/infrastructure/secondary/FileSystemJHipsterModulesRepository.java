@@ -23,6 +23,8 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   public void apply(JHipsterModuleChanges changes) {
     Assert.notNull("changes", changes);
 
+    changes.preActions().apply();
+
     files.create(changes.projectFolder(), changes.files());
     javaDependencies.handle(changes.indentation(), changes.projectFolder(), changes.javaDependenciesCommands());
   }

@@ -32,6 +32,8 @@
     <flyway.version>8.5.11</flyway.version>
     <mongock.version>5.0.41</mongock.version>
     <archunit-junit5.version>0.23.1</archunit-junit5.version>
+    <cucumber.version>7.3.4</cucumber.version>
+    <testng.version>7.6.0</testng.version>
   </properties>
 
   <dependencyManagement>
@@ -115,6 +117,40 @@
         <groupId>com.tngtech.archunit</groupId>
         <artifactId>archunit-junit5-api</artifactId>
         <version>${archunit-junit5.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>${cucumber.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <version>${cucumber.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-spring</artifactId>
+        <version>${cucumber.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>${testng.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.awaitility</groupId>
+        <artifactId>awaitility</artifactId>
         <scope>test</scope>
       </dependency>
     </dependencies>

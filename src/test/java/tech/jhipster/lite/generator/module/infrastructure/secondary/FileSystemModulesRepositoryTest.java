@@ -4,16 +4,11 @@ import static tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture.
 import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import ch.qos.logback.classic.Level;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import tech.jhipster.lite.LogSpy;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
 
 @UnitTest
 @ExtendWith(LogSpy.class)
@@ -28,10 +23,9 @@ class FileSystemModulesRepositoryTest {
   @Test
   void shouldApplyModule() {
     JHipsterModule module = module();
-    addPomToproject(module.projectFolder());
 
     // @formatter:off
-    assertThatModule(module)
+    assertThatModuleOnProjectWithDefaultPom(module)
       .createFiles(
         "src/main/java/com/company/myapp/MyApp.java",
         "src/main/java/com/company/myapp/errors/Assert.java",
@@ -73,22 +67,6 @@ class FileSystemModulesRepositoryTest {
 
     assertPreActions();
     assertPostActions();
-  }
-
-  private static void addPomToproject(JHipsterProjectFolder project) {
-    Path folder = Paths.get(project.folder());
-    try {
-      Files.createDirectories(folder);
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
-
-    Path pomPath = folder.resolve("pom.xml");
-    try {
-      Files.copy(Paths.get("src/test/resources/projects/maven/pom.xml"), pomPath);
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
   }
 
   private void assertPreActions() {

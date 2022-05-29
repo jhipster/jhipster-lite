@@ -91,13 +91,19 @@ class MavenCommandHandler {
     document.find("project properties").before(BREAK).before(BREAK).before(indentation.spaces());
   }
 
-  private void appendPropertyLine(Match match, SetJavaDependencyVersion command) {
-    match
-      .append(indentation.spaces())
-      .append($(command.property(), command.dependencyVersion()))
-      .append(indentation.spaces())
-      .append(BREAK)
-      .append(indentation.spaces());
+  private void appendPropertyLine(Match properties, SetJavaDependencyVersion command) {
+    Match propertyNode = properties.children().filter(command.property());
+
+    if (propertyNode.isNotEmpty()) {
+      propertyNode.text(command.dependencyVersion());
+    } else {
+      properties
+        .append(indentation.spaces())
+        .append($(command.property(), command.dependencyVersion()))
+        .append(indentation.spaces())
+        .append(BREAK)
+        .append(indentation.spaces());
+    }
   }
 
   public void handle(RemoveJavaDependency command) {
@@ -132,7 +138,6 @@ class MavenCommandHandler {
       .append(indentation.spaces())
       .append(indentation.spaces())
       .append(dependencyNode(command))
-      .append(indentation.spaces())
       .append(BREAK)
       .append(indentation.spaces());
 

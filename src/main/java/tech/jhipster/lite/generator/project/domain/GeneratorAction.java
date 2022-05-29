@@ -67,6 +67,8 @@ public class GeneratorAction {
   public static final String SPRINGDOC_OPENAPI = "springdoc-openapi";
   public static final String SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT = "springdoc-openapi-with-security-jwt";
 
+  public static final String SPRINGBOOT_CUCUMBER = "springboot-cucumber";
+
   public static final String REACT = "react";
   public static final String REACT_STYLED = "react-styled";
 

@@ -28,6 +28,7 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJava
 
 class MavenCommandHandler {
 
+  private static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
   private static final String COMMAND = "command";
   private static final String GROUP_ID = "groupId";
   private static final String ARTIFACT_ID = "artifactId";
@@ -233,6 +234,8 @@ class MavenCommandHandler {
   @Generated
   private void writePom() {
     try (Writer writer = Files.newBufferedWriter(pomPath, StandardCharsets.UTF_8)) {
+      writer.write(HEADER);
+
       for (Element e : document) {
         writer.write(JOOX.$(e).toString().replace("\r\n", "\n"));
       }

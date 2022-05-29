@@ -65,7 +65,7 @@ public class JHipsterModuleReplacements {
 
     private final JHipsterModuleReplacementsBuilder replacements;
     private final String file;
-    private final Collection<Replacement> fileReplacements = new ArrayList<>();
+    private final Collection<Replacer> replacers = new ArrayList<>();
 
     private JHipsterModuleFileReplacementsBuilder(JHipsterModuleReplacementsBuilder replacements, String file) {
       Assert.notBlank("file", file);
@@ -74,8 +74,14 @@ public class JHipsterModuleReplacements {
       this.file = file;
     }
 
-    public JHipsterModuleFileReplacementsBuilder text(String currentValue, String updatedValue) {
-      fileReplacements.add(new Replacement(currentValue, updatedValue));
+    public JHipsterModuleFileReplacementsBuilder add(TextMatcher textToReplace, String updatedValue) {
+      replacers.add(new Replacer(textToReplace, updatedValue));
+
+      return this;
+    }
+
+    public JHipsterModuleFileReplacementsBuilder add(RegexMatcher regexToReplace, String updatedValue) {
+      replacers.add(new Replacer(regexToReplace, updatedValue));
 
       return this;
     }
@@ -85,11 +91,11 @@ public class JHipsterModuleReplacements {
     }
 
     private Collection<FileReplacer> build() {
-      return fileReplacements.stream().map(replace -> new FileReplacer(file, replace)).toList();
+      return replacers.stream().map(replace -> new FileReplacer(file, replace)).toList();
     }
   }
 
-  private static record FileReplacer(String file, Replacement replacement) {
+  private static record FileReplacer(String file, Replacer replacement) {
     public FileReplacer {
       Assert.notNull("file", file);
       Assert.notNull("replacement", replacement);
@@ -109,18 +115,18 @@ public class JHipsterModuleReplacements {
     }
   }
 
-  private static record Replacement(String currentValue, String updatedValue) {
-    public Replacement {
-      Assert.notBlank("currentValue", currentValue);
+  private static record Replacer(ElementMatcher currentValue, String updatedValue) {
+    public Replacer {
+      Assert.notNull("currentValue", currentValue);
       Assert.notNull("updatedValue", updatedValue);
     }
 
     public String apply(Path file, String content) {
-      if (!content.contains(currentValue)) {
+      if (currentValue().notMatchIn(content)) {
         throw new UnknownCurrentValueException(file, content);
       }
 
-      return content.replace(currentValue(), updatedValue());
+      return currentValue().replacer().apply(content, updatedValue());
     }
   }
 }

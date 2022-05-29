@@ -18,6 +18,8 @@ import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostA
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements.JHipsterModuleReplacementsBuilder;
+import tech.jhipster.lite.generator.module.domain.replacement.RegexMatcher;
+import tech.jhipster.lite.generator.module.domain.replacement.TextMatcher;
 
 public class JHipsterModule {
 
@@ -76,6 +78,14 @@ public class JHipsterModule {
 
   public static VersionSlug versionSlug(String versionSlug) {
     return new VersionSlug(versionSlug);
+  }
+
+  public static TextMatcher text(String text) {
+    return new TextMatcher(text);
+  }
+
+  public static RegexMatcher regex(String regex) {
+    return new RegexMatcher(regex);
   }
 
   public JHipsterProjectFolder projectFolder() {

@@ -67,7 +67,8 @@ class FileSystemModulesRepositoryTest {
         )
         .and()
       .createFile("src/main/java/com/company/myapp/errors/Assert.java")
-        .containing("Dummy replacement");
+        .containing("Dummy replacement")
+        .containing("Another dummy replacement");
     // @formatter:on
 
     assertPreActions();

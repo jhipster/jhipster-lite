@@ -14,6 +14,10 @@ public class JHipsterModules {
     this.modules = modules;
   }
 
+  public void apply(JHipsterModule module) {
+    modules.apply(Indentation.DEFAULT, module);
+  }
+
   public void apply(Indentation indentation, JHipsterModule module) {
     modules.apply(indentation, module);
   }

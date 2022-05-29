@@ -22,9 +22,18 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJava
 class MavenCommandHandlerTest {
 
   @Test
-  void shouldNotCreatehandlerFromRandomFile() {
+  void shouldNotCreateHandlerFromRandomFile() {
     assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, Paths.get("src/test/resources/projects/empty/.gitkeep")))
       .isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAppendEncodingHeader() {
+    Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+    new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(springBootVersion()));
+
+    assertThat(content(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
   }
 
   @Nested

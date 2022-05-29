@@ -25,6 +25,6 @@ class JHipsterModuleReplacementsTest {
     JHipsterProjectFolder folder = new JHipsterProjectFolder("src/test/resources/projects");
     JHipsterModuleBuilder module = moduleForProject(folder);
 
-    JHipsterModuleReplacements.builder(module).in(file).text("old", "new").and().build().apply(folder);
+    JHipsterModuleReplacements.builder(module).in(file).add(new TextMatcher("old"), "new").and().build().apply(folder);
   }
 }

@@ -146,6 +146,7 @@ jobs:
           - vueapp
           - svelteapp
           - kafkaapp
+          - pulsarapp
           - reactiveapp
           - angularoauth2app
     steps:

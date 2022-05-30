@@ -1,10 +1,14 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.*;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,6 +77,15 @@ class BuildToolDomainServiceTest {
       buildToolDomainService.addDependency(project, dependency, exclusions);
 
       verify(mavenService).addDependency(project, dependency, exclusions);
+    }
+
+    @Test
+    void shouldAddDependencyWithVersionProperty() {
+      when(mavenService.getVersion("spring-boot")).thenReturn(Optional.of("0.0.0"));
+      Project project = tmpProjectWithPomXml();
+      Dependency dependency = getDependency();
+      buildToolDomainService.addVersionPropertyAndDependency(project, "spring-boot", dependency);
+      verify(mavenService).addDependency(eq(project), any(Dependency.class));
     }
 
     @Test
@@ -348,6 +361,15 @@ class BuildToolDomainServiceTest {
       Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
 
       assertThatThrownBy(() -> buildToolDomainService.deleteDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotAddDependencyWithoutVersionProperty() {
+      when(mavenService.getVersion("spring-boot")).thenReturn(Optional.empty());
+      Project project = tmpProjectWithPomXml();
+      Dependency dependency = getDependency();
+      assertThatThrownBy(() -> buildToolDomainService.addVersionPropertyAndDependency(project, "spring-boot", dependency))
+        .isExactlyInstanceOf(GeneratorException.class);
     }
   }
 

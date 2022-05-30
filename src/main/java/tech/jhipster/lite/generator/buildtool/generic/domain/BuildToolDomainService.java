@@ -42,6 +42,15 @@ public class BuildToolDomainService implements BuildToolService {
   }
 
   @Override
+  public void addVersionPropertyAndDependency(Project project, String versionProperty, Dependency dependency) {
+    String version = getVersion(project, versionProperty).orElseThrow(() -> new GeneratorException(versionProperty + " version not found"));
+
+    Dependency dependencyWithVersion = dependency.toBuilder().version("\\${" + versionProperty + ".version}").build();
+    addProperty(project, versionProperty + ".version", version);
+    addDependency(project, dependencyWithVersion);
+  }
+
+  @Override
   public void addDependency(Project project, Dependency dependency, List<Dependency> exclusions) {
     if (project.isMavenProject()) {
       mavenService.addDependency(project, dependency, exclusions);

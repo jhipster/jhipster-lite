@@ -121,6 +121,8 @@ public class GeneratorAction {
   public static final String SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER = "springboot-kafka-dummy-producer-consumer";
   public static final String SPRINGBOOT_KAFKA_AKHQ = "springboot-kafka-akhq";
 
+  public static final String SPRINGBOOT_PULSAR = "springboot-pulsar";
+
   public static final String VUE = "vue";
   public static final String VUE_PINIA = "vue-pinia";
 

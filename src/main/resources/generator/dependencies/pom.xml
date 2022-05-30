@@ -34,6 +34,7 @@
     <archunit-junit5.version>0.23.1</archunit-junit5.version>
     <cucumber.version>7.3.4</cucumber.version>
     <testng.version>7.6.0</testng.version>
+    <pulsar.version>2.10.0</pulsar.version>
   </properties>
 
   <dependencyManagement>

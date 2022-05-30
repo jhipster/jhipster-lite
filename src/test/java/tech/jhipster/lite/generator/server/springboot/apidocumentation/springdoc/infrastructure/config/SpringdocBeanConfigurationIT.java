@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.infrastructure.config;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.infrastructure.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocService;
+import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocService;
 
 @IntegrationTest
 class SpringdocBeanConfigurationIT {

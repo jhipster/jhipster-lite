@@ -1,16 +1,21 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
-import static tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocConstants.*;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.Springdoc.WEBFLUX_ARTIFACT_ID;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.Springdoc.springdocDependencyForMvc;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.Springdoc.springdocDependencyForWebflux;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -18,7 +23,7 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 
 public class SpringdocDomainService implements SpringdocService {
 
-  private static final String SOURCE = "server/springboot/mvc/springdoc";
+  private static final String SOURCE = "server/springboot/apidocumentation/springdoc";
   private static final String DESTINATION = "technical/infrastructure/primary/springdoc";
 
   private final BuildToolService buildToolService;
@@ -55,7 +60,16 @@ public class SpringdocDomainService implements SpringdocService {
       .ifPresentOrElse(
         version -> {
           buildToolService.addProperty(project, "springdoc-openapi-ui.version", version);
-          buildToolService.addDependency(project, Springdoc.springdocDependency());
+          Dependency dependency;
+          try {
+            dependency =
+              buildToolService.containsDependency(project, WEBFLUX_ARTIFACT_ID)
+                ? springdocDependencyForWebflux()
+                : springdocDependencyForMvc();
+          } catch (IOException e) {
+            throw new GeneratorException("Cannot check webflux dependency: " + e.getMessage());
+          }
+          buildToolService.addDependency(project, dependency);
         },
         () -> {
           throw new GeneratorException("Springdoc Openapi version not found");

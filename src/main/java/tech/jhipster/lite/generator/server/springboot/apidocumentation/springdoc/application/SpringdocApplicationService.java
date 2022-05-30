@@ -1,8 +1,8 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocService;
+import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocService;
 
 @Service
 public class SpringdocApplicationService {

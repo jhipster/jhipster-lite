@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,6 +18,6 @@ class SpringdocTest {
       .version("\\${springdoc-openapi-ui.version}")
       .build();
 
-    assertThat(Springdoc.springdocDependency()).usingRecursiveComparison().isEqualTo(expectedDependency);
+    assertThat(Springdoc.springdocDependencyForMvc()).usingRecursiveComparison().isEqualTo(expectedDependency);
   }
 }

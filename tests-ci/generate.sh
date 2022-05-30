@@ -267,6 +267,7 @@ elif [[ $application == 'reactiveapp' ]]; then
 
   callApi "/api/servers/spring-boot/reactive-servers/netty"
   callApi "/api/servers/spring-boot/technical-tools/actuator"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
 
 else
   echo "*** Unknown configuration..."

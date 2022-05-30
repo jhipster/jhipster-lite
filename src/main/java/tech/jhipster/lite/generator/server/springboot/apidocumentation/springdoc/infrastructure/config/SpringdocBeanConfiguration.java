@@ -1,12 +1,12 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.infrastructure.config;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocDomainService;
+import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocDomainService;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain.SpringdocService;
 
 @Configuration
 public class SpringdocBeanConfiguration {

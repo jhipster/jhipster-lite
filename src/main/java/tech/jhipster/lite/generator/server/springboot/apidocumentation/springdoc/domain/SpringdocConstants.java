@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.domain;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain;
 
 public class SpringdocConstants {
 

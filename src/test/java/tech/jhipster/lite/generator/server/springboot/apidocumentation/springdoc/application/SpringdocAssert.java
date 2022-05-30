@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application;
 
 import static tech.jhipster.lite.TestUtils.assertFileExist;
 import static tech.jhipster.lite.common.domain.FileUtils.getPath;

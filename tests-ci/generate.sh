@@ -104,7 +104,7 @@ elif [[ $application == 'fullapp' ]]; then
 
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/features/user/postgresql"
-  callApi "/api/servers/spring-boot/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase/user"
 

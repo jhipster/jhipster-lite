@@ -206,6 +206,15 @@ export default defineComponent({
       }
     };
 
+    const addCucumber = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addCucumber(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Cucumber successfully added'))
+          .catch(error => alertBus.error(`Adding Cucumber to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -228,6 +237,7 @@ export default defineComponent({
       addLiquibase,
       addLiquibaseUser,
       addMongock,
+      addCucumber,
     };
   },
 });

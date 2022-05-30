@@ -863,4 +863,46 @@ describe('SpringBootGenerator', () => {
       expectAlertErrorToBe(alertBus, 'Adding SpringBoot Database Migration Mongock to project failed error');
     });
   });
+
+  describe('Component tests', () => {
+    it('should not add Cucumber when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addCucumber.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addCucumber();
+
+      expect(springBootService.addCucumber.called).toBe(false);
+    });
+
+    it('should add Cucumber when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addCucumber.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addCucumber();
+
+      const args = springBootService.addCucumber.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'Cucumber successfully added');
+    });
+
+    it('should handle error on adding Cucumber failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addCucumber.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addCucumber();
+
+      expectAlertErrorToBe(alertBus, 'Adding Cucumber to project failed error');
+    });
+  });
 });

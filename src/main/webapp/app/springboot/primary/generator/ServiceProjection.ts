@@ -34,6 +34,7 @@ export type ServiceProjection =
   | 'spring-boot-oauth2-account'
   | 'spring-boot-mvc-with-tomcat'
   | 'spring-boot-webflux-netty'
+  | 'spring-boot-cucumber'
   | 'react'
   | 'react-styled'
   | 'vue'
@@ -73,6 +74,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SPRINGBOOT_OAUTH2_ACCOUNT]: 'spring-boot-oauth2-account',
   [Service.SPRINGBOOT_MVC_WITH_TOMCAT]: 'spring-boot-mvc-with-tomcat',
   [Service.SPRINGBOOT_WEBFLUX_NETTY]: 'spring-boot-webflux-netty',
+  [Service.SPRINGBOOT_CUCUMBER]: 'spring-boot-cucumber',
   [Service.REACT]: 'react',
   [Service.REACT_STYLED]: 'react-styled',
   [Service.VUE]: 'vue',
@@ -115,6 +117,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'spring-boot-oauth2-account': Service.SPRINGBOOT_OAUTH2_ACCOUNT,
   'spring-boot-mvc-with-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,
   'spring-boot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
+  'spring-boot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
   vue: Service.VUE,

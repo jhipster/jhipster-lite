@@ -98,6 +98,14 @@
       </div>
       <div>
         <GeneratorButtonVue
+          :label="'Pulsar'"
+          :service="'spring-boot-pulsar'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addPulsar"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue
           :label="'Cucumber'"
           :service="'spring-boot-cucumber'"
           :selector-prefix="selectorPrefix"

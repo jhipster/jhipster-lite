@@ -162,4 +162,8 @@ export default class SpringBootRepository implements SpringBootService {
   async addCucumber(project: Project): Promise<void> {
     await this.postAndGetHistory('/api/servers/spring-boot/component-tests/cucumber', toRestProject(project));
   }
+
+  async addPulsar(project: Project): Promise<void> {
+    await this.postAndGetHistory('/api/servers/spring-boot/brokers/pulsar', toRestProject(project));
+  }
 }

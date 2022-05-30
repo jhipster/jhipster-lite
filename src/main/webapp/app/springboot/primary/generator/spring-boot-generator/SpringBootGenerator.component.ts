@@ -215,6 +215,15 @@ export default defineComponent({
       }
     };
 
+    const addPulsar = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addPulsar(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Pulsar successfully added'))
+          .catch(error => alertBus.error(`Adding Pulsar to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -238,6 +247,7 @@ export default defineComponent({
       addLiquibaseUser,
       addMongock,
       addCucumber,
+      addPulsar,
     };
   },
 });

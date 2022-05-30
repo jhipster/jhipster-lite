@@ -25,6 +25,7 @@ class JavaBaseModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
+      .createPrefixedFiles("src/main/java/com/jhipster/test", "BusinessContext.java", "SharedKernel.java")
       .createPrefixedFiles(
         "src/main/java/com/jhipster/test/error/domain",
         "Assert.java",
@@ -47,6 +48,10 @@ class JavaBaseModuleFactoryTest {
         "com/jhipster/test/ComponentTest.java",
         "com/jhipster/test/ReplaceCamelCase.java"
       )
+      .createFile("src/main/java/com/jhipster/test/error/package-info.java")
+      .and()
+      .createFile("src/main/java/com/jhipster/test/common/package-info.java")
+      .and()
       .createFile("src/main/java/com/jhipster/test/common/domain/MyappCollections.java")
       .containing("class MyappCollections");
   }

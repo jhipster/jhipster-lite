@@ -47,12 +47,6 @@ public class JavaArchUnitDomainService implements JavaArchUnitService {
     project.addConfig("packageWalkPath", packageWalkPath);
 
     projectRepository.template(
-      ProjectFile.forProject(project).withSource(SOURCE, "BusinessContext.java").withDestinationFolder(getPath(MAIN_JAVA, packageNamePath))
-    );
-    projectRepository.template(
-      ProjectFile.forProject(project).withSource(SOURCE, "SharedKernel.java").withDestinationFolder(getPath(MAIN_JAVA, packageNamePath))
-    );
-    projectRepository.template(
       ProjectFile.forProject(project).withSource(SOURCE, "archunit.properties").withDestinationFolder(getPath(TEST_RESOURCES))
     );
     projectRepository.template(

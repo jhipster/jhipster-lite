@@ -4,7 +4,8 @@ services:
   pulsar:
     image: {{pulsarDockerImage}}
     ports:
-      - 8080:8080
+      # Pulsar Web-Service port is mapped to 18080 to prevent conflict with the Spring Boot app.
+      - 18080:8080
       - 6650:6650
     environment:
       PULSAR_MEM: "-Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g"

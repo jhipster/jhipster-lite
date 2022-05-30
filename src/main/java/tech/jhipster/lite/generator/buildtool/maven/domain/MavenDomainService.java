@@ -16,6 +16,7 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -284,5 +285,12 @@ public class MavenDomainService implements MavenService {
     Assert.notBlank("folder", folder);
 
     return FileUtils.getValueBetween(getPath(folder, POM_XML), NAME_BEGIN, NAME_END);
+  }
+
+  @Override
+  public boolean containsDependency(Project project, String dependencyName) throws IOException {
+    String pomContent = FileUtils.read(getPath(project.getFolder(), POM_XML));
+    String regex = DEPENDENCY_REGEX_FORMAT.formatted(dependencyName);
+    return Pattern.compile(regex, Pattern.MULTILINE).matcher(pomContent).find();
   }
 }

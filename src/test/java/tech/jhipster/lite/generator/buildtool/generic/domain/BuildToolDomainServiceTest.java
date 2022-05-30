@@ -1,12 +1,15 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestUtils.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Nested;
@@ -191,6 +194,18 @@ class BuildToolDomainServiceTest {
 
       verify(mavenService).getName(project.getFolder());
     }
+
+    @Test
+    void shouldReturnTrueWhenDependencyFound() throws IOException {
+      Project project = tmpProjectWithPomXml();
+      when(mavenService.containsDependency(any(), anyString())).thenReturn(true);
+
+      String dependencyName = "spring-boot";
+      boolean dependencyFound = buildToolDomainService.containsDependency(project, dependencyName);
+
+      assertThat(dependencyFound).isTrue();
+      verify(mavenService).containsDependency(project, dependencyName);
+    }
   }
 
   @Nested
@@ -370,6 +385,13 @@ class BuildToolDomainServiceTest {
       Dependency dependency = getDependency();
       assertThatThrownBy(() -> buildToolDomainService.addVersionPropertyAndDependency(project, "spring-boot", dependency))
         .isExactlyInstanceOf(GeneratorException.class);
+    }
+
+    @Test
+    void shouldNotReturnWhenCheckDependency() {
+      Project project = Project.builder().folder("foo").build();
+
+      assertThatThrownBy(() -> buildToolDomainService.containsDependency(project, "spring-boot")).isInstanceOf(GeneratorException.class);
     }
   }
 

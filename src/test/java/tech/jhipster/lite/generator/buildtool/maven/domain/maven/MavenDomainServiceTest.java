@@ -11,6 +11,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.getPath;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Nested;
@@ -278,6 +279,73 @@ class MavenDomainServiceTest {
           .thenReturn(Optional.of(" <spring-boot.version>0.0.0</spring-boot>"));
 
         assertThat(mavenDomainService.getVersion("spring-boot")).isEmpty();
+      }
+    }
+  }
+
+  @Nested
+  class ContainsDependencyTest {
+
+    @Test
+    void shouldReturnTrueWhenFound() throws IOException {
+      Project project = Project.builder().folder("/folder").build();
+      try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class)) {
+        String pomContent =
+          """
+            <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot</artifactId>
+              <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-web</artifactId>
+           </dependency>
+          """;
+        fileUtilsMock.when(() -> FileUtils.getPath(project.getFolder(), "pom.xml")).thenReturn("/folder/pom.xml");
+        fileUtilsMock.when(() -> FileUtils.read("/folder/pom.xml")).thenReturn(pomContent);
+
+        assertThat(mavenDomainService.containsDependency(project, "spring-boot")).isTrue();
+      }
+    }
+
+    @Test
+    void shouldReturnFalseWhenNotFound() throws IOException {
+      Project project = Project.builder().folder("/folder").build();
+      try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class)) {
+        fileUtilsMock.when(() -> FileUtils.getPath(project.getFolder(), "pom.xml")).thenReturn("/folder/pom.xml");
+        fileUtilsMock
+          .when(() -> FileUtils.read("/folder/pom.xml"))
+          .thenReturn(
+            """
+              <dependency>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-web</artifactId>
+             </dependency>
+            """
+          );
+
+        assertThat(mavenDomainService.containsDependency(project, "spring-boot")).isFalse();
+      }
+    }
+
+    @Test
+    void shouldReturnFalseWhenCommented() throws IOException {
+      Project project = Project.builder().folder("/folder").build();
+      try (MockedStatic<FileUtils> fileUtilsMock = Mockito.mockStatic(FileUtils.class)) {
+        fileUtilsMock.when(() -> FileUtils.getPath(project.getFolder(), "pom.xml")).thenReturn("/folder/pom.xml");
+        fileUtilsMock
+          .when(() -> FileUtils.read("/folder/pom.xml"))
+          .thenReturn(
+            """
+            <!--    <dependency>-->
+            <!--      <groupId>org.springframework.boot</groupId>-->
+            <!--      <artifactId>spring-boot-starter</artifactId>-->
+            <!--    </dependency>-->
+            """
+          );
+
+        assertThat(mavenDomainService.containsDependency(project, "spring-boot-starter")).isFalse();
       }
     }
   }

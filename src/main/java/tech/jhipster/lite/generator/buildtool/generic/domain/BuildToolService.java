@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
@@ -25,4 +26,6 @@ public interface BuildToolService {
   Optional<String> getGroup(Project project);
 
   Optional<String> getName(Project project);
+
+  boolean containsDependency(Project project, String dependencyName) throws IOException;
 }

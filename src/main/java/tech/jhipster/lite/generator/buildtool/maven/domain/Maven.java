@@ -72,6 +72,8 @@ public class Maven {
   public static final String PLUGIN_REPOSITORY_BEGIN = "<pluginRepository>";
   public static final String PLUGIN_REPOSITORY_END = "</pluginRepository>";
 
+  public static final String DEPENDENCY_REGEX_FORMAT = "^\\s+<artifactId>%s<\\/artifactId>\\s+";
+
   private Maven() {}
 
   public static String getParent(Parent parent) {

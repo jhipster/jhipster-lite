@@ -15,8 +15,8 @@ import tech.jhipster.lite.generator.server.springboot.cucumber.domain.CucumberMo
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
-@Tag(name = "Spring Boot")
-@RequestMapping("/api/servers/spring-boot/cucumber")
+@Tag(name = "Spring Boot - Component Tests")
+@RequestMapping("/api/servers/spring-boot/component-tests/cucumber")
 class CucumberResource {
 
   private final CucumberApplicationService cucumber;

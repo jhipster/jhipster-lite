@@ -57,6 +57,8 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-liquibase-button')).contains('Liquibase');
     cy.get(springBootGeneratorSelector('add-liquibase-with-users-and-authority-changelogs-button')).contains('Liquibase with users');
     cy.get(springBootGeneratorSelector('add-mongock-button')).contains('Mongock');
+
+    cy.get(springBootGeneratorSelector('add-spring-boot-cucumber-button')).contains('Cucumber');
   });
 
   it('should display angular', () => {

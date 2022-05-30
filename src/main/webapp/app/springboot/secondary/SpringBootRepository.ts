@@ -158,4 +158,8 @@ export default class SpringBootRepository implements SpringBootService {
   async addSimpleCache(project: Project): Promise<void> {
     await this.postAndGetHistory('/api/servers/spring-boot/caches/simple', toRestProject(project));
   }
+
+  async addCucumber(project: Project): Promise<void> {
+    await this.postAndGetHistory('/api/servers/spring-boot/component-tests/cucumber', toRestProject(project));
+  }
 }

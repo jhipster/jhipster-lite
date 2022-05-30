@@ -96,6 +96,14 @@
         />
         <GeneratorButtonVue :label="'Mongock'" :service="'mongock'" :selector-prefix="selectorPrefix" @click.prevent="addMongock" />
       </div>
+      <div>
+        <GeneratorButtonVue
+          :label="'Cucumber'"
+          :service="'spring-boot-cucumber'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addCucumber"
+        />
+      </div>
     </div>
   </div>
 </template>

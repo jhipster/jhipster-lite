@@ -7,6 +7,6 @@ public class CucumberSteps extends ModulesSteps {
 
   @When("I add cucumber to default project with maven file")
   public void addCucumberModule() {
-    applyModuleForDefaultProjectWithMavenFile("/api/servers/spring-boot/cucumber");
+    applyModuleForDefaultProjectWithMavenFile("/api/servers/spring-boot/component-tests/cucumber");
   }
 }

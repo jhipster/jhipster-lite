@@ -36,6 +36,7 @@ const SERVICES: Record<string, Service> = {
   'springboot-oauth2-account': Service.SPRINGBOOT_OAUTH2_ACCOUNT,
   'springboot-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,
   'springboot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
+  'springboot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
   vue: Service.VUE,

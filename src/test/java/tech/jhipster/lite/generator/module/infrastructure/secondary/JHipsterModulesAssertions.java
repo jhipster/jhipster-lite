@@ -13,9 +13,8 @@ import java.util.stream.Stream;
 import org.assertj.core.api.SoftAssertions;
 import tech.jhipster.lite.generator.module.JHipsterModules;
 import tech.jhipster.lite.generator.module.application.JHipsterModulesApplicationService;
-import tech.jhipster.lite.generator.module.domain.Indentation;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 public final class JHipsterModulesAssertions {
 
@@ -73,7 +72,7 @@ public final class JHipsterModulesAssertions {
     private ModuleAsserter(JHipsterModule module) {
       assertThat(module).as("Can't make assertions on a module without module").isNotNull();
 
-      modules.apply(Indentation.DEFAULT, module);
+      modules.apply(module);
       projectFolder = module.projectFolder();
     }
 

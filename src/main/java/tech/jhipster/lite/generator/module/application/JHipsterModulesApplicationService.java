@@ -1,7 +1,6 @@
 package tech.jhipster.lite.generator.module.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.module.domain.Indentation;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesDomainService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesRepository;
@@ -21,7 +20,7 @@ public class JHipsterModulesApplicationService {
     modules = new JHipsterModulesDomainService(modulesRepository, currentVersions, projectDependencies);
   }
 
-  public void apply(Indentation indentation, JHipsterModule module) {
-    modules.apply(indentation, module);
+  public void apply(JHipsterModule module) {
+    modules.apply(module);
   }
 }

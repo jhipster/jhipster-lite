@@ -6,8 +6,8 @@ import static tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture.
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.domain.Indentation;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
 class FileSystemJavaDependenciesCommandsHandlerTest {

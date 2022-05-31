@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Map;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @Schema(description = "Project DTO")
@@ -17,13 +18,13 @@ public class ProjectDTO {
   @Schema(
     description = "generator-jhipster configuration",
     example = """
-      {
-        "baseName": "jhipster",
-        "projectName": "jhipster project",
-        "packageName": "com.mycompany.myapp",
-        "serverPort": 8080
-      }
-    """,
+        {
+          "baseName": "jhipster",
+          "projectName": "jhipster project",
+          "packageName": "com.mycompany.myapp",
+          "serverPort": 8080
+        }
+      """,
     required = true
   )
   private Map<String, Object> generatorJhipster;
@@ -75,5 +76,9 @@ public class ProjectDTO {
   public ProjectDTO remoteUrl(String remoteUrl) {
     this.remoteUrl = remoteUrl;
     return this;
+  }
+
+  public JHipsterModuleProperties toModuleProperties() {
+    return new JHipsterModuleProperties(getFolder(), getGeneratorJhipster());
   }
 }

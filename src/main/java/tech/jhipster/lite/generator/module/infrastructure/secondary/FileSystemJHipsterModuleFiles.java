@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.module.domain.TemplatedFile;
 import tech.jhipster.lite.generator.module.domain.TemplatedFiles;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @Repository
 class FileSystemJHipsterModuleFiles {

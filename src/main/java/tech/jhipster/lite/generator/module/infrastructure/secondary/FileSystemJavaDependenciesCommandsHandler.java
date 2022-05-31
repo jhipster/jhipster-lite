@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.Indentation;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.AddJavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependencyCommand;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.RemoveJavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJavaDependencyVersion;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @Service
 class FileSystemJavaDependenciesCommandsHandler {

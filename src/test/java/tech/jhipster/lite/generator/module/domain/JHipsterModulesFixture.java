@@ -2,7 +2,9 @@ package tech.jhipster.lite.generator.module.domain;
 
 import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.common.domain.FileUtils;
@@ -19,6 +21,8 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.AddJava
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.RemoveJavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJavaDependencyVersion;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 public final class JHipsterModulesFixture {
 
@@ -28,7 +32,7 @@ public final class JHipsterModulesFixture {
 
   public static JHipsterModule module() {
     // @formatter:off
-   return moduleForProject(new JHipsterProjectFolder(FileUtils.tmpDirForTest()))
+   return moduleForProject(testModuleProperties())
   .context()
     .put("packageName", "com.test.myapp")
     .and()
@@ -102,7 +106,11 @@ public final class JHipsterModulesFixture {
   }
 
   public static JHipsterModuleBuilder emptyModuleBuilder() {
-    return moduleForProject(new JHipsterProjectFolder(FileUtils.tmpDirForTest()));
+    return moduleForProject(testModuleProperties());
+  }
+
+  public static JHipsterModuleProperties testModuleProperties() {
+    return new JHipsterModuleProperties(new JHipsterProjectFolder(FileUtils.tmpDirForTest()), null);
   }
 
   public static CurrentJavaDependenciesVersions currentJavaDependenciesVersion() {
@@ -115,5 +123,35 @@ public final class JHipsterModulesFixture {
 
   public static JavaDependencyVersion springBootVersion() {
     return new JavaDependencyVersion("spring-boot", "1.2.3");
+  }
+
+  public static JHipsterModulePropertiesBuilder propertiesBuilder(String projectFolder) {
+    return new JHipsterModulePropertiesBuilder(projectFolder);
+  }
+
+  public static class JHipsterModulePropertiesBuilder {
+
+    private final String projectFolder;
+    private final Map<String, Object> properties = new HashMap<>();
+
+    private JHipsterModulePropertiesBuilder(String projectFolder) {
+      this.projectFolder = projectFolder;
+    }
+
+    public JHipsterModulePropertiesBuilder basePackage(String basePackage) {
+      properties.put("packageName", basePackage);
+
+      return this;
+    }
+
+    public JHipsterModulePropertiesBuilder projectBaseName(String projectBaseName) {
+      properties.put("baseName", projectBaseName);
+
+      return this;
+    }
+
+    public JHipsterModuleProperties build() {
+      return new JHipsterModuleProperties(projectFolder, properties);
+    }
   }
 }

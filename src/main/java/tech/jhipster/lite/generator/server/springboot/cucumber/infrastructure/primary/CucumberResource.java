@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.GeneratorAction;
-import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.cucumber.application.CucumberApplicationService;
-import tech.jhipster.lite.generator.server.springboot.cucumber.domain.CucumberModuleProperties;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
@@ -30,8 +28,6 @@ class CucumberResource {
   @Operation(summary = "Add cucumber integration to project")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding cucumber elements")
   public void addCucumber(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-
-    cucumber.add(CucumberModuleProperties.from(project));
+    cucumber.add(projectDTO.toModuleProperties());
   }
 }

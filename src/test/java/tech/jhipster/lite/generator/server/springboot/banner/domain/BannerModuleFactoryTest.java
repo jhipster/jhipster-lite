@@ -1,11 +1,11 @@
 package tech.jhipster.lite.generator.server.springboot.banner.domain;
 
-import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 
 @UnitTest
@@ -17,9 +17,7 @@ class BannerModuleFactoryTest {
   @Test
   @DisplayName("JHipster Banner V7")
   void shouldCreateModuleJHipsterBannerV7() {
-    BannerModuleProperties properties = BannerModuleProperties.builder().project(FileUtils.tmpDirForTest()).build();
-
-    JHipsterModule module = factory.buildModuleBannerJHipsterV7(properties);
+    JHipsterModule module = factory.buildModuleBannerJHipsterV7(testModuleProperties());
 
     assertThatModule(module).createFiles(BANNER_TXT);
   }
@@ -27,9 +25,7 @@ class BannerModuleFactoryTest {
   @Test
   @DisplayName("JHipster Banner V7 React")
   void shouldCreateModuleJHipsterBannerV7React() {
-    BannerModuleProperties properties = BannerModuleProperties.builder().project(FileUtils.tmpDirForTest()).build();
-
-    JHipsterModule module = factory.buildModuleBannerJHipsterV7React(properties);
+    JHipsterModule module = factory.buildModuleBannerJHipsterV7React(testModuleProperties());
 
     assertThatModule(module).createFiles(BANNER_TXT);
   }
@@ -37,9 +33,7 @@ class BannerModuleFactoryTest {
   @Test
   @DisplayName("JHipster Banner V7 Vue")
   void shouldCreateModuleJHipsterBannerV7Vue() {
-    BannerModuleProperties properties = BannerModuleProperties.builder().project(FileUtils.tmpDirForTest()).build();
-
-    JHipsterModule module = factory.buildModuleBannerJHipsterV7Vue(properties);
+    JHipsterModule module = factory.buildModuleBannerJHipsterV7Vue(testModuleProperties());
 
     assertThatModule(module).createFiles(BANNER_TXT);
   }
@@ -47,9 +41,7 @@ class BannerModuleFactoryTest {
   @Test
   @DisplayName("JHipster Banner V2")
   void shouldCreateModuleJHipsterBannerV2() {
-    BannerModuleProperties properties = BannerModuleProperties.builder().project(FileUtils.tmpDirForTest()).build();
-
-    JHipsterModule module = factory.buildModuleBannerJHipsterV2(properties);
+    JHipsterModule module = factory.buildModuleBannerJHipsterV2(testModuleProperties());
 
     assertThatModule(module).createFiles(BANNER_TXT);
   }
@@ -57,9 +49,7 @@ class BannerModuleFactoryTest {
   @Test
   @DisplayName("JHipster Banner V3")
   void shouldCreateModuleJHipsterBannerV3() {
-    BannerModuleProperties properties = BannerModuleProperties.builder().project(FileUtils.tmpDirForTest()).build();
-
-    JHipsterModule module = factory.buildModuleBannerJHipsterV3(properties);
+    JHipsterModule module = factory.buildModuleBannerJHipsterV3(testModuleProperties());
 
     assertThatModule(module).createFiles(BANNER_TXT);
   }
@@ -67,9 +57,7 @@ class BannerModuleFactoryTest {
   @Test
   @DisplayName("Ippon Banner")
   void shouldCreateModuleIpponBanner() {
-    BannerModuleProperties properties = BannerModuleProperties.builder().project(FileUtils.tmpDirForTest()).build();
-
-    JHipsterModule module = factory.buildModuleBannerIppon(properties);
+    JHipsterModule module = factory.buildModuleBannerIppon(testModuleProperties());
 
     assertThatModule(module).createFiles(BANNER_TXT);
   }

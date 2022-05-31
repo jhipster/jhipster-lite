@@ -6,13 +6,14 @@ import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterSource;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 
 public class JavaBaseModuleFactory {
 
   private static final String SOURCE_FOLDER = "server/javatool/base";
   private static final String ERROR_DOMAIN = "error/domain";
 
-  public JHipsterModule buildModule(JavaBaseModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.basePackage().path();
@@ -22,7 +23,7 @@ public class JavaBaseModuleFactory {
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
 
     //@formatter:off
-    return moduleForProject(properties.project())
+    return moduleForProject(properties)
       .context()
         .packageName(properties.basePackage())
         .put("collectionClass", baseClassName)

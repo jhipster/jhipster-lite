@@ -7,6 +7,12 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
+import tech.jhipster.lite.generator.module.domain.Indentation;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterBasePackage;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectBaseName;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @UnitTest
@@ -14,7 +20,7 @@ class ProjectDTOTest {
 
   @Test
   void shouldBuild() {
-    ProjectDTO projectDTO = buildProjectDTO();
+    ProjectDTO projectDTO = projectDTO();
 
     assertThat(projectDTO.getFolder()).isEqualTo("/tmp/chips");
     assertThat(projectDTO.getGeneratorJhipster()).containsEntry(BASE_NAME, "chips");
@@ -23,7 +29,7 @@ class ProjectDTOTest {
 
   @Test
   void shouldToProject() {
-    ProjectDTO projectDTO = buildProjectDTO();
+    ProjectDTO projectDTO = projectDTO();
 
     Project project = ProjectDTO.toProject(projectDTO);
 
@@ -41,7 +47,7 @@ class ProjectDTOTest {
 
   @Test
   void shouldToProjectWithNullFolder() {
-    ProjectDTO projectDTO = buildProjectDTO().folder(null);
+    ProjectDTO projectDTO = projectDTO().folder(null);
 
     assertThatThrownBy(() -> ProjectDTO.toProject(projectDTO))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
@@ -63,10 +69,20 @@ class ProjectDTOTest {
     assertThat(projectDTO.getGeneratorJhipster()).containsEntry(PROJECT_NAME, project.getConfig(PROJECT_NAME).get());
   }
 
-  private ProjectDTO buildProjectDTO() {
+  @Test
+  void shouldConvertToModuleProperties() {
+    JHipsterModuleProperties properties = projectDTO().toModuleProperties();
+
+    assertThat(properties.projectFolder()).isEqualTo(new JHipsterProjectFolder("/tmp/chips"));
+    assertThat(properties.indentation()).isEqualTo(new Indentation(4));
+    assertThat(properties.basePackage()).isEqualTo(new JHipsterBasePackage("base.package"));
+    assertThat(properties.projectBaseName()).isEqualTo(new JHipsterProjectBaseName("chips"));
+  }
+
+  private ProjectDTO projectDTO() {
     return new ProjectDTO()
       .folder("/tmp/chips")
-      .generatorJhipster(Map.of(BASE_NAME, "chips"))
+      .generatorJhipster(Map.of(BASE_NAME, "chips", "prettierDefaultIndent", 4, DefaultConfig.PACKAGE_NAME, "base.package"))
       .remoteUrl("https://github.com/jhipster/jhipster-lite");
   }
 }

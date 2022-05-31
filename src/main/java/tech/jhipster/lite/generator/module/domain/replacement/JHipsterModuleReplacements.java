@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 public class JHipsterModuleReplacements {
 

@@ -7,13 +7,14 @@ import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterSource;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 
 public class CucumberModuleFactory {
 
   private static final String CUCUMBER_GROUP_ID = "io.cucumber";
   private static final String CUCUMBER_VERSION = "cucumber.version";
 
-  public JHipsterModule buildModule(CucumberModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.basePackage().path();
@@ -21,7 +22,7 @@ public class CucumberModuleFactory {
     JHipsterSource source = from("server/springboot/cucumber");
 
     //@formatter:off
-    return moduleForProject(properties.project())
+    return moduleForProject(properties)
       .context()
         .packageName(properties.basePackage())
         .put("applicationName", applicationName)

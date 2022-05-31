@@ -7,46 +7,47 @@ import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterSource;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 
 public class BannerModuleFactory {
 
   private static final String SOURCE_FOLDER = "server/springboot/banner";
   private static final String PROPERTIES = "properties";
 
-  public JHipsterModule buildModuleBannerJHipsterV7(BannerModuleProperties properties) {
+  public JHipsterModule buildModuleBannerJHipsterV7(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
     return buildModuleBanner(properties, "banner-jhipster-v7.txt");
   }
 
-  public JHipsterModule buildModuleBannerJHipsterV7React(BannerModuleProperties properties) {
+  public JHipsterModule buildModuleBannerJHipsterV7React(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
     return buildModuleBanner(properties, "banner-jhipster-v7-react.txt");
   }
 
-  public JHipsterModule buildModuleBannerJHipsterV7Vue(BannerModuleProperties properties) {
+  public JHipsterModule buildModuleBannerJHipsterV7Vue(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
     return buildModuleBanner(properties, "banner-jhipster-v7-vue.txt");
   }
 
-  public JHipsterModule buildModuleBannerJHipsterV2(BannerModuleProperties properties) {
+  public JHipsterModule buildModuleBannerJHipsterV2(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
     return buildModuleBanner(properties, "banner-jhipster-v2.txt");
   }
 
-  public JHipsterModule buildModuleBannerJHipsterV3(BannerModuleProperties properties) {
+  public JHipsterModule buildModuleBannerJHipsterV3(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
     return buildModuleBanner(properties, "banner-jhipster-v3.txt");
   }
 
-  public JHipsterModule buildModuleBannerIppon(BannerModuleProperties properties) {
+  public JHipsterModule buildModuleBannerIppon(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
     return buildModuleBanner(properties, "banner-ippon.txt");
   }
 
-  private JHipsterModule buildModuleBanner(BannerModuleProperties properties, String file) {
+  private JHipsterModule buildModuleBanner(JHipsterModuleProperties properties, String file) {
     // @formatter:off
     return JHipsterModule
-      .moduleForProject(properties.project())
+      .moduleForProject(properties)
       .files()
         .add(source().file(file), destination())
         .and()

@@ -6,7 +6,8 @@ import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
 class JHipsterModuleReplacementsTest {
@@ -23,7 +24,7 @@ class JHipsterModuleReplacementsTest {
 
   private static void replaceIn(String file) {
     JHipsterProjectFolder folder = new JHipsterProjectFolder("src/test/resources/projects");
-    JHipsterModuleBuilder module = moduleForProject(folder);
+    JHipsterModuleBuilder module = moduleForProject(JHipsterModuleProperties.defaultProperties(folder));
 
     JHipsterModuleReplacements.builder(module).in(file).add(new TextMatcher("old"), "new").and().build().apply(folder);
   }

@@ -13,7 +13,8 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
 @ExtendWith(LogSpy.class)
@@ -30,7 +31,7 @@ class FileSystemJHipsterModuleFilesTest {
   void shouldNotWriteOnUnwritablePath() {
     JHipsterProjectFolder project = new JHipsterProjectFolder(Paths.get("src/test/resources/generator").toAbsolutePath().toString());
 
-    JHipsterModule module = moduleForProject(project)
+    JHipsterModule module = moduleForProject(JHipsterModuleProperties.defaultProperties(project))
       .files()
       .add(from("server/springboot/core/MainApp.java.mustache"), to("content"))
       .and()
@@ -43,7 +44,7 @@ class FileSystemJHipsterModuleFilesTest {
   void shouldTraceAddedFiles() {
     JHipsterProjectFolder project = new JHipsterProjectFolder(FileUtils.tmpDirForTest());
 
-    JHipsterModule module = moduleForProject(project)
+    JHipsterModule module = moduleForProject(JHipsterModuleProperties.defaultProperties(project))
       .files()
       .add(from("server/springboot/core/MainApp.java.mustache"), to("MainApp.java"))
       .and()

@@ -21,14 +21,13 @@ public class JHipsterModulesDomainService {
     this.projectDependencies = projectDependencies;
   }
 
-  public void apply(Indentation indentation, JHipsterModule module) {
-    Assert.notNull("indentation", indentation);
+  public void apply(JHipsterModule module) {
     Assert.notNull("module", module);
 
     JHipsterModuleChanges changes = JHipsterModuleChanges
       .builder()
       .projectFolder(module.projectFolder())
-      .indentation(indentation)
+      .indentation(module.indentation())
       .files(module.templatedFiles())
       .replacements(module.replacements())
       .javaDependencies(buildDependenciesChanges(module))

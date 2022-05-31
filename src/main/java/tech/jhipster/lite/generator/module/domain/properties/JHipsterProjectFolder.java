@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.module.domain;
+package tech.jhipster.lite.generator.module.domain.properties;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

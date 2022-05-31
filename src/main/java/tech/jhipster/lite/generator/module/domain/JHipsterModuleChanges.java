@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.module.domain;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
 
 public class JHipsterModuleChanges {

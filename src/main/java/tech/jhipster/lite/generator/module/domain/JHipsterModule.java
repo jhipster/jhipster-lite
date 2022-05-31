@@ -16,6 +16,8 @@ import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency.
 import tech.jhipster.lite.generator.module.domain.javadependency.VersionSlug;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements.JHipsterModuleReplacementsBuilder;
 import tech.jhipster.lite.generator.module.domain.replacement.RegexMatcher;
@@ -42,8 +44,8 @@ public class JHipsterModule {
     postActions = builder.postActions.build();
   }
 
-  public static JHipsterModuleBuilder moduleForProject(JHipsterProjectFolder project) {
-    return new JHipsterModuleBuilder(project);
+  public static JHipsterModuleBuilder moduleForProject(JHipsterModuleProperties properties) {
+    return new JHipsterModuleBuilder(properties);
   }
 
   public static JavaDependencyGroupIdBuilder javaDependency() {
@@ -92,6 +94,10 @@ public class JHipsterModule {
     return projectFolder;
   }
 
+  public Indentation indentation() {
+    return context.indentation();
+  }
+
   public TemplatedFiles templatedFiles() {
     List<TemplatedFile> templatedFiles = files.stream().map(file -> TemplatedFile.builder().file(file).context(context).build()).toList();
 
@@ -117,17 +123,24 @@ public class JHipsterModule {
   public static class JHipsterModuleBuilder {
 
     private final JHipsterProjectFolder projectFolder;
-    private final JHipsterModuleContextBuilder context = JHipsterModuleContext.builder(this);
+    private final JHipsterModuleProperties properties;
+    private final JHipsterModuleContextBuilder context;
     private final JHipsterModuleFilesBuilder files = JHipsterModuleFiles.builder(this);
     private final JHipsterModuleReplacementsBuilder replacements = JHipsterModuleReplacements.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
 
-    private JHipsterModuleBuilder(JHipsterProjectFolder projectFolder) {
-      Assert.notNull("projectFolder", projectFolder);
+    private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
+      Assert.notNull("properties", properties);
 
-      this.projectFolder = projectFolder;
+      this.projectFolder = properties.projectFolder();
+      this.properties = properties;
+      context = JHipsterModuleContext.builder(this);
+    }
+
+    JHipsterModuleProperties properties() {
+      return properties;
     }
 
     public JHipsterModuleContextBuilder context() {

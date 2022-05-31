@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.module.domain.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.module.domain.javadependency.ArtifactId;
 import tech.jhipster.lite.generator.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.generator.module.domain.javadependency.GroupId;
@@ -16,6 +15,7 @@ import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencyS
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.generator.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.generator.module.domain.javadependency.VersionSlug;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
 class FileSystemProjectJavaDependenciesRepositoryTest {

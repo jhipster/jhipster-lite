@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
+import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 class JavaBaseModuleFactoryTest {
@@ -14,9 +16,8 @@ class JavaBaseModuleFactoryTest {
 
   @Test
   void shouldCreateModule() {
-    JavaBaseModuleProperties properties = JavaBaseModuleProperties
-      .builder()
-      .project(FileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(FileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();

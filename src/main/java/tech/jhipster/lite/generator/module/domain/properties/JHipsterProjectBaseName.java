@@ -1,11 +1,13 @@
-package tech.jhipster.lite.generator.module.domain;
+package tech.jhipster.lite.generator.module.domain.properties;
 
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 public record JHipsterProjectBaseName(String name) {
   private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
-  public static final String DEFAULT_PROJECT_NAME = "jhipster";
+  private static final String DEFAULT_NAME = "jhipster";
+
+  public static final JHipsterProjectBaseName DEFAULT = new JHipsterProjectBaseName(DEFAULT_NAME);
 
   public JHipsterProjectBaseName(String name) {
     this.name = buildName(name);
@@ -13,7 +15,7 @@ public record JHipsterProjectBaseName(String name) {
 
   private String buildName(String name) {
     if (StringUtils.isBlank(name)) {
-      return DEFAULT_PROJECT_NAME;
+      return DEFAULT_NAME;
     }
 
     assertValidName(name);

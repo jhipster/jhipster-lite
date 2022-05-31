@@ -1,9 +1,10 @@
-package tech.jhipster.lite.generator.module.domain;
+package tech.jhipster.lite.generator.module.domain.properties;
 
 import org.apache.commons.lang3.StringUtils;
 
 public record JHipsterBasePackage(String basePackage) {
-  public static final String DEFAULT_BASE_PACKAGE = "com.mycompany.myapp";
+  private static final String DEFAULT_PACKAGE = "com.mycompany.myapp";
+  public static final JHipsterBasePackage DEFAULT = new JHipsterBasePackage(DEFAULT_PACKAGE);
 
   public JHipsterBasePackage(String basePackage) {
     this.basePackage = buildBasePackage(basePackage);
@@ -11,7 +12,7 @@ public record JHipsterBasePackage(String basePackage) {
 
   private String buildBasePackage(String basePackage) {
     if (StringUtils.isBlank(basePackage)) {
-      return DEFAULT_BASE_PACKAGE;
+      return DEFAULT_PACKAGE;
     }
 
     return basePackage.replace('/', '.');

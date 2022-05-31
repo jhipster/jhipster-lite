@@ -1,12 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.infrastructure.primary.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertBasicAuthJavaFiles;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertBasicAuthProperties;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertJwtSecurityFilesExists;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertJwtSecurityProperties;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.assertPomXmlProperties;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityAssertFiles.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +18,6 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
 import tech.jhipster.lite.generator.server.javatool.base.application.JavaBaseApplicationService;
-import tech.jhipster.lite.generator.server.javatool.base.domain.JavaBaseModuleProperties;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityApplicationService;
 import tech.jhipster.lite.generator.server.springboot.mvc.web.application.SpringBootMvcApplicationService;
@@ -60,7 +55,7 @@ class JwtSecurityResourceIT {
     GitUtils.init(project.getFolder());
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    javaBaseApplicationService.addJavaBase(JavaBaseModuleProperties.from(project));
+    javaBaseApplicationService.addJavaBase(projectDTO.toModuleProperties());
     springBootApplicationService.init(project);
     springBootMvcApplicationService.init(project);
 
@@ -85,7 +80,7 @@ class JwtSecurityResourceIT {
     GitUtils.init(project.getFolder());
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    javaBaseApplicationService.addJavaBase(JavaBaseModuleProperties.from(project));
+    javaBaseApplicationService.addJavaBase(projectDTO.toModuleProperties());
     springBootApplicationService.init(project);
     springBootMvcApplicationService.init(project);
     jwtSecurityApplicationService.init(project);

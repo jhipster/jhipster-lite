@@ -43,6 +43,7 @@ export interface SpringBootServiceFixture extends SpringBootService {
   addOAuth2Account: SinonStub;
   addSpringdocJWT: SinonStub;
 
+  addPulsar: SinonStub;
   addCucumber: SinonStub;
 }
 
@@ -88,5 +89,6 @@ export const stubSpringBootService = (): SpringBootServiceFixture => ({
   addOAuth2Account: sinon.stub(),
   addSpringdocJWT: sinon.stub(),
 
+  addPulsar: sinon.stub(),
   addCucumber: sinon.stub(),
 });

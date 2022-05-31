@@ -194,18 +194,6 @@ class BuildToolDomainServiceTest {
 
       verify(mavenService).getName(project.getFolder());
     }
-
-    @Test
-    void shouldReturnTrueWhenDependencyFound() throws IOException {
-      Project project = tmpProjectWithPomXml();
-      when(mavenService.containsDependency(any(), anyString())).thenReturn(true);
-
-      String dependencyName = "spring-boot";
-      boolean dependencyFound = buildToolDomainService.containsDependency(project, dependencyName);
-
-      assertThat(dependencyFound).isTrue();
-      verify(mavenService).containsDependency(project, dependencyName);
-    }
   }
 
   @Nested

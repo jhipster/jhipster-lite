@@ -1,13 +1,16 @@
 package tech.jhipster.lite.generator.module.application;
 
 import java.time.Instant;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleApplied;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleEvents;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesDomainService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesRepository;
+import tech.jhipster.lite.generator.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependenciesCurrentVersionsRepository;
+import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.ProjectJavaDependenciesRepository;
 
 @Service
@@ -30,5 +33,9 @@ public class JHipsterModulesApplicationService {
     modules.apply(toApply.module());
 
     events.dispatch(new JHipsterModuleApplied(toApply.project(), toApply.slug(), Instant.now()));
+  }
+
+  public Optional<JavaDependency> getDependency(String projectFolder, DependencyId dependencyId) {
+    return modules.getDependency(projectFolder, dependencyId);
   }
 }

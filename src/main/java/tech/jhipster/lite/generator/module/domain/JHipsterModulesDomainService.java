@@ -1,7 +1,10 @@
 package tech.jhipster.lite.generator.module.domain;
 
+import java.util.Optional;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.generator.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependenciesCurrentVersionsRepository;
+import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.ProjectJavaDependenciesRepository;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
 
@@ -37,6 +40,10 @@ public class JHipsterModulesDomainService {
       .springProperties(module.springProperties());
 
     modules.apply(changes);
+  }
+
+  public Optional<JavaDependency> getDependency(String projectFolder, DependencyId dependencyId) {
+    return projectDependencies.get(new JHipsterProjectFolder(projectFolder)).dependency(dependencyId);
   }
 
   private JavaDependenciesCommands buildDependenciesChanges(JHipsterModule module) {

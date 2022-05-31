@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
@@ -32,6 +31,4 @@ public interface MavenService {
   Optional<String> getGroupId(String folder);
 
   Optional<String> getName(String folder);
-
-  boolean containsDependency(Project project, String dependencyName) throws IOException;
 }

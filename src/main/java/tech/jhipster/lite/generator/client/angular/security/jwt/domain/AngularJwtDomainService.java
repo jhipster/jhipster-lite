@@ -49,9 +49,10 @@ public class AngularJwtDomainService implements AngularJwtService {
   }
 
   public void updateAngularFilesForJwt(Project project) {
-    String oldHtml = "// jhipster-needle-angular-jwt-login-form";
+    String oldHtml = "// jhipster-needle-angular-route";
     String newHtml =
       """
+        // jhipster-needle-angular-route
         {
           path: '',
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule),

@@ -46,5 +46,6 @@ class AngularHealthResourceIT {
       .andExpect(status().isOk());
 
     AngularHealthAssert.assertAppHealth(project);
+    AngularHealthAssert.assertUpdatedFiles(project);
   }
 }

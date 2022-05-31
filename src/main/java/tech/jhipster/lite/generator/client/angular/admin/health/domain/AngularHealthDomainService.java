@@ -52,19 +52,21 @@ public class AngularHealthDomainService implements AngularHealthService {
   }
 
   private void updateAngularFilesForHealth(Project project) {
-    String oldHtml = "// jhipster-needle-angular-admin";
+    String oldHtml = "// jhipster-needle-angular-route";
     String newHtml =
       """
-
+      // jhipster-needle-angular-route
       {
         path: 'admin',
         loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
       },""";
     projectRepository.replaceText(project, APP, APP_ROUTING_MODULE, oldHtml, newHtml);
 
-    oldHtml = "<!-- jhipster-needle-angular-health -->";
-    newHtml = """
+    oldHtml = "<!-- jhipster-needle-angular-menu -->";
+    newHtml =
+      """
       <a routerLink="admin/health" mat-menu-item><span>Health</span></a>
+      <!-- jhipster-needle-angular-menu -->
       """;
     projectRepository.replaceText(project, APP, APP_COMPONENT_HTML, oldHtml, newHtml);
 

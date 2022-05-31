@@ -1,14 +1,27 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.Springdoc.WEBFLUX_ARTIFACT_ID;
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.Springdoc.WEBFLUX_DEPENDENCY_ID;
 import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.Springdoc.springdocDependencyForMvc;
 import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.Springdoc.springdocDependencyForWebflux;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.*;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_DESCRIPTION_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_EXT_DOC_DESCRIPTION_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_EXT_DOC_URL_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_LICENSE_NAME_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_LICENSE_URL_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_TITLE_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_API_DESCRIPTION;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_API_TITLE;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_EXT_DOC_DESCRIPTION;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_EXT_DOC_URL;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_LICENSE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_LICENSE_URL;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_SWAGGER_UI_SORT_VALUE;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_TRY_OUT_ENABLED;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,6 +29,7 @@ import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.module.JHipsterModules;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -29,15 +43,18 @@ public class SpringdocDomainService implements SpringdocService {
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
   private final SpringBootCommonService springBootCommonService;
+  private final JHipsterModules jHipsterModules;
 
   public SpringdocDomainService(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
-    SpringBootCommonService springBootCommonService
+    SpringBootCommonService springBootCommonService,
+    JHipsterModules jHipsterModules
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
+    this.jHipsterModules = jHipsterModules;
   }
 
   @Override
@@ -61,14 +78,11 @@ public class SpringdocDomainService implements SpringdocService {
         version -> {
           buildToolService.addProperty(project, "springdoc-openapi-ui.version", version);
           Dependency dependency;
-          try {
-            dependency =
-              buildToolService.containsDependency(project, WEBFLUX_ARTIFACT_ID)
-                ? springdocDependencyForWebflux()
-                : springdocDependencyForMvc();
-          } catch (IOException e) {
-            throw new GeneratorException("Cannot check webflux dependency: " + e.getMessage());
-          }
+          dependency =
+            jHipsterModules
+              .getDependency(project.getFolder(), WEBFLUX_DEPENDENCY_ID)
+              .map(d -> springdocDependencyForWebflux())
+              .orElse(springdocDependencyForMvc());
           buildToolService.addDependency(project, dependency);
         },
         () -> {

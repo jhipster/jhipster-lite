@@ -1,13 +1,29 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.Springdoc.*;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_DESCRIPTION_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_EXT_DOC_DESCRIPTION_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_EXT_DOC_URL_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_LICENSE_NAME_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_LICENSE_URL_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_TITLE_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_API_DESCRIPTION;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_API_TITLE;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_EXT_DOC_DESCRIPTION;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_EXT_DOC_URL;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_LICENSE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_LICENSE_URL;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_SWAGGER_UI_SORT_VALUE;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.DEFAULT_TRY_OUT_ENABLED;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -18,9 +34,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.module.JHipsterModules;
+import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -38,6 +55,9 @@ class SpringdocDomainServiceTest {
 
   @Mock
   SpringBootCommonService springBootCommonService;
+
+  @Mock
+  JHipsterModules jHipsterModules;
 
   @InjectMocks
   SpringdocDomainService springdocDomainService;
@@ -112,13 +132,18 @@ class SpringdocDomainServiceTest {
   }
 
   @Test
-  void shouldInitForWebflux() throws IOException {
+  void shouldInitForWebflux() {
     // Given
     Map<String, Object> config = new HashMap<>();
     config.put(BASE_NAME, "foo");
     Project project = Project.builder().folder("/path/to/folder").config(config).build();
 
-    when(buildToolService.containsDependency(project, "spring-boot-starter-webflux")).thenReturn(true);
+    when(jHipsterModules.getDependency(project.getFolder(), WEBFLUX_DEPENDENCY_ID))
+      .thenReturn(
+        Optional.of(
+          JavaDependency.builder().groupId(WEBFLUX_DEPENDENCY_ID.groupId()).artifactId(WEBFLUX_DEPENDENCY_ID.artifactId()).build()
+        )
+      );
 
     // When
     when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
@@ -134,28 +159,6 @@ class SpringdocDomainServiceTest {
 
     verify(springBootCommonService, times(3)).addProperties(any(), anyString(), any());
     verify(springBootCommonService).addProperties(project, "springdoc.swagger-ui.operationsSorter", DEFAULT_SWAGGER_UI_SORT_VALUE);
-  }
-
-  @Test
-  void shouldNotAddSpringdocDependencyWhenVersionNotFound() {
-    Project project = tmpProject();
-
-    assertThatThrownBy(() -> springdocDomainService.addSpringdocDependency(project)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldNotInitWhenWebfluxExistingCannotBeChecked() throws IOException {
-    // Given
-    Map<String, Object> config = new HashMap<>();
-    config.put(BASE_NAME, "foo");
-    Project project = Project.builder().folder("/path/to/folder").config(config).build();
-
-    when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
-
-    when(buildToolService.containsDependency(project, "spring-boot-starter-webflux")).thenThrow(IOException.class);
-
-    // When
-    assertThatThrownBy(() -> springdocDomainService.init(project)).isInstanceOf(GeneratorException.class);
   }
 
   private static Dependency getExpectedDependency() {

@@ -40,7 +40,6 @@ public class AngularJwtDomainService implements AngularJwtService {
 
     addJwtDependencies(project);
     addAngularJwtFiles(project);
-    addJwtFiles(project);
     updateAngularFilesForJwt(project);
   }
 
@@ -62,7 +61,6 @@ public class AngularJwtDomainService implements AngularJwtService {
     oldHtml = "import \\{ NgModule \\} from '@angular/core';";
     newHtml =
       """
-        import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
         import { NgModule } from '@angular/core';
         import { ReactiveFormsModule } from '@angular/forms';
         import { NgxWebstorageModule } from 'ngx-webstorage';""";
@@ -80,7 +78,7 @@ public class AngularJwtDomainService implements AngularJwtService {
     newHtml =
       "imports: \\[" +
       angularCommonService.getAngularModules().stream().collect(Collectors.joining(", ")) +
-      ", HttpClientModule, ReactiveFormsModule, NgxWebstorageModule.forRoot()\\],";
+      ", ReactiveFormsModule, NgxWebstorageModule.forRoot()\\],";
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
 
     oldHtml = "bootstrap: \\[AppComponent\\],";
@@ -95,30 +93,6 @@ public class AngularJwtDomainService implements AngularJwtService {
             },
           ],""";
     projectRepository.replaceText(project, APP, APP_MODULE, oldHtml, newHtml);
-
-    oldHtml = "9000";
-    newHtml = """
-        9000,
-                    "proxyConfig": "proxy.conf.json" """;
-    projectRepository.replaceText(project, "", "angular.json", oldHtml, newHtml);
-  }
-
-  public void addJwtFiles(Project project) {
-    project.addConfig("serverPort", 8080);
-
-    List<ProjectFile> files = AngularJwt
-      .jwtFiles()
-      .entrySet()
-      .stream()
-      .map(entry ->
-        ProjectFile
-          .forProject(project)
-          .withSource(getPath(SOURCE, entry.getValue()), entry.getKey())
-          .withDestinationFolder(getPath("", entry.getValue()))
-      )
-      .toList();
-
-    projectRepository.template(files);
   }
 
   public void addAngularJwtFiles(Project project) {

@@ -63,7 +63,7 @@ public class Angular {
   }
 
   public static List<String> files() {
-    return List.of("angular.json", "jest.conf.js", "tsconfig.app.json", "tsconfig.json", "tsconfig.spec.json");
+    return List.of("angular.json", "jest.conf.js", "proxy.conf.json", "tsconfig.app.json", "tsconfig.json", "tsconfig.spec.json");
   }
 
   public static Map<String, String> angularFiles() {

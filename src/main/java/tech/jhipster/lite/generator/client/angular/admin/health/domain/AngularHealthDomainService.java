@@ -55,35 +55,35 @@ public class AngularHealthDomainService implements AngularHealthService {
     String oldHtml = "// jhipster-needle-angular-route";
     String newHtml =
       """
-      // jhipster-needle-angular-route
       {
         path: 'admin',
         loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
-      },""";
+      },
+      // jhipster-needle-angular-route""";
     projectRepository.replaceText(project, APP, APP_ROUTING_MODULE, oldHtml, newHtml);
 
     oldHtml = "<!-- jhipster-needle-angular-menu -->";
-    newHtml =
-      """
+    newHtml = """
       <a routerLink="admin/health" mat-menu-item><span>Health</span></a>
-      <!-- jhipster-needle-angular-menu -->
-      """;
+      <!-- jhipster-needle-angular-menu -->""";
     projectRepository.replaceText(project, APP, APP_COMPONENT_HTML, oldHtml, newHtml);
 
-    oldHtml = "// jhipster-needle-angular-health";
-    newHtml = """
+    oldHtml = "// jhipster-needle-angular-menu";
+    newHtml =
+      """
       it('should navigate on admin endpoint', () => {
           router.navigateByUrl('/admin');
       });
-      """;
+      // jhipster-needle-angular-menu""";
     projectRepository.replaceText(project, APP, APP_ROUTING_MODULE_SPEC, oldHtml, newHtml);
 
-    oldHtml = "// jhipster-needle-angular-health";
-    newHtml = """
+    oldHtml = "// jhipster-needle-angular-menu";
+    newHtml =
+      """
         it('should navigate on health endpoint', () => {
             router.navigateByUrl('/health');
         });
-        """;
+        // jhipster-needle-angular-menu""";
     projectRepository.replaceText(project, APP, ADMIN_ROUTING_MODULE_SPEC, oldHtml, newHtml);
   }
 }

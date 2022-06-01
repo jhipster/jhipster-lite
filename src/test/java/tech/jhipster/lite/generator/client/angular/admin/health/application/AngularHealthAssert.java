@@ -31,7 +31,8 @@ public class AngularHealthAssert {
       {
         path: 'admin',
         loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
-      },""".lines()
+      },
+      // jhipster-needle-angular-route""".lines()
         .toList();
     assertThat(appRoutingModuleTsLines).containsAll(expectedContentLines);
 

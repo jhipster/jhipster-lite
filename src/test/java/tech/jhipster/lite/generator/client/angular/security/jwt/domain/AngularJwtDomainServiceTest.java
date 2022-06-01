@@ -68,15 +68,6 @@ class AngularJwtDomainServiceTest {
   }
 
   @Test
-  void shouldAddJwtFiles() {
-    Project project = tmpProjectWithPackageJson();
-
-    angularJwtDomainService.addJwtFiles(project);
-
-    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(1));
-  }
-
-  @Test
   void shouldAddAngularJwtFiles() {
     Project project = tmpProjectWithPackageJson();
 

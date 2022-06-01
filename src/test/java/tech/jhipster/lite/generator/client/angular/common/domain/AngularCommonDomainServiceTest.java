@@ -386,6 +386,7 @@ class AngularCommonDomainServiceTest {
         .isEqualTo(
           List.of(
             "BrowserAnimationsModule",
+            "HttpClientModule",
             "MatMenuModule",
             "MatToolbarModule",
             "MatIconModule",

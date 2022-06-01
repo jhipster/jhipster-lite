@@ -126,6 +126,7 @@ public class AngularCommonDomainService implements AngularCommonService {
   public List<String> getAngularModules() {
     return List.of(
       "BrowserAnimationsModule",
+      "HttpClientModule",
       "MatMenuModule",
       "MatToolbarModule",
       "MatIconModule",

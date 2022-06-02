@@ -44,7 +44,7 @@ class JavaArchUnitDomainServiceTest {
 
     javaArchUnitDomainService.init(project);
 
-    verify(projectRepository, times(4)).template(any(ProjectFile.class));
+    verify(projectRepository, times(2)).template(any(ProjectFile.class));
     verify(buildToolService).addProperty(any(Project.class), anyString(), anyString());
     verify(buildToolService).addDependency(any(Project.class), any(Dependency.class));
     verify(springBootCommonService).addLoggerTest(any(Project.class), anyString(), any(Level.class));

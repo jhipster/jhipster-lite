@@ -17,14 +17,6 @@ public class JavaArchUnitAssertFiles {
 
   private JavaArchUnitAssertFiles() {}
 
-  public static void assertFilesAnnotations(Project project) {
-    String basePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    String mainPath = getPath(MAIN_JAVA, basePath);
-
-    assertFileExist(project, getPath(mainPath, "BusinessContext.java"));
-    assertFileExist(project, getPath(mainPath, "SharedKernel.java"));
-  }
-
   public static void assertArchunitProperties(Project project) {
     assertFileContent(project, getPath(TEST_RESOURCES, "archunit.properties"), "archRule.failOnEmptyShould=false");
   }

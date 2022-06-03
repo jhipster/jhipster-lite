@@ -12,7 +12,6 @@ import { ProjectGeneratorVue } from '@/springboot/primary/generator/project-gene
 import { ProjectHistoryService } from '@/common/domain/ProjectHistoryService';
 import { History } from '@/common/domain/History';
 import { ProjectService } from '../domain/ProjectService';
-import { Project } from '../domain/Project';
 import { StoreGeneric } from 'pinia';
 
 export default defineComponent({
@@ -53,7 +52,7 @@ export default defineComponent({
 
     let timeoutId: number | undefined = undefined;
     const getCurrentProjectHistory = (): Promise<History> => projectHistoryService.get(project.value.folder);
-    const getProjectDetails = (): Promise<Project> => projectService.getProjectDetails(project.value.folder);
+    const getProjectDetails = (): Promise<void> => projectService.getProjectDetails(project.value.folder);
     const debounceGetProjectDetails = (): void => {
       if (timeoutId) globalWindow.clearTimeout(timeoutId);
       timeoutId = globalWindow.setTimeout(() => {

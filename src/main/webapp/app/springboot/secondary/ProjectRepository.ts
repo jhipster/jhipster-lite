@@ -64,7 +64,7 @@ export default class ProjectRepository implements ProjectService {
     });
   }
 
-  async getProjectDetails(folder: string): Promise<RestProject> {
+  async getProjectDetails(folder: string): Promise<void> {
     return this.axiosHttp
       .get<RestProject>('api/projects/details', { params: { folder } })
       .then(response => this.projectStore.setProject(toProject(response.data)))

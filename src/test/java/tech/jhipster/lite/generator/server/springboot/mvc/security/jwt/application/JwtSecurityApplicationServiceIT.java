@@ -47,7 +47,7 @@ class JwtSecurityApplicationServiceIT {
     Project project = tmpProject();
     GitUtils.init(project.getFolder());
     mavenService.addJavaPomXml(project);
-    javaBaseApplicationService.addJavaBase(JHipsterModuleProperties.defaultProperties(project.getFolder()));
+    javaBaseApplicationService.build(JHipsterModuleProperties.defaultProperties(project.getFolder()));
     springBootService.init(project);
     springBootMvcService.init(project);
 
@@ -76,7 +76,7 @@ class JwtSecurityApplicationServiceIT {
     Project project = tmpProject();
     GitUtils.init(project.getFolder());
     mavenService.addJavaPomXml(project);
-    javaBaseApplicationService.addJavaBase(JHipsterModuleProperties.defaultProperties(project.getFolder()));
+    javaBaseApplicationService.build(JHipsterModuleProperties.defaultProperties(project.getFolder()));
     springBootService.init(project);
     springBootMvcService.init(project);
     jwtSecurityApplicationService.init(project);

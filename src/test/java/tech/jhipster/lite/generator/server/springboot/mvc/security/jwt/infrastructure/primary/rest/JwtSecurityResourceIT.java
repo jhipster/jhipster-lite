@@ -55,7 +55,7 @@ class JwtSecurityResourceIT {
     GitUtils.init(project.getFolder());
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    javaBaseApplicationService.addJavaBase(projectDTO.toModuleProperties());
+    javaBaseApplicationService.build(projectDTO.toModuleProperties());
     springBootApplicationService.init(project);
     springBootMvcApplicationService.init(project);
 
@@ -80,7 +80,7 @@ class JwtSecurityResourceIT {
     GitUtils.init(project.getFolder());
     initApplicationService.init(project);
     mavenApplicationService.init(project);
-    javaBaseApplicationService.addJavaBase(projectDTO.toModuleProperties());
+    javaBaseApplicationService.build(projectDTO.toModuleProperties());
     springBootApplicationService.init(project);
     springBootMvcApplicationService.init(project);
     jwtSecurityApplicationService.init(project);

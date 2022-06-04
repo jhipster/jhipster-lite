@@ -37,6 +37,6 @@ public class Cypress {
   }
 
   public static List<String> tsconfigPatternsToExclude() {
-    return List.of("src/test/javascript/integration/**/*spec.ts");
+    return List.of("src/test/javascript/integration/**/*.ts");
   }
 }

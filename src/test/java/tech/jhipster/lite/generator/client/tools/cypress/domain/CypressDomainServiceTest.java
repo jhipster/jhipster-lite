@@ -65,7 +65,7 @@ class CypressDomainServiceTest {
     verify(projectRepository).template(any(ProjectFile.class));
     verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(1));
 
-    verify(clientCommonService).excludeInTsconfigJson(project, "src/test/javascript/integration/**/*spec.ts");
+    verify(clientCommonService).excludeInTsconfigJson(project, "src/test/javascript/integration/**/*.ts");
   }
 
   @Test

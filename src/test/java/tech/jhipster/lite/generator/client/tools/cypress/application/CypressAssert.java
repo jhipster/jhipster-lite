@@ -24,7 +24,7 @@ public class CypressAssert {
     assertFileContent(project, PACKAGE_JSON, "test:component");
     assertFileContent(project, PACKAGE_JSON, "test:component:headless");
 
-    assertFileContent(project, TSCONFIG_JSON, "src/test/javascript/integration/**/*spec.ts");
+    assertFileContent(project, TSCONFIG_JSON, "src/test/javascript/integration/**/*.ts");
   }
 
   public static void assertCypressFiles(Project project) {

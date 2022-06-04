@@ -20,9 +20,9 @@ public class Cypress {
       "e2e:headless",
       "npm run test:component:headless",
       "test:component",
-      "cypress open --config-file src/test/javascript/integration/cypress-config.json",
+      "cypress open --config-file src/test/javascript/integration/cypress-config.ts",
       "test:component:headless",
-      "cypress run --headless --config-file src/test/javascript/integration/cypress-config.json"
+      "cypress run --headless --config-file src/test/javascript/integration/cypress-config.ts"
     );
   }
 

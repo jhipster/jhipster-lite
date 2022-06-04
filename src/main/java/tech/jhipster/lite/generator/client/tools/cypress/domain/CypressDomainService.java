@@ -58,7 +58,7 @@ public class CypressDomainService implements CypressService {
     projectRepository.template(
       ProjectFile
         .forProject(project)
-        .withSource(getPath(SOURCE, JAVASCRIPT_INTEGRATION), "cypress-config.json")
+        .withSource(getPath(SOURCE, JAVASCRIPT_INTEGRATION), "cypress-config.ts")
         .withDestinationFolder(getPath(JAVASCRIPT_INTEGRATION))
     );
 

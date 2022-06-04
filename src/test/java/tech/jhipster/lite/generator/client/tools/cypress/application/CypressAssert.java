@@ -28,7 +28,7 @@ public class CypressAssert {
   }
 
   public static void assertCypressFiles(Project project) {
-    assertFileExist(project, "src/test/javascript/integration/cypress-config.json");
+    assertFileExist(project, "src/test/javascript/integration/cypress-config.ts");
     assertFileExist(project, "src/test/javascript/integration/.eslintrc.js");
     assertFileExist(project, "src/test/javascript/integration/tsconfig.json");
   }

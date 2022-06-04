@@ -52,13 +52,12 @@ class CypressDomainServiceTest {
     verify(npmService, times(4)).addScript(any(Project.class), anyString(), anyString());
     verify(npmService).addScript(project, "e2e", "npm run test:component");
     verify(npmService).addScript(project, "e2e:headless", "npm run test:component:headless");
-    verify(npmService)
-      .addScript(project, "test:component", "cypress open --config-file src/test/javascript/integration/cypress-config.json");
+    verify(npmService).addScript(project, "test:component", "cypress open --config-file src/test/javascript/integration/cypress-config.ts");
     verify(npmService)
       .addScript(
         project,
         "test:component:headless",
-        "cypress run --headless --config-file src/test/javascript/integration/cypress-config.json"
+        "cypress run --headless --config-file src/test/javascript/integration/cypress-config.ts"
       );
 
     verify(projectRepository).add(filesCountArgument(2));
@@ -66,7 +65,7 @@ class CypressDomainServiceTest {
     verify(projectRepository).template(any(ProjectFile.class));
     verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(1));
 
-    verify(clientCommonService).excludeInTsconfigJson(project, "src/test/javascript/integration/**/*spec.ts");
+    verify(clientCommonService).excludeInTsconfigJson(project, "src/test/javascript/integration/**/*.ts");
   }
 
   @Test

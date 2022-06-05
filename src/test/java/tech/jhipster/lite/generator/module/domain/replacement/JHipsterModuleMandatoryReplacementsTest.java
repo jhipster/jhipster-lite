@@ -10,7 +10,7 @@ import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePrope
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
-class JHipsterModuleReplacementsTest {
+class JHipsterModuleMandatoryReplacementsTest {
 
   @Test
   void shouldNotApplyReplacementOnUnknownFile() {
@@ -26,6 +26,6 @@ class JHipsterModuleReplacementsTest {
     JHipsterProjectFolder folder = new JHipsterProjectFolder("src/test/resources/projects");
     JHipsterModuleBuilder module = moduleForProject(JHipsterModuleProperties.defaultProperties(folder));
 
-    JHipsterModuleReplacements.builder(module).in(file).add(new TextMatcher("old"), "new").and().build().apply(folder);
+    JHipsterModuleMandatoryReplacements.builder(module).in(file).add(new TextMatcher("old"), "new").and().build().apply(folder);
   }
 }

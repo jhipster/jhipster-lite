@@ -74,7 +74,9 @@ class FileSystemModulesRepositoryTest {
         .containing("springdoc.swagger-ui.operationsSorter=test")
         .and()
       .createFile("src/test/resources/config/application-local.properties")
-        .containing("springdoc.swagger-ui.tryItOutEnabled=test");
+        .containing("springdoc.swagger-ui.tryItOutEnabled=test")
+        .containing("Dummy collection replacement")
+        .containing("Another dummy collection replacement");
     // @formatter:on
 
     assertPreActions();

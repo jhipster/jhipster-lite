@@ -32,8 +32,10 @@ import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostA
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
-import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements.JHipsterModuleReplacementsBuilder;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleMandatoryReplacements;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleMandatoryReplacements.JHipsterModuleMandatoryReplacementsBuilder;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleOptionalReplacements;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleOptionalReplacements.JHipsterModuleOptionalReplacementsBuilder;
 import tech.jhipster.lite.generator.module.domain.replacement.RegexMatcher;
 import tech.jhipster.lite.generator.module.domain.replacement.TextMatcher;
 
@@ -41,7 +43,8 @@ public class JHipsterModule {
 
   private final JHipsterProjectFolder projectFolder;
   private final Collection<JHipsterModuleFile> files;
-  private final JHipsterModuleReplacements replacements;
+  private final JHipsterModuleMandatoryReplacements mandatoryReplacements;
+  private final JHipsterModuleOptionalReplacements optionalReplacements;
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
   private final JHipsterModulePreActions preActions;
@@ -52,7 +55,8 @@ public class JHipsterModule {
     projectFolder = builder.projectFolder;
 
     files = builder.files.build().get();
-    replacements = builder.replacements.build();
+    mandatoryReplacements = builder.mandatoryReplacements.build();
+    optionalReplacements = builder.optionalReplacements.build();
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
     preActions = builder.preActions.build();
@@ -159,8 +163,12 @@ public class JHipsterModule {
     return new TemplatedFiles(templatedFiles);
   }
 
-  public JHipsterModuleReplacements replacements() {
-    return replacements;
+  public JHipsterModuleMandatoryReplacements mandatoryReplacements() {
+    return mandatoryReplacements;
+  }
+
+  public JHipsterModuleOptionalReplacements optionalReplacements() {
+    return optionalReplacements;
   }
 
   public JHipsterModuleJavaDependencies javaDependencies() {
@@ -185,7 +193,8 @@ public class JHipsterModule {
     private final JHipsterModuleProperties properties;
     private final JHipsterModuleContextBuilder context;
     private final JHipsterModuleFilesBuilder files = JHipsterModuleFiles.builder(this);
-    private final JHipsterModuleReplacementsBuilder replacements = JHipsterModuleReplacements.builder(this);
+    private final JHipsterModuleMandatoryReplacementsBuilder mandatoryReplacements = JHipsterModuleMandatoryReplacements.builder(this);
+    private final JHipsterModuleOptionalReplacementsBuilder optionalReplacements = JHipsterModuleOptionalReplacements.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
@@ -212,8 +221,12 @@ public class JHipsterModule {
       return files;
     }
 
-    public JHipsterModuleReplacementsBuilder replacements() {
-      return replacements;
+    public JHipsterModuleMandatoryReplacementsBuilder mandatoryReplacements() {
+      return mandatoryReplacements;
+    }
+
+    public JHipsterModuleOptionalReplacementsBuilder optionalReplacements() {
+      return optionalReplacements;
     }
 
     public JHipsterModuleJavaDependenciesBuilder javaDependencies() {

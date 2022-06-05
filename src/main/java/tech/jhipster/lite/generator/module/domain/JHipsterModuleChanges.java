@@ -5,14 +5,16 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDep
 import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperties;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleMandatoryReplacements;
+import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleOptionalReplacements;
 
 public class JHipsterModuleChanges {
 
   private final JHipsterProjectFolder projectFolder;
   private final Indentation indentation;
   private final TemplatedFiles files;
-  private final JHipsterModuleReplacements replacements;
+  private final JHipsterModuleMandatoryReplacements mandatoryReplacements;
+  private final JHipsterModuleOptionalReplacements optionalReplacements;
   private final JavaDependenciesCommands javaDependencies;
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
@@ -24,7 +26,8 @@ public class JHipsterModuleChanges {
     projectFolder = builder.projectFolder;
     indentation = builder.indentation;
     files = builder.files;
-    replacements = builder.replacements;
+    mandatoryReplacements = builder.mandatoryReplacements;
+    optionalReplacements = builder.optionalReplacements;
     javaDependencies = builder.javaDependencies;
     preActions = builder.preActions;
     postActions = builder.postActions;
@@ -35,7 +38,8 @@ public class JHipsterModuleChanges {
     Assert.notNull("projectFolder", builder.projectFolder);
     Assert.notNull("indentation", builder.indentation);
     Assert.notNull("files", builder.files);
-    Assert.notNull("replacements", builder.replacements);
+    Assert.notNull("mandatoryReplacements", builder.mandatoryReplacements);
+    Assert.notNull("optionalReplacements", builder.optionalReplacements);
     Assert.notNull("javaDependencies", builder.javaDependencies);
     Assert.notNull("preActions", builder.preActions);
     Assert.notNull("postActions", builder.postActions);
@@ -58,8 +62,12 @@ public class JHipsterModuleChanges {
     return files;
   }
 
-  public JHipsterModuleReplacements replacements() {
-    return replacements;
+  public JHipsterModuleMandatoryReplacements mandatoryReplacements() {
+    return mandatoryReplacements;
+  }
+
+  public JHipsterModuleOptionalReplacements optionalReplacements() {
+    return optionalReplacements;
   }
 
   public JavaDependenciesCommands javaDependenciesCommands() {
@@ -83,7 +91,8 @@ public class JHipsterModuleChanges {
       JHipsterModuleChangesProjectFolderBuilder,
       JHipsterModuleChangesIndentationBuilder,
       JHipsterModuleChangesFilesBuilder,
-      JHipsterModuleChangesReplacementsBuilder,
+      JHipsterModuleChangesMandatoryReplacementsBuilder,
+      JHipsterModuleChangesOptionalReplacementsBuilder,
       JHipsterModuleChangesJavaDependenciesBuilder,
       JHipsterModuleChangesPreActionsBuilder,
       JHipsterModuleChangesPostActionsBuilder,
@@ -91,7 +100,8 @@ public class JHipsterModuleChanges {
 
     private JHipsterProjectFolder projectFolder;
     private TemplatedFiles files;
-    private JHipsterModuleReplacements replacements;
+    private JHipsterModuleMandatoryReplacements mandatoryReplacements;
+    private JHipsterModuleOptionalReplacements optionalReplacements;
     private JavaDependenciesCommands javaDependencies;
     private Indentation indentation;
     private JHipsterModulePreActions preActions;
@@ -115,15 +125,24 @@ public class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesReplacementsBuilder files(TemplatedFiles files) {
+    public JHipsterModuleChangesMandatoryReplacementsBuilder files(TemplatedFiles files) {
       this.files = files;
 
       return this;
     }
 
     @Override
-    public JHipsterModuleChangesJavaDependenciesBuilder replacements(JHipsterModuleReplacements replacements) {
-      this.replacements = replacements;
+    public JHipsterModuleChangesOptionalReplacementsBuilder mandatoryReplacements(
+      JHipsterModuleMandatoryReplacements mandatoryReplacements
+    ) {
+      this.mandatoryReplacements = mandatoryReplacements;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChangesJavaDependenciesBuilder optionalReplacements(JHipsterModuleOptionalReplacements optionalReplacements) {
+      this.optionalReplacements = optionalReplacements;
 
       return this;
     }
@@ -166,11 +185,15 @@ public class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesFilesBuilder {
-    JHipsterModuleChangesReplacementsBuilder files(TemplatedFiles files);
+    JHipsterModuleChangesMandatoryReplacementsBuilder files(TemplatedFiles files);
   }
 
-  public interface JHipsterModuleChangesReplacementsBuilder {
-    JHipsterModuleChangesJavaDependenciesBuilder replacements(JHipsterModuleReplacements replacements);
+  public interface JHipsterModuleChangesMandatoryReplacementsBuilder {
+    JHipsterModuleChangesOptionalReplacementsBuilder mandatoryReplacements(JHipsterModuleMandatoryReplacements mandatoryReplacements);
+  }
+
+  public interface JHipsterModuleChangesOptionalReplacementsBuilder {
+    JHipsterModuleChangesJavaDependenciesBuilder optionalReplacements(JHipsterModuleOptionalReplacements optionalReplacements);
   }
 
   public interface JHipsterModuleChangesJavaDependenciesBuilder {

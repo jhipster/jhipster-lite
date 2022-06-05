@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.joox.JOOX;
 import org.joox.Match;
@@ -28,6 +29,7 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJava
 
 class MavenCommandHandler {
 
+  private static final Pattern SPACES_ONLY_LINE = Pattern.compile("^\\s+$", Pattern.MULTILINE);
   private static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
   private static final String COMMAND = "command";
   private static final String GROUP_ID = "groupId";
@@ -100,7 +102,6 @@ class MavenCommandHandler {
       properties
         .append(indentation.spaces())
         .append($(command.property(), command.dependencyVersion()))
-        .append(indentation.spaces())
         .append(BREAK)
         .append(indentation.spaces());
     }
@@ -135,8 +136,7 @@ class MavenCommandHandler {
   private void appendDependencies(AddJavaDependency command) {
     Match dependencies = $("dependencies")
       .append(BREAK)
-      .append(indentation.spaces())
-      .append(indentation.spaces())
+      .append(indentation.times(2))
       .append(dependencyNode(command))
       .append(BREAK)
       .append(indentation.spaces());
@@ -242,7 +242,11 @@ class MavenCommandHandler {
       writer.write(HEADER);
 
       for (Element e : document) {
-        writer.write(JOOX.$(e).toString().replace("\r\n", "\n"));
+        String element = JOOX.$(e).toString().replace("\r\n", "\n");
+
+        element = SPACES_ONLY_LINE.matcher(element).replaceAll("");
+
+        writer.write(element);
       }
     } catch (IOException e) {
       throw new GeneratorException("Error writing pom: " + e.getMessage(), e);

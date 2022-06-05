@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.module.domain;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
+import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperties;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleReplacements;
@@ -15,6 +16,7 @@ public class JHipsterModuleChanges {
   private final JavaDependenciesCommands javaDependencies;
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
+  private final SpringProperties springProperties;
 
   private JHipsterModuleChanges(JHipsterModuleChangesBuilder builder) {
     assertMandatoryFields(builder);
@@ -26,6 +28,7 @@ public class JHipsterModuleChanges {
     javaDependencies = builder.javaDependencies;
     preActions = builder.preActions;
     postActions = builder.postActions;
+    springProperties = builder.springProperties;
   }
 
   private void assertMandatoryFields(JHipsterModuleChangesBuilder builder) {
@@ -36,6 +39,7 @@ public class JHipsterModuleChanges {
     Assert.notNull("javaDependencies", builder.javaDependencies);
     Assert.notNull("preActions", builder.preActions);
     Assert.notNull("postActions", builder.postActions);
+    Assert.notNull("springProperties", builder.springProperties);
   }
 
   public static JHipsterModuleChangesProjectFolderBuilder builder() {
@@ -70,6 +74,10 @@ public class JHipsterModuleChanges {
     return postActions;
   }
 
+  public SpringProperties springProperties() {
+    return springProperties;
+  }
+
   public static class JHipsterModuleChangesBuilder
     implements
       JHipsterModuleChangesProjectFolderBuilder,
@@ -78,7 +86,8 @@ public class JHipsterModuleChanges {
       JHipsterModuleChangesReplacementsBuilder,
       JHipsterModuleChangesJavaDependenciesBuilder,
       JHipsterModuleChangesPreActionsBuilder,
-      JHipsterModuleChangesPostActionsBuilder {
+      JHipsterModuleChangesPostActionsBuilder,
+      JHipsterModuleChangesSpringPropertiesBuilder {
 
     private JHipsterProjectFolder projectFolder;
     private TemplatedFiles files;
@@ -87,6 +96,7 @@ public class JHipsterModuleChanges {
     private Indentation indentation;
     private JHipsterModulePreActions preActions;
     private JHipsterModulePostActions postActions;
+    private SpringProperties springProperties;
 
     private JHipsterModuleChangesBuilder() {}
 
@@ -133,8 +143,15 @@ public class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChanges postActions(JHipsterModulePostActions postActions) {
+    public JHipsterModuleChangesSpringPropertiesBuilder postActions(JHipsterModulePostActions postActions) {
       this.postActions = postActions;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChanges springProperties(SpringProperties springProperties) {
+      this.springProperties = springProperties;
 
       return new JHipsterModuleChanges(this);
     }
@@ -165,6 +182,10 @@ public class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesPostActionsBuilder {
-    JHipsterModuleChanges postActions(JHipsterModulePostActions postActions);
+    JHipsterModuleChangesSpringPropertiesBuilder postActions(JHipsterModulePostActions postActions);
+  }
+
+  public interface JHipsterModuleChangesSpringPropertiesBuilder {
+    JHipsterModuleChanges springProperties(SpringProperties springProperties);
   }
 }

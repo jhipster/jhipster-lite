@@ -57,7 +57,8 @@ public final class JHipsterModulesAssertions {
     private static JHipsterModules buildModules() {
       FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
         new FileSystemJHipsterModuleFiles(),
-        new FileSystemJavaDependenciesCommandsHandler()
+        new FileSystemJavaDependenciesCommandsHandler(),
+        new FileSystemSpringPropertiesCommandsHandler()
       );
 
       JHipsterModulesApplicationService applicationService = new JHipsterModulesApplicationService(

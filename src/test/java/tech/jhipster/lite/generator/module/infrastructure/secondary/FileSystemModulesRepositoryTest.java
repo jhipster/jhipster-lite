@@ -62,7 +62,19 @@ class FileSystemModulesRepositoryTest {
         .and()
       .createFile("src/main/java/com/company/myapp/errors/Assert.java")
         .containing("Dummy replacement")
-        .containing("Another dummy replacement");
+        .containing("Another dummy replacement")
+        .and()
+      .createFile("src/main/resources/config/application.properties")
+        .containing("springdoc.swagger-ui.operationsSorter=alpha")
+        .and()
+      .createFile("src/main/resources/config/application-local.properties")
+        .containing("springdoc.swagger-ui.tryItOutEnabled=false")
+        .and()
+      .createFile("src/test/resources/config/application.properties")
+        .containing("springdoc.swagger-ui.operationsSorter=test")
+        .and()
+      .createFile("src/test/resources/config/application-local.properties")
+        .containing("springdoc.swagger-ui.tryItOutEnabled=test");
     // @formatter:on
 
     assertPreActions();

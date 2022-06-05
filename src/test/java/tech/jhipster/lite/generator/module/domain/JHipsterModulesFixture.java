@@ -21,6 +21,7 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.AddJava
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.RemoveJavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJavaDependencyVersion;
+import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
@@ -33,19 +34,19 @@ public final class JHipsterModulesFixture {
   public static JHipsterModule module() {
     // @formatter:off
    return moduleForProject(testModuleProperties())
-  .context()
-    .put("packageName", "com.test.myapp")
-    .and()
-  .files()
-    .add(from("init/gitignore"), to(".gitignore"))
-    .batch(from("server/javatool/base"), to("src/main/java/com/company/myapp/errors"))
-      .add("Assert.java.mustache")
-      .add("AssertionException.java.mustache")
+    .context()
+      .put("packageName", "com.test.myapp")
       .and()
-    .add(from("server/springboot/core/MainApp.java.mustache"), to("src/main/java/com/company/myapp/MyApp.java"))
-    .and()
-  .replacements()
-    .in("src/main/java/com/company/myapp/errors/Assert.java")
+    .files()
+      .add(from("init/gitignore"), to(".gitignore"))
+      .batch(from("server/javatool/base"), to("src/main/java/com/company/myapp/errors"))
+        .add("Assert.java.mustache")
+        .add("AssertionException.java.mustache")
+        .and()
+      .add(from("server/springboot/core/MainApp.java.mustache"), to("src/main/java/com/company/myapp/MyApp.java"))
+      .and()
+    .replacements()
+      .in("src/main/java/com/company/myapp/errors/Assert.java")
         .add(text("Ensure that the input is not null"), "Dummy replacement")
         .add(regex("will be displayed in [^ ]+ message"), "Another dummy replacement")
         .and()
@@ -63,6 +64,18 @@ public final class JHipsterModulesFixture {
     .postActions()
       .add(() -> log.debug("Fixture module applied"))
       .add(context -> log.debug("Applied on {}", context.projectFolder().get()))
+      .and()
+    .springMainProperties()
+      .set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"))
+      .and()
+    .springMainProperties(springProfile("local"))
+      .set(propertyKey("springdoc.swagger-ui.tryItOutEnabled"), propertyValue("false"))
+      .and()
+    .springTestProperties()
+      .set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("test"))
+      .and()
+    .springTestProperties(springProfile("local"))
+      .set(propertyKey("springdoc.swagger-ui.tryItOutEnabled"), propertyValue("test"))
       .and()
     .build();
     // @formatter:on
@@ -127,6 +140,31 @@ public final class JHipsterModulesFixture {
 
   public static JHipsterModulePropertiesBuilder propertiesBuilder(String projectFolder) {
     return new JHipsterModulePropertiesBuilder(projectFolder);
+  }
+
+  public static SpringProperty springLocalMainProperty() {
+    return SpringProperty
+      .mainPropertyBuilder()
+      .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
+      .value(propertyValue("alpha", "beta"))
+      .profile(springProfile("local"))
+      .build();
+  }
+
+  public static SpringProperty springMainProperty() {
+    return SpringProperty
+      .mainPropertyBuilder()
+      .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
+      .value(propertyValue("alpha", "beta"))
+      .build();
+  }
+
+  public static SpringProperty springTestProperty() {
+    return SpringProperty
+      .testPropertyBuilder()
+      .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
+      .value(propertyValue("alpha", "beta"))
+      .build();
   }
 
   public static class JHipsterModulePropertiesBuilder {

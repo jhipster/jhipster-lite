@@ -19,4 +19,14 @@ class JHipsterSourceTest {
     assertThat(new JHipsterSource(Paths.get("src/main/resources")).template("Assert.java.mustache").get().toString())
       .doesNotEndWith(".mustache.mustache");
   }
+
+  @Test
+  void shouldGetTemplateExtension() {
+    assertThat(new JHipsterSource(Paths.get("src/main/resources")).template("Assert.java.mustache").extension()).isEqualTo(".java");
+  }
+
+  @Test
+  void shouldGetFileExtension() {
+    assertThat(new JHipsterSource(Paths.get("src/main/resources")).file("Assert.java").extension()).isEqualTo(".java");
+  }
 }

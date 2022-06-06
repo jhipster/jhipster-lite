@@ -149,6 +149,10 @@ public class JHipsterModule {
     return new SpringProfile(profile);
   }
 
+  public static DocumentationTitle documentationTitle(String title) {
+    return new DocumentationTitle(title);
+  }
+
   public JHipsterProjectFolder projectFolder() {
     return projectFolder;
   }
@@ -189,6 +193,8 @@ public class JHipsterModule {
 
   public static class JHipsterModuleBuilder {
 
+    private static final String JHIPSTER_DOCUMENTATION_NEEDLE = "<!-- jhipster-needle-documentation -->";
+
     private final JHipsterProjectFolder projectFolder;
     private final JHipsterModuleProperties properties;
     private final JHipsterModuleContextBuilder context;
@@ -211,6 +217,19 @@ public class JHipsterModule {
 
     JHipsterModuleProperties properties() {
       return properties;
+    }
+
+    public JHipsterModuleBuilder documentation(DocumentationTitle title, JHipsterSource source) {
+      Assert.notNull("title", title);
+      Assert.notNull("source", source);
+
+      String target = "documentation/" + title.filename() + source.extension();
+      files().add(source, to(target));
+
+      String markdownLink = "- [" + title.get() + "](" + target + ") \n\n" + JHIPSTER_DOCUMENTATION_NEEDLE;
+      optionalReplacements().in("README.md").add(text(JHIPSTER_DOCUMENTATION_NEEDLE), markdownLink);
+
+      return this;
     }
 
     public JHipsterModuleContextBuilder context() {

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.module.domain;
 
 import java.nio.file.Path;
+import org.apache.commons.io.FilenameUtils;
 import tech.jhipster.lite.error.domain.Assert;
 
 public class JHipsterSource {
@@ -31,5 +32,19 @@ public class JHipsterSource {
 
   public JHipsterSource file(String file) {
     return new JHipsterSource(source.resolve(file));
+  }
+
+  public String extension() {
+    String filename = source.getFileName().toString();
+
+    if (filename.endsWith(MUSTACHE_EXTENSION)) {
+      return findExtension(filename.substring(0, filename.length() - MUSTACHE_EXTENSION.length()));
+    }
+
+    return findExtension(filename);
+  }
+
+  private String findExtension(String filename) {
+    return "." + FilenameUtils.getExtension(filename);
   }
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -67,7 +68,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(springBootVersion()));
 
-      assertThat(content(pom)).contains("    <spring-boot.version>1.2.3</spring-boot.version>");
+      assertThat(content(pom)).contains("    <spring-boot.version>1.2.3</spring-boot.version>").doesNotContain(">  ");
     }
 
     @Test
@@ -78,7 +79,8 @@ class MavenCommandHandlerTest {
 
       assertThat(content(pom))
         .contains("    <jjwt.version>0.12.0</jjwt.version>")
-        .doesNotContain("    <jjwt.version>0.11.5</jjwt.version>");
+        .doesNotContain("    <jjwt.version>0.11.5</jjwt.version>")
+        .doesNotContain(">  ");
     }
   }
 
@@ -152,12 +154,15 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependency(optionalTestDependency()));
 
-      assertThat(content(pom))
+      String content = content(pom);
+      assertThat(content)
         .contains("      <groupId>org.junit.jupiter</groupId>")
         .contains("      <artifactId>junit-jupiter-engine</artifactId>")
         .contains("      <version>${spring-boot.version}</version>")
         .contains("      <scope>test</scope>")
         .contains("      <optional>true</optional>\n    </dependency>\n  </dependencies>");
+
+      assertThat(Pattern.compile("^ +$", Pattern.MULTILINE).matcher(content).find()).isFalse();
     }
 
     @Test

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,10 +12,14 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.assertj.core.api.SoftAssertions;
-import tech.jhipster.lite.generator.module.JHipsterModules;
 import tech.jhipster.lite.generator.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
+import tech.jhipster.lite.generator.module.domain.JHipsterModuleEvents;
+import tech.jhipster.lite.generator.module.domain.JHipsterModuleSlug;
+import tech.jhipster.lite.generator.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.Project.ProjectBuilder;
 
 public final class JHipsterModulesAssertions {
 
@@ -50,30 +55,30 @@ public final class JHipsterModulesAssertions {
 
     private static final String SLASH = "/";
 
-    private static final JHipsterModules modules = buildModules();
+    private static final JHipsterModulesApplicationService modules = buildApplicationService();
 
     private final JHipsterProjectFolder projectFolder;
 
-    private static JHipsterModules buildModules() {
+    private static JHipsterModulesApplicationService buildApplicationService() {
       FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
         new FileSystemJHipsterModuleFiles(),
         new FileSystemJavaDependenciesCommandsHandler(),
         new FileSystemSpringPropertiesCommandsHandler()
       );
 
-      JHipsterModulesApplicationService applicationService = new JHipsterModulesApplicationService(
+      return new JHipsterModulesApplicationService(
         modulesRepository,
+        mock(JHipsterModuleEvents.class),
         new FileSystemCurrentJavaDependenciesVersionsRepository(),
         new FileSystemProjectJavaDependenciesRepository()
       );
-
-      return new JHipsterModules(applicationService);
     }
 
     private ModuleAsserter(JHipsterModule module) {
       assertThat(module).as("Can't make assertions on a module without module").isNotNull();
 
-      modules.apply(module);
+      ProjectBuilder project = Project.builder().folder(module.projectFolder().get());
+      modules.apply(new JHipsterModuleToApply(project.build(), new JHipsterModuleSlug("test-module"), module));
       projectFolder = module.projectFolder();
     }
 

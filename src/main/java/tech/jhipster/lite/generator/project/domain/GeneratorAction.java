@@ -19,22 +19,12 @@ public class GeneratorAction {
   public static final String GRADLE_JAVA_BUILD_GRADLE_KTS = "gradle-java-build-gradle-kts";
   public static final String GRADLE_WRAPPER = "gradle-wrapper";
 
-  // Javatool: base
-  public static final String JAVA_BASE = "java-base";
-
   public static final String NPM_INSTALL = "npm-install";
   public static final String NPM_PRETTIFY = "npm-prettify";
 
   public static final String SPRING_CLOUD = "spring-cloud";
 
   public static final String DEV_TOOLS = "dev-tools";
-
-  public static final String BANNER_JHIPSTER_V7 = "banner-jhipster-v7";
-  public static final String BANNER_IPPON = "banner-ippon";
-  public static final String BANNER_JHIPSTER_V7_REACT = "banner-jhipster-v7-react";
-  public static final String BANNER_JHIPSTER_V7_VUE = "banner-jhipster-v7-vue";
-  public static final String BANNER_JHIPSTER_V2 = "banner-jhipster-v2";
-  public static final String BANNER_JHIPSTER_V3 = "banner-jhipster-v3";
 
   public static final String SVELTE = "svelte";
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
@@ -66,8 +56,6 @@ public class GeneratorAction {
 
   public static final String SPRINGDOC_OPENAPI = "springdoc-openapi";
   public static final String SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT = "springdoc-openapi-with-security-jwt";
-
-  public static final String SPRINGBOOT_CUCUMBER = "springboot-cucumber";
 
   public static final String REACT = "react";
   public static final String REACT_STYLED = "react-styled";

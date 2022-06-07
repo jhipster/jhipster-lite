@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator;
 
+import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 
 import io.cucumber.java.en.Then;
@@ -70,5 +71,10 @@ public class ProjectsSteps {
     } catch (IOException e) {
       return "unreadable folder";
     }
+  }
+
+  @Then("I should have history entry for {string}")
+  public void shouldHaveHistoryEntry(String slug) throws IOException {
+    assertThat(Files.readString(Paths.get(lastProjectFolder, ".jhipster", "history.json"))).contains(slug);
   }
 }

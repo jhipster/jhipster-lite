@@ -6,10 +6,10 @@ import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.Indentation;
 
 public record JHipsterModuleProperties(JHipsterProjectFolder projectFolder, Map<String, Object> properties) {
-  private static final String BASE_PACKAGE_KEY = "packageName";
-  private static final String INDENTATION_KEY = "prettierDefaultIndent";
-  private static final String PROJECT_NAME_KEY = "projectName";
-  private static final String PROJECT_BASE_NAME_KEY = "baseName";
+  public static final String BASE_PACKAGE_PROPERTY = "packageName";
+  public static final String INDENTATION_PROPERTY = "prettierDefaultIndent";
+  public static final String PROJECT_NAME_PROPERTY = "projectName";
+  public static final String PROJECT_BASE_NAME_PROPERTY = "baseName";
 
   public JHipsterModuleProperties(String projectFolder, Map<String, Object> properties) {
     this(new JHipsterProjectFolder(projectFolder), properties);
@@ -57,19 +57,19 @@ public record JHipsterModuleProperties(JHipsterProjectFolder projectFolder, Map<
   }
 
   public Indentation indentation() {
-    return Indentation.from(getOrDefault(INDENTATION_KEY, null, Integer.class));
+    return Indentation.from(getOrDefault(INDENTATION_PROPERTY, null, Integer.class));
   }
 
   public JHipsterBasePackage basePackage() {
-    return new JHipsterBasePackage(getOrDefault(BASE_PACKAGE_KEY, null, String.class));
+    return new JHipsterBasePackage(getOrDefault(BASE_PACKAGE_PROPERTY, null, String.class));
   }
 
   public JHipsterProjectName projectName() {
-    return new JHipsterProjectName(getOrDefault(PROJECT_NAME_KEY, null, String.class));
+    return new JHipsterProjectName(getOrDefault(PROJECT_NAME_PROPERTY, null, String.class));
   }
 
   public JHipsterProjectBaseName projectBaseName() {
-    return new JHipsterProjectBaseName(getOrDefault(PROJECT_BASE_NAME_KEY, null, String.class));
+    return new JHipsterProjectBaseName(getOrDefault(PROJECT_BASE_NAME_PROPERTY, null, String.class));
   }
 
   private <T> T getOrDefault(String key, T defaultValue, Class<T> clazz) {

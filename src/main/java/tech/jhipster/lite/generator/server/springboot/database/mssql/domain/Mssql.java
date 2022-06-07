@@ -35,7 +35,10 @@ public class Mssql {
   public static Map<String, Object> springPropertiesForTest(String baseName) {
     TreeMap<String, Object> result = new TreeMap<>();
     result.put("spring.datasource.driver-class-name", "org.testcontainers.jdbc.ContainerDatabaseDriver");
-    result.put("spring.datasource.url", "jdbc:tc:sqlserver:latest:///;database=" + baseName + ";trustServerCertificate=true;");
+    result.put(
+      "spring.datasource.url",
+      "jdbc:tc:sqlserver:latest://;database=" + baseName + ";trustServerCertificate=true?TC_TMPFS=/testtmpfs:rw"
+    );
     result.put("spring.datasource.username", "SA");
     result.put("spring.datasource.password", "yourStrong(!)Password");
     result.put("spring.datasource.hikari.maximum-pool-size", 2);

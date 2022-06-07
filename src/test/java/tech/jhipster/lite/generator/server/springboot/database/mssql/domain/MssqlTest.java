@@ -34,7 +34,10 @@ class MssqlTest {
 
     assertThat(springProperties)
       .containsEntry("spring.datasource.driver-class-name", "org.testcontainers.jdbc.ContainerDatabaseDriver")
-      .containsEntry("spring.datasource.url", "jdbc:tc:sqlserver:latest:///;database=baseName;trustServerCertificate=true;")
+      .containsEntry(
+        "spring.datasource.url",
+        "jdbc:tc:sqlserver:latest://;database=baseName;trustServerCertificate=true?TC_TMPFS=/testtmpfs:rw"
+      )
       .containsEntry("spring.datasource.username", "SA")
       .containsEntry("spring.datasource.password", "yourStrong(!)Password")
       .containsEntry("spring.datasource.hikari.maximum-pool-size", 2);

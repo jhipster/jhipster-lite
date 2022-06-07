@@ -33,7 +33,8 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     javaDependencies.handle(changes.indentation(), changes.projectFolder(), changes.javaDependenciesCommands());
     springProperties.handle(changes.projectFolder(), changes.springProperties());
 
-    changes.replacements().apply(changes.projectFolder());
+    changes.mandatoryReplacements().apply(changes.projectFolder());
+    changes.optionalReplacements().apply(changes.projectFolder());
     changes.postActions().run(new JHipsterModuleExecutionContext(changes.projectFolder()));
   }
 }

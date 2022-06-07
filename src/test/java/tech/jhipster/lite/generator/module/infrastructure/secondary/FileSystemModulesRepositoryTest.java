@@ -25,11 +25,12 @@ class FileSystemModulesRepositoryTest {
     JHipsterModule module = module();
 
     // @formatter:off
-    assertThatModuleOnProjectWithDefaultPom(module)
+    assertThatModuleOnProjectWithDefaultPom(module) 
       .createFiles(
         "src/main/java/com/company/myapp/MyApp.java",
         "src/main/java/com/company/myapp/errors/Assert.java",
         "src/main/java/com/company/myapp/errors/AssertionException.java",
+        "documentation/cucumber-integration.md",
         ".gitignore"
       )
       .createFile("src/main/java/com/company/myapp/MyApp.java")
@@ -63,6 +64,8 @@ class FileSystemModulesRepositoryTest {
       .createFile("src/main/java/com/company/myapp/errors/Assert.java")
         .containing("Dummy replacement")
         .containing("Another dummy replacement")
+        .containing("Dummy collection replacement")
+        .containing("Another dummy collection replacement")
         .and()
       .createFile("src/main/resources/config/application.properties")
         .containing("springdoc.swagger-ui.operationsSorter=alpha")
@@ -74,7 +77,10 @@ class FileSystemModulesRepositoryTest {
         .containing("springdoc.swagger-ui.operationsSorter=test")
         .and()
       .createFile("src/test/resources/config/application-local.properties")
-        .containing("springdoc.swagger-ui.tryItOutEnabled=test");
+        .containing("springdoc.swagger-ui.tryItOutEnabled=test")
+        .and()
+      .createFile("README.md")
+        .containing("- [Cucumber integration](documentation/cucumber-integration.md)");
     // @formatter:on
 
     assertPreActions();

@@ -2,7 +2,13 @@ package tech.jhipster.lite.generator.module.domain;
 
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleContext.JHipsterModuleContextBuilder;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
@@ -14,6 +20,14 @@ import tech.jhipster.lite.generator.module.domain.javadependency.JHipsterModuleJ
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency.JavaDependencyGroupIdBuilder;
 import tech.jhipster.lite.generator.module.domain.javadependency.VersionSlug;
+import tech.jhipster.lite.generator.module.domain.javaproperties.JHipsterModuleSpringProperties;
+import tech.jhipster.lite.generator.module.domain.javaproperties.JHipsterModuleSpringProperties.JHipsterModuleSpringPropertiesBuilder;
+import tech.jhipster.lite.generator.module.domain.javaproperties.PropertyKey;
+import tech.jhipster.lite.generator.module.domain.javaproperties.PropertyValue;
+import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProfile;
+import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperties;
+import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperty;
+import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperty.SpringPropertyKeyBuilder;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
@@ -32,6 +46,7 @@ public class JHipsterModule {
   private final JHipsterModuleJavaDependencies javaDependencies;
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
+  private final SpringProperties springProperties;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
     projectFolder = builder.projectFolder;
@@ -42,6 +57,34 @@ public class JHipsterModule {
     javaDependencies = builder.javaDependencies.build();
     preActions = builder.preActions.build();
     postActions = builder.postActions.build();
+    springProperties = buildSpringProperties(builder);
+  }
+
+  private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
+    Stream<SpringProperty> mainProperties = builder.mainSpringProperties
+      .entrySet()
+      .stream()
+      .flatMap(toProperties(SpringProperty::mainPropertyBuilder));
+
+    Stream<SpringProperty> testProperties = builder.testSpringProperties
+      .entrySet()
+      .stream()
+      .flatMap(toProperties(SpringProperty::testPropertyBuilder));
+
+    return new SpringProperties(Stream.concat(mainProperties, testProperties).toList());
+  }
+
+  private Function<Entry<SpringProfile, JHipsterModuleSpringPropertiesBuilder>, Stream<SpringProperty>> toProperties(
+    Supplier<SpringPropertyKeyBuilder> builderFactory
+  ) {
+    return properties -> properties.getValue().build().properties().entrySet().stream().map(toProperty(builderFactory, properties));
+  }
+
+  private Function<Entry<PropertyKey, PropertyValue>, SpringProperty> toProperty(
+    Supplier<SpringPropertyKeyBuilder> builderFactory,
+    Entry<SpringProfile, JHipsterModuleSpringPropertiesBuilder> properties
+  ) {
+    return property -> builderFactory.get().key(property.getKey()).value(property.getValue()).profile(properties.getKey()).build();
   }
 
   public static JHipsterModuleBuilder moduleForProject(JHipsterModuleProperties properties) {
@@ -90,6 +133,18 @@ public class JHipsterModule {
     return new RegexMatcher(regex);
   }
 
+  public static PropertyKey propertyKey(String key) {
+    return new PropertyKey(key);
+  }
+
+  public static PropertyValue propertyValue(String... values) {
+    return new PropertyValue(values);
+  }
+
+  public static SpringProfile springProfile(String profile) {
+    return new SpringProfile(profile);
+  }
+
   public JHipsterProjectFolder projectFolder() {
     return projectFolder;
   }
@@ -120,6 +175,10 @@ public class JHipsterModule {
     return postActions;
   }
 
+  public SpringProperties springProperties() {
+    return springProperties;
+  }
+
   public static class JHipsterModuleBuilder {
 
     private final JHipsterProjectFolder projectFolder;
@@ -130,6 +189,8 @@ public class JHipsterModule {
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
+    private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> mainSpringProperties = new HashMap<>();
+    private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> testSpringProperties = new HashMap<>();
 
     private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
       Assert.notNull("properties", properties);
@@ -165,6 +226,26 @@ public class JHipsterModule {
 
     public JHipsterModulePostActionsBuilder postActions() {
       return postActions;
+    }
+
+    public JHipsterModuleSpringPropertiesBuilder springMainProperties() {
+      return springMainProperties(SpringProfile.DEFAULT);
+    }
+
+    public JHipsterModuleSpringPropertiesBuilder springMainProperties(SpringProfile profile) {
+      Assert.notNull("profile", profile);
+
+      return mainSpringProperties.computeIfAbsent(profile, key -> JHipsterModuleSpringProperties.builder(this));
+    }
+
+    public JHipsterModuleSpringPropertiesBuilder springTestProperties() {
+      return springTestProperties(SpringProfile.DEFAULT);
+    }
+
+    public JHipsterModuleSpringPropertiesBuilder springTestProperties(SpringProfile profile) {
+      Assert.notNull("profile", profile);
+
+      return testSpringProperties.computeIfAbsent(profile, key -> JHipsterModuleSpringProperties.builder(this));
     }
 
     public JHipsterModule build() {

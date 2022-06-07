@@ -11,13 +11,16 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
 
   private final FileSystemJHipsterModuleFiles files;
   private final FileSystemJavaDependenciesCommandsHandler javaDependencies;
+  private final FileSystemSpringPropertiesCommandsHandler springProperties;
 
   public FileSystemJHipsterModulesRepository(
     FileSystemJHipsterModuleFiles files,
-    FileSystemJavaDependenciesCommandsHandler javaDependencies
+    FileSystemJavaDependenciesCommandsHandler javaDependencies,
+    FileSystemSpringPropertiesCommandsHandler springProperties
   ) {
     this.files = files;
     this.javaDependencies = javaDependencies;
+    this.springProperties = springProperties;
   }
 
   @Override
@@ -28,6 +31,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
 
     files.create(changes.projectFolder(), changes.files());
     javaDependencies.handle(changes.indentation(), changes.projectFolder(), changes.javaDependenciesCommands());
+    springProperties.handle(changes.projectFolder(), changes.springProperties());
 
     changes.replacements().apply(changes.projectFolder());
     changes.postActions().run(new JHipsterModuleExecutionContext(changes.projectFolder()));

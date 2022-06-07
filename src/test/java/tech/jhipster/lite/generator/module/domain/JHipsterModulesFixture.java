@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.module.domain;
 
 import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePropertyDefinition.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDep
 import tech.jhipster.lite.generator.module.domain.javadependency.command.RemoveJavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJavaDependencyVersion;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 public final class JHipsterModulesFixture {
@@ -123,6 +125,20 @@ public final class JHipsterModulesFixture {
 
   public static JavaDependencyVersion springBootVersion() {
     return new JavaDependencyVersion("spring-boot", "1.2.3");
+  }
+
+  public static JHipsterModulePropertiesDefinition propertiesDefinition() {
+    return JHipsterModulePropertiesDefinition
+      .builder()
+      .addBasePackage()
+      .addIndentation()
+      .addProjectName()
+      .addProjectBaseName()
+      .add(optionalStringProperty("optionalString").build())
+      .add(mandatoryIntegerProperty("mandatoryInteger").build())
+      .add(mandatoryBooleanProperty("mandatoryBoolean").build())
+      .add(optionalBooleanProperty("optionalBoolean").build())
+      .build();
   }
 
   public static JHipsterModulePropertiesBuilder propertiesBuilder(String projectFolder) {

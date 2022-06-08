@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.server.springboot.database.postgresql.domain;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleOnProjectWithDefaultPom;
 
@@ -12,22 +11,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
-import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
 class PostgresqlModuleFactoryTest {
 
   @Mock
-  SpringBootCommonService springBootCommonService;
-
-  @Mock
-  SQLCommonService sqlCommonService;
+  BuildToolService buildToolService;
 
   @Mock
   DockerService dockerService;

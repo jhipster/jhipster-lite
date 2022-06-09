@@ -71,7 +71,7 @@ class AngularDomainServiceTest {
 
     angularDomainService.addDevDependencies(project);
 
-    verify(npmService, times(11)).addDevDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(12)).addDevDependency(any(Project.class), anyString(), anyString());
   }
 
   @Test

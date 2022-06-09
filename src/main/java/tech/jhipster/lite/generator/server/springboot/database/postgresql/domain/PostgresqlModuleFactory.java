@@ -2,12 +2,10 @@ package tech.jhipster.lite.generator.server.springboot.database.postgresql.domai
 
 import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_LOGBACK_LOGGER;
 
 import java.util.HashMap;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterSource;
@@ -33,11 +31,9 @@ public class PostgresqlModuleFactory {
   public static final String ORG_POSTGRESQL = "org.postgresql";
 
   private final DockerService dockerService;
-  private final BuildToolService buildToolService;
 
-  public PostgresqlModuleFactory(DockerService dockerService, BuildToolService buildToolService) {
+  public PostgresqlModuleFactory(DockerService dockerService) {
     this.dockerService = dockerService;
-    this.buildToolService = buildToolService;
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -49,7 +45,6 @@ public class PostgresqlModuleFactory {
     String databasePath = "technical/infrastructure/secondary/postgresql";
 
     var projectPropertie = new HashMap<>(properties.properties());
-    Project project = Project.builder().folder(properties.projectFolder().folder()).config(projectPropertie).build();
     String postgresqlDockerImageVersion = dockerService.getImageVersion(POSTGRESQL_DOCKER_IMAGE_NAME).orElseThrow();
     String postgresqlDockerImageWithVersion = dockerService.getImageNameWithVersion(POSTGRESQL_DOCKER_IMAGE_NAME).orElseThrow();
     //@formatter:off
@@ -99,9 +94,6 @@ public class PostgresqlModuleFactory {
         .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.jboss.logging", Level.WARN))
         .and()
       .and()
-      .postActions()
-        .add(() -> addTestContainerProperty(project))
-        .and()
       .build();
     //@formatter:on
   }
@@ -124,11 +116,6 @@ public class PostgresqlModuleFactory {
 
   private String logger(String loggerName, Level level) {
     return String.format("<logger name=\"%s\" level=\"%s\" />", loggerName, level.toString()) + LF + "  " + NEEDLE_LOGBACK_LOGGER;
-  }
-
-  public void addTestContainerProperty(Project project) {
-    project.addDefaultConfig(BASE_NAME);
-    buildToolService.addProperty(project, "testcontainers", "1.16.2");
   }
 
   private JavaDependency springDataJpa() {

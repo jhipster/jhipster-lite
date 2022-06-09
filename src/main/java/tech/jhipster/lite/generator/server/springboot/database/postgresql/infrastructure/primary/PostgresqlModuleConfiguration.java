@@ -16,7 +16,7 @@ class PostgresqlModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl(URL_POSTGRESQL_MODULE)
-      .slug("springboot-postgresql")
+      .slug("postgresql")
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add Postgresql to project"))
       .factory(postgresql::build);
   }

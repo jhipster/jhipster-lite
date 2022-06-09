@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
@@ -20,9 +19,6 @@ import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePrope
 @UnitTest
 @ExtendWith(MockitoExtension.class)
 class PostgresqlModuleFactoryTest {
-
-  @Mock
-  BuildToolService buildToolService;
 
   @Mock
   DockerService dockerService;

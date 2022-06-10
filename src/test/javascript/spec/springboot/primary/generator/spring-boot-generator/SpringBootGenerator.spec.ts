@@ -155,7 +155,7 @@ describe('SpringBootGenerator', () => {
     const args = springBootService.addSpringBootMvcUndertow.getCall(0).args[0];
     expectAlertSuccessToBe(alertBus, 'SpringBoot MVC with Undertow successfully added');
   });
-    
+
   it('should handle error on adding SpringBoot MVC with Undertow failure', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addSpringBootMvcUndertow.rejects('error');
@@ -207,7 +207,6 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootDummyFeature();
 
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot dummy feature to project failed error');
-
   });
 
   it('should not add SpringBoot Webflux with Netty when project path is not filled', async () => {

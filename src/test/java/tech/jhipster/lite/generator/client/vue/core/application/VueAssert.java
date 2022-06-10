@@ -63,8 +63,16 @@ public class VueAssert {
     assertFileExist(project, "src/test/javascript/spec/common/primary/app/App.spec.ts");
   }
 
-  public static void assertAppWithCss(Project project) {
-    assertFileContent(project, "src/main/webapp/app/common/primary/app/App.vue", "<style>");
+  public static void assertHomepageFiles(Project project) {
+    assertFileExist(project, "src/main/webapp/app/common/primary/homepage/Homepage.component.ts");
+    assertFileExist(project, "src/main/webapp/app/common/primary/homepage/Homepage.html");
+    assertFileExist(project, "src/main/webapp/app/common/primary/homepage/Homepage.vue");
+    assertFileExist(project, "src/main/webapp/app/common/primary/homepage/index.ts");
+    assertFileExist(project, "src/test/javascript/spec/common/primary/homepage/Homepage.spec.ts");
+  }
+
+  public static void assertCss(Project project) {
+    assertFileContent(project, "src/main/webapp/app/common/primary/homepage/Homepage.vue", "<style>");
   }
 
   public static void assertLogos(Project project) {

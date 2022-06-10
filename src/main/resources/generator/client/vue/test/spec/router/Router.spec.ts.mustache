@@ -7,6 +7,9 @@ let wrapper: VueWrapper;
 
 const wrap = () => {
   wrapper = shallowMount(AppVue,{
+    global: {
+      stubs: ['router-link', 'router-view']
+    },
     router
   });
 };

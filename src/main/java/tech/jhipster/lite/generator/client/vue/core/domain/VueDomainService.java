@@ -22,10 +22,13 @@ public class VueDomainService implements VueService {
   public static final String SOURCE_SECONDARY = getPath(SOURCE, "webapp/app/common/secondary");
   public static final String SOURCE_TEST_PRIMARY = getPath(SOURCE, "test/spec/common/primary");
   public static final String SOURCE_PRIMARY_APP = getPath(SOURCE_PRIMARY, "app");
+  public static final String SOURCE_PRIMARY_HOMEPAGE = getPath(SOURCE_PRIMARY, "homepage");
   public static final String DESTINATION_PRIMARY = "src/main/webapp/app/common/primary";
   public static final String DESTINATION_DOMAIN = "src/main/webapp/app/common/domain";
   public static final String DESTINATION_SECONDARY = "src/main/webapp/app/common/secondary";
   public static final String DESTINATION_PRIMARY_APP = DESTINATION_PRIMARY + "/app";
+  public static final String DESTINATION_PRIMARY_HOMEPAGE = DESTINATION_PRIMARY + "/homepage";
+
   public static final String DESTINATION_PRIMARY_TEST = "src/test/javascript/spec/common/primary";
   public static final String DESTINATION_PRIMARY_ROUTER = DESTINATION_PRIMARY + "/app";
   public static final String DESTINATION_APP = "src/main/webapp/app";
@@ -63,6 +66,7 @@ public class VueDomainService implements VueService {
     addAxios(project);
     addRootFiles(project);
     addAppFiles(project);
+    addHomepageFiles(project);
     addRouter(project);
     addLogger(project);
   }
@@ -257,6 +261,38 @@ public class VueDomainService implements VueService {
         .forProject(project)
         .withSource(getPath(SOURCE_TEST_PRIMARY, "app"), "App.spec.ts")
         .withDestinationFolder(DESTINATION_PRIMARY_TEST + "/app")
+    );
+  }
+
+  public void addHomepageFiles(Project project) {
+    project.addDefaultConfig(BASE_NAME);
+
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE_PRIMARY_HOMEPAGE, "Homepage.component.ts")
+        .withDestinationFolder(DESTINATION_PRIMARY_HOMEPAGE)
+    );
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE_PRIMARY_HOMEPAGE, "Homepage.html")
+        .withDestinationFolder(DESTINATION_PRIMARY_HOMEPAGE)
+    );
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(SOURCE_PRIMARY_HOMEPAGE, "Homepage.vue")
+        .withDestinationFolder(DESTINATION_PRIMARY_HOMEPAGE)
+    );
+    projectRepository.template(
+      ProjectFile.forProject(project).withSource(SOURCE_PRIMARY_HOMEPAGE, "index.ts").withDestinationFolder(DESTINATION_PRIMARY_HOMEPAGE)
+    );
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(getPath(SOURCE_TEST_PRIMARY, "homepage"), "Homepage.spec.ts")
+        .withDestinationFolder(DESTINATION_PRIMARY_TEST + "/homepage")
     );
   }
 

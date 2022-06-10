@@ -46,6 +46,7 @@ describe('Generator', () => {
 
     cy.get(springBootGeneratorSelector('add-spring-boot-jwt-button')).contains('Security JWT');
     cy.get(springBootGeneratorSelector('add-spring-boot-jwt-with-basic-authentication-button')).contains('Security JWT Basic Auth');
+    cy.get(springBootGeneratorSelector('add-springdoc-openapi-with-security-jwt-button')).contains('SpringDoc OpenApi with Security JWT');
     cy.get(springBootGeneratorSelector('add-spring-boot-oauth2-button')).contains('Security OAuth2');
     cy.get(springBootGeneratorSelector('add-spring-boot-oauth2-account-button')).contains('OAuth2 Account Context');
 
@@ -61,6 +62,8 @@ describe('Generator', () => {
 
     cy.get(springBootGeneratorSelector('add-spring-boot-pulsar-button')).contains('Pulsar');
     cy.get(springBootGeneratorSelector('add-spring-boot-cucumber-button')).contains('Cucumber');
+
+    cy.get(springBootGeneratorSelector('add-spring-boot-dummy-feature-button')).contains('Dummy feature');
   });
 
   it('should display angular', () => {

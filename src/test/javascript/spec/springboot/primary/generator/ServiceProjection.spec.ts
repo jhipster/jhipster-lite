@@ -35,6 +35,9 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SPRINGBOOT_ACTUATOR)).toEqual<ServiceProjection>('spring-boot-actuator');
     expect(toServiceProjection(Service.SPRING_DOC)).toEqual<ServiceProjection>('spring-doc');
     expect(toServiceProjection(Service.SPRINGBOOT_JWT)).toEqual<ServiceProjection>('spring-boot-jwt');
+    expect(toServiceProjection(Service.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT)).toEqual<ServiceProjection>(
+      'springdoc-openapi-with-security-jwt'
+    );
     expect(toServiceProjection(Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION)).toEqual<ServiceProjection>(
       'spring-boot-jwt-with-basic-authentication'
     );
@@ -42,6 +45,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SPRINGBOOT_OAUTH2_ACCOUNT)).toEqual<ServiceProjection>('spring-boot-oauth2-account');
     expect(toServiceProjection(Service.SPRINGBOOT_MVC_WITH_TOMCAT)).toEqual<ServiceProjection>('spring-boot-mvc-with-tomcat');
     expect(toServiceProjection(Service.SPRINGBOOT_MVC_WITH_UNDERTOW)).toEqual<ServiceProjection>('spring-boot-mvc-with-undertow');
+    expect(toServiceProjection(Service.SPRINGBOOT_DUMMY_FEATURE)).toEqual<ServiceProjection>('spring-boot-dummy-feature');
     expect(toServiceProjection(Service.SPRINGBOOT_WEBFLUX_NETTY)).toEqual<ServiceProjection>('spring-boot-webflux-netty');
     expect(toServiceProjection(Service.SPRINGBOOT_CUCUMBER)).toEqual<ServiceProjection>('spring-boot-cucumber');
     expect(toServiceProjection(Service.SPRINGBOOT_PULSAR)).toEqual<ServiceProjection>('spring-boot-pulsar');
@@ -87,8 +91,10 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('spring-boot-jwt-with-basic-authentication')).toEqual<Service>(
       Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION
     );
+    expect(fromServiceProjection('springdoc-openapi-with-security-jwt')).toEqual<Service>(Service.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT);
     expect(fromServiceProjection('spring-boot-mvc-with-tomcat')).toEqual<Service>(Service.SPRINGBOOT_MVC_WITH_TOMCAT);
     expect(fromServiceProjection('spring-boot-mvc-with-undertow')).toEqual<Service>(Service.SPRINGBOOT_MVC_WITH_UNDERTOW);
+    expect(fromServiceProjection('spring-boot-dummy-feature')).toEqual<Service>(Service.SPRINGBOOT_DUMMY_FEATURE);
     expect(fromServiceProjection('spring-boot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(fromServiceProjection('spring-boot-pulsar')).toEqual<Service>(Service.SPRINGBOOT_PULSAR);
     expect(fromServiceProjection('spring-boot-cucumber')).toEqual<Service>(Service.SPRINGBOOT_CUCUMBER);

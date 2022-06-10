@@ -22,7 +22,7 @@ public class GeneratorHistoryLocalRepository implements GeneratorHistoryReposito
 
   private static final String HISTORY_FILE_NAME = "history.json";
   private static final String HISTORY_FILE_FOLDER_SOURCE = "history";
-  private static final String HISTORY_FOLDER_PATH_DEST = ".jhipster";
+  private static final String HISTORY_FOLDER_PATH_DEST = ".jhipster/history";
 
   private final ProjectRepository projectRepository;
 

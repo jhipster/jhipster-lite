@@ -51,6 +51,15 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootDummyFeature = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootDummyFeature(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot dummy feature successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot dummy feature to project failed ${error}`));
+      }
+    };
+
     const addSpringBootWebfluxNetty = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -113,6 +122,15 @@ export default defineComponent({
           .addBasicAuthJWT(toProject(props.project as ProjectToUpdate))
           .then(() => alertBus.success('SpringBoot Security JWT Basic Auth successfully added'))
           .catch(error => alertBus.error(`Adding SpringBoot Security JWT Basic Auth to project failed ${error}`));
+      }
+    };
+
+    const addSpringDocOpenApiSecurityJWT = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringdocJWT(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringDoc Open Api with Security JWT successfully added'))
+          .catch(error => alertBus.error(`Adding SpringDoc Open Api with Security JWT to project failed ${error}`));
       }
     };
 
@@ -238,6 +256,7 @@ export default defineComponent({
       addSpringBoot,
       addSpringBootMvcTomcat,
       addSpringBootMvcUndertow,
+      addSpringBootDummyFeature,
       addSpringBootWebfluxNetty,
       addSpringBootActuator,
       addSpringDoc,
@@ -245,6 +264,7 @@ export default defineComponent({
       addSpringBootLogstash,
       addSpringBootSecurityJWT,
       addSpringBootSecurityJWTBasicAuth,
+      addSpringDocOpenApiSecurityJWT,
       addSpringBootSecurityOAuth2,
       addSpringBootSecurityOAuth2Account,
       addPostgreSQL,

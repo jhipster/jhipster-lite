@@ -30,11 +30,13 @@ export type ServiceProjection =
   | 'spring-doc'
   | 'spring-boot-jwt'
   | 'spring-boot-jwt-with-basic-authentication'
+  | 'springdoc-openapi-with-security-jwt'
   | 'spring-boot-oauth2'
   | 'spring-boot-oauth2-account'
   | 'spring-boot-mvc-with-tomcat'
   | 'spring-boot-mvc-with-undertow'
   | 'spring-boot-webflux-netty'
+  | 'spring-boot-dummy-feature'
   | 'spring-boot-cucumber'
   | 'spring-boot-pulsar'
   | 'react'
@@ -72,10 +74,12 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SPRING_DOC]: 'spring-doc',
   [Service.SPRINGBOOT_JWT]: 'spring-boot-jwt',
   [Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION]: 'spring-boot-jwt-with-basic-authentication',
+  [Service.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT]: 'springdoc-openapi-with-security-jwt',
   [Service.SPRINGBOOT_OAUTH2]: 'spring-boot-oauth2',
   [Service.SPRINGBOOT_OAUTH2_ACCOUNT]: 'spring-boot-oauth2-account',
   [Service.SPRINGBOOT_MVC_WITH_TOMCAT]: 'spring-boot-mvc-with-tomcat',
   [Service.SPRINGBOOT_MVC_WITH_UNDERTOW]: 'spring-boot-mvc-with-undertow',
+  [Service.SPRINGBOOT_DUMMY_FEATURE]: 'spring-boot-dummy-feature',
   [Service.SPRINGBOOT_WEBFLUX_NETTY]: 'spring-boot-webflux-netty',
   [Service.SPRINGBOOT_CUCUMBER]: 'spring-boot-cucumber',
   [Service.SPRINGBOOT_PULSAR]: 'spring-boot-pulsar',
@@ -117,10 +121,12 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'spring-doc': Service.SPRING_DOC,
   'spring-boot-jwt': Service.SPRINGBOOT_JWT,
   'spring-boot-jwt-with-basic-authentication': Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION,
+  'springdoc-openapi-with-security-jwt': Service.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT,
   'spring-boot-oauth2': Service.SPRINGBOOT_OAUTH2,
   'spring-boot-oauth2-account': Service.SPRINGBOOT_OAUTH2_ACCOUNT,
   'spring-boot-mvc-with-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,
   'spring-boot-mvc-with-undertow': Service.SPRINGBOOT_MVC_WITH_UNDERTOW,
+  'spring-boot-dummy-feature': Service.SPRINGBOOT_DUMMY_FEATURE,
   'spring-boot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
   'spring-boot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   'spring-boot-pulsar': Service.SPRINGBOOT_PULSAR,

@@ -41,6 +41,8 @@ export interface SpringBootService {
   addSpringBootDockerfile(project: Project): Promise<void>;
   addSpringBootDockerJib(project: Project): Promise<void>;
 
+  addSpringBootDummyFeature(project: Project): Promise<void>;
+
   addCucumber(project: Project): Promise<void>;
   addPulsar(project: Project): Promise<void>;
 }

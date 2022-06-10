@@ -75,6 +75,6 @@ public class ProjectsSteps {
 
   @Then("I should have history entry for {string}")
   public void shouldHaveHistoryEntry(String slug) throws IOException {
-    assertThat(Files.readString(Paths.get(lastProjectFolder, ".jhipster", "history.json"))).contains(slug);
+    assertThat(Files.readString(Paths.get(lastProjectFolder, ".jhipster/history", "history.json"))).contains(slug);
   }
 }

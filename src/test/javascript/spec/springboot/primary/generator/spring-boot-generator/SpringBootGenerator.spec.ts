@@ -153,16 +153,9 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootMvcUndertow();
 
     const args = springBootService.addSpringBootMvcUndertow.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
     expectAlertSuccessToBe(alertBus, 'SpringBoot MVC with Undertow successfully added');
   });
-
+    
   it('should handle error on adding SpringBoot MVC with Undertow failure', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addSpringBootMvcUndertow.rejects('error');
@@ -172,6 +165,49 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootMvcUndertow();
 
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot MVC with Undertow to project failed error');
+  });
+
+  it('should not add SpringBoot dummy feature when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootDummyFeature.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringBootDummyFeature();
+
+    expect(springBootService.addSpringBootDummyFeature.called).toBe(false);
+  });
+
+  it('should add SpringBoot dummy feature when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootDummyFeature.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootDummyFeature();
+
+    const args = springBootService.addSpringBootDummyFeature.getCall(0).args[0];
+
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+
+    expectAlertSuccessToBe(alertBus, 'SpringBoot dummy feature successfully added');
+  });
+
+  it('should handle error on adding SpringBoot dummy feature failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootDummyFeature.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootDummyFeature();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringBoot dummy feature to project failed error');
+
   });
 
   it('should not add SpringBoot Webflux with Netty when project path is not filled', async () => {
@@ -458,6 +494,46 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootSecurityJWTBasicAuth();
 
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security JWT Basic Auth to project failed error');
+  });
+
+  it('should not add SpringDoc open api with Security JWT when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    expect(springBootService.addSpringdocJWT.called).toBe(false);
+  });
+
+  it('should add SpringDoc open api with Security JWT when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    const args = springBootService.addSpringdocJWT.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringDoc Open Api with Security JWT successfully added');
+  });
+
+  it('should handle error on adding SpringDoc open api with Security JWT failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringDoc Open Api with Security JWT to project failed error');
   });
 
   it('should not add SpringBoot Security OAuth2 when project path is not filled', async () => {

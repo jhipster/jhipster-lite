@@ -30,12 +30,14 @@ describe('RestServiceId', () => {
     expect(toService('springboot')).toEqual<Service>(Service.SPRINGBOOT);
     expect(toService('springboot-jwt')).toEqual<Service>(Service.SPRINGBOOT_JWT);
     expect(toService('springboot-jwt-basic-auth')).toEqual<Service>(Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION);
+    expect(toService('springdoc-openapi-with-security-jwt')).toEqual<Service>(Service.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT);
     expect(toService('springboot-oauth2')).toEqual<Service>(Service.SPRINGBOOT_OAUTH2);
     expect(toService('springboot-oauth2-account')).toEqual<Service>(Service.SPRINGBOOT_OAUTH2_ACCOUNT);
     expect(toService('springboot-actuator')).toEqual<Service>(Service.SPRINGBOOT_ACTUATOR);
     expect(toService('springdoc-openapi')).toEqual<Service>(Service.SPRING_DOC);
     expect(toService('springboot-tomcat')).toEqual<Service>(Service.SPRINGBOOT_MVC_WITH_TOMCAT);
     expect(toService('springboot-undertow')).toEqual<Service>(Service.SPRINGBOOT_MVC_WITH_UNDERTOW);
+    expect(toService('dummy-feature')).toEqual<Service>(Service.SPRINGBOOT_DUMMY_FEATURE);
     expect(toService('springboot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(toService('springboot-cucumber')).toEqual<Service>(Service.SPRINGBOOT_CUCUMBER);
     expect(toService('springboot-pulsar')).toEqual<Service>(Service.SPRINGBOOT_PULSAR);

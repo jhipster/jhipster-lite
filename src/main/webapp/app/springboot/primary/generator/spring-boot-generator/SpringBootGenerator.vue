@@ -112,6 +112,14 @@
           @click.prevent="addCucumber"
         />
       </div>
+      <div>
+        <GeneratorButtonVue
+          :label="'Dummy feature'"
+          :service="'spring-boot-dummy-feature'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootDummyFeature"
+        />
+      </div>
     </div>
   </div>
 </template>

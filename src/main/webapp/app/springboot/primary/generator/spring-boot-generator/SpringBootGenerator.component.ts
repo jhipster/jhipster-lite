@@ -42,6 +42,15 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootDummyFeature = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootDummyFeature(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot dummy feature successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot dummy feature to project failed ${error}`));
+      }
+    };
+
     const addSpringBootWebfluxNetty = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -228,6 +237,7 @@ export default defineComponent({
       selectorPrefix,
       addSpringBoot,
       addSpringBootMvcTomcat,
+      addSpringBootDummyFeature,
       addSpringBootWebfluxNetty,
       addSpringBootActuator,
       addSpringDoc,

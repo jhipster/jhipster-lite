@@ -45,7 +45,7 @@ class GeneratorHistoryApplicationServiceIT {
     generatorHistoryApplicationService.addHistoryValue(project, generatorHistoryValue);
 
     // Then
-    String content = FileUtils.read(getPath(project.getFolder(), ".jhipster", "history.json"));
+    String content = FileUtils.read(getPath(project.getFolder(), ".jhipster/history", "history.json"));
     assertThat(content).isEqualTo(getExpectedHistoryFileContent());
     List<GeneratorHistoryValue> serviceIds = generatorHistoryApplicationService.getValues(project);
     assertThat(serviceIds).extracting(GeneratorHistoryValue::serviceId).containsOnly("init-project");

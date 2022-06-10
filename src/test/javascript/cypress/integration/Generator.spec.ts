@@ -60,6 +60,8 @@ describe('Generator', () => {
 
     cy.get(springBootGeneratorSelector('add-spring-boot-pulsar-button')).contains('Pulsar');
     cy.get(springBootGeneratorSelector('add-spring-boot-cucumber-button')).contains('Cucumber');
+
+    cy.get(springBootGeneratorSelector('add-spring-boot-dummy-feature-button')).contains('Dummy feature');
   });
 
   it('should display angular', () => {

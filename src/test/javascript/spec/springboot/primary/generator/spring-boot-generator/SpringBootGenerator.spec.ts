@@ -134,6 +134,46 @@ describe('SpringBootGenerator', () => {
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot MVC with Tomcat to project failed error');
   });
 
+  it('should not add SpringBoot MVC with Undertow when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcUndertow.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringBootMvcUndertow();
+
+    expect(springBootService.addSpringBootMvcUndertow.called).toBe(false);
+  });
+
+  it('should add SpringBoot MVC with Undertow when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcUndertow.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootMvcUndertow();
+
+    const args = springBootService.addSpringBootMvcUndertow.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringBoot MVC with Undertow successfully added');
+  });
+
+  it('should handle error on adding SpringBoot MVC with Undertow failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcUndertow.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootMvcUndertow();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringBoot MVC with Undertow to project failed error');
+  });
+
   it('should not add SpringBoot Webflux with Netty when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addSpringBootWebfluxNetty.resolves({});

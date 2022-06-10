@@ -35,6 +35,7 @@ const SERVICES: Record<string, Service> = {
   'springboot-oauth2': Service.SPRINGBOOT_OAUTH2,
   'springboot-oauth2-account': Service.SPRINGBOOT_OAUTH2_ACCOUNT,
   'springboot-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,
+  'springboot-undertow': Service.SPRINGBOOT_MVC_WITH_UNDERTOW,
   'springboot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
   'springboot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   'springboot-pulsar': Service.SPRINGBOOT_PULSAR,

@@ -35,6 +35,7 @@ describe('RestServiceId', () => {
     expect(toService('springboot-actuator')).toEqual<Service>(Service.SPRINGBOOT_ACTUATOR);
     expect(toService('springdoc-openapi')).toEqual<Service>(Service.SPRING_DOC);
     expect(toService('springboot-tomcat')).toEqual<Service>(Service.SPRINGBOOT_MVC_WITH_TOMCAT);
+    expect(toService('springboot-undertow')).toEqual<Service>(Service.SPRINGBOOT_MVC_WITH_UNDERTOW);
     expect(toService('springboot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(toService('springboot-cucumber')).toEqual<Service>(Service.SPRINGBOOT_CUCUMBER);
     expect(toService('springboot-pulsar')).toEqual<Service>(Service.SPRINGBOOT_PULSAR);

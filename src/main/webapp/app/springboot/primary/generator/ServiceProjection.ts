@@ -33,6 +33,7 @@ export type ServiceProjection =
   | 'spring-boot-oauth2'
   | 'spring-boot-oauth2-account'
   | 'spring-boot-mvc-with-tomcat'
+  | 'spring-boot-mvc-with-undertow'
   | 'spring-boot-webflux-netty'
   | 'spring-boot-cucumber'
   | 'spring-boot-pulsar'
@@ -74,6 +75,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SPRINGBOOT_OAUTH2]: 'spring-boot-oauth2',
   [Service.SPRINGBOOT_OAUTH2_ACCOUNT]: 'spring-boot-oauth2-account',
   [Service.SPRINGBOOT_MVC_WITH_TOMCAT]: 'spring-boot-mvc-with-tomcat',
+  [Service.SPRINGBOOT_MVC_WITH_UNDERTOW]: 'spring-boot-mvc-with-undertow',
   [Service.SPRINGBOOT_WEBFLUX_NETTY]: 'spring-boot-webflux-netty',
   [Service.SPRINGBOOT_CUCUMBER]: 'spring-boot-cucumber',
   [Service.SPRINGBOOT_PULSAR]: 'spring-boot-pulsar',
@@ -118,6 +120,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'spring-boot-oauth2': Service.SPRINGBOOT_OAUTH2,
   'spring-boot-oauth2-account': Service.SPRINGBOOT_OAUTH2_ACCOUNT,
   'spring-boot-mvc-with-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,
+  'spring-boot-mvc-with-undertow': Service.SPRINGBOOT_MVC_WITH_UNDERTOW,
   'spring-boot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
   'spring-boot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   'spring-boot-pulsar': Service.SPRINGBOOT_PULSAR,

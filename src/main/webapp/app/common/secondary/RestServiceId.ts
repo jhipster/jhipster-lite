@@ -32,6 +32,7 @@ const SERVICES: Record<string, Service> = {
   'springdoc-openapi': Service.SPRING_DOC,
   'springboot-jwt': Service.SPRINGBOOT_JWT,
   'springboot-jwt-basic-auth': Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION,
+  'springdoc-openapi-with-security-jwt': Service.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT,
   'springboot-oauth2': Service.SPRINGBOOT_OAUTH2,
   'springboot-oauth2-account': Service.SPRINGBOOT_OAUTH2_ACCOUNT,
   'springboot-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,

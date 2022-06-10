@@ -56,6 +56,12 @@
           @click.prevent="addSpringBootSecurityJWTBasicAuth"
         />
         <GeneratorButtonVue
+          :label="'SpringDoc OpenApi with Security JWT'"
+          :service="'springdoc-openapi-with-security-jwt'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringDocOpenApiSecurityJWT"
+        />
+        <GeneratorButtonVue
           :label="'Security OAuth2'"
           :service="'spring-boot-oauth2'"
           :selector-prefix="selectorPrefix"

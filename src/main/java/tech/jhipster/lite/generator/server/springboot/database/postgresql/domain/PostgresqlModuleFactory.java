@@ -4,7 +4,6 @@ import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_LOGBACK_LOGGER;
 
-import java.util.HashMap;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.docker.domain.DockerService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
@@ -14,7 +13,6 @@ import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencyS
 import tech.jhipster.lite.generator.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
-import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 
 public class PostgresqlModuleFactory {
@@ -44,7 +42,6 @@ public class PostgresqlModuleFactory {
     JHipsterSource source = from(SOURCE);
     String databasePath = "technical/infrastructure/secondary/postgresql";
 
-    var projectPropertie = new HashMap<>(properties.properties());
     String postgresqlDockerImageVersion = dockerService.getImageVersion(POSTGRESQL_DOCKER_IMAGE_NAME).orElseThrow();
     String postgresqlDockerImageWithVersion = dockerService.getImageNameWithVersion(POSTGRESQL_DOCKER_IMAGE_NAME).orElseThrow();
     //@formatter:off

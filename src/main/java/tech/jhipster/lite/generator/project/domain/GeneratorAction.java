@@ -81,7 +81,7 @@ public class GeneratorAction {
 
   public static final String AOP_LOGGING = "aop-logging";
 
-  public static final String DUMMY_CONTEXT = "dummy-feature";
+  public static final String DUMMY_FEATURE = "dummy-feature";
 
   public static final String USER_AND_AUTHORITY_ENTITIES_POSTGRESQL = "user-and-authority-entities-postgresql";
   public static final String USER_AND_AUTHORITY_ENTITIES_MYSQL = "user-and-authority-entities-mysql";

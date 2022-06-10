@@ -107,6 +107,15 @@ export default defineComponent({
       }
     };
 
+    const addSpringDocOpenApiSecurityJWT = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringdocJWT(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringDoc Open Api with Security JWT successfully added'))
+          .catch(error => alertBus.error(`Adding SpringDoc Open Api with Security JWT to project failed ${error}`));
+      }
+    };
+
     const addSpringBootSecurityOAuth2 = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -235,6 +244,7 @@ export default defineComponent({
       addSpringBootLogstash,
       addSpringBootSecurityJWT,
       addSpringBootSecurityJWTBasicAuth,
+      addSpringDocOpenApiSecurityJWT,
       addSpringBootSecurityOAuth2,
       addSpringBootSecurityOAuth2Account,
       addPostgreSQL,

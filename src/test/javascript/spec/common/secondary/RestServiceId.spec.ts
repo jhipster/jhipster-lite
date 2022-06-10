@@ -30,6 +30,7 @@ describe('RestServiceId', () => {
     expect(toService('springboot')).toEqual<Service>(Service.SPRINGBOOT);
     expect(toService('springboot-jwt')).toEqual<Service>(Service.SPRINGBOOT_JWT);
     expect(toService('springboot-jwt-basic-auth')).toEqual<Service>(Service.SPRINGBOOT_JWT_WITH_BASIC_AUTHENTICATION);
+    expect(toService('springdoc-openapi-with-security-jwt')).toEqual<Service>(Service.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT);
     expect(toService('springboot-oauth2')).toEqual<Service>(Service.SPRINGBOOT_OAUTH2);
     expect(toService('springboot-oauth2-account')).toEqual<Service>(Service.SPRINGBOOT_OAUTH2_ACCOUNT);
     expect(toService('springboot-actuator')).toEqual<Service>(Service.SPRINGBOOT_ACTUATOR);

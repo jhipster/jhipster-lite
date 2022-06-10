@@ -420,6 +420,46 @@ describe('SpringBootGenerator', () => {
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security JWT Basic Auth to project failed error');
   });
 
+  it('should not add SpringDoc open api with Security JWT when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    expect(springBootService.addSpringdocJWT.called).toBe(false);
+  });
+
+  it('should add SpringDoc open api with Security JWT when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    const args = springBootService.addSpringdocJWT.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringDoc Open Api with Security JWT successfully added');
+  });
+
+  it('should handle error on adding SpringDoc open api with Security JWT failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringDoc Open Api with Security JWT to project failed error');
+  });
+
   it('should not add SpringBoot Security OAuth2 when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addOAuth2.resolves({});

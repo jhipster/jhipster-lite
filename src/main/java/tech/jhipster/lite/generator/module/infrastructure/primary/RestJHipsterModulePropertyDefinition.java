@@ -1,12 +1,10 @@
 package tech.jhipster.lite.generator.module.infrastructure.primary;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePropertyDefinition;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterPropertyDescription;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterPropertyExample;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterPropertyType;
 
-@Schema(name = "JHipsterModulePropertyDefinition", description = "Definition for a module property")
 class RestJHipsterModulePropertyDefinition {
 
   private final JHipsterPropertyType type;
@@ -33,27 +31,22 @@ class RestJHipsterModulePropertyDefinition {
       .build();
   }
 
-  @Schema(description = "Type of this property", required = true)
   public JHipsterPropertyType getType() {
     return type;
   }
 
-  @Schema(description = "True if the field is mandatory, false otherwise", required = true)
   public boolean isMandatory() {
     return mandatory;
   }
 
-  @Schema(description = "Key of this property", required = true)
   public String getKey() {
     return key;
   }
 
-  @Schema(description = "Description of this property")
   public String getDescription() {
     return description;
   }
 
-  @Schema(description = "Example value for this property")
   public String getExample() {
     return example;
   }

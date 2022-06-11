@@ -17,6 +17,7 @@ class BannerResourceConfiguration {
       .builder()
       .legacyUrl("/api/servers/spring-boot/banners/jhipster-v7")
       .slug("banner-jhipster-v7")
+      .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for Angular"))
       .factory(banners::buildJHipsterV7Banner);
   }
@@ -27,6 +28,7 @@ class BannerResourceConfiguration {
       .builder()
       .legacyUrl("/api/servers/spring-boot/banners/jhipster-v7-react")
       .slug("banner-jhipster-v7-react")
+      .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for React"))
       .factory(banners::buildJHipsterV7ReactBanner);
   }
@@ -37,6 +39,7 @@ class BannerResourceConfiguration {
       .builder()
       .legacyUrl("/api/servers/spring-boot/banners/jhipster-v7-vue")
       .slug("banner-jhipster-v7-vue")
+      .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for Vue"))
       .factory(banners::buildJHipsterV7VueBanner);
   }
@@ -47,6 +50,7 @@ class BannerResourceConfiguration {
       .builder()
       .legacyUrl("/api/servers/spring-boot/banners/jhipster-v2")
       .slug("banner-jhipster-v2")
+      .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v2"))
       .factory(banners::buildJHipsterV2Banner);
   }
@@ -57,6 +61,7 @@ class BannerResourceConfiguration {
       .builder()
       .legacyUrl("/api/servers/spring-boot/banners/jhipster-v3")
       .slug("banner-jhipster-v3")
+      .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v3"))
       .factory(banners::buildJHipsterV3Banner);
   }
@@ -67,6 +72,7 @@ class BannerResourceConfiguration {
       .builder()
       .legacyUrl("/api/servers/spring-boot/banners/ippon")
       .slug("banner-ippon")
+      .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner for Ippon applications"))
       .factory(banners::buildIpponBanner);
   }

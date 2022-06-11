@@ -1,7 +1,7 @@
 Feature: Init
 
   Scenario: Should init
-    When I init default project
+    When I apply legacy module "/api/inits/full" to default project
     Then I should have files in ""
       | .gitignore                    |
       | .gitattributes                |
@@ -19,7 +19,7 @@ Feature: Init
       | HEAD                          |
 
   Scenario: Should init minimal
-    When I init minimal default project
+    When I apply legacy module "/api/inits/minimal" to default project
     Then I should have files in ""
       | .gitignore                    |
       | .gitattributes                |

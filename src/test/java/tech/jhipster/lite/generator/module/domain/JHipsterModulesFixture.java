@@ -151,6 +151,30 @@ public final class JHipsterModulesFixture {
     return new JavaDependencyVersion("spring-boot", "1.2.3");
   }
 
+  public static JHipsterModuleProperties allProperties() {
+    return new JHipsterModuleProperties(
+      new JHipsterProjectFolder("/test"),
+      Map.of(
+        "packageName",
+        "tech.jhipster.chips",
+        "prettierDefaultIndent",
+        2,
+        "projectName",
+        "JHipster project",
+        "baseName",
+        "jhipster",
+        "optionalString",
+        "optional",
+        "mandatoryInteger",
+        42,
+        "mandatoryBoolean",
+        true,
+        "optionalBoolean",
+        true
+      )
+    );
+  }
+
   public static JHipsterModulePropertiesDefinition propertiesDefinition() {
     return JHipsterModulePropertiesDefinition
       .builder()

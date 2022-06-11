@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 
 public class JHipsterModulePropertiesDefinition {
@@ -15,6 +16,8 @@ public class JHipsterModulePropertiesDefinition {
   private static final Comparator<JHipsterModulePropertyDefinition> DEFINITION_COMPARATOR = Comparator
     .comparing(JHipsterModulePropertyDefinition::order)
     .thenComparing(definition -> definition.key().get());
+
+  public static final JHipsterModulePropertiesDefinition EMPTY = builder().build();
 
   private final Set<JHipsterModulePropertyDefinition> definitions;
 
@@ -35,6 +38,10 @@ public class JHipsterModulePropertiesDefinition {
 
   public Collection<JHipsterModulePropertyDefinition> get() {
     return definitions;
+  }
+
+  public Stream<JHipsterModulePropertyDefinition> stream() {
+    return definitions.stream();
   }
 
   public static class JHipsterModulePropertiesDefinitionBuilder {

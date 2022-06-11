@@ -22,9 +22,13 @@ public class ProjectsSteps {
   private static String lastProjectFolder;
 
   public static ProjectDTO newDefaultProjectDto() {
-    lastProjectFolder = tmpDirForTest();
+    newTestFolder();
 
     return TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(lastProjectFolder);
+  }
+
+  public static String newTestFolder() {
+    return lastProjectFolder = tmpDirForTest();
   }
 
   @Then("I should have files in {string}")

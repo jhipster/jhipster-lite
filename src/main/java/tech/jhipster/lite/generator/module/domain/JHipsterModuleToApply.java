@@ -1,11 +1,11 @@
 package tech.jhipster.lite.generator.module.domain;
 
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 
-public record JHipsterModuleToApply(Project project, JHipsterModuleSlug slug, JHipsterModule module) {
+public record JHipsterModuleToApply(JHipsterModuleProperties properties, JHipsterModuleSlug slug, JHipsterModule module) {
   public JHipsterModuleToApply {
-    Assert.notNull("project", project);
+    Assert.notNull("properties", properties);
     Assert.notNull("slug", slug);
     Assert.notNull("module", module);
   }

@@ -14,9 +14,9 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.application.JHipsterModulesApplicationService;
 
 @UnitTest
-class JHipsterProjectQueryModuleHandlerTest {
+class JHipsterModuleApplicationControllerTest {
 
-  private static JHipsterProjectQueryController controller = new JHipsterProjectQueryController(
+  private static final JHipsterModuleApplicationController controller = new JHipsterModuleApplicationController(
     JsonHelper.jsonMapper(),
     defaultModuleResource(),
     mock(JHipsterModulesApplicationService.class)
@@ -26,7 +26,7 @@ class JHipsterProjectQueryModuleHandlerTest {
   @ValueSource(strings = { "dummy", "GET", "PATH", "PUT", "DELETE" })
   void shouldNotHandleRequestForInvalidMethod(String method) {
     assertThatThrownBy(() -> controller.handleRequest(new MockHttpServletRequest(method, "/api/dummy"), new MockHttpServletResponse()))
-      .isExactlyInstanceOf(InvalidProjectQueryException.class);
+      .isExactlyInstanceOf(InvalidModuleQueryException.class);
   }
 
   @Test
@@ -35,6 +35,6 @@ class JHipsterProjectQueryModuleHandlerTest {
     request.setContent("{".getBytes());
 
     assertThatThrownBy(() -> controller.handleRequest(request, new MockHttpServletResponse()))
-      .isExactlyInstanceOf(InvalidProjectQueryException.class);
+      .isExactlyInstanceOf(InvalidModuleQueryException.class);
   }
 }

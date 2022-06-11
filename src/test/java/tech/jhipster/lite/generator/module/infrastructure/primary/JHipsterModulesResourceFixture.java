@@ -1,19 +1,11 @@
 package tech.jhipster.lite.generator.module.infrastructure.primary;
 
-import static org.mockito.Mockito.*;
-
-import java.util.List;
-import tech.jhipster.lite.JsonHelper;
-import tech.jhipster.lite.generator.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleFactory;
+import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
 
 final class JHipsterModulesResourceFixture {
 
   private JHipsterModulesResourceFixture() {}
-
-  static JHipsterModulesHandlerMapping jhipsterModuleMapping(JHipsterModuleResource... modules) {
-    return new JHipsterModulesHandlerMapping(JsonHelper.jsonMapper(), List.of(modules), mock(JHipsterModulesApplicationService.class));
-  }
 
   static JHipsterModuleResource defaultModuleResource() {
     return defaultModuleResourceBuilder().build();
@@ -61,6 +53,7 @@ final class JHipsterModulesResourceFixture {
         .builder()
         .legacyUrl(legacyUrl)
         .slug(slug)
+        .propertiesDefinition(JHipsterModulesFixture.propertiesDefinition())
         .apiDoc(new JHipsterModuleApiDoc("tag", operation))
         .factory(factory);
     }

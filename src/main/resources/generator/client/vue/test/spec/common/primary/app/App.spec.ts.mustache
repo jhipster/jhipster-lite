@@ -4,10 +4,10 @@ import { AppVue } from '@/common/primary/app';
 let wrapper: VueWrapper;
 
 const wrap = () => {
-  wrapper = shallowMount(AppVue,{
+  wrapper = shallowMount(AppVue, {
     global: {
-      stubs: ['router-link', 'router-view']
-    }
+      stubs: ['router-link', 'router-view'],
+    },
   });
 };
 

@@ -1,17 +1,16 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
-import {HomepageVue} from '@/common/primary/homepage';
+import { HomepageVue } from '@/common/primary/homepage';
 
 let wrapper: VueWrapper;
 
 const wrap = () => {
-wrapper = shallowMount(HomepageVue)
+  wrapper = shallowMount(HomepageVue);
 };
 
-
 describe('App', () => {
-it('should exist', () => {
-wrap();
+  it('should exist', () => {
+    wrap();
 
-expect(wrapper.exists()).toBeTruthy();
-});
+    expect(wrapper.exists()).toBeTruthy();
+  });
 });

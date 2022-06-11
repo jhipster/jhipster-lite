@@ -29,7 +29,8 @@ import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.module.JHipsterModules;
+import tech.jhipster.lite.generator.module.domain.javadependency.ProjectJavaDependenciesRepository;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -43,18 +44,18 @@ public class SpringdocDomainService implements SpringdocService {
   private final BuildToolService buildToolService;
   private final ProjectRepository projectRepository;
   private final SpringBootCommonService springBootCommonService;
-  private final JHipsterModules jHipsterModules;
+  private final ProjectJavaDependenciesRepository projectJavaDependenciesRepository;
 
   public SpringdocDomainService(
     BuildToolService buildToolService,
     ProjectRepository projectRepository,
     SpringBootCommonService springBootCommonService,
-    JHipsterModules jHipsterModules
+    ProjectJavaDependenciesRepository projectJavaDependenciesRepository
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
-    this.jHipsterModules = jHipsterModules;
+    this.projectJavaDependenciesRepository = projectJavaDependenciesRepository;
   }
 
   @Override
@@ -79,8 +80,10 @@ public class SpringdocDomainService implements SpringdocService {
           buildToolService.addProperty(project, "springdoc-openapi-ui.version", version);
           Dependency dependency;
           dependency =
-            jHipsterModules
-              .getDependency(project.getFolder(), WEBFLUX_DEPENDENCY_ID)
+            projectJavaDependenciesRepository
+              .get(new JHipsterProjectFolder(project.getFolder()))
+              .dependencies()
+              .get(WEBFLUX_DEPENDENCY_ID)
               .map(d -> springdocDependencyForWebflux())
               .orElse(springdocDependencyForMvc());
           buildToolService.addDependency(project, dependency);

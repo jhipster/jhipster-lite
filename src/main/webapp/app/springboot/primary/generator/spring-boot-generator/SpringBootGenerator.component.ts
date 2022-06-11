@@ -42,6 +42,15 @@ export default defineComponent({
       }
     };
 
+    const addSpringBootMvcUndertow = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootMvcUndertow(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot MVC with Undertow successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot MVC with Undertow to project failed ${error}`));
+      }
+    };
+
     const addSpringBootDummyFeature = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -246,6 +255,7 @@ export default defineComponent({
       selectorPrefix,
       addSpringBoot,
       addSpringBootMvcTomcat,
+      addSpringBootMvcUndertow,
       addSpringBootDummyFeature,
       addSpringBootWebfluxNetty,
       addSpringBootActuator,

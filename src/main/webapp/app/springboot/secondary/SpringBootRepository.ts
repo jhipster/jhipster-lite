@@ -19,6 +19,10 @@ export default class SpringBootRepository implements SpringBootService {
     await this.postAndGetHistory('api/servers/spring-boot/web-servers/tomcat', toRestProject(project));
   }
 
+  async addSpringBootMvcUndertow(project: Project): Promise<void> {
+    await this.postAndGetHistory('api/servers/spring-boot/web-servers/undertow', toRestProject(project));
+  }
+
   async addSpringBootDummyFeature(project: Project): Promise<void> {
     await this.postAndGetHistory('api/servers/spring-boot/features/dummy', toRestProject(project));
   }

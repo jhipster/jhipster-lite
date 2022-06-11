@@ -15,6 +15,12 @@
           @click.prevent="addSpringBootMvcTomcat"
         />
         <GeneratorButtonVue
+          :label="'Spring MVC Undertow'"
+          :service="'spring-boot-mvc-with-undertow'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootMvcUndertow"
+        />
+        <GeneratorButtonVue
           :label="'Spring Webflux Netty'"
           :service="'spring-boot-webflux-netty'"
           :selector-prefix="selectorPrefix"

@@ -26,7 +26,8 @@ class VueApplicationServiceIT {
     VueAssert.assertRootFiles(project);
     VueAssert.assertRouterFiles(project);
     VueAssert.assertAppFiles(project);
-    VueAssert.assertAppWithCss(project);
+    VueAssert.assertHomepageFiles(project);
+    VueAssert.assertCss(project);
     VueAssert.assertLogos(project);
     VueAssert.assertLogger(project);
     VueAssert.assertAxiosFile(project);

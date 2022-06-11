@@ -43,7 +43,8 @@ class VueResourceIT {
     VueAssert.assertViteConfigFiles(project);
     VueAssert.assertRootFiles(project);
     VueAssert.assertAppFiles(project);
-    VueAssert.assertAppWithCss(project);
+    VueAssert.assertHomepageFiles(project);
+    VueAssert.assertCss(project);
 
     VueAssert.assertJestSonar(project);
   }

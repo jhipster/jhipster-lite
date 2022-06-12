@@ -3,11 +3,13 @@ package tech.jhipster.lite.generator.module.infrastructure.primary;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleSlug;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePropertiesDefinition;
 
 public class JHipsterModuleResource {
 
   private final String legacyUrl;
   private final JHipsterModuleSlug slug;
+  private final JHipsterModulePropertiesDefinition propertiesDefinition;
   private final JHipsterModuleApiDoc apiDoc;
   private final JHipsterModuleFactory factory;
 
@@ -16,12 +18,14 @@ public class JHipsterModuleResource {
 
     legacyUrl = builder.legacyUrl;
     slug = new JHipsterModuleSlug(builder.slug);
+    propertiesDefinition = builder.propertiesDefinition;
     apiDoc = builder.apiDoc;
     factory = builder.factory;
   }
 
   private void assertMandatoryFields(JHipsterModuleResourceBuilder builder) {
     Assert.notBlank("legacyUrl", builder.legacyUrl);
+    Assert.notNull("propertiesDefinition", builder.propertiesDefinition);
     Assert.notNull("apiDoc", builder.apiDoc);
     Assert.notNull("factory", builder.factory);
   }
@@ -34,7 +38,11 @@ public class JHipsterModuleResource {
     return legacyUrl;
   }
 
-  JHipsterModuleSlug slug() {
+  public String moduleUrl() {
+    return "/api/modules/" + slug.get();
+  }
+
+  public JHipsterModuleSlug slug() {
     return slug;
   }
 
@@ -46,10 +54,15 @@ public class JHipsterModuleResource {
     return factory;
   }
 
+  public JHipsterModulePropertiesDefinition propertiesDefinition() {
+    return propertiesDefinition;
+  }
+
   public static class JHipsterModuleResourceBuilder
     implements
       JHipsterModuleResourceLegacyUrlBuilder,
       JHipsterModuleResourceSlugBuilder,
+      JHipsterModuleResourcePropertiesDefinitionBuilder,
       JHipsterModuleResourceApiDocBuilder,
       JHipsterModuleResourceFactoryBuilder {
 
@@ -57,6 +70,7 @@ public class JHipsterModuleResource {
     private String slug;
     private JHipsterModuleApiDoc apiDoc;
     private JHipsterModuleFactory factory;
+    private JHipsterModulePropertiesDefinition propertiesDefinition;
 
     private JHipsterModuleResourceBuilder() {}
 
@@ -68,8 +82,15 @@ public class JHipsterModuleResource {
     }
 
     @Override
-    public JHipsterModuleResourceApiDocBuilder slug(String slug) {
+    public JHipsterModuleResourcePropertiesDefinitionBuilder slug(String slug) {
       this.slug = slug;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleResourceApiDocBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition) {
+      this.propertiesDefinition = propertiesDefinition;
 
       return this;
     }
@@ -94,7 +115,15 @@ public class JHipsterModuleResource {
   }
 
   public interface JHipsterModuleResourceSlugBuilder {
-    JHipsterModuleResourceApiDocBuilder slug(String slug);
+    JHipsterModuleResourcePropertiesDefinitionBuilder slug(String slug);
+  }
+
+  public interface JHipsterModuleResourcePropertiesDefinitionBuilder {
+    JHipsterModuleResourceApiDocBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition);
+
+    default JHipsterModuleResourceApiDocBuilder withoutProperties() {
+      return propertiesDefinition(JHipsterModulePropertiesDefinition.EMPTY);
+    }
   }
 
   public interface JHipsterModuleResourceApiDocBuilder {

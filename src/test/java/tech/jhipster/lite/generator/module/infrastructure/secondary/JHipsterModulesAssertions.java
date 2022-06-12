@@ -17,9 +17,8 @@ import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleEvents;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleToApply;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.domain.Project.ProjectBuilder;
 
 public final class JHipsterModulesAssertions {
 
@@ -77,8 +76,13 @@ public final class JHipsterModulesAssertions {
     private ModuleAsserter(JHipsterModule module) {
       assertThat(module).as("Can't make assertions on a module without module").isNotNull();
 
-      ProjectBuilder project = Project.builder().folder(module.projectFolder().get());
-      modules.apply(new JHipsterModuleToApply(project.build(), new JHipsterModuleSlug("test-module"), module));
+      modules.apply(
+        new JHipsterModuleToApply(
+          JHipsterModuleProperties.defaultProperties(module.projectFolder()),
+          new JHipsterModuleSlug("test-module"),
+          module
+        )
+      );
       projectFolder = module.projectFolder();
     }
 

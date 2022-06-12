@@ -29,6 +29,6 @@ public class JHipsterModulesApplicationService {
   public void apply(JHipsterModuleToApply toApply) {
     modules.apply(toApply.module());
 
-    events.dispatch(new JHipsterModuleApplied(toApply.project(), toApply.slug(), Instant.now()));
+    events.dispatch(new JHipsterModuleApplied(toApply.properties(), toApply.slug(), Instant.now()));
   }
 }

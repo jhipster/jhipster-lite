@@ -127,7 +127,7 @@ class MavenCommandHandler {
     if (dependencies.isEmpty()) {
       appendDependencies(command);
     } else {
-      apppendDependency(command, dependencies);
+      appendDependency(command, dependencies);
     }
 
     writePom();
@@ -146,7 +146,7 @@ class MavenCommandHandler {
     document.find("project dependencies").before(BREAK).before(BREAK).before(indentation.spaces());
   }
 
-  private void apppendDependency(AddJavaDependency command, Match dependencies) {
+  private void appendDependency(AddJavaDependency command, Match dependencies) {
     if (command.scope() == JavaDependencyScope.TEST) {
       appendDependencyInLastPosition(command, dependencies);
     } else {

@@ -1,11 +1,22 @@
 package tech.jhipster.lite.generator.module.infrastructure.primary;
 
+import java.util.List;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
 
 final class JHipsterModulesResourceFixture {
 
   private JHipsterModulesResourceFixture() {}
+
+  static JHipsterModulesResources moduleResources() {
+    return new JHipsterModulesResources(
+      List.of(
+        defaultModuleResource(),
+        defaultModuleResourceBuilder().slug("another-module").build(),
+        defaultModuleResourceBuilder().slug("yet-another-module").tag("Another tag").operation("Another operation").build()
+      )
+    );
+  }
 
   static JHipsterModuleResource defaultModuleResource() {
     return defaultModuleResourceBuilder().build();
@@ -19,6 +30,7 @@ final class JHipsterModulesResourceFixture {
 
     private String legacyUrl;
     private String slug;
+    private String tag = "tag";
     private String operation;
     private JHipsterModuleFactory factory;
 
@@ -32,6 +44,12 @@ final class JHipsterModulesResourceFixture {
 
     public JHipsterTestModuleResourceBuilder slug(String slug) {
       this.slug = slug;
+
+      return this;
+    }
+
+    public JHipsterTestModuleResourceBuilder tag(String tag) {
+      this.tag = tag;
 
       return this;
     }
@@ -54,7 +72,7 @@ final class JHipsterModulesResourceFixture {
         .legacyUrl(legacyUrl)
         .slug(slug)
         .propertiesDefinition(JHipsterModulesFixture.propertiesDefinition())
-        .apiDoc(new JHipsterModuleApiDoc("tag", operation))
+        .apiDoc(new JHipsterModuleApiDoc(tag, operation))
         .factory(factory);
     }
   }

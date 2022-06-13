@@ -110,6 +110,14 @@
       </div>
       <div>
         <GeneratorButtonVue
+          :label="'Docker file'"
+          :service="'dockerfile'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addDockerFile"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue
           :label="'Pulsar'"
           :service="'spring-boot-pulsar'"
           :selector-prefix="selectorPrefix"

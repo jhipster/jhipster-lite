@@ -5,6 +5,7 @@ export type ServiceProjection =
   | 'angular'
   | 'angular-with-jwt'
   | 'angular-oauth2'
+  | 'dockerfile'
   | 'download'
   | 'initialization'
   | 'flyway'
@@ -49,6 +50,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.ANGULAR]: 'angular',
   [Service.ANGULAR_WITH_JWT]: 'angular-with-jwt',
   [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
+  [Service.DOCKERFILE]: 'dockerfile',
   [Service.DOWNLOAD]: 'download',
   [Service.FLYWAY]: 'flyway',
   [Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'flyway-with-users-and-authority-changelogs',
@@ -96,6 +98,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   angular: Service.ANGULAR,
   'angular-with-jwt': Service.ANGULAR_WITH_JWT,
   'angular-oauth2': Service.ANGULAR_OAUTH2,
+  dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
   flyway: Service.FLYWAY,
   'flyway-with-users-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,

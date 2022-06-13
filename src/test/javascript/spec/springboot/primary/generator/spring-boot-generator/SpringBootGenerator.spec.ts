@@ -1062,4 +1062,45 @@ describe('SpringBootGenerator', () => {
       expectAlertErrorToBe(alertBus, 'Adding Cucumber to project failed error');
     });
   });
+  describe('Tools', () => {
+    it('should not add docker file when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerfile.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addDockerFile();
+
+      expect(springBootService.addSpringBootDockerfile.called).toBe(false);
+    });
+
+    it('should add docker file when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerfile.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addDockerFile();
+
+      const args = springBootService.addSpringBootDockerfile.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringBoot Docker file successfully added');
+    });
+
+    it('should handle error on adding docker file failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerfile.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addDockerFile();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringBoot Docker file to project failed error');
+    });
+  });
 });

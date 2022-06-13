@@ -1,4 +1,4 @@
-package {{packageName}};
+package com.jhipster.test;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @DisplayNameGeneration(ReplaceCamelCase.class)
-@SpringBootTest(classes = { {{mainClass}}App.class })
+@SpringBootTest(classes = { MyappApp.class })
 public @interface IntegrationTest {
   public String[] properties() default {};
 }

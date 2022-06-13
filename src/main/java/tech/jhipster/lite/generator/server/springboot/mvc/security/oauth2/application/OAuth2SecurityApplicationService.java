@@ -1,23 +1,21 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2SecurityService;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
+import tech.jhipster.lite.generator.module.domain.JHipsterModule;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2ModuleFactory;
 
 @Service
 public class OAuth2SecurityApplicationService {
 
-  private final OAuth2SecurityService oauth2SecurityService;
+  private final OAuth2ModuleFactory factory;
 
-  public OAuth2SecurityApplicationService(OAuth2SecurityService oauth2SecurityService) {
-    this.oauth2SecurityService = oauth2SecurityService;
+  public OAuth2SecurityApplicationService(DockerImages dockerImages) {
+    factory = new OAuth2ModuleFactory(dockerImages);
   }
 
-  public void addOAuth2(Project project) {
-    oauth2SecurityService.addOAuth2(project);
-  }
-
-  public void addAccountContext(Project project) {
-    oauth2SecurityService.addAccountContext(project);
+  public JHipsterModule buildOAuth2Module(JHipsterModuleProperties properties) {
+    return factory.buildOAuth2Module(properties);
   }
 }

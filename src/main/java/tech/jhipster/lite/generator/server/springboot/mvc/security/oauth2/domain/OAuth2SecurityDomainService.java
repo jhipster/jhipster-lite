@@ -1,32 +1,15 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.DEFAULT_BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.DEFAULT_PACKAGE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_PATH;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.TECHNICAL_INFRASTRUCTURE_PRIMARY_EXCEPTION;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.getDockerKeycloakImageName;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.oauth2AccountContextFiles;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.oauth2AccountContextTestFiles;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.oauth2SecurityFiles;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.oauth2TestSecurityFiles;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.properties;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.propertiesForTests;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.springBootStarterOAuth2ClientDependency;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.springBootStarterOAuth2ResourceServerDependency;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.springBootStarterSecurityDependency;
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.springSecurityTestDependency;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain.OAuth2Security.*;
 
 import java.util.List;
 import tech.jhipster.lite.common.domain.WordUtils;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImage;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -42,20 +25,20 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final CommonSecurityService commonSecurityService;
-  private final DockerService dockerService;
+  private final DockerImages dockerImages;
 
   public OAuth2SecurityDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
     CommonSecurityService commonSecurityService,
-    DockerService dockerService
+    DockerImages dockerImages
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.commonSecurityService = commonSecurityService;
-    this.dockerService = dockerService;
+    this.dockerImages = dockerImages;
   }
 
   @Override
@@ -83,15 +66,10 @@ public class OAuth2SecurityDomainService implements OAuth2SecurityService {
   }
 
   private void addKeycloakDocker(Project project) {
-    String keycloakVersion = dockerService
-      .getImageVersion(getDockerKeycloakImageName())
-      .orElseThrow(() -> {
-        throw new GeneratorException("Version not found for docker image: " + getDockerKeycloakImageName());
-      });
-    String imageName = dockerService.getImageNameWithVersion(getDockerKeycloakImageName()).orElseThrow();
+    DockerImage dockerImage = dockerImages.get(getDockerKeycloakImageName());
 
-    project.addConfig("dockerKeycloakImage", imageName);
-    project.addConfig("dockerKeycloakVersion", keycloakVersion);
+    project.addConfig("dockerKeycloakImage", dockerImage.fullName());
+    project.addConfig("dockerKeycloakVersion", dockerImage.version());
 
     String dockerSourcePath = getPath(SOURCE, "docker");
     String dockerPathRealm = getPath(MAIN_DOCKER, "keycloak-realm-config");

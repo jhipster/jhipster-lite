@@ -1,27 +1,21 @@
 package tech.jhipster.lite.generator.server.springboot.database.postgresql.domain;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.anyMap;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.*;
 
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImage;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -34,22 +28,22 @@ import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.
 class PostgresqlDomainServiceTest {
 
   @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @Mock
-  BuildToolService buildToolService;
+  private BuildToolService buildToolService;
 
   @Mock
-  SpringBootCommonService springBootCommonService;
+  private SpringBootCommonService springBootCommonService;
 
   @Mock
-  SQLCommonService sqlCommonService;
+  private SQLCommonService sqlCommonService;
 
   @Mock
-  DockerService dockerService;
+  private DockerImages dockerImages;
 
   @InjectMocks
-  PostgresqlDomainService postgresqlDomainService;
+  private PostgresqlDomainService postgresqlDomainService;
 
   @Test
   void shouldNotInitWithoutProject() {
@@ -62,8 +56,7 @@ class PostgresqlDomainServiceTest {
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
 
-    when(dockerService.getImageNameWithVersion("postgres")).thenReturn(Optional.of("postgres:0.0.0"));
-    when(dockerService.getImageVersion("postgres")).thenReturn(Optional.of("0.0.0"));
+    when(dockerImages.get("postgres")).thenReturn(new DockerImage("postgres", "0.0.0"));
 
     postgresqlDomainService.init(project);
 
@@ -82,12 +75,5 @@ class PostgresqlDomainServiceTest {
     verify(sqlCommonService).addJavaFiles(project, "postgresql");
     verify(sqlCommonService).addProperties(eq(project), any());
     verify(sqlCommonService).addLoggers(project);
-  }
-
-  @Test
-  void shouldThrowExceptionWhenImageVersionNotFound() {
-    Project project = tmpProjectWithPomXml();
-
-    assertThatThrownBy(() -> postgresqlDomainService.init(project)).isInstanceOf(GeneratorException.class).hasMessageContaining("postgres");
   }
 }

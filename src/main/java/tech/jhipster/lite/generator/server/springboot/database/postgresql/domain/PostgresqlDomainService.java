@@ -1,18 +1,13 @@
 package tech.jhipster.lite.generator.server.springboot.database.postgresql.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_JAVA;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql.SOURCE;
-import static tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql.psqlDriver;
-import static tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql.springProperties;
-import static tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql.springPropertiesForTest;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.server.springboot.database.postgresql.domain.Postgresql.*;
 
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -28,20 +23,20 @@ public class PostgresqlDomainService implements PostgresqlService {
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final SQLCommonService sqlCommonService;
-  private final DockerService dockerService;
+  private final DockerImages dockerImages;
 
   public PostgresqlDomainService(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
     SQLCommonService sqlCommonService,
-    DockerService dockerService
+    DockerImages dockerImages
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
-    this.dockerService = dockerService;
+    this.dockerImages = dockerImages;
   }
 
   @Override
@@ -83,14 +78,8 @@ public class PostgresqlDomainService implements PostgresqlService {
   public void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    dockerService
-      .getImageNameWithVersion(Postgresql.getPostgresqlDockerImageName())
-      .ifPresentOrElse(
-        imageName -> project.addConfig("postgresqlDockerImage", imageName),
-        () -> {
-          throw new GeneratorException("Version not found for docker image: " + Postgresql.getPostgresqlDockerImageName());
-        }
-      );
+    String dockerImage = dockerImages.get(Postgresql.getPostgresqlDockerImageName()).fullName();
+    project.addConfig("postgresqlDockerImage", dockerImage);
 
     sqlCommonService.addDockerComposeTemplate(project, DatabaseType.POSTGRESQL.id());
   }
@@ -125,7 +114,7 @@ public class PostgresqlDomainService implements PostgresqlService {
 
   private void addTestcontainers(Project project) {
     String baseName = project.getBaseName().orElse("jhipster");
-    String imageVersion = dockerService.getImageVersion(Postgresql.getPostgresqlDockerImageName()).orElseThrow();
+    String imageVersion = dockerImages.get(Postgresql.getPostgresqlDockerImageName()).version();
     this.sqlCommonService.addTestcontainers(project, DatabaseType.POSTGRESQL.id(), springPropertiesForTest(baseName, imageVersion));
   }
 

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import tech.jhipster.lite.LogSpy;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.common.infrastructure.secondary.FileSystemProjectFilesReader;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
@@ -20,7 +21,8 @@ import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFold
 @ExtendWith(LogSpy.class)
 class FileSystemJHipsterModuleFilesTest {
 
-  private static final FileSystemJHipsterModuleFiles files = new FileSystemJHipsterModuleFiles();
+  private static final FileSystemJHipsterModuleFiles files = new FileSystemJHipsterModuleFiles(new FileSystemProjectFilesReader());
+
   private final LogSpy logs;
 
   public FileSystemJHipsterModuleFilesTest(LogSpy logs) {

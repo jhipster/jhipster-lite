@@ -1,11 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
 
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,10 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImage;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter;
@@ -29,30 +27,28 @@ import tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain
 class OAuth2SecurityDomainServiceTest {
 
   @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @Mock
-  BuildToolService buildToolService;
+  private BuildToolService buildToolService;
 
   @Mock
-  SpringBootCommonService springBootCommonService;
+  private SpringBootCommonService springBootCommonService;
 
   @Mock
-  CommonSecurityService commonSecurityService;
+  private CommonSecurityService commonSecurityService;
 
   @Mock
-  DockerService dockerService;
+  private DockerImages dockerImages;
 
   @InjectMocks
-  OAuth2SecurityDomainService oAuth2SecurityDomainService;
+  private OAuth2SecurityDomainService oAuth2SecurityDomainService;
 
   @Test
   @DisplayName("should add OAuth2")
   void shouldAddOAuth2() {
     Project project = tmpProject();
-
-    when(dockerService.getImageVersion("jboss/keycloak")).thenReturn(Optional.of("0.0.0"));
-    when(dockerService.getImageNameWithVersion("jboss/keycloak")).thenReturn(Optional.of("jboss/keycloak:0.0.0"));
+    when(dockerImages.get("jboss/keycloak")).thenReturn(new DockerImage("jboss/keycloak", "0.0.0"));
 
     oAuth2SecurityDomainService.addOAuth2(project);
 
@@ -82,15 +78,6 @@ class OAuth2SecurityDomainServiceTest {
     verify(commonSecurityService).updateIntegrationTestWithMockUser(project);
 
     verify(projectRepository, times(7)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldThrowExceptionWhenImageVersionNotFound() {
-    Project project = tmpProject();
-
-    assertThatThrownBy(() -> oAuth2SecurityDomainService.addOAuth2(project))
-      .isInstanceOf(GeneratorException.class)
-      .hasMessageContaining("jboss/keycloak");
   }
 
   @Test

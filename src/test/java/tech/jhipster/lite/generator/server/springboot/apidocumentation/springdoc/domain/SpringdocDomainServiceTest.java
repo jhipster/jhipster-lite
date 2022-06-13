@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -35,6 +36,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencies;
@@ -152,8 +154,9 @@ class SpringdocDomainServiceTest {
     when(projectJavaDependenciesRepository.get(any(JHipsterProjectFolder.class)))
       .thenReturn(new ProjectJavaDependencies(null, new JavaDependencies(dependencies)));
 
-    // When
     when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.of("0.0.0"));
+
+    // When
     springdocDomainService.init(project);
 
     // Then
@@ -170,6 +173,19 @@ class SpringdocDomainServiceTest {
     ArgumentCaptor<JHipsterProjectFolder> jHipsterProjectFolderArgCaptor = ArgumentCaptor.forClass(JHipsterProjectFolder.class);
     verify(projectJavaDependenciesRepository).get(jHipsterProjectFolderArgCaptor.capture());
     assertThat(jHipsterProjectFolderArgCaptor.getValue().folder()).isEqualTo("/path/to/folder");
+  }
+
+  @Test
+  void shouldNotAddWhenSpringdocVersionNotFound() {
+    // Given
+    Map<String, Object> config = new HashMap<>();
+    config.put(BASE_NAME, "foo");
+    Project project = Project.builder().folder("/path/to/folder").config(config).build();
+
+    when(buildToolService.getVersion(project, "springdoc-openapi")).thenReturn(Optional.empty());
+
+    // When + Then
+    assertThatThrownBy(() -> springdocDomainService.init(project)).isInstanceOf(GeneratorException.class);
   }
 
   private static Dependency getExpectedDependency() {

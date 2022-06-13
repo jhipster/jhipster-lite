@@ -60,6 +60,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('angular')).toEqual<Service>(Service.ANGULAR);
     expect(fromServiceProjection('angular-with-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(fromServiceProjection('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
+    expect(fromServiceProjection('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(fromServiceProjection('download')).toEqual<Service>(Service.DOWNLOAD);
     expect(fromServiceProjection('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(fromServiceProjection('flyway-with-users-and-authority-changelogs')).toEqual<Service>(

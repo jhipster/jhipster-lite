@@ -251,6 +251,15 @@ export default defineComponent({
       }
     };
 
+    const addDockerFile = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootDockerfile(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot Docker file successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot Docker file to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -278,6 +287,7 @@ export default defineComponent({
       addMongock,
       addCucumber,
       addPulsar,
+      addDockerFile,
     };
   },
 });

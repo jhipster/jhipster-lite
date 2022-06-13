@@ -7,6 +7,7 @@ describe('RestServiceId', () => {
     expect(toService('angular')).toEqual<Service>(Service.ANGULAR);
     expect(toService('angular-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(toService('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
+    expect(toService('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(toService('download')).toEqual<Service>(Service.DOWNLOAD);
     expect(toService('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(toService('flyway-user-and-authority-changelogs')).toEqual<Service>(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS);

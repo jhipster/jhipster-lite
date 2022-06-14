@@ -1149,6 +1149,46 @@ describe('SpringBootGenerator', () => {
 
       expectAlertErrorToBe(alertBus, 'Adding SpringBoot Docker Jib to project failed error');
     });
+
+    it('should not add async config when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootAsync.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addSpringBootAsync();
+
+      expect(springBootService.addSpringBootAsync.called).toBe(false);
+    });
+
+    it('should add async config when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootAsync.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addSpringBootAsync();
+
+      const args = springBootService.addSpringBootAsync.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringBoot async configuration successfully added');
+    });
+
+    it('should handle error on adding async config failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootAsync.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addSpringBootAsync();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringBoot async configuration to project failed error');
+    });
   });
 
   describe('SpringCloud', () => {

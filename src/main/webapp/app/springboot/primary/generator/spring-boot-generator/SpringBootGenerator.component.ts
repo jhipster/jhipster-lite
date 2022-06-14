@@ -277,6 +277,14 @@ export default defineComponent({
           .catch(error => alertBus.error(`Adding SpringBoot Docker Jib to project failed ${error}`));
       }
     };
+    const addSpringBootAsync = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootAsync(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot async configuration successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot async configuration to project failed ${error}`));
+      }
+    };
 
     return {
       selectorPrefix,
@@ -308,6 +316,7 @@ export default defineComponent({
       addDockerFile,
       addEurekaClient,
       addJib,
+      addSpringBootAsync,
     };
   },
 });

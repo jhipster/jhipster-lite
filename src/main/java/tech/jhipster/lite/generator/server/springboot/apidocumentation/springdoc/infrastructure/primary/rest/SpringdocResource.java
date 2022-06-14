@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.springdoc.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.infrastructure.primary.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.server.springboot.mvc.springdoc.application.SpringdocApplicationService;
+import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocApplicationService;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
@@ -27,7 +27,7 @@ class SpringdocResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding springdoc-openapi")
   @PostMapping("/init")
   @GeneratorStep(id = GeneratorAction.SPRINGDOC_OPENAPI)
-  @Tag(name = "Spring Boot - MVC")
+  @Tag(name = "Spring Boot - API Documentation")
   public void init(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     this.springdocApplicationService.init(project);
@@ -37,7 +37,7 @@ class SpringdocResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding springdoc-openapi with Security JWT")
   @PostMapping("/init-with-security-jwt")
   @GeneratorStep(id = GeneratorAction.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT)
-  @Tag(name = "Spring Boot - MVC - Security")
+  @Tag(name = "Spring Boot - API Documentation - Security")
   public void initWithSecurityJWT(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     this.springdocApplicationService.initWithSecurityJWT(project);

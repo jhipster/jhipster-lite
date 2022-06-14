@@ -47,6 +47,7 @@ const SERVICES: Record<string, Service> = {
   'springboot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   'springboot-pulsar': Service.SPRINGBOOT_PULSAR,
   'springboot-async': Service.SPRINGBOOT_ASYNC,
+  'spring-cloud': Service.SPRING_CLOUD,
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
   vue: Service.VUE,

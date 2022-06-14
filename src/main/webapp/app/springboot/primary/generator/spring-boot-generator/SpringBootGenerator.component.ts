@@ -287,6 +287,15 @@ export default defineComponent({
       }
     };
 
+    const addSpringCloudConfigClient = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringCloudConfigClient(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringCloud Config client successfully added'))
+          .catch(error => alertBus.error(`Adding SpringCloud Config client to project failed ${error}`));
+      }
+    };
+
     const addJib = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -335,6 +344,7 @@ export default defineComponent({
       addDevTools,
       addEurekaClient,
       addConsul,
+      addSpringCloudConfigClient,
       addJib,
       addSpringBootAsync,
     };

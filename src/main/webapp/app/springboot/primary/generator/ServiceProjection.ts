@@ -45,6 +45,7 @@ export type ServiceProjection =
   | 'spring-boot-cucumber'
   | 'spring-boot-pulsar'
   | 'spring-boot-async'
+  | 'spring-cloud'
   | 'react'
   | 'react-styled'
   | 'vue'
@@ -95,6 +96,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SPRINGBOOT_CUCUMBER]: 'spring-boot-cucumber',
   [Service.SPRINGBOOT_PULSAR]: 'spring-boot-pulsar',
   [Service.SPRINGBOOT_ASYNC]: 'spring-boot-async',
+  [Service.SPRING_CLOUD]: 'spring-cloud',
   [Service.REACT]: 'react',
   [Service.REACT_STYLED]: 'react-styled',
   [Service.VUE]: 'vue',
@@ -148,6 +150,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'spring-boot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   'spring-boot-pulsar': Service.SPRINGBOOT_PULSAR,
   'spring-boot-async': Service.SPRINGBOOT_ASYNC,
+  'spring-cloud': Service.SPRING_CLOUD,
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
   vue: Service.VUE,

@@ -54,6 +54,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SPRINGBOOT_CUCUMBER)).toEqual<ServiceProjection>('spring-boot-cucumber');
     expect(toServiceProjection(Service.SPRINGBOOT_PULSAR)).toEqual<ServiceProjection>('spring-boot-pulsar');
     expect(toServiceProjection(Service.SPRINGBOOT_ASYNC)).toEqual<ServiceProjection>('spring-boot-async');
+    expect(toServiceProjection(Service.SPRING_CLOUD)).toEqual<ServiceProjection>('spring-cloud');
     expect(toServiceProjection(Service.REACT)).toEqual<ServiceProjection>('react');
     expect(toServiceProjection(Service.REACT_STYLED)).toEqual<ServiceProjection>('react-styled');
     expect(toServiceProjection(Service.VUE)).toEqual<ServiceProjection>('vue');
@@ -108,6 +109,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('spring-boot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(fromServiceProjection('spring-boot-pulsar')).toEqual<Service>(Service.SPRINGBOOT_PULSAR);
     expect(fromServiceProjection('spring-boot-async')).toEqual<Service>(Service.SPRINGBOOT_ASYNC);
+    expect(fromServiceProjection('spring-cloud')).toEqual<Service>(Service.SPRING_CLOUD);
     expect(fromServiceProjection('spring-boot-cucumber')).toEqual<Service>(Service.SPRINGBOOT_CUCUMBER);
     expect(fromServiceProjection('react')).toEqual<Service>(Service.REACT);
     expect(fromServiceProjection('react-styled')).toEqual<Service>(Service.REACT_STYLED);

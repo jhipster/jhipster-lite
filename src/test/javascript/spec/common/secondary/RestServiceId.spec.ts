@@ -47,6 +47,7 @@ describe('RestServiceId', () => {
     expect(toService('springboot-cucumber')).toEqual<Service>(Service.SPRINGBOOT_CUCUMBER);
     expect(toService('springboot-pulsar')).toEqual<Service>(Service.SPRINGBOOT_PULSAR);
     expect(toService('springboot-async')).toEqual<Service>(Service.SPRINGBOOT_ASYNC);
+    expect(toService('spring-cloud')).toEqual<Service>(Service.SPRING_CLOUD);
     expect(toService('react')).toEqual<Service>(Service.REACT);
     expect(toService('react-styled')).toEqual<Service>(Service.REACT_STYLED);
     expect(toService('vue')).toEqual<Service>(Service.VUE);

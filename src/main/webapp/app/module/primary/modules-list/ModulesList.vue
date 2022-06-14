@@ -3,11 +3,8 @@
 <script lang="ts" src="./ModulesList.component.ts"></script>
 
 <style scoped>
-* {
-  color: #29293b;
-}
-
 .jhipster-modules-list {
+  color: #29293b;
   max-width: 1200px;
   margin: auto;
 }

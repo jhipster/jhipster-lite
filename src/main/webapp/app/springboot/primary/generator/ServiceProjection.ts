@@ -7,6 +7,7 @@ export type ServiceProjection =
   | 'angular-oauth2'
   | 'dockerfile'
   | 'download'
+  | 'eureka-client'
   | 'initialization'
   | 'flyway'
   | 'flyway-with-users-and-authority-changelogs'
@@ -52,6 +53,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
   [Service.DOCKERFILE]: 'dockerfile',
   [Service.DOWNLOAD]: 'download',
+  [Service.EUREKA_CLIENT]: 'eureka-client',
   [Service.FLYWAY]: 'flyway',
   [Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'flyway-with-users-and-authority-changelogs',
   [Service.FRONTEND_MAVEN_PLUGIN]: 'frontend-maven-plugin',
@@ -100,6 +102,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'angular-oauth2': Service.ANGULAR_OAUTH2,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
+  'eureka-client': Service.EUREKA_CLIENT,
   flyway: Service.FLYWAY,
   'flyway-with-users-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   'frontend-maven-plugin': Service.FRONTEND_MAVEN_PLUGIN,

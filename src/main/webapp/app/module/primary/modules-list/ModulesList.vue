@@ -2,7 +2,7 @@
 
 <script lang="ts" src="./ModulesList.component.ts"></script>
 
-<style>
+<style scoped>
 * {
   color: #29293b;
 }

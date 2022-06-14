@@ -15,6 +15,7 @@ describe('RestServiceId', () => {
     expect(toService('init')).toEqual<Service>(Service.INITIALIZATION);
     expect(toService('jacoco-check-min-coverage')).toEqual<Service>(Service.JACOCO_CHECK_MINIMAL_COVERAGE);
     expect(toService('java-base')).toEqual<Service>(Service.JAVA_BASE);
+    expect(toService('jib')).toEqual<Service>(Service.JIB);
     expect(toService('liquibase')).toEqual<Service>(Service.LIQUIBASE);
     expect(toService('liquibase-user-and-authority-changelogs')).toEqual<Service>(Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS);
     expect(toService('logstash')).toEqual<Service>(Service.LOGSTASH);

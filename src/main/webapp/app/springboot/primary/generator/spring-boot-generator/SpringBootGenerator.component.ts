@@ -260,6 +260,15 @@ export default defineComponent({
       }
     };
 
+    const addJib = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootDockerJib(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot Docker Jib successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot Docker Jib to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -288,6 +297,7 @@ export default defineComponent({
       addCucumber,
       addPulsar,
       addDockerFile,
+      addJib,
     };
   },
 });

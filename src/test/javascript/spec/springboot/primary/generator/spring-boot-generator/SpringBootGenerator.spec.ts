@@ -1271,5 +1271,45 @@ describe('SpringBootGenerator', () => {
 
       expectAlertErrorToBe(alertBus, 'Adding SpringCloud Consul to project failed error');
     });
+
+    it('should not add config client when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConfigClient.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addSpringCloudConfigClient();
+
+      expect(springBootService.addSpringCloudConfigClient.called).toBe(false);
+    });
+
+    it('should add config client when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConfigClient.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addSpringCloudConfigClient();
+
+      const args = springBootService.addSpringCloudConfigClient.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringCloud Config client successfully added');
+    });
+
+    it('should handle error on adding config client failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConfigClient.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addSpringCloudConfigClient();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringCloud Config client to project failed error');
+    });
   });
 });

@@ -121,6 +121,12 @@
           :selector-prefix="selectorPrefix"
           @click.prevent="addConsul"
         />
+        <GeneratorButtonVue
+          :label="'SpringCloud Config client'"
+          :service="'spring-cloud'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringCloudConfigClient"
+        />
       </div>
       <div>
         <GeneratorButtonVue

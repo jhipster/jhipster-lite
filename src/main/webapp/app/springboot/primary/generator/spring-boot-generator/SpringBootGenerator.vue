@@ -116,6 +116,12 @@
           @click.prevent="addDockerFile"
         />
         <GeneratorButtonVue :label="'Docker Jib'" :service="'jib'" :selector-prefix="selectorPrefix" @click.prevent="addJib" />
+        <GeneratorButtonVue
+          :label="'Async config'"
+          :service="'spring-boot-async'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootAsync"
+        />
       </div>
       <div>
         <GeneratorButtonVue

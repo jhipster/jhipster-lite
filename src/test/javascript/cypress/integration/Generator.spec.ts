@@ -62,6 +62,7 @@ describe('Generator', () => {
 
     cy.get(springBootGeneratorSelector('add-dockerfile-button')).contains('Docker file');
     cy.get(springBootGeneratorSelector('add-jib-button')).contains('Docker Jib');
+    cy.get(springBootGeneratorSelector('add-spring-boot-async-button')).contains('Async config');
 
     cy.get(springBootGeneratorSelector('add-spring-boot-pulsar-button')).contains('Pulsar');
     cy.get(springBootGeneratorSelector('add-spring-boot-cucumber-button')).contains('Cucumber');

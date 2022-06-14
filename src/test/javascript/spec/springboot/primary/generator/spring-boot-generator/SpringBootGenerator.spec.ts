@@ -1150,4 +1150,46 @@ describe('SpringBootGenerator', () => {
       expectAlertErrorToBe(alertBus, 'Adding SpringBoot Docker Jib to project failed error');
     });
   });
+
+  describe('SpringCloud', () => {
+    it('should not add eureka client when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudEureka.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addEurekaClient();
+
+      expect(springBootService.addSpringCloudEureka.called).toBe(false);
+    });
+
+    it('should add eureka client when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudEureka.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addEurekaClient();
+
+      const args = springBootService.addSpringCloudEureka.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringCloud Eureka client successfully added');
+    });
+
+    it('should handle error on adding eureka client failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudEureka.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addEurekaClient();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringCloud Eureka client to project failed error');
+    });
+  });
 });

@@ -9,6 +9,7 @@ describe('RestServiceId', () => {
     expect(toService('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
     expect(toService('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(toService('download')).toEqual<Service>(Service.DOWNLOAD);
+    expect(toService('eureka-client')).toEqual<Service>(Service.EUREKA_CLIENT);
     expect(toService('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(toService('flyway-user-and-authority-changelogs')).toEqual<Service>(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS);
     expect(toService('frontend-maven-plugin')).toEqual<Service>(Service.FRONTEND_MAVEN_PLUGIN);

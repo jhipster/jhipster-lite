@@ -110,6 +110,14 @@
       </div>
       <div>
         <GeneratorButtonVue
+          :label="'SpringCloud Eureka client'"
+          :service="'eureka-client'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addEurekaClient"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue
           :label="'Docker file'"
           :service="'dockerfile'"
           :selector-prefix="selectorPrefix"

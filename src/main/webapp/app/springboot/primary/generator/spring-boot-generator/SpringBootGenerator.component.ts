@@ -260,6 +260,15 @@ export default defineComponent({
       }
     };
 
+    const addEurekaClient = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringCloudEureka(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringCloud Eureka client successfully added'))
+          .catch(error => alertBus.error(`Adding SpringCloud Eureka client to project failed ${error}`));
+      }
+    };
+
     const addJib = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -297,6 +306,7 @@ export default defineComponent({
       addCucumber,
       addPulsar,
       addDockerFile,
+      addEurekaClient,
       addJib,
     };
   },

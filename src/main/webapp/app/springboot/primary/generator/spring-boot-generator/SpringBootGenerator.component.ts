@@ -260,6 +260,15 @@ export default defineComponent({
       }
     };
 
+    const addDevTools = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringBootDevtoolsDependencies(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot dev tools dependencies successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot dev tools dependencies to project failed ${error}`));
+      }
+    };
+
     const addEurekaClient = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -314,6 +323,7 @@ export default defineComponent({
       addCucumber,
       addPulsar,
       addDockerFile,
+      addDevTools,
       addEurekaClient,
       addJib,
       addSpringBootAsync,

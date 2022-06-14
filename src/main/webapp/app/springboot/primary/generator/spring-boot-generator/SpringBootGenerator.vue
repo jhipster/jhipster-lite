@@ -117,6 +117,7 @@
         />
       </div>
       <div>
+        <GeneratorButtonVue :label="'Dev tools'" :service="'dev-tools'" :selector-prefix="selectorPrefix" @click.prevent="addDevTools" />
         <GeneratorButtonVue
           :label="'Docker file'"
           :service="'dockerfile'"

@@ -5,6 +5,7 @@ export type ServiceProjection =
   | 'angular'
   | 'angular-with-jwt'
   | 'angular-oauth2'
+  | 'dev-tools'
   | 'dockerfile'
   | 'download'
   | 'eureka-client'
@@ -53,6 +54,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.ANGULAR]: 'angular',
   [Service.ANGULAR_WITH_JWT]: 'angular-with-jwt',
   [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
+  [Service.DEV_TOOLS]: 'dev-tools',
   [Service.DOCKERFILE]: 'dockerfile',
   [Service.DOWNLOAD]: 'download',
   [Service.EUREKA_CLIENT]: 'eureka-client',
@@ -104,6 +106,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   angular: Service.ANGULAR,
   'angular-with-jwt': Service.ANGULAR_WITH_JWT,
   'angular-oauth2': Service.ANGULAR_OAUTH2,
+  'dev-tools': Service.DEV_TOOLS,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
   'eureka-client': Service.EUREKA_CLIENT,

@@ -7,6 +7,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.ANGULAR)).toEqual<ServiceProjection>('angular');
     expect(toServiceProjection(Service.ANGULAR_WITH_JWT)).toEqual<ServiceProjection>('angular-with-jwt');
     expect(toServiceProjection(Service.ANGULAR_OAUTH2)).toEqual<ServiceProjection>('angular-oauth2');
+    expect(toServiceProjection(Service.DEV_TOOLS)).toEqual<ServiceProjection>('dev-tools');
     expect(toServiceProjection(Service.DOWNLOAD)).toEqual<ServiceProjection>('download');
     expect(toServiceProjection(Service.EUREKA_CLIENT)).toEqual<ServiceProjection>('eureka-client');
     expect(toServiceProjection(Service.FLYWAY)).toEqual<ServiceProjection>('flyway');
@@ -63,6 +64,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('angular')).toEqual<Service>(Service.ANGULAR);
     expect(fromServiceProjection('angular-with-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(fromServiceProjection('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
+    expect(fromServiceProjection('dev-tools')).toEqual<Service>(Service.DEV_TOOLS);
     expect(fromServiceProjection('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(fromServiceProjection('download')).toEqual<Service>(Service.DOWNLOAD);
     expect(fromServiceProjection('eureka-client')).toEqual<Service>(Service.EUREKA_CLIENT);

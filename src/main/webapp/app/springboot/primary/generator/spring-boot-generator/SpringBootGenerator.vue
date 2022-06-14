@@ -123,6 +123,7 @@
           :selector-prefix="selectorPrefix"
           @click.prevent="addDockerFile"
         />
+        <GeneratorButtonVue :label="'Docker Jib'" :service="'jib'" :selector-prefix="selectorPrefix" @click.prevent="addJib" />
       </div>
       <div>
         <GeneratorButtonVue

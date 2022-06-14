@@ -14,6 +14,7 @@ export type ServiceProjection =
   | 'frontend-maven-plugin'
   | 'jacoco-check-minimal-coverage'
   | 'java-base'
+  | 'jib'
   | 'liquibase'
   | 'liquibase-with-users-and-authority-changelogs'
   | 'logstash'
@@ -60,6 +61,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.INITIALIZATION]: 'initialization',
   [Service.JACOCO_CHECK_MINIMAL_COVERAGE]: 'jacoco-check-minimal-coverage',
   [Service.JAVA_BASE]: 'java-base',
+  [Service.JIB]: 'jib',
   [Service.LIQUIBASE]: 'liquibase',
   [Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'liquibase-with-users-and-authority-changelogs',
   [Service.LOGSTASH]: 'logstash',
@@ -109,6 +111,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   initialization: Service.INITIALIZATION,
   'jacoco-check-minimal-coverage': Service.JACOCO_CHECK_MINIMAL_COVERAGE,
   'java-base': Service.JAVA_BASE,
+  jib: Service.JIB,
   liquibase: Service.LIQUIBASE,
   'liquibase-with-users-and-authority-changelogs': Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   logstash: Service.LOGSTASH,

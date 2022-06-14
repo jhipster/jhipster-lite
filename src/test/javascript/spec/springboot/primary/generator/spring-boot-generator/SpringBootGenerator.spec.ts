@@ -153,6 +153,13 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootMvcUndertow();
 
     const args = springBootService.addSpringBootMvcUndertow.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
     expectAlertSuccessToBe(alertBus, 'SpringBoot MVC with Undertow successfully added');
   });
 
@@ -1101,6 +1108,46 @@ describe('SpringBootGenerator', () => {
       await component.addDockerFile();
 
       expectAlertErrorToBe(alertBus, 'Adding SpringBoot Docker file to project failed error');
+    });
+
+    it('should not add docker jib when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerJib.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addJib();
+
+      expect(springBootService.addSpringBootDockerJib.called).toBe(false);
+    });
+
+    it('should add docker jib when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerJib.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addJib();
+
+      const args = springBootService.addSpringBootDockerJib.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringBoot Docker Jib successfully added');
+    });
+
+    it('should handle error on adding docker jib failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerJib.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addJib();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringBoot Docker Jib to project failed error');
     });
   });
 

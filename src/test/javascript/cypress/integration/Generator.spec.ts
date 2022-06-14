@@ -63,6 +63,7 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-eureka-client-button')).contains('Eureka client');
 
     cy.get(springBootGeneratorSelector('add-dockerfile-button')).contains('Docker file');
+    cy.get(springBootGeneratorSelector('add-jib-button')).contains('Docker Jib');
 
     cy.get(springBootGeneratorSelector('add-spring-boot-pulsar-button')).contains('Pulsar');
     cy.get(springBootGeneratorSelector('add-spring-boot-cucumber-button')).contains('Cucumber');

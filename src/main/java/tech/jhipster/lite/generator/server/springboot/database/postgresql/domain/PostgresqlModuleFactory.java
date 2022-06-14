@@ -76,7 +76,7 @@ public class PostgresqlModuleFactory {
         .and()
       .springTestProperties()
         .set(springDatasourceDriverClassName(), propertyValue("org.testcontainers.jdbc.ContainerDatabaseDriver"))
-        .set(springDatasourceUrl(), propertyValue("jdbc:tc:postgresql:" + postgresqlDockerImage.imageName() + ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"))
+        .set(springDatasourceUrl(), propertyValue("jdbc:tc:postgresql:" + postgresqlDockerImage.version()+ ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"))
         .set(springDatasourceUsername(), propertyValue(properties.projectBaseName().name()))
         .set(springDatasourcePassword(), propertyValue(""))
         .set(propertyKey("spring.datasource.hikari.maximum-pool-siz"), propertyValue("2"))

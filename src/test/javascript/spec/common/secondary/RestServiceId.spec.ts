@@ -7,6 +7,7 @@ describe('RestServiceId', () => {
     expect(toService('angular')).toEqual<Service>(Service.ANGULAR);
     expect(toService('angular-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(toService('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
+    expect(toService('consul')).toEqual<Service>(Service.CONSUL);
     expect(toService('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(toService('download')).toEqual<Service>(Service.DOWNLOAD);
     expect(toService('eureka-client')).toEqual<Service>(Service.EUREKA_CLIENT);

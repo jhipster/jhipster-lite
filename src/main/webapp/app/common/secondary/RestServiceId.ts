@@ -7,6 +7,7 @@ const SERVICES: Record<string, Service> = {
   angular: Service.ANGULAR,
   'angular-jwt': Service.ANGULAR_WITH_JWT,
   'angular-oauth2': Service.ANGULAR_OAUTH2,
+  consul: Service.CONSUL,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
   'eureka-client': Service.EUREKA_CLIENT,

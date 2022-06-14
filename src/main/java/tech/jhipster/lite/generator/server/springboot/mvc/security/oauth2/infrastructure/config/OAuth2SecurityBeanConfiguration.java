@@ -3,7 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infra
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.CommonSecurityService;
@@ -17,20 +17,20 @@ public class OAuth2SecurityBeanConfiguration {
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final CommonSecurityService commonSecurityService;
-  private final DockerService dockerService;
+  private final DockerImages dockerImages;
 
   public OAuth2SecurityBeanConfiguration(
     ProjectRepository projectRepository,
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
     CommonSecurityService commonSecurityService,
-    DockerService dockerService
+    DockerImages dockerImages
   ) {
     this.projectRepository = projectRepository;
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.commonSecurityService = commonSecurityService;
-    this.dockerService = dockerService;
+    this.dockerImages = dockerImages;
   }
 
   @Bean
@@ -40,7 +40,7 @@ public class OAuth2SecurityBeanConfiguration {
       buildToolService,
       springBootCommonService,
       commonSecurityService,
-      dockerService
+      dockerImages
     );
   }
 }

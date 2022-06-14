@@ -1,24 +1,26 @@
-package tech.jhipster.lite.generator.module.domain;
+package tech.jhipster.lite.common.infrastructure.secondary;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Service;
 import tech.jhipster.lite.common.domain.Generated;
+import tech.jhipster.lite.common.domain.ProjectFilesReader;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 
-public final class FilesReader {
+@Service
+public class FileSystemProjectFilesReader implements ProjectFilesReader {
 
   private static final String SLASH = "/";
 
-  private FilesReader() {}
-
+  @Override
   @Generated
-  public static String readContent(String path) {
+  public String read(String path) {
     Assert.notBlank("path", path);
 
-    try (InputStream input = FilesReader.class.getResourceAsStream(path.replace("\\", SLASH))) {
+    try (InputStream input = FileSystemProjectFilesReader.class.getResourceAsStream(path.replace("\\", SLASH))) {
       if (input == null) {
         throw new GeneratorException("Can't find file: " + path);
       }

@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.assertj.core.api.SoftAssertions;
+import tech.jhipster.lite.common.infrastructure.secondary.FileSystemProjectFilesReader;
 import tech.jhipster.lite.generator.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleEvents;
@@ -59,8 +60,9 @@ public final class JHipsterModulesAssertions {
     private final JHipsterProjectFolder projectFolder;
 
     private static JHipsterModulesApplicationService buildApplicationService() {
+      FileSystemProjectFilesReader filesReader = new FileSystemProjectFilesReader();
       FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
-        new FileSystemJHipsterModuleFiles(),
+        new FileSystemJHipsterModuleFiles(filesReader),
         new FileSystemJavaDependenciesCommandsHandler(),
         new FileSystemSpringPropertiesCommandsHandler()
       );
@@ -68,7 +70,7 @@ public final class JHipsterModulesAssertions {
       return new JHipsterModulesApplicationService(
         modulesRepository,
         mock(JHipsterModuleEvents.class),
-        new FileSystemCurrentJavaDependenciesVersionsRepository(),
+        new FileSystemCurrentJavaDependenciesVersionsRepository(filesReader),
         new FileSystemProjectJavaDependenciesRepository()
       );
     }

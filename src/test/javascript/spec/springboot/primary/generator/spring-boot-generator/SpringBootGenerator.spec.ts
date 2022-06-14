@@ -1231,5 +1231,45 @@ describe('SpringBootGenerator', () => {
 
       expectAlertErrorToBe(alertBus, 'Adding SpringCloud Eureka client to project failed error');
     });
+
+    it('should not add consul when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConsul.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addConsul();
+
+      expect(springBootService.addSpringCloudConsul.called).toBe(false);
+    });
+
+    it('should add consul when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConsul.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addConsul();
+
+      const args = springBootService.addSpringCloudConsul.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringCloud Consul successfully added');
+    });
+
+    it('should handle error on adding Consul failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConsul.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addConsul();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringCloud Consul to project failed error');
+    });
   });
 });

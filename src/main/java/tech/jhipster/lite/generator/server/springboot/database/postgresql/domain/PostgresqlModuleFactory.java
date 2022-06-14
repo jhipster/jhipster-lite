@@ -5,7 +5,8 @@ import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_LOGBACK_LOGGER;
 
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImage;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterSource;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
@@ -28,10 +29,10 @@ public class PostgresqlModuleFactory {
   public static final String LOGGING_TEST_CONFIGURATION = "logback.xml";
   public static final String ORG_POSTGRESQL = "org.postgresql";
 
-  private final DockerService dockerService;
+  private final DockerImages dockerImages;
 
-  public PostgresqlModuleFactory(DockerService dockerService) {
-    this.dockerService = dockerService;
+  public PostgresqlModuleFactory(DockerImages dockerImages) {
+    this.dockerImages = dockerImages;
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -42,15 +43,15 @@ public class PostgresqlModuleFactory {
     JHipsterSource source = from(SOURCE);
     String databasePath = "technical/infrastructure/secondary/postgresql";
 
-    String postgresqlDockerImageVersion = dockerService.getImageVersion(POSTGRESQL_DOCKER_IMAGE_NAME).orElseThrow();
-    String postgresqlDockerImageWithVersion = dockerService.getImageNameWithVersion(POSTGRESQL_DOCKER_IMAGE_NAME).orElseThrow();
+    DockerImage postgresqlDockerImage = dockerImages.get(POSTGRESQL_DOCKER_IMAGE_NAME);
+
     //@formatter:off
     return moduleForProject(properties)
       .context()
       .packageName(properties.basePackage())
         .put("applicationName", applicationName)
         .put("srcDocker", SRC_MAIN_DOCKER)
-        .put("postgresqlDockerImageWithVersion", postgresqlDockerImageWithVersion)
+        .put("postgresqlDockerImageWithVersion", postgresqlDockerImage.fullName())
         .and()
       .documentation(documentationTitle("Postgresql"), from("server/springboot/database/postgresql/postgresql.md.mustache"))
       .files()
@@ -75,7 +76,7 @@ public class PostgresqlModuleFactory {
         .and()
       .springTestProperties()
         .set(springDatasourceDriverClassName(), propertyValue("org.testcontainers.jdbc.ContainerDatabaseDriver"))
-        .set(springDatasourceUrl(), propertyValue("jdbc:tc:postgresql:" + postgresqlDockerImageVersion + ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"))
+        .set(springDatasourceUrl(), propertyValue("jdbc:tc:postgresql:" + postgresqlDockerImage.imageName() + ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"))
         .set(springDatasourceUsername(), propertyValue(properties.projectBaseName().name()))
         .set(springDatasourcePassword(), propertyValue(""))
         .set(propertyKey("spring.datasource.hikari.maximum-pool-siz"), propertyValue("2"))

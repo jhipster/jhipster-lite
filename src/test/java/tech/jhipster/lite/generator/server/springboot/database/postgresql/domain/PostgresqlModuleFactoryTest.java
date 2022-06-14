@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.database.postgresql.domai
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleOnProjectWithDefaultPom;
 
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,7 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImage;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
@@ -21,7 +21,7 @@ import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePrope
 class PostgresqlModuleFactoryTest {
 
   @Mock
-  DockerService dockerService;
+  DockerImages dockerImages;
 
   @InjectMocks
   PostgresqlModuleFactory factory;
@@ -34,8 +34,8 @@ class PostgresqlModuleFactoryTest {
       .projectBaseName("myapp")
       .build();
 
-    when(dockerService.getImageNameWithVersion("postgres")).thenReturn(Optional.of("postgres:0.0.0"));
-    when(dockerService.getImageVersion("postgres")).thenReturn(Optional.of("0.0.0"));
+    when(dockerImages.get("postgres")).thenReturn(new DockerImage("postgres", "0.0.0"));
+
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleOnProjectWithDefaultPom(module)

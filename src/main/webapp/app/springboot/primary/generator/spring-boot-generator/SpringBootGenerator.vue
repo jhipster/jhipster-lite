@@ -115,6 +115,12 @@
           :selector-prefix="selectorPrefix"
           @click.prevent="addEurekaClient"
         />
+        <GeneratorButtonVue
+          :label="'SpringCloud Consul'"
+          :service="'consul'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addConsul"
+        />
       </div>
       <div>
         <GeneratorButtonVue :label="'Dev tools'" :service="'dev-tools'" :selector-prefix="selectorPrefix" @click.prevent="addDevTools" />

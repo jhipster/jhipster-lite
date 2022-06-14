@@ -278,6 +278,15 @@ export default defineComponent({
       }
     };
 
+    const addConsul = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addSpringCloudConsul(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringCloud Consul successfully added'))
+          .catch(error => alertBus.error(`Adding SpringCloud Consul to project failed ${error}`));
+      }
+    };
+
     const addJib = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -325,6 +334,7 @@ export default defineComponent({
       addDockerFile,
       addDevTools,
       addEurekaClient,
+      addConsul,
       addJib,
       addSpringBootAsync,
     };

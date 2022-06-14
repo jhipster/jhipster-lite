@@ -7,6 +7,7 @@ const SERVICES: Record<string, Service> = {
   angular: Service.ANGULAR,
   'angular-jwt': Service.ANGULAR_WITH_JWT,
   'angular-oauth2': Service.ANGULAR_OAUTH2,
+  consul: Service.CONSUL,
   'dev-tools': Service.DEV_TOOLS,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,

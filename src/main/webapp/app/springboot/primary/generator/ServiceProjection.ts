@@ -5,6 +5,7 @@ export type ServiceProjection =
   | 'angular'
   | 'angular-with-jwt'
   | 'angular-oauth2'
+  | 'consul'
   | 'dev-tools'
   | 'dockerfile'
   | 'download'
@@ -54,6 +55,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.ANGULAR]: 'angular',
   [Service.ANGULAR_WITH_JWT]: 'angular-with-jwt',
   [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
+  [Service.CONSUL]: 'consul',
   [Service.DEV_TOOLS]: 'dev-tools',
   [Service.DOCKERFILE]: 'dockerfile',
   [Service.DOWNLOAD]: 'download',
@@ -106,6 +108,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   angular: Service.ANGULAR,
   'angular-with-jwt': Service.ANGULAR_WITH_JWT,
   'angular-oauth2': Service.ANGULAR_OAUTH2,
+  consul: Service.CONSUL,
   'dev-tools': Service.DEV_TOOLS,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,

@@ -6,6 +6,7 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
@@ -56,10 +57,12 @@ class MssqlApplicationServiceIT {
       "spring.datasource.url=jdbc:sqlserver://localhost:1433;database=jhipster"
     );
     assertTestContainersWasAdded(project);
+    assertExtensionForDatabaseContainerWasAdded(project);
     assertLoggerInConfig(project);
   }
 
   private void assertTestContainersWasAdded(Project project) {
+    Optional<String> test = Optional.of("test");
     assertFileContent(project, POM_XML, "<testcontainers.version>");
     assertFileContent(project, POM_XML, "</testcontainers.version>");
     assertFileContent(project, POM_XML, testcontainers());
@@ -75,6 +78,13 @@ class MssqlApplicationServiceIT {
       "spring.datasource.url=jdbc:tc:sqlserver:latest://;database=jhipster;trustServerCertificate=true?TC_TMPFS=/testtmpfs:rw"
     );
     assertFileExist(project, "src/test/resources/container-license-acceptance.txt");
+  }
+
+  private void assertExtensionForDatabaseContainerWasAdded(Project project) {
+    final String projectTestPath = "src/test/java/com/mycompany/myapp";
+    assertFileExist(project, projectTestPath + "/MssqlTestContainerExtension.java");
+    assertFileContent(project, getPath(projectTestPath, "IntegrationTest.java"), "@ExtendWith(MssqlTestContainerExtension.class)");
+    assertFileContent(project, getPath(projectTestPath, "IntegrationTest.java"), "import org.junit.jupiter.api.extension.ExtendWith;");
   }
 
   private void assertLoggerInConfig(Project project) {

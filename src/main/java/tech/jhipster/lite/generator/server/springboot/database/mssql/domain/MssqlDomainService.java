@@ -1,12 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.database.mssql.domain;
 
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
@@ -18,24 +18,26 @@ import tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.
 public class MssqlDomainService implements MssqlService {
 
   public static final String SOURCE = "server/sql";
+  public static final String EXTENSION_TEST_CONTAINER = "server/springboot/core";
+  public static final String EXTENSION_INTEGRATION_TEST_CLASS = "MssqlTestContainerExtension";
 
   private final BuildToolService buildToolService;
   private final SpringBootCommonService springBootCommonService;
   private final SQLCommonService sqlCommonService;
-  private final DockerService dockerService;
+  private final DockerImages dockerImages;
   private final ProjectRepository projectRepository;
 
   public MssqlDomainService(
     BuildToolService buildToolService,
     SpringBootCommonService springBootCommonService,
     SQLCommonService sqlCommonService,
-    DockerService dockerService,
+    DockerImages dockerImages,
     ProjectRepository projectRepository
   ) {
     this.buildToolService = buildToolService;
     this.springBootCommonService = springBootCommonService;
     this.sqlCommonService = sqlCommonService;
-    this.dockerService = dockerService;
+    this.dockerImages = dockerImages;
     this.projectRepository = projectRepository;
   }
 
@@ -65,14 +67,9 @@ public class MssqlDomainService implements MssqlService {
   private void addDockerCompose(Project project) {
     project.addDefaultConfig(BASE_NAME);
 
-    dockerService
-      .getImageNameWithVersion(Mssql.getDockerImageName())
-      .ifPresentOrElse(
-        imageName -> project.addConfig("dockerImageName", imageName),
-        () -> {
-          throw new GeneratorException("Version not found for docker image: " + Mssql.getDockerImageName());
-        }
-      );
+    String dockerImage = dockerImages.get(Mssql.getDockerImageName()).fullName();
+    project.addConfig("dockerImageName", dockerImage);
+
     sqlCommonService.addDockerComposeTemplate(project, DatabaseType.MSSQL.id());
   }
 
@@ -94,14 +91,23 @@ public class MssqlDomainService implements MssqlService {
   }
 
   private void addTestcontainers(Project project) {
-    this.sqlCommonService.addTestcontainers(
-        project,
-        DatabaseType.MSSQL.id(),
-        Mssql.springPropertiesForTest(project.getBaseName().orElse("jhipster"))
-      );
-    this.projectRepository.add(
-        ProjectFile.forProject(project).withSource(SOURCE, Mssql.LICENSE_TEST_CONTAINER_FILE).withDestinationFolder(TEST_RESOURCES)
-      );
+    String packageNamePath = project.getPackageNamePath().orElse(getPath(PACKAGE_PATH));
+    String integrationTestPath = getPath(TEST_JAVA, packageNamePath);
+    sqlCommonService.addTestcontainers(
+      project,
+      DatabaseType.MSSQL.id(),
+      Mssql.springPropertiesForTest(project.getBaseName().orElse("jhipster"))
+    );
+    projectRepository.add(
+      ProjectFile.forProject(project).withSource(SOURCE, Mssql.LICENSE_TEST_CONTAINER_FILE).withDestinationFolder(TEST_RESOURCES)
+    );
+    projectRepository.template(
+      ProjectFile
+        .forProject(project)
+        .withSource(EXTENSION_TEST_CONTAINER, Mssql.MSSQL_TEST_CONTAINER_EXTENSION_FILE)
+        .withDestinationFolder(getPath(integrationTestPath))
+    );
+    springBootCommonService.updateIntegrationTestAnnotation(project, EXTENSION_INTEGRATION_TEST_CLASS);
   }
 
   private void addHibernateCore(Project project) {

@@ -16,7 +16,8 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImage;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -41,7 +42,7 @@ class MssqlDomainServiceUnitTest {
   ProjectRepository projectRepository;
 
   @Mock
-  DockerService dockerService;
+  DockerImages dockerImages;
 
   @InjectMocks
   MssqlDomainService mssqlDomainService;
@@ -57,7 +58,7 @@ class MssqlDomainServiceUnitTest {
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
 
-    when(dockerService.getImageNameWithVersion("mcr.microsoft.com/mssql/server")).thenReturn(Optional.of("mssql:0.0.0"));
+    when(dockerImages.get("mcr.microsoft.com/mssql/server")).thenReturn(new DockerImage("mssql", "0.0.0"));
 
     mssqlDomainService.init(project);
 
@@ -65,7 +66,6 @@ class MssqlDomainServiceUnitTest {
 
     verify(springBootCommonService, times(4)).addLoggerTest(any(Project.class), anyString(), any(Level.class));
 
-    verify(sqlCommonService).addTestcontainers(any(Project.class), anyString(), anyMap());
     verify(sqlCommonService).addSpringDataJpa(project);
     verify(sqlCommonService).addHibernateCore(project);
     verify(sqlCommonService).addDockerComposeTemplate(project, "mssqlserver");
@@ -74,12 +74,9 @@ class MssqlDomainServiceUnitTest {
     verify(springBootCommonService, times(7)).addProperties(eq(project), any(), any());
     verify(springBootCommonService, times(2)).addLogger(eq(project), any(), any());
     verify(sqlCommonService).addLoggers(project);
-  }
-
-  @Test
-  void shouldThrowExceptionWhenImageVersionNotFound() {
-    Project project = tmpProject();
-
-    assertThatThrownBy(() -> mssqlDomainService.init(project)).isInstanceOf(GeneratorException.class).hasMessageContaining("mssql");
+    verify(projectRepository).template(any(ProjectFile.class));
+    verify(springBootCommonService).updateIntegrationTestAnnotation(project, "MssqlTestContainerExtension");
+    verify(projectRepository).template(any(ProjectFile.class));
+    verify(projectRepository).add(any(ProjectFile.class));
   }
 }

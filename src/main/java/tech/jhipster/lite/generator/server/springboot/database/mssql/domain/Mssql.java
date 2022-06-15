@@ -7,6 +7,7 @@ import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 public class Mssql {
 
   public static final String MSSQL_DOCKER_IMAGE_NAME = "mcr.microsoft.com/mssql/server";
+  public static final String MSSQL_TEST_CONTAINER_EXTENSION_FILE = "MssqlTestContainerExtension.java";
   public static final String LICENSE_TEST_CONTAINER_FILE = "container-license-acceptance.txt";
 
   private Mssql() {}

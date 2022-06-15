@@ -21,7 +21,6 @@ import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 
 @UnitTest
@@ -373,39 +372,6 @@ class FileUtilsTest {
   }
 
   @Nested
-  class ReadLinesInClasspathTest {
-
-    @Test
-    void shouldReadLines() {
-      assertThat(FileUtils.readLinesInClasspath(getPath("generator/utils/readme-short.md")))
-        .hasSize(3)
-        .containsExactly("this is a short readme", "used for unit tests", "powered by JHipster");
-    }
-
-    @Test
-    void shouldThrowExceptionWhenFileDoesNotExist() {
-      String fileName = "/path/to/unknown.md";
-      assertThatThrownBy(() -> FileUtils.readLinesInClasspath(fileName))
-        .isInstanceOf(GeneratorException.class)
-        .hasMessageContaining(fileName);
-    }
-
-    @Test
-    void shouldNotReadLinesForNullFileName() {
-      assertThatThrownBy(() -> FileUtils.readLinesInClasspath(null))
-        .isInstanceOf(MissingMandatoryValueException.class)
-        .hasMessageContaining("filename");
-    }
-
-    @Test
-    void shouldNotReadLinesForBlankFileName() {
-      assertThatThrownBy(() -> FileUtils.readLinesInClasspath("   "))
-        .isInstanceOf(MissingMandatoryValueException.class)
-        .hasMessageContaining("filename");
-    }
-  }
-
-  @Nested
   class ContainsInLineTest {
 
     @Test
@@ -705,6 +671,68 @@ class FileUtilsTest {
       List<String> lines = List.of("line");
 
       assertThatThrownBy(() -> FileUtils.appendLines("/unknown/path/file", lines)).isInstanceOf(IOException.class);
+    }
+  }
+
+  @Nested
+  class GetValuesBetweenTest {
+
+    @Test
+    void shouldGetValue() throws IOException {
+      Path filePath = Files.createTempFile("values-between", null);
+      Files.write(filePath, """
+        <name>jhipster</name>
+        "version":"0.0.1"
+        """.getBytes());
+
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "<name>", "</name>")).contains("jhipster");
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "\"version\":\"", "\"")).contains("0.0.1");
+    }
+
+    @Test
+    void shouldNotGetValue() throws IOException {
+      Path filePath = Files.createTempFile("values-between", null);
+      Files.write(filePath, """
+        <name>jhipster</name>
+        "version":"0.0.1"
+        """.getBytes());
+
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "<version>", "</version>")).isEmpty();
+    }
+
+    @Test
+    void shouldNotGetValueForPartialPrefixMatch() throws IOException {
+      Path filePath = Files.createTempFile("values-between", null);
+      Files.write(filePath, """
+        <name>jhipster
+        """.getBytes());
+
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "<name>", "</name>")).isEmpty();
+    }
+
+    @Test
+    void shouldGetFirstOccuringValue() throws IOException {
+      Path filePath = Files.createTempFile("values-between", null);
+      Files.write(filePath, """
+        <name>jhipster</name>
+         <name>jhipster2</name>
+        """.getBytes());
+
+      assertThat(FileUtils.getValueBetween(filePath.toString(), "<name>", "</name>")).contains("jhipster");
+    }
+
+    @Test
+    void shouldNotGetValueForNull() {
+      assertThatThrownBy(() -> FileUtils.getValueBetween(null, "<name>", "</name>"))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
+    }
+
+    @Test
+    void shouldNotGetValueForBlank() {
+      assertThatThrownBy(() -> FileUtils.getValueBetween(" ", "<name>", "</name>"))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining("filename");
     }
   }
 

@@ -5,17 +5,18 @@ import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.*;
+import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommon.*;
 
 import java.util.TreeMap;
 import tech.jhipster.lite.common.domain.WordUtils;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.readme.domain.ReadMeService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 public class KafkaDomainService implements KafkaService {
@@ -31,18 +32,22 @@ public class KafkaDomainService implements KafkaService {
 
   private final SpringBootCommonService springBootCommonService;
 
-  private final DockerService dockerService;
+  private final DockerImages dockerImages;
+
+  private final ReadMeService readMeService;
 
   public KafkaDomainService(
     final BuildToolService buildToolService,
     final ProjectRepository projectRepository,
     final SpringBootCommonService springBootCommonService,
-    DockerService dockerService
+    final DockerImages dockerImages,
+    final ReadMeService readMeService
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
-    this.dockerService = dockerService;
+    this.dockerImages = dockerImages;
+    this.readMeService = readMeService;
   }
 
   @Override
@@ -52,6 +57,7 @@ public class KafkaDomainService implements KafkaService {
     addProperties(project);
     addTestcontainers(project);
     addConfiguration(project);
+    addReadMeSection(project);
   }
 
   private void addConfiguration(final Project project) {
@@ -139,7 +145,7 @@ public class KafkaDomainService implements KafkaService {
 
   @Override
   public void addAkhq(final Project project) {
-    final String akhqDockerImage = dockerService.getImageNameWithVersion(AKHQ_DOCKER_IMAGE).orElseThrow();
+    final String akhqDockerImage = dockerImages.get(AKHQ_DOCKER_IMAGE).fullName();
     project.addConfig("akhqDockerImage", akhqDockerImage);
     projectRepository.template(
       ProjectFile.forProject(project).withSource(SOURCE, AKHQ_DOCKER_COMPOSE_FILE).withDestination(MAIN_DOCKER, AKHQ_DOCKER_COMPOSE_FILE)
@@ -152,8 +158,8 @@ public class KafkaDomainService implements KafkaService {
   }
 
   private void addDockerCompose(final Project project) {
-    final String zookeeperDockerImage = dockerService.getImageNameWithVersion(Zookeeper.ZOOKEEPER_DOCKER_IMAGE).orElseThrow();
-    final String kafkaDockerImage = dockerService.getImageNameWithVersion(KAFKA_DOCKER_IMAGE).orElseThrow();
+    final String zookeeperDockerImage = dockerImages.get(Zookeeper.ZOOKEEPER_DOCKER_IMAGE).fullName();
+    final String kafkaDockerImage = dockerImages.get(KAFKA_DOCKER_IMAGE).fullName();
 
     project.addDefaultConfig(BASE_NAME);
     project.addConfig("zookeeperDockerImage", zookeeperDockerImage);
@@ -196,23 +202,17 @@ public class KafkaDomainService implements KafkaService {
         .withSource(SOURCE, "KafkaTestContainerExtension.java")
         .withDestinationFolder(getPath(TEST_JAVA, packageNamePath))
     );
-    this.buildToolService.getVersion(project, "testcontainers")
-      .ifPresentOrElse(
-        version -> {
-          Dependency dependency = Dependency
-            .builder()
-            .groupId("org.testcontainers")
-            .artifactId("kafka")
-            .version("\\${testcontainers.version}")
-            .scope("test")
-            .build();
-          buildToolService.addProperty(project, "testcontainers.version", version);
-          buildToolService.addDependency(project, dependency);
-        },
-        () -> {
-          throw new GeneratorException("Testcontainers version not found");
-        }
-      );
+    buildToolService.addVersionPropertyAndDependency(project, "testcontainers", testContainersDependency("kafka"));
     springBootCommonService.updateIntegrationTestAnnotation(project, "KafkaTestContainerExtension");
+  }
+
+  private void addReadMeSection(final Project project) {
+    readMeService.addSection(
+      project,
+      "## Apache Kafka",
+      """
+      Before to launch `./mvnw spring-boot:run`, please launch the following command in the root directory: `docker-compose -f src/main/docker/kafka.yml up`.
+      """
+    );
   }
 }

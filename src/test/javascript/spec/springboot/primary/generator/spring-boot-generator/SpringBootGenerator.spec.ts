@@ -134,6 +134,88 @@ describe('SpringBootGenerator', () => {
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot MVC with Tomcat to project failed error');
   });
 
+  it('should not add SpringBoot MVC with Undertow when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcUndertow.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringBootMvcUndertow();
+
+    expect(springBootService.addSpringBootMvcUndertow.called).toBe(false);
+  });
+
+  it('should add SpringBoot MVC with Undertow when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcUndertow.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootMvcUndertow();
+
+    const args = springBootService.addSpringBootMvcUndertow.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringBoot MVC with Undertow successfully added');
+  });
+
+  it('should handle error on adding SpringBoot MVC with Undertow failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootMvcUndertow.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootMvcUndertow();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringBoot MVC with Undertow to project failed error');
+  });
+
+  it('should not add SpringBoot dummy feature when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootDummyFeature.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringBootDummyFeature();
+
+    expect(springBootService.addSpringBootDummyFeature.called).toBe(false);
+  });
+
+  it('should add SpringBoot dummy feature when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootDummyFeature.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootDummyFeature();
+
+    const args = springBootService.addSpringBootDummyFeature.getCall(0).args[0];
+
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+
+    expectAlertSuccessToBe(alertBus, 'SpringBoot dummy feature successfully added');
+  });
+
+  it('should handle error on adding SpringBoot dummy feature failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringBootDummyFeature.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootDummyFeature();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringBoot dummy feature to project failed error');
+  });
+
   it('should not add SpringBoot Webflux with Netty when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addSpringBootWebfluxNetty.resolves({});
@@ -380,7 +462,7 @@ describe('SpringBootGenerator', () => {
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security JWT to project failed error');
   });
 
-  it('should not add SpringBoot Security JWT Basic Auth  when project path is not filled', async () => {
+  it('should not add SpringBoot Security JWT Basic Auth when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addBasicAuthJWT.resolves({});
     await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
@@ -406,7 +488,7 @@ describe('SpringBootGenerator', () => {
       packageName: 'tech.jhipster.beer',
       serverPort: 8080,
     });
-    expectAlertSuccessToBe(alertBus, 'SpringBoot Security JWT Basic Auth  successfully added');
+    expectAlertSuccessToBe(alertBus, 'SpringBoot Security JWT Basic Auth successfully added');
   });
 
   it('should handle error on adding SpringBoot Security JWT Basic Auth failure', async () => {
@@ -418,6 +500,126 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootSecurityJWTBasicAuth();
 
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security JWT Basic Auth to project failed error');
+  });
+
+  it('should not add SpringDoc open api with Security JWT when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    expect(springBootService.addSpringdocJWT.called).toBe(false);
+  });
+
+  it('should add SpringDoc open api with Security JWT when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    const args = springBootService.addSpringdocJWT.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringDoc Open Api with Security JWT successfully added');
+  });
+
+  it('should handle error on adding SpringDoc open api with Security JWT failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addSpringdocJWT.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringDocOpenApiSecurityJWT();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringDoc Open Api with Security JWT to project failed error');
+  });
+
+  it('should not add SpringBoot Security OAuth2 when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringBootSecurityOAuth2();
+
+    expect(springBootService.addOAuth2.called).toBe(false);
+  });
+
+  it('should add SpringBoot Security OAuth2 when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootSecurityOAuth2();
+
+    const args = springBootService.addOAuth2.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringBoot Security OAuth2 successfully added');
+  });
+
+  it('should handle error on adding SpringBoot Security OAuth2 failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootSecurityOAuth2();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security OAuth2 to project failed error');
+  });
+
+  it('should not add SpringBoot Security OAuth2 Account Context when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2Account.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addSpringBootSecurityOAuth2Account();
+
+    expect(springBootService.addOAuth2Account.called).toBe(false);
+  });
+
+  it('should add SpringBoot Security OAuth2 Account Context when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2Account.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootSecurityOAuth2Account();
+
+    const args = springBootService.addOAuth2Account.getCall(0).args[0];
+    expect(args).toEqual({
+      baseName: 'beer',
+      folder: 'project/path',
+      projectName: 'Beer Project',
+      packageName: 'tech.jhipster.beer',
+      serverPort: 8080,
+    });
+    expectAlertSuccessToBe(alertBus, 'SpringBoot Security OAuth2 Account Context successfully added');
+  });
+
+  it('should handle error on adding SpringBoot Security OAuth2 Account Context failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addOAuth2Account.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addSpringBootSecurityOAuth2Account();
+
+    expectAlertErrorToBe(alertBus, 'Adding SpringBoot Security OAuth2 Account Context to project failed error');
   });
 
   describe('Databases', () => {
@@ -781,6 +983,373 @@ describe('SpringBootGenerator', () => {
       await component.addMongock();
 
       expectAlertErrorToBe(alertBus, 'Adding SpringBoot Database Migration Mongock to project failed error');
+    });
+  });
+
+  describe('Brokers', () => {
+    it('should not add Pulsar when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addPulsar.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addPulsar();
+
+      expect(springBootService.addPulsar.called).toBe(false);
+    });
+
+    it('should add Pulsar when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addPulsar.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addPulsar();
+
+      const args = springBootService.addPulsar.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'Pulsar successfully added');
+    });
+
+    it('should handle error on adding Pulsar failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addPulsar.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addPulsar();
+
+      expectAlertErrorToBe(alertBus, 'Adding Pulsar to project failed error');
+    });
+  });
+
+  describe('Component tests', () => {
+    it('should not add Cucumber when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addCucumber.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addCucumber();
+
+      expect(springBootService.addCucumber.called).toBe(false);
+    });
+
+    it('should add Cucumber when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addCucumber.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addCucumber();
+
+      const args = springBootService.addCucumber.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'Cucumber successfully added');
+    });
+
+    it('should handle error on adding Cucumber failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addCucumber.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addCucumber();
+
+      expectAlertErrorToBe(alertBus, 'Adding Cucumber to project failed error');
+    });
+  });
+  describe('Tools', () => {
+    it('should not add docker file when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerfile.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addDockerFile();
+
+      expect(springBootService.addSpringBootDockerfile.called).toBe(false);
+    });
+
+    it('should add docker file when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerfile.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addDockerFile();
+
+      const args = springBootService.addSpringBootDockerfile.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringBoot Docker file successfully added');
+    });
+
+    it('should handle error on adding docker file failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerfile.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addDockerFile();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringBoot Docker file to project failed error');
+    });
+
+    it('should not add docker jib when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerJib.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addJib();
+
+      expect(springBootService.addSpringBootDockerJib.called).toBe(false);
+    });
+
+    it('should add docker jib when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerJib.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addJib();
+
+      const args = springBootService.addSpringBootDockerJib.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringBoot Docker Jib successfully added');
+    });
+
+    it('should handle error on adding docker jib failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDockerJib.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addJib();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringBoot Docker Jib to project failed error');
+    });
+
+    it('should not add async config when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootAsync.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addSpringBootAsync();
+
+      expect(springBootService.addSpringBootAsync.called).toBe(false);
+    });
+
+    it('should add async config when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootAsync.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addSpringBootAsync();
+
+      const args = springBootService.addSpringBootAsync.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringBoot async configuration successfully added');
+    });
+
+    it('should handle error on adding async config failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootAsync.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addSpringBootAsync();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringBoot async configuration to project failed error');
+    });
+
+    it('should not add dev tools when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDevtoolsDependencies.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addDevTools();
+
+      expect(springBootService.addSpringBootDevtoolsDependencies.called).toBe(false);
+    });
+
+    it('should add dev tools when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDevtoolsDependencies.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addDevTools();
+
+      const args = springBootService.addSpringBootDevtoolsDependencies.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringBoot dev tools dependencies successfully added');
+    });
+
+    it('should handle error on adding dev tools failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringBootDevtoolsDependencies.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addDevTools();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringBoot dev tools dependencies to project failed error');
+    });
+  });
+
+  describe('SpringCloud', () => {
+    it('should not add eureka client when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudEureka.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addEurekaClient();
+
+      expect(springBootService.addSpringCloudEureka.called).toBe(false);
+    });
+
+    it('should add eureka client when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudEureka.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addEurekaClient();
+
+      const args = springBootService.addSpringCloudEureka.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringCloud Eureka client successfully added');
+    });
+
+    it('should handle error on adding eureka client failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudEureka.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addEurekaClient();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringCloud Eureka client to project failed error');
+    });
+
+    it('should not add consul when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConsul.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addConsul();
+
+      expect(springBootService.addSpringCloudConsul.called).toBe(false);
+    });
+
+    it('should add consul when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConsul.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addConsul();
+
+      const args = springBootService.addSpringCloudConsul.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringCloud Consul successfully added');
+    });
+
+    it('should handle error on adding Consul failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConsul.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addConsul();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringCloud Consul to project failed error');
+    });
+
+    it('should not add config client when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConfigClient.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addSpringCloudConfigClient();
+
+      expect(springBootService.addSpringCloudConfigClient.called).toBe(false);
+    });
+
+    it('should add config client when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConfigClient.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addSpringCloudConfigClient();
+
+      const args = springBootService.addSpringCloudConfigClient.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'SpringCloud Config client successfully added');
+    });
+
+    it('should handle error on adding config client failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addSpringCloudConfigClient.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addSpringCloudConfigClient();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringCloud Config client to project failed error');
     });
   });
 });

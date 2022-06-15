@@ -86,6 +86,7 @@ elif [[ $application == 'fullapp' ]]; then
   springboot_mvc
   sonar_back_front
 
+  callApi "/api/infinitest-filters"
   callApi "/api/servers/spring-boot/async"
   callApi "/api/servers/spring-boot/technical-tools/devtools"
   callApi "/api/servers/spring-boot/log-tools/aop"
@@ -104,6 +105,7 @@ elif [[ $application == 'fullapp' ]]; then
 
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/features/user/postgresql"
+  callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase/user"
 
@@ -116,6 +118,7 @@ elif [[ $application == 'oauth2app' ]]; then
   springboot_mvc
   sonar_back
 
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
   callApi "/api/servers/spring-boot/security-systems/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2/account"
 
@@ -212,6 +215,17 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/clients/angular/jwt"
 
+elif [[ $application == 'angularoauth2app' ]]; then
+  springboot_mvc
+  sonar_back_front
+
+  callApi "/api/developer-tools/frontend-maven-plugin"
+  callApi "/api/clients/angular"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/clients/angular/oauth2"
+  callApi "/api/servers/spring-boot/security-systems/oauth2"
+  callApi "/api/servers/spring-boot/security-systems/oauth2/account"
+
 elif [[ $application == 'reactapp' ]]; then
   springboot_mvc
   sonar_back_front
@@ -229,7 +243,7 @@ elif [[ $application == 'vueapp' ]]; then
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
-  callApi "/api/clients/vue/styles"
+  callApi "/api/clients/vue"
   callApi "/api/clients/vue/stores/pinia"
   callApi "/api/clients/cypress"
 
@@ -245,13 +259,22 @@ elif [[ $application == 'kafkaapp' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/brokers/kafka"
+  callApi "/api/servers/spring-boot/brokers/kafka/dummy-producer-consumer"
   callApi "/api/servers/spring-boot/brokers/kafka/akhq"
+
+elif [[ $application == 'pulsarapp' ]]; then
+  springboot_mvc
+  sonar_back
+
+  callApi "/api/servers/spring-boot/brokers/pulsar"
 
 elif [[ $application == 'reactiveapp' ]]; then
   springboot
   sonar_back
 
   callApi "/api/servers/spring-boot/reactive-servers/netty"
+  callApi "/api/servers/spring-boot/technical-tools/actuator"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
 
 else
   echo "*** Unknown configuration..."

@@ -71,25 +71,6 @@ describe('VueGenerator', () => {
     });
   });
 
-  it('should add Vue with Style when checkbox is checked', async () => {
-    const vueService = stubVueService();
-    vueService.addWithStyle.resolves({});
-    await wrap({ vueService, project: createProjectToUpdate({ folder: 'project/path' }) });
-
-    const checkbox = wrapper.find('#vue-with-style');
-    await checkbox.setValue(true);
-    await component.addVue();
-
-    const args = vueService.addWithStyle.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
-  });
-
   it('should handle error on adding Vue failure', async () => {
     const alertBus = stubAlertBus();
     const vueService = stubVueService();
@@ -100,19 +81,5 @@ describe('VueGenerator', () => {
 
     const [message] = alertBus.error.getCall(0).args;
     expect(message).toBe('Adding Vue to project failed error');
-  });
-
-  it('should handle error on adding Vue with style failure', async () => {
-    const alertBus = stubAlertBus();
-    const vueService = stubVueService();
-    vueService.addWithStyle.rejects('error');
-    await wrap({ alertBus, vueService, project: createProjectToUpdate({ folder: 'project/path' }) });
-
-    const checkbox = wrapper.find('#vue-with-style');
-    await checkbox.setValue(true);
-    await component.addVue();
-
-    const [message] = alertBus.error.getCall(0).args;
-    expect(message).toBe('Adding Vue with style to project failed error');
   });
 });

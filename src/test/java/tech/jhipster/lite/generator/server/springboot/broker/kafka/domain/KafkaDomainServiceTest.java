@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
@@ -12,13 +11,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.docker.domain.DockerService;
+import tech.jhipster.lite.generator.docker.domain.DockerImage;
+import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.generator.readme.domain.ReadMeService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
@@ -26,56 +26,60 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 class KafkaDomainServiceTest {
 
   @Mock
-  BuildToolService buildToolService;
+  private BuildToolService buildToolService;
 
   @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @Mock
-  SpringBootCommonService springBootCommonService;
+  private SpringBootCommonService springBootCommonService;
 
   @Mock
-  DockerService dockerService;
+  private DockerImages dockerImages;
+
+  @Mock
+  private ReadMeService readMeService;
 
   @InjectMocks
-  KafkaDomainService kafkaDomainService;
+  private KafkaDomainService kafkaDomainService;
 
   @Test
   void shouldInit() {
     Project project = tmpProjectWithPomXml();
-    when(buildToolService.getVersion(project, "testcontainers")).thenReturn(Optional.of("0.0.0"));
-    when(dockerService.getImageNameWithVersion(anyString())).thenReturn(Optional.of("dummy"));
+    when(dockerImages.get(anyString())).thenReturn(new DockerImage("dummy", "1"));
 
     kafkaDomainService.init(project);
 
-    verify(buildToolService, times(2)).addDependency(any(Project.class), any(Dependency.class));
-    verify(dockerService, times(2)).getImageNameWithVersion(anyString());
+    verify(buildToolService, times(1)).addDependency(eq(project), any(Dependency.class));
+    verify(buildToolService, times(1)).addVersionPropertyAndDependency(eq(project), eq("testcontainers"), any(Dependency.class));
+    verify(dockerImages, times(2)).get(anyString());
     verify(projectRepository, times(5)).template(any(ProjectFile.class));
-    verify(springBootCommonService, times(9)).addProperties(any(Project.class), anyString(), any());
-    verify(springBootCommonService, times(9)).addPropertiesTest(any(Project.class), anyString(), any());
-    verify(springBootCommonService).updateIntegrationTestAnnotation(any(Project.class), anyString());
+    verify(springBootCommonService, times(9)).addProperties(eq(project), anyString(), any());
+    verify(springBootCommonService, times(9)).addPropertiesTest(eq(project), anyString(), any());
+    verify(springBootCommonService).updateIntegrationTestAnnotation(eq(project), anyString());
+    verify(readMeService).addSection(eq(project), anyString(), anyString());
   }
 
   @Test
   void shouldAddProducerConsumer() {
     Project project = tmpProjectWithPomXml();
 
-    when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.empty());
+    when(springBootCommonService.getProperty(eq(project), anyString())).thenReturn(Optional.empty());
     kafkaDomainService.addDummyProducerConsumer(project);
 
-    verify(springBootCommonService).addProperties(any(Project.class), anyString(), any());
-    verify(springBootCommonService).addPropertiesTest(any(Project.class), anyString(), any());
+    verify(springBootCommonService).addProperties(eq(project), anyString(), any());
+    verify(springBootCommonService).addPropertiesTest(eq(project), anyString(), any());
     verify(projectRepository, times(7)).template(any(ProjectFile.class));
   }
 
   @Test
   void shouldAddAkhq() {
     Project project = tmpProjectWithPomXml();
-    when(dockerService.getImageNameWithVersion(anyString())).thenReturn(Optional.of("dummy"));
+    when(dockerImages.get(anyString())).thenReturn(new DockerImage("dummy", "1"));
 
     kafkaDomainService.addAkhq(project);
 
-    verify(dockerService).getImageNameWithVersion(anyString());
+    verify(dockerImages).get(anyString());
     verify(projectRepository).template(any(ProjectFile.class));
   }
 
@@ -83,16 +87,9 @@ class KafkaDomainServiceTest {
   void shouldNotAddProducerConsumer() {
     Project project = tmpProjectWithPomXml();
 
-    when(springBootCommonService.getProperty(any(Project.class), anyString())).thenReturn(Optional.of("queue.jhipster.dummy"));
+    when(springBootCommonService.getProperty(eq(project), anyString())).thenReturn(Optional.of("queue.jhipster.dummy"));
     kafkaDomainService.addDummyProducerConsumer(project);
 
-    verify(springBootCommonService).getProperty(any(Project.class), anyString());
-  }
-
-  @Test
-  void shouldNotAddTestcontainers() {
-    Project project = tmpProjectWithPomXml();
-
-    assertThatThrownBy(() -> kafkaDomainService.addTestcontainers(project)).isExactlyInstanceOf(GeneratorException.class);
+    verify(springBootCommonService).getProperty(eq(project), anyString());
   }
 }

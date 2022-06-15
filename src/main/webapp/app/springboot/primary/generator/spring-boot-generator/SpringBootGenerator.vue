@@ -15,6 +15,12 @@
           @click.prevent="addSpringBootMvcTomcat"
         />
         <GeneratorButtonVue
+          :label="'Spring MVC Undertow'"
+          :service="'spring-boot-mvc-with-undertow'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootMvcUndertow"
+        />
+        <GeneratorButtonVue
           :label="'Spring Webflux Netty'"
           :service="'spring-boot-webflux-netty'"
           :selector-prefix="selectorPrefix"
@@ -55,6 +61,24 @@
           :selector-prefix="selectorPrefix"
           @click.prevent="addSpringBootSecurityJWTBasicAuth"
         />
+        <GeneratorButtonVue
+          :label="'SpringDoc OpenApi with Security JWT'"
+          :service="'springdoc-openapi-with-security-jwt'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringDocOpenApiSecurityJWT"
+        />
+        <GeneratorButtonVue
+          :label="'Security OAuth2'"
+          :service="'spring-boot-oauth2'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootSecurityOAuth2"
+        />
+        <GeneratorButtonVue
+          :label="'OAuth2 Account Context'"
+          :service="'spring-boot-oauth2-account'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootSecurityOAuth2Account"
+        />
       </div>
       <div>
         <GeneratorButtonVue
@@ -83,6 +107,66 @@
           @click.prevent="addLiquibaseUser"
         />
         <GeneratorButtonVue :label="'Mongock'" :service="'mongock'" :selector-prefix="selectorPrefix" @click.prevent="addMongock" />
+      </div>
+      <div>
+        <GeneratorButtonVue
+          :label="'SpringCloud Eureka client'"
+          :service="'eureka-client'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addEurekaClient"
+        />
+        <GeneratorButtonVue
+          :label="'SpringCloud Consul'"
+          :service="'consul'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addConsul"
+        />
+        <GeneratorButtonVue
+          :label="'SpringCloud Config client'"
+          :service="'spring-cloud'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringCloudConfigClient"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue :label="'Dev tools'" :service="'dev-tools'" :selector-prefix="selectorPrefix" @click.prevent="addDevTools" />
+        <GeneratorButtonVue
+          :label="'Docker file'"
+          :service="'dockerfile'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addDockerFile"
+        />
+        <GeneratorButtonVue :label="'Docker Jib'" :service="'jib'" :selector-prefix="selectorPrefix" @click.prevent="addJib" />
+        <GeneratorButtonVue
+          :label="'Async config'"
+          :service="'spring-boot-async'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootAsync"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue
+          :label="'Pulsar'"
+          :service="'spring-boot-pulsar'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addPulsar"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue
+          :label="'Cucumber'"
+          :service="'spring-boot-cucumber'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addCucumber"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue
+          :label="'Dummy feature'"
+          :service="'spring-boot-dummy-feature'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addSpringBootDummyFeature"
+        />
       </div>
     </div>
   </div>

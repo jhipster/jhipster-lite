@@ -9,29 +9,30 @@
             <label for="path" class="form-label">Path (required) : </label>
             <input
               id="path"
+              placeholder="/tmp/myapp"
               v-model="project.folder"
               type="text"
               class="form-control"
               required
               autofocus
-              @input="debounceGetProjectHistory"
+              @input="debounceGetProjectDetails"
             />
           </div>
           <div class="col-12">
             <label for="basename" class="form-label">Basename : </label>
-            <input id="basename" v-model="project.baseName" type="text" class="form-control" />
+            <input id="basename" placeholder="myapp" v-model="project.baseName" type="text" class="form-control" />
           </div>
           <div class="col-12">
             <label for="projectname" class="form-label">Project name : </label>
-            <input id="projectname" v-model="project.projectName" type="text" class="form-control" />
+            <input id="projectname" placeholder="My App" v-model="project.projectName" type="text" class="form-control" />
           </div>
           <div class="col-12">
             <label for="packagename" class="form-label">Package name : </label>
-            <input id="packagename" v-model="project.packageName" type="text" class="form-control" />
+            <input id="packagename" placeholder="com.mycompany.myapp" v-model="project.packageName" type="text" class="form-control" />
           </div>
           <div class="col-12">
             <label for="serverport" class="form-label">Server port : </label>
-            <input id="serverport" v-model="project.serverPort" type="number" class="form-control" min="0" />
+            <input id="serverport" placeholder="8080" v-model="project.serverPort" type="number" class="form-control" min="0" />
           </div>
         </div>
       </div>

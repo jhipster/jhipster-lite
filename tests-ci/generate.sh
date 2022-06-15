@@ -86,6 +86,7 @@ elif [[ $application == 'fullapp' ]]; then
   springboot_mvc
   sonar_back_front
 
+  callApi "/api/infinitest-filters"
   callApi "/api/servers/spring-boot/async"
   callApi "/api/servers/spring-boot/technical-tools/devtools"
   callApi "/api/servers/spring-boot/log-tools/aop"

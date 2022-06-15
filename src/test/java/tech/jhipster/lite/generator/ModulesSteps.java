@@ -69,6 +69,11 @@ public class ModulesSteps {
     post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, properties));
   }
 
+  @When("I apply {string} module to default project without properties")
+  public void applyModuleForDefaultProjectWithoutProperties(String moduleSlug) {
+    applyModuleForDefaultProject(moduleSlug, null);
+  }
+
   @When("I apply {string} module to default project")
   public void applyModuleForDefaultProject(String moduleSlug, Map<String, Object> properties) {
     String projectFolder = newTestFolder();

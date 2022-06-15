@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class provides utilities for input assertions.
@@ -64,6 +66,20 @@ public class Assert {
    */
   public static void notEmpty(String field, Collection<?> collection) {
     field(field, collection).notEmpty();
+  }
+
+  /**
+   * Ensure that the value contains no whitespace
+   *
+   * @param field
+   *          name of the field to check (will be displayed in exception message)
+   * @param input
+   *          input to check
+   * @throws MissingMandatoryValueException
+   *           if the input contains whitespace
+   */
+  public static void noWhitespace(String field, String input) {
+    field(field, input).noWhitespace();
   }
 
   /**
@@ -304,6 +320,24 @@ public class Assert {
 
       if (value.isBlank()) {
         throw MissingMandatoryValueException.forBlankValue(field);
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure  that the value does not contain whitespace
+     *
+     * @return The current asserter
+     * @throws MissingMandatoryValueException
+     *           if the value contain whitespace
+     */
+    public StringAsserter noWhitespace() {
+      notNull();
+      Pattern pattern = Pattern.compile("\\s");
+      Matcher matcher = pattern.matcher(value);
+      if (matcher.find()) {
+        throw MissingMandatoryValueException.forWhitespaceValue(field);
       }
 
       return this;

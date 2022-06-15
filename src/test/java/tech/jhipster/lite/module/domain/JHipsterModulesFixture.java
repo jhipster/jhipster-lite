@@ -106,6 +106,10 @@ public final class JHipsterModulesFixture {
     .springTestProperties(springProfile("local"))
       .set(propertyKey("springdoc.swagger-ui.tryItOutEnabled"), propertyValue("test"))
       .and()
+    .tags()
+     .add("spring")
+     .add(new JHipsterModuleTag("database"))
+     .and()
     .build();
     // @formatter:on
   }

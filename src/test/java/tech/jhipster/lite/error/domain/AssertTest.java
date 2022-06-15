@@ -57,6 +57,19 @@ class AssertTest {
   }
 
   @Test
+  void shouldNotValidateStringWithWhitespace() {
+    assertThatThrownBy(() -> Assert.noWhitespace("field", "my tag"))
+      .isExactlyInstanceOf(MissingMandatoryValueException.class)
+      .hasMessageContaining("\"field\"")
+      .hasMessageContaining("(contains whitespace)");
+  }
+
+  @Test
+  void shouldValidateStringWithNoWhitespace() {
+    assertThatCode(() -> Assert.noWhitespace("field", NOT_NULL_OR_EMPTY)).doesNotThrowAnyException();
+  }
+
+  @Test
   void shouldValidateNonBlank() {
     assertThatCode(() -> Assert.notBlank("field", NOT_NULL_OR_EMPTY)).doesNotThrowAnyException();
   }

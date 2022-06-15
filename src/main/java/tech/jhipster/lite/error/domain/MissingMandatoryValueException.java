@@ -18,6 +18,10 @@ public class MissingMandatoryValueException extends AssertionException {
     return new MissingMandatoryValueException(defaultMessage(field, "empty"));
   }
 
+  public static MissingMandatoryValueException forWhitespaceValue(String field) {
+    return new MissingMandatoryValueException(defaultMessage(field, "contains whitespace"));
+  }
+
   private static String defaultMessage(String field, String reason) {
     return new StringBuilder()
       .append("The field \"")

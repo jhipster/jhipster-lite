@@ -1,10 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -68,6 +65,7 @@ public class JHipsterModule {
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
   private final SpringProperties springProperties;
+  private final Collection<JHipsterModuleTag> tags;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
     projectFolder = builder.projectFolder;
@@ -82,6 +80,7 @@ public class JHipsterModule {
     preActions = builder.preActions.build();
     postActions = builder.postActions.build();
     springProperties = buildSpringProperties(builder);
+    tags = builder.tags.build().get();
   }
 
   private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
@@ -254,6 +253,10 @@ public class JHipsterModule {
     return springProperties;
   }
 
+  public Collection<JHipsterModuleTag> tags() {
+    return Collections.unmodifiableCollection(tags);
+  }
+
   public static class JHipsterModuleBuilder {
 
     private static final String PROFILE = "profile";
@@ -272,7 +275,9 @@ public class JHipsterModule {
     private final JHipsterModulePackageJsonBuilder packageJson = JHipsterModulePackageJson.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
-    private final Map<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> springProperties = new HashMap<>();
+    private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> mainSpringProperties = new HashMap<>();
+    private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> testSpringProperties = new HashMap<>();
+    private final JHipsterModuleTags.JHipsterModuleTagsBuilder tags = JHipsterModuleTags.builder(this);
 
     private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
       Assert.notNull("properties", properties);
@@ -387,6 +392,10 @@ public class JHipsterModule {
         new PropertiesKey(profile, SpringPropertyType.TEST_PROPERTIES),
         key -> JHipsterModuleSpringProperties.builder(this)
       );
+    }
+
+    public JHipsterModuleTags.JHipsterModuleTagsBuilder tags() {
+      return tags;
     }
 
     public JHipsterModule build() {

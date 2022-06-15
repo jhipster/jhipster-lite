@@ -21,10 +21,10 @@ import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePrope
 class PostgresqlModuleFactoryTest {
 
   @Mock
-  DockerImages dockerImages;
+  private DockerImages dockerImages;
 
   @InjectMocks
-  PostgresqlModuleFactory factory;
+  private PostgresqlModuleFactory factory;
 
   @Test
   void shouldCreateModule() {

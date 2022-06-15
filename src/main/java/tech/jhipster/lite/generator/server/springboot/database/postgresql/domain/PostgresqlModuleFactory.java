@@ -7,6 +7,7 @@ import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringB
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.docker.domain.DockerImage;
 import tech.jhipster.lite.generator.docker.domain.DockerImages;
+import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterSource;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
@@ -19,13 +20,10 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 public class PostgresqlModuleFactory {
 
   private static final String SOURCE = "server/springboot/database/postgresql";
-
+  private static final String DEST_SECONDARY = "technical/infrastructure/secondary/postgresql";
   public static final String POSTGRESQL_DOCKER_IMAGE_NAME = "postgres";
-
   public static final String SRC_MAIN_DOCKER = "src/main/docker";
-
   public static final String MAIN_RESOURCES = "src/main/resources";
-
   public static final String LOGGING_TEST_CONFIGURATION = "logback.xml";
   public static final String ORG_POSTGRESQL = "org.postgresql";
 
@@ -41,9 +39,8 @@ public class PostgresqlModuleFactory {
     String packagePath = properties.basePackage().path();
     String applicationName = properties.projectBaseName().capitalized();
     JHipsterSource source = from(SOURCE);
-    String databasePath = "technical/infrastructure/secondary/postgresql";
-
     DockerImage postgresqlDockerImage = dockerImages.get(POSTGRESQL_DOCKER_IMAGE_NAME);
+    JHipsterDestination databasePath = toSrcMainJava().append(packagePath).append(DEST_SECONDARY);
 
     //@formatter:off
     return moduleForProject(properties)
@@ -55,9 +52,9 @@ public class PostgresqlModuleFactory {
         .and()
       .documentation(documentationTitle("Postgresql"), from("server/springboot/database/postgresql/postgresql.md.mustache"))
       .files()
-        .add(source.template("DatabaseConfiguration.java"), toSrcMainJava().append(packagePath).append(databasePath).append("DatabaseConfiguration.java"))
-        .add(source.template("FixedPostgreSQL10Dialect.java"), toSrcMainJava().append(packagePath).append(databasePath).append("FixedPostgreSQL10Dialect.java"))
-        .add(source.template("FixedPostgreSQL10DialectTest.java"), toSrcTestJava().append(packagePath).append(databasePath).append("FixedPostgreSQL10DialectTest.java"))
+        .add(source.template("DatabaseConfiguration.java"), databasePath.append("DatabaseConfiguration.java"))
+        .add(source.template("FixedPostgreSQL10Dialect.java"), databasePath.append("FixedPostgreSQL10Dialect.java"))
+        .add(source.template("FixedPostgreSQL10DialectTest.java"), toSrcTestJava().append(packagePath).append(DEST_SECONDARY).append("FixedPostgreSQL10DialectTest.java"))
         .add(source.template("postgresql.yml"), toSrcMainDocker().append("postgresql.yml"))
         .and()
       .javaDependencies()
@@ -82,34 +79,34 @@ public class PostgresqlModuleFactory {
         .set(propertyKey("spring.datasource.hikari.maximum-pool-siz"), propertyValue("2"))
         .and()
       .optionalReplacements()
-      .in("src/main/resources/logback-spring.xml")
-        .add(text(NEEDLE_LOGBACK_LOGGER), logger(ORG_POSTGRESQL, Level.WARN))
+        .in("src/main/resources/logback-spring.xml")
+          .add(text(NEEDLE_LOGBACK_LOGGER), logger(ORG_POSTGRESQL, Level.WARN))
+          .and()
+        .in("src/test/resources/logback.xml")
+          .add(text(NEEDLE_LOGBACK_LOGGER), logger(ORG_POSTGRESQL, Level.WARN))
+          .add(text(NEEDLE_LOGBACK_LOGGER), logger("com.github.dockerjava", Level.WARN))
+          .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.testcontainers", Level.WARN))
+          .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.jboss.logging", Level.WARN))
+          .and()
         .and()
-      .in("src/test/resources/logback.xml")
-        .add(text(NEEDLE_LOGBACK_LOGGER), logger(ORG_POSTGRESQL, Level.WARN))
-        .add(text(NEEDLE_LOGBACK_LOGGER), logger("com.github.dockerjava", Level.WARN))
-        .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.testcontainers", Level.WARN))
-        .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.jboss.logging", Level.WARN))
-        .and()
-      .and()
       .build();
     //@formatter:on
   }
 
   private PropertyKey springDatasourceUrl() {
-    return new PropertyKey("spring.datasource.url");
+    return propertyKey("spring.datasource.url");
   }
 
   private PropertyKey springDatasourceUsername() {
-    return new PropertyKey("spring.datasource.username");
+    return propertyKey("spring.datasource.username");
   }
 
   private PropertyKey springDatasourcePassword() {
-    return new PropertyKey("spring.datasource.password");
+    return propertyKey("spring.datasource.password");
   }
 
   private PropertyKey springDatasourceDriverClassName() {
-    return new PropertyKey("spring.datasource.driver-class-name");
+    return propertyKey("spring.datasource.driver-class-name");
   }
 
   private String logger(String loggerName, Level level) {

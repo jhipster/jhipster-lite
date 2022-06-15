@@ -156,4 +156,38 @@ describe('AngularGenerator', () => {
 
     expectAlertErrorToBe(alertBus, 'Adding Oauth2 to project failed error');
   });
+
+  it('should not add Health when project path is not filled', async () => {
+    const angularService = stubAngularService();
+    angularService.addHealth.resolves({});
+    await wrap({ angularService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addHealth();
+
+    expect(angularService.addHealth.called).toBe(false);
+  });
+
+  it('should add Health when project path is filled', async () => {
+    const angularService = stubAngularService();
+    angularService.addHealth.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
+
+    await component.addHealth();
+
+    const args = angularService.addHealth.getCall(0).args[0];
+    expect(args).toEqual(projectJson);
+    expectAlertSuccessToBe(alertBus, 'Health successfully added');
+  });
+
+  it('should handle error on adding Health failure', async () => {
+    const angularService = stubAngularService();
+    const alertBus = stubAlertBus();
+    angularService.addHealth.rejects('error');
+    await wrap({ angularService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
+
+    await component.addHealth();
+
+    expectAlertErrorToBe(alertBus, 'Adding Health to project failed error');
+  });
 });

@@ -7,6 +7,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.ANGULAR)).toEqual<ServiceProjection>('angular');
     expect(toServiceProjection(Service.ANGULAR_WITH_JWT)).toEqual<ServiceProjection>('angular-with-jwt');
     expect(toServiceProjection(Service.ANGULAR_OAUTH2)).toEqual<ServiceProjection>('angular-oauth2');
+    expect(toServiceProjection(Service.ANGULAR_HEALTH)).toEqual<ServiceProjection>('angular-health');
     expect(toServiceProjection(Service.CONSUL)).toEqual<ServiceProjection>('consul');
     expect(toServiceProjection(Service.DEV_TOOLS)).toEqual<ServiceProjection>('dev-tools');
     expect(toServiceProjection(Service.DOWNLOAD)).toEqual<ServiceProjection>('download');
@@ -71,6 +72,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('angular')).toEqual<Service>(Service.ANGULAR);
     expect(fromServiceProjection('angular-with-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(fromServiceProjection('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
+    expect(fromServiceProjection('angular-health')).toEqual<Service>(Service.ANGULAR_HEALTH);
     expect(fromServiceProjection('consul')).toEqual<Service>(Service.CONSUL);
     expect(fromServiceProjection('dev-tools')).toEqual<Service>(Service.DEV_TOOLS);
     expect(fromServiceProjection('dockerfile')).toEqual<Service>(Service.DOCKERFILE);

@@ -8,7 +8,7 @@ public class ReactJwt {
   private ReactJwt() {}
 
   public static List<String> dependencies() {
-    return List.of("react-hook-form", "react-iconly", "react-query", "axios", "@nextui-org/react");
+    return List.of("react-hook-form", "react-iconly", "axios", "@nextui-org/react");
   }
 
   public static List<String> devDependencies() {

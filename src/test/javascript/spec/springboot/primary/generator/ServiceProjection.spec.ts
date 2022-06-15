@@ -53,6 +53,11 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SPRINGBOOT_WEBFLUX_NETTY)).toEqual<ServiceProjection>('spring-boot-webflux-netty');
     expect(toServiceProjection(Service.SPRINGBOOT_CUCUMBER)).toEqual<ServiceProjection>('spring-boot-cucumber');
     expect(toServiceProjection(Service.SPRINGBOOT_PULSAR)).toEqual<ServiceProjection>('spring-boot-pulsar');
+    expect(toServiceProjection(Service.SPRINGBOOT_KAFKA)).toEqual<ServiceProjection>('spring-boot-kafka');
+    expect(toServiceProjection(Service.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER)).toEqual<ServiceProjection>(
+      'spring-boot-kafka-dummy-producer-consumer'
+    );
+    expect(toServiceProjection(Service.SPRINGBOOT_KAFKA_AKHQ)).toEqual<ServiceProjection>('spring-boot-kafka-akhq');
     expect(toServiceProjection(Service.SPRINGBOOT_ASYNC)).toEqual<ServiceProjection>('spring-boot-async');
     expect(toServiceProjection(Service.SPRING_CLOUD)).toEqual<ServiceProjection>('spring-cloud');
     expect(toServiceProjection(Service.REACT)).toEqual<ServiceProjection>('react');
@@ -108,6 +113,11 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('spring-boot-dummy-feature')).toEqual<Service>(Service.SPRINGBOOT_DUMMY_FEATURE);
     expect(fromServiceProjection('spring-boot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(fromServiceProjection('spring-boot-pulsar')).toEqual<Service>(Service.SPRINGBOOT_PULSAR);
+    expect(fromServiceProjection('spring-boot-kafka')).toEqual<Service>(Service.SPRINGBOOT_KAFKA);
+    expect(fromServiceProjection('spring-boot-kafka-dummy-producer-consumer')).toEqual<Service>(
+      Service.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER
+    );
+    expect(fromServiceProjection('spring-boot-kafka-akhq')).toEqual<Service>(Service.SPRINGBOOT_KAFKA_AKHQ);
     expect(fromServiceProjection('spring-boot-async')).toEqual<Service>(Service.SPRINGBOOT_ASYNC);
     expect(fromServiceProjection('spring-cloud')).toEqual<Service>(Service.SPRING_CLOUD);
     expect(fromServiceProjection('spring-boot-cucumber')).toEqual<Service>(Service.SPRINGBOOT_CUCUMBER);

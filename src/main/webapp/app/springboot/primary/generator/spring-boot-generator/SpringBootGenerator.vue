@@ -151,6 +151,19 @@
           :selector-prefix="selectorPrefix"
           @click.prevent="addPulsar"
         />
+        <GeneratorButtonVue :label="'Kafka'" :service="'spring-boot-kafka'" :selector-prefix="selectorPrefix" @click.prevent="addKafka" />
+        <GeneratorButtonVue
+          :label="'Dummy Producer and Consumer for Kafka'"
+          :service="'spring-boot-kafka-dummy-producer-consumer'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addKafkaDummyProducerConsumer"
+        />
+        <GeneratorButtonVue
+          :label="'AKHQ for Kafka'"
+          :service="'spring-boot-kafka-akhq'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addKafkaAkhq"
+        />
       </div>
       <div>
         <GeneratorButtonVue

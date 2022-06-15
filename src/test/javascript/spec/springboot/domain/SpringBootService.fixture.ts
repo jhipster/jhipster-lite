@@ -48,6 +48,10 @@ export interface SpringBootServiceFixture extends SpringBootService {
   addCucumber: SinonStub;
 
   addSpringBootDummyFeature: SinonStub;
+
+  addKafka: SinonStub;
+  addKafkaDummyProducerConsumer: SinonStub;
+  addKafkaAkhq: SinonStub;
 }
 
 export const stubSpringBootService = (): SpringBootServiceFixture => ({
@@ -97,4 +101,8 @@ export const stubSpringBootService = (): SpringBootServiceFixture => ({
   addCucumber: sinon.stub(),
 
   addSpringBootDummyFeature: sinon.stub(),
+
+  addKafka: sinon.stub(),
+  addKafkaDummyProducerConsumer: sinon.stub(),
+  addKafkaAkhq: sinon.stub(),
 });

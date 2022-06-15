@@ -70,6 +70,11 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-spring-boot-async-button')).contains('Async config');
 
     cy.get(springBootGeneratorSelector('add-spring-boot-pulsar-button')).contains('Pulsar');
+    cy.get(springBootGeneratorSelector('add-spring-boot-kafka-button')).contains('Kafka');
+    cy.get(springBootGeneratorSelector('add-spring-boot-kafka-dummy-producer-consumer-button')).contains(
+      'Dummy Producer and Consumer for Kafka'
+    );
+    cy.get(springBootGeneratorSelector('add-spring-boot-kafka-akhq-button')).contains('AKHQ for Kafka');
     cy.get(springBootGeneratorSelector('add-spring-boot-cucumber-button')).contains('Cucumber');
 
     cy.get(springBootGeneratorSelector('add-spring-boot-dummy-feature-button')).contains('Dummy feature');

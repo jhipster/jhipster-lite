@@ -6,6 +6,7 @@ import { AngularService } from '@/springboot/domain/client/AngularService';
 import { AngularGeneratorVue } from '@/springboot/primary/generator/angular-generator';
 import { AlertBusFixture, stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
+import { projectJson } from '../RestProject.fixture';
 
 let wrapper: VueWrapper;
 let component: InstanceType<typeof AngularGeneratorVue>;
@@ -73,13 +74,7 @@ describe('AngularGenerator', () => {
     await component.addAngular();
 
     const args = angularService.add.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'Angular successfully added');
   });
 
@@ -113,13 +108,7 @@ describe('AngularGenerator', () => {
     await component.addAngularWithJWT();
 
     const args = angularService.addWithJWT.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'Angular with authentication JWT successfully added');
   });
 
@@ -153,13 +142,7 @@ describe('AngularGenerator', () => {
     await component.addOauth2();
 
     const args = angularService.addOauth2.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'OAuth2 successfully added');
   });
 

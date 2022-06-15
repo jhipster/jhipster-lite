@@ -6,6 +6,7 @@ import { stubSpringBootService } from '../../../domain/SpringBootService.fixture
 import { SpringBootGeneratorVue } from '@/springboot/primary/generator/spring-boot-generator';
 import { AlertBusFixture, stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
+import { projectJson } from '../RestProject.fixture';
 
 let wrapper: VueWrapper;
 let component: any;
@@ -73,13 +74,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBoot();
 
     const args = springBootService.addSpringBoot.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot successfully added');
   });
 
@@ -113,13 +108,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootMvcTomcat();
 
     const args = springBootService.addSpringBootMvcTomcat.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot MVC with Tomcat successfully added');
   });
 
@@ -153,13 +142,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootMvcUndertow();
 
     const args = springBootService.addSpringBootMvcUndertow.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot MVC with Undertow successfully added');
   });
 
@@ -194,13 +177,7 @@ describe('SpringBootGenerator', () => {
 
     const args = springBootService.addSpringBootDummyFeature.getCall(0).args[0];
 
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
 
     expectAlertSuccessToBe(alertBus, 'SpringBoot dummy feature successfully added');
   });
@@ -235,13 +212,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootWebfluxNetty();
 
     const args = springBootService.addSpringBootWebfluxNetty.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot Webflux with Netty successfully added');
   });
 
@@ -275,13 +246,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootActuator();
 
     const args = springBootService.addSpringBootActuator.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot Webflux with Netty successfully added');
   });
 
@@ -315,13 +280,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringDoc();
 
     const args = springBootService.addSpringDoc.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringDoc successfully added');
   });
 
@@ -441,13 +400,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootSecurityJWT();
 
     const args = springBootService.addJWT.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot Security JWT successfully added');
   });
 
@@ -481,13 +434,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootSecurityJWTBasicAuth();
 
     const args = springBootService.addBasicAuthJWT.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot Security JWT Basic Auth successfully added');
   });
 
@@ -521,13 +468,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringDocOpenApiSecurityJWT();
 
     const args = springBootService.addSpringdocJWT.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringDoc Open Api with Security JWT successfully added');
   });
 
@@ -561,13 +502,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootSecurityOAuth2();
 
     const args = springBootService.addOAuth2.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot Security OAuth2 successfully added');
   });
 
@@ -601,13 +536,7 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBootSecurityOAuth2Account();
 
     const args = springBootService.addOAuth2Account.getCall(0).args[0];
-    expect(args).toEqual({
-      baseName: 'beer',
-      folder: 'project/path',
-      projectName: 'Beer Project',
-      packageName: 'tech.jhipster.beer',
-      serverPort: 8080,
-    });
+    expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'SpringBoot Security OAuth2 Account Context successfully added');
   });
 

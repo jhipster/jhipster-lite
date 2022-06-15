@@ -38,7 +38,7 @@ public class OAuth2ModuleFactory {
     this.dockerImages = dockerImages;
   }
 
-  public JHipsterModule buildOAuth2Module(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     //@formatter:off

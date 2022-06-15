@@ -25,5 +25,15 @@ class OAuth2ModuleConfiguration {
       )
       .factory(oAuth2::buildOAuth2Module);
   }
-  //TODO: account management module
+
+  @Bean
+  JHipsterModuleResource oAuth2AccountModule(OAuth2SecurityApplicationService oAuth2) {
+    return JHipsterModuleResource
+      .builder()
+      .legacyUrl("/api/servers/spring-boot/security-systems/oauth2/account")
+      .slug("springboot-oauth2-account")
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
+      .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC - Security", "Add a account context for OAuth 2.0 / OIDC Authentication"))
+      .factory(oAuth2::buildOAuth2AccountModule);
+  }
 }

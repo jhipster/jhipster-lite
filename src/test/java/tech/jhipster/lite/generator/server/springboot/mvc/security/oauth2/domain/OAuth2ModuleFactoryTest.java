@@ -36,7 +36,7 @@ class OAuth2ModuleFactoryTest {
 
     when(dockerImages.get("jboss/keycloak")).thenReturn(new DockerImage("jboss/keycloak", "1.1.1"));
 
-    JHipsterModule module = factory.buildOAuth2Module(properties);
+    JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(
       module,

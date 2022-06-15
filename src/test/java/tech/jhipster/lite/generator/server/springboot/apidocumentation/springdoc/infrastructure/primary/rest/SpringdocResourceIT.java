@@ -23,7 +23,6 @@ import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplication
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
-import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocAssert;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
 @IntegrationTest

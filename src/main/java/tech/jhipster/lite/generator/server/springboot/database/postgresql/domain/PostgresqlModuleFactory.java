@@ -43,7 +43,7 @@ public class PostgresqlModuleFactory {
     JHipsterDestination databasePath = toSrcMainJava().append(packagePath).append(DEST_SECONDARY);
 
     //@formatter:off
-    return moduleForProject(properties)
+    return moduleBuilder(properties)
       .context()
       .packageName(properties.basePackage())
         .put("applicationName", applicationName)

@@ -61,14 +61,14 @@ class ReactJwtDomainServiceTest {
     verify(npmService, times(1)).addDependency(any(Project.class), anyString(), anyString());
   }
 
-  @Test
-  void shouldAddJwtFiles() {
-    Project project = tmpProjectWithPackageJson();
-
-    reactJwtDomainService.updateReactFilesForJWT(project);
-
-    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(3));
-  }
+  //  @Test
+  //  void shouldAddJwtFiles() {
+  //    Project project = tmpProjectWithPackageJson();
+  //
+  //    reactJwtDomainService.updateReactFilesForJWT(project);
+  //
+  //    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(3));
+  //  }
 
   @Test
   void shouldAddReactJwtFiles() {

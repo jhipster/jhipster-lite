@@ -117,6 +117,7 @@ elif [[ $application == 'oauth2app' ]]; then
   springboot_mvc
   sonar_back
 
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
   callApi "/api/servers/spring-boot/security-systems/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2/account"
 
@@ -219,6 +220,7 @@ elif [[ $application == 'angularoauth2app' ]]; then
 
   callApi "/api/developer-tools/frontend-maven-plugin"
   callApi "/api/clients/angular"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
   callApi "/api/clients/angular/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2/account"

@@ -87,9 +87,6 @@ public class GeneratorAction {
   public static final String USER_AND_AUTHORITY_ENTITIES_MYSQL = "user-and-authority-entities-mysql";
   public static final String USER_AND_AUTHORITY_ENTITIES_MARIADB = "user-and-authority-entities-mariadb";
 
-  public static final String SPRINGBOOT_OAUTH2 = "springboot-oauth2";
-  public static final String SPRINGBOOT_OAUTH2_ACCOUNT = "springboot-oauth2-account";
-
   public static final String SONAR_JAVA_BACKEND = "sonar-java-backend";
   public static final String SONAR_JAVA_BACKEND_AND_FRONTEND = "sonar-java-backend-and-frontend";
 

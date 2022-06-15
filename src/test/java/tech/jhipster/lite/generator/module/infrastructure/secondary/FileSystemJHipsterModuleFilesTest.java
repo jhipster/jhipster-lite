@@ -33,7 +33,7 @@ class FileSystemJHipsterModuleFilesTest {
   void shouldNotWriteOnUnwritablePath() {
     JHipsterProjectFolder project = new JHipsterProjectFolder(Paths.get("src/test/resources/generator").toAbsolutePath().toString());
 
-    JHipsterModule module = moduleForProject(JHipsterModuleProperties.defaultProperties(project))
+    JHipsterModule module = moduleBuilder(JHipsterModuleProperties.defaultProperties(project))
       .files()
       .add(from("server/springboot/core/MainApp.java.mustache"), to("content"))
       .and()
@@ -46,7 +46,7 @@ class FileSystemJHipsterModuleFilesTest {
   void shouldTraceAddedFiles() {
     JHipsterProjectFolder project = new JHipsterProjectFolder(FileUtils.tmpDirForTest());
 
-    JHipsterModule module = moduleForProject(JHipsterModuleProperties.defaultProperties(project))
+    JHipsterModule module = moduleBuilder(JHipsterModuleProperties.defaultProperties(project))
       .files()
       .add(from("server/springboot/core/MainApp.java.mustache"), to("MainApp.java"))
       .and()

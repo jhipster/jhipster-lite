@@ -36,9 +36,14 @@ public class ModulesSteps {
 
   @When("I apply legacy module {string} to default project")
   public void legacyApplyModuleForDefaultProject(String moduleUrl) {
+    legacyApplyModulesForDefaultProject(List.of(moduleUrl));
+  }
+
+  @When("I apply legacy modules to default project")
+  public void legacyApplyModulesForDefaultProject(List<String> modulesUrls) {
     ProjectDTO project = newDefaultProjectDto();
 
-    post(moduleUrl, JsonHelper.writeAsString(project));
+    modulesUrls.forEach(moduleUrl -> post(moduleUrl, JsonHelper.writeAsString(project)));
   }
 
   @When("I apply legacy module {string} to default project with maven file")

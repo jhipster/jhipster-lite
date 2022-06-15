@@ -91,7 +91,7 @@ public class JHipsterModule {
     return property -> builderFactory.get().key(property.getKey()).value(property.getValue()).profile(properties.getKey()).build();
   }
 
-  public static JHipsterModuleBuilder moduleForProject(JHipsterModuleProperties properties) {
+  public static JHipsterModuleBuilder moduleBuilder(JHipsterModuleProperties properties) {
     return new JHipsterModuleBuilder(properties);
   }
 

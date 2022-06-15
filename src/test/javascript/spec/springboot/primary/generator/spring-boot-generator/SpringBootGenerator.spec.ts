@@ -1026,6 +1026,126 @@ describe('SpringBootGenerator', () => {
 
       expectAlertErrorToBe(alertBus, 'Adding Pulsar to project failed error');
     });
+
+    it('should not add Kafka when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafka.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addKafka();
+
+      expect(springBootService.addKafka.called).toBe(false);
+    });
+
+    it('should add Kafka when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafka.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addKafka();
+
+      const args = springBootService.addKafka.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'Kafka successfully added');
+    });
+
+    it('should handle error on adding Kafka failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafka.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addKafka();
+
+      expectAlertErrorToBe(alertBus, 'Adding Kafka to project failed error');
+    });
+
+    it('should not add Kafka dummy producer and consumer when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafkaDummyProducerConsumer.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addKafkaDummyProducerConsumer();
+
+      expect(springBootService.addKafkaDummyProducerConsumer.called).toBe(false);
+    });
+
+    it('should add Kafka dummy producer and consumer when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafkaDummyProducerConsumer.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addKafkaDummyProducerConsumer();
+
+      const args = springBootService.addKafkaDummyProducerConsumer.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'Kafka dummy producer and consumer successfully added');
+    });
+
+    it('should handle error on adding Kafka dummy producer and consumer failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafkaDummyProducerConsumer.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addKafkaDummyProducerConsumer();
+
+      expectAlertErrorToBe(alertBus, 'Adding Kafka dummy producer and consumer to project failed error');
+    });
+
+    it('should not add AKHQ for Kafka when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafkaAkhq.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addKafkaAkhq();
+
+      expect(springBootService.addKafkaAkhq.called).toBe(false);
+    });
+
+    it('should add AKHQ for Kafka when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafkaAkhq.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addKafkaAkhq();
+
+      const args = springBootService.addKafkaAkhq.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'AKHQ successfully added');
+    });
+
+    it('should handle error on adding AKHQ for Kafka failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addKafkaAkhq.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addKafkaAkhq();
+
+      expectAlertErrorToBe(alertBus, 'Adding AKHQ to project failed error');
+    });
   });
 
   describe('Component tests', () => {

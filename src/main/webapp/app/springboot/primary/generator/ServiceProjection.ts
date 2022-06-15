@@ -44,6 +44,9 @@ export type ServiceProjection =
   | 'spring-boot-dummy-feature'
   | 'spring-boot-cucumber'
   | 'spring-boot-pulsar'
+  | 'spring-boot-kafka'
+  | 'spring-boot-kafka-dummy-producer-consumer'
+  | 'spring-boot-kafka-akhq'
   | 'spring-boot-async'
   | 'spring-cloud'
   | 'react'
@@ -95,6 +98,9 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SPRINGBOOT_WEBFLUX_NETTY]: 'spring-boot-webflux-netty',
   [Service.SPRINGBOOT_CUCUMBER]: 'spring-boot-cucumber',
   [Service.SPRINGBOOT_PULSAR]: 'spring-boot-pulsar',
+  [Service.SPRINGBOOT_KAFKA]: 'spring-boot-kafka',
+  [Service.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER]: 'spring-boot-kafka-dummy-producer-consumer',
+  [Service.SPRINGBOOT_KAFKA_AKHQ]: 'spring-boot-kafka-akhq',
   [Service.SPRINGBOOT_ASYNC]: 'spring-boot-async',
   [Service.SPRING_CLOUD]: 'spring-cloud',
   [Service.REACT]: 'react',
@@ -149,6 +155,9 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'spring-boot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
   'spring-boot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   'spring-boot-pulsar': Service.SPRINGBOOT_PULSAR,
+  'spring-boot-kafka': Service.SPRINGBOOT_KAFKA,
+  'spring-boot-kafka-dummy-producer-consumer': Service.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER,
+  'spring-boot-kafka-akhq': Service.SPRINGBOOT_KAFKA_AKHQ,
   'spring-boot-async': Service.SPRINGBOOT_ASYNC,
   'spring-cloud': Service.SPRING_CLOUD,
   react: Service.REACT,

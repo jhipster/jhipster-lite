@@ -313,6 +313,33 @@ export default defineComponent({
       }
     };
 
+    const addKafka = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addKafka(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Kafka successfully added'))
+          .catch(error => alertBus.error(`Adding Kafka to project failed ${error}`));
+      }
+    };
+
+    const addKafkaDummyProducerConsumer = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addKafkaDummyProducerConsumer(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Kafka dummy producer and consumer successfully added'))
+          .catch(error => alertBus.error(`Adding Kafka dummy producer and consumer to project failed ${error}`));
+      }
+    };
+
+    const addKafkaAkhq = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addKafkaAkhq(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('AKHQ successfully added'))
+          .catch(error => alertBus.error(`Adding AKHQ to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -347,6 +374,9 @@ export default defineComponent({
       addSpringCloudConfigClient,
       addJib,
       addSpringBootAsync,
+      addKafka,
+      addKafkaDummyProducerConsumer,
+      addKafkaAkhq,
     };
   },
 });

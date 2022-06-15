@@ -76,7 +76,7 @@ public class PostgresqlModuleFactory {
         .set(springDatasourceUrl(), propertyValue("jdbc:tc:postgresql:" + postgresqlDockerImage.version()+ ":///" + properties.projectBaseName().name() + "?TC_TMPFS=/testtmpfs:rw"))
         .set(springDatasourceUsername(), propertyValue(properties.projectBaseName().name()))
         .set(springDatasourcePassword(), propertyValue(""))
-        .set(propertyKey("spring.datasource.hikari.maximum-pool-siz"), propertyValue("2"))
+        .set(propertyKey("spring.datasource.hikari.maximum-pool-size"), propertyValue("2"))
         .and()
       .optionalReplacements()
         .in("src/main/resources/logback-spring.xml")

@@ -1,16 +1,14 @@
 package tech.jhipster.lite.generator.client.react.security.jwt.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
-import java.util.List;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
-public class ReactJwtDomainJwtService implements ReactJwtService {
+public class ReactJwtDomainService implements ReactJwtService {
 
   public static final String SOURCE = "client/react";
   public static final String SOURCE_APP = "src/main/webapp/app/common/primary/app";
@@ -35,7 +33,7 @@ public class ReactJwtDomainJwtService implements ReactJwtService {
   private final ProjectRepository projectRepository;
   private final NpmService npmService;
 
-  public ReactJwtDomainJwtService(ProjectRepository projectRepository, NpmService npmService) {
+  public ReactJwtDomainService(ProjectRepository projectRepository, NpmService npmService) {
     this.projectRepository = projectRepository;
     this.npmService = npmService;
   }

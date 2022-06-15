@@ -2,7 +2,7 @@ package tech.jhipster.lite.generator.client.react.security.jwt.infrastructure.co
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.client.react.security.jwt.domain.ReactJwtDomainJwtService;
+import tech.jhipster.lite.generator.client.react.security.jwt.domain.ReactJwtDomainService;
 import tech.jhipster.lite.generator.client.react.security.jwt.domain.ReactJwtService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -20,6 +20,6 @@ public class ReactJwtBeanConfiguration {
 
   @Bean
   public ReactJwtService reactJwtService() {
-    return new ReactJwtDomainJwtService(projectRepository, npmService);
+    return new ReactJwtDomainService(projectRepository, npmService);
   }
 }

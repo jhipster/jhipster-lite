@@ -12,6 +12,7 @@ const SERVICES: Record<string, Service> = {
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
   'eureka-client': Service.EUREKA_CLIENT,
+  'ehcache-with-xml-config': Service.EHCACHE_WITH_XML_CONFIG,
   flyway: Service.FLYWAY,
   'flyway-user-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   'frontend-maven-plugin': Service.FRONTEND_MAVEN_PLUGIN,

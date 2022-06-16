@@ -1077,6 +1077,48 @@ describe('SpringBootGenerator', () => {
     });
   });
 
+  describe('Cache', () => {
+    it('should not add Ehcache with XML config when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addEhcacheWithXML.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addEhcacheWithXml();
+
+      expect(springBootService.addEhcacheWithXML.called).toBe(false);
+    });
+
+    it('should add Ehcache with XML config when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addEhcacheWithXML.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addEhcacheWithXml();
+
+      const args = springBootService.addEhcacheWithXML.getCall(0).args[0];
+      expect(args).toEqual({
+        baseName: 'beer',
+        folder: 'project/path',
+        projectName: 'Beer Project',
+        packageName: 'tech.jhipster.beer',
+        serverPort: 8080,
+      });
+      expectAlertSuccessToBe(alertBus, 'Ehcache with XML successfully added');
+    });
+
+    it('should handle error on adding Ehcache with XML failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addEhcacheWithXML.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addEhcacheWithXml();
+
+      expectAlertErrorToBe(alertBus, 'Adding Ehcache with XML to project failed error');
+    });
+  });
+
   describe('Component tests', () => {
     it('should not add Cucumber when project path is not filled', async () => {
       const springBootService = stubSpringBootService();

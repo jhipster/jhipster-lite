@@ -316,13 +316,7 @@ describe('SpringBootGenerator', () => {
         await component.addSpringBootAopLogging();
 
         const args = springBootService.addSpringBootAopLogging.getCall(0).args[0];
-        expect(args).toEqual({
-          baseName: 'beer',
-          folder: 'project/path',
-          projectName: 'Beer Project',
-          packageName: 'tech.jhipster.beer',
-          serverPort: 8080,
-        });
+        expect(args).toEqual(projectJson);
         expectAlertSuccessToBe(alertBus, 'SpringBoot AOP Logging successfully added');
       });
 
@@ -358,13 +352,7 @@ describe('SpringBootGenerator', () => {
         await component.addSpringBootLogstash();
 
         const args = springBootService.addSpringBootLogstash.getCall(0).args[0];
-        expect(args).toEqual({
-          baseName: 'beer',
-          folder: 'project/path',
-          projectName: 'Beer Project',
-          packageName: 'tech.jhipster.beer',
-          serverPort: 8080,
-        });
+        expect(args).toEqual(projectJson);
         expectAlertSuccessToBe(alertBus, 'SpringBoot Logstash successfully added');
       });
 
@@ -571,13 +559,7 @@ describe('SpringBootGenerator', () => {
       await component.addPostgreSQL();
 
       const args = springBootService.addPostgres.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database PostgreSQL successfully added');
     });
 
@@ -611,13 +593,7 @@ describe('SpringBootGenerator', () => {
       await component.addMySQL();
 
       const args = springBootService.addMySQL.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database MySQL successfully added');
     });
 
@@ -651,13 +627,7 @@ describe('SpringBootGenerator', () => {
       await component.addMariaDB();
 
       const args = springBootService.addMariaDB.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database MariaDB successfully added');
     });
 
@@ -691,13 +661,7 @@ describe('SpringBootGenerator', () => {
       await component.addMongoDB();
 
       const args = springBootService.addMongoDB.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database MongoDB successfully added');
     });
 
@@ -733,13 +697,7 @@ describe('SpringBootGenerator', () => {
       await component.addFlyway();
 
       const args = springBootService.addSpringBootFlywayInit.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database Migration Flyway successfully added');
     });
 
@@ -773,13 +731,7 @@ describe('SpringBootGenerator', () => {
       await component.addFlywayUser();
 
       const args = springBootService.addSpringBootFlywayUser.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database Migration Flyway with Users and Authority changelogs successfully added');
     });
 
@@ -813,13 +765,7 @@ describe('SpringBootGenerator', () => {
       await component.addLiquibase();
 
       const args = springBootService.addSpringBootLiquibaseInit.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database Migration Liquibase successfully added');
     });
 
@@ -853,13 +799,7 @@ describe('SpringBootGenerator', () => {
       await component.addLiquibaseUser();
 
       const args = springBootService.addSpringBootLiquibaseUser.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database Migration Liquibase with Users and Authority changelogs successfully added');
     });
 
@@ -893,13 +833,7 @@ describe('SpringBootGenerator', () => {
       await component.addMongock();
 
       const args = springBootService.addSpringBootMongockInit.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Database MongoDB successfully added');
     });
 
@@ -935,13 +869,7 @@ describe('SpringBootGenerator', () => {
       await component.addPulsar();
 
       const args = springBootService.addPulsar.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'Pulsar successfully added');
     });
 
@@ -975,13 +903,7 @@ describe('SpringBootGenerator', () => {
       await component.addKafka();
 
       const args = springBootService.addKafka.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'Kafka successfully added');
     });
 
@@ -1015,13 +937,7 @@ describe('SpringBootGenerator', () => {
       await component.addKafkaDummyProducerConsumer();
 
       const args = springBootService.addKafkaDummyProducerConsumer.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'Kafka dummy producer and consumer successfully added');
     });
 
@@ -1055,13 +971,7 @@ describe('SpringBootGenerator', () => {
       await component.addKafkaAkhq();
 
       const args = springBootService.addKafkaAkhq.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'AKHQ successfully added');
     });
 
@@ -1097,13 +1007,7 @@ describe('SpringBootGenerator', () => {
       await component.addEhcacheWithXml();
 
       const args = springBootService.addEhcacheWithXML.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'Ehcache with XML successfully added');
     });
 
@@ -1139,13 +1043,7 @@ describe('SpringBootGenerator', () => {
       await component.addCucumber();
 
       const args = springBootService.addCucumber.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'Cucumber successfully added');
     });
 
@@ -1180,13 +1078,7 @@ describe('SpringBootGenerator', () => {
       await component.addDockerFile();
 
       const args = springBootService.addSpringBootDockerfile.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Docker file successfully added');
     });
 
@@ -1220,13 +1112,7 @@ describe('SpringBootGenerator', () => {
       await component.addJib();
 
       const args = springBootService.addSpringBootDockerJib.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot Docker Jib successfully added');
     });
 
@@ -1260,13 +1146,7 @@ describe('SpringBootGenerator', () => {
       await component.addSpringBootAsync();
 
       const args = springBootService.addSpringBootAsync.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot async configuration successfully added');
     });
 
@@ -1300,13 +1180,7 @@ describe('SpringBootGenerator', () => {
       await component.addDevTools();
 
       const args = springBootService.addSpringBootDevtoolsDependencies.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringBoot dev tools dependencies successfully added');
     });
 
@@ -1342,13 +1216,7 @@ describe('SpringBootGenerator', () => {
       await component.addEurekaClient();
 
       const args = springBootService.addSpringCloudEureka.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringCloud Eureka client successfully added');
     });
 
@@ -1382,13 +1250,7 @@ describe('SpringBootGenerator', () => {
       await component.addConsul();
 
       const args = springBootService.addSpringCloudConsul.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringCloud Consul successfully added');
     });
 
@@ -1422,13 +1284,7 @@ describe('SpringBootGenerator', () => {
       await component.addSpringCloudConfigClient();
 
       const args = springBootService.addSpringCloudConfigClient.getCall(0).args[0];
-      expect(args).toEqual({
-        baseName: 'beer',
-        folder: 'project/path',
-        projectName: 'Beer Project',
-        packageName: 'tech.jhipster.beer',
-        serverPort: 8080,
-      });
+      expect(args).toEqual(projectJson);
       expectAlertSuccessToBe(alertBus, 'SpringCloud Config client successfully added');
     });
 

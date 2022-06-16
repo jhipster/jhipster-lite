@@ -340,6 +340,15 @@ export default defineComponent({
       }
     };
 
+    const addEhcacheWithJavaConfig = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addEhcacheWithJavaConf(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Ehcache with Java config successfully added'))
+          .catch(error => alertBus.error(`Adding Ehcache with Java config to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -377,6 +386,7 @@ export default defineComponent({
       addKafka,
       addKafkaDummyProducerConsumer,
       addKafkaAkhq,
+      addEhcacheWithJavaConfig,
     };
   },
 });

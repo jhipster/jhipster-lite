@@ -11,6 +11,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.CONSUL)).toEqual<ServiceProjection>('consul');
     expect(toServiceProjection(Service.DEV_TOOLS)).toEqual<ServiceProjection>('dev-tools');
     expect(toServiceProjection(Service.DOWNLOAD)).toEqual<ServiceProjection>('download');
+    expect(toServiceProjection(Service.EHCACHE_WITH_JAVA_CONFIG)).toEqual<ServiceProjection>('ehcache-with-java-config');
     expect(toServiceProjection(Service.EUREKA_CLIENT)).toEqual<ServiceProjection>('eureka-client');
     expect(toServiceProjection(Service.FLYWAY)).toEqual<ServiceProjection>('flyway');
     expect(toServiceProjection(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS)).toEqual<ServiceProjection>(
@@ -77,6 +78,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('dev-tools')).toEqual<Service>(Service.DEV_TOOLS);
     expect(fromServiceProjection('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(fromServiceProjection('download')).toEqual<Service>(Service.DOWNLOAD);
+    expect(fromServiceProjection('ehcache-with-java-config')).toEqual<Service>(Service.EHCACHE_WITH_JAVA_CONFIG);
     expect(fromServiceProjection('eureka-client')).toEqual<Service>(Service.EUREKA_CLIENT);
     expect(fromServiceProjection('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(fromServiceProjection('flyway-with-users-and-authority-changelogs')).toEqual<Service>(

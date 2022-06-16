@@ -10,6 +10,7 @@ export type ServiceProjection =
   | 'dev-tools'
   | 'dockerfile'
   | 'download'
+  | 'ehcache-with-xml-config'
   | 'eureka-client'
   | 'initialization'
   | 'flyway'
@@ -65,6 +66,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.DEV_TOOLS]: 'dev-tools',
   [Service.DOCKERFILE]: 'dockerfile',
   [Service.DOWNLOAD]: 'download',
+  [Service.EHCACHE_WITH_XML_CONFIG]: 'ehcache-with-xml-config',
   [Service.EUREKA_CLIENT]: 'eureka-client',
   [Service.FLYWAY]: 'flyway',
   [Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'flyway-with-users-and-authority-changelogs',
@@ -123,6 +125,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'dev-tools': Service.DEV_TOOLS,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
+  'ehcache-with-xml-config': Service.EHCACHE_WITH_XML_CONFIG,
   'eureka-client': Service.EUREKA_CLIENT,
   flyway: Service.FLYWAY,
   'flyway-with-users-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,

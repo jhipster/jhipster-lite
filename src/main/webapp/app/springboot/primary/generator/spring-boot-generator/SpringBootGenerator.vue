@@ -167,6 +167,14 @@
       </div>
       <div>
         <GeneratorButtonVue
+          :label="'Ehcache with XML config'"
+          :service="'ehcache-with-xml-config'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addEhcacheWithXml"
+        />
+      </div>
+      <div>
+        <GeneratorButtonVue
           :label="'Cucumber'"
           :service="'spring-boot-cucumber'"
           :selector-prefix="selectorPrefix"

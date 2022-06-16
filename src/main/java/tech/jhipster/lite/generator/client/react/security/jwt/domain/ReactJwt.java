@@ -34,18 +34,16 @@ public class ReactJwt {
     return List.of("sass");
   }
 
-  public static Map<String, String> reactJwtFiles() {
+  public static Map<String, List<String>> reactJwtFiles() {
     return Map.ofEntries(
-      Map.entry("storage.ts", SOURCE_APP_SERVICES),
-      Map.entry("index.tsx", SOURCE_LOGIN_FORM),
-      Map.entry("index.tsx", SOURCE_LOGIN_MODAL),
-      Map.entry("interface.d.ts", SOURCE_LOGIN_MODAL),
-      Map.entry("LoginModal.scss", SOURCE_LOGIN_MODAL),
-      Map.entry("login.ts", SOURCE_LOGIN_SERVICES),
-      Map.entry("login.test.ts", PATH_TEST_LOGIN_SERVICES),
-      Map.entry("index.test.tsx", PATH_TEST_LOGIN_FORM),
-      Map.entry("index.test.tsx", PATH_TEST_LOGIN_MODAL),
-      Map.entry("storage.test.ts", PATH_TEST_APP_SERVICES)
+      Map.entry("storage.ts", List.of(SOURCE_APP_SERVICES)),
+      Map.entry("index.tsx", List.of(SOURCE_LOGIN_FORM, SOURCE_LOGIN_MODAL)),
+      Map.entry("interface.d.ts", List.of(SOURCE_LOGIN_MODAL)),
+      Map.entry("LoginModal.scss", List.of(SOURCE_LOGIN_MODAL)),
+      Map.entry("login.ts", List.of(SOURCE_LOGIN_SERVICES)),
+      Map.entry("login.test.ts", List.of(PATH_TEST_LOGIN_SERVICES)),
+      Map.entry("index.test.tsx", List.of(PATH_TEST_LOGIN_FORM, PATH_TEST_LOGIN_MODAL)),
+      Map.entry("storage.test.ts", List.of(PATH_TEST_APP_SERVICES))
     );
   }
 }

@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
 
+import java.util.Collection;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +18,6 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -36,7 +36,7 @@ class ReactJwtDomainServiceTest {
   @Test
   void shouldAddJwtReact() {
     Project project = tmpProjectWithPackageJson();
-    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersionInReact(anyString())).thenReturn(Optional.of("0.0.0"));
 
     assertThatCode(() -> reactJwtDomainService.addLoginReact(project)).doesNotThrowAnyException();
   }
@@ -44,7 +44,7 @@ class ReactJwtDomainServiceTest {
   @Test
   void shouldAddJwtDependencies() {
     Project project = tmpProjectWithPackageJson();
-    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersionInReact(anyString())).thenReturn(Optional.of("0.0.0"));
 
     reactJwtDomainService.addDependencies(project);
 
@@ -52,23 +52,39 @@ class ReactJwtDomainServiceTest {
   }
 
   @Test
+  void shouldNotAddJwtDependencies() {
+    Project project = tmpProjectWithPackageJson();
+    when(npmService.getVersionInReact(anyString())).thenReturn(Optional.empty());
+
+    assertThatThrownBy(() -> reactJwtDomainService.addDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
   void shouldAddJwtDevDependencies() {
     Project project = tmpProjectWithPackageJson();
-    when(npmService.getVersion(anyString(), anyString())).thenReturn(Optional.of("0.0.0"));
+    when(npmService.getVersionInReact(anyString())).thenReturn(Optional.of("0.0.0"));
 
     reactJwtDomainService.addDevDependencies(project);
 
-    verify(npmService, times(1)).addDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(1)).addDevDependency(any(Project.class), anyString(), anyString());
   }
 
-  //  @Test
-  //  void shouldAddJwtFiles() {
-  //    Project project = tmpProjectWithPackageJson();
-  //
-  //    reactJwtDomainService.updateReactFilesForJWT(project);
-  //
-  //    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(3));
-  //  }
+  @Test
+  void shouldNotAddJwtDevDependencies() {
+    Project project = tmpProjectWithPackageJson();
+    when(npmService.getVersionInReact(anyString())).thenReturn(Optional.empty());
+
+    assertThatThrownBy(() -> reactJwtDomainService.addDevDependencies(project)).isExactlyInstanceOf(GeneratorException.class);
+  }
+
+  @Test
+  void shouldAddJwtFiles() {
+    Project project = tmpProjectWithPackageJson();
+
+    reactJwtDomainService.updateReactFilesForJWT(project);
+
+    verify(projectRepository, times(3)).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
+  }
 
   @Test
   void shouldAddReactJwtFiles() {
@@ -76,6 +92,6 @@ class ReactJwtDomainServiceTest {
 
     reactJwtDomainService.addReactLoginFiles(project);
 
-    verify(projectRepository).template(ProjectFilesAsserter.filesCountArgument(9));
+    verify(projectRepository).template(any(Collection.class));
   }
 }

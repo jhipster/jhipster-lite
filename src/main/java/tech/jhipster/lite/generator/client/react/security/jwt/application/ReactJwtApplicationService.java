@@ -9,11 +9,11 @@ public class ReactJwtApplicationService {
 
   private final ReactJwtService reactJwtService;
 
-  public ReactJwtApplicationService(ReactJwtService reactJwtService) {
+  public ReactJwtApplicationService(final ReactJwtService reactJwtService) {
     this.reactJwtService = reactJwtService;
   }
 
-  public void addLoginReact(Project project) {
+  public void addLoginReact(final Project project) {
     reactJwtService.addLoginReact(project);
   }
 }

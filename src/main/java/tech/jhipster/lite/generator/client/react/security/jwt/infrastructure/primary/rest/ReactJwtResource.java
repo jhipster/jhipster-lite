@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.client.react.security.jwt.application.ReactJwtApplicationService;
 import tech.jhipster.lite.generator.project.domain.GeneratorAction;
-import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
@@ -28,8 +27,8 @@ class ReactJwtResource {
   @ApiResponse(responseCode = "500", description = "An error occurred while adding JWT Login React")
   @PostMapping
   @GeneratorStep(id = GeneratorAction.REACT_JWT)
-  public void addLoginReact(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
+  public void addLoginReact(@RequestBody final ProjectDTO projectDTO) {
+    var project = ProjectDTO.toProject(projectDTO);
     reactJwtApplicationService.addLoginReact(project);
   }
 }

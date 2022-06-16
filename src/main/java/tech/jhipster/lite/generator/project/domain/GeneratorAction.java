@@ -53,8 +53,6 @@ public class GeneratorAction {
   public static final String SPRINGBOOT_JWT = "springboot-jwt";
   public static final String SPRINGBOOT_JWT_BASIC_AUTH = "springboot-jwt-basic-auth";
 
-  public static final String SPRINGBOOT_ASYNC = "springboot-async";
-
   public static final String SPRINGDOC_OPENAPI = "springdoc-openapi";
   public static final String SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT = "springdoc-openapi-with-security-jwt";
 

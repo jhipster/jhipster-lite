@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVASCRIPT;
 
+import java.util.List;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -122,6 +123,20 @@ public class ReactJwtDomainService implements ReactJwtService {
   }
 
   public void addReactLoginFiles(Project project) {
+    //
+    //    List<ProjectFile> files = ReactJwt
+    //      .reactJwtFiles()
+    //      .entrySet()
+    //      .stream()
+    //      .map(entry ->
+    //        ProjectFile
+    //          .forProject(project)
+    //          .withSource(getPath(SOURCE, entry.getValue()), entry.getKey())
+    //          .withDestination(entry.getValue(), entry.getKey())
+    //      )
+    //      .toList();
+    //
+    //    projectRepository.template(files);
     projectRepository.template(
       ProjectFile
         .forProject(project)

@@ -32,12 +32,9 @@ import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostA
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleMandatoryReplacements;
+import tech.jhipster.lite.generator.module.domain.replacement.*;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleMandatoryReplacements.JHipsterModuleMandatoryReplacementsBuilder;
-import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleOptionalReplacements;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleOptionalReplacements.JHipsterModuleOptionalReplacementsBuilder;
-import tech.jhipster.lite.generator.module.domain.replacement.RegexMatcher;
-import tech.jhipster.lite.generator.module.domain.replacement.TextMatcher;
 
 public class JHipsterModule {
 
@@ -139,6 +136,22 @@ public class JHipsterModule {
 
   public static RegexMatcher regex(String regex) {
     return new RegexMatcher(regex);
+  }
+
+  public static JustBefore justBefore(ElementMatcher matcher) {
+    return new JustBefore(matcher);
+  }
+
+  public static JustAfter justAfter(ElementMatcher matcher) {
+    return new JustAfter(matcher);
+  }
+
+  public static JustLineBefore justLineBefore(ElementMatcher matcher) {
+    return new JustLineBefore(matcher);
+  }
+
+  public static JustLineAfter justLineAfter(ElementMatcher matcher) {
+    return new JustLineAfter(matcher);
   }
 
   public static PropertyKey propertyKey(String key) {

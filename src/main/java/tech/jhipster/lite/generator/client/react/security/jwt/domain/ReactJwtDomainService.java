@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.client.react.security.jwt.domain;
 
 import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_WEBAPP;
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVASCRIPT;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
@@ -11,24 +13,24 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 public class ReactJwtDomainService implements ReactJwtService {
 
   public static final String SOURCE = "client/react";
-  public static final String SOURCE_APP = "src/main/webapp/app/common/primary/app";
+  public static final String SOURCE_APP = MAIN_WEBAPP + "/app/common/primary/app";
   public static final String APP = "App.tsx";
 
-  public static final String SOURCE_APP_SERVICES = "src/main/webapp/app/common/services";
+  public static final String SOURCE_APP_SERVICES = MAIN_WEBAPP + "/app/common/services";
 
-  public static final String SOURCE_LOGIN_FORM = "src/main/webapp/app/login/primary/loginForm";
+  public static final String SOURCE_LOGIN_FORM = MAIN_WEBAPP + "/app/login/primary/loginForm";
 
-  public static final String SOURCE_LOGIN_MODAL = "src/main/webapp/app/login/primary/loginModal";
+  public static final String SOURCE_LOGIN_MODAL = MAIN_WEBAPP + "/app/login/primary/loginModal";
 
-  public static final String SOURCE_LOGIN_SERVICES = "src/main/webapp/app/login/services";
+  public static final String SOURCE_LOGIN_SERVICES = MAIN_WEBAPP + "/app/login/services";
 
-  public static final String PATH_TEST_LOGIN_FORM = "src/test/javascript/spec/login/primary/loginForm";
+  public static final String PATH_TEST_LOGIN_FORM = TEST_JAVASCRIPT + "/login/primary/loginForm";
 
-  public static final String PATH_TEST_LOGIN_MODAL = "src/test/javascript/spec/login/primary/loginModal";
+  public static final String PATH_TEST_LOGIN_MODAL = TEST_JAVASCRIPT + "/login/primary/loginModal";
 
-  public static final String PATH_TEST_LOGIN_SERVICES = "src/test/javascript/spec/login/services";
+  public static final String PATH_TEST_LOGIN_SERVICES = TEST_JAVASCRIPT + "/login/services";
 
-  public static final String PATH_TEST_APP_SERVICES = "src/test/javascript/spec/common/services";
+  public static final String PATH_TEST_APP_SERVICES = TEST_JAVASCRIPT + "/common/services";
 
   private final ProjectRepository projectRepository;
   private final NpmService npmService;

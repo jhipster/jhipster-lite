@@ -65,7 +65,7 @@ class AssertTest {
   }
 
   @Test
-  void shouldValidateStringWithNoWhitespace() {
+  void shouldValidateStringWithoutWhitespace() {
     assertThatCode(() -> Assert.noWhitespace("field", NOT_NULL_OR_EMPTY)).doesNotThrowAnyException();
   }
 

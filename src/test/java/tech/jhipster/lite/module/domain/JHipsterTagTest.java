@@ -21,12 +21,6 @@ class JHipsterTagTest {
   }
 
   @Test
-  void shouldBeValid() {
-    JHipsterModuleTag tag = new JHipsterModuleTag("my-tag");
-    assertThat(tag.tag()).isEqualTo("my-tag");
-  }
-
-  @Test
   void shouldNotBeValidWithNull() {
     assertThatThrownBy(() -> new JHipsterModuleTag(null)).isInstanceOf(MissingMandatoryValueException.class);
   }
@@ -38,7 +32,7 @@ class JHipsterTagTest {
 
   @Test
   void shouldNotBeValidIfTooLong() {
-    var stringTooLong = RandomStringUtils.randomAlphabetic(51);
+    var stringTooLong = RandomStringUtils.randomAlphabetic(16);
     assertThatThrownBy(() -> new JHipsterModuleTag(stringTooLong)).isInstanceOf(StringTooLongException.class);
   }
 

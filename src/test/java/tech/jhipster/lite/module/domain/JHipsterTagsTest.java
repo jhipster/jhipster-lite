@@ -11,24 +11,6 @@ import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 class JHipsterTagsTest {
 
   @Test
-  void shouldIsIdentical() {
-    JHipsterModuleTags module = JHipsterModuleTags.builder(JHipsterModulesFixture.emptyModuleBuilder()).add("mytag").build();
-    assertThat(module.get()).isNotEmpty().containsOnly(new JHipsterModuleTag("mytag"));
-  }
-
-  @Test
-  void shouldNotBeValidWithStringNull() {
-    JHipsterModuleTags.JHipsterModuleTagsBuilder builder = JHipsterModuleTags.builder(JHipsterModulesFixture.emptyModuleBuilder());
-    assertThatThrownBy(() -> builder.add((String) null).build()).isInstanceOf(MissingMandatoryValueException.class);
-  }
-
-  @Test
-  void shouldNotBeValidWithModuleTagNull() {
-    JHipsterModuleTags.JHipsterModuleTagsBuilder builder = JHipsterModuleTags.builder(JHipsterModulesFixture.emptyModuleBuilder());
-    assertThatThrownBy(() -> builder.add((JHipsterModuleTag) null).build()).isInstanceOf(MissingMandatoryValueException.class);
-  }
-
-  @Test
   void shouldNotBeValidWithWhitespace() {
     JHipsterModuleTags.JHipsterModuleTagsBuilder builder = JHipsterModuleTags.builder(JHipsterModulesFixture.emptyModuleBuilder());
     assertThatThrownBy(() -> builder.add("my tag").build()).isInstanceOf(MissingMandatoryValueException.class);

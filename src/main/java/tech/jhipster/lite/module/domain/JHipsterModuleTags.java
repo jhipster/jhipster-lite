@@ -11,7 +11,7 @@ public class JHipsterModuleTags {
   private final Collection<JHipsterModuleTag> tags;
 
   private JHipsterModuleTags(JHipsterModuleTagsBuilder builder) {
-    tags = builder.tags;
+    tags = Collections.unmodifiableCollection(builder.tags);
   }
 
   static JHipsterModuleTagsBuilder builder(JHipsterModuleBuilder module) {
@@ -19,7 +19,7 @@ public class JHipsterModuleTags {
   }
 
   public Collection<JHipsterModuleTag> get() {
-    return Collections.unmodifiableCollection(tags);
+    return tags;
   }
 
   public static class JHipsterModuleTagsBuilder {

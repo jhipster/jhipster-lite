@@ -80,7 +80,7 @@ public class JHipsterModule {
     preActions = builder.preActions.build();
     postActions = builder.postActions.build();
     springProperties = buildSpringProperties(builder);
-    tags = builder.tags.build().get();
+    tags = Collections.unmodifiableCollection(builder.tags.build().get());
   }
 
   private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
@@ -254,7 +254,7 @@ public class JHipsterModule {
   }
 
   public Collection<JHipsterModuleTag> tags() {
-    return Collections.unmodifiableCollection(tags);
+    return tags;
   }
 
   public static class JHipsterModuleBuilder {

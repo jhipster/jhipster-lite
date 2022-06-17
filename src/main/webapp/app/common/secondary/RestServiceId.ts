@@ -11,6 +11,7 @@ const SERVICES: Record<string, Service> = {
   'dev-tools': Service.DEV_TOOLS,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
+  'ehcache-with-java-config': Service.EHCACHE_WITH_JAVA_CONFIG,
   'eureka-client': Service.EUREKA_CLIENT,
   'ehcache-with-xml-config': Service.EHCACHE_WITH_XML_CONFIG,
   flyway: Service.FLYWAY,

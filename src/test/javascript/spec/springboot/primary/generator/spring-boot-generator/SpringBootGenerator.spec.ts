@@ -1023,6 +1023,40 @@ describe('SpringBootGenerator', () => {
   });
 
   describe('Cache', () => {
+    it('should not add ehcache with Java config when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addEhcacheWithJavaConf.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addEhcacheWithJavaConfig();
+
+      expect(springBootService.addEhcacheWithJavaConf.called).toBe(false);
+    });
+
+    it('should add Ehcache with Java config when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addEhcacheWithJavaConf.resolves({});
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addEhcacheWithJavaConfig();
+
+      const args = springBootService.addEhcacheWithJavaConf.getCall(0).args[0];
+      expect(args).toEqual(projectJson);
+      expectAlertSuccessToBe(alertBus, 'Ehcache with Java config successfully added');
+    });
+
+    it('should handle error on adding Ehcache with Java config failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addEhcacheWithJavaConf.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addEhcacheWithJavaConfig();
+
+      expectAlertErrorToBe(alertBus, 'Adding Ehcache with Java config to project failed error');
+    });
+
     it('should not add Ehcache with XML config when project path is not filled', async () => {
       const springBootService = stubSpringBootService();
       springBootService.addEhcacheWithXML.resolves({});
@@ -1059,7 +1093,7 @@ describe('SpringBootGenerator', () => {
   });
 
   describe('Component tests', () => {
-    it('should not add Cucumber when project path is not filled', async () => {
+    it('should not add Ehcache with Java config when project path is not filled', async () => {
       const springBootService = stubSpringBootService();
       springBootService.addCucumber.resolves({});
       await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });

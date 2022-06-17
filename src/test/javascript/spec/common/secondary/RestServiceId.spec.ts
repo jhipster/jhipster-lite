@@ -11,6 +11,7 @@ describe('RestServiceId', () => {
     expect(toService('dev-tools')).toEqual<Service>(Service.DEV_TOOLS);
     expect(toService('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(toService('download')).toEqual<Service>(Service.DOWNLOAD);
+    expect(toService('ehcache-with-java-config')).toEqual<Service>(Service.EHCACHE_WITH_JAVA_CONFIG);
     expect(toService('ehcache-with-xml-config')).toEqual<Service>(Service.EHCACHE_WITH_XML_CONFIG);
     expect(toService('eureka-client')).toEqual<Service>(Service.EUREKA_CLIENT);
     expect(toService('flyway')).toEqual<Service>(Service.FLYWAY);

@@ -10,6 +10,7 @@ export type ServiceProjection =
   | 'dev-tools'
   | 'dockerfile'
   | 'download'
+  | 'ehcache-with-java-config'
   | 'ehcache-with-xml-config'
   | 'eureka-client'
   | 'initialization'
@@ -67,6 +68,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.DEV_TOOLS]: 'dev-tools',
   [Service.DOCKERFILE]: 'dockerfile',
   [Service.DOWNLOAD]: 'download',
+  [Service.EHCACHE_WITH_JAVA_CONFIG]: 'ehcache-with-java-config',
   [Service.EHCACHE_WITH_XML_CONFIG]: 'ehcache-with-xml-config',
   [Service.EUREKA_CLIENT]: 'eureka-client',
   [Service.FLYWAY]: 'flyway',
@@ -125,6 +127,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'angular-health': Service.ANGULAR_HEALTH,
   consul: Service.CONSUL,
   'dev-tools': Service.DEV_TOOLS,
+  'ehcache-with-java-config': Service.EHCACHE_WITH_JAVA_CONFIG,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
   'ehcache-with-xml-config': Service.EHCACHE_WITH_XML_CONFIG,

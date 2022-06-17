@@ -168,6 +168,12 @@
       </div>
       <div>
         <GeneratorButtonVue
+          :label="'Ehcache with Java config'"
+          :service="'ehcache-with-java-config'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addEhcacheWithJavaConfig"
+        />
+        <GeneratorButtonVue
           :label="'Ehcache with XML config'"
           :service="'ehcache-with-xml-config'"
           :selector-prefix="selectorPrefix"

@@ -90,6 +90,7 @@
         <GeneratorButtonVue :label="'MySQL'" :service="'mysql'" :selector-prefix="selectorPrefix" @click.prevent="addMySQL" />
         <GeneratorButtonVue :label="'MariaDB'" :service="'mariadb'" :selector-prefix="selectorPrefix" @click.prevent="addMariaDB" />
         <GeneratorButtonVue :label="'MongoDB'" :service="'mongodb'" :selector-prefix="selectorPrefix" @click.prevent="addMongoDB" />
+        <GeneratorButtonVue :label="'MSSQL'" :service="'mssql'" :selector-prefix="selectorPrefix" @click.prevent="addMSSQL" />
       </div>
       <div>
         <GeneratorButtonVue :label="'Flyway'" :service="'flyway'" :selector-prefix="selectorPrefix" @click.prevent="addFlyway" />

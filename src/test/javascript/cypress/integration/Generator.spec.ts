@@ -52,6 +52,7 @@ describe('Generator', () => {
 
     cy.get(springBootGeneratorSelector('add-postgresql-button')).contains('PostgreSQL');
     cy.get(springBootGeneratorSelector('add-mysql-button')).contains('MySQL');
+    cy.get(springBootGeneratorSelector('add-mssql-button')).contains('MSSQL');
     cy.get(springBootGeneratorSelector('add-mariadb-button')).contains('MariaDB');
     cy.get(springBootGeneratorSelector('add-mongodb-button')).contains('MongoDB');
     cy.get(springBootGeneratorSelector('add-flyway-button')).contains('Flyway');

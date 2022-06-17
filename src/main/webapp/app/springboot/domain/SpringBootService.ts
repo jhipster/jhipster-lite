@@ -20,6 +20,7 @@ export interface SpringBootService {
 
   addPostgres(project: Project): Promise<void>;
   addMySQL(project: Project): Promise<void>;
+  addMSSQL(project: Project): Promise<void>;
   addMariaDB(project: Project): Promise<void>;
   addMongoDB(project: Project): Promise<void>;
   addSpringBootFlywayInit(project: Project): Promise<void>;

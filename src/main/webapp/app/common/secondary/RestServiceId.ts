@@ -30,6 +30,7 @@ const SERVICES: Record<string, Service> = {
   mysql: Service.MYSQL,
   mongodb: Service.MONGODB,
   mongock: Service.MONGOCK,
+  mssql: Service.MSSQL,
   postgresql: Service.POSTGRESQL,
   'sonar-java-backend': Service.SONAR_JAVA_BACKEND,
   'sonar-java-backend-and-frontend': Service.SONAR_JAVA_BACKEND_AND_FRONTEND,

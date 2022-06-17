@@ -79,6 +79,10 @@ export default class SpringBootRepository implements SpringBootService {
     await this.postAndGetHistory('/api/servers/spring-boot/databases/mysql', toRestProject(project));
   }
 
+  async addMSSQL(project: Project): Promise<void> {
+    await this.postAndGetHistory('/api/servers/spring-boot/databases/mssql', toRestProject(project));
+  }
+
   async addMariaDB(project: Project): Promise<void> {
     await this.postAndGetHistory('/api/servers/spring-boot/databases/mariadb', toRestProject(project));
   }

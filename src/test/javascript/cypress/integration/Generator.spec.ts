@@ -76,6 +76,7 @@ describe('Generator', () => {
     );
     cy.get(springBootGeneratorSelector('add-spring-boot-kafka-akhq-button')).contains('AKHQ for Kafka');
     cy.get(springBootGeneratorSelector('add-ehcache-with-java-config-button')).contains('Ehcache with Java config');
+    cy.get(springBootGeneratorSelector('add-ehcache-with-xml-config-button')).contains('Ehcache with XML config');
     cy.get(springBootGeneratorSelector('add-spring-boot-cucumber-button')).contains('Cucumber');
 
     cy.get(springBootGeneratorSelector('add-spring-boot-dummy-feature-button')).contains('Dummy feature');

@@ -13,6 +13,7 @@ const SERVICES: Record<string, Service> = {
   download: Service.DOWNLOAD,
   'ehcache-with-java-config': Service.EHCACHE_WITH_JAVA_CONFIG,
   'eureka-client': Service.EUREKA_CLIENT,
+  'ehcache-with-xml-config': Service.EHCACHE_WITH_XML_CONFIG,
   flyway: Service.FLYWAY,
   'flyway-user-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   'frontend-maven-plugin': Service.FRONTEND_MAVEN_PLUGIN,

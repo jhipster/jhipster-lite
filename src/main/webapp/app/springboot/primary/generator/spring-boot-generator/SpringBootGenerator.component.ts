@@ -349,6 +349,15 @@ export default defineComponent({
       }
     };
 
+    const addEhcacheWithXml = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addEhcacheWithXML(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Ehcache with XML successfully added'))
+          .catch(error => alertBus.error(`Adding Ehcache with XML to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -387,6 +396,7 @@ export default defineComponent({
       addKafkaDummyProducerConsumer,
       addKafkaAkhq,
       addEhcacheWithJavaConfig,
+      addEhcacheWithXml,
     };
   },
 });

@@ -15,12 +15,6 @@ import tech.jhipster.lite.error.domain.StringTooLongException;
 class JHipsterTagTest {
 
   @Test
-  void shouldIsIdentical() {
-    JHipsterModuleTag tag = new JHipsterModuleTag("mytag");
-    assertThat(tag.tag()).isEqualTo("mytag");
-  }
-
-  @Test
   void shouldNotBeValidWithNull() {
     assertThatThrownBy(() -> new JHipsterModuleTag(null)).isInstanceOf(MissingMandatoryValueException.class);
   }

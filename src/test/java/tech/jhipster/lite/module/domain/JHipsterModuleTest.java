@@ -9,22 +9,15 @@ import tech.jhipster.lite.UnitTest;
 class JHipsterModuleTest {
 
   @Test
-  void shouldTagExist() {
-    var module = JHipsterModulesFixture.module();
-    assertThat(module.tags()).isNotEmpty().contains(new JHipsterModuleTag("spring"), new JHipsterModuleTag("database"));
-  }
-
-  @Test
-  void shouldTagNotBeModifiable() {
+  void shouldHaveImmutableTags() {
     var tags = JHipsterModulesFixture.module().tags();
     var tag = new JHipsterModuleTag("node");
     assertThatThrownBy(() -> tags.add(tag)).isInstanceOf(UnsupportedOperationException.class);
   }
 
   @Test
-  void shouldTagNotNullAndEmpty() {
+  void shouldGetEmptyTagsWithoutTags() {
     var module = JHipsterModulesFixture.emptyModuleBuilder().build();
-    assertThat(module.tags()).isNotNull();
-    assertThat(module.tags()).isEmpty();
+    assertThat(module.tags()).isNotNull().isEmpty();
   }
 }

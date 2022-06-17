@@ -6,7 +6,10 @@ public record JustBefore(ElementMatcher element) implements PositionalMatcher {
   public JustBefore {
     Assert.notNull("element", element);
   }
-  public String updateReplacement(String value) {
-    return value.concat(element.searchMatcher());
+
+  @Override
+  public String buildReplacement(String value) {
+    Assert.notBlank("value", value);
+    return value.concat(element().searchMatcher());
   }
 }

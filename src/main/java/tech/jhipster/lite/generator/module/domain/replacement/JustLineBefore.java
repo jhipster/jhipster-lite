@@ -8,7 +8,10 @@ public record JustLineBefore(ElementMatcher element) implements PositionalMatche
   public JustLineBefore {
     Assert.notNull("element", element);
   }
-  public String updateReplacement(String value) {
-    return value.concat(LF).concat(element.searchMatcher());
+
+  @Override
+  public String buildReplacement(String value) {
+    Assert.notBlank("value", value);
+    return value.concat(LF).concat(element().searchMatcher());
   }
 }

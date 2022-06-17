@@ -32,6 +32,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.GITPOD_SETUP)).toEqual<ServiceProjection>('gitpod-setup');
     expect(toServiceProjection(Service.MARIADB)).toEqual<ServiceProjection>('mariadb');
     expect(toServiceProjection(Service.MYSQL)).toEqual<ServiceProjection>('mysql');
+    expect(toServiceProjection(Service.MSSQL)).toEqual<ServiceProjection>('mssql');
     expect(toServiceProjection(Service.MONGODB)).toEqual<ServiceProjection>('mongodb');
     expect(toServiceProjection(Service.MONGOCK)).toEqual<ServiceProjection>('mongock');
     expect(toServiceProjection(Service.POSTGRESQL)).toEqual<ServiceProjection>('postgresql');
@@ -99,6 +100,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('gitpod-setup')).toEqual<Service>(Service.GITPOD_SETUP);
     expect(fromServiceProjection('mariadb')).toEqual<Service>(Service.MARIADB);
     expect(fromServiceProjection('mysql')).toEqual<Service>(Service.MYSQL);
+    expect(fromServiceProjection('mssql')).toEqual<Service>(Service.MSSQL);
     expect(fromServiceProjection('mongodb')).toEqual<Service>(Service.MONGODB);
     expect(fromServiceProjection('mongock')).toEqual<Service>(Service.MONGOCK);
     expect(fromServiceProjection('postgresql')).toEqual<Service>(Service.POSTGRESQL);

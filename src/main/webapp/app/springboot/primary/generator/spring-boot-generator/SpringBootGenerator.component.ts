@@ -170,6 +170,15 @@ export default defineComponent({
       }
     };
 
+    const addMSSQL = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addMSSQL(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot Database MSSQL successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot Database MSSQL to project failed ${error}`));
+      }
+    };
+
     const addMariaDB = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -367,6 +376,7 @@ export default defineComponent({
       addSpringBootSecurityOAuth2Account,
       addPostgreSQL,
       addMySQL,
+      addMSSQL,
       addMariaDB,
       addMongoDB,
       addFlyway,

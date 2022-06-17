@@ -27,6 +27,7 @@ export type ServiceProjection =
   | 'gitpod-setup'
   | 'mariadb'
   | 'mysql'
+  | 'mssql'
   | 'mongodb'
   | 'mongock'
   | 'postgresql'
@@ -83,6 +84,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.GITPOD_SETUP]: 'gitpod-setup',
   [Service.MARIADB]: 'mariadb',
   [Service.MYSQL]: 'mysql',
+  [Service.MSSQL]: 'mssql',
   [Service.MONGODB]: 'mongodb',
   [Service.MONGOCK]: 'mongock',
   [Service.POSTGRESQL]: 'postgresql',
@@ -142,6 +144,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'gitpod-setup': Service.GITPOD_SETUP,
   mariadb: Service.MARIADB,
   mysql: Service.MYSQL,
+  mssql: Service.MSSQL,
   mongodb: Service.MONGODB,
   mongock: Service.MONGOCK,
   postgresql: Service.POSTGRESQL,

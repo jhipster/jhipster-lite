@@ -618,6 +618,41 @@ describe('SpringBootGenerator', () => {
       expect(springBootService.addMariaDB.called).toBe(false);
     });
 
+    it('should not add SpringBoot Database MSSQL  when project path is not filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMSSQL.resolves({});
+      await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+      await component.addMSSQL();
+
+      expect(springBootService.addMSSQL.called).toBe(false);
+    });
+
+    it('should add SpringBoot Database MSSQL when project path is filled', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMSSQL.resolves({});
+      const alertBus = stubAlertBus();
+      let project = createProjectToUpdate({ folder: 'project/path' });
+      await wrap({ alertBus, springBootService, project: project });
+
+      await component.addMSSQL();
+
+      const args = springBootService.addMSSQL.getCall(0).args[0];
+      expect(args).toEqual(projectJson);
+      expectAlertSuccessToBe(alertBus, 'SpringBoot Database MSSQL successfully added');
+    });
+
+    it('should handle error on adding SpringBoot Database MSSQL failure', async () => {
+      const springBootService = stubSpringBootService();
+      springBootService.addMSSQL.rejects('error');
+      const alertBus = stubAlertBus();
+      await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+      await component.addMSSQL();
+
+      expectAlertErrorToBe(alertBus, 'Adding SpringBoot Database MSSQL to project failed error');
+    });
+
     it('should add SpringBoot Database MariaDB when project path is filled', async () => {
       const springBootService = stubSpringBootService();
       springBootService.addMariaDB.resolves({});

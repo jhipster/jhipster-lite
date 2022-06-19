@@ -20,6 +20,8 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
+import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -40,7 +42,7 @@ class SpringBootUserResourceIT {
   MySQLApplicationService mySQLApplicationService;
 
   @Autowired
-  MariaDBApplicationService mariaDbApplicationService;
+  MariaDBApplicationService mariaDBApplicationService;
 
   @Autowired
   MockMvc mockMvc;
@@ -97,9 +99,14 @@ class SpringBootUserResourceIT {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
 
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(project.getFolder())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
     mavenApplicationService.init(project);
     springBootApplicationService.init(project);
-    mariaDbApplicationService.init(project);
+    mariaDBApplicationService.build(properties);
 
     mockMvc
       .perform(

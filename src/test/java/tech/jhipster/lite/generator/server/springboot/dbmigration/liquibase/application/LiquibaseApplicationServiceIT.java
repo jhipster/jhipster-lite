@@ -30,7 +30,6 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
@@ -39,7 +38,7 @@ import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootService;
-import tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDBService;
+import tech.jhipster.lite.generator.server.springboot.database.mariadb.application.MariaDBApplicationService;
 import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLService;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
 
@@ -59,7 +58,7 @@ class LiquibaseApplicationServiceIT {
   MySQLService mySQLService;
 
   @Autowired
-  MariaDBService mariaDBService;
+  MariaDBApplicationService mariaDBApplicationService;
 
   @Autowired
   LiquibaseApplicationService liquibaseApplicationService;
@@ -217,12 +216,17 @@ class LiquibaseApplicationServiceIT {
   @DisplayName("should add user and authority changelog for MySQL or MariaDB")
   void shouldAddUserAuthorityChangelogForMySQLorMariaDB(DatabaseType databaseType) {
     Project project = tmpProject();
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(project.getFolder())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
     if (databaseType.equals(DatabaseType.MYSQL)) {
       mySQLService.init(project);
     } else {
-      mariaDBService.init(project);
+      mariaDBApplicationService.build(properties);
     }
     liquibaseApplicationService.init(project);
 

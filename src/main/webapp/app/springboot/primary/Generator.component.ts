@@ -13,6 +13,7 @@ import { ProjectHistoryService } from '@/common/domain/ProjectHistoryService';
 import { History } from '@/common/domain/History';
 import { ProjectService } from '../domain/ProjectService';
 import { StoreGeneric } from 'pinia';
+import { SetupGeneratorVue } from '@/springboot/primary/generator/setup-generator';
 
 export default defineComponent({
   name: 'GeneratorComponent',
@@ -21,6 +22,7 @@ export default defineComponent({
     IconVue,
     DefaultButtonVue,
     ProjectGeneratorVue,
+    SetupGeneratorVue,
     SpringBootGeneratorVue,
     AngularGeneratorVue,
     ReactGeneratorVue,

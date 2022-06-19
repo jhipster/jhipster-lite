@@ -31,6 +31,10 @@ describe('Generator', () => {
     cy.get(projectGeneratorSelector('add-download-button')).should('not.exist');
   });
 
+  it('should display setup', () => {
+    cy.get(dataSelector('section-setup')).contains('SETUP');
+  });
+
   it('should display spring boot', () => {
     cy.get(generatorSelector('option-springboot')).check();
 

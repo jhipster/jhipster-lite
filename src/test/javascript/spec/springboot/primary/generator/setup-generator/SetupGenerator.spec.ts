@@ -1,11 +1,11 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
-import { AlertBus } from '../../../../../../../main/webapp/app/common/domain/alert/AlertBus';
-import { ProjectToUpdate } from '../../../../../../../main/webapp/app/springboot/primary/ProjectToUpdate';
+import { AlertBus } from '@/common/domain/alert/AlertBus';
+import { ProjectToUpdate } from '@/springboot/primary/ProjectToUpdate';
 import { stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
 import { createProjectToUpdate } from '../../ProjectToUpdate.fixture';
 import { stubSetupService } from '../../../domain/SetupService.fixture';
-import { SetupService } from '../../../../../../../main/webapp/app/springboot/domain/SetupService';
-import { SetupGeneratorVue } from '../../../../../../../main/webapp/app/springboot/primary/generator/setup-generator';
+import { SetupService } from '@/springboot/domain/SetupService';
+import { SetupGeneratorVue } from '@/springboot/primary/generator/setup-generator';
 
 let wrapper: VueWrapper;
 let component: any;

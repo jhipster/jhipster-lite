@@ -19,7 +19,8 @@ public class MariaDBModuleFactory {
 
   private static final String SOURCE_FOLDER = "server/springboot/database/mariadb";
   private static final String SRC_MAIN_DOCKER = "src/main/docker";
-  public static final String LOGGING_TEST_CONFIGURATION = "src/test/resources/logback.xml";
+  private static final String LOGGING_CONFIGURATION = "src/main/resources/logback-spring.xml";
+  private static final String LOGGING_TEST_CONFIGURATION = "src/test/resources/logback.xml";
 
   private final DockerImages dockerImages;
 
@@ -32,54 +33,51 @@ public class MariaDBModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String packagePath = properties.basePackage().path();
-    String baseClassName = properties.projectBaseName().capitalized();
-    JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append("technical/infrastructure/secondary/mariadb");
+    DockerImage dockerImage = dockerImages.get("mariadb");
 
-    DockerImage mariaDBDockerImage = dockerImages.get("mariadb");
-
-    //@formatter:off
-    JHipsterModuleBuilder builder = moduleBuilder(properties)
-      .context()
-        .packageName(properties.basePackage())
-        .put("applicationName", baseClassName)
-        .put("srcMainDocker", SRC_MAIN_DOCKER) // Used in mariadb.md
-        .put("mariaDBDockerImageWithVersion", mariaDBDockerImage.fullName()) // Used in mariadb.yml
-        .and()
-      .documentation(documentationTitle("MariaDB"), from(SOURCE_FOLDER).template("mariadb.md"))
-      .files()
-        .add(from(SOURCE_FOLDER).template("DatabaseConfiguration.java"), mainDestination.append("DatabaseConfiguration.java"))
-        .add(from(SOURCE_FOLDER).template("mariadb.yml"), toSrcMainDocker().append("mariadb.yml"))
-        .and()
-      .javaDependencies()
-        .add(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-jpa"))
-        .add(groupId("org.mariadb.jdbc"), artifactId("mariadb-java-client"))
-        .add(groupId("com.zaxxer"), artifactId("HikariCP"))
-        .add(groupId("org.hibernate"), artifactId("hibernate-core"))
-        .add(testContainer())
-        .and()
-      .springMainProperties()
-        .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name()))
-        .set(propertyKey("spring.datasource.username"), propertyValue("root"))
-        .set(propertyKey("spring.datasource.password"), propertyValue(""))
-        .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.mariadb.jdbc.Driver"))
-        .and()
-      .springTestProperties()
-        .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:tc:" + mariaDBDockerImage.fullName() + ":///" + properties.projectBaseName().name()))
-        .set(propertyKey("spring.datasource.username"), propertyValue(properties.projectBaseName().name()))
-        .set(propertyKey("spring.datasource.password"), propertyValue(""))
-        .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.testcontainers.jdbc.ContainerDatabaseDriver"))
-        .set(propertyKey("spring.datasource.hikari.maximum-pool-size"), propertyValue("2"))
-        .and()
-      .optionalReplacements()
-        .in(LOGGING_TEST_CONFIGURATION)
-          .add(text(NEEDLE_LOGBACK_LOGGER), logger("com.github.dockerjava", Level.WARN))
-          .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.testcontainers", Level.WARN))
-          .and()
-        .and();
-    //@formatter:on
+    JHipsterModuleBuilder builder = moduleBuilder(properties);
+    appendContext(builder, properties, dockerImage);
+    appendDocumentation(builder);
+    appendFiles(builder, properties);
+    appendJavaDependencies(builder);
+    appendSpringProperties(builder, properties, dockerImage);
+    appendReplacements(builder);
 
     return builder.build();
+  }
+
+  private void appendContext(JHipsterModuleBuilder builder, JHipsterModuleProperties properties, DockerImage dockerImage) {
+    builder
+      .context()
+      .packageName(properties.basePackage())
+      .put("applicationName", properties.projectBaseName().capitalized())
+      .put("srcMainDocker", SRC_MAIN_DOCKER) // Used in mariadb.md
+      .put("dockerImageWithVersion", dockerImage.fullName()); // Used in mariadb.yml
+  }
+
+  private void appendDocumentation(JHipsterModuleBuilder builder) {
+    builder.documentation(documentationTitle("MariaDB"), from(SOURCE_FOLDER).template("mariadb.md"));
+  }
+
+  private void appendFiles(JHipsterModuleBuilder builder, JHipsterModuleProperties properties) {
+    JHipsterDestination mainDestination = toSrcMainJava()
+      .append(properties.basePackage().path())
+      .append("technical/infrastructure/secondary/mariadb");
+
+    builder
+      .files()
+      .add(from(SOURCE_FOLDER).template("DatabaseConfiguration.java"), mainDestination.append("DatabaseConfiguration.java"))
+      .add(from(SOURCE_FOLDER).template("mariadb.yml"), toSrcMainDocker().append("mariadb.yml"));
+  }
+
+  private void appendJavaDependencies(JHipsterModuleBuilder builder) {
+    builder
+      .javaDependencies()
+      .add(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-jpa"))
+      .add(groupId("org.mariadb.jdbc"), artifactId("mariadb-java-client"))
+      .add(groupId("com.zaxxer"), artifactId("HikariCP"))
+      .add(groupId("org.hibernate"), artifactId("hibernate-core"))
+      .add(testContainer());
   }
 
   private JavaDependency testContainer() {
@@ -89,6 +87,67 @@ public class MariaDBModuleFactory {
       .versionSlug("testcontainers")
       .scope(JavaDependencyScope.TEST)
       .build();
+  }
+
+  private void appendSpringProperties(JHipsterModuleBuilder builder, JHipsterModuleProperties properties, DockerImage dockerImage) {
+    builder
+      .springMainProperties()
+      .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name()))
+      .set(propertyKey("spring.datasource.username"), propertyValue("root"))
+      .set(propertyKey("spring.datasource.password"), propertyValue(""))
+      .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.mariadb.jdbc.Driver"))
+      .set(propertyKey("spring.datasource.type"), propertyValue("com.zaxxer.hikari.HikariDataSource"))
+      .set(propertyKey("spring.datasource.hikari.poolName"), propertyValue("Hikari"))
+      .set(propertyKey("spring.datasource.hikari.auto-commit"), propertyValue("false"))
+      .set(propertyKey("spring.data.jpa.repositories.bootstrap-mode"), propertyValue("deferred"))
+      .set(propertyKey("spring.jpa.hibernate.ddl-auto"), propertyValue("none"))
+      .set(
+        propertyKey("spring.jpa.hibernate.naming.implicit-strategy"),
+        propertyValue("org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy")
+      )
+      .set(
+        propertyKey("spring.jpa.hibernate.naming.physical-strategy"),
+        propertyValue("org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy")
+      )
+      .set(propertyKey("spring.jpa.open-in-view"), propertyValue("false"))
+      .set(propertyKey("spring.jpa.properties.hibernate.connection.provider_disables_autocommit"), propertyValue("true"))
+      .set(propertyKey("spring.jpa.properties.hibernate.generate_statistics"), propertyValue("false"))
+      .set(propertyKey("spring.jpa.properties.hibernate.id.new_generator_mappings"), propertyValue("true"))
+      .set(propertyKey("spring.jpa.properties.hibernate.jdbc.batch_size"), propertyValue("25"))
+      .set(propertyKey("spring.jpa.properties.hibernate.jdbc.time_zone"), propertyValue("UTC"))
+      .set(propertyKey("spring.jpa.properties.hibernate.order_inserts"), propertyValue("true"))
+      .set(propertyKey("spring.jpa.properties.hibernate.order_updates"), propertyValue("true"))
+      .set(propertyKey("spring.jpa.properties.hibernate.query.fail_on_pagination_over_collection_fetch"), propertyValue("true"))
+      .set(propertyKey("spring.jpa.properties.hibernate.query.in_clause_parameter_padding"), propertyValue("true"));
+
+    builder
+      .springTestProperties()
+      .set(
+        propertyKey("spring.datasource.url"),
+        propertyValue("jdbc:tc:" + dockerImage.fullName() + ":///" + properties.projectBaseName().name())
+      )
+      .set(propertyKey("spring.datasource.username"), propertyValue(properties.projectBaseName().name()))
+      .set(propertyKey("spring.datasource.password"), propertyValue(""))
+      .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.testcontainers.jdbc.ContainerDatabaseDriver"))
+      .set(propertyKey("spring.datasource.hikari.maximum-pool-size"), propertyValue("2"));
+  }
+
+  private void appendReplacements(JHipsterModuleBuilder builder) {
+    builder
+      .optionalReplacements()
+      .in(LOGGING_CONFIGURATION)
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate.validator", Level.WARN))
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate", Level.WARN))
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate.ejb.HibernatePersistence", Level.OFF));
+
+    builder
+      .optionalReplacements()
+      .in(LOGGING_TEST_CONFIGURATION)
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate.validator", Level.WARN))
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate", Level.WARN))
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate.ejb.HibernatePersistence", Level.OFF))
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger("com.github.dockerjava", Level.WARN))
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.testcontainers", Level.WARN));
   }
 
   private String logger(String loggerName, Level level) {

@@ -19,6 +19,7 @@ describe('ServiceProjection', () => {
       'flyway-with-users-and-authority-changelogs'
     );
     expect(toServiceProjection(Service.FRONTEND_MAVEN_PLUGIN)).toEqual<ServiceProjection>('frontend-maven-plugin');
+    expect(toServiceProjection(Service.GITHUB_ACTIONS)).toEqual<ServiceProjection>('github-actions');
     expect(toServiceProjection(Service.INITIALIZATION)).toEqual<ServiceProjection>('initialization');
     expect(toServiceProjection(Service.JACOCO_CHECK_MINIMAL_COVERAGE)).toEqual<ServiceProjection>('jacoco-check-minimal-coverage');
     expect(toServiceProjection(Service.JAVA_BASE)).toEqual<ServiceProjection>('java-base');
@@ -88,6 +89,7 @@ describe('ServiceProjection', () => {
       Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS
     );
     expect(fromServiceProjection('frontend-maven-plugin')).toEqual<Service>(Service.FRONTEND_MAVEN_PLUGIN);
+    expect(fromServiceProjection('github-actions')).toEqual<Service>(Service.GITHUB_ACTIONS);
     expect(fromServiceProjection('initialization')).toEqual<Service>(Service.INITIALIZATION);
     expect(fromServiceProjection('jacoco-check-minimal-coverage')).toEqual<Service>(Service.JACOCO_CHECK_MINIMAL_COVERAGE);
     expect(fromServiceProjection('java-base')).toEqual<Service>(Service.JAVA_BASE);

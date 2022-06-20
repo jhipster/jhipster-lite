@@ -170,7 +170,6 @@ describe('ProjectRepository', () => {
     const [projectFolder] = projectHistoryService.get.getCall(0).args;
     expect(projectFolder).toBe(PROJECT_FOLDER);
   });
-
   it('should download the project', async () => {
     const projectHistoryService = stubProjectHistoryService();
     const axiosHttpStub = stubAxiosHttp();
@@ -211,7 +210,7 @@ describe('ProjectRepository', () => {
     const projectHistoryService = stubProjectHistoryService();
     const axiosHttpStub = stubAxiosHttp();
     const projectStoreStub = stubProjectStore();
-    const project: Project = createProject({ folder: PROJECT_FOLDER });
+
     axiosHttpStub.get.rejects();
     const projectRepository = new ProjectRepository(axiosHttpStub, projectHistoryService, projectStoreStub);
 

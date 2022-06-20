@@ -17,6 +17,7 @@ const SERVICES: Record<string, Service> = {
   flyway: Service.FLYWAY,
   'flyway-user-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   'frontend-maven-plugin': Service.FRONTEND_MAVEN_PLUGIN,
+  'github-actions': Service.GITHUB_ACTIONS,
   init: Service.INITIALIZATION,
   jib: Service.JIB,
   'jacoco-check-min-coverage': Service.JACOCO_CHECK_MINIMAL_COVERAGE,

@@ -52,7 +52,7 @@ public class MariaDBModuleFactory {
       .packageName(properties.basePackage())
       .put("applicationName", properties.projectBaseName().capitalized())
       .put("srcMainDocker", "src/main/docker") // Used in mariadb.md
-      .put("dockerImageWithVersion", dockerImage.fullName()); // Used in mariadb.yml
+      .put("mariaDBDockerImageWithVersion", dockerImage.fullName()); // Used in mariadb.yml
   }
 
   private void appendDocumentation(JHipsterModuleBuilder builder) {

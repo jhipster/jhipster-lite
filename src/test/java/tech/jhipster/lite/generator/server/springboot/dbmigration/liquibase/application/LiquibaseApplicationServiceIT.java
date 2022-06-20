@@ -22,11 +22,12 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootService;
-import tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDBService;
+import tech.jhipster.lite.generator.server.springboot.database.mariadb.application.MariaDBApplicationService;
 import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLService;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
 
@@ -46,7 +47,7 @@ class LiquibaseApplicationServiceIT {
   MySQLService mySQLService;
 
   @Autowired
-  MariaDBService mariaDBService;
+  MariaDBApplicationService mariaDBApplicationService;
 
   @Autowired
   LiquibaseApplicationService liquibaseApplicationService;
@@ -70,8 +71,7 @@ class LiquibaseApplicationServiceIT {
 
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
-
-    postgresqlApplicationService.build(properties);
+    TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
 
     liquibaseApplicationService.init(project);
 
@@ -175,7 +175,7 @@ class LiquibaseApplicationServiceIT {
       .build();
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
-    postgresqlApplicationService.build(properties);
+    TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
 
     liquibaseApplicationService.addLoggerInConfiguration(project);
 
@@ -204,12 +204,17 @@ class LiquibaseApplicationServiceIT {
   @DisplayName("should add user and authority changelog for MySQL or MariaDB")
   void shouldAddUserAuthorityChangelogForMySQLorMariaDB(DatabaseType databaseType) {
     Project project = tmpProject();
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(project.getFolder())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
     if (databaseType.equals(DatabaseType.MYSQL)) {
       mySQLService.init(project);
     } else {
-      mariaDBService.init(project);
+      TestJHipsterModules.applyer().module(mariaDBApplicationService.build(properties)).properties(properties).slug("mariadb").apply();
     }
     liquibaseApplicationService.init(project);
 

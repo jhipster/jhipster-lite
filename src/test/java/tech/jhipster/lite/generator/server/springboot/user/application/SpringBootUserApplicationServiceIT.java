@@ -15,6 +15,9 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
+import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -56,12 +59,17 @@ class SpringBootUserApplicationServiceIT {
   @EnumSource(value = DatabaseType.class, names = { "MYSQL", "MARIADB" })
   void shouldAddUserAndAuthorityEntitiesForMysqlOrMariaDB(DatabaseType databaseType) {
     Project project = tmpProject();
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(project.getFolder())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
     mavenApplicationService.init(project);
     springBootApplicationService.init(project);
     if (databaseType.equals(MYSQL)) {
       mySQLApplicationService.init(project);
     } else {
-      mariaDBApplicationService.init(project);
+      TestJHipsterModules.applyer().module(mariaDBApplicationService.build(properties)).properties(properties).slug("mariadb").apply();
     }
 
     springBootUserApplicationService.addUserAndAuthorityEntities(project, databaseType);

@@ -14,6 +14,9 @@ Feature: postgreSQL module
       | postgresql.yml |
     And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/secondary/postgresql"
       | DatabaseConfiguration.java |
+      | FixedPostgreSQL10Dialect.java |
+    And I should have files in "src/test/java/tech/jhipster/chips/technical/infrastructure/secondary/postgresql"
+      | FixedPostgreSQL10DialectTest.java |
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"
@@ -27,7 +30,7 @@ Feature: postgreSQL module
       | baseName              | STRING  | true      |
       | prettierDefaultIndent | INTEGER | false     |
 
-  Scenario: Should add MariaDB elements using module url
+  Scenario: Should add postgreSQL elements using module url
     When I apply "postgresql" module to default project with maven file
       | packageName | tech.jhipster.chips |
       | baseName    | jhipster            |
@@ -40,6 +43,9 @@ Feature: postgreSQL module
       | postgresql.yml |
     And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/secondary/postgresql"
       | DatabaseConfiguration.java |
+      | FixedPostgreSQL10Dialect.java |
+    And I should have files in "src/test/java/tech/jhipster/chips/technical/infrastructure/secondary/postgresql"
+      | FixedPostgreSQL10DialectTest.java |
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"

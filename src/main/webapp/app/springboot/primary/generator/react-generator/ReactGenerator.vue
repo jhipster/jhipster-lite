@@ -21,6 +21,7 @@
       :selector-prefix="selectorPrefix"
       @click.prevent="addReact"
     />
+    <GeneratorButtonVue :label="'Add JWT'" :service="'react-with-jwt'" :selector-prefix="selectorPrefix" @click.prevent="addReactWithJWT" />
   </div>
 </template>
 

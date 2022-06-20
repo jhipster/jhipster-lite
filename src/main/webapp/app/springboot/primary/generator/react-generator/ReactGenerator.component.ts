@@ -41,10 +41,20 @@ export default defineComponent({
       }
     };
 
+    const addReactWithJWT = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await reactService
+          .addWithJWT(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('React with authentication JWT successfully added'))
+          .catch(error => alertBus.error(`Adding React with authentication JWT to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       isReactWithStyle,
       addReact,
+      addReactWithJWT,
       props,
     };
   },

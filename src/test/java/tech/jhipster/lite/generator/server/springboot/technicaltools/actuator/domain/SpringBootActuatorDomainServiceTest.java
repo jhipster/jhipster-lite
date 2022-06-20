@@ -1,59 +1,52 @@
 package tech.jhipster.lite.generator.server.springboot.technicaltools.actuator.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleOnProjectWithDefaultPom;
 
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
+import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
+import tech.jhipster.lite.generator.module.domain.JHipsterModule;
+import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
 class SpringBootActuatorDomainServiceTest {
 
-  @Mock
-  private BuildToolService buildToolService;
-
-  @Mock
-  private SpringBootCommonService springBootCommonService;
-
-  @Spy
-  @InjectMocks
-  private SpringBootActuatorDomainService springBootActuatorDomainService;
+  private static final SpringBootActuatorModuleFactory factory = new SpringBootActuatorModuleFactory();
 
   @Test
-  void shouldAddActuator() {
-    Map<String, Object> config = new HashMap<>(Map.of("packageName", "beer"));
-    Project project = Project.builder().folder("/folder").config(config).build();
+  void shouldCreateSpringBootActuatorModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(FileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
 
-    springBootActuatorDomainService.addActuator(project);
+    JHipsterModule module = factory.buildModule(properties);
 
-    ArgumentCaptor<Dependency> dependencyArgCaptor = ArgumentCaptor.forClass(Dependency.class);
-    verify(buildToolService).addDependency(eq(project), dependencyArgCaptor.capture());
-    assertThat(dependencyArgCaptor.getValue())
-      .extracting(Dependency::getGroupId, Dependency::getArtifactId)
-      .containsExactly("org.springframework.boot", "spring-boot-starter-actuator");
-
-    verify(springBootCommonService, times(4)).addProperties(any(Project.class), anyString(), anyString());
-    verify(springBootCommonService).addProperties(project, "management.endpoints.web.base-path", "/management");
-    verify(springBootCommonService)
-      .addProperties(project, "management.endpoints.web.exposure.include", "configprops, env, health, info, logfile, loggers, threaddump");
-    verify(springBootCommonService).addProperties(project, "management.endpoint.health.probes.enabled", "true");
-    verify(springBootCommonService).addProperties(project, "management.endpoint.health.show-details", "always");
+    assertThatModuleOnProjectWithDefaultPom(module)
+      .createFile("pom.xml")
+      .containing("<groupId>org.springframework.boot</groupId>")
+      .containing("<artifactId>spring-boot-starter-actuator</artifactId>")
+      .and()
+      .createFile("src/main/resources/config/application.properties")
+      .containing("management.endpoints.web.base-path=/management")
+      .containing("management.endpoints.web.exposure.include=configprops, env, health, info, logfile, loggers, threaddump")
+      .containing("management.endpoint.health.probes.enabled=true")
+      .containing("spring.security.oauth2.client.registration.oidc.scope=openid,profile,email")
+      .containing("management.endpoint.health.show-details=always");
   }
 }

@@ -75,16 +75,7 @@ class LiquibaseApplicationServiceIT {
 
     liquibaseApplicationService.init(project);
 
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<dependency>", "<groupId>org.liquibase</groupId>", "<artifactId>liquibase-core</artifactId>", "</dependency>")
-    );
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<dependency>", "<groupId>com.h2database</groupId>", "<artifactId>h2</artifactId>", "<scope>test</scope>", "</dependency>")
-    );
+    assertDependencies(project);
     assertFilesLiquibaseChangelogMasterXml(project);
     assertFilesLiquibaseJava(project);
     assertLoggerInConfig(project);
@@ -97,11 +88,7 @@ class LiquibaseApplicationServiceIT {
 
     liquibaseApplicationService.addLiquibase(project);
 
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<dependency>", "<groupId>org.liquibase</groupId>", "<artifactId>liquibase-core</artifactId>", "</dependency>")
-    );
+    assertDependencies(project);
   }
 
   @Test

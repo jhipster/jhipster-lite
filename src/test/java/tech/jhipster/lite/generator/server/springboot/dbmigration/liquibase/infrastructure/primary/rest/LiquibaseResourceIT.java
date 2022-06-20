@@ -82,6 +82,7 @@ class LiquibaseResourceIT {
     mavenApplicationService.init(project);
     springBootApplicationService.init(project);
     TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
+
     mockMvc
       .perform(
         post("/api/servers/spring-boot/database-migration-tools/liquibase")

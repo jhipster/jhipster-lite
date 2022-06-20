@@ -1,10 +1,12 @@
 package tech.jhipster.lite.generator.module.infrastructure.secondary;
 
 import org.springframework.stereotype.Repository;
+import tech.jhipster.lite.common.domain.ProjectFilesReader;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleChanges;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesRepository;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModuleExecutionContext;
+import tech.jhipster.lite.generator.npm.domain.NpmVersions;
 
 @Repository
 class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
@@ -12,15 +14,13 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   private final FileSystemJHipsterModuleFiles files;
   private final FileSystemJavaDependenciesCommandsHandler javaDependencies;
   private final FileSystemSpringPropertiesCommandsHandler springProperties;
+  private final FileSystemPackageJsonHandler packageJson;
 
-  public FileSystemJHipsterModulesRepository(
-    FileSystemJHipsterModuleFiles files,
-    FileSystemJavaDependenciesCommandsHandler javaDependencies,
-    FileSystemSpringPropertiesCommandsHandler springProperties
-  ) {
-    this.files = files;
-    this.javaDependencies = javaDependencies;
-    this.springProperties = springProperties;
+  public FileSystemJHipsterModulesRepository(ProjectFilesReader filesReader, NpmVersions npmVersions) {
+    files = new FileSystemJHipsterModuleFiles(filesReader);
+    javaDependencies = new FileSystemJavaDependenciesCommandsHandler();
+    springProperties = new FileSystemSpringPropertiesCommandsHandler();
+    packageJson = new FileSystemPackageJsonHandler(npmVersions);
   }
 
   @Override
@@ -32,6 +32,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     files.create(changes.projectFolder(), changes.files());
     javaDependencies.handle(changes.indentation(), changes.projectFolder(), changes.javaDependenciesCommands());
     springProperties.handle(changes.projectFolder(), changes.springProperties());
+    packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson());
 
     changes.mandatoryReplacements().apply(changes.projectFolder());
     changes.optionalReplacements().apply(changes.projectFolder());

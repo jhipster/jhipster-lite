@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.database.postgresql.domain;
 
 import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleOnProjectWithDefaultPom;
+import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

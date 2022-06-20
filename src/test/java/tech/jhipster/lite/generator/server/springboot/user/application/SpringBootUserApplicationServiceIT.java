@@ -17,6 +17,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -68,7 +69,7 @@ class SpringBootUserApplicationServiceIT {
     if (databaseType.equals(MYSQL)) {
       mySQLApplicationService.init(project);
     } else {
-      mariaDBApplicationService.build(properties);
+      TestJHipsterModules.applyer().module(mariaDBApplicationService.build(properties)).properties(properties).slug("mariadb").apply();
     }
 
     springBootUserApplicationService.addUserAndAuthorityEntities(project, databaseType);

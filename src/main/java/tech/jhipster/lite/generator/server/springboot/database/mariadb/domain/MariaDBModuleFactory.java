@@ -18,9 +18,9 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 public class MariaDBModuleFactory {
 
   private static final String SOURCE_FOLDER = "server/springboot/database/mariadb";
-  private static final String SRC_MAIN_DOCKER = "src/main/docker";
-  private static final String LOGGING_CONFIGURATION = "src/main/resources/logback-spring.xml";
-  private static final String LOGGING_TEST_CONFIGURATION = "src/test/resources/logback.xml";
+  private static final String ORG_HIBERNATE = "org.hibernate";
+  private static final String FALSE = "false";
+  private static final String TRUE = "true";
 
   private final DockerImages dockerImages;
 
@@ -51,7 +51,7 @@ public class MariaDBModuleFactory {
       .context()
       .packageName(properties.basePackage())
       .put("applicationName", properties.projectBaseName().capitalized())
-      .put("srcMainDocker", SRC_MAIN_DOCKER) // Used in mariadb.md
+      .put("srcMainDocker", "src/main/docker") // Used in mariadb.md
       .put("dockerImageWithVersion", dockerImage.fullName()); // Used in mariadb.yml
   }
 
@@ -76,7 +76,7 @@ public class MariaDBModuleFactory {
       .add(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-jpa"))
       .add(groupId("org.mariadb.jdbc"), artifactId("mariadb-java-client"))
       .add(groupId("com.zaxxer"), artifactId("HikariCP"))
-      .add(groupId("org.hibernate"), artifactId("hibernate-core"))
+      .add(groupId(ORG_HIBERNATE), artifactId("hibernate-core"))
       .add(testContainer());
   }
 
@@ -98,7 +98,7 @@ public class MariaDBModuleFactory {
       .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.mariadb.jdbc.Driver"))
       .set(propertyKey("spring.datasource.type"), propertyValue("com.zaxxer.hikari.HikariDataSource"))
       .set(propertyKey("spring.datasource.hikari.poolName"), propertyValue("Hikari"))
-      .set(propertyKey("spring.datasource.hikari.auto-commit"), propertyValue("false"))
+      .set(propertyKey("spring.datasource.hikari.auto-commit"), propertyValue(FALSE))
       .set(propertyKey("spring.data.jpa.repositories.bootstrap-mode"), propertyValue("deferred"))
       .set(propertyKey("spring.jpa.hibernate.ddl-auto"), propertyValue("none"))
       .set(
@@ -109,16 +109,16 @@ public class MariaDBModuleFactory {
         propertyKey("spring.jpa.hibernate.naming.physical-strategy"),
         propertyValue("org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy")
       )
-      .set(propertyKey("spring.jpa.open-in-view"), propertyValue("false"))
-      .set(propertyKey("spring.jpa.properties.hibernate.connection.provider_disables_autocommit"), propertyValue("true"))
-      .set(propertyKey("spring.jpa.properties.hibernate.generate_statistics"), propertyValue("false"))
-      .set(propertyKey("spring.jpa.properties.hibernate.id.new_generator_mappings"), propertyValue("true"))
+      .set(propertyKey("spring.jpa.open-in-view"), propertyValue(FALSE))
+      .set(propertyKey("spring.jpa.properties.hibernate.connection.provider_disables_autocommit"), propertyValue(TRUE))
+      .set(propertyKey("spring.jpa.properties.hibernate.generate_statistics"), propertyValue(FALSE))
+      .set(propertyKey("spring.jpa.properties.hibernate.id.new_generator_mappings"), propertyValue(TRUE))
       .set(propertyKey("spring.jpa.properties.hibernate.jdbc.batch_size"), propertyValue("25"))
       .set(propertyKey("spring.jpa.properties.hibernate.jdbc.time_zone"), propertyValue("UTC"))
-      .set(propertyKey("spring.jpa.properties.hibernate.order_inserts"), propertyValue("true"))
-      .set(propertyKey("spring.jpa.properties.hibernate.order_updates"), propertyValue("true"))
-      .set(propertyKey("spring.jpa.properties.hibernate.query.fail_on_pagination_over_collection_fetch"), propertyValue("true"))
-      .set(propertyKey("spring.jpa.properties.hibernate.query.in_clause_parameter_padding"), propertyValue("true"));
+      .set(propertyKey("spring.jpa.properties.hibernate.order_inserts"), propertyValue(TRUE))
+      .set(propertyKey("spring.jpa.properties.hibernate.order_updates"), propertyValue(TRUE))
+      .set(propertyKey("spring.jpa.properties.hibernate.query.fail_on_pagination_over_collection_fetch"), propertyValue(TRUE))
+      .set(propertyKey("spring.jpa.properties.hibernate.query.in_clause_parameter_padding"), propertyValue(TRUE));
 
     builder
       .springTestProperties()
@@ -135,16 +135,16 @@ public class MariaDBModuleFactory {
   private void appendReplacements(JHipsterModuleBuilder builder) {
     builder
       .optionalReplacements()
-      .in(LOGGING_CONFIGURATION)
+      .in("src/main/resources/logback-spring.xml")
       .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate.validator", Level.WARN))
-      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate", Level.WARN))
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger(ORG_HIBERNATE, Level.WARN))
       .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate.ejb.HibernatePersistence", Level.OFF));
 
     builder
       .optionalReplacements()
-      .in(LOGGING_TEST_CONFIGURATION)
+      .in("src/test/resources/logback.xml")
       .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate.validator", Level.WARN))
-      .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate", Level.WARN))
+      .add(text(NEEDLE_LOGBACK_LOGGER), logger(ORG_HIBERNATE, Level.WARN))
       .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.hibernate.ejb.HibernatePersistence", Level.OFF))
       .add(text(NEEDLE_LOGBACK_LOGGER), logger("com.github.dockerjava", Level.WARN))
       .add(text(NEEDLE_LOGBACK_LOGGER), logger("org.testcontainers", Level.WARN));

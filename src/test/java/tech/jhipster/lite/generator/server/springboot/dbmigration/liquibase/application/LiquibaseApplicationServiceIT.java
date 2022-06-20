@@ -34,6 +34,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -82,8 +83,7 @@ class LiquibaseApplicationServiceIT {
 
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
-
-    postgresqlApplicationService.build(properties);
+    TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
 
     liquibaseApplicationService.init(project);
 
@@ -187,7 +187,7 @@ class LiquibaseApplicationServiceIT {
       .build();
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
-    postgresqlApplicationService.build(properties);
+    TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
 
     liquibaseApplicationService.addLoggerInConfiguration(project);
 
@@ -226,7 +226,7 @@ class LiquibaseApplicationServiceIT {
     if (databaseType.equals(DatabaseType.MYSQL)) {
       mySQLService.init(project);
     } else {
-      mariaDBApplicationService.build(properties);
+      TestJHipsterModules.applyer().module(mariaDBApplicationService.build(properties)).properties(properties).slug("mariadb").apply();
     }
     liquibaseApplicationService.init(project);
 

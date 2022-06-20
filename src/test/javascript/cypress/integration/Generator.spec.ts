@@ -31,6 +31,10 @@ describe('Generator', () => {
     cy.get(projectGeneratorSelector('add-download-button')).should('not.exist');
   });
 
+  it('should display setup', () => {
+    cy.get(dataSelector('section-setup')).contains('SETUP');
+  });
+
   it('should display spring boot', () => {
     cy.get(generatorSelector('option-springboot')).check();
 
@@ -52,6 +56,7 @@ describe('Generator', () => {
 
     cy.get(springBootGeneratorSelector('add-postgresql-button')).contains('PostgreSQL');
     cy.get(springBootGeneratorSelector('add-mysql-button')).contains('MySQL');
+    cy.get(springBootGeneratorSelector('add-mssql-button')).contains('MSSQL');
     cy.get(springBootGeneratorSelector('add-mariadb-button')).contains('MariaDB');
     cy.get(springBootGeneratorSelector('add-mongodb-button')).contains('MongoDB');
     cy.get(springBootGeneratorSelector('add-flyway-button')).contains('Flyway');
@@ -70,6 +75,13 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-spring-boot-async-button')).contains('Async config');
 
     cy.get(springBootGeneratorSelector('add-spring-boot-pulsar-button')).contains('Pulsar');
+    cy.get(springBootGeneratorSelector('add-spring-boot-kafka-button')).contains('Kafka');
+    cy.get(springBootGeneratorSelector('add-spring-boot-kafka-dummy-producer-consumer-button')).contains(
+      'Dummy Producer and Consumer for Kafka'
+    );
+    cy.get(springBootGeneratorSelector('add-spring-boot-kafka-akhq-button')).contains('AKHQ for Kafka');
+    cy.get(springBootGeneratorSelector('add-ehcache-with-java-config-button')).contains('Ehcache with Java config');
+    cy.get(springBootGeneratorSelector('add-ehcache-with-xml-config-button')).contains('Ehcache with XML config');
     cy.get(springBootGeneratorSelector('add-spring-boot-cucumber-button')).contains('Cucumber');
 
     cy.get(springBootGeneratorSelector('add-spring-boot-dummy-feature-button')).contains('Dummy feature');
@@ -80,6 +92,7 @@ describe('Generator', () => {
     cy.get(angularGeneratorSelector('add-angular-button')).contains('Angular');
     cy.get(angularGeneratorSelector('add-angular-with-jwt-button')).contains('Add JWT');
     cy.get(angularGeneratorSelector('add-angular-oauth2-button')).contains('Add OAuth2');
+    cy.get(angularGeneratorSelector('add-angular-health-button')).contains('Add Health');
   });
 
   it('should display react', () => {

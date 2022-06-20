@@ -5,10 +5,13 @@ export type ServiceProjection =
   | 'angular'
   | 'angular-with-jwt'
   | 'angular-oauth2'
+  | 'angular-health'
   | 'consul'
   | 'dev-tools'
   | 'dockerfile'
   | 'download'
+  | 'ehcache-with-java-config'
+  | 'ehcache-with-xml-config'
   | 'eureka-client'
   | 'initialization'
   | 'flyway'
@@ -25,6 +28,7 @@ export type ServiceProjection =
   | 'gitpod-setup'
   | 'mariadb'
   | 'mysql'
+  | 'mssql'
   | 'mongodb'
   | 'mongock'
   | 'postgresql'
@@ -44,6 +48,9 @@ export type ServiceProjection =
   | 'spring-boot-dummy-feature'
   | 'spring-boot-cucumber'
   | 'spring-boot-pulsar'
+  | 'spring-boot-kafka'
+  | 'spring-boot-kafka-dummy-producer-consumer'
+  | 'spring-boot-kafka-akhq'
   | 'spring-boot-async'
   | 'spring-cloud'
   | 'react'
@@ -57,10 +64,13 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.ANGULAR]: 'angular',
   [Service.ANGULAR_WITH_JWT]: 'angular-with-jwt',
   [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
+  [Service.ANGULAR_HEALTH]: 'angular-health',
   [Service.CONSUL]: 'consul',
   [Service.DEV_TOOLS]: 'dev-tools',
   [Service.DOCKERFILE]: 'dockerfile',
   [Service.DOWNLOAD]: 'download',
+  [Service.EHCACHE_WITH_JAVA_CONFIG]: 'ehcache-with-java-config',
+  [Service.EHCACHE_WITH_XML_CONFIG]: 'ehcache-with-xml-config',
   [Service.EUREKA_CLIENT]: 'eureka-client',
   [Service.FLYWAY]: 'flyway',
   [Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'flyway-with-users-and-authority-changelogs',
@@ -77,6 +87,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.GITPOD_SETUP]: 'gitpod-setup',
   [Service.MARIADB]: 'mariadb',
   [Service.MYSQL]: 'mysql',
+  [Service.MSSQL]: 'mssql',
   [Service.MONGODB]: 'mongodb',
   [Service.MONGOCK]: 'mongock',
   [Service.POSTGRESQL]: 'postgresql',
@@ -96,6 +107,9 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SPRINGBOOT_WEBFLUX_NETTY]: 'spring-boot-webflux-netty',
   [Service.SPRINGBOOT_CUCUMBER]: 'spring-boot-cucumber',
   [Service.SPRINGBOOT_PULSAR]: 'spring-boot-pulsar',
+  [Service.SPRINGBOOT_KAFKA]: 'spring-boot-kafka',
+  [Service.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER]: 'spring-boot-kafka-dummy-producer-consumer',
+  [Service.SPRINGBOOT_KAFKA_AKHQ]: 'spring-boot-kafka-akhq',
   [Service.SPRINGBOOT_ASYNC]: 'spring-boot-async',
   [Service.SPRING_CLOUD]: 'spring-cloud',
   [Service.REACT]: 'react',
@@ -112,10 +126,13 @@ const SERVICES: Record<ServiceProjection, Service> = {
   angular: Service.ANGULAR,
   'angular-with-jwt': Service.ANGULAR_WITH_JWT,
   'angular-oauth2': Service.ANGULAR_OAUTH2,
+  'angular-health': Service.ANGULAR_HEALTH,
   consul: Service.CONSUL,
   'dev-tools': Service.DEV_TOOLS,
+  'ehcache-with-java-config': Service.EHCACHE_WITH_JAVA_CONFIG,
   dockerfile: Service.DOCKERFILE,
   download: Service.DOWNLOAD,
+  'ehcache-with-xml-config': Service.EHCACHE_WITH_XML_CONFIG,
   'eureka-client': Service.EUREKA_CLIENT,
   flyway: Service.FLYWAY,
   'flyway-with-users-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
@@ -132,6 +149,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'gitpod-setup': Service.GITPOD_SETUP,
   mariadb: Service.MARIADB,
   mysql: Service.MYSQL,
+  mssql: Service.MSSQL,
   mongodb: Service.MONGODB,
   mongock: Service.MONGOCK,
   postgresql: Service.POSTGRESQL,
@@ -151,6 +169,9 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'spring-boot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
   'spring-boot-cucumber': Service.SPRINGBOOT_CUCUMBER,
   'spring-boot-pulsar': Service.SPRINGBOOT_PULSAR,
+  'spring-boot-kafka': Service.SPRINGBOOT_KAFKA,
+  'spring-boot-kafka-dummy-producer-consumer': Service.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER,
+  'spring-boot-kafka-akhq': Service.SPRINGBOOT_KAFKA_AKHQ,
   'spring-boot-async': Service.SPRINGBOOT_ASYNC,
   'spring-cloud': Service.SPRING_CLOUD,
   react: Service.REACT,

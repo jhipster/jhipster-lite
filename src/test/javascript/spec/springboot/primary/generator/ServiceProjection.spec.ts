@@ -7,9 +7,12 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.ANGULAR)).toEqual<ServiceProjection>('angular');
     expect(toServiceProjection(Service.ANGULAR_WITH_JWT)).toEqual<ServiceProjection>('angular-with-jwt');
     expect(toServiceProjection(Service.ANGULAR_OAUTH2)).toEqual<ServiceProjection>('angular-oauth2');
+    expect(toServiceProjection(Service.ANGULAR_HEALTH)).toEqual<ServiceProjection>('angular-health');
     expect(toServiceProjection(Service.CONSUL)).toEqual<ServiceProjection>('consul');
     expect(toServiceProjection(Service.DEV_TOOLS)).toEqual<ServiceProjection>('dev-tools');
     expect(toServiceProjection(Service.DOWNLOAD)).toEqual<ServiceProjection>('download');
+    expect(toServiceProjection(Service.EHCACHE_WITH_JAVA_CONFIG)).toEqual<ServiceProjection>('ehcache-with-java-config');
+    expect(toServiceProjection(Service.EHCACHE_WITH_XML_CONFIG)).toEqual<ServiceProjection>('ehcache-with-xml-config');
     expect(toServiceProjection(Service.EUREKA_CLIENT)).toEqual<ServiceProjection>('eureka-client');
     expect(toServiceProjection(Service.FLYWAY)).toEqual<ServiceProjection>('flyway');
     expect(toServiceProjection(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS)).toEqual<ServiceProjection>(
@@ -30,6 +33,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.GITPOD_SETUP)).toEqual<ServiceProjection>('gitpod-setup');
     expect(toServiceProjection(Service.MARIADB)).toEqual<ServiceProjection>('mariadb');
     expect(toServiceProjection(Service.MYSQL)).toEqual<ServiceProjection>('mysql');
+    expect(toServiceProjection(Service.MSSQL)).toEqual<ServiceProjection>('mssql');
     expect(toServiceProjection(Service.MONGODB)).toEqual<ServiceProjection>('mongodb');
     expect(toServiceProjection(Service.MONGOCK)).toEqual<ServiceProjection>('mongock');
     expect(toServiceProjection(Service.POSTGRESQL)).toEqual<ServiceProjection>('postgresql');
@@ -53,6 +57,11 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SPRINGBOOT_WEBFLUX_NETTY)).toEqual<ServiceProjection>('spring-boot-webflux-netty');
     expect(toServiceProjection(Service.SPRINGBOOT_CUCUMBER)).toEqual<ServiceProjection>('spring-boot-cucumber');
     expect(toServiceProjection(Service.SPRINGBOOT_PULSAR)).toEqual<ServiceProjection>('spring-boot-pulsar');
+    expect(toServiceProjection(Service.SPRINGBOOT_KAFKA)).toEqual<ServiceProjection>('spring-boot-kafka');
+    expect(toServiceProjection(Service.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER)).toEqual<ServiceProjection>(
+      'spring-boot-kafka-dummy-producer-consumer'
+    );
+    expect(toServiceProjection(Service.SPRINGBOOT_KAFKA_AKHQ)).toEqual<ServiceProjection>('spring-boot-kafka-akhq');
     expect(toServiceProjection(Service.SPRINGBOOT_ASYNC)).toEqual<ServiceProjection>('spring-boot-async');
     expect(toServiceProjection(Service.SPRING_CLOUD)).toEqual<ServiceProjection>('spring-cloud');
     expect(toServiceProjection(Service.REACT)).toEqual<ServiceProjection>('react');
@@ -67,10 +76,13 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('angular')).toEqual<Service>(Service.ANGULAR);
     expect(fromServiceProjection('angular-with-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(fromServiceProjection('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
+    expect(fromServiceProjection('angular-health')).toEqual<Service>(Service.ANGULAR_HEALTH);
     expect(fromServiceProjection('consul')).toEqual<Service>(Service.CONSUL);
     expect(fromServiceProjection('dev-tools')).toEqual<Service>(Service.DEV_TOOLS);
     expect(fromServiceProjection('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(fromServiceProjection('download')).toEqual<Service>(Service.DOWNLOAD);
+    expect(fromServiceProjection('ehcache-with-java-config')).toEqual<Service>(Service.EHCACHE_WITH_JAVA_CONFIG);
+    expect(fromServiceProjection('ehcache-with-xml-config')).toEqual<Service>(Service.EHCACHE_WITH_XML_CONFIG);
     expect(fromServiceProjection('eureka-client')).toEqual<Service>(Service.EUREKA_CLIENT);
     expect(fromServiceProjection('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(fromServiceProjection('flyway-with-users-and-authority-changelogs')).toEqual<Service>(
@@ -91,6 +103,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('gitpod-setup')).toEqual<Service>(Service.GITPOD_SETUP);
     expect(fromServiceProjection('mariadb')).toEqual<Service>(Service.MARIADB);
     expect(fromServiceProjection('mysql')).toEqual<Service>(Service.MYSQL);
+    expect(fromServiceProjection('mssql')).toEqual<Service>(Service.MSSQL);
     expect(fromServiceProjection('mongodb')).toEqual<Service>(Service.MONGODB);
     expect(fromServiceProjection('mongock')).toEqual<Service>(Service.MONGOCK);
     expect(fromServiceProjection('postgresql')).toEqual<Service>(Service.POSTGRESQL);
@@ -109,6 +122,11 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('spring-boot-dummy-feature')).toEqual<Service>(Service.SPRINGBOOT_DUMMY_FEATURE);
     expect(fromServiceProjection('spring-boot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(fromServiceProjection('spring-boot-pulsar')).toEqual<Service>(Service.SPRINGBOOT_PULSAR);
+    expect(fromServiceProjection('spring-boot-kafka')).toEqual<Service>(Service.SPRINGBOOT_KAFKA);
+    expect(fromServiceProjection('spring-boot-kafka-dummy-producer-consumer')).toEqual<Service>(
+      Service.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER
+    );
+    expect(fromServiceProjection('spring-boot-kafka-akhq')).toEqual<Service>(Service.SPRINGBOOT_KAFKA_AKHQ);
     expect(fromServiceProjection('spring-boot-async')).toEqual<Service>(Service.SPRINGBOOT_ASYNC);
     expect(fromServiceProjection('spring-cloud')).toEqual<Service>(Service.SPRING_CLOUD);
     expect(fromServiceProjection('spring-boot-cucumber')).toEqual<Service>(Service.SPRINGBOOT_CUCUMBER);

@@ -113,6 +113,10 @@ public class JHipsterModule {
     return JHipsterDestination.SRC_MAIN_JAVA;
   }
 
+  public static JHipsterDestination toSrcMainDocker() {
+    return JHipsterDestination.SRC_MAIN_DOCKER;
+  }
+
   public static JHipsterDestination toSrcTestJava() {
     return JHipsterDestination.SRC_TEST_JAVA;
   }

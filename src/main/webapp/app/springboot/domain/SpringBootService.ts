@@ -20,6 +20,7 @@ export interface SpringBootService {
 
   addPostgres(project: Project): Promise<void>;
   addMySQL(project: Project): Promise<void>;
+  addMSSQL(project: Project): Promise<void>;
   addMariaDB(project: Project): Promise<void>;
   addMongoDB(project: Project): Promise<void>;
   addSpringBootFlywayInit(project: Project): Promise<void>;
@@ -45,4 +46,8 @@ export interface SpringBootService {
 
   addCucumber(project: Project): Promise<void>;
   addPulsar(project: Project): Promise<void>;
+
+  addKafka(project: Project): Promise<void>;
+  addKafkaDummyProducerConsumer(project: Project): Promise<void>;
+  addKafkaAkhq(project: Project): Promise<void>;
 }

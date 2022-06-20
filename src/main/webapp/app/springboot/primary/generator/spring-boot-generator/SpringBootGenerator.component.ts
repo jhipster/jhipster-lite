@@ -170,6 +170,15 @@ export default defineComponent({
       }
     };
 
+    const addMSSQL = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addMSSQL(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('SpringBoot Database MSSQL successfully added'))
+          .catch(error => alertBus.error(`Adding SpringBoot Database MSSQL to project failed ${error}`));
+      }
+    };
+
     const addMariaDB = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -313,6 +322,51 @@ export default defineComponent({
       }
     };
 
+    const addKafka = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addKafka(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Kafka successfully added'))
+          .catch(error => alertBus.error(`Adding Kafka to project failed ${error}`));
+      }
+    };
+
+    const addKafkaDummyProducerConsumer = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addKafkaDummyProducerConsumer(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Kafka dummy producer and consumer successfully added'))
+          .catch(error => alertBus.error(`Adding Kafka dummy producer and consumer to project failed ${error}`));
+      }
+    };
+
+    const addKafkaAkhq = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addKafkaAkhq(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('AKHQ successfully added'))
+          .catch(error => alertBus.error(`Adding AKHQ to project failed ${error}`));
+      }
+    };
+
+    const addEhcacheWithJavaConfig = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addEhcacheWithJavaConf(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Ehcache with Java config successfully added'))
+          .catch(error => alertBus.error(`Adding Ehcache with Java config to project failed ${error}`));
+      }
+    };
+
+    const addEhcacheWithXml = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addEhcacheWithXML(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Ehcache with XML successfully added'))
+          .catch(error => alertBus.error(`Adding Ehcache with XML to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addSpringBoot,
@@ -331,6 +385,7 @@ export default defineComponent({
       addSpringBootSecurityOAuth2Account,
       addPostgreSQL,
       addMySQL,
+      addMSSQL,
       addMariaDB,
       addMongoDB,
       addFlyway,
@@ -347,6 +402,11 @@ export default defineComponent({
       addSpringCloudConfigClient,
       addJib,
       addSpringBootAsync,
+      addKafka,
+      addKafkaDummyProducerConsumer,
+      addKafkaAkhq,
+      addEhcacheWithJavaConfig,
+      addEhcacheWithXml,
     };
   },
 });

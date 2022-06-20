@@ -11,6 +11,8 @@ describe('RestServiceId', () => {
     expect(toService('dev-tools')).toEqual<Service>(Service.DEV_TOOLS);
     expect(toService('dockerfile')).toEqual<Service>(Service.DOCKERFILE);
     expect(toService('download')).toEqual<Service>(Service.DOWNLOAD);
+    expect(toService('ehcache-with-java-config')).toEqual<Service>(Service.EHCACHE_WITH_JAVA_CONFIG);
+    expect(toService('ehcache-with-xml-config')).toEqual<Service>(Service.EHCACHE_WITH_XML_CONFIG);
     expect(toService('eureka-client')).toEqual<Service>(Service.EUREKA_CLIENT);
     expect(toService('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(toService('flyway-user-and-authority-changelogs')).toEqual<Service>(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS);
@@ -29,6 +31,7 @@ describe('RestServiceId', () => {
     expect(toService('mongodb')).toEqual<Service>(Service.MONGODB);
     expect(toService('mongock')).toEqual<Service>(Service.MONGOCK);
     expect(toService('mysql')).toEqual<Service>(Service.MYSQL);
+    expect(toService('mssql')).toEqual<Service>(Service.MSSQL);
     expect(toService('postgresql')).toEqual<Service>(Service.POSTGRESQL);
     expect(toService('sonar-java-backend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND);
     expect(toService('sonar-java-backend-and-frontend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND_AND_FRONTEND);

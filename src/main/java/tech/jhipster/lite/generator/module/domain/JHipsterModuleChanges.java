@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.module.domain;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDependenciesCommands;
 import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperties;
+import tech.jhipster.lite.generator.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleMandatoryReplacements;
@@ -16,6 +17,7 @@ public class JHipsterModuleChanges {
   private final JHipsterModuleMandatoryReplacements mandatoryReplacements;
   private final JHipsterModuleOptionalReplacements optionalReplacements;
   private final JavaDependenciesCommands javaDependencies;
+  private final JHipsterModulePackageJson packageJson;
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
   private final SpringProperties springProperties;
@@ -29,6 +31,7 @@ public class JHipsterModuleChanges {
     mandatoryReplacements = builder.mandatoryReplacements;
     optionalReplacements = builder.optionalReplacements;
     javaDependencies = builder.javaDependencies;
+    packageJson = builder.packageJson;
     preActions = builder.preActions;
     postActions = builder.postActions;
     springProperties = builder.springProperties;
@@ -74,6 +77,10 @@ public class JHipsterModuleChanges {
     return javaDependencies;
   }
 
+  public JHipsterModulePackageJson packageJson() {
+    return packageJson;
+  }
+
   public JHipsterModulePreActions preActions() {
     return preActions;
   }
@@ -94,6 +101,7 @@ public class JHipsterModuleChanges {
       JHipsterModuleChangesMandatoryReplacementsBuilder,
       JHipsterModuleChangesOptionalReplacementsBuilder,
       JHipsterModuleChangesJavaDependenciesBuilder,
+      JHipsterModuleChangesPackageJsonBuilder,
       JHipsterModuleChangesPreActionsBuilder,
       JHipsterModuleChangesPostActionsBuilder,
       JHipsterModuleChangesSpringPropertiesBuilder {
@@ -103,6 +111,7 @@ public class JHipsterModuleChanges {
     private JHipsterModuleMandatoryReplacements mandatoryReplacements;
     private JHipsterModuleOptionalReplacements optionalReplacements;
     private JavaDependenciesCommands javaDependencies;
+    private JHipsterModulePackageJson packageJson;
     private Indentation indentation;
     private JHipsterModulePreActions preActions;
     private JHipsterModulePostActions postActions;
@@ -148,8 +157,15 @@ public class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesPreActionsBuilder javaDependencies(JavaDependenciesCommands javaDependencies) {
+    public JHipsterModuleChangesPackageJsonBuilder javaDependencies(JavaDependenciesCommands javaDependencies) {
       this.javaDependencies = javaDependencies;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChangesPreActionsBuilder packageJson(JHipsterModulePackageJson packageJson) {
+      this.packageJson = packageJson;
 
       return this;
     }
@@ -197,7 +213,11 @@ public class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesJavaDependenciesBuilder {
-    JHipsterModuleChangesPreActionsBuilder javaDependencies(JavaDependenciesCommands buildDependenciesChanges);
+    JHipsterModuleChangesPackageJsonBuilder javaDependencies(JavaDependenciesCommands buildDependenciesChanges);
+  }
+
+  public interface JHipsterModuleChangesPackageJsonBuilder {
+    JHipsterModuleChangesPreActionsBuilder packageJson(JHipsterModulePackageJson packageJson);
   }
 
   public interface JHipsterModuleChangesPreActionsBuilder {

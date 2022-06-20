@@ -24,7 +24,7 @@ class JavaBaseModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModule(module)
+    assertThatModuleWithFiles(module, readmeFile())
       .createPrefixedFiles("src/main/java/com/jhipster/test", "BusinessContext.java", "SharedKernel.java")
       .createPrefixedFiles(
         "src/main/java/com/jhipster/test/error/domain",
@@ -53,6 +53,12 @@ class JavaBaseModuleFactoryTest {
       .createFile("src/main/java/com/jhipster/test/common/package-info.java")
       .and()
       .createFile("src/main/java/com/jhipster/test/common/domain/MyappCollections.java")
-      .containing("class MyappCollections");
+      .containing("class MyappCollections")
+      .and()
+      .createPrefixedFiles("documentation", "package-types.md")
+      .createPrefixedFiles("documentation", "assertions.md")
+      .createFile("README.md")
+      .containing("[Package types](documentation/package-types.md)")
+      .containing("[Assertions](documentation/assertions.md)");
   }
 }

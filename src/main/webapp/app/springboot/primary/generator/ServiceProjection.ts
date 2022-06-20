@@ -17,6 +17,7 @@ export type ServiceProjection =
   | 'flyway'
   | 'flyway-with-users-and-authority-changelogs'
   | 'frontend-maven-plugin'
+  | 'github-actions'
   | 'jacoco-check-minimal-coverage'
   | 'java-base'
   | 'jib'
@@ -74,6 +75,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.FLYWAY]: 'flyway',
   [Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'flyway-with-users-and-authority-changelogs',
   [Service.FRONTEND_MAVEN_PLUGIN]: 'frontend-maven-plugin',
+  [Service.GITHUB_ACTIONS]: 'github-actions',
   [Service.INITIALIZATION]: 'initialization',
   [Service.JACOCO_CHECK_MINIMAL_COVERAGE]: 'jacoco-check-minimal-coverage',
   [Service.JAVA_BASE]: 'java-base',
@@ -135,6 +137,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   flyway: Service.FLYWAY,
   'flyway-with-users-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   'frontend-maven-plugin': Service.FRONTEND_MAVEN_PLUGIN,
+  'github-actions': Service.GITHUB_ACTIONS,
   initialization: Service.INITIALIZATION,
   'jacoco-check-minimal-coverage': Service.JACOCO_CHECK_MINIMAL_COVERAGE,
   'java-base': Service.JAVA_BASE,

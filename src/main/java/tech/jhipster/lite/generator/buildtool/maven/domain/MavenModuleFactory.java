@@ -57,11 +57,11 @@ public class MavenModuleFactory {
       .versionSlug("compiler-plugin")
       .additionalElements(
         """
-            <configuration>
-              <source>${java.version}</source>
-              <target>${java.version}</target>
-            </configuration>
-            """
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+        """
       )
       .build();
   }

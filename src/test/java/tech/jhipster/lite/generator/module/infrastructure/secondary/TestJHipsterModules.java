@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.module.infrastructure.secondary;
 
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import tech.jhipster.lite.common.infrastructure.secondary.FileSystemProjectFilesReader;
@@ -10,6 +11,9 @@ import tech.jhipster.lite.generator.module.domain.JHipsterModuleEvents;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.npm.domain.NpmPackageName;
+import tech.jhipster.lite.generator.npm.domain.NpmVersion;
+import tech.jhipster.lite.generator.npm.domain.NpmVersions;
 
 public final class TestJHipsterModules {
 
@@ -41,11 +45,7 @@ public final class TestJHipsterModules {
     private static JHipsterModulesApplicationService buildApplicationService() {
       FileSystemProjectFilesReader filesReader = new FileSystemProjectFilesReader();
 
-      FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
-        new FileSystemJHipsterModuleFiles(filesReader),
-        new FileSystemJavaDependenciesCommandsHandler(),
-        new FileSystemSpringPropertiesCommandsHandler()
-      );
+      FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(filesReader, npmVersions());
 
       return new JHipsterModulesApplicationService(
         modulesRepository,
@@ -53,6 +53,16 @@ public final class TestJHipsterModules {
         new FileSystemCurrentJavaDependenciesVersionsRepository(filesReader),
         new FileSystemProjectJavaDependenciesRepository()
       );
+    }
+
+    private static NpmVersions npmVersions() {
+      NpmVersions npmVersions = mock(NpmVersions.class);
+
+      NpmVersion version = new NpmVersion("1.1.1");
+      lenient().when(npmVersions.get(anyString(), any())).thenReturn(version);
+      lenient().when(npmVersions.get(any(NpmPackageName.class), any())).thenReturn(version);
+
+      return npmVersions;
     }
 
     @Override

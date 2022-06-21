@@ -31,6 +31,14 @@ public final class JHipsterModulesAssertions {
     return file("src/test/resources/projects/maven/pom.xml", "pom.xml");
   }
 
+  public static ModuleFile packageJsonFile() {
+    return file("src/test/resources/projects/empty-node/package.json", "package.json");
+  }
+
+  public static ModuleFile readmeFile() {
+    return file("src/test/resources/projects/README.md", "README.md");
+  }
+
   public static ModuleFile file(String source, String destination) {
     return new ModuleFile(source, destination);
   }

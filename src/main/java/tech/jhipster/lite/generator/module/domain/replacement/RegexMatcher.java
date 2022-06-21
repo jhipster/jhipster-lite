@@ -34,4 +34,8 @@ public record RegexMatcher(Pattern pattern) implements ElementMatcher {
   public BiFunction<String, String, String> replacer() {
     return (content, replacement) -> pattern().matcher(content).replaceAll(replacement);
   }
+  @Override
+  public String searchMatcher() {
+    return pattern().pattern();
+  }
 }

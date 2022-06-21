@@ -1,24 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.lite.TestUtils.assertFileContent;
-import static tech.jhipster.lite.TestUtils.assertFileContentManyTimes;
-import static tech.jhipster.lite.TestUtils.assertFileExist;
-import static tech.jhipster.lite.TestUtils.assertFileNoContent;
-import static tech.jhipster.lite.TestUtils.assertFileNotExist;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectBuilder;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithLiquibaseMasterXml;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseChangelogMasterXml;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseJava;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertFilesLiquibaseSqlUser;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.assertLoggerInConfig;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.initClock;
-import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.NEEDLE_LIQUIBASE;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.application.LiquibaseAssertFiles.*;
+import static tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain.Liquibase.*;
 
 import java.time.Clock;
 import java.util.List;
@@ -30,16 +18,16 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootService;
-import tech.jhipster.lite.generator.server.springboot.database.mariadb.domain.MariaDBService;
+import tech.jhipster.lite.generator.server.springboot.database.mariadb.application.MariaDBApplicationService;
 import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLService;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
 
@@ -59,7 +47,7 @@ class LiquibaseApplicationServiceIT {
   MySQLService mySQLService;
 
   @Autowired
-  MariaDBService mariaDBService;
+  MariaDBApplicationService mariaDBApplicationService;
 
   @Autowired
   LiquibaseApplicationService liquibaseApplicationService;
@@ -83,21 +71,11 @@ class LiquibaseApplicationServiceIT {
 
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
-
-    postgresqlApplicationService.build(properties);
+    TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
 
     liquibaseApplicationService.init(project);
 
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<dependency>", "<groupId>org.liquibase</groupId>", "<artifactId>liquibase-core</artifactId>", "</dependency>")
-    );
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<dependency>", "<groupId>com.h2database</groupId>", "<artifactId>h2</artifactId>", "<scope>test</scope>", "</dependency>")
-    );
+    assertDependencies(project);
     assertFilesLiquibaseChangelogMasterXml(project);
     assertFilesLiquibaseJava(project);
     assertLoggerInConfig(project);
@@ -110,11 +88,7 @@ class LiquibaseApplicationServiceIT {
 
     liquibaseApplicationService.addLiquibase(project);
 
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<dependency>", "<groupId>org.liquibase</groupId>", "<artifactId>liquibase-core</artifactId>", "</dependency>")
-    );
+    assertDependencies(project);
   }
 
   @Test
@@ -188,7 +162,7 @@ class LiquibaseApplicationServiceIT {
       .build();
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
-    postgresqlApplicationService.build(properties);
+    TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
 
     liquibaseApplicationService.addLoggerInConfiguration(project);
 
@@ -217,12 +191,17 @@ class LiquibaseApplicationServiceIT {
   @DisplayName("should add user and authority changelog for MySQL or MariaDB")
   void shouldAddUserAuthorityChangelogForMySQLorMariaDB(DatabaseType databaseType) {
     Project project = tmpProject();
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(project.getFolder())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
     if (databaseType.equals(DatabaseType.MYSQL)) {
       mySQLService.init(project);
     } else {
-      mariaDBService.init(project);
+      TestJHipsterModules.applyer().module(mariaDBApplicationService.build(properties)).properties(properties).slug("mariadb").apply();
     }
     liquibaseApplicationService.init(project);
 

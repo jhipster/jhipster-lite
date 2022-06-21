@@ -8,6 +8,7 @@ import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFold
 
 abstract class JHipsterModuleReplacements {
 
+  public static final String LF = "\n";
   private final Collection<FileReplacer> replacers;
 
   protected JHipsterModuleReplacements(JHipsterModuleReplacementsBuilder<?, ?> builder) {
@@ -67,19 +68,16 @@ abstract class JHipsterModuleReplacements {
       this.file = file;
     }
 
-    public Builder add(TextMatcher textToReplace, String replacement) {
-      Assert.notNull("textToReplace", textToReplace);
-
-      replacements.add(buildReplacer(file, textToReplace, replacement));
+    public Builder add(ElementMatcher elementToReplace, String replacement) {
+      Assert.notNull("elementToReplace", elementToReplace);
+      replacements.add(buildReplacer(file, elementToReplace, replacement));
 
       return self();
     }
 
-    public Builder add(RegexMatcher regexToReplace, String replacement) {
-      Assert.notNull("regexToReplace", regexToReplace);
-
-      replacements.add(buildReplacer(file, regexToReplace, replacement));
-
+    public Builder add(PositionalMatcher positional, String replacement) {
+      Assert.notNull("PositionalMatcher", positional);
+      replacements.add(buildReplacer(file, positional.element(), positional.buildReplacement(replacement)));
       return self();
     }
 

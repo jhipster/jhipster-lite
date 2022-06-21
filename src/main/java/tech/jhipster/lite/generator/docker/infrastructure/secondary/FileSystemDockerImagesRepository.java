@@ -27,7 +27,7 @@ class FileSystemDockerImagesRepository implements DockerImages {
     Assert.notNull("imageName", imageName);
 
     return Stream
-      .of(files.read("/generator/dependencies/Dockerfile").split("[\r\n]"))
+      .of(files.readString("/generator/dependencies/Dockerfile").split("[\r\n]"))
       .map(String::trim)
       .map(String::toLowerCase)
       .filter(imageLine(imageName))

@@ -34,7 +34,7 @@ class FileSystemJHipsterModuleFiles {
 
       try {
         Files.createDirectories(file.folder(projectFolder));
-        Files.writeString(filePath, file.content(files));
+        Files.write(filePath, file.content(files));
 
         log.debug("{} added", filePath);
       } catch (IOException e) {

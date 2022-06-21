@@ -51,6 +51,6 @@ class FileSystemDockerImagesRepositoryTest {
   }
 
   private OngoingStubbing<String> mockDockerFile(String content) {
-    return when(files.read("/generator/dependencies/Dockerfile")).thenReturn(content);
+    return when(files.readString("/generator/dependencies/Dockerfile")).thenReturn(content);
   }
 }

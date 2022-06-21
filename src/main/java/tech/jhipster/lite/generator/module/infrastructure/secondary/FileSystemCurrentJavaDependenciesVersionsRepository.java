@@ -24,7 +24,7 @@ class FileSystemCurrentJavaDependenciesVersionsRepository implements JavaDepende
   }
 
   private CurrentJavaDependenciesVersions readVersions() {
-    List<JavaDependencyVersion> readVersions = extractVersions(files.read(CURRENT_VERSIONS_FILE));
+    List<JavaDependencyVersion> readVersions = extractVersions(files.readString(CURRENT_VERSIONS_FILE));
 
     return new CurrentJavaDependenciesVersions(readVersions);
   }

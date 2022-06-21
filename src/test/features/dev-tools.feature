@@ -1,4 +1,4 @@
-Feature: Cucumber module
+Feature: DevTools module
 
   Scenario: Should add devtools elements using legacy url
     When I apply legacy module "/api/servers/spring-boot/technical-tools/devtools" to default project with maven file

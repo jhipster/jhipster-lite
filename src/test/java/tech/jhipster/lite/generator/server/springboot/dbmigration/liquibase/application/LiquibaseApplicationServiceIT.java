@@ -35,25 +35,25 @@ import tech.jhipster.lite.generator.server.springboot.database.postgresql.applic
 class LiquibaseApplicationServiceIT {
 
   @Autowired
-  BuildToolService buildToolService;
+  private BuildToolService buildToolService;
 
   @Autowired
-  SpringBootService springBootService;
+  private SpringBootService springBootService;
 
   @Autowired
-  PostgresqlApplicationService postgresqlApplicationService;
+  private PostgresqlApplicationService postgresqlApplicationService;
 
   @Autowired
-  MySQLService mySQLService;
+  private MySQLService mySQLService;
 
   @Autowired
-  MariaDBApplicationService mariaDBApplicationService;
+  private MariaDBApplicationService mariaDBApplicationService;
 
   @Autowired
-  LiquibaseApplicationService liquibaseApplicationService;
+  private LiquibaseApplicationService liquibaseApplicationService;
 
   @SpyBean
-  Clock clock;
+  private Clock clock;
 
   @BeforeEach
   void setUp() {

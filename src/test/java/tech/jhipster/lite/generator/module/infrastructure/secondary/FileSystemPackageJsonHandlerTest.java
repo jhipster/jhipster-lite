@@ -72,6 +72,33 @@ class FileSystemPackageJsonHandlerTest {
     assertThat(packageJsonContent(folder)).doesNotContain("scripts");
   }
 
+  @Test
+  void shouldNotGreedExistingBlocks() {
+    JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");
+
+    packageJson.handle(
+      Indentation.DEFAULT,
+      folder,
+      emptyBuilder().addScript(scriptKey("@prettier/plugin-xml"), scriptCommand("test")).build()
+    );
+
+    assertPackageJsonContent(
+      folder,
+      """
+          "scripts": {
+            "@prettier/plugin-xml": "test",
+            "build": "vue-tsc -p tsconfig-build.json --noEmit && vite build --emptyOutDir"
+          },
+        """
+    );
+
+    assertPackageJsonContent(folder, """
+          "devDependencies": {
+            "@prettier/plugin-xml": "2.1.0"
+          },
+        """);
+  }
+
   @Nested
   @DisplayName("Scripts")
   class FileSystemPackageJsonHandlerScriptsTest {

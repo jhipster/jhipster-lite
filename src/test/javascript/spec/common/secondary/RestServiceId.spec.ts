@@ -34,6 +34,7 @@ describe('RestServiceId', () => {
     expect(toService('mysql')).toEqual<Service>(Service.MYSQL);
     expect(toService('mssql')).toEqual<Service>(Service.MSSQL);
     expect(toService('postgresql')).toEqual<Service>(Service.POSTGRESQL);
+    expect(toService('react-cypress')).toEqual<Service>(Service.REACT_CYPRESS);
     expect(toService('sonar-java-backend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND);
     expect(toService('sonar-java-backend-and-frontend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND_AND_FRONTEND);
     expect(toService('springboot')).toEqual<Service>(Service.SPRINGBOOT);

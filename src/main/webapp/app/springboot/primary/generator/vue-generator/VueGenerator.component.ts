@@ -3,6 +3,7 @@ import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate
 import { VueService } from '@/springboot/domain/client/VueService';
 import { GeneratorButtonVue } from '@/springboot/primary/generator/generator-button';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
+import { ProjectService } from '@/springboot/domain/ProjectService';
 
 export default defineComponent({
   name: 'VueGeneratorComponent',
@@ -21,6 +22,7 @@ export default defineComponent({
   setup(props) {
     const alertBus = inject('alertBus') as AlertBus;
     const vueService = inject('vueService') as VueService;
+    const projectService = inject('projectService') as ProjectService;
 
     const selectorPrefix = 'vue-generator';
 
@@ -33,9 +35,19 @@ export default defineComponent({
       }
     };
 
+    const addCypress = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await projectService
+          .addCypress(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Cypress successfully added'))
+          .catch(error => alertBus.error(`Adding Cypress to project failed ${error}`));
+      }
+    };
+
     return {
       selectorPrefix,
       addVue,
+      addCypress,
       props,
     };
   },

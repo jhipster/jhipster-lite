@@ -33,6 +33,7 @@ export type ServiceProjection =
   | 'mongodb'
   | 'mongock'
   | 'postgresql'
+  | 'react-cypress'
   | 'sonar-java-backend'
   | 'sonar-java-backend-and-frontend'
   | 'spring-boot'
@@ -92,6 +93,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.MONGODB]: 'mongodb',
   [Service.MONGOCK]: 'mongock',
   [Service.POSTGRESQL]: 'postgresql',
+  [Service.REACT_CYPRESS]: 'react-cypress',
   [Service.SONAR_JAVA_BACKEND]: 'sonar-java-backend',
   [Service.SONAR_JAVA_BACKEND_AND_FRONTEND]: 'sonar-java-backend-and-frontend',
   [Service.SPRINGBOOT]: 'spring-boot',
@@ -154,6 +156,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   mongodb: Service.MONGODB,
   mongock: Service.MONGOCK,
   postgresql: Service.POSTGRESQL,
+  'react-cypress': Service.REACT_CYPRESS,
   'sonar-java-backend': Service.SONAR_JAVA_BACKEND,
   'sonar-java-backend-and-frontend': Service.SONAR_JAVA_BACKEND_AND_FRONTEND,
   'spring-boot': Service.SPRINGBOOT,

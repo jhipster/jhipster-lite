@@ -222,4 +222,22 @@ describe('ProjectRepository', () => {
     const [projectDetails] = projectStoreStub.setProject.getCall(0).args;
     expect(projectDetails).toEqual({ folder: PROJECT_FOLDER });
   });
+
+  it('should add Cypress', async () => {
+    const projectHistoryService = stubProjectHistoryService();
+    const axiosHttpStub = stubAxiosHttp();
+    const projectStoreStub = stubProjectStore();
+    axiosHttpStub.post.resolves();
+    const projectRepository = new ProjectRepository(axiosHttpStub, projectHistoryService, projectStoreStub);
+    const project: Project = createProject({ folder: PROJECT_FOLDER });
+
+    await projectRepository.addCypress(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/clients/cypress');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+    const [projectFolder] = projectHistoryService.get.getCall(0).args;
+    expect(projectFolder).toBe(PROJECT_FOLDER);
+  });
 });

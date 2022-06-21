@@ -96,16 +96,19 @@ describe('Generator', () => {
     cy.get(angularGeneratorSelector('add-angular-with-jwt-button')).contains('Add JWT');
     cy.get(angularGeneratorSelector('add-angular-oauth2-button')).contains('Add OAuth2');
     cy.get(angularGeneratorSelector('add-angular-health-button')).contains('Add Health');
+    cy.get(angularGeneratorSelector('add-react-cypress-button')).contains('Cypress');
   });
 
   it('should display react', () => {
     cy.get(generatorSelector('option-react')).check();
     cy.get(reactGeneratorSelector('add-react-button')).contains('React');
+    cy.get(reactGeneratorSelector('add-react-cypress-button')).contains('Cypress');
   });
 
   it('should display vue', () => {
     cy.get(generatorSelector('option-vue')).check();
     cy.get(vueGeneratorSelector('add-vue-button')).contains('Vue');
+    cy.get(vueGeneratorSelector('add-react-cypress-button')).contains('Cypress');
   });
 
   it('should display svelte', () => {

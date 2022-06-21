@@ -5,8 +5,10 @@ import { ReactService } from '@/springboot/domain/client/ReactService';
 import { stubReactService } from '../../../domain/client/ReactService.fixture';
 import { ReactGeneratorVue } from '@/springboot/primary/generator/react-generator';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
-import { stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
+import { AlertBusFixture, stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
 import { projectJson } from '../RestProject.fixture';
+import { ProjectService } from '../../../../../../../main/webapp/app/springboot/domain/ProjectService';
+import { stubProjectService } from '../../../domain/ProjectService.fixture';
 
 let wrapper: VueWrapper;
 let component: any;
@@ -14,13 +16,23 @@ let component: any;
 interface WrapperOptions {
   alertBus: AlertBus;
   reactService: ReactService;
+  projectService: ProjectService;
   project: ProjectToUpdate;
 }
+const expectAlertErrorToBe = (alertBus: AlertBusFixture, message: string) => {
+  const [alertMessage] = alertBus.error.getCall(0).args;
+  expect(alertMessage).toBe(message);
+};
 
+const expectAlertSuccessToBe = (alertBus: AlertBusFixture, message: string) => {
+  const [alertMessage] = alertBus.success.getCall(0).args;
+  expect(alertMessage).toBe(message);
+};
 const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
-  const { alertBus, reactService, project }: WrapperOptions = {
+  const { alertBus, reactService, projectService, project }: WrapperOptions = {
     alertBus: stubAlertBus(),
     reactService: stubReactService(),
+    projectService: stubProjectService(),
     project: createProjectToUpdate(),
     ...wrapperOptions,
   };
@@ -32,6 +44,7 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
       provide: {
         alertBus,
         reactService,
+        projectService,
       },
     },
   });
@@ -58,18 +71,21 @@ describe('ReactGenerator', () => {
   it('should add React when project path is filled', async () => {
     const reactService = stubReactService();
     reactService.add.resolves({});
-    await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }) });
+    const alertBus = stubAlertBus();
+    await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
 
     await component.addReact();
 
     const args = reactService.add.getCall(0).args[0];
     expect(args).toEqual(projectJson);
+    expectAlertSuccessToBe(alertBus, 'React successfully added');
   });
 
   it('should add React with Style when checkbox is checked', async () => {
     const reactService = stubReactService();
+    const alertBus = stubAlertBus();
     reactService.addWithStyle.resolves({});
-    await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }) });
+    await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
 
     const checkbox = wrapper.find('#react-with-style');
     await checkbox.setValue(true);
@@ -77,6 +93,7 @@ describe('ReactGenerator', () => {
 
     const args = reactService.addWithStyle.getCall(0).args[0];
     expect(args).toEqual(projectJson);
+    expectAlertSuccessToBe(alertBus, 'React with style successfully added');
   });
 
   it('should handle error on adding React failure', async () => {
@@ -86,9 +103,7 @@ describe('ReactGenerator', () => {
     await wrap({ alertBus, reactService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
     await component.addReact();
-
-    const [message] = alertBus.error.getCall(0).args;
-    expect(message).toBe('Adding React to project failed error');
+    expectAlertErrorToBe(alertBus, 'Adding React to project failed error');
   });
 
   it('should handle error on adding React with style failure', async () => {
@@ -100,8 +115,40 @@ describe('ReactGenerator', () => {
     const checkbox = wrapper.find('#react-with-style');
     await checkbox.setValue(true);
     await component.addReact();
+    expectAlertErrorToBe(alertBus, 'Adding React with style to project failed error');
+  });
 
-    const [message] = alertBus.error.getCall(0).args;
-    expect(message).toBe('Adding React with style to project failed error');
+  it('should not add Cypress when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addCypress.resolves({});
+    await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addCypress();
+
+    expect(projectService.addCypress.called).toBe(false);
+  });
+
+  it('should add Cypress when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addCypress.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ projectService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
+
+    await component.addCypress();
+
+    const args = projectService.addCypress.getCall(0).args[0];
+    expect(args).toEqual(projectJson);
+    expectAlertSuccessToBe(alertBus, 'Cypress successfully added');
+  });
+
+  it('should handle error on adding Cypress failure', async () => {
+    const projectService = stubProjectService();
+    const alertBus = stubAlertBus();
+    projectService.addCypress.rejects('error');
+    await wrap({ projectService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
+
+    await component.addCypress();
+
+    expectAlertErrorToBe(alertBus, 'Adding Cypress to project failed error');
   });
 });

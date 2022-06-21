@@ -201,7 +201,7 @@ describe('AngularGenerator', () => {
     projectService.addCypress.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    await component.addCypress();
+    await component.addCypressForAngular();
 
     expect(projectService.addCypress.called).toBe(false);
   });
@@ -212,7 +212,7 @@ describe('AngularGenerator', () => {
     const alertBus = stubAlertBus();
     await wrap({ projectService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
 
-    await component.addCypress();
+    await component.addCypressForAngular();
 
     const args = projectService.addCypress.getCall(0).args[0];
     expect(args).toEqual(projectJson);
@@ -225,7 +225,7 @@ describe('AngularGenerator', () => {
     projectService.addCypress.rejects('error');
     await wrap({ projectService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
 
-    await component.addCypress();
+    await component.addCypressForAngular();
 
     expectAlertErrorToBe(alertBus, 'Adding Cypress to project failed error');
   });

@@ -43,7 +43,7 @@ export default defineComponent({
       }
     };
 
-    const addCypress = async (): Promise<void> => {
+    const addCypressForReact = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await projectService
           .addCypress(toProject(props.project as ProjectToUpdate))
@@ -56,7 +56,7 @@ export default defineComponent({
       selectorPrefix,
       isReactWithStyle,
       addReact,
-      addCypress,
+      addCypressForReact,
       props,
     };
   },

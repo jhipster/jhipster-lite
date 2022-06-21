@@ -62,7 +62,7 @@ export default defineComponent({
       }
     };
 
-    const addCypress = async (): Promise<void> => {
+    const addCypressForAngular = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await projectService
           .addCypress(toProject(props.project as ProjectToUpdate))
@@ -77,7 +77,7 @@ export default defineComponent({
       addAngularWithJWT,
       addOauth2,
       addHealth,
-      addCypress,
+      addCypressForAngular,
       props,
     };
   },

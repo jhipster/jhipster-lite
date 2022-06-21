@@ -123,7 +123,7 @@ describe('ReactGenerator', () => {
     projectService.addCypress.resolves({});
     await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
 
-    await component.addCypress();
+    await component.addCypressForReact();
 
     expect(projectService.addCypress.called).toBe(false);
   });
@@ -134,7 +134,7 @@ describe('ReactGenerator', () => {
     const alertBus = stubAlertBus();
     await wrap({ projectService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
 
-    await component.addCypress();
+    await component.addCypressForReact();
 
     const args = projectService.addCypress.getCall(0).args[0];
     expect(args).toEqual(projectJson);
@@ -147,7 +147,7 @@ describe('ReactGenerator', () => {
     projectService.addCypress.rejects('error');
     await wrap({ projectService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
 
-    await component.addCypress();
+    await component.addCypressForReact();
 
     expectAlertErrorToBe(alertBus, 'Adding Cypress to project failed error');
   });

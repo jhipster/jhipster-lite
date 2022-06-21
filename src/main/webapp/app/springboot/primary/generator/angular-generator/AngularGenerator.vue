@@ -9,7 +9,7 @@
     />
     <GeneratorButtonVue :label="'Add OAuth2'" :service="'angular-oauth2'" :selector-prefix="selectorPrefix" @click.prevent="addOauth2" />
     <GeneratorButtonVue :label="'Add Health'" :service="'angular-health'" :selector-prefix="selectorPrefix" @click.prevent="addHealth" />
-    <GeneratorButtonVue :label="'Add Cypress'" :service="'react-cypress'" :selector-prefix="selectorPrefix" @click.prevent="addCypress" />
+    <GeneratorButtonVue :label="'Cypress'" :service="'react-cypress'" :selector-prefix="selectorPrefix" @click.prevent="addCypress" />
   </div>
 </template>
 

@@ -23,7 +23,7 @@ public class JHipsterSource {
   public JHipsterSource template(String file) {
     Assert.notBlank("file", file);
 
-    if (file.endsWith(MUSTACHE_EXTENSION)) {
+    if (isTemplate(file)) {
       return file(file);
     }
 
@@ -41,7 +41,7 @@ public class JHipsterSource {
   public String extension() {
     String filename = source.getFileName().toString();
 
-    if (filename.endsWith(MUSTACHE_EXTENSION)) {
+    if (isTemplate(filename)) {
       return findExtension(filename.substring(0, filename.length() - MUSTACHE_EXTENSION.length()));
     }
 
@@ -50,5 +50,13 @@ public class JHipsterSource {
 
   private String findExtension(String filename) {
     return "." + FilenameUtils.getExtension(filename);
+  }
+
+  public boolean isNotTemplate() {
+    return !isTemplate(source.getFileName().toString());
+  }
+
+  private boolean isTemplate(String filename) {
+    return filename.endsWith(MUSTACHE_EXTENSION);
   }
 }

@@ -41,7 +41,7 @@ class FileSystemNpmVersionsTest {
   }
 
   private void mockProjectFiles() {
-    when(projectFiles.read("generator/dependencies/common/package.json"))
+    when(projectFiles.readString("generator/dependencies/common/package.json"))
       .thenReturn(
         """
         {

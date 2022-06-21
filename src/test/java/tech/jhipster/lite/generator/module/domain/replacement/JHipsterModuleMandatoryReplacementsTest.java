@@ -1,22 +1,16 @@
 package tech.jhipster.lite.generator.module.domain.replacement;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonComplete;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.generator.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 @UnitTest

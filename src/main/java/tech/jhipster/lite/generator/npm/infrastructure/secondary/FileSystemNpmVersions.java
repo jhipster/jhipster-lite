@@ -41,7 +41,7 @@ class FileSystemNpmVersions implements NpmVersions {
   }
 
   private String readVersionsFile(String sourceFolder) {
-    return projectFiles.read("generator/dependencies/" + sourceFolder + "/package.json");
+    return projectFiles.readString("generator/dependencies/" + sourceFolder + "/package.json");
   }
 
   private Pattern dependencyPattern(NpmPackageName packageName) {

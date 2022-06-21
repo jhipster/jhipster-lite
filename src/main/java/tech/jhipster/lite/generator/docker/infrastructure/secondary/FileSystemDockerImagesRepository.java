@@ -44,10 +44,7 @@ class FileSystemDockerImagesRepository implements DockerImages {
     return line -> {
       int versionSeparatorIndex = line.lastIndexOf(":");
 
-      return new DockerImage(
-        line.substring(DOCKER_FROM.length(), versionSeparatorIndex),
-        line.substring(versionSeparatorIndex + 1, line.length())
-      );
+      return new DockerImage(line.substring(DOCKER_FROM.length(), versionSeparatorIndex), line.substring(versionSeparatorIndex + 1));
     };
   }
 }

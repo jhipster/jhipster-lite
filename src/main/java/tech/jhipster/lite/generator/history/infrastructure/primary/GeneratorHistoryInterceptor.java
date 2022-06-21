@@ -17,7 +17,7 @@ import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorS
 public class GeneratorHistoryInterceptor {
 
   private final GeneratorHistoryApplicationService generatorHistoryApplicationService;
-  private Clock clock;
+  private final Clock clock;
 
   public GeneratorHistoryInterceptor(GeneratorHistoryApplicationService generatorHistoryApplicationService, Clock clock) {
     this.generatorHistoryApplicationService = generatorHistoryApplicationService;

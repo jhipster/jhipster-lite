@@ -1,13 +1,23 @@
 package tech.jhipster.lite.generator.module.domain.replacement;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonComplete;
 import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.generator.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
 
 import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.project.domain.Project;
 
 @UnitTest
 class JHipsterModuleMandatoryReplacementsTest {
@@ -20,6 +30,54 @@ class JHipsterModuleMandatoryReplacementsTest {
   @Test
   void shouldNotApplyReplacementOnUnknownCurrentValue() {
     assertThatThrownBy(() -> replaceIn("maven/pom.xml")).isExactlyInstanceOf(UnknownCurrentValueException.class);
+  }
+
+  @Test
+  void shouldApplyCorrectTextMatcherPlacement() {
+    Project project = tmpProjectWithPackageJsonComplete();
+    TestUtils.copyPomXml(project);
+
+    JHipsterProjectFolder folder = new JHipsterProjectFolder(project.getFolder());
+    JHipsterModuleBuilder module = moduleBuilder(JHipsterModuleProperties.defaultProperties(folder))
+      .mandatoryReplacements()
+      .in("pom.xml")
+      .add(justBefore(new TextMatcher("</dependencies>")), "Before")
+      .add(justAfter(new TextMatcher("</dependencies>")), "aFter")
+      .add(justLineBefore(new TextMatcher("<modelVersion>4.0.0</modelVersion>")), "BeforeLine")
+      .add(justLineAfter(new TextMatcher("<modelVersion>4.0.0</modelVersion>")), "AfterLine")
+      .and()
+      .and();
+
+    assertThatModule(module.build())
+      .createFile("pom.xml")
+      .containing("Before</dependencies>")
+      .containing("</dependencies>aFter")
+      .containing("BeforeLine\n<modelVersion>4.0.0</modelVersion>")
+      .containing("<modelVersion>4.0.0</modelVersion>\nAfterLine");
+  }
+
+  @Test
+  void shouldApplyCorrectRegexMatcherPlacement() {
+    Project project = tmpProjectWithPackageJsonComplete();
+    TestUtils.copyPomXml(project);
+
+    JHipsterProjectFolder folder = new JHipsterProjectFolder(project.getFolder());
+    JHipsterModuleBuilder module = moduleBuilder(JHipsterModuleProperties.defaultProperties(folder))
+      .mandatoryReplacements()
+      .in("pom.xml")
+      .add(justBefore(new RegexMatcher("</dependencies>")), "Before")
+      .add(justAfter(new RegexMatcher("</dependencies>")), "aFter")
+      .add(justLineBefore(new RegexMatcher("<modelVersion>4.0.0</modelVersion>")), "BeforeLine")
+      .add(justLineAfter(new RegexMatcher("<modelVersion>4.0.0</modelVersion>")), "AfterLine")
+      .and()
+      .and();
+
+    assertThatModule(module.build())
+      .createFile("pom.xml")
+      .containing("Before</dependencies>")
+      .containing("</dependencies>aFter")
+      .containing("BeforeLine\n<modelVersion>4.0.0</modelVersion>")
+      .containing("<modelVersion>4.0.0</modelVersion>\nAfterLine");
   }
 
   private static void replaceIn(String file) {

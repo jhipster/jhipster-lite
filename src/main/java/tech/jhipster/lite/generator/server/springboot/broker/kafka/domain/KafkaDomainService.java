@@ -87,7 +87,7 @@ public class KafkaDomainService implements KafkaService {
 
   @Override
   public void addDummyProducerConsumer(final Project project) {
-    if (!springBootCommonService.getProperty(project, DUMMY_TOPIC_NAME).isPresent()) {
+    if (springBootCommonService.getProperty(project, DUMMY_TOPIC_NAME).isEmpty()) {
       project.addDefaultConfig(PACKAGE_NAME);
       project.addDefaultConfig(BASE_NAME);
       final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));

@@ -46,10 +46,8 @@ class CucumberModuleFactoryTest {
         "SyncHeaderAsserter.java",
         "SyncResponseAsserter.java"
       )
-      .createFile("documentation/cucumber.md")
-      .and()
-      .createFile("src/test/features/.gitkeep")
-      .and()
+      .createFiles("documentation/cucumber.md")
+      .createFiles("src/test/features/.gitkeep")
       .createFile("pom.xml")
       .containing("<artifactId>cucumber-junit</artifactId>")
       .containing("<artifactId>cucumber-java</artifactId>")
@@ -57,6 +55,22 @@ class CucumberModuleFactoryTest {
       .containing("<artifactId>junit-vintage-engine</artifactId>")
       .containing("<artifactId>testng</artifactId>")
       .containing("<artifactId>awaitility</artifactId>")
-      .containing("<version>${cucumber.version}</version>");
+      .containing("<version>${cucumber.version}</version>")
+      .and()
+      .doNotCreateFiles("src/test/java/com/jhipster/test/cucumber/CucumberJpaReset.java");
+  }
+
+  @Test
+  void shouldAddDataResetWithSelectedOption() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(FileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .put("jpaReset", true)
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModuleOnProjectWithDefaultPom(module).createFiles("src/test/java/com/jhipster/test/cucumber/CucumberJpaReset.java");
   }
 }

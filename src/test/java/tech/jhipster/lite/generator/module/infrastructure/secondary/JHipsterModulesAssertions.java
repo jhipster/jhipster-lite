@@ -112,6 +112,20 @@ public final class JHipsterModulesAssertions {
       return path -> assertions.assertThat(Files.exists(path)).as(fileNotFoundMessage(path, projectFolder)).isTrue();
     }
 
+    public ModuleAsserter doNotCreateFiles(String... files) {
+      assertThat(files).as("Can't check null files as not created for a module").isNotNull();
+
+      SoftAssertions assertions = new SoftAssertions();
+      Stream.of(files).map(file -> projectFolder.filePath(file)).forEach(assertFileNotExist(assertions));
+      assertions.assertAll();
+
+      return this;
+    }
+
+    private Consumer<Path> assertFileNotExist(SoftAssertions assertions) {
+      return path -> assertions.assertThat(Files.notExists(path)).as(fileFoundMessage(path, projectFolder)).isTrue();
+    }
+
     public ModuleFileAsserter createFile(String file) {
       return new ModuleFileAsserter(this, file);
     }
@@ -171,6 +185,10 @@ public final class JHipsterModulesAssertions {
 
   private static Supplier<String> fileNotFoundMessage(Path path, JHipsterProjectFolder projectFolder) {
     return () -> "Can't find file " + path + " in project folder, found " + projectFiles(projectFolder);
+  }
+
+  private static Supplier<String> fileFoundMessage(Path path, JHipsterProjectFolder projectFolder) {
+    return () -> "Found file " + path + " in project folder, found " + projectFiles(projectFolder);
   }
 
   private static String projectFiles(JHipsterProjectFolder projectFolder) {

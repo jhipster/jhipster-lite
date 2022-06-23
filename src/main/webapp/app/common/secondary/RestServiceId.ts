@@ -34,6 +34,7 @@ const SERVICES: Record<string, Service> = {
   mongock: Service.MONGOCK,
   mssql: Service.MSSQL,
   postgresql: Service.POSTGRESQL,
+  'react-cypress': Service.REACT_CYPRESS,
   'sonar-java-backend': Service.SONAR_JAVA_BACKEND,
   'sonar-java-backend-and-frontend': Service.SONAR_JAVA_BACKEND_AND_FRONTEND,
   springboot: Service.SPRINGBOOT,

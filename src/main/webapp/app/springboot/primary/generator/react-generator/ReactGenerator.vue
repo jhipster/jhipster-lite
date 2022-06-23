@@ -21,6 +21,12 @@
       :selector-prefix="selectorPrefix"
       @click.prevent="addReact"
     />
+    <GeneratorButtonVue
+      :label="'Cypress'"
+      :service="'react-cypress'"
+      :selector-prefix="selectorPrefix"
+      @click.prevent="addCypressForReact"
+    />
   </div>
 </template>
 

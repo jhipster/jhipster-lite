@@ -38,6 +38,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.MONGODB)).toEqual<ServiceProjection>('mongodb');
     expect(toServiceProjection(Service.MONGOCK)).toEqual<ServiceProjection>('mongock');
     expect(toServiceProjection(Service.POSTGRESQL)).toEqual<ServiceProjection>('postgresql');
+    expect(toServiceProjection(Service.REACT_CYPRESS)).toEqual<ServiceProjection>('react-cypress');
     expect(toServiceProjection(Service.SONAR_JAVA_BACKEND)).toEqual<ServiceProjection>('sonar-java-backend');
     expect(toServiceProjection(Service.SONAR_JAVA_BACKEND_AND_FRONTEND)).toEqual<ServiceProjection>('sonar-java-backend-and-frontend');
     expect(toServiceProjection(Service.SPRINGBOOT)).toEqual<ServiceProjection>('spring-boot');
@@ -108,6 +109,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('mongodb')).toEqual<Service>(Service.MONGODB);
     expect(fromServiceProjection('mongock')).toEqual<Service>(Service.MONGOCK);
     expect(fromServiceProjection('postgresql')).toEqual<Service>(Service.POSTGRESQL);
+    expect(fromServiceProjection('react-cypress')).toEqual<Service>(Service.REACT_CYPRESS);
     expect(fromServiceProjection('sonar-java-backend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND);
     expect(fromServiceProjection('sonar-java-backend-and-frontend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND_AND_FRONTEND);
     expect(fromServiceProjection('spring-boot')).toEqual<Service>(Service.SPRINGBOOT);

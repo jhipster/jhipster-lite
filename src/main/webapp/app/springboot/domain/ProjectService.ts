@@ -13,4 +13,5 @@ export interface ProjectService {
   addCodespacesSetup(project: Project): Promise<void>;
   addGitpodSetup(project: Project): Promise<void>;
   getProjectDetails(folder: string): Promise<void>;
+  addCypress(project: Project): Promise<void>;
 }

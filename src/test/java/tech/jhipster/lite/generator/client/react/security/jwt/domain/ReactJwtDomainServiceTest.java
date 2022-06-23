@@ -48,7 +48,7 @@ class ReactJwtDomainServiceTest {
 
     reactJwtDomainService.addDependencies(project);
 
-    verify(npmService, times(4)).addDependency(any(Project.class), anyString(), anyString());
+    verify(npmService, times(3)).addDependency(any(Project.class), anyString(), anyString());
   }
 
   @Test

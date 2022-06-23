@@ -245,6 +245,12 @@ public final class JHipsterModulesFixture {
       return this;
     }
 
+    public JHipsterModulePropertiesBuilder put(String key, Object value) {
+      properties.put(key, value);
+
+      return this;
+    }
+
     public JHipsterModuleProperties build() {
       return new JHipsterModuleProperties(projectFolder, properties);
     }

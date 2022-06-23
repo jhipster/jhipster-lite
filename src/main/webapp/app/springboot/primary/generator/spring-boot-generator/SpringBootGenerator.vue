@@ -33,6 +33,12 @@
           @click.prevent="addSpringBootActuator"
         />
         <GeneratorButtonVue :label="'Spring Doc'" :service="'spring-doc'" :selector-prefix="selectorPrefix" @click.prevent="addSpringDoc" />
+        <GeneratorButtonVue
+          :label="'Java Archunit'"
+          :service="'java-archunit'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addJavaArchunit"
+        />
       </div>
       <div>
         <GeneratorButtonVue

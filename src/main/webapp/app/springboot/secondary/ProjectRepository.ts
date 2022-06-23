@@ -49,9 +49,6 @@ export default class ProjectRepository implements ProjectService {
   async addJavaBase(project: Project): Promise<void> {
     await this.postAndGetHistory('api/servers/java/base', toRestProject(project));
   }
-  async addJavaArchunit(project: Project): Promise<void> {
-    await this.postAndGetHistory('api/servers/java/arch', toRestProject(project));
-  }
 
   async download(project: Project): Promise<DocumentFile> {
     const restProject: RestProject = toRestProject(project);

@@ -377,43 +377,6 @@ describe('ProjectGenerator', () => {
     expect(message).toBe('Adding Java Base to project failed error');
   });
 
-  it('should not add Java Archunit when project path is not filled', async () => {
-    const projectService = stubProjectService();
-    projectService.addJavaArchunit.resolves({});
-    await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
-
-    await component.addJavaArchunit();
-
-    expect(projectService.addJavaArchunit.called).toBe(false);
-  });
-
-  it('should add Java Archunit when project path is filled', async () => {
-    const alertBus = stubAlertBus();
-    const projectService = stubProjectService();
-    projectService.addJavaArchunit.resolves({});
-    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({ folder: 'project/path' });
-    await wrap({ projectService, project: projectToUpdate, alertBus });
-
-    await component.addJavaArchunit();
-
-    const args = projectService.addJavaArchunit.getCall(0).args[0];
-    expect(args).toEqual(projectJson);
-    const [alertMessage] = alertBus.success.getCall(0).args;
-    expect(alertMessage).toBe('Java Archunit successfully added');
-  });
-
-  it('should handle error on adding java Archunit failure', async () => {
-    const alertBus = stubAlertBus();
-    const projectService = stubProjectService();
-    projectService.addJavaArchunit.rejects('error');
-    await wrap({ alertBus, projectService, project: createProjectToUpdate({ folder: 'project/path' }) });
-
-    await component.addJavaArchunit();
-
-    const [message] = alertBus.error.getCall(0).args;
-    expect(message).toBe('Adding Java Archunit to project failed error');
-  });
-
   it('should not add Frontend Maven Plugin when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.addFrontendMavenPlugin.resolves({});

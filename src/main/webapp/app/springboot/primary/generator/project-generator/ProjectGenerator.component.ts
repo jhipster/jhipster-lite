@@ -110,15 +110,6 @@ export default defineComponent({
       }
     };
 
-    const addJavaArchunit = async (): Promise<void> => {
-      if (props.project.folder !== '') {
-        await projectService
-          .addJavaArchunit(toProject(props.project as ProjectToUpdate))
-          .then(() => alertBus.success('Java Archunit successfully added'))
-          .catch(error => alertBus.error(`Adding Java Archunit to project failed ${error}`));
-      }
-    };
-
     const addFrontendMavenPlugin = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await projectService
@@ -147,7 +138,6 @@ export default defineComponent({
       addSonarBackend,
       addSonarBackendFrontend,
       addJavaBase,
-      addJavaArchunit,
       addFrontendMavenPlugin,
       addCodespacesSetup,
       addGitpodSetup,

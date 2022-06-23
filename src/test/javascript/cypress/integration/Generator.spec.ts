@@ -28,6 +28,7 @@ describe('Generator', () => {
     cy.get(projectGeneratorSelector('add-sonar-java-backend-button')).contains('Sonar Backend');
     cy.get(projectGeneratorSelector('add-sonar-java-backend-and-frontend-button')).contains('Sonar Backend+Frontend');
     cy.get(projectGeneratorSelector('add-java-base-button')).contains('Java Base');
+    cy.get(projectGeneratorSelector('add-java-archunit-button')).contains('Java Archunit');
     cy.get(projectGeneratorSelector('add-frontend-maven-plugin-button')).contains('Frontend Maven Plugin');
     cy.get(projectGeneratorSelector('add-download-button')).should('not.exist');
   });

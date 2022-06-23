@@ -47,6 +47,12 @@
       </div>
       <div>
         <GeneratorButtonVue :label="'Java Base'" :service="'java-base'" :selector-prefix="selectorPrefix" @click.prevent="addJavaBase" />
+        <GeneratorButtonVue
+          :label="'Java Archunit'"
+          :service="'java-archunit'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addJavaArchunit"
+        />
       </div>
       <div>
         <GeneratorButtonVue

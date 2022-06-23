@@ -9,6 +9,7 @@ export interface ProjectService {
   addSonarBackendFrontend(project: Project): Promise<void>;
   addFrontendMavenPlugin(project: Project): Promise<void>;
   addJavaBase(project: Project): Promise<void>;
+  addJavaArchunit(project: Project): Promise<void>;
   download(project: Project): Promise<DocumentFile>;
   addCodespacesSetup(project: Project): Promise<void>;
   addGitpodSetup(project: Project): Promise<void>;

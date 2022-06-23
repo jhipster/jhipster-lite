@@ -85,7 +85,7 @@ public class FileUtils {
   public static Optional<String> getValueBetween(String filename, String prefix, String suffix) {
     Assert.notBlank(FILENAME, filename);
     Optional<String> matchingLine = readLine(filename, prefix);
-    return matchingLine.map(line -> getValueFromLine(prefix, suffix, line)).orElse(Optional.empty());
+    return matchingLine.flatMap(line -> getValueFromLine(prefix, suffix, line));
   }
 
   public static Optional<String> getValueFromLine(String prefix, String suffix, String line) {

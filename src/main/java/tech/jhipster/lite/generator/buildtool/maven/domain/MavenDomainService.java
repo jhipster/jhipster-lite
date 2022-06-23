@@ -7,7 +7,6 @@ import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
 import static tech.jhipster.lite.common.domain.WordUtils.LF;
 import static tech.jhipster.lite.common.domain.WordUtils.indent;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.*;
-import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.GROUP_ID_END;
 import static tech.jhipster.lite.generator.project.domain.Constants.DEPENDENCIES_FOLDER;
 import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
 import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;

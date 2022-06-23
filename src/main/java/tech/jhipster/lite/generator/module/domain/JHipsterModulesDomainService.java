@@ -32,6 +32,7 @@ public class JHipsterModulesDomainService {
       .mandatoryReplacements(module.mandatoryReplacements())
       .optionalReplacements(module.optionalReplacements())
       .javaDependencies(buildDependenciesChanges(module))
+      .packageJson(module.packageJson())
       .preActions(module.preActions())
       .postActions(module.postActions())
       .springProperties(module.springProperties());

@@ -22,6 +22,12 @@
       @click.prevent="addReact"
     />
     <GeneratorButtonVue :label="'Add JWT'" :service="'react-with-jwt'" :selector-prefix="selectorPrefix" @click.prevent="addReactWithJWT" />
+    <GeneratorButtonVue
+      :label="'Cypress'"
+      :service="'react-cypress'"
+      :selector-prefix="selectorPrefix"
+      @click.prevent="addCypressForReact"
+    />
   </div>
 </template>
 

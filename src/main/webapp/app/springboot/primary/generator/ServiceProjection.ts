@@ -17,6 +17,7 @@ export type ServiceProjection =
   | 'flyway'
   | 'flyway-with-users-and-authority-changelogs'
   | 'frontend-maven-plugin'
+  | 'github-actions'
   | 'jacoco-check-minimal-coverage'
   | 'java-base'
   | 'jib'
@@ -32,6 +33,7 @@ export type ServiceProjection =
   | 'mongodb'
   | 'mongock'
   | 'postgresql'
+  | 'react-cypress'
   | 'sonar-java-backend'
   | 'sonar-java-backend-and-frontend'
   | 'spring-boot'
@@ -75,6 +77,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.FLYWAY]: 'flyway',
   [Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'flyway-with-users-and-authority-changelogs',
   [Service.FRONTEND_MAVEN_PLUGIN]: 'frontend-maven-plugin',
+  [Service.GITHUB_ACTIONS]: 'github-actions',
   [Service.INITIALIZATION]: 'initialization',
   [Service.JACOCO_CHECK_MINIMAL_COVERAGE]: 'jacoco-check-minimal-coverage',
   [Service.JAVA_BASE]: 'java-base',
@@ -91,6 +94,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.MONGODB]: 'mongodb',
   [Service.MONGOCK]: 'mongock',
   [Service.POSTGRESQL]: 'postgresql',
+  [Service.REACT_CYPRESS]: 'react-cypress',
   [Service.SONAR_JAVA_BACKEND]: 'sonar-java-backend',
   [Service.SONAR_JAVA_BACKEND_AND_FRONTEND]: 'sonar-java-backend-and-frontend',
   [Service.SPRINGBOOT]: 'spring-boot',
@@ -137,6 +141,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   flyway: Service.FLYWAY,
   'flyway-with-users-and-authority-changelogs': Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   'frontend-maven-plugin': Service.FRONTEND_MAVEN_PLUGIN,
+  'github-actions': Service.GITHUB_ACTIONS,
   initialization: Service.INITIALIZATION,
   'jacoco-check-minimal-coverage': Service.JACOCO_CHECK_MINIMAL_COVERAGE,
   'java-base': Service.JAVA_BASE,
@@ -153,6 +158,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   mongodb: Service.MONGODB,
   mongock: Service.MONGOCK,
   postgresql: Service.POSTGRESQL,
+  'react-cypress': Service.REACT_CYPRESS,
   'sonar-java-backend': Service.SONAR_JAVA_BACKEND,
   'sonar-java-backend-and-frontend': Service.SONAR_JAVA_BACKEND_AND_FRONTEND,
   'spring-boot': Service.SPRINGBOOT,

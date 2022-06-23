@@ -7,7 +7,6 @@ import tech.jhipster.lite.generator.docker.domain.DockerImage;
 import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.generator.module.domain.JHipsterSource;
 import tech.jhipster.lite.generator.module.domain.javadependency.GroupId;
 import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;

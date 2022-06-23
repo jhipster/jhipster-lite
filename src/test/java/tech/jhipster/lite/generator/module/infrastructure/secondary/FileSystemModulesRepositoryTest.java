@@ -25,7 +25,7 @@ class FileSystemModulesRepositoryTest {
     JHipsterModule module = module();
 
     // @formatter:off
-    assertThatModuleOnProjectWithDefaultPom(module) 
+    assertThatModuleWithFiles(module, pomFile(), packageJsonFile())
       .createFiles(
         "src/main/java/com/company/myapp/MyApp.java",
         "src/main/java/com/company/myapp/errors/Assert.java",
@@ -60,6 +60,11 @@ class FileSystemModulesRepositoryTest {
           "      <scope>test</scope>\n" +
           "    </dependency>"
         )
+        .and()
+      .createFile("package.json")
+        .containing("\"scripts\": {\n    \"serve\": \"tikui-core serve\"")
+        .containing("\"dependencies\": {\n    \"@angular/animations\": \"1.1.1\"")
+        .containing("\"devDependencies\": {\n    \"@playwright/test\": \"1.1.1\"")
         .and()
       .createFile("src/main/java/com/company/myapp/errors/Assert.java")
         .containing("Dummy replacement")

@@ -34,7 +34,7 @@ public class TemplatedFile {
     return file.destination().pathInProject(projectFolder);
   }
 
-  public String content(ProjectFilesReader files) {
+  public byte[] content(ProjectFilesReader files) {
     return file.content().read(files, context);
   }
 

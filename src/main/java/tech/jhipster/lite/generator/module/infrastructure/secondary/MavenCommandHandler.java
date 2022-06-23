@@ -54,7 +54,7 @@ class MavenCommandHandler {
   private final Match document;
 
   MavenCommandHandler(Indentation indentation, Path pomPath) {
-    Assert.notNull("indentiation", indentation);
+    Assert.notNull("indentation", indentation);
     Assert.notNull("pomPath", pomPath);
 
     this.indentation = indentation;

@@ -28,16 +28,18 @@ import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProfile;
 import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperties;
 import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperty.SpringPropertyKeyBuilder;
+import tech.jhipster.lite.generator.module.domain.packagejson.JHipsterModulePackageJson;
+import tech.jhipster.lite.generator.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
+import tech.jhipster.lite.generator.module.domain.packagejson.PackageName;
+import tech.jhipster.lite.generator.module.domain.packagejson.ScriptCommand;
+import tech.jhipster.lite.generator.module.domain.packagejson.ScriptKey;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.generator.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleMandatoryReplacements;
+import tech.jhipster.lite.generator.module.domain.replacement.*;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleMandatoryReplacements.JHipsterModuleMandatoryReplacementsBuilder;
-import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleOptionalReplacements;
 import tech.jhipster.lite.generator.module.domain.replacement.JHipsterModuleOptionalReplacements.JHipsterModuleOptionalReplacementsBuilder;
-import tech.jhipster.lite.generator.module.domain.replacement.RegexMatcher;
-import tech.jhipster.lite.generator.module.domain.replacement.TextMatcher;
 
 public class JHipsterModule {
 
@@ -47,6 +49,7 @@ public class JHipsterModule {
   private final JHipsterModuleOptionalReplacements optionalReplacements;
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
+  private final JHipsterModulePackageJson packageJson;
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
   private final SpringProperties springProperties;
@@ -59,6 +62,7 @@ public class JHipsterModule {
     optionalReplacements = builder.optionalReplacements.build();
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
+    packageJson = builder.packageJson.build();
     preActions = builder.preActions.build();
     postActions = builder.postActions.build();
     springProperties = buildSpringProperties(builder);
@@ -141,6 +145,22 @@ public class JHipsterModule {
     return new RegexMatcher(regex);
   }
 
+  public static JustBefore justBefore(ElementMatcher matcher) {
+    return new JustBefore(matcher);
+  }
+
+  public static JustAfter justAfter(ElementMatcher matcher) {
+    return new JustAfter(matcher);
+  }
+
+  public static JustLineBefore justLineBefore(ElementMatcher matcher) {
+    return new JustLineBefore(matcher);
+  }
+
+  public static JustLineAfter justLineAfter(ElementMatcher matcher) {
+    return new JustLineAfter(matcher);
+  }
+
   public static PropertyKey propertyKey(String key) {
     return new PropertyKey(key);
   }
@@ -155,6 +175,18 @@ public class JHipsterModule {
 
   public static DocumentationTitle documentationTitle(String title) {
     return new DocumentationTitle(title);
+  }
+
+  public static ScriptKey scriptKey(String key) {
+    return new ScriptKey(key);
+  }
+
+  public static ScriptCommand scriptCommand(String command) {
+    return new ScriptCommand(command);
+  }
+
+  public static PackageName packageName(String packageName) {
+    return new PackageName(packageName);
   }
 
   public JHipsterProjectFolder projectFolder() {
@@ -183,6 +215,10 @@ public class JHipsterModule {
     return javaDependencies;
   }
 
+  public JHipsterModulePackageJson packageJson() {
+    return packageJson;
+  }
+
   public JHipsterModulePreActions preActions() {
     return preActions;
   }
@@ -206,6 +242,7 @@ public class JHipsterModule {
     private final JHipsterModuleMandatoryReplacementsBuilder mandatoryReplacements = JHipsterModuleMandatoryReplacements.builder(this);
     private final JHipsterModuleOptionalReplacementsBuilder optionalReplacements = JHipsterModuleOptionalReplacements.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
+    private final JHipsterModulePackageJsonBuilder packageJson = JHipsterModulePackageJson.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
     private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> mainSpringProperties = new HashMap<>();
@@ -254,6 +291,10 @@ public class JHipsterModule {
 
     public JHipsterModuleJavaDependenciesBuilder javaDependencies() {
       return javaDependencies;
+    }
+
+    public JHipsterModulePackageJsonBuilder packageJson() {
+      return packageJson;
     }
 
     public JHipsterModulePreActionsBuilder preActions() {

@@ -4,6 +4,7 @@ const generatorSelector = (name: string) => dataSelector(composeSelector('genera
 const headerSelector = (name: string) => dataSelector(composeSelector('header', name));
 const projectGeneratorSelector = (name: string) => dataSelector(composeSelector('project-generator', name));
 const springBootGeneratorSelector = (name: string) => dataSelector(composeSelector('spring-boot-generator', name));
+const setupGeneratorSelector = (name: string) => dataSelector(composeSelector('setup-generator', name));
 const angularGeneratorSelector = (name: string) => dataSelector(composeSelector('angular-generator', name));
 const reactGeneratorSelector = (name: string) => dataSelector(composeSelector('react-generator', name));
 const vueGeneratorSelector = (name: string) => dataSelector(composeSelector('vue-generator', name));
@@ -33,6 +34,8 @@ describe('Generator', () => {
 
   it('should display setup', () => {
     cy.get(dataSelector('section-setup')).contains('SETUP');
+
+    cy.get(setupGeneratorSelector('add-github-actions-button')).contains('Github Actions');
   });
 
   it('should display spring boot', () => {
@@ -93,16 +96,19 @@ describe('Generator', () => {
     cy.get(angularGeneratorSelector('add-angular-with-jwt-button')).contains('Add JWT');
     cy.get(angularGeneratorSelector('add-angular-oauth2-button')).contains('Add OAuth2');
     cy.get(angularGeneratorSelector('add-angular-health-button')).contains('Add Health');
+    cy.get(angularGeneratorSelector('add-react-cypress-button')).contains('Cypress');
   });
 
   it('should display react', () => {
     cy.get(generatorSelector('option-react')).check();
     cy.get(reactGeneratorSelector('add-react-button')).contains('React');
+    cy.get(reactGeneratorSelector('add-react-cypress-button')).contains('Cypress');
   });
 
   it('should display vue', () => {
     cy.get(generatorSelector('option-vue')).check();
     cy.get(vueGeneratorSelector('add-vue-button')).contains('Vue');
+    cy.get(vueGeneratorSelector('add-react-cypress-button')).contains('Cypress');
   });
 
   it('should display svelte', () => {

@@ -27,7 +27,7 @@ class FileSystemDockerImagesRepository implements DockerImages {
     Assert.notNull("imageName", imageName);
 
     return Stream
-      .of(files.read("/generator/dependencies/Dockerfile").split("[\r\n]"))
+      .of(files.readString("/generator/dependencies/Dockerfile").split("[\r\n]"))
       .map(String::trim)
       .map(String::toLowerCase)
       .filter(imageLine(imageName))
@@ -44,10 +44,7 @@ class FileSystemDockerImagesRepository implements DockerImages {
     return line -> {
       int versionSeparatorIndex = line.lastIndexOf(":");
 
-      return new DockerImage(
-        line.substring(DOCKER_FROM.length(), versionSeparatorIndex),
-        line.substring(versionSeparatorIndex + 1, line.length())
-      );
+      return new DockerImage(line.substring(DOCKER_FROM.length(), versionSeparatorIndex), line.substring(versionSeparatorIndex + 1));
     };
   }
 }

@@ -49,7 +49,7 @@ class PropertiesFileSpringPropertiesHandler {
     int propertyIndex = currentProperties.indexOf(propertyId(key));
     if (propertyIndex != -1) {
       String start = currentProperties.substring(0, propertyIndex);
-      String end = currentProperties.substring(currentProperties.indexOf(BREAK, propertyIndex), currentProperties.length());
+      String end = currentProperties.substring(currentProperties.indexOf(BREAK, propertyIndex));
 
       return start + propertyLine(key, value) + end;
     }

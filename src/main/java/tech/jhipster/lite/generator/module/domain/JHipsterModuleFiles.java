@@ -32,8 +32,8 @@ public class JHipsterModuleFiles {
       this.module = module;
     }
 
-    public JHipsterModuleFilesBuilder add(JHipsterSource souce, JHipsterDestination destination) {
-      files.add(new JHipsterModuleFile(new JHipsterFileContent(souce.get()), destination));
+    public JHipsterModuleFilesBuilder add(JHipsterSource source, JHipsterDestination destination) {
+      files.add(new JHipsterModuleFile(new JHipsterFileContent(source), destination));
 
       return this;
     }

@@ -17,4 +17,8 @@ public record TextMatcher(String text) implements ElementMatcher {
   public BiFunction<String, String, String> replacer() {
     return (content, replacement) -> content.replace(text(), replacement);
   }
+  @Override
+  public String searchMatcher() {
+    return text();
+  }
 }

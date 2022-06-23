@@ -70,4 +70,8 @@ export default class ProjectRepository implements ProjectService {
       .then(response => this.projectStore.setProject(toProject(response.data)))
       .catch(() => this.projectStore.setProject({ folder }));
   }
+
+  async addCypress(project: Project): Promise<void> {
+    await this.postAndGetHistory('api/clients/cypress', toRestProject(project));
+  }
 }

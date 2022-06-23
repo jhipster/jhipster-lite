@@ -19,6 +19,7 @@ describe('ServiceProjection', () => {
       'flyway-with-users-and-authority-changelogs'
     );
     expect(toServiceProjection(Service.FRONTEND_MAVEN_PLUGIN)).toEqual<ServiceProjection>('frontend-maven-plugin');
+    expect(toServiceProjection(Service.GITHUB_ACTIONS)).toEqual<ServiceProjection>('github-actions');
     expect(toServiceProjection(Service.INITIALIZATION)).toEqual<ServiceProjection>('initialization');
     expect(toServiceProjection(Service.JACOCO_CHECK_MINIMAL_COVERAGE)).toEqual<ServiceProjection>('jacoco-check-minimal-coverage');
     expect(toServiceProjection(Service.JAVA_BASE)).toEqual<ServiceProjection>('java-base');
@@ -37,6 +38,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.MONGODB)).toEqual<ServiceProjection>('mongodb');
     expect(toServiceProjection(Service.MONGOCK)).toEqual<ServiceProjection>('mongock');
     expect(toServiceProjection(Service.POSTGRESQL)).toEqual<ServiceProjection>('postgresql');
+    expect(toServiceProjection(Service.REACT_CYPRESS)).toEqual<ServiceProjection>('react-cypress');
     expect(toServiceProjection(Service.SONAR_JAVA_BACKEND)).toEqual<ServiceProjection>('sonar-java-backend');
     expect(toServiceProjection(Service.SONAR_JAVA_BACKEND_AND_FRONTEND)).toEqual<ServiceProjection>('sonar-java-backend-and-frontend');
     expect(toServiceProjection(Service.SPRINGBOOT)).toEqual<ServiceProjection>('spring-boot');
@@ -89,6 +91,7 @@ describe('ServiceProjection', () => {
       Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS
     );
     expect(fromServiceProjection('frontend-maven-plugin')).toEqual<Service>(Service.FRONTEND_MAVEN_PLUGIN);
+    expect(fromServiceProjection('github-actions')).toEqual<Service>(Service.GITHUB_ACTIONS);
     expect(fromServiceProjection('initialization')).toEqual<Service>(Service.INITIALIZATION);
     expect(fromServiceProjection('jacoco-check-minimal-coverage')).toEqual<Service>(Service.JACOCO_CHECK_MINIMAL_COVERAGE);
     expect(fromServiceProjection('java-base')).toEqual<Service>(Service.JAVA_BASE);
@@ -107,6 +110,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('mongodb')).toEqual<Service>(Service.MONGODB);
     expect(fromServiceProjection('mongock')).toEqual<Service>(Service.MONGOCK);
     expect(fromServiceProjection('postgresql')).toEqual<Service>(Service.POSTGRESQL);
+    expect(fromServiceProjection('react-cypress')).toEqual<Service>(Service.REACT_CYPRESS);
     expect(fromServiceProjection('sonar-java-backend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND);
     expect(fromServiceProjection('sonar-java-backend-and-frontend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND_AND_FRONTEND);
     expect(fromServiceProjection('spring-boot')).toEqual<Service>(Service.SPRINGBOOT);

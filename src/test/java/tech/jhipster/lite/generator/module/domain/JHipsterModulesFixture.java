@@ -23,6 +23,7 @@ import tech.jhipster.lite.generator.module.domain.javadependency.command.JavaDep
 import tech.jhipster.lite.generator.module.domain.javadependency.command.RemoveJavaDependency;
 import tech.jhipster.lite.generator.module.domain.javadependency.command.SetJavaDependencyVersion;
 import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProperty;
+import tech.jhipster.lite.generator.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
@@ -69,6 +70,11 @@ public final class JHipsterModulesFixture {
       .add(groupId("org.zalando"), artifactId("problem-spring-web"), versionSlug("problem-spring"))
       .add(optionalTestDependency())
       .add(groupId("io.jsonwebtoken"), artifactId("jjwt-api"), versionSlug("jjwt.version"))
+      .and()
+    .packageJson()
+      .addScript(scriptKey("serve"), scriptCommand("tikui-core serve"))
+      .addDependency(packageName("@angular/animations"), VersionSource.ANGULAR)
+      .addDevDependency(packageName("@playwright/test"), VersionSource.COMMON)
       .and()
     .preActions()
       .add(() -> log.debug("Applying fixture module"))
@@ -235,6 +241,12 @@ public final class JHipsterModulesFixture {
 
     public JHipsterModulePropertiesBuilder projectBaseName(String projectBaseName) {
       properties.put("baseName", projectBaseName);
+
+      return this;
+    }
+
+    public JHipsterModulePropertiesBuilder put(String key, Object value) {
+      properties.put(key, value);
 
       return this;
     }

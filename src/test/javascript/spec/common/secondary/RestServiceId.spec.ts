@@ -17,6 +17,7 @@ describe('RestServiceId', () => {
     expect(toService('flyway')).toEqual<Service>(Service.FLYWAY);
     expect(toService('flyway-user-and-authority-changelogs')).toEqual<Service>(Service.FLYWAY_WITH_USERS_AND_AUTHORITY_CHANGELOGS);
     expect(toService('frontend-maven-plugin')).toEqual<Service>(Service.FRONTEND_MAVEN_PLUGIN);
+    expect(toService('github-actions')).toEqual<Service>(Service.GITHUB_ACTIONS);
     expect(toService('init')).toEqual<Service>(Service.INITIALIZATION);
     expect(toService('jacoco-check-min-coverage')).toEqual<Service>(Service.JACOCO_CHECK_MINIMAL_COVERAGE);
     expect(toService('java-base')).toEqual<Service>(Service.JAVA_BASE);
@@ -33,6 +34,7 @@ describe('RestServiceId', () => {
     expect(toService('mysql')).toEqual<Service>(Service.MYSQL);
     expect(toService('mssql')).toEqual<Service>(Service.MSSQL);
     expect(toService('postgresql')).toEqual<Service>(Service.POSTGRESQL);
+    expect(toService('react-cypress')).toEqual<Service>(Service.REACT_CYPRESS);
     expect(toService('sonar-java-backend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND);
     expect(toService('sonar-java-backend-and-frontend')).toEqual<Service>(Service.SONAR_JAVA_BACKEND_AND_FRONTEND);
     expect(toService('springboot')).toEqual<Service>(Service.SPRINGBOOT);

@@ -24,6 +24,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.INITIALIZATION)).toEqual<ServiceProjection>('initialization');
     expect(toServiceProjection(Service.JACOCO_CHECK_MINIMAL_COVERAGE)).toEqual<ServiceProjection>('jacoco-check-minimal-coverage');
     expect(toServiceProjection(Service.JAVA_BASE)).toEqual<ServiceProjection>('java-base');
+    expect(toServiceProjection(Service.JAVA_ARCHUNIT)).toEqual<ServiceProjection>('java-archunit');
     expect(toServiceProjection(Service.JIB)).toEqual<ServiceProjection>('jib');
     expect(toServiceProjection(Service.LIQUIBASE)).toEqual<ServiceProjection>('liquibase');
     expect(toServiceProjection(Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS)).toEqual<ServiceProjection>(
@@ -96,6 +97,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('initialization')).toEqual<Service>(Service.INITIALIZATION);
     expect(fromServiceProjection('jacoco-check-minimal-coverage')).toEqual<Service>(Service.JACOCO_CHECK_MINIMAL_COVERAGE);
     expect(fromServiceProjection('java-base')).toEqual<Service>(Service.JAVA_BASE);
+    expect(fromServiceProjection('java-archunit')).toEqual<Service>(Service.JAVA_ARCHUNIT);
     expect(fromServiceProjection('jib')).toEqual<Service>(Service.JIB);
     expect(fromServiceProjection('liquibase')).toEqual<Service>(Service.LIQUIBASE);
     expect(fromServiceProjection('liquibase-with-users-and-authority-changelogs')).toEqual<Service>(

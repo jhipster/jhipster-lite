@@ -88,6 +88,14 @@ export default defineComponent({
           });
       }
     };
+    const addJavaArchunit = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addJavaArchunit(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Java Archunit successfully added'))
+          .catch(error => alertBus.error(`Adding Java Archunit to project failed ${error}`));
+      }
+    };
 
     const addSpringBootAopLogging = async (): Promise<void> => {
       if (props.project.folder !== '') {
@@ -376,6 +384,7 @@ export default defineComponent({
       addSpringBootWebfluxNetty,
       addSpringBootActuator,
       addSpringDoc,
+      addJavaArchunit,
       addSpringBootAopLogging,
       addSpringBootLogstash,
       addSpringBootSecurityJWT,

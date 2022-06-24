@@ -7,6 +7,7 @@ import { SpringBootGeneratorVue } from '@/springboot/primary/generator/spring-bo
 import { AlertBusFixture, stubAlertBus } from '../../../../common/domain/AlertBus.fixture';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
 import { projectJson } from '../RestProject.fixture';
+import { stubProjectService } from '../../../domain/ProjectService.fixture';
 
 let wrapper: VueWrapper;
 let component: any;
@@ -87,6 +88,41 @@ describe('SpringBootGenerator', () => {
     await component.addSpringBoot();
 
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot to project failed error');
+  });
+
+  it('should not add Java Archunit when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addJavaArchunit.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addJavaArchunit();
+
+    expect(springBootService.addJavaArchunit.called).toBe(false);
+  });
+
+  it('should add Java Archunit when project path is filled', async () => {
+    const alertBus = stubAlertBus();
+    const springBootService = stubSpringBootService();
+    springBootService.addJavaArchunit.resolves({});
+    const projectToUpdate: ProjectToUpdate = createProjectToUpdate({ folder: 'project/path' });
+    await wrap({ springBootService, project: projectToUpdate, alertBus });
+
+    await component.addJavaArchunit();
+
+    const args = springBootService.addJavaArchunit.getCall(0).args[0];
+    expect(args).toEqual(projectJson);
+    expectAlertSuccessToBe(alertBus, 'Java Archunit successfully added');
+  });
+
+  it('should handle error on adding java Archunit failure', async () => {
+    const alertBus = stubAlertBus();
+    const springBootService = stubSpringBootService();
+    springBootService.addJavaArchunit.rejects('error');
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addJavaArchunit();
+
+    expectAlertErrorToBe(alertBus, 'Adding Java Archunit to project failed error');
   });
 
   it('should not add SpringBoot MVC with Tomcat when project path is not filled', async () => {

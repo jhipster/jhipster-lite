@@ -23,6 +23,7 @@ const SERVICES: Record<string, Service> = {
   jib: Service.JIB,
   'jacoco-check-min-coverage': Service.JACOCO_CHECK_MINIMAL_COVERAGE,
   'java-base': Service.JAVA_BASE,
+  'java-archunit': Service.JAVA_ARCHUNIT,
   liquibase: Service.LIQUIBASE,
   'liquibase-user-and-authority-changelogs': Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS,
   logstash: Service.LOGSTASH,

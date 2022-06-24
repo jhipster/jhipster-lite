@@ -47,7 +47,7 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-spring-boot-webflux-netty-button')).contains('Spring Webflux Netty');
     cy.get(springBootGeneratorSelector('add-spring-boot-actuator-button')).contains('Spring Boot Actuator');
     cy.get(springBootGeneratorSelector('add-spring-doc-button')).contains('Spring Doc');
-
+    cy.get(springBootGeneratorSelector('add-java-archunit-button')).contains('Java Archunit');
     cy.get(springBootGeneratorSelector('add-aop-logging-button')).contains('AOP Logging');
     cy.get(springBootGeneratorSelector('add-logstash-button')).contains('Logstash');
 

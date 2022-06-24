@@ -6,6 +6,7 @@ export type ServiceProjection =
   | 'angular-with-jwt'
   | 'angular-oauth2'
   | 'angular-health'
+  | 'client-common-playwright'
   | 'consul'
   | 'dev-tools'
   | 'dockerfile'
@@ -66,6 +67,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.ANGULAR_WITH_JWT]: 'angular-with-jwt',
   [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
   [Service.ANGULAR_HEALTH]: 'angular-health',
+  [Service.CLIENT_COMMON_PLAYWRIGHT]: 'client-common-playwright',
   [Service.CONSUL]: 'consul',
   [Service.DEV_TOOLS]: 'dev-tools',
   [Service.DOCKERFILE]: 'dockerfile',
@@ -129,6 +131,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'angular-with-jwt': Service.ANGULAR_WITH_JWT,
   'angular-oauth2': Service.ANGULAR_OAUTH2,
   'angular-health': Service.ANGULAR_HEALTH,
+  'client-common-playwright': Service.CLIENT_COMMON_PLAYWRIGHT,
   consul: Service.CONSUL,
   'dev-tools': Service.DEV_TOOLS,
   'ehcache-with-java-config': Service.EHCACHE_WITH_JAVA_CONFIG,

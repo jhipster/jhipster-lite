@@ -15,6 +15,12 @@
       :selector-prefix="selectorPrefix"
       @click.prevent="addCypressForAngular"
     />
+    <GeneratorButtonVue
+      :label="'Playwright'"
+      :service="'client-common-playwright'"
+      :selector-prefix="selectorPrefix"
+      @click.prevent="addPlaywrightForAngular"
+    />
   </div>
 </template>
 

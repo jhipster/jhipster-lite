@@ -74,4 +74,8 @@ export default class ProjectRepository implements ProjectService {
   async addCypress(project: Project): Promise<void> {
     await this.postAndGetHistory('api/clients/cypress', toRestProject(project));
   }
+
+  async addPlaywright(project: Project): Promise<void> {
+    await this.postAndGetHistory('api/clients/playwright', toRestProject(project));
+  }
 }

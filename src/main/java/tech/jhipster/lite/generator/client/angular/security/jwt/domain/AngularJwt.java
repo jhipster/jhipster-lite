@@ -16,6 +16,7 @@ public class AngularJwt {
     String primaryAppLogin = "app/login";
     return Map.ofEntries(
       Map.entry("account.model.ts", primaryAppAuth),
+      Map.entry("account.model.spec.ts", primaryAppAuth),
       Map.entry("account.service.ts", primaryAppAuth),
       Map.entry("account.service.spec.ts", primaryAppAuth),
       Map.entry("auth.interceptor.ts", primaryAppAuth),

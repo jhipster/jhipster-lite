@@ -151,4 +151,38 @@ describe('ReactGenerator', () => {
 
     expectAlertErrorToBe(alertBus, 'Adding Cypress to project failed error');
   });
+
+  it('should not add Playwright when project path is not filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addPlaywright.resolves({});
+    await wrap({ projectService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addPlaywrightForReact();
+
+    expect(projectService.addPlaywright.called).toBe(false);
+  });
+
+  it('should add Playwright when project path is filled', async () => {
+    const projectService = stubProjectService();
+    projectService.addPlaywright.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ projectService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
+
+    await component.addPlaywrightForReact();
+
+    const args = projectService.addPlaywright.getCall(0).args[0];
+    expect(args).toEqual(projectJson);
+    expectAlertSuccessToBe(alertBus, 'Playwright successfully added');
+  });
+
+  it('should handle error on adding Playwright failure', async () => {
+    const projectService = stubProjectService();
+    const alertBus = stubAlertBus();
+    projectService.addPlaywright.rejects('error');
+    await wrap({ projectService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
+
+    await component.addPlaywrightForReact();
+
+    expectAlertErrorToBe(alertBus, 'Adding Playwright to project failed error');
+  });
 });

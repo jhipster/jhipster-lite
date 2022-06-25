@@ -7,6 +7,7 @@ describe('RestServiceId', () => {
     expect(toService('angular')).toEqual<Service>(Service.ANGULAR);
     expect(toService('angular-jwt')).toEqual<Service>(Service.ANGULAR_WITH_JWT);
     expect(toService('angular-oauth2')).toEqual<Service>(Service.ANGULAR_OAUTH2);
+    expect(toService('client-common-playwright')).toEqual<Service>(Service.CLIENT_COMMON_PLAYWRIGHT);
     expect(toService('consul')).toEqual<Service>(Service.CONSUL);
     expect(toService('dev-tools')).toEqual<Service>(Service.DEV_TOOLS);
     expect(toService('dockerfile')).toEqual<Service>(Service.DOCKERFILE);

@@ -48,6 +48,14 @@
         <option value="true" :selected="moduleProperties.get(property.key) === true">Yes</option>
         <option value="false" :selected="moduleProperties.get(property.key) === false">No</option>
       </select>
+
+      <div
+        class="jhipster-modules-form--field-optional-marker"
+        :data-selector="`property-${property.key}-optional-marker`"
+        v-if="!property.mandatory"
+      >
+        Optional
+      </div>
     </div>
   </aside>
 

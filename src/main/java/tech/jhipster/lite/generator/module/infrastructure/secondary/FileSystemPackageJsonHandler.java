@@ -115,7 +115,7 @@ class FileSystemPackageJsonHandler {
     return npmVersions.get(dependency.packageName().get(), Enums.map(dependency.versionSource(), NpmVersionSource.class)).get();
   }
 
-  @Generated
+  @Generated(reason = "The error handling is an hard to test implementation detail")
   private String readContent(Path file) {
     try {
       return Files.readString(file);
@@ -124,7 +124,7 @@ class FileSystemPackageJsonHandler {
     }
   }
 
-  @Generated
+  @Generated(reason = "The error handling is an hard to test implementation detail")
   private void write(Path file, String content) {
     try {
       Files.write(file, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.TRUNCATE_EXISTING);

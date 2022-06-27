@@ -75,6 +75,7 @@ public class JavaBaseModuleFactory {
           .and()
         .add(SOURCE.template("package-info-error.java"), packageInfoDestination(mainDestination, Destination.ERROR))
         .add(SOURCE.template("package-info-common.java"), packageInfoDestination(mainDestination,  Destination.COMMON))
+        .add(SOURCE.template("Generated.java"), mainDestination.append(Destination.COMMON_DOMAIN.path).append("Generated.java"))
         .add(SOURCE.template("ProjectCollections.java"), collectionsDestination(baseClassName, mainDestination))
         .add(SOURCE.template("ProjectCollectionsTest.java"), collectionsTestDestination(baseClassName, testDestination))
         .and()

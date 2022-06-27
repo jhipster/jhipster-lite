@@ -36,7 +36,7 @@ class FileSystemJavaDependenciesCommandsHandler {
     commands.get().forEach(command -> handle(handler, command));
   }
 
-  @Generated
+  @Generated(reason = "Jacoco thinks there is a missed branch")
   private void handle(MavenCommandHandler handler, JavaDependencyCommand command) {
     switch (command.type()) {
       case SET_VERSION -> handler.handle((SetJavaDependencyVersion) command);

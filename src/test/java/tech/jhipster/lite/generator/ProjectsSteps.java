@@ -31,6 +31,10 @@ public class ProjectsSteps {
     return lastProjectFolder = tmpDirForTest();
   }
 
+  public static String lastProjectFolder() {
+    return lastProjectFolder;
+  }
+
   @Then("I should have files in {string}")
   public void shouldHaveFiles(String basePath, List<String> files) {
     CucumberAssertions.assertThatLastResponse().hasOkStatus();
@@ -80,5 +84,10 @@ public class ProjectsSteps {
   @Then("I should have history entry for {string}")
   public void shouldHaveHistoryEntry(String slug) throws IOException {
     assertThat(Files.readString(Paths.get(lastProjectFolder, ".jhipster/history", "history.json"))).contains(slug);
+  }
+
+  @Then("I should have {string} in {string}")
+  public void shouldHaveFileContent(String content, String file) throws IOException {
+    assertThat(Files.readString(Paths.get(lastProjectFolder, file))).contains(content);
   }
 }

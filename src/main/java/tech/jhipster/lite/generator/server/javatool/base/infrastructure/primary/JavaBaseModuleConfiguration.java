@@ -8,7 +8,7 @@ import tech.jhipster.lite.generator.module.infrastructure.primary.JHipsterModule
 import tech.jhipster.lite.generator.server.javatool.base.application.JavaBaseApplicationService;
 
 @Configuration
-class JavaBaseConfiguration {
+class JavaBaseModuleConfiguration {
 
   @Bean
   JHipsterModuleResource javaBaseModule(JavaBaseApplicationService javaBase) {

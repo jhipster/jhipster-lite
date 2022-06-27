@@ -70,6 +70,7 @@ abstract class JHipsterModuleReplacements {
 
     public Builder add(ElementMatcher elementToReplace, String replacement) {
       Assert.notNull("elementToReplace", elementToReplace);
+
       replacements.add(buildReplacer(file, elementToReplace, replacement));
 
       return self();
@@ -77,7 +78,9 @@ abstract class JHipsterModuleReplacements {
 
     public Builder add(PositionalMatcher positional, String replacement) {
       Assert.notNull("PositionalMatcher", positional);
+
       replacements.add(buildReplacer(file, positional.element(), positional.buildReplacement(replacement)));
+
       return self();
     }
 

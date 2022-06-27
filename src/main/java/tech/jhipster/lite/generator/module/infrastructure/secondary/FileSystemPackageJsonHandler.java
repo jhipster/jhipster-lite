@@ -214,7 +214,7 @@ class FileSystemPackageJsonHandler {
         String pattern = new StringBuilder()
           .append("(\"")
           .append(blocName)
-          .append("\"\\s*:\\s*\\{)(.*)(\"")
+          .append("\"\\s*:\\s*\\{)([^}]*)(\"")
           .append(entry.key())
           .append("\"\\s*:\\s*\"[^\\r\\n]+[\\r\\n]{1,2}(\\s{")
           .append(indentation.spacesCount() * 2)

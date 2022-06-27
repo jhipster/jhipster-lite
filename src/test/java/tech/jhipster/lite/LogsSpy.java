@@ -15,14 +15,14 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.slf4j.LoggerFactory;
 
-public final class LogSpy implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
+public final class LogsSpy implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
 
   private Logger logger;
   private ListAppender<ILoggingEvent> appender;
   private Level initialLevel;
 
   @Override
-  public void beforeEach(ExtensionContext context) throws Exception {
+  public void beforeEach(ExtensionContext context) {
     appender = new ListAppender<>();
     logger = (Logger) LoggerFactory.getLogger("tech.jhipster.lite");
     logger.addAppender(appender);
@@ -32,21 +32,27 @@ public final class LogSpy implements BeforeEachCallback, AfterEachCallback, Para
   }
 
   @Override
-  public void afterEach(ExtensionContext context) throws Exception {
+  public void afterEach(ExtensionContext context) {
     logger.setLevel(initialLevel);
     logger.detachAppender(appender);
   }
 
-  public void assertLogged(Level level, String content) {
-    assertThat(appender.list.stream().anyMatch(withLog(level, content))).isTrue();
+  public LogsSpy shouldHave(Level level, String content) {
+    assertThat(appender.list).anyMatch(withLog(level, content));
+
+    return this;
   }
 
-  public void assertLogged(Level level, String content, int count) {
-    assertThat(appender.list.stream().filter(withLog(level, content)).count()).isEqualTo(count);
+  public LogsSpy shouldHave(Level level, String content, int count) {
+    assertThat(appender.list.stream().filter(withLog(level, content))).hasSize(count);
+
+    return this;
   }
 
-  public void assertNotLogged(Level level, String content) {
-    assertThat(appender.list.stream().noneMatch(withLog(level, content))).isTrue();
+  public LogsSpy shouldNotHave(Level level, String content) {
+    assertThat(appender.list).noneMatch(withLog(level, content));
+
+    return this;
   }
 
   private Predicate<ILoggingEvent> withLog(Level level, String content) {
@@ -56,11 +62,12 @@ public final class LogSpy implements BeforeEachCallback, AfterEachCallback, Para
   @Override
   public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
     throws ParameterResolutionException {
-    return parameterContext.getParameter().getType().equals(LogSpy.class);
+    return parameterContext.getParameter().getType().equals(LogsSpy.class);
   }
 
   @Override
-  public LogSpy resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+  public LogsSpy resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
+    throws ParameterResolutionException {
     return this;
   }
 }

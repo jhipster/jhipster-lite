@@ -1,0 +1,28 @@
+package tech.jhipster.lite.generator.server.springboot.logsspy.domain;
+
+import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+
+import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.generator.module.domain.JHipsterModule;
+import tech.jhipster.lite.generator.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+
+@UnitTest
+class LogsSpyModuleFactoryTest {
+
+  private static final LogsSpyModuleFactory factory = new LogsSpyModuleFactory();
+
+  @Test
+  void shouldBuildModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(FileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModule(module).createFiles("documentation/logs-spy.md").createJavaTests("com/jhipster/test/LogsSpy.java");
+  }
+}

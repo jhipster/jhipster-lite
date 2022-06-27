@@ -4,9 +4,9 @@ import { Modules } from '../domain/Modules';
 import { Category } from '../domain/Category';
 import { Module } from '../domain/Module';
 import { ModulesRepository } from '../domain/ModulesRepository';
-import { ModuleProperties } from '../domain/ModuleProperties';
-import { ModuleSlug } from '../domain/ModuleSlug';
 import { ModuleProperty, ModulePropertyType } from '../domain/ModuleProperty';
+import { ModuleToApply } from '../domain/ModuleToApply';
+import { ModuleSlug } from '../domain/ModuleSlug';
 
 export interface RestModules {
   categories: RestCategory[];
@@ -20,6 +20,7 @@ export interface RestCategory {
 export interface RestModule {
   slug: string;
   description: string;
+  properties?: RestModuleProperties;
 }
 
 export interface RestModuleProperties {
@@ -34,6 +35,11 @@ export interface RestModuleProperty {
   example?: string;
 }
 
+export interface RestModuleToApply {
+  projectFolder: string;
+  properties: {};
+}
+
 export class RestModulesRepository implements ModulesRepository {
   constructor(private axiosInstance: AxiosHttp) {}
 
@@ -41,8 +47,10 @@ export class RestModulesRepository implements ModulesRepository {
     return this.axiosInstance.get<RestModules>('/api/modules').then(mapToModules);
   }
 
-  get(slug: ModuleSlug): Promise<ModuleProperties> {
-    return this.axiosInstance.get<RestModuleProperties>(`/api/modules/${slug}`).then(mapToModule);
+  apply(module: ModuleSlug, moduleToApply: ModuleToApply): Promise<void> {
+    return this.axiosInstance
+      .post<void, RestModuleToApply>(`/api/modules/${module}/apply`, toRestModuleToApply(moduleToApply))
+      .then(() => undefined);
   }
 }
 
@@ -58,11 +66,16 @@ const toCategory = (restCategory: RestCategory): Category => ({
 const toModule = (restModule: RestModule): Module => ({
   slug: restModule.slug,
   description: restModule.description,
+  properties: toProperties(restModule.properties),
 });
 
-const mapToModule = (response: AxiosResponse<RestModuleProperties>): ModuleProperties => ({
-  properties: response.data.definitions.map(toProperty),
-});
+const toProperties = (restProperties: RestModuleProperties | undefined): ModuleProperty[] => {
+  if (!restProperties) {
+    return [];
+  }
+
+  return restProperties.definitions.map(toProperty);
+};
 
 const toProperty = (restProperty: RestModuleProperty): ModuleProperty => ({
   type: restProperty.type,
@@ -70,4 +83,9 @@ const toProperty = (restProperty: RestModuleProperty): ModuleProperty => ({
   key: restProperty.key,
   description: restProperty.description,
   example: restProperty.example,
+});
+
+const toRestModuleToApply = (moduleToApply: ModuleToApply): RestModuleToApply => ({
+  projectFolder: moduleToApply.projectFolder,
+  properties: Object.fromEntries(moduleToApply.properties),
 });

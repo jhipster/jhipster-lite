@@ -63,8 +63,16 @@ public class JHipsterModuleFiles {
       this.files = files;
     }
 
-    public JHipsterModuleFileBatchBuilder add(String file) {
-      files.add(source.template(file), destination.append(file));
+    public JHipsterModuleFileBatchBuilder template(String file) {
+      return add(source.template(file), destination.append(file));
+    }
+
+    public JHipsterModuleFileBatchBuilder file(String file) {
+      return add(source.file(file), destination.append(file));
+    }
+
+    private JHipsterModuleFileBatchBuilder add(JHipsterSource source, JHipsterDestination destination) {
+      files.add(source, destination);
 
       return this;
     }

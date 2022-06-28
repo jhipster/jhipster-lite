@@ -79,10 +79,6 @@ class VueModulesFactoryTest {
     //@formatter:on
   }
 
-  private static String nodeDependency(String dependency) {
-    return "\"" + dependency + "\": \"1.1.1\"";
-  }
-
   @Test
   void shouldCreatePiniaModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture
@@ -98,9 +94,9 @@ class VueModulesFactoryTest {
       new ModuleFile("src/test/resources/projects/vue/main.ts.template", "src/main/webapp/app/main.ts")
     )
       .createFile("package.json")
-      .containing("\"pinia\": \"1.1.1\"")
-      .containing("\"pinia-plugin-persist\": \"1.1.1\"")
-      .containing("\"@pinia/testing\": \"1.1.1\"")
+      .containing(nodeDependency("pinia"))
+      .containing(nodeDependency("pinia-plugin-persist"))
+      .containing(nodeDependency("@pinia/testing"))
       .and()
       .createFile("src/main/webapp/app/main.ts")
       .containing("import {createPinia} from 'pinia';")
@@ -112,5 +108,9 @@ class VueModulesFactoryTest {
                 app.use(pinia);
                 """
       );
+  }
+
+  private static String nodeDependency(String dependency) {
+    return "\"" + dependency + "\": \"";
   }
 }

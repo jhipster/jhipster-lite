@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
@@ -22,9 +22,6 @@ class PulsarApplicationServiceIT {
   private PulsarApplicationService pulsarApplicationService;
 
   @Autowired
-  private InitApplicationService initApplicationService;
-
-  @Autowired
   private MavenApplicationService mavenApplicationService;
 
   @Autowired
@@ -33,7 +30,7 @@ class PulsarApplicationServiceIT {
   @Test
   void shouldInit() {
     Project project = tmpProject();
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 

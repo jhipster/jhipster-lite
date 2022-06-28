@@ -1,11 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.logging.logstash.infrastructure.primary.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertDependencies;
-import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertJavaFiles;
-import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertLoggerInConfiguration;
-import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.assertProperties;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static tech.jhipster.lite.generator.server.springboot.logging.logstash.application.LogstashAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,7 @@ import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -27,16 +24,13 @@ import tech.jhipster.lite.generator.server.springboot.core.application.SpringBoo
 class LogstashResourceIT {
 
   @Autowired
-  InitApplicationService initApplicationService;
+  private MavenApplicationService mavenApplicationService;
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
+  private SpringBootApplicationService springBootApplicationService;
 
   @Autowired
-  SpringBootApplicationService springBootApplicationService;
-
-  @Autowired
-  MockMvc mockMvc;
+  private MockMvc mockMvc;
 
   @Test
   void shouldInit() throws Exception {
@@ -46,7 +40,7 @@ class LogstashResourceIT {
     }
     projectDTO.folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.init(project);
     springBootApplicationService.init(project);
 

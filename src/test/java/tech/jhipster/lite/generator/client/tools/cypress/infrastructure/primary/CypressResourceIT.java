@@ -14,7 +14,6 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.client.tools.cypress.application.CypressAssert;
 import tech.jhipster.lite.generator.client.vue.core.application.VueApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -28,16 +27,13 @@ class CypressResourceIT {
   private MockMvc mockMvc;
 
   @Autowired
-  private InitApplicationService initApplicationService;
-
-  @Autowired
   private VueApplicationService vueApplicationService;
 
   @Test
   void shouldInit() throws Exception {
     ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
 
     JHipsterModuleProperties properties = projectDTO.toModuleProperties();
     TestJHipsterModules.applyer().module(vueApplicationService.buildVueModule(properties)).properties(properties).slug("vue").apply();

@@ -1,23 +1,31 @@
 package tech.jhipster.lite.generator.module.infrastructure.secondary;
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import tech.jhipster.lite.common.infrastructure.secondary.FileSystemProjectFilesReader;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.generator.init.domain.GitRepository;
+import tech.jhipster.lite.generator.init.domain.InitModuleFactory;
 import tech.jhipster.lite.generator.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleEvents;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.generator.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.generator.npm.domain.NpmPackageName;
-import tech.jhipster.lite.generator.npm.domain.NpmVersion;
-import tech.jhipster.lite.generator.npm.domain.NpmVersions;
+import tech.jhipster.lite.generator.npm.infrastructure.secondary.FileSystemNpmVersions;
+import tech.jhipster.lite.generator.project.domain.Project;
 
 public final class TestJHipsterModules {
 
+  private static final InitModuleFactory initModules = new InitModuleFactory(mock(GitRepository.class));
+
   private TestJHipsterModules() {}
+
+  public static void applyInit(Project project) {
+    JHipsterModuleProperties properties = new JHipsterModuleProperties(project.getFolder(), project.getConfig());
+
+    applyer().module(initModules.buildFullModule(properties)).properties(properties).slug("init").apply();
+  }
 
   public static void apply(JHipsterModule module) {
     applyer().module(module).properties(JHipsterModuleProperties.defaultProperties(module.projectFolder())).slug("test-module").apply();
@@ -45,7 +53,10 @@ public final class TestJHipsterModules {
     private static JHipsterModulesApplicationService buildApplicationService() {
       FileSystemProjectFilesReader filesReader = new FileSystemProjectFilesReader();
 
-      FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(filesReader, npmVersions());
+      FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
+        filesReader,
+        new FileSystemNpmVersions(filesReader)
+      );
 
       return new JHipsterModulesApplicationService(
         modulesRepository,
@@ -53,16 +64,6 @@ public final class TestJHipsterModules {
         new FileSystemCurrentJavaDependenciesVersionsRepository(filesReader),
         new FileSystemProjectJavaDependenciesRepository()
       );
-    }
-
-    private static NpmVersions npmVersions() {
-      NpmVersions npmVersions = mock(NpmVersions.class);
-
-      NpmVersion version = new NpmVersion("1.1.1");
-      lenient().when(npmVersions.get(anyString(), any())).thenReturn(version);
-      lenient().when(npmVersions.get(any(NpmPackageName.class), any())).thenReturn(version);
-
-      return npmVersions;
     }
 
     @Override

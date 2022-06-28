@@ -10,11 +10,11 @@ import org.springframework.web.servlet.handler.AbstractUrlHandlerMapping;
 import tech.jhipster.lite.generator.module.application.JHipsterModulesApplicationService;
 
 @Component
-class JHipsterModulesApplicationHandlerMapping extends AbstractUrlHandlerMapping {
+class JHipsterModulesPatchApplicationHandlerMapping extends AbstractUrlHandlerMapping {
 
   private final Map<String, JHipsterModuleApplicationController> controllers;
 
-  public JHipsterModulesApplicationHandlerMapping(
+  public JHipsterModulesPatchApplicationHandlerMapping(
     ObjectMapper json,
     JHipsterModulesResources modulesResources,
     JHipsterModulesApplicationService modules
@@ -31,7 +31,7 @@ class JHipsterModulesApplicationHandlerMapping extends AbstractUrlHandlerMapping
   }
 
   private Function<JHipsterModuleResource, String> toApplyUrl() {
-    return moduleResource -> moduleResource.moduleUrl() + "/apply";
+    return moduleResource -> moduleResource.moduleUrl() + "/apply-patch";
   }
 
   private Function<JHipsterModuleResource, JHipsterModuleApplicationController> toApplyerController(

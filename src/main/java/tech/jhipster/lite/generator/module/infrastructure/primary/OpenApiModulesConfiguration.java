@@ -193,7 +193,10 @@ class OpenApiModulesConfiguration {
     return modules
       .stream()
       .collect(
-        Collectors.toMap(module -> module.moduleUrl() + "/apply", module -> moduleApplicationDefinition(module.apiDoc(), module.slug()))
+        Collectors.toMap(
+          module -> module.moduleUrl() + "/apply-patch",
+          module -> moduleApplicationDefinition(module.apiDoc(), module.slug())
+        )
       );
   }
 

@@ -32,7 +32,7 @@ describe('Modules', () => {
       cy.intercept({ path: '/api/modules' }, { fixture: 'modules.json' });
 
       cy.intercept({
-        path: '/api/modules/spring-test/apply',
+        path: '/api/modules/spring-test/apply-patch',
         method: 'POST',
       }).as('spring-test-creation');
 
@@ -54,7 +54,7 @@ describe('Modules', () => {
       cy.intercept({ path: '/api/modules' }, { fixture: 'modules.json' });
 
       cy.intercept({
-        path: '/api/modules/spring-cucumber/apply',
+        path: '/api/modules/spring-cucumber/apply-patch',
         method: 'POST',
       }).as('spring-cucumber-creation');
 

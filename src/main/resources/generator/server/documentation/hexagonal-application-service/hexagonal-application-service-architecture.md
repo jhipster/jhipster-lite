@@ -23,7 +23,7 @@ Here are some of the properties we are looking for when using this kind of archi
 
 "The Only Constant in Life Is Change."- Heraclitus. This can't be more true in Software (hence [the name](https://en.wikipedia.org/wiki/Software)) and, if you have just a few weeks of experience, you know that "the users don't know what they want!!!". If the first quote is true the second one is fallacious!
 
-It's not that the users don't know what that want, in fact, nobody knows. Building a Software is not done with somebody telling the others what to do, it's done with [productive partnerships](https://manifesto.softwarecraftsmanship.org/). Yes, that mean people will change there mind times and times again (and this is totally fine!).
+It's not that the users don't know what they want, in fact, nobody knows. Building a Software is not done with somebody telling the others what to do, it's done with [productive partnerships](https://manifesto.softwarecraftsmanship.org/). Yes, that mean people will change there mind times and times again (and this is totally fine!).
 
 So, as professional software developers we have to ensure that the code we are writing can welcome those changes. This often starts by lowering the solution complexity!
 
@@ -33,7 +33,7 @@ We often talk about 3 types of complexity:
 - **Mandatory**: No matter the efforts, we are gonna have to add some complexity to the system since we have technical stuff to do (persist data, send messages, ...). This complexity is called mandatory complexity.
 - **Accidental**: On top of the two previous complexities comes the accidental complexity, the one we don't want because it's not needed. Example: if you have a configuration that is standing still for the past 10 years you probably don't need to put that in a database, handling that in code will be easier and more efficient (and no, you probably don't need microservices with one team of 3).
 
-The hexagonal architecture allows us to reduce all those complexities to there bare minimum by giving clear responsibilities to each part of our Software.
+The hexagonal architecture allows us to reduce all those complexities to their bare minimum by giving clear responsibilities to each part of our Software.
 
 The very clear Separation Of Concern enforced by the architecture ease automatic testing of each parts since it's only doing one thing. Being able to build solid tests is also a great way to build a changes welcoming Software!
 
@@ -54,17 +54,17 @@ There is another **AWESOME** compilation time feedback coming not directly from 
 
 With just those two you can totally fix lots of mistakes with `firstname` and `lastname` inversions in method parameters: if you send the wrong one it just won't compile!
 
-A little bit slower than compilation comes automated tests. As seen earlier this architecture ease testing so you'll be able to get fast (counting in seconds here) and reliable feedbacks from tests.
+A little bit slower than compilation comes automated tests. As seen earlier this architecture eases testing so you'll be able to get fast (counting in seconds here) and reliable feedbacks from tests.
 
 We said earlier that pairs feedbacks where the fastest ones but what about business experts feedback? Using "classic" (Controller, Service, Repository) architecture we have to build a whole "thing" to hope for a business expert feedback. Here, the Domain Model code is so close to the business that it's really easy to sit at a screen with a business expert and to get feedbacks from that! Of course, you'll probably have to explain some "coding stuff" BUT you will be able to get feedbacks from the business expert on any given piece of algorithm really early!
 
 ### Delay infrastructure choices
 
-It's common to start a project with meetings to "build the architecture" which, in that case, means chose the infrastructure elements. So, at day 0, we are trying to figure out if we need a MongoDB, a PostGreSQL or both (and what about an ElasticSearch?).
+It's common to start a project with meetings to "build the architecture" which, in that case, means chosing the infrastructure elements. So, at day 0, we are trying to figure out if we need a MongoDB, a PostgreSQL or both (and what about an Elasticsearch?).
 
-Problem is: we often make this choices without enough information and we'll just make our best guesses (since the real needs will come from the code). The other problem is that we spend a lot of time doing that. Another option would be to pick only one thing: the language (do we go Java?). Picking the language can be challenging enough but it's easier than picking a gazillion technologies along with the language.
+Problem is: we often make these choices without enough information and we'll just make our best guesses (since the real needs will come from the code). The other problem is that we spend a lot of time doing that. Another option would be to pick only one thing: the language (do we go Java?). Picking the language can be challenging enough but it's easier than picking a gazillion technologies along with the language.
 
-The hexagonal architecture allows us to start as soon as we know the language. From that, we'll be able to start building a solution and have the real infrastructure needs appears from the code. Of course, we'll have to pick a structuring Framework soon enough (Spring, Quarkus, ...) but we can delay the persistence choice for quite some time!
+The hexagonal architecture allows us to start as soon as we know the language. From that, we'll be able to start building a solution and have the real infrastructure needs appear from the code. Of course, we'll have to pick a structuring Framework soon enough (Spring, Quarkus, ...) but we can delay the persistence choice for quite some time!
 
 Delaying choices allows:
 
@@ -106,7 +106,7 @@ Apart from the code used to make the business operations we'll find ports in the
 
 ### Code in Application
 
-The application layer **MUST NOT CONTAIN ANY BUSINESS RULE**, it's responsibilities are:
+The application layer **MUST NOT CONTAIN ANY BUSINESS RULE**, its responsibilities are:
 
 - Very simple orchestration:
   - Get something for a port;
@@ -118,8 +118,8 @@ The application layer **MUST NOT CONTAIN ANY BUSINESS RULE**, it's responsibilit
 
 ### Code in Primary
 
-The primary part contains adapters for the code driving our domain. Example: code to expose Rest WebServices. This part depends a lot on Frameworks and it's responsibility is to make the best possible exposure of the businesses actions.
+The primary part contains adapters for the code driving our domain. Example: code to expose Rest WebServices. This part depends a lot on Frameworks and is responsible for making the best possible exposure of the businesses actions.
 
 ### Code in Secondary
 
-The secondary part are adapters implementing the ports from the domain. This part depends a lot on Framework and it's responsibility is to make to best possible use of the infrastructure that our business needs.
+The secondary part are adapters implementing the ports from the domain. This part depends a lot on Framework and its responsibility is to make the best possible use of the infrastructure our business needs.

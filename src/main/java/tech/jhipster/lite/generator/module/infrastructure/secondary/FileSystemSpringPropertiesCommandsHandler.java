@@ -54,7 +54,7 @@ class FileSystemSpringPropertiesCommandsHandler {
       .orElseGet(defaultPropertiesFile(projectFolder, property));
   }
 
-  @Generated
+  @Generated(reason = "Jacoco thinks there is a missed branch")
   private static Supplier<Path> defaultPropertiesFile(JHipsterProjectFolder projectFolder, SpringProperty property) {
     return switch (property.type()) {
       case MAIN -> () -> projectFolder.filePath(DEFAULT_MAIN_FOLDER + propertiesFilename(property));

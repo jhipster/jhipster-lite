@@ -43,8 +43,13 @@ describe('Modules', () => {
     await selectModule(wrapper);
 
     expect(wrapper.find(wrappedElement('property-baseName-field')).attributes('type')).toBe('text');
+    expect(wrapper.find(wrappedElement('property-baseName-optional-marker')).exists()).toBe(false);
+
     expect(wrapper.find(wrappedElement('property-optionalBoolean-field')).exists()).toBe(true);
+    expect(wrapper.find(wrappedElement('property-optionalBoolean-optional-marker')).exists()).toBe(true);
+
     expect(wrapper.find(wrappedElement('property-optionalInteger-field')).attributes('type')).toBe('number');
+    expect(wrapper.find(wrappedElement('property-optionalInteger-optional-marker')).exists()).toBe(true);
   });
 
   it('Should disable validation button without project folder', async () => {

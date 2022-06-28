@@ -33,6 +33,11 @@
   font-weight: bold;
 }
 
+.jhipster-modules-form--field-optional-marker {
+  text-align: right;
+  font-style: italic;
+}
+
 .jhipster-modules-list {
   padding: 0 15px;
   height: 100vh;

@@ -41,7 +41,6 @@ public class JavaBaseModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .packageName(properties.basePackage())
         .put("collectionClass", baseClassName)
         .and()
       .documentation(documentationTitle("Package types"), SOURCE.template("package-types.md"))

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.common.domain.JHipsterCollections;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterBasePackage;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 
 public class JHipsterModuleContext {
@@ -67,12 +66,6 @@ public class JHipsterModuleContext {
       init.put(IDENTATION_KEY, properties.indentation().spacesCount());
 
       return init;
-    }
-
-    public JHipsterModuleContextBuilder packageName(JHipsterBasePackage basePackage) {
-      Assert.notNull("basePackage", basePackage);
-
-      return put("packageName", basePackage.get());
     }
 
     public JHipsterModuleContextBuilder put(String key, Object value) {

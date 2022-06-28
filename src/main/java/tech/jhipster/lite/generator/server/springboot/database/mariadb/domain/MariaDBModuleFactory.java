@@ -49,7 +49,6 @@ public class MariaDBModuleFactory {
   private void appendContext(JHipsterModuleBuilder builder, JHipsterModuleProperties properties, DockerImage dockerImage) {
     builder
       .context()
-      .packageName(properties.basePackage())
       .put("applicationName", properties.projectBaseName().capitalized())
       .put("srcMainDocker", "src/main/docker") // Used in mariadb.md
       .put("mariaDBDockerImageWithVersion", dockerImage.fullName()); // Used in mariadb.yml

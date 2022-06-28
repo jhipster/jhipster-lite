@@ -43,9 +43,7 @@ public class OAuth2ModuleFactory {
     //@formatter:off
     JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
-        .packageName(properties.basePackage())
-        .put("applicationName", properties.projectBaseName()
-            .capitalized())
+        .put("applicationName", properties.projectBaseName().capitalized())
         .and();
     //@formatter:on
 

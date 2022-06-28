@@ -34,9 +34,6 @@ public class OAuth2AccountModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-        .context()
-          .packageName(properties.basePackage())
-          .and()
         .files()
           .add(ACCOUNT_MAIN_SOURCE.append(APPLICATION).template("AccountsApplicationService.java"), accountMainDestination.append(APPLICATION).append("AccountsApplicationService.java"))
           .batch(ACCOUNT_MAIN_SOURCE.append(DOMAIN), accountMainDestination.append(DOMAIN))

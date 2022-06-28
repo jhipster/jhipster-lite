@@ -267,7 +267,7 @@ public class JHipsterModule {
       String target = "documentation/" + title.filename() + source.extension();
       files().add(source, to(target));
 
-      String markdownLink = "- [" + title.get() + "](" + target + ") \n\n" + JHIPSTER_DOCUMENTATION_NEEDLE;
+      String markdownLink = "- [" + title.get() + "](" + target + ") \n" + JHIPSTER_DOCUMENTATION_NEEDLE;
       optionalReplacements().in("README.md").add(text(JHIPSTER_DOCUMENTATION_NEEDLE), markdownLink);
 
       return this;

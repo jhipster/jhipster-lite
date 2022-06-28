@@ -33,7 +33,13 @@ public class JHipsterModuleFiles {
     }
 
     public JHipsterModuleFilesBuilder add(JHipsterSource source, JHipsterDestination destination) {
-      files.add(new JHipsterModuleFile(new JHipsterFileContent(source), destination));
+      files.add(new JHipsterModuleFile(new JHipsterFileContent(source), destination, false));
+
+      return this;
+    }
+
+    public JHipsterModuleFilesBuilder addExecutable(JHipsterSource source, JHipsterDestination destination) {
+      files.add(new JHipsterModuleFile(new JHipsterFileContent(source), destination, true));
 
       return this;
     }

@@ -42,6 +42,7 @@ public final class JHipsterModulesFixture {
       .and()
     .files()
       .add(from("init/gitignore"), to(".gitignore"))
+      .addExecutable(from("init/.husky/pre-commit"), to(".husky/pre-commit"))
       .batch(from("server/javatool/base"), to("src/main/java/com/company/myapp/errors"))
         .template("Assert.java.mustache")
         .template("AssertionException.java.mustache")

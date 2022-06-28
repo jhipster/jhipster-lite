@@ -112,6 +112,24 @@ public final class JHipsterModulesAssertions {
       return path -> assertions.assertThat(Files.exists(path)).as(fileNotFoundMessage(path, projectFolder)).isTrue();
     }
 
+    public ModuleAsserter createExecutableFiles(String... files) {
+      assertThat(files).as("Can't check null files for a module").isNotNull();
+
+      SoftAssertions assertions = new SoftAssertions();
+      Stream.of(files).map(file -> projectFolder.filePath(file)).forEach(assertFileIsExecutable(assertions));
+      assertions.assertAll();
+
+      return this;
+    }
+
+    private Consumer<Path> assertFileIsExecutable(SoftAssertions assertions) {
+      return path ->
+        assertions
+          .assertThat(Files.exists(path) && Files.isExecutable(path))
+          .as(() -> "File " + path + " is not executable (or doesn't exist) in project folder, found " + projectFiles(projectFolder))
+          .isTrue();
+    }
+
     public ModuleAsserter doNotCreateFiles(String... files) {
       assertThat(files).as("Can't check null files as not created for a module").isNotNull();
 

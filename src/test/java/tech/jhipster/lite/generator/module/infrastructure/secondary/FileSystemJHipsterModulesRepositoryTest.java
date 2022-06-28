@@ -12,11 +12,11 @@ import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 
 @UnitTest
 @ExtendWith(LogSpy.class)
-class FileSystemModulesRepositoryTest {
+class FileSystemJHipsterModulesRepositoryTest {
 
   private final LogSpy logs;
 
-  public FileSystemModulesRepositoryTest(LogSpy logs) {
+  public FileSystemJHipsterModulesRepositoryTest(LogSpy logs) {
     this.logs = logs;
   }
 
@@ -33,6 +33,7 @@ class FileSystemModulesRepositoryTest {
         "documentation/cucumber-integration.md",
         ".gitignore"
       )
+      .createExecutableFiles(".husky/pre-commit")
       .createFile("src/main/java/com/company/myapp/MyApp.java")
         .containing("com.test.myapp")
         .and()

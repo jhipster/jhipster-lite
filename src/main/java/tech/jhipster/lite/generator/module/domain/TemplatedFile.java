@@ -38,6 +38,10 @@ public class TemplatedFile {
     return file.content().read(files, context);
   }
 
+  public boolean isNotExecutable() {
+    return !file.executable();
+  }
+
   static class TemplatedFileBuilder {
 
     private JHipsterModuleFile file;

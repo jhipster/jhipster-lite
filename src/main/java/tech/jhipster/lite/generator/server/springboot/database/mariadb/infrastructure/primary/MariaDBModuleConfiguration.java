@@ -2,10 +2,10 @@ package tech.jhipster.lite.generator.server.springboot.database.mariadb.infrastr
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePropertiesDefinition;
-import tech.jhipster.lite.generator.module.infrastructure.primary.JHipsterModuleApiDoc;
-import tech.jhipster.lite.generator.module.infrastructure.primary.JHipsterModuleResource;
 import tech.jhipster.lite.generator.server.springboot.database.mariadb.application.MariaDBApplicationService;
+import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
+import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
 
 @Configuration
 class MariaDBModuleConfiguration {

@@ -25,7 +25,7 @@ import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootService;
 import tech.jhipster.lite.generator.server.springboot.database.mariadb.application.MariaDBApplicationService;
-import tech.jhipster.lite.generator.server.springboot.database.mysql.domain.MySQLService;
+import tech.jhipster.lite.generator.server.springboot.database.mysql.application.MySQLApplicationService;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -44,7 +44,7 @@ class LiquibaseApplicationServiceIT {
   private PostgresqlApplicationService postgresqlApplicationService;
 
   @Autowired
-  private MySQLService mySQLService;
+  private MySQLApplicationService mySQLApplicationService;
 
   @Autowired
   private MariaDBApplicationService mariaDBApplicationService;
@@ -199,7 +199,7 @@ class LiquibaseApplicationServiceIT {
     buildToolService.init(project, BuildToolType.MAVEN);
     springBootService.init(project);
     if (databaseType.equals(DatabaseType.MYSQL)) {
-      mySQLService.init(project);
+      TestJHipsterModules.applyer().module(mySQLApplicationService.build(properties)).properties(properties).slug("mysql").apply();
     } else {
       TestJHipsterModules.applyer().module(mariaDBApplicationService.build(properties)).properties(properties).slug("mariadb").apply();
     }

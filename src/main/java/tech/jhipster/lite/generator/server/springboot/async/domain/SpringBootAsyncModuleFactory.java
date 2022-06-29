@@ -22,9 +22,6 @@ public class SpringBootAsyncModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .context()
-        .packageName(properties.basePackage())
-        .and()
       .files()
         .add(SOURCE.template("AsyncConfiguration.java"), mainDestination.append("AsyncConfiguration.java"))
         .and()

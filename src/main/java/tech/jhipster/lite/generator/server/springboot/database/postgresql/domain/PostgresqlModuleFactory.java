@@ -54,7 +54,6 @@ public class PostgresqlModuleFactory {
   private void appendContext(JHipsterModuleBuilder builder, JHipsterModuleProperties properties, DockerImage dockerImage) {
     builder
       .context()
-      .packageName(properties.basePackage())
       .put("applicationName", properties.projectBaseName().capitalized())
       .put("srcDocker", SRC_MAIN_DOCKER)
       .put("postgresqlDockerImageWithVersion", dockerImage.fullName());

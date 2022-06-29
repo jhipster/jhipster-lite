@@ -27,7 +27,6 @@ public class CucumberModuleFactory {
     //@formatter:off
     JHipsterModuleBuilder builder = moduleBuilder(properties)
     .context()
-      .packageName(properties.basePackage())
       .put("applicationName", applicationName)
       .and()
     .documentation(documentationTitle("Cucumber"), SOURCE.template("cucumber.md"))

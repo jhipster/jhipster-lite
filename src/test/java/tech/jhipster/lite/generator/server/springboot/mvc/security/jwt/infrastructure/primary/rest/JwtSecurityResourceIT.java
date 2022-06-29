@@ -13,7 +13,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
@@ -27,25 +27,22 @@ import tech.jhipster.lite.generator.server.springboot.mvc.web.application.Spring
 class JwtSecurityResourceIT {
 
   @Autowired
-  InitApplicationService initApplicationService;
+  private MavenApplicationService mavenApplicationService;
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
+  private JavaBaseApplicationService javaBaseApplicationService;
 
   @Autowired
-  JavaBaseApplicationService javaBaseApplicationService;
+  private SpringBootApplicationService springBootApplicationService;
 
   @Autowired
-  SpringBootApplicationService springBootApplicationService;
+  private SpringBootMvcApplicationService springBootMvcApplicationService;
 
   @Autowired
-  SpringBootMvcApplicationService springBootMvcApplicationService;
+  private JwtSecurityApplicationService jwtSecurityApplicationService;
 
   @Autowired
-  JwtSecurityApplicationService jwtSecurityApplicationService;
-
-  @Autowired
-  MockMvc mockMvc;
+  private MockMvc mockMvc;
 
   @Test
   void shouldInit() throws Exception {
@@ -53,7 +50,7 @@ class JwtSecurityResourceIT {
     projectDTO.folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     GitUtils.init(project.getFolder());
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.init(project);
     javaBaseApplicationService.build(projectDTO.toModuleProperties());
     springBootApplicationService.init(project);
@@ -78,7 +75,7 @@ class JwtSecurityResourceIT {
     projectDTO.folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     GitUtils.init(project.getFolder());
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.init(project);
     javaBaseApplicationService.build(projectDTO.toModuleProperties());
     springBootApplicationService.init(project);

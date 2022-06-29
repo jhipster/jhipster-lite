@@ -16,7 +16,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -24,9 +24,6 @@ import tech.jhipster.lite.generator.server.springboot.core.application.SpringBoo
 @IntegrationTest
 @AutoConfigureMockMvc
 class PulsarResourceIT {
-
-  @Autowired
-  private InitApplicationService initApplicationService;
 
   @Autowired
   private MavenApplicationService mavenApplicationService;
@@ -44,7 +41,7 @@ class PulsarResourceIT {
       throw new GeneratorException("Error when reading file");
     }
     Project project = ProjectDTO.toProject(projectDTO);
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.init(project);
     springBootApplicationService.init(project);
 

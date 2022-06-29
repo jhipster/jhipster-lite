@@ -5,8 +5,6 @@ public class GeneratorAction {
   private GeneratorAction() {}
 
   // Init
-  public static final String INIT = "init";
-  public static final String INIT_MINIMAL = "init-minimal";
   public static final String DOWNLOAD = "download";
 
   // Maven

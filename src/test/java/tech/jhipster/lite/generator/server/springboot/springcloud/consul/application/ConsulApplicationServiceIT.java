@@ -1,16 +1,14 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.consul.application;
 
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.assertDependencies;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.assertDockerConsul;
-import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.assertProperties;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.server.springboot.springcloud.consul.application.ConsulAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.module.infrastructure.secondary.TestJHipsterModules;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 
@@ -18,23 +16,20 @@ import tech.jhipster.lite.generator.server.springboot.core.application.SpringBoo
 class ConsulApplicationServiceIT {
 
   @Autowired
-  ConsulApplicationService consulApplicationService;
+  private ConsulApplicationService consulApplicationService;
 
   @Autowired
-  InitApplicationService initApplicationService;
+  private MavenApplicationService mavenApplicationService;
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
-
-  @Autowired
-  SpringBootApplicationService springBootApplicationService;
+  private SpringBootApplicationService springBootApplicationService;
 
   @Test
   void shouldInit() {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "Foo");
 
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
 
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
@@ -49,7 +44,7 @@ class ConsulApplicationServiceIT {
   @Test
   void shouldAddDependencies() {
     Project project = tmpProject();
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.addPomXml(project);
 
     consulApplicationService.addDependencies(project);
@@ -61,7 +56,7 @@ class ConsulApplicationServiceIT {
   void shouldAddProperties() {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "bar");
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
@@ -74,7 +69,7 @@ class ConsulApplicationServiceIT {
   void shouldAddDockerConsul() {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "bar");
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 

@@ -14,7 +14,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "build": "vue-tsc --noEmit && vite build --emptyOutDir",
+    "build": "vue-tsc -p tsconfig-build.json --noEmit && vite build --emptyOutDir",
     "dev": "vite",
     "e2e": "cypress open --config-file src/test/javascript/cypress/cypress-config.ts",
     "e2e:headless": "cypress run --headless --config-file src/test/javascript/cypress/cypress-config.ts",

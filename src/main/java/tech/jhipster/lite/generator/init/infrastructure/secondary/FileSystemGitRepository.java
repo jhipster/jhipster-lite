@@ -6,7 +6,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.generator.init.domain.GitRepository;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @Repository
 class FileSystemGitRepository implements GitRepository {

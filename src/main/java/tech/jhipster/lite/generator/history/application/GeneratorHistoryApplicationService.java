@@ -6,7 +6,7 @@ import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryRepository;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
 import tech.jhipster.lite.generator.history.domain.HistoryProject;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @Service
 public class GeneratorHistoryApplicationService {

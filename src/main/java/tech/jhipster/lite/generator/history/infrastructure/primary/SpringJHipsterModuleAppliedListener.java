@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import tech.jhipster.lite.generator.history.application.GeneratorHistoryApplicationService;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
 import tech.jhipster.lite.generator.history.domain.HistoryProject;
-import tech.jhipster.lite.generator.module.domain.JHipsterModuleApplied;
+import tech.jhipster.lite.module.domain.JHipsterModuleApplied;
 
 @Component
 class SpringJHipsterModuleAppliedListener implements ApplicationListener<PayloadApplicationEvent<JHipsterModuleApplied>> {

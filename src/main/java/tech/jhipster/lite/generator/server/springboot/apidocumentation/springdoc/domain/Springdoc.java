@@ -1,9 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain;
 
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.module.domain.javadependency.ArtifactId;
-import tech.jhipster.lite.generator.module.domain.javadependency.DependencyId;
-import tech.jhipster.lite.generator.module.domain.javadependency.GroupId;
+import tech.jhipster.lite.module.domain.javadependency.ArtifactId;
+import tech.jhipster.lite.module.domain.javadependency.DependencyId;
+import tech.jhipster.lite.module.domain.javadependency.GroupId;
 
 public class Springdoc {
 

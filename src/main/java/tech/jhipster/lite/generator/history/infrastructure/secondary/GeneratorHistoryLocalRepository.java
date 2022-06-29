@@ -14,9 +14,9 @@ import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
 import tech.jhipster.lite.generator.history.domain.HistoryProject;
 import tech.jhipster.lite.generator.history.infrastructure.secondary.dto.GeneratorHistoryDataDTO;
 import tech.jhipster.lite.generator.history.infrastructure.secondary.dto.GeneratorHistoryValueDTO;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
+import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @Repository
 public class GeneratorHistoryLocalRepository implements GeneratorHistoryRepository {

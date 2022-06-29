@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.generator.history.application.GeneratorHistoryApplicationService;
 import tech.jhipster.lite.generator.history.domain.GeneratorHistoryValue;
 import tech.jhipster.lite.generator.history.infrastructure.primary.dto.HistoryDTO;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @RestController
 @RequestMapping("/api/project-histories")

@@ -1,3 +1,4 @@
+import { AlertBus } from '@/common/domain/alert/AlertBus';
 import { Loader } from '@/loader/primary/Loader';
 import { Module } from '@/module/domain/Module';
 import { ModuleProperty } from '@/module/domain/ModuleProperty';
@@ -8,12 +9,14 @@ import { defineComponent, inject, onMounted, reactive, ref } from 'vue';
 export default defineComponent({
   name: 'ModulesVue',
   setup() {
+    const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;
 
     const modulesContent = reactive({
       content: Loader.loading<Modules>(),
     });
 
+    const applicationInProgress = ref(false);
     const folderPath = ref('');
     const selectedModule = ref();
     const moduleProperties = ref(new Map<string, string | number | boolean>());
@@ -22,19 +25,16 @@ export default defineComponent({
       modules.list().then(response => modulesContent.content.loaded(response));
     });
 
-    const applyModule = (module: string): Promise<void> => {
-      return modules.apply(module, {
-        projectFolder: folderPath.value,
-        properties: moduleProperties.value,
-      });
-    };
-
     const selectModule = (slug: string): void => {
       selectedModule.value = getModule(slug);
     };
 
     const disabledApplication = (slug: string): boolean => {
-      return empty(folderPath.value) || getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key));
+      return (
+        applicationInProgress.value ||
+        empty(folderPath.value) ||
+        getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key))
+      );
     };
 
     const isNotSet = (propertyKey: string): boolean => {
@@ -84,10 +84,29 @@ export default defineComponent({
         .find(module => module.slug === slug)!;
     };
 
+    const applyModule = (module: string): void => {
+      applicationInProgress.value = true;
+
+      modules
+        .apply(module, {
+          projectFolder: folderPath.value,
+          properties: moduleProperties.value,
+        })
+        .then(() => {
+          applicationInProgress.value = false;
+
+          alertBus.success('Module "' + module + '" applied');
+        })
+        .catch(() => {
+          applicationInProgress.value = false;
+
+          alertBus.error('Module "' + module + '" not applied');
+        });
+    };
+
     return {
       content: modulesContent.content,
       folderPath,
-      applyModule,
       selectModule,
       selectedModule,
       setStringProperty,
@@ -97,6 +116,8 @@ export default defineComponent({
       mandatoryProperties,
       optionalProperties,
       moduleProperties,
+      applyModule,
+      applicationInProgress,
     };
   },
 });

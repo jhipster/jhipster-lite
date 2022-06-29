@@ -6,7 +6,15 @@
     <div class="jhipster-modules-form--field-line">
       <label for="folder-path" class="jhipster-modules-form--field-label"> Project folder </label>
 
-      <input type="text" id="folder-path" v-model="folderPath" class="jhipster-modules-form--field" data-selector="folder-path-field" />
+      <input
+        tabindex="1"
+        type="text"
+        id="folder-path"
+        ref="folderPathInput"
+        v-model="folderPath"
+        class="jhipster-modules-form--field"
+        data-selector="folder-path-field"
+      />
     </div>
 
     <div class="jhipster-modules-form--field-line" v-if="selectedModule" v-for="property in selectedModule.properties">
@@ -16,6 +24,7 @@
       </label>
 
       <input
+        tabindex="2"
         type="text"
         class="jhipster-modules-form--field"
         :id="`module-property-${property.key}`"
@@ -27,6 +36,7 @@
       />
 
       <input
+        tabindex="2"
         type="number"
         class="jhipster-modules-form--field"
         :id="`module-property-${property.key}`"
@@ -38,6 +48,7 @@
       />
 
       <select
+        tabindex="2"
         class="jhipster-modules-form--field"
         :id="`module-property-${property.key}`"
         @change="setBooleanProperty(property.key, $event.target.value)"
@@ -64,7 +75,13 @@
       <div>
         <h2 class="jhipster-module-category--name">{{ category.name }}</h2>
         <div v-for="module in category.modules" class="jhipster-module">
-          <div class="jhipster-module--content" @click="selectModule(module.slug)" :data-selector="`${module.slug}-module-content`">
+          <div
+            tabindex="3"
+            class="jhipster-module--content"
+            @click="selectModule(module.slug)"
+            @keyup.enter="selectModule(module.slug); $refs.folderPathInput.focus()"
+            :data-selector="`${module.slug}-module-content`"
+          >
             <div class="jhipster-module--slug">{{ module.slug }}</div>
             <div class="jhipster-module--description">{{ module.description}}</div>
 
@@ -88,6 +105,7 @@
           </div>
 
           <button
+            tabindex="3"
             class="jhipster-module--apply-button"
             :disabled="disabledApplication(module.slug)"
             @click="applyModule(module.slug)"

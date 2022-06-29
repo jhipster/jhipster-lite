@@ -6,17 +6,17 @@ import static tech.jhipster.lite.generator.module.infrastructure.secondary.JHips
 import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import tech.jhipster.lite.LogSpy;
+import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule;
 
 @UnitTest
-@ExtendWith(LogSpy.class)
+@ExtendWith(LogsSpy.class)
 class FileSystemJHipsterModulesRepositoryTest {
 
-  private final LogSpy logs;
+  private final LogsSpy logs;
 
-  public FileSystemJHipsterModulesRepositoryTest(LogSpy logs) {
+  public FileSystemJHipsterModulesRepositoryTest(LogsSpy logs) {
     this.logs = logs;
   }
 
@@ -94,13 +94,13 @@ class FileSystemJHipsterModulesRepositoryTest {
   }
 
   private void assertPreActions() {
-    logs.assertLogged(Level.DEBUG, "Applying fixture module");
-    logs.assertLogged(Level.DEBUG, "You shouldn't add this by default in your modules :D");
+    logs.shouldHave(Level.DEBUG, "Applying fixture module");
+    logs.shouldHave(Level.DEBUG, "You shouldn't add this by default in your modules :D");
   }
 
   private void assertPostActions() {
-    logs.assertLogged(Level.DEBUG, "Fixture module applied");
-    logs.assertLogged(Level.DEBUG, "Applied on");
-    logs.assertLogged(Level.DEBUG, System.getProperty("java.io.tmpdir"));
+    logs.shouldHave(Level.DEBUG, "Fixture module applied");
+    logs.shouldHave(Level.DEBUG, "Applied on");
+    logs.shouldHave(Level.DEBUG, System.getProperty("java.io.tmpdir"));
   }
 }

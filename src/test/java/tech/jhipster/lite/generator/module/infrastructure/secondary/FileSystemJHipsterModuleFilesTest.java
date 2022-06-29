@@ -8,7 +8,7 @@ import ch.qos.logback.classic.Level;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import tech.jhipster.lite.LogSpy;
+import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.infrastructure.secondary.FileSystemProjectFilesReader;
@@ -18,14 +18,14 @@ import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePrope
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
-@ExtendWith(LogSpy.class)
+@ExtendWith(LogsSpy.class)
 class FileSystemJHipsterModuleFilesTest {
 
   private static final FileSystemJHipsterModuleFiles files = new FileSystemJHipsterModuleFiles(new FileSystemProjectFilesReader());
 
-  private final LogSpy logs;
+  private final LogsSpy logs;
 
-  public FileSystemJHipsterModuleFilesTest(LogSpy logs) {
+  public FileSystemJHipsterModuleFilesTest(LogsSpy logs) {
     this.logs = logs;
   }
 
@@ -54,6 +54,6 @@ class FileSystemJHipsterModuleFilesTest {
 
     files.create(project, module.templatedFiles());
 
-    logs.assertLogged(Level.DEBUG, "MainApp.java");
+    logs.shouldHave(Level.DEBUG, "MainApp.java");
   }
 }

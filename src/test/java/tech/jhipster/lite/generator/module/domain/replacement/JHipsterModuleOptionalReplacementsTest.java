@@ -6,19 +6,19 @@ import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
 import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import tech.jhipster.lite.LogSpy;
+import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
-@ExtendWith(LogSpy.class)
+@ExtendWith(LogsSpy.class)
 class JHipsterModuleOptionalReplacementsTest {
 
-  private final LogSpy logs;
+  private final LogsSpy logs;
 
-  public JHipsterModuleOptionalReplacementsTest(LogSpy logs) {
+  public JHipsterModuleOptionalReplacementsTest(LogsSpy logs) {
     this.logs = logs;
   }
 
@@ -26,7 +26,7 @@ class JHipsterModuleOptionalReplacementsTest {
   void shouldSilentlyNotApplyReplacementOnUnknownFile() {
     assertThatCode(() -> replaceIn("unknown")).doesNotThrowAnyException();
 
-    logs.assertLogged(Level.DEBUG, "no replacement done");
+    logs.shouldHave(Level.DEBUG, "no replacement done");
   }
 
   @Test

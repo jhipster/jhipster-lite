@@ -7,16 +7,16 @@ import ch.qos.logback.classic.Level;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import tech.jhipster.lite.LogSpy;
+import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.UnitTest;
 
 @UnitTest
-@ExtendWith(LogSpy.class)
+@ExtendWith(LogsSpy.class)
 class JHipsterModuleContextTest {
 
-  private final LogSpy logs;
+  private final LogsSpy logs;
 
-  public JHipsterModuleContextTest(LogSpy logs) {
+  public JHipsterModuleContextTest(LogsSpy logs) {
     this.logs = logs;
   }
 
@@ -28,7 +28,7 @@ class JHipsterModuleContextTest {
       .build()
       .indentation();
 
-    logs.assertLogged(Level.INFO, "invalid indentation, using default");
+    logs.shouldHave(Level.INFO, "invalid indentation, using default");
     assertThat(indentation).isEqualTo(Indentation.DEFAULT);
   }
 

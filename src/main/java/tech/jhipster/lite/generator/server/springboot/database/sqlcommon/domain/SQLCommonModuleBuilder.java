@@ -6,7 +6,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.docker.domain.DockerImage;
-import tech.jhipster.lite.generator.init.domain.GitRepository;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.module.domain.DocumentationTitle;
@@ -22,7 +21,9 @@ public class SQLCommonModuleBuilder {
   private static final String FALSE = "false";
   private static final String TRUE = "true";
 
-  public SQLCommonModuleBuilder() {}
+  private SQLCommonModuleBuilder() {
+    // Cannot be instantiated
+  }
 
   public static JHipsterModuleBuilder sqlCommonModuleBuilder(
     JHipsterModuleProperties properties,
@@ -61,7 +62,6 @@ public class SQLCommonModuleBuilder {
         .add(testContainer(databaseId))
         .and()
       .springMainProperties()
-        .set(propertyKey("spring.datasource.username"), propertyValue("root"))
         .set(propertyKey("spring.datasource.password"), propertyValue(""))
         .set(propertyKey("spring.datasource.type"), propertyValue("com.zaxxer.hikari.HikariDataSource"))
         .set(propertyKey("spring.datasource.hikari.poolName"), propertyValue("Hikari"))
@@ -123,7 +123,7 @@ public class SQLCommonModuleBuilder {
       .build();
   }
 
-  private static String logger(String loggerName, Level level) {
+  public static String logger(String loggerName, Level level) {
     return String.format("<logger name=\"%s\" level=\"%s\" />", loggerName, level.toString()) + LF + "  " + NEEDLE_LOGBACK_LOGGER;
   }
 }

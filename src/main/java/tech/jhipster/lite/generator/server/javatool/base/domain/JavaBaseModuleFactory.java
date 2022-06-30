@@ -1,12 +1,12 @@
 package tech.jhipster.lite.generator.server.javatool.base.domain;
 
-import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterSource;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.JHipsterDestination;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterSource;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class JavaBaseModuleFactory {
 
@@ -41,40 +41,40 @@ public class JavaBaseModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .packageName(properties.basePackage())
         .put("collectionClass", baseClassName)
         .and()
       .documentation(documentationTitle("Package types"), SOURCE.template("package-types.md"))
       .documentation(documentationTitle("Assertions"), SOURCE.template("assertions.md"))
       .files()
         .batch(SOURCE, mainDestination)
-          .add("BusinessContext.java")
-          .add("SharedKernel.java")
+          .template("BusinessContext.java")
+          .template("SharedKernel.java")
           .and()
         .batch(SOURCE, mainDestination.append(Destination.ERROR_DOMAIN.path()))
-          .add("Assert.java")
-          .add("MissingMandatoryValueException.java")
-          .add("AssertionException.java")
-          .add("NotAfterTimeException.java")
-          .add("NotBeforeTimeException.java")
-          .add("NullElementInCollectionException.java")
-          .add("NumberValueTooHighException.java")
-          .add("NumberValueTooLowException.java")
-          .add("StringTooLongException.java")
-          .add("StringTooShortException.java")
-          .add("TooManyElementsException.java")
+          .template("Assert.java")
+          .template("MissingMandatoryValueException.java")
+          .template("AssertionException.java")
+          .template("NotAfterTimeException.java")
+          .template("NotBeforeTimeException.java")
+          .template("NullElementInCollectionException.java")
+          .template("NumberValueTooHighException.java")
+          .template("NumberValueTooLowException.java")
+          .template("StringTooLongException.java")
+          .template("StringTooShortException.java")
+          .template("TooManyElementsException.java")
           .and()
         .batch(SOURCE, testDestination.append(Destination.ERROR_DOMAIN.path()))
-          .add("AssertTest.java")
-          .add("MissingMandatoryValueExceptionTest.java")
+          .template("AssertTest.java")
+          .template("MissingMandatoryValueExceptionTest.java")
           .and()
         .batch(SOURCE, testDestination)
-          .add("UnitTest.java")
-          .add("ComponentTest.java")
-          .add("ReplaceCamelCase.java")
+          .template("UnitTest.java")
+          .template("ComponentTest.java")
+          .template("ReplaceCamelCase.java")
           .and()
         .add(SOURCE.template("package-info-error.java"), packageInfoDestination(mainDestination, Destination.ERROR))
         .add(SOURCE.template("package-info-common.java"), packageInfoDestination(mainDestination,  Destination.COMMON))
+        .add(SOURCE.template("Generated.java"), mainDestination.append(Destination.COMMON_DOMAIN.path).append("Generated.java"))
         .add(SOURCE.template("ProjectCollections.java"), collectionsDestination(baseClassName, mainDestination))
         .add(SOURCE.template("ProjectCollectionsTest.java"), collectionsTestDestination(baseClassName, testDestination))
         .and()

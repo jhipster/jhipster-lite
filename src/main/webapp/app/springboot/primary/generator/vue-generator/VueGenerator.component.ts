@@ -44,10 +44,19 @@ export default defineComponent({
       }
     };
 
+    const addPlaywrightForVue = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await projectService
+          .addPlaywright(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Playwright successfully added'))
+          .catch(error => alertBus.error(`Adding Playwright to project failed ${error}`));
+      }
+    };
     return {
       selectorPrefix,
       addVue,
       addCypressForVue,
+      addPlaywrightForVue,
       props,
     };
   },

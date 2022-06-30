@@ -1,19 +1,10 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application;
 
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocAssert.SPRINGDOC_CONFIGURATION_JAVA;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocAssert.assertDependencies;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocAssert.*;
 import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocAssert.assertFileContent;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocAssert.assertJavaFiles;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocAssert.assertJavaFilesWithSecurityJWT;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocAssert.assertProperties;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_DESCRIPTION_CONFIG_KEY;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_EXT_DOC_DESCRIPTION_CONFIG_KEY;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_EXT_DOC_URL_CONFIG_KEY;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_LICENSE_NAME_CONFIG_KEY;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_LICENSE_URL_CONFIG_KEY;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.API_TITLE_CONFIG_KEY;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocConstants.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
+import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 class SpringdocApplicationServiceIT {
@@ -37,16 +28,13 @@ class SpringdocApplicationServiceIT {
   private static final String CUSTOM_EXT_DOC_URL = "https://custom-doc-url.com";
 
   @Autowired
-  SpringdocApplicationService springdocApplicationService;
+  private SpringdocApplicationService springdocApplicationService;
 
   @Autowired
-  InitApplicationService initApplicationService;
+  private MavenApplicationService mavenApplicationService;
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
-
-  @Autowired
-  SpringBootApplicationService springBootApplicationService;
+  private SpringBootApplicationService springBootApplicationService;
 
   @Test
   void shouldInit() {
@@ -63,7 +51,7 @@ class SpringdocApplicationServiceIT {
     projectConfig.put(API_EXT_DOC_URL_CONFIG_KEY, CUSTOM_EXT_DOC_URL);
     project.getConfig().putAll(projectConfig);
 
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
@@ -91,7 +79,7 @@ class SpringdocApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "foo");
 
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 

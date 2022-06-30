@@ -6,6 +6,7 @@ export type ServiceProjection =
   | 'angular-with-jwt'
   | 'angular-oauth2'
   | 'angular-health'
+  | 'client-common-playwright'
   | 'consul'
   | 'dev-tools'
   | 'dockerfile'
@@ -20,6 +21,7 @@ export type ServiceProjection =
   | 'github-actions'
   | 'jacoco-check-minimal-coverage'
   | 'java-base'
+  | 'java-archunit'
   | 'jib'
   | 'liquibase'
   | 'liquibase-with-users-and-authority-changelogs'
@@ -67,6 +69,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.ANGULAR_WITH_JWT]: 'angular-with-jwt',
   [Service.ANGULAR_OAUTH2]: 'angular-oauth2',
   [Service.ANGULAR_HEALTH]: 'angular-health',
+  [Service.CLIENT_COMMON_PLAYWRIGHT]: 'client-common-playwright',
   [Service.CONSUL]: 'consul',
   [Service.DEV_TOOLS]: 'dev-tools',
   [Service.DOCKERFILE]: 'dockerfile',
@@ -81,6 +84,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.INITIALIZATION]: 'initialization',
   [Service.JACOCO_CHECK_MINIMAL_COVERAGE]: 'jacoco-check-minimal-coverage',
   [Service.JAVA_BASE]: 'java-base',
+  [Service.JAVA_ARCHUNIT]: 'java-archunit',
   [Service.JIB]: 'jib',
   [Service.LIQUIBASE]: 'liquibase',
   [Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS]: 'liquibase-with-users-and-authority-changelogs',
@@ -131,6 +135,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'angular-with-jwt': Service.ANGULAR_WITH_JWT,
   'angular-oauth2': Service.ANGULAR_OAUTH2,
   'angular-health': Service.ANGULAR_HEALTH,
+  'client-common-playwright': Service.CLIENT_COMMON_PLAYWRIGHT,
   consul: Service.CONSUL,
   'dev-tools': Service.DEV_TOOLS,
   'ehcache-with-java-config': Service.EHCACHE_WITH_JAVA_CONFIG,
@@ -145,6 +150,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   initialization: Service.INITIALIZATION,
   'jacoco-check-minimal-coverage': Service.JACOCO_CHECK_MINIMAL_COVERAGE,
   'java-base': Service.JAVA_BASE,
+  'java-archunit': Service.JAVA_ARCHUNIT,
   jib: Service.JIB,
   liquibase: Service.LIQUIBASE,
   'liquibase-with-users-and-authority-changelogs': Service.LIQUIBASE_WITH_USERS_AND_AUTHORITY_CHANGELOGS,

@@ -39,6 +39,10 @@ export default class SpringBootRepository implements SpringBootService {
     await this.postAndGetHistory('api/servers/spring-boot/api-documentations/springdoc/init', toRestProject(project));
   }
 
+  async addJavaArchunit(project: Project): Promise<void> {
+    await this.postAndGetHistory('api/servers/java/arch', toRestProject(project));
+  }
+
   async addSpringBootAopLogging(project: Project): Promise<void> {
     await this.postAndGetHistory('api/servers/spring-boot/log-tools/aop', toRestProject(project));
   }

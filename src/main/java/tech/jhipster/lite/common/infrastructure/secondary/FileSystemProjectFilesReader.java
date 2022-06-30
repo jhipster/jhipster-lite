@@ -16,7 +16,7 @@ public class FileSystemProjectFilesReader implements ProjectFilesReader {
   private static final String SLASH = "/";
 
   @Override
-  @Generated
+  @Generated(reason = "The error handling is an hard to test implementation detail")
   public String readString(String path) {
     Assert.notBlank("path", path);
 
@@ -29,7 +29,7 @@ public class FileSystemProjectFilesReader implements ProjectFilesReader {
     }
   }
 
-  @Generated
+  @Generated(reason = "The error handling is an hard to test implementation detail")
   private static String toString(InputStream input) {
     try {
       return IOUtils.toString(input, StandardCharsets.UTF_8);
@@ -39,7 +39,7 @@ public class FileSystemProjectFilesReader implements ProjectFilesReader {
   }
 
   @Override
-  @Generated
+  @Generated(reason = "The error handling is an hard to test implementation detail")
   public byte[] readBytes(String path) {
     Assert.notBlank("path", path);
 
@@ -62,7 +62,7 @@ public class FileSystemProjectFilesReader implements ProjectFilesReader {
     return FileSystemProjectFilesReader.class.getResourceAsStream(path.replace("\\", SLASH));
   }
 
-  @Generated
+  @Generated(reason = "The error handling is an hard to test implementation detail")
   private static byte[] toByteArray(InputStream input) {
     try {
       return IOUtils.toByteArray(input);

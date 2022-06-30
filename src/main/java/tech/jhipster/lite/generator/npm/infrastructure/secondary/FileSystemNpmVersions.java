@@ -13,7 +13,7 @@ import tech.jhipster.lite.generator.npm.domain.NpmVersions;
 import tech.jhipster.lite.generator.npm.domain.UnknownNpmPackageException;
 
 @Repository
-class FileSystemNpmVersions implements NpmVersions {
+public class FileSystemNpmVersions implements NpmVersions {
 
   private final ProjectFilesReader projectFiles;
 
@@ -41,7 +41,7 @@ class FileSystemNpmVersions implements NpmVersions {
   }
 
   private String readVersionsFile(String sourceFolder) {
-    return projectFiles.readString("generator/dependencies/" + sourceFolder + "/package.json");
+    return projectFiles.readString("/generator/dependencies/" + sourceFolder + "/package.json");
   }
 
   private Pattern dependencyPattern(NpmPackageName packageName) {

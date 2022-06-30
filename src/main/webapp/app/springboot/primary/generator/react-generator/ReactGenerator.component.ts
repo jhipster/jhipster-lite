@@ -60,6 +60,14 @@ export default defineComponent({
           .catch(error => alertBus.error(`Adding Cypress to project failed ${error}`));
       }
     };
+    const addPlaywrightForReact = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await projectService
+          .addPlaywright(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Playwright successfully added'))
+          .catch(error => alertBus.error(`Adding Playwright to project failed ${error}`));
+      }
+    };
 
     return {
       selectorPrefix,
@@ -67,6 +75,7 @@ export default defineComponent({
       addReact,
       addReactWithJWT,
       addCypressForReact,
+      addPlaywrightForReact,
       props,
     };
   },

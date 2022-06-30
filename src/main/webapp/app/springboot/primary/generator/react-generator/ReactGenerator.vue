@@ -28,6 +28,12 @@
       :selector-prefix="selectorPrefix"
       @click.prevent="addCypressForReact"
     />
+    <GeneratorButtonVue
+      :label="'Playwright'"
+      :service="'client-common-playwright'"
+      :selector-prefix="selectorPrefix"
+      @click.prevent="addPlaywrightForReact"
+    />
   </div>
 </template>
 

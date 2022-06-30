@@ -13,31 +13,28 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
+import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 class SpringCloudCommonApplicationServiceIT {
 
   @Autowired
-  SpringCloudCommonApplicationService springCloudCommonApplicationService;
+  private SpringCloudCommonApplicationService springCloudCommonApplicationService;
 
   @Autowired
-  InitApplicationService initApplicationService;
+  private MavenApplicationService mavenApplicationService;
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
-
-  @Autowired
-  SpringBootApplicationService springBootApplicationService;
+  private SpringBootApplicationService springBootApplicationService;
 
   @Test
   void shouldAddBootstrapProperties() throws IOException {
     // Given
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "foo");
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.addPomXml(project);
     springBootApplicationService.init(project);
 
@@ -45,9 +42,9 @@ class SpringCloudCommonApplicationServiceIT {
     String fileName = "bootstrap.properties";
     Path existingBootstrapFilePath = Path.of(getPath(project.getFolder(), destinationFolderPath, fileName));
     String existingBootstrapFileContent = """
-      # bootstrap properties
-      eureka.client.enabled=true
-      """;
+        # bootstrap properties
+        eureka.client.enabled=true
+        """;
     Files.write(existingBootstrapFilePath, existingBootstrapFileContent.getBytes());
 
     // When
@@ -57,12 +54,12 @@ class SpringCloudCommonApplicationServiceIT {
     // Then
     List<String> expectedContentLines =
       """
-      # bootstrap properties
-      eureka.client.enabled=true
+        # bootstrap properties
+        eureka.client.enabled=true
 
-      spring.application.name=foo
-      spring.cloud.compatibility-verifier.enabled=false
-      """.lines()
+        spring.application.name=foo
+        spring.cloud.compatibility-verifier.enabled=false
+        """.lines()
         .toList();
     assertThat(Files.readAllLines(existingBootstrapFilePath)).containsExactlyElementsOf(expectedContentLines);
   }

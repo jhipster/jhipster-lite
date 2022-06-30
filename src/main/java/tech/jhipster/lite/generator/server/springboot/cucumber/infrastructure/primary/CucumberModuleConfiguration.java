@@ -2,11 +2,11 @@ package tech.jhipster.lite.generator.server.springboot.cucumber.infrastructure.p
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePropertiesDefinition;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModulePropertyDefinition;
-import tech.jhipster.lite.generator.module.infrastructure.primary.JHipsterModuleApiDoc;
-import tech.jhipster.lite.generator.module.infrastructure.primary.JHipsterModuleResource;
 import tech.jhipster.lite.generator.server.springboot.cucumber.application.CucumberApplicationService;
+import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition;
+import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
+import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
 
 @Configuration
 class CucumberModuleConfiguration {

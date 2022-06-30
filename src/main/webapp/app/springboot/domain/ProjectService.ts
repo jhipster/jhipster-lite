@@ -14,4 +14,5 @@ export interface ProjectService {
   addGitpodSetup(project: Project): Promise<void>;
   getProjectDetails(folder: string): Promise<void>;
   addCypress(project: Project): Promise<void>;
+  addPlaywright(project: Project): Promise<void>;
 }

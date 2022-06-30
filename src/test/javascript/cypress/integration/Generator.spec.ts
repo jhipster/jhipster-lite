@@ -47,7 +47,7 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-spring-boot-webflux-netty-button')).contains('Spring Webflux Netty');
     cy.get(springBootGeneratorSelector('add-spring-boot-actuator-button')).contains('Spring Boot Actuator');
     cy.get(springBootGeneratorSelector('add-spring-doc-button')).contains('Spring Doc');
-
+    cy.get(springBootGeneratorSelector('add-java-archunit-button')).contains('Java Archunit');
     cy.get(springBootGeneratorSelector('add-aop-logging-button')).contains('AOP Logging');
     cy.get(springBootGeneratorSelector('add-logstash-button')).contains('Logstash');
 
@@ -97,18 +97,21 @@ describe('Generator', () => {
     cy.get(angularGeneratorSelector('add-angular-oauth2-button')).contains('Add OAuth2');
     cy.get(angularGeneratorSelector('add-angular-health-button')).contains('Add Health');
     cy.get(angularGeneratorSelector('add-react-cypress-button')).contains('Cypress');
+    cy.get(angularGeneratorSelector('add-client-common-playwright-button')).contains('Playwright');
   });
 
   it('should display react', () => {
     cy.get(generatorSelector('option-react')).check();
     cy.get(reactGeneratorSelector('add-react-button')).contains('React');
     cy.get(reactGeneratorSelector('add-react-cypress-button')).contains('Cypress');
+    cy.get(reactGeneratorSelector('add-client-common-playwright-button')).contains('Playwright');
   });
 
   it('should display vue', () => {
     cy.get(generatorSelector('option-vue')).check();
     cy.get(vueGeneratorSelector('add-vue-button')).contains('Vue');
     cy.get(vueGeneratorSelector('add-react-cypress-button')).contains('Cypress');
+    cy.get(vueGeneratorSelector('add-client-common-playwright-button')).contains('Playwright');
   });
 
   it('should display svelte', () => {

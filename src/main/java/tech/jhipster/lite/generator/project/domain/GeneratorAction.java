@@ -109,8 +109,6 @@ public class GeneratorAction {
   public static final String JIB = "jib";
   public static final String DOCKERFILE = "dockerfile";
 
-  public static final String GITHUB_CODESPACES = "github-codespaces";
-
   public static final String SPRINGBOOT_WEBFLUX_NETTY = "springboot-webflux-netty";
 
   public static final String CLIENT_COMMON_PLAYWRIGHT = "client-common-playwright";

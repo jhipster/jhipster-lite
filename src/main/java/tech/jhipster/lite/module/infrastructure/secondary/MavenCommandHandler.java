@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.joox.JOOX.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +31,7 @@ import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependency
 class MavenCommandHandler {
 
   private static final Pattern SPACES_ONLY_LINE = Pattern.compile("^\\s+$", Pattern.MULTILINE);
-  private static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
+  private static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" + LINE_BREAK;
   private static final String COMMAND = "command";
   private static final String GROUP_ID = "groupId";
   private static final String ARTIFACT_ID = "artifactId";
@@ -47,8 +48,6 @@ class MavenCommandHandler {
     VERSION,
     ARTIFACT_ID,
   };
-  private static final String BREAK = "\n";
-
   private final Indentation indentation;
   private final Path pomPath;
   private final Match document;
@@ -84,13 +83,13 @@ class MavenCommandHandler {
   }
 
   private void appendProperties(SetJavaDependencyVersion command) {
-    Match properties = $("properties").append(BREAK).append(indentation.spaces());
+    Match properties = $("properties").append(LINE_BREAK).append(indentation.spaces());
 
     appendPropertyLine(properties, command);
 
     findFirst(PROPERTIES_ANCHOR).after(properties);
 
-    document.find("project properties").before(BREAK).before(BREAK).before(indentation.spaces());
+    document.find("project properties").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
   }
 
   private void appendPropertyLine(Match properties, SetJavaDependencyVersion command) {
@@ -102,7 +101,7 @@ class MavenCommandHandler {
       properties
         .append(indentation.spaces())
         .append($(command.property(), command.dependencyVersion()))
-        .append(BREAK)
+        .append(LINE_BREAK)
         .append(indentation.spaces());
     }
   }
@@ -135,15 +134,15 @@ class MavenCommandHandler {
 
   private void appendDependencies(AddJavaDependency command) {
     Match dependencies = $("dependencies")
-      .append(BREAK)
+      .append(LINE_BREAK)
       .append(indentation.times(2))
       .append(dependencyNode(command))
-      .append(BREAK)
+      .append(LINE_BREAK)
       .append(indentation.spaces());
 
     findFirst(DEPENDENCIES_ANCHOR).after(dependencies);
 
-    document.find("project dependencies").before(BREAK).before(BREAK).before(indentation.spaces());
+    document.find("project dependencies").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
   }
 
   private void appendDependency(AddJavaDependency command, Match dependencies) {
@@ -175,7 +174,7 @@ class MavenCommandHandler {
         .stream()
         .filter(dependencyMatch(command.dependencyId()))
         .findFirst()
-        .ifPresent(node -> node.after(indentation.times(2)).after(BREAK).after(BREAK));
+        .ifPresent(node -> node.after(indentation.times(2)).after(LINE_BREAK).after(LINE_BREAK));
     };
   }
 
@@ -193,7 +192,12 @@ class MavenCommandHandler {
   }
 
   private void appendDependencyInLastPosition(AddJavaDependency command, Match dependencies) {
-    dependencies.append(BREAK).append(indentation.times(2)).append(dependencyNode(command)).append(BREAK).append(indentation.spaces());
+    dependencies
+      .append(LINE_BREAK)
+      .append(indentation.times(2))
+      .append(dependencyNode(command))
+      .append(LINE_BREAK)
+      .append(indentation.spaces());
   }
 
   private Match dependencyNode(AddJavaDependency command) {
@@ -203,17 +207,17 @@ class MavenCommandHandler {
     appendScope(command, dependency);
     appendOptional(command, dependency);
 
-    dependency.append(BREAK).append(indentation.times(2));
+    dependency.append(LINE_BREAK).append(indentation.times(2));
 
     return dependency;
   }
 
   private Match buildDependencyNode(AddJavaDependency command) {
     return $("dependency")
-      .append(BREAK)
+      .append(LINE_BREAK)
       .append(indentation.times(3))
       .append($(GROUP_ID, command.groupId().get()))
-      .append(BREAK)
+      .append(LINE_BREAK)
       .append(indentation.times(3))
       .append($(ARTIFACT_ID, command.artifactId().get()));
   }
@@ -221,18 +225,18 @@ class MavenCommandHandler {
   private void appendVersion(AddJavaDependency command, Match dependency) {
     command
       .version()
-      .ifPresent(version -> dependency.append(BREAK).append(indentation.times(3)).append($(VERSION, version.mavenVariable())));
+      .ifPresent(version -> dependency.append(LINE_BREAK).append(indentation.times(3)).append($(VERSION, version.mavenVariable())));
   }
 
   private void appendScope(AddJavaDependency command, Match dependency) {
     if (command.scope() != JavaDependencyScope.COMPILE) {
-      dependency.append(BREAK).append(indentation.times(3)).append($("scope", Enums.map(command.scope(), MavenScope.class).key()));
+      dependency.append(LINE_BREAK).append(indentation.times(3)).append($("scope", Enums.map(command.scope(), MavenScope.class).key()));
     }
   }
 
   private void appendOptional(AddJavaDependency command, Match dependency) {
     if (command.optional()) {
-      dependency.append(BREAK).append(indentation.times(3)).append($("optional", "true"));
+      dependency.append(LINE_BREAK).append(indentation.times(3)).append($("optional", "true"));
     }
   }
 
@@ -242,7 +246,7 @@ class MavenCommandHandler {
       writer.write(HEADER);
 
       for (Element e : document) {
-        String element = JOOX.$(e).toString().replace("\r\n", "\n");
+        String element = JOOX.$(e).toString().replace("\r\n", LINE_BREAK);
 
         element = SPACES_ONLY_LINE.matcher(element).replaceAll("");
 

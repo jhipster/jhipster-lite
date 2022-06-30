@@ -8,7 +8,6 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 abstract class JHipsterModuleReplacements {
 
-  public static final String LF = "\n";
   private final Collection<FileReplacer> replacers;
 
   protected JHipsterModuleReplacements(JHipsterModuleReplacementsBuilder<?, ?> builder) {

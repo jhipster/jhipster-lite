@@ -57,6 +57,7 @@ describe('RestServiceId', () => {
     expect(toService('spring-cloud')).toEqual<Service>(Service.SPRING_CLOUD);
     expect(toService('react')).toEqual<Service>(Service.REACT);
     expect(toService('react-styled')).toEqual<Service>(Service.REACT_STYLED);
+    expect(toService('react-jwt')).toEqual<Service>(Service.REACT_JWT);
     expect(toService('vue')).toEqual<Service>(Service.VUE);
     expect(toService('beer')).toEqual<Service>(Service.UNKNOWN);
   });

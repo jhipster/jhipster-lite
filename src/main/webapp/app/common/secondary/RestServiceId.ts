@@ -60,6 +60,7 @@ const SERVICES: Record<string, Service> = {
   'spring-cloud': Service.SPRING_CLOUD,
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
+  'react-jwt': Service.REACT_JWT,
   vue: Service.VUE,
   unknown: Service.UNKNOWN,
 };

@@ -246,6 +246,10 @@ elif [[ $application == 'reactapp' ]]; then
   callApi "/api/clients/react/styles"
   callApi "/api/clients/cypress"
 
+  callApi "/api/servers/spring-boot/security-systems/jwt"
+  callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
+  callApi "/api/clients/react/jwt"
+
 elif [[ $application == 'vueapp' ]]; then
   springboot_mvc
   sonar_back_front

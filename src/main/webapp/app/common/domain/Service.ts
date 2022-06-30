@@ -57,6 +57,7 @@ export enum Service {
   SPRING_CLOUD = 'SPRING_CLOUD',
   REACT = 'REACT',
   REACT_STYLED = 'REACT_STYLED',
+  REACT_JWT = 'REACT_JWT',
   VUE = 'VUE',
   UNKNOWN = 'UNKNOWN',
 }

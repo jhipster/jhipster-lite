@@ -152,6 +152,40 @@ describe('ReactGenerator', () => {
     expectAlertErrorToBe(alertBus, 'Adding Cypress to project failed error');
   });
 
+  it('should not add React with JWT when project path is not filled', async () => {
+    const reactService = stubReactService();
+    reactService.addWithJWT.resolves({});
+    await wrap({ reactService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addReactWithJWT();
+
+    expect(reactService.addWithJWT.called).toBe(false);
+  });
+
+  it('should add React with JWT when project path is filled', async () => {
+    const reactService = stubReactService();
+    reactService.addWithJWT.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
+
+    await component.addReactWithJWT();
+
+    const args = reactService.addWithJWT.getCall(0).args[0];
+    expect(args).toEqual(projectJson);
+    expectAlertSuccessToBe(alertBus, 'React with authentication JWT successfully added');
+  });
+
+  it('should handle error on adding React with JWT failure', async () => {
+    const reactService = stubReactService();
+    const alertBus = stubAlertBus();
+    reactService.addWithJWT.rejects('error');
+    await wrap({ reactService, project: createProjectToUpdate({ folder: 'path' }), alertBus });
+
+    await component.addReactWithJWT();
+
+    expectAlertErrorToBe(alertBus, 'Adding React with authentication JWT to project failed error');
+  });
+
   it('should not add Playwright when project path is not filled', async () => {
     const projectService = stubProjectService();
     projectService.addPlaywright.resolves({});

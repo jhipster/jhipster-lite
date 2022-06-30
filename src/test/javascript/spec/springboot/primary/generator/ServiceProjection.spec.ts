@@ -70,6 +70,7 @@ describe('ServiceProjection', () => {
     expect(toServiceProjection(Service.SPRING_CLOUD)).toEqual<ServiceProjection>('spring-cloud');
     expect(toServiceProjection(Service.REACT)).toEqual<ServiceProjection>('react');
     expect(toServiceProjection(Service.REACT_STYLED)).toEqual<ServiceProjection>('react-styled');
+    expect(toServiceProjection(Service.REACT_JWT)).toEqual<ServiceProjection>('react-jwt');
     expect(toServiceProjection(Service.VUE)).toEqual<ServiceProjection>('vue');
     expect(toServiceProjection(Service.UNKNOWN)).toEqual<ServiceProjection>('unknown');
   });
@@ -139,6 +140,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('spring-boot-cucumber')).toEqual<Service>(Service.SPRINGBOOT_CUCUMBER);
     expect(fromServiceProjection('react')).toEqual<Service>(Service.REACT);
     expect(fromServiceProjection('react-styled')).toEqual<Service>(Service.REACT_STYLED);
+    expect(fromServiceProjection('react-jwt')).toEqual<Service>(Service.REACT_JWT);
     expect(fromServiceProjection('vue')).toEqual<Service>(Service.VUE);
     expect(fromServiceProjection('unknown')).toEqual<Service>(Service.UNKNOWN);
   });

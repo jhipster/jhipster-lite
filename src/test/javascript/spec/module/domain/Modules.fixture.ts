@@ -42,6 +42,11 @@ export const defaultModules = (): Modules => ({
             },
           ],
         },
+        {
+          slug: 'banner',
+          description: 'Add a banner to the application',
+          properties: [],
+        },
       ],
     },
   ],

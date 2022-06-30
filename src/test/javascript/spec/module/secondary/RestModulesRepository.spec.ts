@@ -44,6 +44,10 @@ const restModules = (): RestModules => ({
           description: 'Add cucumber to the application',
           properties: restModuleProperties(),
         },
+        {
+          slug: 'banner',
+          description: 'Add a banner to the application',
+        },
       ],
     },
   ],

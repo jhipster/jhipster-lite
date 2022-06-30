@@ -229,6 +229,39 @@ describe('Modules', () => {
     const [message] = alertBus.error.getCall(0).args;
     expect(message).toBe('Module "spring-cucumber" not applied');
   });
+
+  it('Should filter modules with one matching slug module', async () => {
+    const modules = repositoryWithModules();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('modules-filter-field')).setValue('spring-cucumber');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
+  });
+
+  it('Should filter modules with one matching description module', async () => {
+    const modules = repositoryWithModules();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('modules-filter-field')).setValue('Add cucumber');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
+  });
+
+  it('Should filter modules with no maching module', async () => {
+    const modules = repositoryWithModules();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('modules-filter-field')).setValue('pouet');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(false);
+  });
 });
 
 const componentWithModules = async (): Promise<VueWrapper> => {

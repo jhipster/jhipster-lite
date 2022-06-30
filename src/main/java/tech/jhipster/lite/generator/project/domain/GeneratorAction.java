@@ -69,8 +69,6 @@ public class GeneratorAction {
 
   public static final String MONGOCK = "mongock";
 
-  public static final String JAVA_ARCHUNIT = "java-archunit";
-
   public static final String MARIADB = "mariadb";
 
   public static final String MONGODB = "mongodb";

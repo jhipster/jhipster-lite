@@ -97,23 +97,18 @@
               <div class="jhipster-module--slug">{{ module.slug }}</div>
               <div class="jhipster-module--description">{{ module.description}}</div>
 
-              <div class="jhipster-module--properties">
-                <div v-for="property in mandatoryProperties(module.slug)" class="jhipster-module--property">
-                  <div class="jhipster-module--property-key">{{ property.key }}</div>
-                  <div class="jhipster-module--property-value" :data-selector="`module-${module.slug}-${property.key}-property-value`">
-                    {{ moduleProperties.get(property.key) }}
-                  </div>
-                </div>
-              </div>
-
-              <div class="jhipster-module--properties">
-                <div v-for="property in optionalProperties(module.slug)" class="jhipster-module--property">
-                  <div class="jhipster-module--property-key">{{ property.key }}</div>
-                  <div class="jhipster-module--property-value" :data-selector="`module-${module.slug}-${property.key}-property-value`">
-                    {{ moduleProperties.get(property.key) }}
-                  </div>
-                </div>
-              </div>
+              <ModulePropertiesVue
+                propertiesType="Mandatory"
+                :properties="mandatoryProperties(module.slug)"
+                :moduleSlug="module.slug"
+                :moduleProperties="moduleProperties"
+              />
+              <ModulePropertiesVue
+                propertiesType="Optional"
+                :properties="optionalProperties(module.slug)"
+                :moduleSlug="module.slug"
+                :moduleProperties="moduleProperties"
+              />
             </div>
 
             <button

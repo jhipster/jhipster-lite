@@ -80,21 +80,6 @@
   font-weight: bold;
 }
 
-.jhipster-module--properties {
-  display: flex;
-}
-
-.jhipster-module--property {
-  margin-right: 15px;
-}
-
-.jhipster-module--property-key {
-  font-weight: bold;
-}
-.jhipster-module--property-value {
-  height: 1em;
-}
-
 .jhipster-module--apply-button {
   background-color: transparent;
   border: 0;

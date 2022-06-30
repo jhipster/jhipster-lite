@@ -1,3 +1,4 @@
+import { ModulePropertiesVue } from '../module-properties';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
 import { Loader } from '@/loader/primary/Loader';
 import { Category } from '@/module/domain/Category';
@@ -9,6 +10,7 @@ import { defineComponent, inject, onMounted, reactive, ref } from 'vue';
 
 export default defineComponent({
   name: 'ModulesVue',
+  components: { ModulePropertiesVue },
   setup() {
     const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;

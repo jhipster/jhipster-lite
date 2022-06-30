@@ -252,6 +252,17 @@ describe('Modules', () => {
     expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
   });
 
+  it('Should filter modules with multiple words matching', async () => {
+    const modules = repositoryWithModules();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('modules-filter-field')).setValue('spring-cucumber add application');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
+  });
+
   it('Should filter modules with no maching module', async () => {
     const modules = repositoryWithModules();
     const wrapper = await filledModuleForm(modules);

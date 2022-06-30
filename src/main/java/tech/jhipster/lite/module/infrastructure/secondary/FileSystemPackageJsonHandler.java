@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -27,9 +29,8 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 class FileSystemPackageJsonHandler {
 
   private static final String QUOTE = "\"";
-  private static final String BREAK = "\n";
   private static final String LINE_END = ",";
-  private static final String LINE_SEPARATOR = LINE_END + BREAK;
+  private static final String LINE_SEPARATOR = LINE_END + LINE_BREAK;
 
   private final NpmVersions npmVersions;
 
@@ -70,7 +71,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String cleanupLineBreaks(Indentation indentation, String content) {
-    return content.replaceAll(",(\\s*|[\r\n]*)}", BREAK + indentation.spaces() + "}");
+    return content.replaceAll(",(\\s*|[\r\n]*)}", LINE_BREAK + indentation.spaces() + "}");
   }
 
   private String replaceScripts(Indentation indentation, Scripts scripts, String content) {
@@ -171,7 +172,7 @@ class FileSystemPackageJsonHandler {
 
     private String appendEntries(Matcher blocMatcher) {
       return blocMatcher.replaceFirst(match -> {
-        StringBuilder result = new StringBuilder().append(match.group(1)).append(BREAK);
+        StringBuilder result = new StringBuilder().append(match.group(1)).append(LINE_BREAK);
 
         result.append(entriesBloc(indentation, entries));
 
@@ -188,9 +189,9 @@ class FileSystemPackageJsonHandler {
         .append(blocName)
         .append(QUOTE)
         .append(": {")
-        .append(BREAK)
+        .append(LINE_BREAK)
         .append(entriesBloc(indentation, entries))
-        .append(BREAK)
+        .append(LINE_BREAK)
         .append(indentation.spaces())
         .append("}")
         .toString();

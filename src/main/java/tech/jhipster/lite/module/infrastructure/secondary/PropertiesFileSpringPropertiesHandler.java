@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -13,7 +15,6 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 
 class PropertiesFileSpringPropertiesHandler {
 
-  private static final String BREAK = "\n";
   private static final String EQUAL = "=";
   private static final String COLLECTION_SEPARATOR = ",";
 
@@ -49,7 +50,7 @@ class PropertiesFileSpringPropertiesHandler {
     int propertyIndex = currentProperties.indexOf(propertyId(key));
     if (propertyIndex != -1) {
       String start = currentProperties.substring(0, propertyIndex);
-      String end = currentProperties.substring(currentProperties.indexOf(BREAK, propertyIndex));
+      String end = currentProperties.substring(currentProperties.indexOf(LINE_BREAK, propertyIndex));
 
       return start + propertyLine(key, value) + end;
     }
@@ -65,7 +66,7 @@ class PropertiesFileSpringPropertiesHandler {
       return "";
     }
 
-    return Files.readString(file) + BREAK;
+    return Files.readString(file) + LINE_BREAK;
   }
 
   private String propertyLine(PropertyKey key, PropertyValue value) {

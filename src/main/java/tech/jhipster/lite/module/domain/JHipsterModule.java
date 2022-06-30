@@ -43,6 +43,8 @@ import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplac
 
 public class JHipsterModule {
 
+  public static final String LINE_BREAK = "\n";
+
   private final JHipsterProjectFolder projectFolder;
   private final Collection<JHipsterModuleFile> files;
   private final JHipsterModuleMandatoryReplacements mandatoryReplacements;
@@ -267,7 +269,7 @@ public class JHipsterModule {
       String target = "documentation/" + title.filename() + source.extension();
       files().add(source, to(target));
 
-      String markdownLink = "- [" + title.get() + "](" + target + ") \n" + JHIPSTER_DOCUMENTATION_NEEDLE;
+      String markdownLink = "- [" + title.get() + "](" + target + ") " + LINE_BREAK + JHIPSTER_DOCUMENTATION_NEEDLE;
       optionalReplacements().in("README.md").add(text(JHIPSTER_DOCUMENTATION_NEEDLE), markdownLink);
 
       return this;

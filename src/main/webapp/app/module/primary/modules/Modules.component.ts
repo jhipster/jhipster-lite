@@ -104,13 +104,15 @@ export default defineComponent({
       return {
         name: category.name,
         modules: category.modules.filter(module => {
-          return contains(module.description, search) || contains(module.slug, search);
+          const content = module.description.toLowerCase() + ' ' + module.slug.toLowerCase();
+
+          return search.split(' ').every(term => contains(content, term));
         }),
       };
     };
 
     const contains = (value: string, search: string): boolean => {
-      return value.toLowerCase().indexOf(search) !== -1;
+      return value.indexOf(search) !== -1;
     };
 
     const applyModule = (module: string): void => {

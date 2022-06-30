@@ -31,6 +31,10 @@ public final class JHipsterModulesAssertions {
     return file("src/test/resources/projects/maven/pom.xml", "pom.xml");
   }
 
+  public static ModuleFile testLockbackFile() {
+    return file("src/test/resources/projects/logback/logback.xml", "src/test/resources/logback.xml");
+  }
+
   public static ModuleFile packageJsonFile() {
     return file("src/test/resources/projects/empty-node/package.json", "package.json");
   }

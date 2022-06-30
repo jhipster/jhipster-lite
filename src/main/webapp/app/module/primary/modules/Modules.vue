@@ -39,10 +39,28 @@
 }
 
 .jhipster-modules-list {
+  flex-grow: 1;
+}
+
+.jhipster-modules-list--search {
+  margin: 15px 0;
   padding: 0 15px;
-  height: 100vh;
+  height: 70px;
+}
+
+.jhipster-modules-list--search-field {
+  width: 100%;
+  font-size: 2em;
+  border: 1px solid #29293b;
+  border-radius: 20px;
+  padding: 0 15px;
+}
+
+.jhipster-modules-list--categories {
+  height: calc(100vh - 100px);
   overflow-y: auto;
   flex-grow: 1;
+  padding: 0 15px;
 }
 
 .jhipster-module {

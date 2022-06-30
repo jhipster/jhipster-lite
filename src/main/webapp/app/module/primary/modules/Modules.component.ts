@@ -1,5 +1,6 @@
 import { AlertBus } from '@/common/domain/alert/AlertBus';
 import { Loader } from '@/loader/primary/Loader';
+import { Category } from '@/module/domain/Category';
 import { Module } from '@/module/domain/Module';
 import { ModuleProperty } from '@/module/domain/ModuleProperty';
 import { Modules } from '@/module/domain/Modules';
@@ -12,8 +13,9 @@ export default defineComponent({
     const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;
 
-    const modulesContent = reactive({
-      content: Loader.loading<Modules>(),
+    const applicationModules = reactive({
+      all: Loader.loading<Modules>(),
+      displayed: Loader.loading<Modules>(),
     });
 
     const applicationInProgress = ref(false);
@@ -22,7 +24,10 @@ export default defineComponent({
     const moduleProperties = ref(new Map<string, string | number | boolean>());
 
     onMounted(() => {
-      modules.list().then(response => modulesContent.content.loaded(response));
+      modules.list().then(response => {
+        applicationModules.all.loaded(response);
+        applicationModules.displayed.loaded(response);
+      });
     });
 
     const selectModule = (slug: string): void => {
@@ -78,10 +83,34 @@ export default defineComponent({
     };
 
     const getModule = (slug: string): Module => {
-      return modulesContent.content
+      return applicationModules.all
         .value()
         .categories.flatMap(category => category.modules)
         .find(module => module.slug === slug)!;
+    };
+
+    const filter = (search: string): void => {
+      applicationModules.displayed.loaded({ categories: filterCategories(search.toLowerCase()) });
+    };
+
+    const filterCategories = (search: string): Category[] => {
+      return applicationModules.all
+        .value()
+        .categories.map(category => toFilteredCategory(category, search))
+        .filter(category => category.modules.length !== 0);
+    };
+
+    const toFilteredCategory = (category: Category, search: string): Category => {
+      return {
+        name: category.name,
+        modules: category.modules.filter(module => {
+          return contains(module.description, search) || contains(module.slug, search);
+        }),
+      };
+    };
+
+    const contains = (value: string, search: string): boolean => {
+      return value.toLowerCase().indexOf(search) !== -1;
     };
 
     const applyModule = (module: string): void => {
@@ -105,7 +134,7 @@ export default defineComponent({
     };
 
     return {
-      content: modulesContent.content,
+      content: applicationModules.displayed,
       folderPath,
       selectModule,
       selectedModule,
@@ -116,6 +145,7 @@ export default defineComponent({
       mandatoryProperties,
       optionalProperties,
       moduleProperties,
+      filter,
       applyModule,
       applicationInProgress,
     };

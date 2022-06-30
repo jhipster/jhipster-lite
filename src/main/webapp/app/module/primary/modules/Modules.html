@@ -71,48 +71,61 @@
   </aside>
 
   <div class="jhipster-modules-list">
-    <div v-for="category in content.value().categories">
-      <div>
-        <h2 class="jhipster-module-category--name">{{ category.name }}</h2>
-        <div v-for="module in category.modules" class="jhipster-module">
-          <div
-            tabindex="3"
-            class="jhipster-module--content"
-            @click="selectModule(module.slug)"
-            @keyup.enter="selectModule(module.slug); $refs.folderPathInput.focus()"
-            :data-selector="`${module.slug}-module-content`"
-          >
-            <div class="jhipster-module--slug">{{ module.slug }}</div>
-            <div class="jhipster-module--description">{{ module.description}}</div>
+    <div class="jhipster-modules-list--search">
+      <input
+        tabindex="3"
+        type="text"
+        class="jhipster-modules-list--search-field"
+        placeholder="Filter"
+        data-selector="modules-filter-field"
+        @input="filter($event.target.value)"
+      />
+    </div>
 
-            <div class="jhipster-module--properties">
-              <div v-for="property in mandatoryProperties(module.slug)" class="jhipster-module--property">
-                <div class="jhipster-module--property-key">{{ property.key }}</div>
-                <div class="jhipster-module--property-value" :data-selector="`module-${module.slug}-${property.key}-property-value`">
-                  {{ moduleProperties.get(property.key) }}
+    <div class="jhipster-modules-list--categories">
+      <div v-for="category in content.value().categories">
+        <div>
+          <h2 class="jhipster-module-category--name">{{ category.name }}</h2>
+          <div v-for="module in category.modules" class="jhipster-module">
+            <div
+              tabindex="4"
+              class="jhipster-module--content"
+              @click="selectModule(module.slug)"
+              @keyup.enter="selectModule(module.slug); $refs.folderPathInput.focus()"
+              :data-selector="`${module.slug}-module-content`"
+            >
+              <div class="jhipster-module--slug">{{ module.slug }}</div>
+              <div class="jhipster-module--description">{{ module.description}}</div>
+
+              <div class="jhipster-module--properties">
+                <div v-for="property in mandatoryProperties(module.slug)" class="jhipster-module--property">
+                  <div class="jhipster-module--property-key">{{ property.key }}</div>
+                  <div class="jhipster-module--property-value" :data-selector="`module-${module.slug}-${property.key}-property-value`">
+                    {{ moduleProperties.get(property.key) }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="jhipster-module--properties">
+                <div v-for="property in optionalProperties(module.slug)" class="jhipster-module--property">
+                  <div class="jhipster-module--property-key">{{ property.key }}</div>
+                  <div class="jhipster-module--property-value" :data-selector="`module-${module.slug}-${property.key}-property-value`">
+                    {{ moduleProperties.get(property.key) }}
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="jhipster-module--properties">
-              <div v-for="property in optionalProperties(module.slug)" class="jhipster-module--property">
-                <div class="jhipster-module--property-key">{{ property.key }}</div>
-                <div class="jhipster-module--property-value" :data-selector="`module-${module.slug}-${property.key}-property-value`">
-                  {{ moduleProperties.get(property.key) }}
-                </div>
-              </div>
-            </div>
+            <button
+              tabindex="4"
+              class="jhipster-module--apply-button"
+              :disabled="disabledApplication(module.slug)"
+              @click="applyModule(module.slug)"
+              :data-selector="`module-${module.slug}-application-button`"
+            >
+              Apply
+            </button>
           </div>
-
-          <button
-            tabindex="3"
-            class="jhipster-module--apply-button"
-            :disabled="disabledApplication(module.slug)"
-            @click="applyModule(module.slug)"
-            :data-selector="`module-${module.slug}-application-button`"
-          >
-            Apply
-          </button>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { flushPromises, shallowMount, VueWrapper } from '@vue/test-utils';
+import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import { defaultModules, ModulesRepositoryStub, stubModulesRepository } from '../domain/Modules.fixture';
 import { ModulesVue } from '@/module/primary/modules';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
@@ -12,7 +12,7 @@ interface WrapperOptions {
 }
 
 const wrap = (options: WrapperOptions): VueWrapper => {
-  return shallowMount(ModulesVue, {
+  return mount(ModulesVue, {
     global: {
       provide: {
         modules: options.modules,
@@ -108,8 +108,11 @@ describe('Modules', () => {
     await flushForm(wrapper);
 
     expect(wrapper.find(wrappedElement('module-spring-cucumber-baseName-property-value')).text()).toBe('test');
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-Mandatory-properties-stats')).text()).toBe('1 / 1');
+
     expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalBoolean-property-value')).text()).toBe('true');
     expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalInteger-property-value')).text()).toBe('42');
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-Optional-properties-stats')).text()).toBe('2 / 2');
   });
 
   it('Should set boolean property to false', async () => {

@@ -29,7 +29,6 @@ describe('Generator', () => {
     cy.get(projectGeneratorSelector('add-sonar-java-backend-and-frontend-button')).contains('Sonar Backend+Frontend');
     cy.get(projectGeneratorSelector('add-java-base-button')).contains('Java Base');
     cy.get(projectGeneratorSelector('add-frontend-maven-plugin-button')).contains('Frontend Maven Plugin');
-    cy.get(projectGeneratorSelector('add-download-button')).should('not.exist');
   });
 
   it('should display setup', () => {
@@ -131,6 +130,9 @@ describe('Generator', () => {
 
   it('should display download button when project path is filled', () => {
     cy.get('#path').type('/tmp/jhlite');
-    cy.get(projectGeneratorSelector('add-download-button')).contains('Download');
+    cy.get(dataSelector('section-download')).contains('DOWNLOAD');
+  });
+  it('should not display download button when project path is filled', () => {
+    cy.get(dataSelector('section-download')).should('not.exist');
   });
 });

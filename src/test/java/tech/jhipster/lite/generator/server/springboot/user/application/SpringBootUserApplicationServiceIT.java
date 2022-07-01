@@ -67,7 +67,7 @@ class SpringBootUserApplicationServiceIT {
     mavenApplicationService.init(project);
     springBootApplicationService.init(project);
     if (databaseType.equals(MYSQL)) {
-      mySQLApplicationService.init(project);
+      TestJHipsterModules.applyer().module(mySQLApplicationService.build(properties)).properties(properties).slug("mysql").apply();
     } else {
       TestJHipsterModules.applyer().module(mariaDBApplicationService.build(properties)).properties(properties).slug("mariadb").apply();
     }

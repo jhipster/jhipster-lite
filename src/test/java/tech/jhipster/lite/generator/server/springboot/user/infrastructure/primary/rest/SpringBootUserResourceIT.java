@@ -75,9 +75,14 @@ class SpringBootUserResourceIT {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
 
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(project.getFolder())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
     mavenApplicationService.init(project);
     springBootApplicationService.init(project);
-    mySQLApplicationService.init(project);
+    TestJHipsterModules.applyer().module(mySQLApplicationService.build(properties)).properties(properties).slug("mysql").apply();
 
     mockMvc
       .perform(

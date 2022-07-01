@@ -28,7 +28,7 @@ class GeneratorHistoryInterceptorIT {
 
     mockMvc
       .perform(
-        post("/api/servers/spring-boot/databases/mysql")
+        post("/api/servers/spring-boot/databases/mssql")
           .contentType(MediaType.APPLICATION_JSON)
           .content(convertObjectToJsonBytes(projectDTO))
       )

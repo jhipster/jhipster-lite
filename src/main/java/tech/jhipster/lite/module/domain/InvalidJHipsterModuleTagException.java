@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.module.domain;
+package tech.jhipster.lite.module.domain;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
 

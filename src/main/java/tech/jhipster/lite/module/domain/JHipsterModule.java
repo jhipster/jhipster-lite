@@ -65,7 +65,6 @@ public class JHipsterModule {
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
   private final SpringProperties springProperties;
-  private final Collection<JHipsterModuleTag> tags;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
     projectFolder = builder.projectFolder;
@@ -80,7 +79,6 @@ public class JHipsterModule {
     preActions = builder.preActions.build();
     postActions = builder.postActions.build();
     springProperties = buildSpringProperties(builder);
-    tags = Collections.unmodifiableCollection(builder.tags.build().get());
   }
 
   private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
@@ -253,10 +251,6 @@ public class JHipsterModule {
     return springProperties;
   }
 
-  public Collection<JHipsterModuleTag> tags() {
-    return tags;
-  }
-
   public static class JHipsterModuleBuilder {
 
     private static final String PROFILE = "profile";
@@ -277,7 +271,6 @@ public class JHipsterModule {
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
     private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> mainSpringProperties = new HashMap<>();
     private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> testSpringProperties = new HashMap<>();
-    private final JHipsterModuleTags.JHipsterModuleTagsBuilder tags = JHipsterModuleTags.builder(this);
 
     private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
       Assert.notNull("properties", properties);
@@ -392,10 +385,6 @@ public class JHipsterModule {
         new PropertiesKey(profile, SpringPropertyType.TEST_PROPERTIES),
         key -> JHipsterModuleSpringProperties.builder(this)
       );
-    }
-
-    public JHipsterModuleTags.JHipsterModuleTagsBuilder tags() {
-      return tags;
     }
 
     public JHipsterModule build() {

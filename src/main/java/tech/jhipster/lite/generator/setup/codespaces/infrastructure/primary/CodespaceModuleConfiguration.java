@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.setup.codespaces.infrastructure.primary;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.setup.codespaces.application.CodespacesApplicationService;
+import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
@@ -19,6 +20,7 @@ class CodespaceModuleConfiguration {
       .slug("github-codespaces")
       .propertiesDefinition(propertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Codespaces", "Init GitHub Codespaces configuration files"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(codespaces::buildModule);
   }
 

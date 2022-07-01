@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.banner.infrastructure.pri
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.banner.application.BannerApplicationService;
+import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
 
@@ -19,6 +20,7 @@ class BannerModuleConfiguration {
       .slug("banner-jhipster-v7")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for Angular"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(banners::buildJHipsterV7Banner);
   }
 
@@ -30,6 +32,7 @@ class BannerModuleConfiguration {
       .slug("banner-jhipster-v7-react")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for React"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(banners::buildJHipsterV7ReactBanner);
   }
 
@@ -41,6 +44,7 @@ class BannerModuleConfiguration {
       .slug("banner-jhipster-v7-vue")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for Vue"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(banners::buildJHipsterV7VueBanner);
   }
 
@@ -52,6 +56,7 @@ class BannerModuleConfiguration {
       .slug("banner-jhipster-v2")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v2"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(banners::buildJHipsterV2Banner);
   }
 
@@ -63,6 +68,7 @@ class BannerModuleConfiguration {
       .slug("banner-jhipster-v3")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v3"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(banners::buildJHipsterV3Banner);
   }
 
@@ -74,6 +80,7 @@ class BannerModuleConfiguration {
       .slug("banner-ippon")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner for Ippon applications"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(banners::buildIpponBanner);
   }
 }

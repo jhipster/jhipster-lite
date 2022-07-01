@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.module.domain;
+package tech.jhipster.lite.module.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.error.domain.StringTooLongException;
+import tech.jhipster.lite.error.domain.StringWithWitespacesException;
 
 @UnitTest
 class JHipsterTagTest {
@@ -27,7 +28,7 @@ class JHipsterTagTest {
 
   @Test
   void shouldNotBeValidWithWhitespace() {
-    assertThatThrownBy(() -> new JHipsterModuleTag("my tag")).isInstanceOf(MissingMandatoryValueException.class);
+    assertThatThrownBy(() -> new JHipsterModuleTag("my tag")).isInstanceOf(StringWithWitespacesException.class);
   }
 
   @Test

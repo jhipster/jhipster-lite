@@ -1,21 +1,22 @@
-package tech.jhipster.lite.generator.module.domain;
+package tech.jhipster.lite.module.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule.JHipsterModuleBuilder;
 
 public class JHipsterModuleTags {
 
+  public static final JHipsterModuleTags DEFAULT_TAGS = builder().add("not-defined").build();
   private final Collection<JHipsterModuleTag> tags;
 
   private JHipsterModuleTags(JHipsterModuleTagsBuilder builder) {
     tags = Collections.unmodifiableCollection(builder.tags);
   }
 
-  static JHipsterModuleTagsBuilder builder(JHipsterModuleBuilder module) {
-    return new JHipsterModuleTagsBuilder(module);
+  public static JHipsterModuleTagsBuilder builder() {
+    return new JHipsterModuleTagsBuilder();
   }
 
   public Collection<JHipsterModuleTag> get() {
@@ -24,14 +25,7 @@ public class JHipsterModuleTags {
 
   public static class JHipsterModuleTagsBuilder {
 
-    private final JHipsterModuleBuilder module;
     private final Collection<JHipsterModuleTag> tags = new ArrayList<>();
-
-    private JHipsterModuleTagsBuilder(JHipsterModuleBuilder module) {
-      Assert.notNull("module", module);
-
-      this.module = module;
-    }
 
     public JHipsterModuleTagsBuilder add(JHipsterModuleTag tag) {
       Assert.notNull("tag", tag);
@@ -46,8 +40,16 @@ public class JHipsterModuleTags {
       return this;
     }
 
-    public JHipsterModuleBuilder and() {
-      return module;
+    public JHipsterModuleTagsBuilder add(String[] tags) {
+      add(List.of(tags));
+
+      return this;
+    }
+
+    public JHipsterModuleTagsBuilder add(Collection<String> tags) {
+      Assert.field("tags", tags).noNullElement();
+      this.tags.addAll(tags.stream().map(JHipsterModuleTag::new).toList());
+      return this;
     }
 
     public JHipsterModuleTags build() {

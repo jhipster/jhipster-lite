@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.infra
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.application.OAuth2SecurityApplicationService;
+import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
@@ -23,6 +24,7 @@ class OAuth2ModuleConfiguration {
           "Add a Spring Security: OAuth 2.0 / OIDC Authentication (stateful, works with Keycloak and Okta)"
         )
       )
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(oAuth2::buildOAuth2Module);
   }
 
@@ -34,6 +36,7 @@ class OAuth2ModuleConfiguration {
       .slug("springboot-oauth2-account")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC - Security", "Add a account context for OAuth 2.0 / OIDC Authentication"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(oAuth2::buildOAuth2AccountModule);
   }
 }

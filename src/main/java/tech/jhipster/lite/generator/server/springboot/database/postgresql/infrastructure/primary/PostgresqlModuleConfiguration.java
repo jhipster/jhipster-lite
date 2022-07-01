@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.database.postgresql.infra
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.database.postgresql.application.PostgresqlApplicationService;
+import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
@@ -20,6 +21,7 @@ class PostgresqlModuleConfiguration {
       .slug("postgresql")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add Postgresql to project"))
+      .tags(JHipsterModuleTags.DEFAULT_TAGS)
       .factory(postgresql::build);
   }
 }

@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.infrastructure.primary;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
+import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 
 public class JHipsterModuleResource {
@@ -11,6 +12,9 @@ public class JHipsterModuleResource {
   private final JHipsterModuleSlug slug;
   private final JHipsterModulePropertiesDefinition propertiesDefinition;
   private final JHipsterModuleApiDoc apiDoc;
+
+  private final JHipsterModuleTags tags;
+
   private final JHipsterModuleFactory factory;
 
   private JHipsterModuleResource(JHipsterModuleResourceBuilder builder) {
@@ -20,6 +24,7 @@ public class JHipsterModuleResource {
     slug = new JHipsterModuleSlug(builder.slug);
     propertiesDefinition = builder.propertiesDefinition;
     apiDoc = builder.apiDoc;
+    tags = builder.tags;
     factory = builder.factory;
   }
 
@@ -27,6 +32,7 @@ public class JHipsterModuleResource {
     Assert.notBlank("legacyUrl", builder.legacyUrl);
     Assert.notNull("propertiesDefinition", builder.propertiesDefinition);
     Assert.notNull("apiDoc", builder.apiDoc);
+    Assert.notNull("tags", builder.tags);
     Assert.notNull("factory", builder.factory);
   }
 
@@ -54,6 +60,10 @@ public class JHipsterModuleResource {
     return factory;
   }
 
+  public JHipsterModuleTags tags() {
+    return tags;
+  }
+
   public JHipsterModulePropertiesDefinition propertiesDefinition() {
     return propertiesDefinition;
   }
@@ -64,13 +74,16 @@ public class JHipsterModuleResource {
       JHipsterModuleResourceSlugBuilder,
       JHipsterModuleResourcePropertiesDefinitionBuilder,
       JHipsterModuleResourceApiDocBuilder,
-      JHipsterModuleResourceFactoryBuilder {
+      JHipsterModuleResourceFactoryBuilder,
+      JHipsterModuleResourceTagsBuilder {
 
     private String legacyUrl;
     private String slug;
     private JHipsterModuleApiDoc apiDoc;
     private JHipsterModuleFactory factory;
     private JHipsterModulePropertiesDefinition propertiesDefinition;
+
+    private JHipsterModuleTags tags;
 
     private JHipsterModuleResourceBuilder() {}
 
@@ -96,7 +109,7 @@ public class JHipsterModuleResource {
     }
 
     @Override
-    public JHipsterModuleResourceFactoryBuilder apiDoc(JHipsterModuleApiDoc apiDoc) {
+    public JHipsterModuleResourceTagsBuilder apiDoc(JHipsterModuleApiDoc apiDoc) {
       this.apiDoc = apiDoc;
 
       return this;
@@ -107,6 +120,13 @@ public class JHipsterModuleResource {
       this.factory = factory;
 
       return new JHipsterModuleResource(this);
+    }
+
+    @Override
+    public JHipsterModuleResourceFactoryBuilder tags(JHipsterModuleTags tags) {
+      this.tags = tags;
+
+      return this;
     }
   }
 
@@ -127,10 +147,14 @@ public class JHipsterModuleResource {
   }
 
   public interface JHipsterModuleResourceApiDocBuilder {
-    JHipsterModuleResourceFactoryBuilder apiDoc(JHipsterModuleApiDoc apiDoc);
+    JHipsterModuleResourceTagsBuilder apiDoc(JHipsterModuleApiDoc apiDoc);
   }
 
   public interface JHipsterModuleResourceFactoryBuilder {
     JHipsterModuleResource factory(JHipsterModuleFactory factory);
+  }
+
+  public interface JHipsterModuleResourceTagsBuilder {
+    JHipsterModuleResourceFactoryBuilder tags(JHipsterModuleTags tags);
   }
 }

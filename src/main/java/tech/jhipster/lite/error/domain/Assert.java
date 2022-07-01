@@ -287,6 +287,7 @@ public class Assert {
    */
   public static class StringAsserter {
 
+    public static final Pattern PATTERN_SPACE = Pattern.compile("\\s");
     private final String field;
     private final String value;
 
@@ -334,10 +335,10 @@ public class Assert {
      */
     public StringAsserter noWhitespace() {
       notNull();
-      Pattern pattern = Pattern.compile("\\s");
-      Matcher matcher = pattern.matcher(value);
+
+      Matcher matcher = PATTERN_SPACE.matcher(value);
       if (matcher.find()) {
-        throw MissingMandatoryValueException.forWhitespaceValue(field);
+        throw new StringWithWitespacesException(field);
       }
 
       return this;

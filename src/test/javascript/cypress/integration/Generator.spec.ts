@@ -128,11 +128,12 @@ describe('Generator', () => {
     cy.get(projectGeneratorSelector('add-gitpod-setup-button')).contains('Gitpod');
   });
 
-  it('should display download button when project path is filled', () => {
+  it('should not disable download button when project path is filled', () => {
     cy.get('#path').type('/tmp/jhlite');
     cy.get(dataSelector('section-download')).contains('DOWNLOAD');
+    cy.get(dataSelector('section-download')).should('not.be.disabled');
   });
-  it('should not display download button when project path is filled', () => {
-    cy.get(dataSelector('section-download')).should('not.exist');
+  it('should disable download button when project path is not filled', () => {
+    cy.get(dataSelector('section-download')).should('be.disabled');
   });
 });

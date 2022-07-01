@@ -6,14 +6,14 @@ So, this is basically about why and how to use a peculiar flavor of [Hexagonal a
 
 **In a nutshell**, hexagonal architecture:
 
-- Protect the domain model;
-- Clearly separate business and infrastructure responsibilities.
+- Protects the domain model;
+- Clearly separates business and infrastructure responsibilities.
 
 ## Disclaimers
 
-- This documentation is a [JHipster Lite](https://github.com/jhipster/jhipster-lite) module. This **probably don't fit your exact needs, you'll have to adapt it!**;
+- This documentation is a [JHipster Lite](https://github.com/jhipster/jhipster-lite) module. This **probably doesn't fit your exact needs, you'll have to adapt it!**;
 - This is one of the many possible implementations of this architecture. If you are not comfortable with this one just stick to one that helps you;
-- Code architecture are here to help us build great software faster, if it's failing there is probably something to change.
+- Code architectures are here to help us build great software faster, if it's failing there is probably something to change.
 
 ## Goals
 
@@ -23,7 +23,7 @@ Here are some of the properties we are looking for when using this kind of archi
 
 "The Only Constant in Life Is Change."- Heraclitus. This can't be more true in Software (hence [the name](https://en.wikipedia.org/wiki/Software)) and, if you have just a few weeks of experience, you know that "the users don't know what they want!!!". If the first quote is true the second one is fallacious!
 
-It's not that the users don't know what they want, in fact, nobody knows. Building a Software is not done with somebody telling the others what to do, it's done with [productive partnerships](https://manifesto.softwarecraftsmanship.org/). Yes, that mean people will change there mind times and times again (and this is totally fine!).
+It's not that the users don't know what they want, in fact, nobody knows. Building a Software is not done with somebody telling the others what to do, it's done with [productive partnerships](https://manifesto.softwarecraftsmanship.org/). Yes, that means people will change their mind times and times again (and this is totally fine!).
 
 So, as professional software developers we have to ensure that the code we are writing can welcome those changes. This often starts by lowering the solution complexity!
 
@@ -35,17 +35,17 @@ We often talk about 3 types of complexity:
 
 The hexagonal architecture allows us to reduce all those complexities to their bare minimum by giving clear responsibilities to each part of our Software.
 
-The very clear Separation Of Concern enforced by the architecture ease automatic testing of each parts since it's only doing one thing. Being able to build solid tests is also a great way to build a changes welcoming Software!
+The very clear Separation Of Concern enforced by the architecture eases automatic testing of each parts since it's only doing one thing. Being able to build solid tests is also a great way to build a changes welcoming Software!
 
 > Even if the architecture ease tests writing, being able to write good tests takes times and practice!
 
 ### Shorten feedback loops
 
-In Software development if you want to go faster (like really faster) you'll have to go for short feedback loops. If you have a button that can tell you in a few seconds that your solution is still behaving as intended you'll be way faster than checking that by hand after any update (in fact, you won't check by hand that after any update...).
+In Software development if you want to go faster (like really faster) you'll have to go for short feedbacks loops. If you have a button that can tell you in a few seconds that your solution is still behaving as intended you'll be way faster than checking that by hand after any update (in fact, you won't check by hand that after any update...).
 
 Let's be honest here: Hexagonal architecture won't help for the fastest feedback loops which are pair feedback in [pair](https://en.wikipedia.org/wiki/Pair_programming) or [mob programming](https://en.wikipedia.org/wiki/Mob_programming).
 
-BUT, just after that comes compilation and, for that, hexagonal architecture will help! Thanks to the very good Separation Of Concern you'll be able to build modules (packages in Java) with a very high cohesion and very low coupling. That mean, most classes in the infrastructure modules will never get out of there hence allowing compilation time feedbacks.
+BUT, just after that comes compilation and, for that, hexagonal architecture will help! Thanks to the very good Separation Of Concern you'll be able to build modules (packages in Java) with a very high cohesion and very low coupling. That means, most classes in the infrastructure modules will never get out of there hence allowing compilation time feedbacks.
 
 There is another **AWESOME** compilation time feedback coming not directly from the architecture but from a practice often used in those architecture: Types Driven Development. The idea is pretty simple: create a dedicated type for each business concept. Example:
 

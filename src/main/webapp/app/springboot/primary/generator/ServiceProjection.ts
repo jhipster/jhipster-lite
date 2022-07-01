@@ -59,6 +59,7 @@ export type ServiceProjection =
   | 'spring-cloud'
   | 'react'
   | 'react-styled'
+  | 'react-jwt'
   | 'vue'
   | 'unknown';
 
@@ -121,6 +122,7 @@ const SERVICES_PROJECTION: Record<Service, ServiceProjection> = {
   [Service.SPRING_CLOUD]: 'spring-cloud',
   [Service.REACT]: 'react',
   [Service.REACT_STYLED]: 'react-styled',
+  [Service.REACT_JWT]: 'react-jwt',
   [Service.VUE]: 'vue',
   [Service.UNKNOWN]: 'unknown',
 };
@@ -186,6 +188,7 @@ const SERVICES: Record<ServiceProjection, Service> = {
   'spring-cloud': Service.SPRING_CLOUD,
   react: Service.REACT,
   'react-styled': Service.REACT_STYLED,
+  'react-jwt': Service.REACT_JWT,
   vue: Service.VUE,
   unknown: Service.UNKNOWN,
 };

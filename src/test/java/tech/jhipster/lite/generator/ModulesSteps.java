@@ -105,7 +105,7 @@ public class ModulesSteps {
   }
 
   private String applyModuleUrl(String moduleSlug) {
-    return moduleUrl(moduleSlug) + "/apply";
+    return moduleUrl(moduleSlug) + "/apply-patch";
   }
 
   private String moduleUrl(String moduleSlug) {

@@ -3,8 +3,9 @@ import { ModuleToApply } from '@/module/domain/ModuleToApply';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import sinon, { SinonStub } from 'sinon';
 
-interface ModulesRepositoryStub extends ModulesRepository {
+export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;
+  apply: SinonStub;
 }
 
 export const stubModulesRepository = (): ModulesRepositoryStub =>
@@ -40,6 +41,11 @@ export const defaultModules = (): Modules => ({
               key: 'optionalInteger',
             },
           ],
+        },
+        {
+          slug: 'banner',
+          description: 'Add a banner to the application',
+          properties: [],
         },
       ],
     },

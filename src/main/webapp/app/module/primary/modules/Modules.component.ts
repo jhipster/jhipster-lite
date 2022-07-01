@@ -1,4 +1,6 @@
+import { AlertBus } from '@/common/domain/alert/AlertBus';
 import { Loader } from '@/loader/primary/Loader';
+import { Category } from '@/module/domain/Category';
 import { Module } from '@/module/domain/Module';
 import { ModuleProperty } from '@/module/domain/ModuleProperty';
 import { Modules } from '@/module/domain/Modules';
@@ -8,33 +10,36 @@ import { defineComponent, inject, onMounted, reactive, ref } from 'vue';
 export default defineComponent({
   name: 'ModulesVue',
   setup() {
+    const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;
 
-    const modulesContent = reactive({
-      content: Loader.loading<Modules>(),
+    const applicationModules = reactive({
+      all: Loader.loading<Modules>(),
+      displayed: Loader.loading<Modules>(),
     });
 
+    const applicationInProgress = ref(false);
     const folderPath = ref('');
     const selectedModule = ref();
     const moduleProperties = ref(new Map<string, string | number | boolean>());
 
     onMounted(() => {
-      modules.list().then(response => modulesContent.content.loaded(response));
-    });
-
-    const applyModule = (module: string): Promise<void> => {
-      return modules.apply(module, {
-        projectFolder: folderPath.value,
-        properties: moduleProperties.value,
+      modules.list().then(response => {
+        applicationModules.all.loaded(response);
+        applicationModules.displayed.loaded(response);
       });
-    };
+    });
 
     const selectModule = (slug: string): void => {
       selectedModule.value = getModule(slug);
     };
 
     const disabledApplication = (slug: string): boolean => {
-      return empty(folderPath.value) || getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key));
+      return (
+        applicationInProgress.value ||
+        empty(folderPath.value) ||
+        getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key))
+      );
     };
 
     const isNotSet = (propertyKey: string): boolean => {
@@ -78,16 +83,61 @@ export default defineComponent({
     };
 
     const getModule = (slug: string): Module => {
-      return modulesContent.content
+      return applicationModules.all
         .value()
         .categories.flatMap(category => category.modules)
         .find(module => module.slug === slug)!;
     };
 
+    const filter = (search: string): void => {
+      applicationModules.displayed.loaded({ categories: filterCategories(search.toLowerCase()) });
+    };
+
+    const filterCategories = (search: string): Category[] => {
+      return applicationModules.all
+        .value()
+        .categories.map(category => toFilteredCategory(category, search))
+        .filter(category => category.modules.length !== 0);
+    };
+
+    const toFilteredCategory = (category: Category, search: string): Category => {
+      return {
+        name: category.name,
+        modules: category.modules.filter(module => {
+          const content = module.description.toLowerCase() + ' ' + module.slug.toLowerCase();
+
+          return search.split(' ').every(term => contains(content, term));
+        }),
+      };
+    };
+
+    const contains = (value: string, search: string): boolean => {
+      return value.indexOf(search) !== -1;
+    };
+
+    const applyModule = (module: string): void => {
+      applicationInProgress.value = true;
+
+      modules
+        .apply(module, {
+          projectFolder: folderPath.value,
+          properties: moduleProperties.value,
+        })
+        .then(() => {
+          applicationInProgress.value = false;
+
+          alertBus.success('Module "' + module + '" applied');
+        })
+        .catch(() => {
+          applicationInProgress.value = false;
+
+          alertBus.error('Module "' + module + '" not applied');
+        });
+    };
+
     return {
-      content: modulesContent.content,
+      content: applicationModules.displayed,
       folderPath,
-      applyModule,
       selectModule,
       selectedModule,
       setStringProperty,
@@ -97,6 +147,9 @@ export default defineComponent({
       mandatoryProperties,
       optionalProperties,
       moduleProperties,
+      filter,
+      applyModule,
+      applicationInProgress,
     };
   },
 });

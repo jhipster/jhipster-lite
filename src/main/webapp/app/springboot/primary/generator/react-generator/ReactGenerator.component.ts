@@ -43,6 +43,15 @@ export default defineComponent({
       }
     };
 
+    const addReactWithJWT = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await reactService
+          .addWithJWT(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('React with authentication JWT successfully added'))
+          .catch(error => alertBus.error(`Adding React with authentication JWT to project failed ${error}`));
+      }
+    };
+
     const addCypressForReact = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await projectService
@@ -64,6 +73,7 @@ export default defineComponent({
       selectorPrefix,
       isReactWithStyle,
       addReact,
+      addReactWithJWT,
       addCypressForReact,
       addPlaywrightForReact,
       props,

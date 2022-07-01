@@ -1,12 +1,12 @@
 package tech.jhipster.lite.generator.server.javatool.base.domain;
 
-import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterSource;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.JHipsterDestination;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterSource;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class JavaBaseModuleFactory {
 
@@ -41,7 +41,6 @@ public class JavaBaseModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .packageName(properties.basePackage())
         .put("collectionClass", baseClassName)
         .and()
       .documentation(documentationTitle("Package types"), SOURCE.template("package-types.md"))

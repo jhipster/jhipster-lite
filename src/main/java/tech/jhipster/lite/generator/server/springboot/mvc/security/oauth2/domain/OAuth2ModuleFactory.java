@@ -1,18 +1,18 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
-import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.docker.domain.DockerImage;
 import tech.jhipster.lite.generator.docker.domain.DockerImages;
-import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterSource;
-import tech.jhipster.lite.generator.module.domain.javadependency.GroupId;
-import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencyScope;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.generator.module.domain.replacement.TextMatcher;
+import tech.jhipster.lite.module.domain.JHipsterDestination;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterSource;
+import tech.jhipster.lite.module.domain.javadependency.GroupId;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.replacement.TextMatcher;
 
 public class OAuth2ModuleFactory {
 
@@ -43,9 +43,7 @@ public class OAuth2ModuleFactory {
     //@formatter:off
     JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
-        .packageName(properties.basePackage())
-        .put("applicationName", properties.projectBaseName()
-            .capitalized())
+        .put("applicationName", properties.projectBaseName().capitalized())
         .and();
     //@formatter:on
 

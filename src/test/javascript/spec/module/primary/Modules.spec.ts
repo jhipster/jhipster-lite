@@ -1,8 +1,11 @@
 import { flushPromises, shallowMount, VueWrapper } from '@vue/test-utils';
-import { defaultModules, stubModulesRepository } from '../domain/Modules.fixture';
+import { defaultModules, ModulesRepositoryStub, stubModulesRepository } from '../domain/Modules.fixture';
 import { ModulesVue } from '@/module/primary/modules';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { wrappedElement } from '../../WrappedElement';
+import { stubAlertBus } from '../../common/domain/AlertBus.fixture';
+
+const alertBus = stubAlertBus();
 
 interface WrapperOptions {
   modules: ModulesRepository;
@@ -13,6 +16,7 @@ const wrap = (options: WrapperOptions): VueWrapper => {
     global: {
       provide: {
         modules: options.modules,
+        alertBus,
       },
     },
   });
@@ -20,8 +24,7 @@ const wrap = (options: WrapperOptions): VueWrapper => {
 
 describe('Modules', () => {
   it('Should display loader when waiting for modules', () => {
-    const modules = stubModulesRepository();
-    modules.list.resolves(defaultModules());
+    const modules = repositoryWithModules();
 
     const wrapper = wrap({ modules });
 
@@ -144,8 +147,8 @@ describe('Modules', () => {
   });
 
   it('Should apply module using repository', async () => {
-    const modules = stubModulesRepository();
-    modules.list.resolves(defaultModules());
+    const modules = repositoryWithModules();
+    modules.apply.resolves(null);
     const wrapper = wrap({ modules });
 
     await flushPromises();
@@ -161,11 +164,119 @@ describe('Modules', () => {
 
     expect(modules.list.calledOnce).toBe(true);
   });
+
+  it('Should disable applications during application', async () => {
+    const modules = repositoryWithModules();
+    modules.apply.returns(new Promise(resolve => setTimeout(resolve, 500)));
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeDefined();
+  });
+
+  it('Should enable applications after successfull application', async () => {
+    const modules = repositoryWithModules();
+    modules.apply.resolves(undefined);
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
+    await flushForm(wrapper);
+
+    await flushPromises();
+
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeUndefined();
+  });
+
+  it('Should enable applications after failling application', async () => {
+    const modules = repositoryWithModules();
+    modules.apply.rejects('this is an error');
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
+    await flushForm(wrapper);
+
+    await flushPromises();
+
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeUndefined();
+  });
+
+  it('Should send module application notification', async () => {
+    const modules = repositoryWithModules();
+    modules.apply.resolves(undefined);
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
+    await flushForm(wrapper);
+
+    await flushPromises();
+
+    const [message] = alertBus.success.getCall(0).args;
+    expect(message).toBe('Module "spring-cucumber" applied');
+  });
+
+  it('Should send module application error notification', async () => {
+    const modules = repositoryWithModules();
+    modules.apply.rejects(undefined);
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
+    await flushForm(wrapper);
+
+    await flushPromises();
+
+    const [message] = alertBus.error.getCall(0).args;
+    expect(message).toBe('Module "spring-cucumber" not applied');
+  });
+
+  it('Should filter modules with one matching slug module', async () => {
+    const modules = repositoryWithModules();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('modules-filter-field')).setValue('spring-cucumber');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
+  });
+
+  it('Should filter modules with one matching description module', async () => {
+    const modules = repositoryWithModules();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('modules-filter-field')).setValue('Add cucumber');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
+  });
+
+  it('Should filter modules with multiple words matching', async () => {
+    const modules = repositoryWithModules();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('modules-filter-field')).setValue('spring-cucumber add application');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
+  });
+
+  it('Should filter modules with no maching module', async () => {
+    const modules = repositoryWithModules();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('modules-filter-field')).setValue('pouet');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(false);
+  });
 });
 
 const componentWithModules = async (): Promise<VueWrapper> => {
-  const modules = stubModulesRepository();
-  modules.list.resolves(defaultModules());
+  const modules = repositoryWithModules();
   const wrapper = wrap({ modules });
 
   await flushPromises();
@@ -180,4 +291,24 @@ const selectModule = async (wrapper: VueWrapper) => {
 
 const flushForm = async (wrapper: VueWrapper) => {
   await wrapper.vm.$nextTick();
+};
+
+const filledModuleForm = async (modules: ModulesRepository): Promise<VueWrapper> => {
+  const wrapper = wrap({ modules });
+
+  await flushPromises();
+  await selectModule(wrapper);
+
+  wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+  wrapper.find(wrappedElement('property-baseName-field')).setValue('test');
+  await flushForm(wrapper);
+
+  return wrapper;
+};
+
+const repositoryWithModules = (): ModulesRepositoryStub => {
+  const modules = stubModulesRepository();
+  modules.list.resolves(defaultModules());
+
+  return modules;
 };

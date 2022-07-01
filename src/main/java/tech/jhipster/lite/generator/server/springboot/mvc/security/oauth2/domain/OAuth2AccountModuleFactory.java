@@ -1,11 +1,11 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
 
-import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
-import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterSource;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.JHipsterDestination;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterSource;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class OAuth2AccountModuleFactory {
 
@@ -34,9 +34,6 @@ public class OAuth2AccountModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-        .context()
-          .packageName(properties.basePackage())
-          .and()
         .files()
           .add(ACCOUNT_MAIN_SOURCE.append(APPLICATION).template("AccountsApplicationService.java"), accountMainDestination.append(APPLICATION).append("AccountsApplicationService.java"))
           .batch(ACCOUNT_MAIN_SOURCE.append(DOMAIN), accountMainDestination.append(DOMAIN))

@@ -39,15 +39,15 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencies;
-import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.generator.module.domain.javadependency.ProjectJavaDependencies;
-import tech.jhipster.lite.generator.module.domain.javadependency.ProjectJavaDependenciesRepository;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencies;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
+import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
+import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

@@ -1,20 +1,13 @@
 package tech.jhipster.lite.generator.history.infrastructure.primary;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.time.Clock;
-import java.time.Instant;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
@@ -28,13 +21,7 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 class HistoryResourceIT {
 
   @Autowired
-  MockMvc mockMvc;
-
-  @Mock
-  Clock clock;
-
-  @Autowired
-  GeneratorHistoryInterceptor generatorHistoryInterceptor;
+  private MockMvc mockMvc;
 
   @Test
   void shouldNotGetHistoryWithoutFolder() throws Exception {
@@ -73,7 +60,7 @@ class HistoryResourceIT {
       .andExpect(status().isOk())
       .andExpect(jsonPath("$.serviceIds", Matchers.hasSize(3)))
       .andExpect(jsonPath("$.serviceIds[0]").value(GeneratorAction.GITHUB_ACTIONS))
-      .andExpect(jsonPath("$.serviceIds[1]").value(GeneratorAction.INIT))
+      .andExpect(jsonPath("$.serviceIds[1]").value("init"))
       .andExpect(jsonPath("$.serviceIds[2]").value(GeneratorAction.MAVEN_JAVA));
   }
 
@@ -84,10 +71,6 @@ class HistoryResourceIT {
       throw new GeneratorException("Error when reading file");
     }
     projectDTO.folder(FileUtils.tmpDirForTest());
-
-    when(clock.instant())
-      .thenReturn(Instant.parse("2022-01-22T14:01:54Z"), Instant.parse("2022-01-23T14:01:55Z"), Instant.parse("2022-01-24T14:01:56Z"));
-    ReflectionTestUtils.setField(generatorHistoryInterceptor, "clock", clock);
 
     mockMvc
       .perform(post("/api/inits/full").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
@@ -109,11 +92,8 @@ class HistoryResourceIT {
       .perform(get("/api/project-histories").param("folder", projectDTO.getFolder()))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$", Matchers.hasSize(3)))
-      .andExpect(jsonPath("$[0].serviceId").value(GeneratorAction.INIT))
-      .andExpect(jsonPath("$[0].timestamp").value("2022-01-22T14:01:54Z"))
+      .andExpect(jsonPath("$[0].serviceId").value("init"))
       .andExpect(jsonPath("$[1].serviceId").value(GeneratorAction.MAVEN_JAVA))
-      .andExpect(jsonPath("$[1].timestamp").value("2022-01-23T14:01:55Z"))
-      .andExpect(jsonPath("$[2].serviceId").value(GeneratorAction.GITHUB_ACTIONS))
-      .andExpect(jsonPath("$[2].timestamp").value("2022-01-24T14:01:56Z"));
+      .andExpect(jsonPath("$[2].serviceId").value(GeneratorAction.GITHUB_ACTIONS));
   }
 }

@@ -49,7 +49,7 @@ export class RestModulesRepository implements ModulesRepository {
 
   apply(module: ModuleSlug, moduleToApply: ModuleToApply): Promise<void> {
     return this.axiosInstance
-      .post<void, RestModuleToApply>(`/api/modules/${module}/apply`, toRestModuleToApply(moduleToApply))
+      .post<void, RestModuleToApply>(`/api/modules/${module}/apply-patch`, toRestModuleToApply(moduleToApply))
       .then(() => undefined);
   }
 }

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.sonar.infrastructure.primary.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,29 +12,26 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.sonar.application.SonarAssert;
+import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 @AutoConfigureMockMvc
 class SonarResourceIT {
 
   @Autowired
-  InitApplicationService initApplicationService;
+  private MavenApplicationService mavenApplicationService;
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
-
-  @Autowired
-  MockMvc mockMvc;
+  private MockMvc mockMvc;
 
   @Test
   void shouldAddSonarJavaBackend() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.init(project);
 
     mockMvc
@@ -53,7 +50,7 @@ class SonarResourceIT {
   void shouldAddSonarJavaBackendAndFrontend() throws Exception {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
-    initApplicationService.init(project);
+    TestJHipsterModules.applyInit(project);
     mavenApplicationService.init(project);
 
     mockMvc

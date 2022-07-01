@@ -5,8 +5,6 @@ public class GeneratorAction {
   private GeneratorAction() {}
 
   // Init
-  public static final String INIT = "init";
-  public static final String INIT_MINIMAL = "init-minimal";
   public static final String DOWNLOAD = "download";
 
   // Maven
@@ -58,6 +56,7 @@ public class GeneratorAction {
 
   public static final String REACT = "react";
   public static final String REACT_STYLED = "react-styled";
+  public static final String REACT_JWT = "react-jwt";
 
   public static final String GITHUB_ACTIONS = "github-actions";
 
@@ -69,8 +68,6 @@ public class GeneratorAction {
   public static final String FLYWAY_USER_AND_AUTHORITY_CHANGELOGS = "flyway-user-and-authority-changelogs";
 
   public static final String MONGOCK = "mongock";
-
-  public static final String JAVA_ARCHUNIT = "java-archunit";
 
   public static final String MARIADB = "mariadb";
 
@@ -111,9 +108,6 @@ public class GeneratorAction {
 
   public static final String JIB = "jib";
   public static final String DOCKERFILE = "dockerfile";
-
-  public static final String GITHUB_CODESPACES = "github-codespaces";
-  public static final String GITPOD = "gitpod";
 
   public static final String SPRINGBOOT_WEBFLUX_NETTY = "springboot-webflux-netty";
 

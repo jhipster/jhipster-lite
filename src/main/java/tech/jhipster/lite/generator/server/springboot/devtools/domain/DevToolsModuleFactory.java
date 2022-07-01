@@ -1,13 +1,13 @@
 package tech.jhipster.lite.generator.server.springboot.devtools.domain;
 
-import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.JHipsterSource;
-import tech.jhipster.lite.generator.module.domain.javadependency.GroupId;
-import tech.jhipster.lite.generator.module.domain.javaproperties.SpringProfile;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterSource;
+import tech.jhipster.lite.module.domain.javadependency.GroupId;
+import tech.jhipster.lite.module.domain.javaproperties.SpringProfile;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class DevToolsModuleFactory {
 
@@ -21,9 +21,7 @@ public class DevToolsModuleFactory {
     //@formatter:off
     JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
-        .packageName(properties.basePackage())
-        .put("applicationName", properties.projectBaseName()
-            .capitalized())
+        .put("applicationName", properties.projectBaseName().capitalized())
         .and();
     //@formatter:on
 

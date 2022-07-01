@@ -1,19 +1,19 @@
 package tech.jhipster.lite.generator.server.springboot.database.mariadb.domain;
 
 import static tech.jhipster.lite.common.domain.WordUtils.LF;
-import static tech.jhipster.lite.generator.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_LOGBACK_LOGGER;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.docker.domain.DockerImage;
 import tech.jhipster.lite.generator.docker.domain.DockerImages;
-import tech.jhipster.lite.generator.module.domain.JHipsterDestination;
-import tech.jhipster.lite.generator.module.domain.JHipsterModule;
-import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.generator.module.domain.javadependency.JavaDependencyScope;
-import tech.jhipster.lite.generator.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
+import tech.jhipster.lite.module.domain.JHipsterDestination;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class MariaDBModuleFactory {
 
@@ -49,7 +49,6 @@ public class MariaDBModuleFactory {
   private void appendContext(JHipsterModuleBuilder builder, JHipsterModuleProperties properties, DockerImage dockerImage) {
     builder
       .context()
-      .packageName(properties.basePackage())
       .put("applicationName", properties.projectBaseName().capitalized())
       .put("srcMainDocker", "src/main/docker") // Used in mariadb.md
       .put("mariaDBDockerImageWithVersion", dockerImage.fullName()); // Used in mariadb.yml

@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.domain.javadependency.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
-public class SpringdocDomainService implements SpringdocService {
+public class SpringdocDomainService {
 
   protected static final DependencyId WEBFLUX_DEPENDENCY_ID = new DependencyId(
     new GroupId("org.springframework.boot"),

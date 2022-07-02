@@ -41,20 +41,17 @@ public class SpringdocModuleFactory {
     .versionSlug(SPRINGDOC_OPENAPI_VERSION_KEY)
     .build();
 
+  //@formatter:off
   private static final Map<String, String> DEFAULT_API_CONFIG_MAP = Map.of(
-    "apiTitle",
-    "Project API",
-    "apiDescription",
-    "Project description API",
-    "apiLicenseName",
-    "No license",
-    "apiLicenseUrl",
-    "",
-    "apiExternalDocDescription",
-    "Project Documentation",
-    "apiExternalDocUrl",
-    ""
+    "apiTitle", "Project API",
+    "apiDescription", "Project description API",
+    "apiLicenseName", "No license",
+    "apiLicenseUrl", "",
+    "apiExternalDocDescription", "Project Documentation",
+    "apiExternalDocUrl", ""
   );
+
+  //@formatter:on
 
   public JHipsterModule buildModuleForMvc(JHipsterModuleProperties moduleProperties) {
     return buildModule(moduleProperties, SPRINGDOC_OPENAPI_UI_DEPENDENCY, SPRINGDOC_CONFIG_JAVA_FILE);
@@ -89,18 +86,18 @@ public class SpringdocModuleFactory {
 
     //@formatter:off
     return moduleContextBuilder
-      .and()
+        .and()
       .javaDependencies()
-      .add(springdocJavaDependency)
-      .and()
+        .add(springdocJavaDependency)
+        .and()
       .files()
-      .add(SOURCE.template(srcSpringdocJavaFile), mainDestination.append(SPRINGDOC_CONFIG_JAVA_FILE))
-      .and()
+        .add(SOURCE.template(srcSpringdocJavaFile), mainDestination.append(SPRINGDOC_CONFIG_JAVA_FILE))
+        .and()
       .springMainProperties()
-      .set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"))
-      .set(propertyKey("springdoc.swagger-ui.tagsSorter"), propertyValue("alpha"))
-      .set(propertyKey("springdoc.swagger-ui.tryItOutEnabled"), propertyValue("true"))
-      .and()
+        .set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"))
+        .set(propertyKey("springdoc.swagger-ui.tagsSorter"), propertyValue("alpha"))
+        .set(propertyKey("springdoc.swagger-ui.tryItOutEnabled"), propertyValue("true"))
+        .and()
       .build();
     //@formatter:on
   }

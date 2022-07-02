@@ -18,7 +18,7 @@ class SpringdocModuleConfiguration {
       .builder()
       .legacyUrl(SPRINGDOC_API_URL + "/init")
       .slug("springdoc-openapi")
-      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
+      .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - API Documentation", "Add springdoc-openapi"))
       .factory(springdocApplicationService::buildSpringdocModule);
   }
@@ -29,8 +29,12 @@ class SpringdocModuleConfiguration {
       .builder()
       .legacyUrl(SPRINGDOC_API_URL + "/init-with-security-jwt")
       .slug("springdoc-openapi-with-security-jwt")
-      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
+      .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - API Documentation - Security", "Add springdoc-openapi with Security JWT"))
       .factory(springdocApplicationService::buildSpringdocModuleWithSecurityJWT);
+  }
+
+  private JHipsterModulePropertiesDefinition buildPropertiesDefinition() {
+    return JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build();
   }
 }

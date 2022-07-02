@@ -1,9 +1,9 @@
-package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocApplicationService.WEBFLUX_DEPENDENCY_ID;
+import static tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocDomainService.WEBFLUX_DEPENDENCY_ID;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,6 @@ import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.domain.SpringdocModuleFactory;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
@@ -27,21 +26,21 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class SpringdocApplicationServiceTest {
+class SpringdocDomainServiceTest {
 
   @Mock
-  ProjectJavaDependenciesRepository projectJavaDependenciesRepository;
+  private ProjectJavaDependenciesRepository projectJavaDependenciesRepository;
 
-  SpringdocModuleFactory mockSpringdocModuleFactory;
+  private SpringdocModuleFactory mockSpringdocModuleFactory;
 
-  MockedConstruction<SpringdocModuleFactory> moduleFactoryMockedConstruction;
+  private MockedConstruction<SpringdocModuleFactory> moduleFactoryMockedConstruction;
 
-  SpringdocApplicationService springdocApplicationService;
+  private SpringdocDomainService springdocDomainService;
 
   @BeforeEach
   void setUp() {
     moduleFactoryMockedConstruction = Mockito.mockConstruction(SpringdocModuleFactory.class);
-    springdocApplicationService = new SpringdocApplicationService(projectJavaDependenciesRepository);
+    springdocDomainService = new SpringdocDomainService(projectJavaDependenciesRepository);
     mockSpringdocModuleFactory = moduleFactoryMockedConstruction.constructed().get(0);
   }
 
@@ -67,7 +66,7 @@ class SpringdocApplicationServiceTest {
       when(projectJavaDependenciesRepository.get(any(JHipsterProjectFolder.class))).thenReturn(new ProjectJavaDependencies(null, null));
 
       // When
-      springdocApplicationService.buildSpringdocModule(moduleProperties);
+      springdocDomainService.buildSpringdocModule(moduleProperties);
 
       // Then
       verify(mockSpringdocModuleFactory).buildModuleForMvc(moduleProperties);
@@ -80,7 +79,7 @@ class SpringdocApplicationServiceTest {
       when(projectJavaDependenciesRepository.get(any(JHipsterProjectFolder.class))).thenReturn(buildJavaDependenciesWithWebflux());
 
       // When
-      springdocApplicationService.buildSpringdocModule(moduleProperties);
+      springdocDomainService.buildSpringdocModule(moduleProperties);
 
       // Then
       verify(mockSpringdocModuleFactory).buildModuleForMvc(moduleProperties);
@@ -97,7 +96,7 @@ class SpringdocApplicationServiceTest {
       when(projectJavaDependenciesRepository.get(any(JHipsterProjectFolder.class))).thenReturn(new ProjectJavaDependencies(null, null));
 
       // When
-      springdocApplicationService.buildSpringdocModuleWithSecurityJWT(moduleProperties);
+      springdocDomainService.buildSpringdocModuleWithSecurityJWT(moduleProperties);
 
       // Then
       verify(mockSpringdocModuleFactory).buildModuleWithSecurityJwtForMvc(moduleProperties);
@@ -110,7 +109,7 @@ class SpringdocApplicationServiceTest {
       when(projectJavaDependenciesRepository.get(any(JHipsterProjectFolder.class))).thenReturn(buildJavaDependenciesWithWebflux());
 
       // When
-      springdocApplicationService.buildSpringdocModuleWithSecurityJWT(moduleProperties);
+      springdocDomainService.buildSpringdocModuleWithSecurityJWT(moduleProperties);
 
       // Then
       verify(mockSpringdocModuleFactory).buildModuleWithSecurityJwtForWebflux(moduleProperties);

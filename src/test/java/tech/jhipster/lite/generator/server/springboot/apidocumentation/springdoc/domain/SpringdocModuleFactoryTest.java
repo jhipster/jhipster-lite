@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 @UnitTest
 class SpringdocModuleFactoryTest {
 
-  static final SpringdocModuleFactory springdocModuleFactory = new SpringdocModuleFactory();
+  private static final SpringdocModuleFactory springdocModuleFactory = new SpringdocModuleFactory();
 
   @Test
   void shouldBuildModuleForMvc() {

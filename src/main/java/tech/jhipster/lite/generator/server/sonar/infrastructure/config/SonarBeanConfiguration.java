@@ -2,8 +2,8 @@ package tech.jhipster.lite.generator.server.sonar.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.sonar.domain.SonarDomainService;
 import tech.jhipster.lite.generator.server.sonar.domain.SonarService;

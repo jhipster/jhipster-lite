@@ -2,10 +2,10 @@ package tech.jhipster.lite.generator.server.sonar.domain;
 
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
+import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
-import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;

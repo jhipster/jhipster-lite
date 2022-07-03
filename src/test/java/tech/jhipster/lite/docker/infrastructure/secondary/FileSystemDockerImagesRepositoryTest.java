@@ -1,7 +1,8 @@
-package tech.jhipster.lite.generator.docker.infrastructure.secondary;
+package tech.jhipster.lite.docker.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,9 +12,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.OngoingStubbing;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.ProjectFilesReader;
-import tech.jhipster.lite.generator.docker.domain.DockerImage;
-import tech.jhipster.lite.generator.docker.domain.DockerImageName;
-import tech.jhipster.lite.generator.docker.domain.UnknownDockerImageException;
+import tech.jhipster.lite.docker.domain.DockerImage;
+import tech.jhipster.lite.docker.domain.DockerImageName;
+import tech.jhipster.lite.docker.domain.UnknownDockerImageException;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

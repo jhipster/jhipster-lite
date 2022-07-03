@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.docker.domain;
+package tech.jhipster.lite.docker.domain;
 
 public interface DockerImages {
   /**

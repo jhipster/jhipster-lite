@@ -9,9 +9,9 @@ import static tech.jhipster.lite.generator.server.springboot.common.domain.Sprin
 
 import java.util.TreeMap;
 import tech.jhipster.lite.common.domain.WordUtils;
+import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;

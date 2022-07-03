@@ -24,7 +24,7 @@ public class MariaDBModuleFactory {
 
     return sqlCommonModuleBuilder(properties, DatabaseType.MARIADB, dockerImages.get("mariadb"), documentationTitle("MariaDB"))
       .javaDependencies()
-      .add(groupId("org.mariadb.jdbc"), artifactId("mariadb-java-client"))
+      .dependency(groupId("org.mariadb.jdbc"), artifactId("mariadb-java-client"))
       .and()
       .springMainProperties()
       .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:mariadb://localhost:3306/" + properties.projectBaseName().name()))

@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 enum MavenScope {
   COMPILE,
+  IMPORT,
   PROVIDED,
   SYSTEM,
   RUNTIME,

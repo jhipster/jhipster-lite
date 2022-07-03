@@ -24,8 +24,11 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.command.AddJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveJavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javadependency.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
 
 class MavenCommandHandler {
@@ -106,20 +109,62 @@ class MavenCommandHandler {
     }
   }
 
-  public void handle(RemoveJavaDependency command) {
+  public void handle(RemoveJavaDependencyManagement command) {
     Assert.notNull(COMMAND, command);
 
-    document
-      .find("project > dependencies > dependency")
-      .each()
-      .stream()
-      .filter(dependencyMatch(command.dependency()))
-      .forEach(Match::remove);
+    removeDependency("project > dependencyManagement > dependencies > dependency", command.dependency());
+  }
+
+  public void handle(RemoveDirectJavaDependency command) {
+    Assert.notNull(COMMAND, command);
+
+    removeDependency("project > dependencies > dependency", command.dependency());
+  }
+
+  private void removeDependency(String rootPath, DependencyId dependency) {
+    document.find(rootPath).each().stream().filter(dependencyMatch(dependency)).forEach(Match::remove);
 
     writePom();
   }
 
-  public void handle(AddJavaDependency command) {
+  public void handle(AddJavaDependencyManagement command) {
+    Assert.notNull(COMMAND, command);
+
+    Match dependencies = document.find("project > dependencyManagement > dependencies");
+    if (dependencies.isEmpty()) {
+      appendDependenciesManagement(command);
+    } else {
+      appendDependencyManagement(command, dependencies);
+    }
+
+    writePom();
+  }
+
+  private void appendDependenciesManagement(AddJavaDependencyManagement command) {
+    Match dependencies = $("dependencyManagement")
+      .append(LINE_BREAK)
+      .append(indentation.times(2))
+      .append(
+        $("depdendencies")
+          .append(LINE_BREAK)
+          .append(indentation.times(3))
+          .append(dependencyNode(command, 3))
+          .append(LINE_BREAK)
+          .append(indentation.times(2))
+      )
+      .append(LINE_BREAK)
+      .append(indentation.spaces());
+
+    findFirst(DEPENDENCIES_ANCHOR).after(dependencies);
+
+    document.find("project > dependencyManagement").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
+  }
+
+  private void appendDependencyManagement(AddJavaDependency command, Match dependencies) {
+    appendNotTestDependency(command, dependencies, 3);
+  }
+
+  public void handle(AddDirectJavaDependency command) {
     Assert.notNull(COMMAND, command);
 
     Match dependencies = document.find("project > dependencies");
@@ -132,40 +177,40 @@ class MavenCommandHandler {
     writePom();
   }
 
-  private void appendDependencies(AddJavaDependency command) {
+  private void appendDependencies(AddDirectJavaDependency command) {
     Match dependencies = $("dependencies")
       .append(LINE_BREAK)
       .append(indentation.times(2))
-      .append(dependencyNode(command))
+      .append(dependencyNode(command, 2))
       .append(LINE_BREAK)
       .append(indentation.spaces());
 
     findFirst(DEPENDENCIES_ANCHOR).after(dependencies);
 
-    document.find("project dependencies").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
+    document.find("project > dependencies").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
   }
 
-  private void appendDependency(AddJavaDependency command, Match dependencies) {
+  private void appendDependency(AddDirectJavaDependency command, Match dependencies) {
     if (command.scope() == JavaDependencyScope.TEST) {
-      appendDependencyInLastPosition(command, dependencies);
+      appendDependencyInLastPosition(command, dependencies, 2);
     } else {
-      appendNotTestDependency(command, dependencies);
+      appendNotTestDependency(command, dependencies, 2);
     }
   }
 
-  private void appendNotTestDependency(AddJavaDependency command, Match dependencies) {
+  private void appendNotTestDependency(AddJavaDependency command, Match dependencies, int level) {
     dependencies
       .children()
       .each()
       .stream()
       .filter(testDependency())
       .findFirst()
-      .ifPresentOrElse(appendBeforeFirstTestDependency(command), () -> appendDependencyInLastPosition(command, dependencies));
+      .ifPresentOrElse(appendBeforeFirstTestDependency(command, level), () -> appendDependencyInLastPosition(command, dependencies, level));
   }
 
-  private Consumer<Match> appendBeforeFirstTestDependency(AddJavaDependency command) {
+  private Consumer<Match> appendBeforeFirstTestDependency(AddJavaDependency command, int level) {
     return firstTestDependency -> {
-      Match dependencyNode = dependencyNode(command);
+      Match dependencyNode = dependencyNode(command, level);
       firstTestDependency.before(dependencyNode);
 
       document
@@ -174,7 +219,7 @@ class MavenCommandHandler {
         .stream()
         .filter(dependencyMatch(command.dependencyId()))
         .findFirst()
-        .ifPresent(node -> node.after(indentation.times(2)).after(LINE_BREAK).after(LINE_BREAK));
+        .ifPresent(node -> node.after(indentation.times(level)).after(LINE_BREAK).after(LINE_BREAK));
     };
   }
 
@@ -191,53 +236,65 @@ class MavenCommandHandler {
     return dependency -> "test".equals(dependency.child("scope").text());
   }
 
-  private void appendDependencyInLastPosition(AddJavaDependency command, Match dependencies) {
+  private void appendDependencyInLastPosition(AddJavaDependency command, Match dependencies, int level) {
     dependencies
       .append(LINE_BREAK)
-      .append(indentation.times(2))
-      .append(dependencyNode(command))
+      .append(indentation.times(level))
+      .append(dependencyNode(command, level))
       .append(LINE_BREAK)
-      .append(indentation.spaces());
+      .append(indentation.times(level - 1));
   }
 
-  private Match dependencyNode(AddJavaDependency command) {
-    Match dependency = buildDependencyNode(command);
+  private Match dependencyNode(AddJavaDependency command, int level) {
+    Match dependency = buildDependencyNode(command, level);
 
-    appendVersion(command, dependency);
-    appendScope(command, dependency);
-    appendOptional(command, dependency);
+    appendVersion(command, dependency, level);
+    appendScope(command, dependency, level);
+    appendOptional(command, dependency, level);
+    appendType(command, dependency, level);
 
-    dependency.append(LINE_BREAK).append(indentation.times(2));
+    dependency.append(LINE_BREAK).append(indentation.times(level));
 
     return dependency;
   }
 
-  private Match buildDependencyNode(AddJavaDependency command) {
+  private Match buildDependencyNode(AddJavaDependency command, int level) {
     return $("dependency")
       .append(LINE_BREAK)
-      .append(indentation.times(3))
+      .append(indentation.times(level + 1))
       .append($(GROUP_ID, command.groupId().get()))
       .append(LINE_BREAK)
-      .append(indentation.times(3))
+      .append(indentation.times(level + 1))
       .append($(ARTIFACT_ID, command.artifactId().get()));
   }
 
-  private void appendVersion(AddJavaDependency command, Match dependency) {
+  private void appendVersion(AddJavaDependency command, Match dependency, int level) {
     command
       .version()
-      .ifPresent(version -> dependency.append(LINE_BREAK).append(indentation.times(3)).append($(VERSION, version.mavenVariable())));
+      .ifPresent(version -> dependency.append(LINE_BREAK).append(indentation.times(level + 1)).append($(VERSION, version.mavenVariable())));
   }
 
-  private void appendScope(AddJavaDependency command, Match dependency) {
+  private void appendScope(AddJavaDependency command, Match dependency, int level) {
     if (command.scope() != JavaDependencyScope.COMPILE) {
-      dependency.append(LINE_BREAK).append(indentation.times(3)).append($("scope", Enums.map(command.scope(), MavenScope.class).key()));
+      dependency
+        .append(LINE_BREAK)
+        .append(indentation.times(level + 1))
+        .append($("scope", Enums.map(command.scope(), MavenScope.class).key()));
     }
   }
 
-  private void appendOptional(AddJavaDependency command, Match dependency) {
+  private void appendOptional(AddJavaDependency command, Match dependency, int level) {
     if (command.optional()) {
-      dependency.append(LINE_BREAK).append(indentation.times(3)).append($("optional", "true"));
+      dependency.append(LINE_BREAK).append(indentation.times(level + 1)).append($("optional", "true"));
     }
+  }
+
+  private void appendType(AddJavaDependency command, Match dependency, int level) {
+    command
+      .dependencyType()
+      .ifPresent(type ->
+        dependency.append(LINE_BREAK).append(indentation.times(level + 1)).append($("type", Enums.map(type, MavenType.class).key()))
+      );
   }
 
   @Generated

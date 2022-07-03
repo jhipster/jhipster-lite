@@ -7,6 +7,7 @@ import tech.jhipster.lite.generator.docker.domain.DockerImage;
 import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.module.domain.JHipsterDestination;
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.JHipsterSource;
 import tech.jhipster.lite.module.domain.javadependency.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
@@ -122,10 +123,10 @@ public class OAuth2ModuleFactory {
   private void appendDependencies(JHipsterModuleBuilder builder) {
     builder
       .javaDependencies()
-      .add(SPRING_GROUP, artifactId("spring-boot-starter-security"))
-      .add(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-client"))
-      .add(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-resource-server"))
-      .add(springSecurityTest());
+      .dependency(SPRING_GROUP, artifactId("spring-boot-starter-security"))
+      .dependency(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-client"))
+      .dependency(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-resource-server"))
+      .dependency(springSecurityTest());
   }
 
   private void appendSpringProperties(JHipsterModuleBuilder builder) {

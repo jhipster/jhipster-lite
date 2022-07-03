@@ -2,15 +2,18 @@ package tech.jhipster.lite.module.domain.javadependency;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
 
 public class JHipsterModuleJavaDependencies {
 
-  private final Collection<JavaDependency> dependencies;
+  private final Collection<JavaDependencyManagement> dependenciesManagement;
+  private final Collection<DirectJavaDependency> dependencies;
 
   private JHipsterModuleJavaDependencies(JHipsterModuleJavaDependenciesBuilder builder) {
+    dependenciesManagement = builder.dependenciesManagement;
     dependencies = builder.dependencies;
   }
 
@@ -25,16 +28,33 @@ public class JHipsterModuleJavaDependencies {
     Assert.notNull("currentVersion", currentVersions);
     Assert.notNull("projectDependencies", projectDependencies);
 
-    return dependencies
-      .stream()
-      .map(dependency -> dependency.changeCommands(currentVersions, projectDependencies))
+    return Stream
+      .concat(
+        dependenciesManagementChanges(currentVersions, projectDependencies),
+        dependenciesChanges(currentVersions, projectDependencies)
+      )
       .reduce(JavaDependenciesCommands.EMPTY, JavaDependenciesCommands::merge);
+  }
+
+  private Stream<JavaDependenciesCommands> dependenciesManagementChanges(
+    CurrentJavaDependenciesVersions currentVersions,
+    ProjectJavaDependencies projectDependencies
+  ) {
+    return dependenciesManagement.stream().map(dependency -> dependency.changeCommands(currentVersions, projectDependencies));
+  }
+
+  private Stream<JavaDependenciesCommands> dependenciesChanges(
+    CurrentJavaDependenciesVersions currentVersions,
+    ProjectJavaDependencies projectDependencies
+  ) {
+    return dependencies.stream().map(dependency -> dependency.changeCommands(currentVersions, projectDependencies));
   }
 
   public static class JHipsterModuleJavaDependenciesBuilder {
 
     private final JHipsterModuleBuilder module;
-    private final Collection<JavaDependency> dependencies = new ArrayList<>();
+    private final Collection<DirectJavaDependency> dependencies = new ArrayList<>();
+    private final Collection<JavaDependencyManagement> dependenciesManagement = new ArrayList<>();
 
     private JHipsterModuleJavaDependenciesBuilder(JHipsterModuleBuilder module) {
       Assert.notNull("module", module);
@@ -42,20 +62,28 @@ public class JHipsterModuleJavaDependencies {
       this.module = module;
     }
 
-    public JHipsterModuleJavaDependenciesBuilder add(GroupId groupId, ArtifactId artifactId) {
-      return add(groupId, artifactId, null);
+    public JHipsterModuleJavaDependenciesBuilder dependency(GroupId groupId, ArtifactId artifactId) {
+      return dependency(groupId, artifactId, null);
     }
 
-    public JHipsterModuleJavaDependenciesBuilder add(GroupId groupId, ArtifactId artifactId, VersionSlug versionSlug) {
+    public JHipsterModuleJavaDependenciesBuilder dependency(GroupId groupId, ArtifactId artifactId, VersionSlug versionSlug) {
       JavaDependency dependency = JavaDependency.builder().groupId(groupId).artifactId(artifactId).versionSlug(versionSlug).build();
 
-      return add(dependency);
+      return dependency(dependency);
     }
 
-    public JHipsterModuleJavaDependenciesBuilder add(JavaDependency dependency) {
+    public JHipsterModuleJavaDependenciesBuilder dependency(JavaDependency dependency) {
       Assert.notNull("dependency", dependency);
 
-      dependencies.add(dependency);
+      dependencies.add(new DirectJavaDependency(dependency));
+
+      return this;
+    }
+
+    public JHipsterModuleJavaDependenciesBuilder dependencyManagement(JavaDependency dependency) {
+      Assert.notNull("dependency", dependency);
+
+      dependenciesManagement.add(new JavaDependencyManagement(dependency));
 
       return this;
     }

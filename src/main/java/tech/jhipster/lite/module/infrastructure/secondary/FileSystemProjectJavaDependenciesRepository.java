@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
@@ -19,6 +20,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
@@ -42,7 +44,11 @@ class FileSystemProjectJavaDependenciesRepository implements ProjectJavaDependen
       MavenXpp3Reader reader = new MavenXpp3Reader();
       Model pomContent = reader.read(input);
 
-      return new ProjectJavaDependencies(extractVersions(pomContent), extractDependencies(pomContent));
+      return ProjectJavaDependencies
+        .builder()
+        .versions(extractVersions(pomContent))
+        .dependenciesManagements(extractDependenciesManagement(pomContent))
+        .dependencies(extractDependencies(pomContent));
     } catch (IOException | XmlPullParserException e) {
       throw new GeneratorException("Error reading pom file: " + e.getMessage(), e);
     }
@@ -68,6 +74,18 @@ class FileSystemProjectJavaDependenciesRepository implements ProjectJavaDependen
     return entry -> new JavaDependencyVersion(entry.getKey().toString(), entry.getValue().toString());
   }
 
+  private JavaDependencies extractDependenciesManagement(Model pomContent) {
+    DependencyManagement dependencyManagement = pomContent.getDependencyManagement();
+
+    if (dependencyManagement == null) {
+      return JavaDependencies.EMPTY;
+    }
+
+    List<JavaDependency> mavenDependencies = dependencyManagement.getDependencies().stream().map(toJavaDependency()).toList();
+
+    return new JavaDependencies(mavenDependencies);
+  }
+
   private JavaDependencies extractDependencies(Model pomContent) {
     List<JavaDependency> mavenDependencies = pomContent.getDependencies().stream().map(toJavaDependency()).toList();
 
@@ -83,6 +101,7 @@ class FileSystemProjectJavaDependenciesRepository implements ProjectJavaDependen
         .versionSlug(dependency.getVersion())
         .optional(dependency.isOptional())
         .scope(Enums.map(MavenScope.from(dependency.getScope()), JavaDependencyScope.class))
+        .type(MavenType.from(dependency.getType()).map(type -> Enums.map(type, JavaDependencyType.class)).orElse(null))
         .build();
   }
 }

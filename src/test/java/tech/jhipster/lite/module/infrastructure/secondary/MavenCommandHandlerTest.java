@@ -16,8 +16,10 @@ import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
-import tech.jhipster.lite.module.domain.javadependency.command.AddJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveJavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javadependency.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
 
 @UnitTest
@@ -85,14 +87,16 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Remove dependency")
-  class MavenCommandHandlerRemoveDependencyTest {
+  @DisplayName("Remove dependency management")
+  class MavenCommandHandlerRemoveDependencyManagementTest {
 
     @Test
     void shouldNotRemoveUnknownDependency() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      assertThatCode(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependency(jsonWebTokenDependencyId())))
+      assertThatCode(() ->
+          new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependencyManagement(jsonWebTokenDependencyId()))
+        )
         .doesNotThrowAnyException();
     }
 
@@ -100,7 +104,96 @@ class MavenCommandHandlerTest {
     void shouldRemoveDependency() {
       Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependency(jsonWebTokenDependencyId()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependencyManagement(springBootDependencyId()));
+
+      assertThat(content(pom))
+        .doesNotContain(
+          """
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-dependencies</artifactId>
+                  <version>${spring-boot.version}</version>
+                  <scope>import</scope>
+                  <type>pom</type>
+                </dependency>
+              </dependencies>
+            </dependencyManagement>
+          """
+        );
+    }
+  }
+
+  @Nested
+  @DisplayName("Add dependency management")
+  class MavenCommandHandlerAddDependencyManagementTest {
+
+    @Test
+    void shouldAddDepencyInPomWithoutDependenciesManagement() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+
+      assertThat(content(pom))
+        .contains(
+          """
+            <dependencyManagement>
+              <depdendencies>
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-dependencies</artifactId>
+                  <version>${spring-boot.version}</version>
+                  <scope>import</scope>
+                  <type>pom</type>
+                </dependency>
+              </depdendencies>
+            </dependencyManagement>
+          """
+        );
+    }
+
+    @Test
+    void shouldAddDependencyInPomWithDependenciesManagement() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-empty-dependencies/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+
+      String content = content(pom);
+      assertThat(content)
+        .contains(
+          """
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-dependencies</artifactId>
+                  <version>${spring-boot.version}</version>
+                  <scope>import</scope>
+                  <type>pom</type>
+                </dependency>
+              </dependencies>
+            </dependencyManagement>
+          """
+        );
+    }
+  }
+
+  @Nested
+  @DisplayName("Remove dependency")
+  class MavenCommandHandlerRemoveDependencyTest {
+
+    @Test
+    void shouldNotRemoveUnknownDependency() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      assertThatCode(() ->
+          new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveDirectJavaDependency(jsonWebTokenDependencyId()))
+        )
+        .doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldRemoveDependency() {
+      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveDirectJavaDependency(jsonWebTokenDependencyId()));
 
       assertThat(content(pom))
         .doesNotContain("      <groupId>io.jsonwebtoken</groupId>")
@@ -114,7 +207,7 @@ class MavenCommandHandlerTest {
     void shouldRemoveDependencyWithFullyMatchingId() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-webtoken/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependency(jsonWebTokenDependencyId()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveDirectJavaDependency(jsonWebTokenDependencyId()));
 
       assertThat(content(pom))
         .contains("      <groupId>io.jsonwebtoken</groupId>")
@@ -132,10 +225,10 @@ class MavenCommandHandlerTest {
   class MavenCommandHandlerAddDependencyTest {
 
     @Test
-    void shouldAddDepencyInPomWithoutDepedencies() {
+    void shouldAddDepencyInPomWithoutDependencies() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependency(optionalTestDependency()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(optionalTestDependency()));
 
       assertThat(content(pom))
         .contains("  <dependencies>")
@@ -152,7 +245,7 @@ class MavenCommandHandlerTest {
     void shouldAddTestDependencyInPomWithDependencies() {
       Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependency(optionalTestDependency()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(optionalTestDependency()));
 
       String content = content(pom);
       assertThat(content)
@@ -169,7 +262,7 @@ class MavenCommandHandlerTest {
     void shouldAddCompileDependencyInPomWithDependencies() {
       Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependency(defaultVersionDependency()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
       assertThat(content(pom))
         .contains(
@@ -190,7 +283,7 @@ class MavenCommandHandlerTest {
     void shouldAddCompileDependencyInPomWithOnlyCompileDependencies() {
       Path pom = projectWithPom("src/test/resources/projects/maven-compile-only/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependency(defaultVersionDependency()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
       assertThat(content(pom))
         .contains("      <groupId>org.springframework.boot</groupId>")
@@ -201,7 +294,7 @@ class MavenCommandHandlerTest {
     void shouldAddCompileDependencyInPomWithEmptyDependencies() {
       Path pom = projectWithPom("src/test/resources/projects/maven-empty-dependencies/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependency(defaultVersionDependency()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
       assertThat(content(pom))
         .contains("      <groupId>org.springframework.boot</groupId>")

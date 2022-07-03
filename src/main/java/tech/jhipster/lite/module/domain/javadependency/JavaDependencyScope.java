@@ -3,7 +3,8 @@ package tech.jhipster.lite.module.domain.javadependency;
 import tech.jhipster.lite.error.domain.Assert;
 
 public enum JavaDependencyScope {
-  COMPILE(5),
+  COMPILE(6),
+  IMPORT(5),
   PROVIDED(4),
   SYSTEM(3),
   RUNTIME(2),

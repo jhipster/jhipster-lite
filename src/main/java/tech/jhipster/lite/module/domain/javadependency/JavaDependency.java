@@ -8,11 +8,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import tech.jhipster.lite.common.domain.Generated;
-import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.module.domain.javadependency.command.AddJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
 import tech.jhipster.lite.module.domain.javadependency.command.JavaDependencyCommand;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveJavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
 
 public class JavaDependency {
@@ -21,33 +17,25 @@ public class JavaDependency {
   private final Optional<VersionSlug> versionSlug;
   private final JavaDependencyScope scope;
   private final boolean optional;
+  private final Optional<JavaDependencyType> type;
 
   private JavaDependency(JavaDependencyBuilder builder) {
     id = new DependencyId(builder.groupId, builder.artifactId);
     versionSlug = Optional.ofNullable(builder.versionSlug);
     scope = JavaDependencyScope.from(builder.scope);
     optional = builder.optional;
+    type = Optional.ofNullable(builder.type);
   }
 
   public static JavaDependencyGroupIdBuilder builder() {
     return new JavaDependencyBuilder();
   }
 
-  JavaDependenciesCommands changeCommands(CurrentJavaDependenciesVersions currentVersions, ProjectJavaDependencies projectDependencies) {
-    Assert.notNull("currentVersion", currentVersions);
-    Assert.notNull("projectDependencies", projectDependencies);
-
-    Collection<JavaDependencyCommand> versionCommands = versionCommands(currentVersions, projectDependencies);
-    Collection<JavaDependencyCommand> dependencyCommands = dependencyCommands(projectDependencies);
-
-    return new JavaDependenciesCommands(Stream.of(versionCommands, dependencyCommands).flatMap(Collection::stream).toList());
-  }
-
-  private Collection<JavaDependencyCommand> versionCommands(
+  Collection<JavaDependencyCommand> versionCommands(
     CurrentJavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies
   ) {
-    return versionSlug.flatMap(toVersion(currentVersions, projectDependencies)).map(toSetVersionCommand()).map(List::of).orElse(List.of());
+    return version().flatMap(toVersion(currentVersions, projectDependencies)).map(toSetVersionCommand()).map(List::of).orElse(List.of());
   }
 
   private Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
@@ -75,44 +63,22 @@ public class JavaDependency {
     return SetJavaDependencyVersion::new;
   }
 
-  private Collection<JavaDependencyCommand> dependencyCommands(ProjectJavaDependencies projectDependencies) {
-    return projectDependencies.dependency(id).map(toDepencendiesCommands()).orElseGet(() -> List.of(new AddJavaDependency(this)));
+  Collection<JavaDependencyCommand> dependencyCommands(DependenciesCommandsFactory commands, Optional<JavaDependency> projectDependency) {
+    return projectDependency.map(toDependenciesCommands(commands)).orElseGet(() -> List.of(commands.addDependency(this)));
   }
 
-  private Function<JavaDependency, Collection<JavaDependencyCommand>> toDepencendiesCommands() {
+  private Function<JavaDependency, Collection<JavaDependencyCommand>> toDependenciesCommands(DependenciesCommandsFactory commands) {
     return projectDependency -> {
-      JavaDependency resultingDependency = merge(projectDependency);
+      Collection<JavaDependency> resultingDependencies = merge(projectDependency);
 
-      if (resultingDependency.equals(projectDependency)) {
+      if (resultingDependencies.size() == 1 && resultingDependencies.contains(projectDependency)) {
         return List.of();
       }
 
-      return List.of(new RemoveJavaDependency(id), new AddJavaDependency(resultingDependency));
+      return Stream
+        .concat(Stream.of(commands.removeDependency(id())), resultingDependencies.stream().map(commands::addDependency))
+        .toList();
     };
-  }
-
-  private JavaDependency merge(JavaDependency other) {
-    return JavaDependency
-      .builder()
-      .groupId(groupId())
-      .artifactId(artifactId())
-      .versionSlug(mergeVersionsSlugs(other))
-      .scope(mergeScopes(other))
-      .optional()
-      .optional(mergeOptionalFlag(other))
-      .build();
-  }
-
-  private VersionSlug mergeVersionsSlugs(JavaDependency other) {
-    return versionSlug.orElseGet(() -> other.versionSlug.orElse(null));
-  }
-
-  private JavaDependencyScope mergeScopes(JavaDependency other) {
-    return scope.merge(other.scope);
-  }
-
-  private boolean mergeOptionalFlag(JavaDependency other) {
-    return optional && other.optional;
   }
 
   public DependencyId id() {
@@ -139,10 +105,48 @@ public class JavaDependency {
     return scope;
   }
 
+  public Optional<JavaDependencyType> type() {
+    return type;
+  }
+
+  private Collection<JavaDependency> merge(JavaDependency other) {
+    JavaDependency mergedWithCurrentType = merge(other, type);
+
+    if (!type.equals(other.type)) {
+      return List.of(mergedWithCurrentType, merge(other, other.type));
+    }
+
+    return List.of(mergedWithCurrentType);
+  }
+
+  private JavaDependency merge(JavaDependency other, Optional<JavaDependencyType> resultingType) {
+    return JavaDependency
+      .builder()
+      .groupId(groupId())
+      .artifactId(artifactId())
+      .versionSlug(mergeVersionsSlugs(other))
+      .scope(mergeScopes(other))
+      .optional(mergeOptionalFlag(other))
+      .type(resultingType.orElse(null))
+      .build();
+  }
+
+  private VersionSlug mergeVersionsSlugs(JavaDependency other) {
+    return versionSlug.orElseGet(() -> other.versionSlug.orElse(null));
+  }
+
+  private JavaDependencyScope mergeScopes(JavaDependency other) {
+    return scope.merge(other.scope);
+  }
+
+  private boolean mergeOptionalFlag(JavaDependency other) {
+    return optional && other.optional;
+  }
+
   @Override
   @Generated
   public int hashCode() {
-    return new HashCodeBuilder().append(id).append(versionSlug).append(scope).append(optional).hashCode();
+    return new HashCodeBuilder().append(id).append(versionSlug).append(scope).append(optional).append(type).hashCode();
   }
 
   @Override
@@ -163,6 +167,7 @@ public class JavaDependency {
       .append(versionSlug, other.versionSlug)
       .append(scope, other.scope)
       .append(optional, other.optional)
+      .append(type, other.type)
       .isEquals();
   }
 
@@ -174,6 +179,7 @@ public class JavaDependency {
     private VersionSlug versionSlug;
     private JavaDependencyScope scope;
     private boolean optional;
+    private JavaDependencyType type;
 
     private JavaDependencyBuilder() {}
 
@@ -213,6 +219,13 @@ public class JavaDependency {
     }
 
     @Override
+    public JavaDependencyOptionalValueBuilder type(JavaDependencyType type) {
+      this.type = type;
+
+      return this;
+    }
+
+    @Override
     public JavaDependency build() {
       return new JavaDependency(this);
     }
@@ -240,6 +253,8 @@ public class JavaDependency {
     JavaDependencyOptionalValueBuilder scope(JavaDependencyScope scope);
 
     JavaDependencyOptionalValueBuilder optional(boolean optional);
+
+    JavaDependencyOptionalValueBuilder type(JavaDependencyType type);
 
     JavaDependency build();
 

@@ -19,7 +19,6 @@ public class OAuth2ModuleFactory {
   private static final String TARGET_ANNOTATION = "@Target(ElementType.TYPE)";
   private static final String SPRING_BOOT_IMPORT = "import org.springframework.boot.test.context.SpringBootTest;";
   private static final GroupId SPRING_GROUP = groupId("org.springframework.boot");
-  private static final String BREAK = "\n";
   private static final String DOMAIN = "domain";
   private static final String PRIMARY = "infrastructure/primary";
 
@@ -161,13 +160,13 @@ public class OAuth2ModuleFactory {
       .add(importNeedle, testSecurityConfigurationImport(properties))
       .add(text(baseClass), baseClass + ", TestSecurityConfiguration.class")
       .add(importNeedle, withMockUserImport())
-      .add(text(TARGET_ANNOTATION), TARGET_ANNOTATION + BREAK + "@WithMockUser");
+      .add(text(TARGET_ANNOTATION), TARGET_ANNOTATION + LINE_BREAK + "@WithMockUser");
   }
 
   private String testSecurityConfigurationImport(JHipsterModuleProperties properties) {
     return new StringBuilder()
       .append(SPRING_BOOT_IMPORT)
-      .append(BREAK)
+      .append(LINE_BREAK)
       .append("import ")
       .append(properties.basePackage().get())
       .append(".authentication.infrastructure.primary.TestSecurityConfiguration;")
@@ -175,7 +174,7 @@ public class OAuth2ModuleFactory {
   }
 
   private String withMockUserImport() {
-    return SPRING_BOOT_IMPORT + BREAK + "import org.springframework.security.test.context.support.WithMockUser;";
+    return SPRING_BOOT_IMPORT + LINE_BREAK + "import org.springframework.security.test.context.support.WithMockUser;";
   }
 
   private JavaDependency springSecurityTest() {

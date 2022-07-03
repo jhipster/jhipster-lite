@@ -2,9 +2,9 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domai
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
+import tech.jhipster.lite.docker.domain.DockerImage;
+import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.docker.domain.DockerImage;
-import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.module.domain.JHipsterDestination;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;

@@ -3,8 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.database.mariadb.domain;
 import static tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonModuleBuilder.sqlCommonModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
+import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;

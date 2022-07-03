@@ -318,7 +318,7 @@
             <div class="focus-helper" tabindex="-1"></div>
             <button
               id="section-init"
-              class="nav-link text-primary bg-setup fw-bold active"
+              class="nav-link text-primary bg-primary fw-bold active"
               data-bs-toggle="tab"
               data-bs-target="#v-pills-init"
               role="tab"
@@ -467,6 +467,20 @@
             >
               <img src="../../../content/SvelteLogo.png" alt="" width="24" height="24" class="rounded-circle flex-shrink-0" />
               SVELTE
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              id="section-download"
+              data-selector="section-download"
+              class="nav-link text-primary fw-bold"
+              :class="project.folder !== '' ? 'bg-primary' : ''"
+              type="button"
+              :disabled="project.folder !== '' ? false : true"
+              @click.prevent="download"
+            >
+              <IconVue :name="'download'" :aria-hidden="true" />
+              DOWNLOAD
             </button>
           </li>
         </ul>

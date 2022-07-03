@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain;
 
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_LOGBACK_LOGGER;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
+import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
@@ -10,6 +10,7 @@ import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
 import tech.jhipster.lite.module.domain.DocumentationTitle;
 import tech.jhipster.lite.module.domain.JHipsterDestination;
+import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.JHipsterSource;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
@@ -56,10 +57,10 @@ public class SQLCommonModuleBuilder {
         .add(source.template(databaseId + ".yml"), toSrcMainDocker().append(databaseId + ".yml"))
         .and()
       .javaDependencies()
-        .add(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-jpa"))
-        .add(groupId("com.zaxxer"), artifactId("HikariCP"))
-        .add(groupId(ORG_HIBERNATE), artifactId("hibernate-core"))
-        .add(testContainer(databaseId))
+        .dependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-jpa"))
+        .dependency(groupId("com.zaxxer"), artifactId("HikariCP"))
+        .dependency(groupId(ORG_HIBERNATE), artifactId("hibernate-core"))
+        .dependency(testContainer(databaseId))
         .and()
       .springMainProperties()
         .set(propertyKey("spring.datasource.password"), propertyValue(""))

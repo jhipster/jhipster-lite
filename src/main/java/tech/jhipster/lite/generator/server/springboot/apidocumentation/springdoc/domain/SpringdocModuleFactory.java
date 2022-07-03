@@ -88,7 +88,7 @@ public class SpringdocModuleFactory {
     return moduleContextBuilder
         .and()
       .javaDependencies()
-        .add(springdocJavaDependency)
+        .dependency(springdocJavaDependency)
         .and()
       .files()
         .add(SOURCE.template(srcSpringdocJavaFile), mainDestination.append(SPRINGDOC_CONFIG_JAVA_FILE))

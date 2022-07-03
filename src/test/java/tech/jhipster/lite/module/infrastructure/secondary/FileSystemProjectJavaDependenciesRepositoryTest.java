@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -49,6 +50,14 @@ class FileSystemProjectJavaDependenciesRepositoryTest {
     assertThat(versions.get(new VersionSlug("logstash-logback-encoder.version")))
       .contains(new JavaDependencyVersion("logstash-logback-encoder", "7.2"));
     assertThat(versions.get(new VersionSlug("dummy"))).isEmpty();
+  }
+
+  @Test
+  void shouldGetDependenciesManagementFromMavenFile() {
+    JavaDependencies dependencies = mavenDependencies().dependenciesManagement();
+
+    assertThat(dependencies.get(springBootDependencyId()).get()).usingRecursiveComparison().isEqualTo(springBootDependencyManagement());
+    assertThat(dependencies.get(jsonWebTokenDependencyId())).isEmpty();
   }
 
   @Test

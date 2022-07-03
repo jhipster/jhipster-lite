@@ -37,9 +37,17 @@ import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.*;
+import tech.jhipster.lite.module.domain.replacement.ElementMatcher;
+import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacements;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacements.JHipsterModuleMandatoryReplacementsBuilder;
+import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacements;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacements.JHipsterModuleOptionalReplacementsBuilder;
+import tech.jhipster.lite.module.domain.replacement.JustAfter;
+import tech.jhipster.lite.module.domain.replacement.JustBefore;
+import tech.jhipster.lite.module.domain.replacement.JustLineAfter;
+import tech.jhipster.lite.module.domain.replacement.JustLineBefore;
+import tech.jhipster.lite.module.domain.replacement.RegexMatcher;
+import tech.jhipster.lite.module.domain.replacement.TextMatcher;
 
 public class JHipsterModule {
 

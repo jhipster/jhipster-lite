@@ -17,10 +17,11 @@ import tech.jhipster.lite.module.domain.javadependency.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
-import tech.jhipster.lite.module.domain.javadependency.command.AddJavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveJavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
@@ -67,10 +68,12 @@ public final class JHipsterModulesFixture {
         .and()
       .and()
     .javaDependencies()
-      .add(groupId("org.springframework.boot"), artifactId("spring-boot-starter"))
-      .add(groupId("org.zalando"), artifactId("problem-spring-web"), versionSlug("problem-spring"))
-      .add(optionalTestDependency())
-      .add(groupId("io.jsonwebtoken"), artifactId("jjwt-api"), versionSlug("jjwt.version"))
+      .dependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter"))
+      .dependency(groupId("org.zalando"), artifactId("problem-spring-web"), versionSlug("problem-spring"))
+      .dependency(groupId("io.jsonwebtoken"), artifactId("jjwt-api"), versionSlug("jjwt.version"))
+      .dependency(optionalTestDependency())
+      .dependencyManagement(springBootDependencyManagement())
+      .dependencyManagement(springBootDefaultTypeDependencyManagement())
       .and()
     .packageJson()
       .addScript(scriptKey("serve"), scriptCommand("tikui-core serve"))
@@ -101,6 +104,29 @@ public final class JHipsterModulesFixture {
     // @formatter:on
   }
 
+  public static JavaDependency springBootDependencyManagement() {
+    return javaDependency()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-dependencies")
+      .versionSlug("spring-boot.version")
+      .scope(JavaDependencyScope.IMPORT)
+      .type(JavaDependencyType.POM)
+      .build();
+  }
+
+  public static JavaDependency springBootDefaultTypeDependencyManagement() {
+    return javaDependency()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-dependencies")
+      .versionSlug("spring-boot.version")
+      .scope(JavaDependencyScope.IMPORT)
+      .build();
+  }
+
+  public static DependencyId springBootDependencyId() {
+    return new DependencyId(groupId("org.springframework.boot"), artifactId("spring-boot-dependencies"));
+  }
+
   public static JavaDependency defaultVersionDependency() {
     return javaDependency().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
   }
@@ -111,8 +137,10 @@ public final class JHipsterModulesFixture {
 
   public static JavaDependenciesCommands javaDependenciesCommands() {
     SetJavaDependencyVersion setVersion = new SetJavaDependencyVersion(springBootVersion());
-    RemoveJavaDependency remove = new RemoveJavaDependency(new DependencyId(new GroupId("spring-boot"), new ArtifactId("1.2.3")));
-    AddJavaDependency add = new AddJavaDependency(optionalTestDependency());
+    RemoveDirectJavaDependency remove = new RemoveDirectJavaDependency(
+      new DependencyId(new GroupId("spring-boot"), new ArtifactId("1.2.3"))
+    );
+    AddDirectJavaDependency add = new AddDirectJavaDependency(optionalTestDependency());
 
     return new JavaDependenciesCommands(List.of(setVersion, remove, add));
   }

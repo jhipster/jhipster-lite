@@ -54,12 +54,12 @@ public class CucumberModuleFactory {
       .add(SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
       .and()
     .javaDependencies()
-      .add(cucumberJunitDependency())
-      .add(cucumberJavaDependency())
-      .add(cucumberSpringDependency())
-      .add(junitVintageDependency())
-      .add(testNgDependency())
-      .add(awaitilityDepencency())
+      .dependency(cucumberJunitDependency())
+      .dependency(cucumberJavaDependency())
+      .dependency(cucumberSpringDependency())
+      .dependency(junitVintageDependency())
+      .dependency(testNgDependency())
+      .dependency(awaitilityDependency())
       .and();
     //@formatter:on
 
@@ -110,7 +110,7 @@ public class CucumberModuleFactory {
       .build();
   }
 
-  private JavaDependency awaitilityDepencency() {
+  private JavaDependency awaitilityDependency() {
     return javaDependency().groupId("org.awaitility").artifactId("awaitility").scope(JavaDependencyScope.TEST).build();
   }
 

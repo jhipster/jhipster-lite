@@ -38,6 +38,27 @@ class FileSystemJHipsterModulesRepositoryTest {
         .containing("com.test.myapp")
         .and()
       .createFile("pom.xml")
+      .containing("""
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-dependencies</artifactId>
+                  <version>${spring-boot.version}</version>
+                  <scope>import</scope>
+                </dependency>
+          """)
+        .containing(
+          """
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-dependencies</artifactId>
+                  <version>${spring-boot.version}</version>
+                  <scope>import</scope>
+                  <type>pom</type>
+                </dependency>
+              </dependencies>
+            </dependencyManagement>   
+          """
+        )
         .containing(
           """
                   <dependency>

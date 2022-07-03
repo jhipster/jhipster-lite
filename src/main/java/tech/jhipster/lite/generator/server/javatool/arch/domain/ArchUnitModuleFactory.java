@@ -1,6 +1,12 @@
 package tech.jhipster.lite.generator.server.javatool.arch.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.justLineBefore;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.text;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.toSrcTestJava;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,7 +39,7 @@ public class ArchUnitModuleFactory {
         .add(SOURCE.template("HexagonalArchTest.java"), testDestination.append("HexagonalArchTest.java"))
         .and()
       .javaDependencies()
-        .add(archUnitDependency())
+        .dependency(archUnitDependency())
         .and()
       .optionalReplacements()
         .in("src/test/resources/logback.xml")

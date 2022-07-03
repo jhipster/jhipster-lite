@@ -27,12 +27,8 @@ public class SpringProperty {
     return profile;
   }
 
-  public static SpringPropertyKeyBuilder mainPropertyBuilder() {
-    return new SpringPropertyBuilder(SpringPropertyType.MAIN);
-  }
-
-  public static SpringPropertyKeyBuilder testPropertyBuilder() {
-    return new SpringPropertyBuilder(SpringPropertyType.TEST);
+  public static SpringPropertyBuilder builder(SpringPropertyType type) {
+    return new SpringPropertyBuilder(type);
   }
 
   public SpringPropertyType type() {
@@ -49,10 +45,10 @@ public class SpringProperty {
 
   public String filename() {
     if (profile.isDefault()) {
-      return "application";
+      return type.filePrefix();
     }
 
-    return "application-" + profile.get();
+    return type.filePrefix() + "-" + profile.get();
   }
 
   public static class SpringPropertyBuilder implements SpringPropertyKeyBuilder, SpringPropertyValueBuilder, SpringPropertyProfileBuilder {
@@ -63,6 +59,8 @@ public class SpringProperty {
     private SpringProfile profile;
 
     private SpringPropertyBuilder(SpringPropertyType type) {
+      Assert.notNull("type", type);
+
       this.type = type;
     }
 

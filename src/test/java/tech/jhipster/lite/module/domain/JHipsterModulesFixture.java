@@ -24,6 +24,7 @@ import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesC
 import tech.jhipster.lite.module.domain.javadependency.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
+import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
@@ -230,7 +231,7 @@ public final class JHipsterModulesFixture {
 
   public static SpringProperty springLocalMainProperty() {
     return SpringProperty
-      .mainPropertyBuilder()
+      .builder(SpringPropertyType.MAIN_PROPERTIES)
       .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
       .value(propertyValue("alpha", "beta"))
       .profile(springProfile("local"))
@@ -239,7 +240,7 @@ public final class JHipsterModulesFixture {
 
   public static SpringProperty springMainProperty() {
     return SpringProperty
-      .mainPropertyBuilder()
+      .builder(SpringPropertyType.MAIN_PROPERTIES)
       .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
       .value(propertyValue("alpha", "beta"))
       .build();
@@ -247,7 +248,7 @@ public final class JHipsterModulesFixture {
 
   public static SpringProperty springTestProperty() {
     return SpringProperty
-      .testPropertyBuilder()
+      .builder(SpringPropertyType.TEST_PROPERTIES)
       .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
       .value(propertyValue("alpha", "beta"))
       .build();

@@ -22,8 +22,6 @@ public class GeneratorAction {
 
   public static final String SPRING_CLOUD = "spring-cloud";
 
-  public static final String DEV_TOOLS = "dev-tools";
-
   public static final String SVELTE = "svelte";
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
 
@@ -31,8 +29,6 @@ public class GeneratorAction {
 
   public static final String EHCACHE_WITH_JAVA_CONFIG = "ehcache-with-java-config";
   public static final String EHCACHE_WITH_XML_CONFIG = "ehcache-with-xml-config";
-
-  public static final String POSTGRESQL = "postgresql";
 
   public static final String ANGULAR = "angular";
   public static final String ANGULAR_JWT = "angular-jwt";
@@ -49,16 +45,11 @@ public class GeneratorAction {
   public static final String SPRINGBOOT_JWT = "springboot-jwt";
   public static final String SPRINGBOOT_JWT_BASIC_AUTH = "springboot-jwt-basic-auth";
 
-  public static final String SPRINGDOC_OPENAPI = "springdoc-openapi";
-  public static final String SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT = "springdoc-openapi-with-security-jwt";
-
   public static final String REACT = "react";
   public static final String REACT_STYLED = "react-styled";
   public static final String REACT_JWT = "react-jwt";
 
   public static final String GITHUB_ACTIONS = "github-actions";
-
-  public static final String MYSQL = "mysql";
 
   public static final String MSSQL = "mssql";
 

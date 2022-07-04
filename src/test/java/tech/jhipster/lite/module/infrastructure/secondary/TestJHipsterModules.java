@@ -6,7 +6,6 @@ import tech.jhipster.lite.common.infrastructure.secondary.FileSystemProjectFiles
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.init.domain.GitRepository;
 import tech.jhipster.lite.generator.init.domain.InitModuleFactory;
-import tech.jhipster.lite.generator.npm.infrastructure.secondary.FileSystemNpmVersions;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -14,6 +13,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleEvents;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.npm.infrastructure.secondary.FileSystemNpmVersions;
 
 public final class TestJHipsterModules {
 

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.npm.domain;
+package tech.jhipster.lite.npm.domain;
 
 public enum NpmVersionSource {
   COMMON,

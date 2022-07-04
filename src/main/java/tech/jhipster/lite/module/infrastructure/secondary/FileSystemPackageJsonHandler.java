@@ -17,14 +17,14 @@ import tech.jhipster.lite.common.domain.Enums;
 import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.npm.domain.NpmVersionSource;
-import tech.jhipster.lite.generator.npm.domain.NpmVersions;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependencies;
 import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependency;
 import tech.jhipster.lite.module.domain.packagejson.Scripts;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.npm.domain.NpmVersionSource;
+import tech.jhipster.lite.npm.domain.NpmVersions;
 
 class FileSystemPackageJsonHandler {
 

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext.JHipsterModuleContextBuilder;
@@ -27,7 +26,7 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProfile;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperties;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
-import tech.jhipster.lite.module.domain.javaproperties.SpringProperty.SpringPropertyKeyBuilder;
+import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
 import tech.jhipster.lite.module.domain.packagejson.PackageName;
@@ -79,30 +78,25 @@ public class JHipsterModule {
   }
 
   private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
-    Stream<SpringProperty> mainProperties = builder.mainSpringProperties
-      .entrySet()
-      .stream()
-      .flatMap(toProperties(SpringProperty::mainPropertyBuilder));
+    List<SpringProperty> properties = builder.springProperties.entrySet().stream().flatMap(toProperties()).toList();
 
-    Stream<SpringProperty> testProperties = builder.testSpringProperties
-      .entrySet()
-      .stream()
-      .flatMap(toProperties(SpringProperty::testPropertyBuilder));
-
-    return new SpringProperties(Stream.concat(mainProperties, testProperties).toList());
+    return new SpringProperties(properties);
   }
 
-  private Function<Entry<SpringProfile, JHipsterModuleSpringPropertiesBuilder>, Stream<SpringProperty>> toProperties(
-    Supplier<SpringPropertyKeyBuilder> builderFactory
-  ) {
-    return properties -> properties.getValue().build().properties().entrySet().stream().map(toProperty(builderFactory, properties));
+  private Function<Entry<PropertiesKey, JHipsterModuleSpringPropertiesBuilder>, Stream<SpringProperty>> toProperties() {
+    return properties -> properties.getValue().build().properties().entrySet().stream().map(toProperty(properties));
   }
 
   private Function<Entry<PropertyKey, PropertyValue>, SpringProperty> toProperty(
-    Supplier<SpringPropertyKeyBuilder> builderFactory,
-    Entry<SpringProfile, JHipsterModuleSpringPropertiesBuilder> properties
+    Entry<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> properties
   ) {
-    return property -> builderFactory.get().key(property.getKey()).value(property.getValue()).profile(properties.getKey()).build();
+    return property ->
+      SpringProperty
+        .builder(properties.getKey().type())
+        .key(property.getKey())
+        .value(property.getValue())
+        .profile(properties.getKey().profile())
+        .build();
   }
 
   public static JHipsterModuleBuilder moduleBuilder(JHipsterModuleProperties properties) {
@@ -255,8 +249,7 @@ public class JHipsterModule {
     private final JHipsterModulePackageJsonBuilder packageJson = JHipsterModulePackageJson.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
-    private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> mainSpringProperties = new HashMap<>();
-    private final Map<SpringProfile, JHipsterModuleSpringPropertiesBuilder> testSpringProperties = new HashMap<>();
+    private final Map<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> springProperties = new HashMap<>();
 
     private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
       Assert.notNull("properties", properties);
@@ -319,24 +312,46 @@ public class JHipsterModule {
       return springMainProperties(SpringProfile.DEFAULT);
     }
 
+    public JHipsterModuleSpringPropertiesBuilder springMainBootstrapProperties() {
+      return springProperties.computeIfAbsent(
+        new PropertiesKey(SpringProfile.DEFAULT, SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES),
+        key -> JHipsterModuleSpringProperties.builder(this)
+      );
+    }
+
     public JHipsterModuleSpringPropertiesBuilder springMainProperties(SpringProfile profile) {
       Assert.notNull("profile", profile);
 
-      return mainSpringProperties.computeIfAbsent(profile, key -> JHipsterModuleSpringProperties.builder(this));
+      return springProperties.computeIfAbsent(
+        new PropertiesKey(profile, SpringPropertyType.MAIN_PROPERTIES),
+        key -> JHipsterModuleSpringProperties.builder(this)
+      );
     }
 
     public JHipsterModuleSpringPropertiesBuilder springTestProperties() {
       return springTestProperties(SpringProfile.DEFAULT);
     }
 
+    public JHipsterModuleSpringPropertiesBuilder springTestBootstrapProperties() {
+      return springProperties.computeIfAbsent(
+        new PropertiesKey(SpringProfile.DEFAULT, SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES),
+        key -> JHipsterModuleSpringProperties.builder(this)
+      );
+    }
+
     public JHipsterModuleSpringPropertiesBuilder springTestProperties(SpringProfile profile) {
       Assert.notNull("profile", profile);
 
-      return testSpringProperties.computeIfAbsent(profile, key -> JHipsterModuleSpringProperties.builder(this));
+      return springProperties.computeIfAbsent(
+        new PropertiesKey(profile, SpringPropertyType.TEST_PROPERTIES),
+        key -> JHipsterModuleSpringProperties.builder(this)
+      );
     }
 
     public JHipsterModule build() {
       return new JHipsterModule(this);
     }
   }
+
+  private static record PropertiesKey(SpringProfile profile, SpringPropertyType type) {}
 }

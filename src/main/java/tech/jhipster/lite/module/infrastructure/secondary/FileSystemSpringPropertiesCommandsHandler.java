@@ -24,9 +24,13 @@ class FileSystemSpringPropertiesCommandsHandler {
 
   private static Map<SpringPropertyType, List<String>> buildPaths() {
     return Map.of(
-      SpringPropertyType.MAIN,
+      SpringPropertyType.MAIN_PROPERTIES,
       List.of(DEFAULT_MAIN_FOLDER, "src/main/resources/"),
-      SpringPropertyType.TEST,
+      SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES,
+      List.of(DEFAULT_MAIN_FOLDER, "src/main/resources/"),
+      SpringPropertyType.TEST_PROPERTIES,
+      List.of(DEFAULT_TEST_FOLDER, "src/test/resources/"),
+      SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES,
       List.of(DEFAULT_TEST_FOLDER, "src/test/resources/")
     );
   }
@@ -43,22 +47,26 @@ class FileSystemSpringPropertiesCommandsHandler {
   }
 
   private static Path getPath(JHipsterProjectFolder projectFolder, SpringProperty property) {
-    Function<String, Path> mapper = folder -> projectFolder.filePath(folder + propertiesFilename(property));
-
     return PROPERTIES_PATHS
       .get(property.type())
       .stream()
-      .map(mapper)
+      .map(toFilePath(projectFolder, property))
       .filter(Files::exists)
       .findFirst()
       .orElseGet(defaultPropertiesFile(projectFolder, property));
   }
 
+  private static Function<String, Path> toFilePath(JHipsterProjectFolder projectFolder, SpringProperty property) {
+    return folder -> projectFolder.filePath(folder + propertiesFilename(property));
+  }
+
   @Generated(reason = "Jacoco thinks there is a missed branch")
   private static Supplier<Path> defaultPropertiesFile(JHipsterProjectFolder projectFolder, SpringProperty property) {
     return switch (property.type()) {
-      case MAIN -> () -> projectFolder.filePath(DEFAULT_MAIN_FOLDER + propertiesFilename(property));
-      case TEST -> () -> projectFolder.filePath(DEFAULT_TEST_FOLDER + propertiesFilename(property));
+      case MAIN_PROPERTIES -> () -> projectFolder.filePath(DEFAULT_MAIN_FOLDER + propertiesFilename(property));
+      case MAIN_BOOTSTRAP_PROPERTIES -> () -> projectFolder.filePath(DEFAULT_MAIN_FOLDER + propertiesFilename(property));
+      case TEST_PROPERTIES -> () -> projectFolder.filePath(DEFAULT_TEST_FOLDER + propertiesFilename(property));
+      case TEST_BOOTSTRAP_PROPERTIES -> () -> projectFolder.filePath(DEFAULT_TEST_FOLDER + propertiesFilename(property));
     };
   }
 

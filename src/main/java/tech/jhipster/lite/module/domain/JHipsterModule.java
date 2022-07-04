@@ -237,7 +237,9 @@ public class JHipsterModule {
 
   public static class JHipsterModuleBuilder {
 
+    private static final String README = "README.md";
     private static final String JHIPSTER_DOCUMENTATION_NEEDLE = "<!-- jhipster-needle-documentation -->";
+    private static final String JHIPSTER_README_SECTION_NEEDLE = "<!-- jhipster-needle-readme -->";
 
     private final JHipsterProjectFolder projectFolder;
     private final JHipsterModuleProperties properties;
@@ -270,8 +272,16 @@ public class JHipsterModule {
       String target = "documentation/" + title.filename() + source.extension();
       files().add(source, to(target));
 
-      String markdownLink = "- [" + title.get() + "](" + target + ") " + LINE_BREAK + JHIPSTER_DOCUMENTATION_NEEDLE;
-      optionalReplacements().in("README.md").add(text(JHIPSTER_DOCUMENTATION_NEEDLE), markdownLink);
+      String markdownLink = "- [" + title.get() + "](" + target + ")";
+      optionalReplacements().in(README).add(justLineBefore(text(JHIPSTER_DOCUMENTATION_NEEDLE)), markdownLink);
+
+      return this;
+    }
+
+    public JHipsterModuleBuilder readmeSection(String section) {
+      Assert.notBlank("section", section);
+
+      optionalReplacements().in(README).add(justLineBefore(text(JHIPSTER_README_SECTION_NEEDLE)), section);
 
       return this;
     }

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.npm.infrastructure.secondary;
+package tech.jhipster.lite.npm.infrastructure.secondary;
 
 enum NpmVersionSourceFolder {
   COMMON("common"),

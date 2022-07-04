@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.npm.infrastructure.secondary;
+package tech.jhipster.lite.npm.infrastructure.secondary;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.common.domain.Enums;
 import tech.jhipster.lite.common.domain.ProjectFilesReader;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.npm.domain.NpmPackageName;
-import tech.jhipster.lite.generator.npm.domain.NpmVersion;
-import tech.jhipster.lite.generator.npm.domain.NpmVersionSource;
-import tech.jhipster.lite.generator.npm.domain.NpmVersions;
-import tech.jhipster.lite.generator.npm.domain.UnknownNpmPackageException;
+import tech.jhipster.lite.npm.domain.NpmPackageName;
+import tech.jhipster.lite.npm.domain.NpmVersion;
+import tech.jhipster.lite.npm.domain.NpmVersionSource;
+import tech.jhipster.lite.npm.domain.NpmVersions;
+import tech.jhipster.lite.npm.domain.UnknownNpmPackageException;
 
 @Repository
 public class FileSystemNpmVersions implements NpmVersions {

@@ -107,7 +107,8 @@ class FileSystemJHipsterModulesRepositoryTest {
         .containing("springdoc.swagger-ui.tryItOutEnabled=test")
         .and()
       .createFile("README.md")
-        .containing("- [Cucumber integration](documentation/cucumber-integration.md)");
+        .containing("- [Cucumber integration](documentation/cucumber-integration.md)")
+        .containing("This is a readme section");
     // @formatter:on
 
     assertPreActions();

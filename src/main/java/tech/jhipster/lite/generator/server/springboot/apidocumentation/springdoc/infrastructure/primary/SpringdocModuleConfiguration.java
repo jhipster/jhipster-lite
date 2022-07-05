@@ -35,6 +35,6 @@ class SpringdocModuleConfiguration {
   }
 
   private JHipsterModulePropertiesDefinition buildPropertiesDefinition() {
-    return JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build();
+    return JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build();
   }
 }

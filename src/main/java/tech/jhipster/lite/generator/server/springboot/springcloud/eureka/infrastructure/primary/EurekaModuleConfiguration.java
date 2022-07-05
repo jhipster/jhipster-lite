@@ -16,7 +16,7 @@ class EurekaModuleConfiguration {
       .builder()
       .legacyUrl("/api/servers/spring-boot/distributed-systems/spring-cloud/eureka-client")
       .slug("eureka-client")
-      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().build())
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Spring Cloud", "Add Spring Cloud Eureka Client"))
       .factory(eureka::buildModule);
   }

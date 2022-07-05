@@ -7,6 +7,7 @@ import { ModulesRepository } from '../domain/ModulesRepository';
 import { ModuleProperty, ModulePropertyType } from '../domain/ModuleProperty';
 import { ModuleToApply } from '../domain/ModuleToApply';
 import { ModuleSlug } from '../domain/ModuleSlug';
+import { ProjectFolder } from '../domain/ProjectFolder';
 
 export interface RestModules {
   categories: RestCategory[];
@@ -40,6 +41,10 @@ export interface RestModuleToApply {
   properties: {};
 }
 
+interface RestModuleHistory {
+  serviceId: string;
+}
+
 export class RestModulesRepository implements ModulesRepository {
   constructor(private axiosInstance: AxiosHttp) {}
 
@@ -51,6 +56,10 @@ export class RestModulesRepository implements ModulesRepository {
     return this.axiosInstance
       .post<void, RestModuleToApply>(`/api/modules/${module}/apply-patch`, toRestModuleToApply(moduleToApply))
       .then(() => undefined);
+  }
+
+  appliedModules(folder: ProjectFolder): Promise<ModuleSlug[]> {
+    return this.axiosInstance.get<RestModuleHistory[]>(`/api/project-histories?folder=${folder}`).then(mapToAppliedModules);
   }
 }
 
@@ -89,3 +98,5 @@ const toRestModuleToApply = (moduleToApply: ModuleToApply): RestModuleToApply =>
   projectFolder: moduleToApply.projectFolder,
   properties: Object.fromEntries(moduleToApply.properties),
 });
+
+const mapToAppliedModules = (response: AxiosResponse<RestModuleHistory[]>): ModuleSlug[] => response.data.map(module => module.serviceId);

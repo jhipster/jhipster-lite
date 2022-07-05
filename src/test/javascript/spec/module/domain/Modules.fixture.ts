@@ -6,12 +6,14 @@ import sinon, { SinonStub } from 'sinon';
 export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;
   apply: SinonStub;
+  appliedModules: SinonStub;
 }
 
 export const stubModulesRepository = (): ModulesRepositoryStub =>
   ({
     list: sinon.stub(),
     apply: sinon.stub(),
+    appliedModules: sinon.stub(),
   } as ModulesRepositoryStub);
 
 export const defaultModules = (): Modules => ({

@@ -276,6 +276,47 @@ describe('Modules', () => {
     expect(wrapper.find(wrappedElement('module-banner-application-button')).exists()).toBe(false);
     expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(false);
   });
+
+  it('Should mark already applied modules as applied', async () => {
+    const modules = repositoryWithModules();
+    modules.appliedModules.resolves(['spring-cucumber']);
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
+
+    await flushPromises();
+
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).text()).toBe('Re-apply');
+  });
+
+  it('Should reset modules application for unknown folder', async () => {
+    const modules = repositoryWithModules();
+    modules.appliedModules.rejects();
+    modules.apply.resolves(undefined);
+
+    const wrapper = await filledModuleForm(modules);
+    wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
+    await flushForm(wrapper);
+    await flushPromises();
+
+    wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
+    await flushPromises();
+
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).text()).toBe('Apply');
+  });
+
+  it('Should mark modules as applied after application', async () => {
+    const modules = repositoryWithModules();
+    modules.apply.resolves(undefined);
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
+    await flushForm(wrapper);
+
+    await flushPromises();
+
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).text()).toBe('Re-apply');
+  });
 });
 
 const componentWithModules = async (): Promise<VueWrapper> => {

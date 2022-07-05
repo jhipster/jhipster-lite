@@ -43,31 +43,31 @@ class EurekaModuleFactoryTest {
       .containing("<spring-cloud-netflix-eureka-client.version>")
       .containing(
         """
-                  <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-dependencies</artifactId>
-                    <version>${spring-cloud.version}</version>
-                    <scope>import</scope>
-                    <type>pom</type>
-                  </dependency>
-            """
+              <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+              </dependency>
+        """
       )
       .containing(
         """
-                <dependency>
-                  <groupId>org.springframework.cloud</groupId>
-                  <artifactId>spring-cloud-starter-bootstrap</artifactId>
-                </dependency>
-            """
+            <dependency>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            </dependency>
+        """
       )
       .containing(
         """
-                <dependency>
-                  <groupId>org.springframework.cloud</groupId>
-                  <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-                  <version>${spring-cloud-netflix-eureka-client.version}</version>
-                </dependency>
-            """
+            <dependency>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+              <version>${spring-cloud-netflix-eureka-client.version}</version>
+            </dependency>
+        """
       )
       .and()
       .createFile("src/main/resources/config/bootstrap.properties")

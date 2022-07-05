@@ -7,35 +7,31 @@ import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.javadependency.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 
 @UnitTest
 class DirectJavaDependencyTest {
 
   @Test
   void shouldAddUnknownMinimalDependency() {
-    JavaDependenciesCommands commands = changes().build();
+    JavaBuildCommands commands = changes().build();
 
     assertThat(commands.get()).containsExactly(new AddDirectJavaDependency(defaultVersionDependency()));
   }
 
   @Test
   void shouldAddUnknownFullDependency() {
-    JavaDependenciesCommands commands = changes().dependency(optionalTestDependency()).build();
+    JavaBuildCommands commands = changes().dependency(optionalTestDependency()).build();
 
-    assertThat(commands.get())
-      .containsExactly(new SetJavaDependencyVersion(springBootVersion()), new AddDirectJavaDependency(optionalTestDependency()));
+    assertThat(commands.get()).containsExactly(new SetVersion(springBootVersion()), new AddDirectJavaDependency(optionalTestDependency()));
   }
 
   @Test
   void shouldNotUpdateExistingOptionalTestDependency() {
-    JavaDependenciesCommands commands = changes()
-      .dependency(optionalTestDependency())
-      .projectDependencies(projectJavaDependencies())
-      .build();
+    JavaBuildCommands commands = changes().dependency(optionalTestDependency()).projectDependencies(projectJavaDependencies()).build();
 
     assertThat(commands.get()).isEmpty();
   }
@@ -48,7 +44,7 @@ class DirectJavaDependencyTest {
       .dependenciesManagements(null)
       .dependencies(new JavaDependencies(List.of(defaultVersionDependency())));
 
-    JavaDependenciesCommands commands = changes().projectDependencies(projectJavaDependencies).build();
+    JavaBuildCommands commands = changes().projectDependencies(projectJavaDependencies).build();
 
     assertThat(commands.get()).isEmpty();
   }
@@ -61,7 +57,7 @@ class DirectJavaDependencyTest {
       .dependenciesManagements(null)
       .dependencies(new JavaDependencies(List.of(optionalSpringBootDependency())));
 
-    JavaDependenciesCommands commands = changes().projectDependencies(projectJavaDependencies).build();
+    JavaBuildCommands commands = changes().projectDependencies(projectJavaDependencies).build();
 
     assertThat(commands.get())
       .containsExactly(
@@ -78,10 +74,7 @@ class DirectJavaDependencyTest {
       .dependenciesManagements(null)
       .dependencies(new JavaDependencies(List.of(defaultVersionDependency())));
 
-    JavaDependenciesCommands commands = changes()
-      .dependency(optionalSpringBootDependency())
-      .projectDependencies(projectJavaDependencies)
-      .build();
+    JavaBuildCommands commands = changes().dependency(optionalSpringBootDependency()).projectDependencies(projectJavaDependencies).build();
 
     assertThat(commands.get()).isEmpty();
   }
@@ -95,13 +88,13 @@ class DirectJavaDependencyTest {
     JavaDependencyVersion updatedVersion = new JavaDependencyVersion("spring-boot", "1.2.4");
     CurrentJavaDependenciesVersions currentVersions = new CurrentJavaDependenciesVersions(List.of(updatedVersion));
 
-    JavaDependenciesCommands commands = changes()
+    JavaBuildCommands commands = changes()
       .dependency(optionalTestDependency())
       .currentVersions(currentVersions)
       .projectDependencies(projectJavaDependencies())
       .build();
 
-    assertThat(commands.get()).containsExactly(new SetJavaDependencyVersion(updatedVersion));
+    assertThat(commands.get()).containsExactly(new SetVersion(updatedVersion));
   }
 
   @Test
@@ -112,7 +105,7 @@ class DirectJavaDependencyTest {
       .versionSlug("spring-boot")
       .build();
 
-    JavaDependenciesCommands commands = changes().dependency(upgraded).projectDependencies(projectJavaDependencies()).build();
+    JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectJavaDependencies()).build();
 
     assertThat(commands.get()).containsExactly(new RemoveDirectJavaDependency(upgraded.id()), new AddDirectJavaDependency(upgraded));
   }
@@ -121,10 +114,7 @@ class DirectJavaDependencyTest {
   void shouldKeepVersionFromNewDependency() {
     JavaDependency upgraded = optionalTestDependency();
 
-    JavaDependenciesCommands commands = changes()
-      .dependency(upgraded)
-      .projectDependencies(projectDependenciesWithoutJunitVersion())
-      .build();
+    JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectDependenciesWithoutJunitVersion()).build();
 
     assertThat(commands.get()).containsExactly(new RemoveDirectJavaDependency(upgraded.id()), new AddDirectJavaDependency(upgraded));
   }
@@ -137,7 +127,7 @@ class DirectJavaDependencyTest {
       List.of(springBootVersion(), updatedJunitVersion)
     );
 
-    JavaDependenciesCommands commands = changes()
+    JavaBuildCommands commands = changes()
       .dependency(upgraded)
       .currentVersions(currentVersions)
       .projectDependencies(projectDependenciesWithoutJunitVersion())
@@ -145,7 +135,7 @@ class DirectJavaDependencyTest {
 
     assertThat(commands.get())
       .containsExactly(
-        new SetJavaDependencyVersion(updatedJunitVersion),
+        new SetVersion(updatedJunitVersion),
         new RemoveDirectJavaDependency(upgraded.id()),
         new AddDirectJavaDependency(upgraded)
       );
@@ -167,7 +157,7 @@ class DirectJavaDependencyTest {
   void shouldKeepVersionFromProject() {
     JavaDependency upgraded = junitWithoutVersion();
 
-    JavaDependenciesCommands commands = changes().dependency(upgraded).projectDependencies(projectJavaDependencies()).build();
+    JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectJavaDependencies()).build();
 
     assertThat(commands.get()).isEmpty();
   }
@@ -220,7 +210,7 @@ class DirectJavaDependencyTest {
       return this;
     }
 
-    public JavaDependenciesCommands build() {
+    public JavaBuildCommands build() {
       return new DirectJavaDependency(dependency).changeCommands(currentVersions, projectDependencies);
     }
   }

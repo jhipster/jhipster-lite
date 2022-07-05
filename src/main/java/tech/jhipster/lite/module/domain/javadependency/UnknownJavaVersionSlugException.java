@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 
 class UnknownJavaVersionSlugException extends GeneratorException {
 

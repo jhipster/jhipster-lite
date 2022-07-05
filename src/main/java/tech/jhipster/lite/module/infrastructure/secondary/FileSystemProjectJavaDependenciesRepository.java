@@ -16,6 +16,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.common.domain.Enums;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
@@ -24,7 +25,6 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
-import tech.jhipster.lite.module.domain.javadependency.VersionSlug;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @Repository

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.io.IOException;
@@ -15,12 +16,14 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
-import tech.jhipster.lite.module.domain.javadependency.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
 
 @UnitTest
 class MavenCommandHandlerTest {
@@ -35,7 +38,7 @@ class MavenCommandHandlerTest {
   void shouldAppendEncodingHeader() {
     Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-    new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(springBootVersion()));
+    new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
     assertThat(content(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
   }
@@ -48,7 +51,7 @@ class MavenCommandHandlerTest {
     void shouldNotAddPropertiesToPomWithOnlyRootDefined() {
       Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(springBootVersion())))
+      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion())))
         .isExactlyInstanceOf(InvalidPomException.class);
     }
 
@@ -56,7 +59,7 @@ class MavenCommandHandlerTest {
     void shouldAddPropertiesToPomWithoutProperties() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(springBootVersion()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
       assertThat(content(pom))
         .contains("  <properties>")
@@ -68,7 +71,7 @@ class MavenCommandHandlerTest {
     void shouldAddPropertiesToPomWithProperties() {
       Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(springBootVersion()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
       assertThat(content(pom)).contains("    <spring-boot.version>1.2.3</spring-boot.version>").doesNotContain(">  ");
     }
@@ -77,7 +80,7 @@ class MavenCommandHandlerTest {
     void shouldUpdateExistingProperty() {
       Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetJavaDependencyVersion(new JavaDependencyVersion("jjwt", "0.12.0")));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(new JavaDependencyVersion("jjwt", "0.12.0")));
 
       assertThat(content(pom))
         .contains("    <jjwt.version>0.12.0</jjwt.version>")
@@ -210,10 +213,19 @@ class MavenCommandHandlerTest {
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveDirectJavaDependency(jsonWebTokenDependencyId()));
 
       assertThat(content(pom))
-        .contains("      <groupId>io.jsonwebtoken</groupId>")
-        .contains("      <artifactId>jjwt-implementation</artifactId>")
-        .contains("      <groupId>io.another</groupId>")
-        .contains("      <artifactId>jjwt-api</artifactId>")
+        .contains(
+          """
+              <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-implementation</artifactId>
+              </dependency>
+
+              <dependency>
+                <groupId>io.another</groupId>
+                <artifactId>jjwt-api</artifactId>
+              </dependency>
+          """
+        )
         .doesNotContain("      <version>${jjwt.version}</version>")
         .doesNotContain("      <scope>test</scope>")
         .doesNotContain("      <optional>true</optional>");
@@ -231,14 +243,19 @@ class MavenCommandHandlerTest {
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(optionalTestDependency()));
 
       assertThat(content(pom))
-        .contains("  <dependencies>")
-        .contains("    <dependency>")
-        .contains("      <groupId>org.junit.jupiter</groupId>")
-        .contains("      <artifactId>junit-jupiter-engine</artifactId>")
-        .contains("      <version>${spring-boot.version}</version>")
-        .contains("      <scope>test</scope>")
-        .contains("      <optional>true</optional>")
-        .contains("  </dependencies>");
+        .contains(
+          """
+            <dependencies>
+              <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+                <optional>true</optional>
+              </dependency>
+            </dependencies>
+          """
+        );
     }
 
     @Test
@@ -249,11 +266,18 @@ class MavenCommandHandlerTest {
 
       String content = content(pom);
       assertThat(content)
-        .contains("      <groupId>org.junit.jupiter</groupId>")
-        .contains("      <artifactId>junit-jupiter-engine</artifactId>")
-        .contains("      <version>${spring-boot.version}</version>")
-        .contains("      <scope>test</scope>")
-        .contains("      <optional>true</optional>\n    </dependency>\n  </dependencies>");
+        .contains(
+          """
+              <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+                <optional>true</optional>
+              </dependency>
+            </dependencies>
+          """
+        );
 
       assertThat(Pattern.compile("^ +$", Pattern.MULTILINE).matcher(content).find()).isFalse();
     }
@@ -266,16 +290,18 @@ class MavenCommandHandlerTest {
 
       assertThat(content(pom))
         .contains(
-          "      <artifactId>logstash-logback-encoder</artifactId>\n" +
-          "    </dependency>\n" +
-          "\n" +
-          "    <dependency>\n" +
-          "      <groupId>org.springframework.boot</groupId>\n" +
-          "      <artifactId>spring-boot-starter</artifactId>\n" +
-          "    </dependency>\n" +
-          "\n" +
-          "    <dependency>\n" +
-          "      <groupId>io.jsonwebtoken</groupId>"
+          """
+                <artifactId>logstash-logback-encoder</artifactId>
+              </dependency>
+
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+              </dependency>
+
+              <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+          """
         );
     }
 
@@ -286,8 +312,14 @@ class MavenCommandHandlerTest {
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
       assertThat(content(pom))
-        .contains("      <groupId>org.springframework.boot</groupId>")
-        .contains("      <artifactId>spring-boot-starter</artifactId>\n    </dependency>\n  </dependencies>");
+        .contains(
+          """
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+              </dependency>
+            </dependencies>
+          """
+        );
     }
 
     @Test
@@ -297,8 +329,197 @@ class MavenCommandHandlerTest {
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
       assertThat(content(pom))
-        .contains("      <groupId>org.springframework.boot</groupId>")
-        .contains("      <artifactId>spring-boot-starter</artifactId>\n    </dependency>\n  </dependencies>");
+        .contains(
+          """
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+              </dependency>
+            </dependencies>
+          """
+        );
+    }
+  }
+
+  @Nested
+  @DisplayName("Add build plugin management")
+  class MavenCommandHandlerAddBuildPluginManagementTest {
+
+    @Test
+    void shouldHandleMalformedAdditionalElements() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      assertThatThrownBy(() ->
+          new MavenCommandHandler(Indentation.DEFAULT, pom)
+            .handle(
+              new AddBuildPluginManagement(
+                javaBuildPlugin()
+                  .groupId("org.apache.maven.plugins")
+                  .artifactId("maven-enforcer-plugin")
+                  .additionalElements("<dummy")
+                  .build()
+              )
+            )
+        )
+        .isExactlyInstanceOf(MalformedAdditionalInformationException.class);
+    }
+
+    @Test
+    void shouldAddBuildPluginManagementToEmptyPom() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom)).contains(pluginManagement());
+    }
+
+    @Test
+    void shouldAddBuildPluginManagementToPomWithoutPluginManagement() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom))
+        .contains(pluginManagement())
+        .doesNotContain("""
+                <build>
+                </build>
+              """);
+    }
+
+    @Test
+    void shouldAddBuildPluginManagementToPomWithEmptyPluginManagement() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-empty-plugin-managment/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom))
+        .contains(pluginManagement())
+        .doesNotContain(
+          """
+                <build>
+                  <pluginManagement>
+                  </pluginManagement>
+                </build>
+              """
+        );
+    }
+
+    @Test
+    void shouldAddBuildPluginManagementToPomWithPluginManagementPlugins() {
+      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom)).contains(pluginManagement());
+    }
+
+    private void addMavenEnforcerPlugin(Path pom) {
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddBuildPluginManagement(mavenEnforcerPluginManagement()));
+    }
+
+    private String pluginManagement() {
+      return """
+                  <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                    <executions>
+                      <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                          <goal>enforce</goal>
+                        </goals>
+                      </execution>
+                      <execution>
+                        <id>enforce-dependencyConvergence</id>
+                        <configuration>
+                          <rules>
+                            <DependencyConvergence/>
+                          </rules>
+                          <fail>false</fail>
+                        </configuration>
+                        <goals>
+                          <goal>enforce</goal>
+                        </goals>
+                      </execution>
+                    </executions>
+                    <configuration>
+                      <rules>
+                        <requireMavenVersion>
+                          <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                          <version>[${maven.version},)</version>
+                        </requireMavenVersion>
+                        <requireJavaVersion>
+                          <message>You are running an incompatible version of Java. JHipster supports JDK 17.</message>
+                          <version>[17,18)</version>
+                        </requireJavaVersion>
+                      </rules>
+                    </configuration>
+                  </plugin>
+                </plugins>
+              </pluginManagement>
+            </build>
+          """;
+    }
+  }
+
+  @Nested
+  @DisplayName("Add build plugin")
+  class MavenCommandHandlerAddBuildPluginTest {
+
+    @Test
+    void shouldAddBuildPluginToEmptyPom() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom)).contains(plugins());
+    }
+
+    @Test
+    void shouldAddBuildPluginToPomWithEmptyBuild() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom)).contains(plugins()).doesNotContain("""
+                <build>
+                </build>
+              """);
+    }
+
+    @Test
+    void shouldAddBuildPluginToPomWithPlugins() {
+      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom))
+        .contains(plugins())
+        .doesNotContain(
+          """
+                  <plugins>
+                    <plugin>
+                      <groupId>org.springframework.boot</groupId>
+                      <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+                  </plugins>
+              """
+        );
+    }
+
+    private void addMavenEnforcerPlugin(Path pom) {
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaBuildPlugin(mavenEnforcerPlugin()));
+    }
+
+    private String plugins() {
+      return """
+                <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-enforcer-plugin</artifactId>
+                </plugin>
+              </plugins>
+          """;
     }
   }
 

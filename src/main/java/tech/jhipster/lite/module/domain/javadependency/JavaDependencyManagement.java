@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
 import java.util.Collection;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependencyCommand;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 
 public class JavaDependencyManagement extends JavaDependencyCommandsCreator {
 
@@ -10,7 +10,7 @@ public class JavaDependencyManagement extends JavaDependencyCommandsCreator {
   }
 
   @Override
-  protected Collection<JavaDependencyCommand> dependencyCommands(ProjectJavaDependencies projectDependencies) {
+  protected Collection<JavaBuildCommand> dependencyCommands(ProjectJavaDependencies projectDependencies) {
     return dependency()
       .dependencyCommands(DependenciesCommandsFactory.MANAGEMENT, projectDependencies.dependencyManagement(dependency().id()));
   }

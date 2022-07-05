@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain.javadependency;
+package tech.jhipster.lite.module.domain.javabuild;
 
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;

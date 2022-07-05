@@ -6,7 +6,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
@@ -17,11 +17,7 @@ class FileSystemJavaDependenciesCommandsHandlerTest {
   @Test
   void shouldNotTryToHandleEmptyCommands() {
     assertThatCode(() ->
-        handler.handle(
-          Indentation.DEFAULT,
-          new JHipsterProjectFolder("src/test/resources/projects/empty"),
-          new JavaDependenciesCommands(null)
-        )
+        handler.handle(Indentation.DEFAULT, new JHipsterProjectFolder("src/test/resources/projects/empty"), new JavaBuildCommands(null))
       )
       .doesNotThrowAnyException();
   }

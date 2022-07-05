@@ -1,11 +1,11 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
 import java.util.function.Function;
-import tech.jhipster.lite.module.domain.javadependency.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependencyCommand;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 
 class DependenciesCommandsFactory {
 
@@ -18,22 +18,22 @@ class DependenciesCommandsFactory {
     RemoveDirectJavaDependency::new
   );
 
-  private final Function<JavaDependency, JavaDependencyCommand> addDependency;
-  private final Function<DependencyId, JavaDependencyCommand> removeDependency;
+  private final Function<JavaDependency, JavaBuildCommand> addDependency;
+  private final Function<DependencyId, JavaBuildCommand> removeDependency;
 
   private DependenciesCommandsFactory(
-    Function<JavaDependency, JavaDependencyCommand> addDependency,
-    Function<DependencyId, JavaDependencyCommand> removeDependency
+    Function<JavaDependency, JavaBuildCommand> addDependency,
+    Function<DependencyId, JavaBuildCommand> removeDependency
   ) {
     this.addDependency = addDependency;
     this.removeDependency = removeDependency;
   }
 
-  public JavaDependencyCommand addDependency(JavaDependency javaDependency) {
+  public JavaBuildCommand addDependency(JavaDependency javaDependency) {
     return addDependency.apply(javaDependency);
   }
 
-  public JavaDependencyCommand removeDependency(DependencyId id) {
+  public JavaBuildCommand removeDependency(DependencyId id) {
     return removeDependency.apply(id);
   }
 }

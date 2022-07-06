@@ -251,6 +251,7 @@ public class JHipsterModule {
 
   public static class JHipsterModuleBuilder {
 
+    private static final String PROFILE = "profile";
     private static final String README = "README.md";
     private static final String JHIPSTER_DOCUMENTATION_NEEDLE = "<!-- jhipster-needle-documentation -->";
     private static final String JHIPSTER_README_SECTION_NEEDLE = "<!-- jhipster-needle-readme -->";
@@ -342,14 +343,20 @@ public class JHipsterModule {
     }
 
     public JHipsterModuleSpringPropertiesBuilder springMainBootstrapProperties() {
+      return springMainBootstrapProperties(SpringProfile.DEFAULT);
+    }
+
+    public JHipsterModuleSpringPropertiesBuilder springMainBootstrapProperties(SpringProfile profile) {
+      Assert.notNull(PROFILE, profile);
+
       return springProperties.computeIfAbsent(
-        new PropertiesKey(SpringProfile.DEFAULT, SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES),
+        new PropertiesKey(profile, SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES),
         key -> JHipsterModuleSpringProperties.builder(this)
       );
     }
 
     public JHipsterModuleSpringPropertiesBuilder springMainProperties(SpringProfile profile) {
-      Assert.notNull("profile", profile);
+      Assert.notNull(PROFILE, profile);
 
       return springProperties.computeIfAbsent(
         new PropertiesKey(profile, SpringPropertyType.MAIN_PROPERTIES),
@@ -369,7 +376,7 @@ public class JHipsterModule {
     }
 
     public JHipsterModuleSpringPropertiesBuilder springTestProperties(SpringProfile profile) {
-      Assert.notNull("profile", profile);
+      Assert.notNull(PROFILE, profile);
 
       return springProperties.computeIfAbsent(
         new PropertiesKey(profile, SpringPropertyType.TEST_PROPERTIES),

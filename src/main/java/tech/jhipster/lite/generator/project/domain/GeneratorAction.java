@@ -20,8 +20,6 @@ public class GeneratorAction {
   public static final String NPM_INSTALL = "npm-install";
   public static final String NPM_PRETTIFY = "npm-prettify";
 
-  public static final String SPRING_CLOUD = "spring-cloud";
-
   public static final String SVELTE = "svelte";
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
 

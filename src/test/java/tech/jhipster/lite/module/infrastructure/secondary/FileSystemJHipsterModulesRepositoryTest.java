@@ -153,11 +153,7 @@ class FileSystemJHipsterModulesRepositoryTest {
                         </rules>
                       </configuration>
                     </plugin>
-                    <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                  </plugin>
-                </plugins>
+                  </plugins>
                 </pluginManagement>
               </build>
             """

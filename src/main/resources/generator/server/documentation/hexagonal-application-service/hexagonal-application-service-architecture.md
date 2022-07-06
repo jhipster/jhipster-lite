@@ -1,8 +1,8 @@
 # Hexagonal architecture (application service flavor)
 
-Good evening and Welcome to this architecture documentation. Glad you made your way there! By the time of your reading this documentation may be outdated, feel free to update it!
+Good evening and welcome to this architecture documentation. Glad you made your way there! By the time of your reading this documentation may be outdated, feel free to update it!
 
-So, this is basically about why and how to use a peculiar flavor of [Hexagonal architecture](https://alistair.cockburn.us/hexagonal-architecture/).
+So, this is basically about why and how to use a peculiar flavor of [hexagonal architecture](https://alistair.cockburn.us/hexagonal-architecture/).
 
 **In a nutshell**, hexagonal architecture:
 
@@ -43,7 +43,7 @@ The very clear Separation Of Concern enforced by the architecture eases automati
 
 In Software development if you want to go faster (like really faster) you'll have to go for short feedbacks loops. If you have a button that can tell you in a few seconds that your solution is still behaving as intended you'll be way faster than checking that by hand after any update (in fact, you won't check by hand that after any update...).
 
-Let's be honest here: Hexagonal architecture won't help for the fastest feedback loops which are pair feedback in [pair](https://en.wikipedia.org/wiki/Pair_programming) or [mob programming](https://en.wikipedia.org/wiki/Mob_programming).
+Let's be honest here: hexagonal architecture won't help for the fastest feedback loops which are pair feedback in [pair](https://en.wikipedia.org/wiki/Pair_programming) or [mob programming](https://en.wikipedia.org/wiki/Mob_programming).
 
 BUT, just after that comes compilation and, for that, hexagonal architecture will help! Thanks to the very good Separation Of Concern you'll be able to build modules (packages in Java) with a very high cohesion and very low coupling. That means, most classes in the infrastructure modules will never get out of there hence allowing compilation time feedbacks.
 
@@ -64,7 +64,7 @@ It's common to start a project with meetings to "build the architecture" which, 
 
 Problem is: we often make these choices without enough information and we'll just make our best guesses (since the real needs will come from the code). The other problem is that we spend a lot of time doing that. Another option would be to pick only one thing: the language (do we go Java?). Picking the language can be challenging enough but it's easier than picking a gazillion technologies along with the language.
 
-The hexagonal architecture allows us to start as soon as we know the language. From that, we'll be able to start building a solution and have the real infrastructure needs appear from the code. Of course, we'll have to pick a structuring Framework soon enough (Spring, Quarkus, ...) but we can delay the persistence choice for quite some time!
+The hexagonal architecture allows us to start as soon as we know the language. From that, we'll be able to start building a solution and have the real infrastructure needs appear from the code. Of course, we'll have to pick a structuring framework soon enough (Spring, Quarkus, ...) but we can delay the persistence choice for quite some time!
 
 Delaying choices allows:
 
@@ -100,7 +100,7 @@ As sayed many times each "part" here have a specific concern so let's follow the
 
 This is the code that really matters. You can build it using [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) building blocks or any other tool that will help you build a clear representation of the business.
 
-This model don't depend on anything and everything depends on it so it is totally Framework agnostic, you just need to pick a language to build your Domain Model.
+This model doesn't depend on anything and everything depends on it so it is totally framework-agnostic, you just need to pick a language to build your Domain Model.
 
 Apart from the code used to make the business operations we'll find ports in the Domain Model. Ports are `interfaces` that are used to invert dependencies. As the Domain Model sometimes needs ports for some operations they can only be there since the Domain don't depend on anything.
 
@@ -109,7 +109,7 @@ Apart from the code used to make the business operations we'll find ports in the
 The application layer **MUST NOT CONTAIN ANY BUSINESS RULE**, its responsibilities are:
 
 - Very simple orchestration:
-  - Get something for a port;
+  - Get something from a port;
   - Make an operation on that thing (call a method on the object);
   - Save that thing using a port;
   - Dispatch created events using a port.
@@ -118,8 +118,8 @@ The application layer **MUST NOT CONTAIN ANY BUSINESS RULE**, its responsibiliti
 
 ### Code in Primary
 
-The primary part contains adapters for the code driving our domain. Example: code to expose Rest WebServices. This part depends a lot on Frameworks and is responsible for making the best possible exposure of the businesses actions.
+The primary part contains adapters for the code driving our domain. Example: code to expose REST WebServices. This part depends a lot on frameworks and is responsible for making the best possible exposure of the businesses actions.
 
 ### Code in Secondary
 
-The secondary part are adapters implementing the ports from the domain. This part depends a lot on Framework and its responsibility is to make the best possible use of the infrastructure our business needs.
+The secondary part are adapters implementing the ports from the domain. This part depends a lot on framework and its responsibility is to make the best possible use of the infrastructure our business needs.

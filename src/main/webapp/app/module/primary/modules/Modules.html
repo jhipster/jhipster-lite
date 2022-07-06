@@ -14,6 +14,7 @@
         v-model="folderPath"
         class="jhipster-modules-form--field"
         data-selector="folder-path-field"
+        @blur="projectFolderUpdated()"
       />
     </div>
 
@@ -118,7 +119,8 @@
               @click="applyModule(module.slug)"
               :data-selector="`module-${module.slug}-application-button`"
             >
-              Apply
+              <span v-if="appliedModule(module.slug)">Re-apply</span>
+              <span v-else>Apply</span>
             </button>
           </div>
         </div>

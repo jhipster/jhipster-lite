@@ -32,6 +32,16 @@ describe('Rest modules repository', () => {
 
     expect(axiosInstance.post.calledOnce).toBe(true);
   });
+
+  it('Should get applied modules using axios', async () => {
+    const axiosInstance = stubAxiosHttp();
+    const repository = new RestModulesRepository(axiosInstance);
+    axiosInstance.get.resolves(dataBackendResponse([{ serviceId: 'spring-cucumber' }]));
+
+    const appliedModules = await repository.appliedModules('test');
+
+    expect(appliedModules).toEqual(['spring-cucumber']);
+  });
 });
 
 const restModules = (): RestModules => ({

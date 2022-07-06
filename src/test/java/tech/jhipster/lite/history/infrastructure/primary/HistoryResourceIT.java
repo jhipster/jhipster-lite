@@ -10,8 +10,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
@@ -34,7 +34,7 @@ class HistoryResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    projectDTO.folder(TestFileUtils.tmpDirForTest());
 
     mockMvc
       .perform(post("/api/inits/full").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))
@@ -70,7 +70,7 @@ class HistoryResourceIT {
     if (projectDTO == null) {
       throw new GeneratorException("Error when reading file");
     }
-    projectDTO.folder(FileUtils.tmpDirForTest());
+    projectDTO.folder(TestFileUtils.tmpDirForTest());
 
     mockMvc
       .perform(post("/api/inits/full").contentType(MediaType.APPLICATION_JSON).content(TestUtils.convertObjectToJsonBytes(projectDTO)))

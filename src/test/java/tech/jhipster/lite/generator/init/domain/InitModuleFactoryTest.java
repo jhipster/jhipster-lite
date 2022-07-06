@@ -8,8 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -28,7 +28,7 @@ class InitModuleFactoryTest {
 
   @Test
   void shouldBuildFullModule() {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
     JHipsterModuleProperties properties = properties(folder);
 
     JHipsterModule module = factory.buildFullModule(properties);
@@ -55,7 +55,7 @@ class InitModuleFactoryTest {
 
   @Test
   void shouldBuildMinimalModule() {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
     JHipsterModuleProperties properties = properties(folder);
 
     JHipsterModule module = factory.buildMinimalModule(properties);

@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.client.react.core.infrastructure.primary.re
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.client.react.core.application.ReactAssert.*;
 
 import org.junit.jupiter.api.Test;
@@ -12,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.client.react.core.application.ReactAssert;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -27,7 +27,7 @@ class ReactResourceIT {
 
   @Test
   void shouldAddReact() throws Exception {
-    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
 
@@ -44,7 +44,7 @@ class ReactResourceIT {
 
   @Test
   void shouldAddStyledReact() throws Exception {
-    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
 

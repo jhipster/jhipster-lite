@@ -3,8 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.gateway.domai
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -17,7 +17,7 @@ class GatewayModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(FileUtils.tmpDirForTest())
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myApp")
       .build();

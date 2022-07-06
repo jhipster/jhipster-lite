@@ -5,8 +5,8 @@ import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModules
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -20,7 +20,7 @@ class SpringdocModuleFactoryTest {
   @Test
   void shouldBuildModuleForMvc() {
     JHipsterModuleProperties moduleProperties = JHipsterModulesFixture
-      .propertiesBuilder(FileUtils.tmpDirForTest())
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
@@ -43,7 +43,7 @@ class SpringdocModuleFactoryTest {
     Map<String, Object> properties = new HashMap<>();
     properties.put(JHipsterModuleProperties.BASE_PACKAGE_PROPERTY, "com.jhipster.test");
     properties.put(JHipsterModuleProperties.PROJECT_BASE_NAME_PROPERTY, "myapp");
-    JHipsterModuleProperties moduleProperties = new JHipsterModuleProperties(FileUtils.tmpDirForTest(), properties);
+    JHipsterModuleProperties moduleProperties = new JHipsterModuleProperties(TestFileUtils.tmpDirForTest(), properties);
 
     JHipsterModule module = springdocModuleFactory.buildModuleForWebflux(moduleProperties);
 
@@ -60,7 +60,7 @@ class SpringdocModuleFactoryTest {
   @Test
   void shouldBuildModuleWithSecurityJwtForMvc() {
     JHipsterModuleProperties moduleProperties = JHipsterModulesFixture
-      .propertiesBuilder(FileUtils.tmpDirForTest())
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
@@ -84,7 +84,7 @@ class SpringdocModuleFactoryTest {
     Map<String, Object> properties = new HashMap<>();
     properties.put(JHipsterModuleProperties.BASE_PACKAGE_PROPERTY, "com.jhipster.test");
     properties.put(JHipsterModuleProperties.PROJECT_BASE_NAME_PROPERTY, "myapp");
-    JHipsterModuleProperties moduleProperties = new JHipsterModuleProperties(FileUtils.tmpDirForTest(), properties);
+    JHipsterModuleProperties moduleProperties = new JHipsterModuleProperties(TestFileUtils.tmpDirForTest(), properties);
 
     JHipsterModule module = springdocModuleFactory.buildModuleWithSecurityJwtForWebflux(moduleProperties);
 

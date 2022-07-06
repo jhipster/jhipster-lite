@@ -16,8 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
@@ -54,7 +54,7 @@ class FileSystemPackageJsonHandlerTest {
   }
 
   private JHipsterProjectFolder emptyFolder() {
-    return new JHipsterProjectFolder(FileUtils.tmpDirForTest());
+    return new JHipsterProjectFolder(TestFileUtils.tmpDirForTest());
   }
 
   @Test
@@ -341,7 +341,7 @@ class FileSystemPackageJsonHandlerTest {
   }
 
   private static JHipsterProjectFolder projectWithPackageJson(String packageJson) {
-    String target = FileUtils.tmpDirForTest();
+    String target = TestFileUtils.tmpDirForTest();
 
     try {
       Files.createDirectories(Paths.get(target));

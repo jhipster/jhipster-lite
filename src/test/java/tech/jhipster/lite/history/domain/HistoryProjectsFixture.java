@@ -1,12 +1,12 @@
 package tech.jhipster.lite.history.domain;
 
-import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.TestFileUtils;
 
 public final class HistoryProjectsFixture {
 
   private HistoryProjectsFixture() {}
 
   public static HistoryProject tmpProject() {
-    return new HistoryProject(FileUtils.tmpDirForTest(), "\n");
+    return new HistoryProject(TestFileUtils.tmpDirForTest(), "\n");
   }
 }

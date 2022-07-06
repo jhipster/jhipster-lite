@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.webflux.web.infrastructur
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringbootWebfluxAssert.*;
 
 import org.junit.jupiter.api.Test;
@@ -11,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -33,7 +33,7 @@ class SpringBootWebfluxResourceIT {
 
   @Test
   void addSpringBootWebflux() throws Exception {
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
     mavenApplicationService.init(project);

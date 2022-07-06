@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
@@ -178,7 +178,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static JHipsterModuleProperties testModuleProperties() {
-    return new JHipsterModuleProperties(new JHipsterProjectFolder(FileUtils.tmpDirForTest()), null);
+    return new JHipsterModuleProperties(new JHipsterProjectFolder(TestFileUtils.tmpDirForTest()), null);
   }
 
   public static CurrentJavaDependenciesVersions currentJavaDependenciesVersion() {

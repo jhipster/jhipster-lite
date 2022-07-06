@@ -11,8 +11,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
@@ -29,7 +29,7 @@ class FileSystemGitRepositoryTest {
   }
 
   private String createReadOnlyFolder() throws IOException {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
 
     Path folderPath = Paths.get(folder);
     Files.createDirectories(folderPath);
@@ -40,7 +40,7 @@ class FileSystemGitRepositoryTest {
 
   @Test
   void shouldInitProject() throws IOException {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
     Path folderPath = Paths.get(folder);
     Files.createDirectories(folderPath);
 

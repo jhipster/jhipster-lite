@@ -6,8 +6,8 @@ import java.nio.file.FileSystems;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
@@ -15,7 +15,7 @@ class JHipsterDestinationTest {
 
   private static final String SEPARATOR = FileSystems.getDefault().getSeparator();
 
-  private static final JHipsterProjectFolder PROJECT = new JHipsterProjectFolder(FileUtils.tmpDirForTest());
+  private static final JHipsterProjectFolder PROJECT = new JHipsterProjectFolder(TestFileUtils.tmpDirForTest());
 
   @Test
   void shouldAddSlashWhenHappningElementithoutSlash() {

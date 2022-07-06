@@ -9,8 +9,8 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import tech.jhipster.lite.LogsSpy;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.infrastructure.secondary.FileSystemProjectFilesReader;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -44,7 +44,7 @@ class FileSystemJHipsterModuleFilesTest {
 
   @Test
   void shouldTraceAddedFiles() {
-    JHipsterProjectFolder project = new JHipsterProjectFolder(FileUtils.tmpDirForTest());
+    JHipsterProjectFolder project = new JHipsterProjectFolder(TestFileUtils.tmpDirForTest());
 
     JHipsterModule module = moduleBuilder(JHipsterModuleProperties.defaultProperties(project))
       .files()

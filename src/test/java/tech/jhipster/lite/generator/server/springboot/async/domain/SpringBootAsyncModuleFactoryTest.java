@@ -3,8 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.async.domain;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -17,7 +17,7 @@ class SpringBootAsyncModuleFactoryTest {
   @Test
   void shouldCreateModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(FileUtils.tmpDirForTest())
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();

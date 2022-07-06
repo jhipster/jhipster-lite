@@ -8,15 +8,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 
 @UnitTest
 class PropertiesFileSpringPropertiesHandlerTest {
 
   @Test
   void shouldCreateUnknownFile() {
-    Path propertiesFile = Paths.get(FileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
     PropertiesFileSpringPropertiesHandler handler = new PropertiesFileSpringPropertiesHandler(propertiesFile);
 
     handler.set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha", "beta"));
@@ -26,7 +26,7 @@ class PropertiesFileSpringPropertiesHandlerTest {
 
   @Test
   void shouldAppendPropertyToFileWithProperties() {
-    Path propertiesFile = Paths.get(FileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
     loadDefaultProperties(propertiesFile);
     PropertiesFileSpringPropertiesHandler handler = new PropertiesFileSpringPropertiesHandler(propertiesFile);
 
@@ -39,7 +39,7 @@ class PropertiesFileSpringPropertiesHandlerTest {
 
   @Test
   void shouldReplaceExistingProperty() {
-    Path propertiesFile = Paths.get(FileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
     loadDefaultProperties(propertiesFile);
     PropertiesFileSpringPropertiesHandler handler = new PropertiesFileSpringPropertiesHandler(propertiesFile);
 

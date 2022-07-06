@@ -19,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.project.domain.BuildToolType;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootService;
@@ -33,9 +31,6 @@ import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 class LiquibaseApplicationServiceIT {
-
-  @Autowired
-  private BuildToolService buildToolService;
 
   @Autowired
   private SpringBootService springBootService;
@@ -69,7 +64,7 @@ class LiquibaseApplicationServiceIT {
       .projectBaseName("myapp")
       .build();
 
-    buildToolService.init(project, BuildToolType.MAVEN);
+    TestJHipsterModules.applyMaven(project);
     springBootService.init(project);
     TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
 
@@ -84,7 +79,7 @@ class LiquibaseApplicationServiceIT {
   @Test
   void shouldAddLiquibase() {
     Project project = tmpProjectBuilder().build();
-    buildToolService.init(project, BuildToolType.MAVEN);
+    TestJHipsterModules.applyMaven(project);
 
     liquibaseApplicationService.addLiquibase(project);
 
@@ -160,7 +155,7 @@ class LiquibaseApplicationServiceIT {
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
-    buildToolService.init(project, BuildToolType.MAVEN);
+    TestJHipsterModules.applyMaven(project);
     springBootService.init(project);
     TestJHipsterModules.applyer().module(postgresqlApplicationService.build(properties)).properties(properties).slug("postgresql").apply();
 
@@ -196,7 +191,7 @@ class LiquibaseApplicationServiceIT {
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
-    buildToolService.init(project, BuildToolType.MAVEN);
+    TestJHipsterModules.applyMaven(project);
     springBootService.init(project);
     if (databaseType.equals(DatabaseType.MYSQL)) {
       TestJHipsterModules.applyer().module(mySQLApplicationService.build(properties)).properties(properties).slug("mysql").apply();

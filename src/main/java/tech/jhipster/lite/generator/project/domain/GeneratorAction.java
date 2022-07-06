@@ -8,7 +8,6 @@ public class GeneratorAction {
   public static final String DOWNLOAD = "download";
 
   // Maven
-  public static final String MAVEN_JAVA = "maven-java";
   public static final String MAVEN_JAVA_POM_XML = "maven-java-pom-xml";
   public static final String MAVEN_WRAPPER = "maven-wrapper";
 

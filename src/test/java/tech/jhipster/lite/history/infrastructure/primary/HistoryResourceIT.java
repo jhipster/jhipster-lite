@@ -61,7 +61,7 @@ class HistoryResourceIT {
       .andExpect(jsonPath("$.serviceIds", Matchers.hasSize(3)))
       .andExpect(jsonPath("$.serviceIds[0]").value(GeneratorAction.GITHUB_ACTIONS))
       .andExpect(jsonPath("$.serviceIds[1]").value("init"))
-      .andExpect(jsonPath("$.serviceIds[2]").value(GeneratorAction.MAVEN_JAVA));
+      .andExpect(jsonPath("$.serviceIds[2]").value("maven-java"));
   }
 
   @Test
@@ -93,7 +93,7 @@ class HistoryResourceIT {
       .andExpect(status().isOk())
       .andExpect(jsonPath("$", Matchers.hasSize(3)))
       .andExpect(jsonPath("$[0].serviceId").value("init"))
-      .andExpect(jsonPath("$[1].serviceId").value(GeneratorAction.MAVEN_JAVA))
+      .andExpect(jsonPath("$[1].serviceId").value("maven-java"))
       .andExpect(jsonPath("$[2].serviceId").value(GeneratorAction.GITHUB_ACTIONS));
   }
 }

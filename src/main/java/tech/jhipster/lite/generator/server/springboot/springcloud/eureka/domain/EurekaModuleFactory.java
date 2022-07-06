@@ -7,7 +7,7 @@ import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterSource;
-import tech.jhipster.lite.module.domain.javadependency.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;

@@ -25,7 +25,7 @@ class FileSystemJHipsterModulesRepositoryTest {
     JHipsterModule module = module();
 
     // @formatter:off
-    assertThatModuleWithFiles(module, pomFile(), packageJsonFile())
+    assertThatModuleWithFiles(module, pomFile(), packageJsonFile()) 
       .createFiles(
         "src/main/java/com/company/myapp/MyApp.java",
         "src/main/java/com/company/myapp/errors/Assert.java",
@@ -38,7 +38,8 @@ class FileSystemJHipsterModulesRepositoryTest {
         .containing("com.test.myapp")
         .and()
       .createFile("pom.xml")
-      .containing("""
+      .containing(
+          """
                 <dependency>
                   <groupId>org.springframework.boot</groupId>
                   <artifactId>spring-boot-dependencies</artifactId>
@@ -61,27 +62,106 @@ class FileSystemJHipsterModulesRepositoryTest {
         )
         .containing(
           """
-                  <dependency>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter-engine</artifactId>
-                    <version>${spring-boot.version}</version>
-                    <scope>test</scope>
-                    <optional>true</optional>
-                  </dependency>
-              """
+              <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+                <optional>true</optional>
+              </dependency>
+          """
         )
         .containing("<spring-boot.version>")
         .containing("</spring-boot.version>")
         .containing("<artifactId>spring-boot-starter</artifactId>")
         .containing("<artifactId>problem-spring-web</artifactId>")
         .notContaining(
-          "    <dependency>\n" +
-          "      <groupId>org.assertj</groupId>\n" +
-          "      <artifactId>assertj-core</artifactId>\n" +
-          "      <version>${assertj.version}</version>\n" +
-          "      <scope>test</scope>\n" +
-          "    </dependency>"
+          """
+              <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+              </dependency>
+          """
         )
+        .containing("<maven-enforcer-plugin.version>")
+        .containing(
+            """
+              <build>
+                <plugins>
+                  <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                  </plugin>
+                  <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                  </plugin>
+                </plugins>
+                <pluginManagement>
+                  <plugins>
+                    <plugin>
+                      <groupId>org.springframework.boot</groupId>
+                      <artifactId>spring-boot-maven-plugin</artifactId>
+                      <version>${spring-boot.version}</version>
+                      <executions>
+                        <execution>
+                          <goals>
+                            <goal>repackage</goal>
+                          </goals>
+                        </execution>
+                      </executions>
+                      <configuration>
+                        <mainClass>${start-class}</mainClass>
+                      </configuration>
+                    </plugin>
+                    <plugin>
+                      <groupId>org.apache.maven.plugins</groupId>
+                      <artifactId>maven-enforcer-plugin</artifactId>
+                      <version>${maven-enforcer-plugin.version}</version>
+                      <executions>
+                        <execution>
+                          <id>enforce-versions</id>
+                          <goals>
+                            <goal>enforce</goal>
+                          </goals>
+                        </execution>
+                        <execution>
+                          <id>enforce-dependencyConvergence</id>
+                          <configuration>
+                            <rules>
+                              <DependencyConvergence/>
+                            </rules>
+                            <fail>false</fail>
+                          </configuration>
+                          <goals>
+                            <goal>enforce</goal>
+                          </goals>
+                        </execution>
+                      </executions>
+                      <configuration>
+                        <rules>
+                          <requireMavenVersion>
+                            <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                            <version>[${maven.version},)</version>
+                          </requireMavenVersion>
+                          <requireJavaVersion>
+                            <message>You are running an incompatible version of Java. JHipster supports JDK 17.</message>
+                            <version>[17,18)</version>
+                          </requireJavaVersion>
+                        </rules>
+                      </configuration>
+                    </plugin>
+                    <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                  </plugin>
+                </plugins>
+                </pluginManagement>
+              </build>
+            """
+          )
         .and()
       .createFile("package.json")
         .containing("\"scripts\": {\n    \"serve\": \"tikui-core serve\"")

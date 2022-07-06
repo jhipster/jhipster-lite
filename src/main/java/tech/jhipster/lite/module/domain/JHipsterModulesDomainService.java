@@ -1,9 +1,10 @@
 package tech.jhipster.lite.module.domain;
 
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javadependency.CurrentJavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesCurrentVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
 
 public class JHipsterModulesDomainService {
 
@@ -24,6 +25,8 @@ public class JHipsterModulesDomainService {
   public void apply(JHipsterModule module) {
     Assert.notNull("module", module);
 
+    CurrentJavaDependenciesVersions versions = currentVersions.get();
+
     JHipsterModuleChanges changes = JHipsterModuleChanges
       .builder()
       .projectFolder(module.projectFolder())
@@ -31,7 +34,7 @@ public class JHipsterModulesDomainService {
       .files(module.templatedFiles())
       .mandatoryReplacements(module.mandatoryReplacements())
       .optionalReplacements(module.optionalReplacements())
-      .javaDependencies(buildDependenciesChanges(module))
+      .javaBuildCommands(buildDependenciesChanges(versions, module).merge(buildPluginsChanges(versions, module)))
       .packageJson(module.packageJson())
       .preActions(module.preActions())
       .postActions(module.postActions())
@@ -40,7 +43,11 @@ public class JHipsterModulesDomainService {
     modules.apply(changes);
   }
 
-  private JavaDependenciesCommands buildDependenciesChanges(JHipsterModule module) {
-    return module.javaDependencies().buildChanges(currentVersions.get(), projectDependencies.get(module.projectFolder()));
+  private JavaBuildCommands buildDependenciesChanges(CurrentJavaDependenciesVersions versions, JHipsterModule module) {
+    return module.javaDependencies().buildChanges(versions, projectDependencies.get(module.projectFolder()));
+  }
+
+  private JavaBuildCommands buildPluginsChanges(CurrentJavaDependenciesVersions versions, JHipsterModule module) {
+    return module.javaBuildPlugins().buildChanges(versions);
   }
 }

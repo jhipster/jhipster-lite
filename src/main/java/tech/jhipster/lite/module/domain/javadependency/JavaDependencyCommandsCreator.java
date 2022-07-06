@@ -3,8 +3,8 @@ package tech.jhipster.lite.module.domain.javadependency;
 import java.util.Collection;
 import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependencyCommand;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 
 abstract class JavaDependencyCommandsCreator {
 
@@ -16,19 +16,19 @@ abstract class JavaDependencyCommandsCreator {
     this.dependency = dependency;
   }
 
-  JavaDependenciesCommands changeCommands(CurrentJavaDependenciesVersions currentVersions, ProjectJavaDependencies projectDependencies) {
+  JavaBuildCommands changeCommands(CurrentJavaDependenciesVersions currentVersions, ProjectJavaDependencies projectDependencies) {
     Assert.notNull("currentVersion", currentVersions);
     Assert.notNull("projectDependencies", projectDependencies);
 
-    Collection<JavaDependencyCommand> versionCommands = dependency.versionCommands(currentVersions, projectDependencies);
-    Collection<JavaDependencyCommand> dependencyCommands = dependencyCommands(projectDependencies);
+    Collection<JavaBuildCommand> versionCommands = dependency.versionCommands(currentVersions, projectDependencies);
+    Collection<JavaBuildCommand> dependencyCommands = dependencyCommands(projectDependencies);
 
-    return new JavaDependenciesCommands(Stream.of(versionCommands, dependencyCommands).flatMap(Collection::stream).toList());
+    return new JavaBuildCommands(Stream.of(versionCommands, dependencyCommands).flatMap(Collection::stream).toList());
   }
 
   protected JavaDependency dependency() {
     return dependency;
   }
 
-  protected abstract Collection<JavaDependencyCommand> dependencyCommands(ProjectJavaDependencies projectDependencies);
+  protected abstract Collection<JavaBuildCommand> dependencyCommands(ProjectJavaDependencies projectDependencies);
 }

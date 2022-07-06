@@ -1,16 +1,16 @@
-package tech.jhipster.lite.module.domain.javadependency.command;
+package tech.jhipster.lite.module.domain.javabuild.command;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 
-public record SetJavaDependencyVersion(JavaDependencyVersion version) implements JavaDependencyCommand {
-  public SetJavaDependencyVersion {
+public record SetVersion(JavaDependencyVersion version) implements JavaBuildCommand {
+  public SetVersion {
     Assert.notNull("version", version);
   }
 
   @Override
-  public JavaDependencyCommandType type() {
-    return JavaDependencyCommandType.SET_VERSION;
+  public JavaBuildCommandType type() {
+    return JavaBuildCommandType.SET_VERSION;
   }
 
   public String property() {

@@ -8,8 +8,11 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import tech.jhipster.lite.common.domain.Generated;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependencyCommand;
-import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
+import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 
 public class JavaDependency {
 
@@ -31,7 +34,7 @@ public class JavaDependency {
     return new JavaDependencyBuilder();
   }
 
-  Collection<JavaDependencyCommand> versionCommands(
+  Collection<JavaBuildCommand> versionCommands(
     CurrentJavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies
   ) {
@@ -59,15 +62,15 @@ public class JavaDependency {
     };
   }
 
-  private Function<JavaDependencyVersion, JavaDependencyCommand> toSetVersionCommand() {
-    return SetJavaDependencyVersion::new;
+  private Function<JavaDependencyVersion, JavaBuildCommand> toSetVersionCommand() {
+    return SetVersion::new;
   }
 
-  Collection<JavaDependencyCommand> dependencyCommands(DependenciesCommandsFactory commands, Optional<JavaDependency> projectDependency) {
+  Collection<JavaBuildCommand> dependencyCommands(DependenciesCommandsFactory commands, Optional<JavaDependency> projectDependency) {
     return projectDependency.map(toDependenciesCommands(commands)).orElseGet(() -> List.of(commands.addDependency(this)));
   }
 
-  private Function<JavaDependency, Collection<JavaDependencyCommand>> toDependenciesCommands(DependenciesCommandsFactory commands) {
+  private Function<JavaDependency, Collection<JavaBuildCommand>> toDependenciesCommands(DependenciesCommandsFactory commands) {
     return projectDependency -> {
       Collection<JavaDependency> resultingDependencies = merge(projectDependency);
 
@@ -83,14 +86,6 @@ public class JavaDependency {
 
   public DependencyId id() {
     return id;
-  }
-
-  public GroupId groupId() {
-    return id.groupId();
-  }
-
-  public ArtifactId artifactId() {
-    return id.artifactId();
   }
 
   public Optional<VersionSlug> version() {
@@ -129,6 +124,14 @@ public class JavaDependency {
       .optional(mergeOptionalFlag(other))
       .type(resultingType.orElse(null))
       .build();
+  }
+
+  private GroupId groupId() {
+    return id.groupId();
+  }
+
+  private ArtifactId artifactId() {
+    return id.artifactId();
   }
 
   private VersionSlug mergeVersionsSlugs(JavaDependency other) {

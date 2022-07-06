@@ -1,24 +1,14 @@
-package tech.jhipster.lite.module.domain.javadependency.command;
+package tech.jhipster.lite.module.domain.javabuild.command;
 
 import java.util.Optional;
-import tech.jhipster.lite.module.domain.javadependency.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
-import tech.jhipster.lite.module.domain.javadependency.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
-import tech.jhipster.lite.module.domain.javadependency.VersionSlug;
 
-public interface AddJavaDependency {
+public sealed interface AddJavaDependency permits AddDirectJavaDependency, AddJavaDependencyManagement {
   JavaDependency dependency();
-
-  default GroupId groupId() {
-    return dependency().groupId();
-  }
-
-  default ArtifactId artifactId() {
-    return dependency().artifactId();
-  }
 
   default Optional<VersionSlug> version() {
     return dependency().version();

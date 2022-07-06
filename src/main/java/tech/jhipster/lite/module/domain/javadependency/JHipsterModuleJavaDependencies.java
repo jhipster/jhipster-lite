@@ -5,7 +5,10 @@ import java.util.Collection;
 import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
+import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 
 public class JHipsterModuleJavaDependencies {
 
@@ -21,10 +24,7 @@ public class JHipsterModuleJavaDependencies {
     return new JHipsterModuleJavaDependenciesBuilder(module);
   }
 
-  public JavaDependenciesCommands buildChanges(
-    CurrentJavaDependenciesVersions currentVersions,
-    ProjectJavaDependencies projectDependencies
-  ) {
+  public JavaBuildCommands buildChanges(CurrentJavaDependenciesVersions currentVersions, ProjectJavaDependencies projectDependencies) {
     Assert.notNull("currentVersion", currentVersions);
     Assert.notNull("projectDependencies", projectDependencies);
 
@@ -33,17 +33,17 @@ public class JHipsterModuleJavaDependencies {
         dependenciesManagementChanges(currentVersions, projectDependencies),
         dependenciesChanges(currentVersions, projectDependencies)
       )
-      .reduce(JavaDependenciesCommands.EMPTY, JavaDependenciesCommands::merge);
+      .reduce(JavaBuildCommands.EMPTY, JavaBuildCommands::merge);
   }
 
-  private Stream<JavaDependenciesCommands> dependenciesManagementChanges(
+  private Stream<JavaBuildCommands> dependenciesManagementChanges(
     CurrentJavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies
   ) {
     return dependenciesManagement.stream().map(dependency -> dependency.changeCommands(currentVersions, projectDependencies));
   }
 
-  private Stream<JavaDependenciesCommands> dependenciesChanges(
+  private Stream<JavaBuildCommands> dependenciesChanges(
     CurrentJavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies
   ) {

@@ -10,19 +10,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.module.domain.javadependency.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javadependency.CurrentJavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
-import tech.jhipster.lite.module.domain.javadependency.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
-import tech.jhipster.lite.module.domain.javadependency.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.JavaDependenciesCommands;
-import tech.jhipster.lite.module.domain.javadependency.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.command.SetJavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
@@ -76,6 +77,10 @@ public final class JHipsterModulesFixture {
       .dependency(optionalTestDependency())
       .dependencyManagement(springBootDependencyManagement())
       .dependencyManagement(springBootDefaultTypeDependencyManagement())
+      .and()
+    .javaBuildPlugins()
+      .pluginManagement(mavenEnforcerPluginManagement())
+      .plugin(mavenEnforcerPlugin())
       .and()
     .packageJson()
       .addScript(scriptKey("serve"), scriptCommand("tikui-core serve"))
@@ -137,14 +142,14 @@ public final class JHipsterModulesFixture {
     return javaDependency().groupId("org.zalando").artifactId("problem-spring-web").versionSlug("problem-spring").build();
   }
 
-  public static JavaDependenciesCommands javaDependenciesCommands() {
-    SetJavaDependencyVersion setVersion = new SetJavaDependencyVersion(springBootVersion());
+  public static JavaBuildCommands javaDependenciesCommands() {
+    SetVersion setVersion = new SetVersion(springBootVersion());
     RemoveDirectJavaDependency remove = new RemoveDirectJavaDependency(
       new DependencyId(new GroupId("spring-boot"), new ArtifactId("1.2.3"))
     );
     AddDirectJavaDependency add = new AddDirectJavaDependency(optionalTestDependency());
 
-    return new JavaDependenciesCommands(List.of(setVersion, remove, add));
+    return new JavaBuildCommands(List.of(setVersion, remove, add));
   }
 
   public static JavaDependency optionalTestDependency() {
@@ -177,7 +182,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static CurrentJavaDependenciesVersions currentJavaDependenciesVersion() {
-    return new CurrentJavaDependenciesVersions(List.of(springBootVersion(), problemVersion()));
+    return new CurrentJavaDependenciesVersions(List.of(springBootVersion(), problemVersion(), mavenEnforcerVersion()));
   }
 
   private static JavaDependencyVersion problemVersion() {
@@ -186,6 +191,10 @@ public final class JHipsterModulesFixture {
 
   public static JavaDependencyVersion springBootVersion() {
     return new JavaDependencyVersion("spring-boot", "1.2.3");
+  }
+
+  public static JavaDependencyVersion mavenEnforcerVersion() {
+    return new JavaDependencyVersion("maven-enforcer-plugin", "1.1.1");
   }
 
   public static JHipsterModuleProperties allProperties() {
@@ -253,6 +262,52 @@ public final class JHipsterModulesFixture {
       .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
       .value(propertyValue("alpha", "beta"))
       .build();
+  }
+
+  public static JavaBuildPlugin mavenEnforcerPluginManagement() {
+    return javaBuildPlugin()
+      .groupId("org.apache.maven.plugins")
+      .artifactId("maven-enforcer-plugin")
+      .versionSlug("maven-enforcer-plugin")
+      .additionalElements(
+        """
+        <executions><execution><id>enforce-versions</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>enforce-dependencyConvergence</id>
+            <configuration>
+              <rules>
+                <DependencyConvergence/>
+              </rules>
+              <fail>false</fail>
+            </configuration>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <rules>
+            <requireMavenVersion>
+              <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+              <version>[${maven.version},)</version>
+            </requireMavenVersion>
+            <requireJavaVersion>
+              <message>You are running an incompatible version of Java. JHipster supports JDK 17.</message>
+              <version>[17,18)</version>
+            </requireJavaVersion>
+          </rules>
+        </configuration>
+        """
+      )
+      .build();
+  }
+
+  public static JavaBuildPlugin mavenEnforcerPlugin() {
+    return javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").build();
   }
 
   public static class JHipsterModulePropertiesBuilder {

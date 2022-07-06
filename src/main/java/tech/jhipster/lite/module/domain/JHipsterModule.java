@@ -12,13 +12,17 @@ import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext.JHipsterModuleContextBuilder;
 import tech.jhipster.lite.module.domain.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
 import tech.jhipster.lite.module.domain.JHipsterModulePreActions.JHipsterModulePreActionsBuilder;
-import tech.jhipster.lite.module.domain.javadependency.ArtifactId;
-import tech.jhipster.lite.module.domain.javadependency.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
+import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildPlugin.JHipsterModuleJavaBuildPluginBuilder;
+import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin.JavaBuildPluginGroupIdBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies.JHipsterModuleJavaDependenciesBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyGroupIdBuilder;
-import tech.jhipster.lite.module.domain.javadependency.VersionSlug;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties.JHipsterModuleSpringPropertiesBuilder;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
@@ -58,6 +62,7 @@ public class JHipsterModule {
   private final JHipsterModuleOptionalReplacements optionalReplacements;
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
+  private final JHipsterModuleJavaBuildPlugin javaBuildPlugins;
   private final JHipsterModulePackageJson packageJson;
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
@@ -71,6 +76,7 @@ public class JHipsterModule {
     optionalReplacements = builder.optionalReplacements.build();
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
+    javaBuildPlugins = builder.javaBuildPlugins.build();
     packageJson = builder.packageJson.build();
     preActions = builder.preActions.build();
     postActions = builder.postActions.build();
@@ -105,6 +111,10 @@ public class JHipsterModule {
 
   public static JavaDependencyGroupIdBuilder javaDependency() {
     return JavaDependency.builder();
+  }
+
+  public static JavaBuildPluginGroupIdBuilder javaBuildPlugin() {
+    return JavaBuildPlugin.builder();
   }
 
   public static JHipsterSource from(String source) {
@@ -219,6 +229,10 @@ public class JHipsterModule {
     return javaDependencies;
   }
 
+  public JHipsterModuleJavaBuildPlugin javaBuildPlugins() {
+    return javaBuildPlugins;
+  }
+
   public JHipsterModulePackageJson packageJson() {
     return packageJson;
   }
@@ -248,6 +262,7 @@ public class JHipsterModule {
     private final JHipsterModuleMandatoryReplacementsBuilder mandatoryReplacements = JHipsterModuleMandatoryReplacements.builder(this);
     private final JHipsterModuleOptionalReplacementsBuilder optionalReplacements = JHipsterModuleOptionalReplacements.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
+    private final JHipsterModuleJavaBuildPluginBuilder javaBuildPlugins = JHipsterModuleJavaBuildPlugin.builder(this);
     private final JHipsterModulePackageJsonBuilder packageJson = JHipsterModulePackageJson.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
@@ -304,6 +319,10 @@ public class JHipsterModule {
 
     public JHipsterModuleJavaDependenciesBuilder javaDependencies() {
       return javaDependencies;
+    }
+
+    public JHipsterModuleJavaBuildPluginBuilder javaBuildPlugins() {
+      return javaBuildPlugins;
     }
 
     public JHipsterModulePackageJsonBuilder packageJson() {

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
 import java.util.Optional;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 
 public class ProjectJavaDependencies {
 

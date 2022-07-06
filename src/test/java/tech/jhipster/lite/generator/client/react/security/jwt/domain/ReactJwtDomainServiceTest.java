@@ -1,11 +1,9 @@
 package tech.jhipster.lite.generator.client.react.security.jwt.domain;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
+import static tech.jhipster.lite.TestUtils.*;
 
 import java.util.Collection;
 import java.util.Optional;

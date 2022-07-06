@@ -11,8 +11,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperties;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -24,7 +24,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
   @Test
   void shouldCreateDefaultMainPropertiesForProjectWithoutProperties() {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springMainProperty()));
 
@@ -34,7 +34,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
   @Test
   void shouldCreateProfileMainPropertiesForProjectWithoutProperties() {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springLocalMainProperty()));
 
@@ -44,7 +44,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
   @Test
   void shouldCreateDefaultTestPropertiesForProjectWithoutProperties() {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestProperty()));
 
@@ -55,7 +55,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
   @ParameterizedTest
   @ValueSource(strings = { "src/main/resources/config/application.properties", "src/main/resources/application.properties" })
   void shouldUpdateMainProperties(String propertiesPath) {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
     Path propetiesFile = Paths.get(folder, propertiesPath);
     loadDefaultProperties(propetiesFile);
 
@@ -67,7 +67,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
   @ParameterizedTest
   @ValueSource(strings = { "src/test/resources/config/application.properties", "src/test/resources/application.properties" })
   void shouldUpdateTestProperties(String propertiesPath) {
-    String folder = FileUtils.tmpDirForTest();
+    String folder = TestFileUtils.tmpDirForTest();
     Path propetiesFile = Paths.get(folder, propertiesPath);
     loadDefaultProperties(propetiesFile);
 

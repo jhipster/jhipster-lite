@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
@@ -524,7 +524,7 @@ class MavenCommandHandlerTest {
   }
 
   private static Path projectWithPom(String sourcePom) {
-    Path folder = Paths.get(FileUtils.tmpDirForTest());
+    Path folder = Paths.get(TestFileUtils.tmpDirForTest());
 
     try {
       Files.createDirectories(folder);

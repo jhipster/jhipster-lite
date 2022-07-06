@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
@@ -24,7 +25,7 @@ class GeneratorHistoryInterceptorIT {
 
   @Test
   void shouldNotAddHistoryOnUnknownFolder() throws Exception {
-    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
 
     mockMvc
       .perform(

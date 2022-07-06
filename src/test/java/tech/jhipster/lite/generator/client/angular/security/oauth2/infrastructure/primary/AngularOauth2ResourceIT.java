@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.client.angular.security.oauth2.infrastructu
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static tech.jhipster.lite.TestUtils.*;
-import static tech.jhipster.lite.common.domain.FileUtils.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.client.angular.security.oauth2.application.AngularOauth2Assert;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -26,7 +26,7 @@ class AngularOauth2ResourceIT {
 
   @Test
   void shouldAddOauth2() throws Exception {
-    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
 

@@ -13,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmRepository;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
@@ -31,7 +31,7 @@ class NpmResourceIT {
 
   @Test
   void shouldInstall() throws Exception {
-    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
 
@@ -46,7 +46,7 @@ class NpmResourceIT {
 
   @Test
   void shouldPrettify() throws Exception {
-    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(FileUtils.tmpDirForTest());
+    ProjectDTO projectDTO = readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
 

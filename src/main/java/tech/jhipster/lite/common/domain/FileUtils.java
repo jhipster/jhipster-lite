@@ -18,7 +18,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
@@ -60,10 +59,6 @@ public class FileUtils {
       return tempDir.substring(0, tempDir.length() - fileSeparator.length());
     }
     return tempDir;
-  }
-
-  public static String tmpDirForTest() {
-    return getPath(tmpDir(), "jhlite-test", UUID.randomUUID().toString());
   }
 
   public static String getPath(String... paths) {

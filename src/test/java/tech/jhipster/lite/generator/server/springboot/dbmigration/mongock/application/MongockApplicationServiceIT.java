@@ -1,12 +1,12 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.application;
 
-import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 import static tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.application.MongockAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
+import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -29,7 +29,7 @@ class MongockApplicationServiceIT {
   @Test
   void shouldInit() {
     // Given
-    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(tmpDirForTest());
+    ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     project.addConfig(BASE_NAME, "foo");
 

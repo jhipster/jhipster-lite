@@ -16,7 +16,7 @@ class OAuth2ModuleConfiguration {
       .builder()
       .legacyUrl("/api/servers/spring-boot/security-systems/oauth2")
       .slug("springboot-oauth2")
-      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc(
         new JHipsterModuleApiDoc(
           "Spring Boot - MVC - Security",

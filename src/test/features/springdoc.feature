@@ -35,13 +35,13 @@ Feature: Springdoc modules
     And I should have files in "src/test/resources/config"
       | application.properties |
 
-
   Scenario: Should get Springdoc module properties definition
     When I get module "springdoc-openapi" properties definition
     Then I should have properties definitions
       | Key                   | Type    | Mandatory |
       | packageName           | STRING  | true      |
       | baseName              | STRING  | true      |
+      | prettierDefaultIndent | INTEGER | false     |
 
   Scenario: Should add Springdoc elements using module url
     When I apply "springdoc-openapi" module to default project with maven file
@@ -96,6 +96,7 @@ Feature: Springdoc modules
       | Key                   | Type    | Mandatory |
       | packageName           | STRING  | true      |
       | baseName              | STRING  | true      |
+      | prettierDefaultIndent | INTEGER | false     |
 
   Scenario: Should add Springdoc with JWT Security elements using module url
     When I apply "springdoc-openapi-with-security-jwt" module to default project with maven file

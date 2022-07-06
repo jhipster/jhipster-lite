@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.domain;
 
+import static tech.jhipster.lite.generator.server.springboot.springcloud.common.domain.SpringCloudModuleDependencies.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.common.domain.Base64Utils;
@@ -7,10 +8,6 @@ import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterSource;
-import tech.jhipster.lite.module.domain.javabuild.GroupId;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
@@ -20,7 +17,6 @@ public class EurekaModuleFactory {
   private static final PropertyValue FALSE_VALUE = propertyValue("false");
   private static final JHipsterSource SPRING_CLOUD_SOURCE = from("server/springboot/springcloud/configclient");
   private static final JHipsterSource EUREKA_SOURCE = from("server/springboot/springcloud/eureka");
-  private static final GroupId SPRING_CLOUD_GROUP = groupId("org.springframework.cloud");
 
   private final DockerImages dockerImages;
 
@@ -42,7 +38,7 @@ public class EurekaModuleFactory {
         .and()
       .javaDependencies()
         .dependencyManagement(springCloudDependenciesManagement())
-        .dependency(SPRING_CLOUD_GROUP, artifactId("spring-cloud-starter-bootstrap"))
+        .dependency( SPRING_CLOUD_GROUP, artifactId("spring-cloud-starter-bootstrap"))
         .dependency(
           SPRING_CLOUD_GROUP,
           artifactId("spring-cloud-starter-netflix-eureka-client"),
@@ -84,16 +80,5 @@ public class EurekaModuleFactory {
 
   private String instanceId(String lowerCaseBaseName) {
     return lowerCaseBaseName + ":${spring.application.instance-id:${random.value}}";
-  }
-
-  private JavaDependency springCloudDependenciesManagement() {
-    return JavaDependency
-      .builder()
-      .groupId(SPRING_CLOUD_GROUP)
-      .artifactId("spring-cloud-dependencies")
-      .versionSlug("spring-cloud.version")
-      .scope(JavaDependencyScope.IMPORT)
-      .type(JavaDependencyType.POM)
-      .build();
   }
 }

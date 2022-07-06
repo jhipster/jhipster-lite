@@ -52,8 +52,6 @@ public class GeneratorAction {
 
   public static final String MONGOCK = "mongock";
 
-  public static final String MARIADB = "mariadb";
-
   public static final String MONGODB = "mongodb";
 
   public static final String LOGSTASH = "logstash";

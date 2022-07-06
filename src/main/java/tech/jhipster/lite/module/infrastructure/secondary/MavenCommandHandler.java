@@ -128,7 +128,7 @@ class MavenCommandHandler {
 
     findFirst(PROPERTIES_ANCHORS).after(properties);
 
-    document.find("project properties").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
+    document.find("project > properties").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
   }
 
   private void appendPropertyLine(Match properties, SetVersion command) {
@@ -337,7 +337,7 @@ class MavenCommandHandler {
   }
 
   private void appendPluginMangementInBuildNode(Match pluginNode, Match buildNode) {
-    Match pluginManagementNode = buildNode.find("pluginManagement");
+    Match pluginManagementNode = buildNode.child("pluginManagement");
 
     if (pluginManagementNode.isEmpty()) {
       appendPluginManagement(pluginNode, buildNode);
@@ -351,7 +351,7 @@ class MavenCommandHandler {
   }
 
   private void appendInPluginManagement(Match pluginNode, Match pluginManagementNode) {
-    Match pluginsNode = pluginManagementNode.find(PLUGINS);
+    Match pluginsNode = pluginManagementNode.child(PLUGINS);
 
     if (pluginsNode.isEmpty()) {
       appendPluginsNode(pluginManagementNode, pluginNode, 4);
@@ -385,7 +385,7 @@ class MavenCommandHandler {
   }
 
   private void appendPluginInBuildNode(Match pluginNode, Match buildNode) {
-    Match pluginsNode = buildNode.find(PLUGINS);
+    Match pluginsNode = buildNode.child(PLUGINS);
 
     if (pluginsNode.isEmpty()) {
       appendPluginsNode(buildNode, pluginNode, 3);

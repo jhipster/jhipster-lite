@@ -25,8 +25,6 @@ public class GeneratorAction {
   public static final String SVELTE = "svelte";
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
 
-  public static final String CONSUL = "consul";
-
   public static final String EHCACHE_WITH_JAVA_CONFIG = "ehcache-with-java-config";
   public static final String EHCACHE_WITH_XML_CONFIG = "ehcache-with-xml-config";
 

@@ -7,7 +7,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJson;
 
-import java.util.Collection;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -92,6 +91,6 @@ class ReactJwtDomainServiceTest {
 
     reactJwtDomainService.addReactLoginFiles(project);
 
-    verify(projectRepository).template(any(Collection.class));
+    verify(projectRepository).template(anyCollection());
   }
 }

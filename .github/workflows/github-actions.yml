@@ -145,7 +145,7 @@ jobs:
           - angularapp
           - reactapp
           - vueapp
-          # - svelteapp
+          - svelteapp
           - kafkaapp
           - pulsarapp
           - reactiveapp

@@ -16,7 +16,6 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -25,9 +24,6 @@ import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 @IntegrationTest
 @AutoConfigureMockMvc
 class FlywayResourceIT {
-
-  @Autowired
-  private MavenApplicationService mavenApplicationService;
 
   @Autowired
   private SpringBootApplicationService springBootApplicationService;
@@ -53,7 +49,7 @@ class FlywayResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
 
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.init(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     mockMvc
@@ -79,7 +75,7 @@ class FlywayResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
 
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.init(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     mockMvc

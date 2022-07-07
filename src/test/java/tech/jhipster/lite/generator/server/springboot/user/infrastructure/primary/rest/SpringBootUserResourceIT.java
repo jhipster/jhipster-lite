@@ -1,14 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.user.infrastructure.primary.rest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.MARIADB;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaAuditEntity;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaUser;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaUserAuthority;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.checkSequence;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.*;
+import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -34,19 +28,16 @@ import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 class SpringBootUserResourceIT {
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
+  private SpringBootApplicationService springBootApplicationService;
 
   @Autowired
-  SpringBootApplicationService springBootApplicationService;
+  private MySQLApplicationService mySQLApplicationService;
 
   @Autowired
-  MySQLApplicationService mySQLApplicationService;
+  private MariaDBApplicationService mariaDBApplicationService;
 
   @Autowired
-  MariaDBApplicationService mariaDBApplicationService;
-
-  @Autowired
-  MockMvc mockMvc;
+  private MockMvc mockMvc;
 
   @Test
   @DisplayName("should add user and authority entities for PostgreSQL")
@@ -80,7 +71,7 @@ class SpringBootUserResourceIT {
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
-    mavenApplicationService.init(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
     TestJHipsterModules.applyer().module(mySQLApplicationService.build(properties)).properties(properties).slug("mysql").apply();
 
@@ -110,7 +101,7 @@ class SpringBootUserResourceIT {
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
-    mavenApplicationService.init(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
     TestJHipsterModules.applyer().module(mariaDBApplicationService.build(properties)).properties(properties).slug("mariadb").apply();
 

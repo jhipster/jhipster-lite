@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.docker.application.SpringBootDockerApplicationService;
@@ -21,9 +20,6 @@ import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 @IntegrationTest
 @AutoConfigureMockMvc
 class SpringBootDockerResourceIT {
-
-  @Autowired
-  private MavenApplicationService mavenApplicationService;
 
   @Autowired
   private SpringBootDockerApplicationService springBootDockerApplicationService;
@@ -36,7 +32,7 @@ class SpringBootDockerResourceIT {
     ProjectDTO projectDTO = TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(TestFileUtils.tmpDirForTest());
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.init(project);
+    TestJHipsterModules.applyMaven(project);
     springBootDockerApplicationService.addJib(project);
 
     mockMvc

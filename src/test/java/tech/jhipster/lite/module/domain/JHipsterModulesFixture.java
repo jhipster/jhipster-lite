@@ -331,6 +331,12 @@ public final class JHipsterModulesFixture {
       return this;
     }
 
+    public JHipsterModulePropertiesBuilder projectName(String projectName) {
+      properties.put("projectName", projectName);
+
+      return this;
+    }
+
     public JHipsterModulePropertiesBuilder put(String key, Object value) {
       properties.put(key, value);
 

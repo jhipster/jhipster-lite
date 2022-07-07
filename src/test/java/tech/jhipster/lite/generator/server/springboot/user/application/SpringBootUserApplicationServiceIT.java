@@ -1,20 +1,14 @@
 package tech.jhipster.lite.generator.server.springboot.user.application;
 
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectBuilder;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.MYSQL;
-import static tech.jhipster.lite.generator.project.domain.DatabaseType.POSTGRESQL;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaAuditEntity;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaUser;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.assertFilesSqlJavaUserAuthority;
-import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.checkSequence;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.project.domain.DatabaseType.*;
+import static tech.jhipster.lite.generator.server.springboot.user.application.SpringBootUserAssertFiles.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -28,19 +22,16 @@ import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 class SpringBootUserApplicationServiceIT {
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
+  private SpringBootApplicationService springBootApplicationService;
 
   @Autowired
-  SpringBootApplicationService springBootApplicationService;
+  private MySQLApplicationService mySQLApplicationService;
 
   @Autowired
-  MySQLApplicationService mySQLApplicationService;
+  private MariaDBApplicationService mariaDBApplicationService;
 
   @Autowired
-  MariaDBApplicationService mariaDBApplicationService;
-
-  @Autowired
-  SpringBootUserApplicationService springBootUserApplicationService;
+  private SpringBootUserApplicationService springBootUserApplicationService;
 
   @Test
   void shouldAddUserAndAuthorityEntitiesForPostgresql() {
@@ -64,7 +55,7 @@ class SpringBootUserApplicationServiceIT {
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
-    mavenApplicationService.init(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
     if (databaseType.equals(MYSQL)) {
       TestJHipsterModules.applyer().module(mySQLApplicationService.build(properties)).properties(properties).slug("mysql").apply();

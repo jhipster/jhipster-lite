@@ -9,12 +9,12 @@
             <label for="path" class="form-label">Path (required) : </label>
             <input
               id="path"
-              placeholder="/tmp/myapp"
               v-model="project.folder"
               type="text"
               class="form-control"
               required
               autofocus
+              :data-selector="selectorPrefix + '.project-folder'"
               @input="debounceGetProjectDetails"
             />
           </div>

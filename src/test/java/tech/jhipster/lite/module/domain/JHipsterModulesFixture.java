@@ -1,9 +1,14 @@
 package tech.jhipster.lite.module.domain;
 
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.TestFileUtils;
-import tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
@@ -19,13 +24,6 @@ import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition.*;
 
 public final class JHipsterModulesFixture {
 

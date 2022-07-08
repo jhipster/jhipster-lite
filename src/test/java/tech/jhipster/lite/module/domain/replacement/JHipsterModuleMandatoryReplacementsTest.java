@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 

@@ -6,6 +6,8 @@ First, you need to start JHipster Lite. In the `jhipster-lite` folder, just laun
 
 Check if you can access to [http://localhost:7471](http://localhost:7471)
 
+Or you can try to use directly [https://lite.jhipster.tech](https://lite.jhipster.tech)
+
 Then, you need to fill the different fields, before generating something:
 
 ![fill_information](01-fill_information.png)

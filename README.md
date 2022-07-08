@@ -26,6 +26,22 @@ JHipster is a development platform to quickly generate, develop & deploy modern 
 - you will only generate the code you want, no additional unused code
 - best quality as possible: 💯% coverage, 0 code smell, no duplication 😎
 
+## Docker Quickstart
+
+To start a local instance of JHipster lite using docker, go to your desired application folder and run:
+
+```
+docker run --rm --pull=always -p 7471:7471 -v .:/jh:Z -it jhipster/jhlite:latest
+```
+
+Or with podman:
+
+```
+podman run --rm --pull=always -p 7471:7471 -v $(pwd):/jh:Z -u root -it jhipster/jhlite:latest
+```
+
+Then go to http://localhost:7471, and type `/jh` in the project configuration path.
+
 ## Deploy to Heroku
 
 Click on this button to deploy your own instance of JHipster Lite:

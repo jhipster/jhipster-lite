@@ -24,7 +24,7 @@ public class MavenModuleFactory {
         .add(SOURCE.template("pom.xml"), to("pom.xml"))
         .addExecutable(SOURCE.file("mvnw"), to("mvnw"))
         .addExecutable(SOURCE.file("mvnw.cmd"), to("mvnw.cmd"))
-          .batch(SOURCE.append(".mvn/wrapper"), to(".mvn/wrapper"))
+        .batch(SOURCE.append(".mvn/wrapper"), to(".mvn/wrapper"))
           .file("maven-wrapper.jar")
           .file("maven-wrapper.properties")
           .and()

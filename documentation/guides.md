@@ -2,11 +2,9 @@
 
 You can follow this guide to generate your new project with JHipster Lite.
 
-First, you need to start JHipster Lite. In the `jhipster-lite` folder, just launch: `./mvnw`
+You can use the online version at [https://lite.jhipster.tech](https://lite.jhipster.tech)
 
-Check if you can access to [http://localhost:7471](http://localhost:7471)
-
-Or you can try to use directly [https://lite.jhipster.tech](https://lite.jhipster.tech)
+Or, you can start JHipster Lite locally. Clone the project and in the `jhipster-lite` folder, just launch: `./mvnw`
 
 Then, you need to fill the different fields, before generating something:
 

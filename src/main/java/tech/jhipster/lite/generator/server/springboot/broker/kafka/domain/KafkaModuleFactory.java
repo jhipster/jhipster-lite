@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
+import static tech.jhipster.lite.generator.project.domain.Constants.TEST_JAVA;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.docker.domain.DockerImages;
@@ -26,9 +27,23 @@ public class KafkaModuleFactory {
         .and()
       .javaDependencies()
         .dependency(groupId("org.apache.kafka"), artifactId("kafka-clients"))
+        .dependency(groupId("org.testcontainers"), artifactId("kafka"))
         .and()
       .files()
         .add(SOURCE.template("kafka.yml"), toSrcMainDocker().append("kafka.yml"))
+        .add(SOURCE.template("KafkaTestContainerExtension.java"), toSrcTestJava().append("/" + SOURCE + "/KafkaTestContainerExtension.java"))
+        .and()
+      .mandatoryReplacements()
+        .in(TEST_JAVA + "/IntegrationTest.java")
+          .add(text("import org.springframework.boot.test.context.SpringBootTest;"),
+            """
+          import org.junit.jupiter.api.extension.ExtendWith;
+          import org.springframework.boot.test.context.SpringBootTest;""")
+          .add(text("public @interface"),
+            """
+          @ExtendWith(KafkaTestContainerExtension.class)
+          public @interface""")
+          .and()
         .and()
       .springMainProperties()
         .set(propertyKey("kafka.bootstrap-servers"), propertyValue("localhost:9092"))

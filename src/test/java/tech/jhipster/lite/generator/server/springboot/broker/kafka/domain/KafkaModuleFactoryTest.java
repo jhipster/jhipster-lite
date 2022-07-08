@@ -2,8 +2,8 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestFileUtils.tmpDirForTest;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_DOCKER;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
@@ -42,16 +42,24 @@ class KafkaModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, pomFile())
+    assertThatModuleWithFiles(
+      module,
+      pomFile(),
+      new ModuleFile(
+        "src/main/resources/generator/server/springboot/core/IntegrationTest.java.mustache",
+        TEST_JAVA + "/IntegrationTest.java"
+      )
+    )
       .createFile("pom.xml")
       .containing(
         """
-                <dependency>
-                  <groupId>org.apache.kafka</groupId>
-                  <artifactId>kafka-clients</artifactId>
-                </dependency>
-            """
+                  <dependency>
+                    <groupId>org.apache.kafka</groupId>
+                    <artifactId>kafka-clients</artifactId>
+                  </dependency>
+              """
       )
+      .containing("<artifactId>kafka</artifactId>")
       .and()
       .createFile(MAIN_DOCKER + "/kafka.yml")
       .and()
@@ -64,6 +72,8 @@ class KafkaModuleFactoryTest {
       .containing("kafka.producer.key.serializer=org.apache.kafka.common.serialization.StringSerializer")
       .containing("kafka.producer.value.serializer=org.apache.kafka.common.serialization.StringSerializer")
       .containing("kafka.polling.timeout=10000")
-      .and();
+      .and()
+      .createFile(TEST_JAVA + "/IntegrationTest.java")
+      .containing("@ExtendWith(KafkaTestContainerExtension.class)");
   }
 }

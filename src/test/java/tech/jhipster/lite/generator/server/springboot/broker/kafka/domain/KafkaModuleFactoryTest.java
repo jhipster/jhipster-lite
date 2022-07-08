@@ -3,9 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.TestFileUtils.tmpDirForTest;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +46,8 @@ class KafkaModuleFactoryTest {
       new ModuleFile(
         "src/main/resources/generator/server/springboot/core/IntegrationTest.java.mustache",
         TEST_JAVA + "/IntegrationTest.java"
-      )
+      ),
+      readmeFile()
     )
       .createFile("pom.xml")
       .containing(
@@ -81,6 +80,10 @@ class KafkaModuleFactoryTest {
       .createFile(TEST_JAVA + "/" + TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka/KafkaPropertiesTest.java")
       .and()
       .createFile(MAIN_JAVA + "/" + TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka/KafkaConfiguration.java")
+      .and()
+      .createPrefixedFiles("documentation", "apache-kafka.md")
+      .createFile("README.md")
+      .containing("[Apache Kafka](documentation/apache-kafka.md)")
       .and();
   }
 }

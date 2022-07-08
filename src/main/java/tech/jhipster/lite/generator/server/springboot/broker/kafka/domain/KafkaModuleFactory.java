@@ -25,6 +25,7 @@ public class KafkaModuleFactory {
         .put("zookeeperDockerImage", dockerImages.get("confluentinc/cp-zookeeper").fullName())
         .put("kafkaDockerImage", dockerImages.get("confluentinc/cp-kafka").fullName())
         .and()
+      .documentation(documentationTitle("Apache Kafka"), SOURCE.template("apache-kafka.md"))
       .javaDependencies()
         .dependency(groupId("org.apache.kafka"), artifactId("kafka-clients"))
         .dependency(groupId("org.testcontainers"), artifactId("kafka"))

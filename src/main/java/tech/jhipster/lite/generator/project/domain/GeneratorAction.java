@@ -73,8 +73,6 @@ public class GeneratorAction {
 
   public static final String JACOCO_CHECK_MIN_COVERAGE = "jacoco-check-min-coverage";
 
-  public static final String TYPESCRIPT = "typescript";
-
   public static final String REACT_CYPRESS = "react-cypress";
 
   public static final String SPRINGBOOT_KAFKA = "springboot-kafka";

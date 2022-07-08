@@ -74,6 +74,13 @@ class KafkaModuleFactoryTest {
       .containing("kafka.polling.timeout=10000")
       .and()
       .createFile(TEST_JAVA + "/IntegrationTest.java")
-      .containing("@ExtendWith(KafkaTestContainerExtension.class)");
+      .containing("@ExtendWith(KafkaTestContainerExtension.class)")
+      .and()
+      .createFile(MAIN_JAVA + "/" + TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka/KafkaProperties.java")
+      .and()
+      .createFile(TEST_JAVA + "/" + TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka/KafkaPropertiesTest.java")
+      .and()
+      .createFile(MAIN_JAVA + "/" + TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka/KafkaConfiguration.java")
+      .and();
   }
 }

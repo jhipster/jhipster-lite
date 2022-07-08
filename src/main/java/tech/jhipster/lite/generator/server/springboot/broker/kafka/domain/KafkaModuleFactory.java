@@ -31,8 +31,11 @@ public class KafkaModuleFactory {
         .and()
       .files()
         .add(SOURCE.template("kafka.yml"), toSrcMainDocker().append("kafka.yml"))
-        .add(SOURCE.template("KafkaTestContainerExtension.java"), toSrcTestJava().append("/" + SOURCE + "/KafkaTestContainerExtension.java"))
-        .and()
+        .add(SOURCE.template("KafkaTestContainerExtension.java"), toSrcTestJava().append("/server/springboot/broker/kafka/KafkaTestContainerExtension.java"))
+        .add(SOURCE.template("KafkaPropertiesTest.java"), toSrcTestJava().append("/technical/infrastructure/config//kafka/KafkaPropertiesTest.java"))
+        .add(SOURCE.template("KafkaProperties.java"), toSrcMainJava().append("/technical/infrastructure/config/kafka/KafkaProperties.java"))
+        .add(SOURCE.template("KafkaConfiguration.java"), toSrcMainJava().append("/technical/infrastructure/config/kafka/KafkaConfiguration.java"))
+      .and()
       .mandatoryReplacements()
         .in(TEST_JAVA + "/IntegrationTest.java")
           .add(text("import org.springframework.boot.test.context.SpringBootTest;"),

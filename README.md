@@ -31,7 +31,7 @@ JHipster is a development platform to quickly generate, develop & deploy modern 
 To start a local instance of JHipster lite using docker, go to your desired application folder and run:
 
 ```
-docker run --rm --pull=always -p 7471:7471 -v .:/jh:Z -it jhipster/jhlite:latest
+docker run --rm --pull=always -p 7471:7471 -v $(pwd):/jh:Z -it jhipster/jhlite:latest
 ```
 
 Or with podman:

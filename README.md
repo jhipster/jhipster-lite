@@ -26,22 +26,6 @@ JHipster is a development platform to quickly generate, develop & deploy modern 
 - you will only generate the code you want, no additional unused code
 - best quality as possible: 💯% coverage, 0 code smell, no duplication 😎
 
-## Docker/Podman Quickstart
-
-To start a local instance of JHipster Lite, go to your desired application folder and run:
-
-```
-docker run --rm --pull=always -p 7471:7471 -v $(pwd):/jh:Z -it jhipster/jhipster-lite:latest
-```
-
-Or with podman:
-
-```
-podman run --rm --pull=always -p 7471:7471 -v $(pwd):/jh:Z -u root -it jhipster/jhipster-lite:latest
-```
-
-Then go to http://localhost:7471, and type `/jh` in the project configuration path.
-
 ## Deploy to Heroku
 
 Click on this button to deploy your own instance of JHipster Lite:
@@ -139,6 +123,22 @@ java -jar target/*.jar
 ```
 
 So you can navigate to http://localhost:7471 in your browser.
+
+## Docker/Podman Quickstart
+
+To start a local instance of JHipster Lite, go to your desired application folder and run:
+
+```
+docker run --rm --pull=always -p 7471:7471 -v $(pwd):/tmp/jhlite:Z -it jhipster/jhipster-lite:latest
+```
+
+Or with podman:
+
+```
+podman run --rm --pull=always -p 7471:7471 -v $(pwd):/tmp/jhlite:Z -u root -it jhipster/jhipster-lite:latest
+```
+
+Then, go to [http://localhost:7471](http://localhost:7471)
 
 ## e2e tests
 

@@ -13,7 +13,8 @@ RUN \
     rm -Rf /code/jhipster-app/ /root/.m2 /root/.cache /tmp/* /var/tmp/*
 
 ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
-    JAVA_OPTS=""
+    JAVA_OPTS="" \
+    SPRING_PROFILES_ACTIVE=cloud
 USER jhipster
 CMD java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /code/*.jar
 EXPOSE 7471

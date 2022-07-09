@@ -62,7 +62,7 @@ public class VueModulesFactory {
         .addScript(scriptKey("test"), scriptCommand("npm run jest --"))
         .addScript(scriptKey("test:watch"), scriptCommand("npm run jest -- --watch"))
         .and()
-      .mandatoryReplacements()
+      .optionalReplacements()
         .in("package.json")
           .add(justLineBefore(text(CACHE_NEEDLE)), jestSonar(properties.indentation()))
           .and()

@@ -5,6 +5,7 @@ import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules.applyAngular;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -277,7 +278,7 @@ class AngularCommonApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "foo");
     TestJHipsterModules.applyInit(project);
-    angularApplicationService.addAngular(project);
+    applyAngular(project);
     return project;
   }
 }

@@ -1,8 +1,5 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
-import java.util.List;
-import java.util.Map;
-
 public class Angular {
 
   public static final String APP_MODULE = "app.module.ts";

@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.ANGULAR;
 
@@ -56,7 +55,6 @@ public class AngularModuleFactory {
         .and()
       .optionalReplacements()
         .in("package.json")
-          // TODO put this in common
           .add(justLineBefore(text(CACHE_NEEDLE)), jestSonar(properties.indentation()))
           .and()
         .and()
@@ -97,7 +95,6 @@ public class AngularModuleFactory {
     //@formatter:on
   }
 
-  // TODO check duplicate worth ?
   private String jestSonar(Indentation indentation) {
     return new StringBuilder()
       .append(indentation.spaces())

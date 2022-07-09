@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.client.angular.core.infrastructure.primary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.client.angular.core.application.AngularApplicationService;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;

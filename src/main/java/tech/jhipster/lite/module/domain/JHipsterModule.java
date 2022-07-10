@@ -47,6 +47,7 @@ import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryRepla
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacements.JHipsterModuleMandatoryReplacementsBuilder;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacements;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacements.JHipsterModuleOptionalReplacementsBuilder;
+import tech.jhipster.lite.module.domain.replacement.RegexNeedleAfterReplacer;
 import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
 import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
@@ -173,6 +174,10 @@ public class JHipsterModule {
 
   public static RegexNeedleBeforeReplacer lineBeforeRegex(String regex) {
     return new RegexNeedleBeforeReplacer(Pattern.compile(regex, Pattern.MULTILINE));
+  }
+
+  public static RegexNeedleAfterReplacer lineAfterRegex(String regex) {
+    return new RegexNeedleAfterReplacer(Pattern.compile(regex, Pattern.MULTILINE));
   }
 
   public static PropertyKey propertyKey(String key) {

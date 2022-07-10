@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 
-public record RegexNeedleBeforeReplacer(Pattern pattern) implements ElementReplacer {
-  public RegexNeedleBeforeReplacer {
+public record RegexNeedleAfterReplacer(Pattern pattern) implements ElementReplacer {
+  public RegexNeedleAfterReplacer {
     Assert.notNull("pattern", pattern);
   }
 
@@ -18,7 +18,7 @@ public record RegexNeedleBeforeReplacer(Pattern pattern) implements ElementRepla
   @Override
   public BiFunction<String, String, String> replacer() {
     return (content, replacement) ->
-      linePattern().matcher(content).replaceAll(result -> replacement + JHipsterModule.LINE_BREAK + result.group());
+      linePattern().matcher(content).replaceAll(result -> result.group() + JHipsterModule.LINE_BREAK + replacement);
   }
 
   private Pattern linePattern() {
@@ -28,11 +28,11 @@ public record RegexNeedleBeforeReplacer(Pattern pattern) implements ElementRepla
       return pattern();
     }
 
-    return Pattern.compile("^.*" + stringPattern, pattern().flags());
+    return Pattern.compile(stringPattern + ".*$", pattern().flags());
   }
 
   private boolean isLinePattern(String stringPattern) {
-    return stringPattern.startsWith("^");
+    return stringPattern.endsWith("$");
   }
 
   @Override

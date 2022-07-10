@@ -12,13 +12,13 @@ import tech.jhipster.lite.npm.domain.NpmVersions;
 class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
 
   private final FileSystemJHipsterModuleFiles files;
-  private final FileSystemJavaDependenciesCommandsHandler javaDependencies;
+  private final FileSystemJavaBuildCommandsHandler javaBuild;
   private final FileSystemSpringPropertiesCommandsHandler springProperties;
   private final FileSystemPackageJsonHandler packageJson;
 
   public FileSystemJHipsterModulesRepository(ProjectFilesReader filesReader, NpmVersions npmVersions) {
     files = new FileSystemJHipsterModuleFiles(filesReader);
-    javaDependencies = new FileSystemJavaDependenciesCommandsHandler();
+    javaBuild = new FileSystemJavaBuildCommandsHandler();
     springProperties = new FileSystemSpringPropertiesCommandsHandler();
     packageJson = new FileSystemPackageJsonHandler(npmVersions);
   }
@@ -30,7 +30,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     changes.preActions().run();
 
     files.create(changes.projectFolder(), changes.files());
-    javaDependencies.handle(changes.indentation(), changes.projectFolder(), changes.javaBuildCommands());
+    javaBuild.handle(changes.indentation(), changes.projectFolder(), changes.javaBuildCommands());
     springProperties.handle(changes.projectFolder(), changes.springProperties());
     packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson());
 

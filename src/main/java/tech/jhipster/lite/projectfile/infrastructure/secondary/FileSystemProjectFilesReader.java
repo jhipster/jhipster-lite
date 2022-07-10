@@ -1,4 +1,4 @@
-package tech.jhipster.lite.common.infrastructure.secondary;
+package tech.jhipster.lite.projectfile.infrastructure.secondary;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,9 +6,9 @@ import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.common.domain.Generated;
-import tech.jhipster.lite.common.domain.ProjectFilesReader;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.projectfile.domain.ProjectFilesReader;
 
 @Service
 public class FileSystemProjectFilesReader implements ProjectFilesReader {

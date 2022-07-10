@@ -2,20 +2,25 @@ package tech.jhipster.lite.module.domain.javadependency;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Function;
 import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 
 public class JHipsterModuleJavaDependencies {
 
+  private final Collection<JavaDependencyVersion> versions;
   private final Collection<JavaDependencyManagement> dependenciesManagement;
   private final Collection<DirectJavaDependency> dependencies;
 
   private JHipsterModuleJavaDependencies(JHipsterModuleJavaDependenciesBuilder builder) {
+    versions = builder.versions;
     dependenciesManagement = builder.dependenciesManagement;
     dependencies = builder.dependencies;
   }
@@ -29,11 +34,21 @@ public class JHipsterModuleJavaDependencies {
     Assert.notNull("projectDependencies", projectDependencies);
 
     return Stream
-      .concat(
+      .of(
+        settedVersionsCommands(),
         dependenciesManagementChanges(currentVersions, projectDependencies),
         dependenciesChanges(currentVersions, projectDependencies)
       )
+      .flatMap(Function.identity())
       .reduce(JavaBuildCommands.EMPTY, JavaBuildCommands::merge);
+  }
+
+  private Stream<JavaBuildCommands> settedVersionsCommands() {
+    return Stream.of(new JavaBuildCommands(versions.stream().map(toSetVersionCommand()).toList()));
+  }
+
+  private Function<JavaDependencyVersion, JavaBuildCommand> toSetVersionCommand() {
+    return (Function<JavaDependencyVersion, JavaBuildCommand>) SetVersion::new;
   }
 
   private Stream<JavaBuildCommands> dependenciesManagementChanges(
@@ -53,6 +68,7 @@ public class JHipsterModuleJavaDependencies {
   public static class JHipsterModuleJavaDependenciesBuilder {
 
     private final JHipsterModuleBuilder module;
+    private final Collection<JavaDependencyVersion> versions = new ArrayList<>();
     private final Collection<DirectJavaDependency> dependencies = new ArrayList<>();
     private final Collection<JavaDependencyManagement> dependenciesManagement = new ArrayList<>();
 
@@ -76,6 +92,14 @@ public class JHipsterModuleJavaDependencies {
       Assert.notNull("dependency", dependency);
 
       dependencies.add(new DirectJavaDependency(dependency));
+
+      return this;
+    }
+
+    public JHipsterModuleJavaDependenciesBuilder version(JavaDependencyVersion version) {
+      Assert.notNull("version", version);
+
+      versions.add(version);
 
       return this;
     }

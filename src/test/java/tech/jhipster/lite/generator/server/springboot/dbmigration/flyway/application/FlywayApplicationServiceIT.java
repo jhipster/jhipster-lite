@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
@@ -22,9 +21,6 @@ class FlywayApplicationServiceIT {
 
   @SpyBean
   private Clock clock;
-
-  @Autowired
-  private SpringBootApplicationService springBootApplicationService;
 
   @BeforeEach
   void setUp() {
@@ -39,7 +35,7 @@ class FlywayApplicationServiceIT {
 
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     // When
     flywayApplicationService.init(project);
@@ -58,7 +54,7 @@ class FlywayApplicationServiceIT {
 
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
     flywayApplicationService.init(project);
 
     // When

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
@@ -17,9 +16,6 @@ class EhcacheApplicationServiceIT {
   @Autowired
   private EhcacheApplicationService ehcacheApplicationService;
 
-  @Autowired
-  private SpringBootApplicationService springBootApplicationService;
-
   @Test
   void shouldInitJavaConfiguration() {
     Project project = tmpProject();
@@ -27,7 +23,7 @@ class EhcacheApplicationServiceIT {
 
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     ehcacheApplicationService.initJavaConfiguration(project);
 
@@ -40,9 +36,8 @@ class EhcacheApplicationServiceIT {
     project.addConfig(BASE_NAME, "foo");
 
     TestJHipsterModules.applyInit(project);
-
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     ehcacheApplicationService.initXmlConfiguration(project);
 
@@ -82,7 +77,7 @@ class EhcacheApplicationServiceIT {
     project.addConfig(PACKAGE_NAME, "tech.jhipster.baz");
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     ehcacheApplicationService.addEnableCaching(project);
 
@@ -96,7 +91,7 @@ class EhcacheApplicationServiceIT {
     project.addConfig(PACKAGE_NAME, "tech.jhipster.baz");
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     ehcacheApplicationService.addJavaConfig(project);
 
@@ -109,7 +104,7 @@ class EhcacheApplicationServiceIT {
     project.addConfig(BASE_NAME, "bar");
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     ehcacheApplicationService.addJavaProperties(project);
 
@@ -134,7 +129,7 @@ class EhcacheApplicationServiceIT {
     project.addConfig(BASE_NAME, "bar");
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     ehcacheApplicationService.addXmlProperty(project);
 
@@ -146,7 +141,7 @@ class EhcacheApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "bar");
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     ehcacheApplicationService.addLoggerInConfiguration(project);
 

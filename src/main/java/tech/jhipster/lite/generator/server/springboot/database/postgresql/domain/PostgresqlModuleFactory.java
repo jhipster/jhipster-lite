@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.database.postgresql.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.NEEDLE_LOGBACK_LOGGER;
+import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBoot.*;
 import static tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonModuleBuilder.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 

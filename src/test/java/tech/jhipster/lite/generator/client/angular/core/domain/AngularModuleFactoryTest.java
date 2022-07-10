@@ -24,7 +24,6 @@ class AngularModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    //@formatter:off
     assertThatModuleWithFiles(module, packageJsonFile())
       .createFile("package.json")
       .containing(nodeDependency("zone.js"))
@@ -45,20 +44,41 @@ class AngularModuleFactoryTest {
       .containing("\"start\": \"ng serve\"")
       .containing("\"build\": \"ng build --output-path=target/classes/static\"")
       .containing("\"test\": \"ng test --coverage\"")
-      .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results/jest\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },")
+      .containing(
+        "  \"jestSonar\": {\n    \"reportPath\": \"target/test-results/jest\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },"
+      )
       .and()
-      // TODO y'a pas de linter ?
       .createFile("src/main/webapp/app/app.component.ts")
-        .containing("this.appName = 'jhiTest'")
-        .and()
-      .createPrefixedFiles("",  "jest.conf.js", "angular.json", "tsconfig.json","tsconfig.app.json","tsconfig.spec.json", "proxy.conf.json")
-      .createPrefixedFiles("src/main/webapp/app","app.component.css", "app.component.ts", "app.component.html", "app.component.spec.ts", "app.module.ts", "app-routing.module.spec.ts", "app-routing.module.ts")
+      .containing("this.appName = 'jhiTest'")
+      .and()
+      .createPrefixedFiles(
+        "",
+        "jest.conf.js",
+        "angular.json",
+        "tsconfig.json",
+        "tsconfig.app.json",
+        "tsconfig.spec.json",
+        "proxy.conf.json"
+      )
+      .createPrefixedFiles(
+        "src/main/webapp/app",
+        "app.component.css",
+        "app.component.ts",
+        "app.component.html",
+        "app.component.spec.ts",
+        "app.module.ts",
+        "app-routing.module.spec.ts",
+        "app-routing.module.ts"
+      )
       .createPrefixedFiles("src/main/webapp/content/images", "JHipster-Lite-neon-red.png", "AngularLogo.svg")
-      .createPrefixedFiles("src/main/webapp/environments", "environment.ts", "environment.prod.ts", "environment.prod.spec.ts", "environment.spec.ts")
-      .createPrefixedFiles("src/main/webapp", "index.html", "main.ts", "polyfills.ts", "styles.css")
-
-    ;
-    //@formatter:on
+      .createPrefixedFiles(
+        "src/main/webapp/environments",
+        "environment.ts",
+        "environment.prod.ts",
+        "environment.prod.spec.ts",
+        "environment.spec.ts"
+      )
+      .createPrefixedFiles("src/main/webapp", "index.html", "main.ts", "polyfills.ts", "styles.css");
   }
 
   private static String nodeDependency(String dependency) {

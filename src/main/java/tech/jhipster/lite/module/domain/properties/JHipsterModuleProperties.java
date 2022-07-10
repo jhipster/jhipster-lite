@@ -26,10 +26,6 @@ public record JHipsterModuleProperties(JHipsterProjectFolder projectFolder, Map<
     return new JHipsterModuleProperties(projectFolder, null);
   }
 
-  public static JHipsterModuleProperties defaultProperties(String projectFolder) {
-    return new JHipsterModuleProperties(projectFolder, null);
-  }
-
   public String getString(String key) {
     return get(key, String.class);
   }

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain;
 
 import static tech.jhipster.lite.common.domain.WordUtils.*;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
+import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBoot.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.docker.domain.DockerImage;

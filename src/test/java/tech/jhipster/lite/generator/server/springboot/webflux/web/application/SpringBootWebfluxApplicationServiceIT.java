@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
@@ -17,16 +16,13 @@ class SpringBootWebfluxApplicationServiceIT {
   @Autowired
   private SpringBootWebfluxApplicationService springBootWebfluxApplicationService;
 
-  @Autowired
-  private SpringBootApplicationService springBootApplicationService;
-
   @Test
   void shouldInit() {
     Project project = tmpProject();
     project.addConfig(BASE_NAME, "bar");
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootWebfluxApplicationService.init(project);
 
@@ -43,7 +39,7 @@ class SpringBootWebfluxApplicationServiceIT {
     project.addConfig(BASE_NAME, "bar");
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootWebfluxApplicationService.addSpringBootWebflux(project);
 
@@ -57,7 +53,7 @@ class SpringBootWebfluxApplicationServiceIT {
     project.addConfig(BASE_NAME, "bar");
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootWebfluxApplicationService.addExceptionHandler(project);
 

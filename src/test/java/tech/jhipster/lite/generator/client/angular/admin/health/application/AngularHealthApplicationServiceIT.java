@@ -1,9 +1,8 @@
 package tech.jhipster.lite.generator.client.angular.admin.health.application;
 
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPackageJsonComplete;
-import static tech.jhipster.lite.generator.client.angular.admin.health.application.AngularHealthAssert.assertAppHealth;
-import static tech.jhipster.lite.generator.client.angular.admin.health.application.AngularHealthAssert.assertUpdatedFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules.applyAngular;
+import static tech.jhipster.lite.TestUtils.*;
+import static tech.jhipster.lite.generator.client.angular.admin.health.application.AngularHealthAssert.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules.*;
 
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.client.angular.core.application.AngularApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 class AngularHealthApplicationServiceIT {

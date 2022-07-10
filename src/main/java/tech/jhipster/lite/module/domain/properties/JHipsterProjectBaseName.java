@@ -33,6 +33,10 @@ public record JHipsterProjectBaseName(String name) {
     return name();
   }
 
+  public String uncapitalized() {
+    return StringUtils.uncapitalize(name());
+  }
+
   public String capitalized() {
     return StringUtils.capitalize(name());
   }

@@ -1,33 +1,22 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.REGEXP_PREFIX_MULTILINE;
-import static tech.jhipster.lite.common.domain.FileUtils.REGEXP_SPACE_STAR;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.WordUtils.DEFAULT_INDENTATION;
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
-import static tech.jhipster.lite.common.domain.WordUtils.indent;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.buildtool.maven.domain.Maven.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.DEPENDENCIES_FOLDER;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEMPLATE_FOLDER;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PRETTIER_DEFAULT_INDENT;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PROJECT_NAME;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import tech.jhipster.lite.common.domain.FileUtils;
-import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class MavenDomainService implements MavenService {
@@ -214,36 +203,6 @@ public class MavenDomainService implements MavenService {
       String repositoryWithNeedle = (newRepositoryNode + indent(level, indent) + needle);
       projectRepository.replaceText(project, "", POM_XML, REGEXP_SPACE_STAR + needle, repositoryWithNeedle);
     }
-  }
-
-  @Override
-  public void addJavaPomXml(Project project) {
-    project.addDefaultConfig(PACKAGE_NAME);
-    project.addDefaultConfig(PROJECT_NAME);
-    project.addDefaultConfig(BASE_NAME);
-
-    String baseName = project.getBaseName().orElse("");
-    project.addConfig("dasherizedBaseName", WordUtils.kebabCase(baseName));
-
-    projectRepository.template(ProjectFile.forProject(project).withSource(SOURCE, POM_XML).withSameDestination());
-  }
-
-  @Override
-  public void addMavenWrapper(Project project) {
-    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, "mvnw").withSameDestination());
-    projectRepository.setExecutable(project, "", "mvnw");
-
-    projectRepository.add(ProjectFile.forProject(project).withSource(SOURCE, "mvnw.cmd").withSameDestination());
-    projectRepository.setExecutable(project, "", "mvnw.cmd");
-
-    String sourceWrapper = getPath(SOURCE, ".mvn", "wrapper");
-    String destinationWrapper = getPath(".mvn", "wrapper");
-    projectRepository.add(
-      ProjectFile.forProject(project).withSource(sourceWrapper, "maven-wrapper.jar").withDestinationFolder(destinationWrapper)
-    );
-    projectRepository.add(
-      ProjectFile.forProject(project).withSource(sourceWrapper, "maven-wrapper.properties").withDestinationFolder(destinationWrapper)
-    );
   }
 
   @Override

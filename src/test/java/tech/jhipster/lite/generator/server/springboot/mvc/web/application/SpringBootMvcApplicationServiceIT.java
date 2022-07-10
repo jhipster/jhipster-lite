@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
@@ -18,9 +17,6 @@ import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 class SpringBootMvcApplicationServiceIT {
-
-  @Autowired
-  private MavenApplicationService mavenApplicationService;
 
   @Autowired
   private SpringBootApplicationService springBootApplicationService;
@@ -32,7 +28,7 @@ class SpringBootMvcApplicationServiceIT {
   void shouldInit() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootMvcApplicationService.init(project);
@@ -52,7 +48,7 @@ class SpringBootMvcApplicationServiceIT {
   void shouldAddSpringBootMvc() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootMvcApplicationService.addSpringBootMvc(project);
@@ -73,7 +69,7 @@ class SpringBootMvcApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig("serverPort", 7419);
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootMvcApplicationService.addSpringBootMvc(project);
@@ -94,7 +90,7 @@ class SpringBootMvcApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig("serverPort", "chips");
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootMvcApplicationService.addSpringBootMvc(project);
@@ -114,7 +110,7 @@ class SpringBootMvcApplicationServiceIT {
   void shouldAddSpringBootUndertow() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootMvcApplicationService.addSpringBootUndertow(project);
@@ -135,7 +131,7 @@ class SpringBootMvcApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig("serverPort", 1664);
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootMvcApplicationService.addSpringBootUndertow(project);
@@ -155,7 +151,7 @@ class SpringBootMvcApplicationServiceIT {
   void shouldAddExceptionHandler() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootMvcApplicationService.addExceptionHandler(project);

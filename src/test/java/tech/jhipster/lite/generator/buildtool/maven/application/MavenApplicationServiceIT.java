@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.buildtool.maven.application;
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.WordUtils.*;
-import static tech.jhipster.lite.generator.buildtool.maven.application.MavenAssertFiles.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import java.util.List;
@@ -23,7 +22,7 @@ import tech.jhipster.lite.generator.project.domain.Project;
 class MavenApplicationServiceIT {
 
   @Autowired
-  MavenApplicationService mavenApplicationService;
+  private MavenApplicationService mavenApplicationService;
 
   @Test
   void shouldAddParent() {
@@ -625,25 +624,5 @@ class MavenApplicationServiceIT {
       Maven.getPluginRepositoryHeader(repository, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
       1
     );
-  }
-
-  @Test
-  void shouldAddPomXml() {
-    Project project = tmpProject();
-
-    mavenApplicationService.addPomXml(project);
-
-    assertFilesPomXml(project);
-    assertFileContent(project, POM_XML, "<name>jhipster</name>");
-    assertFileContent(project, POM_XML, "<description>JHipster Project</description>");
-  }
-
-  @Test
-  void shouldAddMavenWrapper() {
-    Project project = tmpProject();
-
-    mavenApplicationService.addMavenWrapper(project);
-
-    assertFilesMavenWrapper(project);
   }
 }

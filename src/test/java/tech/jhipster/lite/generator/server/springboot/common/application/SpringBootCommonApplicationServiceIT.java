@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.common.domain.Level;
@@ -27,9 +26,6 @@ class SpringBootCommonApplicationServiceIT {
   private SpringBootCommonApplicationService springBootCommonApplicationService;
 
   @Autowired
-  private MavenApplicationService mavenApplicationService;
-
-  @Autowired
   private SpringBootApplicationService springBootApplicationService;
 
   @Test
@@ -38,7 +34,7 @@ class SpringBootCommonApplicationServiceIT {
     project.addConfig(BASE_NAME, "foo");
     project.addConfig(PACKAGE_NAME, "tech.jhipster.bar");
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootCommonApplicationService.addTestLogbackRecorder(project);
@@ -479,7 +475,7 @@ class SpringBootCommonApplicationServiceIT {
   void shouldUpdateIntegrationTestAnnotation() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootCommonApplicationService.updateIntegrationTestAnnotation(project, "BeerContainer");

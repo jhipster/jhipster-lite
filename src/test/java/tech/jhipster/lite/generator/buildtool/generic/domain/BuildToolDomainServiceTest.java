@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
 
@@ -23,26 +24,16 @@ import tech.jhipster.lite.generator.project.domain.Project;
 class BuildToolDomainServiceTest {
 
   @Mock
-  MavenService mavenService;
+  private MavenService mavenService;
 
   @Mock
-  GradleService gradleService;
+  private GradleService gradleService;
 
   @InjectMocks
-  BuildToolDomainService buildToolDomainService;
+  private BuildToolDomainService buildToolDomainService;
 
   @Nested
   class MavenTest {
-
-    @Test
-    void shouldAddParent() {
-      Project project = tmpProjectWithPomXml();
-      Parent parent = getParent();
-
-      buildToolDomainService.addParent(project, parent);
-
-      verify(mavenService).addParent(project, parent);
-    }
 
     @Test
     void shouldAddDependency() {
@@ -52,16 +43,6 @@ class BuildToolDomainServiceTest {
       buildToolDomainService.addDependency(project, dependency);
 
       verify(mavenService).addDependency(project, dependency);
-    }
-
-    @Test
-    void shouldDeleteDependency() {
-      Project project = tmpProjectWithPomXml();
-      Dependency dependency = getDependency();
-
-      buildToolDomainService.deleteDependency(project, dependency);
-
-      verify(mavenService).deleteDependency(project, dependency);
     }
 
     @Test
@@ -105,42 +86,12 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldAddPluginManagement() {
-      Project project = tmpProjectWithPomXml();
-      Plugin plugin = getPlugin();
-
-      buildToolDomainService.addPluginManagement(project, plugin);
-
-      verify(mavenService).addPluginManagement(project, plugin);
-    }
-
-    @Test
     void shouldAddProperty() {
       Project project = tmpProjectWithPomXml();
 
       buildToolDomainService.addProperty(project, "testcontainers.version", "0.0.0");
 
       verify(mavenService).addProperty(project, "testcontainers.version", "0.0.0");
-    }
-
-    @Test
-    void shouldAddRepository() {
-      Project project = tmpProjectWithPomXml();
-      Repository repository = getRepository();
-
-      buildToolDomainService.addRepository(project, repository);
-
-      verify(mavenService).addRepository(project, repository);
-    }
-
-    @Test
-    void shouldAddPluginRepository() {
-      Project project = tmpProjectWithPomXml();
-      Repository repository = getRepository();
-
-      buildToolDomainService.addPluginRepository(project, repository);
-
-      verify(mavenService).addPluginRepository(project, repository);
     }
 
     @Test
@@ -192,43 +143,10 @@ class BuildToolDomainServiceTest {
 
       verify(gradleService).addDependency(project, dependency);
     }
-
-    @Test
-    void shouldDeleteDependency() {
-      Project project = tmpProjectWithBuildGradle();
-      Dependency dependency = getDependency();
-
-      buildToolDomainService.deleteDependency(project, dependency);
-
-      verify(gradleService).deleteDependency(project, dependency);
-    }
-
-    @Test
-    void shouldAddRepository() {
-      Project project = tmpProjectWithBuildGradle();
-      Repository repository = getRepository();
-
-      buildToolDomainService.addRepository(project, repository);
-
-      verify(gradleService).addRepository(project, repository);
-    }
   }
 
   @Nested
   class NoBuildToolTest {
-
-    @Test
-    void shouldNotAddParent() {
-      Project project = tmpProject();
-      Parent parent = Parent
-        .builder()
-        .groupId("org.springframework.boot")
-        .artifactId("spring-boot-starter-parent")
-        .version("0.0.0")
-        .build();
-
-      assertThatThrownBy(() -> buildToolDomainService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
-    }
 
     @Test
     void shouldNotAddDependency() {
@@ -266,35 +184,10 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldNotAddPluginManagement() {
-      Project project = tmpProject();
-      Plugin plugin = getPlugin();
-
-      assertThatThrownBy(() -> buildToolDomainService.addPluginManagement(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
     void shouldNotAddProperty() {
       Project project = tmpProject();
 
       assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "0.0.0"))
-        .isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
-    void shouldNotAddRepository() {
-      Project project = tmpProject();
-      Repository repository = getRepository();
-
-      assertThatThrownBy(() -> buildToolDomainService.addRepository(project, repository)).isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
-    void shouldNotAddPluginRepository() {
-      Project project = tmpProject();
-      Repository repository = getRepository();
-
-      assertThatThrownBy(() -> buildToolDomainService.addPluginRepository(project, repository))
         .isExactlyInstanceOf(GeneratorException.class);
     }
 
@@ -320,14 +213,6 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldNotDeleteDependency() {
-      Project project = tmpProject();
-      Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
-
-      assertThatThrownBy(() -> buildToolDomainService.deleteDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
     void shouldNotAddDependencyWithoutVersionProperty() {
       when(mavenService.getVersion("spring-boot")).thenReturn(Optional.empty());
       Project project = tmpProjectWithPomXml();
@@ -335,10 +220,6 @@ class BuildToolDomainServiceTest {
       assertThatThrownBy(() -> buildToolDomainService.addVersionPropertyAndDependency(project, "spring-boot", dependency))
         .isExactlyInstanceOf(GeneratorException.class);
     }
-  }
-
-  private Parent getParent() {
-    return Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
   }
 
   private Dependency getDependency() {
@@ -351,9 +232,5 @@ class BuildToolDomainServiceTest {
 
   private Plugin getPlugin() {
     return Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-  }
-
-  private Repository getRepository() {
-    return Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
   }
 }

@@ -12,9 +12,7 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Parent;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 import tech.jhipster.lite.generator.buildtool.maven.domain.Maven;
 import tech.jhipster.lite.generator.project.domain.Project;
 
@@ -23,47 +21,6 @@ class MavenApplicationServiceIT {
 
   @Autowired
   private MavenApplicationService mavenApplicationService;
-
-  @Test
-  void shouldAddParent() {
-    Project project = tmpProjectWithPomXml();
-
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
-    mavenApplicationService.addParent(project, parent);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of(
-        "<parent>",
-        "<groupId>org.springframework.boot</groupId>",
-        "<artifactId>spring-boot-starter-parent</artifactId>",
-        "<version>0.0.0</version>",
-        "<relativePath />",
-        "</parent>"
-      )
-    );
-  }
-
-  @Test
-  void shouldNotAddParentWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
-
-    assertThatThrownBy(() -> mavenApplicationService.addParent(project, parent)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldAddParentOnlyOneTime() throws Exception {
-    Project project = tmpProjectWithPomXml();
-
-    Parent parent = Parent.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-parent").version("0.0.0").build();
-    mavenApplicationService.addParent(project, parent);
-    mavenApplicationService.addParent(project, parent);
-
-    assertFileContentManyTimes(project, POM_XML, Maven.getParentHeader(parent).indent(DEFAULT_INDENTATION), 1);
-  }
 
   @Test
   void shouldAddDependency() {
@@ -237,60 +194,6 @@ class MavenApplicationServiceIT {
   }
 
   @Test
-  void shouldDeleteDependency() {
-    Project project = tmpProjectWithPomXml();
-
-    Dependency dependencyToAdd = Dependency
-      .builder()
-      .groupId("my.group.id")
-      .artifactId("my-dependency")
-      .version("\\${my-dependency.version}")
-      .scope("test")
-      .build();
-
-    mavenApplicationService.addDependency(project, dependencyToAdd);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of(
-        "<dependency>",
-        "<groupId>my.group.id</groupId>",
-        "<artifactId>my-dependency</artifactId>",
-        "<version>${my-dependency.version}</version>",
-        "<scope>test</scope>",
-        "</dependency>"
-      )
-    );
-
-    Dependency dependencyToDelete = Dependency.builder().groupId("my.group.id").artifactId("my-dependency").build();
-
-    mavenApplicationService.deleteDependency(project, dependencyToDelete);
-
-    assertFileNoContent(
-      project,
-      POM_XML,
-      List.of(
-        "<dependency>",
-        "<groupId>my.group.id</groupId>",
-        "<artifactId>my-dependency</artifactId>",
-        "<version>${my-dependency.version}</version>",
-        "<scope>test</scope>",
-        "</dependency>"
-      )
-    );
-  }
-
-  @Test
-  void shouldNotDeleteDependencyWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-    Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
-
-    assertThatThrownBy(() -> mavenApplicationService.deleteDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
   void shouldAddPlugin() {
     Project project = tmpProjectWithPomXml();
 
@@ -339,61 +242,6 @@ class MavenApplicationServiceIT {
   }
 
   @Test
-  void shouldAddPluginInPluginManagement() {
-    Project project = tmpProjectWithPomXml();
-
-    Plugin plugin = Plugin
-      .builder()
-      .groupId("org.springframework.boot")
-      .artifactId("spring-boot-maven-plugin")
-      .additionalElements("""
-      <executions>
-        <execution>
-          <goal>clean</goal>
-        </execution>
-      </executions>""")
-      .build();
-    mavenApplicationService.addPluginManagement(project, plugin);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of(
-        "<plugin>",
-        "<groupId>org.springframework.boot</groupId>",
-        "<artifactId>spring-boot-maven-plugin</artifactId>",
-        "<executions>",
-        "<execution>",
-        "<goal>clean</goal>",
-        "</execution>",
-        "</executions>",
-        "</plugin>",
-        Maven.NEEDLE_PLUGIN_MANAGEMENT
-      )
-    );
-  }
-
-  @Test
-  void shouldAddPluginInPluginManagementWithAdditonalElements() {
-    Project project = tmpProjectWithPomXml();
-
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-    mavenApplicationService.addPluginManagement(project, plugin);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of(
-        "<plugin>",
-        "<groupId>org.springframework.boot</groupId>",
-        "<artifactId>spring-boot-maven-plugin</artifactId>",
-        "</plugin>",
-        Maven.NEEDLE_PLUGIN_MANAGEMENT
-      )
-    );
-  }
-
-  @Test
   void shouldNotAddPluginWhenNoPomXml() throws Exception {
     Project project = tmpProject();
     FileUtils.createFolder(project.getFolder());
@@ -411,29 +259,6 @@ class MavenApplicationServiceIT {
     mavenApplicationService.addPlugin(project, plugin);
 
     assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION), 1);
-  }
-
-  @Test
-  void shouldAddPluginManagementOnlyOneTime() throws Exception {
-    Project project = tmpProjectWithPomXml();
-
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-    mavenApplicationService.addPluginManagement(project, plugin);
-    mavenApplicationService.addPluginManagement(project, plugin);
-
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(4 * DEFAULT_INDENTATION), 1);
-  }
-
-  @Test
-  void shouldAddPluginManagementWithExistingPlugin() throws Exception {
-    Project project = tmpProjectWithPomXml();
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-
-    mavenApplicationService.addPlugin(project, plugin);
-    mavenApplicationService.addPluginManagement(project, plugin);
-
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION), 1);
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(4 * DEFAULT_INDENTATION), 1);
   }
 
   @Test
@@ -485,144 +310,5 @@ class MavenApplicationServiceIT {
     FileUtils.createFolder(project.getFolder());
 
     assertThatThrownBy(() -> mavenApplicationService.deleteProperty(project, "java")).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldAddRepository() {
-    Project project = tmpProjectWithPomXml();
-
-    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
-    mavenApplicationService.addRepository(project, repository);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<repository>", "<id>spring-milestone</id>", "<url>https://repo.spring.io/milestone</url>", "</repository>")
-    );
-  }
-
-  @Test
-  void shouldAddRepositoryWithAdditionalElements() {
-    Project project = tmpProjectWithPomXml();
-
-    Repository repository = Repository
-      .builder()
-      .id("spring-milestone")
-      .url("https://repo.spring.io/milestone")
-      .additionalElements("""
-      <releases>
-        <enabled>false</enabled>
-      </releases>""")
-      .build();
-    mavenApplicationService.addRepository(project, repository);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of(
-        "<repository>",
-        "<id>spring-milestone</id>",
-        "<url>https://repo.spring.io/milestone</url>",
-        "<releases>",
-        "<enabled>false</enabled>",
-        "</releases>",
-        "</repository>"
-      )
-    );
-  }
-
-  @Test
-  void shouldNotAddRepositoryWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
-
-    assertThatThrownBy(() -> mavenApplicationService.addRepository(project, repository)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldAddRepositoryOnlyOneTime() throws Exception {
-    Project project = tmpProjectWithPomXml();
-
-    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
-    mavenApplicationService.addRepository(project, repository);
-    mavenApplicationService.addRepository(project, repository);
-
-    assertFileContentManyTimes(
-      project,
-      POM_XML,
-      Maven.getRepositoryHeader(repository, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
-      1
-    );
-  }
-
-  @Test
-  void shouldAddPluginRepository() {
-    Project project = tmpProjectWithPomXml();
-
-    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
-    mavenApplicationService.addPluginRepository(project, repository);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<pluginRepository>", "<id>spring-milestone</id>", "<url>https://repo.spring.io/milestone</url>", "</pluginRepository>")
-    );
-  }
-
-  @Test
-  void shouldAddPluginRepositoryWithAdditionalElements() {
-    Project project = tmpProjectWithPomXml();
-
-    Repository repository = Repository
-      .builder()
-      .id("spring-milestone")
-      .url("https://repo.spring.io/milestone")
-      .additionalElements("""
-      <releases>
-        <enabled>false</enabled>
-      </releases>""")
-      .build();
-    mavenApplicationService.addPluginRepository(project, repository);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of(
-        "<pluginRepository>",
-        "<id>spring-milestone</id>",
-        "<url>https://repo.spring.io/milestone</url>",
-        "<releases>",
-        "<enabled>false</enabled>",
-        "</releases>",
-        "</pluginRepository>"
-      )
-    );
-  }
-
-  @Test
-  void shouldNotAddPluginRepositoryWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
-
-    assertThatThrownBy(() -> mavenApplicationService.addPluginRepository(project, repository))
-      .isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldAddPluginRepositoryOnlyOneTime() throws Exception {
-    Project project = tmpProjectWithPomXml();
-
-    Repository repository = Repository.builder().id("spring-milestone").url("https://repo.spring.io/milestone").build();
-    mavenApplicationService.addPluginRepository(project, repository);
-    mavenApplicationService.addPluginRepository(project, repository);
-
-    assertFileContentManyTimes(
-      project,
-      POM_XML,
-      Maven.getPluginRepositoryHeader(repository, DEFAULT_INDENTATION).indent(2 * DEFAULT_INDENTATION),
-      1
-    );
   }
 }

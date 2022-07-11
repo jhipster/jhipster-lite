@@ -122,4 +122,19 @@ class KafkaModuleFactoryTest {
       .createFile(TEST_JAVA + "/" + dummyConsumerPath + "/DummyConsumerIT.java")
       .and();
   }
+
+  @Test
+  void shouldBuildKafkaModuleAkhq() {
+    when(dockerImages.get("tchiotludo/akhq")).thenReturn(new DockerImage("tchiotludo/akhq", "1.0.0"));
+
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
+
+    JHipsterModule module = factory.buildModuleAkhq(properties);
+
+    assertThatModuleWithFiles(module, pomFile()).createFile(MAIN_DOCKER + "/akhq.yml").and();
+  }
 }

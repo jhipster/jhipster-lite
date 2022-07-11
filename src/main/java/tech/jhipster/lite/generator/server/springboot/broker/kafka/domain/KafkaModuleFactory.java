@@ -96,4 +96,18 @@ public class KafkaModuleFactory {
 
     return builder.build();
   }
+
+  public JHipsterModule buildModuleAkhq(JHipsterModuleProperties properties) {
+    //@formatter:off
+    final JHipsterModuleBuilder builder = moduleBuilder(properties)
+      .context()
+        .put("akhqDockerImage", dockerImages.get("tchiotludo/akhq").fullName())
+        .and()
+      .files()
+        .add(SOURCE.template("akhq.yml"), toSrcMainDocker().append("akhq.yml"))
+        .and();
+    //@formatter:on
+
+    return builder.build();
+  }
 }

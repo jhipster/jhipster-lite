@@ -18,7 +18,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @Service
-class FileSystemJavaDependenciesCommandsHandler {
+class FileSystemJavaBuildCommandsHandler {
 
   public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, JavaBuildCommands commands) {
     Assert.notNull("indentation", indentation);

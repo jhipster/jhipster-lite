@@ -1,5 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
+import static org.mockito.Mockito.*;
+import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,11 +16,6 @@ import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
-
-import java.util.Optional;
-
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

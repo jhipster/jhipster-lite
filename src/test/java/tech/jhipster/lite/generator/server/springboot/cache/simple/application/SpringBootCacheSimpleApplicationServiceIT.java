@@ -7,7 +7,6 @@ import static tech.jhipster.lite.generator.server.springboot.cache.simple.applic
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
@@ -19,9 +18,6 @@ class SpringBootCacheSimpleApplicationServiceIT {
   private SpringBootCacheSimpleApplicationService springBootCacheSimpleApplicationService;
 
   @Autowired
-  private MavenApplicationService mavenApplicationService;
-
-  @Autowired
   private SpringBootApplicationService springBootApplicationService;
 
   @Test
@@ -31,7 +27,7 @@ class SpringBootCacheSimpleApplicationServiceIT {
 
     TestJHipsterModules.applyInit(project);
 
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
     springBootApplicationService.init(project);
 
     springBootCacheSimpleApplicationService.init(project);

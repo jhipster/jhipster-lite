@@ -71,12 +71,4 @@ public class MavenApplicationService {
   public void addPluginRepository(Project project, Repository repository) {
     mavenService.addPluginRepository(project, repository);
   }
-
-  public void addPomXml(Project project) {
-    mavenService.addJavaPomXml(project);
-  }
-
-  public void addMavenWrapper(Project project) {
-    mavenService.addMavenWrapper(project);
-  }
 }

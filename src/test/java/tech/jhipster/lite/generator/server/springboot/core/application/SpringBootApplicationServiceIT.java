@@ -10,15 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 class SpringBootApplicationServiceIT {
-
-  @Autowired
-  private MavenApplicationService mavenApplicationService;
 
   @Autowired
   private SpringBootApplicationService springBootApplicationService;
@@ -28,8 +24,7 @@ class SpringBootApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig("springBootVersion", "0.0.0");
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
-    mavenApplicationService.addMavenWrapper(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootApplicationService.init(project);
 
@@ -74,7 +69,7 @@ class SpringBootApplicationServiceIT {
     Project project = tmpProject();
     project.addConfig("springBootVersion", "0.0.0");
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootApplicationService.addSpringBootDependenciesBOM(project);
     assertFileContent(project, POM_XML, "<artifactId>spring-boot-dependencies</artifactId>");
@@ -99,7 +94,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddSpringBootDependencies() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootApplicationService.addSpringBootDependencies(project);
 
@@ -123,7 +118,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddSpringBootPluginManagement() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootApplicationService.addSpringBootMavenPluginManagement(project);
 
@@ -164,7 +159,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddSpringBootPlugin() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootApplicationService.addSpringBootMavenPlugin(project);
 
@@ -179,7 +174,7 @@ class SpringBootApplicationServiceIT {
   void shouldAddMainApp() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootApplicationService.addMainApp(project);
 

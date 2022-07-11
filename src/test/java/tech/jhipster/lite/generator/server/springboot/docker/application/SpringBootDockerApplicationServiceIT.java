@@ -7,8 +7,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
-import tech.jhipster.lite.common.domain.WordUtils;
-import tech.jhipster.lite.generator.buildtool.maven.application.MavenApplicationService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
@@ -18,14 +16,11 @@ class SpringBootDockerApplicationServiceIT {
   @Autowired
   private SpringBootDockerApplicationService springBootDockerApplicationService;
 
-  @Autowired
-  private MavenApplicationService mavenApplicationService;
-
   @Test
   void shouldAddJib() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootDockerApplicationService.addJib(project);
 
@@ -47,24 +42,20 @@ class SpringBootDockerApplicationServiceIT {
   void shouldAddJibFiles() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootDockerApplicationService.addJibFiles(project);
 
     assertFileExist(project, "src/main/docker/jib/entrypoint.sh");
 
-    assertFileContent(
-      project,
-      "src/main/docker/jib/entrypoint.sh",
-      project.getPackageName().get() + "." + WordUtils.upperFirst(project.getBaseName().get()) + "App"
-    );
+    assertFileContent(project, "src/main/docker/jib/entrypoint.sh", "com.mycompany.myapp.JhipsterApp");
   }
 
   @Test
   void shouldAddJibPlugin() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
-    mavenApplicationService.addPomXml(project);
+    TestJHipsterModules.applyMaven(project);
 
     springBootDockerApplicationService.addJibPlugin(project);
 

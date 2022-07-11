@@ -21,9 +21,6 @@ public interface MavenService {
   void addRepository(Project project, Repository repository);
   void addPluginRepository(Project project, Repository repository);
 
-  void addJavaPomXml(Project project);
-  void addMavenWrapper(Project project);
-
   Optional<String> getVersion(String name);
 
   Optional<String> getGroupId(String folder);

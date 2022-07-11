@@ -19,15 +19,11 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.broker.kafka.application.KafkaApplicationService;
-import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 @AutoConfigureMockMvc
 class KafkaResourceIT {
-
-  @Autowired
-  private SpringBootApplicationService springBootApplicationService;
 
   @Autowired
   private KafkaApplicationService kafkaApplicationService;
@@ -44,7 +40,7 @@ class KafkaResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     mockMvc
       .perform(
@@ -71,7 +67,7 @@ class KafkaResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
     kafkaApplicationService.init(project);
 
     mockMvc
@@ -99,7 +95,7 @@ class KafkaResourceIT {
     Project project = ProjectDTO.toProject(projectDTO);
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
     kafkaApplicationService.init(project);
 
     mockMvc

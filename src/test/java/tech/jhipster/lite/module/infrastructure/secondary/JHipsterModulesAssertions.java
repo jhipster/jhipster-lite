@@ -24,7 +24,7 @@ public final class JHipsterModulesAssertions {
   }
 
   public static ModuleFile pomFile() {
-    return file("src/test/resources/projects/maven/pom.xml", "pom.xml");
+    return file("src/test/resources/projects/init-maven/pom.xml", "pom.xml");
   }
 
   public static ModuleFile propertiesFile() {

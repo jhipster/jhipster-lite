@@ -51,8 +51,6 @@ public class GeneratorAction {
 
   public static final String LOGSTASH = "logstash";
 
-  public static final String SPRINGBOOT = "springboot";
-
   public static final String DUMMY_FEATURE = "dummy-feature";
 
   public static final String USER_AND_AUTHORITY_ENTITIES_POSTGRESQL = "user-and-authority-entities-postgresql";

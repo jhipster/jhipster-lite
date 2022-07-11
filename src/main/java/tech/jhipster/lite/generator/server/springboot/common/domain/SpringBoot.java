@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.core.domain;
+package tech.jhipster.lite.generator.server.springboot.common.domain;
 
 public class SpringBoot {
 

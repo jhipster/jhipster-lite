@@ -5,14 +5,13 @@ import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.*;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.*;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
+import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBoot.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
@@ -21,15 +20,12 @@ class KafkaApplicationServiceIT {
   @Autowired
   private KafkaApplicationService kafkaApplicationService;
 
-  @Autowired
-  private SpringBootApplicationService springBootApplicationService;
-
   @Test
   void shouldInit() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     kafkaApplicationService.init(project);
     assertFileContent(project, POM_XML, kafkaClients());
@@ -69,7 +65,7 @@ class KafkaApplicationServiceIT {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
     kafkaApplicationService.init(project);
 
     kafkaApplicationService.addDummyProducerConsumer(project);
@@ -112,7 +108,7 @@ class KafkaApplicationServiceIT {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
     kafkaApplicationService.init(project);
 
     kafkaApplicationService.addAkhq(project);

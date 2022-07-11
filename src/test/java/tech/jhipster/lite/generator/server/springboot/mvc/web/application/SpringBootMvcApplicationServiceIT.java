@@ -3,7 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.web.application;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.server.springboot.core.domain.SpringBoot.*;
+import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBoot.*;
 import static tech.jhipster.lite.generator.server.springboot.mvc.web.application.SpringBootMvcAssertFiles.*;
 
 import java.util.List;
@@ -12,14 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.server.springboot.core.application.SpringBootApplicationService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 class SpringBootMvcApplicationServiceIT {
-
-  @Autowired
-  private SpringBootApplicationService springBootApplicationService;
 
   @Autowired
   private SpringBootMvcApplicationService springBootMvcApplicationService;
@@ -29,7 +25,7 @@ class SpringBootMvcApplicationServiceIT {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootMvcApplicationService.init(project);
 
@@ -49,7 +45,7 @@ class SpringBootMvcApplicationServiceIT {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootMvcApplicationService.addSpringBootMvc(project);
 
@@ -70,7 +66,7 @@ class SpringBootMvcApplicationServiceIT {
     project.addConfig("serverPort", 7419);
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootMvcApplicationService.addSpringBootMvc(project);
 
@@ -91,7 +87,7 @@ class SpringBootMvcApplicationServiceIT {
     project.addConfig("serverPort", "chips");
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootMvcApplicationService.addSpringBootMvc(project);
 
@@ -111,7 +107,7 @@ class SpringBootMvcApplicationServiceIT {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootMvcApplicationService.addSpringBootUndertow(project);
 
@@ -132,7 +128,7 @@ class SpringBootMvcApplicationServiceIT {
     project.addConfig("serverPort", 1664);
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootMvcApplicationService.addSpringBootUndertow(project);
 
@@ -152,7 +148,7 @@ class SpringBootMvcApplicationServiceIT {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);
     TestJHipsterModules.applyMaven(project);
-    springBootApplicationService.init(project);
+    TestJHipsterModules.applySpringBootCore(project);
 
     springBootMvcApplicationService.addExceptionHandler(project);
 

@@ -8,6 +8,7 @@ import tech.jhipster.lite.generator.client.angular.core.domain.AngularModuleFact
 import tech.jhipster.lite.generator.init.domain.GitRepository;
 import tech.jhipster.lite.generator.init.domain.InitModuleFactory;
 import tech.jhipster.lite.generator.project.domain.Project;
+import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootCoreModuleFactory;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleEvents;
@@ -22,6 +23,7 @@ public final class TestJHipsterModules {
   private static final InitModuleFactory initModules = new InitModuleFactory(mock(GitRepository.class));
   private static final MavenModuleFactory mavenModules = new MavenModuleFactory();
   private static final AngularModuleFactory angularModules = new AngularModuleFactory();
+  private static final SpringBootCoreModuleFactory springBootModules = new SpringBootCoreModuleFactory();
 
   private TestJHipsterModules() {}
 
@@ -41,6 +43,12 @@ public final class TestJHipsterModules {
     JHipsterModuleProperties properties = new JHipsterModuleProperties(project.getFolder(), project.getConfig());
 
     applyer().module(angularModules.buildModule(properties)).properties(properties).slug("angular").apply();
+  }
+
+  public static void applySpringBootCore(Project project) {
+    JHipsterModuleProperties properties = new JHipsterModuleProperties(project.getFolder(), project.getConfig());
+
+    applyer().module(springBootModules.buildModule(properties)).properties(properties).slug("springboot").apply();
   }
 
   public static void apply(JHipsterModule module) {

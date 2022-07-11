@@ -57,15 +57,6 @@ public class BuildToolDomainService implements BuildToolService {
   }
 
   @Override
-  public void addPlugin(Project project, Plugin plugin) {
-    if (project.isMavenProject()) {
-      mavenService.addPlugin(project, plugin);
-    } else {
-      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
-    }
-  }
-
-  @Override
   public void addProperty(Project project, String key, String value) {
     if (project.isMavenProject()) {
       mavenService.addProperty(project, key, value);

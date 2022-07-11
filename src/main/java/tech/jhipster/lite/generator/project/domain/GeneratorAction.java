@@ -34,8 +34,6 @@ public class GeneratorAction {
   public static final String SPRINGBOOT_JWT = "springboot-jwt";
   public static final String SPRINGBOOT_JWT_BASIC_AUTH = "springboot-jwt-basic-auth";
 
-  public static final String REACT = "react";
-  public static final String REACT_STYLED = "react-styled";
   public static final String REACT_JWT = "react-jwt";
 
   public static final String GITHUB_ACTIONS = "github-actions";

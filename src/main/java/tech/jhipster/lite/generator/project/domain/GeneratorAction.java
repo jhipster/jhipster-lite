@@ -62,10 +62,6 @@ public class GeneratorAction {
 
   public static final String REACT_CYPRESS = "react-cypress";
 
-  public static final String SPRINGBOOT_KAFKA = "springboot-kafka";
-  public static final String SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER = "springboot-kafka-dummy-producer-consumer";
-  public static final String SPRINGBOOT_KAFKA_AKHQ = "springboot-kafka-akhq";
-
   public static final String SPRINGBOOT_PULSAR = "springboot-pulsar";
 
   public static final String SPRINGBOOT_WEBFLUX_NETTY = "springboot-webflux-netty";

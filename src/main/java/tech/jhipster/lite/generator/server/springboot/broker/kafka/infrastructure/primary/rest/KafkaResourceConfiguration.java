@@ -32,4 +32,15 @@ public class KafkaResourceConfiguration {
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add dummy Kafka producer and consumer"))
       .factory(kafkaApplicationService::addDummyProducerConsumer);
   }
+
+  @Bean
+  JHipsterModuleResource kafkaResourceAkhq(final KafkaApplicationService kafkaApplicationService) {
+    return JHipsterModuleResource
+      .builder()
+      .legacyUrl("/api/servers/spring-boot/brokers/kafka/akhq")
+      .slug("springboot-kafka-akhq")
+      .withoutProperties()
+      .apiDoc(new JHipsterModuleApiDoc(TAG, "Add AKHQ"))
+      .factory(kafkaApplicationService::addAkhq);
+  }
 }

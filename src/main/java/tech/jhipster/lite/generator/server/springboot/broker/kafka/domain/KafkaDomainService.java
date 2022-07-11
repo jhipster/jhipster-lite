@@ -8,7 +8,6 @@ import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_IMAGE;
 
 import tech.jhipster.lite.docker.domain.DockerImages;
-import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
@@ -22,8 +21,6 @@ public class KafkaDomainService implements KafkaService {
   private static final String DUMMY_PRODUCER_PATH = "dummy/infrastructure/secondary/kafka/producer";
   private static final String DUMMY_CONSUMER_PATH = "dummy/infrastructure/primary/kafka/consumer";
 
-  private final BuildToolService buildToolService;
-
   private final ProjectRepository projectRepository;
 
   private final SpringBootCommonService springBootCommonService;
@@ -31,12 +28,10 @@ public class KafkaDomainService implements KafkaService {
   private final DockerImages dockerImages;
 
   public KafkaDomainService(
-    final BuildToolService buildToolService,
     final ProjectRepository projectRepository,
     final SpringBootCommonService springBootCommonService,
     final DockerImages dockerImages
   ) {
-    this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
     this.dockerImages = dockerImages;

@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.infrastructu
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.docker.domain.DockerImages;
-import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.KafkaDomainService;
 import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.KafkaService;
@@ -12,8 +11,6 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 @Configuration
 public class KafkaBeanConfiguration {
 
-  private final BuildToolService buildToolService;
-
   private final ProjectRepository projectRepository;
 
   private final SpringBootCommonService springBootCommonService;
@@ -21,12 +18,10 @@ public class KafkaBeanConfiguration {
   private final DockerImages dockerImages;
 
   public KafkaBeanConfiguration(
-    final BuildToolService buildToolService,
     final ProjectRepository projectRepository,
     final SpringBootCommonService springBootCommonService,
     final DockerImages dockerImages
   ) {
-    this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
     this.dockerImages = dockerImages;
@@ -34,6 +29,6 @@ public class KafkaBeanConfiguration {
 
   @Bean
   public KafkaService kafkaService() {
-    return new KafkaDomainService(buildToolService, projectRepository, springBootCommonService, dockerImages);
+    return new KafkaDomainService(projectRepository, springBootCommonService, dockerImages);
   }
 }

@@ -1,23 +1,21 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
-import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.*;
-import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Kafka.*;
-import static tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommon.*;
-
-import java.util.TreeMap;
-import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
-import tech.jhipster.lite.generator.readme.domain.ReadMeService;
 import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCommonService;
+
+import java.util.TreeMap;
+
+import static tech.jhipster.lite.common.domain.FileUtils.getPath;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.BASE_NAME;
+import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_NAME;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
+import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_IMAGE;
 
 public class KafkaDomainService implements KafkaService {
 
@@ -34,55 +32,16 @@ public class KafkaDomainService implements KafkaService {
 
   private final DockerImages dockerImages;
 
-  private final ReadMeService readMeService;
-
   public KafkaDomainService(
     final BuildToolService buildToolService,
     final ProjectRepository projectRepository,
     final SpringBootCommonService springBootCommonService,
-    final DockerImages dockerImages,
-    final ReadMeService readMeService
+    final DockerImages dockerImages
   ) {
     this.buildToolService = buildToolService;
     this.projectRepository = projectRepository;
     this.springBootCommonService = springBootCommonService;
     this.dockerImages = dockerImages;
-    this.readMeService = readMeService;
-  }
-
-  @Override
-  public void init(final Project project) {
-    addApacheKafkaClient(project);
-    addDockerCompose(project);
-    addProperties(project);
-    addTestcontainers(project);
-    addConfiguration(project);
-    addReadMeSection(project);
-  }
-
-  private void addConfiguration(final Project project) {
-    final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    final String configKafkaPath = TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka";
-
-    projectRepository.template(
-      ProjectFile
-        .forProject(project)
-        .withSource(SOURCE, "KafkaProperties.java")
-        .withDestinationFolder(getPath(MAIN_JAVA, packageNamePath, configKafkaPath))
-    );
-    projectRepository.template(
-      ProjectFile
-        .forProject(project)
-        .withSource(SOURCE, "KafkaPropertiesTest.java")
-        .withDestinationFolder(getPath(TEST_JAVA, packageNamePath, configKafkaPath))
-    );
-
-    projectRepository.template(
-      ProjectFile
-        .forProject(project)
-        .withSource(SOURCE, "KafkaConfiguration.java")
-        .withDestinationFolder(getPath(MAIN_JAVA, packageNamePath, TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka"))
-    );
   }
 
   @Override
@@ -152,32 +111,6 @@ public class KafkaDomainService implements KafkaService {
     );
   }
 
-  private void addApacheKafkaClient(final Project project) {
-    final Dependency dependency = Dependency.builder().groupId("org.apache.kafka").artifactId("kafka-clients").build();
-    buildToolService.addDependency(project, dependency);
-  }
-
-  private void addDockerCompose(final Project project) {
-    final String zookeeperDockerImage = dockerImages.get(Zookeeper.ZOOKEEPER_DOCKER_IMAGE).fullName();
-    final String kafkaDockerImage = dockerImages.get(KAFKA_DOCKER_IMAGE).fullName();
-
-    project.addDefaultConfig(BASE_NAME);
-    project.addConfig("zookeeperDockerImage", zookeeperDockerImage);
-    project.addConfig("kafkaDockerImage", kafkaDockerImage);
-    projectRepository.template(
-      ProjectFile.forProject(project).withSource(SOURCE, KAFKA_DOCKER_COMPOSE_FILE).withDestination(MAIN_DOCKER, KAFKA_DOCKER_COMPOSE_FILE)
-    );
-  }
-
-  private void addProperties(final Project project) {
-    final String kebabBaseName = WordUtils.kebabCase(project.getBaseName().orElse(DEFAULT_BASE_NAME));
-    getKafkaCommonProperties(kebabBaseName)
-      .forEach((k, v) -> {
-        springBootCommonService.addProperties(project, k, v);
-        springBootCommonService.addPropertiesTest(project, k, v);
-      });
-  }
-
   private TreeMap<String, Object> getKafkaCommonProperties(final String kebabBaseName) {
     final TreeMap<String, Object> result = new TreeMap<>();
 
@@ -192,27 +125,5 @@ public class KafkaDomainService implements KafkaService {
     result.put("kafka.polling.timeout", "10000");
 
     return result;
-  }
-
-  void addTestcontainers(final Project project) {
-    final String packageNamePath = project.getPackageNamePath().orElse(getPath(DefaultConfig.PACKAGE_PATH));
-    projectRepository.template(
-      ProjectFile
-        .forProject(project)
-        .withSource(SOURCE, "KafkaTestContainerExtension.java")
-        .withDestinationFolder(getPath(TEST_JAVA, packageNamePath))
-    );
-    buildToolService.addVersionPropertyAndDependency(project, "testcontainers", testContainersDependency("kafka"));
-    springBootCommonService.updateIntegrationTestAnnotation(project, "KafkaTestContainerExtension");
-  }
-
-  private void addReadMeSection(final Project project) {
-    readMeService.addSection(
-      project,
-      "## Apache Kafka",
-      """
-      Before to launch `./mvnw spring-boot:run`, please launch the following command in the root directory: `docker-compose -f src/main/docker/kafka.yml up`.
-      """
-    );
   }
 }

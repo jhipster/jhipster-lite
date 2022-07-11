@@ -23,6 +23,7 @@ import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDepende
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies.JHipsterModuleJavaDependenciesBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyGroupIdBuilder;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties.JHipsterModuleSpringPropertiesBuilder;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
@@ -111,6 +112,10 @@ public class JHipsterModule {
 
   public static JavaDependencyGroupIdBuilder javaDependency() {
     return JavaDependency.builder();
+  }
+
+  public static JavaDependencyVersion javaDependencyVersion(String slug, String version) {
+    return new JavaDependencyVersion(slug, version);
   }
 
   public static JavaBuildPluginGroupIdBuilder javaBuildPlugin() {

@@ -65,6 +65,7 @@ public final class JHipsterModulesFixture {
         .and()
       .and()
     .javaDependencies()
+      .version(new JavaDependencyVersion("dummy-dependency", "4.5.8"))
       .dependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter"))
       .dependency(groupId("org.zalando"), artifactId("problem-spring-web"), versionSlug("problem-spring"))
       .dependency(groupId("io.jsonwebtoken"), artifactId("jjwt-api"), versionSlug("jjwt.version"))

@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.application;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.docker.domain.DockerImages;
-import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.KafkaModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;

@@ -11,6 +11,9 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 public class KafkaModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/broker/kafka");
+  private static final String TECHNICAL_INFRASTRUCTURE_CONFIG_KAFKA = "/technical/infrastructure/config/kafka";
+  private static final String DUMMY_INFRASTRUCTURE_SECONDARY_KAFKA_PRODUCER = "dummy/infrastructure/secondary/kafka/producer";
+  private static final String DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER = "dummy/infrastructure/primary/kafka/consumer";
 
   private final DockerImages dockerImages;
 
@@ -20,7 +23,6 @@ public class KafkaModuleFactory {
 
   public JHipsterModule buildModuleInit(final JHipsterModuleProperties properties) {
     //@formatter:off
-    var kafkaConfigPath = "/technical/infrastructure/config/kafka";
     final JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
         .put("zookeeperDockerImage", dockerImages.get("confluentinc/cp-zookeeper").fullName())
@@ -34,9 +36,9 @@ public class KafkaModuleFactory {
       .files()
         .add(SOURCE.template("kafka.yml"), toSrcMainDocker().append("kafka.yml"))
         .add(SOURCE.template("KafkaTestContainerExtension.java"), toSrcTestJava().append("/server/springboot/broker/kafka/KafkaTestContainerExtension.java"))
-        .add(SOURCE.template("KafkaPropertiesTest.java"), toSrcTestJava().append(kafkaConfigPath + "/KafkaPropertiesTest.java"))
-        .add(SOURCE.template("KafkaProperties.java"), toSrcMainJava().append(kafkaConfigPath + "/KafkaProperties.java"))
-        .add(SOURCE.template("KafkaConfiguration.java"), toSrcMainJava().append(kafkaConfigPath + "/KafkaConfiguration.java"))
+        .add(SOURCE.template("KafkaPropertiesTest.java"), toSrcTestJava().append(TECHNICAL_INFRASTRUCTURE_CONFIG_KAFKA + "/KafkaPropertiesTest.java"))
+        .add(SOURCE.template("KafkaProperties.java"), toSrcMainJava().append(TECHNICAL_INFRASTRUCTURE_CONFIG_KAFKA + "/KafkaProperties.java"))
+        .add(SOURCE.template("KafkaConfiguration.java"), toSrcMainJava().append(TECHNICAL_INFRASTRUCTURE_CONFIG_KAFKA + "/KafkaConfiguration.java"))
         .and()
       .mandatoryReplacements()
         .in(TEST_JAVA + "/" + properties.basePackage().path() + "/IntegrationTest.java")
@@ -72,9 +74,6 @@ public class KafkaModuleFactory {
   }
 
   public JHipsterModule buildModuleDummyProducerConsumer(final JHipsterModuleProperties properties) {
-    var dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
-    var dummyConsumerPath = "dummy/infrastructure/primary/kafka/consumer";
-
     //@formatter:off
     final JHipsterModuleBuilder builder = moduleBuilder(properties)
       .springMainProperties()
@@ -84,13 +83,13 @@ public class KafkaModuleFactory {
         .set(propertyKey("kafka.topic.dummy"), propertyValue("queue." + properties.projectBaseName().name() + ".dummy"))
         .and()
       .files()
-        .add(SOURCE.template("DummyProducer.java"), toSrcMainJava().append(dummyProducerPath + "/DummyProducer.java"))
-        .add(SOURCE.template("DummyProducerTest.java"), toSrcTestJava().append(dummyProducerPath + "/DummyProducerTest.java"))
-        .add(SOURCE.template("DummyProducerIT.java"), toSrcTestJava().append(dummyProducerPath + "/DummyProducerIT.java"))
-        .add(SOURCE.template("AbstractConsumer.java"), toSrcMainJava().append(dummyConsumerPath + "/AbstractConsumer.java"))
-        .add(SOURCE.template("DummyConsumer.java"), toSrcMainJava().append(dummyConsumerPath + "/DummyConsumer.java"))
-        .add(SOURCE.template("DummyConsumerTest.java"), toSrcTestJava().append(dummyConsumerPath + "/DummyConsumerTest.java"))
-        .add(SOURCE.template("DummyConsumerIT.java"), toSrcTestJava().append(dummyConsumerPath + "/DummyConsumerIT.java"))
+        .add(SOURCE.template("DummyProducer.java"), toSrcMainJava().append(DUMMY_INFRASTRUCTURE_SECONDARY_KAFKA_PRODUCER + "/DummyProducer.java"))
+        .add(SOURCE.template("DummyProducerTest.java"), toSrcTestJava().append(DUMMY_INFRASTRUCTURE_SECONDARY_KAFKA_PRODUCER + "/DummyProducerTest.java"))
+        .add(SOURCE.template("DummyProducerIT.java"), toSrcTestJava().append(DUMMY_INFRASTRUCTURE_SECONDARY_KAFKA_PRODUCER + "/DummyProducerIT.java"))
+        .add(SOURCE.template("AbstractConsumer.java"), toSrcMainJava().append(DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER + "/AbstractConsumer.java"))
+        .add(SOURCE.template("DummyConsumer.java"), toSrcMainJava().append(DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER + "/DummyConsumer.java"))
+        .add(SOURCE.template("DummyConsumerTest.java"), toSrcTestJava().append(DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER + "/DummyConsumerTest.java"))
+        .add(SOURCE.template("DummyConsumerIT.java"), toSrcTestJava().append(DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER + "/DummyConsumerIT.java"))
         .and();
     //@formatter:on
 

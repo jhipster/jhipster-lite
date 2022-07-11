@@ -14,11 +14,11 @@ public class KafkaModuleFactory {
 
   private final DockerImages dockerImages;
 
-  public KafkaModuleFactory(DockerImages dockerImages) {
+  public KafkaModuleFactory(final DockerImages dockerImages) {
     this.dockerImages = dockerImages;
   }
 
-  public JHipsterModule buildModuleInit(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModuleInit(final JHipsterModuleProperties properties) {
     //@formatter:off
     final JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
@@ -68,5 +68,19 @@ public class KafkaModuleFactory {
     return """
   import org.junit.jupiter.api.extension.ExtendWith;
   import org.springframework.boot.test.context.SpringBootTest;""";
+  }
+
+  public JHipsterModule buildModuleDummyProducerConsumer(final JHipsterModuleProperties properties) {
+    //@formatter:off
+    final JHipsterModuleBuilder builder = moduleBuilder(properties)
+      .springMainProperties()
+        .set(propertyKey("kafka.topic.dummy"), propertyValue("queue." + properties.projectBaseName().name() + ".dummy"))
+        .and()
+      .springTestProperties()
+        .set(propertyKey("kafka.topic.dummy"), propertyValue("queue." + properties.projectBaseName().name() + ".dummy"))
+        .and();
+    //@formatter:on
+
+    return builder.build();
   }
 }

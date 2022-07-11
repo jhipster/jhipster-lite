@@ -28,7 +28,7 @@ class KafkaModuleFactoryTest {
   private KafkaModuleFactory factory;
 
   @Test
-  void shouldBuildKafkaModule() {
+  void shouldBuildKafkaModuleInit() {
     when(dockerImages.get("confluentinc/cp-zookeeper")).thenReturn(new DockerImage("confluentinc/cp-zookeeper", "1.0.0"));
     when(dockerImages.get("confluentinc/cp-kafka")).thenReturn(new DockerImage("confluentinc/cp-kafka", "1.0.0"));
 
@@ -84,6 +84,25 @@ class KafkaModuleFactoryTest {
       .createPrefixedFiles("documentation", "apache-kafka.md")
       .createFile("README.md")
       .containing("[Apache Kafka](documentation/apache-kafka.md)")
+      .and();
+  }
+
+  @Test
+  void shouldBuildKafkaModuleDummyProducerConsumer() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
+
+    JHipsterModule module = factory.buildModuleDummyProducerConsumer(properties);
+
+    assertThatModuleWithFiles(module, pomFile())
+      .createFile(MAIN_RESOURCES + "/config/application.properties")
+      .containing("kafka.topic.dummy=queue.myapp.dummy")
+      .and()
+      .createFile(TEST_RESOURCES + "/config/application.properties")
+      .containing("kafka.topic.dummy=queue.myapp.dummy")
       .and();
   }
 }

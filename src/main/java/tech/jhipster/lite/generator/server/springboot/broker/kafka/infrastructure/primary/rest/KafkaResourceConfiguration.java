@@ -12,7 +12,7 @@ public class KafkaResourceConfiguration {
   private static final String TAG = "Spring Boot - Broker";
 
   @Bean
-  JHipsterModuleResource kafkaResourceInit(KafkaApplicationService kafkaApplicationService) {
+  JHipsterModuleResource kafkaResourceInit(final KafkaApplicationService kafkaApplicationService) {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/brokers/kafka")
@@ -20,5 +20,16 @@ public class KafkaResourceConfiguration {
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add Kafka dependencies, with testcontainers"))
       .factory(kafkaApplicationService::init);
+  }
+
+  @Bean
+  JHipsterModuleResource kafkaResourceDummyProducerConsumer(final KafkaApplicationService kafkaApplicationService) {
+    return JHipsterModuleResource
+      .builder()
+      .legacyUrl("/api/servers/spring-boot/brokers/kafka/dummy-producer-consumer")
+      .slug("springboot-kafka-dummy-producer-consumer")
+      .withoutProperties()
+      .apiDoc(new JHipsterModuleApiDoc(TAG, "Add dummy Kafka producer and consumer"))
+      .factory(kafkaApplicationService::addDummyProducerConsumer);
   }
 }

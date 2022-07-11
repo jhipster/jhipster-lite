@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
 
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,18 +33,6 @@ class KafkaDomainServiceTest {
   private KafkaDomainService kafkaDomainService;
 
   @Test
-  void shouldAddProducerConsumer() {
-    Project project = tmpProjectWithPomXml();
-
-    when(springBootCommonService.getProperty(eq(project), anyString())).thenReturn(Optional.empty());
-    kafkaDomainService.addDummyProducerConsumer(project);
-
-    verify(springBootCommonService).addProperties(eq(project), anyString(), any());
-    verify(springBootCommonService).addPropertiesTest(eq(project), anyString(), any());
-    verify(projectRepository, times(7)).template(any(ProjectFile.class));
-  }
-
-  @Test
   void shouldAddAkhq() {
     Project project = tmpProjectWithPomXml();
     when(dockerImages.get(anyString())).thenReturn(new DockerImage("dummy", "1"));
@@ -54,15 +41,5 @@ class KafkaDomainServiceTest {
 
     verify(dockerImages).get(anyString());
     verify(projectRepository).template(any(ProjectFile.class));
-  }
-
-  @Test
-  void shouldNotAddProducerConsumer() {
-    Project project = tmpProjectWithPomXml();
-
-    when(springBootCommonService.getProperty(eq(project), anyString())).thenReturn(Optional.of("queue.jhipster.dummy"));
-    kafkaDomainService.addDummyProducerConsumer(project);
-
-    verify(springBootCommonService).getProperty(eq(project), anyString());
   }
 }

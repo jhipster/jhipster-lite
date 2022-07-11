@@ -24,15 +24,6 @@ class KafkaResource {
     this.kafkaApplicationService = kafkaApplicationService;
   }
 
-  @Operation(summary = "Add dummy Kafka producer and consumer")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding dummy Kafka producer and consumer")
-  @PostMapping("/dummy-producer-consumer")
-  @GeneratorStep(id = GeneratorAction.SPRINGBOOT_KAFKA_DUMMY_PRODUCER_CONSUMER)
-  public void addDummyProducerConsumer(final @RequestBody ProjectDTO projectDTO) {
-    final Project project = ProjectDTO.toProject(projectDTO);
-    kafkaApplicationService.addDummyProducerConsumer(project);
-  }
-
   @Operation(summary = "Add AKHQ")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding AKHQ")
   @PostMapping("/akhq")

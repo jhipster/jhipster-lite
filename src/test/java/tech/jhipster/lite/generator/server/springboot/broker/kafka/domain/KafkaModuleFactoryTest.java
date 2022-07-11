@@ -97,12 +97,29 @@ class KafkaModuleFactoryTest {
 
     JHipsterModule module = factory.buildModuleDummyProducerConsumer(properties);
 
+    var dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
+    var dummyConsumerPath = "dummy/infrastructure/primary/kafka/consumer";
+
     assertThatModuleWithFiles(module, pomFile())
       .createFile(MAIN_RESOURCES + "/config/application.properties")
       .containing("kafka.topic.dummy=queue.myapp.dummy")
       .and()
       .createFile(TEST_RESOURCES + "/config/application.properties")
       .containing("kafka.topic.dummy=queue.myapp.dummy")
+      .and()
+      .createFile(MAIN_JAVA + "/" + dummyProducerPath + "/DummyProducer.java")
+      .and()
+      .createFile(TEST_JAVA + "/" + dummyProducerPath + "/DummyProducerTest.java")
+      .and()
+      .createFile(TEST_JAVA + "/" + dummyProducerPath + "/DummyProducerIT.java")
+      .and()
+      .createFile(MAIN_JAVA + "/" + dummyConsumerPath + "/AbstractConsumer.java")
+      .and()
+      .createFile(MAIN_JAVA + "/" + dummyConsumerPath + "/DummyConsumer.java")
+      .and()
+      .createFile(TEST_JAVA + "/" + dummyConsumerPath + "/DummyConsumerTest.java")
+      .and()
+      .createFile(TEST_JAVA + "/" + dummyConsumerPath + "/DummyConsumerIT.java")
       .and();
   }
 }

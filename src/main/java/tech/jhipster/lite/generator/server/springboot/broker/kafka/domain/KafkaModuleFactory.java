@@ -20,6 +20,7 @@ public class KafkaModuleFactory {
 
   public JHipsterModule buildModuleInit(final JHipsterModuleProperties properties) {
     //@formatter:off
+    var kafkaConfigPath = "/technical/infrastructure/config/kafka";
     final JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
         .put("zookeeperDockerImage", dockerImages.get("confluentinc/cp-zookeeper").fullName())
@@ -33,9 +34,9 @@ public class KafkaModuleFactory {
       .files()
         .add(SOURCE.template("kafka.yml"), toSrcMainDocker().append("kafka.yml"))
         .add(SOURCE.template("KafkaTestContainerExtension.java"), toSrcTestJava().append("/server/springboot/broker/kafka/KafkaTestContainerExtension.java"))
-        .add(SOURCE.template("KafkaPropertiesTest.java"), toSrcTestJava().append("/technical/infrastructure/config//kafka/KafkaPropertiesTest.java"))
-        .add(SOURCE.template("KafkaProperties.java"), toSrcMainJava().append("/technical/infrastructure/config/kafka/KafkaProperties.java"))
-        .add(SOURCE.template("KafkaConfiguration.java"), toSrcMainJava().append("/technical/infrastructure/config/kafka/KafkaConfiguration.java"))
+        .add(SOURCE.template("KafkaPropertiesTest.java"), toSrcTestJava().append(kafkaConfigPath + "/KafkaPropertiesTest.java"))
+        .add(SOURCE.template("KafkaProperties.java"), toSrcMainJava().append(kafkaConfigPath + "/KafkaProperties.java"))
+        .add(SOURCE.template("KafkaConfiguration.java"), toSrcMainJava().append(kafkaConfigPath + "/KafkaConfiguration.java"))
         .and()
       .mandatoryReplacements()
         .in(TEST_JAVA + "/" + properties.basePackage().path() + "/IntegrationTest.java")
@@ -71,6 +72,9 @@ public class KafkaModuleFactory {
   }
 
   public JHipsterModule buildModuleDummyProducerConsumer(final JHipsterModuleProperties properties) {
+    var dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
+    var dummyConsumerPath = "dummy/infrastructure/primary/kafka/consumer";
+
     //@formatter:off
     final JHipsterModuleBuilder builder = moduleBuilder(properties)
       .springMainProperties()
@@ -78,6 +82,15 @@ public class KafkaModuleFactory {
         .and()
       .springTestProperties()
         .set(propertyKey("kafka.topic.dummy"), propertyValue("queue." + properties.projectBaseName().name() + ".dummy"))
+        .and()
+      .files()
+        .add(SOURCE.template("DummyProducer.java"), toSrcMainJava().append(dummyProducerPath + "/DummyProducer.java"))
+        .add(SOURCE.template("DummyProducerTest.java"), toSrcTestJava().append(dummyProducerPath + "/DummyProducerTest.java"))
+        .add(SOURCE.template("DummyProducerIT.java"), toSrcTestJava().append(dummyProducerPath + "/DummyProducerIT.java"))
+        .add(SOURCE.template("AbstractConsumer.java"), toSrcMainJava().append(dummyConsumerPath + "/AbstractConsumer.java"))
+        .add(SOURCE.template("DummyConsumer.java"), toSrcMainJava().append(dummyConsumerPath + "/DummyConsumer.java"))
+        .add(SOURCE.template("DummyConsumerTest.java"), toSrcTestJava().append(dummyConsumerPath + "/DummyConsumerTest.java"))
+        .add(SOURCE.template("DummyConsumerIT.java"), toSrcTestJava().append(dummyConsumerPath + "/DummyConsumerIT.java"))
         .and();
     //@formatter:on
 

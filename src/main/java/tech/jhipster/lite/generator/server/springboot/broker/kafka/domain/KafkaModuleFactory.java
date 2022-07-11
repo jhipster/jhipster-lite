@@ -38,7 +38,7 @@ public class KafkaModuleFactory {
         .add(SOURCE.template("KafkaConfiguration.java"), toSrcMainJava().append("/technical/infrastructure/config/kafka/KafkaConfiguration.java"))
         .and()
       .mandatoryReplacements()
-        .in(TEST_JAVA + "/IntegrationTest.java")
+        .in(TEST_JAVA + "/" + properties.basePackage().path() + "/IntegrationTest.java")
           .add(text("import org.springframework.boot.test.context.SpringBootTest;"), importExtendWith())
           .add(text("public @interface"), extendWith())
           .and()

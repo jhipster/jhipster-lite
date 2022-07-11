@@ -45,7 +45,7 @@ class KafkaModuleFactoryTest {
       pomFile(),
       new ModuleFile(
         "src/main/resources/generator/server/springboot/core/IntegrationTest.java.mustache",
-        TEST_JAVA + "/IntegrationTest.java"
+        TEST_JAVA + "/" + properties.basePackage().path() + "/IntegrationTest.java"
       ),
       readmeFile()
     )
@@ -72,7 +72,7 @@ class KafkaModuleFactoryTest {
       .containing("kafka.producer.value.serializer=org.apache.kafka.common.serialization.StringSerializer")
       .containing("kafka.polling.timeout=10000")
       .and()
-      .createFile(TEST_JAVA + "/IntegrationTest.java")
+      .createFile(TEST_JAVA + "/" + properties.basePackage().path() + "/IntegrationTest.java")
       .containing("@ExtendWith(KafkaTestContainerExtension.class)")
       .and()
       .createFile(MAIN_JAVA + "/" + TECHNICAL_INFRASTRUCTURE_CONFIG + "/kafka/KafkaProperties.java")

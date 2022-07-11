@@ -38,7 +38,13 @@ class FileSystemJHipsterModulesRepositoryTest {
         .containing("com.test.myapp")
         .and()
       .createFile("pom.xml")
-      .containing("<dummy-dependency.version>4.5.8</dummy-dependency.version>") 
+      .containing("<dummy-dependency.version>4.5.8</dummy-dependency.version>")
+      .notContaining("""
+              <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+              </dependency>
+          """)
       .containing(
           """
                 <dependency>

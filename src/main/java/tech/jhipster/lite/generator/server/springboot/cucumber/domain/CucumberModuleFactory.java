@@ -53,12 +53,12 @@ public class CucumberModuleFactory {
       .add(SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
       .and()
     .javaDependencies()
-      .dependency(cucumberJunitDependency())
-      .dependency(cucumberJavaDependency())
-      .dependency(cucumberSpringDependency())
-      .dependency(junitVintageDependency())
-      .dependency(testNgDependency())
-      .dependency(awaitilityDependency())
+      .addDependency(cucumberJunitDependency())
+      .addDependency(cucumberJavaDependency())
+      .addDependency(cucumberSpringDependency())
+      .addDependency(junitVintageDependency())
+      .addDependency(testNgDependency())
+      .addDependency(awaitilityDependency())
       .and();
     //@formatter:on
 

@@ -2,7 +2,6 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.mockito.Mockito.*;
 
-import tech.jhipster.lite.common.infrastructure.secondary.FileSystemProjectFilesReader;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenModuleFactory;
 import tech.jhipster.lite.generator.client.angular.core.domain.AngularModuleFactory;
@@ -16,6 +15,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.npm.infrastructure.secondary.FileSystemNpmVersions;
+import tech.jhipster.lite.projectfile.infrastructure.secondary.FileSystemProjectFilesReader;
 
 public final class TestJHipsterModules {
 

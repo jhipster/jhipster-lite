@@ -1,12 +1,12 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import org.springframework.stereotype.Repository;
-import tech.jhipster.lite.common.domain.ProjectFilesReader;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModuleChanges;
 import tech.jhipster.lite.module.domain.JHipsterModulesRepository;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModuleExecutionContext;
 import tech.jhipster.lite.npm.domain.NpmVersions;
+import tech.jhipster.lite.projectfile.domain.ProjectFilesReader;
 
 @Repository
 class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {

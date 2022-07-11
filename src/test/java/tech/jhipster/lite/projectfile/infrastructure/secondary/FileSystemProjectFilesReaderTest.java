@@ -1,4 +1,4 @@
-package tech.jhipster.lite.common.infrastructure.secondary;
+package tech.jhipster.lite.projectfile.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -6,8 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.ProjectFilesReader;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.projectfile.domain.ProjectFilesReader;
 
 @UnitTest
 class FileSystemProjectFilesReaderTest {

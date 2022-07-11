@@ -2,13 +2,14 @@ package tech.jhipster.lite.module.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.File;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 
 @UnitTest
 class LooseProjectFolderTest {
+
+  private static final String ENDING_BY_UUID_REGEX = ".*\\w{8}(-\\w{4}){3}-\\w{12}$";
 
   private final LooseProjectFolder looseProjectFolder = new LooseProjectFolder();
 
@@ -19,6 +20,8 @@ class LooseProjectFolderTest {
 
   @Test
   void shouldGetValidPath() {
-    assertThat(looseProjectFolder.generatePath()).matches("^" + SystemUtils.JAVA_IO_TMPDIR + File.separator + ".{36}$");
+    assertThat(looseProjectFolder.generatePath())
+      .startsWith(PathUtil.appendFileSeparatorIfNeeded(SystemUtils.JAVA_IO_TMPDIR))
+      .matches(ENDING_BY_UUID_REGEX);
   }
 }

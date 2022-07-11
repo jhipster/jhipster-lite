@@ -9,6 +9,8 @@ import tech.jhipster.lite.UnitTest;
 @UnitTest
 class ForcedProjectFolderTest {
 
+  private static final String ENDING_BY_UUID_REGEX = ".*\\w{8}(-\\w{4}){3}-\\w{12}$";
+
   private final ForcedProjectFolder forcedProjectFolder = new ForcedProjectFolder("/tmp/jhipster");
 
   @Test
@@ -28,6 +30,6 @@ class ForcedProjectFolderTest {
 
   @Test
   void shouldGetValidPath() {
-    assertThat(forcedProjectFolder.generatePath()).matches("^/tmp/jhipster" + File.separator + ".{36}$");
+    assertThat(forcedProjectFolder.generatePath()).startsWith("/tmp/jhipster" + File.separator).matches(ENDING_BY_UUID_REGEX);
   }
 }

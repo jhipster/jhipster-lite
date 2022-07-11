@@ -1,6 +1,5 @@
 package tech.jhipster.lite.module.domain;
 
-import java.io.File;
 import java.util.UUID;
 import tech.jhipster.lite.error.domain.Assert;
 
@@ -23,6 +22,6 @@ public class ForcedProjectFolder implements JHipsterProjectFolderFactory {
 
   @Override
   public String generatePath() {
-    return prefix.replaceAll("([^" + File.separator + "])$", "$1" + File.separator) + UUID.randomUUID();
+    return PathUtil.appendFileSeparatorIfNeeded(prefix) + UUID.randomUUID();
   }
 }

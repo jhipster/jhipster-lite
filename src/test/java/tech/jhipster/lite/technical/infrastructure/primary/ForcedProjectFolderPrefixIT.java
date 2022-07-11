@@ -1,6 +1,6 @@
 package tech.jhipster.lite.technical.infrastructure.primary;
 
-import static org.hamcrest.Matchers.matchesRegex;
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -45,6 +45,6 @@ class ForcedProjectFolderPrefixIT {
 
   @Test
   void shouldGetProject() throws Exception {
-    mockMvc.perform(get("/api/project-folders")).andExpect(content().string(matchesRegex("^/forced-tmp/.{36}$")));
+    mockMvc.perform(get("/api/project-folders")).andExpect(content().string(containsString("forced-tmp")));
   }
 }

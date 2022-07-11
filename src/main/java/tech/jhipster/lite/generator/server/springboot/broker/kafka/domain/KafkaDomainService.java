@@ -7,7 +7,6 @@ import static tech.jhipster.lite.generator.project.domain.DefaultConfig.PACKAGE_
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_COMPOSE_FILE;
 import static tech.jhipster.lite.generator.server.springboot.broker.kafka.domain.Akhq.AKHQ_DOCKER_IMAGE;
 
-import java.util.TreeMap;
 import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.DefaultConfig;
@@ -108,21 +107,5 @@ public class KafkaDomainService implements KafkaService {
     projectRepository.template(
       ProjectFile.forProject(project).withSource(SOURCE, AKHQ_DOCKER_COMPOSE_FILE).withDestination(MAIN_DOCKER, AKHQ_DOCKER_COMPOSE_FILE)
     );
-  }
-
-  private TreeMap<String, Object> getKafkaCommonProperties(final String kebabBaseName) {
-    final TreeMap<String, Object> result = new TreeMap<>();
-
-    result.put("# Kafka Configuration", "");
-    result.put("kafka.bootstrap-servers", "localhost:9092");
-    result.put("kafka.consumer.'[key.deserializer]'", "org.apache.kafka.common.serialization.StringDeserializer");
-    result.put("kafka.consumer.'[value.deserializer]'", "org.apache.kafka.common.serialization.StringDeserializer");
-    result.put("kafka.consumer.'[group.id]'", kebabBaseName);
-    result.put("kafka.consumer.'[auto.offset.reset]'", "earliest");
-    result.put("kafka.producer.'[key.serializer]'", "org.apache.kafka.common.serialization.StringSerializer");
-    result.put("kafka.producer.'[value.serializer]'", "org.apache.kafka.common.serialization.StringSerializer");
-    result.put("kafka.polling.timeout", "10000");
-
-    return result;
   }
 }

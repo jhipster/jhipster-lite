@@ -36,17 +36,11 @@ public class KafkaModuleFactory {
         .add(SOURCE.template("KafkaPropertiesTest.java"), toSrcTestJava().append("/technical/infrastructure/config//kafka/KafkaPropertiesTest.java"))
         .add(SOURCE.template("KafkaProperties.java"), toSrcMainJava().append("/technical/infrastructure/config/kafka/KafkaProperties.java"))
         .add(SOURCE.template("KafkaConfiguration.java"), toSrcMainJava().append("/technical/infrastructure/config/kafka/KafkaConfiguration.java"))
-      .and()
+        .and()
       .mandatoryReplacements()
         .in(TEST_JAVA + "/IntegrationTest.java")
-          .add(text("import org.springframework.boot.test.context.SpringBootTest;"),
-            """
-          import org.junit.jupiter.api.extension.ExtendWith;
-          import org.springframework.boot.test.context.SpringBootTest;""")
-          .add(text("public @interface"),
-            """
-          @ExtendWith(KafkaTestContainerExtension.class)
-          public @interface""")
+          .add(text("import org.springframework.boot.test.context.SpringBootTest;"), importExtendWith())
+          .add(text("public @interface"), extendWith())
           .and()
         .and()
       .springMainProperties()
@@ -62,5 +56,17 @@ public class KafkaModuleFactory {
     //@formatter:on
 
     return builder.build();
+  }
+
+  private String extendWith() {
+    return """
+  @ExtendWith(KafkaTestContainerExtension.class)
+  public @interface""";
+  }
+
+  private String importExtendWith() {
+    return """
+  import org.junit.jupiter.api.extension.ExtendWith;
+  import org.springframework.boot.test.context.SpringBootTest;""";
   }
 }

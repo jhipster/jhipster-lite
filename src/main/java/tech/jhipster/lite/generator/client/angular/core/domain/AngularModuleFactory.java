@@ -1,10 +1,9 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.ANGULAR;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
 
-import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -13,14 +12,9 @@ public class AngularModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/angular/core");
 
-  private static final String CACHE_NEEDLE = "  \"cacheDirectories\":";
-  private static final String BREAK = "\n";
-
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
     //@formatter:off
-    return moduleBuilder(properties)
+    return ClientsModulesFactory.clientModuleBuilder(properties)
       .packageJson()
         .addDependency(packageName("@angular/animations"), ANGULAR)
         .addDependency(packageName("@angular/cdk"), ANGULAR)
@@ -52,11 +46,6 @@ public class AngularModuleFactory {
         .addScript(scriptKey("build"), scriptCommand("ng build --output-path=target/classes/static"))
         .addScript(scriptKey("watch"), scriptCommand("ng build --watch --configuration development"))
         .addScript(scriptKey("test"), scriptCommand("ng test --coverage"))
-        .and()
-      .optionalReplacements()
-        .in("package.json")
-          .add(justLineBefore(text(CACHE_NEEDLE)), jestSonar(properties.indentation()))
-          .and()
         .and()
       .files()
         .add(SOURCE.file("jest.conf.js"), to("jest.conf.js"))
@@ -93,21 +82,5 @@ public class AngularModuleFactory {
         .and()
       .build();
     //@formatter:on
-  }
-
-  private String jestSonar(Indentation indentation) {
-    return new StringBuilder()
-      .append(indentation.spaces())
-      .append("\"jestSonar\": {")
-      .append(BREAK)
-      .append(indentation.times(2))
-      .append("\"reportPath\": \"target/test-results/jest\",")
-      .append(BREAK)
-      .append(indentation.times(2))
-      .append("\"reportFile\": \"TESTS-results-sonar.xml\"")
-      .append(BREAK)
-      .append(indentation.spaces())
-      .append("},")
-      .toString();
   }
 }

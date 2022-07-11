@@ -39,7 +39,7 @@ public class ArchUnitModuleFactory {
         .add(SOURCE.template("HexagonalArchTest.java"), testDestination.append("HexagonalArchTest.java"))
         .and()
       .javaDependencies()
-        .dependency(archUnitDependency())
+        .addDependency(archUnitDependency())
         .and()
       .optionalReplacements()
         .in("src/test/resources/logback.xml")

@@ -20,7 +20,7 @@ public class AopLoggingModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-        .dependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter-aop"))
+        .addDependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter-aop"))
         .and()
       .files()
         .batch(SOURCE, toSrcMainJava().append(properties.basePackage().path()).append(AOP_FOLDER))

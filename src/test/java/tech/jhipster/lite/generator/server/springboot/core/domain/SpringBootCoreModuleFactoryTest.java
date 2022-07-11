@@ -98,6 +98,46 @@ class SpringBootCoreModuleFactoryTest {
               </plugin>
         """
       )
+      .notContaining(
+        """
+            <dependency>
+              <groupId>org.junit.jupiter</groupId>
+              <artifactId>junit-jupiter-engine</artifactId>
+              <version>${junit-jupiter.version}</version>
+              <scope>test</scope>
+            </dependency>
+        """
+      )
+      .notContaining(
+        """
+            <dependency>
+              <groupId>org.junit.jupiter</groupId>
+              <artifactId>junit-jupiter-params</artifactId>
+              <version>${junit-jupiter.version}</version>
+              <scope>test</scope>
+            </dependency>
+        """
+      )
+      .notContaining(
+        """
+            <dependency>
+              <groupId>org.assertj</groupId>
+              <artifactId>assertj-core</artifactId>
+              <version>${assertj.version}</version>
+              <scope>test</scope>
+            </dependency>
+        """
+      )
+      .notContaining(
+        """
+           <dependency>
+             <groupId>org.mockito</groupId>
+             <artifactId>mockito-junit-jupiter</artifactId>
+             <version>${mockito.version}</version>
+             <scope>test</scope>
+           </dependency>
+       """
+      )
       .and()
       .createFile("src/main/java/com/jhipster/test/MyappApp.java")
       .containing("class MyappApp")

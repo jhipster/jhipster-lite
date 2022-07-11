@@ -71,7 +71,7 @@ public class SpringdocModuleFactory {
         .put("apiExternalDocUrl", "")
         .and()
       .javaDependencies()
-        .dependency(springdocJavaDependency)
+        .addDependency(springdocJavaDependency)
         .and()
       .files()
         .add(SOURCE.template(srcSpringdocJavaFile), mainDestination.append(SPRINGDOC_CONFIG_JAVA_FILE))

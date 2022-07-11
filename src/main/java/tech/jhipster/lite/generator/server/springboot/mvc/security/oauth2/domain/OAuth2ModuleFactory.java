@@ -121,10 +121,10 @@ public class OAuth2ModuleFactory {
   private void appendDependencies(JHipsterModuleBuilder builder) {
     builder
       .javaDependencies()
-      .dependency(SPRING_GROUP, artifactId("spring-boot-starter-security"))
-      .dependency(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-client"))
-      .dependency(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-resource-server"))
-      .dependency(springSecurityTest());
+      .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-security"))
+      .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-client"))
+      .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-resource-server"))
+      .addDependency(springSecurityTest());
   }
 
   private void appendSpringProperties(JHipsterModuleBuilder builder) {

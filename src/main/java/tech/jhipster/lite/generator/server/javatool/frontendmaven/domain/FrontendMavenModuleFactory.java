@@ -27,8 +27,8 @@ public class FrontendMavenModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-        .version(javaDependencyVersion("node", NODE_VERSION))
-        .version(javaDependencyVersion("npm", NPM_VERSION))
+        .setVersion(javaDependencyVersion("node", NODE_VERSION))
+        .setVersion(javaDependencyVersion("npm", NPM_VERSION))
         .and()
       .javaBuildPlugins()
         .plugin(checksumPlugin())

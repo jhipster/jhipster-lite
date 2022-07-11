@@ -20,6 +20,9 @@ public class SpringBootCoreModuleFactory {
   private static final GroupId SRPING_BOOT_GROUP = groupId("org.springframework.boot");
   private static final String APPLICATION_PROPERTIES = "application.properties";
 
+  private static final String JUNIT_GROUP = "org.junit.jupiter";
+  private static final String MOCKITO_GROUP = "org.mockito";
+
   private static final JHipsterDestination MAIN_RESOURCE_DESTINATION = to("src/main/resources");
   private static final JHipsterDestination MAIN_CONFIG_DESTINATION = MAIN_RESOURCE_DESTINATION.append("config");
   private static final JHipsterDestination TEST_RESOURCES_DESTINATION = to("src/test/resources");
@@ -38,11 +41,15 @@ public class SpringBootCoreModuleFactory {
         .put("mainClass", mainClassName)
         .and()
       .javaDependencies()
-        .dependencyManagement(springBootBom())
-        .dependency(SRPING_BOOT_GROUP, artifactId("spring-boot-starter"))
-        .dependency(springBootConfigurationProcessor())
-        .dependency(groupId("org.apache.commons"), artifactId("commons-lang3"))
-        .dependency(springBootTest())
+        .removeDependency(dependencyId(JUNIT_GROUP, "junit-jupiter-engine"))
+        .removeDependency(dependencyId(JUNIT_GROUP, "junit-jupiter-params"))
+        .removeDependency(dependencyId("org.assertj", "assertj-core"))
+        .removeDependency(dependencyId(MOCKITO_GROUP, "mockito-junit-jupiter"))
+        .addDependencyManagement(springBootBom())
+        .addDependency(SRPING_BOOT_GROUP, artifactId("spring-boot-starter"))
+        .addDependency(springBootConfigurationProcessor())
+        .addDependency(groupId("org.apache.commons"), artifactId("commons-lang3"))
+        .addDependency(springBootTest())
         .and()
       .javaBuildPlugins()
         .pluginManagement(springBootPluginManagement())

@@ -18,7 +18,7 @@ public class KafkaModuleFactory {
     this.dockerImages = dockerImages;
   }
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModuleInit(JHipsterModuleProperties properties) {
     //@formatter:off
     final JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()

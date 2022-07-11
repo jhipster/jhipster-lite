@@ -38,7 +38,7 @@ class KafkaModuleFactoryTest {
       .projectBaseName("myapp")
       .build();
 
-    JHipsterModule module = factory.buildModule(properties);
+    JHipsterModule module = factory.buildModuleInit(properties);
 
     assertThatModuleWithFiles(
       module,

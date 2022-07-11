@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
 import java.util.Map;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Repository;
 
 public class Gradle {
 
@@ -40,16 +39,5 @@ public class Gradle {
 
   public static String getDependencyWithNeedle(Dependency dependency) {
     return getDependency(dependency) + GRADLE_NEEDLE_DEPENDENCY.indent(2);
-  }
-
-  public static String getRepositoryString(Repository repository) {
-    return """
-        maven {
-          url = uri("%s")
-        }
-        // jhipster-needle-gradle-repository
-      """.formatted(
-        repository.getUrl()
-      );
   }
 }

@@ -2,7 +2,6 @@ package tech.jhipster.lite.generator.buildtool.maven.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
-import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterSource;
@@ -18,7 +17,7 @@ public class MavenModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .put("dasherizedBaseName", WordUtils.kebabCase(properties.projectBaseName().get()))
+        .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
         .and()
       .files()
         .add(SOURCE.template("pom.xml"), to("pom.xml"))

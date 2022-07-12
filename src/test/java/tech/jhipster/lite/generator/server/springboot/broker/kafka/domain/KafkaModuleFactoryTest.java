@@ -50,14 +50,7 @@ class KafkaModuleFactoryTest {
       readmeFile()
     )
       .createFile("pom.xml")
-      .containing(
-        """
-                  <dependency>
-                    <groupId>org.apache.kafka</groupId>
-                    <artifactId>kafka-clients</artifactId>
-                  </dependency>
-              """
-      )
+      .containing("<artifactId>kafka-clients</artifactId>")
       .containing("<artifactId>kafka</artifactId>")
       .and()
       .createFile(MAIN_DOCKER + "/kafka.yml")

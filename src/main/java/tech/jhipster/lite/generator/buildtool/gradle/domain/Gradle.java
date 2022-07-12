@@ -1,29 +1,17 @@
 package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
-import java.util.Map;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 
 public class Gradle {
 
   public static final String GRADLE_NEEDLE_DEPENDENCY = "// jhipster-needle-gradle-add-dependency";
-  public static final String GRADLE_NEEDLE_REPOSITORY = "// jhipster-needle-gradle-repository";
 
-  public static final String IMPLEMENTATION = "implementation(\"";
-  public static final String SEPARATOR = ":";
-  public static final String END_IMPLEMENTATION = "\")";
-  public static final String LF = "\n";
+  private static final String IMPLEMENTATION = "implementation(\"";
+  private static final String SEPARATOR = ":";
+  private static final String END_IMPLEMENTATION = "\")";
+  private static final String LF = "\n";
 
   private Gradle() {}
-
-  public static Map<String, String> gradleWrapper() {
-    // prettier-ignore
-    return Map.of(
-      "gradlew", ".",
-      "gradlew.bat", ".",
-      "gradle-wrapper.jar", "gradle/wrapper",
-      "gradle-wrapper.properties", "gradle/wrapper"
-    );
-  }
 
   public static String getDependency(Dependency dependency) {
     return new StringBuilder()

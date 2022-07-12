@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static org.mockito.Mockito.*;
 
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.generator.buildtool.gradle.domain.GradleModuleFactory;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenModuleFactory;
 import tech.jhipster.lite.generator.client.angular.core.domain.AngularModuleFactory;
 import tech.jhipster.lite.generator.client.react.core.domain.ReactCoreModulesFactory;
@@ -23,6 +24,7 @@ public final class TestJHipsterModules {
 
   private static final InitModuleFactory initModules = new InitModuleFactory(mock(GitRepository.class));
   private static final MavenModuleFactory mavenModules = new MavenModuleFactory();
+  private static final GradleModuleFactory gradleModules = new GradleModuleFactory();
   private static final AngularModuleFactory angularModules = new AngularModuleFactory();
   private static final ReactCoreModulesFactory reactModules = new ReactCoreModulesFactory();
   private static final SpringBootCoreModuleFactory springBootModules = new SpringBootCoreModuleFactory();
@@ -39,6 +41,12 @@ public final class TestJHipsterModules {
     JHipsterModuleProperties properties = new JHipsterModuleProperties(project.getFolder(), project.getConfig());
 
     applyer().module(mavenModules.buildModule(properties)).properties(properties).slug("maven-java").apply();
+  }
+
+  public static void applyGradle(Project project) {
+    JHipsterModuleProperties properties = new JHipsterModuleProperties(project.getFolder(), project.getConfig());
+
+    applyer().module(gradleModules.buildModule(properties)).properties(properties).slug("gradle").apply();
   }
 
   public static void applyAngular(Project project) {

@@ -54,6 +54,19 @@ class FileSystemJHipsterModulesRepositoryTest {
                   <scope>import</scope>
                 </dependency>
           """)
+      .containing(
+          """
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <exclusions>
+                  <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                  </exclusion>
+                </exclusions>
+              </dependency>
+          """)
         .containing(
           """
                 <dependency>

@@ -5,7 +5,6 @@ import static tech.jhipster.lite.common.domain.WordUtils.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 
 public class Maven {
 
@@ -147,37 +146,6 @@ public class Maven {
       .indent(indentation);
 
     return begin + body + EXCLUSIONS_END;
-  }
-
-  public static String getPluginHeader(Plugin plugin, int indentation) {
-    String begin = PLUGIN_BEGIN + LF;
-
-    String content = new StringBuilder()
-      .append(GROUP_ID_BEGIN)
-      .append(plugin.getGroupId())
-      .append(GROUP_ID_END)
-      .append(LF)
-      .append(ARTIFACT_ID_BEGIN)
-      .append(plugin.getArtifactId())
-      .append(ARTIFACT_ID_END)
-      .toString()
-      .indent(indentation);
-
-    return begin + content;
-  }
-
-  public static String getPlugin(Plugin plugin, int indentation) {
-    String header = getPluginHeader(plugin, indentation);
-
-    StringBuilder additionalBodyBuilder = new StringBuilder();
-
-    plugin.getVersion().ifPresent(version -> additionalBodyBuilder.append(VERSION_BEGIN).append(version).append(VERSION_END).append(LF));
-
-    plugin.getAdditionalElements().ifPresent(additionalBodyBuilder::append);
-
-    String additionalBody = additionalBodyBuilder.toString().indent(indentation);
-
-    return header + additionalBody + PLUGIN_END;
   }
 
   public static String getProperty(String key, String value) {

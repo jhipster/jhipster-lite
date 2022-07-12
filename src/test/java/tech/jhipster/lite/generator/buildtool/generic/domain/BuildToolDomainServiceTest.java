@@ -76,16 +76,6 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldAddPlugin() {
-      Project project = tmpProjectWithPomXml();
-      Plugin plugin = getPlugin();
-
-      buildToolDomainService.addPlugin(project, plugin);
-
-      verify(mavenService).addPlugin(project, plugin);
-    }
-
-    @Test
     void shouldAddProperty() {
       Project project = tmpProjectWithPomXml();
 
@@ -176,14 +166,6 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldNotAddPlugin() {
-      Project project = tmpProject();
-      Plugin plugin = getPlugin();
-
-      assertThatThrownBy(() -> buildToolDomainService.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
     void shouldNotAddProperty() {
       Project project = tmpProject();
 
@@ -228,9 +210,5 @@ class BuildToolDomainServiceTest {
 
   private List<Dependency> getExclusions() {
     return List.of(Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-tomcat").build());
-  }
-
-  private Plugin getPlugin() {
-    return Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
   }
 }

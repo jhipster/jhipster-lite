@@ -12,7 +12,6 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.buildtool.maven.domain.Maven;
 import tech.jhipster.lite.generator.project.domain.Project;
 
@@ -191,74 +190,6 @@ class MavenApplicationServiceIT {
       Maven.getDependencyHeader(dependency, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION),
       1
     );
-  }
-
-  @Test
-  void shouldAddPlugin() {
-    Project project = tmpProjectWithPomXml();
-
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-    mavenApplicationService.addPlugin(project, plugin);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of("<plugin>", "<groupId>org.springframework.boot</groupId>", "<artifactId>spring-boot-maven-plugin</artifactId>", "</plugin>")
-    );
-  }
-
-  @Test
-  void shouldAddPluginWithAdditionalElements() {
-    Project project = tmpProjectWithPomXml();
-
-    Plugin plugin = Plugin
-      .builder()
-      .groupId("org.springframework.boot")
-      .artifactId("spring-boot-maven-plugin")
-      .additionalElements("""
-      <executions>
-        <execution>
-          <goal>clean</goal>
-        </execution>
-      </executions>""")
-      .build();
-    mavenApplicationService.addPlugin(project, plugin);
-
-    assertFileContent(
-      project,
-      POM_XML,
-      List.of(
-        "<plugin>",
-        "<groupId>org.springframework.boot</groupId>",
-        "<artifactId>spring-boot-maven-plugin</artifactId>",
-        "<executions>",
-        "<execution>",
-        "<goal>clean</goal>",
-        "</execution>",
-        "</executions>",
-        "</plugin>"
-      )
-    );
-  }
-
-  @Test
-  void shouldNotAddPluginWhenNoPomXml() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(project.getFolder());
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-
-    assertThatThrownBy(() -> mavenApplicationService.addPlugin(project, plugin)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldAddPluginOnlyOneTime() throws Exception {
-    Project project = tmpProjectWithPomXml();
-
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-    mavenApplicationService.addPlugin(project, plugin);
-    mavenApplicationService.addPlugin(project, plugin);
-
-    assertFileContentManyTimes(project, POM_XML, Maven.getPluginHeader(plugin, DEFAULT_INDENTATION).indent(3 * DEFAULT_INDENTATION), 1);
   }
 
   @Test

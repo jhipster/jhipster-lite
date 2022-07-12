@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.buildtool.maven.application;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenModuleFactory;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenService;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -36,10 +35,6 @@ public class MavenApplicationService {
 
   public void addDependencyManagement(Project project, Dependency dependency) {
     mavenService.addDependencyManagement(project, dependency);
-  }
-
-  public void addPlugin(Project project, Plugin plugin) {
-    mavenService.addPlugin(project, plugin);
   }
 
   public void addProperty(Project project, String key, String version) {

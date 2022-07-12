@@ -82,27 +82,6 @@ class SpringBootMvcApplicationServiceIT {
   }
 
   @Test
-  void shouldAddSpringBootMvcWithInvalidServerPort() {
-    Project project = tmpProject();
-    project.addConfig("serverPort", "chips");
-    TestJHipsterModules.applyInit(project);
-    TestJHipsterModules.applyMaven(project);
-    TestJHipsterModules.applySpringBootCore(project);
-
-    springBootMvcApplicationService.addSpringBootMvc(project);
-
-    assertTomcat(project);
-
-    assertFileContent(project, getPath(MAIN_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=8080");
-    assertFileContent(project, getPath(TEST_RESOURCES, "config", APPLICATION_PROPERTIES), "server.port=0");
-    assertLoggingConfiguration(project, "<logger name=\"org.springframework.web\" level=\"ERROR\" />");
-
-    assertTestUtil(project);
-    assertExceptionHandler(project);
-    assertCors(project);
-  }
-
-  @Test
   void shouldAddSpringBootUndertow() {
     Project project = tmpProject();
     TestJHipsterModules.applyInit(project);

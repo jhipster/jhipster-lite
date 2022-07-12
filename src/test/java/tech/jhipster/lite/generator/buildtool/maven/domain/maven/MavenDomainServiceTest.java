@@ -22,7 +22,6 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
-import tech.jhipster.lite.generator.buildtool.generic.domain.Plugin;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenDomainService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -73,16 +72,6 @@ class MavenDomainServiceTest {
       .build();
 
     mavenDomainService.addDependency(project, dependency, List.of(dependencyToExclude));
-
-    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldAddPlugin() {
-    Project project = tmpProjectWithPomXml();
-    Plugin plugin = Plugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
-
-    mavenDomainService.addPlugin(project, plugin);
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }

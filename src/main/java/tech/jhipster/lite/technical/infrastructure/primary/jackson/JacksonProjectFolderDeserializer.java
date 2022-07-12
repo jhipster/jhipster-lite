@@ -18,7 +18,7 @@ public class JacksonProjectFolderDeserializer extends JsonDeserializer<String> {
   @Override
   public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
     String text = jsonParser.getText();
-    if (jHipsterProjectFolderFactory != null && !jHipsterProjectFolderFactory.isValid(text)) {
+    if (jHipsterProjectFolderFactory != null && jHipsterProjectFolderFactory.isInvalid(text)) {
       throw new InvalidProjectFolderException();
     }
     return text;

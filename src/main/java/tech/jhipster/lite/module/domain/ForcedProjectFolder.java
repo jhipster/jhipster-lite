@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.domain;
 
+import java.nio.file.Paths;
 import java.util.UUID;
 import tech.jhipster.lite.error.domain.Assert;
 
@@ -14,14 +15,14 @@ public class ForcedProjectFolder implements JHipsterProjectFolderFactory {
   }
 
   @Override
-  public boolean isValid(String folderPath) {
+  public boolean isInvalid(String folderPath) {
     Assert.notNull("folderPath", folderPath);
 
-    return folderPath.startsWith(prefix) && !folderPath.contains("..");
+    return !folderPath.startsWith(prefix) || folderPath.contains("..");
   }
 
   @Override
   public String generatePath() {
-    return PathUtil.appendFileSeparatorIfNeeded(prefix) + UUID.randomUUID();
+    return Paths.get(prefix).resolve(UUID.randomUUID().toString()).toString();
   }
 }

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
 public interface JHipsterProjectFolderFactory {
-  boolean isValid(String folderPath);
+  boolean isInvalid(String folderPath);
 
   String generatePath();
 }

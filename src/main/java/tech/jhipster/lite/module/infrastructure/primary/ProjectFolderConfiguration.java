@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.module.domain.ForcedProjectFolder;
+import tech.jhipster.lite.module.domain.FreeProjectFolder;
 import tech.jhipster.lite.module.domain.JHipsterProjectFolderFactory;
-import tech.jhipster.lite.module.domain.LooseProjectFolder;
 
 @Configuration
 class ProjectFolderConfiguration {
@@ -22,7 +22,7 @@ class ProjectFolderConfiguration {
 
   @Bean
   @ConditionalOnProperty(value = "application.forced-project-folder", matchIfMissing = true, havingValue = "dummy")
-  JHipsterProjectFolderFactory looseProjectFolder() {
-    return new LooseProjectFolder();
+  JHipsterProjectFolderFactory freeProjectFolder() {
+    return new FreeProjectFolder();
   }
 }

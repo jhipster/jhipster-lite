@@ -14,18 +14,18 @@ class ForcedProjectFolderTest {
   private final ForcedProjectFolder forcedProjectFolder = new ForcedProjectFolder("/tmp/jhipster");
 
   @Test
-  void shouldNotBeValidWithNotMatchingPrefix() {
-    assertThat(forcedProjectFolder.isValid("/other/folder")).isFalse();
+  void shouldBeInvalidWithNotMatchingPrefix() {
+    assertThat(forcedProjectFolder.isInvalid("/other/folder")).isTrue();
   }
 
   @Test
-  void shouldNotBeValidWithDotDot() {
-    assertThat(forcedProjectFolder.isValid("/tmp/jhipster/../project")).isFalse();
+  void shouldBeInvalidWithDotDot() {
+    assertThat(forcedProjectFolder.isInvalid("/tmp/jhipster/../project")).isTrue();
   }
 
   @Test
   void shouldBeValid() {
-    assertThat(forcedProjectFolder.isValid("/tmp/jhipster/project")).isTrue();
+    assertThat(forcedProjectFolder.isInvalid("/tmp/jhipster/project")).isFalse();
   }
 
   @Test

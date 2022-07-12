@@ -71,6 +71,7 @@ public final class JHipsterModulesFixture {
       .addDependency(groupId("org.zalando"), artifactId("problem-spring-web"), versionSlug("problem-spring"))
       .addDependency(groupId("io.jsonwebtoken"), artifactId("jjwt-api"), versionSlug("jjwt.version"))
       .addDependency(optionalTestDependency())
+      .addDependency(springBootStarterWebDependency())
       .addDependencyManagement(springBootDependencyManagement())
       .addDependencyManagement(springBootDefaultTypeDependencyManagement())
       .and()
@@ -105,6 +106,14 @@ public final class JHipsterModulesFixture {
       .and()
     .build();
     // @formatter:on
+  }
+
+  public static JavaDependency springBootStarterWebDependency() {
+    return javaDependency()
+      .groupId("org.springframework.boot")
+      .artifactId("spring-boot-starter-web")
+      .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
+      .build();
   }
 
   public static JavaDependency springBootDependencyManagement() {

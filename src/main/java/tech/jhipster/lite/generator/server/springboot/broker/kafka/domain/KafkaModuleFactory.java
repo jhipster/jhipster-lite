@@ -14,6 +14,8 @@ public class KafkaModuleFactory {
   private static final String TECHNICAL_INFRASTRUCTURE_CONFIG_KAFKA = "/technical/infrastructure/config/kafka";
   private static final String DUMMY_INFRASTRUCTURE_SECONDARY_KAFKA_PRODUCER = "dummy/infrastructure/secondary/kafka/producer";
   private static final String DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER = "dummy/infrastructure/primary/kafka/consumer";
+  public static final String STRING_DESERIALIZER = "org.apache.kafka.common.serialization.StringDeserializer";
+  public static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
 
   private final DockerImages dockerImages;
 
@@ -48,12 +50,22 @@ public class KafkaModuleFactory {
         .and()
       .springMainProperties()
         .set(propertyKey("kafka.bootstrap-servers"), propertyValue("localhost:9092"))
-        .set(propertyKey("kafka.consumer.key.deserializer"), propertyValue("org.apache.kafka.common.serialization.StringDeserializer"))
-        .set(propertyKey("kafka.consumer.value.deserializer"), propertyValue("org.apache.kafka.common.serialization.StringDeserializer"))
-        .set(propertyKey("kafka.consumer.group.id"), propertyValue("myapp"))
-        .set(propertyKey("kafka.consumer.auto.offset.reset"), propertyValue("earliest"))
-        .set(propertyKey("kafka.producer.key.serializer"), propertyValue("org.apache.kafka.common.serialization.StringSerializer"))
-        .set(propertyKey("kafka.producer.value.serializer"), propertyValue("org.apache.kafka.common.serialization.StringSerializer"))
+        .set(propertyKey("kafka.consumer.'[key.deserializer]'"), propertyValue(STRING_DESERIALIZER))
+        .set(propertyKey("kafka.consumer.'[value.deserializer]'"), propertyValue(STRING_DESERIALIZER))
+        .set(propertyKey("kafka.consumer.'[group.id]'"), propertyValue("myapp"))
+        .set(propertyKey("kafka.consumer.'[auto.offset.reset]'"), propertyValue("earliest"))
+        .set(propertyKey("kafka.producer.'[key.serializer]'"), propertyValue(STRING_SERIALIZER))
+        .set(propertyKey("kafka.producer.'[value.serializer]'"), propertyValue(STRING_SERIALIZER))
+        .set(propertyKey("kafka.polling.timeout"), propertyValue("10000"))
+        .and()
+      .springTestProperties()
+        .set(propertyKey("kafka.bootstrap-servers"), propertyValue("localhost:9092"))
+        .set(propertyKey("kafka.consumer.'[key.deserializer]'"), propertyValue(STRING_DESERIALIZER))
+        .set(propertyKey("kafka.consumer.'[value.deserializer]'"), propertyValue(STRING_DESERIALIZER))
+        .set(propertyKey("kafka.consumer.'[group.id]'"), propertyValue("myapp"))
+        .set(propertyKey("kafka.consumer.'[auto.offset.reset]'"), propertyValue("earliest"))
+        .set(propertyKey("kafka.producer.'[key.serializer]'"), propertyValue(STRING_SERIALIZER))
+        .set(propertyKey("kafka.producer.'[value.serializer]'"), propertyValue(STRING_SERIALIZER))
         .set(propertyKey("kafka.polling.timeout"), propertyValue("10000"))
         .and();
     //@formatter:on

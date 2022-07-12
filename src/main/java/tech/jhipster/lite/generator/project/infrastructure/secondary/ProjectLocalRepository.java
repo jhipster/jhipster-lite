@@ -186,15 +186,6 @@ public class ProjectLocalRepository implements ProjectRepository {
   }
 
   @Override
-  public void gitAddAndCommit(Project project, String message) {
-    try {
-      GitUtils.addAndCommit(project.getFolder(), message);
-    } catch (GitAPIException | IOException e) {
-      throw new GeneratorException("Error when git add and commit", e);
-    }
-  }
-
-  @Override
   public void gitApplyPatch(Project project, String patchFilename) {
     try {
       GitUtils.apply(project.getFolder(), patchFilename);

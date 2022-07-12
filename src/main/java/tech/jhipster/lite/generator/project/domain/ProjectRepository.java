@@ -24,7 +24,6 @@ public interface ProjectRepository {
   void setExecutable(Project project, String source, String sourceFilename);
 
   void gitInit(Project project);
-  void gitAddAndCommit(Project project, String message);
   void gitApplyPatch(Project project, String patchFilename);
 
   String zip(Project project);

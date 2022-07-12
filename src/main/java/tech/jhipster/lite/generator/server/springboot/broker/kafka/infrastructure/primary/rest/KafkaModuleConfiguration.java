@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
 
 @Configuration
-public class KafkaResourceConfiguration {
+class KafkaModuleConfiguration {
 
   private static final String TAG = "Spring Boot - Broker";
 

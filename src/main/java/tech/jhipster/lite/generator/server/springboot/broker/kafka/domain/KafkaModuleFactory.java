@@ -14,8 +14,8 @@ public class KafkaModuleFactory {
   private static final String TECHNICAL_INFRASTRUCTURE_CONFIG_KAFKA = "/technical/infrastructure/config/kafka";
   private static final String DUMMY_INFRASTRUCTURE_SECONDARY_KAFKA_PRODUCER = "dummy/infrastructure/secondary/kafka/producer";
   private static final String DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER = "dummy/infrastructure/primary/kafka/consumer";
-  public static final String STRING_DESERIALIZER = "org.apache.kafka.common.serialization.StringDeserializer";
-  public static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
+  private static final String STRING_DESERIALIZER = "org.apache.kafka.common.serialization.StringDeserializer";
+  private static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
 
   private final DockerImages dockerImages;
 

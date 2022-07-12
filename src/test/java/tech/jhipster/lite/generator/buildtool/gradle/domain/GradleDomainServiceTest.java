@@ -1,14 +1,12 @@
 package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.buildtool.gradle.domain.Gradle.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +20,6 @@ import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.buildtool.generic.domain.Dependency;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @UnitTest
@@ -30,40 +27,10 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class GradleDomainServiceTest {
 
   @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @InjectMocks
-  GradleDomainService gradleDomainService;
-
-  @Test
-  void shouldInitJava() {
-    Project project = tmpProject();
-
-    gradleDomainService.initJava(project);
-
-    verify(projectRepository, times(2)).template(any(ProjectFile.class));
-    verify(projectRepository).add(filesCountArgument(4));
-    verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
-  }
-
-  @Test
-  void shouldAddJavaBuildGradleKts() {
-    Project project = tmpProject();
-
-    gradleDomainService.addJavaBuildGradleKts(project);
-
-    verify(projectRepository, times(2)).template(any(ProjectFile.class));
-  }
-
-  @Test
-  void shouldAddGradleWrapper() {
-    Project project = tmpProject();
-
-    gradleDomainService.addGradleWrapper(project);
-
-    verify(projectRepository).add(filesCountArgument(4));
-    verify(projectRepository, times(2)).setExecutable(any(Project.class), anyString(), anyString());
-  }
+  private GradleDomainService gradleDomainService;
 
   @Test
   void shouldAddDependency() {

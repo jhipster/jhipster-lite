@@ -5,15 +5,11 @@ import java.util.List;
 import tech.jhipster.lite.error.domain.Assert;
 
 public interface ProjectRepository {
-  void create(Project project);
-
   void add(Collection<ProjectFile> files);
 
   void template(Collection<ProjectFile> files);
 
   void rename(Project project, String source, String sourceFilename, String destinationFilename);
-
-  String getComputedTemplate(Project project, String source, String sourceFilename);
 
   boolean containsRegexp(Project project, String source, String sourceFilename, String regexp);
 
@@ -21,16 +17,12 @@ public interface ProjectRepository {
 
   void write(Project project, String text, String destination, String destinationFilename);
 
-  void setExecutable(Project project, String source, String sourceFilename);
-
   void gitInit(Project project);
   void gitApplyPatch(Project project, String patchFilename);
 
   String zip(Project project);
 
   byte[] download(Project project);
-
-  boolean isJHipsterLiteProject(String path);
 
   default void add(ProjectFile file) {
     Assert.notNull("file", file);

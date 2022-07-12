@@ -19,7 +19,7 @@ public class ClientsModulesFactory {
     return moduleBuilder(properties)
       .optionalReplacements()
       .in("package.json")
-      .add(justLineBefore(text(CACHE_NEEDLE)), jestSonar(properties.indentation()))
+      .add(lineBeforeText(CACHE_NEEDLE), jestSonar(properties.indentation()))
       .and()
       .and();
   }

@@ -12,7 +12,7 @@ import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.domain.replacement.TextMatcher;
+import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 
 public class OAuth2ModuleFactory {
 
@@ -150,7 +150,7 @@ public class OAuth2ModuleFactory {
 
   private void appendIntegrationTestAnnotationUpdates(JHipsterModuleBuilder builder, JHipsterModuleProperties properties) {
     String baseClass = properties.projectBaseName().capitalized() + "App.class";
-    TextMatcher importNeedle = text(SPRING_BOOT_IMPORT);
+    TextReplacer importNeedle = text(SPRING_BOOT_IMPORT);
 
     String integrationtTestFile = "src/test/java/" + properties.basePackage().path() + "/IntegrationTest.java";
 

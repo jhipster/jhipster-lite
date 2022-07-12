@@ -3,8 +3,8 @@ package tech.jhipster.lite.module.domain.replacement;
 import java.util.function.BiFunction;
 import tech.jhipster.lite.error.domain.Assert;
 
-public record TextMatcher(String text) implements ElementMatcher {
-  public TextMatcher {
+public record TextReplacer(String text) implements ElementReplacer {
+  public TextReplacer {
     Assert.notBlank("text", text);
   }
 
@@ -17,6 +17,7 @@ public record TextMatcher(String text) implements ElementMatcher {
   public BiFunction<String, String, String> replacer() {
     return (content, replacement) -> content.replace(text(), replacement);
   }
+
   @Override
   public String searchMatcher() {
     return text();

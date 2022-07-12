@@ -118,8 +118,8 @@ public class VueModulesFactory {
         .and()
       .mandatoryReplacements()
         .in("src/main/webapp/app/main.ts")
-          .add(justLineBefore(text(IMPORT_NEEDLE)), piniaImports())
-          .add(justLineBefore(text(PROVIDER_NEEDLE)), piniaProvider())
+          .add(lineBeforeText(IMPORT_NEEDLE), piniaImports())
+          .add(lineBeforeText(PROVIDER_NEEDLE), piniaProvider())
           .and()
         .and()
       .build();

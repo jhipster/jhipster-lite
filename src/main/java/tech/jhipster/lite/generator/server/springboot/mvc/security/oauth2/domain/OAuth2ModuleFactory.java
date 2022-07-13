@@ -152,11 +152,11 @@ public class OAuth2ModuleFactory {
     String baseClass = properties.projectBaseName().capitalized() + "App.class";
     TextReplacer importNeedle = text(SPRING_BOOT_IMPORT);
 
-    String integrationtTestFile = "src/test/java/" + properties.basePackage().path() + "/IntegrationTest.java";
+    String integrationTestFile = "src/test/java/" + properties.basePackage().path() + "/IntegrationTest.java";
 
     builder
       .mandatoryReplacements()
-      .in(integrationtTestFile)
+      .in(integrationTestFile)
       .add(importNeedle, testSecurityConfigurationImport(properties))
       .add(text(baseClass), baseClass + ", TestSecurityConfiguration.class")
       .add(importNeedle, withMockUserImport())

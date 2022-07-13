@@ -58,8 +58,6 @@ public class GeneratorAction {
   public static final String SPRINGBOOT_UNDERTOW = "springboot-undertow";
   public static final String SPRINGBOOT_ACTUATOR = "springboot-actuator";
 
-  public static final String JACOCO_CHECK_MIN_COVERAGE = "jacoco-check-min-coverage";
-
   public static final String REACT_CYPRESS = "react-cypress";
 
   public static final String SPRINGBOOT_PULSAR = "springboot-pulsar";

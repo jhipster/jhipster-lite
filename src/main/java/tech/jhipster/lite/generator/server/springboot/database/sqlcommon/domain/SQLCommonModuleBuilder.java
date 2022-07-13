@@ -79,6 +79,8 @@ public class SQLCommonModuleBuilder {
           propertyValue("org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy")
         )
         .set(propertyKey("spring.jpa.open-in-view"), FALSE)
+        .set(propertyKey("spring.jpa.properties.hibernate.cache.use_second_level_cache"), FALSE)
+        .set(propertyKey("spring.jpa.properties.hibernate.cache.use_query_cache"), FALSE)
         .set(propertyKey("spring.jpa.properties.hibernate.connection.provider_disables_autocommit"), TRUE)
         .set(propertyKey("spring.jpa.properties.hibernate.generate_statistics"), FALSE)
         .set(propertyKey("spring.jpa.properties.hibernate.id.new_generator_mappings"), TRUE)

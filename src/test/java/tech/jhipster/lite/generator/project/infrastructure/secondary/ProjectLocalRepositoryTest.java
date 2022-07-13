@@ -230,28 +230,6 @@ class ProjectLocalRepositoryTest {
   }
 
   @Test
-  void shouldGitApplyPatch() {
-    Project project = tmpProject();
-
-    repository.gitInit(project);
-    repository.gitApplyPatch(project, getPath(TEST_TEMPLATE_RESOURCES, "utils", "example.patch"));
-
-    assertFileExist(project, "example.md");
-  }
-
-  @Test
-  void shouldNotApplyPatch() {
-    Project project = tmpProject();
-
-    try (MockedStatic<GitUtils> gitUtils = Mockito.mockStatic(GitUtils.class)) {
-      gitUtils.when(() -> GitUtils.apply(anyString(), anyString())).thenThrow(new InvalidConfigurationException("error"));
-      String path = getPath(TEST_TEMPLATE_RESOURCES, "utils", "example.patch");
-      assertThatThrownBy(() -> repository.gitApplyPatch(project, path)).isExactlyInstanceOf(GeneratorException.class);
-      assertFileNotExist(project, "example.md");
-    }
-  }
-
-  @Test
   void shouldRename() {
     Project project = tmpProjectWithPomXml();
 

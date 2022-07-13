@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 
@@ -30,6 +31,6 @@ class ForcedProjectFolderTest {
 
   @Test
   void shouldGetValidPath() {
-    assertThat(forcedProjectFolder.generatePath()).startsWith("/tmp/jhipster" + File.separator).matches(ENDING_BY_UUID_REGEX);
+    assertThat(forcedProjectFolder.generatePath()).startsWith(Paths.get("/tmp/jhipster") + File.separator).matches(ENDING_BY_UUID_REGEX);
   }
 }

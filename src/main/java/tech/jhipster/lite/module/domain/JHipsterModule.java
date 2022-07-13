@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext.JHipsterModuleContextBuilder;
@@ -42,17 +43,14 @@ import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.ElementMatcher;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacements;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacements.JHipsterModuleMandatoryReplacementsBuilder;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacements;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacements.JHipsterModuleOptionalReplacementsBuilder;
-import tech.jhipster.lite.module.domain.replacement.JustAfter;
-import tech.jhipster.lite.module.domain.replacement.JustBefore;
-import tech.jhipster.lite.module.domain.replacement.JustLineAfter;
-import tech.jhipster.lite.module.domain.replacement.JustLineBefore;
-import tech.jhipster.lite.module.domain.replacement.RegexMatcher;
-import tech.jhipster.lite.module.domain.replacement.TextMatcher;
+import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
+import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
+import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
+import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 
 public class JHipsterModule {
 
@@ -161,28 +159,20 @@ public class JHipsterModule {
     return new VersionSlug(versionSlug);
   }
 
-  public static TextMatcher text(String text) {
-    return new TextMatcher(text);
+  public static TextReplacer text(String text) {
+    return new TextReplacer(text);
   }
 
-  public static RegexMatcher regex(String regex) {
-    return new RegexMatcher(regex);
+  public static RegexReplacer regex(String regex) {
+    return new RegexReplacer(regex);
   }
 
-  public static JustBefore justBefore(ElementMatcher matcher) {
-    return new JustBefore(matcher);
+  public static TextNeedleBeforeReplacer lineBeforeText(String needle) {
+    return new TextNeedleBeforeReplacer(needle);
   }
 
-  public static JustAfter justAfter(ElementMatcher matcher) {
-    return new JustAfter(matcher);
-  }
-
-  public static JustLineBefore justLineBefore(ElementMatcher matcher) {
-    return new JustLineBefore(matcher);
-  }
-
-  public static JustLineAfter justLineAfter(ElementMatcher matcher) {
-    return new JustLineAfter(matcher);
+  public static RegexNeedleBeforeReplacer lineBeforeRegex(String regex) {
+    return new RegexNeedleBeforeReplacer(Pattern.compile(regex, Pattern.MULTILINE));
   }
 
   public static PropertyKey propertyKey(String key) {
@@ -299,7 +289,7 @@ public class JHipsterModule {
       files().add(source, to(target));
 
       String markdownLink = "- [" + title.get() + "](" + target + ")";
-      optionalReplacements().in(README).add(justLineBefore(text(JHIPSTER_DOCUMENTATION_NEEDLE)), markdownLink);
+      optionalReplacements().in(README).add(lineBeforeText(JHIPSTER_DOCUMENTATION_NEEDLE), markdownLink);
 
       return this;
     }
@@ -307,7 +297,7 @@ public class JHipsterModule {
     public JHipsterModuleBuilder readmeSection(String section) {
       Assert.notBlank("section", section);
 
-      optionalReplacements().in(README).add(justLineBefore(text(JHIPSTER_README_SECTION_NEEDLE)), section);
+      optionalReplacements().in(README).add(lineBeforeText(JHIPSTER_README_SECTION_NEEDLE), section);
 
       return this;
     }

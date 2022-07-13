@@ -7,20 +7,25 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 
 @UnitTest
-class RegexMatcherTest {
+class RegexReplacerTest {
 
   @Test
   void shouldNotBuildWithInvalidPattern() {
-    assertThatThrownBy(() -> new RegexMatcher("{")).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> new RegexReplacer("{")).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
   void shouldNotMatchNotMatchingPattern() {
-    assertThat(new RegexMatcher("pouet").notMatchIn("toto")).isTrue();
+    assertThat(new RegexReplacer("pouet").notMatchIn("toto")).isTrue();
   }
 
   @Test
   void shouldMatchMatchingPattern() {
-    assertThat(new RegexMatcher("pouet").notMatchIn("pouet")).isFalse();
+    assertThat(new RegexReplacer("pouet").notMatchIn("pouet")).isFalse();
+  }
+
+  @Test
+  void shouldGetPatternAsSearchMatcher() {
+    assertThat(new RegexReplacer("pouet").searchMatcher()).isEqualTo("pouet");
   }
 }

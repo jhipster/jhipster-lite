@@ -6,8 +6,8 @@ import java.util.regex.PatternSyntaxException;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 
-public record RegexMatcher(Pattern pattern) implements ElementMatcher {
-  public RegexMatcher(String regex) {
+public record RegexReplacer(Pattern pattern) implements ElementReplacer {
+  public RegexReplacer(String regex) {
     this(buildPattern(regex));
   }
 
@@ -21,7 +21,7 @@ public record RegexMatcher(Pattern pattern) implements ElementMatcher {
     }
   }
 
-  public RegexMatcher {
+  public RegexReplacer {
     Assert.notNull("pattern", pattern);
   }
 
@@ -34,6 +34,7 @@ public record RegexMatcher(Pattern pattern) implements ElementMatcher {
   public BiFunction<String, String, String> replacer() {
     return (content, replacement) -> pattern().matcher(content).replaceAll(replacement);
   }
+
   @Override
   public String searchMatcher() {
     return pattern().pattern();

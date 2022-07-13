@@ -15,12 +15,14 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   private final FileSystemJavaBuildCommandsHandler javaBuild;
   private final FileSystemSpringPropertiesCommandsHandler springProperties;
   private final FileSystemPackageJsonHandler packageJson;
+  private final FileSystemReplacer replacer;
 
   public FileSystemJHipsterModulesRepository(ProjectFilesReader filesReader, NpmVersions npmVersions) {
     files = new FileSystemJHipsterModuleFiles(filesReader);
     javaBuild = new FileSystemJavaBuildCommandsHandler();
     springProperties = new FileSystemSpringPropertiesCommandsHandler();
     packageJson = new FileSystemPackageJsonHandler(npmVersions);
+    replacer = new FileSystemReplacer();
   }
 
   @Override
@@ -33,9 +35,9 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     javaBuild.handle(changes.indentation(), changes.projectFolder(), changes.javaBuildCommands());
     springProperties.handle(changes.projectFolder(), changes.springProperties());
     packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson());
+    replacer.handle(changes.projectFolder(), changes.mandatoryReplacements());
+    replacer.handle(changes.projectFolder(), changes.optionalReplacements());
 
-    changes.mandatoryReplacements().apply(changes.projectFolder());
-    changes.optionalReplacements().apply(changes.projectFolder());
     changes.postActions().run(new JHipsterModuleExecutionContext(changes.projectFolder()));
   }
 }

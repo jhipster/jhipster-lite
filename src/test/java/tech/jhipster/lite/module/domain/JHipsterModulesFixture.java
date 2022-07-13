@@ -59,6 +59,7 @@ public final class JHipsterModulesFixture {
       .in("src/main/java/com/company/myapp/errors/Assert.java")
         .add(text("Ensure that the given collection is not empty"), "Dummy collection replacement")
         .add(regex("if the collection is [^ ]+ or empty"), "Another dummy collection replacement")
+        .add(lineBeforeRegex("public static class IntegerAsserter\\s*\\{"), "  // Dummy comment")
         .and()
       .in("dummy")
         .add(text("Ensure that the input is not null"), "Dummy replacement")

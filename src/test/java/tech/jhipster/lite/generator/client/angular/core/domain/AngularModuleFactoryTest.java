@@ -39,11 +39,21 @@ class AngularModuleFactoryTest {
       .containing(nodeDependency("@angular/common"))
       .containing(nodeDependency("@angular/cdk"))
       .containing(nodeDependency("@angular/animations"))
+      .containing(nodeDependency("@angular-devkit/build-angular"))
+      .containing(nodeDependency("@angular-eslint/builder"))
+      .containing(nodeDependency("@angular-eslint/eslint-plugin"))
+      .containing(nodeDependency("@angular-eslint/eslint-plugin-template"))
+      .containing(nodeDependency("@angular-eslint/schematics"))
+      .containing(nodeDependency("@angular-eslint/template-parser"))
+      .containing(nodeDependency("@typescript-eslint/eslint-plugin"))
+      .containing(nodeDependency("@typescript-eslint/parser"))
+      .containing(nodeDependency("eslint"))
       .containing("\"ng\": \"ng\"")
       .containing("\"watch\": \"ng build --watch --configuration development\"")
       .containing("\"start\": \"ng serve\"")
       .containing("\"build\": \"ng build --output-path=target/classes/static\"")
       .containing("\"test\": \"ng test --coverage\"")
+      .containing("\"lint\": \"ng lint\"")
       .containing(
         "  \"jestSonar\": {\n    \"reportPath\": \"target/test-results/jest\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },"
       )
@@ -58,7 +68,8 @@ class AngularModuleFactoryTest {
         "tsconfig.json",
         "tsconfig.app.json",
         "tsconfig.spec.json",
-        "proxy.conf.json"
+        "proxy.conf.json",
+        ".eslintrc.json"
       )
       .createPrefixedFiles(
         "src/main/webapp/app",

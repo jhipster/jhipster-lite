@@ -116,20 +116,17 @@ class KafkaModuleFactoryTest {
       .createFile(TEST_RESOURCES + "/config/application.properties")
       .containing("kafka.topic.dummy=queue.myapp.dummy")
       .and()
-      .createFile(MAIN_JAVA + "/" + properties.basePackage().path() + "/" + dummyProducerPath + "/DummyProducer.java")
-      .and()
-      .createFile(TEST_JAVA + "/" + properties.basePackage().path() + "/" + dummyProducerPath + "/DummyProducerTest.java")
-      .and()
-      .createFile(TEST_JAVA + "/" + properties.basePackage().path() + "/" + dummyProducerPath + "/DummyProducerIT.java")
-      .and()
-      .createFile(MAIN_JAVA + "/" + properties.basePackage().path() + "/" + dummyConsumerPath + "/AbstractConsumer.java")
-      .and()
-      .createFile(MAIN_JAVA + "/" + properties.basePackage().path() + "/" + dummyConsumerPath + "/DummyConsumer.java")
-      .and()
-      .createFile(TEST_JAVA + "/" + properties.basePackage().path() + "/" + dummyConsumerPath + "/DummyConsumerTest.java")
-      .and()
-      .createFile(TEST_JAVA + "/" + properties.basePackage().path() + "/" + dummyConsumerPath + "/DummyConsumerIT.java")
-      .and();
+      .createFiles(
+        MAIN_JAVA + "/" + properties.basePackage().path() + "/" + dummyProducerPath + "/DummyProducer.java",
+        MAIN_JAVA + "/" + properties.basePackage().path() + "/" + dummyConsumerPath + "/AbstractConsumer.java",
+        MAIN_JAVA + "/" + properties.basePackage().path() + "/" + dummyConsumerPath + "/DummyConsumer.java"
+      )
+      .createFiles(
+        TEST_JAVA + "/" + properties.basePackage().path() + "/" + dummyProducerPath + "/DummyProducerTest.java",
+        TEST_JAVA + "/" + properties.basePackage().path() + "/" + dummyProducerPath + "/DummyProducerIT.java",
+        TEST_JAVA + "/" + properties.basePackage().path() + "/" + dummyConsumerPath + "/DummyConsumerTest.java",
+        TEST_JAVA + "/" + properties.basePackage().path() + "/" + dummyConsumerPath + "/DummyConsumerIT.java"
+      );
   }
 
   @Test

@@ -25,7 +25,7 @@ public class KafkaModuleFactory {
 
   public JHipsterModule buildModuleInit(final JHipsterModuleProperties properties) {
     //@formatter:off
-    final JHipsterModuleBuilder builder = moduleBuilder(properties)
+    return moduleBuilder(properties)
       .context()
         .put("zookeeperDockerImage", dockerImages.get("confluentinc/cp-zookeeper").fullName())
         .put("kafkaDockerImage", dockerImages.get("confluentinc/cp-kafka").fullName())
@@ -67,10 +67,9 @@ public class KafkaModuleFactory {
         .set(propertyKey("kafka.producer.'[key.serializer]'"), propertyValue(STRING_SERIALIZER))
         .set(propertyKey("kafka.producer.'[value.serializer]'"), propertyValue(STRING_SERIALIZER))
         .set(propertyKey("kafka.polling.timeout"), propertyValue("10000"))
-        .and();
+        .and()
+      .build();
     //@formatter:on
-
-    return builder.build();
   }
 
   private String extendWith() {
@@ -87,7 +86,7 @@ public class KafkaModuleFactory {
 
   public JHipsterModule buildModuleDummyProducerConsumer(final JHipsterModuleProperties properties) {
     //@formatter:off
-    final JHipsterModuleBuilder builder = moduleBuilder(properties)
+    return moduleBuilder(properties)
       .springMainProperties()
         .set(propertyKey("kafka.topic.dummy"), propertyValue("queue." + properties.projectBaseName().name() + ".dummy"))
         .and()
@@ -102,23 +101,21 @@ public class KafkaModuleFactory {
         .add(SOURCE.template("DummyConsumer.java"), toSrcMainJava().append(properties.basePackage().path() + "/" + DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER + "/DummyConsumer.java"))
         .add(SOURCE.template("DummyConsumerTest.java"), toSrcTestJava().append(properties.basePackage().path() + "/" + DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER + "/DummyConsumerTest.java"))
         .add(SOURCE.template("DummyConsumerIT.java"), toSrcTestJava().append(properties.basePackage().path() + "/" + DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER + "/DummyConsumerIT.java"))
-        .and();
+        .and()
+      .build();
     //@formatter:on
-
-    return builder.build();
   }
 
   public JHipsterModule buildModuleAkhq(JHipsterModuleProperties properties) {
     //@formatter:off
-    final JHipsterModuleBuilder builder = moduleBuilder(properties)
+    return moduleBuilder(properties)
       .context()
         .put("akhqDockerImage", dockerImages.get("tchiotludo/akhq").fullName())
         .and()
       .files()
         .add(SOURCE.template("akhq.yml"), toSrcMainDocker().append("akhq.yml"))
-        .and();
+        .and()
+      .build();
     //@formatter:on
-
-    return builder.build();
   }
 }

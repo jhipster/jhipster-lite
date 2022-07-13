@@ -27,6 +27,7 @@ import { MittAlertListener } from '@/common/secondary/alert/MittAlertListener';
 import { RestModulesRepository } from './module/secondary/RestModulesRepository';
 import SetupRepository from '@/springboot/secondary/SetupRepository';
 import ProjectFolderRepository from '@/springboot/secondary/ProjectFolderRepository';
+import { RestProjectFoldersRepository } from '@/module/secondary/RestProjectFoldersRepository';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -51,6 +52,7 @@ const setupRepository = new SetupRepository(axiosHttp, projectHistoryRepository)
 const svelteRepository = new SvelteRepository(axiosHttp, projectHistoryRepository);
 const vueRepository = new VueRepository(axiosHttp, projectHistoryRepository);
 const modulesRepository = new RestModulesRepository(axiosHttp);
+const projectFoldersRepository = new RestProjectFoldersRepository(axiosHttp);
 
 app.provide('alertBus', alertBus);
 app.provide('alertListener', alertListener);
@@ -69,6 +71,7 @@ app.provide('setupService', setupRepository);
 app.provide('vueService', vueRepository);
 app.provide('svelteService', svelteRepository);
 app.provide('modules', modulesRepository);
+app.provide('projectFolders', projectFoldersRepository);
 app.use(router);
 
 app.mount('#app');

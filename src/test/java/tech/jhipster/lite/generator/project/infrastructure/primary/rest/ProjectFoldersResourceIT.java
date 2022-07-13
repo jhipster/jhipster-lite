@@ -19,6 +19,6 @@ class ProjectFoldersResourceIT {
 
   @Test
   void shouldGetProject() throws Exception {
-    mockMvc.perform(get("/api/project-folders")).andExpect(content().string(matchesRegex("^.*/.{36}$")));
+    mockMvc.perform(get("/api/project-folders")).andExpect(content().string(matchesRegex("^.*.{36}$")));
   }
 }

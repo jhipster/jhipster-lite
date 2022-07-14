@@ -8,7 +8,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleAsserter;
+import tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.JHipsterModuleAsserter;
 
 @UnitTest
 class ReactCoreModulesFactoryTest {
@@ -19,7 +19,7 @@ class ReactCoreModulesFactoryTest {
   void shouldBuildModuleWithoutStyle() {
     JHipsterModule module = factory.buildModuleWithoutStyle(properties());
 
-    assertCommonReactModule(module).createFile("src/main/webapp/app/common/primary/app/App.tsx").notContaining("import './App.css';");
+    assertCommonReactModule(module).hasFile("src/main/webapp/app/common/primary/app/App.tsx").notContaining("import './App.css';");
   }
 
   @Test
@@ -27,20 +27,20 @@ class ReactCoreModulesFactoryTest {
     JHipsterModule module = factory.buildModuleWithStyle(properties());
 
     assertCommonReactModule(module)
-      .createFile("src/main/webapp/app/common/primary/app/App.tsx")
+      .hasFile("src/main/webapp/app/common/primary/app/App.tsx")
       .containing("import './App.css';")
       .and()
-      .createFiles("src/main/webapp/app/common/primary/app/App.css")
-      .createPrefixedFiles("src/main/webapp/content/images", "ReactLogo.png", "JHipster-Lite-neon-blue.png");
+      .hasFiles("src/main/webapp/app/common/primary/app/App.css")
+      .hasPrefixedFiles("src/main/webapp/content/images", "ReactLogo.png", "JHipster-Lite-neon-blue.png");
   }
 
   private JHipsterModuleProperties properties() {
     return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build();
   }
 
-  private ModuleAsserter assertCommonReactModule(JHipsterModule module) {
+  private JHipsterModuleAsserter assertCommonReactModule(JHipsterModule module) {
     return assertThatModuleWithFiles(module, packageJsonFile())
-      .createFile("package.json")
+      .hasFile("package.json")
       .containing(nodeDependency("@testing-library/jest-dom"))
       .containing(nodeDependency("@testing-library/react"))
       .containing(nodeDependency("@testing-library/user-event"))
@@ -70,11 +70,11 @@ class ReactCoreModulesFactoryTest {
         "  \"jestSonar\": {\n    \"reportPath\": \"target/test-results/jest\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },"
       )
       .and()
-      .createFiles("tsconfig.json", "vite.config.ts", "jest.config.ts")
-      .createFiles("src/main/webapp/index.html")
-      .createPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts")
-      .createFiles("src/test/javascript/spec/common/primary/app/App.spec.tsx")
-      .createFiles("src/main/webapp/config/setupTests.ts");
+      .hasFiles("tsconfig.json", "vite.config.ts", "jest.config.ts")
+      .hasFiles("src/main/webapp/index.html")
+      .hasPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts")
+      .hasFiles("src/test/javascript/spec/common/primary/app/App.spec.tsx")
+      .hasFiles("src/main/webapp/config/setupTests.ts");
   }
 
   private static String nodeDependency(String dependency) {

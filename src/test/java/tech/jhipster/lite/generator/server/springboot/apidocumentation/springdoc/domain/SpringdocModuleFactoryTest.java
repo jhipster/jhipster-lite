@@ -26,15 +26,15 @@ class SpringdocModuleFactoryTest {
 
     JHipsterModule module = springdocModuleFactory.buildModuleForMvc(moduleProperties);
 
-    ModuleAsserter moduleAsserter = assertThatModuleWithFiles(module, pomFile())
-      .createFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
+    JHipsterModuleAsserter JHipsterModuleAsserter = assertThatModuleWithFiles(module, pomFile())
+      .hasFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
       .notContaining("JWT")
       .and()
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing("<artifactId>springdoc-openapi-ui</artifactId>")
       .notContaining("<artifactId>springdoc-openapi-webflux-ui</artifactId>")
       .and();
-    assertAddedProperties(moduleAsserter);
+    assertAddedProperties(JHipsterModuleAsserter);
   }
 
   @Test
@@ -46,14 +46,14 @@ class SpringdocModuleFactoryTest {
 
     JHipsterModule module = springdocModuleFactory.buildModuleForWebflux(moduleProperties);
 
-    ModuleAsserter moduleAsserter = assertThatModuleWithFiles(module, pomFile())
-      .createFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
+    JHipsterModuleAsserter JHipsterModuleAsserter = assertThatModuleWithFiles(module, pomFile())
+      .hasFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
       .notContaining("JWT")
       .and()
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing("<artifactId>springdoc-openapi-webflux-ui</artifactId>")
       .and();
-    assertAddedProperties(moduleAsserter);
+    assertAddedProperties(JHipsterModuleAsserter);
   }
 
   @Test
@@ -66,16 +66,16 @@ class SpringdocModuleFactoryTest {
 
     JHipsterModule module = springdocModuleFactory.buildModuleWithSecurityJwtForMvc(moduleProperties);
 
-    ModuleAsserter moduleAsserter = assertThatModuleWithFiles(module, pomFile())
-      .createFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
+    JHipsterModuleAsserter JHipsterModuleAsserter = assertThatModuleWithFiles(module, pomFile())
+      .hasFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
       .containing("JWT")
       .and()
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing("<artifactId>springdoc-openapi-ui</artifactId>")
       .notContaining("<artifactId>springdoc-openapi-webflux-ui</artifactId>")
       .and();
 
-    assertAddedProperties(moduleAsserter);
+    assertAddedProperties(JHipsterModuleAsserter);
   }
 
   @Test
@@ -87,20 +87,20 @@ class SpringdocModuleFactoryTest {
 
     JHipsterModule module = springdocModuleFactory.buildModuleWithSecurityJwtForWebflux(moduleProperties);
 
-    ModuleAsserter moduleAsserter = assertThatModuleWithFiles(module, pomFile())
-      .createFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
+    JHipsterModuleAsserter JHipsterModuleAsserter = assertThatModuleWithFiles(module, pomFile())
+      .hasFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
       .containing("JWT")
       .and()
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing("<artifactId>springdoc-openapi-webflux-ui</artifactId>")
       .and();
 
-    assertAddedProperties(moduleAsserter);
+    assertAddedProperties(JHipsterModuleAsserter);
   }
 
-  private void assertAddedProperties(ModuleAsserter moduleFileAsserter) {
+  private void assertAddedProperties(JHipsterModuleAsserter moduleFileAsserter) {
     moduleFileAsserter
-      .createFile("src/main/resources/config/application.properties")
+      .hasFile("src/main/resources/config/application.properties")
       .containing("springdoc.swagger-ui.operationsSorter=alpha")
       .containing("springdoc.swagger-ui.tagsSorter=alpha")
       .containing("springdoc.swagger-ui.tryItOutEnabled=true");

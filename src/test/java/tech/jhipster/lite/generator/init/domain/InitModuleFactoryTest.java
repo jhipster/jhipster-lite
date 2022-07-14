@@ -48,10 +48,6 @@ class InitModuleFactoryTest {
       .containing("\"prettier:format\": \"prettier --write \\\"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\\\"\"");
   }
 
-  private String nodeDependency(String packageName) {
-    return "\"" + packageName + "\": \"";
-  }
-
   @Test
   void shouldBuildMinimalModule() {
     String folder = TestFileUtils.tmpDirForTest();

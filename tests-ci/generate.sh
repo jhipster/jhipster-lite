@@ -106,6 +106,7 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/logs-spy"
   callApi "/api/servers/spring-boot/features/dummy"
   callApi "/api/servers/hexagonal-architecture-documentation"
+  callApi "/api/servers/bean-validation-test"
 
   callApi "/api/servers/spring-boot/databases/postgresql"
   callApi "/api/servers/spring-boot/features/user/postgresql"

@@ -5,7 +5,7 @@ public enum DatabaseType {
   MYSQL("mysql"),
   MARIADB("mariadb"),
   ORACLE("oracle"),
-  MSSQL("mssqlserver"),
+  MSSQL("mssql"),
   CASSANDRA("cassandra"),
   COUCHBASE("couchbase"),
   NEO4J("neo4j");

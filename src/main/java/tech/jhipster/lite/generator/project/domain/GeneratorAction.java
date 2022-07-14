@@ -55,8 +55,6 @@ public class GeneratorAction {
 
   public static final String REACT_CYPRESS = "react-cypress";
 
-  public static final String SPRINGBOOT_PULSAR = "springboot-pulsar";
-
   public static final String SPRINGBOOT_WEBFLUX_NETTY = "springboot-webflux-netty";
 
   public static final String CLIENT_COMMON_PLAYWRIGHT = "client-common-playwright";

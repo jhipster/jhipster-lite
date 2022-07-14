@@ -24,8 +24,8 @@ public class AopLoggingModuleFactory {
         .and()
       .files()
         .batch(SOURCE, toSrcMainJava().append(properties.basePackage().path()).append(AOP_FOLDER))
-          .template("LoggingAspectConfiguration.java")
-          .template("LoggingAspect.java")
+          .addTemplate("LoggingAspectConfiguration.java")
+          .addTemplate("LoggingAspect.java")
           .and()
         .add(
           SOURCE.template("LoggingAspectTest.java"),

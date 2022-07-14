@@ -1,9 +1,11 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.function.Consumer;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -27,7 +29,7 @@ class FileSystemReplacer {
         String content = Files.readString(filePath);
         String updatedContent = replacement.apply(content);
 
-        Files.writeString(filePath, updatedContent, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.writeString(filePath, updatedContent.replace("\r\n", LINE_BREAK), StandardCharsets.UTF_8);
       } catch (IOException e) {
         replacement.handleError(e);
       }

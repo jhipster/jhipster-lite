@@ -48,6 +48,7 @@ describe('Generator', () => {
     cy.get(springBootGeneratorSelector('add-spring-boot-button')).contains('Spring Boot');
     cy.get(springBootGeneratorSelector('add-spring-boot-mvc-with-tomcat-button')).contains('Spring MVC Tomcat');
     cy.get(springBootGeneratorSelector('add-spring-boot-mvc-with-undertow-button')).contains('Spring MVC Undertow');
+    cy.get(springBootGeneratorSelector('add-spring-boot-zalando-problems-button')).contains('Zalando problems');
     cy.get(springBootGeneratorSelector('add-spring-boot-webflux-netty-button')).contains('Spring Webflux Netty');
     cy.get(springBootGeneratorSelector('add-spring-boot-actuator-button')).contains('Spring Boot Actuator');
     cy.get(springBootGeneratorSelector('add-spring-doc-button')).contains('Spring Doc');

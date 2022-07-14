@@ -193,6 +193,40 @@ describe('SpringBootGenerator', () => {
     expectAlertErrorToBe(alertBus, 'Adding SpringBoot MVC with Undertow to project failed error');
   });
 
+  it('should not add Zalando problems when project path is not filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addZalandoProblems.resolves({});
+    await wrap({ springBootService, project: createProjectToUpdate({ folder: '' }) });
+
+    await component.addZalandoProblems();
+
+    expect(springBootService.addZalandoProblems.called).toBe(false);
+  });
+
+  it('should add Zalando problems when project path is filled', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addZalandoProblems.resolves({});
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addZalandoProblems();
+
+    const args = springBootService.addZalandoProblems.getCall(0).args[0];
+    expect(args).toEqual(projectJson);
+    expectAlertSuccessToBe(alertBus, 'Zalando problems successfully added');
+  });
+
+  it('should handle error on adding Zalando problems failure', async () => {
+    const springBootService = stubSpringBootService();
+    springBootService.addZalandoProblems.rejects('error');
+    const alertBus = stubAlertBus();
+    await wrap({ alertBus, springBootService, project: createProjectToUpdate({ folder: 'project/path' }) });
+
+    await component.addZalandoProblems();
+
+    expectAlertErrorToBe(alertBus, 'Adding Zalando problems to project failed error');
+  });
+
   it('should not add SpringBoot dummy feature when project path is not filled', async () => {
     const springBootService = stubSpringBootService();
     springBootService.addSpringBootDummyFeature.resolves({});
@@ -668,7 +702,7 @@ describe('SpringBootGenerator', () => {
       const springBootService = stubSpringBootService();
       springBootService.addMSSQL.resolves({});
       const alertBus = stubAlertBus();
-      let project = createProjectToUpdate({ folder: 'project/path' });
+      const project = createProjectToUpdate({ folder: 'project/path' });
       await wrap({ alertBus, springBootService, project: project });
 
       await component.addMSSQL();

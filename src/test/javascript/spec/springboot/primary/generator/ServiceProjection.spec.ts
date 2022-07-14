@@ -127,6 +127,7 @@ describe('ServiceProjection', () => {
     expect(fromServiceProjection('springdoc-openapi-with-security-jwt')).toEqual<Service>(Service.SPRINGDOC_OPENAPI_WITH_SECURIITY_JWT);
     expect(fromServiceProjection('spring-boot-mvc-with-tomcat')).toEqual<Service>(Service.SPRINGBOOT_MVC_WITH_TOMCAT);
     expect(fromServiceProjection('spring-boot-mvc-with-undertow')).toEqual<Service>(Service.SPRINGBOOT_MVC_WITH_UNDERTOW);
+    expect(fromServiceProjection('spring-boot-zalando-problems')).toEqual<Service>(Service.ZALANDO_PROBLEMS);
     expect(fromServiceProjection('spring-boot-dummy-feature')).toEqual<Service>(Service.SPRINGBOOT_DUMMY_FEATURE);
     expect(fromServiceProjection('spring-boot-webflux-netty')).toEqual<Service>(Service.SPRINGBOOT_WEBFLUX_NETTY);
     expect(fromServiceProjection('spring-boot-pulsar')).toEqual<Service>(Service.SPRINGBOOT_PULSAR);

@@ -21,6 +21,12 @@
           @click.prevent="addSpringBootMvcUndertow"
         />
         <GeneratorButtonVue
+          :label="'Zalando problems'"
+          :service="'spring-boot-zalando-problems'"
+          :selector-prefix="selectorPrefix"
+          @click.prevent="addZalandoProblems"
+        />
+        <GeneratorButtonVue
           :label="'Spring Webflux Netty'"
           :service="'spring-boot-webflux-netty'"
           :selector-prefix="selectorPrefix"

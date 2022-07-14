@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator;
 
 import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
 
 import io.cucumber.java.en.Then;
 import java.io.IOException;
@@ -14,7 +15,6 @@ import java.util.stream.Collectors;
 import org.assertj.core.api.SoftAssertions;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
-import tech.jhipster.lite.cucumber.CucumberAssertions;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
 public class ProjectsSteps {
@@ -37,7 +37,7 @@ public class ProjectsSteps {
 
   @Then("I should have files in {string}")
   public void shouldHaveFiles(String basePath, List<String> files) {
-    CucumberAssertions.assertThatLastResponse().hasOkStatus();
+    assertThatLastResponse().hasOkStatus();
 
     SoftAssertions assertions = new SoftAssertions();
 
@@ -56,7 +56,7 @@ public class ProjectsSteps {
 
   @Then("I should not have files in {string}")
   public void shouldNotHaveFiles(String basePath, List<String> files) {
-    CucumberAssertions.assertThatLastResponse().hasHttpStatusIn(200, 201);
+    assertThatLastResponse().hasHttpStatusIn(200, 201);
 
     SoftAssertions assertions = new SoftAssertions();
 
@@ -88,6 +88,8 @@ public class ProjectsSteps {
 
   @Then("I should have {string} in {string}")
   public void shouldHaveFileContent(String content, String file) throws IOException {
+    assertThatLastResponse().hasHttpStatusIn(200, 201);
+
     assertThat(Files.readString(Paths.get(lastProjectFolder, file))).contains(content);
   }
 

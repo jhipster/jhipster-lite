@@ -42,6 +42,7 @@ const SERVICES: Record<string, Service> = {
   springboot: Service.SPRINGBOOT,
   'springboot-tomcat': Service.SPRINGBOOT_MVC_WITH_TOMCAT,
   'springboot-undertow': Service.SPRINGBOOT_MVC_WITH_UNDERTOW,
+  'zalando-problems': Service.ZALANDO_PROBLEMS,
   'springboot-webflux-netty': Service.SPRINGBOOT_WEBFLUX_NETTY,
   'springboot-actuator': Service.SPRINGBOOT_ACTUATOR,
   'springdoc-openapi': Service.SPRING_DOC,

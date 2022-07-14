@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
-import java.util.List;
 import java.util.Optional;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.buildtool.gradle.domain.GradleService;
@@ -36,15 +35,6 @@ public class BuildToolDomainService implements BuildToolService {
     Dependency dependencyWithVersion = dependency.toBuilder().version("\\${" + versionProperty + ".version}").build();
     addProperty(project, versionProperty + ".version", version);
     addDependency(project, dependencyWithVersion);
-  }
-
-  @Override
-  public void addDependency(Project project, Dependency dependency, List<Dependency> exclusions) {
-    if (project.isMavenProject()) {
-      mavenService.addDependency(project, dependency, exclusions);
-    } else {
-      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
-    }
   }
 
   @Override

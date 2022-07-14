@@ -51,6 +51,15 @@ export default defineComponent({
       }
     };
 
+    const addZalandoProblems = async (): Promise<void> => {
+      if (props.project.folder !== '') {
+        await springBootService
+          .addZalandoProblems(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('Zalando problems successfully added'))
+          .catch(error => alertBus.error(`Adding Zalando problems to project failed ${error}`));
+      }
+    };
+
     const addSpringBootDummyFeature = async (): Promise<void> => {
       if (props.project.folder !== '') {
         await springBootService
@@ -380,6 +389,7 @@ export default defineComponent({
       addSpringBoot,
       addSpringBootMvcTomcat,
       addSpringBootMvcUndertow,
+      addZalandoProblems,
       addSpringBootDummyFeature,
       addSpringBootWebfluxNetty,
       addSpringBootActuator,

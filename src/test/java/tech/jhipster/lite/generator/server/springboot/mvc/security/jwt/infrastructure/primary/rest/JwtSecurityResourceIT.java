@@ -17,7 +17,6 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
 import tech.jhipster.lite.generator.server.javatool.base.application.JavaBaseApplicationService;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.application.JwtSecurityApplicationService;
-import tech.jhipster.lite.generator.server.springboot.mvc.web.application.SpringBootMvcApplicationService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
@@ -26,9 +25,6 @@ class JwtSecurityResourceIT {
 
   @Autowired
   private JavaBaseApplicationService javaBaseApplicationService;
-
-  @Autowired
-  private SpringBootMvcApplicationService springBootMvcApplicationService;
 
   @Autowired
   private JwtSecurityApplicationService jwtSecurityApplicationService;
@@ -46,7 +42,8 @@ class JwtSecurityResourceIT {
     TestJHipsterModules.applyMaven(project);
     javaBaseApplicationService.build(projectDTO.toModuleProperties());
     TestJHipsterModules.applySpringBootCore(project);
-    springBootMvcApplicationService.init(project);
+    TestJHipsterModules.applyTomcat(project);
+    TestJHipsterModules.applyZalandoProblems(project);
 
     mockMvc
       .perform(
@@ -71,7 +68,8 @@ class JwtSecurityResourceIT {
     TestJHipsterModules.applyMaven(project);
     javaBaseApplicationService.build(projectDTO.toModuleProperties());
     TestJHipsterModules.applySpringBootCore(project);
-    springBootMvcApplicationService.init(project);
+    TestJHipsterModules.applyTomcat(project);
+    TestJHipsterModules.applyZalandoProblems(project);
     jwtSecurityApplicationService.init(project);
 
     mockMvc

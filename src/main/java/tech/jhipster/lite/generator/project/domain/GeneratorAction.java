@@ -49,8 +49,6 @@ public class GeneratorAction {
   public static final String USER_AND_AUTHORITY_ENTITIES_MYSQL = "user-and-authority-entities-mysql";
   public static final String USER_AND_AUTHORITY_ENTITIES_MARIADB = "user-and-authority-entities-mariadb";
 
-  public static final String SPRINGBOOT_TOMCAT = "springboot-tomcat";
-  public static final String SPRINGBOOT_UNDERTOW = "springboot-undertow";
   public static final String SPRINGBOOT_ACTUATOR = "springboot-actuator";
 
   public static final String REACT_CYPRESS = "react-cypress";

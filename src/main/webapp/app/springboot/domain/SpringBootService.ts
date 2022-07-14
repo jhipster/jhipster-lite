@@ -5,6 +5,7 @@ export interface SpringBootService {
 
   addSpringBootMvcTomcat(project: Project): Promise<void>;
   addSpringBootMvcUndertow(project: Project): Promise<void>;
+  addZalandoProblems(project: Project): Promise<void>;
   addSpringBootWebfluxNetty(project: Project): Promise<void>;
   addSpringBootActuator(project: Project): Promise<void>;
   addSpringDoc(project: Project): Promise<void>;

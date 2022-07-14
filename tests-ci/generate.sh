@@ -42,6 +42,7 @@ springboot_mvc() {
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
   callApi "/api/servers/spring-boot/web-servers/tomcat"
+  callApi "/api/servers/spring-boot/zalando-problems"
   callApi "/api/servers/spring-boot/technical-tools/actuator"
 }
 
@@ -53,6 +54,7 @@ springboot_undertow() {
   callApi "/api/servers/java/jacoco-minimum-coverage"
   callApi "/api/servers/spring-boot"
   callApi "/api/servers/spring-boot/web-servers/undertow"
+  callApi "/api/servers/spring-boot/zalando-problems"
   callApi "/api/servers/spring-boot/technical-tools/actuator"
 }
 

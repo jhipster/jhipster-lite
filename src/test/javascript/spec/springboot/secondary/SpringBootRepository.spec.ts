@@ -4,8 +4,6 @@ import { stubAxiosHttp } from '../../http/AxiosHttpStub';
 import { RestProject, toRestProject } from '@/springboot/secondary/RestProject';
 import { createProject } from '../domain/Project.fixture';
 import { stubProjectHistoryService } from '../../common/domain/ProjectHistoryService.fixture';
-import { stubProjectStore } from '../primary/ProjectStore.fixture';
-import ProjectRepository from '../../../../../main/webapp/app/springboot/secondary/ProjectRepository';
 
 const PROJECT_FOLDER = 'folder/path';
 
@@ -73,6 +71,23 @@ describe('SpringBootRepository', () => {
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
     expect(uri).toBe('api/servers/spring-boot/web-servers/undertow');
+    expect(payload).toEqual<RestProject>(expectedRestProject);
+    const [projectFolder] = projectHistoryService.get.getCall(0).args;
+    expect(projectFolder).toBe(PROJECT_FOLDER);
+  });
+
+  it('should add Zalando problems with Undertow', async () => {
+    const projectHistoryService = stubProjectHistoryService();
+    const axiosHttpStub = stubAxiosHttp();
+    axiosHttpStub.post.resolves();
+    const springBootRepository = new SpringBootRepository(axiosHttpStub, projectHistoryService);
+    const project: Project = createProject({ folder: PROJECT_FOLDER });
+
+    await springBootRepository.addZalandoProblems(project);
+
+    const expectedRestProject: RestProject = toRestProject(project);
+    const [uri, payload] = axiosHttpStub.post.getCall(0).args;
+    expect(uri).toBe('api/servers/spring-boot/zalando-problems');
     expect(payload).toEqual<RestProject>(expectedRestProject);
     const [projectFolder] = projectHistoryService.get.getCall(0).args;
     expect(projectFolder).toBe(PROJECT_FOLDER);

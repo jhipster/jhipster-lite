@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
 
-import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -43,17 +42,6 @@ class BuildToolDomainServiceTest {
       buildToolDomainService.addDependency(project, dependency);
 
       verify(mavenService).addDependency(project, dependency);
-    }
-
-    @Test
-    void shouldAddDependencyWithExclusion() {
-      Project project = tmpProjectWithPomXml();
-      Dependency dependency = getDependency();
-      List<Dependency> exclusions = getExclusions();
-
-      buildToolDomainService.addDependency(project, dependency, exclusions);
-
-      verify(mavenService).addDependency(project, dependency, exclusions);
     }
 
     @Test
@@ -147,16 +135,6 @@ class BuildToolDomainServiceTest {
     }
 
     @Test
-    void shouldNotAddDependencyWithExclusion() {
-      Project project = tmpProject();
-      Dependency dependency = getDependency();
-      List<Dependency> exclusions = getExclusions();
-
-      assertThatThrownBy(() -> buildToolDomainService.addDependency(project, dependency, exclusions))
-        .isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
     void shouldNotAddDependencyManagement() {
       Project project = tmpProject();
       Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
@@ -206,9 +184,5 @@ class BuildToolDomainServiceTest {
 
   private Dependency getDependency() {
     return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
-  }
-
-  private List<Dependency> getExclusions() {
-    return List.of(Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-tomcat").build());
   }
 }

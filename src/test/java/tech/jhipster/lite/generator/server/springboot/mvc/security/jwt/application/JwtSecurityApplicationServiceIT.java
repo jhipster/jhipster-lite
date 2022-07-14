@@ -11,14 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.secondary.GitUtils;
-import tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvcService;
 import tech.jhipster.lite.module.infrastructure.secondary.TestJHipsterModules;
 
 @IntegrationTest
 class JwtSecurityApplicationServiceIT {
-
-  @Autowired
-  private SpringBootMvcService springBootMvcService;
 
   @Autowired
   private JwtSecurityApplicationService jwtSecurityApplicationService;
@@ -29,7 +25,8 @@ class JwtSecurityApplicationServiceIT {
     GitUtils.init(project.getFolder());
     TestJHipsterModules.applyMaven(project);
     TestJHipsterModules.applySpringBootCore(project);
-    springBootMvcService.init(project);
+    TestJHipsterModules.applyTomcat(project);
+    TestJHipsterModules.applyZalandoProblems(project);
 
     jwtSecurityApplicationService.init(project);
 
@@ -57,7 +54,8 @@ class JwtSecurityApplicationServiceIT {
     GitUtils.init(project.getFolder());
     TestJHipsterModules.applyMaven(project);
     TestJHipsterModules.applySpringBootCore(project);
-    springBootMvcService.init(project);
+    TestJHipsterModules.applyTomcat(project);
+    TestJHipsterModules.applyZalandoProblems(project);
     jwtSecurityApplicationService.init(project);
 
     jwtSecurityApplicationService.addBasicAuth(project);

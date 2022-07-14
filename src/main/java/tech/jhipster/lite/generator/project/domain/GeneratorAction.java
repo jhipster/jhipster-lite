@@ -7,11 +7,6 @@ public class GeneratorAction {
   // Init
   public static final String DOWNLOAD = "download";
 
-  // Gradle
-  public static final String GRADLE_JAVA = "gradle-java";
-  public static final String GRADLE_JAVA_BUILD_GRADLE_KTS = "gradle-java-build-gradle-kts";
-  public static final String GRADLE_WRAPPER = "gradle-wrapper";
-
   public static final String NPM_INSTALL = "npm-install";
   public static final String NPM_PRETTIFY = "npm-prettify";
 

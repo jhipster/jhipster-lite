@@ -44,8 +44,8 @@ public class KafkaModuleFactory {
         .and()
       .mandatoryReplacements()
         .in(TEST_JAVA + "/" + properties.basePackage().path() + "/IntegrationTest.java")
-          .add(text("import org.springframework.boot.test.context.SpringBootTest;"), importExtendWith())
-          .add(text("public @interface"), extendWith())
+          .add(lineBeforeText("import org.springframework.boot.test.context.SpringBootTest;"), "import org.junit.jupiter.api.extension.ExtendWith;")
+          .add(lineBeforeText("public @interface"), "@ExtendWith(KafkaTestContainerExtension.class)")
           .and()
         .and()
       .springMainProperties()
@@ -70,18 +70,6 @@ public class KafkaModuleFactory {
         .and()
       .build();
     //@formatter:on
-  }
-
-  private String extendWith() {
-    return """
-  @ExtendWith(KafkaTestContainerExtension.class)
-  public @interface""";
-  }
-
-  private String importExtendWith() {
-    return """
-  import org.junit.jupiter.api.extension.ExtendWith;
-  import org.springframework.boot.test.context.SpringBootTest;""";
   }
 
   public JHipsterModule buildModuleDummyProducerConsumer(final JHipsterModuleProperties properties) {

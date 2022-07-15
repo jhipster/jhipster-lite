@@ -4,7 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
-import tech.jhipster.lite.module.domain.javadependency.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class SpringBootActuatorModuleFactory {
@@ -13,13 +13,11 @@ public class SpringBootActuatorModuleFactory {
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
-    //@formatter:off
+
     JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
-      .put("applicationName", properties.projectBaseName()
-      .capitalized())
+      .put("applicationName", properties.projectBaseName().capitalized())
       .and();
-    //@formatter:on
 
     appendDependencies(builder);
     appendSpringProperties(builder);
@@ -28,7 +26,7 @@ public class SpringBootActuatorModuleFactory {
   }
 
   private void appendDependencies(JHipsterModuleBuilder builder) {
-    builder.javaDependencies().add(SPRING_GROUP, artifactId("spring-boot-starter-actuator"));
+    builder.javaDependencies().addDependency(SPRING_GROUP, artifactId("spring-boot-starter-actuator"));
   }
 
   private void appendSpringProperties(JHipsterModuleBuilder builder) {

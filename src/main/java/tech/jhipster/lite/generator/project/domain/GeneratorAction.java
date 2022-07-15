@@ -27,8 +27,6 @@ public class GeneratorAction {
 
   public static final String REACT_JWT = "react-jwt";
 
-  public static final String GITHUB_ACTIONS = "github-actions";
-
   public static final String MSSQL = "mssql";
 
   public static final String FLYWAY = "flyway";

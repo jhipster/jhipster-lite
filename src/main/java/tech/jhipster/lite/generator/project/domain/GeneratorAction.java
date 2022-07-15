@@ -4,9 +4,6 @@ public class GeneratorAction {
 
   private GeneratorAction() {}
 
-  // Init
-  public static final String DOWNLOAD = "download";
-
   public static final String NPM_INSTALL = "npm-install";
   public static final String NPM_PRETTIFY = "npm-prettify";
 

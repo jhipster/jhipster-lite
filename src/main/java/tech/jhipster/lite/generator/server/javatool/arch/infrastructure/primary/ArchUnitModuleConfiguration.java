@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.javatool.arch.infrastructure.primary
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.javatool.arch.application.JavaArchUnitApplicationService;
-import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
@@ -19,7 +18,7 @@ class ArchUnitModuleConfiguration {
       .slug("java-archunit")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Java", "Add Hexagonal Arch classes to project"))
-      .tags(JHipsterModuleTags.DEFAULT_TAGS)
+      .tags("server", "test")
       .factory(archUnit::buildModule);
   }
 }

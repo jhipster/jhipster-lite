@@ -18,7 +18,7 @@ class JHipsterTagTest {
   @Test
   void shouldIsIdentical() {
     JHipsterModuleTag tag = new JHipsterModuleTag("mytag");
-    assertThat(tag.tag()).isEqualTo("mytag");
+    assertThat(tag.get()).isEqualTo("mytag");
   }
 
   @Test

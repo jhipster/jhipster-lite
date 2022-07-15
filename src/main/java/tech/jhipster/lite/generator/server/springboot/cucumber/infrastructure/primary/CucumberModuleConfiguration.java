@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.cucumber.infrastructure.p
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.cucumber.application.CucumberApplicationService;
-import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
@@ -28,7 +27,7 @@ class CucumberModuleConfiguration {
           .build()
       )
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Component Tests", "Add cucumber integration to project"))
-      .tags(JHipsterModuleTags.DEFAULT_TAGS)
+      .tags("server", "spring", "spring-boot", "test")
       .factory(cucumber::build);
   }
 

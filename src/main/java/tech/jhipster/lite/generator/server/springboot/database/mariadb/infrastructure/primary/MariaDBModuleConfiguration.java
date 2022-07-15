@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.database.mariadb.infrastr
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.database.mariadb.application.MariaDBApplicationService;
-import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
@@ -21,7 +20,7 @@ class MariaDBModuleConfiguration {
       .slug("mariadb")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add MariaDB to project"))
-      .tags(JHipsterModuleTags.DEFAULT_TAGS)
+      .tags("server", "spring", "spring-boot", "database")
       .factory(applicationService::build);
   }
 }

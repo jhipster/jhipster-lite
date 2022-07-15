@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.setup.gitpod.infrastructure.primary;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.setup.gitpod.application.GitpodApplicationService;
-import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
 
@@ -18,7 +17,7 @@ class GitpodModuleConfiguration {
       .slug("gitpod")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Gitpod", "Init Gitpod configuration files"))
-      .tags(JHipsterModuleTags.DEFAULT_TAGS)
+      .tags("setup")
       .factory(gitPods::buildModule);
   }
 }

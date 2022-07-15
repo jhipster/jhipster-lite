@@ -19,4 +19,8 @@ public record JHipsterModuleTag(String tag) {
   private static boolean invalidFormat(String slug) {
     return !TAG_FORMAT.matcher(slug).matches();
   }
+
+  public String get() {
+    return tag();
+  }
 }

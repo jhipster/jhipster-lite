@@ -12,9 +12,7 @@ public class JHipsterModuleResource {
   private final JHipsterModuleSlug slug;
   private final JHipsterModulePropertiesDefinition propertiesDefinition;
   private final JHipsterModuleApiDoc apiDoc;
-
   private final JHipsterModuleTags tags;
-
   private final JHipsterModuleFactory factory;
 
   private JHipsterModuleResource(JHipsterModuleResourceBuilder builder) {
@@ -128,6 +126,13 @@ public class JHipsterModuleResource {
 
       return this;
     }
+
+    @Override
+    public JHipsterModuleResourceFactoryBuilder tags(String... tags) {
+      this.tags = JHipsterModuleTags.builder().add(tags).build();
+
+      return this;
+    }
   }
 
   public interface JHipsterModuleResourceLegacyUrlBuilder {
@@ -156,5 +161,7 @@ public class JHipsterModuleResource {
 
   public interface JHipsterModuleResourceTagsBuilder {
     JHipsterModuleResourceFactoryBuilder tags(JHipsterModuleTags tags);
+
+    JHipsterModuleResourceFactoryBuilder tags(String... tags);
   }
 }

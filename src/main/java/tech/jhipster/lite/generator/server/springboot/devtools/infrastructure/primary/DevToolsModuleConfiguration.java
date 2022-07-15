@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.devtools.infrastructure.p
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.devtools.application.DevToolsApplicationService;
-import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
@@ -19,7 +18,7 @@ class DevToolsModuleConfiguration {
       .slug("springboot-devtools")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Tools", "Add spring boot tools."))
-      .tags(JHipsterModuleTags.DEFAULT_TAGS)
+      .tags("server", "spring", "spring-boot", "devtools")
       .factory(devtools::buildModule);
   }
 }

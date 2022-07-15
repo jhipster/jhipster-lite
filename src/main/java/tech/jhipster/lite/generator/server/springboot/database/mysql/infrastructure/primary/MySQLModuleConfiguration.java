@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.database.mysql.infrastruc
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.database.mysql.application.MySQLApplicationService;
-import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
@@ -21,7 +20,7 @@ class MySQLModuleConfiguration {
       .slug("mysql")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add MySQL to project"))
-      .tags(JHipsterModuleTags.DEFAULT_TAGS)
+      .tags("server", "spring", "spring-boot", "database")
       .factory(applicationService::build);
   }
 }

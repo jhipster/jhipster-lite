@@ -1,18 +1,16 @@
 package tech.jhipster.lite.module.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import tech.jhipster.lite.error.domain.Assert;
 
 public class JHipsterModuleTags {
 
-  public static final JHipsterModuleTags DEFAULT_TAGS = builder().add("not-defined").build();
+  public static final JHipsterModuleTags DEFAULT_TAGS = builder().add("none").build();
+
   private final Collection<JHipsterModuleTag> tags;
 
   private JHipsterModuleTags(JHipsterModuleTagsBuilder builder) {
-    tags = Collections.unmodifiableCollection(builder.tags);
+    tags = Collections.unmodifiableCollection(builder.tags.stream().sorted(Comparator.comparing(JHipsterModuleTag::get)).toList());
   }
 
   public static JHipsterModuleTagsBuilder builder() {
@@ -40,7 +38,7 @@ public class JHipsterModuleTags {
       return this;
     }
 
-    public JHipsterModuleTagsBuilder add(String[] tags) {
+    public JHipsterModuleTagsBuilder add(String... tags) {
       add(List.of(tags));
 
       return this;

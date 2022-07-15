@@ -24,7 +24,7 @@ class JHipsterTagsTest {
       .add("spring")
       .add("database")
       .add(new JHipsterModuleTag("postgresql"))
-      .add(new String[] { "foo", "bar", "baz" })
+      .add("foo", "bar", "baz")
       .add(List.of("tag1", "tag2"))
       .build();
     assertThatThrownBy(() -> module.get().add(new JHipsterModuleTag("unauthorized"))).isInstanceOf(UnsupportedOperationException.class);

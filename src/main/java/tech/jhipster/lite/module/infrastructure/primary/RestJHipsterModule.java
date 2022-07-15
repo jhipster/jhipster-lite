@@ -12,7 +12,6 @@ class RestJHipsterModule {
   private final String slug;
   private final String description;
   private final RestJHipsterModulePropertiesDefinition properties;
-
   private final Collection<String> tags;
 
   private RestJHipsterModule(RestJHipsterModuleBuilder builder) {

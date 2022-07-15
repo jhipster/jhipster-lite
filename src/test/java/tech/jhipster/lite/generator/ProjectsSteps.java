@@ -95,6 +95,8 @@ public class ProjectsSteps {
 
   @Then("I should not have {string} in {string}")
   public void shouldNotHaveFileContent(String content, String file) throws IOException {
+    assertThatLastResponse().hasHttpStatusIn(200, 201);
+
     assertThat(Files.readString(Paths.get(lastProjectFolder, file))).doesNotContain(content);
   }
 }

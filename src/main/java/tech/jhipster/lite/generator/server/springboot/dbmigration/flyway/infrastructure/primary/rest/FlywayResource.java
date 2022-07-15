@@ -24,15 +24,6 @@ class FlywayResource {
     this.flywayApplicationService = flywayApplicationService;
   }
 
-  @Operation(summary = "Add Flyway")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Flyway")
-  @PostMapping
-  @GeneratorStep(id = GeneratorAction.FLYWAY)
-  public void init(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-    flywayApplicationService.init(project);
-  }
-
   @Operation(summary = "Add User and Authority changelogs")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding changelogs for user and authority")
   @PostMapping("/user")

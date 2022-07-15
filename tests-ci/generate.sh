@@ -124,6 +124,8 @@ elif [[ $application == 'oauth2app' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/cucumber-authentication"
   callApi "/api/servers/spring-boot/security-systems/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2/account"
 

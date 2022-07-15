@@ -41,6 +41,7 @@
     <failsafe-plugin.version>3.0.0-M5</failsafe-plugin.version>
     <jacoco.version>0.8.8</jacoco.version>
     <reflections.version>0.10.2</reflections.version>
+    <json-web-token.version>0.11.5</json-web-token.version>
   </properties>
 
   <dependencyManagement>
@@ -194,6 +195,21 @@
         <groupId>org.reflections</groupId>
         <artifactId>reflections</artifactId>
         <version>${reflections.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-api</artifactId>
+        <version>${json-web-token.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-impl</artifactId>
+        <version>${json-web-token.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-jackson</artifactId>
+        <version>${json-web-token.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

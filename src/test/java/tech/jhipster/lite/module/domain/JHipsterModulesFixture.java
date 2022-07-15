@@ -48,6 +48,7 @@ public final class JHipsterModulesFixture {
       .add(from("init/README.md.mustache"), to("README.md"))
       .and()
     .documentation(documentationTitle("Cucumber integration"), from("server/springboot/cucumber/cucumber.md.mustache"))
+    .documentation(documentationTitle("Another cucumber integration"), from("server/springboot/cucumber/cucumber.md.mustache"))
     .readmeSection("This is a readme section")
     .mandatoryReplacements()
       .in("src/main/java/com/company/myapp/errors/Assert.java")

@@ -258,8 +258,8 @@ public class JHipsterModule {
 
     private static final String PROFILE = "profile";
     private static final String README = "README.md";
-    private static final String JHIPSTER_DOCUMENTATION_NEEDLE = "<!-- jhipster-needle-documentation -->";
-    private static final String JHIPSTER_README_SECTION_NEEDLE = "<!-- jhipster-needle-readme -->";
+    private static final String JHIPSTER_DOCUMENTATION_NEEDLE = "\n<!-- jhipster-needle-documentation -->";
+    private static final String JHIPSTER_README_SECTION_NEEDLE = "\n<!-- jhipster-needle-readme -->";
 
     private final JHipsterProjectFolder projectFolder;
     private final JHipsterModuleProperties properties;

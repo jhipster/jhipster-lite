@@ -204,7 +204,13 @@ class FileSystemJHipsterModulesRepositoryTest {
         .containing("springdoc.swagger-ui.tryItOutEnabled=test")
         .and()
       .createFile("README.md")
-        .containing("- [Cucumber integration](documentation/cucumber-integration.md)")
+        .containing(
+            """
+           - [Cucumber integration](documentation/cucumber-integration.md)
+           - [Another cucumber integration](documentation/another-cucumber-integration.md)
+           
+           <!-- jhipster-needle-documentation -->
+           """)
         .containing("This is a readme section");
     // @formatter:on
 

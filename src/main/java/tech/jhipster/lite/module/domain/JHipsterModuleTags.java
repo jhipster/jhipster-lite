@@ -5,12 +5,11 @@ import tech.jhipster.lite.error.domain.Assert;
 
 public class JHipsterModuleTags {
 
-  public static final JHipsterModuleTags DEFAULT_TAGS = builder().add("none").build();
-
+  public static final Comparator<JHipsterModuleTag> COMPARING = Comparator.comparing(JHipsterModuleTag::get);
   private final Collection<JHipsterModuleTag> tags;
 
   private JHipsterModuleTags(JHipsterModuleTagsBuilder builder) {
-    tags = Collections.unmodifiableCollection(builder.tags.stream().sorted(Comparator.comparing(JHipsterModuleTag::get)).toList());
+    tags = Collections.unmodifiableCollection(builder.tags.stream().sorted(COMPARING).toList());
   }
 
   public static JHipsterModuleTagsBuilder builder() {

@@ -80,7 +80,6 @@ public class ReactCoreModulesFactory {
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
         .addScript(scriptKey("test"), scriptCommand("jest"))
-        .addScript(scriptKey("dev"), scriptCommand("vite"))
         .addScript(scriptKey("test:watch"), scriptCommand("jest --watch"))
         .and()
       .files()

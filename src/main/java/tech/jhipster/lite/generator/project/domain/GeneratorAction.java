@@ -20,8 +20,6 @@ public class GeneratorAction {
   public static final String LIQUIBASE = "liquibase";
   public static final String LIQUIBASE_USER_AND_AUTHORITY_CHANGELOGS = "liquibase-user-and-authority-changelogs";
 
-  public static final String SPRINGBOOT_CACHE = "springboot-cache";
-
   public static final String SPRINGBOOT_JWT = "springboot-jwt";
   public static final String SPRINGBOOT_JWT_BASIC_AUTH = "springboot-jwt-basic-auth";
 

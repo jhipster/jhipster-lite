@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class SimpleCacheModuleFactory {
 
-  private static final JHipsterSource SOURCE = from("server/springboot/cache/common/src/");
+  private static final JHipsterSource SOURCE = from("server/springboot/cache/simple/src/");
 
   private static final String CACHE_SECONDARY = "technical/infrastructure/secondary/cache";
 

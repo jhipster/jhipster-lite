@@ -10,9 +10,6 @@ public class GeneratorAction {
   public static final String SVELTE = "svelte";
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
 
-  public static final String EHCACHE_WITH_JAVA_CONFIG = "ehcache-with-java-config";
-  public static final String EHCACHE_WITH_XML_CONFIG = "ehcache-with-xml-config";
-
   public static final String ANGULAR_JWT = "angular-jwt";
   public static final String ANGULAR_OAUTH2 = "angular-oauth2";
   public static final String ANGULAR_HEALTH = "angular-health";

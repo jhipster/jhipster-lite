@@ -18,6 +18,7 @@ class MongoDbModuleConfiguration {
       .slug("mongodb")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add MongoDB drivers and dependencies, with testcontainers"))
+      .tags("server", "spring", "spring-boot", "database")
       .factory(mongoDb::buildModule);
   }
 }

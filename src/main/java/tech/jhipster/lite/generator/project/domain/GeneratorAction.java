@@ -10,17 +10,12 @@ public class GeneratorAction {
   public static final String SVELTE = "svelte";
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
 
-  public static final String EHCACHE_WITH_JAVA_CONFIG = "ehcache-with-java-config";
-  public static final String EHCACHE_WITH_XML_CONFIG = "ehcache-with-xml-config";
-
   public static final String ANGULAR_JWT = "angular-jwt";
   public static final String ANGULAR_OAUTH2 = "angular-oauth2";
   public static final String ANGULAR_HEALTH = "angular-health";
 
   public static final String LIQUIBASE = "liquibase";
   public static final String LIQUIBASE_USER_AND_AUTHORITY_CHANGELOGS = "liquibase-user-and-authority-changelogs";
-
-  public static final String SPRINGBOOT_CACHE = "springboot-cache";
 
   public static final String SPRINGBOOT_JWT = "springboot-jwt";
   public static final String SPRINGBOOT_JWT_BASIC_AUTH = "springboot-jwt-basic-auth";

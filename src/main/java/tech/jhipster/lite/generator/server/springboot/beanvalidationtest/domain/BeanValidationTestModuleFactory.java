@@ -23,8 +23,8 @@ public class BeanValidationTestModuleFactory {
         .and()
       .files()
         .batch(SOURCE, toSrcTestJava().append(properties.basePackage().path()))
-          .template("BeanValidationAssertions.java")
-          .template("BeanValidationTest.java")
+          .addTemplate("BeanValidationAssertions.java")
+          .addTemplate("BeanValidationTest.java")
           .and()
         .and()
       .build();

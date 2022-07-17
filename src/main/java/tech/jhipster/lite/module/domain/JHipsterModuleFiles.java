@@ -76,7 +76,7 @@ public class JHipsterModuleFiles {
     @Generated
     @Deprecated(forRemoval = true)
     public JHipsterModuleFileBatchBuilder template(String file) {
-      return template(file);
+      return addTemplate(file);
     }
 
     public JHipsterModuleFileBatchBuilder addTemplate(String file) {
@@ -89,7 +89,7 @@ public class JHipsterModuleFiles {
     @Generated
     @Deprecated(forRemoval = true)
     public JHipsterModuleFileBatchBuilder file(String file) {
-      return file(file);
+      return addFile(file);
     }
 
     public JHipsterModuleFileBatchBuilder addFile(String file) {

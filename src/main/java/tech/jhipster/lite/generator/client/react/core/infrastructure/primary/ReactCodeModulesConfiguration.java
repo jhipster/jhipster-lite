@@ -13,18 +13,6 @@ class ReactCodeModulesConfiguration {
   public static final String REACT = "react";
 
   @Bean
-  JHipsterModuleResource notStyledReactCoreModule(ReactCoreApplicationService react) {
-    return JHipsterModuleResource
-      .builder()
-      .legacyUrl("/api/clients/react")
-      .slug(REACT)
-      .propertiesDefinition(properties())
-      .apiDoc(new JHipsterModuleApiDoc("React", "Init React+Vite"))
-      .tags("client", REACT)
-      .factory(react::buildModuleWithoutStyle);
-  }
-
-  @Bean
   JHipsterModuleResource styledReactCoreModule(ReactCoreApplicationService react) {
     return JHipsterModuleResource
       .builder()

@@ -27,32 +27,7 @@ public class ReactCoreModulesFactory {
 
   private static final String TEST_PRIMARY = "src/test/javascript/spec/common/primary/app";
 
-  public JHipsterModule buildModuleWithoutStyle(JHipsterModuleProperties properties) {
-    //@formatter:off
-    return commonModuleBuilder(properties)
-      .files()
-        .add(PRIMARY_APP_SOURCE.template("App.tsx"), APP_DESTINATION.append("common/primary/app/App.tsx"))
-        .and()
-      .build();
-    //@formatter:on
-  }
-
   public JHipsterModule buildModuleWithStyle(JHipsterModuleProperties properties) {
-    //@formatter:off
-    return commonModuleBuilder(properties)
-      .files()
-        .add(PRIMARY_APP_SOURCE.template("StyledApp.tsx"), PRIMARY_APP_DESTINATION.append("App.tsx"))
-        .add(PRIMARY_APP_SOURCE.template("App.css"), PRIMARY_APP_DESTINATION.append("App.css"))
-        .batch(WEBAPP_SOURCE.append(CONTENT_IMAGES), WEBAPP_DESTINATION.append(CONTENT_IMAGES))
-          .addFile("JHipster-Lite-neon-blue.png")
-          .addFile("ReactLogo.png")
-          .and()
-        .and()
-      .build();
-    //@formatter:on
-  }
-
-  private static JHipsterModuleBuilder commonModuleBuilder(JHipsterModuleProperties properties) {
     //@formatter:off
     return ClientsModulesFactory.clientModuleBuilder(properties)
       .packageJson()
@@ -96,7 +71,14 @@ public class ReactCoreModulesFactory {
         .add(WEBAPP_SOURCE.template("index.html"), WEBAPP_DESTINATION.append("index.html"))
         .add(SOURCE.append(TEST_PRIMARY).template("App.spec.tsx"), to(TEST_PRIMARY).append("App.spec.tsx"))
         .add(WEBAPP_SOURCE.template("config/setupTests.ts"), WEBAPP_DESTINATION.append("config/setupTests.ts"))
-        .and();
+        .add(PRIMARY_APP_SOURCE.template("StyledApp.tsx"), PRIMARY_APP_DESTINATION.append("App.tsx"))
+        .add(PRIMARY_APP_SOURCE.template("App.css"), PRIMARY_APP_DESTINATION.append("App.css"))
+        .batch(WEBAPP_SOURCE.append(CONTENT_IMAGES), WEBAPP_DESTINATION.append(CONTENT_IMAGES))
+          .addFile("JHipster-Lite-neon-blue.png")
+          .addFile("ReactLogo.png")
+          .and()
+        .and()
+      .build();
     //@formatter:on
   }
 }

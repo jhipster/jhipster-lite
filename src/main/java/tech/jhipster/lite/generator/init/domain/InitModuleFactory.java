@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class InitModuleFactory {
 
-  private static final String NODE_VERSION = "16.13.0";
+  private static final String NODE_VERSION = "16.16.0";
   private static final JHipsterSource SOURCE = from("init");
   private static final JHipsterDestination DESTINATION = to(".");
 

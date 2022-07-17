@@ -26,8 +26,6 @@ public class GeneratorAction {
 
   public static final String FLYWAY_USER_AND_AUTHORITY_CHANGELOGS = "flyway-user-and-authority-changelogs";
 
-  public static final String MONGOCK = "mongock";
-
   public static final String DUMMY_FEATURE = "dummy-feature";
 
   public static final String USER_AND_AUTHORITY_ENTITIES_POSTGRESQL = "user-and-authority-entities-postgresql";

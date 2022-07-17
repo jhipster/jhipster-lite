@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
@@ -61,7 +62,7 @@ public class ModulesSteps {
   }
 
   @When("I apply {string} module to default project with package json")
-  public void applyModuleForDefaultProjectWithPackageJson(String moduleSlug, Map<String, Object> properties) {
+  public void applyModuleForDefaultProjectWithPackageJson(String moduleSlug, Map<String, String> properties) {
     String projectFolder = newTestFolder();
 
     addPackageJsonToProject(projectFolder);
@@ -89,7 +90,7 @@ public class ModulesSteps {
   }
 
   @When("I apply {string} module to default project with maven file")
-  public void applyModuleForDefaultProjectWithMavenFile(String moduleSlug, Map<String, Object> properties) {
+  public void applyModuleForDefaultProjectWithMavenFile(String moduleSlug, Map<String, String> properties) {
     String projectFolder = newTestFolder();
 
     addPomToProject(projectFolder);
@@ -103,7 +104,7 @@ public class ModulesSteps {
   }
 
   @When("I apply {string} module to default project")
-  public void applyModuleForDefaultProject(String moduleSlug, Map<String, Object> properties) {
+  public void applyModuleForDefaultProject(String moduleSlug, Map<String, String> properties) {
     String projectFolder = newTestFolder();
 
     post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, properties));
@@ -117,13 +118,13 @@ public class ModulesSteps {
     return "/api/modules/" + moduleSlug;
   }
 
-  private String buildModuleQuery(String projectFolder, Map<String, Object> properties) {
+  private String buildModuleQuery(String projectFolder, Map<String, String> properties) {
     return MODULE_PROPERTIES_TEMPLATE
       .replace("{PROJECT_FOLDER}", projectFolder)
       .replace("{{ PROPERTIES }}", buildModuleProperties(properties));
   }
 
-  private String buildModuleProperties(Map<String, Object> properties) {
+  private String buildModuleProperties(Map<String, String> properties) {
     if (properties == null) {
       return "null";
     }
@@ -135,17 +136,21 @@ public class ModulesSteps {
       .collect(Collectors.joining(",", "{", "}"));
   }
 
-  private String buildPropertyValue(Object value) {
+  private String buildPropertyValue(String value) {
     if (value == null) {
       return "null";
     }
 
-    if (value instanceof Boolean booleanValue) {
-      return Boolean.toString(booleanValue);
+    if ("true".equals(value)) {
+      return "true";
     }
 
-    if (value instanceof Integer integerValue) {
-      return String.valueOf(integerValue);
+    if ("false".equals(value)) {
+      return "false";
+    }
+
+    if (StringUtils.isNumeric(value)) {
+      return String.valueOf(value);
     }
 
     return "\"" + value.toString() + "\"";

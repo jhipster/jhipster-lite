@@ -12,10 +12,6 @@ export default class SvelteRepository implements SvelteService {
     await this.projectHistoryService.get(restProject.folder);
   }
 
-  async add(project: Project): Promise<void> {
-    await this.postAndGetHistory('/api/clients/svelte', toRestProject(project));
-  }
-
   async addWithStyle(project: Project) {
     await this.postAndGetHistory('/api/clients/svelte/styles', toRestProject(project));
   }

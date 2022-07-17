@@ -1,4 +1,4 @@
-import { defineComponent, inject, ref } from 'vue';
+import { defineComponent, inject } from 'vue';
 import { DefaultButtonVue } from '@/common/primary/default-button';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
 import { SvelteService } from '@/springboot/domain/client/SvelteService';
@@ -23,7 +23,6 @@ export default defineComponent({
     const svelteService = inject('svelteService') as SvelteService;
 
     const selectorPrefix = 'svelte-generator';
-    const isSvelteWithStyle = ref<boolean>(false);
 
     const addSvelte = async (): Promise<void> => {
       try {
@@ -38,16 +37,11 @@ export default defineComponent({
       if (props.project.folder === '') {
         return;
       }
-      if (isSvelteWithStyle.value) {
-        await svelteService.addWithStyle(toProject(props.project as ProjectToUpdate));
-        return;
-      }
-      await svelteService.add(toProject(props.project as ProjectToUpdate));
+      await svelteService.addWithStyle(toProject(props.project as ProjectToUpdate));
     };
 
     return {
       selectorPrefix,
-      isSvelteWithStyle,
       addSvelte,
     };
   },

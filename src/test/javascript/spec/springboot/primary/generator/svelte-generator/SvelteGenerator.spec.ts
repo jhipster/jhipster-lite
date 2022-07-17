@@ -50,7 +50,7 @@ describe('SvelteGenerator', () => {
 
     await component.addSvelte();
 
-    const [addedProject] = svelteService.add.getCall(0).args;
+    const [addedProject] = svelteService.addWithStyle.getCall(0).args;
     expect(addedProject).toEqual(projectJson);
   });
 
@@ -60,24 +60,13 @@ describe('SvelteGenerator', () => {
 
     await component.addSvelte();
 
-    expect(svelteService.add.called).toBe(false);
-  });
-
-  it('should add Svelte with style when checkbox is checked', async () => {
-    const svelteService = stubSvelteService();
-    await wrap({ svelteService });
-
-    const checkbox = wrapper.find('#svelte-with-style');
-    await checkbox.setValue(true);
-    await component.addSvelte();
-
-    expect(svelteService.addWithStyle.called).toBeTruthy();
+    expect(svelteService.addWithStyle.called).toBe(false);
   });
 
   it('should handle error on adding Svelte failure', async () => {
     const alertBus = stubAlertBus();
     const svelteService = stubSvelteService();
-    svelteService.add.rejects('error');
+    svelteService.addWithStyle.rejects('error');
     await wrap({ alertBus, svelteService });
 
     await component.addSvelte();

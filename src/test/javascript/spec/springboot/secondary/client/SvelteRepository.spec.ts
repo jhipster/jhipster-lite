@@ -13,11 +13,11 @@ describe('SvelteRepository', function () {
     const svelteRepository = new SvelteRepository(axiosHttpStub, stubProjectHistoryService());
     const project: Project = createProject({ folder: PROJECT_FOLDER });
 
-    await svelteRepository.add(project);
+    await svelteRepository.addWithStyle(project);
 
     const expectedRestProject: RestProject = toRestProject(project);
     const [uri, payload] = axiosHttpStub.post.getCall(0).args;
-    expect(uri).toBe('/api/clients/svelte');
+    expect(uri).toBe('/api/clients/svelte/styles');
     expect(payload).toEqual(expectedRestProject);
   });
 
@@ -39,7 +39,7 @@ describe('SvelteRepository', function () {
     const svelteRepository = new SvelteRepository(stubAxiosHttp(), projectHistoryService);
     const project: Project = createProject({ folder: PROJECT_FOLDER });
 
-    await svelteRepository.add(project);
+    await svelteRepository.addWithStyle(project);
 
     const [projectFolder] = projectHistoryService.get.getCall(0).args;
     expect(projectFolder).toBe(PROJECT_FOLDER);

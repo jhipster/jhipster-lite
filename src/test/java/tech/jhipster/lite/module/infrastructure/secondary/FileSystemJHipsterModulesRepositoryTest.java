@@ -190,6 +190,14 @@ class FileSystemJHipsterModulesRepositoryTest {
         .containing("Dummy collection replacement")
         .containing("Another dummy collection replacement")
         .containing("// Dummy comment\n  public static class IntegerAsserter {")
+        .notContaining("""
+            import java.math.BigDecimal;
+            import java.math.BigDecimal;
+            """)
+        .notContaining("""
+            import java.util.Collection;
+            import java.util.Collection;
+            """)
         .and()
       .createFile("src/main/resources/config/application.properties")
         .containing("springdoc.swagger-ui.operationsSorter=alpha")

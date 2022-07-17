@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.ContentReplacement;
+import tech.jhipster.lite.module.domain.replacement.ContentReplacer;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleReplacements;
 
 class FileSystemReplacer {
@@ -21,7 +21,7 @@ class FileSystemReplacer {
     replacements.replacements().forEach(applyReplacement(projectFolder));
   }
 
-  private Consumer<ContentReplacement> applyReplacement(JHipsterProjectFolder projectFolder) {
+  private Consumer<ContentReplacer> applyReplacement(JHipsterProjectFolder projectFolder) {
     return replacement -> {
       Path filePath = projectFolder.filePath(replacement.file());
 

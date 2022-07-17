@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
+
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
@@ -161,23 +163,23 @@ public class JHipsterModule {
   }
 
   public static TextReplacer text(String text) {
-    return new TextReplacer(text);
+    return new TextReplacer(always(), text);
   }
 
   public static RegexReplacer regex(String regex) {
-    return new RegexReplacer(regex);
+    return new RegexReplacer(always(), regex);
   }
 
   public static TextNeedleBeforeReplacer lineBeforeText(String needle) {
-    return new TextNeedleBeforeReplacer(needle);
+    return new TextNeedleBeforeReplacer(notContainingReplacement(), needle);
   }
 
   public static RegexNeedleBeforeReplacer lineBeforeRegex(String regex) {
-    return new RegexNeedleBeforeReplacer(Pattern.compile(regex, Pattern.MULTILINE));
+    return new RegexNeedleBeforeReplacer(notContainingReplacement(), Pattern.compile(regex, Pattern.MULTILINE));
   }
 
   public static RegexNeedleAfterReplacer lineAfterRegex(String regex) {
-    return new RegexNeedleAfterReplacer(Pattern.compile(regex, Pattern.MULTILINE));
+    return new RegexNeedleAfterReplacer(notContainingReplacement(), Pattern.compile(regex, Pattern.MULTILINE));
   }
 
   public static PropertyKey propertyKey(String key) {

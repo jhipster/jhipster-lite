@@ -26,7 +26,7 @@ public class EHCacheModulesFactory {
   public JHipsterModule buildJavaConfigurationModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String packagePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(CACHE_SECONDARY);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(CACHE_SECONDARY);
 
@@ -49,7 +49,7 @@ public class EHCacheModulesFactory {
   public JHipsterModule buildXmlConfigurationModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String packagePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
 
     //@formatter:off
     return commonEHCacheModuleBuilder(properties)

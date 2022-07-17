@@ -32,7 +32,7 @@ public class JavaBaseModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String packagePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
     String baseClassName = properties.projectBaseName().capitalized();
 
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);

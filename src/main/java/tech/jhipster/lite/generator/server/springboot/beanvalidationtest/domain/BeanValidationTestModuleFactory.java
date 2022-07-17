@@ -22,7 +22,7 @@ public class BeanValidationTestModuleFactory {
         .addDependency(reflectionsDependency())
         .and()
       .files()
-        .batch(SOURCE, toSrcTestJava().append(properties.basePackage().path()))
+        .batch(SOURCE, toSrcTestJava().append(properties.packagePath()))
           .addTemplate("BeanValidationAssertions.java")
           .addTemplate("BeanValidationTest.java")
           .and()

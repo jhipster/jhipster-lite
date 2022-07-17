@@ -25,7 +25,7 @@ public class OAuth2AccountModuleFactory {
   private static final JHipsterSource USER_IDENTITY_TEST_SOURCE = USER_IDENTITY_SOURCE.append("test");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    String packagePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
     JHipsterDestination accountMainDestination = toSrcMainJava().append(packagePath).append("account");
     JHipsterDestination accountTestDestination = toSrcTestJava().append(packagePath).append("account");
 

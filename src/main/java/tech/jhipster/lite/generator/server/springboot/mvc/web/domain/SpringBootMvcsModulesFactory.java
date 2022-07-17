@@ -58,7 +58,7 @@ public class SpringBootMvcsModulesFactory {
   }
 
   private JHipsterModuleBuilder springMvcBuilder(JHipsterModuleProperties properties, String loggerName, LogLevel logLevel) {
-    String packagePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
 
     //@formatter:off
     return moduleBuilder(properties)

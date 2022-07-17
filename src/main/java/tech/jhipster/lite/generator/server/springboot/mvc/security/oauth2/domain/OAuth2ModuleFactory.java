@@ -152,7 +152,7 @@ public class OAuth2ModuleFactory {
     String baseClass = properties.projectBaseName().capitalized() + "App.class";
     TextReplacer importNeedle = text(SPRING_BOOT_IMPORT);
 
-    String integrationTestFile = "src/test/java/" + properties.basePackage().path() + "/IntegrationTest.java";
+    String integrationTestFile = "src/test/java/" + properties.packagePath() + "/IntegrationTest.java";
 
     builder
       .mandatoryReplacements()

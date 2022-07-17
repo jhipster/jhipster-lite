@@ -21,7 +21,7 @@ public class LiquibaseModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String packagePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
 
     //@formatter:off
     return moduleBuilder(properties)

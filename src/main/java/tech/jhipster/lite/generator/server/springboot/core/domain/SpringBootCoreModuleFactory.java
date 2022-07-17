@@ -38,7 +38,7 @@ public class SpringBootCoreModuleFactory {
     Assert.notNull("properties", properties);
 
     String mainClassName = properties.projectBaseName().capitalized();
-    String packagePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);
 
     //@formatter:off

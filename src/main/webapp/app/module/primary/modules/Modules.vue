@@ -76,6 +76,20 @@
   padding: 10px;
 }
 
+.jhipster-module--tags {
+  display: flex;
+  margin: 5px 0;
+}
+
+.jhipster-module--tag {
+  color: #fff;
+  background-color: #29293b;
+  font-style: italic;
+  margin-right: 7px;
+  padding: 0 0.5em;
+  border-radius: 1em;
+}
+
 .jhipster-module--slug {
   font-weight: bold;
 }

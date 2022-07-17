@@ -22,6 +22,7 @@ export interface RestModule {
   slug: string;
   description: string;
   properties?: RestModuleProperties;
+  tags?: string[];
 }
 
 export interface RestModuleProperties {
@@ -74,6 +75,7 @@ const toModule = (restModule: RestModule): Module => ({
   slug: restModule.slug,
   description: restModule.description,
   properties: toProperties(restModule.properties),
+  tags: toTags(restModule.tags),
 });
 
 const toProperties = (restProperties: RestModuleProperties | undefined): ModuleProperty[] => {
@@ -91,6 +93,14 @@ const toProperty = (restProperty: RestModuleProperty): ModuleProperty => ({
   description: restProperty.description,
   example: restProperty.example,
 });
+
+const toTags = (tags: string[] | undefined): string[] => {
+  if (tags === undefined) {
+    return [];
+  }
+
+  return tags;
+};
 
 const toRestModuleToApply = (moduleToApply: ModuleToApply): RestModuleToApply => ({
   projectFolder: moduleToApply.projectFolder,

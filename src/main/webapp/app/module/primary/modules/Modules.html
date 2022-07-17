@@ -95,6 +95,10 @@
               @keyup.enter="selectModule(module.slug); $refs.folderPathInput.focus()"
               :data-selector="`${module.slug}-module-content`"
             >
+              <div class="jhipster-module--tags">
+                <div v-for="tag in module.tags" class="jhipster-module--tag">{{ tag }}</div>
+              </div>
+
               <div class="jhipster-module--slug">{{ module.slug }}</div>
               <div class="jhipster-module--description">{{ module.description}}</div>
 

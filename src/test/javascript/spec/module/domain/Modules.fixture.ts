@@ -43,11 +43,13 @@ export const defaultModules = (): Modules => ({
               key: 'optionalInteger',
             },
           ],
+          tags: ['server'],
         },
         {
           slug: 'banner',
           description: 'Add a banner to the application',
           properties: [],
+          tags: [],
         },
       ],
     },

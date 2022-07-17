@@ -14,10 +14,6 @@ public class SpringBootCommonApplicationService {
     this.springBootCommonService = springBootCommonService;
   }
 
-  public void addTestLogbackRecorder(Project project) {
-    springBootCommonService.addTestLogbackRecorder(project);
-  }
-
   public void addProperties(Project project, String key, Object value) {
     springBootCommonService.addProperties(project, key, value);
   }

@@ -11,31 +11,16 @@ import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 public class SpringBootCommonDomainService implements SpringBootCommonService {
 
-  public static final String SOURCE = "server/springboot/common";
   private static final String PROJECT_FIELD_ASSERT_NAME = "project";
 
   private final ProjectRepository projectRepository;
 
   public SpringBootCommonDomainService(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
-  }
-
-  @Override
-  public void addTestLogbackRecorder(Project project) {
-    project.addDefaultConfig(PACKAGE_NAME);
-    project.addDefaultConfig(BASE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(getPath("com/mycompany/myapp"));
-    projectRepository.template(
-      ProjectFile
-        .forProject(project)
-        .withSource(getPath(SOURCE, "test"), "LogbackRecorder.java")
-        .withDestinationFolder(getPath(TEST_JAVA, packageNamePath))
-    );
   }
 
   @Override

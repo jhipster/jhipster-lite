@@ -14,7 +14,6 @@ public class GeneratorAction {
   public static final String ANGULAR_OAUTH2 = "angular-oauth2";
   public static final String ANGULAR_HEALTH = "angular-health";
 
-  public static final String LIQUIBASE = "liquibase";
   public static final String LIQUIBASE_USER_AND_AUTHORITY_CHANGELOGS = "liquibase-user-and-authority-changelogs";
 
   public static final String SPRINGBOOT_JWT = "springboot-jwt";

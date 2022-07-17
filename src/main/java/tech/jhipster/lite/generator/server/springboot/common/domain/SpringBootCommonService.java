@@ -4,8 +4,6 @@ import java.util.Optional;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface SpringBootCommonService {
-  void addTestLogbackRecorder(Project project);
-
   void addProperties(Project project, String key, Object value);
   void addPropertiesLocal(Project project, String key, Object value);
   void addPropertiesTest(Project project, String key, Object value);

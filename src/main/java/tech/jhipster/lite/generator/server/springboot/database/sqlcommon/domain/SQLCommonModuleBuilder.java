@@ -49,7 +49,7 @@ public class SQLCommonModuleBuilder {
         .put(databaseId + "DockerImageWithVersion", dockerImage.fullName()) // To be used in <databaseId>.yml docker-compose file
         .and()
       .documentation(documentationTitle, source.template(databaseId + ".md"))
-      .startupSection(dockerComposeStartup(databaseId))
+      .startupCommand(startupCommand(databaseId))
       .files()
         .add(source.template("DatabaseConfiguration.java"), mainDestination.append("DatabaseConfiguration.java"))
         .add(source.template(databaseId + ".yml"), toSrcMainDocker().append(databaseId + ".yml"))
@@ -116,14 +116,7 @@ public class SQLCommonModuleBuilder {
       .build();
   }
 
-  private static String dockerComposeStartup(String databaseId) {
-    return """
-        ```bash
-        docker-compose -f src/main/docker/{{databaseId}}.yml up -d
-        ```
-        """.replace(
-        "{{databaseId}}",
-        databaseId
-      );
+  private static String startupCommand(String databaseId) {
+    return "docker-compose -f src/main/docker/" + databaseId + ".yml up -d";
   }
 }

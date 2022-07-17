@@ -16,7 +16,7 @@ npm install
 
 ## Start up
 
-<!-- jhipster-needle-startup -->
+<!-- jhipster-needle-startupCommand -->
 
 ## Documentation
 

@@ -299,8 +299,8 @@ public class JHipsterModule {
       return this;
     }
 
-    public JHipsterModuleBuilder startupSection(String startupSection) {
-      shortcuts.startupSection(startupSection);
+    public JHipsterModuleBuilder startupCommand(String startupCommand) {
+      shortcuts.startupCommand(startupCommand);
 
       return this;
     }

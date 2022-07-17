@@ -31,7 +31,7 @@ public class MongoDbModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Mongo DB"), SOURCE.template("mongodb.md"))
-      .startupSection(dockerComposeDocumentation())
+      .startupCommand(startupCommand())
       .context()
         .put("mongodbDockerImage", dockerImages.get("mongo").fullName())
         .and()
@@ -71,12 +71,8 @@ public class MongoDbModuleFactory {
     //@formatter:on
   }
 
-  private String dockerComposeDocumentation() {
-    return """
-        ```bash
-        docker-compose -f src/main/docker/mongodb.yml up -d
-        ```
-        """;
+  private String startupCommand() {
+    return "docker-compose -f src/main/docker/mongodb.yml up -d";
   }
 
   private JavaDependency testContainerDependency() {

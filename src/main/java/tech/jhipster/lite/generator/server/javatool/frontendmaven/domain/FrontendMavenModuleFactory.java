@@ -17,7 +17,7 @@ public class FrontendMavenModuleFactory {
   private static final String REDIRECTION_PRIMARY = "technical/infrastructure/primary/redirection";
 
   private static final String NODE_VERSION = "v16.16.0";
-  private static final String NPM_VERSION = "8.5.0";
+  private static final String NPM_VERSION = "8.14.0";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

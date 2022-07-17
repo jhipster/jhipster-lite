@@ -11,6 +11,7 @@ final class JHipsterModuleShortcuts {
   private static final String README = "README.md";
   private static final TextNeedleBeforeReplacer JHIPSTER_DOCUMENTATION_NEEDLE = lineBeforeText("\n<!-- jhipster-needle-documentation -->");
   private static final TextNeedleBeforeReplacer JHIPSTER_README_SECTION_NEEDLE = lineBeforeText("\n<!-- jhipster-needle-readme -->");
+  private static final TextNeedleBeforeReplacer JHIPSTER_STARTUP_SECTION_NEEDLE = lineBeforeText("\n<!-- jhipster-needle-startup -->");
 
   private static final String SPRING_MAIN_LOG_FILE = "src/main/resources/logback-spring.xml";
   private static final String SPRING_TEST_LOG_FILE = "src/test/resources/logback.xml";
@@ -39,6 +40,12 @@ final class JHipsterModuleShortcuts {
     Assert.notBlank("section", section);
 
     builder.optionalReplacements().in(README).add(JHIPSTER_README_SECTION_NEEDLE, section);
+  }
+
+  void startupSection(String startup) {
+    Assert.notBlank("section", startup);
+
+    builder.optionalReplacements().in(README).add(JHIPSTER_STARTUP_SECTION_NEEDLE, startup);
   }
 
   void springTestLogger(String name, LogLevel level) {

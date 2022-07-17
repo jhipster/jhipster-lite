@@ -31,7 +31,7 @@ public class MongoDbModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Mongo DB"), SOURCE.template("mongodb.md"))
-      .readmeSection(dockerComposeDocumentation())
+      .startupSection(dockerComposeDocumentation())
       .context()
         .put("mongodbDockerImage", dockerImages.get("mongo").fullName())
         .and()
@@ -47,7 +47,7 @@ public class MongoDbModuleFactory {
           .addTemplate("JSR310DateConverters.java")
           .and()
         .add(
-              SOURCE.template("JSR310DateConvertersTest.java"), 
+              SOURCE.template("JSR310DateConvertersTest.java"),
               toSrcTestJava().append(packagePath).append(MONGO_SECONDARY).append("JSR310DateConvertersTest.java")
             )
         .batch(SOURCE, toSrcTestJava().append(packagePath))

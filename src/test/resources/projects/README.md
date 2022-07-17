@@ -14,6 +14,14 @@ You will only need to run this command when dependencies change in [package.json
 npm install
 ```
 
+## Start up
+
+<!-- jhipster-needle-startup -->
+
+## Documentation
+
 <!-- jhipster-needle-documentation -->
+
+## Readme
 
 <!-- jhipster-needle-readme -->

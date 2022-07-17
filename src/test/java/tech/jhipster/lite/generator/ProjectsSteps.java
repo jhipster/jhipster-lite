@@ -99,4 +99,10 @@ public class ProjectsSteps {
 
     assertThat(Files.readString(Paths.get(lastProjectFolder, file))).doesNotContain(content);
   }
+
+  @Then("I should have entries in {string}")
+  public void shouldHaveStringsInFile(String file, List<String> values) throws IOException {
+    assertThatLastResponse().hasHttpStatusIn(200, 201);
+    assertThat(Files.readString(Paths.get(lastProjectFolder, file))).contains(values);
+  }
 }

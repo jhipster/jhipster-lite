@@ -74,8 +74,8 @@ public class SpringBootMvcsModulesFactory {
         .and()
       .files()
         .batch(SOURCE.append("src/cors"), toSrcMainJava().append(packagePath).append(CORS_PRIMARY))
-          .template("CorsFilterConfiguration.java")
-          .template("CorsProperties.java")
+          .addTemplate("CorsFilterConfiguration.java")
+          .addTemplate("CorsProperties.java")
           .and()
         .add(
           SOURCE.append("test/cors").template("CorsFilterConfigurationIT.java"),

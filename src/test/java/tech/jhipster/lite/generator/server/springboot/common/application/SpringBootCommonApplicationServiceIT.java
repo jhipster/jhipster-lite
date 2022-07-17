@@ -5,7 +5,6 @@ import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
-import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.io.IOException;
 import org.junit.jupiter.api.Nested;
@@ -23,25 +22,6 @@ class SpringBootCommonApplicationServiceIT {
 
   @Autowired
   private SpringBootCommonApplicationService springBootCommonApplicationService;
-
-  @Test
-  void shouldAddTestLogbackRecorder() {
-    Project project = tmpProject();
-    project.addConfig(BASE_NAME, "foo");
-    project.addConfig(PACKAGE_NAME, "tech.jhipster.bar");
-    TestJHipsterModules.applyInit(project);
-    TestJHipsterModules.applyMaven(project);
-    TestJHipsterModules.applySpringBootCore(project);
-
-    springBootCommonApplicationService.addTestLogbackRecorder(project);
-
-    String packageName = project.getPackageName().orElse(DefaultConfig.DEFAULT_PACKAGE_NAME);
-    String packageNamePath = project.getPackageNamePath().orElse(DefaultConfig.PACKAGE_PATH);
-
-    assertFileExist(project, getPath(TEST_JAVA, packageNamePath, "LogbackRecorder.java"));
-
-    assertFileContent(project, getPath(TEST_JAVA, packageNamePath, "LogbackRecorder.java"), "package " + packageName);
-  }
 
   @Nested
   class PropertiesIT {

@@ -24,15 +24,6 @@ class LiquibaseResource {
     this.liquibaseApplicationService = liquibaseApplicationService;
   }
 
-  @Operation(summary = "Add Liquibase")
-  @ApiResponse(responseCode = "500", description = "An error occurred while adding Liquibase")
-  @PostMapping
-  @GeneratorStep(id = GeneratorAction.LIQUIBASE)
-  public void init(@RequestBody ProjectDTO projectDTO) {
-    Project project = ProjectDTO.toProject(projectDTO);
-    liquibaseApplicationService.init(project);
-  }
-
   @Operation(summary = "Add User and Authority changelogs")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding changelogs for user and authority")
   @PostMapping("user")

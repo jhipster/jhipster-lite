@@ -8,7 +8,7 @@ import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
 
 @Configuration
-class AngularModuleConfiguration {
+class AngularCoreModuleConfiguration {
 
   @Bean
   JHipsterModuleResource angularModule(AngularApplicationService angular) {

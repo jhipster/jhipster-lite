@@ -1,4 +1,4 @@
-import { defineComponent, inject, ref } from 'vue';
+import { defineComponent, inject } from 'vue';
 import { ProjectToUpdate, toProject } from '@/springboot/primary/ProjectToUpdate';
 import { ReactService } from '@/springboot/domain/client/ReactService';
 import { GeneratorButtonVue } from '@/springboot/primary/generator/generator-button';
@@ -25,21 +25,13 @@ export default defineComponent({
     const projectService = inject('projectService') as ProjectService;
 
     const selectorPrefix = 'react-generator';
-    const isReactWithStyle = ref<boolean>(false);
 
     const addReact = async (): Promise<void> => {
       if (props.project.folder !== '') {
-        if (isReactWithStyle.value) {
-          await reactService
-            .addWithStyle(toProject(props.project as ProjectToUpdate))
-            .then(() => alertBus.success('React with style successfully added'))
-            .catch(error => alertBus.error(`Adding React with style to project failed ${error}`));
-        } else {
-          await reactService
-            .add(toProject(props.project as ProjectToUpdate))
-            .then(() => alertBus.success('React successfully added'))
-            .catch(error => alertBus.error(`Adding React to project failed ${error}`));
-        }
+        await reactService
+          .addWithStyle(toProject(props.project as ProjectToUpdate))
+          .then(() => alertBus.success('React with style successfully added'))
+          .catch(error => alertBus.error(`Adding React with style to project failed ${error}`));
       }
     };
 
@@ -71,7 +63,6 @@ export default defineComponent({
 
     return {
       selectorPrefix,
-      isReactWithStyle,
       addReact,
       addReactWithJWT,
       addCypressForReact,

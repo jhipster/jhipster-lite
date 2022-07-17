@@ -11,10 +11,6 @@ export default class ReactRepository implements ReactService {
     await this.axiosHttp.post(url, restProject).then(() => this.projectHistoryService.get(restProject.folder));
   }
 
-  async add(project: Project): Promise<void> {
-    await this.postAndGetHistory('/api/clients/react', toRestProject(project));
-  }
-
   async addWithStyle(project: Project): Promise<void> {
     await this.postAndGetHistory('/api/clients/react/styles', toRestProject(project));
   }

@@ -60,50 +60,25 @@ describe('ReactGenerator', () => {
 
   it('should not add React when project path is not filled', async () => {
     const reactService = stubReactService();
-    reactService.add.resolves({});
+    reactService.addWithStyle.resolves({});
     await wrap({ reactService, project: createProjectToUpdate({ folder: '' }) });
 
     await component.addReact();
 
-    expect(reactService.add.called).toBe(false);
+    expect(reactService.addWithStyle.called).toBe(false);
   });
 
   it('should add React when project path is filled', async () => {
     const reactService = stubReactService();
-    reactService.add.resolves({});
-    const alertBus = stubAlertBus();
-    await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
-
-    await component.addReact();
-
-    const args = reactService.add.getCall(0).args[0];
-    expect(args).toEqual(projectJson);
-    expectAlertSuccessToBe(alertBus, 'React successfully added');
-  });
-
-  it('should add React with Style when checkbox is checked', async () => {
-    const reactService = stubReactService();
-    const alertBus = stubAlertBus();
     reactService.addWithStyle.resolves({});
+    const alertBus = stubAlertBus();
     await wrap({ reactService, project: createProjectToUpdate({ folder: 'project/path' }), alertBus });
 
-    const checkbox = wrapper.find('#react-with-style');
-    await checkbox.setValue(true);
     await component.addReact();
 
     const args = reactService.addWithStyle.getCall(0).args[0];
     expect(args).toEqual(projectJson);
     expectAlertSuccessToBe(alertBus, 'React with style successfully added');
-  });
-
-  it('should handle error on adding React failure', async () => {
-    const alertBus = stubAlertBus();
-    const reactService = stubReactService();
-    reactService.add.rejects('error');
-    await wrap({ alertBus, reactService, project: createProjectToUpdate({ folder: 'project/path' }) });
-
-    await component.addReact();
-    expectAlertErrorToBe(alertBus, 'Adding React to project failed error');
   });
 
   it('should handle error on adding React with style failure', async () => {
@@ -112,8 +87,6 @@ describe('ReactGenerator', () => {
     reactService.addWithStyle.rejects('error');
     await wrap({ alertBus, reactService, project: createProjectToUpdate({ folder: 'project/path' }) });
 
-    const checkbox = wrapper.find('#react-with-style');
-    await checkbox.setValue(true);
     await component.addReact();
     expectAlertErrorToBe(alertBus, 'Adding React with style to project failed error');
   });

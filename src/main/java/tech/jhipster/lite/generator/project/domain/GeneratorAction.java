@@ -11,5 +11,4 @@ public class GeneratorAction {
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
 
   public static final String ANGULAR_JWT = "angular-jwt";
-  public static final String ANGULAR_OAUTH2 = "angular-oauth2";
 }

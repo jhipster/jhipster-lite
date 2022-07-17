@@ -44,6 +44,7 @@ import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.domain.replacement.FileStartReplacer;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacements;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacements.JHipsterModuleMandatoryReplacementsBuilder;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacements;
@@ -171,6 +172,10 @@ public class JHipsterModule {
 
   public static RegexReplacer regex(String regex) {
     return new RegexReplacer(always(), regex);
+  }
+
+  public static FileStartReplacer fileStart() {
+    return new FileStartReplacer(notContainingReplacement());
   }
 
   public static TextNeedleBeforeReplacer lineBeforeText(String needle) {

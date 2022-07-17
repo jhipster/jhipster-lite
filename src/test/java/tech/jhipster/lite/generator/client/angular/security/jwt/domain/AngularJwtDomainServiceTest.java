@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.client.angular.common.domain.AngularCommonService;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectFilesAsserter;
@@ -21,16 +20,13 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class AngularJwtDomainServiceTest {
 
   @InjectMocks
-  AngularJwtDomainService angularJwtDomainService;
+  private AngularJwtDomainService angularJwtDomainService;
 
   @Mock
-  NpmService npmService;
+  private NpmService npmService;
 
   @Mock
-  AngularCommonService angularCommonService;
-
-  @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @Test
   void shouldAddJwtAngular() {

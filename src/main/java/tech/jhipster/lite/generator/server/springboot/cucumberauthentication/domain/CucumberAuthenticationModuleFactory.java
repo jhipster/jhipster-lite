@@ -24,7 +24,7 @@ public class CucumberAuthenticationModuleFactory {
     String mainClass = properties.projectBaseName().capitalized() + "App";
     String cucumberConfigurationNeedle = "classes = { " + mainClass + ".class";
     String importNeedle = "import " + properties.basePackage().get() + "." + mainClass + ";";
-    String basePackagePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -35,7 +35,7 @@ public class CucumberAuthenticationModuleFactory {
         .addDependency(jsonWebTokenDependency("jjwt-jackson"))
         .and()
       .mandatoryReplacements()
-        .in("src/test/java/" + basePackagePath + "/cucumber/CucumberConfiguration.java")
+        .in("src/test/java/" + packagePath + "/cucumber/CucumberConfiguration.java")
           .add(text(cucumberConfigurationNeedle), cucumberTestClasses(cucumberConfigurationNeedle))
           .add(text(importNeedle), securityConfigurationImport(importNeedle, properties))
           .and()
@@ -43,11 +43,11 @@ public class CucumberAuthenticationModuleFactory {
       .files()
         .add(
           SOURCE.template("AuthenticationSteps.java"),
-          toSrcTestJava().append(basePackagePath).append("authentication/infrastructure/primary/AuthenticationSteps.java")
+          toSrcTestJava().append(packagePath).append("authentication/infrastructure/primary/AuthenticationSteps.java")
         )
         .add(
           SOURCE.template("CucumberAuthenticationConfiguration.java"),
-          toSrcTestJava().append(basePackagePath).append("cucumber/CucumberAuthenticationConfiguration.java")
+          toSrcTestJava().append(packagePath).append("cucumber/CucumberAuthenticationConfiguration.java")
         )
         .and()
       .build();

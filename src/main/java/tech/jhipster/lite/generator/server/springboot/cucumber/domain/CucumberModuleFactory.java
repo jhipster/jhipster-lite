@@ -19,9 +19,8 @@ public class CucumberModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String packagePath = properties.basePackage().path();
     String applicationName = properties.projectBaseName().capitalized();
-    JHipsterDestination destination = toSrcTestJava().append(packagePath).append("cucumber");
+    JHipsterDestination destination = toSrcTestJava().append(properties.packagePath()).append("cucumber");
 
     //@formatter:off
     JHipsterModuleBuilder builder = moduleBuilder(properties)

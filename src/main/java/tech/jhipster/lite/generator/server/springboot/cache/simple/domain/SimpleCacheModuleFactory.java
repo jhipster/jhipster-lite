@@ -16,8 +16,6 @@ public class SimpleCacheModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String packagePath = properties.basePackage().path();
-
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
@@ -26,7 +24,7 @@ public class SimpleCacheModuleFactory {
       .files()
         .add(
           SOURCE.template("CacheConfiguration.java"),
-          toSrcMainJava().append(packagePath).append(CACHE_SECONDARY).append("CacheConfiguration.java")
+          toSrcMainJava().append(properties.packagePath()).append(CACHE_SECONDARY).append("CacheConfiguration.java")
         )
         .and()
       .build();

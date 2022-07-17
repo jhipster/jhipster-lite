@@ -37,7 +37,7 @@ public class SQLCommonModuleBuilder {
     String databaseId = databaseType.id();
     JHipsterSource source = from("server/springboot/database/" + databaseType.id());
     JHipsterDestination mainDestination = toSrcMainJava()
-      .append(properties.basePackage().path())
+      .append(properties.packagePath())
       .append("technical/infrastructure/secondary/")
       .append(databaseId);
 

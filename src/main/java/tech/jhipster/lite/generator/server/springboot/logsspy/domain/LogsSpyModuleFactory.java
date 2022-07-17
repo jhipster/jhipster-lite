@@ -15,7 +15,7 @@ public class LogsSpyModuleFactory {
     return moduleBuilder(properties)
       .documentation(documentationTitle("Logs spy"), SOURCE.file("logs-spy.md"))
       .files()
-        .add(SOURCE.template("LogsSpy.java.mustache"), toSrcTestJava().append(properties.basePackage().path()).append("LogsSpy.java"))
+        .add(SOURCE.template("LogsSpy.java.mustache"), toSrcTestJava().append(properties.packagePath()).append("LogsSpy.java"))
         .and()
       .build();
     //@formatter:on

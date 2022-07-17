@@ -22,7 +22,7 @@ public class FrontendMavenModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String basePath = properties.basePackage().path();
+    String packagePath = properties.packagePath();
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -38,11 +38,11 @@ public class FrontendMavenModuleFactory {
       .files()
         .add(
           MAIN_SOURCE.template("RedirectionResource.java"),
-          toSrcMainJava().append(basePath).append(REDIRECTION_PRIMARY).append("RedirectionResource.java")
+          toSrcMainJava().append(packagePath).append(REDIRECTION_PRIMARY).append("RedirectionResource.java")
         )
         .add(
           TEST_SOURCE.template("RedirectionResourceIT.java"),
-          toSrcTestJava().append(basePath).append(REDIRECTION_PRIMARY).append("RedirectionResourceIT.java")
+          toSrcTestJava().append(packagePath).append(REDIRECTION_PRIMARY).append("RedirectionResourceIT.java")
         )
         .and()
       .build();

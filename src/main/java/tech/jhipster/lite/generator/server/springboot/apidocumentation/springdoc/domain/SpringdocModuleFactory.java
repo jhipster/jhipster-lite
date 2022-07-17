@@ -57,7 +57,7 @@ public class SpringdocModuleFactory {
   ) {
     Assert.notNull("properties", properties);
 
-    JHipsterDestination mainDestination = toSrcMainJava().append(properties.basePackage().path()).append(DESTINATION);
+    JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append(DESTINATION);
 
     //@formatter:off
     return moduleBuilder(properties)

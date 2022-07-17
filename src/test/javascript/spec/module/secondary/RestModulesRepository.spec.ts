@@ -53,6 +53,7 @@ const restModules = (): RestModules => ({
           slug: 'spring-cucumber',
           description: 'Add cucumber to the application',
           properties: restModuleProperties(),
+          tags: ['server'],
         },
         {
           slug: 'banner',

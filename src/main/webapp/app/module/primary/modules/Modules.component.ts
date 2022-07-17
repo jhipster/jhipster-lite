@@ -111,7 +111,7 @@ export default defineComponent({
       return {
         name: category.name,
         modules: category.modules.filter(module => {
-          const content = module.description.toLowerCase() + ' ' + module.slug.toLowerCase();
+          const content = module.description.toLowerCase() + ' ' + module.slug.toLowerCase() + ' ' + module.tags.join(' ');
 
           return search.split(' ').every(term => contains(content, term));
         }),

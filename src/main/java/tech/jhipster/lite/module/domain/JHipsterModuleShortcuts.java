@@ -22,7 +22,8 @@ final class JHipsterModuleShortcuts {
   private static final String BASH_TEMPLATE = """
     ```bash
     {{command}}
-    ```""";
+    ```
+    """;
 
   private final JHipsterModuleBuilder builder;
 

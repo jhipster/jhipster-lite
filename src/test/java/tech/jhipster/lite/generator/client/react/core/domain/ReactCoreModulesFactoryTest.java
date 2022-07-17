@@ -62,10 +62,6 @@ class ReactCoreModulesFactoryTest {
       .createPrefixedFiles("src/main/webapp/content/images", "ReactLogo.png", "JHipster-Lite-neon-blue.png");
   }
 
-  private static String nodeDependency(String dependency) {
-    return "\"" + dependency + "\": \"";
-  }
-
   private String nodeScript(String key, String value) {
     return "\"" + key + "\": \"" + value + "\"";
   }

@@ -99,11 +99,6 @@ public class NpmDomainService implements NpmService {
   }
 
   @Override
-  public Optional<String> getVersionInReact(String name) {
-    return getVersion("react", name);
-  }
-
-  @Override
   public Optional<String> getName(String folder) {
     assertFolder(folder);
     return FileUtils.getValueBetween(getPath(folder, PACKAGE_JSON), NAME + ": " + DQ, DQ);

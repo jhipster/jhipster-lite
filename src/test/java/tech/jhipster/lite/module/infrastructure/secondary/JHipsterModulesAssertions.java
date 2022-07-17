@@ -57,6 +57,10 @@ public final class JHipsterModulesAssertions {
     return new ModuleAsserter(module);
   }
 
+  public static String nodeDependency(String dependency) {
+    return "\"" + dependency + "\": \"";
+  }
+
   private static void addFilesToproject(JHipsterProjectFolder project, ModuleFile... files) {
     Stream
       .of(files)

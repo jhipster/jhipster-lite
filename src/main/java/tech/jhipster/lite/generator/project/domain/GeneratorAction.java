@@ -15,9 +15,6 @@ public class GeneratorAction {
 
   public static final String LIQUIBASE_USER_AND_AUTHORITY_CHANGELOGS = "liquibase-user-and-authority-changelogs";
 
-  public static final String SPRINGBOOT_JWT = "springboot-jwt";
-  public static final String SPRINGBOOT_JWT_BASIC_AUTH = "springboot-jwt-basic-auth";
-
   public static final String MSSQL = "mssql";
 
   public static final String FLYWAY_USER_AND_AUTHORITY_CHANGELOGS = "flyway-user-and-authority-changelogs";

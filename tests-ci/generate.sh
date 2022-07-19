@@ -100,7 +100,6 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/developer-tools/codespaces"
   callApi "/api/developer-tools/gitpod"
 
-  callApi "/api/servers/spring-boot/logs-spy"
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
@@ -222,7 +221,6 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/developer-tools/frontend-maven-plugin"
   callApi "/api/clients/angular"
 
-  callApi "/api/servers/spring-boot/logs-spy"
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
@@ -248,7 +246,6 @@ elif [[ $application == 'reactapp' ]]; then
   callApi "/api/clients/react/styles"
   callApi "/api/clients/cypress"
 
-  callApi "/api/servers/spring-boot/logs-spy"
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"

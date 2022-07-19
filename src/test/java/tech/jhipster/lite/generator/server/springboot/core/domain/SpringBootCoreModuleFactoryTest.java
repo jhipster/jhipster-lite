@@ -146,7 +146,9 @@ class SpringBootCoreModuleFactoryTest {
         "src/main/resources/config/application-local.properties",
         "src/test/resources/config/application.properties"
       )
-      .createFiles("src/test/resources/logback.xml", "src/main/resources/logback-spring.xml");
+      .createFiles("src/test/resources/logback.xml", "src/main/resources/logback-spring.xml")
+      .createFiles("documentation/logs-spy.md")
+      .createJavaTests("com/jhipster/test/LogsSpy.java");
   }
 
   @Test

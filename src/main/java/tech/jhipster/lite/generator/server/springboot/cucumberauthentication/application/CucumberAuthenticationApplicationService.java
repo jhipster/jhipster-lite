@@ -17,4 +17,8 @@ public class CucumberAuthenticationApplicationService {
   public JHipsterModule buildOauth2Module(JHipsterModuleProperties properties) {
     return factory.buildOauth2Module(properties);
   }
+
+  public JHipsterModule buildJWTModule(JHipsterModuleProperties properties) {
+    return factory.buildJWTModule(properties);
+  }
 }

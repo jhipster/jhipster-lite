@@ -32,7 +32,13 @@ public class PostgresqlModuleFactory {
     String packagePath = properties.packagePath();
     JHipsterDestination databasePath = toSrcMainJava().append(packagePath).append(DEST_SECONDARY);
 
-    return sqlCommonModuleBuilder(properties, DatabaseType.POSTGRESQL, dockerImage, documentationTitle("Postgresql"))
+    return sqlCommonModuleBuilder(
+      properties,
+      DatabaseType.POSTGRESQL,
+      dockerImage,
+      documentationTitle("Postgresql"),
+      artifactId("postgresql")
+    )
       .files()
       .add(source.template("FixedPostgreSQL10Dialect.java"), databasePath.append("FixedPostgreSQL10Dialect.java"))
       .add(

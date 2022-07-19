@@ -10,6 +10,7 @@ import tech.jhipster.lite.module.domain.JHipsterDestination;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.JHipsterSource;
 import tech.jhipster.lite.module.domain.LogLevel;
+import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
@@ -27,12 +28,14 @@ public class SQLCommonModuleBuilder {
     JHipsterModuleProperties properties,
     DatabaseType databaseType,
     DockerImage dockerImage,
-    DocumentationTitle documentationTitle
+    DocumentationTitle documentationTitle,
+    ArtifactId testContainerArtifactId
   ) {
     Assert.notNull("properties", properties);
     Assert.notNull("databaseType", databaseType);
     Assert.notNull("dockerImage", dockerImage);
     Assert.notNull("documentationTitle", documentationTitle);
+    Assert.notNull("testContainerArtifactId", testContainerArtifactId);
 
     String databaseId = databaseType.id();
     JHipsterSource source = from("server/springboot/database/" + databaseType.id());
@@ -58,7 +61,7 @@ public class SQLCommonModuleBuilder {
         .addDependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter-data-jpa"))
         .addDependency(groupId("com.zaxxer"), artifactId("HikariCP"))
         .addDependency(groupId(ORG_HIBERNATE), artifactId("hibernate-core"))
-        .addDependency(testContainer(databaseId))
+        .addDependency(testContainer(testContainerArtifactId))
         .and()
       .springMainProperties()
         .set(propertyKey("spring.datasource.password"), propertyValue(""))
@@ -76,6 +79,8 @@ public class SQLCommonModuleBuilder {
           propertyValue("org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy")
         )
         .set(propertyKey("spring.jpa.open-in-view"), FALSE)
+        .set(propertyKey("spring.jpa.properties.hibernate.cache.use_second_level_cache"), FALSE)
+        .set(propertyKey("spring.jpa.properties.hibernate.cache.use_query_cache"), FALSE)
         .set(propertyKey("spring.jpa.properties.hibernate.connection.provider_disables_autocommit"), TRUE)
         .set(propertyKey("spring.jpa.properties.hibernate.generate_statistics"), FALSE)
         .set(propertyKey("spring.jpa.properties.hibernate.id.new_generator_mappings"), TRUE)
@@ -107,10 +112,10 @@ public class SQLCommonModuleBuilder {
     //@formatter:on
   }
 
-  private static JavaDependency testContainer(String databaseId) {
+  private static JavaDependency testContainer(ArtifactId testContainerArtifactI) {
     return javaDependency()
       .groupId("org.testcontainers")
-      .artifactId(databaseId)
+      .artifactId(testContainerArtifactI)
       .versionSlug("testcontainers")
       .scope(JavaDependencyScope.TEST)
       .build();

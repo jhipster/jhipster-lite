@@ -16,9 +16,9 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
-class FileSystemGitRepositoryTest {
+class JGitGitRepositoryTest {
 
-  private static final FileSystemGitRepository git = new FileSystemGitRepository();
+  private static final JGitGitRepository git = new JGitGitRepository();
 
   @Test
   @EnabledOnOs(OS.LINUX)
@@ -46,6 +46,6 @@ class FileSystemGitRepositoryTest {
 
     git.init(new JHipsterProjectFolder(folder));
 
-    assertThat(Files.exists(folderPath.resolve(".git"))).isTrue();
+    assertThat(Files.isDirectory(folderPath.resolve(".git"))).isTrue();
   }
 }

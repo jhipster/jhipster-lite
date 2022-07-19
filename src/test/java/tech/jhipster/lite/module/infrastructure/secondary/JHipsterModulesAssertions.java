@@ -61,6 +61,10 @@ public final class JHipsterModulesAssertions {
     return "\"" + dependency + "\": \"";
   }
 
+  public static String nodeScript(String key, String command) {
+    return "\"" + key + "\": \"" + command + "\"";
+  }
+
   private static void addFilesToproject(JHipsterProjectFolder project, ModuleFile... files) {
     Stream
       .of(files)

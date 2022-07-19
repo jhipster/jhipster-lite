@@ -16,7 +16,7 @@ class CucumberAuthenticationModuleFactoryTest {
   private static final CucumberAuthenticationModuleFactory factory = new CucumberAuthenticationModuleFactory();
 
   @Test
-  void test() {
+  void shouldBuildOauthAuthenticationModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture
       .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
@@ -72,5 +72,20 @@ class CucumberAuthenticationModuleFactoryTest {
       "src/test/resources/projects/cucumber/CucumberConfiguration.java",
       "src/test/java/com/jhipster/test/cucumber/CucumberConfiguration.java"
     );
+  }
+
+  @Test
+  void shouldBuildJwtAuthenticationModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
+
+    JHipsterModule module = factory.buildJWTModule(properties);
+
+    assertThatModuleWithFiles(module, pomFile())
+      .createFiles("documentation/cucumber-authentication.md")
+      .createJavaTests("com/jhipster/test/authentication/infrastructure/primary/AuthenticationSteps.java");
   }
 }

@@ -21,4 +21,16 @@ class CucumberAuthenticationModuleConfiguration {
       .tags("server", "spring", "spring-boot", "test", "oauth2")
       .factory(cucumberAuthentications::buildOauth2Module);
   }
+
+  @Bean
+  JHipsterModuleResource cucumberJwtAuthenticationModule(CucumberAuthenticationApplicationService cucumberAuthentications) {
+    return JHipsterModuleResource
+      .builder()
+      .legacyUrl("/api/servers/spring-boot/component-tests/cucumber-jwt-authentication")
+      .slug("cucumber-jwt-authentication")
+      .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
+      .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Component Tests", "Add jwt authentication steps for cucumber"))
+      .tags("server", "spring", "spring-boot", "test", "jwt")
+      .factory(cucumberAuthentications::buildJWTModule);
+  }
 }

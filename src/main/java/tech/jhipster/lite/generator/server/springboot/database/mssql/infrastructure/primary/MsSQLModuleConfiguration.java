@@ -20,6 +20,7 @@ class MsSQLModuleConfiguration {
       .slug("mssql")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add MsSQL to project"))
+      .tags("server", "database", "mssql")
       .factory(applicationService::build);
   }
 }

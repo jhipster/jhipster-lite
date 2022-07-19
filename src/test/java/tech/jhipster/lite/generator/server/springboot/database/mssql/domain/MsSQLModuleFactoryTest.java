@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.docker.domain.DockerImage;
 import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.module.domain.JHipsterModule;

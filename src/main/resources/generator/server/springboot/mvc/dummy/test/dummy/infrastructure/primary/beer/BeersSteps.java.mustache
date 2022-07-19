@@ -2,6 +2,7 @@ package {{packageName}}.dummy.infrastructure.primary.beer;
 
 import static {{packageName}}.cucumber.CucumberAssertions.*;
 
+import {{packageName}}.cucumber.CucumberRestTemplate;
 import {{packageName}}.cucumber.CucumberTestContext;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,26 +25,13 @@ public class BeersSteps {
       """;
 
   @Autowired
-  private TestRestTemplate rest;
+  private CucumberRestTemplate rest;
 
   @When("I add beer to catalog")
   public void addBeerToCatalog(Map<String, String> beer) {
     String payload = ADD_BEER_TEMPLATE.replace("{NAME}", beer.get("Name")).replace("{UNIT_PRICE}", beer.get("Unit price"));
 
-    post("/api/beers", payload);
-  }
-
-  private void post(String uri, String content) {
-    rest.exchange(uri, HttpMethod.POST, new HttpEntity<>(content, jsonHeaders()), Void.class);
-  }
-
-  private HttpHeaders jsonHeaders() {
-    HttpHeaders headers = new HttpHeaders();
-
-    headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-    headers.setContentType(MediaType.APPLICATION_JSON);
-
-    return headers;
+    rest.post("/api/beers", payload);
   }
 
   @When("I remove the created beer from the catalog")
@@ -53,7 +41,7 @@ public class BeersSteps {
 
   @Then("I should have beers catalog")
   public void shouldHaveBeersCatalog(List<Map<String, String>> catalog) {
-    rest.getForEntity("/api/beers", Void.class);
+    rest.get("/api/beers");
 
     assertThatLastResponse().hasOkStatus().hasElement("$.beers").containingExactly(catalog);
   }

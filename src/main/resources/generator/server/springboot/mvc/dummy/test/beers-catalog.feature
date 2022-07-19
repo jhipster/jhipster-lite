@@ -7,7 +7,7 @@ Feature: Beers catalog
       | Unit price | 8.53              |
     Then I should be forbidden
 
-  Scenario: Add beer to catalog
+  Scenario: Should add beer to catalog
     Given I am logged in as "admin"
     When I add beer to catalog
       | Name       | Cloak of feathers |

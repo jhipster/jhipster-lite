@@ -66,10 +66,10 @@ public class DummyFeatureModuleFactory {
           .addTemplate("RestBeers.java")
           .addTemplate("RestBeerToCreate.java")
           .and()
-         .add(
-           MAIN_SOURCE.append(SECONDARY).template("InMemoryBeersRepository.java"),
-           mainDestination.append(SECONDARY).append("InMemoryBeersRepository.java")
-         )
+          .add(
+             MAIN_SOURCE.append(SECONDARY).template("InMemoryBeersRepository.java"),
+             mainDestination.append(SECONDARY).append("InMemoryBeersRepository.java")
+           )
         .batch(DUMMY_TEST_SOURCE.append(DOMAIN), testDestination.append(DOMAIN))
           .addTemplate("AmountTest.java")
           .addTemplate("BeersIdentityFixture.java")

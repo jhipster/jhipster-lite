@@ -11,10 +11,19 @@ final class JHipsterModuleShortcuts {
   private static final String README = "README.md";
   private static final TextNeedleBeforeReplacer JHIPSTER_DOCUMENTATION_NEEDLE = lineBeforeText("\n<!-- jhipster-needle-documentation -->");
   private static final TextNeedleBeforeReplacer JHIPSTER_README_SECTION_NEEDLE = lineBeforeText("\n<!-- jhipster-needle-readme -->");
+  private static final TextNeedleBeforeReplacer JHIPSTER_STARTUP_COMMAND_SECTION_NEEDLE = lineBeforeText(
+    "\n<!-- jhipster-needle-startupCommand -->"
+  );
 
   private static final String SPRING_MAIN_LOG_FILE = "src/main/resources/logback-spring.xml";
   private static final String SPRING_TEST_LOG_FILE = "src/test/resources/logback.xml";
   private static final TextNeedleBeforeReplacer JHIPSTER_LOGGER_NEEDLE = lineBeforeText("<!-- jhipster-needle-logback-add-log -->");
+
+  private static final String BASH_TEMPLATE = """
+    ```bash
+    {{command}}
+    ```
+    """;
 
   private final JHipsterModuleBuilder builder;
 
@@ -39,6 +48,14 @@ final class JHipsterModuleShortcuts {
     Assert.notBlank("section", section);
 
     builder.optionalReplacements().in(README).add(JHIPSTER_README_SECTION_NEEDLE, section);
+  }
+
+  void startupCommand(String startupCommand) {
+    Assert.notBlank("startupCommand", startupCommand);
+    builder
+      .optionalReplacements()
+      .in(README)
+      .add(JHIPSTER_STARTUP_COMMAND_SECTION_NEEDLE, BASH_TEMPLATE.replace("{{command}}", startupCommand));
   }
 
   void springTestLogger(String name, LogLevel level) {

@@ -299,6 +299,12 @@ public class JHipsterModule {
       return this;
     }
 
+    public JHipsterModuleBuilder startupCommand(String startupCommand) {
+      shortcuts.startupCommand(startupCommand);
+
+      return this;
+    }
+
     public JHipsterModuleContextBuilder context() {
       return context;
     }

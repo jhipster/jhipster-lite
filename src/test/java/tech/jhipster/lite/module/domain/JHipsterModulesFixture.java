@@ -50,6 +50,7 @@ public final class JHipsterModulesFixture {
     .documentation(documentationTitle("Cucumber integration"), from("server/springboot/cucumber/cucumber.md.mustache"))
     .documentation(documentationTitle("Another cucumber integration"), from("server/springboot/cucumber/cucumber.md.mustache"))
     .readmeSection("This is a readme section")
+    .startupCommand("This is a startup section")
     .mandatoryReplacements()
       .in("src/main/java/com/company/myapp/errors/Assert.java")
         .add(text("Ensure that the input is not null"), "Dummy replacement")

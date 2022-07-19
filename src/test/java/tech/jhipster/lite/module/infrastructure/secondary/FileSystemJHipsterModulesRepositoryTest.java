@@ -25,7 +25,7 @@ class FileSystemJHipsterModulesRepositoryTest {
     JHipsterModule module = module();
 
     // @formatter:off
-    assertThatModuleWithFiles(module, file("src/test/resources/projects/maven/pom.xml", "pom.xml"), packageJsonFile()) 
+    assertThatModuleWithFiles(module, file("src/test/resources/projects/maven/pom.xml", "pom.xml"), packageJsonFile())
       .createFiles(
         "src/main/java/com/company/myapp/MyApp.java",
         "src/main/java/com/company/myapp/errors/Assert.java",
@@ -77,7 +77,7 @@ class FileSystemJHipsterModulesRepositoryTest {
                   <type>pom</type>
                 </dependency>
               </dependencies>
-            </dependencyManagement>   
+            </dependencyManagement>
           """
         )
         .containing(
@@ -216,10 +216,11 @@ class FileSystemJHipsterModulesRepositoryTest {
             """
            - [Cucumber integration](documentation/cucumber-integration.md)
            - [Another cucumber integration](documentation/another-cucumber-integration.md)
-           
+
            <!-- jhipster-needle-documentation -->
            """)
-        .containing("This is a readme section");
+        .containing("This is a readme section")
+        .containing("This is a startup section");
     // @formatter:on
 
     assertPreActions();

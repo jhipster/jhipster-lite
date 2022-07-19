@@ -16,6 +16,7 @@ public class MongoDbModuleFactory {
   private static final JHipsterSource SOURCE = from("server/springboot/database/mongodb");
 
   private static final String MONGO_SECONDARY = "technical/infrastructure/secondary/mongodb";
+  public static final String DOCKER_COMPOSE_COMMAND = "docker-compose -f src/main/docker/mongodb.yml up -d";
 
   private final DockerImages dockerImages;
 
@@ -31,7 +32,7 @@ public class MongoDbModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Mongo DB"), SOURCE.template("mongodb.md"))
-      .readmeSection(dockerComposeDocumentation())
+      .startupCommand(startupCommand())
       .context()
         .put("mongodbDockerImage", dockerImages.get("mongo").fullName())
         .and()
@@ -47,7 +48,7 @@ public class MongoDbModuleFactory {
           .addTemplate("JSR310DateConverters.java")
           .and()
         .add(
-              SOURCE.template("JSR310DateConvertersTest.java"), 
+              SOURCE.template("JSR310DateConvertersTest.java"),
               toSrcTestJava().append(packagePath).append(MONGO_SECONDARY).append("JSR310DateConvertersTest.java")
             )
         .batch(SOURCE, toSrcTestJava().append(packagePath))
@@ -71,12 +72,8 @@ public class MongoDbModuleFactory {
     //@formatter:on
   }
 
-  private String dockerComposeDocumentation() {
-    return """
-        ```bash
-        docker-compose -f src/main/docker/mongodb.yml up -d
-        ```
-        """;
+  private String startupCommand() {
+    return DOCKER_COMPOSE_COMMAND;
   }
 
   private JavaDependency testContainerDependency() {

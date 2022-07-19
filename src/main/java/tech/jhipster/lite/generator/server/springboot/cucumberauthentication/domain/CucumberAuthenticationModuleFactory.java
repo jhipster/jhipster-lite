@@ -14,11 +14,12 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 public class CucumberAuthenticationModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/cucumberauthentication");
+  private static final JHipsterSource OAUTH2_SOURCE = SOURCE.append("oauth2");
 
   private static final GroupId JSON_WEBTOKEN_GROUP = groupId("io.jsonwebtoken");
   private static final VersionSlug JSON_WEBTOKEN_VERSION = versionSlug("json-web-token");
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildOauth2Module(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     String mainClass = properties.projectBaseName().capitalized() + "App";
@@ -42,11 +43,11 @@ public class CucumberAuthenticationModuleFactory {
         .and()
       .files()
         .add(
-          SOURCE.template("AuthenticationSteps.java"),
+          OAUTH2_SOURCE.template("AuthenticationSteps.java"),
           toSrcTestJava().append(packagePath).append("authentication/infrastructure/primary/AuthenticationSteps.java")
         )
         .add(
-          SOURCE.template("CucumberAuthenticationConfiguration.java"),
+          OAUTH2_SOURCE.template("CucumberAuthenticationConfiguration.java"),
           toSrcTestJava().append(packagePath).append("cucumber/CucumberAuthenticationConfiguration.java")
         )
         .and()

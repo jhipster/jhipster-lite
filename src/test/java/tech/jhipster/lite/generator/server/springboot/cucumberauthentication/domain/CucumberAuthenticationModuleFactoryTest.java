@@ -23,7 +23,7 @@ class CucumberAuthenticationModuleFactoryTest {
       .projectBaseName("myapp")
       .build();
 
-    JHipsterModule module = factory.buildModule(properties);
+    JHipsterModule module = factory.buildOauth2Module(properties);
 
     assertThatModuleWithFiles(module, pomFile(), cucumberConfiguration())
       .createFiles("documentation/cucumber-authentication.md")

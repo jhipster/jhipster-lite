@@ -11,14 +11,14 @@ import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
 class CucumberAuthenticationModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource cucumberAuthenticationModule(CucumberAuthenticationApplicationService cucumberAuthentications) {
+  JHipsterModuleResource cucumberOAuth2AuthenticationModule(CucumberAuthenticationApplicationService cucumberAuthentications) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/component-tests/cucumber-authentication")
-      .slug("cucumber-authentication")
+      .legacyUrl("/api/servers/spring-boot/component-tests/cucumber-oauth2-authentication")
+      .slug("cucumber-oauth2-authentication")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
-      .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Component Tests", "Add authentication steps for cucumber"))
-      .tags("server", "spring", "spring-boot", "test")
-      .factory(cucumberAuthentications::buildModule);
+      .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Component Tests", "Add oauth2 authentication steps for cucumber"))
+      .tags("server", "spring", "spring-boot", "test", "oauth2")
+      .factory(cucumberAuthentications::buildOauth2Module);
   }
 }

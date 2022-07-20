@@ -17,8 +17,6 @@ public interface ProjectRepository {
 
   void write(Project project, String text, String destination, String destinationFilename);
 
-  void gitInit(Project project);
-
   String zip(Project project);
 
   byte[] download(Project project);

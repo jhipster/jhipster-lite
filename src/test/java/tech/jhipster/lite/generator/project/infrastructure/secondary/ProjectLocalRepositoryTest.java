@@ -15,7 +15,6 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import org.eclipse.jgit.api.errors.InvalidConfigurationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -206,27 +205,6 @@ class ProjectLocalRepositoryTest {
     assertThatThrownBy(() -> repository.write(project, null, null, null))
       .isExactlyInstanceOf(MissingMandatoryValueException.class)
       .hasMessageContaining("text");
-  }
-
-  @Test
-  void shouldGitInit() {
-    Project project = tmpProject();
-
-    repository.gitInit(project);
-
-    assertFileExist(project, ".git/config");
-  }
-
-  @Test
-  void shouldNotGitInit() {
-    Project project = tmpProject();
-
-    try (MockedStatic<GitUtils> gitUtils = Mockito.mockStatic(GitUtils.class)) {
-      gitUtils.when(() -> GitUtils.init(anyString())).thenThrow(new InvalidConfigurationException("error"));
-
-      assertThatThrownBy(() -> repository.gitInit(project)).isExactlyInstanceOf(GeneratorException.class);
-      assertFileNotExist(project, ".git/config");
-    }
   }
 
   @Test

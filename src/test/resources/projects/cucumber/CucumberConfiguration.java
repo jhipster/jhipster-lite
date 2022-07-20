@@ -1,6 +1,9 @@
 package com.jhipster.test.cucumber;
 
 import com.jhipster.test.MyappApp;
+import com.jhipster.test.cucumber.CucumberConfiguration.CucumberRestTemplateConfiguration;
+import com.mycompany.myapp.cucumber.CucumberConfiguration.CucumberRestTemplateConfiguration;
+import com.mycompany.myapp.cucumber.CucumberRestTemplate;
 import io.cucumber.java.Before;
 import io.cucumber.spring.CucumberContextConfiguration;
 import java.nio.charset.StandardCharsets;
@@ -8,7 +11,10 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -18,7 +24,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 @CucumberContextConfiguration
-@SpringBootTest(classes = { MyappApp.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = { MyappApp.class, CucumberRestTemplateConfiguration.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CucumberConfiguration {
 
   @Autowired
@@ -55,5 +61,17 @@ public class CucumberConfiguration {
 
       return response;
     };
+  }
+
+  @TestConfiguration
+  static class CucumberRestTemplateConfiguration {
+
+    @Autowired
+    private TestRestTemplate rest;
+
+    @Bean
+    CucumberRestTemplate cucumberRestTemplate() {
+      return new CucumberRestTemplate(rest);
+    }
   }
 }

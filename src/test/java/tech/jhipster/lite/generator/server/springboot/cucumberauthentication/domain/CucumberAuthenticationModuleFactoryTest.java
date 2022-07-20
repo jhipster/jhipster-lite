@@ -28,7 +28,7 @@ class CucumberAuthenticationModuleFactoryTest {
     assertThatModuleWithFiles(module, pomFile(), cucumberConfiguration())
       .createFiles("documentation/cucumber-authentication.md")
       .createFile("src/test/java/com/jhipster/test/cucumber/CucumberConfiguration.java")
-      .containing("classes = { MyappApp.class, TestSecurityConfiguration.class, CucumberAuthenticationConfiguration.class }")
+      .containing("classes = { MyappApp.class, TestSecurityConfiguration.class, CucumberAuthenticationConfiguration.class")
       .containing("import com.jhipster.test.authentication.infrastructure.primary.TestSecurityConfiguration;")
       .and()
       .createFile("pom.xml")

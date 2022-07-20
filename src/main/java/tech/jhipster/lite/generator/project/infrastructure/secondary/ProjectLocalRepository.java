@@ -142,15 +142,6 @@ public class ProjectLocalRepository implements ProjectRepository {
   }
 
   @Override
-  public void gitApplyPatch(Project project, String patchFilename) {
-    try {
-      GitUtils.apply(project.getFolder(), patchFilename);
-    } catch (GitAPIException | IOException e) {
-      throw new GeneratorException("Error when git apply patch", e);
-    }
-  }
-
-  @Override
   public String zip(Project project) {
     File workingDir = new File(project.getFolder());
     String filename = workingDir.getName() + ".zip";

@@ -4,12 +4,10 @@ import java.io.File;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.generator.init.domain.GitRepository;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
-@Repository
-class FileSystemGitRepository implements GitRepository {
+class JGitGitRepository implements GitRepository {
 
   @Override
   public void init(JHipsterProjectFolder folder) {

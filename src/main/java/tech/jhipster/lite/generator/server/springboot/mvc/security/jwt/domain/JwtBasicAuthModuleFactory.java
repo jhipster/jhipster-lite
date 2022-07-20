@@ -79,7 +79,7 @@ public class JwtBasicAuthModuleFactory {
       .set(propertyKey("application.security.remember-me-token-validity"), propertyValue("P365D"))
       .set(propertyKey("spring.security.user.name"), propertyValue("admin"))
       .set(propertyKey("spring.security.user.password"), propertyValue("$2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O"))
-      .set(propertyKey("sspring.security.user.roles"), propertyValue("ADMIN"))
+      .set(propertyKey("spring.security.user.roles"), propertyValue("ADMIN"))
       .set(
         propertyKey("application.security.content-security-policy"),
         propertyValue(

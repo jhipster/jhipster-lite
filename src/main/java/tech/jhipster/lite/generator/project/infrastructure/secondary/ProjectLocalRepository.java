@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.function.Consumer;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.springframework.stereotype.Repository;
 import org.zeroturnaround.zip.ZipException;
 import org.zeroturnaround.zip.ZipUtil;
@@ -129,15 +128,6 @@ public class ProjectLocalRepository implements ProjectRepository {
       FileUtils.write(projectDestinationFilename, text, project.getEndOfLine());
     } catch (IOException e) {
       throw new GeneratorException(getErrorWritingMessage(projectDestinationFilename));
-    }
-  }
-
-  @Override
-  public void gitInit(Project project) {
-    try {
-      GitUtils.init(project.getFolder());
-    } catch (GitAPIException e) {
-      throw new GeneratorException("Error when git init", e);
     }
   }
 

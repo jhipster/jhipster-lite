@@ -18,44 +18,6 @@ public class BuildToolDomainService implements BuildToolService {
   }
 
   @Override
-  public void addDependency(Project project, Dependency dependency) {
-    if (project.isMavenProject()) {
-      mavenService.addDependency(project, dependency);
-    } else if (project.isGradleProject()) {
-      gradleService.addDependency(project, dependency);
-    } else {
-      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
-    }
-  }
-
-  @Override
-  public void addVersionPropertyAndDependency(Project project, String versionProperty, Dependency dependency) {
-    String version = getVersion(project, versionProperty).orElseThrow(() -> new GeneratorException(versionProperty + " version not found"));
-
-    Dependency dependencyWithVersion = dependency.toBuilder().version("\\${" + versionProperty + ".version}").build();
-    addProperty(project, versionProperty + ".version", version);
-    addDependency(project, dependencyWithVersion);
-  }
-
-  @Override
-  public void addDependencyManagement(Project project, Dependency dependency) {
-    if (project.isMavenProject()) {
-      mavenService.addDependencyManagement(project, dependency);
-    } else {
-      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
-    }
-  }
-
-  @Override
-  public void addProperty(Project project, String key, String value) {
-    if (project.isMavenProject()) {
-      mavenService.addProperty(project, key, value);
-    } else {
-      throw new GeneratorException(EXCEPTION_NO_BUILD_TOOL);
-    }
-  }
-
-  @Override
   public Optional<String> getVersion(Project project, String name) {
     if (project.isMavenProject()) {
       return mavenService.getVersion(name);

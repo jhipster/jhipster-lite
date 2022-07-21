@@ -22,16 +22,16 @@ import tech.jhipster.lite.generator.server.springboot.common.domain.SpringBootCo
 class ProjectDomainServiceTest {
 
   @Mock
-  NpmService npmService;
+  private NpmService npmService;
 
   @Mock
-  BuildToolService buildToolService;
+  private BuildToolService buildToolService;
 
   @Mock
-  SpringBootCommonService springBootCommonService;
+  private SpringBootCommonService springBootCommonService;
 
   @InjectMocks
-  ProjectDomainService projectDomainService;
+  private ProjectDomainService projectDomainService;
 
   @Test
   void shouldGetProjectDetailsForInitProject() {

@@ -1,11 +1,9 @@
 package tech.jhipster.lite.generator.buildtool.generic.domain;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.TestUtils.*;
 
-import java.util.Optional;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,44 +31,6 @@ class BuildToolDomainServiceTest {
 
   @Nested
   class MavenTest {
-
-    @Test
-    void shouldAddDependency() {
-      Project project = tmpProjectWithPomXml();
-      Dependency dependency = getDependency();
-
-      buildToolDomainService.addDependency(project, dependency);
-
-      verify(mavenService).addDependency(project, dependency);
-    }
-
-    @Test
-    void shouldAddDependencyWithVersionProperty() {
-      when(mavenService.getVersion("spring-boot")).thenReturn(Optional.of("0.0.0"));
-      Project project = tmpProjectWithPomXml();
-      Dependency dependency = getDependency();
-      buildToolDomainService.addVersionPropertyAndDependency(project, "spring-boot", dependency);
-      verify(mavenService).addDependency(eq(project), any(Dependency.class));
-    }
-
-    @Test
-    void shouldAddDependencyManagement() {
-      Project project = tmpProjectWithPomXml();
-      Dependency dependency = getDependency();
-
-      buildToolDomainService.addDependencyManagement(project, dependency);
-
-      verify(mavenService).addDependencyManagement(project, dependency);
-    }
-
-    @Test
-    void shouldAddProperty() {
-      Project project = tmpProjectWithPomXml();
-
-      buildToolDomainService.addProperty(project, "testcontainers.version", "0.0.0");
-
-      verify(mavenService).addProperty(project, "testcontainers.version", "0.0.0");
-    }
 
     @Test
     void shouldGetVersion() {
@@ -111,45 +71,10 @@ class BuildToolDomainServiceTest {
 
       verify(gradleService).getGroup(project.getFolder());
     }
-
-    @Test
-    void shouldAddDependency() {
-      Project project = tmpProjectWithBuildGradle();
-      Dependency dependency = getDependency();
-
-      buildToolDomainService.addDependency(project, dependency);
-
-      verify(gradleService).addDependency(project, dependency);
-    }
   }
 
   @Nested
   class NoBuildToolTest {
-
-    @Test
-    void shouldNotAddDependency() {
-      Project project = tmpProject();
-      Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
-
-      assertThatThrownBy(() -> buildToolDomainService.addDependency(project, dependency)).isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
-    void shouldNotAddDependencyManagement() {
-      Project project = tmpProject();
-      Dependency dependency = Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
-
-      assertThatThrownBy(() -> buildToolDomainService.addDependencyManagement(project, dependency))
-        .isExactlyInstanceOf(GeneratorException.class);
-    }
-
-    @Test
-    void shouldNotAddProperty() {
-      Project project = tmpProject();
-
-      assertThatThrownBy(() -> buildToolDomainService.addProperty(project, "testcontainers", "0.0.0"))
-        .isExactlyInstanceOf(GeneratorException.class);
-    }
 
     @Test
     void shouldNotGetVersion() {
@@ -171,18 +96,5 @@ class BuildToolDomainServiceTest {
 
       assertThatThrownBy(() -> buildToolDomainService.getName(project)).isExactlyInstanceOf(GeneratorException.class);
     }
-
-    @Test
-    void shouldNotAddDependencyWithoutVersionProperty() {
-      when(mavenService.getVersion("spring-boot")).thenReturn(Optional.empty());
-      Project project = tmpProjectWithPomXml();
-      Dependency dependency = getDependency();
-      assertThatThrownBy(() -> buildToolDomainService.addVersionPropertyAndDependency(project, "spring-boot", dependency))
-        .isExactlyInstanceOf(GeneratorException.class);
-    }
-  }
-
-  private Dependency getDependency() {
-    return Dependency.builder().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
   }
 }

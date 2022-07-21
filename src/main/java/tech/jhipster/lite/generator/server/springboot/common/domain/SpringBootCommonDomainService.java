@@ -29,25 +29,8 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   }
 
   @Override
-  public void addPropertiesLocal(Project project, String key, Object value) {
-    addKeyValueToProperties(project, key, value, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
-  }
-
-  @Override
   public void addPropertiesTest(Project project, String key, Object value) {
     addKeyValueToProperties(project, key, value, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
-  }
-
-  @Override
-  public void addPropertiesTestLogging(Project project, String key, Level value) {
-    addKeyValueToProperties(
-      project,
-      "logging.level." + key,
-      value,
-      TEST_RESOURCES,
-      APPLICATION_PROPERTIES,
-      NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES
-    );
   }
 
   private void addKeyValueToProperties(
@@ -68,18 +51,8 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   }
 
   @Override
-  public void addPropertiesLocalNewLine(Project project) {
-    addNewLineToProperties(project, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
-  }
-
-  @Override
   public void addPropertiesTestNewLine(Project project) {
     addNewLineToProperties(project, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
-  }
-
-  @Override
-  public void addPropertiesTestLoggingNewLine(Project project) {
-    addNewLineToProperties(project, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES);
   }
 
   private void addNewLineToProperties(Project project, String folderProperties, String fileProperties, String needleProperties) {
@@ -93,18 +66,8 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
   }
 
   @Override
-  public void addPropertiesLocalComment(Project project, String text) {
-    addCommentToProperties(project, text, MAIN_RESOURCES, APPLICATION_LOCAL_PROPERTIES, NEEDLE_APPLICATION_LOCAL_PROPERTIES);
-  }
-
-  @Override
   public void addPropertiesTestComment(Project project, String text) {
     addCommentToProperties(project, text, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_PROPERTIES);
-  }
-
-  @Override
-  public void addPropertiesTestLoggingComment(Project project, String text) {
-    addCommentToProperties(project, text, TEST_RESOURCES, APPLICATION_PROPERTIES, NEEDLE_APPLICATION_TEST_LOGGING_PROPERTIES);
   }
 
   private void addCommentToProperties(

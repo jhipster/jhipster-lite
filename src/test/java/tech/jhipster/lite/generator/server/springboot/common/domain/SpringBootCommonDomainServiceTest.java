@@ -53,20 +53,6 @@ class SpringBootCommonDomainServiceTest {
   }
 
   @Test
-  void shouldAddPropertiesLocal() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
-    Files.copy(
-      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.local.properties"),
-      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_LOCAL_PROPERTIES)
-    );
-
-    springBootCommonDomainService.addPropertiesLocal(project, "specific.config.local", "chips");
-
-    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
-  }
-
-  @Test
   void shouldAddPropertiesTest() throws Exception {
     Project project = tmpProject();
     FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
@@ -95,20 +81,6 @@ class SpringBootCommonDomainServiceTest {
   }
 
   @Test
-  void shouldAddPropertiesLocalNewLine() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
-    Files.copy(
-      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.local.properties"),
-      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_LOCAL_PROPERTIES)
-    );
-
-    springBootCommonDomainService.addPropertiesLocalNewLine(project);
-
-    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
-  }
-
-  @Test
   void shouldAddPropertiesTestNewLine() throws Exception {
     Project project = tmpProject();
     FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
@@ -132,20 +104,6 @@ class SpringBootCommonDomainServiceTest {
     );
 
     springBootCommonDomainService.addPropertiesComment(project, "comment");
-
-    verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
-  }
-
-  @Test
-  void shouldAddPropertiesLocalComment() throws Exception {
-    Project project = tmpProject();
-    FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
-    Files.copy(
-      getPathOf(TEST_RESOURCES, "generator/server/springboot/core/application.src.local.properties"),
-      getPathOf(project.getFolder(), MAIN_RESOURCES, "config", APPLICATION_LOCAL_PROPERTIES)
-    );
-
-    springBootCommonDomainService.addPropertiesLocalComment(project, "comment");
 
     verify(projectRepository).replaceText(any(Project.class), anyString(), anyString(), anyString(), anyString());
   }

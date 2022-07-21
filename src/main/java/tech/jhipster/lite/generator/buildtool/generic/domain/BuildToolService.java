@@ -4,11 +4,6 @@ import java.util.Optional;
 import tech.jhipster.lite.generator.project.domain.Project;
 
 public interface BuildToolService {
-  void addDependency(Project project, Dependency dependency);
-  void addDependencyManagement(Project project, Dependency dependency);
-  void addProperty(Project project, String key, String value);
-  void addVersionPropertyAndDependency(Project project, String versionProperty, Dependency dependency);
-
   Optional<String> getVersion(Project project, String name);
 
   Optional<String> getGroup(Project project);

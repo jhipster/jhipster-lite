@@ -42,6 +42,18 @@ describe('Rest modules repository', () => {
 
     expect(appliedModules).toEqual(['spring-cucumber']);
   });
+
+  it('Should download project using axios', async () => {
+    const axiosInstance = stubAxiosHttp();
+    const repository = new RestModulesRepository(axiosInstance);
+    axiosInstance.get.resolves({ headers: { 'x-suggested-filename': 'file.zip' }, data: [1, 2, 3] });
+
+    const project = await repository.download('path/to/project');
+
+    expect(axiosInstance.get.lastCall.args[0]).toBe('/api/projects?path=path/to/project');
+    expect(project.filename).toBe('file.zip');
+    expect(project.content).toEqual([1, 2, 3]);
+  });
 });
 
 const restModules = (): RestModules => ({

@@ -3,8 +3,8 @@ package tech.jhipster.lite.module.infrastructure.primary;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.module.domain.JHipsterProjectFolderFactory;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.projectfolder.domain.ProjectFolder;
 
 class RestJHipsterModuleProperties {
 
@@ -19,7 +19,7 @@ class RestJHipsterModuleProperties {
     this.properties = properties;
   }
 
-  public JHipsterModuleProperties toDomain(JHipsterProjectFolderFactory jHipsterProjectFolderFactory) {
+  public JHipsterModuleProperties toDomain(ProjectFolder jHipsterProjectFolderFactory) {
     Assert.notNull("jHipsterProjectFolderFactory", jHipsterProjectFolderFactory);
 
     assertValidProjectFolder(jHipsterProjectFolderFactory);
@@ -27,7 +27,7 @@ class RestJHipsterModuleProperties {
     return new JHipsterModuleProperties(projectFolder, properties);
   }
 
-  private void assertValidProjectFolder(JHipsterProjectFolderFactory jHipsterProjectFolderFactory) {
+  private void assertValidProjectFolder(ProjectFolder jHipsterProjectFolderFactory) {
     if (jHipsterProjectFolderFactory.isInvalid(projectFolder)) {
       throw new InvalidProjectFolderException();
     }

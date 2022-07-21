@@ -1,5 +1,5 @@
 import { AxiosHttp } from '@/http/AxiosHttp';
-import { AxiosResponse } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Modules } from '../domain/Modules';
 import { Category } from '../domain/Category';
 import { Module } from '../domain/Module';
@@ -8,6 +8,7 @@ import { ModuleProperty, ModulePropertyType } from '../domain/ModuleProperty';
 import { ModuleToApply } from '../domain/ModuleToApply';
 import { ModuleSlug } from '../domain/ModuleSlug';
 import { ProjectFolder } from '../domain/ProjectFolder';
+import { Project } from '../domain/Project';
 
 export interface RestModules {
   categories: RestCategory[];
@@ -60,6 +61,14 @@ export class RestModulesRepository implements ModulesRepository {
   appliedModules(folder: ProjectFolder): Promise<ModuleSlug[]> {
     return this.axiosInstance.get<RestModuleHistory[]>(`/api/project-histories?folder=${folder}`).then(mapToAppliedModules);
   }
+
+  download(folder: string): Promise<Project> {
+    const config: AxiosRequestConfig = {
+      responseType: 'blob',
+    };
+
+    return this.axiosInstance.get<ArrayBuffer>(`/api/projects?path=${folder}`, config).then(mapToProject);
+  }
 }
 
 const mapToModules = (response: AxiosResponse<RestModules>): Modules => ({
@@ -108,3 +117,10 @@ const toRestModuleToApply = (moduleToApply: ModuleToApply): RestModuleToApply =>
 });
 
 const mapToAppliedModules = (response: AxiosResponse<RestModuleHistory[]>): ModuleSlug[] => response.data.map(module => module.serviceId);
+
+const mapToProject = (response: AxiosResponse<ArrayBuffer>): Project => {
+  return {
+    filename: response.headers['x-suggested-filename'],
+    content: response.data,
+  };
+};

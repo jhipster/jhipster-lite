@@ -1,6 +1,6 @@
-package tech.jhipster.lite.module.domain;
+package tech.jhipster.lite.projectfolder.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 import java.io.File;
 import java.nio.file.Paths;

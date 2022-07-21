@@ -2,11 +2,13 @@ import { Modules } from '@/module/domain/Modules';
 import { ModuleToApply } from '@/module/domain/ModuleToApply';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import sinon, { SinonStub } from 'sinon';
+import { Project } from '@/module/domain/Project';
 
 export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;
   apply: SinonStub;
   appliedModules: SinonStub;
+  download: SinonStub;
 }
 
 export const stubModulesRepository = (): ModulesRepositoryStub =>
@@ -14,6 +16,7 @@ export const stubModulesRepository = (): ModulesRepositoryStub =>
     list: sinon.stub(),
     apply: sinon.stub(),
     appliedModules: sinon.stub(),
+    download: sinon.stub(),
   } as ModulesRepositoryStub);
 
 export const defaultModules = (): Modules => ({
@@ -67,3 +70,8 @@ const defaultPropertiesToApply = () => {
     .set('optionalBoolean', true)
     .set('optionalInteger', 42);
 };
+
+export const defaultProject = (): Project => ({
+  filename: 'jhipster.zip',
+  content: Uint8Array.from([]).buffer,
+});

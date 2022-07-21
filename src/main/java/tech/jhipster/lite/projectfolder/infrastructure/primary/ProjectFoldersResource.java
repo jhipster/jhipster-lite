@@ -1,17 +1,17 @@
-package tech.jhipster.lite.generator.project.infrastructure.primary.rest;
+package tech.jhipster.lite.projectfolder.infrastructure.primary;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.jhipster.lite.module.domain.JHipsterProjectFolderFactory;
+import tech.jhipster.lite.projectfolder.domain.ProjectFolder;
 
 @RestController
 @RequestMapping("/api/project-folders")
 class ProjectFoldersResource {
 
-  private final JHipsterProjectFolderFactory jHipsterProjectFolderFactory;
+  private final ProjectFolder jHipsterProjectFolderFactory;
 
-  ProjectFoldersResource(JHipsterProjectFolderFactory jHipsterProjectFolderFactory) {
+  ProjectFoldersResource(ProjectFolder jHipsterProjectFolderFactory) {
     this.jHipsterProjectFolderFactory = jHipsterProjectFolderFactory;
   }
 

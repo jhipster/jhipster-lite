@@ -22,6 +22,4 @@ public class GeneratorAction {
   public static final String USER_AND_AUTHORITY_ENTITIES_MARIADB = "user-and-authority-entities-mariadb";
 
   public static final String REACT_CYPRESS = "react-cypress";
-
-  public static final String CLIENT_COMMON_PLAYWRIGHT = "client-common-playwright";
 }

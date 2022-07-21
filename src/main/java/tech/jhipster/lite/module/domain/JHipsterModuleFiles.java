@@ -2,7 +2,6 @@ package tech.jhipster.lite.module.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 
@@ -70,26 +69,8 @@ public class JHipsterModuleFiles {
       this.files = files;
     }
 
-    /**
-     * @deprecated use addTemplate(file) instead
-     */
-    @Generated
-    @Deprecated(forRemoval = true)
-    public JHipsterModuleFileBatchBuilder template(String file) {
-      return addTemplate(file);
-    }
-
     public JHipsterModuleFileBatchBuilder addTemplate(String file) {
       return add(source.template(file), destination.append(file));
-    }
-
-    /**
-     * @deprecated use addFile(file) instead
-     */
-    @Generated
-    @Deprecated(forRemoval = true)
-    public JHipsterModuleFileBatchBuilder file(String file) {
-      return addFile(file);
     }
 
     public JHipsterModuleFileBatchBuilder addFile(String file) {

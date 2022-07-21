@@ -12,9 +12,14 @@
   border-right: 1px solid #29293b;
   padding: 0 15px;
   width: 350px;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  display: flex;
 }
 
 .jhipster-modules-form--field-line {
+  align-self: flex-start;
   margin-bottom: 10px;
 }
 
@@ -32,12 +37,18 @@
 .jhipster-modules-form--field-key {
   font-weight: bold;
 }
-
 .jhipster-modules-form--field-optional-marker {
   text-align: right;
   font-style: italic;
 }
-
+.jhipster-modules-form--download-project {
+  align-self: flex-end;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border: 1px solid #29293b;
+  border-radius: 20px;
+  padding: 10px;
+}
 .jhipster-modules-list {
   flex-grow: 1;
 }

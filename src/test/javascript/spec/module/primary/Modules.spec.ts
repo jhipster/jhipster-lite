@@ -1,11 +1,23 @@
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import { defaultModules, ModulesRepositoryStub, stubModulesRepository } from '../domain/Modules.fixture';
+import { defaultModules, defaultProject, ModulesRepositoryStub, stubModulesRepository } from '../domain/Modules.fixture';
 import { ModulesVue } from '@/module/primary/modules';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { wrappedElement } from '../../WrappedElement';
 import { stubAlertBus } from '../../common/domain/AlertBus.fixture';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../domain/ProjectFolders.fixture';
+import sinon from 'sinon';
+
+const stubWindow = () => ({
+  URL: { createObjectURL: sinon.stub(), revokeObjectURL: sinon.stub() },
+  document: { createElement: sinon.stub(), body: { appendChild: sinon.stub(), removeChild: sinon.stub() } },
+});
+
+const stubLink = () => ({
+  href: '',
+  click: sinon.stub(),
+  download: '',
+});
 
 interface WrapperOptions {
   modules: ModulesRepository;
@@ -13,6 +25,8 @@ interface WrapperOptions {
 }
 
 const alertBus = stubAlertBus();
+
+const windowStub = stubWindow();
 
 const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
   const { modules, projectFolders }: WrapperOptions = {
@@ -26,6 +40,7 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
         modules,
         projectFolders,
         alertBus,
+        globalWindow: windowStub,
       },
     },
   });
@@ -225,7 +240,7 @@ describe('Modules', () => {
 
     await flushPromises();
 
-    const [message] = alertBus.success.getCall(0).args;
+    const [message] = alertBus.success.lastCall.args;
     expect(message).toBe('Module "spring-cucumber" applied');
   });
 
@@ -239,7 +254,7 @@ describe('Modules', () => {
 
     await flushPromises();
 
-    const [message] = alertBus.error.getCall(0).args;
+    const [message] = alertBus.error.lastCall.args;
     expect(message).toBe('Module "spring-cucumber" not applied');
   });
 
@@ -337,6 +352,66 @@ describe('Modules', () => {
     await flushPromises();
 
     expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).text()).toBe('Re-apply');
+  });
+
+  it('Should disable download without project path', async () => {
+    const wrapper = await componentWithModules();
+
+    wrapper.find(wrappedElement('folder-path-field')).setValue('');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeDefined();
+  });
+
+  it('Should disable applications during download', async () => {
+    const modules = repositoryWithModules();
+    modules.download.returns(new Promise(resolve => setTimeout(resolve, 500)));
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('download-button')).trigger('click');
+    await flushForm(wrapper);
+
+    expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeDefined();
+    expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeDefined();
+  });
+
+  it('Should download file using repository', async () => {
+    const link = stubLink();
+    windowStub.document.createElement.returns(link);
+
+    const modules = repositoryWithModules();
+    modules.download.resolves(defaultProject());
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('download-button')).trigger('click');
+    await flushForm(wrapper);
+    await flushPromises();
+
+    expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeUndefined();
+    expect(windowStub.URL.createObjectURL.calledOnce).toBeTruthy();
+    expect(windowStub.document.createElement.calledOnce).toBeTruthy();
+    expect(windowStub.document.body.appendChild.calledOnce).toBeTruthy();
+    expect(windowStub.URL.revokeObjectURL.calledOnce).toBeTruthy();
+    expect(windowStub.document.body.removeChild.calledOnce).toBeTruthy();
+    expect(link.download).toBe('jhipster.zip');
+    expect(modules.download.callCount).toBe(1);
+  });
+
+  it('Should handle download errors', async () => {
+    const modules = repositoryWithModules();
+    modules.download.rejects();
+    const wrapper = await filledModuleForm(modules);
+
+    wrapper.find(wrappedElement('download-button')).trigger('click');
+    await flushForm(wrapper);
+
+    await flushPromises();
+
+    expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeUndefined();
+    expect(modules.download.callCount).toBe(1);
+
+    const [message] = alertBus.error.lastCall.args;
+    expect(message).toBe("Project can't be downloaded");
   });
 });
 

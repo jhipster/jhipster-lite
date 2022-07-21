@@ -9,11 +9,13 @@ import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { defineComponent, inject, onMounted, reactive, ref } from 'vue';
 import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
+import { Project } from '@/module/domain/Project';
 
 export default defineComponent({
   name: 'ModulesVue',
   components: { ModulePropertiesVue },
   setup() {
+    const globalWindow = inject('globalWindow') as Window & typeof globalThis;
     const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;
     const projectFolders = inject('projectFolders') as ProjectFoldersRepository;
@@ -23,7 +25,7 @@ export default defineComponent({
       displayed: Loader.loading<Modules>(),
     });
 
-    const applicationInProgress = ref(false);
+    const operationInProgress = ref(false);
     const folderPath = ref('');
     const selectedModule = ref();
     const moduleProperties = ref(new Map<string, string | number | boolean>());
@@ -43,7 +45,7 @@ export default defineComponent({
 
     const disabledApplication = (slug: ModuleSlug): boolean => {
       return (
-        applicationInProgress.value ||
+        operationInProgress.value ||
         empty(folderPath.value) ||
         getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key))
       );
@@ -123,7 +125,7 @@ export default defineComponent({
     };
 
     const applyModule = (module: ModuleSlug): void => {
-      applicationInProgress.value = true;
+      operationInProgress.value = true;
 
       modules
         .apply(module, {
@@ -131,13 +133,13 @@ export default defineComponent({
           properties: moduleProperties.value,
         })
         .then(() => {
-          applicationInProgress.value = false;
+          operationInProgress.value = false;
 
           alertBus.success('Module "' + module + '" applied');
           appliedModules.value.push(module);
         })
         .catch(() => {
-          applicationInProgress.value = false;
+          operationInProgress.value = false;
 
           alertBus.error('Module "' + module + '" not applied');
         });
@@ -154,6 +156,39 @@ export default defineComponent({
       return appliedModules.value.includes(slug);
     };
 
+    const disabledDownload = (): boolean => {
+      return operationInProgress.value || empty(folderPath.value);
+    };
+
+    const downloadProject = (): void => {
+      operationInProgress.value = true;
+
+      modules
+        .download(folderPath.value)
+        .then(project => {
+          download(project);
+
+          operationInProgress.value = false;
+        })
+        .catch(() => {
+          alertBus.error("Project can't be downloaded");
+
+          operationInProgress.value = false;
+        });
+    };
+
+    const download = (project: Project): void => {
+      const url = globalWindow.URL.createObjectURL(new Blob([project.content]));
+      const link = globalWindow.document.createElement('a');
+      link.href = url;
+      link.download = project.filename;
+      globalWindow.document.body.appendChild(link);
+      link.click();
+
+      globalWindow.URL.revokeObjectURL(link.href);
+      globalWindow.document.body.removeChild(link);
+    };
+
     return {
       content: applicationModules.displayed,
       folderPath,
@@ -168,9 +203,11 @@ export default defineComponent({
       moduleProperties,
       filter,
       applyModule,
-      applicationInProgress,
+      applicationInProgress: operationInProgress,
       projectFolderUpdated,
       appliedModule,
+      disabledDownload,
+      downloadProject,
     };
   },
 });

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
 
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +14,12 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.assertj.core.api.SoftAssertions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
@@ -20,6 +27,9 @@ import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDT
 public class ProjectsSteps {
 
   private static String lastProjectFolder;
+
+  @Autowired
+  private TestRestTemplate rest;
 
   public static ProjectDTO newDefaultProjectDto() {
     newTestFolder();
@@ -33,6 +43,20 @@ public class ProjectsSteps {
 
   public static String lastProjectFolder() {
     return lastProjectFolder;
+  }
+
+  @When("I download the created project")
+  public void downloadCreatedProject() {
+    rest.exchange("/api/projects?path=" + lastProjectFolder, HttpMethod.GET, new HttpEntity<>(octetsHeaders()), Void.class);
+  }
+
+  private HttpHeaders octetsHeaders() {
+    HttpHeaders headers = new HttpHeaders();
+
+    headers.setAccept(List.of(MediaType.APPLICATION_OCTET_STREAM));
+    headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+    return headers;
   }
 
   @Then("I should have files in {string}")
@@ -104,5 +128,16 @@ public class ProjectsSteps {
   public void shouldHaveStringsInFile(String file, List<String> values) throws IOException {
     assertThatLastResponse().hasHttpStatusIn(200, 201);
     assertThat(Files.readString(Paths.get(lastProjectFolder, file))).contains(values);
+  }
+
+  @Then("I should have {string} project")
+  public void shouldHaveProjectFile(String file) {
+    assertThatLastResponse()
+      .hasOkStatus()
+      .hasHeader(HttpHeaders.CONTENT_DISPOSITION)
+      .containing("attachment; filename=" + file)
+      .and()
+      .hasHeader("X-Suggested-Filename")
+      .containing(file);
   }
 }

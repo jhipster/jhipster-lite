@@ -1,10 +1,10 @@
-package tech.jhipster.lite.module.domain;
+package tech.jhipster.lite.projectfolder.domain;
 
 import java.nio.file.Paths;
 import java.util.UUID;
 import tech.jhipster.lite.error.domain.Assert;
 
-public class ForcedProjectFolder implements JHipsterProjectFolderFactory {
+public class ForcedProjectFolder implements ProjectFolder {
 
   private final String prefix;
 

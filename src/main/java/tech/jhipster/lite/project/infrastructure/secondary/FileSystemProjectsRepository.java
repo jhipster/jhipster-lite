@@ -1,6 +1,6 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,7 +35,7 @@ class FileSystemProjectsRepository implements ProjectsRepository {
     try {
       ProjectName projectName = readProjectName(source);
 
-      byte[] content = readAndDelete(zip(source));
+      byte[] content = zip(source);
 
       return Optional.of(new Project(projectName, content));
     } catch (IOException | ZipException e) {
@@ -63,19 +63,11 @@ class FileSystemProjectsRepository implements ProjectsRepository {
     return new ProjectName(matcher.group(1));
   }
 
-  private Path zip(Path source) throws IOException {
-    File compressedFile = File.createTempFile("download-", ".zip");
+  private byte[] zip(Path source) throws IOException {
+    try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+      ZipUtil.pack(source.toFile(), out);
 
-    ZipUtil.pack(source.toFile(), compressedFile);
-
-    return compressedFile.toPath();
-  }
-
-  private byte[] readAndDelete(Path compressedFilePath) throws IOException {
-    byte[] content = Files.readAllBytes(compressedFilePath);
-
-    Files.delete(compressedFilePath);
-
-    return content;
+      return out.toByteArray();
+    }
   }
 }

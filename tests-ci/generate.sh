@@ -304,6 +304,7 @@ elif [[ $application == 'svelteapp' ]]; then
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
+  callApi "/api/prettier"
   callApi "/api/clients/svelte/styles"
 
 elif [[ $application == 'kafkaapp' ]]; then

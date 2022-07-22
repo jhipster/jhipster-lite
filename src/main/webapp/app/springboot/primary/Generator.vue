@@ -45,7 +45,7 @@
                 <IconVue :name="'journal-code'" :aria-hidden="true" />
                 Language
               </h3>
-              <div class="card-body">
+              <div class="card-body text-dark">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
@@ -65,7 +65,7 @@
                 <IconVue :name="'tools'" :aria-hidden="true" />
                 Build tool
               </h3>
-              <div class="card-body">
+              <div class="card-body text-dark">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
@@ -93,7 +93,7 @@
                 <IconVue :name="'gear'" :aria-hidden="true" />
                 Server
               </h3>
-              <div class="card-body">
+              <div class="card-body text-dark">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">
@@ -142,7 +142,7 @@
                 <IconVue :name="'body-text'" :aria-hidden="true" />
                 Setup tool
               </h3>
-              <div class="card-body">
+              <div class="card-body text-dark">
                 <ul class="list-group--inline">
                   <li class="list-group-item align-items-center gap-3 py-2" aria-current="true">
                     <div class="w-100 justify-content-between">

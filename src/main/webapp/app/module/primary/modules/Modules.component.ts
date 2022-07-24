@@ -10,10 +10,12 @@ import { defineComponent, inject, onMounted, reactive, ref } from 'vue';
 import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
 import { Project } from '@/module/domain/Project';
+import { IconVue } from '@/common/primary/icon';
+import { TagFilterVue } from '../tag-filter';
 
 export default defineComponent({
   name: 'ModulesVue',
-  components: { ModulePropertiesVue },
+  components: { ModulePropertiesVue, IconVue, TagFilterVue },
   setup() {
     const globalWindow = inject('globalWindow') as Window & typeof globalThis;
     const alertBus = inject('alertBus') as AlertBus;
@@ -25,11 +27,13 @@ export default defineComponent({
       displayed: Loader.loading<Modules>(),
     });
 
+    const selectedTag = ref(undefined as string | undefined);
     const operationInProgress = ref(false);
     const folderPath = ref('');
     const selectedModule = ref();
     const moduleProperties = ref(new Map<string, string | number | boolean>());
     const appliedModules = ref([] as ModuleSlug[]);
+    let searchedText = '';
 
     onMounted(() => {
       modules.list().then(response => {
@@ -39,8 +43,26 @@ export default defineComponent({
       projectFolders.get().then(projectFolder => (folderPath.value = projectFolder));
     });
 
-    const selectModule = (slug: ModuleSlug): void => {
-      selectedModule.value = getModule(slug);
+    const toggleModule = (slug: ModuleSlug): void => {
+      const clickedModule = getModule(slug);
+
+      if (selectedModule.value === clickedModule) {
+        selectedModule.value = undefined;
+      } else {
+        selectedModule.value = clickedModule;
+      }
+    };
+
+    const moduleClass = (slug: ModuleSlug): string => {
+      if (isModuleSelected(slug)) {
+        return 'selected';
+      }
+
+      return 'not-selected';
+    };
+
+    const isModuleSelected = (slug: ModuleSlug): boolean => {
+      return selectedModule.value && slug === selectedModule.value.slug;
     };
 
     const disabledApplication = (slug: ModuleSlug): boolean => {
@@ -98,8 +120,36 @@ export default defineComponent({
         .find(module => module.slug === slug)!;
     };
 
-    const filter = (search: string): void => {
-      applicationModules.displayed.loaded({ categories: filterCategories(search.toLowerCase()) });
+    const updateSearch = (filter: string): void => {
+      searchedText = filter;
+
+      updateFilter();
+    };
+
+    const updateFilter = (): void => {
+      const search = textToSearch();
+
+      if (search === undefined) {
+        applicationModules.displayed.loaded(applicationModules.all.value());
+      } else {
+        applicationModules.displayed.loaded(new Modules(filterCategories(search)));
+      }
+    };
+
+    const textToSearch = (): string | undefined => {
+      if (empty(searchedText) && empty(selectedTag.value)) {
+        return undefined;
+      }
+
+      if (empty(searchedText)) {
+        return selectedTag.value!.toLowerCase();
+      }
+
+      if (empty(selectedTag.value)) {
+        return searchedText.toLowerCase();
+      }
+
+      return selectedTag.value!.toLowerCase() + ' ' + searchedText.toLowerCase();
     };
 
     const filterCategories = (search: string): Category[] => {
@@ -122,6 +172,28 @@ export default defineComponent({
 
     const contains = (value: string, search: string): boolean => {
       return value.indexOf(search) !== -1;
+    };
+
+    const displayedModulesCount = (): number => {
+      return applicationModules.displayed.value().modulesCount();
+    };
+
+    const totalModulesCount = (): number => {
+      return applicationModules.all.value().modulesCount();
+    };
+
+    const isTagSelected = (tag: string): boolean => {
+      return selectedTag.value === tag;
+    };
+
+    const toogleTag = (tag: string): void => {
+      if (selectedTag.value === tag) {
+        selectedTag.value = undefined;
+      } else {
+        selectedTag.value = tag;
+      }
+
+      updateFilter();
     };
 
     const applyModule = (module: ModuleSlug): void => {
@@ -192,7 +264,9 @@ export default defineComponent({
     return {
       content: applicationModules.displayed,
       folderPath,
-      selectModule,
+      toggleModule,
+      isModuleSelected,
+      moduleClass,
       selectedModule,
       setStringProperty,
       setNumberProperty,
@@ -201,9 +275,12 @@ export default defineComponent({
       mandatoryProperties,
       optionalProperties,
       moduleProperties,
-      filter,
+      displayedModulesCount,
+      totalModulesCount,
+      isTagSelected,
+      toogleTag,
+      updateSearch,
       applyModule,
-      applicationInProgress: operationInProgress,
       projectFolderUpdated,
       appliedModule,
       disabledDownload,
@@ -212,6 +289,10 @@ export default defineComponent({
   },
 });
 
-const empty = (value: string): boolean => {
+const empty = (value: string | undefined): boolean => {
+  if (value === undefined) {
+    return true;
+  }
+
   return value.trim().length === 0;
 };

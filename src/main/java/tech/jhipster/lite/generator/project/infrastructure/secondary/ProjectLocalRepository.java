@@ -143,16 +143,6 @@ public class ProjectLocalRepository implements ProjectRepository {
     }
   }
 
-  @Override
-  public byte[] download(Project project) {
-    String filename = zip(project);
-    try {
-      return FileUtils.convertFileInTmpToByte(filename);
-    } catch (IOException ioe) {
-      throw new GeneratorException("Error when creating ", ioe);
-    }
-  }
-
   private String getErrorWritingMessage(String filename) {
     return "Error when writing text to '" + filename + "'";
   }

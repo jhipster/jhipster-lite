@@ -7,7 +7,6 @@ Feature: MySQL module
       | mysql      |
     Then I should have files in ""
       | pom.xml |
-    And I should have history entry for "mysql"
     And I should have files in "documentation"
       | mysql.md |
     And I should have files in "src/main/docker"
@@ -33,7 +32,6 @@ Feature: MySQL module
       | baseName    | jhipster            |
     Then I should have files in ""
       | pom.xml |
-    And I should have history entry for "mysql"
     And I should have files in "documentation"
       | mysql.md |
     And I should have files in "src/main/docker"

@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.generator.buildtool.generic.domain.BuildToolService;
 import tech.jhipster.lite.generator.project.domain.FilePath;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
@@ -26,9 +25,6 @@ class FlywayDomainServiceTest {
 
   @Mock
   private ProjectRepository projectRepository;
-
-  @Mock
-  private BuildToolService buildToolService;
 
   @Mock
   private SpringBootCommonService springBootCommonService;

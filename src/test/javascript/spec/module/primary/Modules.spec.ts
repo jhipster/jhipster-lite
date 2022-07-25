@@ -1,5 +1,5 @@
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import { defaultModules, defaultProject, ModulesRepositoryStub, stubModulesRepository } from '../domain/Modules.fixture';
+import { defaultModules, defaultProject, moduleHistory, ModulesRepositoryStub, stubModulesRepository } from '../domain/Modules.fixture';
 import { ModulesVue } from '@/module/primary/modules';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { wrappedElement } from '../../WrappedElement';
@@ -317,7 +317,7 @@ describe('Modules', () => {
   describe('Applied modules', () => {
     it('Should mark already applied modules as applied', async () => {
       const modules = repositoryWithModules();
-      modules.appliedModules.resolves(['spring-cucumber']);
+      modules.history.resolves(moduleHistory());
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
@@ -332,9 +332,9 @@ describe('Modules', () => {
       ]);
     });
 
-    it('Should reset modules application for unknown folder', async () => {
+    it('Should reset modules application for module history error', async () => {
       const modules = repositoryWithModules();
-      modules.appliedModules.rejects();
+      modules.history.rejects();
       modules.apply.resolves(undefined);
 
       const wrapper = await filledModuleForm(modules);
@@ -359,6 +359,31 @@ describe('Modules', () => {
       await flushPromises();
 
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-icon')).classes()).toEqual(['bi', 'bi-arrow-clockwise']);
+    });
+  });
+
+  describe('Properties preload', () => {
+    it('Should load properties from project', async () => {
+      const modules = repositoryWithModules();
+      modules.history.resolves(moduleHistory());
+      const wrapper = wrap({ modules });
+
+      await updatePath(wrapper);
+
+      const baseNameField = wrapper.find(wrappedElement('property-baseName-field')).element as HTMLInputElement;
+      expect(baseNameField.value).toBe('settedbase');
+    });
+
+    it('It should not override setted properties', async () => {
+      const modules = repositoryWithModules();
+      modules.history.resolves(moduleHistory());
+      const wrapper = await filledModuleForm(modules);
+
+      wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
+      await flushPromises();
+
+      const baseNameField = wrapper.find(wrappedElement('property-baseName-field')).element as HTMLInputElement;
+      expect(baseNameField.value).toBe('test');
     });
   });
 
@@ -569,4 +594,14 @@ const repositoryWithProjectFolders = (): ProjectFoldersRepositoryStub => {
   projectFolders.get.resolves('/tmp/jhlite/1234');
 
   return projectFolders;
+};
+
+const updatePath = async (wrapper: VueWrapper): Promise<void> => {
+  await flushPromises();
+  await selectModule(wrapper);
+
+  wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+  wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
+  await flushForm(wrapper);
+  await flushPromises();
 };

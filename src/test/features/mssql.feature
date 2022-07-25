@@ -7,7 +7,6 @@ Feature: mssql module
       | mssql      |
     Then I should have files in ""
       | pom.xml |
-    And I should have history entry for "mssql"
     And I should have files in "documentation"
       | mssql.md |
     And I should have files in "src/main/docker"

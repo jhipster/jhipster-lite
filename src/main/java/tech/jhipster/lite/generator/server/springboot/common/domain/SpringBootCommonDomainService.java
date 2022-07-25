@@ -4,6 +4,7 @@ import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import java.util.Optional;
+import java.util.function.Function;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.project.domain.DatabaseType;
@@ -12,22 +13,6 @@ import tech.jhipster.lite.generator.project.domain.Project;
 public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   private static final String PROJECT_FIELD_ASSERT_NAME = "project";
-
-  @Override
-  public Optional<String> getProperty(Project project, String key) {
-    Assert.notNull(PROJECT_FIELD_ASSERT_NAME, project);
-    Assert.notBlank("key", key);
-
-    return FileUtils
-      .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG, "application.properties"), key + "=")
-      .map(readValue -> {
-        String[] result = readValue.split("=");
-        if (result.length == 2) {
-          return result[1];
-        }
-        return null;
-      });
-  }
 
   @Override
   public boolean isSetWithMySQLOrMariaDBDatabase(Project project) {
@@ -52,5 +37,18 @@ public class SpringBootCommonDomainService implements SpringBootCommonService {
 
   private boolean hasSpecificDatabaseProperty(Project project, DatabaseType databaseType) {
     return getProperty(project, "spring.datasource.url").filter(value -> value.contains(databaseType.id())).isPresent();
+  }
+
+  private Optional<String> getProperty(Project project, String key) {
+    Assert.notNull(PROJECT_FIELD_ASSERT_NAME, project);
+    Assert.notBlank("key", key);
+
+    return FileUtils
+      .readLine(getPath(project.getFolder(), MAIN_RESOURCES, CONFIG, "application.properties"), key + "=")
+      .map(toPropertyValue());
+  }
+
+  private Function<String, String> toPropertyValue() {
+    return readValue -> readValue.split("=")[1];
   }
 }

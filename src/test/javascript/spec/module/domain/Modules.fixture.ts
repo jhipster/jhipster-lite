@@ -3,11 +3,13 @@ import { ModuleToApply } from '@/module/domain/ModuleToApply';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import sinon, { SinonStub } from 'sinon';
 import { Project } from '@/module/domain/Project';
+import { ModulePropertyValue, ProjectHistory } from '@/module/domain/ProjectHistory';
+import { ModulePropertyValueType } from '@/module/domain/ModuleProperties';
 
 export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;
   apply: SinonStub;
-  appliedModules: SinonStub;
+  history: SinonStub;
   download: SinonStub;
 }
 
@@ -15,7 +17,7 @@ export const stubModulesRepository = (): ModulesRepositoryStub =>
   ({
     list: sinon.stub(),
     apply: sinon.stub(),
-    appliedModules: sinon.stub(),
+    history: sinon.stub(),
     download: sinon.stub(),
   } as ModulesRepositoryStub);
 
@@ -64,10 +66,16 @@ export const defaultModuleToApply = (): ModuleToApply => ({
 });
 
 const defaultPropertiesToApply = () => {
-  return new Map<string, string | number | boolean>()
-    .set('baseName', 'testproject')
-    .set('optionalBoolean', true)
-    .set('optionalInteger', 42);
+  return new Map<string, ModulePropertyValueType>().set('baseName', 'testproject').set('optionalBoolean', true).set('optionalInteger', 42);
+};
+
+export const moduleHistory = (): ProjectHistory => ({
+  modules: ['spring-cucumber'],
+  properties: appliedModuleProperties(),
+});
+
+const appliedModuleProperties = (): ModulePropertyValue[] => {
+  return [{ key: 'baseName', value: 'settedbase' }];
 };
 
 export const defaultProject = (): Project => ({

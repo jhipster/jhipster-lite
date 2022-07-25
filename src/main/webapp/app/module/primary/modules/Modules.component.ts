@@ -12,6 +12,7 @@ import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersReposito
 import { Project } from '@/module/domain/Project';
 import { IconVue } from '@/common/primary/icon';
 import { TagFilterVue } from '../tag-filter';
+import { ProjectHistory } from '@/module/domain/ProjectHistory';
 
 export default defineComponent({
   name: 'ModulesVue',
@@ -31,7 +32,7 @@ export default defineComponent({
     const operationInProgress = ref(false);
     const folderPath = ref('');
     const selectedModule = ref();
-    const moduleProperties = ref(new Map<string, string | number | boolean>());
+    const moduleProperties = ref(new Map<string, string | boolean | number>());
     const appliedModules = ref([] as ModuleSlug[]);
     let searchedText = '';
 
@@ -231,9 +232,23 @@ export default defineComponent({
 
     const projectFolderUpdated = (): void => {
       modules
-        .appliedModules(folderPath.value)
-        .then(applied => (appliedModules.value = applied))
+        .history(folderPath.value)
+        .then(projectHistory => loadProjectHistory(projectHistory))
         .catch(() => (appliedModules.value = []));
+    };
+
+    const loadProjectHistory = (projectHistory: ProjectHistory): void => {
+      appliedModules.value = projectHistory.modules;
+
+      projectHistory.properties.forEach(property => {
+        if (unknownProperty(property.key)) {
+          moduleProperties.value.set(property.key, property.value);
+        }
+      });
+    };
+
+    const unknownProperty = (key: string) => {
+      return !moduleProperties.value.has(key);
     };
 
     const appliedModule = (slug: ModuleSlug): boolean => {

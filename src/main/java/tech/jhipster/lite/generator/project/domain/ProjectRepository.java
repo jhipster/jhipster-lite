@@ -19,8 +19,6 @@ public interface ProjectRepository {
 
   String zip(Project project);
 
-  byte[] download(Project project);
-
   default void add(ProjectFile file) {
     Assert.notNull("file", file);
 

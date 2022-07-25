@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -55,6 +56,20 @@ public class ProjectsSteps {
 
     headers.setAccept(List.of(MediaType.APPLICATION_OCTET_STREAM));
     headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+    return headers;
+  }
+
+  @When("I get the created project information")
+  public void getCreatedProjectInformation() {
+    rest.exchange("/api/projects?path=" + lastProjectFolder, HttpMethod.GET, new HttpEntity<>(jsonHeaders()), Void.class);
+  }
+
+  private HttpHeaders jsonHeaders() {
+    HttpHeaders headers = new HttpHeaders();
+
+    headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+    headers.setContentType(MediaType.APPLICATION_JSON);
 
     return headers;
   }
@@ -105,11 +120,6 @@ public class ProjectsSteps {
     }
   }
 
-  @Then("I should have history entry for {string}")
-  public void shouldHaveHistoryEntry(String slug) throws IOException {
-    assertThat(Files.readString(Paths.get(lastProjectFolder, ".jhipster/history", "history.json"))).contains(slug);
-  }
-
   @Then("I should have {string} in {string}")
   public void shouldHaveFileContent(String content, String file) throws IOException {
     assertThatLastResponse().hasHttpStatusIn(200, 201);
@@ -139,5 +149,15 @@ public class ProjectsSteps {
       .and()
       .hasHeader("X-Suggested-Filename")
       .containing(file);
+  }
+
+  @Then("I should have modules")
+  public void shouldHaveModules(List<Map<String, String>> modules) {
+    assertThatLastResponse().hasOkStatus().hasElement("$.modules").containingExactly(modules);
+  }
+
+  @Then("I should have properties")
+  public void shouldHaveProperties(Map<String, Object> properties) {
+    assertThatLastResponse().hasOkStatus().hasElement("$.properties").containing(properties).withElementsCount(properties.size());
   }
 }

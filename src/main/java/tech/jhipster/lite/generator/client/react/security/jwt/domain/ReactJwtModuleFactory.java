@@ -23,7 +23,7 @@ public class ReactJwtModuleFactory {
   private static final JHipsterDestination TEST_DESTINATION = to("src/test/javascript/spec/");
 
   private static final RegexNeedleBeforeReplacer LOGIN_FORM_MATCHER = lineBeforeRegex(
-    "[  ]{0,10}<\\/div>\n{0,5}[  ]{0,10}[);]{0,2}\n{0,5}\\}\n{0,5}[  ]{0,10}export default App;"
+    "[  ]{0,10}[<\\/div>]{0,1}\n{0,5}[  ]{0,10}<\\/div>\n{0,5}[  ]{0,10}[);]{0,2}\n{0,5}\\}\n{0,5}[  ]{0,10}export default App;"
   );
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -60,7 +60,7 @@ public class ReactJwtModuleFactory {
       .mandatoryReplacements()
         .in("src/main/webapp/app/common/primary/app/App.tsx")
           .add(lineBeforeText("function App() {"), "import LoginForm from '@/login/primary/loginForm';" + LINE_BREAK)
-          .add(LOGIN_FORM_MATCHER, properties.indentation().times(3) + "<LoginForm />")
+          .add(LOGIN_FORM_MATCHER, properties.indentation().times(4) + "<LoginForm />")
           .and()
         .and()
       .optionalReplacements()

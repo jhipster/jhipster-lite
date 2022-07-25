@@ -54,6 +54,10 @@ export default defineComponent({
     };
 
     const moduleClass = (slug: ModuleSlug): string => {
+      return selectionClass(slug) + ' ' + applicationClass(slug);
+    };
+
+    const selectionClass = (slug: ModuleSlug): string => {
       if (isModuleSelected(slug)) {
         return 'selected';
       }
@@ -63,6 +67,14 @@ export default defineComponent({
 
     const isModuleSelected = (slug: ModuleSlug): boolean => {
       return selectedModule.value && slug === selectedModule.value.slug;
+    };
+
+    const applicationClass = (slug: ModuleSlug): string => {
+      if (appliedModules.value.includes(slug)) {
+        return 'applied';
+      }
+
+      return 'not-applied';
     };
 
     const disabledApplication = (slug: ModuleSlug): boolean => {

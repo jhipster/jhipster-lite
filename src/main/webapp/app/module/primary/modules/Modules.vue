@@ -9,6 +9,7 @@ $jhipster-lite-line-color: #334155;
 $jhipster-lite-primary-text-color: #ddeffc;
 $jhipster-lite-primary-button-background-color: #3e8abf;
 $jhipster-lite-primary-input-color: #fff;
+$jhipster-lite-applied-module-color: #2f7b17;
 $jhipster-lite-font-family: Inter serif;
 $jhipster-lite-box-radius: 6px;
 
@@ -139,6 +140,10 @@ $jhipster-lite-box-radius: 6px;
 
   &--content.not-selected {
     display: flex;
+  }
+
+  &--content.applied {
+    background-color: $jhipster-lite-applied-module-color;
   }
 
   &--tags.not-selected,

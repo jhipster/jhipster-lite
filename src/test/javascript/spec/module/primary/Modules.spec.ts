@@ -61,7 +61,11 @@ describe('Modules', () => {
       expect(wrapper.find(wrappedElement('modules-loader')).exists()).toBe(false);
       expect(wrapper.find(wrappedElement('modules-list')).exists()).toBe(true);
       expect(wrapper.find(wrappedElement('spring-cucumber-module-content')).exists()).toBe(true);
-      expect(wrapper.find(wrappedElement('banner-module-content')).classes()).toEqual(['jhipster-module--content', 'not-selected']);
+      expect(wrapper.find(wrappedElement('banner-module-content')).classes()).toEqual([
+        'jhipster-module--content',
+        'not-selected',
+        'not-applied',
+      ]);
       expect(wrapper.find(wrappedElement('module-spring-cucumber-MANDATORY-properties')).classes()).toEqual([
         'jhipster-module-properties',
         'not-selected',
@@ -93,8 +97,16 @@ describe('Modules', () => {
       expect(wrapper.find(wrappedElement('property-optionalInteger-field')).attributes('type')).toBe('number');
       expect(wrapper.find(wrappedElement('property-optionalInteger-optional-marker')).exists()).toBe(true);
 
-      expect(wrapper.find(wrappedElement('banner-module-content')).classes()).toEqual(['jhipster-module--content', 'not-selected']);
-      expect(wrapper.find(wrappedElement('spring-cucumber-module-content')).classes()).toEqual(['jhipster-module--content', 'selected']);
+      expect(wrapper.find(wrappedElement('banner-module-content')).classes()).toEqual([
+        'jhipster-module--content',
+        'not-selected',
+        'not-applied',
+      ]);
+      expect(wrapper.find(wrappedElement('spring-cucumber-module-content')).classes()).toEqual([
+        'jhipster-module--content',
+        'selected',
+        'not-applied',
+      ]);
     });
 
     it('Should de-select module', async () => {
@@ -110,6 +122,7 @@ describe('Modules', () => {
       expect(wrapper.find(wrappedElement('spring-cucumber-module-content')).classes()).toEqual([
         'jhipster-module--content',
         'not-selected',
+        'not-applied',
       ]);
     });
 
@@ -312,6 +325,11 @@ describe('Modules', () => {
       await flushPromises();
 
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-icon')).classes()).toEqual(['bi', 'bi-arrow-clockwise']);
+      expect(wrapper.find(wrappedElement('spring-cucumber-module-content')).classes()).toEqual([
+        'jhipster-module--content',
+        'selected',
+        'applied',
+      ]);
     });
 
     it('Should reset modules application for unknown folder', async () => {

@@ -30,30 +30,38 @@ public class ModulesSteps {
   private static final String MODULE_PROPERTIES_TEMPLATE =
     """
       {
+      "projectFolder": "{PROJECT_FOLDER}",
+      "properties": {{ PROPERTIES }}
+      }
+      """;
+
+  private static final String DEFAULT_MODULE_PROPERTIES_TEMPLATE =
+    """
+      {
         "projectFolder": "{PROJECT_FOLDER}",
-        "properties": {{ PROPERTIES }}
+        "properties": {
+          "projectName": "Chips Project",
+          "baseName": "chips",
+          "packageName": "tech.jhipster.chips",
+          "serverPort": 8080
+        }
       }
       """;
 
   @When("I apply legacy module {string} to default project")
   public void legacyApplyModuleForDefaultProject(String moduleUrl) {
-    legacyApplyModulesForDefaultProject(List.of(moduleUrl));
-  }
-
-  @When("I apply legacy modules to default project")
-  public void legacyApplyModulesForDefaultProject(List<String> modulesUrls) {
     ProjectDTO project = newDefaultProjectDto();
-
-    modulesUrls.forEach(moduleUrl -> post(moduleUrl, JsonHelper.writeAsString(project)));
-  }
-
-  @When("I apply legacy module {string} to default project with maven file")
-  public void legacyApplyModuleForDefaultProjectWithMavenFile(String moduleUrl) {
-    ProjectDTO project = newDefaultProjectDto();
-
-    addPomToProject(project.getFolder());
 
     post(moduleUrl, JsonHelper.writeAsString(project));
+  }
+
+  @When("I apply modules to default project")
+  public void applyModulesForDefaultProject(List<String> modulesSlugs) {
+    String projectFolder = newTestFolder();
+
+    String query = DEFAULT_MODULE_PROPERTIES_TEMPLATE.replace("{PROJECT_FOLDER}", projectFolder);
+
+    modulesSlugs.forEach(slug -> post(applyModuleUrl(slug), query));
   }
 
   @When("I get module {string} properties definition")

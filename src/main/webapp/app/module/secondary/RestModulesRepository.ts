@@ -71,9 +71,7 @@ export class RestModulesRepository implements ModulesRepository {
   }
 }
 
-const mapToModules = (response: AxiosResponse<RestModules>): Modules => ({
-  categories: response.data.categories.map(toCategory),
-});
+const mapToModules = (response: AxiosResponse<RestModules>): Modules => new Modules(response.data.categories.map(toCategory));
 
 const toCategory = (restCategory: RestCategory): Category => ({
   name: restCategory.name,

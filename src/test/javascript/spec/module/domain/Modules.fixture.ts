@@ -19,8 +19,8 @@ export const stubModulesRepository = (): ModulesRepositoryStub =>
     download: sinon.stub(),
   } as ModulesRepositoryStub);
 
-export const defaultModules = (): Modules => ({
-  categories: [
+export const defaultModules = (): Modules =>
+  new Modules([
     {
       name: 'Spring',
       modules: [
@@ -56,8 +56,7 @@ export const defaultModules = (): Modules => ({
         },
       ],
     },
-  ],
-});
+  ]);
 
 export const defaultModuleToApply = (): ModuleToApply => ({
   projectFolder: '/tmp/dummy',

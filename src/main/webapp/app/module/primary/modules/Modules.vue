@@ -17,6 +17,7 @@ $jhipster-lite-box-radius: 6px;
   background-color: $jhipster-lite-secondary-color;
   color: $jhipster-lite-primary-text-color;
   display: flex;
+  height: calc(100vh - 68.87px);
   flex-direction: row-reverse;
 }
 
@@ -27,7 +28,6 @@ $jhipster-lite-box-radius: 6px;
   width: 350px;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
   display: flex;
 
   &--properties-title {
@@ -78,7 +78,7 @@ $jhipster-lite-box-radius: 6px;
   flex-grow: 1;
 
   &--categories {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 70px - 68.87px);
     overflow-y: auto;
     flex-grow: 1;
     padding: 0 15px;

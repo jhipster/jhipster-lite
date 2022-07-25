@@ -17,10 +17,11 @@ $jhipster-lite-box-radius: 6px;
   background-color: $jhipster-lite-secondary-color;
   color: $jhipster-lite-primary-text-color;
   display: flex;
+  flex-direction: row-reverse;
 }
 
 .jhipster-modules-form {
-  border-right: 1px solid $jhipster-lite-line-color;
+  border-left: 1px solid $jhipster-lite-line-color;
   background-color: $jhipster-lite-secondary-color;
   padding: 0 15px;
   width: 350px;

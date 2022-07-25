@@ -197,6 +197,10 @@ jobs:
           elif [ -f 'gradlew' ]; then
             ./gradlew check
           fi
+      - name: 'Test: java jar ${{ matrix.app }}'
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
+        run: |
+          java -jar target/*.jar
       - name: 'Test: check local Sonar Analysis'
         run: |
           if [ -f '/tmp/jhlite/${{ matrix.app }}/src/main/docker/sonar.yml' ]; then

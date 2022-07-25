@@ -1,10 +1,10 @@
 Feature: Springdoc modules
 
   Scenario: Should add Springdoc for MVC
-    When I apply legacy modules to default project
-      | /api/build-tools/maven                     |
-      | /api/servers/spring-boot                   |
-      | /api/servers/spring-boot/api-documentations/springdoc/init |
+    When I apply modules to default project
+      | maven-java        |
+      | springboot        |
+      | springdoc-openapi |
     Then I should have files in ""
       | pom.xml |
     And I should have "springdoc-openapi-ui" in "pom.xml"
@@ -18,11 +18,11 @@ Feature: Springdoc modules
       | application.properties |
 
   Scenario: Should add Springdoc for Webflux
-    When I apply legacy modules to default project
-      | /api/build-tools/maven                     |
-      | /api/servers/spring-boot                   |
-      | /api/servers/spring-boot/reactive-servers/netty |
-      | /api/servers/spring-boot/api-documentations/springdoc/init |
+    When I apply modules to default project
+      | maven-java               |
+      | springboot               |
+      | springboot-webflux-netty |
+      | springdoc-openapi        |
     Then I should have files in ""
       | pom.xml |
     And I should have "springdoc-openapi-webflux-ui" in "pom.xml"
@@ -56,10 +56,10 @@ Feature: Springdoc modules
       | application.properties |
 
   Scenario: Should add Springdoc for MVC with JWT Security
-    When I apply legacy modules to default project
-      | /api/build-tools/maven                     |
-      | /api/servers/spring-boot                   |
-      | /api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt |
+    When I apply modules to default project
+      | maven-java                          |
+      | springboot                          |
+      | springdoc-openapi-with-security-jwt |
     Then I should have files in ""
       | pom.xml |
     And I should have "springdoc-openapi-ui" in "pom.xml"
@@ -73,11 +73,11 @@ Feature: Springdoc modules
       | application.properties |
 
   Scenario: Should add Springdoc for Webflux with JWT Security
-    When I apply legacy modules to default project
-      | /api/build-tools/maven                     |
-      | /api/servers/spring-boot                   |
-      | /api/servers/spring-boot/reactive-servers/netty |
-      | /api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt |
+    When I apply modules to default project
+      | maven-java                          |
+      | springboot                          |
+      | springboot-webflux-netty            |
+      | springdoc-openapi-with-security-jwt |
     Then I should have files in ""
       | pom.xml |
     And I should have "springdoc-openapi-webflux-ui" in "pom.xml"

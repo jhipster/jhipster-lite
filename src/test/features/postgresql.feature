@@ -1,10 +1,10 @@
 Feature: postgreSQL module
 
   Scenario: Should add postgreSQL elements using legacy url
-    When I apply legacy modules to default project
-      | /api/build-tools/maven                     |
-      | /api/servers/spring-boot                   |
-      | /api/servers/spring-boot/databases/postgresql |
+    When I apply modules to default project
+      | maven-java |
+      | springboot |
+      | postgresql |
     Then I should have files in ""
       | pom.xml |
     And I should have history entry for "postgresql"

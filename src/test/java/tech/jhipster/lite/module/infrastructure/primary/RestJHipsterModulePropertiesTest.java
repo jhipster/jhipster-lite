@@ -34,6 +34,7 @@ class RestJHipsterModulePropertiesTest {
     return """
         {
           "projectFolder": "/test",
+          "commit": true,
           "properties": {
             "packageName": "tech.jhipster.chips",
             "prettierDefaultIndent": 2,

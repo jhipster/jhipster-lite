@@ -82,6 +82,6 @@ public class ProjectDTO {
   }
 
   public JHipsterModuleProperties toModuleProperties() {
-    return new JHipsterModuleProperties(getFolder(), getGeneratorJhipster());
+    return new JHipsterModuleProperties(getFolder(), false, getGeneratorJhipster());
   }
 }

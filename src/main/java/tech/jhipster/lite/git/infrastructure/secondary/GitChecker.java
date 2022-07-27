@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.init.infrastructure.secondary;
+package tech.jhipster.lite.git.infrastructure.secondary;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

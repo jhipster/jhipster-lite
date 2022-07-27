@@ -21,6 +21,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import tech.jhipster.lite.GitTestUtil;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
@@ -159,5 +160,19 @@ public class ProjectsSteps {
   @Then("I should have properties")
   public void shouldHaveProperties(Map<String, Object> properties) {
     assertThatLastResponse().hasOkStatus().hasElement("$.properties").containing(properties).withElementsCount(properties.size());
+  }
+
+  @Then("I should have commit {string}")
+  public void shouldHaveCommit(String commitMessage) throws IOException {
+    assertThatLastResponse().hasOkStatus();
+
+    assertThat(GitTestUtil.getCommits(Paths.get(lastProjectFolder))).contains(commitMessage);
+  }
+
+  @Then("I should not have any commit")
+  public void shouldNotHaveCommits() throws IOException {
+    assertThatLastResponse().hasOkStatus();
+
+    assertThat(GitTestUtil.getCommits(Paths.get(lastProjectFolder))).isEmpty();
   }
 }

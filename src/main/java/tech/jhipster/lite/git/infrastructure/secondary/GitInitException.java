@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.init.infrastructure.secondary;
+package tech.jhipster.lite.git.infrastructure.secondary;
 
 import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.GeneratorException;

@@ -36,6 +36,15 @@ $jhipster-lite-box-radius: 6px;
     margin-top: 15px;
   }
 
+  &--commit-modules {
+    margin: 10px 0;
+  }
+
+  &--commit-modules-label {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
   &--field-line {
     align-self: flex-start;
     margin-bottom: 10px;

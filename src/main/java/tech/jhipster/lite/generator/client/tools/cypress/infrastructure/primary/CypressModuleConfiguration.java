@@ -15,7 +15,7 @@ class CypressModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/clients/cypress")
-      .slug("react-cypress")
+      .slug("cypress")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("E2e", "Add Cypress"))
       .tags("client", "cypress", "e2e")

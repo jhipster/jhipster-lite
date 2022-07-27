@@ -15,4 +15,3 @@ Feature: Cucumber module
       | baseName    | jhipster            |
     Then I should have files in "src/test/java/tech/jhipster/chips/cucumber"
       | CucumberConfiguration.java |
-    And I should have history entry for "springboot-cucumber"

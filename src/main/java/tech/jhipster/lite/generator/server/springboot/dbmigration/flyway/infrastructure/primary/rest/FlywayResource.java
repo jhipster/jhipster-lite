@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.jhipster.lite.generator.project.domain.GeneratorAction;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.application.FlywayApplicationService;
-import tech.jhipster.lite.technical.infrastructure.primary.annotation.GeneratorStep;
 
 @RestController
 @RequestMapping("/api/servers/spring-boot/database-migration-tools/flyway")
@@ -27,7 +25,6 @@ class FlywayResource {
   @Operation(summary = "Add User and Authority changelogs")
   @ApiResponse(responseCode = "500", description = "An error occurred while adding changelogs for user and authority")
   @PostMapping("/user")
-  @GeneratorStep(id = GeneratorAction.FLYWAY_USER_AND_AUTHORITY_CHANGELOGS)
   public void addUserAndAuthority(@RequestBody ProjectDTO projectDTO) {
     Project project = ProjectDTO.toProject(projectDTO);
     flywayApplicationService.addUserAuthorityChangelog(project);

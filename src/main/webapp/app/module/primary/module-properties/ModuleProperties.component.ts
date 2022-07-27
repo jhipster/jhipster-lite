@@ -1,3 +1,4 @@
+import { ModulePropertyValueType } from '@/module/domain/ModuleProperties';
 import { ModuleProperty } from '@/module/domain/ModuleProperty';
 import { defineComponent, PropType } from 'vue';
 import { ModulePropertiesType } from '../ModulePropertiesType';
@@ -14,7 +15,7 @@ export default defineComponent({
       required: true,
     },
     moduleProperties: {
-      type: Map<string, string | number | boolean>,
+      type: Map<string, ModulePropertyValueType>,
       required: true,
     },
     propertiesType: {
@@ -79,7 +80,7 @@ export default defineComponent({
   },
 });
 
-function notEmpty(value: string | number | boolean | undefined): boolean {
+function notEmpty(value: ModulePropertyValueType | undefined): boolean {
   if (value === undefined) {
     return false;
   }

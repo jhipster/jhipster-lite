@@ -23,7 +23,6 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.generator.project.domain.Project;
@@ -239,22 +238,5 @@ class ProjectLocalRepositoryTest {
   void shouldNotZipWithNonExistingFolder() {
     Project project = tmpProject();
     assertThatThrownBy(() -> repository.zip(project)).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldDownload() {
-    Project project = tmpProjectWithPomXml();
-    assertThat(repository.download(project)).isNotNull();
-  }
-
-  @Test
-  void shouldNotDownload() {
-    Project project = tmpProjectWithPomXml();
-    try (MockedStatic<FileUtils> fileUtils = Mockito.mockStatic(FileUtils.class)) {
-      fileUtils.when(FileUtils::tmpDir).thenCallRealMethod();
-      fileUtils.when(() -> FileUtils.convertFileInTmpToByte(anyString())).thenThrow(new IOException());
-
-      assertThatThrownBy(() -> repository.download(project)).isExactlyInstanceOf(GeneratorException.class);
-    }
   }
 }

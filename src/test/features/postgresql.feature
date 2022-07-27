@@ -7,7 +7,6 @@ Feature: postgreSQL module
       | postgresql |
     Then I should have files in ""
       | pom.xml |
-    And I should have history entry for "postgresql"
     And I should have files in "documentation"
       | postgresql.md |
     And I should have files in "src/main/docker"
@@ -36,7 +35,6 @@ Feature: postgreSQL module
       | baseName    | jhipster            |
     Then I should have files in ""
       | pom.xml |
-    And I should have history entry for "postgresql"
     And I should have files in "documentation"
       | postgresql.md |
     And I should have files in "src/main/docker"

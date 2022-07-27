@@ -121,4 +121,8 @@ public class JHipsterModuleProperties {
 
     throw InvalidPropertyTypeException.builder().key(key).expectedType(clazz).actualType(property.getClass());
   }
+
+  public Map<String, Object> get() {
+    return properties;
+  }
 }

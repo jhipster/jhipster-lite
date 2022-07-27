@@ -14,4 +14,3 @@ Feature: DevTools module
       | baseName    | jhipster            |
     Then I should have files in "documentation"
       | dev-tools.md |
-    And I should have history entry for "springboot-devtools"

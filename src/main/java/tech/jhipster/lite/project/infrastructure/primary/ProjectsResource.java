@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jhipster.lite.project.application.ProjectsApplicationService;
-import tech.jhipster.lite.project.domain.Project;
 import tech.jhipster.lite.project.domain.ProjectPath;
+import tech.jhipster.lite.project.domain.download.Project;
 
 @RestController
 @Tag(name = "Project")
@@ -40,5 +40,13 @@ class ProjectsResource {
       .contentType(MediaType.APPLICATION_OCTET_STREAM)
       .contentLength(project.contentLength())
       .body(new ByteArrayResource(project.content()));
+  }
+
+  @Operation(summary = "Get project information")
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<RestProjectHistory> getprojectHistory(
+    @Schema(description = "Path of the project to get information for") @RequestParam("path") String path
+  ) {
+    return ResponseEntity.ok(RestProjectHistory.from(projects.getHistory(new ProjectPath(path))));
   }
 }

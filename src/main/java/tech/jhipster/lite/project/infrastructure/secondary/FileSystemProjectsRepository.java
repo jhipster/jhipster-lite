@@ -1,73 +1,73 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
-import java.io.ByteArrayOutputStream;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.springframework.stereotype.Repository;
-import org.zeroturnaround.zip.ZipException;
-import org.zeroturnaround.zip.ZipUtil;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.project.domain.Project;
-import tech.jhipster.lite.project.domain.ProjectName;
+import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.project.domain.ProjectPath;
 import tech.jhipster.lite.project.domain.ProjectsRepository;
+import tech.jhipster.lite.project.domain.download.Project;
+import tech.jhipster.lite.project.domain.history.ProjectHistory;
 
 @Repository
 class FileSystemProjectsRepository implements ProjectsRepository {
 
-  private static final Pattern PROJECT_NAME_PATTERN = Pattern.compile("\"description\": *\"([^\"]+)\"");
+  private static final String HISTORY_FOLDER = ".jhipster/modules";
+  private static final String HISTORY_FILE = "history.json";
+
+  private final ObjectMapper json;
+  private final ObjectWriter writer;
+  private final FileSystemProjectDownloader downloader;
+
+  public FileSystemProjectsRepository(ObjectMapper json) {
+    this.json = json;
+    this.writer = json.writerWithDefaultPrettyPrinter();
+    this.downloader = new FileSystemProjectDownloader();
+  }
 
   @Override
   public Optional<Project> get(ProjectPath path) {
+    return downloader.download(path);
+  }
+
+  @Override
+  public void save(ProjectHistory history) {
+    Assert.notNull("history", history);
+
+    try {
+      Path historyPath = historyFilePath(history.path());
+
+      Files.createDirectories(historyPath.getParent());
+      Files.write(historyPath, writer.writeValueAsBytes(PersistedProjectHistory.from(history)));
+    } catch (IOException e) {
+      throw new GeneratorException("Eror saving history: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ProjectHistory getHistory(ProjectPath path) {
     Assert.notNull("path", path);
 
-    Path source = Paths.get(path.get());
+    Path historyFilePath = historyFilePath(path);
 
-    if (notAProject(source)) {
-      return Optional.empty();
+    if (Files.notExists(historyFilePath)) {
+      return ProjectHistory.empty(path);
     }
 
     try {
-      ProjectName projectName = readProjectName(source);
-
-      byte[] content = zip(source);
-
-      return Optional.of(new Project(projectName, content));
-    } catch (IOException | ZipException e) {
-      throw new ProjectZippingException(e);
+      return json.readValue(Files.readAllBytes(historyFilePath), PersistedProjectHistory.class).toDomain(path);
+    } catch (IOException e) {
+      throw new GeneratorException("Can't read project history: " + e.getMessage(), e);
     }
   }
 
-  private boolean notAProject(Path source) {
-    return Files.notExists(source) || !Files.isDirectory(source);
-  }
-
-  private ProjectName readProjectName(Path source) throws IOException {
-    Path packageJsonPath = source.resolve("package.json");
-
-    if (Files.notExists(packageJsonPath)) {
-      return ProjectName.DEFAULT;
-    }
-
-    Matcher matcher = PROJECT_NAME_PATTERN.matcher(Files.readString(packageJsonPath));
-
-    if (!matcher.find()) {
-      return ProjectName.DEFAULT;
-    }
-
-    return new ProjectName(matcher.group(1));
-  }
-
-  private byte[] zip(Path source) throws IOException {
-    try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-      ZipUtil.pack(source.toFile(), out);
-
-      return out.toByteArray();
-    }
+  private Path historyFilePath(ProjectPath path) {
+    return Paths.get(path.get(), HISTORY_FOLDER, HISTORY_FILE);
   }
 }

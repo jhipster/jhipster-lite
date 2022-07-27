@@ -8,7 +8,6 @@ Feature: Springdoc modules
     Then I should have files in ""
       | pom.xml |
     And I should have "springdoc-openapi-ui" in "pom.xml"
-    And I should have history entry for "springdoc-openapi"
     And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc"
       | SpringdocConfiguration.java |
     And I should not have "jwt" in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java"
@@ -26,7 +25,6 @@ Feature: Springdoc modules
     Then I should have files in ""
       | pom.xml |
     And I should have "springdoc-openapi-webflux-ui" in "pom.xml"
-    And I should have history entry for "springdoc-openapi"
     And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc"
       | SpringdocConfiguration.java |
     And I should not have "jwt" in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java"
@@ -49,7 +47,6 @@ Feature: Springdoc modules
       | baseName    | jhipster            |
     Then I should have files in ""
       | pom.xml |
-    And I should have history entry for "springdoc-openapi"
     And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc"
       | SpringdocConfiguration.java |
     And I should have files in "src/main/resources/config"
@@ -63,7 +60,6 @@ Feature: Springdoc modules
     Then I should have files in ""
       | pom.xml |
     And I should have "springdoc-openapi-ui" in "pom.xml"
-    And I should have history entry for "springdoc-openapi-with-security-jwt"
     And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc"
       | SpringdocConfiguration.java |
     And I should have "jwt" in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java"
@@ -81,7 +77,6 @@ Feature: Springdoc modules
     Then I should have files in ""
       | pom.xml |
     And I should have "springdoc-openapi-webflux-ui" in "pom.xml"
-    And I should have history entry for "springdoc-openapi-with-security-jwt"
     And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc"
       | SpringdocConfiguration.java |
     And I should have "jwt" in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java"
@@ -104,7 +99,6 @@ Feature: Springdoc modules
       | baseName    | jhipster            |
     Then I should have files in ""
       | pom.xml |
-    And I should have history entry for "springdoc-openapi-with-security-jwt"
     And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc"
       | SpringdocConfiguration.java |
     And I should have files in "src/main/resources/config"

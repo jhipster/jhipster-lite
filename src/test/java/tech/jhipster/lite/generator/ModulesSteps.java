@@ -19,6 +19,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import tech.jhipster.lite.GitTestUtil;
 import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
@@ -27,10 +28,19 @@ public class ModulesSteps {
   @Autowired
   private TestRestTemplate rest;
 
-  private static final String MODULE_PROPERTIES_TEMPLATE =
+  private static final String MODULE_APPLICATION_TEMPLATE =
     """
       {
       "projectFolder": "{PROJECT_FOLDER}",
+      "properties": {{ PROPERTIES }}
+      }
+      """;
+
+  private static final String MODULE_APPLY_AND_COMMIT_TEMPLATE =
+    """
+      {
+      "projectFolder": "{PROJECT_FOLDER}",
+      "commit": true,
       "properties": {{ PROPERTIES }}
       }
       """;
@@ -111,6 +121,29 @@ public class ModulesSteps {
     applyModuleForDefaultProject(moduleSlug, null);
   }
 
+  @When("I apply and commit {string} module to default project")
+  public void applyAndCommitModuleForDefaultProject(String moduleSlug, Map<String, String> properties) throws IOException {
+    String projectFolder = newTestFolder();
+
+    Path projectPath = Paths.get(projectFolder);
+    Files.createDirectories(projectPath);
+
+    loadGitConfig(projectPath);
+
+    String query = MODULE_APPLY_AND_COMMIT_TEMPLATE
+      .replace("{PROJECT_FOLDER}", projectFolder)
+      .replace("{{ PROPERTIES }}", buildModuleProperties(properties));
+
+    post(applyModuleUrl(moduleSlug), query);
+  }
+
+  private void loadGitConfig(Path project) {
+    GitTestUtil.execute(project, "init");
+    GitTestUtil.execute(project, "config", "init.defaultBranch", "main");
+    GitTestUtil.execute(project, "config", "user.email", "\"test@jhipster.com\"");
+    GitTestUtil.execute(project, "config", "user.name", "\"Test\"");
+  }
+
   @When("I apply {string} module to default project")
   public void applyModuleForDefaultProject(String moduleSlug, Map<String, String> properties) {
     String projectFolder = newTestFolder();
@@ -127,7 +160,7 @@ public class ModulesSteps {
   }
 
   private String buildModuleQuery(String projectFolder, Map<String, String> properties) {
-    return MODULE_PROPERTIES_TEMPLATE
+    return MODULE_APPLICATION_TEMPLATE
       .replace("{PROJECT_FOLDER}", projectFolder)
       .replace("{{ PROPERTIES }}", buildModuleProperties(properties));
   }

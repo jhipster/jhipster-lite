@@ -14,6 +14,7 @@ public class JHipsterModuleProperties {
   public static final String SERVER_PORT_PROPERTY = "serverPort";
 
   private final JHipsterProjectFolder projectFolder;
+  private final boolean commitModule;
   private final Map<String, Object> properties;
   private final Indentation indentation;
   private final JHipsterBasePackage basePackage;
@@ -21,14 +22,15 @@ public class JHipsterModuleProperties {
   private final JHipsterProjectBaseName projectBaseName;
   private final JHipsterServerPort serverPort;
 
-  public JHipsterModuleProperties(String projectFolder, Map<String, Object> properties) {
-    this(new JHipsterProjectFolder(projectFolder), properties);
+  public JHipsterModuleProperties(String projectFolder, boolean commitModule, Map<String, Object> properties) {
+    this(new JHipsterProjectFolder(projectFolder), commitModule, properties);
   }
 
-  public JHipsterModuleProperties(JHipsterProjectFolder projectFolder, Map<String, Object> properties) {
+  public JHipsterModuleProperties(JHipsterProjectFolder projectFolder, boolean commitModule, Map<String, Object> properties) {
     Assert.notNull("projectFolder", projectFolder);
 
     this.projectFolder = projectFolder;
+    this.commitModule = commitModule;
     this.properties = JHipsterCollections.immutable(properties);
 
     indentation = Indentation.from(getOrDefault(INDENTATION_PROPERTY, null, Integer.class));
@@ -39,11 +41,15 @@ public class JHipsterModuleProperties {
   }
 
   public static JHipsterModuleProperties defaultProperties(JHipsterProjectFolder projectFolder) {
-    return new JHipsterModuleProperties(projectFolder, null);
+    return new JHipsterModuleProperties(projectFolder, false, null);
   }
 
   public JHipsterProjectFolder projectFolder() {
     return projectFolder;
+  }
+
+  public boolean commitNeeded() {
+    return commitModule;
   }
 
   public String getString(String key) {

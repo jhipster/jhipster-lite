@@ -188,7 +188,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static JHipsterModuleProperties testModuleProperties() {
-    return new JHipsterModuleProperties(new JHipsterProjectFolder(TestFileUtils.tmpDirForTest()), null);
+    return new JHipsterModuleProperties(new JHipsterProjectFolder(TestFileUtils.tmpDirForTest()), false, null);
   }
 
   public static CurrentJavaDependenciesVersions currentJavaDependenciesVersion() {
@@ -210,6 +210,7 @@ public final class JHipsterModulesFixture {
   public static JHipsterModuleProperties allProperties() {
     return new JHipsterModuleProperties(
       new JHipsterProjectFolder("/test"),
+      true,
       Map.of(
         "packageName",
         "tech.jhipster.chips",
@@ -354,7 +355,7 @@ public final class JHipsterModulesFixture {
     }
 
     public JHipsterModuleProperties build() {
-      return new JHipsterModuleProperties(projectFolder, properties);
+      return new JHipsterModuleProperties(projectFolder, false, properties);
     }
   }
 }

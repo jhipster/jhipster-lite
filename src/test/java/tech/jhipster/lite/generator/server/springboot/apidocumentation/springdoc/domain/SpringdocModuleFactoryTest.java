@@ -42,7 +42,7 @@ class SpringdocModuleFactoryTest {
     Map<String, Object> properties = new HashMap<>();
     properties.put(JHipsterModuleProperties.BASE_PACKAGE_PROPERTY, "com.jhipster.test");
     properties.put(JHipsterModuleProperties.PROJECT_BASE_NAME_PROPERTY, "myapp");
-    JHipsterModuleProperties moduleProperties = new JHipsterModuleProperties(TestFileUtils.tmpDirForTest(), properties);
+    JHipsterModuleProperties moduleProperties = new JHipsterModuleProperties(TestFileUtils.tmpDirForTest(), false, properties);
 
     JHipsterModule module = springdocModuleFactory.buildModuleForWebflux(moduleProperties);
 
@@ -83,7 +83,7 @@ class SpringdocModuleFactoryTest {
     Map<String, Object> properties = new HashMap<>();
     properties.put(JHipsterModuleProperties.BASE_PACKAGE_PROPERTY, "com.jhipster.test");
     properties.put(JHipsterModuleProperties.PROJECT_BASE_NAME_PROPERTY, "myapp");
-    JHipsterModuleProperties moduleProperties = new JHipsterModuleProperties(TestFileUtils.tmpDirForTest(), properties);
+    JHipsterModuleProperties moduleProperties = new JHipsterModuleProperties(TestFileUtils.tmpDirForTest(), false, properties);
 
     JHipsterModule module = springdocModuleFactory.buildModuleWithSecurityJwtForWebflux(moduleProperties);
 

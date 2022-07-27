@@ -62,6 +62,7 @@ export const defaultModules = (): Modules =>
 
 export const defaultModuleToApply = (): ModuleToApply => ({
   projectFolder: '/tmp/dummy',
+  commit: true,
   properties: defaultPropertiesToApply(),
 });
 

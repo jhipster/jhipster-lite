@@ -33,6 +33,7 @@ export default defineComponent({
     const folderPath = ref('');
     const selectedModule = ref();
     const moduleProperties = ref(new Map<string, string | boolean | number>());
+    const commitModule = ref(true);
     const appliedModules = ref([] as ModuleSlug[]);
     let searchedText = '';
 
@@ -215,6 +216,7 @@ export default defineComponent({
       modules
         .apply(module, {
           projectFolder: folderPath.value,
+          commit: commitModule.value,
           properties: moduleProperties.value,
         })
         .then(() => {
@@ -302,6 +304,7 @@ export default defineComponent({
       mandatoryProperties,
       optionalProperties,
       moduleProperties,
+      commitModule,
       displayedModulesCount,
       totalModulesCount,
       isTagSelected,

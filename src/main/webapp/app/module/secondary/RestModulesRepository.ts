@@ -42,6 +42,7 @@ export interface RestModuleProperty {
 
 export interface RestModuleToApply {
   projectFolder: string;
+  commit: boolean;
   properties: {};
 }
 
@@ -121,6 +122,7 @@ const toTags = (tags: string[] | undefined): string[] => {
 
 const toRestModuleToApply = (moduleToApply: ModuleToApply): RestModuleToApply => ({
   projectFolder: moduleToApply.projectFolder,
+  commit: moduleToApply.commit,
   properties: Object.fromEntries(moduleToApply.properties),
 });
 

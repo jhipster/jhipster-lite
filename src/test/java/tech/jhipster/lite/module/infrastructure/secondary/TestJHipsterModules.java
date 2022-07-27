@@ -7,12 +7,12 @@ import tech.jhipster.lite.generator.buildtool.gradle.domain.GradleModuleFactory;
 import tech.jhipster.lite.generator.buildtool.maven.domain.MavenModuleFactory;
 import tech.jhipster.lite.generator.client.angular.core.domain.AngularModuleFactory;
 import tech.jhipster.lite.generator.client.react.core.domain.ReactCoreModulesFactory;
-import tech.jhipster.lite.generator.init.domain.GitRepository;
 import tech.jhipster.lite.generator.init.domain.InitModuleFactory;
 import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.generator.server.springboot.core.domain.SpringBootCoreModuleFactory;
 import tech.jhipster.lite.generator.server.springboot.mvc.web.domain.SpringBootMvcsModulesFactory;
 import tech.jhipster.lite.generator.server.springboot.mvc.zalandoproblem.domain.ZalandoProblemsModuleFactory;
+import tech.jhipster.lite.git.domain.GitRepository;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleEvents;
@@ -86,7 +86,7 @@ public final class TestJHipsterModules {
   }
 
   private static JHipsterModuleProperties projectProperties(Project project) {
-    return new JHipsterModuleProperties(project.getFolder(), project.getConfig());
+    return new JHipsterModuleProperties(project.getFolder(), false, project.getConfig());
   }
 
   public static void apply(JHipsterModule module) {
@@ -124,7 +124,8 @@ public final class TestJHipsterModules {
         modulesRepository,
         mock(JHipsterModuleEvents.class),
         new FileSystemCurrentJavaDependenciesVersionsRepository(filesReader),
-        new FileSystemProjectJavaDependenciesRepository()
+        new FileSystemProjectJavaDependenciesRepository(),
+        mock(GitRepository.class)
       );
     }
 

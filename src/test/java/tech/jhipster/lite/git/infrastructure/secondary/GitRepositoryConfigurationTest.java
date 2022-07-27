@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.init.infrastructure.secondary;
+package tech.jhipster.lite.git.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;

@@ -9,13 +9,16 @@ import tech.jhipster.lite.projectfolder.domain.ProjectFolder;
 class RestJHipsterModuleProperties {
 
   private final String projectFolder;
+  private final boolean commit;
   private final Map<String, Object> properties;
 
   RestJHipsterModuleProperties(
     @JsonProperty("projectFolder") String projectFolder,
+    @JsonProperty("commit") boolean commit,
     @JsonProperty("properties") Map<String, Object> properties
   ) {
     this.projectFolder = projectFolder;
+    this.commit = commit;
     this.properties = properties;
   }
 
@@ -24,7 +27,7 @@ class RestJHipsterModuleProperties {
 
     assertValidProjectFolder(jHipsterProjectFolderFactory);
 
-    return new JHipsterModuleProperties(projectFolder, properties);
+    return new JHipsterModuleProperties(projectFolder, commit, properties);
   }
 
   private void assertValidProjectFolder(ProjectFolder jHipsterProjectFolderFactory) {

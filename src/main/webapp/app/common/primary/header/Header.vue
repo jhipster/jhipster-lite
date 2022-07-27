@@ -1,5 +1,5 @@
 <template>
-  <header class="navbar navbar-expand-md bg-primary-dark bd-navbar shadow mb-3">
+  <header class="navbar navbar-expand-md bg-primary-dark bd-navbar shadow">
     <nav class="container-fluid flex-wrap flex-md-nowrap align-text-center" aria-label="Main navigation">
       <div class="navbar-brand text-decoration-none d-flex align-items-center gap-4">
         <img src="../../../../content/JHipster-Lite-neon-blue.png" alt="" width="48" />
@@ -28,12 +28,6 @@
         <hr class="d-md-none text-white-50" />
 
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-          <li class="nav-item col-6 col-md-auto">
-            <a class="nav-link p-2" href="./modules" target="_blank" rel="noopener">
-              <IconVue :name="'nut-fill'" :aria-label="'Modules'" :title="'Modules'" />
-              <small class="d-md-none ms-2">Modules</small>
-            </a>
-          </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="./swagger-ui.html" target="_blank" rel="noopener">
               <IconVue :name="'book-half'" :aria-label="'API'" :title="'The Swagger-ui'" />

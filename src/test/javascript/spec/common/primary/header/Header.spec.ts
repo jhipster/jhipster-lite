@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { HeaderVue } from '@/springboot/primary/header';
+import { HeaderVue } from '@/common/primary/header';
 
 describe('Header', () => {
   it('should exist', () => {

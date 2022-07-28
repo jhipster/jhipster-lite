@@ -69,7 +69,7 @@ class CommandLineGitRepository implements GitRepository {
   }
 
   private void gitCommit(JHipsterProjectFolder folder, GitCommitMessage message) throws IOException, InterruptedException {
-    Process process = new ProcessBuilder("git", "commit", "-m", "\"" + message.get() + "\"").directory(folderFile(folder)).start();
+    Process process = new ProcessBuilder("git", "commit", "-m", message.get()).directory(folderFile(folder)).start();
 
     if (failedExecution(process)) {
       throw new GitCommitException("Error during git commit, failed when commiting files");

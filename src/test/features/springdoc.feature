@@ -68,6 +68,23 @@ Feature: Springdoc modules
     And I should have files in "src/test/resources/config"
       | application.properties |
 
+  Scenario: Should add Springdoc for MVC with OAuth2 Security
+    When I apply modules to default project
+      | maven-java                             |
+      | springboot                             |
+      | springboot-oauth2                      |
+      | springdoc-openapi-with-security-oauth2 |
+    Then I should have files in ""
+      | pom.xml |
+    And I should have "springdoc-openapi-ui" in "pom.xml"
+    And I should have files in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc"
+      | SpringdocConfiguration.java |
+    And I should have "OAUTH2" in "src/main/java/tech/jhipster/chips/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java"
+    And I should have files in "src/main/resources/config"
+      | application.properties |
+    And I should have files in "src/test/resources/config"
+      | application.properties |
+
   Scenario: Should add Springdoc for Webflux with JWT Security
     When I apply modules to default project
       | maven-java                          |

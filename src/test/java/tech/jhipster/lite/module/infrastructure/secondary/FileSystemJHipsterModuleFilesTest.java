@@ -6,13 +6,16 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 
 import ch.qos.logback.classic.Level;
 import java.nio.file.Paths;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.module.domain.FilesToDelete;
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.projectfile.infrastructure.secondary.FileSystemProjectFilesReader;
@@ -55,5 +58,14 @@ class FileSystemJHipsterModuleFilesTest {
     files.create(project, module.templatedFiles());
 
     logs.shouldHave(Level.DEBUG, "MainApp.java");
+  }
+
+  @Test
+  void shouldNotDeleteUnknownFile() {
+    JHipsterProjectFolder project = new JHipsterProjectFolder(TestFileUtils.tmpDirForTest());
+
+    assertThatThrownBy(() -> files.delete(project, new FilesToDelete(List.of(new JHipsterProjectFilePath("unknown-file")))))
+      .isExactlyInstanceOf(UnknownFileToDeleteException.class)
+      .hasMessageContaining("unknown-file");
   }
 }

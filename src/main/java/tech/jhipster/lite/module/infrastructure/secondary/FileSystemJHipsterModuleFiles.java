@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.GeneratorException;
+import tech.jhipster.lite.module.domain.FilesToDelete;
+import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.TemplatedFile;
 import tech.jhipster.lite.module.domain.TemplatedFiles;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -56,7 +58,7 @@ class FileSystemJHipsterModuleFiles {
     };
   }
 
-  @Generated(reason = "Ensuring posix FS whill be a nightmare :)")
+  @Generated(reason = "Ensuring posix FS will be a nightmare :)")
   private void setExecutable(TemplatedFile file, Path filePath) throws IOException {
     if (!FileUtils.isPosix()) {
       return;
@@ -67,5 +69,30 @@ class FileSystemJHipsterModuleFiles {
     }
 
     Files.setPosixFilePermissions(filePath, EXECUTABLE_FILE_PERMISSIONS);
+  }
+
+  void delete(JHipsterProjectFolder folder, FilesToDelete filesToDelete) {
+    filesToDelete.stream().forEach(deleteFile(folder));
+  }
+
+  private Consumer<JHipsterProjectFilePath> deleteFile(JHipsterProjectFolder folder) {
+    return file -> {
+      Path path = folder.filePath(file.path());
+
+      if (Files.notExists(path)) {
+        throw new UnknownFileToDeleteException(file);
+      }
+
+      delete(path);
+    };
+  }
+
+  @Generated(reason = "Deletion error case is hard to test and with low value")
+  private void delete(Path path) {
+    try {
+      Files.delete(path);
+    } catch (IOException e) {
+      throw new GeneratorException("Error deleting file: " + e.getMessage(), e);
+    }
   }
 }

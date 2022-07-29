@@ -175,4 +175,11 @@ public class ProjectsSteps {
 
     assertThat(GitTestUtil.getCommits(Paths.get(lastProjectFolder))).isEmpty();
   }
+
+  @Then("I should have {int} file in {string}")
+  public void shouldHaveFilesCountInDirectory(int filesCount, String directory) throws IOException {
+    assertThatLastResponse().hasOkStatus();
+
+    assertThat(Files.list(Paths.get(lastProjectFolder, directory)).count()).isEqualTo(filesCount);
+  }
 }

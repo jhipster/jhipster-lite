@@ -4,6 +4,7 @@
     "projectName": "UndertowApp Project",
     "baseName": "undertowapp",
     "packageName": "tech.jhipster.undertowapp",
-    "addFlywayMysql": true
+    "addFlywayMysql": true,
+    "usePostgreSQLTypes": false
   }
 }

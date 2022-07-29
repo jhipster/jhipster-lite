@@ -2,12 +2,15 @@ package {{packageName}}.dummy.infrastructure.secondary;
 
 import {{packageName}}.dummy.domain.BeerId;
 import {{packageName}}.dummy.domain.beer.Beer;
+import {{packageName}}.dummy.domain.beer.BeerSellingState;
 import {{packageName}}.dummy.domain.beer.Beers;
 import {{packageName}}.dummy.domain.beer.BeersRepository;
 import {{packageName}}.error.domain.Assert;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -24,7 +27,11 @@ class InMemoryBeersRepository implements BeersRepository {
 
   @Override
   public Beers catalog() {
-    return new Beers(beers.values().stream().filter(Beer::isSold).toList());
+    return new Beers(beers.values().stream().filter(soldBeer()).toList());
+  }
+  
+  private Predicate<Beer> soldBeer() {
+    return beer -> beer.sellingState() == BeerSellingState.SOLD;
   }
 
   @Override

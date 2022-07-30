@@ -19,5 +19,6 @@ public class BeersRemover {
     Beer beer = beers.get(id).orElseThrow(() -> new UnknownBeerException(id));
 
     beer.removeFromSell();
+    beers.save(beer);
   }
 }

@@ -25,5 +25,4 @@ module.exports = {
   },
   testMatch: ['<rootDir>/src/main/webapp/environments/**/@(*.)@(spec.ts)', '<rootDir>/src/main/webapp/app/**/@(*.)@(spec.ts)'],
   testResultsProcessor: 'jest-sonar-reporter',
-  // testURL: 'http://localhost/',
 };

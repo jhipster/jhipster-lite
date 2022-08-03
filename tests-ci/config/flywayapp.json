@@ -3,6 +3,8 @@
   "generator-jhipster": {
     "projectName": "Flyway App",
     "baseName": "flywayapp",
-    "packageName": "tech.jhipster.flywayapp"
+    "packageName": "tech.jhipster.flywayapp",
+    "addFlywayMysql": false,
+    "usePostgreSQLTypes": true
   }
 }

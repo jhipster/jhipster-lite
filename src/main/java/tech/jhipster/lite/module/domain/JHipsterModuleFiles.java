@@ -2,29 +2,37 @@ package tech.jhipster.lite.module.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import tech.jhipster.lite.common.domain.JHipsterCollections;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 
 public class JHipsterModuleFiles {
 
-  private final Collection<JHipsterModuleFile> files;
+  private final Collection<JHipsterModuleFile> filesToAdd;
+  private final FilesToDelete filesToDelete;
 
   private JHipsterModuleFiles(JHipsterModuleFilesBuilder builder) {
-    files = builder.files;
+    filesToAdd = JHipsterCollections.immutable(builder.filesToAdd);
+    filesToDelete = new FilesToDelete(builder.filesToDelete);
   }
 
   static JHipsterModuleFilesBuilder builder(JHipsterModuleBuilder module) {
     return new JHipsterModuleFilesBuilder(module);
   }
 
-  public Collection<JHipsterModuleFile> get() {
-    return files;
+  public Collection<JHipsterModuleFile> filesToAdd() {
+    return filesToAdd;
+  }
+
+  public FilesToDelete filesToDelete() {
+    return filesToDelete;
   }
 
   public static class JHipsterModuleFilesBuilder {
 
     private final JHipsterModuleBuilder module;
-    private final Collection<JHipsterModuleFile> files = new ArrayList<>();
+    private final Collection<JHipsterModuleFile> filesToAdd = new ArrayList<>();
+    private final Collection<JHipsterProjectFilePath> filesToDelete = new ArrayList<>();
 
     private JHipsterModuleFilesBuilder(JHipsterModuleBuilder module) {
       Assert.notNull("module", module);
@@ -33,19 +41,27 @@ public class JHipsterModuleFiles {
     }
 
     public JHipsterModuleFilesBuilder add(JHipsterSource source, JHipsterDestination destination) {
-      files.add(new JHipsterModuleFile(new JHipsterFileContent(source), destination, false));
+      filesToAdd.add(new JHipsterModuleFile(new JHipsterFileContent(source), destination, false));
 
       return this;
     }
 
     public JHipsterModuleFilesBuilder addExecutable(JHipsterSource source, JHipsterDestination destination) {
-      files.add(new JHipsterModuleFile(new JHipsterFileContent(source), destination, true));
+      filesToAdd.add(new JHipsterModuleFile(new JHipsterFileContent(source), destination, true));
 
       return this;
     }
 
     public JHipsterModuleFileBatchBuilder batch(JHipsterSource source, JHipsterDestination destination) {
       return new JHipsterModuleFileBatchBuilder(source, destination, this);
+    }
+
+    public JHipsterModuleFilesBuilder delete(JHipsterProjectFilePath path) {
+      Assert.notNull("path", path);
+
+      filesToDelete.add(path);
+
+      return this;
     }
 
     public JHipsterModuleBuilder and() {

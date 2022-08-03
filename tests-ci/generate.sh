@@ -105,15 +105,16 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
-  callApi "/api/servers/spring-boot/features/dummy"
   callApi "/api/servers/hexagonal-architecture-documentation"
   callApi "/api/servers/bean-validation-test"
 
   callApi "/api/servers/spring-boot/databases/postgresql"
-  callApi "/api/servers/spring-boot/features/user/postgresql"
-  callApi "/api/servers/spring-boot/features/dummy"
+  callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
-  callApi "/api/servers/spring-boot/database-migration-tools/liquibase/user"
+
+  callApi "/api/servers/spring-boot/features/dummy"
+  callApi "/api/servers/spring-boot/features/dummy-jpa-persistence"
+  callApi "/api/servers/spring-boot/features/dummy-liquibase-changelog"
 
   callApi "/api/servers/spring-boot/caches/ehcache/java-configuration"
 
@@ -139,9 +140,18 @@ elif [[ $application == 'mysqlapp' ]]; then
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
 
   callApi "/api/servers/spring-boot/databases/mysql"
-  callApi "/api/servers/spring-boot/features/user/mysql"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
-  callApi "/api/servers/spring-boot/database-migration-tools/liquibase/user"
+  
+  callApi "/api/servers/spring-boot/security-systems/jwt"
+  callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
+  callApi "/api/servers/bean-validation-test"
+  
+  callApi "/api/servers/spring-boot/features/dummy"
+  callApi "/api/servers/spring-boot/features/dummy-jpa-persistence"
+  callApi "/api/servers/spring-boot/features/dummy-liquibase-changelog"
 
   callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
@@ -152,9 +162,7 @@ elif [[ $application == 'mariadbapp' ]]; then
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
 
   callApi "/api/servers/spring-boot/databases/mariadb"
-  callApi "/api/servers/spring-boot/features/user/mariadb"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
-  callApi "/api/servers/spring-boot/database-migration-tools/liquibase/user"
 
   callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
@@ -171,18 +179,36 @@ elif [[ $application == 'flywayapp' ]]; then
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/postgresql"
-  callApi "/api/servers/spring-boot/features/user/postgresql"
   callApi "/api/servers/spring-boot/database-migration-tools/flyway"
-  callApi "/api/servers/spring-boot/database-migration-tools/flyway/user"
+  
+  callApi "/api/servers/spring-boot/security-systems/jwt"
+  callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
+  callApi "/api/servers/bean-validation-test"
+  
+  callApi "/api/servers/spring-boot/features/dummy"
+  callApi "/api/servers/spring-boot/features/dummy-jpa-persistence"
+  callApi "/api/servers/spring-boot/features/dummy-flyway-changelog"
 
 elif [[ $application == 'undertowapp' ]]; then
   springboot_undertow
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/mysql"
-  callApi "/api/servers/spring-boot/features/user/mysql"
   callApi "/api/servers/spring-boot/database-migration-tools/flyway"
-  callApi "/api/servers/spring-boot/database-migration-tools/flyway/user"
+  
+  callApi "/api/servers/spring-boot/security-systems/jwt"
+  callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
+  callApi "/api/servers/bean-validation-test"
+  
+  callApi "/api/servers/spring-boot/features/dummy"
+  callApi "/api/servers/spring-boot/features/dummy-jpa-persistence"
+  callApi "/api/servers/spring-boot/features/dummy-flyway-changelog"
 
   callApi "/api/servers/spring-boot/caches/simple"
 

@@ -3,7 +3,6 @@ package tech.jhipster.lite.module.domain;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
 
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +59,7 @@ public class JHipsterModule {
   public static final String LINE_BREAK = "\n";
 
   private final JHipsterProjectFolder projectFolder;
-  private final Collection<JHipsterModuleFile> files;
+  private final JHipsterModuleFiles files;
   private final JHipsterModuleMandatoryReplacements mandatoryReplacements;
   private final JHipsterModuleOptionalReplacements optionalReplacements;
   private final JHipsterModuleContext context;
@@ -74,7 +73,7 @@ public class JHipsterModule {
   private JHipsterModule(JHipsterModuleBuilder builder) {
     projectFolder = builder.projectFolder;
 
-    files = builder.files.build().get();
+    files = builder.files.build();
     mandatoryReplacements = builder.mandatoryReplacements.build();
     optionalReplacements = builder.optionalReplacements.build();
     context = builder.context.build();
@@ -132,6 +131,10 @@ public class JHipsterModule {
     Assert.notBlank("source", source);
 
     return new JHipsterSource(Paths.get("/generator", source));
+  }
+
+  public static JHipsterProjectFilePath path(String path) {
+    return new JHipsterProjectFilePath(path);
   }
 
   public static JHipsterDestination to(String destination) {
@@ -219,9 +222,17 @@ public class JHipsterModule {
   }
 
   public TemplatedFiles templatedFiles() {
-    List<TemplatedFile> templatedFiles = files.stream().map(file -> TemplatedFile.builder().file(file).context(context).build()).toList();
+    List<TemplatedFile> templatedFiles = files
+      .filesToAdd()
+      .stream()
+      .map(file -> TemplatedFile.builder().file(file).context(context).build())
+      .toList();
 
     return new TemplatedFiles(templatedFiles);
+  }
+
+  public FilesToDelete filesToDelete() {
+    return files.filesToDelete();
   }
 
   public JHipsterModuleMandatoryReplacements mandatoryReplacements() {

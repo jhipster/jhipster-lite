@@ -38,7 +38,7 @@ class OAuth2ModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, pomFile(), integrationTestFile())
+    assertThatModuleWithFiles(module, pomFile(), integrationTestFile(), readmeFile())
       .createPrefixedFiles("src/main/java/com/jhipster/test/authentication/domain", "Role.java", "Roles.java", "Username.java")
       .createPrefixedFiles(
         "src/main/java/com/jhipster/test/authentication/infrastructure/primary",
@@ -103,7 +103,10 @@ class OAuth2ModuleFactoryTest {
       .containing("@SpringBootTest(classes = { MyappApp.class, TestSecurityConfiguration.class })")
       .containing("@WithMockUser")
       .containing("import org.springframework.security.test.context.support.WithMockUser;")
-      .containing("import com.jhipster.test.authentication.infrastructure.primary.TestSecurityConfiguration;");
+      .containing("import com.jhipster.test.authentication.infrastructure.primary.TestSecurityConfiguration;")
+      .and()
+      .createFile("README.md")
+      .containing("docker-compose -f src/main/docker/keycloak.yml up -d");
   }
 
   private ModuleFile integrationTestFile() {

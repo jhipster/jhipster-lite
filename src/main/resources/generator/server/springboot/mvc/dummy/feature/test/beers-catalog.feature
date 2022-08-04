@@ -16,6 +16,15 @@ Feature: Beers catalog
       | Name              | Unit price |
       | Cloak of feathers | 8.53       |
       
+  Scenario: Should not remove beer as user
+    Given I am logged in as "admin"
+    And I add beer to catalog
+      | Name       | Cloak of feathers |
+      | Unit price | 8.53              |
+    When I am logged in as "user"
+    And I remove the created beer from the catalog
+    Then I should be forbidden
+      
   Scenario: Should remove beer from catalog
     Given I am logged in as "admin"
     And I add beer to catalog

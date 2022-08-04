@@ -29,6 +29,7 @@ public class MavenModuleFactory {
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
         .and()
+      .startupCommand("./mvnw")
       .files()
         .add(SOURCE.template("pom.xml"), to("pom.xml"))
         .addExecutable(SOURCE.file("mvnw"), to("mvnw"))

@@ -84,7 +84,7 @@ public class SvelteDomainService implements SvelteService {
   }
 
   public void addScripts(Project project) {
-    // prettier-ignore
+    //@formatter:off
     Map.of("dev", "vite dev --port 9000", "start", "vite dev --port 9000", "build", "vite build",
         "package", "vite package", "preview", "vite preview", "check",
         "svelte-check --tsconfig ./tsconfig.json", "check:watch", "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -92,6 +92,7 @@ public class SvelteDomainService implements SvelteService {
         "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
         "format", "prettier --ignore-path .gitignore --write --plugin-search-dir=. .", "test", "jest")
         .forEach((name, cmd) -> npmService.addScript(project, name, cmd));
+    //@formatter:on
   }
 
   public void addSvelteConfigFile(Project project) {

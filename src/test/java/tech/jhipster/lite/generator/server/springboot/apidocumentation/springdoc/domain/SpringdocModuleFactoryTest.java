@@ -110,7 +110,7 @@ class SpringdocModuleFactoryTest {
 
     JHipsterModule module = springdocModuleFactory.buildModuleWithSecurityOAuth2ForMvc(moduleProperties);
 
-    // prettier-ignore
+    //@formatter:off
     ModuleAsserter moduleAsserter = assertThatModuleWithFiles(module, pomFile())
       .createFile("src/main/java/tech/jhipster/free/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
         .containing("OAUTH2")
@@ -120,6 +120,7 @@ class SpringdocModuleFactoryTest {
         .containing("<artifactId>springdoc-openapi-security</artifactId>")
         .notContaining("<artifactId>springdoc-openapi-webflux-ui</artifactId>")
         .and();
+    //@formatter:on
 
     assertAddedPropertiesWithOAuth2(moduleAsserter);
   }
@@ -135,7 +136,7 @@ class SpringdocModuleFactoryTest {
   private void assertAddedPropertiesWithOAuth2(ModuleAsserter moduleFileAsserter) {
     assertAddedProperties(moduleFileAsserter);
 
-    // prettier-ignore
+    //@formatter:off
     moduleFileAsserter
       .createFile("src/main/resources/config/application.properties")
         .containing("springdoc.swagger-ui.oauth.client-id=web_app")
@@ -146,5 +147,6 @@ class SpringdocModuleFactoryTest {
         .containing("springdoc.swagger-ui.oauth.client-id=web_app")
         .containing("springdoc.swagger-ui.oauth.realm=jhipster")
         .containing("springdoc.oauth2.authorization-url=http://localhost:9080/auth/realms/jhipster/protocol/openid-connect/auth");
+    //@formatter:on
   }
 }

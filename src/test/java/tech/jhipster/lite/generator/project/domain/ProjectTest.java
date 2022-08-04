@@ -1,14 +1,9 @@
 package tech.jhipster.lite.generator.project.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.lite.TestUtils.tmpProject;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithBuildGradle;
-import static tech.jhipster.lite.TestUtils.tmpProjectWithPomXml;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
-import static tech.jhipster.lite.common.domain.WordUtils.CRLF;
-import static tech.jhipster.lite.common.domain.WordUtils.LF;
+import static tech.jhipster.lite.common.domain.WordUtils.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.io.IOException;
@@ -21,9 +16,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
-import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
 import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 
@@ -373,68 +366,6 @@ class ProjectTest {
 
       assertThat(project.getServerPort()).isEqualTo(8080);
     }
-  }
-
-  @Test
-  void shouldBeMavenProject() throws Exception {
-    Project project = Project.builder().folder(TestFileUtils.tmpDirForTest()).build();
-    TestUtils.copyPomXml(project);
-
-    assertThat(project.isMavenProject()).isTrue();
-  }
-
-  @Test
-  void shouldNotBeMavenProjectWithGradle() {
-    Project project = Project.builder().folder(TestFileUtils.tmpDirForTest()).build();
-
-    assertThat(project.isMavenProject()).isFalse();
-  }
-
-  @Test
-  void shouldNotBeMavenProjectWithoutBuildTool() {
-    Project project = Project.builder().folder(TestFileUtils.tmpDirForTest()).build();
-
-    assertThat(project.isMavenProject()).isFalse();
-  }
-
-  @Test
-  void shouldBeGradleProject() throws Exception {
-    Project project = Project.builder().folder(TestFileUtils.tmpDirForTest()).build();
-    TestUtils.copyBuildGradle(project);
-
-    assertThat(project.isGradleProject()).isTrue();
-  }
-
-  @Test
-  void shouldNotBeGradleProjectWithMaven() {
-    Project project = Project.builder().folder(TestFileUtils.tmpDirForTest()).build();
-
-    assertThat(project.isGradleProject()).isFalse();
-  }
-
-  @Test
-  void shouldNotBeGradleProjectWithoutBuildTool() {
-    Project project = Project.builder().folder(TestFileUtils.tmpDirForTest()).build();
-
-    assertThat(project.isGradleProject()).isFalse();
-  }
-
-  @Test
-  void shouldCheckBuildToolWithException() {
-    Project project = tmpProject();
-    assertThatThrownBy(project::checkBuildTool).isExactlyInstanceOf(GeneratorException.class);
-  }
-
-  @Test
-  void shouldCheckBuildToolWithMaven() {
-    Project project = tmpProjectWithPomXml();
-    assertThatCode(project::checkBuildTool).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldCheckBuildToolWithGradle() throws Exception {
-    Project project = tmpProjectWithBuildGradle();
-    assertThatCode(project::checkBuildTool).doesNotThrowAnyException();
   }
 
   private Project.ProjectBuilder minimalBuilder(String tmpFolder) {

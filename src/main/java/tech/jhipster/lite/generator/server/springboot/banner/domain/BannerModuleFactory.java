@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.server.springboot.banner.domain;
 
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
@@ -60,6 +59,6 @@ public class BannerModuleFactory {
   }
 
   private JHipsterDestination destination() {
-    return new JHipsterDestination(MAIN_RESOURCES).append("banner.txt");
+    return new JHipsterDestination("src/main/resources").append("banner.txt");
   }
 }

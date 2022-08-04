@@ -17,8 +17,6 @@ public interface ProjectRepository {
 
   void write(Project project, String text, String destination, String destinationFilename);
 
-  String zip(Project project);
-
   default void add(ProjectFile file) {
     Assert.notNull("file", file);
 

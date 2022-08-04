@@ -3,18 +3,14 @@ package tech.jhipster.lite.generator.project.infrastructure.secondary;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.function.Consumer;
 import org.springframework.stereotype.Repository;
-import org.zeroturnaround.zip.ZipException;
-import org.zeroturnaround.zip.ZipUtil;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
@@ -128,18 +124,6 @@ public class ProjectLocalRepository implements ProjectRepository {
       FileUtils.write(projectDestinationFilename, text, project.getEndOfLine());
     } catch (IOException e) {
       throw new GeneratorException(getErrorWritingMessage(projectDestinationFilename));
-    }
-  }
-
-  @Override
-  public String zip(Project project) {
-    File workingDir = new File(project.getFolder());
-    String filename = workingDir.getName() + ".zip";
-    try {
-      ZipUtil.pack(workingDir, new File(tmpDir() + FileSystems.getDefault().getSeparator() + filename));
-      return filename;
-    } catch (ZipException e) {
-      throw new GeneratorException("Error when zipping " + project.getFolder(), e);
     }
   }
 

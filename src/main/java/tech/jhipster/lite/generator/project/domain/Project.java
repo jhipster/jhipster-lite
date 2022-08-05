@@ -1,8 +1,6 @@
 package tech.jhipster.lite.generator.project.domain;
 
-import static tech.jhipster.lite.common.domain.FileUtils.detectEndOfLine;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.DefaultConfig.*;
 
 import java.io.IOException;
@@ -16,7 +14,6 @@ import java.util.stream.Stream;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.domain.WordUtils;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.UnauthorizedValueException;
 
 public class Project {
@@ -154,20 +151,6 @@ public class Project {
   private void validateConfig() {
     getBaseName().ifPresent(CheckConfig::validBaseName);
     getPackageName().ifPresent(CheckConfig::validPackageName);
-  }
-
-  public boolean isMavenProject() {
-    return FileUtils.exists(getPath(getFolder(), POM_XML));
-  }
-
-  public boolean isGradleProject() {
-    return FileUtils.exists(getPath(getFolder(), "build.gradle.kts"));
-  }
-
-  public void checkBuildTool() {
-    if (!isMavenProject() && !isGradleProject()) {
-      throw new GeneratorException("No build tool");
-    }
   }
 
   public void validateProject() {

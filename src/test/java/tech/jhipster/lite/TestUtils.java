@@ -1,19 +1,9 @@
 package tech.jhipster.lite;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-import static tech.jhipster.lite.common.domain.FileUtils.exists;
-import static tech.jhipster.lite.common.domain.FileUtils.getPath;
-import static tech.jhipster.lite.common.domain.FileUtils.getPathOf;
-import static tech.jhipster.lite.common.domain.FileUtils.read;
-import static tech.jhipster.lite.generator.project.domain.Constants.LIQUIBASE_MASTER_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.MAIN_RESOURCES;
-import static tech.jhipster.lite.generator.project.domain.Constants.PACKAGE_JSON;
-import static tech.jhipster.lite.generator.project.domain.Constants.POM_XML;
-import static tech.jhipster.lite.generator.project.domain.Constants.TEST_RESOURCES;
+import static java.nio.charset.StandardCharsets.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static tech.jhipster.lite.common.domain.FileUtils.*;
+import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -143,28 +133,10 @@ public class TestUtils {
     return project;
   }
 
-  public static Project tmpProjectWithSpringBootProperties() {
-    Project project = tmpProject();
-    copySpringBootProperties(project);
-    return project;
-  }
-
-  public static Project tmpProjectWithSpringBootLoggingConfiguration() {
-    Project project = tmpProject();
-    copySpringBootLogConfigurationFiles(project);
-    return project;
-  }
-
-  public static Project tmpProjectWithLiquibaseMasterXml() {
-    Project project = tmpProject();
-    copyLiquibaseMasterXml(project);
-    return project;
-  }
-
   public static void copyPomXml(Project project) {
     try {
       FileUtils.createFolder(project.getFolder());
-      Files.copy(getPathOf("src/test/resources/generator/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), POM_XML));
+      Files.copy(getPathOf("src/test/resources/generator/buildtool/maven/pom.test.xml"), getPathOf(project.getFolder(), "pom.xml"));
     } catch (IOException e) {
       throw new AssertionError(e);
     }
@@ -204,56 +176,6 @@ public class TestUtils {
     try {
       FileUtils.createFolder(project.getFolder());
       Files.copy(getPathOf("src/test/resources/generator/command/", packageJsonFilename), getPathOf(project.getFolder(), PACKAGE_JSON));
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  public static void copySpringBootProperties(Project project) {
-    try {
-      FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES, "config"));
-      FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES, "config"));
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/core/application.src.properties"),
-        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application.properties")
-      );
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/core/application.src.local.properties"),
-        getPathOf(project.getFolder(), MAIN_RESOURCES, "config/application-local.properties")
-      );
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/core/application.test.properties"),
-        getPathOf(project.getFolder(), TEST_RESOURCES, "config/application.properties")
-      );
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  public static void copySpringBootLogConfigurationFiles(Project project) {
-    try {
-      FileUtils.createFolder(getPath(project.getFolder(), MAIN_RESOURCES));
-      FileUtils.createFolder(getPath(project.getFolder(), TEST_RESOURCES));
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/core/logback-spring.xml"),
-        getPathOf(project.getFolder(), MAIN_RESOURCES, "logback-spring.xml")
-      );
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/core/logback.xml"),
-        getPathOf(project.getFolder(), TEST_RESOURCES, "logback.xml")
-      );
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  public static void copyLiquibaseMasterXml(Project project) {
-    try {
-      FileUtils.createFolder(getPath(project.getFolder(), "src/main/resources/config/liquibase"));
-      Files.copy(
-        getPathOf("src/test/resources/generator/server/springboot/liquibase/master.test.xml"),
-        getPathOf(project.getFolder(), "src/main/resources/config/liquibase", LIQUIBASE_MASTER_XML)
-      );
     } catch (IOException e) {
       throw new AssertionError(e);
     }

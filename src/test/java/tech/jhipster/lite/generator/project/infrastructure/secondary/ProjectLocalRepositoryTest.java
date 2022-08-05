@@ -32,6 +32,8 @@ import tech.jhipster.lite.generator.project.domain.ProjectFile;
 @ExtendWith(SpringExtension.class)
 class ProjectLocalRepositoryTest {
 
+  private static final String POM_XML = "pom.xml";
+
   @InjectMocks
   private ProjectLocalRepository repository;
 
@@ -116,11 +118,11 @@ class ProjectLocalRepositoryTest {
         ProjectFile
           .forProject(project)
           .withSource("mustache", "README.md.mustache")
-          .withDestination(getPath(MAIN_RESOURCES), "FINAL-README.md")
+          .withDestination(getPath("src/main/resources"), "FINAL-README.md")
       )
     );
 
-    assertFileExist(project, MAIN_RESOURCES, "FINAL-README.md");
+    assertFileExist(project, "src/main/resources", "FINAL-README.md");
   }
 
   @Test
@@ -223,20 +225,5 @@ class ProjectLocalRepositoryTest {
     assertThatThrownBy(() -> repository.rename(project, ".", POM_XML, "pom.xml.burger")).isExactlyInstanceOf(GeneratorException.class);
 
     assertFileNotExist(project, POM_XML);
-  }
-
-  @Test
-  void shouldZip() {
-    Project project = tmpProjectWithPomXml();
-
-    String result = repository.zip(project);
-
-    assertFileExist(getPath(tmpDir(), result));
-  }
-
-  @Test
-  void shouldNotZipWithNonExistingFolder() {
-    Project project = tmpProject();
-    assertThatThrownBy(() -> repository.zip(project)).isExactlyInstanceOf(GeneratorException.class);
   }
 }

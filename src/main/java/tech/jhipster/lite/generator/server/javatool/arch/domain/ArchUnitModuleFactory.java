@@ -31,6 +31,7 @@ public class ArchUnitModuleFactory {
         .and()
       .files()
         .add(SOURCE.template("archunit.properties"), to("src/test/resources/archunit.properties"))
+        .add(SOURCE.template("AnnotationArchTest.java"), testDestination.append("AnnotationArchTest.java"))
         .add(SOURCE.template("HexagonalArchTest.java"), testDestination.append("HexagonalArchTest.java"))
         .and()
       .javaDependencies()

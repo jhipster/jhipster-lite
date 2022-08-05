@@ -240,6 +240,16 @@ elif [[ $application == 'mongodbapp' ]]; then
 
   callApi "/api/servers/spring-boot/databases/mongodb"
   callApi "/api/servers/spring-boot/database-migration-tools/mongock"
+  
+  callApi "/api/servers/spring-boot/security-systems/jwt"
+  callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
+  callApi "/api/servers/bean-validation-test"
+  
+  callApi "/api/servers/spring-boot/features/dummy"
+  callApi "/api/servers/spring-boot/features/dummy-mongodb-persistence"
 
 elif [[ $application == 'angularapp' ]]; then
   springboot_mvc

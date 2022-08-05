@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.broker.kafka.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.server.springboot.broker.kafka.infrastructure.primary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

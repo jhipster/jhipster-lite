@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.banner.infrastructure.primary.rest;
+package tech.jhipster.lite.generator.server.springboot.banner.infrastructure.primary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

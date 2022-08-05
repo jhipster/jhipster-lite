@@ -2,9 +2,9 @@ Feature: MariaDB module
 
   Scenario: Should add MariaDB elements using legacy url
     When I apply modules to default project
-      | maven-java |
+      | maven-java  |
       | spring-boot |
-      | mariadb    |
+      | mariadb     |
     Then I should have files in ""
       | pom.xml |
     And I should have files in "documentation"

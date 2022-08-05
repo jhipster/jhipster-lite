@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.function.Function;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.git.domain.GitRepository;
@@ -28,10 +29,10 @@ public class JHipsterModulesApplyer {
     this.git = git;
   }
 
-  public void apply(JHipsterModulesToApply modulesToApply) {
+  public Collection<JHipsterModuleApplied> apply(JHipsterModulesToApply modulesToApply) {
     Assert.notNull("modulesToApply", modulesToApply);
 
-    modules.landscape().sort(modulesToApply.modules()).stream().map(toModuleToApply(modulesToApply)).forEach(this::apply);
+    return modules.landscape().sort(modulesToApply.modules()).stream().map(toModuleToApply(modulesToApply)).map(this::apply).toList();
   }
 
   private Function<JHipsterModuleSlug, JHipsterModuleToApply> toModuleToApply(JHipsterModulesToApply modulesToApply) {
@@ -39,7 +40,7 @@ public class JHipsterModulesApplyer {
       new JHipsterModuleToApply(modulesToApply.properties(), slug, modules.resources().build(slug, modulesToApply.properties()));
   }
 
-  public void apply(JHipsterModuleToApply moduleToApply) {
+  public JHipsterModuleApplied apply(JHipsterModuleToApply moduleToApply) {
     Assert.notNull("moduleToApply", moduleToApply);
 
     CurrentJavaDependenciesVersions versions = currentVersions.get();
@@ -61,9 +62,12 @@ public class JHipsterModulesApplyer {
 
     modules.apply(changes);
 
-    modules.applied(new JHipsterModuleApplied(moduleToApply.properties(), moduleToApply.slug(), Instant.now()));
+    JHipsterModuleApplied moduleApplied = new JHipsterModuleApplied(moduleToApply.properties(), moduleToApply.slug(), Instant.now());
+    modules.applied(moduleApplied);
 
     commitIfNeeded(moduleToApply);
+
+    return moduleApplied;
   }
 
   private void commitIfNeeded(JHipsterModuleToApply moduleToApply) {

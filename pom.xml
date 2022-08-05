@@ -20,14 +20,6 @@
     <relativePath />
   </parent>
 
-  <repositories>
-    <!-- jhipster-needle-maven-repository -->
-  </repositories>
-
-  <pluginRepositories>
-    <!-- jhipster-needle-maven-plugin-repository -->
-  </pluginRepositories>
-
   <properties>
     <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -66,7 +58,6 @@
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-    <!-- jhipster-needle-maven-property -->
   </properties>
 
   <dependencies>
@@ -145,8 +136,6 @@
       <artifactId>dom4j</artifactId>
       <version>${dom4j.version}</version>
     </dependency>
-
-    <!-- jhipster-needle-maven-add-dependency -->
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -230,8 +219,6 @@
       <artifactId>awaitility</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <!-- jhipster-needle-maven-add-dependency-test -->
   </dependencies>
 
   <build>
@@ -457,7 +444,6 @@
           </execution>
         </executions>
       </plugin>
-      <!-- jhipster-needle-maven-add-plugin -->
     </plugins>
     <pluginManagement>
       <plugins>

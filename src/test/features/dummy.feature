@@ -14,6 +14,14 @@ Feature: Dummy feature module
     Then I should have files in "src/main/java/tech/jhipster/chips/dummy/infrastructure/secondary"
       | BeerEntity.java |
       
+  Scenario: Should Apply dummy mongodb module
+    When I apply modules to default project
+      | maven-java                |
+      | dummy-feature             |
+      | dummy-mongodb-persistence |
+    Then I should have files in "src/main/java/tech/jhipster/chips/dummy/infrastructure/secondary"
+      | BeerDocument.java |
+      
   Scenario: Should Apply dummy liquibase module
     When I apply modules to default project
       | maven-java                |

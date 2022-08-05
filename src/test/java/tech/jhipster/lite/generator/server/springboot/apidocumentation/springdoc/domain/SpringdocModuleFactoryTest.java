@@ -141,12 +141,12 @@ class SpringdocModuleFactoryTest {
       .createFile("src/main/resources/config/application.properties")
         .containing("springdoc.swagger-ui.oauth.client-id=web_app")
         .containing("springdoc.swagger-ui.oauth.realm=jhipster")
-        .containing("springdoc.oauth2.authorization-url=http://localhost:9080/auth/realms/jhipster/protocol/openid-connect/auth")
+        .containing("springdoc.oauth2.authorization-url=http://localhost:9080/realms/jhipster/protocol/openid-connect/auth")
         .and()
       .createFile("src/test/resources/config/application.properties")
         .containing("springdoc.swagger-ui.oauth.client-id=web_app")
         .containing("springdoc.swagger-ui.oauth.realm=jhipster")
-        .containing("springdoc.oauth2.authorization-url=http://localhost:9080/auth/realms/jhipster/protocol/openid-connect/auth");
+        .containing("springdoc.oauth2.authorization-url=http://localhost:9080/realms/jhipster/protocol/openid-connect/auth");
     //@formatter:on
   }
 }

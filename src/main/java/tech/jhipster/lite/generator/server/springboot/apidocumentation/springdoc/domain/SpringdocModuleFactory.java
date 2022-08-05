@@ -69,7 +69,7 @@ public class SpringdocModuleFactory {
         .set(propertyKey("springdoc.swagger-ui.oauth.realm"), propertyValue("jhipster"))
         .set(
           propertyKey("springdoc.oauth2.authorization-url"),
-          propertyValue("http://localhost:9080/auth/realms/jhipster/protocol/openid-connect/auth")
+          propertyValue("http://localhost:9080/realms/jhipster/protocol/openid-connect/auth")
         )
         .and()
       .springTestProperties()
@@ -77,7 +77,7 @@ public class SpringdocModuleFactory {
         .set(propertyKey("springdoc.swagger-ui.oauth.realm"), propertyValue("jhipster"))
         .set(
           propertyKey("springdoc.oauth2.authorization-url"),
-          propertyValue("http://localhost:9080/auth/realms/jhipster/protocol/openid-connect/auth")
+          propertyValue("http://localhost:9080/realms/jhipster/protocol/openid-connect/auth")
         )
         .and()
       .build();

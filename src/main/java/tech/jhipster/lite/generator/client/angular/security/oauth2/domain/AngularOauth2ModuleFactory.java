@@ -57,7 +57,7 @@ public class AngularOauth2ModuleFactory {
   private static final String KEYCLOAK_ENVIRONMENT =
     """
       keycloak: {
-        url: 'http://localhost:9080/auth',
+        url: 'http://localhost:9080',
         realm: 'jhipster',
         client_id: 'web_app'
       },

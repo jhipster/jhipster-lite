@@ -47,7 +47,6 @@
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
     <jacoco.version>0.8.8</jacoco.version>
     <mustache.version>0.9.10</mustache.version>
-    <guava.version>31.1-jre</guava.version>
     <jgit.version>6.2.0.202206071550-r</jgit.version>
     <archunit-junit5.version>0.23.1</archunit-junit5.version>
     <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
@@ -92,11 +91,6 @@
       <groupId>org.zeroturnaround</groupId>
       <artifactId>zt-zip</artifactId>
       <version>${zt-zip.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
     </dependency>
     <dependency>
       <groupId>com.github.spullara.mustache.java</groupId>

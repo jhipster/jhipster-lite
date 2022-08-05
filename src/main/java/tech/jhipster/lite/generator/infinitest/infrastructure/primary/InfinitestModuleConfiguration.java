@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
 import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
 
 @Configuration
-class InfinitestConfiguration {
+class InfinitestModuleConfiguration {
 
   @Bean
   JHipsterModuleResource infinitestModule(InfinitestApplicationService infinitest) {

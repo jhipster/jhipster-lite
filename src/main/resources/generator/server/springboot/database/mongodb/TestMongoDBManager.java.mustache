@@ -26,7 +26,6 @@ public class TestMongoDBManager implements ApplicationListener<ApplicationEnviro
         .withTmpFs(Collections.singletonMap("/testtmpfs", "rw"))
         .withCommand(
             """
-            --nojournal \
             --wiredTigerCacheSizeGB 0.25 \
             --wiredTigerCollectionBlockCompressor none \
             --slowOpSampleRate 0 \

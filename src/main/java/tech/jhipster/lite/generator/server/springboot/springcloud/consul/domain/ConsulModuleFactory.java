@@ -37,7 +37,7 @@ public class ConsulModuleFactory {
     DockerImage dockerImageConsul = dockerImages.get(DOCKER_IMAGE_CONSUL);
     DockerImage dockerImageConfigLoader = dockerImages.get(DOCKER_IMAGE_CONFIG_LOADER);
 
-    // prettier-ignore
+    //@formatter:off
     JHipsterModuleBuilder builder = moduleBuilder(properties)
       .context()
         .put("dockerImageConsul", dockerImageConsul.fullName())
@@ -77,6 +77,7 @@ public class ConsulModuleFactory {
         .set(propertyKey("spring.cloud.consul.enabled"), FALSE_VALUE)
         .set(propertyKey("spring.cloud.compatibility-verifier.enabled"), FALSE_VALUE)
         .and();
+    //@formatter:on
 
     return builder.build();
   }

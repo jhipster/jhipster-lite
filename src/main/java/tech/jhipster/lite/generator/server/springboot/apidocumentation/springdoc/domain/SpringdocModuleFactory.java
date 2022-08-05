@@ -59,7 +59,7 @@ public class SpringdocModuleFactory {
   }
 
   public JHipsterModule buildModuleWithSecurityOAuth2ForMvc(JHipsterModuleProperties moduleProperties) {
-    // prettier-ignore
+    //@formatter:off
     return buildModule(moduleProperties, SPRINGDOC_OPENAPI_UI_DEPENDENCY, SPRINGDOC_CONFIG_SECURITY_OAUTH2_JAVA_FILE)
       .javaDependencies()
         .addDependency(SPRINGDOC_OPENAPI_SECURITY_DEPENDENCY)
@@ -81,6 +81,7 @@ public class SpringdocModuleFactory {
         )
         .and()
       .build();
+    //@formatter:on
   }
 
   private JHipsterModuleBuilder buildModule(

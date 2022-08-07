@@ -12,5 +12,7 @@ export interface ModulesRepository {
 
   history(folder: ProjectFolder): Promise<ProjectHistory>;
 
+  format(folder: ProjectFolder): Promise<void>;
+
   download(folder: ProjectFolder): Promise<Project>;
 }

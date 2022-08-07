@@ -8,6 +8,7 @@ $jhipster-lite-secondary-color: #0f172a;
 $jhipster-lite-line-color: #334155;
 $jhipster-lite-primary-text-color: #ddeffc;
 $jhipster-lite-primary-button-background-color: #3e8abf;
+$jhipster-lite-disabled-button-background-color: #949494;
 $jhipster-lite-primary-input-color: #fff;
 $jhipster-lite-applied-module-color: #2f7b17;
 $jhipster-lite-font-family: Inter serif;
@@ -72,8 +73,13 @@ $jhipster-lite-box-radius: 6px;
     font-style: italic;
   }
 
-  &--download-project {
+  &--actions {
     align-self: flex-end;
+    width: 100%;
+  }
+
+  &--download-project,
+  &--format-project {
     margin-bottom: 15px;
     width: 100%;
     background-color: $jhipster-lite-primary-button-background-color;
@@ -81,6 +87,11 @@ $jhipster-lite-box-radius: 6px;
     color: $jhipster-lite-primary-input-color;
     border-radius: 6px;
     padding: 9px 17px;
+  }
+
+  &--download-project:disabled,
+  &--format-project:disabled {
+    background-color: $jhipster-lite-disabled-button-background-color;
   }
 }
 

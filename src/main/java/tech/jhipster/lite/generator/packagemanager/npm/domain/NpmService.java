@@ -8,8 +8,5 @@ public interface NpmService {
   void addDevDependency(Project project, String dependency, String version);
   void addScript(Project project, String name, String cmd);
 
-  void install(Project project);
-  void prettify(Project project);
-
   Optional<String> getVersion(String folder, String name);
 }

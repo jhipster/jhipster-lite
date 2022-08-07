@@ -4,9 +4,6 @@ public class GeneratorAction {
 
   private GeneratorAction() {}
 
-  public static final String NPM_INSTALL = "npm-install";
-  public static final String NPM_PRETTIFY = "npm-prettify";
-
   public static final String SVELTE = "svelte";
   public static final String SVEKTEKIT_STYLE = "svektekit-styled";
 }

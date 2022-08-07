@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator;
+package tech.jhipster.lite;
 
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
@@ -21,9 +21,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import tech.jhipster.lite.GitTestUtil;
-import tech.jhipster.lite.TestFileUtils;
-import tech.jhipster.lite.TestUtils;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
 public class ProjectsSteps {
@@ -59,6 +56,11 @@ public class ProjectsSteps {
     headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
     return headers;
+  }
+
+  @When("I format the created project")
+  public void formatCreatedProject() {
+    rest.postForEntity("/api/format-project?path=" + lastProjectFolder, null, Void.class);
   }
 
   @When("I get the created project information")

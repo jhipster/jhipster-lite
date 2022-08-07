@@ -70,6 +70,10 @@ export class RestModulesRepository implements ModulesRepository {
     return this.axiosInstance.get<RestProjectHistory>(`/api/projects?path=${folder}`).then(mapToModuleHistory);
   }
 
+  async format(folder: string): Promise<void> {
+    await this.axiosInstance.post<void, RestModuleToApply>(`/api/format-project?path=${folder}`);
+  }
+
   download(folder: string): Promise<Project> {
     const config: AxiosRequestConfig = {
       responseType: 'blob',

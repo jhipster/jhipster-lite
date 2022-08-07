@@ -64,6 +64,16 @@ describe('Rest modules repository', () => {
     });
   });
 
+  it('Should format project using axios', async () => {
+    const axiosInstance = stubAxiosHttp();
+    const repository = new RestModulesRepository(axiosInstance);
+    axiosInstance.post.resolves(dataBackendResponse(null));
+
+    await repository.format('path/to/project');
+
+    expect(axiosInstance.post.calledOnce).toBe(true);
+  });
+
   it('Should download project using axios', async () => {
     const axiosInstance = stubAxiosHttp();
     const repository = new RestModulesRepository(axiosInstance);

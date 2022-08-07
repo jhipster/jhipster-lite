@@ -486,6 +486,65 @@ describe('Modules', () => {
     });
   });
 
+  describe('Formatting', () => {
+    it('Should disable formatting without project path', async () => {
+      const wrapper = await componentWithModules();
+
+      wrapper.find(wrappedElement('folder-path-field')).setValue('');
+      await flushForm(wrapper);
+
+      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should disable applications during project formatting', async () => {
+      const modules = repositoryWithModules();
+      modules.format.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      const wrapper = await filledModuleForm(modules);
+
+      wrapper.find(wrappedElement('format-button')).trigger('click');
+      await flushForm(wrapper);
+
+      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should format file using repository', async () => {
+      const link = stubLink();
+      windowStub.document.createElement.returns(link);
+
+      const modules = repositoryWithModules();
+      modules.format.resolves(defaultProject());
+      const wrapper = await filledModuleForm(modules);
+
+      wrapper.find(wrappedElement('format-button')).trigger('click');
+      await flushForm(wrapper);
+      await flushPromises();
+
+      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
+      expect(modules.format.callCount).toBe(1);
+
+      const [message] = alertBus.success.lastCall.args;
+      expect(message).toBe('Project formatted');
+    });
+
+    it('Should handle format errors', async () => {
+      const modules = repositoryWithModules();
+      modules.format.rejects();
+      const wrapper = await filledModuleForm(modules);
+
+      wrapper.find(wrappedElement('format-button')).trigger('click');
+      await flushForm(wrapper);
+
+      await flushPromises();
+
+      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
+      expect(modules.format.callCount).toBe(1);
+
+      const [message] = alertBus.error.lastCall.args;
+      expect(message).toBe("Project can't be formatted");
+    });
+  });
+
   describe('Download', () => {
     it('Should disable download without project path', async () => {
       const wrapper = await componentWithModules();

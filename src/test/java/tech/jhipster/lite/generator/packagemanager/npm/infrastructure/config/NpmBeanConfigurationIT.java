@@ -12,7 +12,7 @@ import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmDomainService;
 class NpmBeanConfigurationIT {
 
   @Autowired
-  ApplicationContext applicationContext;
+  private ApplicationContext applicationContext;
 
   @Test
   void shouldGetBean() {

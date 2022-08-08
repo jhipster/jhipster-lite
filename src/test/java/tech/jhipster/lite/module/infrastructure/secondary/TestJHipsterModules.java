@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import tech.jhipster.lite.error.domain.Assert;
@@ -11,15 +12,25 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.npm.domain.NpmVersion;
+import tech.jhipster.lite.npm.domain.NpmVersions;
 import tech.jhipster.lite.npm.infrastructure.secondary.FileSystemNpmVersions;
 import tech.jhipster.lite.project.infrastructure.primary.JavaProjects;
 import tech.jhipster.lite.projectfile.infrastructure.secondary.FileSystemProjectFilesReader;
 
 public final class TestJHipsterModules {
 
-  private static final InitModuleFactory initModules = new InitModuleFactory(mock(GitRepository.class));
+  private static final InitModuleFactory initModules = new InitModuleFactory(mock(GitRepository.class), mockedNpmVersion());
 
   private TestJHipsterModules() {}
+
+  private static NpmVersions mockedNpmVersion() {
+    NpmVersions npmVersions = mock(NpmVersions.class);
+
+    lenient().when(npmVersions.get(anyString(), any())).thenReturn(new NpmVersion("1.1.1"));
+
+    return npmVersions;
+  }
 
   public static void applyInit(Project project) {
     applyer().module(initModules.buildFullModule(projectProperties(project))).properties(projectProperties(project)).slug("init").apply();

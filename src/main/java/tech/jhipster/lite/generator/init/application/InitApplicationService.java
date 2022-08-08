@@ -5,14 +5,15 @@ import tech.jhipster.lite.generator.init.domain.InitModuleFactory;
 import tech.jhipster.lite.git.domain.GitRepository;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.npm.domain.NpmVersions;
 
 @Service
 public class InitApplicationService {
 
   private final InitModuleFactory factory;
 
-  public InitApplicationService(GitRepository git) {
-    factory = new InitModuleFactory(git);
+  public InitApplicationService(GitRepository git, NpmVersions npmVersions) {
+    factory = new InitModuleFactory(git, npmVersions);
   }
 
   public JHipsterModule buildFullInitModule(JHipsterModuleProperties properties) {

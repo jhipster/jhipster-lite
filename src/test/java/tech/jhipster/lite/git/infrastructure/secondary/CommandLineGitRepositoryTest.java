@@ -47,7 +47,7 @@ class CommandLineGitRepositoryTest {
 
   private void loadGitConfig(Path project) {
     GitTestUtil.execute(project, "config", "init.defaultBranch", "main");
-    GitTestUtil.execute(project, "config", "user.email", "\"test@jhipster.com\"");
-    GitTestUtil.execute(project, "config", "user.name", "\"Test\"");
+    GitTestUtil.execute(project, "config", "user.email", "test@jhipster.com");
+    GitTestUtil.execute(project, "config", "user.name", "Test");
   }
 }

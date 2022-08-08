@@ -58,9 +58,9 @@ public class SpringdocModuleFactory {
     return buildModule(moduleProperties, SPRINGDOC_OPENAPI_WEBFLUX_UI_DEPENDENCY, SPRINGDOC_CONFIG_SECURITY_JWT_JAVA_FILE).build();
   }
 
-  public JHipsterModule buildModuleWithSecurityOAuth2ForMvc(JHipsterModuleProperties moduleProperties) {
+  public JHipsterModule buildModuleWithSecurityOAuth2ForMvc(JHipsterModuleProperties properties) {
     //@formatter:off
-    return buildModule(moduleProperties, SPRINGDOC_OPENAPI_UI_DEPENDENCY, SPRINGDOC_CONFIG_SECURITY_OAUTH2_JAVA_FILE)
+    return buildModule(properties, SPRINGDOC_OPENAPI_UI_DEPENDENCY, SPRINGDOC_CONFIG_SECURITY_OAUTH2_JAVA_FILE)
       .javaDependencies()
         .addDependency(SPRINGDOC_OPENAPI_SECURITY_DEPENDENCY)
         .and()
@@ -95,7 +95,8 @@ public class SpringdocModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-        .context()
+      .localEnvironment(localEnvironment("- [Local API doc](http://localhost:" + properties.serverPort().get() + "/swagger-ui/index.html)"))
+      .context()
         .put("baseNameLowercase", properties.projectBaseName().uncapitalized())
         .put("apiTitle", "Project API")
         .put("apiDescription", "Project description API")

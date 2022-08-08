@@ -206,6 +206,10 @@ public class JHipsterModule {
     return new DocumentationTitle(title);
   }
 
+  public static LocalEnvironment localEnvironment(String localEnvironment) {
+    return new LocalEnvironment(localEnvironment);
+  }
+
   public static ScriptKey scriptKey(String key) {
     return new ScriptKey(key);
   }
@@ -305,6 +309,12 @@ public class JHipsterModule {
 
     public JHipsterModuleBuilder documentation(DocumentationTitle title, JHipsterSource source) {
       shortcuts.documentation(title, source);
+
+      return this;
+    }
+
+    public JHipsterModuleBuilder localEnvironment(LocalEnvironment localEnvironment) {
+      shortcuts.localEnvironment(localEnvironment);
 
       return this;
     }

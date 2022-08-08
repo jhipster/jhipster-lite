@@ -62,6 +62,7 @@ public class SpringBootMvcsModulesFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("CORS configuration"), SOURCE.file("cors-configuration.md"))
+      .localEnvironment(localEnvironment("- [Local server](http://localhost:"+properties.serverPort().get()+")"))
       .javaDependencies()
         .addDependency(SPRING_BOOT_GROUP, artifactId("spring-boot-starter-validation"))
         .and()

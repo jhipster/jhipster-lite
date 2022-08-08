@@ -9,19 +9,22 @@ import tech.jhipster.lite.module.domain.JHipsterDestination;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.npm.domain.NpmVersionSource;
+import tech.jhipster.lite.npm.domain.NpmVersions;
 
 public class InitModuleFactory {
 
-  private static final String NODE_VERSION = "16.16.0";
   private static final JHipsterSource SOURCE = from("init");
   private static final JHipsterDestination DESTINATION = to(".");
 
   private final GitRepository git;
+  private final NpmVersions npmVersions;
 
-  public InitModuleFactory(GitRepository git) {
+  public InitModuleFactory(GitRepository git, NpmVersions npmVersions) {
     Assert.notNull("git", git);
 
     this.git = git;
+    this.npmVersions = npmVersions;
   }
 
   public JHipsterModule buildFullModule(JHipsterModuleProperties properties) {
@@ -30,7 +33,7 @@ public class InitModuleFactory {
       .context()
         .put("prettierEndOfLine", endOfLine(properties))
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
-        .put("nodeVersion", NODE_VERSION)
+        .put("nodeVersion", npmVersions.get("node", NpmVersionSource.COMMON).get())
         .and()
       .files()
         .batch(SOURCE, DESTINATION)

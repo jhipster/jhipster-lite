@@ -15,6 +15,9 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.npm.domain.NpmVersion;
+import tech.jhipster.lite.npm.domain.NpmVersionSource;
+import tech.jhipster.lite.npm.domain.NpmVersions;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -23,6 +26,9 @@ class InitModuleFactoryTest {
   @Mock
   private GitRepository git;
 
+  @Mock
+  private NpmVersions npmVersions;
+
   @InjectMocks
   private InitModuleFactory factory;
 
@@ -30,6 +36,7 @@ class InitModuleFactoryTest {
   void shouldBuildFullModule() {
     String folder = TestFileUtils.tmpDirForTest();
     JHipsterModuleProperties properties = properties(folder);
+    when(npmVersions.get("node", NpmVersionSource.COMMON)).thenReturn(new NpmVersion("16.0.0"));
 
     JHipsterModule module = factory.buildFullModule(properties);
 
@@ -46,7 +53,8 @@ class InitModuleFactoryTest {
       .containing(nodeDependency("prettier-plugin-packagejson"))
       .containing(nodeScript("prepare", "husky install"))
       .containing(nodeScript("prettier:check", "prettier --check \\\"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\\\""))
-      .containing(nodeScript("prettier:format", "prettier --write \\\"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\\\""));
+      .containing(nodeScript("prettier:format", "prettier --write \\\"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\\\""))
+      .containing("\"node\": \">=16.0.0\"");
   }
 
   @Test

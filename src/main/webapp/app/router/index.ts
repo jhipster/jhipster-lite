@@ -1,3 +1,4 @@
+import { LandscapeVue } from '@/module/primary/landscape';
 import { ModulesVue } from '@/module/primary/modules';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -10,6 +11,11 @@ const routes = [
     path: '/modules',
     name: 'Modules',
     component: ModulesVue,
+  },
+  {
+    path: '/landscape',
+    name: 'landscape',
+    component: LandscapeVue,
   },
 ];
 

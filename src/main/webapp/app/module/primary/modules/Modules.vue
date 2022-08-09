@@ -3,23 +3,12 @@
 <script lang="ts" src="./Modules.component.ts"></script>
 
 <style lang="scss">
-$jhipster-lite-primary-color: #0f5b90;
-$jhipster-lite-secondary-color: #0f172a;
-$jhipster-lite-line-color: #334155;
-$jhipster-lite-primary-text-color: #ddeffc;
-$jhipster-lite-primary-button-background-color: #3e8abf;
-$jhipster-lite-disabled-button-background-color: #949494;
-$jhipster-lite-primary-input-color: #fff;
-$jhipster-lite-applied-module-color: #2f7b17;
-$jhipster-lite-font-family: Inter serif;
-$jhipster-lite-box-radius: 6px;
-
 .jhipster-modules {
   font-family: $jhipster-lite-font-family;
   background-color: $jhipster-lite-secondary-color;
   color: $jhipster-lite-primary-text-color;
   display: flex;
-  height: calc(100vh - 68.87px);
+  height: calc(100vh - $jhipster-header-height);
   flex-direction: row-reverse;
 }
 

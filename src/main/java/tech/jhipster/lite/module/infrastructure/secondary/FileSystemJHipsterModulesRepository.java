@@ -6,6 +6,8 @@ import tech.jhipster.lite.module.domain.JHipsterModuleApplied;
 import tech.jhipster.lite.module.domain.JHipsterModuleChanges;
 import tech.jhipster.lite.module.domain.JHipsterModulesRepository;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModuleExecutionContext;
+import tech.jhipster.lite.module.domain.resource.JHipsterLandscape;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 import tech.jhipster.lite.npm.domain.NpmVersions;
 import tech.jhipster.lite.project.infrastructure.primary.JavaProjects;
 import tech.jhipster.lite.projectfile.domain.ProjectFilesReader;
@@ -13,20 +15,31 @@ import tech.jhipster.lite.projectfile.domain.ProjectFilesReader;
 @Repository
 class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
 
+  private final JavaProjects projects;
+  private final JHipsterModulesResources resources;
+
   private final FileSystemJHipsterModuleFiles files;
   private final FileSystemJavaBuildCommandsHandler javaBuild;
   private final FileSystemSpringPropertiesCommandsHandler springProperties;
   private final FileSystemPackageJsonHandler packageJson;
   private final FileSystemReplacer replacer;
-  private final JavaProjects projects;
+  private final JHipsterLandscape landscape;
 
-  public FileSystemJHipsterModulesRepository(ProjectFilesReader filesReader, NpmVersions npmVersions, JavaProjects projects) {
+  public FileSystemJHipsterModulesRepository(
+    ProjectFilesReader filesReader,
+    NpmVersions npmVersions,
+    JavaProjects projects,
+    JHipsterModulesResources resources
+  ) {
+    this.projects = projects;
+    this.resources = resources;
+    landscape = JHipsterLandscape.from(resources);
+
     files = new FileSystemJHipsterModuleFiles(filesReader);
     javaBuild = new FileSystemJavaBuildCommandsHandler();
     springProperties = new FileSystemSpringPropertiesCommandsHandler();
     packageJson = new FileSystemPackageJsonHandler(npmVersions);
     replacer = new FileSystemReplacer();
-    this.projects = projects;
   }
 
   @Override
@@ -49,5 +62,15 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   @Override
   public void applied(JHipsterModuleApplied moduleApplied) {
     projects.moduleApplied(moduleApplied);
+  }
+
+  @Override
+  public JHipsterModulesResources resources() {
+    return resources;
+  }
+
+  @Override
+  public JHipsterLandscape landscape() {
+    return landscape;
   }
 }

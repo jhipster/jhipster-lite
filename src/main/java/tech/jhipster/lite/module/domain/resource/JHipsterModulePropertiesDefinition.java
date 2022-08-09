@@ -1,6 +1,6 @@
-package tech.jhipster.lite.module.domain.properties;
+package tech.jhipster.lite.module.domain.resource;
 
-import static tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition.*;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.*;
 
 import java.util.ArrayList;
 import java.util.Collection;

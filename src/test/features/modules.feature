@@ -15,3 +15,10 @@ Feature: Modules
     Then I should have category "Spring Boot - Component Tests" with module
       | Slug        | springboot-cucumber                 |
       | Description | Add cucumber integration to project |
+
+  Scenario: Should get modules landscape
+    When I get modules landscape
+    Then I should have landscape level 0 with elements
+      | Type    | Slug               |
+      | MODULE  | infinitest-filters |
+      | FEATURE | startup            |

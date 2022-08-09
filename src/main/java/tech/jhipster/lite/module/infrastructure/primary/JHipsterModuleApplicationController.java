@@ -7,6 +7,7 @@ import org.springframework.util.StreamUtils;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 import tech.jhipster.lite.projectfolder.domain.ProjectFolder;
 
 class JHipsterModuleApplicationController extends JHipsterModuleController {

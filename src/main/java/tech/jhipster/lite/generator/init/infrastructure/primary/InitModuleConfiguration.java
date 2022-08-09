@@ -3,10 +3,11 @@ package tech.jhipster.lite.generator.init.infrastructure.primary;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.init.application.InitApplicationService;
-import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
-import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition;
-import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
-import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleApiDoc;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
 class InitModuleConfiguration {
@@ -19,6 +20,7 @@ class InitModuleConfiguration {
       .slug("init")
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Init", "Init project"))
+      .organization(organization())
       .tags("server", "init")
       .factory(inits::buildFullInitModule);
   }
@@ -31,6 +33,7 @@ class InitModuleConfiguration {
       .slug("init-minimal")
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Init", "Init minimal project"))
+      .organization(organization())
       .tags("server", "init")
       .factory(inits::buildMinimalInitModule);
   }
@@ -49,5 +52,9 @@ class InitModuleConfiguration {
           .build()
       )
       .build();
+  }
+
+  private JHipsterModuleOrganization organization() {
+    return JHipsterModuleOrganization.builder().feature("startup").build();
   }
 }

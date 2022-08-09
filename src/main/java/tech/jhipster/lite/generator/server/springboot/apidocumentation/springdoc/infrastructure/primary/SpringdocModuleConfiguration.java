@@ -3,9 +3,11 @@ package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdo
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.apidocumentation.springdoc.application.SpringdocApplicationService;
-import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
-import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
-import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleApiDoc;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization.JHipsterModuleOrganizationBuilder;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
 class SpringdocModuleConfiguration {
@@ -26,6 +28,7 @@ class SpringdocModuleConfiguration {
       .slug("springdoc-openapi")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi"))
+      .organization(springServerDependencyOrganization().build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_SPRING_BOOT, TAG_DOCUMENTATION)
       .factory(springdocApplicationService::buildSpringdocModule);
   }
@@ -38,6 +41,7 @@ class SpringdocModuleConfiguration {
       .slug("springdoc-openapi-with-security-jwt")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi with Security JWT"))
+      .organization(springServerDependencyOrganization().addModuleDependency("springboot-jwt").build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_SPRING_BOOT, TAG_DOCUMENTATION)
       .factory(springdocApplicationService::buildSpringdocModuleWithSecurityJWT);
   }
@@ -50,11 +54,16 @@ class SpringdocModuleConfiguration {
       .slug("springdoc-openapi-with-security-oauth2")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi with Security OAuth2"))
+      .organization(springServerDependencyOrganization().addModuleDependency("springboot-oauth2").build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_SPRING_BOOT, TAG_DOCUMENTATION, "authentication", "oauth2")
       .factory(springdocApplicationService::buildSpringdocModuleWithSecurityOAuth2);
   }
 
   private JHipsterModulePropertiesDefinition buildPropertiesDefinition() {
     return JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build();
+  }
+
+  private JHipsterModuleOrganizationBuilder springServerDependencyOrganization() {
+    return JHipsterModuleOrganization.builder().addFeatureDependency("spring-server");
   }
 }

@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator;
 
+import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.ProjectsSteps.*;
 import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
 
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import net.minidev.json.JSONArray;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -21,6 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import tech.jhipster.lite.GitTestUtil;
 import tech.jhipster.lite.JsonHelper;
+import tech.jhipster.lite.cucumber.CucumberTestContext;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 
 public class ModulesSteps {
@@ -137,6 +140,11 @@ public class ModulesSteps {
     post(applyModuleUrl(moduleSlug), query);
   }
 
+  @When("I get modules landscape")
+  public void getModuleLandscape() {
+    rest.getForEntity("/api/modules-landscape", Void.class);
+  }
+
   private void loadGitConfig(Path project) {
     GitTestUtil.execute(project, "init");
     GitTestUtil.execute(project, "config", "init.defaultBranch", "main");
@@ -237,5 +245,18 @@ public class ModulesSteps {
   @Then("I should have properties definitions")
   public void shouldHaveModulePropertiesDefintions(List<Map<String, Object>> propertiesDefintion) {
     assertThatLastResponse().hasOkStatus().hasElement("$.definitions").containingExactly(propertiesDefintion);
+  }
+
+  @Then("I should have landscape level {int} with elements")
+  public void shouldHavelandscapeLevelElements(int level, List<Map<String, String>> elements) {
+    assertThatLastResponse().hasOkStatus();
+
+    elements.forEach(element -> {
+      JSONArray types = (JSONArray) CucumberTestContext.getElement(
+        "$.levels[" + level + "].elements[?(@.slug=='" + element.get("Slug") + "')].type"
+      );
+
+      assertThat(types.get(0)).isEqualTo(element.get("Type"));
+    });
   }
 }

@@ -262,6 +262,7 @@
         <configuration>
           <excludes>
             <exclude>**/generator/buildtool/maven/.mvn/wrapper/*</exclude>
+            <exclude>src/main/webapp/app/common/primary/applicationlistener/WindowApplicationListener.ts</exclude>
           </excludes>
         </configuration>
       </plugin>

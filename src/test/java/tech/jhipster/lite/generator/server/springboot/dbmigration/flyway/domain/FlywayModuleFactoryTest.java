@@ -34,7 +34,6 @@ class FlywayModuleFactoryTest {
             <dependency>
               <groupId>org.flywaydb</groupId>
               <artifactId>flyway-mysql</artifactId>
-              <version>${flyway.version}</version>
             </dependency>
         """
       );
@@ -57,7 +56,6 @@ class FlywayModuleFactoryTest {
             <dependency>
               <groupId>org.flywaydb</groupId>
               <artifactId>flyway-mysql</artifactId>
-              <version>${flyway.version}</version>
             </dependency>
         """
       );
@@ -71,7 +69,6 @@ class FlywayModuleFactoryTest {
             <dependency>
               <groupId>org.flywaydb</groupId>
               <artifactId>flyway-core</artifactId>
-              <version>${flyway.version}</version>
             </dependency>
         """
       )

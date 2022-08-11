@@ -18,13 +18,10 @@ import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 class NpmDomainServiceTest {
 
   @Mock
-  NpmRepository npmRepository;
-
-  @Mock
-  ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
   @InjectMocks
-  NpmDomainService npmDomainService;
+  private NpmDomainService npmDomainService;
 
   @Test
   void shouldAddDependency() {
@@ -53,21 +50,5 @@ class NpmDomainServiceTest {
     String cmd = "husky install";
 
     assertThatCode(() -> npmDomainService.addScript(project, name, cmd)).doesNotThrowAnyException();
-  }
-
-  @Test
-  void shouldNpmInstall() {
-    Project project = tmpProject();
-    assertThatCode(() -> npmDomainService.install(project)).doesNotThrowAnyException();
-
-    verify(npmRepository).npmInstall(any(Project.class));
-  }
-
-  @Test
-  void shouldPrettify() {
-    Project project = tmpProject();
-    assertThatCode(() -> npmDomainService.prettify(project)).doesNotThrowAnyException();
-
-    verify(npmRepository).npmPrettierFormat(any(Project.class));
   }
 }

@@ -4,13 +4,13 @@ import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.GeneratorException;
 
 @Generated
-class ProjectZippingException extends GeneratorException {
+class ProjectFormattingException extends GeneratorException {
 
-  public ProjectZippingException(String message) {
+  public ProjectFormattingException(String message) {
     super(message);
   }
 
-  public ProjectZippingException(Throwable cause) {
-    super("Error creating zip file", cause);
+  public ProjectFormattingException(String message, Throwable cause) {
+    super(message, cause);
   }
 }

@@ -257,8 +257,29 @@ export default defineComponent({
       return appliedModules.value.includes(slug);
     };
 
+    const disabledFormatting = (): boolean => {
+      return operationInProgress.value || empty(folderPath.value);
+    };
+
     const disabledDownload = (): boolean => {
       return operationInProgress.value || empty(folderPath.value);
+    };
+
+    const formatProject = (): void => {
+      operationInProgress.value = true;
+
+      modules
+        .format(folderPath.value)
+        .then(() => {
+          operationInProgress.value = false;
+
+          alertBus.success('Project formatted');
+        })
+        .catch(() => {
+          operationInProgress.value = false;
+
+          alertBus.error("Project can't be formatted");
+        });
     };
 
     const downloadProject = (): void => {
@@ -313,7 +334,9 @@ export default defineComponent({
       applyModule,
       projectFolderUpdated,
       appliedModule,
+      disabledFormatting,
       disabledDownload,
+      formatProject,
       downloadProject,
     };
   },

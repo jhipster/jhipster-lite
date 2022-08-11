@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator;
 
+import static tech.jhipster.lite.ProjectsSteps.*;
 import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
-import static tech.jhipster.lite.generator.ProjectsSteps.*;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.project.domain.history.ProjectHistoryFixture.*;
 
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,11 +36,14 @@ import tech.jhipster.lite.project.domain.history.ProjectHistory;
 @UnitTest
 class FileSystemProjectsRepositoryTest {
 
-  private static final FileSystemProjectsRepository projects = new FileSystemProjectsRepository(JsonHelper.jsonMapper());
+  private static final FileSystemProjectsRepository projects = new FileSystemProjectsRepository(
+    JsonHelper.jsonMapper(),
+    mock(ProjectFormatter.class)
+  );
 
   @Nested
   @DisplayName("Download")
-  class FileSystemProjectsRepositoryDwonloadTest {
+  class FileSystemProjectsRepositoryDownloadTest {
 
     @Test
     void shouldGetEmptyProjectFromUnknownFolder() {
@@ -46,16 +51,16 @@ class FileSystemProjectsRepositoryTest {
     }
 
     @Test
-    void shouldNotGetProjectFromEmptyFolder() throws IOException {
+    void shouldGetEmptyProjectFromEmptyFolder() throws IOException {
       String folder = TestFileUtils.tmpDirForTest();
       Files.createDirectories(Paths.get(folder));
 
-      assertThatThrownBy(() -> projects.get(new ProjectPath(folder))).isExactlyInstanceOf(ProjectZippingException.class);
+      assertThat(projects.get(new ProjectPath(folder))).isEmpty();
     }
 
     @Test
     void shouldGetEmptyProjectFromFile() {
-      ProjectPath path = folder().addFile("src/test/resources/projects/maven/pom.xml").build();
+      ProjectPath path = folder().add("src/test/resources/projects/maven/pom.xml").build();
 
       ProjectPath filePath = new ProjectPath(path.get() + "/pom.xml");
 
@@ -64,35 +69,50 @@ class FileSystemProjectsRepositoryTest {
 
     @Test
     void shouldGetZippedProjectFromFolderWithoutPackageJson() {
-      ProjectPath path = folder().addFile("src/test/resources/projects/maven/pom.xml").build();
+      ProjectPath path = folder().add("src/test/resources/projects/maven/pom.xml").build();
 
       Project project = projects.get(path).get();
 
       assertThat(project.name()).isEqualTo(ProjectName.DEFAULT);
-      assertThat(zipFiles(project.content())).containsExactly("pom.xml");
+      assertThat(zippedFiles(project.content())).containsExactly("pom.xml");
     }
 
     @Test
     void shouldGetZippedProjectFromFolderEmptyPackageJson() {
-      ProjectPath path = folder().addFile("src/test/resources/projects/empty-package-json/package.json").build();
+      ProjectPath path = folder().add("src/test/resources/projects/empty-package-json/package.json").build();
 
       Project project = projects.get(path).get();
 
       assertThat(project.name()).isEqualTo(ProjectName.DEFAULT);
-      assertThat(zipFiles(project.content())).containsExactly("package.json");
+      assertThat(zippedFiles(project.content())).containsExactly("package.json");
     }
 
     @Test
     void shouldGetZippedProjectFromFolderPackageJsonWithProjectName() {
-      ProjectPath path = folder().addFile("src/test/resources/projects/package-json/package.json").build();
+      ProjectPath path = folder().add("src/test/resources/projects/package-json/package.json").build();
 
       Project project = projects.get(path).get();
 
       assertThat(project.name()).isEqualTo(new ProjectName("jhipster-project"));
-      assertThat(zipFiles(project.content())).containsExactly("package.json");
+      assertThat(zippedFiles(project.content())).containsExactly("package.json");
     }
 
-    private Collection<String> zipFiles(byte[] content) {
+    @Test
+    void shouldNotGetNodeModulesInZipFile() {
+      ProjectPath path = folder()
+        .add("src/test/resources/projects/node/package.json", "beer.json")
+        .add("src/test/resources/projects/node/package.json", "dummy/beer.json")
+        .add("src/test/resources/projects/node/package.json", "node_modules/package.json")
+        .build();
+
+      Project project = projects.get(path).get();
+
+      assertThat(zippedFiles(project.content()))
+        .doesNotContain("node_modules", "node_modules/package.json")
+        .contains("beer.json", "dummy" + FileSystems.getDefault().getSeparator() + "beer.json");
+    }
+
+    private Collection<String> zippedFiles(byte[] content) {
       try (ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(content))) {
         ZipEntry entry = zip.getNextEntry();
 
@@ -122,7 +142,7 @@ class FileSystemProjectsRepositoryTest {
       ObjectMapper json = mock(ObjectMapper.class);
       when(json.writerWithDefaultPrettyPrinter()).thenReturn(writer);
 
-      FileSystemProjectsRepository projects = new FileSystemProjectsRepository(json);
+      FileSystemProjectsRepository projects = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
 
       assertThatThrownBy(() -> projects.save(projectHistory())).isExactlyInstanceOf(GeneratorException.class);
     }
@@ -136,18 +156,18 @@ class FileSystemProjectsRepositoryTest {
       assertThat(Files.readString(Paths.get(path.get(), ".jhipster/modules", "history.json")))
         .isEqualToIgnoringWhitespace(
           """
-          {
-            "actions" : [
               {
-                "module" : "test-module",
-                "date" : "2021-12-03T10:15:30Z",
-                "properties" : {
-                  "key" : "value"
-                }
+                "actions" : [
+                  {
+                    "module" : "test-module",
+                    "date" : "2021-12-03T10:15:30Z",
+                    "properties" : {
+                      "key" : "value"
+                    }
+                  }
+                ]
               }
-            ]
-          }
-          """
+              """
         );
     }
   }
@@ -158,11 +178,11 @@ class FileSystemProjectsRepositoryTest {
 
     @Test
     void shouldHandleDeserializationErrors() throws StreamReadException, DatabindException, IOException {
-      ProjectPath path = folder().addFile("src/test/resources/projects/history/history.json", ".jhipster/modules/history.json").build();
+      ProjectPath path = folder().add("src/test/resources/projects/history/history.json", ".jhipster/modules/history.json").build();
       ObjectMapper json = mock(ObjectMapper.class);
       when(json.readValue(any(byte[].class), eq(PersistedProjectHistory.class))).thenThrow(IOException.class);
 
-      FileSystemProjectsRepository projects = new FileSystemProjectsRepository(json);
+      FileSystemProjectsRepository projects = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
 
       assertThatThrownBy(() -> projects.getHistory(path)).isExactlyInstanceOf(GeneratorException.class);
     }
@@ -179,7 +199,7 @@ class FileSystemProjectsRepositoryTest {
 
     @Test
     void shouldGetExistingHistory() {
-      ProjectPath path = folder().addFile("src/test/resources/projects/history/history.json", ".jhipster/modules/history.json").build();
+      ProjectPath path = folder().add("src/test/resources/projects/history/history.json", ".jhipster/modules/history.json").build();
 
       ProjectHistory history = projects.getHistory(path);
 
@@ -210,11 +230,11 @@ class FileSystemProjectsRepositoryTest {
       }
     }
 
-    public FolderBuilder addFile(String source) {
-      return addFile(source, Paths.get(source).getFileName().toString());
+    public FolderBuilder add(String source) {
+      return add(source, Paths.get(source).getFileName().toString());
     }
 
-    public FolderBuilder addFile(String source, String destination) {
+    public FolderBuilder add(String source, String destination) {
       Path sourcePath = Paths.get(source);
 
       try {

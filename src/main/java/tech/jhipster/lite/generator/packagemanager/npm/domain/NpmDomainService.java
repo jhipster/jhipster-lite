@@ -21,11 +21,9 @@ public class NpmDomainService implements NpmService {
   public static final String NAME = DQ + "name" + DQ;
   public static final String DESCRIPTION = DQ + "description" + DQ;
 
-  private final NpmRepository npmRepository;
   private final ProjectRepository projectRepository;
 
-  public NpmDomainService(NpmRepository npmRepository, ProjectRepository projectRepository) {
-    this.npmRepository = npmRepository;
+  public NpmDomainService(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
   }
 
@@ -61,16 +59,6 @@ public class NpmDomainService implements NpmService {
     } else {
       projectRepository.replaceText(project, "", PACKAGE_JSON, needle, newText + ",");
     }
-  }
-
-  @Override
-  public void install(Project project) {
-    this.npmRepository.npmInstall(project);
-  }
-
-  @Override
-  public void prettify(Project project) {
-    this.npmRepository.npmPrettierFormat(project);
   }
 
   @Override

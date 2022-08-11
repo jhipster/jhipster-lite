@@ -10,6 +10,7 @@ export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;
   apply: SinonStub;
   history: SinonStub;
+  format: SinonStub;
   download: SinonStub;
 }
 
@@ -18,6 +19,7 @@ export const stubModulesRepository = (): ModulesRepositoryStub =>
     list: sinon.stub(),
     apply: sinon.stub(),
     history: sinon.stub(),
+    format: sinon.stub(),
     download: sinon.stub(),
   } as ModulesRepositoryStub);
 

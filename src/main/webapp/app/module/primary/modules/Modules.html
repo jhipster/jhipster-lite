@@ -75,15 +75,27 @@
       </div>
     </div>
 
-    <button
-      tabindex="5"
-      class="bi bi-file-earmark-arrow-down jhipster-modules-form--download-project"
-      @click="downloadProject()"
-      :disabled="disabledDownload()"
-      data-selector="download-button"
-    >
-      Download
-    </button>
+    <div class="jhipster-modules-form--actions">
+      <button
+        tabindex="5"
+        class="bi bi-bricks jhipster-modules-form--format-project"
+        @click="formatProject()"
+        :disabled="disabledFormatting()"
+        data-selector="format-button"
+      >
+        Format
+      </button>
+
+      <button
+        tabindex="5"
+        class="bi bi-file-earmark-arrow-down jhipster-modules-form--download-project"
+        @click="downloadProject()"
+        :disabled="disabledDownload()"
+        data-selector="download-button"
+      >
+        Download
+      </button>
+    </div>
   </aside>
 
   <div class="jhipster-modules-list">

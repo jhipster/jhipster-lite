@@ -21,27 +21,34 @@ public class DummyFlywayModuleFactory {
   private static final String NOT_POSTGRESQL_CHANGELOG = "00000000000_dummy_feature_schema.sql";
   private static final String POSTGRESQL_CHANGELOG = "00000000000_postgresql_dummy_feature_schema.sql";
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties, Instant date) {
+  public JHipsterModule buildPostgresqlModule(JHipsterModuleProperties properties, Instant date) {
     Assert.notNull("properties", properties);
     Assert.notNull("date", date);
-
-    String sourceFile = getSourceFile(properties);
 
     //@formatter:off
     return moduleBuilder(properties)
       .files()
-        .add(SOURCE.file(sourceFile), MIGRATION_DESTINATION.append(dummyFlywayFilename(date)))
+        .add(SOURCE.file(POSTGRESQL_CHANGELOG), changelogDestination(date))
         .and()
       .build();
     //@formatter:on
   }
 
-  private String getSourceFile(JHipsterModuleProperties properties) {
-    if (properties.getBoolean("usePostgreSQLTypes")) {
-      return POSTGRESQL_CHANGELOG;
-    }
+  public JHipsterModule buildNotPostgresqlModule(JHipsterModuleProperties properties, Instant date) {
+    Assert.notNull("properties", properties);
+    Assert.notNull("date", date);
 
-    return NOT_POSTGRESQL_CHANGELOG;
+    //@formatter:off
+    return moduleBuilder(properties)
+      .files()
+        .add(SOURCE.file(NOT_POSTGRESQL_CHANGELOG), changelogDestination(date))
+        .and()
+      .build();
+    //@formatter:on
+  }
+
+  private JHipsterDestination changelogDestination(Instant date) {
+    return MIGRATION_DESTINATION.append(dummyFlywayFilename(date));
   }
 
   private String dummyFlywayFilename(Instant date) {

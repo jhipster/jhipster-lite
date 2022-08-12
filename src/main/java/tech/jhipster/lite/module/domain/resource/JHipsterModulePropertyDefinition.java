@@ -1,7 +1,12 @@
-package tech.jhipster.lite.module.domain.properties;
+package tech.jhipster.lite.module.domain.resource;
 
 import java.util.Optional;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.properties.JHipsterPropertyDescription;
+import tech.jhipster.lite.module.domain.properties.JHipsterPropertyExample;
+import tech.jhipster.lite.module.domain.properties.JHipsterPropertyKey;
+import tech.jhipster.lite.module.domain.properties.JHipsterPropertyType;
 
 public class JHipsterModulePropertyDefinition {
 
@@ -24,7 +29,7 @@ public class JHipsterModulePropertyDefinition {
     order = builder.order;
   }
 
-  static JHipsterModulePropertyDefinition basePackageProperty() {
+  public static JHipsterModulePropertyDefinition basePackageProperty() {
     return mandatoryStringProperty(JHipsterModuleProperties.BASE_PACKAGE_PROPERTY)
       .description("Base java package")
       .example("tech.jhipster.lite")
@@ -32,7 +37,7 @@ public class JHipsterModulePropertyDefinition {
       .build();
   }
 
-  static JHipsterModulePropertyDefinition projectNameProperty() {
+  public static JHipsterModulePropertyDefinition projectNameProperty() {
     return mandatoryStringProperty(JHipsterModuleProperties.PROJECT_NAME_PROPERTY)
       .description("Project full name")
       .example("JHipster Project")
@@ -56,7 +61,7 @@ public class JHipsterModulePropertyDefinition {
       .build();
   }
 
-  static JHipsterModulePropertyDefinition indentationProperty() {
+  public static JHipsterModulePropertyDefinition indentationProperty() {
     return optionalIntegerProperty(JHipsterModuleProperties.INDENTATION_PROPERTY)
       .description("Number of spaces in indentation")
       .example("2")

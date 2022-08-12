@@ -1,0 +1,35 @@
+<div class="jhipster-landscape" v-if="landscape.isLoading()" data-selector="landscape-loader">Loading</div>
+<div class="jhipster-landscape" v-else data-selector="landscape" ref="landscapeContainer">
+  <div class="jhipster-landscape-levels">
+    <ul class="jhipster-landscape-levels--level" v-for="level in landscape.value().levels">
+      <li class="jhipster-landscape-element" v-for="element in level.elements">
+        <div class="jhipster-landscape-feature" v-if="isFeature(element)" :ref="el => landscapeElements.set(element.slug, el)">
+          <h2 class="jhipster-landscape-feature--title">{{ element.slug }}</h2>
+          <ul class="jhipster-landscape-feature--modules">
+            <li class="jhipster-landscape-element" v-for="module in element.modules">
+              <LandscapeModuleVue :module="module" :landscapeElements="landscapeElements" />
+            </li>
+          </ul>
+        </div>
+
+        <LandscapeModuleVue :module="element" :landscapeElements="landscapeElements" v-else />
+      </li>
+    </ul>
+  </div>
+
+  <svg
+    class="jhipster-landscape-connectors"
+    :style="`width: ${landscapeSize.width}px; height: ${landscapeSize.height}px`"
+    data-selector="landscape-connectors"
+  >
+    <line
+      v-for="connector in landscapeConnectorsLines"
+      class="jhipster-landscape-connectors--line"
+      data-selector="landscape-connectors"
+      :x1="connector.start.x + 'px'"
+      :y1="connector.start.y + 'px'"
+      :x2="connector.end.x + 'px'"
+      :y2="connector.end.y + 'px'"
+    />
+  </svg>
+</div>

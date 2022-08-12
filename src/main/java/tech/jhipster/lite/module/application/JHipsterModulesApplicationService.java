@@ -7,22 +7,35 @@ import tech.jhipster.lite.module.domain.JHipsterModulesApplyer;
 import tech.jhipster.lite.module.domain.JHipsterModulesRepository;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesCurrentVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
+import tech.jhipster.lite.module.domain.resource.JHipsterLandscape;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 
 @Service
 public class JHipsterModulesApplicationService {
 
+  private final JHipsterModulesRepository modules;
   private final JHipsterModulesApplyer applyer;
 
   public JHipsterModulesApplicationService(
-    JHipsterModulesRepository modulesRepository,
+    JHipsterModulesRepository modules,
     JavaDependenciesCurrentVersionsRepository currentVersions,
     ProjectJavaDependenciesRepository projectDependencies,
     GitRepository git
   ) {
-    applyer = new JHipsterModulesApplyer(modulesRepository, currentVersions, projectDependencies, git);
+    this.modules = modules;
+
+    applyer = new JHipsterModulesApplyer(modules, currentVersions, projectDependencies, git);
   }
 
   public void apply(JHipsterModuleToApply module) {
     applyer.apply(module);
+  }
+
+  public JHipsterModulesResources resources() {
+    return modules.resources();
+  }
+
+  public JHipsterLandscape landscape() {
+    return modules.landscape();
   }
 }

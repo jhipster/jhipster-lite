@@ -1,7 +1,7 @@
-package tech.jhipster.lite.module.infrastructure.primary;
+package tech.jhipster.lite.module.domain.resource;
 
 import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.module.infrastructure.primary.JHipsterModulesResourceFixture.*;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;

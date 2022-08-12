@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
 import java.util.Collection;
-import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 
 class RestJHipsterModulePropertiesDefinition {
 

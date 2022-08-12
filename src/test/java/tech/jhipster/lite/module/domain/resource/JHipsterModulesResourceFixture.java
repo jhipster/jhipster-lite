@@ -1,17 +1,19 @@
-package tech.jhipster.lite.module.infrastructure.primary;
+package tech.jhipster.lite.module.domain.resource;
 
-import static tech.jhipster.lite.module.domain.JHipsterModuleTags.*;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import tech.jhipster.lite.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModuleTags;
+import tech.jhipster.lite.module.domain.JHipsterModuleTags.JHipsterModuleTagsBuilder;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization.JHipsterModuleOrganizationBuilder;
 
-final class JHipsterModulesResourceFixture {
+public final class JHipsterModulesResourceFixture {
 
   private JHipsterModulesResourceFixture() {}
 
-  static JHipsterModulesResources moduleResources() {
+  public static JHipsterModulesResources moduleResources() {
     return new JHipsterModulesResources(
       List.of(
         defaultModuleResource(),
@@ -26,28 +28,31 @@ final class JHipsterModulesResourceFixture {
     );
   }
 
-  static JHipsterModuleResource defaultModuleResource() {
+  public static JHipsterModuleResource defaultModuleResource() {
     return defaultModuleResourceBuilder().build();
   }
 
-  static JHipsterTestModuleResourceBuilder defaultModuleResourceBuilder() {
+  public static JHipsterTestModuleResourceBuilder defaultModuleResourceBuilder() {
     return new JHipsterTestModuleResourceBuilder()
       .legacyUrl("/api/legacy")
       .slug("slug")
       .operation("operation")
-      .tags(new JHipsterModuleTagsBuilder().add("tag1").build())
+      .tags(JHipsterModuleTags.builder().add("tag1").build())
       .factory(properties -> null);
   }
 
-  static class JHipsterTestModuleResourceBuilder {
+  public static class JHipsterTestModuleResourceBuilder {
 
     private String legacyUrl;
     private String slug;
     private String tag = "tag";
     private String operation;
     private JHipsterModuleFactory factory;
-
     private JHipsterModuleTags tags;
+    private String feature;
+
+    private final Collection<String> moduleDependencies = new ArrayList<>();
+    private final Collection<String> featureDependencies = new ArrayList<>();
 
     private JHipsterTestModuleResourceBuilder() {}
 
@@ -81,6 +86,24 @@ final class JHipsterModulesResourceFixture {
       return this;
     }
 
+    public JHipsterTestModuleResourceBuilder feature(String feature) {
+      this.feature = feature;
+
+      return this;
+    }
+
+    public JHipsterTestModuleResourceBuilder moduleDependency(String module) {
+      moduleDependencies.add(module);
+
+      return this;
+    }
+
+    public JHipsterTestModuleResourceBuilder featureDependency(String feature) {
+      featureDependencies.add(feature);
+
+      return this;
+    }
+
     public JHipsterTestModuleResourceBuilder tags(JHipsterModuleTags tags) {
       this.tags = tags;
 
@@ -94,8 +117,18 @@ final class JHipsterModulesResourceFixture {
         .slug(slug)
         .propertiesDefinition(JHipsterModulesFixture.propertiesDefinition())
         .apiDoc(new JHipsterModuleApiDoc(tag, operation))
+        .organization(buildOrganization())
         .tags(tags)
         .factory(factory);
+    }
+
+    private JHipsterModuleOrganization buildOrganization() {
+      JHipsterModuleOrganizationBuilder builder = JHipsterModuleOrganization.builder().feature(feature);
+
+      moduleDependencies.forEach(builder::addModuleDependency);
+      featureDependencies.forEach(builder::addFeatureDependency);
+
+      return builder.build();
     }
   }
 }

@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture;
 import tech.jhipster.lite.npm.domain.NpmVersion;
 import tech.jhipster.lite.npm.domain.NpmVersions;
 import tech.jhipster.lite.npm.infrastructure.secondary.FileSystemNpmVersions;
@@ -69,7 +70,8 @@ public final class TestJHipsterModules {
       FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
         filesReader,
         new FileSystemNpmVersions(filesReader),
-        mock(JavaProjects.class)
+        mock(JavaProjects.class),
+        JHipsterModulesResourceFixture.moduleResources()
       );
 
       return new JHipsterModulesApplicationService(

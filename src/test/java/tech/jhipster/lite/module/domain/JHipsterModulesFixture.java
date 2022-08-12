@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition.*;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +22,8 @@ import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 
 public final class JHipsterModulesFixture {
 

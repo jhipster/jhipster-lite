@@ -3,9 +3,10 @@ package tech.jhipster.lite.generator.server.springboot.webflux.web.infrastructur
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.webflux.web.application.SpringBootWebfluxApplicationService;
-import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertiesDefinition;
-import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleApiDoc;
-import tech.jhipster.lite.module.infrastructure.primary.JHipsterModuleResource;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleApiDoc;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
 class SpringBootWebfluxModuleConfiguration {
@@ -18,6 +19,7 @@ class SpringBootWebfluxModuleConfiguration {
       .slug("springboot-webflux-netty")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addServerPort().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Webflux", "Add Spring Boot Webflux with Netty"))
+      .organization(JHipsterModuleOrganization.SPRINGBOOT_DEPENDENCY)
       .tags("server", "webflux")
       .factory(webflux::buildModule);
   }

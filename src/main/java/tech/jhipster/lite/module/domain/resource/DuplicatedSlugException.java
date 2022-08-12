@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.infrastructure.primary;
+package tech.jhipster.lite.module.domain.resource;
 
 import tech.jhipster.lite.error.domain.GeneratorException;
 

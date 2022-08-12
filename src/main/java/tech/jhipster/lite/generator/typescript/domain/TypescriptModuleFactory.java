@@ -17,7 +17,7 @@ public class TypescriptModuleFactory {
 
   private static final JHipsterSource SOURCE = from("typescript");
 
-  public JHipsterModule buildTypescriptModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     //@formatter:off

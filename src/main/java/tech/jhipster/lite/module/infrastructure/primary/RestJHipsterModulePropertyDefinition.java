@@ -1,9 +1,9 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
-import tech.jhipster.lite.module.domain.properties.JHipsterModulePropertyDefinition;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyDescription;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyExample;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyType;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition;
 
 class RestJHipsterModulePropertyDefinition {
 

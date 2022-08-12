@@ -10,14 +10,33 @@
 
   &--slug {
     text-align: center;
-    padding: 5px 10px;
-    font-weight: bold;
+
+    &.-extended {
+      padding: 5px 10px;
+      font-weight: bold;
+    }
+
+    &.-compacted {
+      padding: 2px 3px;
+    }
   }
 
   &--operation {
     border-top: 1px dotted $jhipster-lite-line-color;
     padding: 5px 10px;
     font-size: 0.8em;
+
+    &.-compacted {
+      display: none;
+    }
+  }
+
+  &.-compacted {
+    margin-bottom: 5px;
+  }
+
+  &.-extended {
+    margin-bottom: 15px;
   }
 }
 </style>

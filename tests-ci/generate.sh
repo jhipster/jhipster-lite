@@ -102,7 +102,7 @@ elif [[ $application == 'fullapp' ]]; then
 
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
@@ -127,7 +127,7 @@ elif [[ $application == 'oauth2app' ]]; then
 
   callApi "/api/servers/spring-boot/security-systems/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2/account"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-oauth2"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-oauth2"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/component-tests/cucumber-oauth2-authentication"
   callApi "/api/servers/bean-validation-test"
@@ -137,14 +137,12 @@ elif [[ $application == 'mysqlapp' ]]; then
   springboot_mvc
   sonar_back
 
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
-
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
 
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
@@ -160,7 +158,7 @@ elif [[ $application == 'mariadbapp' ]]; then
   springboot_mvc
   sonar_back
 
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc"
 
   callApi "/api/servers/spring-boot/databases/mariadb"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
@@ -171,7 +169,7 @@ elif [[ $application == 'mssqlapp' ]]; then
   springboot_mvc
   sonar_back
 
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc"
 
   callApi "/api/servers/spring-boot/databases/mssql"
 
@@ -184,7 +182,7 @@ elif [[ $application == 'flywayapp' ]]; then
 
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
@@ -204,7 +202,7 @@ elif [[ $application == 'undertowapp' ]]; then
 
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
@@ -247,7 +245,7 @@ elif [[ $application == 'mongodbapp' ]]; then
   
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/bean-validation-test"
@@ -263,7 +261,7 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/clients/angular"
 
   callApi "/api/servers/spring-boot/security-systems/jwt"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/clients/angular/jwt"
   callApi "/api/clients/angular/admin-pages/health"
@@ -274,7 +272,7 @@ elif [[ $application == 'angularoauth2app' ]]; then
 
   callApi "/api/developer-tools/frontend-maven-plugin"
   callApi "/api/clients/angular"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc"
   callApi "/api/clients/angular/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2"
   callApi "/api/servers/spring-boot/security-systems/oauth2/account"
@@ -288,7 +286,7 @@ elif [[ $application == 'reactapp' ]]; then
   callApi "/api/clients/cypress"
 
   callApi "/api/servers/spring-boot/security-systems/jwt"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/clients/react/jwt"
 
@@ -327,7 +325,7 @@ elif [[ $application == 'reactiveapp' ]]; then
 
   callApi "/api/servers/spring-boot/reactive-servers/netty"
   callApi "/api/servers/spring-boot/technical-tools/actuator"
-  callApi "/api/servers/spring-boot/api-documentations/springdoc/init"
+  callApi "/api/servers/spring-boot/api-documentations/springdoc/init-webflux"
 
 else
   echo "*** Unknown configuration..."

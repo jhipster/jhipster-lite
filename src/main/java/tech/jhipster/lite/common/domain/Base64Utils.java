@@ -1,7 +1,7 @@
 package tech.jhipster.lite.common.domain;
 
 import java.security.SecureRandom;
-import org.apache.tomcat.util.codec.binary.Base64;
+import java.util.Base64;
 
 public class Base64Utils {
 
@@ -18,7 +18,7 @@ public class Base64Utils {
   }
 
   public static String getBase64Secret(String value, int length) {
-    return Base64.encodeBase64String(value != null ? value.getBytes() : getRandomHexString(length).getBytes());
+    return Base64.getEncoder().encodeToString(value != null ? value.getBytes() : getRandomHexString(length).getBytes());
   }
 
   public static String getRandomHexString(int length) {

@@ -6,6 +6,5 @@ export interface RestLandscape {
   levels: RestLandscapeLevel[];
 }
 
-export const mapToLandscape = (response: AxiosResponse<RestLandscape>): Landscape => ({
-  levels: response.data.levels.map(toLandscapeLevel),
-});
+export const mapToLandscape = (response: AxiosResponse<RestLandscape>): Landscape =>
+  new Landscape(response.data.levels.map(toLandscapeLevel));

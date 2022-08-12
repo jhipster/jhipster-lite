@@ -8,7 +8,7 @@
   background-color: $jhipster-lite-secondary-color;
   color: $jhipster-lite-primary-text-color;
   display: flex;
-  height: calc(100vh - $jhipster-header-height);
+  height: calc(100vh - $jhipster-lite-header-height);
   flex-direction: row-reverse;
 }
 

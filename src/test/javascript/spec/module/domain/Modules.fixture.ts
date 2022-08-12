@@ -91,8 +91,8 @@ export const defaultProject = (): Project => ({
   content: Uint8Array.from([]).buffer,
 });
 
-export const defaultLandscape = (): Landscape => ({
-  levels: [
+export const defaultLandscape = (): Landscape =>
+  new Landscape([
     {
       elements: [
         new LandscapeModule('infinitest', 'Add infinitest filters', []),
@@ -134,5 +134,4 @@ export const defaultLandscape = (): Landscape => ({
     {
       elements: [new LandscapeModule('dummy-feature', 'Add dummy feature', ['spring-mvc', 'bean-validation-test'])],
     },
-  ],
-});
+  ]);

@@ -38,5 +38,9 @@
   &.-extended {
     margin-bottom: 15px;
   }
+
+  &.-highlighted {
+    animation: $jhipster-lite-highlight-animation;
+  }
 }
 </style>

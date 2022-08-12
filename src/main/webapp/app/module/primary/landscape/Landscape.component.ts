@@ -10,6 +10,7 @@ import { LandscapeModuleVue } from '../landscape-module';
 import { buildConnectors, LandscapeConnectorLine } from './LandscapeConnector';
 import { emptyLandscapeSize, LandscapeConnectorsSize } from './LandscapeConnectorsSize';
 import { DisplayMode } from './DisplayMode';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 
 export default defineComponent({
   name: 'LandscapeVue',
@@ -25,6 +26,8 @@ export default defineComponent({
     const landscapeConnectorsLines = ref<LandscapeConnectorLine[]>([]);
     const landscapeElements = ref(new Map<string, HTMLElement>());
     const landscapeSize = ref<LandscapeConnectorsSize>(emptyLandscapeSize());
+
+    const emphasizedModule = ref<ModuleSlug>();
 
     onMounted(() => {
       modules.landscape().then(response => {
@@ -67,7 +70,9 @@ export default defineComponent({
         .flatMap(dependency =>
           buildConnectors({
             dependentElement,
+            dependentElementSlug: module.slug,
             dependencyElement: landscapeElements.value.get(dependency)!,
+            dependencyElementSlug: dependency,
             container: landscapeContainer.value!,
           })
         )
@@ -107,6 +112,27 @@ export default defineComponent({
       });
     };
 
+    const elementFlavor = (module: ModuleSlug): string => {
+      if (emphasizedModule.value === undefined) {
+        return flavoredClass();
+      }
+
+      const isDependentModule = landscape.value.value().getModule(emphasizedModule.value).hasDependency(module);
+      if (isDependentModule) {
+        return flavoredClass('-highlighted');
+      }
+
+      return flavoredClass();
+    };
+
+    const flavoredClass = (alternative?: string): string => {
+      if (alternative === undefined) {
+        return modeClass();
+      }
+
+      return alternative + ' ' + modeClass();
+    };
+
     const modeClass = (): string => {
       switch (selectedMode.value) {
         case 'COMPACTED':
@@ -114,6 +140,21 @@ export default defineComponent({
         case 'EXTENDED':
           return '-extended';
       }
+    };
+    const emphasizeModule = (module: ModuleSlug): void => {
+      emphasizedModule.value = module;
+    };
+
+    const deEmphasizeModule = (): void => {
+      emphasizedModule.value = undefined;
+    };
+
+    const connectorClass = (startingElement: string): string => {
+      if (startingElement === emphasizedModule.value) {
+        return '-highlighted';
+      }
+
+      return '';
     };
 
     return {
@@ -126,6 +167,10 @@ export default defineComponent({
       modeSwitchClass,
       selectMode,
       modeClass,
+      emphasizeModule,
+      deEmphasizeModule,
+      connectorClass,
+      elementFlavor,
     };
   },
 });

@@ -8,4 +8,25 @@ $jhipster-lite-primary-input-color: #fff;
 $jhipster-lite-applied-module-color: #2f7b17;
 $jhipster-lite-font-family: Inter serif;
 $jhipster-lite-box-radius: 6px;
-$jhipster-header-height: 68.87px;
+$jhipster-lite-header-height: 68.87px;
+$jhipster-lite-highlight-animation: highlightAnimation 2s infinite;
+
+$jhipster-lite-hightlight-start-color: #3ebf5a;
+$jhipster-lite-hightlight-end-color: #0f9020;
+
+@keyframes highlightAnimation {
+  0% {
+    background-color: $jhipster-lite-hightlight-start-color;
+    stroke: $jhipster-lite-hightlight-start-color;
+  }
+
+  50% {
+    background-color: $jhipster-lite-hightlight-end-color;
+    stroke: $jhipster-lite-hightlight-end-color;
+  }
+
+  100% {
+    background-color: $jhipster-lite-hightlight-start-color;
+    stroke: $jhipster-lite-hightlight-start-color;
+  }
+}

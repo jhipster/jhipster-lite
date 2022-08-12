@@ -7,6 +7,8 @@ export interface LandscapeConnector {
 export interface LandscapeConnectorLine {
   start: LandscapeConnectorPosition;
   end: LandscapeConnectorPosition;
+  startingElement: string;
+  endingElement: string;
 }
 
 export interface LandscapeConnectorPosition {
@@ -15,6 +17,8 @@ export interface LandscapeConnectorPosition {
 }
 
 export interface BuildConnectorsParameters {
+  dependencyElementSlug: string;
+  dependentElementSlug: string;
   dependencyElement: HTMLElement;
   dependentElement: DOMRect;
   container: HTMLElement;
@@ -32,7 +36,7 @@ export const buildConnectors = (parameters: BuildConnectorsParameters): Landscap
   const dependentElementX = parameters.dependentElement.x + xPad;
   const dependentElementY = Math.round(parameters.dependentElement.y + parameters.dependentElement.height / 2) + yPad;
 
-  const dependencyElementSpacer = {
+  const dependencyElementSpacer: LandscapeConnectorLine = {
     start: {
       x: dependencyElementX,
       y: dependencyElementY,
@@ -41,9 +45,11 @@ export const buildConnectors = (parameters: BuildConnectorsParameters): Landscap
       x: dependencyElementX + SPACER_SIZE,
       y: dependencyElementY,
     },
+    startingElement: parameters.dependentElementSlug,
+    endingElement: parameters.dependencyElementSlug,
   };
 
-  const dependentElementSpacer = {
+  const dependentElementSpacer: LandscapeConnectorLine = {
     start: {
       x: dependentElementX - SPACER_SIZE,
       y: dependentElementY,
@@ -52,9 +58,11 @@ export const buildConnectors = (parameters: BuildConnectorsParameters): Landscap
       x: dependentElementX,
       y: dependentElementY,
     },
+    startingElement: parameters.dependentElementSlug,
+    endingElement: parameters.dependencyElementSlug,
   };
 
-  const diagonalLine = {
+  const diagonalLine: LandscapeConnectorLine = {
     start: {
       x: dependencyElementX + SPACER_SIZE,
       y: dependencyElementY,
@@ -63,6 +71,8 @@ export const buildConnectors = (parameters: BuildConnectorsParameters): Landscap
       x: dependentElementX - SPACER_SIZE,
       y: dependentElementY,
     },
+    startingElement: parameters.dependentElementSlug,
+    endingElement: parameters.dependencyElementSlug,
   };
 
   return {

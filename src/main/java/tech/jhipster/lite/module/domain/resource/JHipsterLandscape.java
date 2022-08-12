@@ -28,15 +28,13 @@ public class JHipsterLandscape {
   }
 
   private static Optional<String> duplicatedSlug(JHipsterModulesResources resources) {
-    List<String> featureSlugs = resources
-      .stream()
-      .map(resource -> resource.organization().feature())
-      .filter(Optional::isPresent)
-      .map(Optional::get)
-      .map(JHipsterFeatureSlug::get)
-      .toList();
+    List<String> featureSlugs = allFeatureSlugs(resources);
 
     return resources.stream().map(resource -> resource.slug().get()).filter(featureSlugs::contains).findFirst();
+  }
+
+  private static List<String> allFeatureSlugs(JHipsterModulesResources resources) {
+    return resources.stream().flatMap(resource -> resource.organization().feature().stream()).map(JHipsterFeatureSlug::get).toList();
   }
 
   private static Consumer<String> throwForDuplicatedSlug() {

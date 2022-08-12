@@ -11,35 +11,6 @@ import tech.jhipster.lite.error.domain.NumberValueTooLowException;
 class WordUtilsTest {
 
   @Nested
-  class IndentTest {
-
-    @Test
-    void shouldIndent1Time() {
-      assertThat(WordUtils.indent(1)).isEqualTo("  ");
-    }
-
-    @Test
-    void shouldIndent2Times() {
-      assertThat(WordUtils.indent(2)).isEqualTo("    ");
-    }
-
-    @Test
-    void shouldIndent3Times() {
-      assertThat(WordUtils.indent(3)).isEqualTo("      ");
-    }
-
-    @Test
-    void shouldNotIndentWithNegative() {
-      assertThatThrownBy(() -> WordUtils.indent(-1)).isExactlyInstanceOf(NumberValueTooLowException.class).hasMessageContaining("times");
-    }
-
-    @Test
-    void shouldNotIndentWithZero() {
-      assertThatThrownBy(() -> WordUtils.indent(0)).isExactlyInstanceOf(NumberValueTooLowException.class).hasMessageContaining("times");
-    }
-  }
-
-  @Nested
   class IdentWithSpaceTest {
 
     @Test

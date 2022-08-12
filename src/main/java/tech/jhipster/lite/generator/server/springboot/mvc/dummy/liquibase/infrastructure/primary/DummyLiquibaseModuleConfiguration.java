@@ -18,7 +18,14 @@ class DummyLiquibaseModuleConfiguration {
       .slug("dummy-liquibase-changelog")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add liquibase changelog for dummy feature"))
-      .organization(JHipsterModuleOrganization.builder().feature("dummy-schema").addModuleDependency("dummy-feature").build())
+      .organization(
+        JHipsterModuleOrganization
+          .builder()
+          .feature("dummy-schema")
+          .addFeatureDependency("jpa-persistence")
+          .addModuleDependency("dummy-feature")
+          .build()
+      )
       .tags("server")
       .factory(dummyLiquibase::buildModule);
   }

@@ -43,9 +43,12 @@ public class SonarModulesFactory {
     return moduleBuilder(properties)
       .context()
       .put("sonarqubeDockerImage", dockerImages.get("sonarqube").fullName())
-      .put("srcMainDocker", "src/main/docker")
       .and()
       .documentation(documentationTitle("sonar"), SOURCE.template("sonar.md"))
+      .startupCommand("""
+        docker-compose -f src/main/docker/sonar.yml up -d
+        ./mvnw clean verify sonar:sonar
+        """)
       .javaBuildPlugins()
       .plugin(propertiesPlugin())
       .pluginManagement(sonarPlugin())

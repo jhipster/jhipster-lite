@@ -19,14 +19,7 @@ class DummyJpaPersistenceModuleConfiguration {
       .slug("dummy-jpa-persistence")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add JPA persistence for dummy feature"))
-      .organization(
-        JHipsterModuleOrganization
-          .builder()
-          .addModuleDependency("dummy-feature")
-          .addFeatureDependency("jpa-persistence")
-          .addFeatureDependency("dummy-schema")
-          .build()
-      )
+      .organization(JHipsterModuleOrganization.builder().addFeatureDependency("dummy-schema").build())
       .tags("server")
       .factory(dummyJpaPersistence::buildModule);
   }

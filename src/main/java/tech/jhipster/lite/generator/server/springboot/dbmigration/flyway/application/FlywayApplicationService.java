@@ -15,7 +15,11 @@ public class FlywayApplicationService {
     factory = new FlywayModuleFactory();
   }
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return factory.buildModule(properties, Instant.now());
+  public JHipsterModule buildInitializationModule(JHipsterModuleProperties properties) {
+    return factory.buildInitializationModule(properties, Instant.now());
+  }
+
+  public JHipsterModule buildMysqlDependencyModule(JHipsterModuleProperties properties) {
+    return factory.buildMysqlDependencyModule(properties);
   }
 }

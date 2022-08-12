@@ -198,6 +198,7 @@ elif [[ $application == 'undertowapp' ]]; then
 
   callApi "/api/servers/spring-boot/databases/mysql"
   callApi "/api/servers/spring-boot/database-migration-tools/flyway"
+  callApi "/api/servers/spring-boot/database-migration-tools/flyway-mysql"
 
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"

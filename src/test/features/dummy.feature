@@ -29,8 +29,10 @@ Feature: Dummy feature module
       | dummy-liquibase-changelog |
     Then I should have 1 file in "src/main/resources/config/liquibase/changelog"
     
-      
-  Scenario: Should Apply dummy flyway module
-    When I apply "dummy-flyway-changelog" module to default project
-      | usePostgreSQLTypes | false |
+  Scenario: Should Apply dummy postgresql flyway module
+    When I apply "dummy-postgresql-flyway-changelog" module to default project without properties
+    Then I should have 1 file in "src/main/resources/db/migration"
+
+  Scenario: Should Apply dummy not postgresl flyway module
+    When I apply "dummy-not-postgresql-flyway-changelog" module to default project without properties
     Then I should have 1 file in "src/main/resources/db/migration"

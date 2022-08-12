@@ -15,7 +15,11 @@ public class DummyFlywayApplicationService {
     factory = new DummyFlywayModuleFactory();
   }
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return factory.buildModule(properties, Instant.now());
+  public JHipsterModule buildPostgresqlModule(JHipsterModuleProperties properties) {
+    return factory.buildPostgresqlModule(properties, Instant.now());
+  }
+
+  public JHipsterModule buildNotPostgresqlModule(JHipsterModuleProperties properties) {
+    return factory.buildNotPostgresqlModule(properties, Instant.now());
   }
 }

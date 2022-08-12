@@ -190,7 +190,7 @@ elif [[ $application == 'flywayapp' ]]; then
 
   callApi "/api/servers/spring-boot/features/dummy"
   callApi "/api/servers/spring-boot/features/dummy-jpa-persistence"
-  callApi "/api/servers/spring-boot/features/dummy-flyway-changelog"
+  callApi "/api/servers/spring-boot/features/dummy-postgresql-flyway-changelog"
 
 elif [[ $application == 'undertowapp' ]]; then
   springboot_undertow
@@ -208,7 +208,7 @@ elif [[ $application == 'undertowapp' ]]; then
 
   callApi "/api/servers/spring-boot/features/dummy"
   callApi "/api/servers/spring-boot/features/dummy-jpa-persistence"
-  callApi "/api/servers/spring-boot/features/dummy-flyway-changelog"
+  callApi "/api/servers/spring-boot/features/dummy-not-postgresql-flyway-changelog"
 
   callApi "/api/servers/spring-boot/caches/simple"
 

@@ -104,12 +104,12 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/hexagonal-architecture-documentation"
   callApi "/api/servers/bean-validation-test"
 
   callApi "/api/servers/spring-boot/databases/postgresql"
-  callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/database-migration-tools/liquibase"
 
   callApi "/api/servers/spring-boot/features/dummy"
@@ -146,6 +146,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/bean-validation-test"
 
@@ -185,6 +186,7 @@ elif [[ $application == 'flywayapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/bean-validation-test"
 
@@ -203,6 +205,7 @@ elif [[ $application == 'undertowapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
+  callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/bean-validation-test"
 

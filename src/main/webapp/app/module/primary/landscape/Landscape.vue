@@ -7,7 +7,7 @@
   padding-top: 20px;
   font-family: $jhipster-lite-font-family;
   color: $jhipster-lite-primary-text-color;
-  height: calc(100vh - $jhipster-header-height);
+  height: calc(100vh - $jhipster-lite-header-height);
   background-color: $jhipster-lite-secondary-color;
   overflow: auto;
   position: relative;
@@ -42,7 +42,7 @@
 
 .jhipster-landscape-connectors {
   position: absolute;
-  top: -$jhipster-header-height;
+  top: -$jhipster-lite-header-height;
   left: 0;
   z-index: 1;
 
@@ -50,6 +50,12 @@
     stroke: $jhipster-lite-line-color;
     stroke-width: 1px;
     stroke-dasharray: 2 2;
+
+    &.-highlighted {
+      stroke-dasharray: none;
+      stroke-width: 3px;
+      animation: $jhipster-lite-highlight-animation;
+    }
   }
 }
 
@@ -109,6 +115,10 @@
 
   &.-compacted {
     padding: 1px 3px 0 3px;
+  }
+
+  &.-highlighted {
+    animation: $jhipster-lite-highlight-animation;
   }
 }
 

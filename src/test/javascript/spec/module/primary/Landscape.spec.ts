@@ -95,7 +95,7 @@ describe('Landscape', () => {
 
       expect(wrapper.find(wrappedElement('compacted-mode-button')).classes()).toContain('-selected');
       expect(wrapper.find(wrappedElement('extended-mode-button')).classes()).toContain('-not-selected');
-      expect(wrapper.find(wrappedElement('infinitest-element')).classes()).toContain('-compacted');
+      expect(wrapper.find(wrappedElement('infinitest-module')).classes()).toContain('-compacted');
     });
 
     it('Should switch to extended mode', async () => {
@@ -106,7 +106,78 @@ describe('Landscape', () => {
 
       expect(wrapper.find(wrappedElement('compacted-mode-button')).classes()).toContain('-not-selected');
       expect(wrapper.find(wrappedElement('extended-mode-button')).classes()).toContain('-selected');
-      expect(wrapper.find(wrappedElement('infinitest-element')).classes()).toContain('-extended');
+      expect(wrapper.find(wrappedElement('infinitest-module')).classes()).toContain('-extended');
     });
   });
+
+  describe('Modules emphasize', () => {
+    it('Should highlight compacted module and dependencies', async () => {
+      const wrapper = await componentWithLandscape();
+
+      wrapper.find(wrappedElement('vue-module')).trigger('mouseover');
+      await wrapper.vm.$nextTick();
+
+      const vueClasses = wrapper.find(wrappedElement('vue-module')).classes();
+      expect(vueClasses).toContain('-highlighted');
+      expect(vueClasses).toContain('-compacted');
+
+      const initClasses = wrapper.find(wrappedElement('init-module')).classes();
+      expect(initClasses).toContain('-highlighted');
+      expect(initClasses).toContain('-compacted');
+
+      assertHighlightedConnectorsCount(wrapper, 3);
+    });
+  });
+
+  it('Should highlight extended module and dependencies', async () => {
+    const wrapper = await componentWithLandscape();
+    wrapper.find(wrappedElement('extended-mode-button')).trigger('click');
+    await wrapper.vm.$nextTick();
+
+    wrapper.find(wrappedElement('vue-module')).trigger('mouseover');
+    await wrapper.vm.$nextTick();
+
+    const vueClasses = wrapper.find(wrappedElement('vue-module')).classes();
+    expect(vueClasses).toContain('-highlighted');
+    expect(vueClasses).toContain('-extended');
+
+    const initClasses = wrapper.find(wrappedElement('init-module')).classes();
+    expect(initClasses).toContain('-highlighted');
+    expect(initClasses).toContain('-extended');
+
+    assertHighlightedConnectorsCount(wrapper, 3);
+  });
+
+  it('Should highlight dependent feature', async () => {
+    const wrapper = await componentWithLandscape();
+
+    wrapper.find(wrappedElement('dummy-feature-module')).trigger('mouseover');
+    await wrapper.vm.$nextTick();
+
+    const springMvcClasses = wrapper.find(wrappedElement('spring-mvc-feature')).classes();
+    expect(springMvcClasses).toContain('-highlighted');
+    expect(springMvcClasses).toContain('-compacted');
+  });
+
+  it('Should un-highlight module and dependencies', async () => {
+    const wrapper = await componentWithLandscape();
+
+    wrapper.find(wrappedElement('vue-module')).trigger('mouseover');
+    await wrapper.vm.$nextTick();
+    wrapper.find(wrappedElement('vue-module')).trigger('mouseleave');
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.find(wrappedElement('vue-module')).classes()).not.toContain('-highlighted');
+    expect(wrapper.find(wrappedElement('init-module')).classes()).not.toContain('-highlighted');
+    assertHighlightedConnectorsCount(wrapper, 0);
+  });
 });
+
+const assertHighlightedConnectorsCount = (wrapper: VueWrapper, count: number): void => {
+  expect(
+    wrapper
+      .find(wrappedElement('landscape-connectors'))
+      .findAll('line')
+      .filter(line => line.classes().includes('-highlighted')).length
+  ).toBe(count);
+};

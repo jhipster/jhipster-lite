@@ -23,6 +23,28 @@ public class JHipsterLandscape {
     return new JHipsterLandscape(JHipsterLandscapeLevels.builder().resources(resources).build()).withoutNestedDependencies();
   }
 
+  private static void assertNoDuplicatedSlug(JHipsterModulesResources resources) {
+    duplicatedSlug(resources).ifPresent(throwForDuplicatedSlug());
+  }
+
+  private static Optional<String> duplicatedSlug(JHipsterModulesResources resources) {
+    List<String> featureSlugs = resources
+      .stream()
+      .map(resource -> resource.organization().feature())
+      .filter(Optional::isPresent)
+      .map(Optional::get)
+      .map(JHipsterFeatureSlug::get)
+      .toList();
+
+    return resources.stream().map(resource -> resource.slug().get()).filter(featureSlugs::contains).findFirst();
+  }
+
+  private static Consumer<String> throwForDuplicatedSlug() {
+    return slug -> {
+      throw InvalidLandscapeException.duplicatedSlug(slug);
+    };
+  }
+
   private JHipsterLandscape withoutNestedDependencies() {
     return new JHipsterLandscape(new JHipsterLandscapeLevels(nestedDependenciesFreeLevels()));
   }
@@ -32,16 +54,14 @@ public class JHipsterLandscape {
   }
 
   private Function<JHipsterLandscapeLevel, JHipsterLandscapeLevel> toLevelsWithoutNestedDepdendencies() {
-    return level -> new JHipsterLandscapeLevel(level.elements().stream().map(toElementWithoutNestedDependencies()).toList());
+    return level -> new JHipsterLandscapeLevel(level.elements().stream().map(this::toElementWithoutNestedDependencies).toList());
   }
 
   @Generated(reason = "Jacoco think there is a missing case")
-  private Function<JHipsterLandscapeElement, JHipsterLandscapeElement> toElementWithoutNestedDependencies() {
-    return element -> {
-      return switch (element.type()) {
-        case MODULE -> moduleWithoutNestedDependencies((JHipsterLandscapeModule) element);
-        case FEATURE -> element;
-      };
+  private JHipsterLandscapeElement toElementWithoutNestedDependencies(JHipsterLandscapeElement element) {
+    return switch (element.type()) {
+      case MODULE -> moduleWithoutNestedDependencies((JHipsterLandscapeModule) element);
+      case FEATURE -> element;
     };
   }
 
@@ -81,29 +101,7 @@ public class JHipsterLandscape {
       .stream()
       .flatMap(level -> level.elements().stream())
       .filter(element -> element.slug().equals(slug))
-      .flatMap(element -> element.dependencies().map(dependencies -> dependencies.stream()).orElse(Stream.of()));
-  }
-
-  private static void assertNoDuplicatedSlug(JHipsterModulesResources resources) {
-    duplicatedSlug(resources).ifPresent(throwForDuplicatedSlug());
-  }
-
-  private static Optional<String> duplicatedSlug(JHipsterModulesResources resources) {
-    List<String> featureSlugs = resources
-      .stream()
-      .map(resource -> resource.organization().feature())
-      .filter(Optional::isPresent)
-      .map(Optional::get)
-      .map(JHipsterFeatureSlug::get)
-      .toList();
-
-    return resources.stream().map(resource -> resource.slug().get()).filter(featureSlugs::contains).findFirst();
-  }
-
-  private static Consumer<String> throwForDuplicatedSlug() {
-    return slug -> {
-      throw InvalidLandscapeException.duplicatedSlug(slug);
-    };
+      .flatMap(element -> element.dependencies().map(JHipsterLandscapeDependencies::stream).orElse(Stream.of()));
   }
 
   public JHipsterLandscapeLevels levels() {

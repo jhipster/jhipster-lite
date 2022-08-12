@@ -162,4 +162,32 @@ class JHipsterLandscapeTest {
       .extracting(JHipsterLandscapeElement::slug)
       .containsExactly(new JHipsterModuleSlug("second"), new JHipsterModuleSlug("first"));
   }
+
+  @Test
+  void shouldRemoveNestedDependencies() {
+    JHipsterModuleResource firstModule = defaultModuleResourceBuilder().slug("first").build();
+    JHipsterModuleResource secondModule = defaultModuleResourceBuilder().slug("second").moduleDependency("first").build();
+    JHipsterModuleResource thirdModule = defaultModuleResourceBuilder()
+      .slug("third")
+      .moduleDependency("second")
+      .moduleDependency("first")
+      .build();
+    JHipsterModuleResource forth = defaultModuleResourceBuilder()
+      .slug("forth")
+      .moduleDependency("third")
+      .moduleDependency("second")
+      .moduleDependency("first")
+      .build();
+
+    JHipsterLandscape landscape = JHipsterLandscape.from(moduleResources(firstModule, secondModule, thirdModule, forth));
+
+    assertThat(landscape.levels().get())
+      .usingRecursiveFieldByFieldElementComparator()
+      .containsExactly(
+        landscapeLevel(noDependencyLandscapeModule("first")),
+        landscapeLevel(oneModuleDependencyLandscapeModule("second", "first")),
+        landscapeLevel(oneModuleDependencyLandscapeModule("third", "second")),
+        landscapeLevel(oneModuleDependencyLandscapeModule("forth", "third"))
+      );
+  }
 }

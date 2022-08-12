@@ -90,7 +90,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
         dispatcher.dispatchNextLevel();
       }
 
-      return new JHipsterLandscapeLevels(dispatcher.sortedLevels());
+      return new JHipsterLandscapeLevels(dispatcher.displayedLevels());
     }
 
     private Function<Entry<JHipsterFeatureSlug, Collection<JHipsterLandscapeModule>>, JHipsterLandscapeFeature> toFeature() {
@@ -171,8 +171,8 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
       elementsToDispatch = elementsToDispatch.stream().filter(element -> !elements.contains(element)).toList();
     }
 
-    public Collection<JHipsterLandscapeLevel> sortedLevels() {
-      return levels.stream().map(JHipsterSortableLandscapeLevel::toSortedLevel).toList();
+    public Collection<JHipsterLandscapeLevel> displayedLevels() {
+      return levels.stream().map(JHipsterSortableLandscapeLevel::toDisplayedLevels).toList();
     }
   }
 
@@ -196,7 +196,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
       return elements.stream().flatMap(JHipsterSortableLandscapeElement::slugs);
     }
 
-    public JHipsterLandscapeLevel toSortedLevel() {
+    public JHipsterLandscapeLevel toDisplayedLevels() {
       return new JHipsterLandscapeLevel(
         elements.stream().sorted(DEPENDENT_ELEMENT_COMPARATOR).map(JHipsterSortableLandscapeElement::element).toList()
       );

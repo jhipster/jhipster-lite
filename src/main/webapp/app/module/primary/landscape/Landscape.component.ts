@@ -9,6 +9,7 @@ import { defineComponent, inject, nextTick, onBeforeUnmount, onMounted, ref } fr
 import { LandscapeModuleVue } from '../landscape-module';
 import { buildConnectors, LandscapeConnectorLine } from './LandscapeConnector';
 import { emptyLandscapeSize, LandscapeConnectorsSize } from './LandscapeConnectorsSize';
+import { DisplayMode } from './DisplayMode';
 
 export default defineComponent({
   name: 'LandscapeVue',
@@ -16,6 +17,8 @@ export default defineComponent({
   setup() {
     const modules = inject('modules') as ModulesRepository;
     const applicationListener = inject('applicationListener') as ApplicationListener;
+
+    const selectedMode = ref<DisplayMode>('COMPACTED');
 
     const landscapeContainer = ref<HTMLElement>();
     const landscape = ref(Loader.loading<Landscape>());
@@ -88,6 +91,31 @@ export default defineComponent({
       return element instanceof LandscapeFeature;
     };
 
+    const modeSwitchClass = (mode: DisplayMode): string => {
+      if (selectedMode.value === mode) {
+        return '-selected';
+      }
+
+      return '-not-selected';
+    };
+
+    const selectMode = (mode: DisplayMode): void => {
+      selectedMode.value = mode;
+
+      nextTick(() => {
+        updateConnectors();
+      });
+    };
+
+    const modeClass = (): string => {
+      switch (selectedMode.value) {
+        case 'COMPACTED':
+          return '-compacted';
+        case 'EXTENDED':
+          return '-extended';
+      }
+    };
+
     return {
       landscape,
       isFeature,
@@ -95,6 +123,9 @@ export default defineComponent({
       landscapeElements,
       landscapeSize,
       landscapeContainer,
+      modeSwitchClass,
+      selectMode,
+      modeClass,
     };
   },
 });

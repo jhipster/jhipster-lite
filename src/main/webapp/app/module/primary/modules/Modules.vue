@@ -71,7 +71,7 @@
   &--format-project {
     margin-bottom: 15px;
     width: 100%;
-    background-color: $jhipster-lite-primary-button-background-color;
+    background-color: $jhipster-lite-primary-alternative-color;
     border: 1px solid $jhipster-lite-line-color;
     color: $jhipster-lite-primary-input-color;
     border-radius: 6px;

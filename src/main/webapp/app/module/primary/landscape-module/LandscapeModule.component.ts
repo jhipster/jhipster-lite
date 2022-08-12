@@ -12,5 +12,9 @@ export default defineComponent({
       type: Object as PropType<Map<string, HTMLElement>>,
       required: true,
     },
+    modeClass: {
+      type: String,
+      required: true,
+    },
   },
 });

@@ -1,18 +1,49 @@
 <div class="jhipster-landscape" v-if="landscape.isLoading()" data-selector="landscape-loader">Loading</div>
 <div class="jhipster-landscape" v-else data-selector="landscape" ref="landscapeContainer">
+  <div class="jhipster-landscape-form">
+    <div class="jhipster-landscape-form--modes">
+      <button
+        class="jhipster-landscape-form--modes-switch"
+        :class="modeSwitchClass('COMPACTED')"
+        @click="selectMode('COMPACTED')"
+        data-selector="compacted-mode-button"
+      >
+        Compacted
+      </button>
+      <button
+        class="jhipster-landscape-form--modes-switch"
+        :class="modeSwitchClass('EXTENDED')"
+        @click="selectMode('EXTENDED')"
+        data-selector="extended-mode-button"
+      >
+        Extended
+      </button>
+    </div>
+  </div>
+
   <div class="jhipster-landscape-levels">
-    <ul class="jhipster-landscape-levels--level" v-for="level in landscape.value().levels">
-      <li class="jhipster-landscape-element" v-for="element in level.elements">
-        <div class="jhipster-landscape-feature" v-if="isFeature(element)" :ref="el => landscapeElements.set(element.slug, el)">
-          <h2 class="jhipster-landscape-feature--title">{{ element.slug }}</h2>
+    <ul class="jhipster-landscape-levels--level" :class="modeClass()" v-for="level in landscape.value().levels">
+      <li
+        class="jhipster-landscape-element"
+        v-for="element in level.elements"
+        :data-selector="`${element.slug}-element`"
+        :class="modeClass()"
+      >
+        <div
+          class="jhipster-landscape-feature"
+          :class="modeClass()"
+          v-if="isFeature(element)"
+          :ref="el => landscapeElements.set(element.slug, el)"
+        >
+          <h2 class="jhipster-landscape-feature--title" :class="modeClass()">{{ element.slug }}</h2>
           <ul class="jhipster-landscape-feature--modules">
-            <li class="jhipster-landscape-element" v-for="module in element.modules">
-              <LandscapeModuleVue :module="module" :landscapeElements="landscapeElements" />
+            <li class="jhipster-landscape-feature--module" v-for="module in element.modules">
+              <LandscapeModuleVue :module="module" :landscapeElements="landscapeElements" :modeClass="modeClass()" />
             </li>
           </ul>
         </div>
 
-        <LandscapeModuleVue :module="element" :landscapeElements="landscapeElements" v-else />
+        <LandscapeModuleVue :module="element" :landscapeElements="landscapeElements" :modeClass="modeClass()" v-else />
       </li>
     </ul>
   </div>

@@ -38,10 +38,12 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
   });
 };
 
-const componentWithLandscape = async (applicationListener: ApplicationListener): Promise<VueWrapper> => {
+const componentWithLandscape = async (applicationListener?: ApplicationListener): Promise<VueWrapper> => {
+  const listener = applicationListener || stubApplicationListener();
+
   const modules = repositoryWithLandscape();
 
-  const wrapper = wrap({ modules, applicationListener });
+  const wrapper = wrap({ modules, applicationListener: listener });
 
   await flushPromises();
 
@@ -81,6 +83,30 @@ describe('Landscape', () => {
       wrapper.unmount();
 
       expect(applicationListener.removeEventListener.calledOnce).toBe(true);
+    });
+  });
+
+  describe('Display modes', () => {
+    it('Should switch to compacted mode', async () => {
+      const wrapper = await componentWithLandscape();
+
+      wrapper.find(wrappedElement('compacted-mode-button')).trigger('click');
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.find(wrappedElement('compacted-mode-button')).classes()).toContain('-selected');
+      expect(wrapper.find(wrappedElement('extended-mode-button')).classes()).toContain('-not-selected');
+      expect(wrapper.find(wrappedElement('infinitest-element')).classes()).toContain('-compacted');
+    });
+
+    it('Should switch to extended mode', async () => {
+      const wrapper = await componentWithLandscape();
+
+      wrapper.find(wrappedElement('extended-mode-button')).trigger('click');
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.find(wrappedElement('compacted-mode-button')).classes()).toContain('-not-selected');
+      expect(wrapper.find(wrappedElement('extended-mode-button')).classes()).toContain('-selected');
+      expect(wrapper.find(wrappedElement('infinitest-element')).classes()).toContain('-extended');
     });
   });
 });

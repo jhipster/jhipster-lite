@@ -1,4 +1,4 @@
-<div class="jhipster-landscape-module" :ref="el => landscapeElements.set(module.slug, el)">
-  <div class="jhipster-landscape-module--slug">{{ module.slug }}</div>
-  <div class="jhipster-landscape-module--operation">{{ module.operation }}</div>
+<div class="jhipster-landscape-module" :class="modeClass" :ref="el => landscapeElements.set(module.slug, el)">
+  <div class="jhipster-landscape-module--slug" :class="modeClass">{{ module.slug }}</div>
+  <div class="jhipster-landscape-module--operation" :class="modeClass">{{ module.operation }}</div>
 </div>

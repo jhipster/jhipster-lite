@@ -13,6 +13,33 @@
   position: relative;
 }
 
+.jhipster-landscape-form {
+  left: 15px;
+  position: fixed;
+  z-index: 3;
+  background: rgba($color: $jhipster-lite-secondary-color, $alpha: 0.7);
+  padding: 10px;
+  border: 1px dotted $jhipster-lite-line-color;
+  border-radius: $jhipster-lite-box-radius;
+
+  &--modes {
+    border: 1px solid $jhipster-lite-line-color;
+    border-radius: 1.5em;
+  }
+
+  &--modes-switch {
+    background-color: transparent;
+    border: 0;
+    border-radius: 1.5em;
+    color: $jhipster-lite-primary-input-color;
+    padding: 7px 15px;
+
+    &.-selected {
+      background-color: $jhipster-lite-primary-color;
+    }
+  }
+}
+
 .jhipster-landscape-connectors {
   position: absolute;
   top: -$jhipster-header-height;
@@ -35,31 +62,65 @@
   &--level {
     width: 250px;
     grid-row: 1;
-    margin-right: 70px;
     padding: 0;
+
+    &.-compacted {
+      width: 200px;
+      margin-right: 40px;
+    }
+
+    &.-extended {
+      width: 250px;
+      margin-right: 70px;
+    }
   }
 }
 
 .jhipster-landscape-feature {
   border: 2px dotted $jhipster-lite-line-color;
   border-radius: $jhipster-lite-box-radius;
-  padding: 10px 10px 0 10px;
-  background: rgba($color: $jhipster-lite-secondary-color, $alpha: 0.7);
+  background: rgba($color: $jhipster-lite-primary-alternative-color, $alpha: 0.7);
 
   &--title {
     text-align: center;
-    margin-top: 7px;
     font-size: 1em;
     font-weight: bold;
+
+    &.-extended {
+      margin: 7px;
+    }
+
+    &.-compacted {
+      margin: 1px 3px;
+    }
   }
 
   &--modules {
     padding: 0;
   }
+
+  &--module {
+    list-style-type: none;
+  }
+
+  &.-extended {
+    padding: 10px 10px 0 10px;
+  }
+
+  &.-compacted {
+    padding: 1px 3px 0 3px;
+  }
 }
 
 .jhipster-landscape-element {
   list-style-type: none;
-  margin-bottom: 15px;
+
+  &.-compacted {
+    margin-bottom: 5px;
+  }
+
+  &.-extended {
+    margin-bottom: 15px;
+  }
 }
 </style>

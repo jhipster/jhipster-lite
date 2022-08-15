@@ -2,6 +2,7 @@ package {{packageName}}.dummy.infrastructure.secondary;
 
 import io.cucumber.java.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 public class JpaBeersReseter {
 
@@ -9,6 +10,7 @@ public class JpaBeersReseter {
   private JpaBeersRepository beers;
 
   @Before
+  @Transactional
   public void resetBeers() {
     beers.deleteAllInBatch();
   }

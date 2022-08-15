@@ -179,8 +179,8 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
 
   private static class JHipsterSortableLandscapeLevel {
 
-    private static final Comparator<JHipsterSortableLandscapeElement> DEPENDENT_ELEMENT_COMPARATOR = Comparator.comparing(
-      JHipsterSortableLandscapeElement::dependentElementsCount
+    private static final Comparator<JHipsterSortableLandscapeElement> DEPENDANT_ELEMENT_COMPARATOR = Comparator.comparing(
+      JHipsterSortableLandscapeElement::dependantElementsCount
     );
 
     private final List<JHipsterSortableLandscapeElement> elements;
@@ -199,7 +199,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
 
     public JHipsterLandscapeLevel toDisplayedLevels() {
       return new JHipsterLandscapeLevel(
-        elements.stream().sorted(DEPENDENT_ELEMENT_COMPARATOR).map(JHipsterSortableLandscapeElement::element).toList()
+        elements.stream().sorted(DEPENDANT_ELEMENT_COMPARATOR).map(JHipsterSortableLandscapeElement::element).toList()
       );
     }
   }
@@ -208,17 +208,17 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
 
     private final JHipsterLandscapeElement element;
 
-    private long dependentElementsCount = 0;
+    private long dependantElementsCount = 0;
 
     public JHipsterSortableLandscapeElement(JHipsterLandscapeElement element) {
       this.element = element;
     }
 
     public void added(JHipsterSortableLandscapeLevel addedLevel) {
-      dependentElementsCount += addedLevel.elements.stream().mapToLong(toDependentElementsCount()).sum();
+      dependantElementsCount += addedLevel.elements.stream().mapToLong(toDependantElementsCount()).sum();
     }
 
-    private ToLongFunction<JHipsterSortableLandscapeElement> toDependentElementsCount() {
+    private ToLongFunction<JHipsterSortableLandscapeElement> toDependantElementsCount() {
       return sortableElement ->
         sortableElement
           .element()
@@ -249,8 +249,8 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
       return element.slug();
     }
 
-    public long dependentElementsCount() {
-      return dependentElementsCount;
+    public long dependantElementsCount() {
+      return dependantElementsCount;
     }
 
     public JHipsterLandscapeElement element() {

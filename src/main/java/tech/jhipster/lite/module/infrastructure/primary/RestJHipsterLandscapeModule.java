@@ -14,7 +14,7 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
   private final String slug;
   private final String operation;
   private final RestJHipsterModulePropertiesDefinition properties;
-  private final Collection<String> dependencies;
+  private final Collection<RestJHipsterLandscapeDependency> dependencies;
 
   private RestJHipsterLandscapeModule(RestJHipsterLandscapeModuleBuilder builder) {
     slug = builder.slug;
@@ -32,10 +32,10 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
       .build();
   }
 
-  private static List<String> buildDependencies(JHipsterLandscapeModule module) {
+  private static List<RestJHipsterLandscapeDependency> buildDependencies(JHipsterLandscapeModule module) {
     return module
       .dependencies()
-      .map(dependencies -> dependencies.stream().map(dependency -> dependency.slug().get()).toList())
+      .map(dependencies -> dependencies.stream().map(RestJHipsterLandscapeDependency::from).toList())
       .orElse(null);
   }
 
@@ -60,8 +60,8 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
     return properties;
   }
 
-  @Schema(description = "Slug of the dependencies for this module")
-  public Collection<String> getDependencies() {
+  @Schema(description = "Dependencies of this module")
+  public Collection<RestJHipsterLandscapeDependency> getDependencies() {
     return dependencies;
   }
 
@@ -70,7 +70,7 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
     private String slug;
     private String operation;
     private RestJHipsterModulePropertiesDefinition properties;
-    private List<String> dependencies;
+    private List<RestJHipsterLandscapeDependency> dependencies;
 
     public RestJHipsterLandscapeModuleBuilder slug(String slug) {
       this.slug = slug;
@@ -90,7 +90,7 @@ final class RestJHipsterLandscapeModule implements RestJHipsterLandscapeElement 
       return this;
     }
 
-    public RestJHipsterLandscapeModuleBuilder dependencies(List<String> dependencies) {
+    public RestJHipsterLandscapeModuleBuilder dependencies(List<RestJHipsterLandscapeDependency> dependencies) {
       this.dependencies = dependencies;
 
       return this;

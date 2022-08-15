@@ -4,9 +4,9 @@
 
 <style lang="scss">
 .jhipster-landscape-module {
-  border: 1px solid $jhipster-lite-line-color;
   border-radius: $jhipster-lite-box-radius;
   background: rgba($color: $jhipster-lite-secondary-color, $alpha: 0.7);
+  border: 1px solid $jhipster-lite-line-color;
 
   &--slug {
     text-align: center;
@@ -39,8 +39,28 @@
     margin-bottom: 15px;
   }
 
-  &.-highlighted {
-    animation: $jhipster-lite-highlight-animation;
+  &.-selectable-highlighted {
+    animation: $jhipster-lite-selectable-highlight-animation;
+  }
+
+  &.-not-selectable-highlighted,
+  &.-highlighted-unselection {
+    animation: $jhipster-lite-not-selectable-highlight-animation;
+  }
+
+  &.-selectable {
+    cursor: pointer;
+  }
+
+  &.-not-selectable {
+    cursor: not-allowed;
+    border-style: dotted;
+    background-color: rgba($color: $jhipster-lite-disabled-color, $alpha: 0.5);
+  }
+
+  &.-selected {
+    cursor: pointer;
+    background-color: $jhipster-lite-primary-color;
   }
 }
 </style>

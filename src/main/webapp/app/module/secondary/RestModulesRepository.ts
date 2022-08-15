@@ -25,18 +25,18 @@ export class RestModulesRepository implements ModulesRepository {
   }
 
   async apply(module: ModuleSlug, moduleToApply: ModuleToApply): Promise<void> {
-    await this.axiosInstance.post<void, RestModuleToApply>(`/api/modules/${module}/apply-patch`, toRestModuleToApply(moduleToApply));
+    await this.axiosInstance.post<void, RestModuleToApply>(`/api/modules/${module.get()}/apply-patch`, toRestModuleToApply(moduleToApply));
   }
 
   history(folder: ProjectFolder): Promise<ProjectHistory> {
     return this.axiosInstance.get<RestProjectHistory>(`/api/projects?path=${folder}`).then(mapToModuleHistory);
   }
 
-  async format(folder: string): Promise<void> {
+  async format(folder: ProjectFolder): Promise<void> {
     await this.axiosInstance.post<void, RestModuleToApply>(`/api/format-project?path=${folder}`);
   }
 
-  download(folder: string): Promise<Project> {
+  download(folder: ProjectFolder): Promise<Project> {
     const config: AxiosRequestConfig = {
       responseType: 'blob',
       headers: {

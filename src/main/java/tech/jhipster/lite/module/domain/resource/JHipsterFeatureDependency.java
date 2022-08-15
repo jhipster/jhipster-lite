@@ -13,4 +13,9 @@ public record JHipsterFeatureDependency(JHipsterFeatureSlug feature) implements 
   public JHipsterSlug slug() {
     return feature();
   }
+
+  @Override
+  public JHipsterLandscapeElementType type() {
+    return JHipsterLandscapeElementType.FEATURE;
+  }
 }

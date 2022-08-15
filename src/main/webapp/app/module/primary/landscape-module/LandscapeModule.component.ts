@@ -1,5 +1,5 @@
 import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'LandscapeComponentVue',
@@ -17,42 +17,29 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ['over', 'out'],
+  emits: ['over', 'out', 'clicked'],
   setup(props, { emit }) {
-    const isModuleEmphasized = ref(false);
-
     const moduleClass = (): string => {
-      if (isModuleEmphasized.value) {
-        return flavoredClass('-highlighted');
-      }
-
-      return flavoredClass();
-    };
-
-    const flavoredClass = (alternative?: string): string => {
-      if (alternative === undefined) {
-        return props.moduleFlavor;
-      }
-
-      return alternative + ' ' + props.moduleFlavor;
+      return props.moduleFlavor;
     };
 
     const emphasisizeModule = (): void => {
-      isModuleEmphasized.value = true;
-
       emit('over');
     };
 
     const deEmphasisizeModule = (): void => {
-      isModuleEmphasized.value = false;
-
       emit('out');
+    };
+
+    const clickedModule = (): void => {
+      emit('clicked');
     };
 
     return {
       moduleClass,
       emphasisizeModule,
       deEmphasisizeModule,
+      clickedModule,
     };
   },
 });

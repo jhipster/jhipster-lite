@@ -50,11 +50,27 @@
     stroke: $jhipster-lite-line-color;
     stroke-width: 1px;
     stroke-dasharray: 2 2;
+    fill: none;
 
-    &.-highlighted {
+    &.-selectable-highlighted,
+    &.-not-selectable-highlighted,
+    &.-highlighted-unselection {
       stroke-dasharray: none;
       stroke-width: 3px;
-      animation: $jhipster-lite-highlight-animation;
+    }
+
+    &.-selected {
+      stroke-dasharray: none;
+      stroke: $jhipster-lite-primary-color;
+    }
+
+    &.-selectable-highlighted {
+      animation: $jhipster-lite-selectable-highlight-animation;
+    }
+
+    &.-not-selectable-highlighted,
+    &.-highlighted-unselection {
+      animation: $jhipster-lite-not-selectable-highlight-animation;
     }
   }
 }
@@ -85,7 +101,7 @@
 .jhipster-landscape-feature {
   border: 2px dotted $jhipster-lite-line-color;
   border-radius: $jhipster-lite-box-radius;
-  background: rgba($color: $jhipster-lite-primary-alternative-color, $alpha: 0.7);
+  background: rgba($color: $jhipster-lite-primary-alternative-color, $alpha: 0.3);
 
   &--title {
     text-align: center;
@@ -117,8 +133,12 @@
     padding: 1px 3px 0 3px;
   }
 
-  &.-highlighted {
-    animation: $jhipster-lite-highlight-animation;
+  &.-selectable-highlighted {
+    animation: $jhipster-lite-selectable-highlight-animation;
+  }
+
+  &.-not-selectable-highlighted {
+    animation: $jhipster-lite-not-selectable-highlight-animation;
   }
 }
 

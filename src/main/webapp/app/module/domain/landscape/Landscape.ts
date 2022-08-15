@@ -1,20 +1,15 @@
 import { ModuleSlug } from '../ModuleSlug';
+import { LandscapeElement } from './LandscapeElement';
 import { LandscapeLevel } from './LandscapeLevel';
-import { LandscapeModule } from './LandscapeModule';
 
 export class Landscape {
   constructor(public readonly levels: LandscapeLevel[]) {}
 
-  public getModule(module: ModuleSlug): LandscapeModule {
-    const foundModule = this.levels
+  dependantModules(element: LandscapeElement): ModuleSlug[] {
+    return this.levels
       .flatMap(level => level.elements)
-      .flatMap(element => element.allModules())
-      .find(currentModule => currentModule.slug === module);
-
-    if (foundModule === undefined) {
-      throw new Error(`Can't find module ${module} in landscape`);
-    }
-
-    return foundModule;
+      .flatMap(landscapeElement => landscapeElement.allModules())
+      .filter(module => module.dependencies.some(dependency => dependency.get() === element.slug.get()))
+      .map(module => module.slug);
   }
 }

@@ -1,14 +1,18 @@
 const SPACER_SIZE = 15;
 
-export interface LandscapeConnector {
-  lines: LandscapeConnectorLine[];
-}
+export class LandscapeConnector {
+  public readonly points: string;
+  constructor(
+    public readonly positions: LandscapeConnectorPosition[],
+    public readonly startingElement: string,
+    public readonly endingElement: string
+  ) {
+    this.points = this.buildPoints();
+  }
 
-export interface LandscapeConnectorLine {
-  start: LandscapeConnectorPosition;
-  end: LandscapeConnectorPosition;
-  startingElement: string;
-  endingElement: string;
+  private buildPoints(): string {
+    return this.positions.map(position => position.x + ',' + position.y).join(' ');
+  }
 }
 
 export interface LandscapeConnectorPosition {
@@ -18,13 +22,13 @@ export interface LandscapeConnectorPosition {
 
 export interface BuildConnectorsParameters {
   dependencyElementSlug: string;
-  dependentElementSlug: string;
+  dependantElementSlug: string;
   dependencyElement: HTMLElement;
-  dependentElement: DOMRect;
+  dependantElement: DOMRect;
   container: HTMLElement;
 }
 
-export const buildConnectors = (parameters: BuildConnectorsParameters): LandscapeConnector => {
+export const buildConnector = (parameters: BuildConnectorsParameters): LandscapeConnector => {
   const yPad = parameters.container.scrollTop;
   const xPad = parameters.container.scrollLeft;
 
@@ -33,49 +37,32 @@ export const buildConnectors = (parameters: BuildConnectorsParameters): Landscap
   const dependencyElementX = dependencyElementPosition.x + dependencyElementPosition.width + xPad;
   const dependencyElementY = Math.round(dependencyElementPosition.y + dependencyElementPosition.height / 2) + yPad;
 
-  const dependentElementX = parameters.dependentElement.x + xPad;
-  const dependentElementY = Math.round(parameters.dependentElement.y + parameters.dependentElement.height / 2) + yPad;
+  const dependantElementX = parameters.dependantElement.x + xPad;
+  const dependantElementY = Math.round(parameters.dependantElement.y + parameters.dependantElement.height / 2) + yPad;
 
-  const dependencyElementSpacer: LandscapeConnectorLine = {
-    start: {
-      x: dependencyElementX,
-      y: dependencyElementY,
-    },
-    end: {
-      x: dependencyElementX + SPACER_SIZE,
-      y: dependencyElementY,
-    },
-    startingElement: parameters.dependentElementSlug,
-    endingElement: parameters.dependencyElementSlug,
+  const dependencyStartingPoint: LandscapeConnectorPosition = {
+    x: dependencyElementX,
+    y: dependencyElementY,
   };
 
-  const dependentElementSpacer: LandscapeConnectorLine = {
-    start: {
-      x: dependentElementX - SPACER_SIZE,
-      y: dependentElementY,
-    },
-    end: {
-      x: dependentElementX,
-      y: dependentElementY,
-    },
-    startingElement: parameters.dependentElementSlug,
-    endingElement: parameters.dependencyElementSlug,
+  const dependencySpacer: LandscapeConnectorPosition = {
+    x: dependencyElementX + SPACER_SIZE,
+    y: dependencyElementY,
   };
 
-  const diagonalLine: LandscapeConnectorLine = {
-    start: {
-      x: dependencyElementX + SPACER_SIZE,
-      y: dependencyElementY,
-    },
-    end: {
-      x: dependentElementX - SPACER_SIZE,
-      y: dependentElementY,
-    },
-    startingElement: parameters.dependentElementSlug,
-    endingElement: parameters.dependencyElementSlug,
+  const dependantSpacer: LandscapeConnectorPosition = {
+    x: dependantElementX - SPACER_SIZE,
+    y: dependantElementY,
   };
 
-  return {
-    lines: [dependencyElementSpacer, dependentElementSpacer, diagonalLine],
+  const dependantStartingPoint: LandscapeConnectorPosition = {
+    x: dependantElementX,
+    y: dependantElementY,
   };
+
+  return new LandscapeConnector(
+    [dependencyStartingPoint, dependencySpacer, dependantSpacer, dependantStartingPoint],
+    parameters.dependantElementSlug,
+    parameters.dependencyElementSlug
+  );
 };

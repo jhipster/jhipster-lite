@@ -1,4 +1,9 @@
-import { LandscapeFeature } from './LandscapeFeature';
+import { LandscapeElementId } from './LandscapeElementId';
+import { LandscapeElementType } from './LandscapeElementType';
 import { LandscapeModule } from './LandscapeModule';
 
-export type LandscapeElement = LandscapeFeature | LandscapeModule;
+export interface LandscapeElement {
+  slug: LandscapeElementId;
+  type(): LandscapeElementType;
+  allModules(): LandscapeModule[];
+}

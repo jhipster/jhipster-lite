@@ -35,7 +35,8 @@ class RestJHipsterLandscapeTest {
         {\
         "levels":[\
         {"elements":[{"type":"MODULE","slug":"first","operation":"operation","properties":{PROPERTIES_DEFINITION}}]},\
-        {"elements":[{"type":"FEATURE","slug":"my-feature","modules":[{"type":"MODULE","slug":"second","operation":"operation","properties":{PROPERTIES_DEFINITION},"dependencies":["first"]}]}]}\
+        {"elements":[{"type":"FEATURE","slug":"my-feature","modules":\
+        [{"type":"MODULE","slug":"second","operation":"operation","properties":{PROPERTIES_DEFINITION},"dependencies":[{"type":"MODULE","slug":"first"}]}]}]}\
         ]\
         }\
         """.replace(

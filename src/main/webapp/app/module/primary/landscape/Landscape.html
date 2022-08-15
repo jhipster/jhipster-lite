@@ -40,6 +40,7 @@
                 :moduleFlavor="elementFlavor(module.slug)"
                 @over="emphasizeModule(module.slug)"
                 @out="deEmphasizeModule()"
+                @clicked="toggleModule(module.slug)"
               />
             </li>
           </ul>
@@ -51,6 +52,7 @@
           :moduleFlavor="elementFlavor(element.slug)"
           @over="emphasizeModule(element.slug)"
           @out="deEmphasizeModule()"
+          @clicked="toggleModule(element.slug)"
           v-else
         />
       </li>
@@ -62,15 +64,11 @@
     :style="`width: ${landscapeSize.width}px; height: ${landscapeSize.height}px`"
     data-selector="landscape-connectors"
   >
-    <line
-      v-for="connector in landscapeConnectorsLines"
+    <polyline
+      v-for="connector in landscapeConnectors"
       class="jhipster-landscape-connectors--line"
       :class="connectorClass(connector.startingElement)"
-      data-selector="landscape-connectors"
-      :x1="connector.start.x + 'px'"
-      :y1="connector.start.y + 'px'"
-      :x2="connector.end.x + 'px'"
-      :y2="connector.end.y + 'px'"
+      :points="connector.points"
     />
   </svg>
 </div>

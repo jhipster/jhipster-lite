@@ -55,7 +55,6 @@ public class DummyJpaPersistenceModuleFactory {
         .batch(SOURCE.append("test").append(SECONDARY), toSrcTestJava().append(packagePath).append(SECONDARY_DESTINATION))
           .addTemplate("BeerEntityTest.java")
           .addTemplate("JpaBeersRepositoryIntTest.java")
-          .addTemplate("JpaBeersReseter.java")
           .and()
         .delete(path("src/main/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersRepository.java"))
         .delete(path("src/test/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersReseter.java"))

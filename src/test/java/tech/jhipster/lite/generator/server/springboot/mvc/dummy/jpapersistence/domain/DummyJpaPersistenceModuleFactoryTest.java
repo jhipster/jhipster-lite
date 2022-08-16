@@ -33,8 +33,7 @@ class DummyJpaPersistenceModuleFactoryTest {
       .createPrefixedFiles(
         "src/test/java/com/jhipster/test/dummy/infrastructure/secondary",
         "BeerEntityTest.java",
-        "JpaBeersRepositoryIntTest.java",
-        "JpaBeersReseter.java"
+        "JpaBeersRepositoryIntTest.java"
       )
       .createFile("src/main/java/com/jhipster/test/dummy/application/BeersApplicationService.java")
       .containing("import org.springframework.transaction.annotation.Transactional;")

@@ -22,7 +22,7 @@ class DummyLiquibaseModuleConfiguration {
         JHipsterModuleOrganization
           .builder()
           .feature("dummy-schema")
-          .addFeatureDependency("jpa-persistence")
+          .addModuleDependency("liquibase")
           .addModuleDependency("dummy-feature")
           .build()
       )

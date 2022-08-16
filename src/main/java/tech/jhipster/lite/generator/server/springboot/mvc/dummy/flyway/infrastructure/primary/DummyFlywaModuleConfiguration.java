@@ -22,6 +22,7 @@ class DummyFlywaModuleConfiguration {
         JHipsterModuleOrganization
           .builder()
           .feature("dummy-schema")
+          .addModuleDependency("flyway")
           .addModuleDependency("dummy-feature")
           .addModuleDependency("postgresql")
           .build()
@@ -42,8 +43,8 @@ class DummyFlywaModuleConfiguration {
         JHipsterModuleOrganization
           .builder()
           .feature("dummy-schema")
+          .addModuleDependency("flyway")
           .addModuleDependency("dummy-feature")
-          .addFeatureDependency("jpa-persistence")
           .build()
       )
       .tags("server")

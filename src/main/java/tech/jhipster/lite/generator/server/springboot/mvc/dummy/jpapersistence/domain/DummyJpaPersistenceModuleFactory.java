@@ -20,10 +20,6 @@ public class DummyJpaPersistenceModuleFactory {
 
   private static final TextNeedleBeforeReplacer IMPORT_NEEDLE = lineBeforeText("import org.springframework.stereotype.Service;");
 
-  private static final TextNeedleBeforeReplacer CUCUMBER_IMPORT_NEEDLE = lineBeforeText(
-    "import org.springframework.data.jpa.repository.JpaRepository;"
-  );
-
   private static final TextNeedleBeforeReplacer CATALOG_METHOD_NEEDLE = new TextNeedleBeforeReplacer(
     ReplacementCondition.always(),
     "Beers catalog()"
@@ -40,11 +36,6 @@ public class DummyJpaPersistenceModuleFactory {
       "^ +@PreAuthorize\\(\"hasRole\\('ADMIN'\\)\"\\)\\n+ +public Beer create\\(BeerToCreate beerToCreate\\)",
       Pattern.MULTILINE
     )
-  );
-
-  private static final TextNeedleBeforeReplacer CUCUMBER_WIPE_METHOD_NEEDLE = new TextNeedleBeforeReplacer(
-    ReplacementCondition.always(),
-    "void wipeData()"
   );
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -74,12 +65,6 @@ public class DummyJpaPersistenceModuleFactory {
             .add(CATALOG_METHOD_NEEDLE, spaces + "@Transactional(readOnly = true)")
             .add(REMOVE_METHOD_NEEDLE, spaces + "@Transactional")
             .add(CREATE_METHOD_NEEDLE, spaces + "@Transactional")
-          .and()
-        .and()
-        .optionalReplacements()
-          .in("src/test/java/" + packagePath + "/cucumber/CucumberJpaReset.java")
-            .add(CUCUMBER_IMPORT_NEEDLE, "import org.springframework.transaction.annotation.Transactional;")
-            .add(CUCUMBER_WIPE_METHOD_NEEDLE, spaces + "@Transactional")
           .and()
         .and()
       .build();

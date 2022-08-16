@@ -16,17 +16,17 @@ class RestJHipsterModulePropertiesDefinitionTest {
       .isEqualTo(json());
   }
 
-  private String json() {
+  static String json() {
     return (
       "{\"definitions\":[" +
-      "{\"type\":\"STRING\",\"mandatory\":true,\"key\":\"packageName\",\"description\":\"Base java package\",\"example\":\"tech.jhipster.lite\"}," +
-      "{\"type\":\"STRING\",\"mandatory\":true,\"key\":\"projectName\",\"description\":\"Project full name\",\"example\":\"JHipster Project\"}," +
-      "{\"type\":\"STRING\",\"mandatory\":true,\"key\":\"baseName\",\"description\":\"Project short name (only letters and numbers)\",\"example\":\"jhipster\"}," +
-      "{\"type\":\"BOOLEAN\",\"mandatory\":true,\"key\":\"mandatoryBoolean\"}," +
-      "{\"type\":\"INTEGER\",\"mandatory\":true,\"key\":\"mandatoryInteger\"}," +
-      "{\"type\":\"BOOLEAN\",\"mandatory\":false,\"key\":\"optionalBoolean\"}," +
-      "{\"type\":\"STRING\",\"mandatory\":false,\"key\":\"optionalString\"}," +
-      "{\"type\":\"INTEGER\",\"mandatory\":false,\"key\":\"prettierDefaultIndent\",\"description\":\"Number of spaces in indentation\",\"example\":\"2\"}]}"
+      "{\"type\":\"STRING\",\"mandatory\":true,\"key\":\"packageName\",\"description\":\"Base java package\",\"example\":\"tech.jhipster.lite\",\"order\":-300}," +
+      "{\"type\":\"STRING\",\"mandatory\":true,\"key\":\"projectName\",\"description\":\"Project full name\",\"example\":\"JHipster Project\",\"order\":-200}," +
+      "{\"type\":\"STRING\",\"mandatory\":true,\"key\":\"baseName\",\"description\":\"Project short name (only letters and numbers)\",\"example\":\"jhipster\",\"order\":-100}," +
+      "{\"type\":\"BOOLEAN\",\"mandatory\":true,\"key\":\"mandatoryBoolean\",\"order\":0}," +
+      "{\"type\":\"INTEGER\",\"mandatory\":true,\"key\":\"mandatoryInteger\",\"order\":0}," +
+      "{\"type\":\"BOOLEAN\",\"mandatory\":false,\"key\":\"optionalBoolean\",\"order\":0}," +
+      "{\"type\":\"STRING\",\"mandatory\":false,\"key\":\"optionalString\",\"order\":0}," +
+      "{\"type\":\"INTEGER\",\"mandatory\":false,\"key\":\"prettierDefaultIndent\",\"description\":\"Number of spaces in indentation\",\"example\":\"2\",\"order\":500}]}"
     );
   }
 }

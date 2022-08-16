@@ -23,7 +23,7 @@ class DummyJpaPersistenceModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, beersApplicationService(), dummyInMemoryRepository(), inMemoryBeersReseter())
+    assertThatModuleWithFiles(module, beersApplicationService(), dummyInMemoryRepository(), inMemoryBeersReseter(), cucumberReseter())
       .createPrefixedFiles(
         "src/main/java/com/jhipster/test/dummy/infrastructure/secondary",
         "BeerEntity.java",
@@ -33,8 +33,7 @@ class DummyJpaPersistenceModuleFactoryTest {
       .createPrefixedFiles(
         "src/test/java/com/jhipster/test/dummy/infrastructure/secondary",
         "BeerEntityTest.java",
-        "JpaBeersRepositoryIntTest.java",
-        "JpaBeersReseter.java"
+        "JpaBeersRepositoryIntTest.java"
       )
       .createFile("src/main/java/com/jhipster/test/dummy/application/BeersApplicationService.java")
       .containing("import org.springframework.transaction.annotation.Transactional;")
@@ -56,6 +55,13 @@ class DummyJpaPersistenceModuleFactoryTest {
               public void remove(BeerId beer) {
             """
       )
+      .and()
+      .createFile("src/test/java/com/jhipster/test/cucumber/CucumberJpaReset.java")
+      .containing("import org.springframework.transaction.annotation.Transactional;")
+      .containing("""
+            @Transactional
+            public void wipeData() {
+          """)
       .and()
       .doNotCreateFiles(
         "src/main/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersRepository.java",
@@ -81,6 +87,13 @@ class DummyJpaPersistenceModuleFactoryTest {
     return file(
       "src/test/resources/projects/dummy-feature/InMemoryBeersReseter.java",
       "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersReseter.java"
+    );
+  }
+
+  private ModuleFile cucumberReseter() {
+    return file(
+      "src/test/resources/projects/dummy-feature/CucumberJpaReset.java",
+      "src/test/java/com/jhipster/test/cucumber/CucumberJpaReset.java"
     );
   }
 }

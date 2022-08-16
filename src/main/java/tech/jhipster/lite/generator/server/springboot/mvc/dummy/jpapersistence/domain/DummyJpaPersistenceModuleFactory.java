@@ -20,6 +20,10 @@ public class DummyJpaPersistenceModuleFactory {
 
   private static final TextNeedleBeforeReplacer IMPORT_NEEDLE = lineBeforeText("import org.springframework.stereotype.Service;");
 
+  private static final TextNeedleBeforeReplacer CUCUMBER_IMPORT_NEEDLE = lineBeforeText(
+    "import org.springframework.data.jpa.repository.JpaRepository;"
+  );
+
   private static final TextNeedleBeforeReplacer CATALOG_METHOD_NEEDLE = new TextNeedleBeforeReplacer(
     ReplacementCondition.always(),
     "Beers catalog()"
@@ -36,6 +40,11 @@ public class DummyJpaPersistenceModuleFactory {
       "^ +@PreAuthorize\\(\"hasRole\\('ADMIN'\\)\"\\)\\n+ +public Beer create\\(BeerToCreate beerToCreate\\)",
       Pattern.MULTILINE
     )
+  );
+
+  private static final TextNeedleBeforeReplacer CUCUMBER_WIPE_METHOD_NEEDLE = new TextNeedleBeforeReplacer(
+    ReplacementCondition.always(),
+    "void wipeData()"
   );
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -55,7 +64,6 @@ public class DummyJpaPersistenceModuleFactory {
         .batch(SOURCE.append("test").append(SECONDARY), toSrcTestJava().append(packagePath).append(SECONDARY_DESTINATION))
           .addTemplate("BeerEntityTest.java")
           .addTemplate("JpaBeersRepositoryIntTest.java")
-          .addTemplate("JpaBeersReseter.java")
           .and()
         .delete(path("src/main/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersRepository.java"))
         .delete(path("src/test/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersReseter.java"))
@@ -66,6 +74,12 @@ public class DummyJpaPersistenceModuleFactory {
             .add(CATALOG_METHOD_NEEDLE, spaces + "@Transactional(readOnly = true)")
             .add(REMOVE_METHOD_NEEDLE, spaces + "@Transactional")
             .add(CREATE_METHOD_NEEDLE, spaces + "@Transactional")
+          .and()
+        .and()
+        .optionalReplacements()
+          .in("src/test/java/" + packagePath + "/cucumber/CucumberJpaReset.java")
+            .add(CUCUMBER_IMPORT_NEEDLE, "import org.springframework.transaction.annotation.Transactional;")
+            .add(CUCUMBER_WIPE_METHOD_NEEDLE, spaces + "@Transactional")
           .and()
         .and()
       .build();

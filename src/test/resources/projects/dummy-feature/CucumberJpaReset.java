@@ -1,4 +1,4 @@
-package {{packageName}}.cucumber;
+package com.jhipster.test.cucumber;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;

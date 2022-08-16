@@ -19,7 +19,7 @@ class SpringBootWebfluxModuleConfiguration {
       .slug("springboot-webflux-netty")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addServerPort().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Webflux", "Add Spring Boot Webflux with Netty"))
-      .organization(JHipsterModuleOrganization.SPRINGBOOT_DEPENDENCY)
+      .organization(JHipsterModuleOrganization.builder().addModuleDependency("springboot").feature("spring-server").build())
       .tags("server", "webflux")
       .factory(webflux::buildModule);
   }

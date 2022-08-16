@@ -22,6 +22,7 @@ class DummyJpaPersistenceModuleConfiguration {
       .organization(
         JHipsterModuleOrganization
           .builder()
+          .feature("dummy-persistence")
           .addFeatureDependency("dummy-schema")
           .addModuleDependency("springboot-cucumber-jpa-reset")
           .build()

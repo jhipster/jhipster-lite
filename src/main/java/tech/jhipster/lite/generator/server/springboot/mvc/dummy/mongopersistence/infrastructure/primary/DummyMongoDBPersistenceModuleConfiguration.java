@@ -19,7 +19,14 @@ class DummyMongoDBPersistenceModuleConfiguration {
       .slug("dummy-mongodb-persistence")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add MongoDB persistence for dummy feature"))
-      .organization(JHipsterModuleOrganization.builder().addModuleDependency("dummy-feature").addModuleDependency("mongock").build())
+      .organization(
+        JHipsterModuleOrganization
+          .builder()
+          .feature("dummy-persistence")
+          .addModuleDependency("dummy-feature")
+          .addModuleDependency("mongock")
+          .build()
+      )
       .tags("server")
       .factory(dummyMongoDBPersistence::buildModule);
   }

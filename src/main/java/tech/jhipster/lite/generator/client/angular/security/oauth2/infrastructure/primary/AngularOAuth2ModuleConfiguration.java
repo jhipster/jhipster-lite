@@ -19,7 +19,7 @@ class AngularOAuth2ModuleConfiguration {
       .slug("angular-oauth2")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Angular", "Add OAuth2 authentication"))
-      .organization(JHipsterModuleOrganization.builder().addModuleDependency("angular-core").build())
+      .organization(JHipsterModuleOrganization.builder().feature("angular-authentication").addModuleDependency("angular-core").build())
       .tags("client", "angular")
       .factory(angularOAuth2::buildModule);
   }

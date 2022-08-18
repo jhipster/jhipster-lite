@@ -48,16 +48,20 @@ public class ModulesSteps {
       }
       """;
 
-  private static final String DEFAULT_MODULE_PROPERTIES_TEMPLATE =
+  private static final String DEFAULT_MODULES_PROPERTIES_TEMPLATE =
     """
       {
-        "projectFolder": "{PROJECT_FOLDER}",
-        "properties": {
-          "projectName": "Chips Project",
-          "baseName": "chips",
-          "packageName": "tech.jhipster.chips",
-          "serverPort": 8080
-        }
+        "modules": [{MODULES}],
+        "properties":
+          {
+            "projectFolder": "{PROJECT_FOLDER}",
+            "properties": {
+              "projectName": "Chips Project",
+              "baseName": "chips",
+              "packageName": "tech.jhipster.chips",
+              "serverPort": 8080
+            }
+          }
       }
       """;
 
@@ -72,9 +76,15 @@ public class ModulesSteps {
   public void applyModulesForDefaultProject(List<String> modulesSlugs) {
     String projectFolder = newTestFolder();
 
-    String query = DEFAULT_MODULE_PROPERTIES_TEMPLATE.replace("{PROJECT_FOLDER}", projectFolder);
+    String query = DEFAULT_MODULES_PROPERTIES_TEMPLATE
+      .replace("{PROJECT_FOLDER}", projectFolder)
+      .replace("{MODULES}", buildModulesList(modulesSlugs));
 
-    modulesSlugs.forEach(slug -> post(applyModuleUrl(slug), query));
+    post("/api/apply-patches", query);
+  }
+
+  private String buildModulesList(List<String> modulesSlugs) {
+    return modulesSlugs.stream().map(slug -> "\"" + slug + "\"").collect(Collectors.joining(","));
   }
 
   @When("I get module {string} properties definition")

@@ -311,6 +311,22 @@ public final class JHipsterModulesFixture {
     return javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").build();
   }
 
+  public static JHipsterModulesToApply modulesToApply() {
+    return new JHipsterModulesToApply(
+      List.of(moduleSlug("maven-java"), moduleSlug("init")),
+      propertiesBuilder("/dummy")
+        .projectName("Chips Project")
+        .basePackage("tech.jhipster.chips")
+        .put("baseName", "chips")
+        .put("serverPort", 8080)
+        .build()
+    );
+  }
+
+  public static JHipsterModuleSlug moduleSlug(String slug) {
+    return new JHipsterModuleSlug(slug);
+  }
+
   public static class JHipsterModulePropertiesBuilder {
 
     private final String projectFolder;

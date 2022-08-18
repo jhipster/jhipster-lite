@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
 import java.time.Instant;
+import java.util.function.Function;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.git.domain.GitRepository;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
@@ -25,6 +26,17 @@ public class JHipsterModulesApplyer {
     this.currentVersions = currentVersions;
     this.projectDependencies = projectDependencies;
     this.git = git;
+  }
+
+  public void apply(JHipsterModulesToApply modulesToApply) {
+    Assert.notNull("modulesToApply", modulesToApply);
+
+    modules.landscape().sort(modulesToApply.modules()).stream().map(toModuleToApply(modulesToApply)).forEach(this::apply);
+  }
+
+  private Function<JHipsterModuleSlug, JHipsterModuleToApply> toModuleToApply(JHipsterModulesToApply modulesToApply) {
+    return slug ->
+      new JHipsterModuleToApply(modulesToApply.properties(), slug, modules.resources().build(slug, modulesToApply.properties()));
   }
 
   public void apply(JHipsterModuleToApply moduleToApply) {

@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.domain.resource;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import tech.jhipster.lite.common.domain.Generated;
@@ -51,6 +52,11 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
   @Override
   public Optional<JHipsterLandscapeDependencies> dependencies() {
     return dependencies;
+  }
+
+  @Override
+  public Stream<JHipsterLandscapeModule> allModules() {
+    return Stream.of(this);
   }
 
   @Override

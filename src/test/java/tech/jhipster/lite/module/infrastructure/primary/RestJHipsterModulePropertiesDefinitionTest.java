@@ -1,19 +1,18 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
 import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 
 @UnitTest
 class RestJHipsterModulePropertiesDefinitionTest {
 
   @Test
   void shouldSerializeToJson() {
-    assertThat(JsonHelper.writeAsString(RestJHipsterModulePropertiesDefinition.from(JHipsterModulesFixture.propertiesDefinition())))
-      .isEqualTo(json());
+    assertThat(JsonHelper.writeAsString(RestJHipsterModulePropertiesDefinition.from(propertiesDefinition()))).isEqualTo(json());
   }
 
   static String json() {

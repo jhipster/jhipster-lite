@@ -70,6 +70,7 @@ public class JHipsterLandscape {
       .builder()
       .module(module.slug())
       .operation(module.operation())
+      .propertiesDefinition(module.propertiesDefinition())
       .dependencies(dependenciesWithoutNested(module, knownDependencies));
   }
 

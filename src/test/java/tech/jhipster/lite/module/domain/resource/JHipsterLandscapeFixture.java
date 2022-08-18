@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.domain.resource;
 
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -16,11 +18,21 @@ public final class JHipsterLandscapeFixture {
   }
 
   public static JHipsterLandscapeModule noDependencyLandscapeModule(String slug) {
-    return JHipsterLandscapeModule.builder().module(slug).operation("operation").withoutDependencies();
+    return JHipsterLandscapeModule
+      .builder()
+      .module(slug)
+      .operation("operation")
+      .propertiesDefinition(propertiesDefinition())
+      .withoutDependencies();
   }
 
   public static JHipsterLandscapeModule oneModuleDependencyLandscapeModule(String slug, String dependency) {
-    return JHipsterLandscapeModule.builder().module(slug).operation("operation").dependencies(landscapeModuleDependencies(dependency));
+    return JHipsterLandscapeModule
+      .builder()
+      .module(slug)
+      .operation("operation")
+      .propertiesDefinition(propertiesDefinition())
+      .dependencies(landscapeModuleDependencies(dependency));
   }
 
   public static JHipsterLandscapeLevel landscapeLevel(JHipsterLandscapeElement... elements) {

@@ -127,8 +127,8 @@ export const defaultLandscape = (): Landscape =>
           new LandscapeModule(moduleSlug('postgresql'), 'Add PostGreSQL', moduleSlugs('spring-boot')),
         ]),
         new LandscapeFeature(featureSlug('spring-mvc'), [
-          new LandscapeModule(moduleSlug('springboot-tomcat'), 'Add Tomcat', moduleSlugs('spring-boot')),
-          new LandscapeModule(moduleSlug('springboot-undertow'), 'Add Undertow', moduleSlugs('spring-boot')),
+          new LandscapeModule(moduleSlug('spring-boot-tomcat'), 'Add Tomcat', moduleSlugs('spring-boot')),
+          new LandscapeModule(moduleSlug('spring-boot-undertow'), 'Add Undertow', moduleSlugs('spring-boot')),
         ]),
         new LandscapeModule(moduleSlug('bean-validation-test'), 'Add bean validation test tools', moduleSlugs('spring-boot')),
         new LandscapeModule(moduleSlug('build'), 'Add build information', featureSlugs('ci')),

@@ -16,7 +16,7 @@ class SpringBootMvcModulesConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/web-servers/tomcat")
-      .slug("springboot-tomcat")
+      .slug("spring-boot-tomcat")
       .propertiesDefinition(properties())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add Spring Boot MVC with Tomcat"))
       .organization(organization())
@@ -29,7 +29,7 @@ class SpringBootMvcModulesConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/web-servers/undertow")
-      .slug("springboot-undertow")
+      .slug("spring-boot-undertow")
       .propertiesDefinition(properties())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add Spring Boot MVC with Undertow"))
       .organization(organization())
@@ -42,6 +42,6 @@ class SpringBootMvcModulesConfiguration {
   }
 
   private JHipsterModuleOrganization organization() {
-    return JHipsterModuleOrganization.builder().feature("spring-server").addModuleDependency("springboot").build();
+    return JHipsterModuleOrganization.builder().feature("spring-server").addModuleDependency("spring-boot").build();
   }
 }

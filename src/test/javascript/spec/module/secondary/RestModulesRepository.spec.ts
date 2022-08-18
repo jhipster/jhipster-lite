@@ -162,8 +162,8 @@ const restLandscape = (): RestLandscape => ({
       elements: [
         landscapeFeature('jpa', [landscapeModule('postgresql', 'Add PostGreSQL', [moduleDependency('spring-boot')])]),
         landscapeFeature('spring-mvc', [
-          landscapeModule('springboot-tomcat', 'Add Tomcat', [moduleDependency('spring-boot')]),
-          landscapeModule('springboot-undertow', 'Add Undertow', [moduleDependency('spring-boot')]),
+          landscapeModule('spring-boot-tomcat', 'Add Tomcat', [moduleDependency('spring-boot')]),
+          landscapeModule('spring-boot-undertow', 'Add Undertow', [moduleDependency('spring-boot')]),
         ]),
         landscapeModule('bean-validation-test', 'Add bean validation test tools', [moduleDependency('spring-boot')]),
         landscapeModule('build', 'Add build information', [featureDependency('ci')]),

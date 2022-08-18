@@ -16,7 +16,7 @@ class SpringBootCoreModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot")
-      .slug("springboot")
+      .slug("spring-boot")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot", "Init Spring Boot project with dependencies, App, and properties"))
       .organization(JHipsterModuleOrganization.builder().addFeatureDependency("java-build-tool").build())

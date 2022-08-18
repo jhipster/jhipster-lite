@@ -16,10 +16,10 @@ class PulsarModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/brokers/pulsar")
-      .slug("springboot-pulsar")
+      .slug("spring-boot-pulsar")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Broker", "Add Pulsar dependencies, with testcontainers"))
-      .organization(JHipsterModuleOrganization.builder().addModuleDependency("springboot").build())
+      .organization(JHipsterModuleOrganization.builder().addModuleDependency("spring-boot").build())
       .tags("server", "spring", "spring-boot", "broker")
       .factory(pulsar::buildModule);
   }

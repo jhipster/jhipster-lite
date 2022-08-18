@@ -34,7 +34,7 @@ callApi() {
   fi;
 }
 
-springboot_mvc() {
+spring_boot_mvc() {
   callApi "/api/inits/full"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
@@ -46,7 +46,7 @@ springboot_mvc() {
   callApi "/api/servers/spring-boot/technical-tools/actuator"
 }
 
-springboot_undertow() {
+spring_boot_undertow() {
   callApi "/api/inits/full"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
@@ -58,7 +58,7 @@ springboot_undertow() {
   callApi "/api/servers/spring-boot/technical-tools/actuator"
 }
 
-springboot() {
+spring_boot() {
   callApi "/api/inits/full"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
@@ -76,16 +76,16 @@ sonar_back_front() {
   callApi "/api/developer-tools/sonar/java-backend-and-frontend"
 }
 
-if [[ $application == 'springboot' ]]; then
-  springboot_mvc
+if [[ $application == 'spring-boot' ]]; then
+  spring_boot_mvc
   sonar_back
 
 elif [[ $application == 'fullstack' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back_front
 
 elif [[ $application == 'fullapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back_front
 
   callApi "/api/infinitest-filters"
@@ -104,7 +104,7 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
-  callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
+  callApi "/api/servers/spring-boot/component-tests/spring-boot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/hexagonal-architecture-documentation"
   callApi "/api/servers/bean-validation-test"
@@ -122,7 +122,7 @@ elif [[ $application == 'fullapp' ]]; then
   callApi "/api/clients/vue"
 
 elif [[ $application == 'oauth2app' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/security-systems/oauth2"
@@ -134,7 +134,7 @@ elif [[ $application == 'oauth2app' ]]; then
   callApi "/api/servers/spring-boot/features/dummy"
 
 elif [[ $application == 'mysqlapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/mysql"
@@ -144,7 +144,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
-  callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
+  callApi "/api/servers/spring-boot/component-tests/spring-boot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/bean-validation-test"
 
@@ -155,7 +155,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
 elif [[ $application == 'mariadbapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc"
@@ -166,7 +166,7 @@ elif [[ $application == 'mariadbapp' ]]; then
   callApi "/api/servers/spring-boot/caches/ehcache/xml-configuration"
 
 elif [[ $application == 'mssqlapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc"
@@ -174,7 +174,7 @@ elif [[ $application == 'mssqlapp' ]]; then
   callApi "/api/servers/spring-boot/databases/mssql"
 
 elif [[ $application == 'flywayapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/postgresql"
@@ -184,7 +184,7 @@ elif [[ $application == 'flywayapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
-  callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
+  callApi "/api/servers/spring-boot/component-tests/spring-boot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/bean-validation-test"
 
@@ -193,7 +193,7 @@ elif [[ $application == 'flywayapp' ]]; then
   callApi "/api/servers/spring-boot/features/dummy-postgresql-flyway-changelog"
 
 elif [[ $application == 'undertowapp' ]]; then
-  springboot_undertow
+  spring_boot_undertow
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/mysql"
@@ -204,7 +204,7 @@ elif [[ $application == 'undertowapp' ]]; then
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
-  callApi "/api/servers/spring-boot/component-tests/springboot-cucumber-jpa-reset"
+  callApi "/api/servers/spring-boot/component-tests/spring-boot-cucumber-jpa-reset"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/bean-validation-test"
 
@@ -215,20 +215,20 @@ elif [[ $application == 'undertowapp' ]]; then
   callApi "/api/servers/spring-boot/caches/simple"
 
 elif [[ $application == 'eurekaapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/eureka-client"
   callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/config-client"
 
 elif [[ $application == 'consulapp' ]]; then
-  springboot_undertow
+  spring_boot_undertow
   sonar_back
 
   callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/consul"
 
 elif [[ $application == 'gatewayapp' ]]; then
-  springboot
+  spring_boot
   sonar_back
 
   callApi "/api/servers/spring-boot/reactive-servers/netty"
@@ -237,24 +237,24 @@ elif [[ $application == 'gatewayapp' ]]; then
   callApi "/api/servers/spring-boot/distributed-systems/spring-cloud/gateway"
 
 elif [[ $application == 'mongodbapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/databases/mongodb"
   callApi "/api/servers/spring-boot/database-migration-tools/mongock"
-  
+
   callApi "/api/servers/spring-boot/security-systems/jwt"
   callApi "/api/servers/spring-boot/security-systems/jwt/basic-auth"
   callApi "/api/servers/spring-boot/api-documentations/springdoc/init-mvc-with-security-jwt"
   callApi "/api/servers/spring-boot/component-tests/cucumber"
   callApi "/api/servers/spring-boot/component-tests/cucumber-jwt-authentication"
   callApi "/api/servers/bean-validation-test"
-  
+
   callApi "/api/servers/spring-boot/features/dummy"
   callApi "/api/servers/spring-boot/features/dummy-mongodb-persistence"
 
 elif [[ $application == 'angularapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
@@ -267,7 +267,7 @@ elif [[ $application == 'angularapp' ]]; then
   callApi "/api/clients/angular/admin-pages/health"
 
 elif [[ $application == 'angularoauth2app' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
@@ -278,7 +278,7 @@ elif [[ $application == 'angularoauth2app' ]]; then
   callApi "/api/servers/spring-boot/security-systems/oauth2/account"
 
 elif [[ $application == 'reactapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
@@ -291,7 +291,7 @@ elif [[ $application == 'reactapp' ]]; then
   callApi "/api/clients/react/jwt"
 
 elif [[ $application == 'vueapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
@@ -300,27 +300,27 @@ elif [[ $application == 'vueapp' ]]; then
   callApi "/api/clients/cypress"
 
 elif [[ $application == 'svelteapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back_front
 
   callApi "/api/developer-tools/frontend-maven-plugin"
   callApi "/api/clients/svelte/styles"
 
 elif [[ $application == 'kafkaapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/brokers/kafka"
   callApi "/api/servers/spring-boot/brokers/kafka/akhq"
 
 elif [[ $application == 'pulsarapp' ]]; then
-  springboot_mvc
+  spring_boot_mvc
   sonar_back
 
   callApi "/api/servers/spring-boot/brokers/pulsar"
 
 elif [[ $application == 'reactiveapp' ]]; then
-  springboot
+  spring_boot
   sonar_back
 
   callApi "/api/servers/spring-boot/reactive-servers/netty"

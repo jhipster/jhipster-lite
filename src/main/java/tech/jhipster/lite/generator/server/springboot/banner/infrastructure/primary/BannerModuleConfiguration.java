@@ -95,6 +95,6 @@ class BannerModuleConfiguration {
   }
 
   private JHipsterModuleOrganization organization() {
-    return JHipsterModuleOrganization.builder().feature(BANNER).addModuleDependency("springboot").build();
+    return JHipsterModuleOrganization.builder().feature(BANNER).addModuleDependency("spring-boot").build();
   }
 }

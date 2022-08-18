@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 public class JHipsterModuleOrganization {
 
   public static final JHipsterModuleOrganization STANDALONE = builder().build();
-  public static final JHipsterModuleOrganization SPRINGBOOT_DEPENDENCY = builder().addModuleDependency("springboot").build();
+  public static final JHipsterModuleOrganization SPRINGBOOT_DEPENDENCY = builder().addModuleDependency("spring-boot").build();
 
   private final Optional<JHipsterFeatureSlug> feature;
   private final Collection<JHipsterLandscapeDependency> dependencies;

@@ -42,6 +42,6 @@ class EHCacheModulesConfiguration {
   }
 
   private JHipsterModuleOrganization organization() {
-    return JHipsterModuleOrganization.builder().feature("ehcache").addModuleDependency("springboot").build();
+    return JHipsterModuleOrganization.builder().feature("ehcache").addModuleDependency("spring-boot").build();
   }
 }

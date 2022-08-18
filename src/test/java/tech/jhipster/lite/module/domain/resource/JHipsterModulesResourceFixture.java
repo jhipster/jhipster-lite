@@ -1,12 +1,13 @@
 package tech.jhipster.lite.module.domain.resource;
 
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import tech.jhipster.lite.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 import tech.jhipster.lite.module.domain.JHipsterModuleTags.JHipsterModuleTagsBuilder;
-import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization.JHipsterModuleOrganizationBuilder;
 
 public final class JHipsterModulesResourceFixture {
@@ -39,6 +40,20 @@ public final class JHipsterModulesResourceFixture {
       .operation("operation")
       .tags(JHipsterModuleTags.builder().add("tag1").build())
       .factory(properties -> null);
+  }
+
+  public static JHipsterModulePropertiesDefinition propertiesDefinition() {
+    return JHipsterModulePropertiesDefinition
+      .builder()
+      .addBasePackage()
+      .addIndentation()
+      .addProjectName()
+      .addProjectBaseName()
+      .add(optionalStringProperty("optionalString").build())
+      .add(mandatoryIntegerProperty("mandatoryInteger").build())
+      .add(mandatoryBooleanProperty("mandatoryBoolean").build())
+      .add(optionalBooleanProperty("optionalBoolean").build())
+      .build();
   }
 
   public static class JHipsterTestModuleResourceBuilder {
@@ -115,7 +130,7 @@ public final class JHipsterModulesResourceFixture {
         .builder()
         .legacyUrl(legacyUrl)
         .slug(slug)
-        .propertiesDefinition(JHipsterModulesFixture.propertiesDefinition())
+        .propertiesDefinition(JHipsterModulesResourceFixture.propertiesDefinition())
         .apiDoc(new JHipsterModuleApiDoc(tag, operation))
         .organization(buildOrganization())
         .tags(tags)

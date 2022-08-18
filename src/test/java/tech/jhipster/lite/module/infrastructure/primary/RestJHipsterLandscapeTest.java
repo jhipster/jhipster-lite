@@ -34,10 +34,13 @@ class RestJHipsterLandscapeTest {
     return """
         {\
         "levels":[\
-        {"elements":[{"type":"MODULE","slug":"first","operation":"operation"}]},\
-        {"elements":[{"type":"FEATURE","slug":"my-feature","modules":[{"type":"MODULE","slug":"second","operation":"operation","dependencies":["first"]}]}]}\
+        {"elements":[{"type":"MODULE","slug":"first","operation":"operation","properties":{PROPERTIES_DEFINITION}}]},\
+        {"elements":[{"type":"FEATURE","slug":"my-feature","modules":[{"type":"MODULE","slug":"second","operation":"operation","properties":{PROPERTIES_DEFINITION},"dependencies":["first"]}]}]}\
         ]\
         }\
-        """;
+        """.replace(
+        "{PROPERTIES_DEFINITION}",
+        RestJHipsterModulePropertiesDefinitionTest.json()
+      );
   }
 }

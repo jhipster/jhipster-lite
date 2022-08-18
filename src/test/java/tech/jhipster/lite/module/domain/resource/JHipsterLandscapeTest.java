@@ -144,6 +144,7 @@ class JHipsterLandscapeTest {
             .builder()
             .module("forth")
             .operation("operation")
+            .propertiesDefinition(propertiesDefinition())
             .dependencies(List.of(new JHipsterFeatureDependency(new JHipsterFeatureSlug("my-feature"))))
         )
       );

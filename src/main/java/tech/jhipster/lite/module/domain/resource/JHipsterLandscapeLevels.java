@@ -77,6 +77,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
         .builder()
         .module(resource.slug())
         .operation(resource.apiDoc().operation())
+        .propertiesDefinition(resource.propertiesDefinition())
         .dependencies(resource.organization().dependencies());
     }
 

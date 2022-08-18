@@ -1,7 +1,6 @@
 package tech.jhipster.lite.module.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.TestFileUtils;
+import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
@@ -16,14 +16,18 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
-import tech.jhipster.lite.module.domain.javadependency.*;
+import tech.jhipster.lite.module.domain.javadependency.CurrentJavaDependenciesVersions;
+import tech.jhipster.lite.module.domain.javadependency.DependencyId;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 
 public final class JHipsterModulesFixture {
 
@@ -230,20 +234,6 @@ public final class JHipsterModulesFixture {
         true
       )
     );
-  }
-
-  public static JHipsterModulePropertiesDefinition propertiesDefinition() {
-    return JHipsterModulePropertiesDefinition
-      .builder()
-      .addBasePackage()
-      .addIndentation()
-      .addProjectName()
-      .addProjectBaseName()
-      .add(optionalStringProperty("optionalString").build())
-      .add(mandatoryIntegerProperty("mandatoryInteger").build())
-      .add(mandatoryBooleanProperty("mandatoryBoolean").build())
-      .add(optionalBooleanProperty("optionalBoolean").build())
-      .build();
   }
 
   public static JHipsterModulePropertiesBuilder propertiesBuilder(String projectFolder) {

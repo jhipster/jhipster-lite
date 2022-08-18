@@ -12,14 +12,17 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
 
   private final JHipsterModuleSlug module;
   private final JHipsterModuleOperation operation;
+  private final JHipsterModulePropertiesDefinition propertiesDefinition;
   private final Optional<JHipsterLandscapeDependencies> dependencies;
 
   private JHipsterLandscapeModule(JHipsterLandscapeModuleBuilder builder) {
     Assert.notNull("module", builder.module);
     Assert.notNull("operation", builder.operation);
+    Assert.notNull("propertiesDefinition", builder.propertiesDefinition);
 
     module = builder.module;
     operation = builder.operation;
+    propertiesDefinition = builder.propertiesDefinition;
     dependencies = JHipsterLandscapeDependencies.of(builder.dependencies);
   }
 
@@ -39,6 +42,10 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
 
   public JHipsterModuleOperation operation() {
     return operation;
+  }
+
+  public JHipsterModulePropertiesDefinition propertiesDefinition() {
+    return propertiesDefinition;
   }
 
   @Override
@@ -69,11 +76,16 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
   }
 
   public static class JHipsterLandscapeModuleBuilder
-    implements JHipsterLandscapeModuleSlugBuilder, JHipsterLandscapeModuleOperationBuilder, JHipsterLandscapeModuleDependenciesBuilder {
+    implements
+      JHipsterLandscapeModuleSlugBuilder,
+      JHipsterLandscapeModuleOperationBuilder,
+      JHipsterLandscapeModulePropertiesDefinitionBuilder,
+      JHipsterLandscapeModuleDependenciesBuilder {
 
     private JHipsterModuleSlug module;
     private JHipsterModuleOperation operation;
     private Collection<JHipsterLandscapeDependency> dependencies;
+    private JHipsterModulePropertiesDefinition propertiesDefinition;
 
     private JHipsterLandscapeModuleBuilder() {}
 
@@ -85,8 +97,15 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
     }
 
     @Override
-    public JHipsterLandscapeModuleDependenciesBuilder operation(JHipsterModuleOperation operation) {
+    public JHipsterLandscapeModulePropertiesDefinitionBuilder operation(JHipsterModuleOperation operation) {
       this.operation = operation;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterLandscapeModuleDependenciesBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition) {
+      this.propertiesDefinition = propertiesDefinition;
 
       return this;
     }
@@ -108,11 +127,15 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
   }
 
   public interface JHipsterLandscapeModuleOperationBuilder {
-    JHipsterLandscapeModuleDependenciesBuilder operation(JHipsterModuleOperation operation);
+    JHipsterLandscapeModulePropertiesDefinitionBuilder operation(JHipsterModuleOperation operation);
 
-    default JHipsterLandscapeModuleDependenciesBuilder operation(String operation) {
+    default JHipsterLandscapeModulePropertiesDefinitionBuilder operation(String operation) {
       return operation(new JHipsterModuleOperation(operation));
     }
+  }
+
+  public interface JHipsterLandscapeModulePropertiesDefinitionBuilder {
+    JHipsterLandscapeModuleDependenciesBuilder propertiesDefinition(JHipsterModulePropertiesDefinition propertiesDefinition);
   }
 
   public interface JHipsterLandscapeModuleDependenciesBuilder {

@@ -1,12 +1,15 @@
 package tech.jhipster.lite.module.domain.resource;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.module.domain.JHipsterFeatureSlug;
+import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
 
 public class JHipsterLandscape {
@@ -101,6 +104,24 @@ public class JHipsterLandscape {
       .flatMap(level -> level.elements().stream())
       .filter(element -> element.slug().equals(slug))
       .flatMap(element -> element.dependencies().map(JHipsterLandscapeDependencies::stream).orElse(Stream.of()));
+  }
+
+  public Collection<JHipsterModuleSlug> sort(Collection<JHipsterModuleSlug> modules) {
+    return levels.stream().flatMap(toLevelModules(modules)).toList();
+  }
+
+  private Function<JHipsterLandscapeLevel, Stream<JHipsterModuleSlug>> toLevelModules(Collection<JHipsterModuleSlug> modules) {
+    return level -> modules.stream().filter(inLevel(level));
+  }
+
+  private Predicate<JHipsterModuleSlug> inLevel(JHipsterLandscapeLevel level) {
+    return module ->
+      level
+        .elements()
+        .stream()
+        .flatMap(JHipsterLandscapeElement::allModules)
+        .map(JHipsterLandscapeElement::slug)
+        .anyMatch(levelElement -> levelElement.equals(module));
   }
 
   public JHipsterLandscapeLevels levels() {

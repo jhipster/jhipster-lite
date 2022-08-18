@@ -13,7 +13,7 @@ import tech.jhipster.lite.projectfolder.domain.ProjectFolder;
 @UnitTest
 class RestJHipsterModulePropertiesTest {
 
-  private final ProjectFolder jHipsterProjectFolderFactory = mock(ProjectFolder.class);
+  private static final ProjectFolder jHipsterProjectFolderFactory = mock(ProjectFolder.class);
 
   @Test
   void shouldNotConvertToPropertiesWithInvalidProjectFolder() {

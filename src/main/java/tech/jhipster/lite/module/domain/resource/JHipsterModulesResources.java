@@ -1,15 +1,32 @@
 package tech.jhipster.lite.module.domain.resource;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
-public record JHipsterModulesResources(Collection<JHipsterModuleResource> modulesResources) {
-  public JHipsterModulesResources {
-    Assert.field("modulesResources", modulesResources).noNullElement().notEmpty();
+public class JHipsterModulesResources {
+
+  private final Map<JHipsterModuleSlug, JHipsterModuleResource> resources;
+
+  public JHipsterModulesResources(Collection<JHipsterModuleResource> modulesResources) {
+    Assert.field("modulesResources", modulesResources).notEmpty().noNullElement();
 
     assertUniqueSlugs(modulesResources);
+
+    resources =
+      Collections.unmodifiableMap(
+        modulesResources
+          .stream()
+          .collect(Collectors.toMap(JHipsterModuleResource::slug, Function.identity(), (x, y) -> y, LinkedHashMap::new))
+      );
   }
 
   private void assertUniqueSlugs(Collection<JHipsterModuleResource> modulesResources) {
@@ -23,6 +40,13 @@ public record JHipsterModulesResources(Collection<JHipsterModuleResource> module
   }
 
   public Stream<JHipsterModuleResource> stream() {
-    return modulesResources().stream();
+    return resources.values().stream();
+  }
+
+  public JHipsterModule build(JHipsterModuleSlug slug, JHipsterModuleProperties properties) {
+    Assert.notNull("slug", slug);
+    Assert.notNull("properties", properties);
+
+    return resources.get(slug).factory().create(properties);
   }
 }

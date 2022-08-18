@@ -56,4 +56,9 @@ public final class JHipsterLandscapeFeature implements JHipsterLandscapeElement 
   public Optional<JHipsterLandscapeDependencies> dependencies() {
     return dependencies;
   }
+
+  @Override
+  public Stream<JHipsterLandscapeModule> allModules() {
+    return modules.stream();
+  }
 }

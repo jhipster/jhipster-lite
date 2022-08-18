@@ -1,15 +1,15 @@
 import { LandscapeVue } from '@/module/primary/landscape';
-import { ModulesVue } from '@/module/primary/modules';
+import { ModulesVue } from '@/module/primary/modules-patch';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
     path: '/',
-    redirect: { name: 'Modules' },
+    redirect: { name: 'landscape' },
   },
   {
-    path: '/modules',
-    name: 'Modules',
+    path: '/patches',
+    name: 'module-patches',
     component: ModulesVue,
   },
   {

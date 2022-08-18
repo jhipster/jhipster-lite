@@ -12,6 +12,8 @@ import { RestModuleToApply, toRestModuleToApply } from './RestModuleToApply';
 import { mapToModuleHistory, RestProjectHistory } from './RestProjectHistory';
 import { mapToLandscape, RestLandscape } from './RestLandscape';
 import { ProjectHistory } from '../domain/ProjectHistory';
+import { ModulesToApply } from '../domain/ModulesToApply';
+import { RestModulesToApply, toRestModulesToApply } from './RestModulesToApply';
 
 export class RestModulesRepository implements ModulesRepository {
   constructor(private axiosInstance: AxiosHttp) {}
@@ -26,6 +28,10 @@ export class RestModulesRepository implements ModulesRepository {
 
   async apply(module: ModuleSlug, moduleToApply: ModuleToApply): Promise<void> {
     await this.axiosInstance.post<void, RestModuleToApply>(`/api/modules/${module.get()}/apply-patch`, toRestModuleToApply(moduleToApply));
+  }
+
+  async applyAll(modulesToApply: ModulesToApply): Promise<void> {
+    await this.axiosInstance.post<void, RestModulesToApply>('/api/apply-patches', toRestModulesToApply(modulesToApply));
   }
 
   history(folder: ProjectFolder): Promise<ProjectHistory> {

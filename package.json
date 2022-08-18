@@ -27,6 +27,7 @@
     "preview": "vite preview",
     "start": "vite",
     "test": "npm run jest --",
+    "test:clear": "jest --clearCache",
     "test:watch": "npm run jest -- --watch"
   },
   "dependencies": {

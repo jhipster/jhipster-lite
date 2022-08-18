@@ -1,6 +1,6 @@
-<template src="./Modules.html"></template>
+<template src="./ModulesPatch.html"></template>
 
-<script lang="ts" src="./Modules.component.ts"></script>
+<script lang="ts" src="./ModulesPatch.component.ts"></script>
 
 <style lang="scss">
 .jhipster-modules {
@@ -10,78 +10,6 @@
   display: flex;
   height: calc(100vh - $jhipster-lite-header-height);
   flex-direction: row-reverse;
-}
-
-.jhipster-modules-form {
-  border-left: 1px solid $jhipster-lite-line-color;
-  background-color: $jhipster-lite-secondary-color;
-  padding: 0 15px;
-  width: 350px;
-  flex-direction: column;
-  justify-content: space-between;
-  display: flex;
-
-  &--properties-title {
-    font-size: 1.4em;
-    margin-top: 15px;
-  }
-
-  &--commit-modules {
-    margin: 10px 0;
-  }
-
-  &--commit-modules-label {
-    margin-left: 10px;
-    cursor: pointer;
-  }
-
-  &--field-line {
-    align-self: flex-start;
-    margin-bottom: 10px;
-  }
-
-  &--field {
-    width: 100%;
-    border: 1px solid $jhipster-lite-line-color;
-    background-color: $jhipster-lite-secondary-color;
-    color: $jhipster-lite-primary-input-color;
-    border-radius: 10px;
-    padding: 2px 7px;
-  }
-
-  &--field-description {
-    font-style: italic;
-  }
-
-  &--field-key {
-    font-weight: bold;
-  }
-
-  &--field-optional-marker {
-    text-align: right;
-    font-style: italic;
-  }
-
-  &--actions {
-    align-self: flex-end;
-    width: 100%;
-  }
-
-  &--download-project,
-  &--format-project {
-    margin-bottom: 15px;
-    width: 100%;
-    background-color: $jhipster-lite-primary-alternative-color;
-    border: 1px solid $jhipster-lite-line-color;
-    color: $jhipster-lite-primary-input-color;
-    border-radius: 6px;
-    padding: 9px 17px;
-  }
-
-  &--download-project:disabled,
-  &--format-project:disabled {
-    background-color: $jhipster-lite-disabled-color;
-  }
 }
 
 .jhipster-modules-list {

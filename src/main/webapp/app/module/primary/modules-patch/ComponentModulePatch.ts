@@ -1,11 +1,11 @@
 import { Module } from '@/module/domain/Module';
-import { ModuleProperty } from '@/module/domain/ModuleProperty';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 
 export class ComponentModule {
   private constructor(
     public readonly slug: string,
     public readonly description: string,
-    public readonly properties: ModuleProperty[],
+    public readonly properties: ModulePropertyDefinition[],
     public readonly tags: string[],
     public readonly normalizedContent: string
   ) {}

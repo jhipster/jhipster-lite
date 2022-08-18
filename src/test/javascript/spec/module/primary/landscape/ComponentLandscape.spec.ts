@@ -12,5 +12,5 @@ describe('Component Landscape', () => {
 });
 
 const invalidDependencyLandscape = (): Landscape => {
-  return new Landscape([{ elements: [new LandscapeModule(new ModuleSlug('dummy'), 'operation', [new ModuleSlug('unknown')])] }]);
+  return new Landscape([{ elements: [new LandscapeModule(new ModuleSlug('dummy'), 'operation', [], [new ModuleSlug('unknown')])] }]);
 };

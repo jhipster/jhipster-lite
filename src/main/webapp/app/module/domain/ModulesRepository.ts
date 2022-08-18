@@ -5,6 +5,7 @@ import { ProjectFolder } from './ProjectFolder';
 import { Project } from './Project';
 import { ProjectHistory } from './ProjectHistory';
 import { Landscape } from './landscape/Landscape';
+import { ModulesToApply } from './ModulesToApply';
 
 export interface ModulesRepository {
   list(): Promise<Modules>;
@@ -12,6 +13,8 @@ export interface ModulesRepository {
   landscape(): Promise<Landscape>;
 
   apply(module: ModuleSlug, moduleToApply: ModuleToApply): Promise<void>;
+
+  applyAll(modulesToApply: ModulesToApply): Promise<void>;
 
   history(folder: ProjectFolder): Promise<ProjectHistory>;
 

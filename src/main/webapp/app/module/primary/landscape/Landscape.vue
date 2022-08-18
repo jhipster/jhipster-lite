@@ -4,17 +4,24 @@
 
 <style lang="scss">
 .jhipster-landscape {
-  padding-top: 20px;
   font-family: $jhipster-lite-font-family;
   color: $jhipster-lite-primary-text-color;
-  height: calc(100vh - $jhipster-lite-header-height);
   background-color: $jhipster-lite-secondary-color;
-  overflow: auto;
-  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  height: calc(100vh - $jhipster-lite-header-height);
 }
 
-.jhipster-landscape-form {
+.jhipster-landscape-map {
+  padding-top: 20px;
+  position: relative;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.jhipster-landscape-modes-selection {
   left: 15px;
+  top: 15px + $jhipster-lite-header-height;
   position: fixed;
   z-index: 3;
   background: rgba($color: $jhipster-lite-secondary-color, $alpha: 0.7);
@@ -151,6 +158,20 @@
 
   &.-extended {
     margin-bottom: 15px;
+  }
+}
+
+.modules-application-button {
+  margin-bottom: 15px;
+  width: 100%;
+  background-color: $jhipster-lite-primary-alternative-color;
+  border: 1px solid $jhipster-lite-line-color;
+  color: $jhipster-lite-primary-input-color;
+  border-radius: 6px;
+  padding: 9px 17px;
+
+  &:disabled {
+    background-color: $jhipster-lite-disabled-color;
   }
 }
 </style>

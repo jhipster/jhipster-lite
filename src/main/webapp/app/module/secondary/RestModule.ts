@@ -1,18 +1,18 @@
 import { Module } from '../domain/Module';
 import { ModuleSlug } from '../domain/ModuleSlug';
-import { RestModuleProperties, toProperties } from './RestModuleProperties';
+import { RestModulePropertiesDefinitions, toPropertiesDefinitions } from './RestModulePropertiesDefinitions';
 
 export interface RestModule {
   slug: string;
   description: string;
-  properties?: RestModuleProperties;
+  properties?: RestModulePropertiesDefinitions;
   tags?: string[];
 }
 
 export const toModule = (restModule: RestModule): Module => ({
   slug: new ModuleSlug(restModule.slug),
   description: restModule.description,
-  properties: toProperties(restModule.properties),
+  properties: toPropertiesDefinitions(restModule.properties),
   tags: toTags(restModule.tags),
 });
 

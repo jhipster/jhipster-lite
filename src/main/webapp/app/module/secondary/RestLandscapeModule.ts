@@ -3,11 +3,13 @@ import { LandscapeFeatureSlug } from '../domain/landscape/LandscapeFeatureSlug';
 import { LandscapeModule } from '../domain/landscape/LandscapeModule';
 import { ModuleSlug } from '../domain/ModuleSlug';
 import { LandscapeElementType } from '../domain/landscape/LandscapeElementType';
+import { RestModulePropertiesDefinitions, toPropertiesDefinitions } from './RestModulePropertiesDefinitions';
 
 export interface RestLandscapeModule {
   type: LandscapeElementType;
   slug: string;
   operation: string;
+  properties: RestModulePropertiesDefinitions;
   dependencies?: RestLandscapeDependency[];
 }
 
@@ -17,7 +19,12 @@ export interface RestLandscapeDependency {
 }
 
 export const toLandscapeModule = (module: RestLandscapeModule): LandscapeModule =>
-  new LandscapeModule(new ModuleSlug(module.slug), module.operation, toModuleDependencies(module.dependencies));
+  new LandscapeModule(
+    new ModuleSlug(module.slug),
+    module.operation,
+    toPropertiesDefinitions(module.properties),
+    toModuleDependencies(module.dependencies)
+  );
 
 const toModuleDependencies = (dependencies: RestLandscapeDependency[] | undefined): LandscapeElementId[] => {
   if (dependencies === undefined) {

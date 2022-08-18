@@ -10,12 +10,23 @@ import { ComponentLandscapeModule } from './ComponentLandscapeModule';
 import { ComponentLandscapeElement } from './ComponentLandscapeElement';
 import { Optional } from '@/common/domain/Optional';
 import { emptyLandscapeSize, LandscapeConnectorsSize } from './LandscapeConnectorsSize';
+import { ModulePropertiesFormVue } from '../module-properties-form';
+import { ModulePropertyType } from '@/module/domain/ModulePropertyValueType';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
+import { ModuleProperty } from '@/module/domain/ModuleProperty';
+import { AlertBus } from '@/common/domain/alert/AlertBus';
+import { ProjectHistory } from '@/module/domain/ProjectHistory';
+import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
+import { ProjectActionsVue } from '../project-actions';
+import { empty } from '../PropertyValue';
 
 export default defineComponent({
   name: 'LandscapeVue',
-  components: { LandscapeModuleVue },
+  components: { LandscapeModuleVue, ModulePropertiesFormVue, ProjectActionsVue },
   setup() {
+    const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;
+    const projectFolders = inject('projectFolders') as ProjectFoldersRepository;
     const applicationListener = inject('applicationListener') as ApplicationListener;
 
     const selectedMode = ref<DisplayMode>('COMPACTED');
@@ -29,6 +40,13 @@ export default defineComponent({
 
     const emphasizedModule = ref<string>();
 
+    const folderPath = ref('');
+    const valuatedModuleProperties = ref(new Map<string, ModulePropertyType>());
+
+    let commitModule = true;
+
+    const operationInProgress = ref(false);
+
     onMounted(() => {
       modules.landscape().then(response => {
         landscape.value.loaded(ComponentLandscape.from(response));
@@ -39,6 +57,8 @@ export default defineComponent({
 
         applicationListener.addEventListener('resize', updateConnectors);
       });
+
+      projectFolders.get().then(projectFolder => (folderPath.value = projectFolder));
     });
 
     onBeforeUnmount(() => {
@@ -101,7 +121,17 @@ export default defineComponent({
     };
 
     const elementFlavor = (module: string): string => {
-      return highlightClass(module) + unselectionHighlightClass(module) + selectionClass(module) + flavorClass();
+      return (
+        operationInProgressClass() + highlightClass(module) + unselectionHighlightClass(module) + selectionClass(module) + flavorClass()
+      );
+    };
+
+    const operationInProgressClass = (): string => {
+      if (operationInProgress.value) {
+        return ' -not-selectable';
+      }
+
+      return '';
     };
 
     const highlightClass = (module: string): string => {
@@ -237,8 +267,105 @@ export default defineComponent({
       return landscapeValue().isSelectable(element);
     };
 
+    const disabledApplication = (): boolean => {
+      if (operationInProgress.value) {
+        return true;
+      }
+
+      if (folderPath.value.length === 0) {
+        return true;
+      }
+
+      if (landscapeValue().noSelectedModule()) {
+        return true;
+      }
+
+      if (missingMandatoryProperty()) {
+        return true;
+      }
+
+      return false;
+    };
+
+    const missingMandatoryProperty = () => {
+      return selectedModulesProperties().some(property => property.mandatory && empty(valuatedModuleProperties.value.get(property.key)));
+    };
+
+    const selectedModulesProperties = (): ModulePropertyDefinition[] => {
+      return landscapeValue().selectedModulesProperties();
+    };
+
+    const updateModuleCommit = (commit: boolean) => {
+      commitModule = commit;
+    };
+
+    const updateFolderPath = (path: string): void => {
+      folderPath.value = path;
+    };
+
+    const projectFolderUpdated = (): void => {
+      modules
+        .history(folderPath.value)
+        .then(projectHistory => loadProjectHistory(projectHistory))
+        .catch(() => {
+          //Nothing to do
+        });
+    };
+
+    const loadProjectHistory = (projectHistory: ProjectHistory): void => {
+      projectHistory.modules.forEach(module => landscapeValue().selectModule(module.get()));
+
+      projectHistory.properties.forEach(property => {
+        if (unknownProperty(property.key)) {
+          valuatedModuleProperties.value.set(property.key, property.value);
+        }
+      });
+    };
+
+    const unknownProperty = (key: string) => {
+      return !valuatedModuleProperties.value.has(key);
+    };
+
+    const updateProperty = (property: ModuleProperty): void => {
+      valuatedModuleProperties.value.set(property.key, property.value);
+    };
+
+    const deleteProperty = (key: string): void => {
+      valuatedModuleProperties.value.delete(key);
+    };
+
     const landscapeValue = (): ComponentLandscape => {
       return landscape.value.value();
+    };
+
+    const applyModules = (): void => {
+      operationStarted();
+
+      modules
+        .applyAll({
+          modules: landscapeValue().selectedModulesSlugs(),
+          projectFolder: folderPath.value,
+          commit: commitModule,
+          properties: valuatedModuleProperties.value,
+        })
+        .then(() => {
+          operationEnded();
+
+          alertBus.success('Modules applied');
+        })
+        .catch(() => {
+          operationEnded();
+
+          alertBus.error('Modules not applied');
+        });
+    };
+
+    const operationStarted = (): void => {
+      operationInProgress.value = true;
+    };
+
+    const operationEnded = (): void => {
+      operationInProgress.value = false;
     };
 
     return {
@@ -256,6 +383,18 @@ export default defineComponent({
       connectorClass,
       elementFlavor,
       toggleModule,
+      disabledApplication,
+      folderPath,
+      selectedModulesProperties,
+      valuatedModuleProperties,
+      updateModuleCommit,
+      updateFolderPath,
+      projectFolderUpdated,
+      updateProperty,
+      deleteProperty,
+      applyModules,
+      operationStarted,
+      operationEnded,
     };
   },
 });

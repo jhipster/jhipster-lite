@@ -1,12 +1,7 @@
-export type ModulePropertyType = 'STRING' | 'INTEGER' | 'BOOLEAN';
-export type ModulePropertyKey = string;
-export type ModulePropertyDescription = string;
-export type ModulePropertyExample = string;
+import { ModulePropertyKey } from './ModulePropertyKey';
+import { ModulePropertyType } from './ModulePropertyValueType';
 
 export interface ModuleProperty {
-  type: ModulePropertyType;
-  mandatory: boolean;
   key: ModulePropertyKey;
-  description?: ModulePropertyDescription;
-  example?: ModulePropertyExample;
+  value: ModulePropertyType;
 }

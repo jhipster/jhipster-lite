@@ -5,6 +5,8 @@ import { ComponentLandscapeLevel } from './ComponentLandscapeLevel';
 import { ComponentLandscapeModule } from './ComponentLandscapeModule';
 import { Memoizer } from '../../../common/domain/Memoizer';
 import { Optional } from '../../../common/domain/Optional';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 
 type ElementSlug = string;
 
@@ -17,6 +19,7 @@ export class ComponentLandscape {
   private readonly memoizedModulesToUnselect = new Memoizer<ElementSlug, ElementSlug[]>();
   private readonly memoizedSelectionTree = new Memoizer<ElementSlug, ElementSlug[]>();
   private readonly memoizedSelectable = new Memoizer<ElementSlug, boolean>();
+  private readonly memoizedModuleProperties = new Memoizer<boolean, ModulePropertyDefinition[]>();
 
   private selectedModules: ElementSlug[] = [];
 
@@ -47,21 +50,18 @@ export class ComponentLandscape {
   }
 
   public toggleModule(module: ElementSlug) {
-    this.clearMemoizers();
-
     if (this.isSelected(module)) {
       this.unselectModule(module);
     } else if (this.isSelectable(module)) {
       this.selectModuleAndDependencies(module);
     }
-
-    this.clearMemoizers();
   }
   private clearMemoizers() {
     this.memoizedDependantModules.clear();
     this.memoizedModulesToUnselect.clear();
     this.memoizedSelectionTree.clear();
     this.memoizedSelectable.clear();
+    this.memoizedModuleProperties.clear();
   }
 
   public isSelected(module: ElementSlug): boolean {
@@ -73,20 +73,28 @@ export class ComponentLandscape {
     this.moduleSelectionTree(module).forEach(moduleDependency => this.selectModule(moduleDependency));
   }
 
-  private selectModule(module: ElementSlug): void {
+  public selectModule(module: ElementSlug): void {
+    this.clearMemoizers();
+
     this.selectedModules.push(module);
 
     this.moduleFeature(module).ifPresent(feature =>
       feature.moduleSlugs.filter(featureModule => featureModule !== module).forEach(featureModule => this.unselectModule(featureModule))
     );
+
+    this.clearMemoizers();
   }
 
   private unselectModule(module: ElementSlug): void {
+    this.clearMemoizers();
+
     const dependantModules = this.dependantSelectedModules(module);
 
     this.selectedModules = this.selectedModules.filter(
       selectedModule => selectedModule !== module && !dependantModules.includes(selectedModule)
     );
+
+    this.clearMemoizers();
   }
 
   public dependantSelectedModules(module: ElementSlug): ElementSlug[] {
@@ -239,5 +247,41 @@ export class ComponentLandscape {
 
   public moduleFeature(slug: ElementSlug): Optional<ComponentLandscapeFeature> {
     return Optional.ofUndefinable(this.moduleFeatures.get(slug));
+  }
+
+  public noSelectedModule(): boolean {
+    return this.selectedModules.length === 0;
+  }
+
+  public selectedModulesProperties(): ModulePropertyDefinition[] {
+    return this.memoizedModuleProperties.get(true, () =>
+      this.selectedModules
+        .map(module => this.findElement(module) as ComponentLandscapeModule)
+        .flatMap(module => module.properties)
+        .filter(property => property !== undefined)
+        .reduce(this.toArrayWithoutDuplicates(), [])
+        .sort((first, second) => first.order - second.order)
+    );
+  }
+
+  private toArrayWithoutDuplicates(): (
+    result: ModulePropertyDefinition[],
+    currentValue: ModulePropertyDefinition
+  ) => ModulePropertyDefinition[] {
+    return (result: ModulePropertyDefinition[], current: ModulePropertyDefinition) => {
+      if (this.doNotContainProperty(result, current)) {
+        result.push(current);
+      }
+
+      return result;
+    };
+  }
+
+  private doNotContainProperty(result: ModulePropertyDefinition[], current: ModulePropertyDefinition): boolean {
+    return !result.some(knownProperty => knownProperty.key === current.key);
+  }
+
+  selectedModulesSlugs(): ModuleSlug[] {
+    return this.selectedModules.map(module => new ModuleSlug(module));
   }
 }

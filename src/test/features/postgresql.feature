@@ -3,7 +3,7 @@ Feature: postgreSQL module
   Scenario: Should add postgreSQL elements using legacy url
     When I apply modules to default project
       | maven-java |
-      | springboot |
+      | spring-boot |
       | postgresql |
     Then I should have files in ""
       | pom.xml |

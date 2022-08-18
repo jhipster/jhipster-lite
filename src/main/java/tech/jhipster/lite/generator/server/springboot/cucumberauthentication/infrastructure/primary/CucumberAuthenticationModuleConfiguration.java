@@ -16,15 +16,15 @@ class CucumberAuthenticationModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/component-tests/cucumber-oauth2-authentication")
-      .slug("springboot-cucumber-oauth2-authentication")
+      .slug("spring-boot-cucumber-oauth2-authentication")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Component Tests", "Add OAuth2 authentication steps for cucumber"))
       .organization(
         JHipsterModuleOrganization
           .builder()
           .feature("cucumber-authentication")
-          .addModuleDependency("springboot-cucumber")
-          .addModuleDependency("springboot-oauth2")
+          .addModuleDependency("spring-boot-cucumber")
+          .addModuleDependency("spring-boot-oauth2")
           .build()
       )
       .tags("server", "spring", "spring-boot", "test", "oauth2")
@@ -36,15 +36,15 @@ class CucumberAuthenticationModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/component-tests/cucumber-jwt-authentication")
-      .slug("springboot-cucumber-jwt-authentication")
+      .slug("spring-boot-cucumber-jwt-authentication")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Component Tests", "Add JWT authentication steps for cucumber"))
       .organization(
         JHipsterModuleOrganization
           .builder()
           .feature("cucumber-authentication")
-          .addModuleDependency("springboot-cucumber")
-          .addModuleDependency("springboot-jwt")
+          .addModuleDependency("spring-boot-cucumber")
+          .addModuleDependency("spring-boot-jwt")
           .build()
       )
       .tags("server", "spring", "spring-boot", "test", "jwt")

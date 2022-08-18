@@ -21,7 +21,7 @@ class PostgresqlModuleConfiguration {
       .slug("postgresql")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add Postgresql to project"))
-      .organization(JHipsterModuleOrganization.builder().feature("jpa-persistence").addModuleDependency("springboot").build())
+      .organization(JHipsterModuleOrganization.builder().feature("jpa-persistence").addModuleDependency("spring-boot").build())
       .tags("server", "spring", "spring-boot", "database")
       .factory(postgresql::build);
   }

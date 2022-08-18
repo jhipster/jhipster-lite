@@ -24,7 +24,7 @@ class DummyJpaPersistenceModuleConfiguration {
           .builder()
           .feature("dummy-persistence")
           .addFeatureDependency("dummy-schema")
-          .addModuleDependency("springboot-cucumber-jpa-reset")
+          .addModuleDependency("spring-boot-cucumber-jpa-reset")
           .build()
       )
       .tags("server")

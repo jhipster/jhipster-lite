@@ -54,7 +54,7 @@ class SpringdocModuleConfiguration {
       .slug("springdoc-mvc-openapi-with-security-jwt")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi with Security JWT for srping MVC"))
-      .organization(springServerDependencyOrganization().addModuleDependency("springboot-jwt").build())
+      .organization(springServerDependencyOrganization().addModuleDependency("spring-boot-jwt").build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_SPRING_BOOT, TAG_DOCUMENTATION)
       .factory(springdocApplicationService::buildSpringdocMvcModuleWithSecurityJWT);
   }
@@ -67,7 +67,7 @@ class SpringdocModuleConfiguration {
       .slug("springdoc-webflux-openapi-with-security-jwt")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi with Security JWT for webflux"))
-      .organization(webfluxDependencyOrganization().addModuleDependency("springboot-jwt").build())
+      .organization(webfluxDependencyOrganization().addModuleDependency("spring-boot-jwt").build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_SPRING_BOOT, TAG_DOCUMENTATION)
       .factory(springdocApplicationService::buildSpringdocWebfluxModuleWithSecurityJWT);
   }
@@ -80,7 +80,7 @@ class SpringdocModuleConfiguration {
       .slug("springdoc-mvc-openapi-with-security-oauth2")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi with Security OAuth2 for spring MVC"))
-      .organization(springServerDependencyOrganization().addModuleDependency("springboot-oauth2").build())
+      .organization(springServerDependencyOrganization().addModuleDependency("spring-boot-oauth2").build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_SPRING_BOOT, TAG_DOCUMENTATION, "authentication", "oauth2")
       .factory(springdocApplicationService::buildSpringdocMvcModuleWithSecurityOAuth2);
   }
@@ -94,6 +94,6 @@ class SpringdocModuleConfiguration {
   }
 
   private JHipsterModuleOrganizationBuilder webfluxDependencyOrganization() {
-    return JHipsterModuleOrganization.builder().addModuleDependency("springboot-webflux-netty");
+    return JHipsterModuleOrganization.builder().addModuleDependency("spring-boot-webflux-netty");
   }
 }

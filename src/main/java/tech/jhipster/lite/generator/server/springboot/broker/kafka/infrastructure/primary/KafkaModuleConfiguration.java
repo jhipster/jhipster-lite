@@ -12,20 +12,20 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class KafkaModuleConfiguration {
 
   private static final String TAG = "Spring Boot - Broker";
-  public static final String BROKER = "broker";
-  public static final String SPRING_BOOT = "spring-boot";
-  public static final String SPRING = "spring";
-  public static final String SERVER = "server";
+  private static final String BROKER = "broker";
+  private static final String SPRING_BOOT = "spring-boot";
+  private static final String SPRING = "spring";
+  private static final String SERVER = "server";
 
   @Bean
   JHipsterModuleResource kafkaResourceInit(KafkaApplicationService kafkaApplicationService) {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/brokers/kafka")
-      .slug("springboot-kafka")
+      .slug("spring-boot-kafka")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add Kafka dependencies, with testcontainers"))
-      .organization(JHipsterModuleOrganization.builder().addModuleDependency("springboot").build())
+      .organization(JHipsterModuleOrganization.builder().addModuleDependency(SPRING_BOOT).build())
       .tags(SERVER, SPRING, SPRING_BOOT, BROKER)
       .factory(kafkaApplicationService::init);
   }
@@ -35,7 +35,7 @@ class KafkaModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/brokers/kafka/dummy-producer-consumer")
-      .slug("springboot-kafka-dummy-producer-consumer")
+      .slug("spring-boot-kafka-dummy-producer-consumer")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add dummy Kafka producer and consumer"))
       .organization(kafkaDepdency())
@@ -48,7 +48,7 @@ class KafkaModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/brokers/kafka/akhq")
-      .slug("springboot-kafka-akhq")
+      .slug("spring-boot-kafka-akhq")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add AKHQ"))
       .organization(kafkaDepdency())
@@ -57,6 +57,6 @@ class KafkaModuleConfiguration {
   }
 
   private JHipsterModuleOrganization kafkaDepdency() {
-    return JHipsterModuleOrganization.builder().addModuleDependency("springboot-kafka").build();
+    return JHipsterModuleOrganization.builder().addModuleDependency("spring-boot-kafka").build();
   }
 }

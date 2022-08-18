@@ -3,7 +3,7 @@ Feature: mssql module
   Scenario: Should add MsSQL elements using legacy url
     When I apply modules to default project
       | maven-java |
-      | springboot |
+      | spring-boot |
       | mssql      |
     Then I should have files in ""
       | pom.xml |

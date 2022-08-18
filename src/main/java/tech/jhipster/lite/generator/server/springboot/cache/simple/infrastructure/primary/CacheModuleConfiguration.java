@@ -16,7 +16,7 @@ class CacheModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .legacyUrl("/api/servers/spring-boot/caches/simple")
-      .slug("springboot-cache")
+      .slug("spring-boot-cache")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Cache", "Add simple cache"))
       .organization(JHipsterModuleOrganization.SPRINGBOOT_DEPENDENCY)

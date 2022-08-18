@@ -11,10 +11,10 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class BannerModuleConfiguration {
 
   private static final String TAG = "Spring Boot - Banner";
-  public static final String SERVER = "server";
-  public static final String SPRING = "spring";
-  public static final String SPRING_BOOT = "spring-boot";
-  public static final String BANNER = "banner";
+  private static final String SERVER = "server";
+  private static final String SPRING = "spring";
+  private static final String SPRING_BOOT = "spring-boot";
+  private static final String BANNER = "banner";
 
   @Bean
   JHipsterModuleResource jhipsterV7BannerResource(BannerApplicationService banners) {
@@ -95,6 +95,6 @@ class BannerModuleConfiguration {
   }
 
   private JHipsterModuleOrganization organization() {
-    return JHipsterModuleOrganization.builder().feature(BANNER).addModuleDependency("springboot").build();
+    return JHipsterModuleOrganization.builder().feature(BANNER).addModuleDependency(SPRING_BOOT).build();
   }
 }

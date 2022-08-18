@@ -3,7 +3,7 @@ Feature: MySQL module
   Scenario: Should add MySQL elements using legacy url
     When I apply modules to default project
       | maven-java |
-      | springboot |
+      | spring-boot |
       | mysql      |
     Then I should have files in ""
       | pom.xml |

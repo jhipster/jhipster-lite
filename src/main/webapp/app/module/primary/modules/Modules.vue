@@ -80,7 +80,7 @@
 
   &--download-project:disabled,
   &--format-project:disabled {
-    background-color: $jhipster-lite-disabled-button-background-color;
+    background-color: $jhipster-lite-disabled-color;
   }
 }
 
@@ -88,7 +88,7 @@
   flex-grow: 1;
 
   &--categories {
-    height: calc(100vh - 70px - 68.87px);
+    height: calc(100vh - 70px - $jhipster-lite-header-height);
     overflow-y: auto;
     flex-grow: 1;
     padding: 0 15px;
@@ -192,7 +192,7 @@
   }
 
   &--apply-button:disabled {
-    color: #868686;
+    color: $jhipster-lite-disabled-color;
   }
 }
 </style>

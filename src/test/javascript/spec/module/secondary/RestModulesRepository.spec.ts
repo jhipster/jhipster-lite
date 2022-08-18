@@ -3,10 +3,11 @@ import { RestProjectHistory } from '@/module/secondary/RestProjectHistory';
 import { RestModuleProperties } from '@/module/secondary/RestModuleProperties';
 import { RestModules } from '@/module/secondary/RestModules';
 import { dataBackendResponse, stubAxiosHttp } from '../../http/AxiosHttpStub';
-import { defaultLandscape, defaultModules, defaultModuleToApply } from '../domain/Modules.fixture';
+import { defaultLandscape, defaultModules, defaultModuleToApply, defaultProjectHistory } from '../domain/Modules.fixture';
 import { RestLandscape } from '@/module/secondary/RestLandscape';
-import { RestLandscapeModule } from '@/module/secondary/RestLandscapeModule';
+import { RestLandscapeDependency, RestLandscapeModule } from '@/module/secondary/RestLandscapeModule';
 import { RestLandscapeFeature } from '@/module/secondary/RestLandscapeFeature';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 
 describe('Rest modules repository', () => {
   it('Should list modules using axios', async () => {
@@ -44,7 +45,7 @@ describe('Rest modules repository', () => {
     const repository = new RestModulesRepository(axiosInstance);
     axiosInstance.post.resolves(dataBackendResponse(null));
 
-    await repository.apply('module', defaultModuleToApply());
+    await repository.apply(new ModuleSlug('module'), defaultModuleToApply());
 
     expect(axiosInstance.post.calledOnce).toBe(true);
   });
@@ -69,15 +70,7 @@ describe('Rest modules repository', () => {
 
     const appliedModules = await repository.history('test');
 
-    expect(appliedModules).toEqual({
-      modules: ['spring-cucumber'],
-      properties: [
-        {
-          key: 'key',
-          value: 'value',
-        },
-      ],
-    });
+    expect(appliedModules).toEqual(defaultProjectHistory());
   });
 
   it('Should format project using axios', async () => {
@@ -145,42 +138,47 @@ const restLandscape = (): RestLandscape => ({
     {
       elements: [
         landscapeFeature('client', [
-          landscapeModule('vue', 'Add vue', ['init']),
-          landscapeModule('react', 'Add react', ['init']),
-          landscapeModule('angular', 'Add angular', ['init']),
+          landscapeModule('vue', 'Add vue', [moduleDependency('init')]),
+          landscapeModule('react', 'Add react', [moduleDependency('init')]),
+          landscapeModule('angular', 'Add angular', [moduleDependency('init')]),
         ]),
         landscapeFeature('java-build-tools', [
-          landscapeModule('maven', 'Add maven', ['init']),
-          landscapeModule('gradle', 'Add gradle', ['init']),
+          landscapeModule('maven', 'Add maven', [moduleDependency('init')]),
+          landscapeModule('gradle', 'Add gradle', [moduleDependency('init')]),
         ]),
       ],
     },
     {
       elements: [
-        landscapeModule('java-base', 'Add base java classes', ['java-build-tools']),
-        landscapeModule('spring-boot', 'Add spring boot core', ['java-build-tools']),
+        landscapeModule('java-base', 'Add base java classes', [featureDependency('java-build-tools')]),
+        landscapeModule('spring-boot', 'Add spring boot core', [featureDependency('java-build-tools')]),
+        landscapeFeature('ci', [
+          landscapeModule('gitlab-maven', 'Add simple gitlab ci for maven', [moduleDependency('maven')]),
+          landscapeModule('gitlab-gradle', 'Add simple gitlab ci for gradle', [moduleDependency('gradle')]),
+        ]),
       ],
     },
     {
       elements: [
-        landscapeFeature('jpa', [
-          landscapeModule('postgresql', 'Add PostGreSQL', ['spring-boot']),
-          landscapeModule('mariadb', 'Add mariaDB', ['spring-boot']),
-        ]),
+        landscapeFeature('jpa', [landscapeModule('postgresql', 'Add PostGreSQL', [moduleDependency('spring-boot')])]),
         landscapeFeature('spring-mvc', [
-          landscapeModule('springboot-tomcat', 'Add Tomcat', ['spring-boot']),
-          landscapeModule('springboot-undertow', 'Add Undertow', ['spring-boot']),
+          landscapeModule('springboot-tomcat', 'Add Tomcat', [moduleDependency('spring-boot')]),
+          landscapeModule('springboot-undertow', 'Add Undertow', [moduleDependency('spring-boot')]),
         ]),
-        landscapeModule('bean-validation-test', 'Add bean validation test tools', ['spring-boot']),
+        landscapeModule('bean-validation-test', 'Add bean validation test tools', [moduleDependency('spring-boot')]),
+        landscapeModule('build', 'Add build information', [featureDependency('ci')]),
       ],
     },
     {
-      elements: [landscapeModule('dummy-feature', 'Add dummy feature', ['spring-mvc', 'bean-validation-test'])],
+      elements: [
+        landscapeModule('dummy-feature', 'Add dummy feature', [featureDependency('spring-mvc'), moduleDependency('bean-validation-test')]),
+        landscapeModule('liquibase', 'Add liquibase', [featureDependency('jpa')]),
+      ],
     },
   ],
 });
 
-const landscapeModule = (slug: string, operation: string, dependencies?: string[]): RestLandscapeModule => ({
+const landscapeModule = (slug: string, operation: string, dependencies?: RestLandscapeDependency[]): RestLandscapeModule => ({
   type: 'MODULE',
   slug,
   operation,
@@ -193,13 +191,16 @@ const landscapeFeature = (slug: string, modules: RestLandscapeModule[]): RestLan
   modules,
 });
 
+const moduleDependency = (slug: string): RestLandscapeDependency => ({ type: 'MODULE', slug });
+const featureDependency = (slug: string): RestLandscapeDependency => ({ type: 'FEATURE', slug });
+
 const restModuleHistory = (): RestProjectHistory => ({
   modules: [{ slug: 'spring-cucumber' }],
   properties: appliedModuleProperties(),
 });
 
 const appliedModuleProperties = (): {} => {
-  return { key: 'value' };
+  return { baseName: 'settedbase' };
 };
 
 const restModuleProperties = (): RestModuleProperties => ({

@@ -13,4 +13,9 @@ public record JHipsterModuleDependency(JHipsterModuleSlug module) implements JHi
   public JHipsterSlug slug() {
     return module();
   }
+
+  @Override
+  public JHipsterLandscapeElementType type() {
+    return JHipsterLandscapeElementType.MODULE;
+  }
 }

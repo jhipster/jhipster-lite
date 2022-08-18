@@ -8,6 +8,8 @@ import { ModulePropertyValueType } from '@/module/domain/ModuleProperties';
 import { Landscape } from '@/module/domain/landscape/Landscape';
 import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
 import { LandscapeFeature } from '@/module/domain/landscape/LandscapeFeature';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
+import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
 
 export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;
@@ -34,7 +36,7 @@ export const defaultModules = (): Modules =>
       name: 'Spring',
       modules: [
         {
-          slug: 'spring-cucumber',
+          slug: moduleSlug('spring-cucumber'),
           description: 'Add cucumber to the application',
           properties: [
             {
@@ -58,7 +60,7 @@ export const defaultModules = (): Modules =>
           tags: ['server'],
         },
         {
-          slug: 'banner',
+          slug: moduleSlug('banner'),
           description: 'Add a banner to the application',
           properties: [],
           tags: [],
@@ -77,8 +79,8 @@ const defaultPropertiesToApply = () => {
   return new Map<string, ModulePropertyValueType>().set('baseName', 'testproject').set('optionalBoolean', true).set('optionalInteger', 42);
 };
 
-export const moduleHistory = (): ProjectHistory => ({
-  modules: ['spring-cucumber'],
+export const defaultProjectHistory = (): ProjectHistory => ({
+  modules: [moduleSlug('spring-cucumber')],
   properties: appliedModuleProperties(),
 });
 
@@ -95,43 +97,65 @@ export const defaultLandscape = (): Landscape =>
   new Landscape([
     {
       elements: [
-        new LandscapeModule('infinitest', 'Add infinitest filters', []),
-        new LandscapeModule('init', 'Add some initial tools', []),
+        new LandscapeModule(moduleSlug('infinitest'), 'Add infinitest filters', []),
+        new LandscapeModule(moduleSlug('init'), 'Add some initial tools', []),
       ],
     },
     {
       elements: [
-        new LandscapeFeature('client', [
-          new LandscapeModule('vue', 'Add vue', ['init']),
-          new LandscapeModule('react', 'Add react', ['init']),
-          new LandscapeModule('angular', 'Add angular', ['init']),
+        new LandscapeFeature(featureSlug('client'), [
+          new LandscapeModule(moduleSlug('vue'), 'Add vue', moduleSlugs('init')),
+          new LandscapeModule(moduleSlug('react'), 'Add react', moduleSlugs('init')),
+          new LandscapeModule(moduleSlug('angular'), 'Add angular', moduleSlugs('init')),
         ]),
-        new LandscapeFeature('java-build-tools', [
-          new LandscapeModule('maven', 'Add maven', ['init']),
-          new LandscapeModule('gradle', 'Add gradle', ['init']),
+        javaBuildToolFeature(),
+      ],
+    },
+    {
+      elements: [
+        new LandscapeModule(moduleSlug('java-base'), 'Add base java classes', featureSlugs('java-build-tools')),
+        new LandscapeModule(moduleSlug('spring-boot'), 'Add spring boot core', featureSlugs('java-build-tools')),
+        new LandscapeFeature(featureSlug('ci'), [
+          new LandscapeModule(moduleSlug('gitlab-maven'), 'Add simple gitlab ci for maven', moduleSlugs('maven')),
+          new LandscapeModule(moduleSlug('gitlab-gradle'), 'Add simple gitlab ci for gradle', moduleSlugs('gradle')),
         ]),
       ],
     },
     {
       elements: [
-        new LandscapeModule('java-base', 'Add base java classes', ['java-build-tools']),
-        new LandscapeModule('spring-boot', 'Add spring boot core', ['java-build-tools']),
+        new LandscapeFeature(featureSlug('jpa'), [
+          new LandscapeModule(moduleSlug('postgresql'), 'Add PostGreSQL', moduleSlugs('spring-boot')),
+        ]),
+        new LandscapeFeature(featureSlug('spring-mvc'), [
+          new LandscapeModule(moduleSlug('springboot-tomcat'), 'Add Tomcat', moduleSlugs('spring-boot')),
+          new LandscapeModule(moduleSlug('springboot-undertow'), 'Add Undertow', moduleSlugs('spring-boot')),
+        ]),
+        new LandscapeModule(moduleSlug('bean-validation-test'), 'Add bean validation test tools', moduleSlugs('spring-boot')),
+        new LandscapeModule(moduleSlug('build'), 'Add build information', featureSlugs('ci')),
       ],
     },
     {
       elements: [
-        new LandscapeFeature('jpa', [
-          new LandscapeModule('postgresql', 'Add PostGreSQL', ['spring-boot']),
-          new LandscapeModule('mariadb', 'Add mariaDB', ['spring-boot']),
+        new LandscapeModule(moduleSlug('dummy-feature'), 'Add dummy feature', [
+          featureSlug('spring-mvc'),
+          moduleSlug('bean-validation-test'),
         ]),
-        new LandscapeFeature('spring-mvc', [
-          new LandscapeModule('springboot-tomcat', 'Add Tomcat', ['spring-boot']),
-          new LandscapeModule('springboot-undertow', 'Add Undertow', ['spring-boot']),
-        ]),
-        new LandscapeModule('bean-validation-test', 'Add bean validation test tools', ['spring-boot']),
+        new LandscapeModule(moduleSlug('liquibase'), 'Add liquibase', featureSlugs('jpa')),
       ],
-    },
-    {
-      elements: [new LandscapeModule('dummy-feature', 'Add dummy feature', ['spring-mvc', 'bean-validation-test'])],
     },
   ]);
+
+const moduleSlugs = (...slugs: string[]): ModuleSlug[] => slugs.map(moduleSlug);
+
+const moduleSlug = (slug: string): ModuleSlug => new ModuleSlug(slug);
+
+const featureSlugs = (...slugs: string[]): LandscapeFeatureSlug[] => slugs.map(featureSlug);
+
+const featureSlug = (slug: string): LandscapeFeatureSlug => new LandscapeFeatureSlug(slug);
+
+export const javaBuildToolFeature = (): LandscapeFeature => {
+  return new LandscapeFeature(featureSlug('java-build-tools'), [
+    new LandscapeModule(moduleSlug('maven'), 'Add maven', moduleSlugs('init')),
+    new LandscapeModule(moduleSlug('gradle'), 'Add gradle', moduleSlugs('init')),
+  ]);
+};

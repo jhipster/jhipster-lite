@@ -1,4 +1,5 @@
 import { Module } from '../domain/Module';
+import { ModuleSlug } from '../domain/ModuleSlug';
 import { RestModuleProperties, toProperties } from './RestModuleProperties';
 
 export interface RestModule {
@@ -9,7 +10,7 @@ export interface RestModule {
 }
 
 export const toModule = (restModule: RestModule): Module => ({
-  slug: restModule.slug,
+  slug: new ModuleSlug(restModule.slug),
   description: restModule.description,
   properties: toProperties(restModule.properties),
   tags: toTags(restModule.tags),

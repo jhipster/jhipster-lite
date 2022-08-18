@@ -1,5 +1,11 @@
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import { defaultModules, defaultProject, moduleHistory, ModulesRepositoryStub, stubModulesRepository } from '../domain/Modules.fixture';
+import {
+  defaultModules,
+  defaultProject,
+  defaultProjectHistory,
+  ModulesRepositoryStub,
+  stubModulesRepository,
+} from '../domain/Modules.fixture';
 import { ModulesVue } from '@/module/primary/modules';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { wrappedElement } from '../../WrappedElement';
@@ -317,7 +323,7 @@ describe('Modules', () => {
   describe('Applied modules', () => {
     it('Should mark already applied modules as applied', async () => {
       const modules = repositoryWithModules();
-      modules.history.resolves(moduleHistory());
+      modules.history.resolves(defaultProjectHistory());
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
@@ -365,7 +371,7 @@ describe('Modules', () => {
   describe('Properties preload', () => {
     it('Should load properties from project', async () => {
       const modules = repositoryWithModules();
-      modules.history.resolves(moduleHistory());
+      modules.history.resolves(defaultProjectHistory());
       const wrapper = wrap({ modules });
 
       await updatePath(wrapper);
@@ -376,7 +382,7 @@ describe('Modules', () => {
 
     it('It should not override setted properties', async () => {
       const modules = repositoryWithModules();
-      modules.history.resolves(moduleHistory());
+      modules.history.resolves(defaultProjectHistory());
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
@@ -471,7 +477,7 @@ describe('Modules', () => {
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).exists()).toBe(true);
     });
 
-    it('Should deselect modules tag filter', async () => {
+    it('Should unselect modules tag filter', async () => {
       const modules = repositoryWithModules();
       const wrapper = await filledModuleForm(modules);
 

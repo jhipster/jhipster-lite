@@ -12,10 +12,10 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class KafkaModuleConfiguration {
 
   private static final String TAG = "Spring Boot - Broker";
-  public static final String BROKER = "broker";
-  public static final String SPRING_BOOT = "spring-boot";
-  public static final String SPRING = "spring";
-  public static final String SERVER = "server";
+  private static final String BROKER = "broker";
+  private static final String SPRING_BOOT = "spring-boot";
+  private static final String SPRING = "spring";
+  private static final String SERVER = "server";
 
   @Bean
   JHipsterModuleResource kafkaResourceInit(KafkaApplicationService kafkaApplicationService) {
@@ -25,7 +25,7 @@ class KafkaModuleConfiguration {
       .slug("spring-boot-kafka")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add Kafka dependencies, with testcontainers"))
-      .organization(JHipsterModuleOrganization.builder().addModuleDependency("spring-boot").build())
+      .organization(JHipsterModuleOrganization.builder().addModuleDependency(SPRING_BOOT).build())
       .tags(SERVER, SPRING, SPRING_BOOT, BROKER)
       .factory(kafkaApplicationService::init);
   }

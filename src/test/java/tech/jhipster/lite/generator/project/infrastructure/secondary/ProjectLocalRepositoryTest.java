@@ -1,27 +1,18 @@
 package tech.jhipster.lite.generator.project.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static tech.jhipster.lite.TestUtils.*;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
 import com.github.mustachejava.MustacheNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.error.domain.MissingMandatoryValueException;
@@ -45,18 +36,6 @@ class ProjectLocalRepositoryTest {
   }
 
   @Test
-  void shouldHandleCopyError() {
-    Project project = tmpProject();
-
-    try (MockedStatic<Files> files = Mockito.mockStatic(Files.class)) {
-      files.when(() -> Files.copy(any(InputStream.class), any(Path.class), any(CopyOption.class))).thenThrow(new IOException());
-
-      ProjectFile file = ProjectFile.forProject(project).withSource("mustache", "README.txt").withSameDestination();
-      assertThatThrownBy(() -> repository.add(file)).isInstanceOf(GeneratorException.class);
-    }
-  }
-
-  @Test
   void shouldAddFiles() {
     Project project = tmpProject();
 
@@ -65,18 +44,6 @@ class ProjectLocalRepositoryTest {
 
     assertFileExist(project, "gitattributes");
     assertFileExist(project, "gitignore");
-  }
-
-  @Test
-  void shouldHandleTemplatingError() {
-    Project project = Project.builder().folder(TestFileUtils.tmpDirForTest()).build();
-
-    try (MockedStatic<MustacheUtils> mustacheUtils = Mockito.mockStatic(MustacheUtils.class)) {
-      mustacheUtils.when(() -> MustacheUtils.template(anyString(), any())).thenThrow(new IOException());
-
-      List<ProjectFile> files = List.of(ProjectFile.forProject(project).withSource("mustache", README_MD).withSameDestination());
-      assertThatThrownBy(() -> repository.template(files)).isExactlyInstanceOf(GeneratorException.class);
-    }
   }
 
   @Test

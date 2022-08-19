@@ -1,5 +1,5 @@
 import { Modules } from '@/module/domain/Modules';
-import { ComponentModuleCategory } from './ComponentModuleCategory';
+import { ComponentModuleCategory } from './ComponentModulePatchCategory';
 
 export class ComponentModules {
   private constructor(public readonly categories: ComponentModuleCategory[], public readonly modulesCount: number) {}

@@ -1,3 +1,4 @@
+import { ModulePropertyDefinition } from '../ModulePropertyDefinition';
 import { ModuleSlug } from '../ModuleSlug';
 import { LandscapeElement } from './LandscapeElement';
 import { LandscapeElementId } from './LandscapeElementId';
@@ -8,6 +9,7 @@ export class LandscapeModule implements LandscapeElement {
   constructor(
     public readonly slug: ModuleSlug,
     public readonly operation: ModuleOperation,
+    public readonly properties: ModulePropertyDefinition[],
     public readonly dependencies: LandscapeElementId[]
   ) {}
 

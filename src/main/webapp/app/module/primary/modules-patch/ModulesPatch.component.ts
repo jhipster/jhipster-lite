@@ -1,23 +1,26 @@
 import { ModulePropertiesVue } from '../module-properties';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
 import { Loader } from '@/loader/primary/Loader';
-import { ModuleProperty } from '@/module/domain/ModuleProperty';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { defineComponent, inject, onMounted, reactive, ref } from 'vue';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
-import { Project } from '@/module/domain/Project';
 import { IconVue } from '@/common/primary/icon';
 import { TagFilterVue } from '../tag-filter';
 import { ProjectHistory } from '@/module/domain/ProjectHistory';
 import { ModuleSlug } from '@/module/domain/ModuleSlug';
-import { ComponentModules } from './ComponentModules';
-import { ComponentModule } from './ComponentModule';
+import { ComponentModules } from './ComponentModulesPatch';
+import { ComponentModule } from './ComponentModulePatch';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
+import { ModulePropertiesFormVue } from '../module-properties-form';
+import { ModulePropertyType } from '@/module/domain/ModulePropertyValueType';
+import { ModuleProperty } from '@/module/domain/ModuleProperty';
+import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
+import { ProjectActionsVue } from '../project-actions';
 
 export default defineComponent({
-  name: 'ModulesVue',
-  components: { ModulePropertiesVue, IconVue, TagFilterVue },
+  name: 'ModulesPatchVue',
+  components: { ModulePropertiesVue, IconVue, TagFilterVue, ModulePropertiesFormVue, ProjectActionsVue },
   setup() {
-    const globalWindow = inject('globalWindow') as Window & typeof globalThis;
     const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;
     const projectFolders = inject('projectFolders') as ProjectFoldersRepository;
@@ -31,7 +34,7 @@ export default defineComponent({
     const operationInProgress = ref(false);
     const folderPath = ref('');
     const selectedModule = ref<ComponentModule>();
-    const moduleProperties = ref(new Map<string, string | boolean | number>());
+    const moduleProperties = ref(new Map<string, ModulePropertyType>());
     const commitModule = ref(true);
     const appliedModules = ref([] as string[]);
     let searchedText = '';
@@ -43,6 +46,14 @@ export default defineComponent({
       });
       projectFolders.get().then(projectFolder => (folderPath.value = projectFolder));
     });
+
+    const operationStarted = (): void => {
+      operationInProgress.value = true;
+    };
+
+    const operationEnded = (): void => {
+      operationInProgress.value = false;
+    };
 
     const toggleModule = (slug: string): void => {
       const clickedModule = getModule(slug);
@@ -96,33 +107,37 @@ export default defineComponent({
       return value === undefined;
     };
 
-    const setStringProperty = (property: string, value: string): void => {
-      moduleProperties.value.set(property, value);
-    };
+    const selectedModuleProperties = (): ModulePropertyDefinition[] => {
+      const module = selectedModule.value;
 
-    const setNumberProperty = (property: string, value: string): void => {
-      if (empty(value)) {
-        moduleProperties.value.delete(property);
-      } else {
-        moduleProperties.value.set(property, +value);
+      if (module === undefined) {
+        return [];
       }
+
+      return module.properties;
     };
 
-    const setBooleanProperty = (property: string, value: string): void => {
-      if (value === 'false') {
-        moduleProperties.value.set(property, false);
-      } else if (value === 'true') {
-        moduleProperties.value.set(property, true);
-      } else {
-        moduleProperties.value.delete(property);
-      }
+    const updateModuleCommit = (commit: boolean): void => {
+      commitModule.value = commit;
     };
 
-    const mandatoryProperties = (module: string): ModuleProperty[] => {
+    const updateFolderPath = (path: string): void => {
+      folderPath.value = path;
+    };
+
+    const updateProperty = (property: ModuleProperty): void => {
+      moduleProperties.value.set(property.key, property.value);
+    };
+
+    const deleteProperty = (key: ModulePropertyKey): void => {
+      moduleProperties.value.delete(key);
+    };
+
+    const mandatoryProperties = (module: string): ModulePropertyDefinition[] => {
       return getModule(module).properties.filter(property => property.mandatory);
     };
 
-    const optionalProperties = (module: string): ModuleProperty[] => {
+    const optionalProperties = (module: string): ModulePropertyDefinition[] => {
       return getModule(module).properties.filter(property => !property.mandatory);
     };
 
@@ -234,75 +249,16 @@ export default defineComponent({
       return appliedModules.value.includes(slug);
     };
 
-    const disabledFormatting = (): boolean => {
-      return operationInProgress.value || empty(folderPath.value);
-    };
-
-    const disabledDownload = (): boolean => {
-      return operationInProgress.value || empty(folderPath.value);
-    };
-
-    const formatProject = (): void => {
-      operationInProgress.value = true;
-
-      modules
-        .format(folderPath.value)
-        .then(() => {
-          operationInProgress.value = false;
-
-          alertBus.success('Project formatted');
-        })
-        .catch(() => {
-          operationInProgress.value = false;
-
-          alertBus.error("Project can't be formatted");
-        });
-    };
-
-    const downloadProject = (): void => {
-      operationInProgress.value = true;
-
-      modules
-        .download(folderPath.value)
-        .then(project => {
-          download(project);
-
-          operationInProgress.value = false;
-        })
-        .catch(() => {
-          alertBus.error("Project can't be downloaded");
-
-          operationInProgress.value = false;
-        });
-    };
-
-    const download = (project: Project): void => {
-      const url = globalWindow.URL.createObjectURL(new Blob([project.content]));
-      const link = globalWindow.document.createElement('a');
-      link.href = url;
-      link.download = project.filename;
-      globalWindow.document.body.appendChild(link);
-      link.click();
-
-      globalWindow.URL.revokeObjectURL(link.href);
-      globalWindow.document.body.removeChild(link);
-    };
-
     return {
       content: applicationModules.displayed,
-      folderPath,
       toggleModule,
       isModuleSelected,
       moduleClass,
       selectedModule,
-      setStringProperty,
-      setNumberProperty,
-      setBooleanProperty,
       disabledApplication,
       mandatoryProperties,
       optionalProperties,
       moduleProperties,
-      commitModule,
       displayedModulesCount,
       totalModulesCount,
       isTagSelected,
@@ -311,10 +267,14 @@ export default defineComponent({
       applyModule,
       projectFolderUpdated,
       appliedModule,
-      disabledFormatting,
-      disabledDownload,
-      formatProject,
-      downloadProject,
+      updateModuleCommit,
+      updateFolderPath,
+      updateProperty,
+      deleteProperty,
+      selectedModuleProperties,
+      folderPath,
+      operationStarted,
+      operationEnded,
     };
   },
 });

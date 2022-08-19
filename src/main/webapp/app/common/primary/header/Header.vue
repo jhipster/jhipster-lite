@@ -29,15 +29,15 @@
 
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <li class="nav-item col-6 col-md-auto">
-            <a class="nav-link p-2" href="modules">
-              <IconVue name="nut-fill" aria-label="Modules" title="JHipster lite modules" />
-              <small class="d-md-none ms-2">Modules</small>
-            </a>
-          </li>
-          <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="landscape">
               <IconVue name="map-fill" aria-label="Landscape" title="JHipster lite modules landscape" />
               <small class="d-md-none ms-2">Landscape</small>
+            </a>
+          </li>
+          <li class="nav-item col-6 col-md-auto">
+            <a class="nav-link p-2" href="patches">
+              <IconVue name="nut-fill" aria-label="Patches" title="JHipster lite modules" />
+              <small class="d-md-none ms-2">Patches</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">

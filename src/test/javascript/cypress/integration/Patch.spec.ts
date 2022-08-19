@@ -1,10 +1,10 @@
 import { dataSelector } from '../support/selector';
 import { interceptForever } from '../support/Interceptor';
 
-describe('Modules', () => {
+describe('Patch', () => {
   describe('E2E', () => {
     it('Should display modules', () => {
-      cy.visit('/modules');
+      cy.visit('/patches');
 
       cy.get(dataSelector('modules-list')).should('be.visible');
     });
@@ -16,7 +16,7 @@ describe('Modules', () => {
     it('Should display loader while loading modules', () => {
       const result = interceptForever({ path: '/api/modules' }, { fixture: 'modules.json' });
 
-      cy.visit('/modules');
+      cy.visit('/patches');
 
       cy.get(dataSelector('modules-loader'))
         .should('be.visible')
@@ -39,7 +39,7 @@ describe('Modules', () => {
         method: 'POST',
       }).as('spring-test-creation');
 
-      cy.visit('/modules');
+      cy.visit('/patches');
       cy.get(dataSelector('folder-path-field')).clear().type('test');
       cy.get(dataSelector('module-spring-test-application-button')).click();
 
@@ -62,7 +62,7 @@ describe('Modules', () => {
         method: 'POST',
       }).as('spring-cucumber-creation');
 
-      cy.visit('/modules');
+      cy.visit('/patches');
 
       cy.get(dataSelector('spring-cucumber-module-content')).click();
       cy.get(dataSelector('folder-path-field')).clear().type('test');

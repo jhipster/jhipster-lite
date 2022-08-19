@@ -3,8 +3,11 @@ import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { LandscapeVue } from '@/module/primary/landscape';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import sinon, { SinonStub } from 'sinon';
+import { stubAlertBus } from '../../../common/domain/AlertBus.fixture';
 import { wrappedElement } from '../../../WrappedElement';
-import { defaultLandscape, ModulesRepositoryStub, stubModulesRepository } from '../../domain/Modules.fixture';
+import { defaultLandscape, ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
+import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
+import { stubWindow } from '../GlobalWindow.fixture';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: SinonStub;
@@ -21,6 +24,8 @@ interface WrapperOptions {
   applicationListener: ApplicationListener;
 }
 
+const alertBus = stubAlertBus();
+
 const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
   const { modules, applicationListener }: WrapperOptions = {
     modules: repositoryWithLandscape(),
@@ -33,6 +38,9 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
       provide: {
         modules,
         applicationListener,
+        alertBus,
+        projectFolders: repositoryWithProjectFolders(),
+        globalWindow: stubWindow(),
       },
     },
   });
@@ -40,7 +48,6 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
 
 const componentWithLandscape = async (applicationListener?: ApplicationListener): Promise<VueWrapper> => {
   const listener = applicationListener || stubApplicationListener();
-
   const modules = repositoryWithLandscape();
 
   const wrapper = wrap({ modules, applicationListener: listener });
@@ -53,8 +60,17 @@ const componentWithLandscape = async (applicationListener?: ApplicationListener)
 const repositoryWithLandscape = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
   modules.landscape.resolves(defaultLandscape());
+  modules.applyAll.resolves(undefined);
+  modules.history.resolves(projectHistoryWithInit());
 
   return modules;
+};
+
+const repositoryWithProjectFolders = (): ProjectFoldersRepositoryStub => {
+  const projectFolders = stubProjectFoldersRepository();
+  projectFolders.get.resolves('/tmp/jhlite/1234');
+
+  return projectFolders;
 };
 
 describe('Landscape', () => {
@@ -74,6 +90,9 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('landscape')).exists()).toBe(true);
       expect(wrapper.find(wrappedElement('landscape-connectors')).findAll('polyline').length).toBe(17);
       expect(applicationListener.addEventListener.calledOnce).toBe(true);
+
+      const pathField = wrapper.find(wrappedElement('folder-path-field')).element as HTMLInputElement;
+      expect(pathField.value).toBe('/tmp/jhlite/1234');
     });
 
     it('Should unload landscape at destroy', async () => {
@@ -316,7 +335,6 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('gitlab-gradle-module')).classes()).toContain('-not-selectable');
     });
   });
-  //github.com/jhipster/jhipster-lite/issues/3129
 
   describe('Module selection', () => {
     it('Should select selectable module', async () => {
@@ -416,6 +434,207 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('gitlab-maven-module')).classes()).not.toContain('-selected');
     });
   });
+
+  describe('Module application', () => {
+    it('Should disable application button without selected modules', async () => {
+      const wrapper = await componentWithLandscape();
+
+      await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should disable application button without project path', async () => {
+      const wrapper = await componentWithLandscape();
+
+      await clickModule('maven', wrapper);
+      await wrapper.find(wrappedElement('folder-path-field')).setValue('');
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should disable application button with missing mandatory properties', async () => {
+      const wrapper = await componentWithLandscape();
+
+      await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+      await clickModule('init', wrapper);
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should apply module using repository', async () => {
+      const modules = repositoryWithLandscape();
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await validateInitApplication(wrapper);
+
+      expect(modules.applyAll.calledOnce).toBe(true);
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
+
+      const [message] = alertBus.success.lastCall.args;
+      expect(message).toBe('Modules applied');
+    });
+
+    it('Should remove setted boolean property', async () => {
+      const wrapper = await componentWithLandscape();
+
+      await clickModule('maven', wrapper);
+      await wrapper.find(wrappedElement('property-optionalBoolean-field')).setValue('true');
+      await wrapper.find(wrappedElement('property-optionalBoolean-field')).setValue('');
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should apply modules without committing them', async () => {
+      const modules = repositoryWithLandscape();
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+      await clickModule('init', wrapper);
+      await wrapper.find(wrappedElement('property-baseName-field')).setValue('base');
+      await wrapper.find(wrappedElement('commit-module-application')).trigger('click');
+
+      wrapper.find(wrappedElement('modules-application-button')).trigger('click');
+
+      await flushPromises();
+
+      const [modulesToApply] = modules.applyAll.firstCall.args;
+      expect(modulesToApply.commit).toBe(false);
+    });
+
+    it('Should handle application error', async () => {
+      const modules = repositoryWithLandscape();
+      modules.applyAll.rejects();
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await validateInitApplication(wrapper);
+
+      expect(modules.applyAll.calledOnce).toBe(true);
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
+
+      const [message] = alertBus.error.lastCall.args;
+      expect(message).toBe('Modules not applied');
+    });
+
+    it('Should disable actions during application', async () => {
+      const modules = repositoryWithLandscape();
+      modules.applyAll.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await validateInitApplication(wrapper);
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-not-selectable');
+    });
+
+    it('Should deduplicate properties for selected fields', async () => {
+      const wrapper = await componentWithLandscape();
+
+      await clickModule('init', wrapper);
+      await clickModule('infinitest', wrapper);
+
+      expect(wrapper.findAll(wrappedElement('property-baseName-field')).length).toBe(1);
+    });
+  });
+
+  describe('History', () => {
+    it('Should load information from history', async () => {
+      const modules = repositoryWithLandscape();
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await updatePath(wrapper);
+
+      const baseNameField = wrapper.find(wrappedElement('property-baseName-field')).element as HTMLInputElement;
+      expect(baseNameField.value).toBe('settedbase');
+      expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-selected');
+    });
+
+    it('Should silently handle history loading error', async () => {
+      const modules = repositoryWithLandscape();
+      modules.history.rejects(undefined);
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      const consoleErrors = jest.spyOn(console, 'error').mockImplementation();
+      await updatePath(wrapper);
+
+      expect(console.error).toHaveBeenCalledTimes(0);
+      consoleErrors.mockRestore();
+    });
+
+    it('Should not replace user setted properties from history', async () => {
+      const modules = repositoryWithLandscape();
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await clickModule('init', wrapper);
+      await wrapper.find(wrappedElement('property-baseName-field')).setValue('pouet');
+      await updatePath(wrapper);
+
+      const baseNameField = wrapper.find(wrappedElement('property-baseName-field')).element as HTMLInputElement;
+      expect(baseNameField.value).toBe('pouet');
+    });
+  });
+
+  describe('Formatting', () => {
+    it('Should disable applications during project formatting', async () => {
+      const modules = repositoryWithLandscape();
+      modules.format.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await updatePath(wrapper);
+      await wrapper.find(wrappedElement('format-button')).trigger('click');
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-compacted');
+    });
+
+    it('Should enable applications after project formatting', async () => {
+      const modules = repositoryWithLandscape();
+      modules.format.resolves(undefined);
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await updatePath(wrapper);
+      await wrapper.find(wrappedElement('format-button')).trigger('click');
+      await flushPromises();
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
+    });
+  });
+
+  describe('Download', () => {
+    it('Should disable applications during download', async () => {
+      const modules = repositoryWithLandscape();
+      modules.download.returns(new Promise(resolve => setTimeout(resolve, 500)));
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await updatePath(wrapper);
+      await wrapper.find(wrappedElement('download-button')).trigger('click');
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should enable applications after download', async () => {
+      const modules = repositoryWithLandscape();
+      modules.download.resolves(undefined);
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await updatePath(wrapper);
+      wrapper.find(wrappedElement('download-button')).trigger('click');
+      await flushPromises();
+
+      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
+    });
+  });
 });
 
 const assertSelectableHighlightedConnectorsCount = (wrapper: VueWrapper, count: number): void => {
@@ -443,7 +662,21 @@ const assertConnectorsCount = (wrapper: VueWrapper, cssClass: string, count: num
   ).toBe(count);
 };
 
+const validateInitApplication = async (wrapper: VueWrapper): Promise<void> => {
+  await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+  await clickModule('init', wrapper);
+  await wrapper.find(wrappedElement('property-baseName-field')).setValue('base');
+
+  await wrapper.find(wrappedElement('modules-application-button')).trigger('click');
+
+  await flushPromises();
+};
+
 const clickModule = async (slug: string, wrapper: VueWrapper): Promise<void> => {
-  wrapper.find(wrappedElement(`${slug}-module`)).trigger('click');
-  await wrapper.vm.$nextTick();
+  await wrapper.find(wrappedElement(`${slug}-module`)).trigger('click');
+};
+
+const updatePath = async (wrapper: VueWrapper): Promise<void> => {
+  await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+  await wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
 };

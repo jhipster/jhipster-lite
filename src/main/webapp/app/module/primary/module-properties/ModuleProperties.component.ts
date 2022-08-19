@@ -1,13 +1,14 @@
 import { ModulePropertyValueType } from '@/module/domain/ModuleProperties';
-import { ModuleProperty } from '@/module/domain/ModuleProperty';
+import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { defineComponent, PropType } from 'vue';
 import { ModulePropertiesType } from '../ModulePropertiesType';
+import { notEmpty } from '../PropertyValue';
 
 export default defineComponent({
   name: 'ModulePropertiesVue',
   props: {
     properties: {
-      type: Array as PropType<Array<ModuleProperty>>,
+      type: Array as PropType<Array<ModulePropertyDefinition>>,
       required: true,
     },
     moduleSlug: {
@@ -79,15 +80,3 @@ export default defineComponent({
     };
   },
 });
-
-function notEmpty(value: ModulePropertyValueType | undefined): boolean {
-  if (value === undefined) {
-    return false;
-  }
-
-  if (typeof value === 'string') {
-    return value.trim().length !== 0;
-  }
-
-  return true;
-}

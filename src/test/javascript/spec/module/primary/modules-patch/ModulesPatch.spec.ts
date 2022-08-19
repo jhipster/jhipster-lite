@@ -1,29 +1,12 @@
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
-import {
-  defaultModules,
-  defaultProject,
-  defaultProjectHistory,
-  ModulesRepositoryStub,
-  stubModulesRepository,
-} from '../domain/Modules.fixture';
-import { ModulesVue } from '@/module/primary/modules';
+import { defaultModules, defaultProjectHistory, ModulesRepositoryStub, stubModulesRepository } from '../../domain/Modules.fixture';
+import { ModulesVue } from '@/module/primary/modules-patch';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
-import { wrappedElement } from '../../WrappedElement';
-import { stubAlertBus } from '../../common/domain/AlertBus.fixture';
+import { wrappedElement } from '../../../WrappedElement';
+import { stubAlertBus } from '../../../common/domain/AlertBus.fixture';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
-import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../domain/ProjectFolders.fixture';
-import sinon from 'sinon';
-
-const stubWindow = () => ({
-  URL: { createObjectURL: sinon.stub(), revokeObjectURL: sinon.stub() },
-  document: { createElement: sinon.stub(), body: { appendChild: sinon.stub(), removeChild: sinon.stub() } },
-});
-
-const stubLink = () => ({
-  href: '',
-  click: sinon.stub(),
-  download: '',
-});
+import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
+import { stubWindow } from '../GlobalWindow.fixture';
 
 interface WrapperOptions {
   modules: ModulesRepository;
@@ -31,8 +14,6 @@ interface WrapperOptions {
 }
 
 const alertBus = stubAlertBus();
-
-const windowStub = stubWindow();
 
 const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
   const { modules, projectFolders }: WrapperOptions = {
@@ -46,7 +27,7 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
         modules,
         projectFolders,
         alertBus,
-        globalWindow: windowStub,
+        globalWindow: stubWindow(),
       },
     },
   });
@@ -115,7 +96,7 @@ describe('Modules', () => {
       ]);
     });
 
-    it('Should de-select module', async () => {
+    it('Should unselect module', async () => {
       const wrapper = await componentWithModules();
 
       await selectModule(wrapper);
@@ -251,7 +232,8 @@ describe('Modules', () => {
 
       await flushPromises();
 
-      expect(modules.list.calledOnce).toBe(true);
+      const [, moduleToApply] = modules.apply.lastCall.args;
+      expect(moduleToApply.commit).toBe(true);
     });
 
     it('Should disable applications during application', async () => {
@@ -289,6 +271,20 @@ describe('Modules', () => {
       await flushPromises();
 
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeUndefined();
+    });
+
+    it('Should apply module without commit', async () => {
+      const modules = repositoryWithModules();
+      modules.apply.resolves(undefined);
+      const wrapper = await filledModuleForm(modules);
+
+      wrapper.find(wrappedElement('commit-module-application')).trigger('click');
+      wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
+      await flushForm(wrapper);
+      await flushPromises();
+
+      const [, moduleToApply] = modules.apply.lastCall.args;
+      expect(moduleToApply.commit).toBe(false);
     });
 
     it('Should send module application notification', async () => {
@@ -493,15 +489,6 @@ describe('Modules', () => {
   });
 
   describe('Formatting', () => {
-    it('Should disable formatting without project path', async () => {
-      const wrapper = await componentWithModules();
-
-      wrapper.find(wrappedElement('folder-path-field')).setValue('');
-      await flushForm(wrapper);
-
-      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeDefined();
-    });
-
     it('Should disable applications during project formatting', async () => {
       const modules = repositoryWithModules();
       modules.format.returns(new Promise(resolve => setTimeout(resolve, 500)));
@@ -510,57 +497,23 @@ describe('Modules', () => {
       wrapper.find(wrappedElement('format-button')).trigger('click');
       await flushForm(wrapper);
 
-      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeDefined();
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeDefined();
     });
 
-    it('Should format file using repository', async () => {
-      const link = stubLink();
-      windowStub.document.createElement.returns(link);
-
+    it('Should enable applications after project formatting', async () => {
       const modules = repositoryWithModules();
-      modules.format.resolves(defaultProject());
+      modules.format.resolves(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('format-button')).trigger('click');
       await flushForm(wrapper);
       await flushPromises();
 
-      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
-      expect(modules.format.callCount).toBe(1);
-
-      const [message] = alertBus.success.lastCall.args;
-      expect(message).toBe('Project formatted');
-    });
-
-    it('Should handle format errors', async () => {
-      const modules = repositoryWithModules();
-      modules.format.rejects();
-      const wrapper = await filledModuleForm(modules);
-
-      wrapper.find(wrappedElement('format-button')).trigger('click');
-      await flushForm(wrapper);
-
-      await flushPromises();
-
-      expect(wrapper.find(wrappedElement('format-button')).attributes('disabled')).toBeUndefined();
-      expect(modules.format.callCount).toBe(1);
-
-      const [message] = alertBus.error.lastCall.args;
-      expect(message).toBe("Project can't be formatted");
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeUndefined();
     });
   });
 
   describe('Download', () => {
-    it('Should disable download without project path', async () => {
-      const wrapper = await componentWithModules();
-
-      wrapper.find(wrappedElement('folder-path-field')).setValue('');
-      await flushForm(wrapper);
-
-      expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeDefined();
-    });
-
     it('Should disable applications during download', async () => {
       const modules = repositoryWithModules();
       modules.download.returns(new Promise(resolve => setTimeout(resolve, 500)));
@@ -569,48 +522,19 @@ describe('Modules', () => {
       wrapper.find(wrappedElement('download-button')).trigger('click');
       await flushForm(wrapper);
 
-      expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeDefined();
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeDefined();
     });
 
-    it('Should download file using repository', async () => {
-      const link = stubLink();
-      windowStub.document.createElement.returns(link);
-
+    it('Should enable applications after download', async () => {
       const modules = repositoryWithModules();
-      modules.download.resolves(defaultProject());
+      modules.download.resolves(undefined);
       const wrapper = await filledModuleForm(modules);
 
       wrapper.find(wrappedElement('download-button')).trigger('click');
       await flushForm(wrapper);
       await flushPromises();
 
-      expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeUndefined();
-      expect(windowStub.URL.createObjectURL.calledOnce).toBeTruthy();
-      expect(windowStub.document.createElement.calledOnce).toBeTruthy();
-      expect(windowStub.document.body.appendChild.calledOnce).toBeTruthy();
-      expect(windowStub.URL.revokeObjectURL.calledOnce).toBeTruthy();
-      expect(windowStub.document.body.removeChild.calledOnce).toBeTruthy();
-
-      expect(link.download).toBe('jhipster.zip');
-      expect(modules.download.callCount).toBe(1);
-    });
-
-    it('Should handle download errors', async () => {
-      const modules = repositoryWithModules();
-      modules.download.rejects();
-      const wrapper = await filledModuleForm(modules);
-
-      wrapper.find(wrappedElement('download-button')).trigger('click');
-      await flushForm(wrapper);
-
-      await flushPromises();
-
-      expect(wrapper.find(wrappedElement('download-button')).attributes('disabled')).toBeUndefined();
-      expect(modules.download.callCount).toBe(1);
-
-      const [message] = alertBus.error.lastCall.args;
-      expect(message).toBe("Project can't be downloaded");
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeUndefined();
     });
   });
 });

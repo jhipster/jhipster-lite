@@ -90,7 +90,7 @@ class SpringdocModuleConfiguration {
   }
 
   private JHipsterModuleOrganizationBuilder springServerDependencyOrganization() {
-    return JHipsterModuleOrganization.builder().addFeatureDependency("spring-server");
+    return JHipsterModuleOrganization.builder().feature("springdoc").addFeatureDependency("spring-server");
   }
 
   private JHipsterModuleOrganizationBuilder webfluxDependencyOrganization() {

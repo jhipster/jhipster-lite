@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.common.domain.FileUtils;
+import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.project.domain.FilePath;
@@ -20,6 +21,7 @@ import tech.jhipster.lite.generator.project.domain.ProjectFile;
 import tech.jhipster.lite.generator.project.domain.ProjectRepository;
 
 @Repository
+@Generated(reason = "Candidate for deletion")
 public class ProjectLocalRepository implements ProjectRepository {
 
   private static final String FILE_SEPARATOR = "/";

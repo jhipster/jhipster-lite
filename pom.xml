@@ -150,12 +150,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-inline</artifactId>
-      <version>${mockito.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <!--Explicitly added for the latest versions of Mockito (> 4.5.0) to be working-->
       <groupId>net.bytebuddy</groupId>
       <artifactId>byte-buddy</artifactId>

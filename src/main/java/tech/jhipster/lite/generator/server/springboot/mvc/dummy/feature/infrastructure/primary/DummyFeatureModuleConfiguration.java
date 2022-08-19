@@ -23,6 +23,9 @@ class DummyFeatureModuleConfiguration {
         JHipsterModuleOrganization
           .builder()
           .addFeatureDependency("cucumber-authentication")
+          .addFeatureDependency("web-error-management")
+          .addFeatureDependency("springdoc")
+          .addModuleDependency("java-base")
           .addModuleDependency("bean-validation-test")
           .build()
       )

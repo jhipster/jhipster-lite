@@ -49,7 +49,7 @@ public class SvelteAssert {
 
   public static void assertAppFiles(Project project) {
     assertFileExist(project, "src/main/webapp/app/common/primary/app/App.svelte");
-    assertFileExist(project, "src/main/webapp/routes/index.svelte");
+    assertFileExist(project, "src/main/webapp/routes/+page.svelte");
   }
 
   public static void assertAssets(Project project) {

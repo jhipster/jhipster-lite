@@ -120,7 +120,7 @@ public class SvelteDomainService implements SvelteService {
     String destinationRoutes = "src/main/webapp/routes";
 
     projectRepository.template(
-      ProjectFile.forProject(project).withSource(sourceRoutes, "index.svelte").withDestinationFolder(destinationRoutes)
+      ProjectFile.forProject(project).withSource(sourceRoutes, "+page.svelte").withDestinationFolder(destinationRoutes)
     );
 
     projectRepository.template(

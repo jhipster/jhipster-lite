@@ -16,8 +16,8 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.statistic.domain.StatisticsRepository;
 
 @IntegrationTest
-@ActiveProfiles("cloud")
-@Disabled("Slow test, not needed at every build")
+@ActiveProfiles("mongodb")
+@Disabled("Mongo instanciation takes a lot of time, not needed for every build")
 class MongoDBStatisticsRepositoryIntTest {
 
   private static final long memoryInBytes = Math.round(1024 * 1024 * 1024 * 0.6);

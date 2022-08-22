@@ -13,7 +13,7 @@ Feature: Modules
   Scenario: Should get modules list
     When I get modules list
     Then I should have category "Spring Boot - Component Tests" with module
-      | Slug        | spring-boot-cucumber                 |
+      | Slug        | spring-boot-cucumber                |
       | Description | Add cucumber integration to project |
 
   Scenario: Should get modules landscape

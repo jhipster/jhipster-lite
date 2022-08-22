@@ -9,9 +9,9 @@ import org.testcontainers.utility.DockerImageName;
 
 public class TestMongoDBManager implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
-  private final long memoryInBytes = Math.round(1024 * 1024 * 1024 * 0.6);
-  private final long memorySwapInBytes = Math.round(1024 * 1024 * 1024 * 0.8);
-  private final long nanoCpu = Math.round(1_000_000_000L * 0.1);
+  private static final long memoryInBytes = Math.round(1024 * 1024 * 1024 * 0.6);
+  private static final long memorySwapInBytes = Math.round(1024 * 1024 * 1024 * 0.8);
+  private static final long nanoCpu = Math.round(1_000_000_000L * 0.1);
 
   private static MongoDBContainer mongoDbContainer;
 

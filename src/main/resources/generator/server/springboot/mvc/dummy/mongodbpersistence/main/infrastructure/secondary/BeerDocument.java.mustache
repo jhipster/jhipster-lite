@@ -13,10 +13,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection = BeerDocument.COLLECTION_NAME)
+@Document(collection = "beers")
 class BeerDocument {
-
-  static final String COLLECTION_NAME = "beers";
 
   @Id
   @Field(name = "id")

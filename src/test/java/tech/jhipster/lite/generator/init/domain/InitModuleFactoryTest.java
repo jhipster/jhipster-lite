@@ -10,11 +10,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.git.domain.GitRepository;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleAsserter;
 import tech.jhipster.lite.npm.domain.NpmVersion;
 import tech.jhipster.lite.npm.domain.NpmVersionSource;
 import tech.jhipster.lite.npm.domain.NpmVersions;
@@ -22,9 +21,6 @@ import tech.jhipster.lite.npm.domain.NpmVersions;
 @UnitTest
 @ExtendWith(MockitoExtension.class)
 class InitModuleFactoryTest {
-
-  @Mock
-  private GitRepository git;
 
   @Mock
   private NpmVersions npmVersions;
@@ -79,7 +75,7 @@ class InitModuleFactoryTest {
   }
 
   private ModuleAsserter assertMinimalModule(String folder, JHipsterModule module) {
-    ModuleAsserter asserter = assertThatModule(module)
+    return assertThatModule(module)
       .createFile("README.md")
       .containing("# Test Project")
       .and()
@@ -89,9 +85,5 @@ class InitModuleFactoryTest {
       .containing("indent_size = 2")
       .and()
       .createFiles(".eslintignore");
-
-    verify(git).init(new JHipsterProjectFolder(folder));
-
-    return asserter;
   }
 }

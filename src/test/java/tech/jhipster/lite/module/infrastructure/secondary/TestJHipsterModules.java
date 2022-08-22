@@ -6,11 +6,12 @@ import static org.mockito.Mockito.*;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.init.domain.InitModuleFactory;
 import tech.jhipster.lite.generator.project.domain.Project;
-import tech.jhipster.lite.git.domain.GitRepository;
+import tech.jhipster.lite.git.infrastructure.secondary.GitTestUtil;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
+import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture;
 import tech.jhipster.lite.npm.domain.NpmVersion;
@@ -21,7 +22,7 @@ import tech.jhipster.lite.projectfile.infrastructure.secondary.FileSystemProject
 
 public final class TestJHipsterModules {
 
-  private static final InitModuleFactory initModules = new InitModuleFactory(mock(GitRepository.class), mockedNpmVersion());
+  private static final InitModuleFactory initModules = new InitModuleFactory(mockedNpmVersion());
 
   private TestJHipsterModules() {}
 
@@ -42,7 +43,11 @@ public final class TestJHipsterModules {
   }
 
   static void apply(JHipsterModule module) {
-    applyer().module(module).properties(JHipsterModuleProperties.defaultProperties(module.projectFolder())).slug("test-module").apply();
+    applyer()
+      .module(module)
+      .properties(JHipsterModulesFixture.propertiesBuilder(module.projectFolder().get()).commitModules().build())
+      .slug("test-module")
+      .apply();
   }
 
   static TestJHipsterModulesModuleApplyer applyer() {
@@ -78,7 +83,7 @@ public final class TestJHipsterModules {
         modulesRepository,
         new FileSystemCurrentJavaDependenciesVersionsRepository(filesReader),
         new FileSystemProjectJavaDependenciesRepository(),
-        mock(GitRepository.class)
+        GitTestUtil.gitRepository()
       );
     }
 

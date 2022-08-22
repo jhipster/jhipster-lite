@@ -21,10 +21,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import tech.jhipster.lite.GitTestUtil;
 import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.cucumber.CucumberTestContext;
 import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
+import tech.jhipster.lite.git.infrastructure.secondary.GitTestUtil;
 
 public class ModulesSteps {
 

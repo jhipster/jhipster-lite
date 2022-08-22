@@ -1,10 +1,11 @@
-package tech.jhipster.lite;
+package tech.jhipster.lite.git.infrastructure.secondary;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.ArrayUtils;
+import tech.jhipster.lite.git.domain.GitRepository;
 
 public final class GitTestUtil {
 
@@ -36,5 +37,9 @@ public final class GitTestUtil {
 
       throw new AssertionError(e.getMessage(), e);
     }
+  }
+
+  public static GitRepository gitRepository() {
+    return new CommandLineGitRepository();
   }
 }

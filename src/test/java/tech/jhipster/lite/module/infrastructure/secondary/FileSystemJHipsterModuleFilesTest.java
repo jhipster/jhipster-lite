@@ -15,8 +15,8 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.FilesToDelete;
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
-import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.projectfile.infrastructure.secondary.FileSystemProjectFilesReader;
 
@@ -36,7 +36,7 @@ class FileSystemJHipsterModuleFilesTest {
   void shouldNotWriteOnUnwritablePath() {
     JHipsterProjectFolder project = new JHipsterProjectFolder(Paths.get("src/test/resources/generator").toAbsolutePath().toString());
 
-    JHipsterModule module = moduleBuilder(JHipsterModuleProperties.defaultProperties(project))
+    JHipsterModule module = moduleBuilder(JHipsterModulesFixture.propertiesBuilder(project.folder()).build())
       .files()
       .add(from("server/springboot/core/MainApp.java.mustache"), to("content"))
       .and()
@@ -49,7 +49,7 @@ class FileSystemJHipsterModuleFilesTest {
   void shouldTraceAddedFiles() {
     JHipsterProjectFolder project = new JHipsterProjectFolder(TestFileUtils.tmpDirForTest());
 
-    JHipsterModule module = moduleBuilder(JHipsterModuleProperties.defaultProperties(project))
+    JHipsterModule module = moduleBuilder(JHipsterModulesFixture.propertiesBuilder(project.folder()).build())
       .files()
       .add(from("server/springboot/core/MainApp.java.mustache"), to("MainApp.java"))
       .and()

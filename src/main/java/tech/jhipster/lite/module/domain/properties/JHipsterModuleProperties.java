@@ -40,10 +40,6 @@ public class JHipsterModuleProperties {
     serverPort = new JHipsterServerPort(getOrDefault(SERVER_PORT_PROPERTY, null, Integer.class));
   }
 
-  public static JHipsterModuleProperties defaultProperties(JHipsterProjectFolder projectFolder) {
-    return new JHipsterModuleProperties(projectFolder, false, null);
-  }
-
   public JHipsterProjectFolder projectFolder() {
     return projectFolder;
   }

@@ -9,6 +9,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javadependency.CurrentJavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesCurrentVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
+import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 public class JHipsterModulesApplyer {
 
@@ -72,7 +73,10 @@ public class JHipsterModulesApplyer {
 
   private void commitIfNeeded(JHipsterModuleToApply moduleToApply) {
     if (moduleToApply.commitNeeded()) {
-      git.commitAll(moduleToApply.module().projectFolder(), commitMessage(moduleToApply));
+      JHipsterProjectFolder projectFolder = moduleToApply.module().projectFolder();
+
+      git.init(projectFolder);
+      git.commitAll(projectFolder, commitMessage(moduleToApply));
     }
   }
 

@@ -329,11 +329,18 @@ public final class JHipsterModulesFixture {
 
   public static class JHipsterModulePropertiesBuilder {
 
+    private boolean commitModules = false;
     private final String projectFolder;
     private final Map<String, Object> properties = new HashMap<>();
 
     private JHipsterModulePropertiesBuilder(String projectFolder) {
       this.projectFolder = projectFolder;
+    }
+
+    public JHipsterModulePropertiesBuilder commitModules() {
+      commitModules = true;
+
+      return this;
     }
 
     public JHipsterModulePropertiesBuilder basePackage(String basePackage) {
@@ -361,7 +368,7 @@ public final class JHipsterModulesFixture {
     }
 
     public JHipsterModuleProperties build() {
-      return new JHipsterModuleProperties(projectFolder, false, properties);
+      return new JHipsterModuleProperties(projectFolder, commitModules, properties);
     }
   }
 }

@@ -37,8 +37,7 @@ public class JHipsterModulesApplyer {
   }
 
   private Function<JHipsterModuleSlug, JHipsterModuleToApply> toModuleToApply(JHipsterModulesToApply modulesToApply) {
-    return slug ->
-      new JHipsterModuleToApply(modulesToApply.properties(), slug, modules.resources().build(slug, modulesToApply.properties()));
+    return slug -> new JHipsterModuleToApply(slug, modules.resources().build(slug, modulesToApply.properties()));
   }
 
   public JHipsterModuleApplied apply(JHipsterModuleToApply moduleToApply) {
@@ -63,7 +62,7 @@ public class JHipsterModulesApplyer {
 
     modules.apply(changes);
 
-    JHipsterModuleApplied moduleApplied = new JHipsterModuleApplied(moduleToApply.properties(), moduleToApply.slug(), Instant.now());
+    JHipsterModuleApplied moduleApplied = new JHipsterModuleApplied(moduleToApply.slug(), moduleToApply.properties(), Instant.now());
     modules.applied(moduleApplied);
 
     commitIfNeeded(moduleToApply);

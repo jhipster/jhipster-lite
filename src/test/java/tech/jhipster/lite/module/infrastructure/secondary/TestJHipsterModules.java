@@ -12,7 +12,6 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleEvents;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
-import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture;
 import tech.jhipster.lite.npm.domain.NpmVersion;
@@ -36,7 +35,7 @@ public final class TestJHipsterModules {
   }
 
   public static void applyInit(Project project) {
-    applyer().module(initModules.buildFullModule(projectProperties(project))).properties(projectProperties(project)).slug("init").apply();
+    applyer().module(initModules.buildFullModule(projectProperties(project))).slug("init").apply();
   }
 
   private static JHipsterModuleProperties projectProperties(Project project) {
@@ -44,11 +43,7 @@ public final class TestJHipsterModules {
   }
 
   static void apply(JHipsterModule module) {
-    applyer()
-      .module(module)
-      .properties(JHipsterModulesFixture.propertiesBuilder(module.projectFolder().get()).commitModules().build())
-      .slug("test-module")
-      .apply();
+    applyer().module(module).slug("test-module").apply();
   }
 
   static TestJHipsterModulesModuleApplyer applyer() {
@@ -56,16 +51,11 @@ public final class TestJHipsterModules {
   }
 
   public static class TestJHipsterModulesApplyer
-    implements
-      TestJHipsterModulesModuleApplyer,
-      TestJHipsterModulesPropertiesApplyer,
-      TestJHipsterModulesSlugApplyer,
-      TestJHipsterModulesFinalApplyer {
+    implements TestJHipsterModulesModuleApplyer, TestJHipsterModulesSlugApplyer, TestJHipsterModulesFinalApplyer {
 
     private static final JHipsterModulesApplicationService modules = buildApplicationService();
 
     private JHipsterModule module;
-    private JHipsterModuleProperties properties;
     private JHipsterModuleSlug slug;
 
     private TestJHipsterModulesApplyer() {}
@@ -90,19 +80,10 @@ public final class TestJHipsterModules {
     }
 
     @Override
-    public TestJHipsterModulesPropertiesApplyer module(JHipsterModule module) {
+    public TestJHipsterModulesSlugApplyer module(JHipsterModule module) {
       Assert.notNull("module", module);
 
       this.module = module;
-
-      return this;
-    }
-
-    @Override
-    public TestJHipsterModulesSlugApplyer properties(JHipsterModuleProperties properties) {
-      Assert.notNull("properties", properties);
-
-      this.properties = properties;
 
       return this;
     }
@@ -118,16 +99,12 @@ public final class TestJHipsterModules {
 
     @Override
     public void apply() {
-      modules.apply(new JHipsterModuleToApply(properties, slug, module));
+      modules.apply(new JHipsterModuleToApply(slug, module));
     }
   }
 
   public interface TestJHipsterModulesModuleApplyer {
-    public TestJHipsterModulesPropertiesApplyer module(JHipsterModule module);
-  }
-
-  public interface TestJHipsterModulesPropertiesApplyer {
-    TestJHipsterModulesSlugApplyer properties(JHipsterModuleProperties properties);
+    public TestJHipsterModulesSlugApplyer module(JHipsterModule module);
   }
 
   public interface TestJHipsterModulesSlugApplyer {

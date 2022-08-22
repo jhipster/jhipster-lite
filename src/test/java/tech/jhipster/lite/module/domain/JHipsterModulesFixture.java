@@ -192,7 +192,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static JHipsterModuleProperties testModuleProperties() {
-    return new JHipsterModuleProperties(new JHipsterProjectFolder(TestFileUtils.tmpDirForTest()), false, null);
+    return new JHipsterModuleProperties(new JHipsterProjectFolder(TestFileUtils.tmpDirForTest()), true, null);
   }
 
   public static CurrentJavaDependenciesVersions currentJavaDependenciesVersion() {

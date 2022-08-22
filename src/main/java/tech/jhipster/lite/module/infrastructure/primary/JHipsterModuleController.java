@@ -38,7 +38,7 @@ abstract class JHipsterModuleController implements Controller {
     try {
       JHipsterModuleProperties properties = readProperties(request);
 
-      modules.apply(new JHipsterModuleToApply(properties, slug, factory.create(properties)));
+      modules.apply(new JHipsterModuleToApply(slug, factory.create(properties)));
     } catch (IOException e) {
       throw InvalidModuleQueryException.unreadablePayload(e);
     }

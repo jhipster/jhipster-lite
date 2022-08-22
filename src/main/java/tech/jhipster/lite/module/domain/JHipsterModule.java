@@ -59,7 +59,7 @@ public class JHipsterModule {
 
   public static final String LINE_BREAK = "\n";
 
-  private final JHipsterProjectFolder projectFolder;
+  private final JHipsterModuleProperties properties;
   private final JHipsterModuleFiles files;
   private final JHipsterModuleMandatoryReplacements mandatoryReplacements;
   private final JHipsterModuleOptionalReplacements optionalReplacements;
@@ -72,7 +72,7 @@ public class JHipsterModule {
   private final SpringProperties springProperties;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
-    projectFolder = builder.projectFolder;
+    properties = builder.properties;
 
     files = builder.files.build();
     mandatoryReplacements = builder.mandatoryReplacements.build();
@@ -87,24 +87,22 @@ public class JHipsterModule {
   }
 
   private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
-    List<SpringProperty> properties = builder.springProperties.entrySet().stream().flatMap(toProperties()).toList();
-
-    return new SpringProperties(properties);
+    return new SpringProperties(builder.springProperties.entrySet().stream().flatMap(toSpringProperties()).toList());
   }
 
-  private Function<Entry<PropertiesKey, JHipsterModuleSpringPropertiesBuilder>, Stream<SpringProperty>> toProperties() {
-    return properties -> properties.getValue().build().properties().entrySet().stream().map(toProperty(properties));
+  private Function<Entry<PropertiesKey, JHipsterModuleSpringPropertiesBuilder>, Stream<SpringProperty>> toSpringProperties() {
+    return inputProperties -> inputProperties.getValue().build().properties().entrySet().stream().map(toSpringProperty(inputProperties));
   }
 
-  private Function<Entry<PropertyKey, PropertyValue>, SpringProperty> toProperty(
-    Entry<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> properties
+  private Function<Entry<PropertyKey, PropertyValue>, SpringProperty> toSpringProperty(
+    Entry<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> inputProperties
   ) {
     return property ->
       SpringProperty
-        .builder(properties.getKey().type())
+        .builder(inputProperties.getKey().type())
         .key(property.getKey())
         .value(property.getValue())
-        .profile(properties.getKey().profile())
+        .profile(inputProperties.getKey().profile())
         .build();
   }
 
@@ -223,11 +221,15 @@ public class JHipsterModule {
   }
 
   public JHipsterProjectFolder projectFolder() {
-    return projectFolder;
+    return properties.projectFolder();
+  }
+
+  public JHipsterModuleProperties properties() {
+    return properties;
   }
 
   public Indentation indentation() {
-    return context.indentation();
+    return properties.indentation();
   }
 
   public TemplatedFiles templatedFiles() {
@@ -281,7 +283,6 @@ public class JHipsterModule {
     private static final String PROFILE = "profile";
 
     private final JHipsterModuleShortcuts shortcuts;
-    private final JHipsterProjectFolder projectFolder;
     private final JHipsterModuleProperties properties;
     private final JHipsterModuleContextBuilder context;
     private final JHipsterModuleFilesBuilder files = JHipsterModuleFiles.builder(this);
@@ -297,7 +298,6 @@ public class JHipsterModule {
     private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
       Assert.notNull("properties", properties);
 
-      this.projectFolder = properties.projectFolder();
       this.properties = properties;
       context = JHipsterModuleContext.builder(this);
       shortcuts = new JHipsterModuleShortcuts(this);

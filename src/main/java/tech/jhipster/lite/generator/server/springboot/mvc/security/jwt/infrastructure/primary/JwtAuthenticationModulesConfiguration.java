@@ -21,7 +21,14 @@ public class JwtAuthenticationModulesConfiguration {
       .slug("spring-boot-jwt")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC - Security", "Add Spring Security JWT"))
-      .organization(JHipsterModuleOrganization.builder().feature(AUTHENTICATION).addFeatureDependency("spring-server").build())
+      .organization(
+        JHipsterModuleOrganization
+          .builder()
+          .feature(AUTHENTICATION)
+          .addModuleDependency("java-base")
+          .addFeatureDependency("spring-server")
+          .build()
+      )
       .tags("server", "spring", "spring-boot", AUTHENTICATION)
       .factory(jwtAuthentications::buildAuthenticationModule);
   }

@@ -31,6 +31,7 @@ class OAuth2ModuleConfiguration {
           .builder()
           .feature(AUTHENTICATION)
           .addModuleDependency("java-base")
+          .addFeatureDependency("web-error-management")
           .addFeatureDependency("spring-server")
           .build()
       )

@@ -42,11 +42,13 @@ class AngularJwtModuleFactoryTest {
         "login.model.ts",
         "login.component.css",
         "login.component.html",
-        "login.component.spec.ts",
         "login.component.ts",
         "login.module.ts",
         "login.route.ts"
       )
+      .createFile("src/main/webapp/app/login/login.component.spec.ts")
+      .containing(".toEqual('jhipster')")
+      .and()
       .createFile("src/main/webapp/app/app-routing.module.ts")
       .containing(
         """

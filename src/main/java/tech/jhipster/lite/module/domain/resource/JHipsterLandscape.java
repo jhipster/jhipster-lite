@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain.resource;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -23,7 +24,7 @@ public class JHipsterLandscape {
   public static JHipsterLandscape from(JHipsterModulesResources resources) {
     assertNoDuplicatedSlug(resources);
 
-    return new JHipsterLandscape(JHipsterLandscapeLevels.builder().resources(resources).build()).withoutNestedDependencies();
+    return new JHipsterLandscape(JHipsterLandscapeLevels.builder().resources(resources).build()).withoutNestedDependencies().sorted();
   }
 
   private static void assertNoDuplicatedSlug(JHipsterModulesResources resources) {
@@ -122,6 +123,57 @@ public class JHipsterLandscape {
         .flatMap(JHipsterLandscapeElement::allModules)
         .map(JHipsterLandscapeElement::slug)
         .anyMatch(levelElement -> levelElement.equals(module));
+  }
+
+  private JHipsterLandscape sorted() {
+    return new JHipsterLandscape(new JHipsterLandscapeLevels(levels.stream().map(toSortedLevel()).toList()));
+  }
+
+  private Function<JHipsterLandscapeLevel, JHipsterLandscapeLevel> toSortedLevel() {
+    Comparator<JHipsterLandscapeElement> levelComparator = Comparator
+      .comparing(this::linksCount)
+      .thenComparing(element -> element.slug().get());
+
+    return level -> new JHipsterLandscapeLevel(level.elements().stream().sorted(levelComparator).toList());
+  }
+
+  @Generated(reason = "Jacoco think there is a missing case")
+  private long linksCount(JHipsterLandscapeElement element) {
+    return switch (element.type()) {
+      case FEATURE -> featureLinksCount((JHipsterLandscapeFeature) element);
+      case MODULE -> moduleLinksCount((JHipsterLandscapeModule) element);
+    };
+  }
+
+  private long featureLinksCount(JHipsterLandscapeFeature feature) {
+    return elementDependantModulesCount(feature) + dependantModulesCount(feature);
+  }
+
+  private long dependantModulesCount(JHipsterLandscapeFeature feature) {
+    return feature.modules().stream().mapToLong(this::moduleLinksCount).sum();
+  }
+
+  private long moduleLinksCount(JHipsterLandscapeModule module) {
+    return elementDependantModulesCount(module) + dependenciesCount(module);
+  }
+
+  private long elementDependantModulesCount(JHipsterLandscapeElement element) {
+    return levels
+      .stream()
+      .flatMap(level -> level.elements().stream())
+      .filter(JHipsterLandscapeModule.class::isInstance)
+      .map(JHipsterLandscapeModule.class::cast)
+      .flatMap(toDependencies())
+      .filter(dependency -> dependency.slug().equals(element.slug()))
+      .count();
+  }
+
+  private Function<JHipsterLandscapeModule, Stream<JHipsterLandscapeDependency>> toDependencies() {
+    return landscapeModule -> landscapeModule.dependencies().map(JHipsterLandscapeDependencies::stream).orElse(Stream.of());
+  }
+
+  private long dependenciesCount(JHipsterLandscapeModule module) {
+    return module.dependencies().map(JHipsterLandscapeDependencies::count).orElse(0L);
   }
 
   public JHipsterLandscapeLevels levels() {

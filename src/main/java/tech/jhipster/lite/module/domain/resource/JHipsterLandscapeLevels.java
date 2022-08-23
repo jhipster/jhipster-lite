@@ -3,7 +3,6 @@ package tech.jhipster.lite.module.domain.resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,10 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.ToLongFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterFeatureSlug;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
@@ -91,7 +88,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
         dispatcher.dispatchNextLevel();
       }
 
-      return new JHipsterLandscapeLevels(dispatcher.displayedLevels());
+      return new JHipsterLandscapeLevels(dispatcher.levels());
     }
 
     private Function<Entry<JHipsterFeatureSlug, Collection<JHipsterLandscapeModule>>, JHipsterLandscapeFeature> toFeature() {
@@ -101,7 +98,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
 
   private static class JHipsterLandscapeLevelsDispatcher {
 
-    private final List<JHipsterSortableLandscapeLevel> levels = new ArrayList<>();
+    private final List<JHipsterLandscapeLevel> levels = new ArrayList<>();
     private List<JHipsterLandscapeElement> elementsToDispatch;
 
     public JHipsterLandscapeLevelsDispatcher(List<JHipsterLandscapeElement> elements) {
@@ -157,104 +154,21 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
     }
 
     private Set<JHipsterSlug> knownSlugs() {
-      return levels.stream().flatMap(JHipsterSortableLandscapeLevel::slugs).collect(Collectors.toSet());
+      return levels.stream().flatMap(JHipsterLandscapeLevel::slugs).collect(Collectors.toSet());
     }
 
     private void appendLevel(List<JHipsterLandscapeElement> elements) {
       updateElementsToDispatch(elements);
 
-      JHipsterSortableLandscapeLevel addedLevel = new JHipsterSortableLandscapeLevel(elements);
-      levels.forEach(level -> level.added(addedLevel));
-      levels.add(addedLevel);
+      levels.add(new JHipsterLandscapeLevel(elements));
     }
 
     private void updateElementsToDispatch(List<JHipsterLandscapeElement> elements) {
       elementsToDispatch = elementsToDispatch.stream().filter(element -> !elements.contains(element)).toList();
     }
 
-    public Collection<JHipsterLandscapeLevel> displayedLevels() {
-      return levels.stream().map(JHipsterSortableLandscapeLevel::toDisplayedLevels).toList();
-    }
-  }
-
-  private static class JHipsterSortableLandscapeLevel {
-
-    private static final Comparator<JHipsterSortableLandscapeElement> DEPENDANT_ELEMENT_COMPARATOR = Comparator.comparing(
-      JHipsterSortableLandscapeElement::dependantElementsCount
-    );
-
-    private final List<JHipsterSortableLandscapeElement> elements;
-
-    public JHipsterSortableLandscapeLevel(List<JHipsterLandscapeElement> elements) {
-      this.elements = elements.stream().map(JHipsterSortableLandscapeElement::new).toList();
-    }
-
-    public void added(JHipsterSortableLandscapeLevel addedLevel) {
-      elements.forEach(element -> element.added(addedLevel));
-    }
-
-    public Stream<JHipsterSlug> slugs() {
-      return elements.stream().flatMap(JHipsterSortableLandscapeElement::slugs);
-    }
-
-    public JHipsterLandscapeLevel toDisplayedLevels() {
-      return new JHipsterLandscapeLevel(
-        elements.stream().sorted(DEPENDANT_ELEMENT_COMPARATOR).map(JHipsterSortableLandscapeElement::element).toList()
-      );
-    }
-  }
-
-  private static class JHipsterSortableLandscapeElement {
-
-    private final JHipsterLandscapeElement element;
-
-    private long dependantElementsCount = 0;
-
-    public JHipsterSortableLandscapeElement(JHipsterLandscapeElement element) {
-      this.element = element;
-    }
-
-    public void added(JHipsterSortableLandscapeLevel addedLevel) {
-      dependantElementsCount += addedLevel.elements.stream().mapToLong(toDependantElementsCount()).sum();
-    }
-
-    private ToLongFunction<JHipsterSortableLandscapeElement> toDependantElementsCount() {
-      return sortableElement ->
-        sortableElement
-          .element()
-          .dependencies()
-          .stream()
-          .flatMap(dependencies -> dependencies.dependencies().stream())
-          .filter(dependency -> dependency.slug().equals(slug()))
-          .count();
-    }
-
-    public JHipsterLandscapeElementType type() {
-      return element.type();
-    }
-
-    @Generated(reason = "Jacoco think there is a missing case")
-    public Stream<JHipsterSlug> slugs() {
-      return switch (type()) {
-        case MODULE -> Stream.of(slug());
-        case FEATURE -> featureSlugs();
-      };
-    }
-
-    private Stream<JHipsterSlug> featureSlugs() {
-      return Stream.concat(Stream.of(slug()), ((JHipsterLandscapeFeature) element).modules().stream().map(JHipsterLandscapeModule::slug));
-    }
-
-    public JHipsterSlug slug() {
-      return element.slug();
-    }
-
-    public long dependantElementsCount() {
-      return dependantElementsCount;
-    }
-
-    public JHipsterLandscapeElement element() {
-      return element;
+    public Collection<JHipsterLandscapeLevel> levels() {
+      return levels;
     }
   }
 }

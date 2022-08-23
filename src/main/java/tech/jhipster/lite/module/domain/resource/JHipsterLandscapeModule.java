@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
+import tech.jhipster.lite.module.domain.JHipsterSlug;
 
 public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
 
@@ -57,6 +58,11 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
   @Override
   public Stream<JHipsterLandscapeModule> allModules() {
     return Stream.of(this);
+  }
+
+  @Override
+  public Stream<JHipsterSlug> slugs() {
+    return Stream.of(slug());
   }
 
   @Override

@@ -14,10 +14,12 @@ import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.GeneratorException;
-import tech.jhipster.lite.module.domain.FilesToDelete;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
-import tech.jhipster.lite.module.domain.TemplatedFile;
-import tech.jhipster.lite.module.domain.TemplatedFiles;
+import tech.jhipster.lite.module.domain.file.JHipsterFileToMove;
+import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
+import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.projectfile.domain.ProjectFilesReader;
 
@@ -37,11 +39,11 @@ class FileSystemJHipsterModuleFiles {
     return Set.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, GROUP_READ, GROUP_WRITE, GROUP_EXECUTE);
   }
 
-  void create(JHipsterProjectFolder projectFolder, TemplatedFiles files) {
+  void create(JHipsterProjectFolder projectFolder, JHipsterTemplatedFiles files) {
     files.get().forEach(writeFile(projectFolder));
   }
 
-  private Consumer<TemplatedFile> writeFile(JHipsterProjectFolder projectFolder) {
+  private Consumer<JHipsterTemplatedFile> writeFile(JHipsterProjectFolder projectFolder) {
     return file -> {
       Path filePath = file.path(projectFolder);
 
@@ -59,7 +61,7 @@ class FileSystemJHipsterModuleFiles {
   }
 
   @Generated(reason = "Ensuring posix FS will be a nightmare :)")
-  private void setExecutable(TemplatedFile file, Path filePath) throws IOException {
+  private void setExecutable(JHipsterTemplatedFile file, Path filePath) throws IOException {
     if (!FileUtils.isPosix()) {
       return;
     }
@@ -71,7 +73,41 @@ class FileSystemJHipsterModuleFiles {
     Files.setPosixFilePermissions(filePath, EXECUTABLE_FILE_PERMISSIONS);
   }
 
-  void delete(JHipsterProjectFolder folder, FilesToDelete filesToDelete) {
+  void move(JHipsterProjectFolder folder, JHipsterFilesToMove filesToMove) {
+    filesToMove.stream().forEach(moveFile(folder));
+  }
+
+  private Consumer<JHipsterFileToMove> moveFile(JHipsterProjectFolder folder) {
+    return file -> {
+      String filename = file.source().get();
+      Path source = folder.filePath(filename);
+
+      Path destination = file.destination().pathInProject(folder);
+
+      if (Files.exists(destination)) {
+        log.info("Not moving {} since {} already exists", source.toAbsolutePath(), destination.toAbsolutePath());
+
+        return;
+      }
+
+      if (Files.notExists(source)) {
+        throw new UnknownFileToMoveException(filename);
+      }
+
+      move(source, destination);
+    };
+  }
+
+  @Generated(reason = "Move error case is hard to test and with low value")
+  private void move(Path source, Path destination) {
+    try {
+      Files.move(source, destination);
+    } catch (IOException e) {
+      throw new GeneratorException("Error moving file: " + e.getMessage(), e);
+    }
+  }
+
+  void delete(JHipsterProjectFolder folder, JHipsterFilesToDelete filesToDelete) {
     filesToDelete.stream().forEach(deleteFile(folder));
   }
 

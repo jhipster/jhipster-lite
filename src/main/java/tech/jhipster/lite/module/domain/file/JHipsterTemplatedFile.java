@@ -1,16 +1,17 @@
-package tech.jhipster.lite.module.domain;
+package tech.jhipster.lite.module.domain.file;
 
 import java.nio.file.Path;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.projectfile.domain.ProjectFilesReader;
 
-public class TemplatedFile {
+public class JHipsterTemplatedFile {
 
   private final JHipsterModuleFile file;
   private final JHipsterModuleContext context;
 
-  private TemplatedFile(TemplatedFileBuilder builder) {
+  private JHipsterTemplatedFile(TemplatedFileBuilder builder) {
     Assert.notNull("file", builder.file);
     Assert.notNull("context", builder.context);
 
@@ -18,7 +19,7 @@ public class TemplatedFile {
     context = builder.context;
   }
 
-  static TemplatedFileBuilder builder() {
+  public static TemplatedFileBuilder builder() {
     return new TemplatedFileBuilder();
   }
 
@@ -42,7 +43,7 @@ public class TemplatedFile {
     return !file.executable();
   }
 
-  static class TemplatedFileBuilder {
+  public static class TemplatedFileBuilder {
 
     private JHipsterModuleFile file;
     private JHipsterModuleContext context;
@@ -59,8 +60,8 @@ public class TemplatedFile {
       return this;
     }
 
-    public TemplatedFile build() {
-      return new TemplatedFile(this);
+    public JHipsterTemplatedFile build() {
+      return new JHipsterTemplatedFile(this);
     }
   }
 }

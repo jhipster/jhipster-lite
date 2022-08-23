@@ -1,22 +1,25 @@
-package tech.jhipster.lite.module.domain;
+package tech.jhipster.lite.module.domain.file;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import tech.jhipster.lite.common.domain.JHipsterCollections;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 
 public class JHipsterModuleFiles {
 
   private final Collection<JHipsterModuleFile> filesToAdd;
-  private final FilesToDelete filesToDelete;
+  private final JHipsterFilesToDelete filesToDelete;
+  private final JHipsterFilesToMove filesToMove;
 
   private JHipsterModuleFiles(JHipsterModuleFilesBuilder builder) {
     filesToAdd = JHipsterCollections.immutable(builder.filesToAdd);
-    filesToDelete = new FilesToDelete(builder.filesToDelete);
+    filesToMove = new JHipsterFilesToMove(builder.filesToMove);
+    filesToDelete = new JHipsterFilesToDelete(builder.filesToDelete);
   }
 
-  static JHipsterModuleFilesBuilder builder(JHipsterModuleBuilder module) {
+  public static JHipsterModuleFilesBuilder builder(JHipsterModuleBuilder module) {
     return new JHipsterModuleFilesBuilder(module);
   }
 
@@ -24,7 +27,11 @@ public class JHipsterModuleFiles {
     return filesToAdd;
   }
 
-  public FilesToDelete filesToDelete() {
+  public JHipsterFilesToMove filesToMove() {
+    return filesToMove;
+  }
+
+  public JHipsterFilesToDelete filesToDelete() {
     return filesToDelete;
   }
 
@@ -32,6 +39,7 @@ public class JHipsterModuleFiles {
 
     private final JHipsterModuleBuilder module;
     private final Collection<JHipsterModuleFile> filesToAdd = new ArrayList<>();
+    private final Collection<JHipsterFileToMove> filesToMove = new ArrayList<>();
     private final Collection<JHipsterProjectFilePath> filesToDelete = new ArrayList<>();
 
     private JHipsterModuleFilesBuilder(JHipsterModuleBuilder module) {
@@ -54,6 +62,12 @@ public class JHipsterModuleFiles {
 
     public JHipsterModuleFileBatchBuilder batch(JHipsterSource source, JHipsterDestination destination) {
       return new JHipsterModuleFileBatchBuilder(source, destination, this);
+    }
+
+    public JHipsterModuleFilesBuilder move(JHipsterProjectFilePath source, JHipsterDestination destination) {
+      filesToMove.add(new JHipsterFileToMove(source, destination));
+
+      return this;
     }
 
     public JHipsterModuleFilesBuilder delete(JHipsterProjectFilePath path) {

@@ -12,8 +12,15 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext.JHipsterModuleContextBuilder;
-import tech.jhipster.lite.module.domain.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
 import tech.jhipster.lite.module.domain.JHipsterModulePreActions.JHipsterModulePreActionsBuilder;
+import tech.jhipster.lite.module.domain.file.JHipsterDestination;
+import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
+import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
+import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles;
+import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
+import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
@@ -232,17 +239,21 @@ public class JHipsterModule {
     return properties.indentation();
   }
 
-  public TemplatedFiles templatedFiles() {
-    List<TemplatedFile> templatedFiles = files
+  public JHipsterTemplatedFiles templatedFiles() {
+    List<JHipsterTemplatedFile> templatedFiles = files
       .filesToAdd()
       .stream()
-      .map(file -> TemplatedFile.builder().file(file).context(context).build())
+      .map(file -> JHipsterTemplatedFile.builder().file(file).context(context).build())
       .toList();
 
-    return new TemplatedFiles(templatedFiles);
+    return new JHipsterTemplatedFiles(templatedFiles);
   }
 
-  public FilesToDelete filesToDelete() {
+  public JHipsterFilesToMove filesToMove() {
+    return files.filesToMove();
+  }
+
+  public JHipsterFilesToDelete filesToDelete() {
     return files.filesToDelete();
   }
 

@@ -25,7 +25,10 @@ class FileSystemJHipsterModulesRepositoryTest {
     JHipsterModule module = module();
 
     // @formatter:off
-    assertThatModuleWithFiles(module, file("src/test/resources/projects/maven/pom.xml", "pom.xml"), packageJsonFile())
+    assertThatModuleWithFiles(module, 
+        file("src/test/resources/projects/maven/pom.xml", "pom.xml"),
+        packageJsonFile(), 
+        file("src/test/resources/projects/files/dummy.txt", "dummy.txt"))
       .createFiles(
         "src/main/java/com/company/myapp/MyApp.java",
         "src/main/java/com/company/myapp/errors/Assert.java",
@@ -222,7 +225,9 @@ class FileSystemJHipsterModulesRepositoryTest {
         .containing("This is a readme section")
         .containing("This is a startup section")
       .and()
-      .createPrefixedFiles(".git", "config", "HEAD");
+      .createPrefixedFiles(".git", "config", "HEAD")
+      .doNotCreateFiles("dummy.txt")
+      .createFiles("dummy.json");
     // @formatter:on
 
     assertPreActions();

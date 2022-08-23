@@ -51,6 +51,7 @@ public class JHipsterModulesApplyer {
       .projectFolder(module.projectFolder())
       .indentation(module.indentation())
       .filesToAdd(module.templatedFiles())
+      .filesToMove(module.filesToMove())
       .filesToDelete(module.filesToDelete())
       .mandatoryReplacements(module.mandatoryReplacements())
       .optionalReplacements(module.optionalReplacements())

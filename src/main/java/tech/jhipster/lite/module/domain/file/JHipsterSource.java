@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain;
+package tech.jhipster.lite.module.domain.file;
 
 import java.nio.file.Path;
 import org.apache.commons.io.FilenameUtils;
@@ -10,7 +10,7 @@ public class JHipsterSource {
 
   private final Path source;
 
-  JHipsterSource(Path source) {
+  public JHipsterSource(Path source) {
     Assert.notNull("source", source);
 
     this.source = source;

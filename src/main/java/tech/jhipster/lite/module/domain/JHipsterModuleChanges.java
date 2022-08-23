@@ -1,6 +1,9 @@
 package tech.jhipster.lite.module.domain;
 
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
+import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperties;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
@@ -13,8 +16,9 @@ public class JHipsterModuleChanges {
 
   private final JHipsterProjectFolder projectFolder;
   private final Indentation indentation;
-  private final TemplatedFiles filesToAdd;
-  private final FilesToDelete filesToDelete;
+  private final JHipsterTemplatedFiles filesToAdd;
+  private final JHipsterFilesToMove filesToMove;
+  private final JHipsterFilesToDelete filesToDelete;
   private final JHipsterModuleMandatoryReplacements mandatoryReplacements;
   private final JHipsterModuleOptionalReplacements optionalReplacements;
   private final JavaBuildCommands javaBuildCommands;
@@ -29,6 +33,7 @@ public class JHipsterModuleChanges {
     projectFolder = builder.projectFolder;
     indentation = builder.indentation;
     filesToAdd = builder.filesToAdd;
+    filesToMove = builder.filesToMove;
     filesToDelete = builder.filesToDelete;
     mandatoryReplacements = builder.mandatoryReplacements;
     optionalReplacements = builder.optionalReplacements;
@@ -43,6 +48,7 @@ public class JHipsterModuleChanges {
     Assert.notNull("projectFolder", builder.projectFolder);
     Assert.notNull("indentation", builder.indentation);
     Assert.notNull("filesToAdd", builder.filesToAdd);
+    Assert.notNull("filesToMove", builder.filesToMove);
     Assert.notNull("filesToDelete", builder.filesToDelete);
     Assert.notNull("mandatoryReplacements", builder.mandatoryReplacements);
     Assert.notNull("optionalReplacements", builder.optionalReplacements);
@@ -64,11 +70,15 @@ public class JHipsterModuleChanges {
     return indentation;
   }
 
-  public TemplatedFiles filesToAdd() {
+  public JHipsterTemplatedFiles filesToAdd() {
     return filesToAdd;
   }
 
-  public FilesToDelete filesToDelete() {
+  public JHipsterFilesToMove filesToMove() {
+    return filesToMove;
+  }
+
+  public JHipsterFilesToDelete filesToDelete() {
     return filesToDelete;
   }
 
@@ -105,6 +115,7 @@ public class JHipsterModuleChanges {
       JHipsterModuleChangesProjectFolderBuilder,
       JHipsterModuleChangesIndentationBuilder,
       JHipsterModuleChangesFilesToAddBuilder,
+      JHipsterModuleChangesFilesToMoveBuilder,
       JHipsterModuleChangesFilesToDeleteBuilder,
       JHipsterModuleChangesMandatoryReplacementsBuilder,
       JHipsterModuleChangesOptionalReplacementsBuilder,
@@ -115,8 +126,9 @@ public class JHipsterModuleChanges {
       JHipsterModuleChangesSpringPropertiesBuilder {
 
     private JHipsterProjectFolder projectFolder;
-    private TemplatedFiles filesToAdd;
-    private FilesToDelete filesToDelete;
+    private JHipsterTemplatedFiles filesToAdd;
+    private JHipsterFilesToMove filesToMove;
+    private JHipsterFilesToDelete filesToDelete;
     private JHipsterModuleMandatoryReplacements mandatoryReplacements;
     private JHipsterModuleOptionalReplacements optionalReplacements;
     private JavaBuildCommands javaBuildCommands;
@@ -143,14 +155,21 @@ public class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesFilesToDeleteBuilder filesToAdd(TemplatedFiles filesToAdd) {
+    public JHipsterModuleChangesFilesToMoveBuilder filesToAdd(JHipsterTemplatedFiles filesToAdd) {
       this.filesToAdd = filesToAdd;
 
       return this;
     }
 
     @Override
-    public JHipsterModuleChangesMandatoryReplacementsBuilder filesToDelete(FilesToDelete filesToDelete) {
+    public JHipsterModuleChangesFilesToDeleteBuilder filesToMove(JHipsterFilesToMove filesToMove) {
+      this.filesToMove = filesToMove;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChangesMandatoryReplacementsBuilder filesToDelete(JHipsterFilesToDelete filesToDelete) {
       this.filesToDelete = filesToDelete;
 
       return this;
@@ -217,11 +236,15 @@ public class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesFilesToAddBuilder {
-    JHipsterModuleChangesFilesToDeleteBuilder filesToAdd(TemplatedFiles filesToAdd);
+    JHipsterModuleChangesFilesToMoveBuilder filesToAdd(JHipsterTemplatedFiles filesToAdd);
+  }
+
+  public interface JHipsterModuleChangesFilesToMoveBuilder {
+    JHipsterModuleChangesFilesToDeleteBuilder filesToMove(JHipsterFilesToMove filesToMove);
   }
 
   public interface JHipsterModuleChangesFilesToDeleteBuilder {
-    JHipsterModuleChangesMandatoryReplacementsBuilder filesToDelete(FilesToDelete filesToDelete);
+    JHipsterModuleChangesMandatoryReplacementsBuilder filesToDelete(JHipsterFilesToDelete filesToDelete);
   }
 
   public interface JHipsterModuleChangesMandatoryReplacementsBuilder {

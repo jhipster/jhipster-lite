@@ -6,8 +6,9 @@ import static tech.jhipster.lite.statistic.domain.AppliedModuleFixture.*;
 import java.util.Collections;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.MongoDBContainer;
@@ -16,13 +17,9 @@ import tech.jhipster.lite.IntegrationTest;
 import tech.jhipster.lite.statistic.domain.StatisticsRepository;
 
 @IntegrationTest
+@EnabledOnOs(OS.LINUX)
 @ActiveProfiles("mongodb")
-@Disabled("Mongo instanciation takes a lot of time, not needed for every build")
 class MongoDBStatisticsRepositoryIntTest {
-
-  private static final long memoryInBytes = Math.round(1024 * 1024 * 1024 * 0.6);
-  private static final long memorySwapInBytes = Math.round(1024 * 1024 * 1024 * 0.8);
-  private static final long nanoCpu = Math.round(1_000_000_000L * 0.1);
 
   private static MongoDBContainer mongoDbContainer;
 
@@ -32,10 +29,8 @@ class MongoDBStatisticsRepositoryIntTest {
   @BeforeAll
   @SuppressWarnings("resource")
   static void startMongo() {
-    // Not starting a mongo in every env since this takes a lot of time and is only needed for those tests
-
     mongoDbContainer =
-      new MongoDBContainer(DockerImageName.parse("mongo:5.0.10"))
+      new MongoDBContainer(DockerImageName.parse("mongo:5.0.11"))
         .withTmpFs(Collections.singletonMap("/testtmpfs", "rw"))
         .withCommand(
           """
@@ -56,9 +51,6 @@ class MongoDBStatisticsRepositoryIntTest {
             --setParameter skipShardingConfigurationChecks=true \
             --setParameter syncdelay=3600\
             """
-        )
-        .withCreateContainerCmdModifier(cmd ->
-          cmd.getHostConfig().withMemory(memoryInBytes).withMemorySwap(memorySwapInBytes).withNanoCPUs(nanoCpu)
         );
 
     mongoDbContainer.start();

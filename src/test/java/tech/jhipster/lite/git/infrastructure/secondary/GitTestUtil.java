@@ -40,6 +40,6 @@ public final class GitTestUtil {
   }
 
   public static GitRepository gitRepository() {
-    return new CommandLineGitRepository();
+    return new JGitGitRepository();
   }
 }

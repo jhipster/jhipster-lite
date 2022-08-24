@@ -49,7 +49,7 @@ describe('Patch', () => {
         expect(body).to.deep.equal({
           projectFolder: 'test',
           commit: true,
-          properties: {},
+          parameters: {},
         });
       });
     });
@@ -66,9 +66,9 @@ describe('Patch', () => {
 
       cy.get(dataSelector('spring-cucumber-module-content')).click();
       cy.get(dataSelector('folder-path-field')).clear().type('test');
-      cy.get(dataSelector('property-baseName-field')).type('jhipster');
-      cy.get(dataSelector('property-optionalBoolean-field')).select('true');
-      cy.get(dataSelector('property-optionalInteger-field')).type('42');
+      cy.get(dataSelector('parameter-baseName-field')).type('jhipster');
+      cy.get(dataSelector('parameter-optionalBoolean-field')).select('true');
+      cy.get(dataSelector('parameter-optionalInteger-field')).type('42');
       cy.get(dataSelector('module-spring-cucumber-application-button')).click();
 
       cy.wait('@spring-cucumber-creation').should(xhr => {
@@ -77,7 +77,7 @@ describe('Patch', () => {
         expect(body).to.deep.equal({
           projectFolder: 'test',
           commit: true,
-          properties: {
+          parameters: {
             baseName: 'jhipster',
             optionalBoolean: true,
             optionalInteger: 42,

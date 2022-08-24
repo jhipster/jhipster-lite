@@ -27,7 +27,6 @@ import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 public final class JHipsterModulesFixture {
 
@@ -193,7 +192,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static JHipsterModuleProperties testModuleProperties() {
-    return new JHipsterModuleProperties(new JHipsterProjectFolder(TestFileUtils.tmpDirForTest()), true, null);
+    return new JHipsterModuleProperties(TestFileUtils.tmpDirForTest(), true, null);
   }
 
   public static CurrentJavaDependenciesVersions currentJavaDependenciesVersion() {
@@ -214,7 +213,7 @@ public final class JHipsterModulesFixture {
 
   public static JHipsterModuleProperties allProperties() {
     return new JHipsterModuleProperties(
-      new JHipsterProjectFolder("/test"),
+      "/test",
       true,
       Map.of(
         "packageName",

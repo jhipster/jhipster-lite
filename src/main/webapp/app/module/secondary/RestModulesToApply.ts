@@ -11,6 +11,6 @@ export const toRestModulesToApply = (modulesToApply: ModulesToApply): RestModule
   properties: {
     projectFolder: modulesToApply.projectFolder,
     commit: modulesToApply.commit,
-    properties: Object.fromEntries(modulesToApply.properties),
+    parameters: Object.fromEntries(modulesToApply.parameters),
   },
 });

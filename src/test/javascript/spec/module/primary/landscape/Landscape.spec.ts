@@ -476,12 +476,12 @@ describe('Landscape', () => {
       expect(message).toBe('Modules applied');
     });
 
-    it('Should remove setted boolean property', async () => {
+    it('Should remove setted boolean parameter', async () => {
       const wrapper = await componentWithLandscape();
 
       await clickModule('maven', wrapper);
-      await wrapper.find(wrappedElement('property-optionalBoolean-field')).setValue('true');
-      await wrapper.find(wrappedElement('property-optionalBoolean-field')).setValue('');
+      await wrapper.find(wrappedElement('parameter-optionalBoolean-field')).setValue('true');
+      await wrapper.find(wrappedElement('parameter-optionalBoolean-field')).setValue('');
 
       expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
     });
@@ -493,7 +493,7 @@ describe('Landscape', () => {
 
       await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
       await clickModule('init', wrapper);
-      await wrapper.find(wrappedElement('property-baseName-field')).setValue('base');
+      await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('base');
       await wrapper.find(wrappedElement('commit-module-application')).trigger('click');
 
       wrapper.find(wrappedElement('modules-application-button')).trigger('click');
@@ -537,7 +537,7 @@ describe('Landscape', () => {
       await clickModule('init', wrapper);
       await clickModule('infinitest', wrapper);
 
-      expect(wrapper.findAll(wrappedElement('property-baseName-field')).length).toBe(1);
+      expect(wrapper.findAll(wrappedElement('parameter-baseName-field')).length).toBe(1);
     });
   });
 
@@ -549,7 +549,7 @@ describe('Landscape', () => {
 
       await updatePath(wrapper);
 
-      const baseNameField = wrapper.find(wrappedElement('property-baseName-field')).element as HTMLInputElement;
+      const baseNameField = wrapper.find(wrappedElement('parameter-baseName-field')).element as HTMLInputElement;
       expect(baseNameField.value).toBe('settedbase');
       expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-selected');
     });
@@ -573,10 +573,10 @@ describe('Landscape', () => {
       await flushPromises();
 
       await clickModule('init', wrapper);
-      await wrapper.find(wrappedElement('property-baseName-field')).setValue('pouet');
+      await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('pouet');
       await updatePath(wrapper);
 
-      const baseNameField = wrapper.find(wrappedElement('property-baseName-field')).element as HTMLInputElement;
+      const baseNameField = wrapper.find(wrappedElement('parameter-baseName-field')).element as HTMLInputElement;
       expect(baseNameField.value).toBe('pouet');
     });
   });
@@ -665,7 +665,7 @@ const assertConnectorsCount = (wrapper: VueWrapper, cssClass: string, count: num
 const validateInitApplication = async (wrapper: VueWrapper): Promise<void> => {
   await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
   await clickModule('init', wrapper);
-  await wrapper.find(wrappedElement('property-baseName-field')).setValue('base');
+  await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('base');
 
   await wrapper.find(wrappedElement('modules-application-button')).trigger('click');
 

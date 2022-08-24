@@ -28,7 +28,7 @@ describe('Landscape', () => {
         cy.get(dataSelector('landscape-loader')).should('not.exist');
 
         cy.get(dataSelector('init-module')).click();
-        cy.get(dataSelector('property-packageName-field')).type('value');
+        cy.get(dataSelector('parameter-packageName-field')).type('value');
         cy.get(dataSelector('modules-application-button')).click();
 
         cy.wait('@modules-application').should(xhr => {
@@ -39,7 +39,7 @@ describe('Landscape', () => {
             properties: {
               projectFolder: '/tmp/jhlite/1234',
               commit: true,
-              properties: {
+              parameters: {
                 packageName: 'value',
               },
             },

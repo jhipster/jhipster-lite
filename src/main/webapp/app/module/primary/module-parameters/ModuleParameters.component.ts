@@ -1,13 +1,13 @@
-import { ModulePropertyValueType } from '@/module/domain/ModuleProperties';
+import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { defineComponent, PropType } from 'vue';
 import { ModulePropertiesType } from '../ModulePropertiesType';
 import { notEmpty } from '../PropertyValue';
 
 export default defineComponent({
-  name: 'ModulePropertiesVue',
+  name: 'ModuleParametersVue',
   props: {
-    properties: {
+    propertiesDefinitions: {
       type: Array as PropType<Array<ModulePropertyDefinition>>,
       required: true,
     },
@@ -15,8 +15,8 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    moduleProperties: {
-      type: Map<string, ModulePropertyValueType>,
+    moduleParameters: {
+      type: Map<string, ModuleParameterType>,
       required: true,
     },
     propertiesType: {
@@ -37,8 +37,8 @@ export default defineComponent({
       return 'Optional';
     };
 
-    const propertiesStats = (): string => {
-      return `${propertiesWithValueCount()} / ${props.properties.length}`;
+    const parametersStats = (): string => {
+      return `${parametersWithValueCount()} / ${props.propertiesDefinitions.length}`;
     };
 
     const stateClass = (): string => {
@@ -46,23 +46,23 @@ export default defineComponent({
     };
 
     const validityClass = (): string => {
-      if (propertiesWithValueCount() === props.properties.length) {
-        return 'all-valid-properties';
+      if (parametersWithValueCount() === props.propertiesDefinitions.length) {
+        return 'all-valid-parameters';
       }
 
       if (mandatoryProperties()) {
-        return 'invalid-mandatory-property';
+        return 'invalid-mandatory-parameter';
       }
 
-      return 'invalid-optional-property';
+      return 'invalid-optional-parameter';
     };
 
     const mandatoryProperties = (): boolean => {
       return props.propertiesType === 'MANDATORY';
     };
 
-    const propertiesWithValueCount = (): number => {
-      return props.properties.filter(property => notEmpty(props.moduleProperties.get(property.key))).length;
+    const parametersWithValueCount = (): number => {
+      return props.propertiesDefinitions.filter(property => notEmpty(props.moduleParameters.get(property.key))).length;
     };
 
     const selectionClass = (): string => {
@@ -75,7 +75,7 @@ export default defineComponent({
 
     return {
       typeLabel,
-      propertiesStats,
+      parametersStats,
       stateClass,
     };
   },

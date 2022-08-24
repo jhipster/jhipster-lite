@@ -35,7 +35,7 @@ public class ModulesSteps {
     """
       {
       "projectFolder": "{PROJECT_FOLDER}",
-      "properties": {{ PROPERTIES }}
+      "parameters": {{ PARAMETERS }}
       }
       """;
 
@@ -44,7 +44,7 @@ public class ModulesSteps {
       {
       "projectFolder": "{PROJECT_FOLDER}",
       "commit": true,
-      "properties": {{ PROPERTIES }}
+      "parameters": {{ PARAMETERS }}
       }
       """;
 
@@ -55,7 +55,7 @@ public class ModulesSteps {
         "properties":
           {
             "projectFolder": "{PROJECT_FOLDER}",
-            "properties": {
+            "parameters": {
               "projectName": "Chips Project",
               "baseName": "chips",
               "packageName": "tech.jhipster.chips",
@@ -93,15 +93,15 @@ public class ModulesSteps {
   }
 
   @When("I apply {string} module to default project with package json")
-  public void applyModuleForDefaultProjectWithPackageJson(String moduleSlug, Map<String, String> properties) {
+  public void applyModuleForDefaultProjectWithPackageJson(String moduleSlug, Map<String, String> parameters) {
     String projectFolder = newTestFolder();
 
     addPackageJsonToProject(projectFolder);
 
-    post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, properties));
+    post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, parameters));
   }
 
-  @When("I apply {string} module to default project with package json without properties")
+  @When("I apply {string} module to default project with package json without parameters")
   public void applyModuleForDefaultProjectWithPackageJson(String moduleSlug) {
     String projectFolder = newTestFolder();
 
@@ -110,32 +110,32 @@ public class ModulesSteps {
     post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, null));
   }
 
-  @When("I apply {string} module without properties to last project")
+  @When("I apply {string} module without parameters to last project")
   public void applyModuleForLastProject(String moduleSlug) {
     post(applyModuleUrl(moduleSlug), buildModuleQuery(lastProjectFolder(), null));
   }
 
-  @When("I apply {string} module to default project with maven file without properties")
+  @When("I apply {string} module to default project with maven file without parameters")
   public void applyModuleForDefaultProjectWithMavenFileWithoutProperties(String moduleSlug) {
     applyModuleForDefaultProjectWithMavenFile(moduleSlug, null);
   }
 
   @When("I apply {string} module to default project with maven file")
-  public void applyModuleForDefaultProjectWithMavenFile(String moduleSlug, Map<String, String> properties) {
+  public void applyModuleForDefaultProjectWithMavenFile(String moduleSlug, Map<String, String> parameters) {
     String projectFolder = newTestFolder();
 
     addPomToProject(projectFolder);
 
-    post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, properties));
+    post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, parameters));
   }
 
-  @When("I apply {string} module to default project without properties")
+  @When("I apply {string} module to default project without parameters")
   public void applyModuleForDefaultProjectWithoutProperties(String moduleSlug) {
     applyModuleForDefaultProject(moduleSlug, null);
   }
 
   @When("I apply and commit {string} module to default project")
-  public void applyAndCommitModuleForDefaultProject(String moduleSlug, Map<String, String> properties) throws IOException {
+  public void applyAndCommitModuleForDefaultProject(String moduleSlug, Map<String, String> parameters) throws IOException {
     String projectFolder = newTestFolder();
 
     Path projectPath = Paths.get(projectFolder);
@@ -145,7 +145,7 @@ public class ModulesSteps {
 
     String query = MODULE_APPLY_AND_COMMIT_TEMPLATE
       .replace("{PROJECT_FOLDER}", projectFolder)
-      .replace("{{ PROPERTIES }}", buildModuleProperties(properties));
+      .replace("{{ PARAMETERS }}", buildModuleParameters(parameters));
 
     post(applyModuleUrl(moduleSlug), query);
   }
@@ -163,10 +163,10 @@ public class ModulesSteps {
   }
 
   @When("I apply {string} module to default project")
-  public void applyModuleForDefaultProject(String moduleSlug, Map<String, String> properties) {
+  public void applyModuleForDefaultProject(String moduleSlug, Map<String, String> parameters) {
     String projectFolder = newTestFolder();
 
-    post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, properties));
+    post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, parameters));
   }
 
   private String applyModuleUrl(String moduleSlug) {
@@ -177,25 +177,25 @@ public class ModulesSteps {
     return "/api/modules/" + moduleSlug;
   }
 
-  private String buildModuleQuery(String projectFolder, Map<String, String> properties) {
+  private String buildModuleQuery(String projectFolder, Map<String, String> parameters) {
     return MODULE_APPLICATION_TEMPLATE
       .replace("{PROJECT_FOLDER}", projectFolder)
-      .replace("{{ PROPERTIES }}", buildModuleProperties(properties));
+      .replace("{{ PARAMETERS }}", buildModuleParameters(parameters));
   }
 
-  private String buildModuleProperties(Map<String, String> properties) {
-    if (properties == null) {
+  private String buildModuleParameters(Map<String, String> parameters) {
+    if (parameters == null) {
       return "null";
     }
 
-    return properties
+    return parameters
       .entrySet()
       .stream()
-      .map(entry -> "\"" + entry.getKey() + "\":" + buildPropertyValue(entry.getValue()))
+      .map(entry -> "\"" + entry.getKey() + "\":" + buildParameterValue(entry.getValue()))
       .collect(Collectors.joining(",", "{", "}"));
   }
 
-  private String buildPropertyValue(String value) {
+  private String buildParameterValue(String value) {
     if (value == null) {
       return "null";
     }

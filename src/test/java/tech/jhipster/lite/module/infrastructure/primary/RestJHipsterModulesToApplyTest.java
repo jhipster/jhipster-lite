@@ -30,7 +30,7 @@ class RestJHipsterModulesToApplyTest {
           "properties":
             {
               "projectFolder": "/dummy",
-              "properties": {
+              "parameters": {
                 "projectName": "Chips Project",
                 "baseName": "chips",
                 "packageName": "tech.jhipster.chips",

@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { ModulePropertyValueType } from '../domain/ModuleProperties';
+import { ModuleParameterType } from '../domain/ModuleParameters';
 import { ModulePropertyValue, ProjectHistory } from '../domain/ProjectHistory';
 import { mapAppliedModules, RestAppliedModule } from './RestAppliedModule';
 
@@ -24,7 +24,7 @@ const mapAppliedProperties = (properties: {} | undefined): ModulePropertyValue[]
   return Object.entries(properties).map(entry => {
     return {
       key: entry[0],
-      value: entry[1] as ModulePropertyValueType,
+      value: entry[1] as ModuleParameterType,
     };
   });
 };

@@ -5,11 +5,13 @@ import java.io.IOException;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.JGitInternalException;
+import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.git.domain.GitCommitMessage;
 import tech.jhipster.lite.git.domain.GitRepository;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
+@Repository
 class JGitGitRepository implements GitRepository {
 
   @Override

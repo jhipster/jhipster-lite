@@ -21,7 +21,6 @@
     "format": "prettier . --write",
     "glyph:build": "rimraf .fontello-session && fontello-cli install --config src/main/glyph/config.json --font src/main/glyph/font --css src/main/glyph/css",
     "glyph:open": "rimraf .fontello-session && fontello-cli open --config src/main/glyph/config.json",
-    "jest": "jest src/test/javascript/spec --logHeapUsage --maxWorkers=2 --no-cache",
     "lint": "npm run lint:js && npm run lint:pug && npm run lint:sass && npm run prettier:format",
     "lint:ci": "npm run lint:ci:js && npm run lint:ci:pug && npm run lint:ci:sass && npm run prettier:check",
     "lint:ci:js": "npm run lint:js:run -- --no-fix",
@@ -37,10 +36,10 @@
     "prettier:run": "prettier \"{{src/**/,}*.{md,json,yml,html,vue,java,xml},*.{js,ts},src/{main/glyph,main/webapp,test/javascript}/**/*.{css,scss}}\"",
     "preview": "vite preview",
     "start": "npm run dev",
-    "test": "npm run jest --",
-    "test:clear": "jest --clearCache",
-    "test:watch": "npm run jest -- --watch",
+    "test": "npm run vitest -- run --coverage --",
+    "test:watch": "npm run vitest --",
     "tikui:serve": "tikui-core serve",
+    "vitest": "vitest",
     "webapp:serve": "vite"
   },
   "dependencies": {
@@ -53,10 +52,10 @@
     "@prettier/plugin-xml": "2.2.0",
     "@rushstack/eslint-patch": "1.2.0",
     "@tikui/core": "3.0.1",
-    "@types/jest": "27.5.0",
     "@types/sinon": "10.0.13",
     "@typescript-eslint/parser": "5.42.0",
     "@vitejs/plugin-vue": "3.2.0",
+    "@vitest/coverage-istanbul": "0.24.5",
     "@vue/eslint-config-prettier": "7.0.0",
     "@vue/eslint-config-typescript": "10.0.0",
     "@vue/test-utils": "2.2.1",
@@ -66,9 +65,7 @@
     "eslint-plugin-vue": "8.7.1",
     "fontello-cli": "0.6.2",
     "husky": "8.0.1",
-    "jest": "26.6.3",
-    "jest-sonar-reporter": "2.0.0",
-    "jest-transform-stub": "2.0.0",
+    "jsdom": "20.0.1",
     "lint-staged": "13.0.3",
     "postcss-scss": "4.0.5",
     "prettier": "2.7.1",
@@ -83,10 +80,10 @@
     "stylelint-config-standard": "29.0.0",
     "stylelint-config-standard-scss": "6.0.0",
     "tikuidoc-tikui": "5.0.1",
-    "ts-jest": "26.5.6",
     "typescript": "4.8.4",
     "vite": "3.2.2",
-    "vue-jest": "5.0.0-alpha.10",
+    "vitest": "0.24.5",
+    "vitest-sonar-reporter": "0.3.2",
     "vue-tsc": "1.0.9"
   },
   "engines": {
@@ -94,9 +91,5 @@
   },
   "cacheDirectories": [
     "node_modules"
-  ],
-  "jestSonar": {
-    "reportPath": "target/test-results",
-    "reportFile": "TESTS-results-sonar.xml"
-  }
+  ]
 }

@@ -11,6 +11,7 @@ import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
 import { ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
 import { stubWindow } from '../GlobalWindow.fixture';
+import { describe, it, expect, vi } from 'vitest';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: SinonStub;
@@ -200,7 +201,20 @@ describe('Landscape', () => {
       assertSelectableHighlightedConnectorsCount(wrapper, 4);
     });
 
-    it('Should un-highlight module and dependencies', async () => {
+    it('Should un-highlight single module and dependencies', async () => {
+      const wrapper = await componentWithLandscape();
+
+      wrapper.find(wrappedElement('java-base-module')).trigger('mouseover');
+      await wrapper.vm.$nextTick();
+      wrapper.find(wrappedElement('java-base-module')).trigger('mouseleave');
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.find(wrappedElement('java-base-module')).classes()).not.toContain('-selectable-highlighted');
+      expect(wrapper.find(wrappedElement('init-module')).classes()).not.toContain('-selectable-highlighted');
+      assertSelectableHighlightedConnectorsCount(wrapper, 0);
+    });
+
+    it('Should un-highlight featured module and dependencies', async () => {
       const wrapper = await componentWithLandscape();
 
       wrapper.find(wrappedElement('vue-module')).trigger('mouseover');
@@ -560,7 +574,7 @@ describe('Landscape', () => {
       const wrapper = wrap({ modules });
       await flushPromises();
 
-      const consoleErrors = jest.spyOn(console, 'error').mockImplementation();
+      const consoleErrors = vi.spyOn(console, 'error').mockImplementation();
       await updatePath(wrapper);
 
       expect(console.error).toHaveBeenCalledTimes(0);

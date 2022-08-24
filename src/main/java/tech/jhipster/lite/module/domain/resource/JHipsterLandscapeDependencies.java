@@ -18,6 +18,10 @@ public record JHipsterLandscapeDependencies(Collection<JHipsterLandscapeDependen
     return dependencies();
   }
 
+  public long count() {
+    return dependencies().size();
+  }
+
   public Stream<JHipsterLandscapeDependency> stream() {
     return dependencies().stream();
   }

@@ -328,6 +328,10 @@ public final class JHipsterModulesFixture {
     return new JHipsterModuleSlug(slug);
   }
 
+  public static JHipsterFeatureSlug featureSlug(String slug) {
+    return new JHipsterFeatureSlug(slug);
+  }
+
   public static class JHipsterModulePropertiesBuilder {
 
     private boolean commitModules = false;

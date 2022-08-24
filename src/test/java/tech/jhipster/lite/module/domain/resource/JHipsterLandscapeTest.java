@@ -6,6 +6,7 @@ import static tech.jhipster.lite.module.domain.resource.JHipsterLandscapeFixture
 import static tech.jhipster.lite.module.domain.resource.JHipsterLandscapeFixture.moduleResources;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
 
+import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -153,14 +154,20 @@ class JHipsterLandscapeTest {
 
   @Test
   void shouldSortLevelElements() {
-    JHipsterModuleResource firstModule = defaultModuleResourceBuilder().slug("first").build();
-    JHipsterModuleResource secondModule = defaultModuleResourceBuilder().slug("second").build();
-    JHipsterModuleResource thirdModule = defaultModuleResourceBuilder().slug("third").moduleDependency("first").build();
+    JHipsterModuleResource firstModule = defaultModuleResourceBuilder().slug("root").build();
+    JHipsterModuleResource secondModule = defaultModuleResourceBuilder().slug("bsecond").moduleDependency("root").build();
+    JHipsterModuleResource thirdModule = defaultModuleResourceBuilder().slug("athird").moduleDependency("root").build();
+    JHipsterModuleResource forthModule = defaultModuleResourceBuilder().slug("forth").moduleDependency("root").feature("feat").build();
+    JHipsterModuleResource fithModule = defaultModuleResourceBuilder().slug("fith").moduleDependency("root").feature("feat").build();
 
-    JHipsterLandscape landscape = JHipsterLandscape.from(moduleResources(firstModule, secondModule, thirdModule));
+    JHipsterLandscape landscape = JHipsterLandscape.from(moduleResources(firstModule, secondModule, thirdModule, forthModule, fithModule));
 
-    JHipsterLandscapeLevel rootLevel = landscape.levels().get().iterator().next();
-    assertThat(rootLevel.elements()).extracting(JHipsterLandscapeElement::slug).containsExactly(moduleSlug("second"), moduleSlug("first"));
+    Iterator<JHipsterLandscapeLevel> iterator = landscape.levels().get().iterator();
+    iterator.next();
+    JHipsterLandscapeLevel firstLevel = iterator.next();
+    assertThat(firstLevel.elements())
+      .extracting(JHipsterLandscapeElement::slug)
+      .containsExactly(moduleSlug("athird"), moduleSlug("bsecond"), featureSlug("feat"));
   }
 
   @Test

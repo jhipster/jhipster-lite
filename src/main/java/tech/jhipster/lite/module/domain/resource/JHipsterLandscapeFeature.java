@@ -6,6 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterFeatureSlug;
+import tech.jhipster.lite.module.domain.JHipsterSlug;
 
 public final class JHipsterLandscapeFeature implements JHipsterLandscapeElement {
 
@@ -60,5 +61,10 @@ public final class JHipsterLandscapeFeature implements JHipsterLandscapeElement 
   @Override
   public Stream<JHipsterLandscapeModule> allModules() {
     return modules.stream();
+  }
+
+  @Override
+  public Stream<JHipsterSlug> slugs() {
+    return Stream.concat(Stream.of(slug()), allModules().map(JHipsterLandscapeModule::slug));
   }
 }

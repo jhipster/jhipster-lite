@@ -53,15 +53,15 @@ describe('Modules', () => {
         'not-selected',
         'not-applied',
       ]);
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-MANDATORY-properties')).classes()).toEqual([
-        'jhipster-module-properties',
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-MANDATORY-parameters')).classes()).toEqual([
+        'jhipster-module-parameters',
         'not-selected',
-        'invalid-mandatory-property',
+        'invalid-mandatory-parameter',
       ]);
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-OPTIONAL-properties')).classes()).toEqual([
-        'jhipster-module-properties',
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-OPTIONAL-parameters')).classes()).toEqual([
+        'jhipster-module-parameters',
         'not-selected',
-        'invalid-optional-property',
+        'invalid-optional-parameter',
       ]);
 
       const pathField = wrapper.find(wrappedElement('folder-path-field')).element as HTMLInputElement;
@@ -75,14 +75,14 @@ describe('Modules', () => {
 
       await selectModule(wrapper);
 
-      expect(wrapper.find(wrappedElement('property-baseName-field')).attributes('type')).toBe('text');
-      expect(wrapper.find(wrappedElement('property-baseName-optional-marker')).exists()).toBe(false);
+      expect(wrapper.find(wrappedElement('parameter-baseName-field')).attributes('type')).toBe('text');
+      expect(wrapper.find(wrappedElement('parameter-baseName-optional-marker')).exists()).toBe(false);
 
-      expect(wrapper.find(wrappedElement('property-optionalBoolean-field')).exists()).toBe(true);
-      expect(wrapper.find(wrappedElement('property-optionalBoolean-optional-marker')).exists()).toBe(true);
+      expect(wrapper.find(wrappedElement('parameter-optionalBoolean-field')).exists()).toBe(true);
+      expect(wrapper.find(wrappedElement('parameter-optionalBoolean-optional-marker')).exists()).toBe(true);
 
-      expect(wrapper.find(wrappedElement('property-optionalInteger-field')).attributes('type')).toBe('number');
-      expect(wrapper.find(wrappedElement('property-optionalInteger-optional-marker')).exists()).toBe(true);
+      expect(wrapper.find(wrappedElement('parameter-optionalInteger-field')).attributes('type')).toBe('number');
+      expect(wrapper.find(wrappedElement('parameter-optionalInteger-optional-marker')).exists()).toBe(true);
 
       expect(wrapper.find(wrappedElement('banner-module-content')).classes()).toEqual([
         'jhipster-module--content',
@@ -103,9 +103,9 @@ describe('Modules', () => {
       wrapper.find(wrappedElement('spring-cucumber-module-content')).trigger('click');
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.find(wrappedElement('property-baseName-field')).exists()).toBe(false);
-      expect(wrapper.find(wrappedElement('property-optionalBoolean-field')).exists()).toBe(false);
-      expect(wrapper.find(wrappedElement('property-optionalInteger-field')).exists()).toBe(false);
+      expect(wrapper.find(wrappedElement('parameter-baseName-field')).exists()).toBe(false);
+      expect(wrapper.find(wrappedElement('parameter-optionalBoolean-field')).exists()).toBe(false);
+      expect(wrapper.find(wrappedElement('parameter-optionalInteger-field')).exists()).toBe(false);
       expect(wrapper.find(wrappedElement('spring-cucumber-module-content')).classes()).toEqual([
         'jhipster-module--content',
         'not-selected',
@@ -118,7 +118,7 @@ describe('Modules', () => {
       await selectModule(wrapper);
 
       wrapper.find(wrappedElement('folder-path-field')).setValue('');
-      wrapper.find(wrappedElement('property-baseName-field')).setValue('test');
+      wrapper.find(wrappedElement('parameter-baseName-field')).setValue('test');
       await flushForm(wrapper);
 
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeDefined();
@@ -139,7 +139,7 @@ describe('Modules', () => {
       await selectModule(wrapper);
 
       wrapper.find(wrappedElement('folder-path-field')).setValue('test');
-      wrapper.find(wrappedElement('property-baseName-field')).setValue('');
+      wrapper.find(wrappedElement('parameter-baseName-field')).setValue('');
       await flushForm(wrapper);
 
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeDefined();
@@ -150,7 +150,7 @@ describe('Modules', () => {
       await selectModule(wrapper);
 
       wrapper.find(wrappedElement('folder-path-field')).setValue('test');
-      wrapper.find(wrappedElement('property-baseName-field')).setValue('test');
+      wrapper.find(wrappedElement('parameter-baseName-field')).setValue('test');
       await flushForm(wrapper);
 
       expect(wrapper.find(wrappedElement('module-spring-cucumber-application-button')).attributes('disabled')).toBeUndefined();
@@ -161,57 +161,57 @@ describe('Modules', () => {
       await selectModule(wrapper);
 
       wrapper.find(wrappedElement('folder-path-field')).setValue('test');
-      wrapper.find(wrappedElement('property-baseName-field')).setValue('test');
-      wrapper.find(wrappedElement('property-optionalBoolean-field')).setValue('true');
-      wrapper.find(wrappedElement('property-optionalInteger-field')).setValue('42');
+      wrapper.find(wrappedElement('parameter-baseName-field')).setValue('test');
+      wrapper.find(wrappedElement('parameter-optionalBoolean-field')).setValue('true');
+      wrapper.find(wrappedElement('parameter-optionalInteger-field')).setValue('42');
       await flushForm(wrapper);
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-baseName-property-value')).text()).toBe('test');
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-MANDATORY-properties-stats')).text()).toBe('1 / 1');
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-baseName-parameter-value')).text()).toBe('test');
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-MANDATORY-parameters-stats')).text()).toBe('1 / 1');
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalBoolean-property-value')).text()).toBe('true');
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalInteger-property-value')).text()).toBe('42');
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-OPTIONAL-properties-stats')).text()).toBe('2 / 2');
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalBoolean-parameter-value')).text()).toBe('true');
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalInteger-parameter-value')).text()).toBe('42');
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-OPTIONAL-parameters-stats')).text()).toBe('2 / 2');
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-MANDATORY-properties')).classes()).toEqual([
-        'jhipster-module-properties',
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-MANDATORY-parameters')).classes()).toEqual([
+        'jhipster-module-parameters',
         'selected',
-        'all-valid-properties',
+        'all-valid-parameters',
       ]);
     });
 
-    it('Should set boolean property to false', async () => {
+    it('Should set boolean parameter to false', async () => {
       const wrapper = await componentWithModules();
       await selectModule(wrapper);
 
-      wrapper.find(wrappedElement('property-optionalBoolean-field')).setValue('false');
+      wrapper.find(wrappedElement('parameter-optionalBoolean-field')).setValue('false');
       await flushForm(wrapper);
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalBoolean-property-value')).text()).toBe('false');
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalBoolean-parameter-value')).text()).toBe('false');
     });
 
-    it('Should set boolean property to undefined', async () => {
+    it('Should set boolean parameter to undefined', async () => {
       const wrapper = await componentWithModules();
       await selectModule(wrapper);
 
-      wrapper.find(wrappedElement('property-optionalBoolean-field')).setValue('true');
+      wrapper.find(wrappedElement('parameter-optionalBoolean-field')).setValue('true');
       await flushForm(wrapper);
-      wrapper.find(wrappedElement('property-optionalBoolean-field')).setValue('');
+      wrapper.find(wrappedElement('parameter-optionalBoolean-field')).setValue('');
       await flushForm(wrapper);
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalBoolean-property-value')).text()).toBe('');
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalBoolean-parameter-value')).text()).toBe('');
     });
 
-    it('Should set integer property to undefine', async () => {
+    it('Should set integer parameter to undefine', async () => {
       const wrapper = await componentWithModules();
       await selectModule(wrapper);
 
-      wrapper.find(wrappedElement('property-optionalInteger-field')).setValue('42');
+      wrapper.find(wrappedElement('parameter-optionalInteger-field')).setValue('42');
       await flushForm(wrapper);
-      wrapper.find(wrappedElement('property-optionalInteger-field')).setValue('');
+      wrapper.find(wrappedElement('parameter-optionalInteger-field')).setValue('');
       await flushForm(wrapper);
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalInteger-property-value')).text()).toBe('');
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-optionalInteger-parameter-value')).text()).toBe('');
     });
   });
 
@@ -225,7 +225,7 @@ describe('Modules', () => {
       await selectModule(wrapper);
 
       wrapper.find(wrappedElement('folder-path-field')).setValue('test');
-      wrapper.find(wrappedElement('property-baseName-field')).setValue('test');
+      wrapper.find(wrappedElement('parameter-baseName-field')).setValue('test');
       await flushForm(wrapper);
 
       wrapper.find(wrappedElement('module-spring-cucumber-application-button')).trigger('click');
@@ -372,7 +372,7 @@ describe('Modules', () => {
 
       await updatePath(wrapper);
 
-      const baseNameField = wrapper.find(wrappedElement('property-baseName-field')).element as HTMLInputElement;
+      const baseNameField = wrapper.find(wrappedElement('parameter-baseName-field')).element as HTMLInputElement;
       expect(baseNameField.value).toBe('settedbase');
     });
 
@@ -384,7 +384,7 @@ describe('Modules', () => {
       wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
       await flushPromises();
 
-      const baseNameField = wrapper.find(wrappedElement('property-baseName-field')).element as HTMLInputElement;
+      const baseNameField = wrapper.find(wrappedElement('parameter-baseName-field')).element as HTMLInputElement;
       expect(baseNameField.value).toBe('test');
     });
   });
@@ -565,7 +565,7 @@ const filledModuleForm = async (modules: ModulesRepository): Promise<VueWrapper>
   await selectModule(wrapper);
 
   wrapper.find(wrappedElement('folder-path-field')).setValue('test');
-  wrapper.find(wrappedElement('property-baseName-field')).setValue('test');
+  wrapper.find(wrappedElement('parameter-baseName-field')).setValue('test');
   await flushForm(wrapper);
 
   return wrapper;

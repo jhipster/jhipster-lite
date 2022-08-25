@@ -32,6 +32,6 @@ class SpringJHipsterModuleEventListener implements ApplicationListener<PayloadAp
       .path(new ProjectPath(moduleApplied.properties().projectFolder().get()))
       .module(new Module(moduleApplied.slug().get()))
       .date(moduleApplied.time())
-      .properties(new ModuleProperties(moduleApplied.properties().get()));
+      .properties(new ModuleProperties(moduleApplied.properties().getParameters()));
   }
 }

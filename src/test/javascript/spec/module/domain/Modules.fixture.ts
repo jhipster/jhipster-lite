@@ -4,7 +4,6 @@ import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import sinon, { SinonStub } from 'sinon';
 import { Project } from '@/module/domain/Project';
 import { ModulePropertyValue, ProjectHistory } from '@/module/domain/ProjectHistory';
-import { ModulePropertyValueType } from '@/module/domain/ModuleProperties';
 import { Landscape } from '@/module/domain/landscape/Landscape';
 import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
 import { LandscapeFeature } from '@/module/domain/landscape/LandscapeFeature';
@@ -12,6 +11,7 @@ import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { ModulesToApply } from '@/module/domain/ModulesToApply';
+import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 
 export interface ModulesRepositoryStub extends ModulesRepository {
   list: SinonStub;
@@ -83,18 +83,18 @@ export const defaultModules = (): Modules =>
 export const defaultModuleToApply = (): ModuleToApply => ({
   projectFolder: '/tmp/dummy',
   commit: true,
-  properties: defaultPropertiesToApply(),
+  parameters: defaultPropertiesToApply(),
 });
 
 export const defaultModulesToApply = (): ModulesToApply => ({
   modules: [moduleSlug('init')],
   projectFolder: '/tmp/dummy',
   commit: true,
-  properties: defaultPropertiesToApply(),
+  parameters: defaultPropertiesToApply(),
 });
 
 const defaultPropertiesToApply = () => {
-  return new Map<string, ModulePropertyValueType>().set('baseName', 'testproject').set('optionalBoolean', true).set('optionalInteger', 42);
+  return new Map<string, ModuleParameterType>().set('baseName', 'testproject').set('optionalBoolean', true).set('optionalInteger', 42);
 };
 
 export const defaultProjectHistory = (): ProjectHistory => ({

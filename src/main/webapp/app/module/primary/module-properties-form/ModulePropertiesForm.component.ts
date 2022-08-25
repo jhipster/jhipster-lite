@@ -1,7 +1,7 @@
-import { ModuleProperty } from '@/module/domain/ModuleProperty';
+import { ModuleParameter } from '@/module/domain/ModuleParameter';
+import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
-import { ModulePropertyType } from '@/module/domain/ModulePropertyValueType';
 import { defineComponent, PropType } from 'vue';
 import { empty } from '../PropertyValue';
 
@@ -16,8 +16,8 @@ export default defineComponent({
       type: Array as PropType<Array<ModulePropertyDefinition>>,
       required: true,
     },
-    knownValues: {
-      type: Object as PropType<Map<ModulePropertyKey, ModulePropertyType>>,
+    parameters: {
+      type: Object as PropType<Map<ModulePropertyKey, ModuleParameterType>>,
       required: true,
     },
   },
@@ -57,7 +57,7 @@ export default defineComponent({
       }
     };
 
-    const property = (key: string, value: ModulePropertyType): ModuleProperty => ({
+    const property = (key: string, value: ModuleParameterType): ModuleParameter => ({
       key,
       value,
     });

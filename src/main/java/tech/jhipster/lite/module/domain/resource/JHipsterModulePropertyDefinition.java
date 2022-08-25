@@ -30,7 +30,7 @@ public class JHipsterModulePropertyDefinition {
   }
 
   public static JHipsterModulePropertyDefinition basePackageProperty() {
-    return mandatoryStringProperty(JHipsterModuleProperties.BASE_PACKAGE_PROPERTY)
+    return mandatoryStringProperty(JHipsterModuleProperties.BASE_PACKAGE_PARAMETER)
       .description("Base java package")
       .example("tech.jhipster.lite")
       .order(-300)
@@ -38,7 +38,7 @@ public class JHipsterModulePropertyDefinition {
   }
 
   public static JHipsterModulePropertyDefinition projectNameProperty() {
-    return mandatoryStringProperty(JHipsterModuleProperties.PROJECT_NAME_PROPERTY)
+    return mandatoryStringProperty(JHipsterModuleProperties.PROJECT_NAME_PARAMETER)
       .description("Project full name")
       .example("JHipster Project")
       .order(-200)
@@ -46,7 +46,7 @@ public class JHipsterModulePropertyDefinition {
   }
 
   static JHipsterModulePropertyDefinition projectBaseNameProperty() {
-    return mandatoryStringProperty(JHipsterModuleProperties.PROJECT_BASE_NAME_PROPERTY)
+    return mandatoryStringProperty(JHipsterModuleProperties.PROJECT_BASE_NAME_PARAMETER)
       .description("Project short name (only letters and numbers)")
       .example("jhipster")
       .order(-100)
@@ -54,7 +54,7 @@ public class JHipsterModulePropertyDefinition {
   }
 
   static JHipsterModulePropertyDefinition serverPortProperty() {
-    return mandatoryIntegerProperty(JHipsterModuleProperties.SERVER_PORT_PROPERTY)
+    return mandatoryIntegerProperty(JHipsterModuleProperties.SERVER_PORT_PARAMETER)
       .description("Server port")
       .example("8080")
       .order(-50)
@@ -62,7 +62,7 @@ public class JHipsterModulePropertyDefinition {
   }
 
   public static JHipsterModulePropertyDefinition indentationProperty() {
-    return optionalIntegerProperty(JHipsterModuleProperties.INDENTATION_PROPERTY)
+    return optionalIntegerProperty(JHipsterModuleProperties.INDENTATION_PARAMETER)
       .description("Number of spaces in indentation")
       .example("2")
       .order(500)

@@ -6,5 +6,5 @@ Feature: Flyway module
     Then I should have "<artifactId>flyway-core</artifactId>" in "pom.xml"
 
   Scenario: Should apply flyway mysql dependency module
-    When I apply "flyway-mysql" module to default project with maven file without properties
+    When I apply "flyway-mysql" module to default project with maven file without parameters
     Then I should have "<artifactId>flyway-mysql</artifactId>" in "pom.xml"

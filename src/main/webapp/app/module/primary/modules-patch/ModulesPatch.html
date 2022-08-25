@@ -4,7 +4,7 @@
     <ModulePropertiesFormVue
       :folderPath="folderPath"
       :properties="selectedModuleProperties()"
-      :knownValues="moduleProperties"
+      :parameters="moduleParameters"
       @moduleCommitUpdated="updateModuleCommit"
       @folderPathUpdated="updateFolderPath"
       @folderPathSelected="projectFolderUpdated"
@@ -59,18 +59,18 @@
               <div class="jhipster-module--slug" :class="moduleClass(module.slug)">{{ module.slug }}</div>
               <div class="jhipster-module--description" :class="moduleClass(module.slug)">{{ module.description}}</div>
 
-              <ModulePropertiesVue
+              <ModuleParametersVue
                 propertiesType="MANDATORY"
-                :properties="mandatoryProperties(module.slug)"
+                :propertiesDefinitions="mandatoryProperties(module.slug)"
                 :moduleSlug="module.slug"
-                :moduleProperties="moduleProperties"
+                :moduleParameters="moduleParameters"
                 :selected="isModuleSelected(module.slug)"
               />
-              <ModulePropertiesVue
+              <ModuleParametersVue
                 propertiesType="OPTIONAL"
-                :properties="optionalProperties(module.slug)"
+                :propertiesDefinitions="optionalProperties(module.slug)"
                 :moduleSlug="module.slug"
-                :moduleProperties="moduleProperties"
+                :moduleParameters="moduleParameters"
                 :selected="isModuleSelected(module.slug)"
               />
             </div>

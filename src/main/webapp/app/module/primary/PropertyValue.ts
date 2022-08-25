@@ -1,10 +1,10 @@
-import { ModulePropertyValueType } from '../domain/ModuleProperties';
+import { ModuleParameterType } from '../domain/ModuleParameters';
 
-export const notEmpty = (value: ModulePropertyValueType | undefined): boolean => {
+export const notEmpty = (value: ModuleParameterType | undefined): boolean => {
   return !empty(value);
 };
 
-export const empty = (value: ModulePropertyValueType | undefined): boolean => {
+export const empty = (value: ModuleParameterType | undefined): boolean => {
   if (value === undefined) {
     return true;
   }

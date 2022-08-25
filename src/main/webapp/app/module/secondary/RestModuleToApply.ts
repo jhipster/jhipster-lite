@@ -3,11 +3,11 @@ import { ModuleToApply } from '../domain/ModuleToApply';
 export interface RestModuleToApply {
   projectFolder: string;
   commit: boolean;
-  properties: {};
+  parameters: {};
 }
 
 export const toRestModuleToApply = (moduleToApply: ModuleToApply): RestModuleToApply => ({
   projectFolder: moduleToApply.projectFolder,
   commit: moduleToApply.commit,
-  properties: Object.fromEntries(moduleToApply.properties),
+  parameters: Object.fromEntries(moduleToApply.parameters),
 });

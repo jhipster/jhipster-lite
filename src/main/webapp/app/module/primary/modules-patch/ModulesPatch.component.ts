@@ -1,4 +1,3 @@
-import { ModulePropertiesVue } from '../module-properties';
 import { AlertBus } from '@/common/domain/alert/AlertBus';
 import { Loader } from '@/loader/primary/Loader';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
@@ -12,14 +11,15 @@ import { ComponentModules } from './ComponentModulesPatch';
 import { ComponentModule } from './ComponentModulePatch';
 import { ModulePropertyDefinition } from '@/module/domain/ModulePropertyDefinition';
 import { ModulePropertiesFormVue } from '../module-properties-form';
-import { ModulePropertyType } from '@/module/domain/ModulePropertyValueType';
-import { ModuleProperty } from '@/module/domain/ModuleProperty';
 import { ModulePropertyKey } from '@/module/domain/ModulePropertyKey';
 import { ProjectActionsVue } from '../project-actions';
+import { ModuleParameterType } from '@/module/domain/ModuleParameters';
+import { ModuleParameter } from '@/module/domain/ModuleParameter';
+import { ModuleParametersVue } from '../module-parameters';
 
 export default defineComponent({
   name: 'ModulesPatchVue',
-  components: { ModulePropertiesVue, IconVue, TagFilterVue, ModulePropertiesFormVue, ProjectActionsVue },
+  components: { ModuleParametersVue, IconVue, TagFilterVue, ModulePropertiesFormVue, ProjectActionsVue },
   setup() {
     const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;
@@ -34,7 +34,7 @@ export default defineComponent({
     const operationInProgress = ref(false);
     const folderPath = ref('');
     const selectedModule = ref<ComponentModule>();
-    const moduleProperties = ref(new Map<string, ModulePropertyType>());
+    const moduleParameters = ref(new Map<string, ModuleParameterType>());
     const commitModule = ref(true);
     const appliedModules = ref([] as string[]);
     let searchedText = '';
@@ -98,7 +98,7 @@ export default defineComponent({
     };
 
     const isNotSet = (propertyKey: string): boolean => {
-      const value = moduleProperties.value.get(propertyKey);
+      const value = moduleParameters.value.get(propertyKey);
 
       if (typeof value === 'string') {
         return empty(value);
@@ -125,12 +125,12 @@ export default defineComponent({
       folderPath.value = path;
     };
 
-    const updateProperty = (property: ModuleProperty): void => {
-      moduleProperties.value.set(property.key, property.value);
+    const updateProperty = (property: ModuleParameter): void => {
+      moduleParameters.value.set(property.key, property.value);
     };
 
     const deleteProperty = (key: ModulePropertyKey): void => {
-      moduleProperties.value.delete(key);
+      moduleParameters.value.delete(key);
     };
 
     const mandatoryProperties = (module: string): ModulePropertyDefinition[] => {
@@ -209,7 +209,7 @@ export default defineComponent({
         .apply(new ModuleSlug(module), {
           projectFolder: folderPath.value,
           commit: commitModule.value,
-          properties: moduleProperties.value,
+          parameters: moduleParameters.value,
         })
         .then(() => {
           operationInProgress.value = false;
@@ -236,13 +236,13 @@ export default defineComponent({
 
       projectHistory.properties.forEach(property => {
         if (unknownProperty(property.key)) {
-          moduleProperties.value.set(property.key, property.value);
+          moduleParameters.value.set(property.key, property.value);
         }
       });
     };
 
     const unknownProperty = (key: string) => {
-      return !moduleProperties.value.has(key);
+      return !moduleParameters.value.has(key);
     };
 
     const appliedModule = (slug: string): boolean => {
@@ -258,7 +258,7 @@ export default defineComponent({
       disabledApplication,
       mandatoryProperties,
       optionalProperties,
-      moduleProperties,
+      moduleParameters,
       displayedModulesCount,
       totalModulesCount,
       isTagSelected,

@@ -14,6 +14,16 @@ public final class GitTestUtil {
   public static String getCommits(Path project) {
     Process process = execute(project, "log", "--pretty=format:%s");
 
+    return readCommandResult(process);
+  }
+
+  public static String getCurrentBranch(Path project) {
+    Process process = execute(project, "rev-parse", "--abbrev-ref", "HEAD");
+
+    return readCommandResult(process);
+  }
+
+  private static String readCommandResult(Process process) throws AssertionError {
     try {
       return new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8).intern();
     } catch (IOException e) {

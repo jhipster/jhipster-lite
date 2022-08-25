@@ -61,6 +61,10 @@ public class JHipsterModulePropertyDefinition {
       .build();
   }
 
+  public static JHipsterModulePropertyDefinition endOfLineProperty() {
+    return optionalStringProperty("endOfLine").description("Type of line break (lf or crlf)").example("lf").order(100).build();
+  }
+
   public static JHipsterModulePropertyDefinition indentationProperty() {
     return optionalIntegerProperty(JHipsterModuleProperties.INDENTATION_PARAMETER)
       .description("Number of spaces in indentation")

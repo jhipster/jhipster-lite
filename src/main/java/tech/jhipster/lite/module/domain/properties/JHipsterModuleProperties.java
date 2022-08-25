@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.domain.Indentation;
 public class JHipsterModuleProperties {
 
   public static final String BASE_PACKAGE_PARAMETER = "packageName";
-  public static final String INDENTATION_PARAMETER = "prettierDefaultIndent";
+  public static final String INDENTATION_PARAMETER = "indentSize";
   public static final String PROJECT_NAME_PARAMETER = "projectName";
   public static final String PROJECT_BASE_NAME_PARAMETER = "baseName";
   public static final String SERVER_PORT_PARAMETER = "serverPort";

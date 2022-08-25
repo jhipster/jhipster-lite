@@ -1,6 +1,5 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import io.cucumber.java.en.Then;

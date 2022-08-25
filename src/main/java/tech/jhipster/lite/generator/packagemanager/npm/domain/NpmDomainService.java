@@ -43,8 +43,8 @@ public class NpmDomainService implements NpmService {
   }
 
   private void addInformationToPackageJson(Project project, String section, String key, String value) {
-    project.addDefaultConfig(PRETTIER_DEFAULT_INDENT);
-    int indent = (Integer) project.getConfig(PRETTIER_DEFAULT_INDENT).orElse(2);
+    project.addDefaultConfig(INDENT_SIZE);
+    int indent = (Integer) project.getConfig(INDENT_SIZE).orElse(2);
 
     String needle = section + ": " + OB;
     String newText = needle + LF + indent(2, indent) + DQ + key + DQ + ": " + DQ + value + DQ;

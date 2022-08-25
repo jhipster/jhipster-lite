@@ -35,7 +35,7 @@ callApi() {
 }
 
 spring_boot_mvc() {
-  callApi "/api/inits/full"
+  callApi "/api/inits"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"
@@ -47,7 +47,7 @@ spring_boot_mvc() {
 }
 
 spring_boot_undertow() {
-  callApi "/api/inits/full"
+  callApi "/api/inits"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"
@@ -59,7 +59,7 @@ spring_boot_undertow() {
 }
 
 spring_boot() {
-  callApi "/api/inits/full"
+  callApi "/api/inits"
   callApi "/api/build-tools/maven"
   callApi "/api/developer-tools/github-actions"
   callApi "/api/servers/java/base"

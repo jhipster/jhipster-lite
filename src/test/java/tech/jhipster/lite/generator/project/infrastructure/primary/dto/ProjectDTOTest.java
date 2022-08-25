@@ -82,7 +82,7 @@ class ProjectDTOTest {
   private ProjectDTO projectDTO() {
     return new ProjectDTO()
       .folder("/tmp/chips")
-      .generatorJhipster(Map.of(BASE_NAME, "chips", "prettierDefaultIndent", 4, DefaultConfig.PACKAGE_NAME, "base.package"))
+      .generatorJhipster(Map.of(BASE_NAME, "chips", "indentSize", 4, DefaultConfig.PACKAGE_NAME, "base.package"))
       .remoteUrl("https://github.com/jhipster/jhipster-lite");
   }
 }

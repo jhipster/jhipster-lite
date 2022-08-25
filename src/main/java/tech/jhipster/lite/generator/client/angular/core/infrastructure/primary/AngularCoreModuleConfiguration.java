@@ -19,7 +19,7 @@ class AngularCoreModuleConfiguration {
       .slug("angular-core")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addProjectName().build())
       .apiDoc(new JHipsterModuleApiDoc("Angular", "Add Angular + Angular CLI"))
-      .organization(JHipsterModuleOrganization.builder().feature("client-core").addFeatureDependency("startup").build())
+      .organization(JHipsterModuleOrganization.builder().feature("client-core").addModuleDependency("init").build())
       .tags("client", "angular")
       .factory(angular::buildInitModule);
   }

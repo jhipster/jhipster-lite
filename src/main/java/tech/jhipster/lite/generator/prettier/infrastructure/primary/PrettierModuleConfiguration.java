@@ -1,26 +1,27 @@
-package tech.jhipster.lite.generator.init.infrastructure.primary;
+package tech.jhipster.lite.generator.prettier.infrastructure.primary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.init.application.InitApplicationService;
+import tech.jhipster.lite.generator.prettier.application.PrettierApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleApiDoc;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class InitModuleConfiguration {
+class PrettierModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource initModule(InitApplicationService inits) {
+  JHipsterModuleResource prettierModule(PrettierApplicationService prettier) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/inits")
-      .slug("init")
+      .legacyUrl("/api/prettier")
+      .slug("prettier")
       .propertiesDefinition(initPropertiesDefinition())
-      .apiDoc(new JHipsterModuleApiDoc("Init", "Init project"))
-      .standalone()
-      .tags("server", "init")
-      .factory(inits::buildModule);
+      .apiDoc(new JHipsterModuleApiDoc("Prettier", "Format project with prettier"))
+      .organization(JHipsterModuleOrganization.builder().addModuleDependency("init").build())
+      .tags("server", "client", "init")
+      .factory(prettier::buildModule);
   }
 
   private JHipsterModulePropertiesDefinition initPropertiesDefinition() {

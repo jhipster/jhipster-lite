@@ -25,7 +25,7 @@ class RestJHipsterModulePropertiesDefinitionTest {
       "{\"type\":\"INTEGER\",\"mandatory\":true,\"key\":\"mandatoryInteger\",\"order\":0}," +
       "{\"type\":\"BOOLEAN\",\"mandatory\":false,\"key\":\"optionalBoolean\",\"order\":0}," +
       "{\"type\":\"STRING\",\"mandatory\":false,\"key\":\"optionalString\",\"order\":0}," +
-      "{\"type\":\"INTEGER\",\"mandatory\":false,\"key\":\"prettierDefaultIndent\",\"description\":\"Number of spaces in indentation\",\"example\":\"2\",\"order\":500}]}"
+      "{\"type\":\"INTEGER\",\"mandatory\":false,\"key\":\"indentSize\",\"description\":\"Number of spaces in indentation\",\"example\":\"2\",\"order\":500}]}"
     );
   }
 }

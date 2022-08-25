@@ -37,7 +37,7 @@ class RestJHipsterModulePropertiesTest {
           "commit": true,
           "parameters": {
             "packageName": "tech.jhipster.chips",
-            "prettierDefaultIndent": 2,
+            "indentSize": 2,
             "projectName": "JHipster project",
             "baseName": "jhipster",
             "optionalString": "optional",

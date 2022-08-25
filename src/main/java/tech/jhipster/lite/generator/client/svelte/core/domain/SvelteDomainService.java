@@ -3,6 +3,8 @@ package tech.jhipster.lite.generator.client.svelte.core.domain;
 import static tech.jhipster.lite.common.domain.FileUtils.*;
 import static tech.jhipster.lite.generator.project.domain.Constants.*;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.generator.packagemanager.npm.domain.NpmService;
@@ -39,7 +41,9 @@ public class SvelteDomainService implements SvelteService {
   }
 
   public void renameJhipsterFiles(Project project) {
-    projectRepository.rename(project, ".", ".lintstagedrc.js", ".lintstagedrc.cjs");
+    if (Files.exists(Paths.get(project.getFolder(), ".lintstagedrc.js"))) {
+      projectRepository.rename(project, ".", ".lintstagedrc.js", ".lintstagedrc.cjs");
+    }
   }
 
   public void addCommonSvelteKit(Project project) {

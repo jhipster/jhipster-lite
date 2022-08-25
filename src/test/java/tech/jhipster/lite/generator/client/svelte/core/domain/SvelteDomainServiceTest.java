@@ -111,10 +111,19 @@ class SvelteDomainServiceTest {
 
   @Test
   void shouldRenameJhipsterFiles() {
+    Project project = tmpProjectWithPackageJsonAndLintStage();
+
+    svelteDomainService.renameJhipsterFiles(project);
+
+    verify(projectRepository).rename(any(Project.class), anyString(), anyString(), anyString());
+  }
+
+  @Test
+  void shouldNotRenameNotExistingJhipsterFiles() {
     Project project = tmpProject();
 
     svelteDomainService.renameJhipsterFiles(project);
 
-    verify(projectRepository, times(1)).rename(any(Project.class), anyString(), anyString(), anyString());
+    verify(projectRepository, never()).rename(any(Project.class), anyString(), anyString(), anyString());
   }
 }

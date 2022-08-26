@@ -15,11 +15,7 @@ public class InitApplicationService {
     factory = new InitModuleFactory(npmVersions);
   }
 
-  public JHipsterModule buildFullInitModule(JHipsterModuleProperties properties) {
-    return factory.buildFullModule(properties);
-  }
-
-  public JHipsterModule buildMinimalInitModule(JHipsterModuleProperties properties) {
-    return factory.buildMinimalModule(properties);
+  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+    return factory.buildModule(properties);
   }
 }

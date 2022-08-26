@@ -70,6 +70,10 @@ public class JHipsterModulePropertiesDefinition {
       return add(indentationProperty());
     }
 
+    public JHipsterModulePropertiesDefinitionBuilder addEndOfLine() {
+      return add(endOfLineProperty());
+    }
+
     public JHipsterModulePropertiesDefinitionBuilder add(JHipsterModulePropertyDefinition propertyDefinition) {
       Assert.notNull("propertyDefinition", propertyDefinition);
 

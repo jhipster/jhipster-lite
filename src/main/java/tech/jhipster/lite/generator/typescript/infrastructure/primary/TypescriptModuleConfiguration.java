@@ -18,7 +18,7 @@ class TypescriptModuleConfiguration {
       .slug("typescript")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Typescript", "Init Typescript project"))
-      .organization(JHipsterModuleOrganization.builder().addFeatureDependency("startup").build())
+      .organization(JHipsterModuleOrganization.builder().addModuleDependency("init").build())
       .tags("typescript")
       .factory(typescriptApplicationService::buildModule);
   }

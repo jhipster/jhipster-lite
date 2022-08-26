@@ -19,7 +19,7 @@ class CypressModuleConfiguration {
       .slug("cypress")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("E2e", "Add Cypress"))
-      .organization(JHipsterModuleOrganization.builder().feature("front-browser-test").addFeatureDependency("startup").build())
+      .organization(JHipsterModuleOrganization.builder().feature("front-browser-test").addModuleDependency("init").build())
       .tags("client", "cypress", "e2e")
       .factory(cypress::buildModule);
   }

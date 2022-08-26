@@ -1,6 +1,5 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import tech.jhipster.lite.error.domain.Assert;
@@ -35,7 +34,7 @@ public final class TestJHipsterModules {
   }
 
   public static void applyInit(Project project) {
-    applyer().module(initModules.buildFullModule(projectProperties(project))).slug("init").apply();
+    applyer().module(initModules.buildModule(projectProperties(project))).slug("init").apply();
   }
 
   private static JHipsterModuleProperties projectProperties(Project project) {

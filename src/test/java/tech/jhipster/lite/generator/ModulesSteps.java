@@ -216,7 +216,7 @@ public class ModulesSteps {
   }
 
   private static void addPackageJsonToProject(String folder) {
-    addFileToProject(folder, "src/test/resources/projects/node/package.json", "package.json");
+    addFileToProject(folder, "src/test/resources/projects/empty-node/package.json", "package.json");
   }
 
   private static void addPomToProject(String folder) {

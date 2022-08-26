@@ -25,7 +25,7 @@ Feature: mssql module
   Scenario: Should get MsSQL module properties definition
     When I get module "mssql" properties definition
     Then I should have properties definitions
-      | Key                   | Type    | Mandatory |
-      | packageName           | STRING  | true      |
-      | baseName              | STRING  | true      |
-      | prettierDefaultIndent | INTEGER | false     |
+      | Key         | Type    | Mandatory |
+      | packageName | STRING  | true      |
+      | baseName    | STRING  | true      |
+      | indentSize  | INTEGER | false     |

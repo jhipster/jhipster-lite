@@ -21,4 +21,4 @@ Feature: Modules
     Then I should have landscape level 0 with elements
       | Type    | Slug               |
       | MODULE  | infinitest-filters |
-      | FEATURE | startup            |
+      | MODULE  | init               |

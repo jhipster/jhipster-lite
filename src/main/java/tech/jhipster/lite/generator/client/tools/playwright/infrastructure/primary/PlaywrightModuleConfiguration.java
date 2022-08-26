@@ -19,7 +19,7 @@ class PlaywrightModuleConfiguration {
       .slug("client-common-playwright")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().build())
       .apiDoc(new JHipsterModuleApiDoc("E2e", "/api/clients/playwright"))
-      .organization(JHipsterModuleOrganization.builder().feature("front-browser-test").addFeatureDependency("startup").build())
+      .organization(JHipsterModuleOrganization.builder().feature("front-browser-test").addModuleDependency("init").build())
       .tags("client", "test", "playwright")
       .factory(playwright::buildModule);
   }

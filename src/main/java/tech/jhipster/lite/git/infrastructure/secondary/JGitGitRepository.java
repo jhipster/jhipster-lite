@@ -51,7 +51,7 @@ class JGitGitRepository implements GitRepository {
     try (Git gitFolder = Git.open(folderFile);) {
       gitFolder.add().addFilepattern(".").call();
 
-      gitFolder.commit().setMessage(message.get()).call();
+      gitFolder.commit().setSign(false).setMessage(message.get()).call();
     } catch (IOException | GitAPIException | JGitInternalException e) {
       throw new GitCommitException("Can't commit :" + e.getMessage(), e);
     }

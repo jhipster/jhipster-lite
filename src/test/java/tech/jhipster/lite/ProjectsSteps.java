@@ -28,13 +28,25 @@ public class ProjectsSteps {
 
   private static String lastProjectFolder;
 
+  private static final String DEFAULT_PROJECT_PAYLOAD =
+    """
+      {
+        "folder": "/tmp/jhlite-test/chips",
+        "generator-jhipster": {
+          "projectName": "Chips Project",
+          "baseName": "chips",
+          "packageName": "tech.jhipster.chips"
+        }
+      }
+      """;
+
   @Autowired
   private TestRestTemplate rest;
 
   public static ProjectDTO newDefaultProjectDto() {
     newTestFolder();
 
-    return TestUtils.readFileToObject("json/chips.json", ProjectDTO.class).folder(lastProjectFolder);
+    return JsonHelper.readFromJson(DEFAULT_PROJECT_PAYLOAD, ProjectDTO.class).folder(lastProjectFolder);
   }
 
   public static String newTestFolder() {

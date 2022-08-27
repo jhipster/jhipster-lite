@@ -1,4 +1,5 @@
 import { ApplicationListener } from '@/common/primary/applicationlistener/ApplicationListener';
+import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
 import { LandscapeVue } from '@/module/primary/landscape';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
@@ -565,6 +566,19 @@ describe('Landscape', () => {
 
       expect(console.error).toHaveBeenCalledTimes(0);
       consoleErrors.mockRestore();
+    });
+
+    it('Should ignore unknown modules from history', async () => {
+      const modules = repositoryWithLandscape();
+      modules.history.resolves({
+        modules: [new ModuleSlug('unknown')],
+        properties: [],
+      });
+      const wrapper = wrap({ modules });
+      await flushPromises();
+      await updatePath(wrapper);
+
+      expect(wrapper.find(wrappedElement('init-module')).exists()).toBe(true);
     });
 
     it('Should not replace user setted properties from history', async () => {

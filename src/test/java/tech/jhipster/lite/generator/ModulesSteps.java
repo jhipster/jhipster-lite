@@ -21,9 +21,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.cucumber.CucumberTestContext;
-import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.git.infrastructure.secondary.GitTestUtil;
 
 public class ModulesSteps {
@@ -64,13 +62,6 @@ public class ModulesSteps {
           }
       }
       """;
-
-  @When("I apply legacy module {string} to default project")
-  public void legacyApplyModuleForDefaultProject(String moduleUrl) {
-    ProjectDTO project = newDefaultProjectDto();
-
-    post(moduleUrl, JsonHelper.writeAsString(project));
-  }
 
   @When("I apply modules to default project")
   public void applyModulesForDefaultProject(List<String> modulesSlugs) {

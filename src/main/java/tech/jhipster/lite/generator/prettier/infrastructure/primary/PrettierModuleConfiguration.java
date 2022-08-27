@@ -15,7 +15,6 @@ class PrettierModuleConfiguration {
   JHipsterModuleResource prettierModule(PrettierApplicationService prettier) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/prettier")
       .slug("prettier")
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Prettier", "Format project with prettier"))

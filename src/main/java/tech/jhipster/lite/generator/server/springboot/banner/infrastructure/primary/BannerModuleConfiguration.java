@@ -20,7 +20,6 @@ class BannerModuleConfiguration {
   JHipsterModuleResource jhipsterV7BannerResource(BannerApplicationService banners) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/banners/jhipster-v7")
       .slug("banner-jhipster-v7")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for Angular"))
@@ -33,7 +32,6 @@ class BannerModuleConfiguration {
   JHipsterModuleResource jhipsterV7ReactBannerResource(BannerApplicationService banners) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/banners/jhipster-v7-react")
       .slug("banner-jhipster-v7-react")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for React"))
@@ -46,7 +44,6 @@ class BannerModuleConfiguration {
   JHipsterModuleResource jhipsterV7VueBannerResource(BannerApplicationService banners) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/banners/jhipster-v7-vue")
       .slug("banner-jhipster-v7-vue")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v7 for Vue"))
@@ -59,7 +56,6 @@ class BannerModuleConfiguration {
   JHipsterModuleResource jhipsterV2BannerResource(BannerApplicationService banners) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/banners/jhipster-v2")
       .slug("banner-jhipster-v2")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v2"))
@@ -72,7 +68,6 @@ class BannerModuleConfiguration {
   JHipsterModuleResource jhipsterV3BannerResource(BannerApplicationService banners) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/banners/jhipster-v3")
       .slug("banner-jhipster-v3")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner JHipster v3"))
@@ -85,7 +80,6 @@ class BannerModuleConfiguration {
   JHipsterModuleResource jhipsterIpponBannerResource(BannerApplicationService banners) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/banners/ippon")
       .slug("banner-ippon")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add banner for Ippon applications"))

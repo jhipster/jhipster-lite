@@ -15,7 +15,6 @@ class SonarModuleConfiguration {
   JHipsterModuleResource sonarBackendModule(SonarApplicationService sonar) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/developer-tools/sonar/java-backend")
       .slug("sonar-java-backend")
       .propertiesDefinition(propertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Sonar", "Add Sonar configuration for Java Backend to inspect code quality"))
@@ -28,7 +27,6 @@ class SonarModuleConfiguration {
   JHipsterModuleResource sonarBackendFrontendModule(SonarApplicationService sonar) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/developer-tools/sonar/java-backend-and-frontend")
       .slug("sonar-java-backend-and-frontend")
       .propertiesDefinition(propertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Sonar", "Add Sonar configuration for Java Backend and Frontend to inspect code quality"))

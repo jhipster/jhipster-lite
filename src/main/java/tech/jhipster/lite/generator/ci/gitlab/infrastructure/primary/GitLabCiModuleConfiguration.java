@@ -14,7 +14,6 @@ class GitLabCiModuleConfiguration {
   JHipsterModuleResource gitlabCiModule(GitLabCiApplicationService gitlabCi) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/developer-tools/gitlab-ci")
       .slug("gitlab-ci")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Continuous Integration", "Add GitLab CI for Maven Build"))

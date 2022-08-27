@@ -15,7 +15,6 @@ class DummyJpaPersistenceModuleConfiguration {
   JHipsterModuleResource dummyJpaPersistenceModule(DummyJpaPersistenceApplicationService dummyJpaPersistence) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/features/dummy-jpa-persistence")
       .slug("dummy-jpa-persistence")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add JPA persistence for dummy feature"))

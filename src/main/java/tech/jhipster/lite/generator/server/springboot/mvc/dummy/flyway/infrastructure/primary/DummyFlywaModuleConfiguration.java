@@ -14,7 +14,6 @@ class DummyFlywaModuleConfiguration {
   JHipsterModuleResource dummyFlywayPostgresqlModule(DummyFlywayApplicationService dummyFlyway) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/features/dummy-postgresql-flyway-changelog")
       .slug("dummy-postgresql-flyway-changelog")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add postgresql flyway changelog for dummy feature"))
@@ -35,7 +34,6 @@ class DummyFlywaModuleConfiguration {
   JHipsterModuleResource dummyFlywayNotPostgresqlModule(DummyFlywayApplicationService dummyFlyway) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/features/dummy-not-postgresql-flyway-changelog")
       .slug("dummy-not-postgresql-flyway-changelog")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add not postgresql flyway changelog for dummy feature"))

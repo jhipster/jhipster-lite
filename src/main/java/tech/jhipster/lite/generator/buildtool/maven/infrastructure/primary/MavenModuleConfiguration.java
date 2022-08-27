@@ -15,7 +15,6 @@ class MavenModuleConfiguration {
   JHipsterModuleResource mavenModule(MavenApplicationService maven) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/build-tools/maven")
       .slug("maven-java")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addProjectName().build())
       .apiDoc(new JHipsterModuleApiDoc("Build Tool", "Init Maven project with pom.xml and wrapper"))

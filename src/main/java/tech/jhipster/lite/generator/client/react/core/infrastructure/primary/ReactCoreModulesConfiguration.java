@@ -17,7 +17,6 @@ class ReactCoreModulesConfiguration {
   JHipsterModuleResource styledReactCoreModule(ReactCoreApplicationService react) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/react/styles")
       .slug("react-core")
       .propertiesDefinition(properties())
       .apiDoc(new JHipsterModuleApiDoc("React", "Add React+Vite with minimal CSS"))

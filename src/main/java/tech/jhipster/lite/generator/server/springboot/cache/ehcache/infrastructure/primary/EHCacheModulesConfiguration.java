@@ -17,7 +17,6 @@ class EHCacheModulesConfiguration {
   JHipsterModuleResource javaEHCacheModule(EhcacheApplicationService ehCaches) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/caches/ehcache/java-configuration")
       .slug("ehcache-with-java-config")
       .propertiesDefinition(properties())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Cache", "Add Ehcache with Java configuration"))
@@ -30,7 +29,6 @@ class EHCacheModulesConfiguration {
   JHipsterModuleResource xmlEHCacheModule(EhcacheApplicationService ehCaches) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/caches/ehcache/xml-configuration")
       .slug("ehcache-with-xml-config")
       .propertiesDefinition(properties())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Cache", "Add Ehcache with XML configuration"))

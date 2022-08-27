@@ -11,13 +11,10 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 @Configuration
 class MsSQLModuleConfiguration {
 
-  public static final String URL_MSSQL_MODULE = "/api/servers/spring-boot/databases/mssql";
-
   @Bean
   JHipsterModuleResource msSQLModule(MsSQLApplicationService applicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl(URL_MSSQL_MODULE)
       .slug("mssql")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add MsSQL to project"))

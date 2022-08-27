@@ -15,7 +15,6 @@ class ReactJwtModuleConfiguration {
   JHipsterModuleResource reactJwtModule(ReactJwtApplicationService reactJwt) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/react/jwt")
       .slug("react-jwt")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("React", "Add JWT Login React"))

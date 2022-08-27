@@ -4,7 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.docker.domain.DockerImage;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.project.domain.DatabaseType;
+import tech.jhipster.lite.generator.server.springboot.database.common.domain.DatabaseType;
 import tech.jhipster.lite.module.domain.DocumentationTitle;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;

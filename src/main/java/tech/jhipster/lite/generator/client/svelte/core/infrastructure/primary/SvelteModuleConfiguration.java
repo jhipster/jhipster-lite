@@ -14,7 +14,6 @@ public class SvelteModuleConfiguration {
   JHipsterModuleResource svelteModule(SvelteApplicationService svelteApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/svelte/styles")
       .slug("svelte")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Svelte", "Add Svelte"))

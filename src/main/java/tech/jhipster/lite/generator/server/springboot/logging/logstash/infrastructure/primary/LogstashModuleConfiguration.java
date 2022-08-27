@@ -15,7 +15,6 @@ class LogstashModuleConfiguration {
   JHipsterModuleResource logstashModule(LogstashApplicationService logstash) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/log-tools/logstash")
       .slug("logstash")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Logging", "Add Logstash TCP appender"))

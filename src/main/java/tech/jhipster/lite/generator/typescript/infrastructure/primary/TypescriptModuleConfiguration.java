@@ -14,7 +14,6 @@ class TypescriptModuleConfiguration {
   JHipsterModuleResource typescriptModule(TypescriptApplicationService typescriptApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/javascript-languages/typescript")
       .slug("typescript")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Typescript", "Init Typescript project"))

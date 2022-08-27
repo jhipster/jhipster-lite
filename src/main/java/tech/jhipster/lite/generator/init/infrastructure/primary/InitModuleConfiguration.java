@@ -14,7 +14,6 @@ class InitModuleConfiguration {
   JHipsterModuleResource initModule(InitApplicationService inits) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/inits")
       .slug("init")
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Init", "Init project"))

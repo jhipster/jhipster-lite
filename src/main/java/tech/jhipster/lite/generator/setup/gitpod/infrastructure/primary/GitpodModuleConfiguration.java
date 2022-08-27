@@ -13,7 +13,6 @@ class GitpodModuleConfiguration {
   JHipsterModuleResource gitpodModule(GitpodApplicationService gitPods) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/developer-tools/gitpod")
       .slug("gitpod")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Gitpod", "Init Gitpod configuration files"))

@@ -7,7 +7,6 @@ import tech.jhipster.lite.module.domain.JHipsterModuleTags;
 
 public class JHipsterModuleResource {
 
-  private final String legacyUrl;
   private final JHipsterModuleSlug slug;
   private final JHipsterModulePropertiesDefinition propertiesDefinition;
   private final JHipsterModuleApiDoc apiDoc;
@@ -18,7 +17,6 @@ public class JHipsterModuleResource {
   private JHipsterModuleResource(JHipsterModuleResourceBuilder builder) {
     assertMandatoryFields(builder);
 
-    legacyUrl = builder.legacyUrl;
     slug = new JHipsterModuleSlug(builder.slug);
     propertiesDefinition = builder.propertiesDefinition;
     apiDoc = builder.apiDoc;
@@ -28,7 +26,6 @@ public class JHipsterModuleResource {
   }
 
   private void assertMandatoryFields(JHipsterModuleResourceBuilder builder) {
-    Assert.notBlank("legacyUrl", builder.legacyUrl);
     Assert.notNull("propertiesDefinition", builder.propertiesDefinition);
     Assert.notNull("apiDoc", builder.apiDoc);
     Assert.notNull("tags", builder.tags);
@@ -36,12 +33,8 @@ public class JHipsterModuleResource {
     Assert.notNull("factory", builder.factory);
   }
 
-  public static JHipsterModuleResourceLegacyUrlBuilder builder() {
+  public static JHipsterModuleResourceSlugBuilder builder() {
     return new JHipsterModuleResourceBuilder();
-  }
-
-  public String legacyUrl() {
-    return legacyUrl;
   }
 
   public String moduleUrl() {
@@ -74,7 +67,6 @@ public class JHipsterModuleResource {
 
   public static class JHipsterModuleResourceBuilder
     implements
-      JHipsterModuleResourceLegacyUrlBuilder,
       JHipsterModuleResourceSlugBuilder,
       JHipsterModuleResourcePropertiesDefinitionBuilder,
       JHipsterModuleResourceApiDocBuilder,
@@ -82,7 +74,6 @@ public class JHipsterModuleResource {
       JHipsterModuleResourceTagsBuilder,
       JHipsterModuleResourceFactoryBuilder {
 
-    private String legacyUrl;
     private String slug;
     private JHipsterModuleApiDoc apiDoc;
     private JHipsterModuleFactory factory;
@@ -92,13 +83,6 @@ public class JHipsterModuleResource {
     private JHipsterModuleOrganization organization;
 
     private JHipsterModuleResourceBuilder() {}
-
-    @Override
-    public JHipsterModuleResourceSlugBuilder legacyUrl(String legacyUrl) {
-      this.legacyUrl = legacyUrl;
-
-      return this;
-    }
 
     @Override
     public JHipsterModuleResourcePropertiesDefinitionBuilder slug(String slug) {
@@ -141,10 +125,6 @@ public class JHipsterModuleResource {
 
       return new JHipsterModuleResource(this);
     }
-  }
-
-  public interface JHipsterModuleResourceLegacyUrlBuilder {
-    JHipsterModuleResourceSlugBuilder legacyUrl(String legacyUrl);
   }
 
   public interface JHipsterModuleResourceSlugBuilder {

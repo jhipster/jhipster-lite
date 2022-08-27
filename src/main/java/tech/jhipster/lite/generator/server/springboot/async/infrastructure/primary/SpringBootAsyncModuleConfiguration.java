@@ -15,7 +15,6 @@ class SpringBootAsyncModuleConfiguration {
   JHipsterModuleResource springBootAsync(SpringBootAsyncApplicationService springBootAsync) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/async")
       .slug("spring-boot-async")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Tools", "Add asynchronous execution and scheduling configuration"))

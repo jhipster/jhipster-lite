@@ -15,7 +15,6 @@ class ZalandoProblemsModuleConfiguration {
   JHipsterModuleResource zalandoProblemsModule(ZalandoProblemsApplicationService zalandoProblems) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/zalando-problems")
       .slug("zalando-problems")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Zalando problems and error handler"))

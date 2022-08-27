@@ -15,7 +15,6 @@ class ConsulModuleConfiguration {
   JHipsterModuleResource consulModule(ConsulApplicationService consulApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/distributed-systems/spring-cloud/consul")
       .slug("consul")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Spring Cloud", "Add Spring Cloud Consul config and discovery"))

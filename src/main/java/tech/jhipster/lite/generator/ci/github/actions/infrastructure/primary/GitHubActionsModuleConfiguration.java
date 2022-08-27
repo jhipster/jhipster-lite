@@ -14,7 +14,6 @@ class GitHubActionsModuleConfiguration {
   JHipsterModuleResource gutHubActionsModule(GitHubActionsApplicationService gitHubActions) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/developer-tools/github-actions")
       .slug("github-actions")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Continuous Integration", "Add GitHub Actions for Maven Build"))

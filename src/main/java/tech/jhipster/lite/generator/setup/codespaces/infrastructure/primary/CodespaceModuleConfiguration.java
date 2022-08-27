@@ -15,7 +15,6 @@ class CodespaceModuleConfiguration {
   JHipsterModuleResource codespaceModule(CodespacesApplicationService codespaces) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/developer-tools/codespaces")
       .slug("github-codespaces")
       .propertiesDefinition(propertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc("Codespaces", "Init GitHub Codespaces configuration files"))

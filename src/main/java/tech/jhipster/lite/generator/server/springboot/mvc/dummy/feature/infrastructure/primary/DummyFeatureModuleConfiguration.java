@@ -15,7 +15,6 @@ class DummyFeatureModuleConfiguration {
   JHipsterModuleResource dummyFeatureModule(DummyApplicationService dummy) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/features/dummy")
       .slug("dummy-feature")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add Dummy context with some APIs"))

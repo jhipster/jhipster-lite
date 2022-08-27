@@ -15,7 +15,6 @@ class MongoDbModuleConfiguration {
   JHipsterModuleResource mongoDbModule(MongodbApplicationService mongoDb) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/databases/mongodb")
       .slug("mongodb")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add MongoDB drivers and dependencies, with testcontainers"))

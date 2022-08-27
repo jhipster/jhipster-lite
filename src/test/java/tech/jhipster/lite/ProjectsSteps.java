@@ -21,33 +21,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import tech.jhipster.lite.generator.project.infrastructure.primary.dto.ProjectDTO;
 import tech.jhipster.lite.git.infrastructure.secondary.GitTestUtil;
 
 public class ProjectsSteps {
 
   private static String lastProjectFolder;
 
-  private static final String DEFAULT_PROJECT_PAYLOAD =
-    """
-      {
-        "folder": "/tmp/jhlite-test/chips",
-        "generator-jhipster": {
-          "projectName": "Chips Project",
-          "baseName": "chips",
-          "packageName": "tech.jhipster.chips"
-        }
-      }
-      """;
-
   @Autowired
   private TestRestTemplate rest;
-
-  public static ProjectDTO newDefaultProjectDto() {
-    newTestFolder();
-
-    return JsonHelper.readFromJson(DEFAULT_PROJECT_PAYLOAD, ProjectDTO.class).folder(lastProjectFolder);
-  }
 
   public static String newTestFolder() {
     return lastProjectFolder = TestFileUtils.tmpDirForTest();

@@ -12,19 +12,16 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 @Configuration
 class SpringdocModuleConfiguration {
 
-  private static final String SPRINGDOC_API_URL = "/api/servers/spring-boot/api-documentations/springdoc";
-
-  public static final String TAG = "Spring Boot - API Documentation";
-  public static final String TAG_SERVER = "server";
-  public static final String TAG_SPRING = "spring";
-  public static final String TAG_SPRING_BOOT = "spring-boot";
-  public static final String TAG_DOCUMENTATION = "documentation";
+  private static final String TAG = "Spring Boot - API Documentation";
+  private static final String TAG_SERVER = "server";
+  private static final String TAG_SPRING = "spring";
+  private static final String TAG_SPRING_BOOT = "spring-boot";
+  private static final String TAG_DOCUMENTATION = "documentation";
 
   @Bean
   JHipsterModuleResource springdocMvcModule(SpringdocApplicationService springdocApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl(SPRINGDOC_API_URL + "/init-mvc")
       .slug("springdoc-mvc-openapi")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi for spring MVC"))
@@ -37,7 +34,6 @@ class SpringdocModuleConfiguration {
   JHipsterModuleResource springdocWebfluxModule(SpringdocApplicationService springdocApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl(SPRINGDOC_API_URL + "/init-webflux")
       .slug("springdoc-webflux-openapi")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi for webflux"))
@@ -50,7 +46,6 @@ class SpringdocModuleConfiguration {
   JHipsterModuleResource springdocMvcWithSecurityJwtModule(SpringdocApplicationService springdocApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl(SPRINGDOC_API_URL + "/init-mvc-with-security-jwt")
       .slug("springdoc-mvc-openapi-with-security-jwt")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi with Security JWT for srping MVC"))
@@ -63,7 +58,6 @@ class SpringdocModuleConfiguration {
   JHipsterModuleResource springdocWebfluxWithSecurityJwtModule(SpringdocApplicationService springdocApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl(SPRINGDOC_API_URL + "/init-webflux-with-security-jwt")
       .slug("springdoc-webflux-openapi-with-security-jwt")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi with Security JWT for webflux"))
@@ -76,7 +70,6 @@ class SpringdocModuleConfiguration {
   JHipsterModuleResource springdocMvcWithSecurityOAuth2Module(SpringdocApplicationService springdocApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl(SPRINGDOC_API_URL + "/init-mvc-with-security-oauth2")
       .slug("springdoc-mvc-openapi-with-security-oauth2")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add springdoc-openapi with Security OAuth2 for spring MVC"))

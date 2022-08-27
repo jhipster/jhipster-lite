@@ -15,7 +15,6 @@ class CucumberModuleConfiguration {
   JHipsterModuleResource cucumberInitializationModule(CucumberApplicationService cucumber) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/component-tests/cucumber")
       .slug("spring-boot-cucumber")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Component Tests", "Add cucumber integration to project"))
@@ -28,7 +27,6 @@ class CucumberModuleConfiguration {
   JHipsterModuleResource cucumberJpaResetModule(CucumberApplicationService cucumber) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/component-tests/spring-boot-cucumber-jpa-reset")
       .slug("spring-boot-cucumber-jpa-reset")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Component Tests", "Add jpa reset for cucumber"))

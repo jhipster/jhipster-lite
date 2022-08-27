@@ -17,7 +17,6 @@ class SpringBootMvcModulesConfiguration {
   JHipsterModuleResource springBootTomcatMvcModule(SpringBootMvcApplicationService springBootMvc) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/web-servers/tomcat")
       .slug("spring-boot-tomcat")
       .propertiesDefinition(properties())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add Spring Boot MVC with Tomcat"))
@@ -30,7 +29,6 @@ class SpringBootMvcModulesConfiguration {
   JHipsterModuleResource springBootUndertowMvcModule(SpringBootMvcApplicationService springBootMvc) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/web-servers/undertow")
       .slug("spring-boot-undertow")
       .propertiesDefinition(properties())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add Spring Boot MVC with Undertow"))

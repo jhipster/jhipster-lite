@@ -15,7 +15,6 @@ class VueModuleConfiguration {
   JHipsterModuleResource vueModule(VueApplicationService vue) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/vue")
       .slug("vue")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Vue", "Add Vue+Vite"))
@@ -28,7 +27,6 @@ class VueModuleConfiguration {
   JHipsterModuleResource vuePiniaModule(VueApplicationService vue) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/vue/stores/pinia")
       .slug("vue-pinia")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Vue", "Add pinia for state management"))

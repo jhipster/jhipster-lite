@@ -15,7 +15,6 @@ class BeanValidationTestModuleConfiguration {
   JHipsterModuleResource beanValidationtTestModule(BeanValidationTestApplicationService beanValidationTest) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/bean-validation-test")
       .slug("bean-validation-test")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC", "Add test tools for bean validation"))

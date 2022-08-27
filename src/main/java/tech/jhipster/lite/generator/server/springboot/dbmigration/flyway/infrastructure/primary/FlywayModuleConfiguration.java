@@ -15,7 +15,6 @@ class FlywayModuleConfiguration {
   JHipsterModuleResource flywayInitializationModule(FlywayApplicationService flyway) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/database-migration-tools/flyway")
       .slug("flyway")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database Migration", "Add Flyway"))
@@ -28,7 +27,6 @@ class FlywayModuleConfiguration {
   JHipsterModuleResource flywayMysqlModule(FlywayApplicationService flyway) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/database-migration-tools/flyway-mysql")
       .slug("flyway-mysql")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database Migration", "Add Flyway mysql"))

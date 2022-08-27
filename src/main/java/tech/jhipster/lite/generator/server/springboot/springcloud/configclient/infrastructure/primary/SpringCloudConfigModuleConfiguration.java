@@ -15,7 +15,6 @@ class SpringCloudConfigModuleConfiguration {
   JHipsterModuleResource springCloudConfigModule(SpringCloudConfigClientApplicationService cloudConfigs) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/distributed-systems/spring-cloud/config-client")
       .slug("spring-cloud")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Spring Cloud", "Add Spring Cloud Config Client"))

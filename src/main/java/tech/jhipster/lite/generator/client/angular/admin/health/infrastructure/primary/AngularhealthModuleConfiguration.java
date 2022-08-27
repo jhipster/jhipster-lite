@@ -14,7 +14,6 @@ class AngularhealthModuleConfiguration {
   JHipsterModuleResource angularHealthModule(AngularHealthApplicationService angularHealth) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/angular/admin-pages/health")
       .slug("angular-health")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Angular", "Angular Health"))

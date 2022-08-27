@@ -14,7 +14,6 @@ class JacocoThresholdModuleConfiguration {
   JHipsterModuleResource jacocoModuleThreshold(JacocoApplicationService jacoco) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/java/jacoco-minimum-coverage")
       .slug("jacoco-check-min-coverage")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Java", "Add JaCoCo configuration to check minimum coverage"))

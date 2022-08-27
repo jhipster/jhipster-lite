@@ -15,7 +15,6 @@ class ArchUnitModuleConfiguration {
   JHipsterModuleResource archUnitModule(JavaArchUnitApplicationService archUnit) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/java/arch")
       .slug("java-archunit")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Java", "Add Hexagonal Arch classes to project"))

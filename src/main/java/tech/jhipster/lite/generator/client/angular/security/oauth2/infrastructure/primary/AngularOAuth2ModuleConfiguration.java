@@ -15,7 +15,6 @@ class AngularOAuth2ModuleConfiguration {
   JHipsterModuleResource angularOAuth2Module(AngularOauth2ApplicationService angularOAuth2) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/angular/oauth2")
       .slug("angular-oauth2")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Angular", "Add OAuth2 authentication"))

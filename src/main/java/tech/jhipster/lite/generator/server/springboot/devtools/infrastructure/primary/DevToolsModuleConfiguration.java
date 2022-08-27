@@ -15,7 +15,6 @@ class DevToolsModuleConfiguration {
   JHipsterModuleResource devTools(DevToolsApplicationService devtools) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/technical-tools/devtools")
       .slug("spring-boot-devtools")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Tools", "Add Spring Boot devtools."))

@@ -15,7 +15,6 @@ class AOPLoggingModuleConfiguration {
   JHipsterModuleResource aopLoggingModule(AopLoggingApplicationService aopLogging) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/log-tools/aop")
       .slug("aop-logging")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectName().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Logging", "Add AOP logging"))

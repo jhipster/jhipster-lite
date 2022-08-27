@@ -35,7 +35,6 @@ public final class JHipsterModulesResourceFixture {
 
   public static JHipsterTestModuleResourceBuilder defaultModuleResourceBuilder() {
     return new JHipsterTestModuleResourceBuilder()
-      .legacyUrl("/api/legacy")
       .slug("slug")
       .operation("operation")
       .tags(JHipsterModuleTags.builder().add("tag1").build())
@@ -58,7 +57,6 @@ public final class JHipsterModulesResourceFixture {
 
   public static class JHipsterTestModuleResourceBuilder {
 
-    private String legacyUrl;
     private String slug;
     private String tag = "tag";
     private String operation;
@@ -70,12 +68,6 @@ public final class JHipsterModulesResourceFixture {
     private final Collection<String> featureDependencies = new ArrayList<>();
 
     private JHipsterTestModuleResourceBuilder() {}
-
-    public JHipsterTestModuleResourceBuilder legacyUrl(String legacyUrl) {
-      this.legacyUrl = legacyUrl;
-
-      return this;
-    }
 
     public JHipsterTestModuleResourceBuilder slug(String slug) {
       this.slug = slug;
@@ -128,7 +120,6 @@ public final class JHipsterModulesResourceFixture {
     public JHipsterModuleResource build() {
       return JHipsterModuleResource
         .builder()
-        .legacyUrl(legacyUrl)
         .slug(slug)
         .propertiesDefinition(JHipsterModulesResourceFixture.propertiesDefinition())
         .apiDoc(new JHipsterModuleApiDoc(tag, operation))

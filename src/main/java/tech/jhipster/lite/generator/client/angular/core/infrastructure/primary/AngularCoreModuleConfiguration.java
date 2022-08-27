@@ -15,7 +15,6 @@ class AngularCoreModuleConfiguration {
   JHipsterModuleResource angularModule(AngularApplicationService angular) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/angular")
       .slug("angular-core")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addProjectName().build())
       .apiDoc(new JHipsterModuleApiDoc("Angular", "Add Angular + Angular CLI"))

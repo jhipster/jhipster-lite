@@ -15,7 +15,6 @@ class PlaywrightModuleConfiguration {
   JHipsterModuleResource playwrightModule(PlaywrightApplicationService playwright) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/clients/playwright")
       .slug("client-common-playwright")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().build())
       .apiDoc(new JHipsterModuleApiDoc("E2e", "/api/clients/playwright"))

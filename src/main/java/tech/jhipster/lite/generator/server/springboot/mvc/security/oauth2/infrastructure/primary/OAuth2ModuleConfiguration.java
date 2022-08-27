@@ -17,7 +17,6 @@ class OAuth2ModuleConfiguration {
   JHipsterModuleResource oAuth2Module(OAuth2SecurityApplicationService oAuth2) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/security-systems/oauth2")
       .slug("spring-boot-oauth2")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc(
@@ -43,7 +42,6 @@ class OAuth2ModuleConfiguration {
   JHipsterModuleResource oAuth2AccountModule(OAuth2SecurityApplicationService oAuth2) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/security-systems/oauth2/account")
       .slug("spring-boot-oauth2-account")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - MVC - Security", "Add a account context for OAuth 2.0 / OIDC Authentication"))

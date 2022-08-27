@@ -36,7 +36,6 @@ class OpenApiModulesConfiguration {
   private static final String MODULE_PROPERTY_DEFINITION_SCHEMA_NAME = "JHipsterModulePropertiesDefinition";
   private static final String MODULE_PROPERTIES_DEFINITION_SCHEMA_NAME = "JHipsterModulePropertyDefinition";
 
-  private static final Schema<?> PROJECT_DTO_SCHEMA = new Schema<>().$ref("#/components/schemas/ProjectDTO");
   private static final Schema<?> MODULE_PROPERTY_DEFINITION_SCHEMA = new Schema<>()
     .$ref("#/components/schemas/" + MODULE_PROPERTY_DEFINITION_SCHEMA_NAME);
   private static final Schema<?> MODULE_PROPERTIES_DEFINITION_SCHEMA = new Schema<>()
@@ -151,25 +150,10 @@ class OpenApiModulesConfiguration {
   private Paths buildJHipsterModulesPaths(JHipsterModulesResources modules) {
     Paths paths = new Paths();
 
-    paths.putAll(legacyModules(modules));
     paths.putAll(modulesPropertiesDefinitions(modules));
     paths.putAll(modulesApplications(modules));
 
     return paths;
-  }
-
-  private Map<String, PathItem> legacyModules(JHipsterModulesResources modules) {
-    return modules.stream().collect(Collectors.toMap(JHipsterModuleResource::legacyUrl, module -> legacyModuleApiDoc(module.apiDoc())));
-  }
-
-  private PathItem legacyModuleApiDoc(JHipsterModuleApiDoc apiDoc) {
-    RequestBody requestBody = new RequestBody()
-      .required(true)
-      .content(new Content().addMediaType(JSON_MEDIA_TYPE, new MediaType().schema(PROJECT_DTO_SCHEMA)));
-
-    Operation postOperation = new Operation().summary(apiDoc.operation().get()).tags(apiDoc.tag().list()).requestBody(requestBody);
-
-    return new PathItem().post(postOperation);
   }
 
   private Map<String, PathItem> modulesPropertiesDefinitions(JHipsterModulesResources modules) {

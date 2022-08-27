@@ -21,7 +21,6 @@ class KafkaModuleConfiguration {
   JHipsterModuleResource kafkaResourceInit(KafkaApplicationService kafkaApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/brokers/kafka")
       .slug("spring-boot-kafka")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add Kafka dependencies, with testcontainers"))
@@ -34,7 +33,6 @@ class KafkaModuleConfiguration {
   JHipsterModuleResource kafkaResourceDummyProducerConsumer(KafkaApplicationService kafkaApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/brokers/kafka/dummy-producer-consumer")
       .slug("spring-boot-kafka-dummy-producer-consumer")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add dummy Kafka producer and consumer"))
@@ -47,7 +45,6 @@ class KafkaModuleConfiguration {
   JHipsterModuleResource kafkaResourceAkhq(KafkaApplicationService kafkaApplicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/brokers/kafka/akhq")
       .slug("spring-boot-kafka-akhq")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc(TAG, "Add AKHQ"))

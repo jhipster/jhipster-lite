@@ -15,7 +15,6 @@ class SpringBootDockerModuleConfiguration {
   JHipsterModuleResource jibModule(SpringBootDockerApplicationService springBootDocker) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/containers/docker/jib")
       .slug("jib")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addServerPort().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Tools", "Add Docker image building with Jib"))
@@ -28,7 +27,6 @@ class SpringBootDockerModuleConfiguration {
   JHipsterModuleResource dockerFileModule(SpringBootDockerApplicationService springBootDocker) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/containers/docker/dockerfile")
       .slug("dockerfile")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Tools", "Add Dockerfile"))

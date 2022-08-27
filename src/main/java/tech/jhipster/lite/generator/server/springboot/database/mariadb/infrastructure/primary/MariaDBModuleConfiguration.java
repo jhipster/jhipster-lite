@@ -11,13 +11,10 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 @Configuration
 class MariaDBModuleConfiguration {
 
-  public static final String URL_MARIADB_MODULE = "/api/servers/spring-boot/databases/mariadb";
-
   @Bean
   JHipsterModuleResource mariaDBModule(MariaDBApplicationService applicationService) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl(URL_MARIADB_MODULE)
       .slug("mariadb")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database", "Add MariaDB to project"))

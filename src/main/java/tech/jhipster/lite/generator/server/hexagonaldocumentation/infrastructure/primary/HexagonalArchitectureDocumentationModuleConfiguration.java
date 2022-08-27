@@ -15,7 +15,6 @@ class HexagonalArchitectureDocumentationModuleConfiguration {
   ) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/hexagonal-architecture-documentation")
       .slug("application-service-hexagonal-architecture-documentation")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot", "Add documentation for hexagonal architecture"))

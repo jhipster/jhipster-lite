@@ -13,7 +13,6 @@ class InfinitestModuleConfiguration {
   JHipsterModuleResource infinitestModule(InfinitestApplicationService infinitest) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/infinitest-filters")
       .slug("infinitest-filters")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Base", "Add filter for infinitest"))

@@ -15,7 +15,6 @@ class MongockModuleConfiguration {
   JHipsterModuleResource mongockModule(MongockApplicationService mongock) {
     return JHipsterModuleResource
       .builder()
-      .legacyUrl("/api/servers/spring-boot/database-migration-tools/mongock")
       .slug("mongock")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Spring Boot - Database Migration", "Add Mongock"))

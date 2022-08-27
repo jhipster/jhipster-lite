@@ -192,11 +192,6 @@ jobs:
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           if [ -f 'mvnw' ]; then
-            git init
-            git config user.email "test@jhipster.com"
-            git config user.name "Test"
-            git add . 
-            git commit -m "Initial commit"
             ./mvnw clean verify sonar:sonar
           fi
       - name: 'Test: check local Sonar Analysis'

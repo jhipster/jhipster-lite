@@ -3,43 +3,20 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static org.mockito.Mockito.*;
 
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.generator.init.domain.InitModuleFactory;
-import tech.jhipster.lite.generator.project.domain.Project;
 import tech.jhipster.lite.git.infrastructure.secondary.GitTestUtil;
 import tech.jhipster.lite.module.application.JHipsterModulesApplicationService;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModuleEvents;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
-import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture;
-import tech.jhipster.lite.npm.domain.NpmVersion;
-import tech.jhipster.lite.npm.domain.NpmVersions;
 import tech.jhipster.lite.npm.infrastructure.secondary.FileSystemNpmVersions;
 import tech.jhipster.lite.project.infrastructure.primary.JavaProjects;
 import tech.jhipster.lite.projectfile.infrastructure.secondary.FileSystemProjectFilesReader;
 
 public final class TestJHipsterModules {
 
-  private static final InitModuleFactory initModules = new InitModuleFactory(mockedNpmVersion());
-
   private TestJHipsterModules() {}
-
-  private static NpmVersions mockedNpmVersion() {
-    NpmVersions npmVersions = mock(NpmVersions.class);
-
-    lenient().when(npmVersions.get(anyString(), any())).thenReturn(new NpmVersion("1.1.1"));
-
-    return npmVersions;
-  }
-
-  public static void applyInit(Project project) {
-    applyer().module(initModules.buildModule(projectProperties(project))).slug("init").apply();
-  }
-
-  private static JHipsterModuleProperties projectProperties(Project project) {
-    return new JHipsterModuleProperties(project.getFolder(), false, project.getConfig());
-  }
 
   static void apply(JHipsterModule module) {
     applyer().module(module).slug("test-module").apply();

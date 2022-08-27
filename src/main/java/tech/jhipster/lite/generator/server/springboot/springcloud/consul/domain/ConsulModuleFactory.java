@@ -2,10 +2,10 @@ package tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
-import tech.jhipster.lite.common.domain.Base64Utils;
 import tech.jhipster.lite.docker.domain.DockerImage;
 import tech.jhipster.lite.docker.domain.DockerImages;
 import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.generator.base64.domain.Base64Utils;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;

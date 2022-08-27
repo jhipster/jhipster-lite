@@ -1,14 +1,10 @@
-package tech.jhipster.lite.generator.project.domain;
+package tech.jhipster.lite.generator.server.springboot.database.common.domain;
 
 public enum DatabaseType {
   POSTGRESQL("postgresql"),
   MYSQL("mysql"),
   MARIADB("mariadb"),
-  ORACLE("oracle"),
-  MSSQL("mssql"),
-  CASSANDRA("cassandra"),
-  COUCHBASE("couchbase"),
-  NEO4J("neo4j");
+  MSSQL("mssql");
 
   private final String id;
 

@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static java.nio.file.attribute.PosixFilePermission.*;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFilePermission;
@@ -11,7 +12,6 @@ import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import tech.jhipster.lite.common.domain.FileUtils;
 import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
@@ -62,7 +62,7 @@ class FileSystemJHipsterModuleFiles {
 
   @Generated(reason = "Ensuring posix FS will be a nightmare :)")
   private void setExecutable(JHipsterTemplatedFile file, Path filePath) throws IOException {
-    if (!FileUtils.isPosix()) {
+    if (isNotPosix()) {
       return;
     }
 
@@ -71,6 +71,11 @@ class FileSystemJHipsterModuleFiles {
     }
 
     Files.setPosixFilePermissions(filePath, EXECUTABLE_FILE_PERMISSIONS);
+  }
+
+  @Generated(reason = "Only tested on POSIX systems")
+  private static boolean isNotPosix() {
+    return !FileSystems.getDefault().supportedFileAttributeViews().contains("posix");
   }
 
   void move(JHipsterProjectFolder folder, JHipsterFilesToMove filesToMove) {

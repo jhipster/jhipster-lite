@@ -19,6 +19,7 @@ import { ProjectActionsVue } from '../project-actions';
 import { empty } from '../PropertyValue';
 import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { ModuleParameter } from '@/module/domain/ModuleParameter';
+import { Landscape } from '@/module/domain/landscape/Landscape';
 
 export default defineComponent({
   name: 'LandscapeVue',
@@ -48,18 +49,20 @@ export default defineComponent({
     const operationInProgress = ref(false);
 
     onMounted(() => {
-      modules.landscape().then(response => {
-        landscape.value.loaded(ComponentLandscape.from(response));
-
-        nextTick(() => {
-          updateConnectors();
-        });
-
-        applicationListener.addEventListener('resize', updateConnectors);
-      });
+      modules.landscape().then(response => loadModules(response));
 
       projectFolders.get().then(projectFolder => (folderPath.value = projectFolder));
     });
+
+    const loadModules = (response: Landscape): void => {
+      landscape.value.loaded(ComponentLandscape.from(response));
+
+      nextTick(() => {
+        updateConnectors();
+      });
+
+      applicationListener.addEventListener('resize', updateConnectors);
+    };
 
     onBeforeUnmount(() => {
       applicationListener.removeEventListener('resize', updateConnectors);

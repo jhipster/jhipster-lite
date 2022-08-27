@@ -74,6 +74,10 @@ export class ComponentLandscape {
   }
 
   public selectModule(module: ElementSlug): void {
+    if (this.unknownElement(module)) {
+      return;
+    }
+
     this.clearMemoizers();
 
     this.selectedModules.push(module);
@@ -83,6 +87,10 @@ export class ComponentLandscape {
     );
 
     this.clearMemoizers();
+  }
+
+  private unknownElement(module: ElementSlug) {
+    return !this.elements.has(module);
   }
 
   private unselectModule(module: ElementSlug): void {

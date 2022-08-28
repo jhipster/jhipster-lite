@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.JHipsterModulesRepository;
 import tech.jhipster.lite.module.domain.JHipsterModulesToApply;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesCurrentVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscape;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscape;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 
 @Service

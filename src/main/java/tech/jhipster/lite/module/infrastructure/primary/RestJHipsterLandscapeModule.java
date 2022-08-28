@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Collection;
 import java.util.List;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscapeElementType;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscapeModule;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeElementType;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeModule;
 
 @JsonPropertyOrder({ "type", "slug", "operation", "properties", "dependencies" })
 @Schema(name = "JHipsterLandscapeModule", description = "Module in a landscape")

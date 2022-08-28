@@ -1,9 +1,9 @@
-package tech.jhipster.lite.module.domain.resource;
+package tech.jhipster.lite.module.domain.landscape;
 
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
-import static tech.jhipster.lite.module.domain.resource.JHipsterLandscapeFixture.*;
-import static tech.jhipster.lite.module.domain.resource.JHipsterLandscapeFixture.moduleResources;
+import static tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeFixture.*;
+import static tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeFixture.moduleResources;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture.*;
 
 import java.util.Iterator;
@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterFeatureSlug;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @UnitTest
 class JHipsterLandscapeTest {

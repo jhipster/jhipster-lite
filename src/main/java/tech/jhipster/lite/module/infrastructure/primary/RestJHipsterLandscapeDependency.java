@@ -1,8 +1,8 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscapeDependency;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscapeElementType;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeDependency;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeElementType;
 
 @Schema(name = "JHipsterLandscapeDependency", description = "A dependency to another element")
 class RestJHipsterLandscapeDependency {

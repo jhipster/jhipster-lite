@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain.resource;
+package tech.jhipster.lite.module.domain.landscape;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -9,6 +9,8 @@ import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleOperation;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 
 public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
 

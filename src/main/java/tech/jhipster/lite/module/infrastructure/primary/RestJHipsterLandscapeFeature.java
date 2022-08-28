@@ -3,8 +3,8 @@ package tech.jhipster.lite.module.infrastructure.primary;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Collection;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscapeElementType;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscapeFeature;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeElementType;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeFeature;
 
 @JsonPropertyOrder({ "type", "slug", "modules" })
 @Schema(name = "JHipsterLandscapeFeature", description = "Feature in a module landscape")

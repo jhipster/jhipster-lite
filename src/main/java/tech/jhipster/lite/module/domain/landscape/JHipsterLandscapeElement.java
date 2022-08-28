@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain.resource;
+package tech.jhipster.lite.module.domain.landscape;
 
 import java.util.Optional;
 import java.util.stream.Stream;

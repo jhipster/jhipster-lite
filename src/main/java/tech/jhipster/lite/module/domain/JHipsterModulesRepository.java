@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.domain;
 
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscape;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscape;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 
 public interface JHipsterModulesRepository {

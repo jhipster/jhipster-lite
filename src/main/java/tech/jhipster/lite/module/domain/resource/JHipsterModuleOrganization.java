@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.JHipsterFeatureSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
+import tech.jhipster.lite.module.domain.landscape.JHipsterFeatureDependency;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeDependency;
+import tech.jhipster.lite.module.domain.landscape.JHipsterModuleDependency;
 
 public class JHipsterModuleOrganization {
 

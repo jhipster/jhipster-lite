@@ -6,8 +6,8 @@ import static tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceF
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.JsonHelper;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscape;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscapeFixture;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscape;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeFixture;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @UnitTest

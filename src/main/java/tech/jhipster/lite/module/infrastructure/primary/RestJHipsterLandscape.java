@@ -2,7 +2,7 @@ package tech.jhipster.lite.module.infrastructure.primary;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Collection;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscape;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscape;
 
 @Schema(name = "JHipsterLandscape", description = "Landscape of modules in JHipster")
 class RestJHipsterLandscape {

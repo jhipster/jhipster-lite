@@ -2,7 +2,7 @@ package tech.jhipster.lite.module.infrastructure.primary;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Collection;
-import tech.jhipster.lite.module.domain.resource.JHipsterLandscapeLevel;
+import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeLevel;
 
 @Schema(name = "JHipsterLandscapeLevel", description = "One level in the module landscape")
 class RestJHipsterLandscapeLevel {

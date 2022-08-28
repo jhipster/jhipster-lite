@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain.resource;
+package tech.jhipster.lite.module.domain.landscape;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -12,6 +12,7 @@ import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.module.domain.JHipsterFeatureSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 
 public class JHipsterLandscape {
 

@@ -31,14 +31,10 @@
     <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
 
     <spring-boot.version>2.7.3</spring-boot.version>
-    <junit-jupiter.version>5.9.0</junit-jupiter.version>
-    <assertj.version>3.23.1</assertj.version>
-    <mockito.version>4.7.0</mockito.version>
     <byte-buddy.version>1.12.14</byte-buddy.version>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
     <jacoco.version>0.8.8</jacoco.version>
-    <mustache.version>0.9.10</mustache.version>
     <jgit.version>6.2.0.202206071550-r</jgit.version>
     <archunit-junit5.version>0.23.1</archunit-junit5.version>
     <springdoc-openapi-ui.version>1.6.11</springdoc-openapi-ui.version>
@@ -46,7 +42,6 @@
     <problem-spring-web.version>${problem-spring.version}</problem-spring-web.version>
     <properties-maven-plugin.version>1.1.0</properties-maven-plugin.version>
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
-    <zt-zip.version>1.15</zt-zip.version>
     <apache-commons-io.version>2.11.0</apache-commons-io.version>
     <cucumber.version>7.6.0</cucumber.version>
     <testng.version>7.6.1</testng.version>
@@ -80,12 +75,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-aop</artifactId>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
@@ -94,18 +83,6 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>${apache-commons-io.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.zeroturnaround</groupId>
-      <artifactId>zt-zip</artifactId>
-      <version>${zt-zip.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.github.spullara.mustache.java</groupId>
-      <artifactId>compiler</artifactId>
-      <version>${mustache.version}</version>
     </dependency>
 
     <dependency>
@@ -180,27 +157,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit-jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>${assertj.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-junit-jupiter</artifactId>
-      <version>${mockito.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>net.bytebuddy</groupId>
       <artifactId>byte-buddy</artifactId>
       <version>${byte-buddy.version}</version>
@@ -270,6 +226,7 @@
 
   <build>
     <defaultGoal>spring-boot:run</defaultGoal>
+
     <resources>
       <resource>
         <directory>${basedir}/src/main/resources</directory>
@@ -285,6 +242,7 @@
         </excludes>
       </resource>
     </resources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -295,6 +253,7 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -308,6 +267,7 @@
           </excludes>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -319,11 +279,13 @@
           </excludes>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring-boot.version}</version>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
@@ -354,6 +316,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>properties-maven-plugin</artifactId>
@@ -372,6 +335,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>net.nicoulaj.maven.plugins</groupId>
         <artifactId>checksum-maven-plugin</artifactId>
@@ -418,6 +382,7 @@
           <quiet>true</quiet>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -444,6 +409,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
@@ -559,6 +525,7 @@
             </execution>
           </executions>
         </plugin>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
@@ -596,6 +563,7 @@
             </rules>
           </configuration>
         </plugin>
+
         <plugin>
           <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain;
+package tech.jhipster.lite.module.domain.resource;
 
 import java.util.*;
 import tech.jhipster.lite.error.domain.Assert;

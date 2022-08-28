@@ -30,7 +30,7 @@ class RestJHipsterModules {
   private static List<RestJHipsterModuleCategory> buildCategories(JHipsterModulesResources modulesResources) {
     return modulesResources
       .stream()
-      .collect(Collectors.groupingBy(module -> module.apiDoc().tag().get()))
+      .collect(Collectors.groupingBy(module -> module.apiDoc().group().get()))
       .entrySet()
       .stream()
       .map(entry -> RestJHipsterModuleCategory.from(entry.getKey(), entry.getValue()))

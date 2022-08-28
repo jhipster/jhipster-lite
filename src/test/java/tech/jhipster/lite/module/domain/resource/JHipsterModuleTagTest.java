@@ -1,7 +1,6 @@
-package tech.jhipster.lite.module.domain;
+package tech.jhipster.lite.module.domain.resource;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
@@ -13,26 +12,20 @@ import tech.jhipster.lite.error.domain.StringTooLongException;
 import tech.jhipster.lite.error.domain.StringWithWitespacesException;
 
 @UnitTest
-class JHipsterTagTest {
+class JHipsterModuleTagTest {
 
   @Test
-  void shouldIsIdentical() {
-    JHipsterModuleTag tag = new JHipsterModuleTag("mytag");
-    assertThat(tag.get()).isEqualTo("mytag");
-  }
-
-  @Test
-  void shouldNotBeValidWithNull() {
+  void shouldNotBuildWithoutTag() {
     assertThatThrownBy(() -> new JHipsterModuleTag(null)).isInstanceOf(MissingMandatoryValueException.class);
   }
 
   @Test
-  void shouldNotBeValidWithWhitespace() {
+  void shouldNotBuildWithWhitespace() {
     assertThatThrownBy(() -> new JHipsterModuleTag("my tag")).isInstanceOf(StringWithWitespacesException.class);
   }
 
   @Test
-  void shouldNotBeValidIfTooLong() {
+  void shouldNotBuildWithTooLongTag() {
     var stringTooLong = RandomStringUtils.randomAlphabetic(16);
     assertThatThrownBy(() -> new JHipsterModuleTag(stringTooLong)).isInstanceOf(StringTooLongException.class);
   }
@@ -41,5 +34,10 @@ class JHipsterTagTest {
   @ValueSource(strings = { "MyTag", "my_tag", "myTag123" })
   void shouldNotBuildInvalidTag(String tag) {
     assertThatThrownBy(() -> new JHipsterModuleTag(tag)).isExactlyInstanceOf(InvalidJHipsterModuleTagException.class);
+  }
+
+  @Test
+  void shouldGetTagValue() {
+    assertThat(new JHipsterModuleTag("mytag").get()).isEqualTo("mytag");
   }
 }

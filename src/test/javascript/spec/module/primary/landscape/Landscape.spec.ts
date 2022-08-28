@@ -1,6 +1,7 @@
 import { ApplicationListener } from '@/common/primary/applicationlistener/ApplicationListener';
 import { ModuleSlug } from '@/module/domain/ModuleSlug';
 import { ModulesRepository } from '@/module/domain/ModulesRepository';
+import { ModulesToApply } from '@/module/domain/ModulesToApply';
 import { LandscapeVue } from '@/module/primary/landscape';
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import sinon, { SinonStub } from 'sinon';
@@ -468,9 +469,17 @@ describe('Landscape', () => {
       const wrapper = wrap({ modules });
       await flushPromises();
 
-      await validateInitApplication(wrapper);
+      await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+      await clickModule('init', wrapper);
+      await clickModule('vue', wrapper);
+      await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('base');
 
-      expect(modules.applyAll.calledOnce).toBe(true);
+      await wrapper.find(wrappedElement('modules-application-button')).trigger('click');
+
+      await flushPromises();
+
+      const [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
+      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['init', 'vue']);
       expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
 
       const [message] = alertBus.success.lastCall.args;

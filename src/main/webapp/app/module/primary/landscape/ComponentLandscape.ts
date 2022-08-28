@@ -70,11 +70,12 @@ export class ComponentLandscape {
 
   private selectModuleAndDependencies(module: ElementSlug): void {
     this.selectModule(module);
+
     this.moduleSelectionTree(module).forEach(moduleDependency => this.selectModule(moduleDependency));
   }
 
   public selectModule(module: ElementSlug): void {
-    if (this.unknownElement(module)) {
+    if (this.unknownElement(module) || this.selectedModules.includes(module)) {
       return;
     }
 

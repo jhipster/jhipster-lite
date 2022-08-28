@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import tech.jhipster.lite.module.domain.JHipsterModuleFactory;
-import tech.jhipster.lite.module.domain.JHipsterModuleTags;
-import tech.jhipster.lite.module.domain.JHipsterModuleTags.JHipsterModuleTagsBuilder;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization.JHipsterModuleOrganizationBuilder;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleTags.JHipsterModuleTagsBuilder;
 
 public final class JHipsterModulesResourceFixture {
 

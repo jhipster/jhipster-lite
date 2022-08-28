@@ -166,7 +166,7 @@ class OpenApiModulesConfiguration {
     Operation getOpetation = new Operation()
       .operationId(slug.get() + "-properties-definition")
       .summary("Get " + slug.get() + " properties definitions")
-      .tags(apiDoc.tag().list())
+      .tags(apiDoc.group().list())
       .responses(
         new ApiResponses()
           .addApiResponse(
@@ -195,7 +195,7 @@ class OpenApiModulesConfiguration {
     Operation postOperation = new Operation()
       .operationId(slug.get() + "-application")
       .summary(apiDoc.operation().get())
-      .tags(apiDoc.tag().list())
+      .tags(apiDoc.group().list())
       .requestBody(
         new RequestBody()
           .required(true)

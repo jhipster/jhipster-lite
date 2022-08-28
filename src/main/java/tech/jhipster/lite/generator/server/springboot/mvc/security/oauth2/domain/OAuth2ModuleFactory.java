@@ -85,11 +85,10 @@ public class OAuth2ModuleFactory {
         .addTemplate("AuthenticatedUserTest.java")
 
         .addTemplate("ClaimsTest.java")
-        .addTemplate("CustomClaimConverterIT.java")
+        .addTemplate("CustomClaimConverterTest.java")
         .addTemplate("FakeRequestAttributes.java")
         .addTemplate("JwtGrantedAuthorityConverterTest.java")
         .addTemplate("SecurityConfigurationIT.java")
-        .addTemplate("SecurityConfigurationTest.java")
         .addTemplate("TestSecurityConfiguration.java")
         .addTemplate("WithUnauthenticatedMockUser.java");
     //@formatter:on

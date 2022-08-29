@@ -9,5 +9,5 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @ConditionalOnExpression("'${spring.data.mongodb.uri:}' == '' || '${mongock.migration-scan-package:}' == ''")
-@interface WithoutMongo {
+@interface WithoutMongoDB {
 }

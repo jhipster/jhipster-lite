@@ -4,6 +4,6 @@ import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@WithMongo
+@WithMongoDB
 @Repository
-interface SpringDataMongoDbStatisticsRepository extends CrudRepository<AppliedModuleDocument, UUID> {}
+interface SpringDataMongoDBStatisticsRepository extends CrudRepository<AppliedModuleDocument, UUID> {}

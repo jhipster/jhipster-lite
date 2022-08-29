@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-@WithMongo
+@WithMongoDB
 @Configuration
 @EnableMongoRepositories
 @Import({ MongoAutoConfiguration.class, MongoDataAutoConfiguration.class })

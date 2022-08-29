@@ -6,13 +6,13 @@ import tech.jhipster.lite.statistic.domain.AppliedModule;
 import tech.jhipster.lite.statistic.domain.Statistics;
 import tech.jhipster.lite.statistic.domain.StatisticsRepository;
 
-@WithMongo
+@WithMongoDB
 @Repository
 class MongoDBStatisticsRepository implements StatisticsRepository {
 
-  private final SpringDataMongoDbStatisticsRepository statistics;
+  private final SpringDataMongoDBStatisticsRepository statistics;
 
-  MongoDBStatisticsRepository(SpringDataMongoDbStatisticsRepository statistics) {
+  MongoDBStatisticsRepository(SpringDataMongoDBStatisticsRepository statistics) {
     this.statistics = statistics;
   }
 

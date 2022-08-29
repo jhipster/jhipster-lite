@@ -10,7 +10,7 @@ import tech.jhipster.lite.statistic.domain.Statistics;
 import tech.jhipster.lite.statistic.domain.StatisticsRepository;
 
 @Repository
-@WithoutMongo
+@WithoutMongoDB
 class InMemoryStatisticsRepository implements StatisticsRepository {
 
   private final Collection<AppliedModule> appliedModules = Collections.newSetFromMap(new ConcurrentHashMap<>());

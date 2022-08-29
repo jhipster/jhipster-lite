@@ -15,11 +15,11 @@ class PlaywrightModuleConfiguration {
   JHipsterModuleResource playwrightModule(PlaywrightApplicationService playwright) {
     return JHipsterModuleResource
       .builder()
-      .slug("client-common-playwright")
+      .slug("playwright")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().build())
-      .apiDoc(new JHipsterModuleApiDoc("E2e", "/api/clients/playwright"))
+      .apiDoc(new JHipsterModuleApiDoc("E2e", "Add Playwright"))
       .organization(JHipsterModuleOrganization.builder().feature("front-browser-test").addModuleDependency("init").build())
-      .tags("client", "test", "playwright")
+      .tags("client", "test", "playwright", "e2e")
       .factory(playwright::buildModule);
   }
 }

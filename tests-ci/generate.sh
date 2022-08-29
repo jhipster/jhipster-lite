@@ -103,7 +103,6 @@ elif [[ $application == 'fullapp' ]]; then
   "infinitest-filters" \
   "spring-boot-async" \
   "spring-boot-devtools" \
-  "aop-logging" \
   "logstash" \
   "banner-jhipster-v7" \
   "jib" \

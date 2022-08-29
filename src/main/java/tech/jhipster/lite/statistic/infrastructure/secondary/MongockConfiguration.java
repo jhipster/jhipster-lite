@@ -4,7 +4,7 @@ import io.mongock.runner.springboot.EnableMongock;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Configuration;
 
-@WithMongo
+@WithMongoDB
 @Configuration
 @EnableMongock
 @AutoConfigureAfter(MongoDBConfiguration.class)

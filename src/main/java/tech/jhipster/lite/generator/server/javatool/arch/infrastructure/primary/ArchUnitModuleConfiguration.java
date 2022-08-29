@@ -17,8 +17,8 @@ class ArchUnitModuleConfiguration {
       .builder()
       .slug("java-archunit")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
-      .apiDoc(new JHipsterModuleApiDoc("Java", "Add Hexagonal Arch classes to project"))
-      .organization(JHipsterModuleOrganization.builder().addFeatureDependency("java-build-tool").build())
+      .apiDoc(new JHipsterModuleApiDoc("Java", "Add Hexagonal Arch Unit Tests to project"))
+      .organization(JHipsterModuleOrganization.builder().addFeatureDependency("java-build-tool").addModuleDependency("java-base").build())
       .tags("server", "test")
       .factory(archUnit::buildModule);
   }

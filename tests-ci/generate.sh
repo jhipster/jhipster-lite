@@ -16,14 +16,14 @@ applyModules() {
   do
     local payload="$(sed "s/APP_NAME/$application/g" modulePayload.json)"
     local api="/api/modules/$module/apply-patch"
-    
+
     echo "curl -o /dev/null -s -w "%{http_code}\n" \
       -X POST \
       -H "accept: */*" \
       -H "Content-Type: application/json" \
       -d "$payload" \
       "http://localhost:7471""$api""
-    
+
     local status_code=$(curl -o /dev/null -s -w "%{http_code}\n" \
       -X POST \
       -H "accept: */*" \
@@ -40,7 +40,7 @@ applyModules() {
 
 spring_boot_mvc() {
   spring_boot
-  
+
   applyModules \
   "spring-boot-tomcat" \
   "zalando-problems"
@@ -110,33 +110,33 @@ elif [[ $application == 'fullapp' ]]; then
   "java-archunit" \
   "github-codespaces" \
   "gitpod"
-  
+
   cucumber_with_jwt
-  
+
   applyModules "spring-boot-cucumber-jpa-reset"
   applyModules "application-service-hexagonal-architecture-documentation"
-  
+
   applyModules "postgresql" "liquibase"
-  
+
   applyModules \
   "bean-validation-test" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-liquibase-changelog" \
-  
+
   applyModules "ehcache-with-java-config"
-  
-  applyModules "frontend-maven-plugin" "vue"
-  
+
+  applyModules "frontend-maven-plugin" "vue-core"
+
 elif [[ $application == 'oauth2app' ]]; then
   spring_boot_mvc
   sonar_back
-  
+
   applyModules \
   "spring-boot-oauth2" \
   "spring-boot-oauth2-account" \
   "springdoc-mvc-openapi-with-security-oauth2"
-  
+
   applyModules \
   "spring-boot-cucumber" \
   "spring-boot-cucumber-oauth2-authentication" \
@@ -146,7 +146,7 @@ elif [[ $application == 'oauth2app' ]]; then
 elif [[ $application == 'mysqlapp' ]]; then
   spring_boot_mvc
   sonar_back
-  
+
   applyModules "mysql" "liquibase"
 
   cucumber_with_jwt
@@ -164,7 +164,7 @@ elif [[ $application == 'mysqlapp' ]]; then
 elif [[ $application == 'mariadbapp' ]]; then
   spring_boot_mvc
   sonar_back
-  
+
   applyModules "springdoc-mvc-openapi"
   applyModules "mariadb" "liquibase"
   applyModules "ehcache-with-xml-config"
@@ -179,13 +179,13 @@ elif [[ $application == 'mssqlapp' ]]; then
 elif [[ $application == 'flywayapp' ]]; then
   spring_boot_mvc
   sonar_back
-  
+
   applyModules "postgresql" "flyway"
-  
+
   cucumber_with_jwt
-  
+
   applyModules "spring-boot-cucumber-jpa-reset"
- 
+
   applyModules \
   "bean-validation-test" \
   "dummy-feature" \
@@ -195,7 +195,7 @@ elif [[ $application == 'flywayapp' ]]; then
 elif [[ $application == 'undertowapp' ]]; then
   spring_boot_undertow
   sonar_back
-  
+
   applyModules \
   "mysql" \
   "flyway" \
@@ -203,7 +203,7 @@ elif [[ $application == 'undertowapp' ]]; then
 
   cucumber_with_jwt
   applyModules "spring-boot-cucumber-jpa-reset"
- 
+
   applyModules \
   "bean-validation-test" \
   "dummy-feature" \
@@ -223,13 +223,13 @@ elif [[ $application == 'eurekaapp' ]]; then
 elif [[ $application == 'consulapp' ]]; then
   spring_boot_undertow
   sonar_back
-  
+
   applyModules "consul"
 
 elif [[ $application == 'gatewayapp' ]]; then
   spring_boot
   sonar_back
-  
+
   applyModules \
   "spring-boot-webflux-netty" \
   "eureka-client" \
@@ -239,16 +239,16 @@ elif [[ $application == 'gatewayapp' ]]; then
 elif [[ $application == 'mongodbapp' ]]; then
   spring_boot_mvc
   sonar_back
-  
+
   applyModules "mongodb" "mongock"
- 
+
   cucumber_with_jwt
 
   applyModules \
   "bean-validation-test" \
   "dummy-feature" \
   "dummy-mongodb-persistence"
-  
+
 elif [[ $application == 'angularapp' ]]; then
   spring_boot_mvc
   sonar_back_front
@@ -258,36 +258,36 @@ elif [[ $application == 'angularapp' ]]; then
   "angular-core" \
 
   cucumber_with_jwt
-  
+
   applyModules "angular-jwt" "angular-health"
 
 elif [[ $application == 'angularoauth2app' ]]; then
   spring_boot_mvc
   sonar_back_front
-  
+
   applyModules \
   "frontend-maven-plugin" \
   "angular-core" \
   "cypress"
-  
+
   applyModules \
   "spring-boot-oauth2" \
   "spring-boot-oauth2-account" \
   "springdoc-mvc-openapi-with-security-oauth2"
-  
+
   applyModules "angular-oauth2"
 
 elif [[ $application == 'reactapp' ]]; then
   spring_boot_mvc
   sonar_back_front
-  
+
   applyModules \
   "frontend-maven-plugin" \
   "react-core" \
   "cypress"
-  
+
   cucumber_with_jwt
-  
+
   applyModules "react-jwt"
 
 elif [[ $application == 'vueapp' ]]; then
@@ -296,14 +296,14 @@ elif [[ $application == 'vueapp' ]]; then
 
   applyModules \
   "frontend-maven-plugin" \
-  "vue" \
+  "vue-core" \
   "vue-pinia" \
   "cypress"
 
 elif [[ $application == 'svelteapp' ]]; then
   spring_boot_mvc
   sonar_back_front
-  
+
   applyModules \
   "frontend-maven-plugin" \
   "prettier" \
@@ -312,19 +312,19 @@ elif [[ $application == 'svelteapp' ]]; then
 elif [[ $application == 'kafkaapp' ]]; then
   spring_boot_mvc
   sonar_back
-  
+
    applyModules "spring-boot-kafka" "spring-boot-kafka-akhq"
 
 elif [[ $application == 'pulsarapp' ]]; then
   spring_boot_mvc
   sonar_back
-  
+
   applyModules "spring-boot-pulsar"
 
 elif [[ $application == 'reactiveapp' ]]; then
   spring_boot
   sonar_back
-  
+
   applyModules \
   "spring-boot-webflux-netty" \
   "spring-boot-actuator" \

@@ -12,10 +12,10 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 class VueModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource vueModule(VueApplicationService vue) {
+  JHipsterModuleResource vueCoreModule(VueApplicationService vue) {
     return JHipsterModuleResource
       .builder()
-      .slug("vue")
+      .slug("vue-core")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(new JHipsterModuleApiDoc("Vue", "Add Vue+Vite"))
       .organization(JHipsterModuleOrganization.builder().feature("client-core").addModuleDependency("init").build())
@@ -30,7 +30,7 @@ class VueModuleConfiguration {
       .slug("vue-pinia")
       .withoutProperties()
       .apiDoc(new JHipsterModuleApiDoc("Vue", "Add pinia for state management"))
-      .organization(JHipsterModuleOrganization.builder().addModuleDependency("vue").build())
+      .organization(JHipsterModuleOrganization.builder().addModuleDependency("vue-core").build())
       .tags("client", "vue", "store")
       .factory(vue::buildPiniaModule);
   }

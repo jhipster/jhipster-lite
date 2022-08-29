@@ -3,26 +3,29 @@
 <script lang="ts" src="./Landscape.component.ts"></script>
 
 <style lang="scss">
+$jhipster-landscape-padding: 20px;
+
 .jhipster-landscape {
+  position: relative;
   font-family: $jhipster-lite-font-family;
   color: $jhipster-lite-primary-text-color;
   background-color: $jhipster-lite-secondary-color;
   display: flex;
   flex-direction: row-reverse;
-  height: calc(100vh - $jhipster-lite-header-height);
+  height: 100%;
 }
 
 .jhipster-landscape-map {
-  padding-top: 20px;
+  padding: $jhipster-landscape-padding;
   position: relative;
   flex-grow: 1;
   overflow: auto;
 }
 
 .jhipster-landscape-modes-selection {
-  left: 15px;
-  top: 15px + $jhipster-lite-header-height;
-  position: fixed;
+  top: $jhipster-landscape-padding;
+  left: $jhipster-landscape-padding;
+  position: absolute;
   z-index: 3;
   background: rgba($color: $jhipster-lite-secondary-color, $alpha: 0.7);
   padding: 10px;
@@ -49,8 +52,8 @@
 
 .jhipster-landscape-connectors {
   position: absolute;
-  top: -$jhipster-lite-header-height;
-  left: 0;
+  top: $jhipster-landscape-padding;
+  left: $jhipster-landscape-padding;
   z-index: 1;
 
   &--line {

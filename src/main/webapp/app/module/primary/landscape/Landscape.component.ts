@@ -79,15 +79,14 @@ export default defineComponent({
     };
 
     const toConnectors = (module: ComponentLandscapeModule): LandscapeConnector[] => {
-      const dependantElement = landscapeElements.value.get(module.slug)!.getBoundingClientRect();
+      const dependantElement = landscapeElements.value.get(module.slug)!;
 
       return module.dependencies.flatMap(dependency =>
         buildConnector({
-          dependantElement: dependantElement,
+          dependantElement,
           dependantElementSlug: module.slug,
           dependencyElement: landscapeElements.value.get(dependency)!,
           dependencyElementSlug: dependency,
-          container: landscapeContainer.value!,
         })
       );
     };

@@ -82,7 +82,8 @@ cucumber_with_jwt() {
   applyModules \
   "spring-boot-jwt" \
   "spring-boot-jwt-basic-auth" \
-  "springdoc-mvc-openapi-with-security-jwt" \
+  "springdoc-mvc-openapi" \
+  "springdoc-jwt" \
   "spring-boot-cucumber" \
   "spring-boot-cucumber-jwt-authentication"
 }
@@ -135,7 +136,8 @@ elif [[ $application == 'oauth2app' ]]; then
   applyModules \
   "spring-boot-oauth2" \
   "spring-boot-oauth2-account" \
-  "springdoc-mvc-openapi-with-security-oauth2"
+  "springdoc-mvc-openapi" \
+  "springdoc-oauth2"
 
   applyModules \
   "spring-boot-cucumber" \
@@ -273,7 +275,8 @@ elif [[ $application == 'angularoauth2app' ]]; then
   applyModules \
   "spring-boot-oauth2" \
   "spring-boot-oauth2-account" \
-  "springdoc-mvc-openapi-with-security-oauth2"
+  "springdoc-mvc-openapi" \
+  "springdoc-oauth2"
 
   applyModules "angular-oauth2"
 

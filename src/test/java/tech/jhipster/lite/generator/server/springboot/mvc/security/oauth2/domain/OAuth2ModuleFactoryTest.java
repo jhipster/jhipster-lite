@@ -64,11 +64,10 @@ class OAuth2ModuleFactoryTest {
         "AuthenticatedUserTest.java",
         "AuthenticationExceptionAdviceIT.java",
         "ClaimsTest.java",
-        "CustomClaimConverterIT.java",
+        "CustomClaimConverterTest.java",
         "FakeRequestAttributes.java",
         "JwtGrantedAuthorityConverterTest.java",
         "SecurityConfigurationIT.java",
-        "SecurityConfigurationTest.java",
         "TestSecurityConfiguration.java",
         "WithUnauthenticatedMockUser.java"
       )

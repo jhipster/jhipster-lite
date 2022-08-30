@@ -15,7 +15,7 @@ class ReactCoreModulesFactoryTest {
 
   @Test
   void shouldBuildModuleWithStyle() {
-    JHipsterModule module = factory.buildModuleWithStyle(
+    JHipsterModule module = factory.buildModule(
       JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
     );
 

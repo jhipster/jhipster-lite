@@ -17,23 +17,10 @@ class ReactJwtModuleFactoryTest {
   private static final ReactJwtModuleFactory factory = new ReactJwtModuleFactory();
 
   @Test
-  void shouldBuildModuleOnNotStyledApp() {
+  void shouldBuildModule() {
     JHipsterModule module = factory.buildModule(properties());
 
-    ModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), notStyledApp());
-
-    assertReactApp(asserter);
-  }
-
-  private ModuleFile notStyledApp() {
-    return file("src/test/resources/projects/react-app/App.tsx", APP_TSX);
-  }
-
-  @Test
-  void shouldBuildModuleOnStyledApp() {
-    JHipsterModule module = factory.buildModule(properties());
-
-    ModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), styledApp(), appCss());
+    ModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), app(), appCss());
 
     assertReactApp(asserter);
     asserter
@@ -49,8 +36,8 @@ class ReactJwtModuleFactoryTest {
       );
   }
 
-  private ModuleFile styledApp() {
-    return file("src/test/resources/projects/react-app/StyledApp.tsx", APP_TSX);
+  private ModuleFile app() {
+    return file("src/test/resources/projects/react-app/App.tsx", APP_TSX);
   }
 
   private ModuleFile appCss() {

@@ -53,12 +53,4 @@ class BannerModuleFactoryTest {
 
     assertThatModule(module).createFiles(BANNER_TXT);
   }
-
-  @Test
-  @DisplayName("Ippon Banner")
-  void shouldCreateModuleIpponBanner() {
-    JHipsterModule module = factory.buildModuleBannerIppon(testModuleProperties());
-
-    assertThatModule(module).createFiles(BANNER_TXT);
-  }
 }

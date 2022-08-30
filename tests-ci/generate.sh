@@ -102,6 +102,9 @@ elif [[ $application == 'fullapp' ]]; then
 
   applyModules \
   "infinitest-filters" \
+  "pagination-domain" \
+  "rest-pagination" \
+  "jpa-pagination" \
   "spring-boot-async" \
   "spring-boot-devtools" \
   "logstash" \

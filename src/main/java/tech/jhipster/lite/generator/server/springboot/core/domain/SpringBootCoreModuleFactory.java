@@ -57,6 +57,7 @@ public class SpringBootCoreModuleFactory {
         .addDependency(springBootConfigurationProcessor())
         .addDependency(groupId("org.apache.commons"), artifactId("commons-lang3"))
         .addDependency(springBootTest())
+        .addDependency(reflectionsDependency())
         .and()
       .javaBuildPlugins()
         .pluginManagement(springBootPluginManagement())
@@ -73,6 +74,10 @@ public class SpringBootCoreModuleFactory {
         .add(SOURCE.template("logback.xml"), TEST_RESOURCES_DESTINATION.append("logback.xml"))
         .add(SOURCE.template("LogsSpy.java"), toSrcTestJava().append(properties.packagePath()).append("LogsSpy.java"))
         .add(SOURCE.template("ApplicationStartupTracesTest.java"), toSrcTestJava().append(packagePath).append("ApplicationStartupTracesTest.java"))
+        .batch(SOURCE, toSrcTestJava().append(properties.packagePath()))
+          .addTemplate("BeanValidationAssertions.java")
+          .addTemplate("BeanValidationTest.java")
+          .and()
         .and()
       .optionalReplacements()
         .in("pom.xml")
@@ -103,6 +108,15 @@ public class SpringBootCoreModuleFactory {
       .builder()
       .groupId(SRPING_BOOT_GROUP)
       .artifactId("spring-boot-starter-test")
+      .scope(JavaDependencyScope.TEST)
+      .build();
+  }
+
+  private JavaDependency reflectionsDependency() {
+    return javaDependency()
+      .groupId("org.reflections")
+      .artifactId("reflections")
+      .versionSlug("reflections")
       .scope(JavaDependencyScope.TEST)
       .build();
   }

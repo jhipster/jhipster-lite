@@ -120,7 +120,6 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "postgresql" "liquibase"
 
   applyModules \
-  "bean-validation-test" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-liquibase-changelog" \
@@ -142,7 +141,6 @@ elif [[ $application == 'oauth2app' ]]; then
   applyModules \
   "spring-boot-cucumber" \
   "spring-boot-cucumber-oauth2-authentication" \
-  "bean-validation-test" \
   "dummy-feature"
 
 elif [[ $application == 'mysqlapp' ]]; then
@@ -156,7 +154,6 @@ elif [[ $application == 'mysqlapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
-  "bean-validation-test" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-liquibase-changelog" \
@@ -189,7 +186,6 @@ elif [[ $application == 'flywayapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
-  "bean-validation-test" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-postgresql-flyway-changelog" \
@@ -207,7 +203,6 @@ elif [[ $application == 'undertowapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
-  "bean-validation-test" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-not-postgresql-flyway-changelog" \
@@ -247,7 +242,6 @@ elif [[ $application == 'mongodbapp' ]]; then
   cucumber_with_jwt
 
   applyModules \
-  "bean-validation-test" \
   "dummy-feature" \
   "dummy-mongodb-persistence"
 

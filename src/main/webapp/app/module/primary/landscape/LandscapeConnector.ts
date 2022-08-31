@@ -20,25 +20,21 @@ export interface LandscapeConnectorPosition {
   y: number;
 }
 
-export interface BuildConnectorsParameters {
+interface BuildConnectorsParameters {
   dependencyElementSlug: string;
   dependantElementSlug: string;
   dependencyElement: HTMLElement;
-  dependantElement: DOMRect;
-  container: HTMLElement;
+  dependantElement: HTMLElement;
 }
 
 export const buildConnector = (parameters: BuildConnectorsParameters): LandscapeConnector => {
-  const yPad = parameters.container.scrollTop;
-  const xPad = parameters.container.scrollLeft;
+  const { dependencyElement, dependantElement } = parameters;
 
-  const dependencyElementPosition = parameters.dependencyElement.getBoundingClientRect();
+  const dependencyElementX = dependencyElement.offsetLeft + dependencyElement.offsetWidth;
+  const dependencyElementY = Math.round(dependencyElement.offsetTop + dependencyElement.offsetHeight / 2);
 
-  const dependencyElementX = dependencyElementPosition.x + dependencyElementPosition.width + xPad;
-  const dependencyElementY = Math.round(dependencyElementPosition.y + dependencyElementPosition.height / 2) + yPad;
-
-  const dependantElementX = parameters.dependantElement.x + xPad;
-  const dependantElementY = Math.round(parameters.dependantElement.y + parameters.dependantElement.height / 2) + yPad;
+  const dependantElementX = dependantElement.offsetLeft;
+  const dependantElementY = Math.round(dependantElement.offsetTop + dependantElement.offsetHeight / 2);
 
   const dependencyStartingPoint: LandscapeConnectorPosition = {
     x: dependencyElementX,

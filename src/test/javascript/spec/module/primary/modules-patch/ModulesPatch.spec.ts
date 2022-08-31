@@ -326,7 +326,7 @@ describe('Modules', () => {
 
       await flushPromises();
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-icon')).classes()).toEqual(['bi', 'bi-arrow-clockwise']);
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-icon')).classes()).toEqual(['jhlite-icon', 'jhlite-icon-ccw']);
       expect(wrapper.find(wrappedElement('spring-cucumber-module-content')).classes()).toEqual([
         'jhipster-module--content',
         'selected',
@@ -347,7 +347,10 @@ describe('Modules', () => {
       wrapper.find(wrappedElement('folder-path-field')).trigger('blur');
       await flushPromises();
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-icon')).classes()).toEqual(['bi', 'bi-caret-right']);
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-icon')).classes()).toEqual([
+        'jhlite-icon',
+        'jhlite-icon-play',
+      ]);
     });
 
     it('Should mark modules as applied after application', async () => {
@@ -360,7 +363,7 @@ describe('Modules', () => {
 
       await flushPromises();
 
-      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-icon')).classes()).toEqual(['bi', 'bi-arrow-clockwise']);
+      expect(wrapper.find(wrappedElement('module-spring-cucumber-application-icon')).classes()).toEqual(['jhlite-icon', 'jhlite-icon-ccw']);
     });
   });
 

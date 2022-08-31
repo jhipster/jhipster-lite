@@ -1,0 +1,7 @@
+@mixin jhlite-q-link-light {
+  color: $jhlite-global-color-link-light;
+
+  &:hover {
+    color: $jhlite-global-color-link-light-hover;
+  }
+}

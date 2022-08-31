@@ -10,30 +10,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SpringdocConfiguration {
+class SpringdocConfiguration {
 
   @Value("${application.version:undefined}")
   private String version;
 
   @Bean
   public OpenAPI {{baseNameLowercase}}OpenAPI() {
-    return new OpenAPI()
-      .info(
-        new Info()
-          .title("{{apiTitle}}")
-          .description("{{apiDescription}}")
-          .version(version)
-          .license(new License().name("{{apiLicenseName}}").url("{{apiLicenseUrl}}"))
-      )
-      .externalDocs(new ExternalDocumentation().description("{{apiExternalDocDescription}}").url("{{apiExternalDocUrl}}"));
+    return new OpenAPI().info(swaggerInfo()).externalDocs(swaggerExternalDoc());
+  }
+  
+  private Info swaggerInfo() {
+    return new Info()
+      .title("{{apiTitle}}")
+      .description("{{apiDescription}}")
+      .version(version)
+      .license(new License().name("{{apiLicenseName}}").url("{{apiLicenseUrl}}"));
+  }
+
+  private ExternalDocumentation swaggerExternalDoc() {
+    return new ExternalDocumentation().description("{{apiExternalDocDescription}}").url("{{apiExternalDocUrl}}");
   }
 
   @Bean
   public GroupedOpenApi {{baseNameLowercase}}AllOpenAPI() {
-    // prettier-ignore
-    return GroupedOpenApi.builder()
-      .group("all")
-      .pathsToMatch("/api/**")
-      .build();
+    return GroupedOpenApi.builder().group("all").pathsToMatch("/api/**").build();
   }
 }

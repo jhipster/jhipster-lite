@@ -18,14 +18,7 @@ class RestPaginationModuleConfiguration {
       .slug("rest-pagination")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
       .apiDoc(new JHipsterModuleApiDoc("Pagination", "Add rest models for pagination handling"))
-      .organization(
-        JHipsterModuleOrganization
-          .builder()
-          .addModuleDependency("pagination-domain")
-          .addModuleDependency("bean-validation-test")
-          .addFeatureDependency("springdoc")
-          .build()
-      )
+      .organization(JHipsterModuleOrganization.builder().addModuleDependency("pagination-domain").addFeatureDependency("springdoc").build())
       .tags("server")
       .factory(restPagination::buildModule);
   }

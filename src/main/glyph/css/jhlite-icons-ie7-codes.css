@@ -13,14 +13,26 @@
 .jhlite-icon-jhipster {
   *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xe804;&nbsp;');
 }
+.jhlite-icon-download {
+  *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xe805;&nbsp;');
+}
+.jhlite-icon-cancel {
+  *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xe806;&nbsp;');
+}
 .jhlite-icon-twitter {
   *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xf099;&nbsp;');
 }
 .jhlite-icon-github-circled {
   *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xf09b;&nbsp;');
 }
+.jhlite-icon-code {
+  *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xf121;&nbsp;');
+}
 .jhlite-icon-puzzle {
   *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xf12e;&nbsp;');
+}
+.jhlite-icon-play-circled {
+  *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xf144;&nbsp;');
 }
 .jhlite-icon-binoculars {
   *zoom: expression(this.runtimeStyle[ 'zoom' ] = '1', this.innerHTML = '&#xf1e5;&nbsp;');

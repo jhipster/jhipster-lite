@@ -20,10 +20,11 @@ import { empty } from '../PropertyValue';
 import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { ModuleParameter } from '@/module/domain/ModuleParameter';
 import { Landscape } from '@/module/domain/landscape/Landscape';
+import { IconVue } from '@/common/primary/icon';
 
 export default defineComponent({
   name: 'LandscapeVue',
-  components: { LandscapeModuleVue, ModulePropertiesFormVue, ProjectActionsVue },
+  components: { LandscapeModuleVue, ModulePropertiesFormVue, ProjectActionsVue, IconVue },
   setup() {
     const alertBus = inject('alertBus') as AlertBus;
     const modules = inject('modules') as ModulesRepository;

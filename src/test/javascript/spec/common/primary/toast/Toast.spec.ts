@@ -1,9 +1,9 @@
 import { shallowMount, VueWrapper } from '@vue/test-utils';
 import { ToastVue } from '@/common/primary/toast';
-import sinon from 'sinon';
+import sinon, { SinonStub } from 'sinon';
 import { ToastType } from '@/common/primary/toast/ToastType';
 import { AlertListener } from '@/common/domain/alert/AlertListener';
-import { stubAlertListener } from '../../domain/AlertListener.fixure';
+import { AlertListenerFixture, stubAlertListener } from '../../domain/AlertListener.fixure';
 
 let wrapper: VueWrapper;
 let component: any;
@@ -27,6 +27,20 @@ const wrap = (wrapperOptions?: Partial<WrapperOptions>) => {
   component = wrapper.vm;
 };
 
+const openToast = (listen: (alertListener: AlertListenerFixture) => SinonStub) => async (): Promise<void> => {
+  const alertListener = stubAlertListener();
+  wrap({ alertListener });
+  const [callback] = listen(alertListener).getCall(0).args;
+
+  callback('message');
+
+  await wrapper.vm.$nextTick();
+};
+
+const errorToast = openToast(alertListener => alertListener.onError);
+
+const successToast = openToast(alertListener => alertListener.onSuccess);
+
 describe('Toast', () => {
   it('should exist', () => {
     wrap();
@@ -34,26 +48,26 @@ describe('Toast', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('should display toast on success', () => {
-    const alertListener = stubAlertListener();
-    wrap({ alertListener });
-
-    const [callback] = alertListener.onSuccess.getCall(0).args;
-    callback('message');
+  it('should display toast on success', async () => {
+    await successToast();
 
     expect(component.message).toBe('message');
     expect(component.type).toBe(ToastType.SUCCESS);
   });
 
-  it('should display toast on error', () => {
-    const alertListener = stubAlertListener();
-    wrap({ alertListener });
-
-    const [callback] = alertListener.onError.getCall(0).args;
-    callback('message');
+  it('should display toast on error', async () => {
+    await errorToast();
 
     expect(component.message).toBe('message');
     expect(component.type).toBe(ToastType.ERROR);
+  });
+
+  it('should hide toast on close', async () => {
+    await successToast();
+
+    await wrapper.find('[data-selector="toast.close"]').trigger('click');
+
+    expect(wrapper.find('[data-selector="toast-overlay"]').exists()).toBe(false);
   });
 
   it('should unsubscribe on before unmount', () => {

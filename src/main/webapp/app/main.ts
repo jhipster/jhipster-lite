@@ -7,9 +7,6 @@ import ConsoleLogger from '@/common/secondary/ConsoleLogger';
 import { MittAlertBus } from '@/common/secondary/alert/MittAlertBus';
 import mitt from 'mitt';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'bootstrap';
 import '../content/css/custom.css';
 import { MittAlertListener } from '@/common/secondary/alert/MittAlertListener';
 import { RestModulesRepository } from './module/secondary/RestModulesRepository';

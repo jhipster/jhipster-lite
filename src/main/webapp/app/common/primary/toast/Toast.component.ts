@@ -3,28 +3,33 @@ import { Unsubscribe } from '@/common/domain/alert/Unsubscribe';
 import { ToastType } from '@/common/primary/toast/ToastType';
 import { ToastMessage } from '@/common/primary/toast/ToastMessage';
 import { AlertMessage } from '@/common/domain/alert/AlertMessage';
-import { Toast } from 'bootstrap';
-import { nextTick } from '@vue/runtime-core';
 import { AlertListener } from '@/common/domain/alert/AlertListener';
+import { IconVue } from '@/common/primary/icon';
 
 export default defineComponent({
   name: 'Toast',
+
+  components: {
+    IconVue,
+  },
 
   setup() {
     const alertListener = inject('alertListener') as AlertListener;
 
     const toast = ref(null);
-    const bootstrapToast: Ref<Toast | undefined> = ref(undefined);
+    const show = ref(false);
     const type: Ref<ToastType | undefined> = ref(undefined);
     const message: Ref<ToastMessage | undefined> = ref(undefined);
 
     let unsubscribeSuccessAlertBus!: Unsubscribe;
     let unsubscribeErrorAlertBus!: Unsubscribe;
 
-    const showToast = async () => {
-      await nextTick(() => {
-        bootstrapToast.value!.show();
-      });
+    const hideToast = () => {
+      show.value = false;
+    };
+
+    const showToast = () => {
+      show.value = true;
     };
 
     const displaySuccess = (alertMessage: AlertMessage) => {
@@ -40,7 +45,6 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      bootstrapToast.value = new Toast(toast.value as unknown as Element);
       unsubscribeSuccessAlertBus = alertListener.onSuccess(displaySuccess);
       unsubscribeErrorAlertBus = alertListener.onError(displayError);
     });
@@ -54,6 +58,13 @@ export default defineComponent({
       toast,
       type,
       message,
+      hideToast,
+      show,
     };
+  },
+  methods: {
+    close() {
+      this.hideToast();
+    },
   },
 });

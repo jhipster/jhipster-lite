@@ -58,19 +58,21 @@ $jhipster-landscape-padding: 20px;
 
   &--line {
     stroke: $jhipster-lite-line-color;
+    stroke-opacity: 0.7;
     stroke-width: 1px;
     stroke-dasharray: 2 2;
     fill: none;
 
     &.-selectable-highlighted,
     &.-not-selectable-highlighted,
-    &.-highlighted-unselection {
+    &.-highlighted-unselection,
+    &.-selected {
       stroke-dasharray: none;
       stroke-width: 3px;
+      stroke-opacity: 1;
     }
 
     &.-selected {
-      stroke-dasharray: none;
       stroke: $jhipster-lite-primary-color;
     }
 
@@ -92,18 +94,17 @@ $jhipster-landscape-padding: 20px;
   place-items: center;
 
   &--level {
-    width: 250px;
     grid-row: 1;
     padding: 0;
 
     &.-compacted {
-      width: 200px;
-      margin-right: 40px;
+      min-width: 150px;
+      margin-right: 20px;
     }
 
     &.-extended {
-      width: 250px;
-      margin-right: 70px;
+      min-width: 250px;
+      margin-right: 30px;
     }
   }
 }
@@ -119,7 +120,7 @@ $jhipster-landscape-padding: 20px;
     font-weight: bold;
 
     &.-extended {
-      margin: 7px;
+      margin: 5px;
     }
 
     &.-compacted {
@@ -136,7 +137,7 @@ $jhipster-landscape-padding: 20px;
   }
 
   &.-extended {
-    padding: 10px 10px 0 10px;
+    padding: 10px 5px 0 5px;
   }
 
   &.-compacted {
@@ -147,7 +148,8 @@ $jhipster-landscape-padding: 20px;
     animation: $jhipster-lite-selectable-highlight-animation;
   }
 
-  &.-not-selectable-highlighted {
+  &.-not-selectable-highlighted,
+  &.-highlighted-unselection {
     animation: $jhipster-lite-not-selectable-highlight-animation;
   }
 }

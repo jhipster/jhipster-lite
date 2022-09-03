@@ -26,12 +26,6 @@ JHipster is a development platform to quickly generate, develop & deploy modern 
 - You will only generate the code you want, no additional unused code
 - The best quality as possible: 💯% coverage, 0 code smell, no duplication 😎
 
-## Deploy to Heroku
-
-Click on this button to deploy your own instance of JHipster Lite:
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
 ## Prerequisites
 
 ### Java

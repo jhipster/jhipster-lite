@@ -56,10 +56,6 @@ releaseVersion=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStd
 echo "*** update version in package.json"
 npm version "${releaseVersion}" --no-git-tag-version
 
-echo "*** update version in app.json"
-sed -e '/"description": "Version of the JHipster Lite to deploy.",/{N;s/"value": ".*"/"value": "'$releaseVersion'"/1;}' app.json > app.json.sed
-mv -f app.json.sed app.json
-
 echo "*** git: commit, tag and push tag..."
 git add . && git commit -m "Release v${releaseVersion}"
 git tag -a v"${releaseVersion}" -m "Release v${releaseVersion}"

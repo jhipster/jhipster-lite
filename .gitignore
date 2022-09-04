@@ -33,7 +33,7 @@ npm-debug.log.*
 ######################
 # Tikui cache
 ######################
-/cache
+/.tikui-cache/
 
 ######################
 # Fontello

@@ -1,7 +1,17 @@
+$jhlite-global-color-primary: #4ba8f8 !default;
+
+$jhlite-global-color-fill-primary: $jhlite-global-color-primary !default;
+$jhlite-global-color-fill-primary-dark: change-color($jhlite-global-color-primary, $lightness: 40%) !default;
+$jhlite-global-color-fill-primary-darker: change-color($jhlite-global-color-primary, $lightness: 15%) !default;
+
+$jhlite-global-color-text-primary: $jhlite-global-color-primary !default;
+
+$jhlite-global-color-fill-disabled: change-color($jhlite-global-color-primary, $saturation: 25%, $lightness: 40%) !default;
+$jhlite-global-color-text-disabled: change-color($jhlite-global-color-primary, $saturation: 25%, $lightness: 60%) !default;
+
 $jhlite-global-color-fill-secondary: #353d47 !default;
 $jhlite-global-color-text-light: #fff !default;
-$jhlite-global-color-text-primary: #4ba8f8 !default;
 $jhlite-global-color-link-light: #fff !default;
-$jhlite-global-color-link-light-hover: #4ba8f8 !default;
+$jhlite-global-color-link-light-hover: $jhlite-global-color-primary !default;
 $jhlite-global-color-success: #480 !default;
 $jhlite-global-color-error: #902 !default;

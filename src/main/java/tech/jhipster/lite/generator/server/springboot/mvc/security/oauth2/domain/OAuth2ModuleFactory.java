@@ -68,6 +68,7 @@ public class OAuth2ModuleFactory {
 
     //@formatter:off
     builder
+    .startupCommand("docker compose -f src/main/docker/keycloak.yml up -d")
     .files()
       .batch(MAIN_SOURCE.append(PRIMARY), mainDestination.append(PRIMARY))
         .addTemplate("ApplicationSecurityProperties.java")

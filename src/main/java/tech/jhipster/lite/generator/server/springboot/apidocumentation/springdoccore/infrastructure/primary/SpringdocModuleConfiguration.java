@@ -25,7 +25,7 @@ class SpringdocModuleConfiguration {
       .slug("springdoc-mvc-openapi")
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(new JHipsterModuleApiDoc(API_GROUP, "Add springdoc-openapi for spring MVC"))
-      .organization(JHipsterModuleOrganization.builder().feature("springdoc").addFeatureDependency("spring-server").build())
+      .organization(JHipsterModuleOrganization.builder().feature("springdoc").addModuleDependency("spring-boot-tomcat").build())
       .tags(SERVER_TAG, SPRING_TAG, SPRING_BOOT_TAG, DOCUMENTATION_TAG, SWAGGER_TAG)
       .factory(springdocApplicationService::buildSpringdocMvcModule);
   }

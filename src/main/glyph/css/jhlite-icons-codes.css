@@ -19,6 +19,9 @@
 .jhlite-icon-cancel:before {
   content: '\e806';
 } /* '' */
+.jhlite-icon-ok:before {
+  content: '\e807';
+} /* '' */
 .jhlite-icon-twitter:before {
   content: '\f099';
 } /* '' */

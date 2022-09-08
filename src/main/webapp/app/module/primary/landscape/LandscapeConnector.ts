@@ -1,11 +1,13 @@
-const SPACER_SIZE = 15;
+import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId';
+
+const SPACER_SIZE = 9;
 
 export class LandscapeConnector {
   public readonly points: string;
   constructor(
     public readonly positions: LandscapeConnectorPosition[],
-    public readonly startingElement: string,
-    public readonly endingElement: string
+    public readonly startingElement: LandscapeElementId,
+    public readonly endingElement: LandscapeElementId
   ) {
     this.points = this.buildPoints();
   }
@@ -21,8 +23,8 @@ export interface LandscapeConnectorPosition {
 }
 
 interface BuildConnectorsParameters {
-  dependencyElementSlug: string;
-  dependantElementSlug: string;
+  dependencyElementSlug: LandscapeElementId;
+  dependantElementSlug: LandscapeElementId;
   dependencyElement: HTMLElement;
   dependantElement: HTMLElement;
 }
@@ -47,7 +49,7 @@ export const buildConnector = (parameters: BuildConnectorsParameters): Landscape
   };
 
   const dependantSpacer: LandscapeConnectorPosition = {
-    x: dependantElementX - SPACER_SIZE,
+    x: dependencyElementX + SPACER_SIZE,
     y: dependantElementY,
   };
 

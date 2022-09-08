@@ -7,7 +7,8 @@ import { flushPromises, mount, VueWrapper } from '@vue/test-utils';
 import sinon, { SinonStub } from 'sinon';
 import { stubAlertBus } from '../../../common/domain/AlertBus.fixture';
 import { wrappedElement } from '../../../WrappedElement';
-import { defaultLandscape, ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
+import { defaultLandscape } from '../../domain/landscape/Landscape.fixture';
+import { ModulesRepositoryStub, projectHistoryWithInit, stubModulesRepository } from '../../domain/Modules.fixture';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
 import { stubWindow } from '../GlobalWindow.fixture';
 
@@ -181,16 +182,7 @@ describe('Landscape', () => {
       const springMvcClasses = wrapper.find(wrappedElement('spring-mvc-feature')).classes();
       expect(springMvcClasses).toContain('-not-selectable-highlighted');
       expect(springMvcClasses).toContain('-compacted');
-      assertNotSelectableHighlightedConnectorsCount(wrapper, 4);
-    });
-
-    it('Should highlight not selectable one element feature as not selectable', async () => {
-      const wrapper = await componentWithLandscape();
-
-      wrapper.find(wrappedElement('liquibase-module')).trigger('mouseover');
-      await wrapper.vm.$nextTick();
-
-      expect(wrapper.find(wrappedElement('postgresql-module')).classes()).toContain('-not-selectable-highlighted');
+      assertNotSelectableHighlightedConnectorsCount(wrapper, 2);
     });
 
     it('Should highlight selection tree', async () => {
@@ -205,7 +197,7 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('spring-boot-module')).classes()).toContain('-selectable-highlighted');
       expect(wrapper.find(wrappedElement('postgresql-module')).classes()).toContain('-selectable-highlighted');
       expect(wrapper.find(wrappedElement('liquibase-module')).classes()).toContain('-selectable-highlighted');
-      assertSelectableHighlightedConnectorsCount(wrapper, 3);
+      assertSelectableHighlightedConnectorsCount(wrapper, 4);
     });
 
     it('Should un-highlight module and dependencies', async () => {
@@ -233,39 +225,6 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('maven-module')).classes()).toContain('-highlighted-unselection');
       expect(wrapper.find(wrappedElement('spring-boot-module')).classes()).toContain('-highlighted-unselection');
       assertUnSelectionHighlightedConnectorsCount(wrapper, 2);
-    });
-
-    it('Should not highlight multiple modules in feature', async () => {
-      const wrapper = await componentWithLandscape();
-      await clickModule('maven', wrapper);
-
-      wrapper.find(wrappedElement('build-module')).trigger('mouseover');
-      await wrapper.vm.$nextTick();
-
-      expect(wrapper.find(wrappedElement('maven-module')).classes()).toContain('-selectable-highlighted');
-      expect(wrapper.find(wrappedElement('gradle-module')).classes()).not.toContain('-selectable-highlighted');
-    });
-
-    it('Should highlight module with direct dependency to module in feature for unselection', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('maven', wrapper);
-      await clickModule('gitlab-maven', wrapper);
-      wrapper.find(wrappedElement('gradle-module')).trigger('mouseover');
-      await wrapper.vm.$nextTick();
-
-      expect(wrapper.find(wrappedElement('gitlab-maven-module')).classes()).toContain('-highlighted-unselection');
-    });
-
-    it('Should not highlight feature depending module for unselection when switching module', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('maven', wrapper);
-      await clickModule('java-base', wrapper);
-      wrapper.find(wrappedElement('gradle-module')).trigger('mouseover');
-      await wrapper.vm.$nextTick();
-
-      expect(wrapper.find(wrappedElement('java-base-module')).classes()).not.toContain('-highlighted-unselection');
     });
   });
 
@@ -301,41 +260,6 @@ describe('Landscape', () => {
 
       expect(wrapper.find(wrappedElement('java-base-module')).classes()).toContain('-not-selectable');
     });
-
-    it('Should mark feature depending modules as selectable with one selection in feature', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('maven', wrapper);
-
-      expect(wrapper.find(wrappedElement('java-base-module')).classes()).toContain('-selectable');
-    });
-
-    it('Should mark feature depending modules as selectable with one module in feature', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('init', wrapper);
-      await clickModule('maven', wrapper);
-      await clickModule('spring-boot', wrapper);
-
-      expect(wrapper.find(wrappedElement('liquibase-module')).classes()).toContain('-selectable');
-    });
-
-    it('Should mark feature depending modules as not selectable with one not selectable module in feature', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('init', wrapper);
-
-      expect(wrapper.find(wrappedElement('liquibase-module')).classes()).toContain('-not-selectable');
-    });
-
-    it('Should not allow selection creating a bad switch in feature', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('maven', wrapper);
-      await clickModule('gitlab-maven', wrapper);
-
-      expect(wrapper.find(wrappedElement('gitlab-gradle-module')).classes()).toContain('-not-selectable');
-    });
   });
 
   describe('Module selection', () => {
@@ -350,15 +274,20 @@ describe('Landscape', () => {
       expect(initClasses).not.toContain('-not-selectable');
 
       assertSelectedConnectorsCount(wrapper, 0);
+      expect(wrapper.find(wrappedElement('modules-apply-new-button')).text()).toContain('(1)');
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).text()).toContain('(1)');
     });
 
     it('Should select module in feature', async () => {
       const wrapper = await componentWithLandscape();
+      await updatePath(wrapper);
 
       await clickModule('init', wrapper);
       await clickModule('maven', wrapper);
 
       assertSelectedConnectorsCount(wrapper, 1);
+      expect(wrapper.find(wrappedElement('modules-apply-new-button')).text()).toContain('(1)');
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).text()).toContain('(2)');
     });
 
     it('Should not select not selectable module', async () => {
@@ -367,29 +296,6 @@ describe('Landscape', () => {
       await clickModule('java-base', wrapper);
 
       expect(wrapper.find(wrappedElement('java-base-module')).classes()).not.toContain('-selected');
-    });
-
-    it('Should switch selected module in feature', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('vue', wrapper);
-      await clickModule('react', wrapper);
-
-      expect(wrapper.find(wrappedElement('react-module')).classes()).toContain('-selected');
-      expect(wrapper.find(wrappedElement('vue-module')).classes()).not.toContain('-selected');
-    });
-
-    it('Should select module and dependencies', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('maven', wrapper);
-      await clickModule('liquibase', wrapper);
-
-      expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-selected');
-      expect(wrapper.find(wrappedElement('maven-module')).classes()).toContain('-selected');
-      expect(wrapper.find(wrappedElement('spring-boot-module')).classes()).toContain('-selected');
-      expect(wrapper.find(wrappedElement('postgresql-module')).classes()).toContain('-selected');
-      expect(wrapper.find(wrappedElement('liquibase-module')).classes()).toContain('-selected');
     });
   });
 
@@ -401,6 +307,8 @@ describe('Landscape', () => {
       await clickModule('init', wrapper);
 
       expect(wrapper.find(wrappedElement('init-module')).classes()).not.toContain('-selected');
+      expect(wrapper.find(wrappedElement('modules-apply-new-button')).text()).toContain('(0)');
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).text()).toContain('(0)');
     });
 
     it('Should unselect dependant modules', async () => {
@@ -414,36 +322,19 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('init-module')).classes()).not.toContain('-selected');
       expect(wrapper.find(wrappedElement('maven-module')).classes()).not.toContain('-selected');
       expect(wrapper.find(wrappedElement('java-base-module')).classes()).not.toContain('-selected');
-    });
 
-    it('Should not unselect feature depending module when switching module feature', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('maven', wrapper);
-      await clickModule('java-base', wrapper);
-      await clickModule('gradle', wrapper);
-
-      expect(wrapper.find(wrappedElement('java-base-module')).classes()).toContain('-selected');
-    });
-
-    it('Should unselect module with direct dependency to module in feature', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('maven', wrapper);
-      await clickModule('gitlab-maven', wrapper);
-      await clickModule('gradle', wrapper);
-
-      expect(wrapper.find(wrappedElement('gitlab-maven-module')).classes()).not.toContain('-selected');
+      expect(wrapper.find(wrappedElement('modules-apply-new-button')).text()).toContain('(0)');
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).text()).toContain('(0)');
     });
   });
 
-  describe('Module application', () => {
+  describe('New modules application', () => {
     it('Should disable application button without selected modules', async () => {
       const wrapper = await componentWithLandscape();
 
       await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('modules-apply-new-button')).attributes('disabled')).toBeDefined();
     });
 
     it('Should disable application button without project path', async () => {
@@ -452,7 +343,7 @@ describe('Landscape', () => {
       await clickModule('maven', wrapper);
       await wrapper.find(wrappedElement('folder-path-field')).setValue('');
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('modules-apply-new-button')).attributes('disabled')).toBeDefined();
     });
 
     it('Should disable application button with missing mandatory properties', async () => {
@@ -461,7 +352,55 @@ describe('Landscape', () => {
       await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
       await clickModule('init', wrapper);
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('modules-apply-new-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should apply module using repository', async () => {
+      const modules = repositoryWithLandscape();
+      const wrapper = wrap({ modules });
+      await flushPromises();
+
+      await updatePath(wrapper);
+      await clickModule('vue', wrapper);
+
+      await wrapper.find(wrappedElement('modules-apply-new-button')).trigger('click');
+
+      await flushPromises();
+
+      const [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
+      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['vue']);
+      expect(wrapper.find(wrappedElement('modules-apply-new-button')).attributes('disabled')).toBeDefined();
+
+      const [message] = alertBus.success.lastCall.args;
+      expect(message).toBe('Modules applied');
+    });
+  });
+
+  describe('All modules application', () => {
+    it('Should disable application button without selected modules', async () => {
+      const wrapper = await componentWithLandscape();
+
+      await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should disable application button without project path', async () => {
+      const wrapper = await componentWithLandscape();
+
+      await clickModule('maven', wrapper);
+      await wrapper.find(wrappedElement('folder-path-field')).setValue('');
+
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeDefined();
+    });
+
+    it('Should disable application button with missing mandatory properties', async () => {
+      const wrapper = await componentWithLandscape();
+
+      await wrapper.find(wrappedElement('folder-path-field')).setValue('test');
+      await clickModule('init', wrapper);
+
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeDefined();
     });
 
     it('Should apply module using repository', async () => {
@@ -474,13 +413,17 @@ describe('Landscape', () => {
       await clickModule('vue', wrapper);
       await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('base');
 
-      await wrapper.find(wrappedElement('modules-application-button')).trigger('click');
+      await wrapper.find(wrappedElement('modules-apply-all-button')).trigger('click');
 
       await flushPromises();
 
       const [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
       expect(appliedModules.modules.map(slug => slug.get())).toEqual(['init', 'vue']);
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
+
+      const initClasses = wrapper.find(wrappedElement('init-module')).classes();
+      expect(initClasses).toContain('-selected');
+      expect(initClasses).toContain('-applied');
 
       const [message] = alertBus.success.lastCall.args;
       expect(message).toBe('Modules applied');
@@ -493,7 +436,7 @@ describe('Landscape', () => {
       await wrapper.find(wrappedElement('parameter-optionalBoolean-field')).setValue('true');
       await wrapper.find(wrappedElement('parameter-optionalBoolean-field')).setValue('');
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeDefined();
     });
 
     it('Should apply modules without committing them', async () => {
@@ -506,7 +449,7 @@ describe('Landscape', () => {
       await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('base');
       await wrapper.find(wrappedElement('commit-module-application')).trigger('click');
 
-      wrapper.find(wrappedElement('modules-application-button')).trigger('click');
+      wrapper.find(wrappedElement('modules-apply-all-button')).trigger('click');
 
       await flushPromises();
 
@@ -523,7 +466,7 @@ describe('Landscape', () => {
       await validateInitApplication(wrapper);
 
       expect(modules.applyAll.calledOnce).toBe(true);
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
 
       const [message] = alertBus.error.lastCall.args;
       expect(message).toBe('Modules not applied');
@@ -537,17 +480,8 @@ describe('Landscape', () => {
 
       await validateInitApplication(wrapper);
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeDefined();
       expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-not-selectable');
-    });
-
-    it('Should deduplicate properties for selected fields', async () => {
-      const wrapper = await componentWithLandscape();
-
-      await clickModule('init', wrapper);
-      await clickModule('infinitest', wrapper);
-
-      expect(wrapper.findAll(wrappedElement('parameter-baseName-field')).length).toBe(1);
     });
   });
 
@@ -561,7 +495,10 @@ describe('Landscape', () => {
 
       const baseNameField = wrapper.find(wrappedElement('parameter-baseName-field')).element as HTMLInputElement;
       expect(baseNameField.value).toBe('settedbase');
-      expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-selected');
+
+      const initClasses = wrapper.find(wrappedElement('init-module')).classes();
+      expect(initClasses).toContain('-selected');
+      expect(initClasses).toContain('-applied');
     });
 
     it('Should silently handle history loading error', async () => {
@@ -614,7 +551,7 @@ describe('Landscape', () => {
       await updatePath(wrapper);
       await wrapper.find(wrappedElement('format-button')).trigger('click');
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeDefined();
       expect(wrapper.find(wrappedElement('init-module')).classes()).toContain('-compacted');
     });
 
@@ -628,7 +565,7 @@ describe('Landscape', () => {
       await wrapper.find(wrappedElement('format-button')).trigger('click');
       await flushPromises();
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
     });
   });
 
@@ -642,7 +579,7 @@ describe('Landscape', () => {
       await updatePath(wrapper);
       await wrapper.find(wrappedElement('download-button')).trigger('click');
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeDefined();
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeDefined();
     });
 
     it('Should enable applications after download', async () => {
@@ -655,7 +592,7 @@ describe('Landscape', () => {
       wrapper.find(wrappedElement('download-button')).trigger('click');
       await flushPromises();
 
-      expect(wrapper.find(wrappedElement('modules-application-button')).attributes('disabled')).toBeUndefined();
+      expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
     });
   });
 });
@@ -690,7 +627,7 @@ const validateInitApplication = async (wrapper: VueWrapper): Promise<void> => {
   await clickModule('init', wrapper);
   await wrapper.find(wrappedElement('parameter-baseName-field')).setValue('base');
 
-  await wrapper.find(wrappedElement('modules-application-button')).trigger('click');
+  await wrapper.find(wrappedElement('modules-apply-all-button')).trigger('click');
 
   await flushPromises();
 };

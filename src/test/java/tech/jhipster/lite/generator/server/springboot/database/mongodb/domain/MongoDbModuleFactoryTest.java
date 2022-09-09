@@ -42,7 +42,7 @@ class MongoDbModuleFactoryTest {
       .createFile("README.md")
       .containing("""
             ```bash
-            docker-compose -f src/main/docker/mongodb.yml up -d
+            docker compose -f src/main/docker/mongodb.yml up -d
             ```
             """)
       .and()

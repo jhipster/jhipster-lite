@@ -103,7 +103,7 @@ class OAuth2ModuleFactoryTest {
       .containing("import com.jhipster.test.authentication.infrastructure.primary.TestSecurityConfiguration;")
       .and()
       .createFile("README.md")
-      .containing("docker-compose -f src/main/docker/keycloak.yml up -d");
+      .containing("docker compose -f src/main/docker/keycloak.yml up -d");
   }
 
   private ModuleFile integrationTestFile() {

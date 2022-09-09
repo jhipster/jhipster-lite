@@ -85,7 +85,7 @@ npm run prettier:format
 To launch local Sonar Analysis:
 
 ```
-docker-compose -f src/main/docker/sonar.yml up -d
+docker compose -f src/main/docker/sonar.yml up -d
 ```
 
 Then:

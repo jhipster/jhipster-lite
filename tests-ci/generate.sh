@@ -9,12 +9,18 @@ if [ "$#" -ne 1 ]; then
   show_syntax
 fi
 
+if test -f "modulePayload.json"; then
+  payloadFile="modulePayload.json"
+elif test -f tests-ci/modulePayload.json; then
+  payloadFile=tests-ci/modulePayload.json
+fi
+
 application=$1
 
 applyModules() {
   for module in $@
   do
-    local payload="$(sed "s/APP_NAME/$application/g" modulePayload.json)"
+    local payload="$(sed "s/APP_NAME/$application/g" $payloadFile)"
     local api="/api/modules/$module/apply-patch"
 
     echo "curl -o /dev/null -s -w "%{http_code}\n" \
@@ -336,6 +342,6 @@ else
 fi
 
 echo ""
-cat "$filename"
+cat "$payloadFile"
 echo ""
 sleep 5

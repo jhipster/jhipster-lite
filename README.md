@@ -26,6 +26,12 @@ JHipster is a development platform to quickly generate, develop & deploy modern 
 - You will only generate the code you want, no additional unused code
 - The best quality as possible: 💯% coverage, 0 code smell, no duplication 😎
 
+## Choosing
+
+The original JHipster and JHLite are **not the same thing**, they are **not generating the same code** and **not serving the same purpose**! Here are some choice elements you can take into account:
+
+![Choosing JHipster](documentation/JHLiteChoice.png)
+
 ## Prerequisites
 
 ### Java

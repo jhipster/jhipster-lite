@@ -12,7 +12,7 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/svelte": "3.2.1",
     "@types/jest": "29.0.1",
-    "@typescript-eslint/eslint-plugin": "5.36.2",
+    "@typescript-eslint/eslint-plugin": "5.37.0",
     "@typescript-eslint/parser": "5.36.2",
     "babel-jest": "29.0.3",
     "babel-plugin-transform-vite-meta-env": "1.0.3",

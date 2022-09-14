@@ -25,16 +25,16 @@ class SpringDocOauth2ModuleFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module, pomFile())
-      .createFiles("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocOAuth2Configuration.java")
-      .createFile("pom.xml")
+      .hasFiles("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocOAuth2Configuration.java")
+      .hasFile("pom.xml")
         .containing("<artifactId>springdoc-openapi-security</artifactId>")
         .and()
-      .createFile("src/main/resources/config/application.properties")
+      .hasFile("src/main/resources/config/application.properties")
         .containing("springdoc.swagger-ui.oauth.client-id=web_app")
         .containing("springdoc.swagger-ui.oauth.realm=jhipster")
         .containing("springdoc.oauth2.authorization-url=http://localhost:9080/realms/jhipster/protocol/openid-connect/auth")
         .and()
-      .createFile("src/test/resources/config/application.properties")
+      .hasFile("src/test/resources/config/application.properties")
         .containing("springdoc.swagger-ui.oauth.client-id=web_app")
         .containing("springdoc.swagger-ui.oauth.realm=jhipster")
         .containing("springdoc.oauth2.authorization-url=http://localhost:9080/realms/jhipster/protocol/openid-connect/auth");

@@ -21,7 +21,7 @@ class SpringBootCoreModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing(
         """
               <dependency>
@@ -146,20 +146,20 @@ class SpringBootCoreModuleFactoryTest {
       )
       .containing("    <defaultGoal>spring-boot:run</defaultGoal>")
       .and()
-      .createFile("src/main/java/com/jhipster/test/MyappApp.java")
+      .hasFile("src/main/java/com/jhipster/test/MyappApp.java")
       .containing("class MyappApp")
       .and()
-      .createFiles("src/main/java/com/jhipster/test/ApplicationStartupTraces.java")
-      .createPrefixedFiles("src/test/java/com/jhipster/test", "ApplicationStartupTracesTest.java", "IntegrationTest.java")
-      .createFiles(
+      .hasFiles("src/main/java/com/jhipster/test/ApplicationStartupTraces.java")
+      .hasPrefixedFiles("src/test/java/com/jhipster/test", "ApplicationStartupTracesTest.java", "IntegrationTest.java")
+      .hasFiles(
         "src/main/resources/config/application.properties",
         "src/main/resources/config/application-local.properties",
         "src/test/resources/config/application.properties"
       )
-      .createPrefixedFiles("src/test/java/com/jhipster/test", "BeanValidationAssertions.java", "BeanValidationTest.java")
-      .createFiles("src/test/resources/logback.xml", "src/main/resources/logback-spring.xml")
-      .createFiles("documentation/logs-spy.md")
-      .createJavaTests("com/jhipster/test/LogsSpy.java");
+      .hasPrefixedFiles("src/test/java/com/jhipster/test", "BeanValidationAssertions.java", "BeanValidationTest.java")
+      .hasFiles("src/test/resources/logback.xml", "src/main/resources/logback-spring.xml")
+      .hasFiles("documentation/logs-spy.md")
+      .hasJavaTests("com/jhipster/test/LogsSpy.java");
   }
 
   @Test
@@ -169,7 +169,7 @@ class SpringBootCoreModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomWithDefaultGoal())
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing("<defaultGoal>dummy</defaultGoal>")
       .notContaining("<defaultGoal>spring-boot:run</defaultGoal>");
   }

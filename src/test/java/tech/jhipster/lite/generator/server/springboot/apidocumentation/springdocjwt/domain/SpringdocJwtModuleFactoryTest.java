@@ -24,6 +24,6 @@ class SpringdocJwtModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
-      .createFiles("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocJWTConfiguration.java");
+      .hasFiles("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocJWTConfiguration.java");
   }
 }

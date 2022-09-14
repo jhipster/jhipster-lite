@@ -25,8 +25,8 @@ class JpaPaginationModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
-      .createFiles("documentation/jpa-pages.md")
-      .createFiles("src/main/java/com/jhipster/test/pagination/infrastructure/secondary/MyAppPages.java")
-      .createFiles("src/test/java/com/jhipster/test/pagination/infrastructure/secondary/MyAppPagesTest.java");
+      .hasFiles("documentation/jpa-pages.md")
+      .hasFiles("src/main/java/com/jhipster/test/pagination/infrastructure/secondary/MyAppPages.java")
+      .hasFiles("src/test/java/com/jhipster/test/pagination/infrastructure/secondary/MyAppPagesTest.java");
   }
 }

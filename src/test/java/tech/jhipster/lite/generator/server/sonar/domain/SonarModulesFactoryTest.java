@@ -33,7 +33,7 @@ class SonarModulesFactoryTest {
     JHipsterModule module = factory.buildBackendModule(properties());
 
     assertCommonModule(module)
-      .createFile("sonar-project.properties")
+      .hasFile("sonar-project.properties")
       .containing(
         "sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, src/main/webapp/i18n/*.js, target/classes/static/**/*.*, src/main/webapp/app/index.tsx"
       )
@@ -47,7 +47,7 @@ class SonarModulesFactoryTest {
     JHipsterModule module = factory.buildBackendFrontendModule(properties());
 
     assertCommonModule(module)
-      .createFile("sonar-project.properties")
+      .hasFile("sonar-project.properties")
       .containing(
         "sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, src/main/webapp/i18n/*.js, target/classes/static/**/*.*, src/main/webapp/app/index.tsx, src/main/webapp/routes/+page.svelte"
       )
@@ -67,9 +67,9 @@ class SonarModulesFactoryTest {
     return properties;
   }
 
-  private ModuleAsserter assertCommonModule(JHipsterModule module) {
+  private JHipsterModuleAsserter assertCommonModule(JHipsterModule module) {
     return assertThatModuleWithFiles(module, pomFile(), readmeFile())
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing(
         """
                   <plugin>
@@ -102,13 +102,13 @@ class SonarModulesFactoryTest {
             """
       )
       .and()
-      .createFile("src/main/docker/sonar.yml")
+      .hasFile("src/main/docker/sonar.yml")
       .containing("sonarqube:1.1.1")
       .and()
-      .createFile("documentation/sonar.md")
+      .hasFile("documentation/sonar.md")
       .containing("docker compose -f src/main/docker/sonar.yml up -d")
       .and()
-      .createFile("README.md")
+      .hasFile("README.md")
       .containing("docker compose -f src/main/docker/sonar.yml up -d")
       .containing("./mvnw clean verify sonar:sonar")
       .and();

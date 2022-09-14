@@ -20,11 +20,11 @@ class ReactJwtModuleFactoryTest {
   void shouldBuildModule() {
     JHipsterModule module = factory.buildModule(properties());
 
-    ModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), app(), appCss());
+    JHipsterModuleAsserter asserter = assertThatModuleWithFiles(module, packageJsonFile(), app(), appCss());
 
     assertReactApp(asserter);
     asserter
-      .createFile("src/main/webapp/app/common/primary/app/App.css")
+      .hasFile("src/main/webapp/app/common/primary/app/App.css")
       .containing(
         """
                -moz-osx-font-smoothing: grayscale;
@@ -48,30 +48,30 @@ class ReactJwtModuleFactoryTest {
     return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
   }
 
-  private void assertReactApp(ModuleAsserter asserter) {
+  private void assertReactApp(JHipsterModuleAsserter asserter) {
     asserter
-      .createFile("package.json")
+      .hasFile("package.json")
       .containing(nodeDependency("react-hook-form"))
       .containing(nodeDependency("axios"))
       .containing(nodeDependency("@nextui-org/react"))
       .containing(nodeDependency("sass"))
       .and()
-      .createPrefixedFiles(
+      .hasPrefixedFiles(
         "src/main/webapp",
         "app/common/services/storage.ts",
         "app/login/primary/loginForm/index.tsx",
         "app/login/primary/loginModal/index.tsx",
         "app/login/services/login.ts"
       )
-      .createPrefixedFiles("src/main/webapp/app/login/primary/loginModal", "index.tsx", "interface.d.ts", "LoginModal.scss")
-      .createPrefixedFiles(
+      .hasPrefixedFiles("src/main/webapp/app/login/primary/loginModal", "index.tsx", "interface.d.ts", "LoginModal.scss")
+      .hasPrefixedFiles(
         "src/test/javascript/spec",
         "login/services/login.test.ts",
         "login/primary/loginForm/index.test.tsx",
         "login/primary/loginModal/index.test.tsx",
         "common/services/storage.test.ts"
       )
-      .createFile("src/main/webapp/app/common/primary/app/App.tsx")
+      .hasFile("src/main/webapp/app/common/primary/app/App.tsx")
       .containing("import LoginForm from '@/login/primary/loginForm';")
       .containing("<LoginForm />");
   }

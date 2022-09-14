@@ -25,9 +25,9 @@ class PaginationDomainModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
-      .createFiles("src/main/java/com/jhipster/test/pagination/package-info.java")
-      .createPrefixedFiles("src/main/java/com/jhipster/test/pagination/domain", "MyAppPage.java", "MyAppPageable.java")
-      .createPrefixedFiles(
+      .hasFiles("src/main/java/com/jhipster/test/pagination/package-info.java")
+      .hasPrefixedFiles("src/main/java/com/jhipster/test/pagination/domain", "MyAppPage.java", "MyAppPageable.java")
+      .hasPrefixedFiles(
         "src/test/java/com/jhipster/test/pagination/domain",
         "MyAppPageTest.java",
         "MyAppPageableTest.java",

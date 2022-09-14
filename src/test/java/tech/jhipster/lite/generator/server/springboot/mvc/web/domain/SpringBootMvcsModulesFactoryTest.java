@@ -25,13 +25,13 @@ class SpringBootMvcsModulesFactoryTest {
     JHipsterModule module = factory.buildTomcatModule(properties);
 
     assertMvcModule(module)
-      .createFile("src/main/resources/logback-spring.xml")
+      .hasFile("src/main/resources/logback-spring.xml")
       .containing("  <logger name=\"org.springframework.web\" level=\"ERROR\" />")
       .and()
-      .createFile("src/test/resources/logback.xml")
+      .hasFile("src/test/resources/logback.xml")
       .containing("  <logger name=\"org.springframework.web\" level=\"ERROR\" />")
       .and()
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing(
         """
             <dependency>
@@ -53,13 +53,13 @@ class SpringBootMvcsModulesFactoryTest {
     JHipsterModule module = factory.buildUntertowModule(properties);
 
     assertMvcModule(module)
-      .createFile("src/main/resources/logback-spring.xml")
+      .hasFile("src/main/resources/logback-spring.xml")
       .containing("  <logger name=\"io.undertow\" level=\"WARN\" />")
       .and()
-      .createFile("src/test/resources/logback.xml")
+      .hasFile("src/test/resources/logback.xml")
       .containing("  <logger name=\"io.undertow\" level=\"WARN\" />")
       .and()
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing(
         """
             <dependency>
@@ -84,26 +84,26 @@ class SpringBootMvcsModulesFactoryTest {
       );
   }
 
-  private ModuleAsserter assertMvcModule(JHipsterModule module) {
+  private JHipsterModuleAsserter assertMvcModule(JHipsterModule module) {
     return assertThatModuleWithFiles(module, pomFile(), lockbackFile(), testLockbackFile(), readmeFile())
-      .createFile("README.md")
+      .hasFile("README.md")
       .containing("- [Local server](http://localhost:9000)")
       .and()
-      .createFiles("documentation/cors-configuration.md")
-      .createFile("src/main/resources/config/application.properties")
+      .hasFiles("documentation/cors-configuration.md")
+      .hasFile("src/main/resources/config/application.properties")
       .containing("server.port=9000")
       .and()
-      .createFile("src/test/resources/config/application.properties")
+      .hasFile("src/test/resources/config/application.properties")
       .containing("server.port=0")
       .and()
-      .createPrefixedFiles(
+      .hasPrefixedFiles(
         "src/main/java/com/jhipster/test/technical/infrastructure/primary/cors",
         "CorsFilterConfiguration.java",
         "CorsProperties.java"
       )
-      .createFiles("src/test/java/com/jhipster/test/technical/infrastructure/primary/cors/CorsFilterConfigurationIT.java")
-      .createFiles("src/test/java/com/jhipster/test/JsonHelper.java")
-      .createFile("pom.xml")
+      .hasFiles("src/test/java/com/jhipster/test/technical/infrastructure/primary/cors/CorsFilterConfigurationIT.java")
+      .hasFiles("src/test/java/com/jhipster/test/JsonHelper.java")
+      .hasFile("pom.xml")
       .containing(
         """
             <dependency>

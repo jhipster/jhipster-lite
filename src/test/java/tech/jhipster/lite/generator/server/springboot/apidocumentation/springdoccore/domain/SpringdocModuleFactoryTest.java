@@ -8,7 +8,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.ModuleAsserter;
+import tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.JHipsterModuleAsserter;
 
 @UnitTest
 class SpringdocModuleFactoryTest {
@@ -20,10 +20,10 @@ class SpringdocModuleFactoryTest {
     JHipsterModule module = springdocModuleFactory.buildModuleForMvc(properties());
 
     assertThatSpringDocModule(module)
-      .createFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
+      .hasFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
       .notContaining("JWT")
       .and()
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing("<artifactId>springdoc-openapi-ui</artifactId>")
       .notContaining("<artifactId>springdoc-openapi-webflux-ui</artifactId>")
       .and();
@@ -34,10 +34,10 @@ class SpringdocModuleFactoryTest {
     JHipsterModule module = springdocModuleFactory.buildModuleForWebflux(properties());
 
     assertThatSpringDocModule(module)
-      .createFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
+      .hasFile("src/main/java/com/jhipster/test/technical/infrastructure/primary/springdoc/SpringdocConfiguration.java")
       .notContaining("JWT")
       .and()
-      .createFile("pom.xml")
+      .hasFile("pom.xml")
       .containing("<artifactId>springdoc-openapi-webflux-ui</artifactId>")
       .and();
   }
@@ -50,14 +50,14 @@ class SpringdocModuleFactoryTest {
       .build();
   }
 
-  private static ModuleAsserter assertThatSpringDocModule(JHipsterModule module) {
+  private static JHipsterModuleAsserter assertThatSpringDocModule(JHipsterModule module) {
     return assertThatModuleWithFiles(module, pomFile(), readmeFile())
-      .createFile("src/main/resources/config/application.properties")
+      .hasFile("src/main/resources/config/application.properties")
       .containing("springdoc.swagger-ui.operationsSorter=alpha")
       .containing("springdoc.swagger-ui.tagsSorter=alpha")
       .containing("springdoc.swagger-ui.tryItOutEnabled=true")
       .and()
-      .createFile("README.md")
+      .hasFile("README.md")
       .containing("- [Local API doc](http://localhost:8080/swagger-ui/index.html)")
       .and();
   }

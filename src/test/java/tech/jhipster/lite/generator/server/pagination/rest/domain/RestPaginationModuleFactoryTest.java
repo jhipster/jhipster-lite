@@ -25,15 +25,11 @@ class RestPaginationModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
-      .createFile("documentation/rest-pagination.md")
+      .hasFile("documentation/rest-pagination.md")
       .containing("MyAppPage<")
       .and()
-      .createPrefixedFiles(
-        "src/main/java/com/jhipster/test/pagination/infrastructure/primary",
-        "RestMyAppPage.java",
-        "RestMyAppPageable.java"
-      )
-      .createPrefixedFiles(
+      .hasPrefixedFiles("src/main/java/com/jhipster/test/pagination/infrastructure/primary", "RestMyAppPage.java", "RestMyAppPageable.java")
+      .hasPrefixedFiles(
         "src/test/java/com/jhipster/test/pagination/infrastructure/primary",
         "RestMyAppPageTest.java",
         "RestMyAppPageableTest.java"

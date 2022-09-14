@@ -12,6 +12,22 @@
   <name>jhlite</name>
   <description>JHipster Lite</description>
   <packaging>jar</packaging>
+  <url>https://github.com/jhipster/jhipster-lite</url>
+  <licenses>
+    <license>
+      <name>Apache License, version 2.0</name>
+      <url>https://github.com/jhipster/jhipster-lite/blob/main/LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <organization>
+    <name>JHipster</name>
+    <url>https://www.jhipster.tech</url>
+  </organization>
+  <scm>
+    <connection>scm:git:https://github.com/jhipster/jhipster-lite</connection>
+    <url>https://github.com/jhipster/jhipster-lite</url>
+  </scm>
 
   <parent>
     <groupId>org.springframework.boot</groupId>

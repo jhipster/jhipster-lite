@@ -39,6 +39,16 @@ class SpringBootMvcsModulesFactoryTest {
               <artifactId>spring-boot-starter-web</artifactId>
             </dependency>
         """
+      )
+      .containing(
+        """
+            <dependency>
+              <groupId>org.reflections</groupId>
+              <artifactId>reflections</artifactId>
+              <version>${reflections.version}</version>
+              <scope>test</scope>
+            </dependency>
+        """
       );
   }
 
@@ -50,7 +60,7 @@ class SpringBootMvcsModulesFactoryTest {
       .put("serverPort", 9000)
       .build();
 
-    JHipsterModule module = factory.buildUntertowModule(properties);
+    JHipsterModule module = factory.buildUndertowModule(properties);
 
     assertMvcModule(module)
       .hasFile("src/main/resources/logback-spring.xml")
@@ -101,6 +111,7 @@ class SpringBootMvcsModulesFactoryTest {
         "CorsFilterConfiguration.java",
         "CorsProperties.java"
       )
+      .hasPrefixedFiles("src/test/java/com/jhipster/test", "BeanValidationAssertions.java", "BeanValidationTest.java")
       .hasFiles("src/test/java/com/jhipster/test/technical/infrastructure/primary/cors/CorsFilterConfigurationIT.java")
       .hasFiles("src/test/java/com/jhipster/test/JsonHelper.java")
       .hasFile("pom.xml")

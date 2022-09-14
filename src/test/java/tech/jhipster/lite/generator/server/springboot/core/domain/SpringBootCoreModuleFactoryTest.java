@@ -69,16 +69,6 @@ class SpringBootCoreModuleFactoryTest {
       )
       .containing(
         """
-            <dependency>
-              <groupId>org.reflections</groupId>
-              <artifactId>reflections</artifactId>
-              <version>${reflections.version}</version>
-              <scope>test</scope>
-            </dependency>
-        """
-      )
-      .containing(
-        """
                 <plugin>
                   <groupId>org.springframework.boot</groupId>
                   <artifactId>spring-boot-maven-plugin</artifactId>
@@ -156,7 +146,6 @@ class SpringBootCoreModuleFactoryTest {
         "src/main/resources/config/application-local.properties",
         "src/test/resources/config/application.properties"
       )
-      .hasPrefixedFiles("src/test/java/com/jhipster/test", "BeanValidationAssertions.java", "BeanValidationTest.java")
       .hasFiles("src/test/resources/logback.xml", "src/main/resources/logback-spring.xml")
       .hasFiles("documentation/logs-spy.md")
       .hasJavaTests("com/jhipster/test/LogsSpy.java");

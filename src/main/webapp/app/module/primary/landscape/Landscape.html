@@ -22,44 +22,49 @@
   </div>
 
   <div class="jhipster-side-form">
-    <ModulePropertiesFormVue
-      :folderPath="folderPath"
-      :properties="selectedModulesProperties()"
-      :parameters="valuatedModuleParameters"
-      @moduleCommitUpdated="updateModuleCommit"
-      @folderPathUpdated="updateFolderPath"
-      @folderPathSelected="projectFolderUpdated"
-      @propertyUpdated="updateProperty"
-      @propertyDeleted="deleteProperty"
-    />
-
-    <ProjectActionsVue :folderPath="folderPath" @operationStarted="operationStarted()" @operationEnded="operationEnded()">
+    <div class="jhlite-vertical-space -paragraph">
       <div class="jhlite-vertical-space--slot">
-        <button
-          class="jhlite-button -block"
-          data-selector="modules-apply-new-button"
-          :disabled="disabledNewApplication()"
-          tabindex="5"
-          @click="applyNewModules"
-        >
-          <IconVue name="play-circled" aria-label="Icon play circled" />
-          Apply new ({{selectedNewModulesCount()}})
-        </button>
+        <ModulePropertiesFormVue
+          :folderPath="folderPath"
+          :properties="selectedModulesProperties()"
+          :parameters="valuatedModuleParameters"
+          @moduleCommitUpdated="updateModuleCommit"
+          @folderPathUpdated="updateFolderPath"
+          @folderPathSelected="projectFolderUpdated"
+          @propertyUpdated="updateProperty"
+          @propertyDeleted="deleteProperty"
+        />
       </div>
-
       <div class="jhlite-vertical-space--slot">
-        <button
-          class="jhlite-button -block"
-          data-selector="modules-apply-all-button"
-          :disabled="disabledAllApplication()"
-          tabindex="5"
-          @click="applyAllModules"
-        >
-          <IconVue name="play-circled" aria-label="Icon play circled" />
-          Apply selected ({{selectedModulesCount()}})
-        </button>
+        <ProjectActionsVue :folderPath="folderPath" @operationStarted="operationStarted()" @operationEnded="operationEnded()">
+          <div class="jhlite-vertical-space--slot">
+            <button
+              class="jhlite-button -block"
+              data-selector="modules-apply-new-button"
+              :disabled="disabledNewApplication()"
+              tabindex="5"
+              @click="applyNewModules"
+            >
+              <IconVue name="play-circled" aria-label="Icon play circled" />
+              Apply new ({{selectedNewModulesCount()}})
+            </button>
+          </div>
+
+          <div class="jhlite-vertical-space--slot">
+            <button
+              class="jhlite-button -block"
+              data-selector="modules-apply-all-button"
+              :disabled="disabledAllApplication()"
+              tabindex="5"
+              @click="applyAllModules"
+            >
+              <IconVue name="play-circled" aria-label="Icon play circled" />
+              Apply selected ({{selectedModulesCount()}})
+            </button>
+          </div>
+        </ProjectActionsVue>
       </div>
-    </ProjectActionsVue>
+    </div>
   </div>
 
   <div class="jhipster-landscape-map" ref="landscapeContainer">

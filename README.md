@@ -178,6 +178,64 @@ This will replace the current _CSS_ and _font_ files into the sources.
 
 Once started, go to http://localhost:7471, select your option and generate the code you want, step by step, and only what you need.
 
+## Contributing
+
+We are honoured by any contributions you may have small or large. Please refer to our [contribution guidelines and instructions document](https://github.com/jhipster/jhipster-lite/blob/main/CONTRIBUTING.md) for any information about contributing to the project.
+
+## Sponsors
+
+Support this project by becoming a sponsor! [Become a sponsor](https://opencollective.com/generator-jhipster) or [learn more about sponsoring the project](https://www.jhipster.tech/sponsors/).
+
+**Thank you to our sponsors!**
+
+### Platinum Sponsors
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://developer.okta.com/signup?utm_source=JHipster&utm_medium=logo&utm_campaign=Platinum-Sponsor" target="_blank">
+          <img width="425em" src="https://www.jhipster.tech/images/open-collective/okta.png">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Gold Sponsors
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="http://www.octoconsulting.com/" target="_blank">
+          <img width="200em" src="https://www.jhipster.tech/images/open-collective/octoconsulting.png">
+        </a>
+      </td>
+      <td align="center" valign="middle">
+        <a href="https://dev.entando.org/jhipster" target="_blank">
+          <img width="200em" src="https://www.jhipster.tech/images/open-collective/entandoe.png">
+        </a>
+      </td>
+      <td align="center" valign="middle">
+        <a href="https://www.datastax.com/" target="_blank">
+          <img width="200em" src="https://www.jhipster.tech/images/open-collective/datastax.png">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Bronze sponsors
+
+[![BronzeSponsors][bronze-sponsors-image]][bronze-sponsors-url]
+
+### Backers
+
+**Thank you to all our backers!**
+
+[![Backers][backers-image]][backers-url]
+
 [jhipster-lite-release-version]: https://img.shields.io/github/v/release/jhipster/jhipster-lite
 [jhipster-lite-release-url]: https://github.com/jhipster/jhipster-lite/releases
 [github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/workflows/build/badge.svg
@@ -194,3 +252,7 @@ Once started, go to http://localhost:7471, select your option and generate the c
 [sonarcloud-security]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=security_rating
 [sonarcloud-code-smells]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=code_smells
 [sonarcloud-coverage]: https://sonarcloud.io/api/project_badges/measure?project=jhipster_jhipster-lite&metric=coverage
+[backers-image]: https://opencollective.com/generator-jhipster/tiers/backer.svg?avatarHeight=70&width=890
+[backers-url]: https://opencollective.com/generator-jhipster
+[bronze-sponsors-image]: https://opencollective.com/generator-jhipster/tiers/bronze-sponsor.svg?avatarHeight=120&width=890
+[bronze-sponsors-url]: https://opencollective.com/generator-jhipster

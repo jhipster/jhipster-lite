@@ -17,7 +17,7 @@
 
 ## Description
 
-JHipster is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
+[JHipster][jhipster-url] is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
 
 **JHipster Lite** will help you to start your project, by generating step by step only what you need.
 
@@ -30,7 +30,7 @@ JHipster is a development platform to quickly generate, develop & deploy modern 
 
 The original JHipster and JHLite are **not the same thing**, they are **not generating the same code** and **not serving the same purpose**! Here are some choice elements you can take into account:
 
-![Choosing JHipster](documentation/JHLiteChoice.png)
+![Choosing JHipster](documentation/jhlite-choice.png)
 
 ## Prerequisites
 

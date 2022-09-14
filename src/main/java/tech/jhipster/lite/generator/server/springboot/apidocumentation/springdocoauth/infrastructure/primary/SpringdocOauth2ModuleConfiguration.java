@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth.infrascture.primary;
+package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth.infrastructure.primary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

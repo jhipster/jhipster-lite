@@ -1,29 +1,17 @@
 $jhlite-button-color-background: $jhlite-global-color-fill-primary-dark;
 $jhlite-button-color-text: $jhlite-global-color-text-light;
-$jhlite-button-font-size: $jhlite-global-size-field-font-size;
-$jhlite-button-line-height: $jhlite-global-size-field-line-height;
-$jhlite-button-padding: $jhlite-global-size-field-padding;
-$jhlite-button-radius: $jhlite-global-size-field-radius;
-$jhlite-button-border-width: $jhlite-global-size-field-border;
-$jhlite-button-border-color: $jhlite-global-color-fill-primary-darker;
 
 $jhlite-button-hover-color-background: $jhlite-global-color-fill-primary-darker;
 
 $jhlite-button-focus-color-outline: $jhlite-global-color-fill-primary-darker;
 
-$jhlite-button-disabled-color-background: $jhlite-global-color-fill-disabled;
-$jhlite-button-disabled-color-border: $jhlite-global-color-fill-disabled;
-$jhlite-button-disabled-color-text: $jhlite-global-color-text-disabled;
+$jhlite-button-disabled-color-background: $jhlite-global-color-fill-disabled-dark;
 
 .jhlite-button {
+  @include jhlite-q-field;
+
   background-color: $jhlite-button-color-background;
   color: $jhlite-button-color-text;
-  font-size: $jhlite-button-font-size;
-  line-height: $jhlite-button-line-height;
-  box-sizing: border-box;
-  padding: $jhlite-button-padding;
-  border-radius: $jhlite-button-radius;
-  border: $jhlite-button-border-width solid $jhlite-global-color-fill-primary-darker;
   cursor: pointer;
   text-align: center;
 
@@ -31,16 +19,8 @@ $jhlite-button-disabled-color-text: $jhlite-global-color-text-disabled;
     background-color: $jhlite-button-hover-color-background;
   }
 
-  &:focus {
-    border-style: dashed;
-    outline: $jhlite-button-focus-color-outline solid;
-  }
-
   &:disabled {
     background-color: $jhlite-button-disabled-color-background;
-    border-color: $jhlite-button-disabled-color-border;
-    color: $jhlite-button-disabled-color-text;
-    cursor: not-allowed;
   }
 
   &.-block {

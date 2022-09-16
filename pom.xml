@@ -46,6 +46,8 @@
     <maven.version>3.6.0</maven.version>
     <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+    <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
 
     <spring-boot.version>2.7.3</spring-boot.version>
     <byte-buddy.version>1.12.16</byte-buddy.version>
@@ -472,6 +474,42 @@
               <arguments>run test</arguments>
               <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc-plugin.version}</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <quiet>true</quiet>
+          <failOnWarnings>false</failOnWarnings>
+          <failOnError>false</failOnError>
+          <doclint>all,-missing</doclint>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <sourceFileExcludes>package-info.java</sourceFileExcludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

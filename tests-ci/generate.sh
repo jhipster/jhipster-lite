@@ -336,6 +336,12 @@ elif [[ $application == 'reactiveapp' ]]; then
   "spring-boot-actuator" \
   "springdoc-webflux-openapi"
 
+elif [[ $application == 'customjhlite' ]]; then
+  spring_boot
+  sonar_back
+  
+  applyModules "custom-jhlite"
+  
 else
   echo "*** Unknown configuration..."
   exit 1

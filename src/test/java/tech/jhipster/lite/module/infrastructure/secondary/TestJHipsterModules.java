@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.git.infrastructure.secondary.GitTestUtil;
@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleEvents;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResourceFixture;
-import tech.jhipster.lite.npm.infrastructure.secondary.FileSystemNpmVersions;
+import tech.jhipster.lite.npm.infrastructure.secondary.NpmVersionsFixture;
 import tech.jhipster.lite.project.infrastructure.primary.JavaProjects;
 import tech.jhipster.lite.projectfile.infrastructure.secondary.FileSystemProjectFilesReader;
 
@@ -41,7 +41,7 @@ public final class TestJHipsterModules {
 
       FileSystemJHipsterModulesRepository modulesRepository = new FileSystemJHipsterModulesRepository(
         filesReader,
-        new FileSystemNpmVersions(filesReader),
+        NpmVersionsFixture.npmVersions(filesReader),
         mock(JavaProjects.class),
         JHipsterModulesResourceFixture.moduleResources()
       );

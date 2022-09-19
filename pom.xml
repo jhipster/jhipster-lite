@@ -301,12 +301,6 @@
       </plugin>
 
       <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot.version}</version>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
@@ -628,7 +622,27 @@
       </plugins>
     </pluginManagement>
   </build>
+
   <profiles>
+    <profile>
+      <id>spring-boot-build</id>
+      <activation>
+        <property>
+          <name>release</name>
+          <value>!true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring-boot.version}</version>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
     <profile>
       <id>deploy-central</id>
       <activation>
@@ -670,6 +684,7 @@
               </execution>
             </executions>
           </plugin>
+
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>

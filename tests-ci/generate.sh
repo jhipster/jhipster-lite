@@ -114,7 +114,6 @@ elif [[ $application == 'fullapp' ]]; then
   "spring-boot-async" \
   "spring-boot-devtools" \
   "logstash" \
-  "banner-jhipster-v7" \
   "jib" \
   "dockerfile" \
   "java-archunit" \

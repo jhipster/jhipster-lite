@@ -151,6 +151,7 @@ jobs:
           - pulsarapp
           - reactiveapp
           - angularoauth2app
+          - customjhlite
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v3

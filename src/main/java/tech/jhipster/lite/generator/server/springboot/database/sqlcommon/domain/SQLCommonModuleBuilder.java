@@ -2,11 +2,11 @@ package tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
-import tech.jhipster.lite.docker.domain.DockerImage;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.generator.server.springboot.database.common.domain.DatabaseType;
 import tech.jhipster.lite.module.domain.DocumentationTitle;
 import tech.jhipster.lite.module.domain.LogLevel;
+import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
@@ -26,7 +26,7 @@ public class SQLCommonModuleBuilder {
   public static JHipsterModuleBuilder sqlCommonModuleBuilder(
     JHipsterModuleProperties properties,
     DatabaseType databaseType,
-    DockerImage dockerImage,
+    DockerImageVersion dockerImage,
     DocumentationTitle documentationTitle,
     ArtifactId testContainerArtifactId
   ) {

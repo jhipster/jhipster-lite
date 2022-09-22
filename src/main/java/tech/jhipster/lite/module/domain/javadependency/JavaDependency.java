@@ -39,15 +39,12 @@ public class JavaDependency {
     return new JavaDependencyBuilder();
   }
 
-  Collection<JavaBuildCommand> versionCommands(
-    CurrentJavaDependenciesVersions currentVersions,
-    ProjectJavaDependencies projectDependencies
-  ) {
+  Collection<JavaBuildCommand> versionCommands(JavaDependenciesVersions currentVersions, ProjectJavaDependencies projectDependencies) {
     return version().flatMap(toVersion(currentVersions, projectDependencies)).map(toSetVersionCommand()).map(List::of).orElse(List.of());
   }
 
   private Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
-    CurrentJavaDependenciesVersions currentVersions,
+    JavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies
   ) {
     return slug -> {

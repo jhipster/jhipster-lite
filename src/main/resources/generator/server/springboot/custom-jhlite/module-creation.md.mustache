@@ -157,3 +157,57 @@ You can hide modules from your custom instance in project configuration with:
 
 * `jhlite-hidden-resources.slugs`: To disable by slugs
 * `jhlite-hidden-resources.tags`: To disable by tags
+
+## Docker versions
+
+To define custom docker versions you'll need to define a `DockerImagesReader` spring bean, example: 
+
+```java
+@Repository
+class MyDockerImagesReader implements DockerImagesReader {
+
+  @Override
+  public DockerImageVersions get() {
+    return new DockerImageVersions(List.of(new DockerImageVersion("tomcat", "1.2.3")));
+  }
+}
+```
+
+Of course you can add any version resolution logic you want in the implementation. You can have a look at [FileSystemDockerImagesReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/docker/FileSystemDockerImagesReader.java) for an implementation reading from a local file (managed by dependenbot).
+
+## Java versions
+
+To define custom java dependencies versions you'll need to define a `JavaDependenciesReader` spring bean, example:
+
+```java
+@Repository
+class MyJavaDependenciesReader implements JavaDependenciesReader {
+
+  @Override
+  public JavaDependenciesVersions get() {
+    return new JavaDependenciesVersions(List.of(new JavaDependencyVersion("jjwt", "1.2.3")));
+  }
+}
+```
+
+Of course you can add any version resolution logic you want in the implementation. You can have a look at [FileSystemJavaDependenciesReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/javadependency/FileSystemJavaDependenciesReader.java) for an implementation reading from a local file (managed by dependenbot).
+
+## Npm versions
+
+To define custom npm dependencies you'll need to define a `NpmVersionsReader` spring bean, example: 
+
+```java
+@Repository
+class MyNpmVersionsReader implements NpmVersionsReader {
+
+  @Override
+  public NpmPackagesVersions get() {
+    return NpmPackagesVersions
+        .builder()
+        .put(NpmVersionSource.COMMON, packages(new NpmPackage("vue", "1.2.7")))
+        .build();
+  }
+}
+```
+
+Of course you can add any version resolution logic you want in the implementation. You can have a look at [FileSystemNpmVersionReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/javadependency/FileSystemJavaDependenciesReader.java) for an implementation reading from a local file (managed by dependenbot).

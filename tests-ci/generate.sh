@@ -166,7 +166,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   "dummy-jpa-persistence" \
   "dummy-liquibase-changelog" \
 
-  applyModules "ehcache-with-xml-config"
+  applyModules "ehcache-xml-config"
 
 elif [[ $application == 'mariadbapp' ]]; then
   spring_boot_mvc
@@ -174,7 +174,7 @@ elif [[ $application == 'mariadbapp' ]]; then
 
   applyModules "springdoc-mvc-openapi"
   applyModules "mariadb" "liquibase"
-  applyModules "ehcache-with-xml-config"
+  applyModules "ehcache-xml-config"
 
 elif [[ $application == 'mssqlapp' ]]; then
   spring_boot_mvc

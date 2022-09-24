@@ -132,7 +132,7 @@ elif [[ $application == 'fullapp' ]]; then
   "dummy-jpa-persistence" \
   "dummy-liquibase-changelog" \
 
-  applyModules "ehcache-with-java-config"
+  applyModules "ehcache-java-config"
 
   applyModules "frontend-maven-plugin" "vue-core"
 
@@ -338,9 +338,9 @@ elif [[ $application == 'reactiveapp' ]]; then
 elif [[ $application == 'customjhlite' ]]; then
   spring_boot
   sonar_back
-  
+
   applyModules "custom-jhlite"
-  
+
 else
   echo "*** Unknown configuration..."
   exit 1

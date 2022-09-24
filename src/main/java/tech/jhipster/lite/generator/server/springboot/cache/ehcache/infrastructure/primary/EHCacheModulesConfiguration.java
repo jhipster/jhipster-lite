@@ -16,7 +16,7 @@ class EHCacheModulesConfiguration {
   JHipsterModuleResource javaEHCacheModule(EhcacheApplicationService ehCaches) {
     return JHipsterModuleResource
       .builder()
-      .slug("ehcache-with-java-config")
+      .slug("ehcache-java-config")
       .propertiesDefinition(properties())
       .apiDoc("Spring Boot - Cache", "Add Ehcache with Java configuration")
       .organization(organization())

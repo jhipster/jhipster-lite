@@ -99,6 +99,7 @@ class FileSystemProjectJavaDependenciesRepository implements ProjectJavaDependen
         .groupId(dependency.getGroupId())
         .artifactId(dependency.getArtifactId())
         .versionSlug(dependency.getVersion())
+        .classifier(dependency.getClassifier())
         .optional(dependency.isOptional())
         .scope(Enums.map(MavenScope.from(dependency.getScope()), JavaDependencyScope.class))
         .type(MavenType.from(dependency.getType()).map(type -> Enums.map(type, JavaDependencyType.class)).orElse(null))

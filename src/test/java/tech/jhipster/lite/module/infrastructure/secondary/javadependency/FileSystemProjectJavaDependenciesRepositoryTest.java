@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
@@ -71,9 +72,11 @@ class FileSystemProjectJavaDependenciesRepositoryTest {
 
   private void assertJJWTDependency(JavaDependencies dependencies) {
     JavaDependency jjwt = dependencies.get(new DependencyId(new GroupId("io.jsonwebtoken"), new ArtifactId("jjwt-api"))).get();
+
     assertThat(jjwt.version()).contains(new VersionSlug("jjwt"));
     assertThat(jjwt.scope()).isEqualTo(JavaDependencyScope.TEST);
     assertThat(jjwt.optional()).isTrue();
+    assertThat(jjwt.classifier()).contains(new JavaDependencyClassifier("classif"));
   }
 
   private void assertLogstashDependency(JavaDependencies dependencies) {

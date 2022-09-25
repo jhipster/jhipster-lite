@@ -99,11 +99,7 @@ class DirectJavaDependencyTest {
 
   @Test
   void shouldUpgradeDependencyScopeAndOptionality() {
-    JavaDependency upgraded = javaDependency()
-      .groupId("org.junit.jupiter")
-      .artifactId("junit-jupiter-engine")
-      .versionSlug("spring-boot")
-      .build();
+    JavaDependency upgraded = optionalTestDependencyBuilder().optional(false).scope(null).build();
 
     JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectJavaDependencies()).build();
 

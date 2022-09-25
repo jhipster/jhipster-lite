@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 enum MavenType {
-  POM("pom");
+  POM("pom"),
+  TEST_JAR("test-jar");
 
   private static final Map<String, MavenType> TYPES = buildTypes();
 

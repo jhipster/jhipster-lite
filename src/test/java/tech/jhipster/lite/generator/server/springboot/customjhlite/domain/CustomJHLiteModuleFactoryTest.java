@@ -37,6 +37,18 @@ class CustomJHLiteModuleFactoryTest {
             </dependency>
         """
       )
+      .containing(
+        """
+            <dependency>
+              <groupId>tech.jhipster.lite</groupId>
+              <artifactId>jhlite</artifactId>
+              <version>${jhlite.version}</version>
+              <classifier>tests</classifier>
+              <scope>test</scope>
+              <type>test-jar</type>
+            </dependency>
+        """
+      )
       .and()
       .hasFile("src/main/resources/config/application.properties")
       .containing("server.port=9000")

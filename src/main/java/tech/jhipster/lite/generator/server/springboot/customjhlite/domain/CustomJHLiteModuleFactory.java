@@ -6,6 +6,9 @@ import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -26,6 +29,7 @@ public class CustomJHLiteModuleFactory {
       .documentation(documentationTitle("Module creation"), SOURCE.template("module-creation.md"))
       .javaDependencies()
         .addDependency(jhipsterLiteDependency())
+        .addDependency(jhipsterLiteTestDependency())
       .and()
       .mandatoryReplacements()
         .in(mainClassFile(properties))
@@ -46,7 +50,15 @@ public class CustomJHLiteModuleFactory {
   }
 
   private JavaDependency jhipsterLiteDependency() {
-    return javaDependency().groupId("tech.jhipster.lite").artifactId("jhlite").versionSlug("jhlite").build();
+    return jhLiteDependencyBuilder().build();
+  }
+
+  private JavaDependency jhipsterLiteTestDependency() {
+    return jhLiteDependencyBuilder().classifier("tests").scope(JavaDependencyScope.TEST).type(JavaDependencyType.TEST_JAR).build();
+  }
+
+  private JavaDependencyOptionalValueBuilder jhLiteDependencyBuilder() {
+    return javaDependency().groupId("tech.jhipster.lite").artifactId("jhlite").versionSlug("jhlite");
   }
 
   private String springBootApplicationWithJHLite(JHipsterModuleProperties properties) {

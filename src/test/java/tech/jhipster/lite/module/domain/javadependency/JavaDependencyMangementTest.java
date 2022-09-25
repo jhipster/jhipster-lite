@@ -100,11 +100,7 @@ class JavaDependencyMangementTest {
 
   @Test
   void shouldUpgradeDependencyScopeAndOptionality() {
-    JavaDependency upgraded = javaDependency()
-      .groupId("org.junit.jupiter")
-      .artifactId("junit-jupiter-engine")
-      .versionSlug("spring-boot")
-      .build();
+    JavaDependency upgraded = optionalTestDependencyBuilder().optional(false).scope(null).build();
 
     JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectJavaDependencies()).build();
 
@@ -193,6 +189,26 @@ class JavaDependencyMangementTest {
         new RemoveJavaDependencyManagement(noTypeDependencyManagment.id()),
         new AddJavaDependencyManagement(springBootDependencyManagement()),
         new AddJavaDependencyManagement(noTypeDependencyManagment)
+      );
+  }
+
+  @Test
+  void shouldAppendDependencyWithDifferentClassifier() {
+    JavaDependency differentClassifier = optionalTestDependencyBuilder().classifier("different").build();
+
+    ProjectJavaDependencies projectDependencies = ProjectJavaDependencies
+      .builder()
+      .versions(projectVersions())
+      .dependenciesManagements(new JavaDependencies(List.of(differentClassifier)))
+      .dependencies(null);
+
+    JavaBuildCommands changes = changes().dependency(optionalTestDependency()).projectDependencies(projectDependencies).build();
+
+    assertThat(changes.get())
+      .containsExactly(
+        new RemoveJavaDependencyManagement(differentClassifier.id()),
+        new AddJavaDependencyManagement(optionalTestDependency()),
+        new AddJavaDependencyManagement(differentClassifier)
       );
   }
 

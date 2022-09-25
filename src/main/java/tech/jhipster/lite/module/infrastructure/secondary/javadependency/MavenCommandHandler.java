@@ -42,6 +42,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyMa
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginAdditionalElements;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 
 class MavenCommandHandler {
@@ -54,6 +55,7 @@ class MavenCommandHandler {
   private static final String GROUP_ID = "groupId";
   private static final String ARTIFACT_ID = "artifactId";
   private static final String VERSION = "version";
+  private static final String CLASSIFIER = "classifier";
 
   private static final String PARENT = "parent";
   private static final String PACKAGING = "packaging";
@@ -287,6 +289,7 @@ class MavenCommandHandler {
     Match dependency = buildDependencyNode(command, level);
 
     appendVersion(command.version(), dependency, level);
+    appendClassifier(command.classifier(), dependency, level);
     appendScope(command, dependency, level);
     appendOptional(command, dependency, level);
     appendType(command, dependency, level);
@@ -489,6 +492,12 @@ class MavenCommandHandler {
   private void appendVersion(Optional<VersionSlug> versionSlug, Match node, int level) {
     versionSlug.ifPresent(version ->
       node.append(LINE_BREAK).append(indentation.times(level + 1)).append($(VERSION, version.mavenVariable()))
+    );
+  }
+
+  private void appendClassifier(Optional<JavaDependencyClassifier> classifier, Match node, int level) {
+    classifier.ifPresent(depClassifier ->
+      node.append(LINE_BREAK).append(indentation.times(level + 1)).append($(CLASSIFIER, depClassifier.get()))
     );
   }
 

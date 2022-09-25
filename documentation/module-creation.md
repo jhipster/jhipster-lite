@@ -38,8 +38,8 @@ class MyModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModule(module).
-      .createPrefixedFiles("src/test/java/com/jhipster/test/my_package", "Dummy.java");
+    assertThatModule(module)
+      .hasPrefixedFiles("src/test/java/com/jhipster/test/my_package", "Dummy.java");
   }
 }
 ```

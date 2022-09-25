@@ -174,6 +174,7 @@ public final class JHipsterModulesFixture {
       .groupId("org.junit.jupiter")
       .artifactId("junit-jupiter-engine")
       .versionSlug("spring-boot")
+      .classifier("test")
       .scope(JavaDependencyScope.TEST)
       .optional();
   }

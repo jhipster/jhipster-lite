@@ -1,11 +1,11 @@
 package tech.jhipster.lite.error.infrastructure.primary;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
@@ -17,11 +17,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.zalando.problem.DefaultProblem;
-import org.zalando.problem.Problem;
-import org.zalando.problem.ProblemBuilder;
-import org.zalando.problem.Status;
-import org.zalando.problem.StatusType;
+import org.zalando.problem.*;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 import org.zalando.problem.violations.ConstraintViolationProblem;
 import tech.jhipster.lite.error.domain.GeneratorException;
@@ -52,7 +48,7 @@ class ExceptionTranslator implements ProblemHandling {
    * Post-process the Problem payload to add the message key for the front-end if needed.
    */
   @Override
-  public ResponseEntity<Problem> process(@Nullable ResponseEntity<Problem> entity, NativeWebRequest request) {
+  public ResponseEntity<Problem> process(@Null ResponseEntity<Problem> entity, NativeWebRequest request) {
     if (entity == null) {
       return null;
     }
@@ -87,7 +83,7 @@ class ExceptionTranslator implements ProblemHandling {
   }
 
   @Override
-  public ResponseEntity<Problem> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @Nonnull NativeWebRequest request) {
+  public ResponseEntity<Problem> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @NotNull NativeWebRequest request) {
     BindingResult result = ex.getBindingResult();
     List<FieldErrorDTO> fieldErrors = result
       .getFieldErrors()

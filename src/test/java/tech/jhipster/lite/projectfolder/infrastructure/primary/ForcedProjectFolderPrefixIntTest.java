@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary;
+package tech.jhipster.lite.projectfolder.infrastructure.primary;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

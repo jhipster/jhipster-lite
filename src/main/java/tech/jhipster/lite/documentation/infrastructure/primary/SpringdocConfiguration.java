@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.springdoc;
+package tech.jhipster.lite.documentation.infrastructure.primary;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;

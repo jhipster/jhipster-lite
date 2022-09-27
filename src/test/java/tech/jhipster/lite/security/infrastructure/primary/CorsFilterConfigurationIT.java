@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.cors;
+package tech.jhipster.lite.security.infrastructure.primary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

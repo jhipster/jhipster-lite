@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.cors;
+package tech.jhipster.lite.security.infrastructure.primary;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.cors;
+package tech.jhipster.lite.security.infrastructure.primary;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

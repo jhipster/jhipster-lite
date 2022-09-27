@@ -1,6 +1,6 @@
-package tech.jhipster.lite.technical.infrastructure.primary.exception;
+package tech.jhipster.lite.error.infrastructure.primary;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;

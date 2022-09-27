@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.exception;
+package tech.jhipster.lite.error.infrastructure.primary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

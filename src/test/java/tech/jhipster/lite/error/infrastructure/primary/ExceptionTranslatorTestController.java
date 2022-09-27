@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.exception;
+package tech.jhipster.lite.error.infrastructure.primary;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

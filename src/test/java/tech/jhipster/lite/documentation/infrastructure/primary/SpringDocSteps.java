@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.springdoc;
+package tech.jhipster.lite.documentation.infrastructure.primary;
 
 import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
 

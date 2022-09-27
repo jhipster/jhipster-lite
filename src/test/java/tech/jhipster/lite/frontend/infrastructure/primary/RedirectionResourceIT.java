@@ -1,4 +1,4 @@
-package tech.jhipster.lite.technical.infrastructure.primary.redirection;
+package tech.jhipster.lite.frontend.infrastructure.primary;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

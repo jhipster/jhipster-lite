@@ -118,7 +118,8 @@ elif [[ $application == 'fullapp' ]]; then
   "dockerfile" \
   "java-archunit" \
   "github-codespaces" \
-  "gitpod"
+  "gitpod" \
+  "java-memoizers"
 
   cucumber_with_jwt
 

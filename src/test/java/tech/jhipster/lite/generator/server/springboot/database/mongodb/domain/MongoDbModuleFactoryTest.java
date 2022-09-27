@@ -73,6 +73,15 @@ class MongoDbModuleFactoryTest {
                 </dependency>
             """
       )
+      .containing(
+        """
+            <dependency>
+              <groupId>org.reflections</groupId>
+              <artifactId>reflections</artifactId>
+              <version>${reflections.version}</version>
+            </dependency>
+        """
+      )
       .and()
       .hasFile("src/main/docker/mongodb.yml")
       .containing("mongo:1.1.1")
@@ -88,7 +97,7 @@ class MongoDbModuleFactoryTest {
       .containing("org.springframework.context.ApplicationListener=com.jhipster.test")
       .and()
       .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.data.mongodb.database=com.jhipster.test")
+      .containing("spring.data.mongodb.database=jhipster")
       .containing("spring.data.mongodb.uri=mongodb://localhost:27017")
       .and()
       .hasFile("src/test/resources/config/application.properties")

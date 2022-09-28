@@ -18,6 +18,8 @@ fi
 cd "$JHI_FOLDER_APP"
 if [ -a src/main/docker/keycloak.yml ]; then
   docker compose -f src/main/docker/keycloak.yml up -d
+  echo "*** wait 20sec"
+  sleep 20
 fi
 if [ -a src/main/docker/kafka.yml ]; then
   docker compose -f src/main/docker/kafka.yml up -d

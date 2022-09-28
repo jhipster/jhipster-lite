@@ -68,7 +68,7 @@ class MsSQLModuleFactoryTest {
       .containing("spring.data.jpa.repositories.bootstrap-mode=deferred")
       .containing("spring.jpa.hibernate.ddl-auto=update")
       .containing("spring.jpa.hibernate.naming.implicit-strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy")
-      .containing("spring.jpa.hibernate.naming.physical-strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy")
+      .containing("spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy")
       .containing("spring.jpa.open-in-view=false")
       .containing("spring.jpa.properties.hibernate.connection.provider_disables_autocommit=true")
       .containing("spring.jpa.properties.hibernate.criteria.literal_handling_mode=BIND")

@@ -66,7 +66,7 @@ class MariaDBModuleFactoryTest {
       .containing("spring.data.jpa.repositories.bootstrap-mode=deferred")
       .containing("spring.jpa.hibernate.ddl-auto=none")
       .containing("spring.jpa.hibernate.naming.implicit-strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy")
-      .containing("spring.jpa.hibernate.naming.physical-strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy")
+      .containing("spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy")
       .containing("spring.jpa.open-in-view=false")
       .containing("spring.jpa.properties.hibernate.cache.use_second_level_cache=false")
       .containing("spring.jpa.properties.hibernate.cache.use_query_cache=false")

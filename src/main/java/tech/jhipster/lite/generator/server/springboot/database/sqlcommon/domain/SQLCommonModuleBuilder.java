@@ -75,7 +75,7 @@ public class SQLCommonModuleBuilder {
         )
         .set(
           propertyKey("spring.jpa.hibernate.naming.physical-strategy"),
-          propertyValue("org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy")
+          propertyValue("org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy")
         )
         .set(propertyKey("spring.jpa.open-in-view"), FALSE)
         .set(propertyKey("spring.jpa.properties.hibernate.cache.use_second_level_cache"), FALSE)

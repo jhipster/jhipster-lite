@@ -1,8 +1,8 @@
 <div class="jhlite-vertical-space -paragraph">
-  <div class="jhlite-vertical-space--slot">
+  <div class="jhlite-vertical-space--line">
     <h2 class="jhipster-modules-properties-form--properties-title">Properties</h2>
   </div>
-  <div class="jhlite-vertical-space--slot">
+  <div class="jhlite-vertical-space--line">
     <div class="jhlite-field">
       <div class="jhlite-field--label">
         <label for="folder-path" class="jhlite-input">Project folder</label>
@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <div class="jhlite-vertical-space--slot" v-for="property in properties">
+  <div class="jhlite-vertical-space--line" v-for="property in properties">
     <div class="jhlite-field">
       <div class="jhlite-field--label">
         <label :for="`module-parameter-${property.key}`" class="jhlite-label">
@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-  <div class="jhlite-vertical-space--slot">
+  <div class="jhlite-vertical-space--line">
     <input
       type="checkbox"
       id="commit-modules"

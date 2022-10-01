@@ -60,7 +60,7 @@ public class SpringBootCoreModuleFactory {
         .addDependency(springBootTest())
         .and()
       .javaBuildPlugins()
-        .pluginManagement(springBootPluginManagement())
+        .pluginManagement(springBootPluginManagement(fullyQualifiedMainClass))
         .plugin(springBootMavenPlugin())
         .and()
       .files()
@@ -75,11 +75,6 @@ public class SpringBootCoreModuleFactory {
         .add(SOURCE.template("LogsSpy.java"), toSrcTestJava().append(properties.packagePath()).append("LogsSpy.java"))
         .add(SOURCE.template("ApplicationStartupTracesTest.java"), toSrcTestJava().append(packagePath).append("ApplicationStartupTracesTest.java"))
         .and()
-      .mandatoryReplacements()
-        .in("pom.xml")
-          .add(lineBeforeText("</properties>"),properties.indentation().times(2) + "<start-class>"+ fullyQualifiedMainClass +"</start-class>")
-          .and()
-      .and()
       .optionalReplacements()
         .in("pom.xml")
           .add(DEFAULT_GOAL_REPLACER, properties.indentation().times(2) + "<defaultGoal>spring-boot:run</defaultGoal>")
@@ -113,7 +108,7 @@ public class SpringBootCoreModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin springBootPluginManagement() {
+  private JavaBuildPlugin springBootPluginManagement(String fullyQualifiedMainClass) {
     return JavaBuildPlugin
       .builder()
       .groupId(SRPING_BOOT_GROUP)
@@ -129,9 +124,11 @@ public class SpringBootCoreModuleFactory {
           </execution>
         </executions>
         <configuration>
-          <mainClass>${start-class}</mainClass>
+          <mainClass>%s</mainClass>
         </configuration>
-        """
+        """.formatted(
+            fullyQualifiedMainClass
+          )
       )
       .build();
   }

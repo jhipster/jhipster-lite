@@ -22,7 +22,6 @@ class SpringBootCoreModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("pom.xml")
-      .containing("<start-class>com.jhipster.test.MyappApp</start-class")
       .containing(
         """
               <dependency>
@@ -82,7 +81,7 @@ class SpringBootCoreModuleFactoryTest {
                     </execution>
                   </executions>
                   <configuration>
-                    <mainClass>${start-class}</mainClass>
+                    <mainClass>com.jhipster.test.MyappApp</mainClass>
                   </configuration>
                 </plugin>
         """

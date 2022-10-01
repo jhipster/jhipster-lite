@@ -22,6 +22,7 @@ class SpringBootCoreModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("pom.xml")
+      .containing("<start-class>com.jhipster.test.MyappApp</start-class")
       .containing(
         """
               <dependency>

@@ -235,6 +235,7 @@ export default defineComponent({
       appliedModules.value = projectHistory.modules.map(module => module.get());
 
       projectHistory.properties.forEach(property => {
+        console.log(property);
         if (unknownProperty(property.key)) {
           moduleParameters.value.set(property.key, property.value);
         }

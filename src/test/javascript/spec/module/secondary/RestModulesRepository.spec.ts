@@ -259,7 +259,7 @@ const applicationBaseNameProperty = (): RestModulePropertyDefinition => ({
   mandatory: true,
   key: 'baseName',
   description: 'Application base name',
-  example: 'jhipster',
+  defaultValue: 'jhipster',
   order: -300,
 });
 

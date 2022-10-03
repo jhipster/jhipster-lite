@@ -65,6 +65,18 @@ public class JHipsterModulePropertyDefinition {
     return optionalStringProperty("endOfLine").description("Type of line break (lf or crlf)").example("lf").order(100).build();
   }
 
+  public static JHipsterModulePropertyDefinition clientId() {
+    return mandatoryStringProperty("clientId")
+      .description("Client ID for OIDC application")
+      .example("0oab8eb55Kb9jdMIr5d6")
+      .order(100)
+      .build();
+  }
+
+  public static JHipsterModulePropertyDefinition oktaDomain() {
+    return mandatoryStringProperty("oktaDomain").description("Okta domain").example("dev-123456.okta.com").order(100).build();
+  }
+
   public static JHipsterModulePropertyDefinition indentationProperty() {
     return optionalIntegerProperty(JHipsterModuleProperties.INDENTATION_PARAMETER)
       .description("Number of spaces in indentation")

@@ -1,7 +1,7 @@
-package tech.jhipster.lite.generator;
+package tech.jhipster.lite.module.infrastructure.primary;
 
 import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.ProjectsSteps.*;
+import static tech.jhipster.lite.TestProjects.*;
 import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
 
 import io.cucumber.java.en.Then;
@@ -12,9 +12,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import net.minidev.json.JSONArray;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.api.SoftAssertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
@@ -243,6 +246,52 @@ public class ModulesSteps {
     return headers;
   }
 
+  @Then("I should have files in {string}")
+  public void shouldHaveFiles(String basePath, List<String> files) {
+    assertThatLastResponse().hasOkStatus();
+
+    SoftAssertions assertions = new SoftAssertions();
+
+    files.stream().map(file -> Paths.get(lastProjectFolder(), basePath, file)).forEach(assertFileExist(assertions));
+
+    assertions.assertAll();
+  }
+
+  private Consumer<Path> assertFileExist(SoftAssertions assertions) {
+    return path -> assertions.assertThat(Files.exists(path)).as(fileNotFoundMessage(path)).isTrue();
+  }
+
+  private Supplier<String> fileNotFoundMessage(Path path) {
+    return () -> "Can't find file " + path + " in project folder, found " + projectFiles();
+  }
+
+  @Then("I should not have files in {string}")
+  public void shouldNotHaveFiles(String basePath, List<String> files) {
+    assertThatLastResponse().hasHttpStatusIn(200, 201);
+
+    SoftAssertions assertions = new SoftAssertions();
+
+    files.stream().map(file -> Paths.get(lastProjectFolder(), basePath, file)).forEach(assertFileNotExist(assertions));
+
+    assertions.assertAll();
+  }
+
+  private Consumer<Path> assertFileNotExist(SoftAssertions assertions) {
+    return path -> assertions.assertThat(!Files.exists(path)).as(fileFoundMessage(path)).isTrue();
+  }
+
+  private Supplier<String> fileFoundMessage(Path path) {
+    return () -> "Can find file " + path + " in project folder, found " + projectFiles();
+  }
+
+  private String projectFiles() {
+    try {
+      return Files.walk(Paths.get(lastProjectFolder())).filter(Files::isRegularFile).map(Path::toString).collect(Collectors.joining(", "));
+    } catch (IOException e) {
+      return "unreadable folder";
+    }
+  }
+
   @Then("I should have properties definitions")
   public void shouldHaveModulePropertiesDefintions(List<Map<String, Object>> propertiesDefintion) {
     assertThatLastResponse().hasOkStatus().hasElement("$.definitions").containingExactly(propertiesDefintion);
@@ -259,5 +308,12 @@ public class ModulesSteps {
 
       assertThat(types.get(0)).isEqualTo(element.get("Type"));
     });
+  }
+
+  @Then("I should have {int} file in {string}")
+  public void shouldHaveFilesCountInDirectory(int filesCount, String directory) throws IOException {
+    assertThatLastResponse().hasOkStatus();
+
+    assertThat(Files.list(Paths.get(lastProjectFolder(), directory)).count()).isEqualTo(filesCount);
   }
 }

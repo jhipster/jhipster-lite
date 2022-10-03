@@ -15,12 +15,14 @@ class CustomJHLiteModuleConfiguration {
     return JHipsterModuleResource
       .builder()
       .slug("custom-jhlite")
-      .propertiesDefinition(
-        JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().addServerPort().build()
-      )
+      .propertiesDefinition(propertiesDefinition())
       .apiDoc("JHLite", "Create a custom JHLite instance to build custom modules")
       .organization(JHipsterModuleOrganization.builder().addModuleDependency("spring-boot").build())
       .tags("server")
       .factory(customJHLite::buildModule);
+  }
+
+  private JHipsterModulePropertiesDefinition propertiesDefinition() {
+    return JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().addServerPort().build();
   }
 }

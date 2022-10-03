@@ -1,10 +1,11 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
+package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.account.domain.OAuth2AccountModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;

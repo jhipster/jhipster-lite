@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
+package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.domain;
 
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModulesFactory.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
@@ -21,7 +21,7 @@ public class OAuth2ModuleFactory {
   private static final GroupId SPRING_GROUP = groupId("org.springframework.boot");
   private static final String PRIMARY = "infrastructure/primary";
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/security/oauth2");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/security/oauth2/core");
   private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
   private static final JHipsterSource DOCKER_SOURCE = SOURCE.append("docker");

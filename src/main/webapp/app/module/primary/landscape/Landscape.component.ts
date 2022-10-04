@@ -278,7 +278,9 @@ export default defineComponent({
     };
 
     const missingMandatoryProperty = () => {
-      return selectedModulesProperties().some(property => property.mandatory && empty(valuatedModuleParameters.value.get(property.key)));
+      return selectedModulesProperties().some(
+        property => property.mandatory && empty(valuatedModuleParameters.value.get(property.key)) && empty(property.defaultValue)
+      );
     };
 
     const selectedModulesProperties = (): ModulePropertyDefinition[] => {
@@ -335,6 +337,21 @@ export default defineComponent({
     const applyModules = (modulesToApply: ModuleSlug[]): void => {
       operationStarted();
 
+      selectedModulesProperties().forEach(property => {
+        if (unknownProperty(property.key) && property.defaultValue) {
+          switch (property.type) {
+            case 'INTEGER':
+              updateProperty(createProperty(property.key, Number.parseInt(property.defaultValue)));
+              break;
+            case 'BOOLEAN':
+              updateProperty(createProperty(property.key, Boolean(property.defaultValue)));
+              break;
+            default:
+              updateProperty(createProperty(property.key, property.defaultValue));
+          }
+        }
+      });
+
       modules
         .applyAll({
           modules: modulesToApply,
@@ -370,6 +387,11 @@ export default defineComponent({
     const isApplied = (moduleId: string): boolean => {
       return landscapeValue().isApplied(new ModuleSlug(moduleId));
     };
+
+    const createProperty = (key: string, value: ModuleParameterType): ModuleParameter => ({
+      key,
+      value,
+    });
 
     return {
       levels,

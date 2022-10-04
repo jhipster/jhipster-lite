@@ -148,6 +148,7 @@ const restLandscape = (): RestLandscape => ({
       elements: [
         landscapeModule('infinitest', 'Add infinitest filters', applicationBaseNameProperties()),
         landscapeModule('init', 'Add some initial tools', applicationBaseNameProperties()),
+        landscapeModule('init-props', 'Add some initial tools with extra properties', initPropsProperties()),
         landscapeModule('prettier', 'Add prettier', applicationBaseNameProperties()),
       ],
     },
@@ -250,6 +251,15 @@ const applicationBaseNameProperties = (): RestModulePropertiesDefinitions => ({
   definitions: [applicationBaseNameProperty()],
 });
 
+const initPropsProperties = (): RestModulePropertiesDefinitions => ({
+  definitions: [
+    applicationBaseNameProperty(),
+    indentSizePropertyDefinition(),
+    mandatoryBooleanPropertyDefinition(),
+    mandatoryBooleanPropertyDefinitionWithDefault(),
+  ],
+});
+
 const optionalBooleanProperties = (): RestModulePropertiesDefinitions => ({
   definitions: [optionalBooleanProperty()],
 });
@@ -268,4 +278,30 @@ const optionalBooleanProperty = (): RestModulePropertyDefinition => ({
   mandatory: false,
   key: 'optionalBoolean',
   order: -200,
+});
+
+export const indentSizePropertyDefinition = (): RestModulePropertyDefinition => ({
+  type: 'INTEGER',
+  mandatory: true,
+  key: 'indentSize',
+  description: 'Application indent size',
+  defaultValue: '2',
+  order: -100,
+});
+
+export const mandatoryBooleanPropertyDefinition = (): RestModulePropertyDefinition => ({
+  type: 'BOOLEAN',
+  mandatory: true,
+  key: 'mandatoryBoolean',
+  description: 'Test Mandatory boolean',
+  order: -50,
+});
+
+export const mandatoryBooleanPropertyDefinitionWithDefault = (): RestModulePropertyDefinition => ({
+  type: 'BOOLEAN',
+  mandatory: true,
+  key: 'mandatoryBooleanDefault',
+  description: 'Test Mandatory boolean with default',
+  defaultValue: 'true',
+  order: -50,
 });

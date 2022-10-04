@@ -93,7 +93,7 @@ export default defineComponent({
       return (
         operationInProgress.value ||
         empty(folderPath.value) ||
-        getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key))
+        getModule(slug).properties.some(property => property.mandatory && isNotSet(property.key) && empty(property.defaultValue))
       );
     };
 
@@ -205,6 +205,21 @@ export default defineComponent({
     const applyModule = (module: string): void => {
       operationInProgress.value = true;
 
+      selectedModuleProperties().forEach(property => {
+        if (unknownProperty(property.key) && property.defaultValue) {
+          switch (property.type) {
+            case 'INTEGER':
+              updateProperty(createProperty(property.key, Number.parseInt(property.defaultValue)));
+              break;
+            case 'BOOLEAN':
+              updateProperty(createProperty(property.key, Boolean(property.defaultValue)));
+              break;
+            default:
+              updateProperty(createProperty(property.key, property.defaultValue));
+          }
+        }
+      });
+
       modules
         .apply(new ModuleSlug(module), {
           projectFolder: folderPath.value,
@@ -235,12 +250,16 @@ export default defineComponent({
       appliedModules.value = projectHistory.modules.map(module => module.get());
 
       projectHistory.properties.forEach(property => {
-        console.log(property);
         if (unknownProperty(property.key)) {
           moduleParameters.value.set(property.key, property.value);
         }
       });
     };
+
+    const createProperty = (key: string, value: ModuleParameterType): ModuleParameter => ({
+      key,
+      value,
+    });
 
     const unknownProperty = (key: string) => {
       return !moduleParameters.value.has(key);

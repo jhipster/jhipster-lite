@@ -120,11 +120,9 @@ public class OAuth2ModuleFactory {
   private void appendIntegrationTestAnnotationUpdates(JHipsterModuleBuilder builder, JHipsterModuleProperties properties) {
     String baseClass = properties.projectBaseName().capitalized() + "App.class";
 
-    String integrationTestFile = "src/test/java/" + properties.packagePath() + "/IntegrationTest.java";
-
     builder
       .mandatoryReplacements()
-      .in(integrationTestFile)
+      .in(path("src/test/java").append(properties.packagePath()).append("IntegrationTest.java"))
       .add(IMPORT_NEEDLE, testSecurityConfigurationImport(properties))
       .add(text(baseClass), baseClass + ", TestSecurityConfiguration.class");
   }

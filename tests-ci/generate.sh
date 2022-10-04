@@ -254,6 +254,14 @@ elif [[ $application == 'mongodbapp' ]]; then
   "dummy-feature" \
   "dummy-mongodb-persistence"
 
+elif [[ $application == 'neo4japp' ]]; then
+  spring_boot_mvc
+  sonar_back
+
+  applyModules "neo4j" "neo4j-migrations"
+
+  cucumber_with_jwt
+
 elif [[ $application == 'angularapp' ]]; then
   spring_boot_mvc
   sonar_back_front

@@ -51,6 +51,8 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   MONGODB("mongodb"),
   MSSQL("mssql"),
   MYSQL("mysql"),
+  NEO4J("neo4j"),
+  NEO4J_MIGRATIONS("neo4j-migrations"),
   PAGINATION_DOMAIN("pagination-domain"),
   PLAYWRIGHT("playwright"),
   POSTGRESQL("postgresql"),

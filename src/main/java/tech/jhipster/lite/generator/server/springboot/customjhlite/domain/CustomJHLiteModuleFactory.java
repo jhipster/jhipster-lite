@@ -4,6 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
@@ -65,8 +66,8 @@ public class CustomJHLiteModuleFactory {
     return "@SpringBootApplication(scanBasePackageClasses = { JHLiteApp.class, " + mainClassName(properties) + ".class })";
   }
 
-  private String mainClassFile(JHipsterModuleProperties properties) {
-    return "src/main/java/" + properties.packagePath() + "/" + mainClassName(properties) + ".java";
+  private JHipsterProjectFilePath mainClassFile(JHipsterModuleProperties properties) {
+    return path("src/main/java").append(properties.packagePath()).append(mainClassName(properties) + ".java");
   }
 
   private String mainClassName(JHipsterModuleProperties properties) {

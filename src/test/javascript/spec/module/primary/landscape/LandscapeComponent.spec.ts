@@ -471,7 +471,7 @@ describe('Landscape', () => {
       expect((wrapper.find(wrappedElement('parameter-indentSize-field')).element as HTMLInputElement).value).toBe('2');
 
       const [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
-      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['init', 'vue']);
+      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['init-props', 'vue', 'init']);
       expect(wrapper.find(wrappedElement('modules-apply-all-button')).attributes('disabled')).toBeUndefined();
 
       const initClasses = wrapper.find(wrappedElement('init-module')).classes();

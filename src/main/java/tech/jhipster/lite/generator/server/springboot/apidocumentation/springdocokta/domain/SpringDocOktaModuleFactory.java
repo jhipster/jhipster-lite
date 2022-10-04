@@ -18,24 +18,18 @@ public class SpringDocOktaModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
+    String clientId = properties.getString(CLIENT_ID_PROPERTY);
+    String authorizationUrl = "https://" + properties.getString(OKTA_DOMAIN_PROPERTY) + "/oauth2/default/v1/authorize?nonce=\"jhipster\"";
+
     //@formatter:off
     return moduleBuilder(properties)
       .springMainProperties(OKTA_SPRING_PROFILE)
-        .set(propertyKey("springdoc.swagger-ui.oauth.client-id"), propertyValue(clientId(properties)))
+        .set(propertyKey("springdoc.swagger-ui.oauth.client-id"), propertyValue(clientId))
         .set(propertyKey("springdoc.swagger-ui.oauth.realm"), propertyValue("jhipster"))
         .set(propertyKey("springdoc.swagger-ui.oauth.scopes"), propertyValue("openid,profile,email"))
-        .set(propertyKey("springdoc.oauth2.authorization-url"), propertyValue(authorizationUrl(properties)))
+        .set(propertyKey("springdoc.oauth2.authorization-url"), propertyValue(authorizationUrl))
         .and()
       .build();
     //@formatter:on
-  }
-
-  private static String clientId(JHipsterModuleProperties properties) {
-    return properties.getString(CLIENT_ID_PROPERTY);
-  }
-
-  private String authorizationUrl(JHipsterModuleProperties properties) {
-    String domain = properties.getString(OKTA_DOMAIN_PROPERTY);
-    return "https://" + domain + "/oauth2/default/v1/authorize?nonce=\"jhipster\"";
   }
 }

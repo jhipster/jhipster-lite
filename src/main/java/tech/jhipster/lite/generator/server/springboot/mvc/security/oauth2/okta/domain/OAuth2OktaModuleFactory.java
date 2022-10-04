@@ -23,6 +23,9 @@ public class OAuth2OktaModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
+    String issuerUri = "https://" + properties.getString(OKTA_DOMAIN_PROPERTY) + "/oauth2/default";
+    String clientId = properties.getString(CLIENT_ID_PROPERTY);
+
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Okta"), SOURCE.template("documentation/okta.md"))
@@ -31,18 +34,10 @@ public class OAuth2OktaModuleFactory {
         .add(SOURCE.file("documentation/images/security-add-claim.png"), to("documentation/images/security-add-claim.png"))
         .and()
       .springMainProperties(OKTA_SPRING_PROFILE)
-        .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue(issuerUri(properties)))
-        .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), propertyValue(clientId(properties)))
+        .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue(issuerUri))
+        .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), propertyValue(clientId))
         .and()
       .build();
     //@formatter:on
-  }
-
-  private static String clientId(JHipsterModuleProperties properties) {
-    return properties.getString(CLIENT_ID_PROPERTY);
-  }
-
-  private String issuerUri(JHipsterModuleProperties properties) {
-    return "https://" + properties.getString(OKTA_DOMAIN_PROPERTY) + "/oauth2/default";
   }
 }

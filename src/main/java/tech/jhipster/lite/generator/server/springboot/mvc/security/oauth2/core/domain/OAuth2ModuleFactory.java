@@ -26,6 +26,8 @@ public class OAuth2ModuleFactory {
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
   private static final JHipsterSource DOCKER_SOURCE = SOURCE.append("docker");
   private static final JHipsterDestination DOCKER_DESTINATION = to("src/main/docker");
+  private static final String CLIENT_ID = "web_app";
+  private static final String CLIENT_SECRET = "web_app";
 
   private final DockerImages dockerImages;
 
@@ -106,15 +108,15 @@ public class OAuth2ModuleFactory {
     builder
       .springMainProperties()
       .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue("http://localhost:9080/realms/jhipster"))
-      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), propertyValue("web_app"))
-      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-secret"), propertyValue("web_app"))
+      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), propertyValue(CLIENT_ID))
+      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-secret"), propertyValue(CLIENT_SECRET))
       .set(propertyKey("spring.security.oauth2.client.registration.oidc.scope"), propertyValue("openid,profile,email"))
       .set(propertyKey("application.security.oauth2.audience"), propertyValue("account,api://default"));
 
     builder
       .springTestProperties()
       .set(propertyKey("spring.main.allow-bean-definition-overriding"), propertyValue("true"))
-      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), propertyValue("web_app"))
+      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), propertyValue(CLIENT_ID))
       .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue("http://DO_NOT_CALL:9080/realms/jhipster"));
   }
 

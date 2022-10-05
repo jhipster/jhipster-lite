@@ -74,14 +74,6 @@ public class JHipsterModulePropertiesDefinition {
       return add(endOfLineProperty());
     }
 
-    public JHipsterModulePropertiesDefinitionBuilder addClientId() {
-      return add(clientId());
-    }
-
-    public JHipsterModulePropertiesDefinitionBuilder addOktaDomain() {
-      return add(oktaDomain());
-    }
-
     public JHipsterModulePropertiesDefinitionBuilder add(JHipsterModulePropertyDefinition propertyDefinition) {
       Assert.notNull("propertyDefinition", propertyDefinition);
 

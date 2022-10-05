@@ -165,6 +165,7 @@ dist/
 .svelte-kit/
 
 ######################
-# Okta
+# OAuth 2.0
 ######################
 okta.sh
+auth0.sh

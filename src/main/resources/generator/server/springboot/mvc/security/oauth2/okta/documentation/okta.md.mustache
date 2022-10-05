@@ -44,7 +44,11 @@ Create a `ROLE_ADMIN` and `ROLE_USER` group (**Directory > Groups > Add Group**)
 
 After making these changes, you should be good to go! If you have any issues, please post them to [Stack Overflow](https://stackoverflow.com/questions/tagged/jhipster). Make sure to tag your question with “jhipster” and “okta”.
 
+### Running locally
+
+In order to run your application with OAuth 2.0 and Okta:
+
 ```bash
 source okta.sh
-./mvnw -Dspring-boot.run.profiles=okta
+SPRING_PROFILES_ACTIVE=otka ./mvnw
 ```

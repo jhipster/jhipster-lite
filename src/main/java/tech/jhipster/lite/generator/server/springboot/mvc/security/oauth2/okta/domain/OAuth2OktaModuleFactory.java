@@ -10,6 +10,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProfile;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
@@ -23,9 +24,6 @@ public class OAuth2OktaModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String issuerUri = "https://" + properties.getString(OKTA_DOMAIN_PROPERTY) + "/oauth2/default";
-    String clientId = properties.getString(CLIENT_ID_PROPERTY);
-
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Okta"), SOURCE.template("documentation/okta.md"))
@@ -34,10 +32,18 @@ public class OAuth2OktaModuleFactory {
         .add(SOURCE.file("documentation/images/security-add-claim.png"), to("documentation/images/security-add-claim.png"))
         .and()
       .springMainProperties(OKTA_SPRING_PROFILE)
-        .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue(issuerUri))
-        .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), propertyValue(clientId))
+        .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), issuerUri(properties))
+        .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), clientId(properties))
         .and()
       .build();
     //@formatter:on
+  }
+
+  private static PropertyValue issuerUri(JHipsterModuleProperties properties) {
+    return propertyValue("https://" + properties.getString(OKTA_DOMAIN_PROPERTY) + "/oauth2/default");
+  }
+
+  private static PropertyValue clientId(JHipsterModuleProperties properties) {
+    return propertyValue(properties.getString(CLIENT_ID_PROPERTY));
   }
 }

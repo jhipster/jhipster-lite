@@ -16,6 +16,7 @@ import { ProjectActionsVue } from '../project-actions';
 import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { ModuleParameter } from '@/module/domain/ModuleParameter';
 import { ModuleParametersVue } from '../module-parameters';
+import { castValue } from '../PropertyValue';
 
 export default defineComponent({
   name: 'ModulesPatchVue',
@@ -207,16 +208,7 @@ export default defineComponent({
 
       selectedModuleProperties().forEach(property => {
         if (unknownProperty(property.key) && property.defaultValue) {
-          switch (property.type) {
-            case 'INTEGER':
-              updateProperty(createProperty(property.key, Number.parseInt(property.defaultValue)));
-              break;
-            case 'BOOLEAN':
-              updateProperty(createProperty(property.key, Boolean(property.defaultValue)));
-              break;
-            default:
-              updateProperty(createProperty(property.key, property.defaultValue));
-          }
+          updateProperty({ key: property.key, value: castValue(property.type, property.defaultValue) });
         }
       });
 
@@ -255,11 +247,6 @@ export default defineComponent({
         }
       });
     };
-
-    const createProperty = (key: string, value: ModuleParameterType): ModuleParameter => ({
-      key,
-      value,
-    });
 
     const unknownProperty = (key: string) => {
       return !moduleParameters.value.has(key);

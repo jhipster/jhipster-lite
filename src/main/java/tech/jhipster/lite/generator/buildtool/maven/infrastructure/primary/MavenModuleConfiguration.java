@@ -19,6 +19,18 @@ class MavenModuleConfiguration {
       .apiDoc("Build Tool", "Init Maven project with pom.xml and wrapper")
       .organization(JHipsterModuleOrganization.builder().feature("java-build-tool").addModuleDependency("init").build())
       .tags("buildtool", "test")
-      .factory(maven::buildModule);
+      .factory(maven::buildMavenModule);
+  }
+
+  @Bean
+  JHipsterModuleResource mavenWrapperModule(MavenApplicationService maven) {
+    return JHipsterModuleResource
+      .builder()
+      .slug("maven-wrapper")
+      .withoutProperties()
+      .apiDoc("Build Tool", "Add maven wrapper")
+      .standalone()
+      .tags("buildtool", "test")
+      .factory(maven::buildMavenWrapperModule);
   }
 }

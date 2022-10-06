@@ -17,8 +17,10 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 public class OAuth2Auth0ModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/security/oauth2/auth0");
+
   private static final SpringProfile AUTH0_SPRING_PROFILE = new SpringProfile("auth0");
-  private static final String CLIENT_ID_PROPERTY = "clientId";
+
+  private static final String CLIENT_ID_PROPERTY = "auth0ClientId";
   private static final String AUTH0_DOMAIN_PROPERTY = "auth0Domain";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -41,7 +43,9 @@ public class OAuth2Auth0ModuleFactory {
 
   private static PropertyValue audience(JHipsterModuleProperties properties) {
     return propertyValue(
-      "application.security.oauth2.audience=account,api://default,https://" + properties.getString(AUTH0_DOMAIN_PROPERTY) + "/api/v2/"
+      "application.security.oauth2.audience=account",
+      "api://default",
+      "https://" + properties.getString(AUTH0_DOMAIN_PROPERTY) + "/api/v2/"
     );
   }
 

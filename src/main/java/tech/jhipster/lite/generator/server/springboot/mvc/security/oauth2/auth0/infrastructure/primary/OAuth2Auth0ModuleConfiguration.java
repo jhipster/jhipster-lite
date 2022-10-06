@@ -1,13 +1,13 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.auth0.infrastructure.primary;
 
-import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.auth0Domain;
-import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.clientId;
+import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.mandatoryStringProperty;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.auth0.application.OAuth2Auth0SecurityApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
@@ -36,8 +36,20 @@ class OAuth2Auth0ModuleConfiguration {
       .addProjectBaseName()
       .addProjectName()
       .add(auth0Domain())
-      .add(clientId())
+      .add(auth0clientId())
       .addIndentation()
+      .build();
+  }
+
+  public static JHipsterModulePropertyDefinition auth0Domain() {
+    return mandatoryStringProperty("auth0Domain").description("Auth0 domain").example("dev-123456.us.auth0.com").order(800).build();
+  }
+
+  public static JHipsterModulePropertyDefinition auth0clientId() {
+    return mandatoryStringProperty("auth0ClientId")
+      .description("Auth0 Client ID for OIDC application")
+      .example("0oab8eb55Kb9jdMIr5d6")
+      .order(900)
       .build();
   }
 }

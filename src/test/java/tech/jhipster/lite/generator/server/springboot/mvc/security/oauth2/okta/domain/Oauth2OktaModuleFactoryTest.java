@@ -21,7 +21,7 @@ class Oauth2OktaModuleFactoryTest {
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .put("oktaDomain", "dev-123456.okta.com")
-      .put("clientId", "my-client-id")
+      .put("oktaClientId", "my-client-id")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);

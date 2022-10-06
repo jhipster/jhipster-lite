@@ -20,7 +20,7 @@ class SpringDocAuth0ModuleFactoryTest {
       .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .put("auth0Domain", "dev-123456.us.auth0.com")
-      .put("clientId", "my-client-id")
+      .put("auth0ClientId", "my-client-id")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);

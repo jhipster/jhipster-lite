@@ -18,12 +18,7 @@ class SpringDocOktaModuleConfiguration {
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Spring Boot - API Documentation", "Add Okta authentication for springdoc")
       .organization(
-        JHipsterModuleOrganization
-          .builder()
-          .addFeatureDependency("springdoc")
-          .addModuleDependency("springdoc-oauth2")
-          .addModuleDependency("spring-boot-oauth2-okta")
-          .build()
+        JHipsterModuleOrganization.builder().addFeatureDependency("springdoc").addModuleDependency("spring-boot-oauth2-okta").build()
       )
       .tags("server", "swagger", "springdoc", "okta")
       .factory(springdocOkta::buildModule);

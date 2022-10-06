@@ -21,7 +21,7 @@ class Oauth2Auth0ModuleFactoryTest {
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .put("auth0Domain", "dev-123456.us.auth0.com")
-      .put("clientId", "my-client-id")
+      .put("auth0ClientId", "my-client-id")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);

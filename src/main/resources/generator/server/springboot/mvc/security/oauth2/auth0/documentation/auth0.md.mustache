@@ -15,6 +15,7 @@ If you’d like to use Auth0 instead of Keycloak, follow the configuration steps
   - Navigate to **User Management > Roles** and create new roles named `ROLE_ADMIN`, and `ROLE_USER`.
   - Navigate to **User Management > Users** and create a new user account. Click on the **Role** tab to assign roles to the newly created user account.
   - Navigate to **Actions > Flows** and select **Login**. Create a new action named `Add Roles` and use the default trigger and runtime. Change the `onExecutePostLogin` handler to be as follows:
+
 ```javascript
 exports.onExecutePostLogin = async (event, api) => {
   const namespace = 'https://www.jhipster.tech';
@@ -25,13 +26,14 @@ exports.onExecutePostLogin = async (event, api) => {
   }
 }
 ```
+
   - Select **Deploy** and drag the `Add Roles` action to your Login flow.
 
 If you’d like to have all these steps automated for you, add a 👍 to [issue #351](https://github.com/auth0/auth0-cli/issues/351) in the Auth0 CLI project.
 
 ### Configure JHipster Application to use Auth0 as OIDC Provider
 
-In your application, modify src/main/resources/config/application-auth0.yml to use your Auth0 settings. Hint: replace {yourAuth0Domain} with your org’s name (e.g., dev-123456.us.auth0.com).
+In your application, update src/main/resources/config/application-auth0.yml to use your Auth0 settings. Hint: replace {yourAuth0Domain} with your org’s name (e.g., dev-123456.us.auth0.com).
 
 ```properties
 application.security.oauth2.audience=account,api://default,https://{yourAuth0Domain}/api/v2/

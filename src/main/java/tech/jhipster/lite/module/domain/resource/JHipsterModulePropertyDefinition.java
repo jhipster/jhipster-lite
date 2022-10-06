@@ -73,22 +73,6 @@ public class JHipsterModulePropertyDefinition {
       .build();
   }
 
-  public static JHipsterModulePropertyDefinition oktaDomain() {
-    return mandatoryStringProperty("oktaDomain").description("Okta domain").example("dev-123456.okta.com").order(600).build();
-  }
-
-  public static JHipsterModulePropertyDefinition auth0Domain() {
-    return mandatoryStringProperty("auth0Domain").description("Auth0 domain").example("dev-123456.us.auth0.com").order(700).build();
-  }
-
-  public static JHipsterModulePropertyDefinition clientId() {
-    return mandatoryStringProperty("clientId")
-      .description("Client ID for OIDC application")
-      .example("0oab8eb55Kb9jdMIr5d6")
-      .order(800)
-      .build();
-  }
-
   public static JHipsterModulePropertyDefinitionOptionalFieldsBuilder mandatoryStringProperty(String key) {
     return builder().type(JHipsterPropertyType.STRING).mandatory(true).key(key);
   }

@@ -22,7 +22,7 @@ If you’d like to configure things manually through the Okta Admin Console, see
 
 First, you’ll need to create a free developer account at [https://developer.okta.com/signup](https://developer.okta.com/signup). After doing so, you’ll get your own Okta domain, that has a name like `https://dev-123456.okta.com`.
 
-Modify `src/main/resources/config/application-okta.yml` to use your Okta settings. Hint: replace {yourOktaDomain} with your org’s name (e.g., dev-123456.okta.com).
+Update `src/main/resources/config/application-okta.yml` to use your Okta settings. Hint: replace {yourOktaDomain} with your org’s name (e.g., dev-123456.okta.com).
 
 ```properties
 security.oauth2.client.provider.oidc.issuer-uri=https://{yourOktaDomain}/oauth2/default
@@ -43,6 +43,13 @@ Create a `ROLE_ADMIN` and `ROLE_USER` group (**Directory > Groups > Add Group**)
 ![security-add-claim.png](images/security-add-claim.png)
 
 After making these changes, you should be good to go! If you have any issues, please post them to [Stack Overflow](https://stackoverflow.com/questions/tagged/jhipster). Make sure to tag your question with “jhipster” and “okta”.
+
+To use Okta when running e2e tests, you can set environment variables.
+
+```bash
+export CYPRESS_E2E_USERNAME=<your-username>
+export CYPRESS_E2E_PASSWORD=<your-password>
+```
 
 ### Running locally
 

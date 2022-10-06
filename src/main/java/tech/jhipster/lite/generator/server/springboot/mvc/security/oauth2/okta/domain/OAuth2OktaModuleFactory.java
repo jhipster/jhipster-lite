@@ -17,8 +17,10 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 public class OAuth2OktaModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/security/oauth2/okta");
+
   private static final SpringProfile OKTA_SPRING_PROFILE = new SpringProfile("okta");
-  private static final String CLIENT_ID_PROPERTY = "clientId";
+
+  private static final String OKTA_CLIENT_ID_PROPERTY = "oktaClientId";
   private static final String OKTA_DOMAIN_PROPERTY = "oktaDomain";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -44,6 +46,6 @@ public class OAuth2OktaModuleFactory {
   }
 
   private static PropertyValue clientId(JHipsterModuleProperties properties) {
-    return propertyValue(properties.getString(CLIENT_ID_PROPERTY));
+    return propertyValue(properties.getString(OKTA_CLIENT_ID_PROPERTY));
   }
 }

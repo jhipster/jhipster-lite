@@ -20,7 +20,7 @@ class SpringDocOktaModuleFactoryTest {
       .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .put("oktaDomain", "dev-123456.okta.com")
-      .put("clientId", "my-client-id")
+      .put("oktaClientId", "my-client-id")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);

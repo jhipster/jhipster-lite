@@ -23,7 +23,7 @@ public class MavenModuleFactory {
 
   public JHipsterModule buildMavenModule(JHipsterModuleProperties properties) {
     //@formatter:off
-    return commonModuleFiles(properties)
+    return mavenWrapperModulesFiles(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
         .and()
@@ -44,10 +44,10 @@ public class MavenModuleFactory {
   }
 
   public JHipsterModule buildMavenWrapperModule(JHipsterModuleProperties properties) {
-    return commonModuleFiles(properties).build();
+    return mavenWrapperModulesFiles(properties).build();
   }
 
-  private JHipsterModuleBuilder commonModuleFiles(JHipsterModuleProperties properties) {
+  private JHipsterModuleBuilder mavenWrapperModulesFiles(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     //@formatter:off

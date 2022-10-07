@@ -44,7 +44,7 @@
     "webapp:serve": "vite"
   },
   "dependencies": {
-    "axios": "0.27.2",
+    "axios": "1.1.2",
     "mitt": "3.0.0",
     "vue": "3.2.40",
     "vue-router": "4.1.5"

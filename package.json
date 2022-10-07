@@ -15,7 +15,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "vue-tsc -p tsconfig.build.json --noEmit && vite build --emptyOutDir && tikui-core build",
-    "dev": "vite",
+    "dev": "npm run tikui:serve & npm run webapp:serve",
     "e2e": "cypress open --config-file src/test/javascript/cypress/cypress-config.ts",
     "e2e:headless": "cypress run --headless --config-file src/test/javascript/cypress/cypress-config.ts",
     "format": "prettier . --write",
@@ -36,11 +36,12 @@
     "prettier:format": "npm run prettier:run -- --write",
     "prettier:run": "prettier \"{{src/**/,}*.{md,json,yml,html,vue,java,xml},*.{js,ts},src/{main/glyph,main/webapp,test/javascript}/**/*.{css,scss}}\"",
     "preview": "vite preview",
-    "start": "vite",
+    "start": "npm run dev",
     "test": "npm run jest --",
     "test:clear": "jest --clearCache",
     "test:watch": "npm run jest -- --watch",
-    "tikui:serve": "tikui-core serve"
+    "tikui:serve": "tikui-core serve",
+    "webapp:serve": "vite"
   },
   "dependencies": {
     "axios": "0.27.2",

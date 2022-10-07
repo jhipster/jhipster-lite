@@ -82,7 +82,7 @@ public class ModulesSteps {
   }
 
   @When("I get module {string} properties definition")
-  public void getModulePropertieDefinition(String moduleSlug) {
+  public void getModulePropertiesDefinition(String moduleSlug) {
     rest.getForEntity(moduleUrl(moduleSlug), Void.class);
   }
 
@@ -107,6 +107,11 @@ public class ModulesSteps {
   @When("I apply {string} module without parameters to last project")
   public void applyModuleForLastProject(String moduleSlug) {
     post(applyModuleUrl(moduleSlug), buildModuleQuery(lastProjectFolder(), null));
+  }
+
+  @When("I apply {string} module with parameters to last project")
+  public void applyModuleForLastProject(String moduleSlug, Map<String, String> parameters) {
+    post(applyModuleUrl(moduleSlug), buildModuleQuery(lastProjectFolder(), parameters));
   }
 
   @When("I apply {string} module to default project with maven file without parameters")

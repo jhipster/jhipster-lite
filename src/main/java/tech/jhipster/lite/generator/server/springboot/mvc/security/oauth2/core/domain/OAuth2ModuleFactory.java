@@ -1,7 +1,8 @@
-package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.domain;
+package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.domain;
 
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModulesFactory.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -10,6 +11,7 @@ import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 
@@ -21,11 +23,14 @@ public class OAuth2ModuleFactory {
   private static final GroupId SPRING_GROUP = groupId("org.springframework.boot");
   private static final String PRIMARY = "infrastructure/primary";
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/security/oauth2");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/security/oauth2/core");
   private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
   private static final JHipsterSource DOCKER_SOURCE = SOURCE.append("docker");
   private static final JHipsterDestination DOCKER_DESTINATION = to("src/main/docker");
+
+  private static final PropertyValue CLIENT_ID = propertyValue("web_app");
+  private static final PropertyValue CLIENT_SECRET = propertyValue("web_app");
 
   private final DockerImages dockerImages;
 
@@ -106,14 +111,15 @@ public class OAuth2ModuleFactory {
     builder
       .springMainProperties()
       .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue("http://localhost:9080/realms/jhipster"))
-      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), propertyValue("web_app"))
-      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-secret"), propertyValue("web_app"))
+      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), CLIENT_ID)
+      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-secret"), CLIENT_SECRET)
       .set(propertyKey("spring.security.oauth2.client.registration.oidc.scope"), propertyValue("openid,profile,email"))
       .set(propertyKey("application.security.oauth2.audience"), propertyValue("account,api://default"));
 
     builder
       .springTestProperties()
       .set(propertyKey("spring.main.allow-bean-definition-overriding"), propertyValue("true"))
+      .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), CLIENT_ID)
       .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue("http://DO_NOT_CALL:9080/realms/jhipster"));
   }
 

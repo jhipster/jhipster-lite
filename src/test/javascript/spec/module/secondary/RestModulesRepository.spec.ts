@@ -106,6 +106,14 @@ describe('Rest modules repository', () => {
     expect(project.filename).toBe('file.zip');
     expect(project.content).toEqual([1, 2, 3]);
   });
+
+  it('Should fail to download when there is no suggested filename', async () => {
+    const axiosInstance = stubAxiosHttp();
+    const repository = new RestModulesRepository(axiosInstance);
+    axiosInstance.get.resolves({ headers: {}, data: [1, 2, 3] });
+
+    await expect(repository.download('path/to/project')).rejects.toEqual(new Error('Impossible to download file without filename'));
+  });
 });
 
 const restModules = (): RestModules => ({

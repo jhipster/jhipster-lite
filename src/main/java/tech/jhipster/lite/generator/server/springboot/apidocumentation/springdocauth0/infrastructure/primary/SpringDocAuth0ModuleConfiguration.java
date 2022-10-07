@@ -14,13 +14,13 @@ class SpringDocAuth0ModuleConfiguration {
   JHipsterModuleResource springDocAuth0Module(SpringDocAuth0ApplicationService springdocAuth0) {
     return JHipsterModuleResource
       .builder()
-      .slug("springdoc-oauth2-auth")
+      .slug("springdoc-oauth2-auth0")
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Spring Boot - API Documentation", "Add Auth0 authentication for springdoc")
       .organization(
-        JHipsterModuleOrganization.builder().addFeatureDependency("springdoc").addModuleDependency("spring-boot-oauth2-auth").build()
+        JHipsterModuleOrganization.builder().addFeatureDependency("springdoc").addModuleDependency("spring-boot-oauth2-auth0").build()
       )
-      .tags("server", "swagger", "springdoc", "auth")
+      .tags("server", "swagger", "springdoc", "auth0")
       .factory(springdocAuth0::buildModule);
   }
 }

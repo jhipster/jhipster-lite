@@ -35,7 +35,7 @@ Feature: OAuth2 modules
       | maven-java         |
       | spring-boot        |
       | spring-boot-oauth2 |
-    And I apply "spring-boot-oauth2-auth" module with parameters to last project
+    And I apply "spring-boot-oauth2-auth0" module with parameters to last project
       | packageName   | tech.jhipster.chips     |
       | baseName      | jhipster                |
       | auth0Domain   | dev-123456.us.auth0.com |

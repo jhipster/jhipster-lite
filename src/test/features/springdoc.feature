@@ -60,7 +60,7 @@ Feature: Springdoc modules
       | spring-boot           |
       | springdoc-mvc-openapi |
       | springdoc-oauth2      |
-    And I apply "springdoc-oauth2-auth" module with parameters to last project
+    And I apply "springdoc-oauth2-auth0" module with parameters to last project
       | packageName   | tech.jhipster.chips     |
       | baseName      | jhipster                |
       | auth0Domain   | dev-123456.us.auth0.com |

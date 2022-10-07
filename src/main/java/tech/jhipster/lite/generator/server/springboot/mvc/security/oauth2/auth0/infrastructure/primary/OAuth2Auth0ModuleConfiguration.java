@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.auth0.infrastructure.primary;
 
+import static tech.jhipster.lite.generator.JHLiteModuleSlug.*;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.mandatoryStringProperty;
 
 import org.springframework.context.annotation.Bean;
@@ -19,13 +20,13 @@ class OAuth2Auth0ModuleConfiguration {
   JHipsterModuleResource oAuth2Auth0Module(OAuth2Auth0SecurityApplicationService oAuth2) {
     return JHipsterModuleResource
       .builder()
-      .slug("spring-boot-oauth2-auth0")
+      .slug(SPRING_BOOT_OAUTH_2_AUTH_0)
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc(
         "Spring Boot - MVC - Security",
         "Add a Spring Security: OAuth 2.0 / OIDC Authentication / Auth0 Provider (stateful, works with Keycloak and Auth0)"
       )
-      .organization(JHipsterModuleOrganization.builder().addModuleDependency("spring-boot-oauth2").build())
+      .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_OAUTH_2).build())
       .tags("server", "spring", "spring-boot", AUTHENTICATION, "auth0")
       .factory(oAuth2::buildOAuth2Auth0Module);
   }

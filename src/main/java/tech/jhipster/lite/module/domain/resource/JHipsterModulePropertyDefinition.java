@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain.resource;
 
 import java.util.Optional;
+import tech.jhipster.lite.common.domain.Generated;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.properties.*;
 
@@ -113,6 +114,15 @@ public class JHipsterModulePropertyDefinition {
     return description;
   }
 
+  /**
+   *  @deprecated use {@link #defaultValue()} instead
+   */
+  @Deprecated(forRemoval = true)
+  @Generated(reason = "Candidate for deletion")
+  public Optional<JHipsterPropertyExample> example() {
+    return defaultValue().isPresent() ? JHipsterPropertyExample.of(defaultValue().get().get()) : Optional.empty();
+  }
+
   public Optional<JHipsterPropertyDefaultValue> defaultValue() {
     return defaultValue;
   }
@@ -165,6 +175,18 @@ public class JHipsterModulePropertyDefinition {
       return this;
     }
 
+    /**
+     *  @deprecated use {@link #defaultValue(String defaultValue)} instead
+     */
+    @Deprecated(forRemoval = true)
+    @Generated(reason = "Candidate for deletion")
+    @Override
+    public JHipsterModulePropertyDefinitionOptionalFieldsBuilder example(String example) {
+      this.defaultValue = example;
+
+      return this;
+    }
+
     @Override
     public JHipsterModulePropertyDefinitionOptionalFieldsBuilder defaultValue(String defaultValue) {
       this.defaultValue = defaultValue;
@@ -199,6 +221,13 @@ public class JHipsterModulePropertyDefinition {
 
   public interface JHipsterModulePropertyDefinitionOptionalFieldsBuilder {
     JHipsterModulePropertyDefinitionOptionalFieldsBuilder description(String description);
+
+    /**
+     *  @deprecated use {@link #defaultValue(String defaultValue)} instead
+     */
+    @Deprecated(forRemoval = true)
+    @Generated(reason = "Candidate for deletion")
+    JHipsterModulePropertyDefinitionOptionalFieldsBuilder example(String example);
 
     JHipsterModulePropertyDefinitionOptionalFieldsBuilder defaultValue(String defaultValue);
 

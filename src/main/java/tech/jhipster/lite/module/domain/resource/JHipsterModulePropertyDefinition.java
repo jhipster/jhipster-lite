@@ -120,10 +120,7 @@ public class JHipsterModulePropertyDefinition {
   @Deprecated(forRemoval = true)
   @Generated(reason = "Candidate for deletion")
   public Optional<JHipsterPropertyExample> example() {
-    if (defaultValue.isPresent()) {
-      return JHipsterPropertyExample.of(defaultValue.get().defaultValue());
-    }
-    return Optional.empty();
+    return defaultValue.flatMap(value -> JHipsterPropertyExample.of(value.get()));
   }
 
   public Optional<JHipsterPropertyDefaultValue> defaultValue() {

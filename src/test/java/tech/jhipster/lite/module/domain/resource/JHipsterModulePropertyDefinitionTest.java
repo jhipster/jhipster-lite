@@ -7,10 +7,10 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyType;
 
 @UnitTest
-public class JHipsterModulePropertyDefinitionTest {
+class JHipsterModulePropertyDefinitionTest {
 
   @Test
-  void shouldReturnExampleThrouhDefaultValue() {
+  void shouldReturnExampleThroughDefaultValue() {
     JHipsterModulePropertyDefinition propertyDefinition = JHipsterModulePropertyDefinition
       .builder()
       .type(JHipsterPropertyType.STRING)
@@ -19,6 +19,6 @@ public class JHipsterModulePropertyDefinitionTest {
       .example("jhipster")
       .build();
 
-    assertThat(propertyDefinition.example().map(value -> value.example()).get()).isEqualTo("jhipster");
+    assertThat(propertyDefinition.example().map(value -> value.example())).contains("jhipster");
   }
 }

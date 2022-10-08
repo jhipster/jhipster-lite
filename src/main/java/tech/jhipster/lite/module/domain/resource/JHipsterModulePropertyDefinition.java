@@ -29,7 +29,7 @@ public class JHipsterModulePropertyDefinition {
   public static JHipsterModulePropertyDefinition basePackageProperty() {
     return mandatoryStringProperty(JHipsterModuleProperties.BASE_PACKAGE_PARAMETER)
       .description("Base java package")
-      .defaultValue("tech.jhipster.lite")
+      .defaultValue("com.mycompany.myapp")
       .order(-300)
       .build();
   }
@@ -37,7 +37,7 @@ public class JHipsterModulePropertyDefinition {
   public static JHipsterModulePropertyDefinition projectNameProperty() {
     return mandatoryStringProperty(JHipsterModuleProperties.PROJECT_NAME_PARAMETER)
       .description("Project full name")
-      .defaultValue("JHipster Project")
+      .defaultValue("JHipster Sample Application")
       .order(-200)
       .build();
   }
@@ -45,7 +45,7 @@ public class JHipsterModulePropertyDefinition {
   static JHipsterModulePropertyDefinition projectBaseNameProperty() {
     return mandatoryStringProperty(JHipsterModuleProperties.PROJECT_BASE_NAME_PARAMETER)
       .description("Project short name (only letters and numbers)")
-      .defaultValue("jhipster")
+      .defaultValue("jhipsterSampleApplication")
       .order(-100)
       .build();
   }

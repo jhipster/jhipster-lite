@@ -208,7 +208,7 @@ public class ModulesSteps {
     }
 
     if (StringUtils.isNumeric(value)) {
-      return String.valueOf(value);
+      return value;
     }
 
     return "\"" + value + "\"";

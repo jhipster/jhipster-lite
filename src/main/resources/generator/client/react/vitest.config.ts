@@ -23,6 +23,13 @@ export default defineConfig({
     include: ['src/test/javascript/spec/**/*.(spec|test).(ts|tsx)'],
     exclude: ['node_modules', 'src/test/javascript/integration/**/*.spec.ts'],
     coverage: {
+      all: true,
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      include: ['src/main/webapp/app/**/*.ts', 'src/main/webapp/app/**/*.tsx'],
+      exclude: ['src/main/webapp/app/index.tsx', 'src/main/webapp/app/**/*.d.ts'],
       clean: true,
       provider: 'istanbul',
       reportsDirectory: 'target/test-results/',

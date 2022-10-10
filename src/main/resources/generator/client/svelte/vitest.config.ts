@@ -26,6 +26,10 @@ export default defineConfig({
     include: ['src/test/javascript/spec/**/*.(spec|test).(ts|tsx)'],
     exclude: ['node_modules'],
     coverage: {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
       clean: true,
       provider: 'istanbul',
       reportsDirectory: 'target/test-results/',

@@ -6,10 +6,10 @@
   border-bottom-color: transparent;
   width: 48px;
   height: 48px;
-  animation: rotation 1s linear infinite;
+  animation: jhlite-rotation 1s linear infinite;
 }
 
-@keyframes rotation {
+@keyframes jhlite-rotation {
   0% {
     transform: rotate(0deg);
   }

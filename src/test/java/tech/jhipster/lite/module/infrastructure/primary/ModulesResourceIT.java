@@ -14,7 +14,7 @@ import tech.jhipster.lite.IntegrationTest;
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class ModulesResourceTestIT {
+class ModulesResourceIT {
 
   @Autowired
   private MockMvc mockMvc;

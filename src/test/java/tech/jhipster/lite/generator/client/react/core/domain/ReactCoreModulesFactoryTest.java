@@ -43,9 +43,7 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeScript("start", "vite"))
       .containing(nodeScript("test", "vitest run --coverage"))
       .containing(nodeScript("test:watch", "vitest --"))
-      .containing(
-        "  \"jestSonar\": {\n    \"reportPath\": \"target/test-results/jest\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },"
-      )
+      .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },")
       .and()
       .hasFile(".lintstagedrc.js")
       .containing(
@@ -61,7 +59,6 @@ class ReactCoreModulesFactoryTest {
       .hasFiles("src/main/webapp/index.html")
       .hasPrefixedFiles("src/main/webapp/app", "index.css", "index.tsx", "vite-env.d.ts")
       .hasFiles("src/test/javascript/spec/common/primary/app/App.spec.tsx")
-      .hasFiles("src/main/webapp/config/setupTests.ts")
       .hasFile("src/main/webapp/app/common/primary/app/App.tsx")
       .containing("import './App.css';")
       .and()

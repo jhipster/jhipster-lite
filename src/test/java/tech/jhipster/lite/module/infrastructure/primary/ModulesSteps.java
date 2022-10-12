@@ -1,8 +1,9 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.TestProjects.*;
-import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.TestProjects.lastProjectFolder;
+import static tech.jhipster.lite.TestProjects.newTestFolder;
+import static tech.jhipster.lite.cucumber.CucumberAssertions.assertThatLastResponse;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,6 +24,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import tech.jhipster.lite.cucumber.CucumberTestContext;
 import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
@@ -320,5 +322,13 @@ public class ModulesSteps {
     assertThatLastResponse().hasOkStatus();
 
     assertThat(Files.list(Paths.get(lastProjectFolder(), directory)).count()).isEqualTo(filesCount);
+  }
+
+  @Then("I should have unknown slug {string} error message")
+  public void shouldHaveUnknownSlugErrorMessage(String slugName) {
+    assertThatLastResponse()
+      .hasHttpStatus(HttpStatus.BAD_REQUEST)
+      .hasElement("$.title")
+      .withValue("Module " + slugName + " does not exist");
   }
 }

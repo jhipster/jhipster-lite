@@ -43,10 +43,18 @@ public class JHipsterModulesResources {
     return resources.values().stream();
   }
 
+  public JHipsterModuleResource get(JHipsterModuleSlug slug) {
+    Assert.notNull("slug", slug);
+    if (!resources.containsKey(slug)) {
+      throw new UnknownSlugException(slug);
+    }
+    return resources.get(slug);
+  }
+
   public JHipsterModule build(JHipsterModuleSlug slug, JHipsterModuleProperties properties) {
     Assert.notNull("slug", slug);
     Assert.notNull("properties", properties);
 
-    return resources.get(slug).factory().create(properties);
+    return get(slug).factory().create(properties);
   }
 }

@@ -53,7 +53,7 @@ class VueModulesFactoryTest {
         .containing("\"start\": \"vite\"")
         .containing("\"test\": \"vitest run --coverage\"")
         .containing("\"test:watch\": \"vitest --\"")
-        .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results/jest\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },")
+        .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },")
         .and()
       .hasFile(".lintstagedrc.js")
         .containing(

@@ -96,7 +96,7 @@
     "node_modules"
   ],
   "jestSonar": {
-    "reportPath": "target/test-results/jest",
+    "reportPath": "target/test-results",
     "reportFile": "TESTS-results-sonar.xml"
   }
 }

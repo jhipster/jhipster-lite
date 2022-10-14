@@ -18,7 +18,6 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 import tech.jhipster.lite.projectfolder.domain.ProjectFolder;
 
 @RestController
-@Tag(name = "Modules")
 @RequestMapping("/api")
 class ModulesResource {
 
@@ -37,18 +36,21 @@ class ModulesResource {
   }
 
   @GetMapping("/modules")
+  @Tag(name = "Modules")
   @Operation(summary = "List available modules")
   public ResponseEntity<RestJHipsterModules> listModules() {
     return ResponseEntity.ok(modulesList);
   }
 
   @GetMapping("modules-landscape")
+  @Tag(name = "Modules")
   @Operation(summary = "Get a view of the current modules landscape")
   public ResponseEntity<RestJHipsterLandscape> modulesLandscape() {
     return ResponseEntity.ok(modulesLandscape);
   }
 
   @PostMapping("apply-patches")
+  @Tag(name = "Modules")
   @Operation(summary = "Apply multiple modules patches")
   public void applyPatches(@RequestBody @Validated RestJHipsterModulesToApply modulesToApply) {
     modules.apply(modulesToApply.toDomain(projectFolder));

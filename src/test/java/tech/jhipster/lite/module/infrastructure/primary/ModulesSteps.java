@@ -1,9 +1,8 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestProjects.lastProjectFolder;
-import static tech.jhipster.lite.TestProjects.newTestFolder;
-import static tech.jhipster.lite.cucumber.CucumberAssertions.assertThatLastResponse;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestProjects.*;
+import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

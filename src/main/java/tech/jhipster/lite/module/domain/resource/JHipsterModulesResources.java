@@ -44,10 +44,8 @@ public class JHipsterModulesResources {
   }
 
   public JHipsterModuleResource get(JHipsterModuleSlug slug) {
-    Assert.notNull("slug", slug);
-    if (!resources.containsKey(slug)) {
-      throw new UnknownSlugException(slug);
-    }
+    assertKnownSlug(slug);
+
     return resources.get(slug);
   }
 
@@ -56,5 +54,13 @@ public class JHipsterModulesResources {
     Assert.notNull("properties", properties);
 
     return get(slug).factory().create(properties);
+  }
+
+  private void assertKnownSlug(JHipsterModuleSlug slug) {
+    Assert.notNull("slug", slug);
+
+    if (!resources.containsKey(slug)) {
+      throw new UnknownSlugException(slug);
+    }
   }
 }

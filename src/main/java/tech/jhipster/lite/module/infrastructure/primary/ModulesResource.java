@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 import tech.jhipster.lite.projectfolder.domain.ProjectFolder;
 
 @RestController
+@Tag(name = "Modules")
 @RequestMapping("/api")
 class ModulesResource {
 
@@ -36,32 +38,31 @@ class ModulesResource {
   }
 
   @GetMapping("/modules")
-  @Tag(name = "Modules")
   @Operation(summary = "List available modules")
   public ResponseEntity<RestJHipsterModules> listModules() {
     return ResponseEntity.ok(modulesList);
   }
 
   @GetMapping("modules-landscape")
-  @Tag(name = "Modules")
   @Operation(summary = "Get a view of the current modules landscape")
   public ResponseEntity<RestJHipsterLandscape> modulesLandscape() {
     return ResponseEntity.ok(modulesLandscape);
   }
 
   @PostMapping("apply-patches")
-  @Tag(name = "Modules")
   @Operation(summary = "Apply multiple modules patches")
   public void applyPatches(@RequestBody @Validated RestJHipsterModulesToApply modulesToApply) {
     modules.apply(modulesToApply.toDomain(projectFolder));
   }
 
+  @Hidden
   @PostMapping("modules/{slug}/apply-patch")
   public void applyPatch(@RequestBody @Validated RestJHipsterModuleProperties restProperties, @PathVariable("slug") String slug) {
     JHipsterModuleProperties properties = restProperties.toDomain(projectFolder);
     modules.apply(new JHipsterModuleToApply(new JHipsterModuleSlug(slug), properties));
   }
 
+  @Hidden
   @GetMapping("modules/{slug}")
   public RestJHipsterModulePropertiesDefinition propertiesDefinition(@PathVariable("slug") String slug) {
     JHipsterModuleResource module = modules.resources().get(new JHipsterModuleSlug(slug));

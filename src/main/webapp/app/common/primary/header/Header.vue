@@ -31,21 +31,6 @@
             </router-link>
           </li>
           <li class="jhlite-nav--item">
-            <a
-              class="jhlite-nav-item"
-              href="https://github.com/jhipster/jhipster-lite/blob/main/documentation/guides.md"
-              target="_blank"
-              rel="noopener"
-            >
-              <span class="jhlite-icon-text">
-                <span class="jhlite-icon-text--icon">
-                  <IconVue name="book" aria-label="Icon book" title="GitHub JHipster Lite documentation" />
-                </span>
-                <span class="jhlite-icon-text--text">Documentation</span>
-              </span>
-            </a>
-          </li>
-          <li class="jhlite-nav--item">
             <a class="jhlite-nav-item" href="./swagger-ui.html" target="_blank">
               <span class="jhlite-icon-text">
                 <span class="jhlite-icon-text--icon">

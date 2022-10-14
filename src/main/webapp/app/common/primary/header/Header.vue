@@ -41,7 +41,7 @@
             </a>
           </li>
           <li class="jhlite-nav--item">
-            <a class="jhlite-nav-item" href="https://www.jhipster.tech/" target="_blank" rel="noopener">
+            <a class="jhlite-nav-item" href="https://www.jhipster.tech/jhipster-lite" target="_blank" rel="noopener">
               <span class="jhlite-icon-text">
                 <span class="jhlite-icon-text--icon">
                   <IconVue name="jhipster" aria-label="JHipster logo" title="JHipster website" />

@@ -90,7 +90,7 @@
     "vue-tsc": "1.0.7"
   },
   "engines": {
-    "node": ">=14.18.1"
+    "node": ">=16.0.0"
   },
   "cacheDirectories": [
     "node_modules"

@@ -30,8 +30,6 @@ class AngularHealthModuleFactoryTest {
         "health.component.ts",
         "health.component.spec.ts",
         "health.model.ts",
-        "health.module.ts",
-        "health.route.ts",
         "health.service.spec.ts",
         "health.service.ts"
       )

@@ -53,8 +53,6 @@ public class AngularHealthModuleFactory {
           .addTemplate("health.component.ts")
           .addTemplate("health.component.spec.ts")
           .addTemplate("health.model.ts")
-          .addTemplate("health.module.ts")
-          .addTemplate("health.route.ts")
           .addTemplate("health.service.spec.ts")
           .addTemplate("health.service.ts")
           .and()

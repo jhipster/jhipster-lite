@@ -119,7 +119,9 @@ elif [[ $application == 'fullapp' ]]; then
   "java-archunit" \
   "github-codespaces" \
   "gitpod" \
-  "java-memoizers"
+  "java-memoizers" \
+  "spring-boot-cache" \
+  "caffeine-cache"
 
   cucumber_with_jwt
 

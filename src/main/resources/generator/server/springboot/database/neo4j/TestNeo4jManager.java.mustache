@@ -23,8 +23,7 @@ class TestNeo4jManager implements ApplicationListener<ApplicationEnvironmentPrep
     neo4jContainer.start();
 
     System.setProperty("TEST_NEO4J_URI", neo4jContainer.getBoltUrl());
-    Runtime.getRuntime()
-        .addShutdownHook(new Thread(stopContainer()));
+    Runtime.getRuntime().addShutdownHook(new Thread(stopContainer()));
   }
 
   private Runnable stopContainer() {

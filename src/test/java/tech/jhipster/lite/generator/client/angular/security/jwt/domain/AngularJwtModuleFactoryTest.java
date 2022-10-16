@@ -42,7 +42,6 @@ class AngularJwtModuleFactoryTest {
         "login.component.css",
         "login.component.html",
         "login.component.ts",
-        "login.module.ts",
         "login.route.ts"
       )
       .hasFile("src/main/webapp/app/login/login.component.spec.ts")
@@ -53,7 +52,7 @@ class AngularJwtModuleFactoryTest {
         """
               {
                 path: '',
-                loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+                loadComponent: () => import('./login/login.component').then(m => m.LoginComponent),
               },
             """
       )

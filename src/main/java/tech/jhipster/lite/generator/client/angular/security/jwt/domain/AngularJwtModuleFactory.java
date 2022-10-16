@@ -21,7 +21,7 @@ public class AngularJwtModuleFactory {
     """
       {
         path: '',
-        loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+        loadComponent: () => import('./login/login.component').then(m => m.LoginComponent),
       },
       """;
 
@@ -75,7 +75,6 @@ public class AngularJwtModuleFactory {
           .addTemplate("login.component.html")
           .addTemplate("login.component.spec.ts")
           .addTemplate("login.component.ts")
-          .addTemplate("login.module.ts")
           .addTemplate("login.route.ts")
           .and()
         .and()

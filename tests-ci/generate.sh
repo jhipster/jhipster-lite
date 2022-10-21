@@ -119,7 +119,9 @@ elif [[ $application == 'fullapp' ]]; then
   "java-archunit" \
   "github-codespaces" \
   "gitpod" \
-  "java-memoizers"
+  "java-memoizers" \
+  "spring-boot-cache" \
+  "caffeine-cache"
 
   cucumber_with_jwt
 
@@ -254,6 +256,14 @@ elif [[ $application == 'mongodbapp' ]]; then
   "dummy-feature" \
   "dummy-mongodb-persistence"
 
+elif [[ $application == 'neo4japp' ]]; then
+  spring_boot_mvc
+  sonar_back
+
+  applyModules "neo4j" "neo4j-migrations"
+
+  cucumber_with_jwt
+
 elif [[ $application == 'angularapp' ]]; then
   spring_boot_mvc
   sonar_back_front
@@ -313,7 +323,7 @@ elif [[ $application == 'svelteapp' ]]; then
   applyModules \
   "frontend-maven-plugin" \
   "prettier" \
-  "svelte"
+  "svelte-core"
 
 elif [[ $application == 'kafkaapp' ]]; then
   spring_boot_mvc

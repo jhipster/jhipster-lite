@@ -61,9 +61,9 @@ jobs:
           ARTIFACT_PATHNAME=$(ls target/*.jar | head -n 1)
           ARTIFACT_NAME=$(basename $ARTIFACT_PATHNAME)
           ARTIFACT_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo ::set-output name=artifact_asset_name::${ARTIFACT_NAME}
-          echo ::set-output name=artifact_asset_path::${ARTIFACT_PATHNAME}
-          echo ::set-output name=artifact_version::${ARTIFACT_VERSION}
+          echo "artifact_asset_name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
+          echo "artifact_asset_path=${ARTIFACT_PATHNAME}" >> $GITHUB_OUTPUT
+          echo "artifact_version=${ARTIFACT_VERSION}" >> $GITHUB_OUTPUT
       - name: 'Release: publish release drafter'
         uses: release-drafter/release-drafter@v5
         id: release-drafter-final

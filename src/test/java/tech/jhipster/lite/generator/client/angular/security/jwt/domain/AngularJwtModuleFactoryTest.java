@@ -23,7 +23,7 @@ class AngularJwtModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, appRoutingFile(), appModuleFile())
+    assertThatModuleWithFiles(module, appRoutingFile(), appMainFile())
       .hasPrefixedFiles(
         "src/main/webapp/app/auth",
         "account.model.ts",
@@ -47,7 +47,7 @@ class AngularJwtModuleFactoryTest {
       .hasFile("src/main/webapp/app/login/login.component.spec.ts")
       .containing(".toEqual('jhipster')")
       .and()
-      .hasFile("src/main/webapp/app/app-routing.module.ts")
+      .hasFile("src/main/webapp/app/app.route.ts")
       .containing(
         """
               {
@@ -55,30 +55,14 @@ class AngularJwtModuleFactoryTest {
                 loadComponent: () => import('./login/login.component').then(m => m.LoginComponent),
               },
             """
-      )
-      .and()
-      .hasFile("src/main/webapp/app/app.module.ts")
-      .containing("import { ReactiveFormsModule } from '@angular/forms';")
-      .containing("import { AuthInterceptor } from './auth/auth.interceptor'")
-      .containing(", ReactiveFormsModule]")
-      .containing(
-        """
-              providers: [
-                {
-                  provide: HTTP_INTERCEPTORS,
-                  useClass: AuthInterceptor,
-                  multi: true,
-                },
-              ],
-            """
       );
   }
 
   private static ModuleFile appRoutingFile() {
-    return file("src/test/resources/projects/angular/app-routing.module.ts", "src/main/webapp/app/app-routing.module.ts");
+    return file("src/test/resources/projects/angular/app.route.ts", "src/main/webapp/app/app.route.ts");
   }
 
-  private static ModuleFile appModuleFile() {
-    return file("src/test/resources/projects/angular/app.module.ts", "src/main/webapp/app/app.module.ts");
+  private static ModuleFile appMainFile() {
+    return file("src/test/resources/projects/angular/main.ts", "src/main/webapp/main.ts");
   }
 }

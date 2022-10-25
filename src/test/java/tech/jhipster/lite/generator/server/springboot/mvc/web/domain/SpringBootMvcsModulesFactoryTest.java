@@ -102,9 +102,8 @@ class SpringBootMvcsModulesFactoryTest {
       .hasFiles("documentation/cors-configuration.md")
       .hasFile("src/main/resources/config/application.properties")
       .containing("server.port=9000")
-      .containing("server.error.include-message=always")
       .and()
-      .hasFile("src/main/resources/templates/error.html")
+      .hasFile("src/main/resources/public/error/404.html")
       .and()
       .hasFile("src/test/resources/config/application.properties")
       .containing("server.port=0")
@@ -123,14 +122,6 @@ class SpringBootMvcsModulesFactoryTest {
             <dependency>
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-starter-validation</artifactId>
-            </dependency>
-        """
-      )
-      .containing(
-        """
-            <dependency>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-starter-thymeleaf</artifactId>
             </dependency>
         """
       )

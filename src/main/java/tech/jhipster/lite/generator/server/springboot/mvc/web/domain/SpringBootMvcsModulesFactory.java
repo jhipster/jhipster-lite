@@ -21,7 +21,6 @@ public class SpringBootMvcsModulesFactory {
   private static final ArtifactId STARTER_WEB_ARTIFACT_ID = artifactId("spring-boot-starter-web");
 
   private static final PropertyKey SERVER_PORT = propertyKey("server.port");
-  private static final PropertyKey SERVER_ERROR_INCLUDE_MESSAGE = propertyKey("server.error.include-message");
 
   private static final String CORS_PRIMARY = "security/infrastructure/primary";
 
@@ -67,18 +66,16 @@ public class SpringBootMvcsModulesFactory {
       .localEnvironment(localEnvironment("- [Local server](http://localhost:"+properties.serverPort().get()+")"))
       .javaDependencies()
         .addDependency(SPRING_BOOT_GROUP, artifactId("spring-boot-starter-validation"))
-        .addDependency(SPRING_BOOT_GROUP, artifactId("spring-boot-starter-thymeleaf"))
         .addDependency(reflectionsDependency())
         .and()
       .springMainProperties()
         .set(SERVER_PORT, propertyValue(properties.serverPort().stringValue()))
-        .set(SERVER_ERROR_INCLUDE_MESSAGE, propertyValue("always"))
         .and()
       .springTestProperties()
         .set(SERVER_PORT, propertyValue("0"))
         .and()
       .files()
-        .add(SOURCE.file("resources/error.html"), to("src/main/resources/templates/error.html"))
+        .add(SOURCE.file("resources/404.html"), to("src/main/resources/public/error/404.html"))
         .batch(SOURCE.append("src/cors"), toSrcMainJava().append(packagePath).append(CORS_PRIMARY))
           .addTemplate("CorsFilterConfiguration.java")
           .addTemplate("CorsProperties.java")

@@ -178,7 +178,7 @@ jobs:
           ls -al /tmp/jhlite/${{ matrix.app }}
           MD5SUM_POM_XML=$(md5sum /tmp/jhlite/${{ matrix.app }}/pom.xml | cut -d ' ' -f 1)
           echo $MD5SUM_POM_XML
-          echo ::set-output name=md5sum_pom_xml::${MD5SUM_POM_XML}
+          echo "md5sum_pom_xml=${MD5SUM_POM_XML}" >> $GITHUB_OUTPUT
       - name: 'Init: cache local Maven repository'
         uses: actions/cache@v3
         with:

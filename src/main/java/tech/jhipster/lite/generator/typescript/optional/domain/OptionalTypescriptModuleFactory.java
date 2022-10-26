@@ -16,7 +16,7 @@ public class OptionalTypescriptModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .files()
-      .add(from("typescript/webapp/common/domain/optional/").file("Optional.ts"), to("src/webapp/app/common/domain/Optional.ts"))
+      .add(from("typescript/webapp/common/domain/optional/").file("Optional.ts"), to("src/main/webapp/app/common/domain/Optional.ts"))
       .add(from("typescript/test/javascript/spec/common/domain/optional/").file("Optional.spec.ts"), to("src/test/javascript/spec/common/domain/Optional.spec.ts"))
       .and()
       .build();

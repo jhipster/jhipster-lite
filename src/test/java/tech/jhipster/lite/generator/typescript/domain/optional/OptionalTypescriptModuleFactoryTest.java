@@ -22,7 +22,7 @@ class OptionalTypescriptModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module)
-      .hasFile("src/webapp/app/common/domain/Optional.ts")
+      .hasFile("src/main/webapp/app/common/domain/Optional.ts")
       .and()
       .hasFile("src/test/javascript/spec/common/domain/Optional.spec.ts");
   }

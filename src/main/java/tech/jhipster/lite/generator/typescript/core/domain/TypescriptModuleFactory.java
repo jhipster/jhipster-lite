@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.typescript.domain;
+package tech.jhipster.lite.generator.typescript.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.from;
 import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;

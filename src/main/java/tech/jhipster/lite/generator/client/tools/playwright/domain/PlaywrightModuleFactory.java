@@ -27,8 +27,8 @@ public class PlaywrightModuleFactory {
       .files()
         .add(SOURCE.file("playwright.config.ts"), to("playwright.config.ts"))
         .batch(SOURCE.append(PLAYWRIGHT_TESTS), to(PLAYWRIGHT_TESTS))
-          .addTemplate("Home.spec.ts")
-          .addTemplate("Home-Page.ts")
+          .addFile("Home.spec.ts")
+          .addFile("Home-Page.ts")
           .and()
         .and()
       .build();

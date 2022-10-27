@@ -1,6 +1,5 @@
 package tech.jhipster.lite.generator.typescript.domain.core;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;

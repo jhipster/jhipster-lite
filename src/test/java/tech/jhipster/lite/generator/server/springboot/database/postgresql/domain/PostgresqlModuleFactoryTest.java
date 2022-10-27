@@ -49,14 +49,18 @@ class PostgresqlModuleFactoryTest {
       .hasFile("src/test/java/com/jhipster/test/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
       .and()
       .hasFile("pom.xml")
-      .containing("<groupId>org.postgresql</groupId>")
-      .containing("<artifactId>postgresql</artifactId>")
+      .containing("""
+            <dependency>
+              <groupId>org.postgresql</groupId>
+              <artifactId>postgresql</artifactId>
+              <scope>runtime</scope>
+            </dependency>
+        """)
       .containing("<groupId>com.zaxxer</groupId>")
       .containing("<artifactId>HikariCP</artifactId>")
       .containing("<groupId>org.hibernate</groupId>")
       .containing("<artifactId>hibernate-core</artifactId>")
       .containing("<groupId>org.testcontainers</groupId>")
-      .containing("<artifactId>postgresql</artifactId>")
       .and()
       .hasFile("src/main/resources/config/application.properties")
       .containing("spring.datasource.url=jdbc:postgresql://localhost:5432/myapp")

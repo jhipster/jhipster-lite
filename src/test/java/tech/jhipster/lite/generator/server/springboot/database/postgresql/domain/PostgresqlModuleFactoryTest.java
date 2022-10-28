@@ -1,16 +1,20 @@
 package tech.jhipster.lite.generator.server.springboot.database.postgresql.domain;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.*;
-import org.mockito.*;
-import org.mockito.junit.jupiter.*;
-import tech.jhipster.lite.*;
-import tech.jhipster.lite.module.domain.*;
-import tech.jhipster.lite.module.domain.docker.*;
-import tech.jhipster.lite.module.domain.properties.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import tech.jhipster.lite.TestFileUtils;
+import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
+import tech.jhipster.lite.module.domain.docker.DockerImages;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)

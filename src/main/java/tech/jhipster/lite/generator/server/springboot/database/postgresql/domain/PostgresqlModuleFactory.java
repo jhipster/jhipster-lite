@@ -3,11 +3,13 @@ package tech.jhipster.lite.generator.server.springboot.database.postgresql.domai
 import static tech.jhipster.lite.generator.server.springboot.database.sqlcommon.domain.SQLCommonModuleBuilder.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
-import tech.jhipster.lite.error.domain.*;
-import tech.jhipster.lite.generator.server.springboot.database.common.domain.*;
-import tech.jhipster.lite.module.domain.*;
-import tech.jhipster.lite.module.domain.docker.*;
-import tech.jhipster.lite.module.domain.properties.*;
+import tech.jhipster.lite.error.domain.Assert;
+import tech.jhipster.lite.generator.server.springboot.database.common.domain.DatabaseType;
+import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.LogLevel;
+import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
+import tech.jhipster.lite.module.domain.docker.DockerImages;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class PostgresqlModuleFactory {
 

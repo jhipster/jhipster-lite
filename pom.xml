@@ -207,11 +207,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongodb-driver-sync</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>io.mongock</groupId>
       <artifactId>mongock-springboot-v3</artifactId>
     </dependency>

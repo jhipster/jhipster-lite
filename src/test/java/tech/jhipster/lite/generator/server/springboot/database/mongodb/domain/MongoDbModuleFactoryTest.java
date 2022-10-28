@@ -58,15 +58,6 @@ class MongoDbModuleFactoryTest {
       .containing(
         """
                 <dependency>
-                  <groupId>org.mongodb</groupId>
-                  <artifactId>mongodb-driver-sync</artifactId>
-                  <scope>runtime</scope>
-                </dependency>
-            """
-      )
-      .containing(
-        """
-                <dependency>
                   <groupId>org.testcontainers</groupId>
                   <artifactId>mongodb</artifactId>
                   <version>${testcontainers.version}</version>

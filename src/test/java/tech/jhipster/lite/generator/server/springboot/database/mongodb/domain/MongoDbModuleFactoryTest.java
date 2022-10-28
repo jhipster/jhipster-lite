@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.database.mongodb.domain;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -60,6 +60,7 @@ class MongoDbModuleFactoryTest {
                 <dependency>
                   <groupId>org.mongodb</groupId>
                   <artifactId>mongodb-driver-sync</artifactId>
+                  <scope>runtime</scope>
                 </dependency>
             """
       )

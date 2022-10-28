@@ -48,8 +48,15 @@ class MsSQLModuleFactoryTest {
       .hasFile("src/test/resources/container-license-acceptance.txt")
       .and()
       .hasFile("pom.xml")
-      .containing("<groupId>com.microsoft.sqlserver</groupId>")
-      .containing("<artifactId>mssql-jdbc</artifactId>")
+      .containing(
+        """
+              <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <scope>runtime</scope>
+              </dependency>
+          """
+      )
       .containing("<groupId>com.zaxxer</groupId>")
       .containing("<artifactId>HikariCP</artifactId>")
       .containing("<groupId>org.hibernate</groupId>")

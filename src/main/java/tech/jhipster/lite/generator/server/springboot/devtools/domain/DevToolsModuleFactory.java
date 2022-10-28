@@ -36,9 +36,17 @@ public class DevToolsModuleFactory {
   }
 
   private void appendDependencies(JHipsterModuleBuilder builder) {
-    builder.javaDependencies().addDependency(
-      JavaDependency.builder().groupId(SPRING_GROUP).artifactId(artifactId("spring-boot-devtools")).scope(
-        JavaDependencyScope.RUNTIME).optional().build());
+    builder
+      .javaDependencies()
+      .addDependency(
+        JavaDependency
+          .builder()
+          .groupId(SPRING_GROUP)
+          .artifactId(artifactId("spring-boot-devtools"))
+          .scope(JavaDependencyScope.RUNTIME)
+          .optional()
+          .build()
+      );
   }
 
   private void appendSpringProperties(JHipsterModuleBuilder builder) {

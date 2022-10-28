@@ -49,8 +49,14 @@ public class PostgresqlModuleFactory {
       )
       .and()
       .javaDependencies()
-      .addDependency(JavaDependency.builder().groupId(groupId(ORG_POSTGRESQL)).artifactId(artifactId("postgresql")).scope(
-        JavaDependencyScope.RUNTIME).build())
+      .addDependency(
+        JavaDependency
+          .builder()
+          .groupId(groupId(ORG_POSTGRESQL))
+          .artifactId(artifactId("postgresql"))
+          .scope(JavaDependencyScope.RUNTIME)
+          .build()
+      )
       .and()
       .springMainProperties()
       .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name()))

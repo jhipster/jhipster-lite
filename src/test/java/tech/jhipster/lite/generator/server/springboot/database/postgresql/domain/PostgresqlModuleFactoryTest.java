@@ -49,13 +49,15 @@ class PostgresqlModuleFactoryTest {
       .hasFile("src/test/java/com/jhipster/test/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
       .and()
       .hasFile("pom.xml")
-      .containing("""
+      .containing(
+        """
             <dependency>
               <groupId>org.postgresql</groupId>
               <artifactId>postgresql</artifactId>
               <scope>runtime</scope>
             </dependency>
-        """)
+        """
+      )
       .containing("<groupId>com.zaxxer</groupId>")
       .containing("<artifactId>HikariCP</artifactId>")
       .containing("<groupId>org.hibernate</groupId>")

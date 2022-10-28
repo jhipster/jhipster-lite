@@ -46,8 +46,15 @@ class MariaDBModuleFactoryTest {
       .hasFile("pom.xml")
       .containing("<groupId>org.springframework.boot</groupId>")
       .containing("<artifactId>spring-boot-starter-data-jpa</artifactId>")
-      .containing("<groupId>org.mariadb.jdbc</groupId>")
-      .containing("<artifactId>mariadb-java-client</artifactId>")
+      .containing(
+        """
+              <dependency>
+                <groupId>org.mariadb.jdbc</groupId>
+                <artifactId>mariadb-java-client</artifactId>
+                <scope>runtime</scope>
+              </dependency>
+          """
+      )
       .containing("<groupId>com.zaxxer</groupId>")
       .containing("<artifactId>HikariCP</artifactId>")
       .containing("<groupId>org.hibernate</groupId>")

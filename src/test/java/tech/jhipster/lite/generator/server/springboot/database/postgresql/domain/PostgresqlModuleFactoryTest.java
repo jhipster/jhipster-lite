@@ -1,20 +1,16 @@
 package tech.jhipster.lite.generator.server.springboot.database.postgresql.domain;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import tech.jhipster.lite.TestFileUtils;
-import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.JHipsterModule;
-import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
-import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
-import tech.jhipster.lite.module.domain.docker.DockerImages;
-import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.*;
+import org.mockito.*;
+import org.mockito.junit.jupiter.*;
+import tech.jhipster.lite.*;
+import tech.jhipster.lite.module.domain.*;
+import tech.jhipster.lite.module.domain.docker.*;
+import tech.jhipster.lite.module.domain.properties.*;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
@@ -39,14 +35,8 @@ class PostgresqlModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
-      .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/technical/infrastructure/secondary/postgresql",
-        "DatabaseConfiguration.java",
-        "FixedPostgreSQL10Dialect.java"
-      )
+      .hasPrefixedFiles("src/main/java/com/jhipster/test/technical/infrastructure/secondary/postgresql", "DatabaseConfiguration.java")
       .hasFile("documentation/postgresql.md")
-      .and()
-      .hasFile("src/test/java/com/jhipster/test/technical/infrastructure/secondary/postgresql/FixedPostgreSQL10DialectTest.java")
       .and()
       .hasFile("pom.xml")
       .containing("<groupId>org.postgresql</groupId>")

@@ -58,6 +58,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   PAGINATION_DOMAIN("pagination-domain"),
   PLAYWRIGHT("playwright"),
   POSTGRESQL("postgresql"),
+  POSTGRESQL_DIALECT("postgresql-dialect"),
   PRETTIER("prettier"),
   REACT_CORE("react-core"),
   REACT_JWT("react-jwt"),

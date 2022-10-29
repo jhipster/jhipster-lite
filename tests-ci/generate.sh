@@ -128,7 +128,7 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
   applyModules "application-service-hexagonal-architecture-documentation"
 
-  applyModules "postgresql" "liquibase"
+  applyModules "postgresql" "postgresql-dialect" "liquibase"
 
   applyModules \
   "dummy-feature" \

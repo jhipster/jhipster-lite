@@ -39,8 +39,7 @@ public class MsSQLModuleFactory {
         )
         .and()
       .javaDependencies()
-        .addDependency(javaDependency().groupId("com.microsoft.sqlserver").artifactId("mssql-jdbc").scope(
-          JavaDependencyScope.RUNTIME).build())
+        .addDependency(javaDependency().groupId("com.microsoft.sqlserver").artifactId("mssql-jdbc").scope(JavaDependencyScope.RUNTIME).build())
         .and()
       .springMainProperties()
         .set(

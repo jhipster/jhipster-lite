@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.database.mssql.domain;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -80,7 +80,6 @@ class MsSQLModuleFactoryTest {
       .containing("spring.jpa.properties.hibernate.connection.provider_disables_autocommit=true")
       .containing("spring.jpa.properties.hibernate.criteria.literal_handling_mode=BIND")
       .containing("spring.jpa.properties.hibernate.generate_statistics=false")
-      .containing("spring.jpa.properties.hibernate.id.new_generator_mappings=true")
       .containing("spring.jpa.properties.hibernate.jdbc.batch_size=25")
       .containing("spring.jpa.properties.hibernate.jdbc.fetch_size=150")
       .containing("spring.jpa.properties.hibernate.jdbc.time_zone=UTC")

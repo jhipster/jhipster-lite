@@ -46,8 +46,15 @@ class MySQLModuleFactoryTest {
       .hasFile("pom.xml")
       .containing("<groupId>org.springframework.boot</groupId>")
       .containing("<artifactId>spring-boot-starter-data-jpa</artifactId>")
-      .containing("<groupId>mysql</groupId>")
-      .containing("<artifactId>mysql-connector-java</artifactId>")
+      .containing(
+        """
+              <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <scope>runtime</scope>
+              </dependency>
+          """
+      )
       .containing("<groupId>com.zaxxer</groupId>")
       .containing("<artifactId>HikariCP</artifactId>")
       .containing("<groupId>org.hibernate</groupId>")

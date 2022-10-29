@@ -9,6 +9,8 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class PostgresqlModuleFactory {
@@ -34,7 +36,14 @@ public class PostgresqlModuleFactory {
       artifactId("postgresql")
     )
       .javaDependencies()
-      .addDependency(groupId(ORG_POSTGRESQL), artifactId("postgresql"))
+      .addDependency(
+        JavaDependency
+          .builder()
+          .groupId(groupId(ORG_POSTGRESQL))
+          .artifactId(artifactId("postgresql"))
+          .scope(JavaDependencyScope.RUNTIME)
+          .build()
+      )
       .and()
       .springMainProperties()
       .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name()))

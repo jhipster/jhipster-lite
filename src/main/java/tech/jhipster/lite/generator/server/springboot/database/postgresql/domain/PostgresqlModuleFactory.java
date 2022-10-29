@@ -9,13 +9,10 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
-import tech.jhipster.lite.module.domain.file.JHipsterDestination;
-import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class PostgresqlModuleFactory {
 
-  private static final String DEST_SECONDARY = "technical/infrastructure/secondary/postgresql";
   public static final String ORG_POSTGRESQL = "org.postgresql";
 
   private final DockerImages dockerImages;
@@ -28,9 +25,6 @@ public class PostgresqlModuleFactory {
     Assert.notNull("properties", properties);
 
     DockerImageVersion dockerImage = dockerImages.get("postgres");
-    JHipsterSource source = from("server/springboot/database/" + DatabaseType.POSTGRESQL.id());
-    String packagePath = properties.packagePath();
-    JHipsterDestination databasePath = toSrcMainJava().append(packagePath).append(DEST_SECONDARY);
 
     return sqlCommonModuleBuilder(
       properties,
@@ -39,13 +33,6 @@ public class PostgresqlModuleFactory {
       documentationTitle("Postgresql"),
       artifactId("postgresql")
     )
-      .files()
-      .add(source.template("FixedPostgreSQL10Dialect.java"), databasePath.append("FixedPostgreSQL10Dialect.java"))
-      .add(
-        source.template("FixedPostgreSQL10DialectTest.java"),
-        toSrcTestJava().append(packagePath).append(DEST_SECONDARY).append("FixedPostgreSQL10DialectTest.java")
-      )
-      .and()
       .javaDependencies()
       .addDependency(groupId(ORG_POSTGRESQL), artifactId("postgresql"))
       .and()
@@ -53,10 +40,6 @@ public class PostgresqlModuleFactory {
       .set(propertyKey("spring.datasource.url"), propertyValue("jdbc:postgresql://localhost:5432/" + properties.projectBaseName().name()))
       .set(propertyKey("spring.datasource.username"), propertyValue(properties.projectBaseName().name()))
       .set(propertyKey("spring.datasource.driver-class-name"), propertyValue("org.postgresql.Driver"))
-      .set(
-        propertyKey("spring.jpa.database-platform"),
-        propertyValue(properties.basePackage().get() + ".technical.infrastructure.secondary.postgresql.FixedPostgreSQL10Dialect")
-      )
       .and()
       .springTestProperties()
       .set(

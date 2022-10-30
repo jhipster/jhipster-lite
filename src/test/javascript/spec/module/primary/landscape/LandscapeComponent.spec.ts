@@ -91,7 +91,7 @@ describe('Landscape', () => {
 
       expect(wrapper.find(wrappedElement('landscape-loader')).exists()).toBe(false);
       expect(wrapper.find(wrappedElement('landscape')).exists()).toBe(true);
-      expect(wrapper.find(wrappedElement('landscape-connectors')).findAll('polyline').length).toBe(17);
+      expect(wrapper.find(wrappedElement('landscape-connectors')).findAll('path').length).toBe(17);
       expect(applicationListener.addEventListener.calledOnce).toBe(true);
 
       const pathField = wrapper.find(wrappedElement('folder-path-field')).element as HTMLInputElement;
@@ -670,7 +670,7 @@ const assertConnectorsCount = (wrapper: VueWrapper, cssClass: string, count: num
   expect(
     wrapper
       .find(wrappedElement('landscape-connectors'))
-      .findAll('polyline')
+      .findAll('path')
       .filter(line => line.classes().includes(cssClass)).length
   ).toBe(count);
 };

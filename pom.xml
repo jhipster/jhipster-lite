@@ -6,6 +6,12 @@
 >
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.0.0-RC1</version>
+  </parent>
+
   <groupId>tech.jhipster.lite</groupId>
   <artifactId>jhlite</artifactId>
   <version>0.22.1-SNAPSHOT</version>
@@ -214,6 +220,13 @@
     <dependency>
       <groupId>io.mongock</groupId>
       <artifactId>mongodb-springdata-v4-driver</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.oracle.substratevm</groupId>
+      <artifactId>svm</artifactId>
+      <version>19.2.1</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -686,6 +699,12 @@
               </execution>
             </executions>
             <configuration>
+              <image>
+                <buildpacks>
+                  <buildpack>gcr.io/paketo-buildpacks/bellsoft-liberica:9.9.0-ea</buildpack>
+                  <buildpack>gcr.io/paketo-buildpacks/java-native-image</buildpack>
+                </buildpacks>
+              </image>
               <mainClass>${start-class}</mainClass>
             </configuration>
           </plugin>

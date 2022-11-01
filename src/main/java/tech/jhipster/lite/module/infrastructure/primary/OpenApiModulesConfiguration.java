@@ -15,8 +15,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springdoc.core.customizers.OpenApiCustomizer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import tech.jhipster.lite.common.domain.Enums;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyDefaultValue;
@@ -29,6 +28,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 
 @Configuration
+@ImportRuntimeHints(NativeHints.class)
 class OpenApiModulesConfiguration {
 
   private static final String STRING_TYPE = "string";

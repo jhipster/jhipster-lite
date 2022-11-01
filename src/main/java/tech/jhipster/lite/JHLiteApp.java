@@ -6,10 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import tech.jhipster.lite.common.domain.Generated;
+import tech.jhipster.lite.common.infrastructure.secondary.*;
 
 @Generated(reason = "Not testing logs")
+@ImportRuntimeHints(NativeHints.class)
 @SpringBootApplication(exclude = { MongoAutoConfiguration.class, MongoDataAutoConfiguration.class })
 public class JHLiteApp {
 

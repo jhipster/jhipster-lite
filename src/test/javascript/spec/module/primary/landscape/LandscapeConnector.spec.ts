@@ -1,5 +1,6 @@
 import { LandscapeConnector, LandscapeConnectorPosition } from '@/module/primary/landscape/LandscapeConnector';
 import { moduleSlug } from '../../domain/Modules.fixture';
+import { describe, it, expect } from 'vitest';
 
 describe('LandscapeConnector', () => {
   describe('Generate curved path', () => {

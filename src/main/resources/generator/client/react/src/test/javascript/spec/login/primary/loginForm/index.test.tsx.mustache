@@ -2,9 +2,7 @@ import axios from 'axios';
 import { vi, describe, it, expect } from 'vitest';
 
 import LoginForm from '@/login/primary/loginForm/index';
-import {act, fireEvent, render} from '@testing-library/react';
-
-vi.mock('axios');
+import { act, fireEvent, render } from '@testing-library/react';
 
 describe('loginForm', () => {
   it('should render the login button without crashing', () => {

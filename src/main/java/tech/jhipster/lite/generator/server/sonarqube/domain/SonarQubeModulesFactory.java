@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.sonar.domain;
+package tech.jhipster.lite.generator.server.sonarqube.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
@@ -10,14 +10,14 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
-public class SonarModulesFactory {
+public class SonarQubeModulesFactory {
 
   private static final JHipsterSource SOURCE = from("server/sonar");
   private static final JHipsterDestination SONAR_PROPERTIES_DESTINATION = to("sonar-project.properties");
 
   private final DockerImages dockerImages;
 
-  public SonarModulesFactory(DockerImages dockerImages) {
+  public SonarQubeModulesFactory(DockerImages dockerImages) {
     this.dockerImages = dockerImages;
   }
 

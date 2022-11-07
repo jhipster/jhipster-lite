@@ -1,18 +1,18 @@
-package tech.jhipster.lite.generator.server.sonar.application;
+package tech.jhipster.lite.generator.server.sonarqube.application;
 
 import org.springframework.stereotype.Component;
-import tech.jhipster.lite.generator.server.sonar.domain.SonarModulesFactory;
+import tech.jhipster.lite.generator.server.sonarqube.domain.SonarQubeModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Component
-public class SonarApplicationService {
+public class SonarQubeApplicationService {
 
-  private final SonarModulesFactory factory;
+  private final SonarQubeModulesFactory factory;
 
-  public SonarApplicationService(DockerImages dockerImages) {
-    factory = new SonarModulesFactory(dockerImages);
+  public SonarQubeApplicationService(DockerImages dockerImages) {
+    factory = new SonarQubeModulesFactory(dockerImages);
   }
 
   public JHipsterModule buildBackendModule(JHipsterModuleProperties properties) {

@@ -77,11 +77,11 @@ spring_boot() {
 }
 
 sonar_back() {
-  applyModules "sonar-java-backend"
+  applyModules "sonar-qube-java-backend"
 }
 
 sonar_back_front() {
-  applyModules "sonar-java-backend-and-frontend"
+  applyModules "sonar-qube-java-backend-and-frontend"
 }
 
 cucumber_with_jwt() {

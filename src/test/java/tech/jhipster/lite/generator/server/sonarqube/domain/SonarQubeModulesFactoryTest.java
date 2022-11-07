@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.sonar.domain;
+package tech.jhipster.lite.generator.server.sonarqube.domain;
 
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
@@ -18,13 +18,13 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class SonarModulesFactoryTest {
+class SonarQubeModulesFactoryTest {
 
   @Mock
   private DockerImages dockerImages;
 
   @InjectMocks
-  private SonarModulesFactory factory;
+  private SonarQubeModulesFactory factory;
 
   @Test
   void shouldBuildBackendModule() {

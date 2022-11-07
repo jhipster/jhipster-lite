@@ -1,0 +1,25 @@
+package {{packageName}}.technical.infrastructure.secondary.hibernate2ndlevelcache;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
+@IntegrationTest
+class Hibernate2ndLevelCacheConfigurationIT {
+
+  @Autowired
+  ApplicationContext applicationContext;
+
+  @PersistenceUnit
+  EntityManagerFactory factory;
+
+  @Test
+  void shouldApplyProperties() {
+
+    factory.getCache(); // TODO assert
+
+  }
+}

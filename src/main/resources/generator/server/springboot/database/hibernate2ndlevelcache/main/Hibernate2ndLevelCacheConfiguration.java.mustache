@@ -1,0 +1,16 @@
+package {{packageName}}.technical.infrastructure.secondary.hibernate2ndlevelcache;
+
+import javax.cache.CacheManager;
+import org.hibernate.cache.jcache.ConfigSettings;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+class Hibernate2ndLevelCacheConfiguration {
+
+  @Bean
+  public HibernatePropertiesCustomizer hibernatePropertiesCustomizer(CacheManager cacheManager) {
+    return hibernateProperties -> hibernateProperties.put(ConfigSettings.CACHE_MANAGER, cacheManager);
+  }
+}

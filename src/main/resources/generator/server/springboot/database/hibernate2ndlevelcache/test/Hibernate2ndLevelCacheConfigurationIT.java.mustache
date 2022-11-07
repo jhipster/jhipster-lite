@@ -1,8 +1,8 @@
 package {{packageName}}.technical.infrastructure.secondary.hibernate2ndlevelcache;
 
+import org.assertj.core.api.Assertions;
+import org.hibernate.cache.internal.EnabledCaching;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -10,16 +10,11 @@ import javax.persistence.PersistenceUnit;
 @IntegrationTest
 class Hibernate2ndLevelCacheConfigurationIT {
 
-  @Autowired
-  ApplicationContext applicationContext;
-
   @PersistenceUnit
   EntityManagerFactory factory;
 
   @Test
-  void shouldApplyProperties() {
-
-    factory.getCache(); // TODO assert
-
+  void shouldEnableHibernateCaching() {
+    Assertions.assertThat(factory.getCache()).isInstanceOf(EnabledCaching.class);
   }
 }

@@ -7,6 +7,8 @@ import java.util.concurrent.*;
 @Substitute
 public final class WorkQueueSubstitution {
 
+  private WorkQueueSubstitution() {}
+
   private static final ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(1);
 
   @Substitute

@@ -1,5 +1,7 @@
 package tech.jhipster.lite.common.infrastructure.secondary;
 
+import org.dom4j.*;
+import org.dom4j.util.*;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.internal.*;
 import org.eclipse.jgit.lib.*;
@@ -34,9 +36,9 @@ public class NativeHints implements RuntimeHintsRegistrar {
     // Needed for xml reading and writing via dom4j
     hints
       .reflection()
-      .registerType(TypeReference.of("org.dom4j.util.ProxyDocumentFactory"), MemberCategory.values())
-      .registerType(TypeReference.of("org.dom4j.DocumentFactory"), MemberCategory.values())
-      .registerType(TypeReference.of("org.dom4j.dom.NonLazyDocumentFactory"), MemberCategory.values());
+      .registerType(ProxyDocumentFactory.class, MemberCategory.values())
+      .registerType(DocumentFactory.class, MemberCategory.values())
+      .registerType(NonLazyDocumentFactory.class, MemberCategory.values());
 
     // internal usage
     hints.reflection().registerType(TypeReference.of("com.sun.org.apache.xpath.internal.functions.FuncLocalPart"), MemberCategory.values());

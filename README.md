@@ -83,7 +83,7 @@ To launch tests and integration tests:
 This project has been configured to let you generate either a lightweight container or a native executable. It is also possible to run your tests in a native image.
 Lightweight Container with Cloud Native Buildpacks
 
-If you're already familiar with Spring Boot container images support, this is the easiest way to get started. 
+If you're already familiar with Spring Boot container images support, this is the easiest way to get started.
 Docker should be installed and configured on your machine prior to creating the image.
 
 To create the image, run the following goal:
@@ -100,7 +100,7 @@ docker run --rm jhlite:<VERSION>
 
 ## Executable with Native Build Tools
 
-Use this option if you want to explore more options such as running your tests in a native image. 
+Use this option if you want to explore more options such as running your tests in a native image.
 The GraalVM native-image compiler should be installed and configured on your machine.
 
 NOTE: GraalVM 22.3+ is required.
@@ -108,21 +108,22 @@ NOTE: GraalVM 22.3+ is required.
 To create the executable, run the following goal:
 
 ```
-./mvnw native:compile -Pnative
+$ ./mvnw native:compile -Pnative -DskipTests
 ```
 
 Then, you can run the app as follows:
 
 ```
-target/jhipster-lite
+$ ./target/jhlite
 ```
 
 You can also run your existing tests suite in a native image. This is an efficient way to validate the compatibility of your application.
 
 To run your existing tests in a native image, run the following goal:
 
+```
 $ ./mvnw test -PnativeTest
-
+```
 
 ## Lint
 

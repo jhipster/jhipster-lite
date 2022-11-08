@@ -1,13 +1,22 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
 import org.springframework.aot.hint.*;
+import tech.jhipster.lite.module.domain.landscape.*;
 
 public class NativeHints implements RuntimeHintsRegistrar {
+
   @Override
   public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-
-    hints.reflection().registerType(RestJHipsterModuleProperties.class, MemberCategory.INTROSPECT_DECLARED_CONSTRUCTORS, MemberCategory.INTROSPECT_DECLARED_METHODS)
-      .registerType(RestJHipsterLandscape.class, MemberCategory.INTROSPECT_DECLARED_CONSTRUCTORS, MemberCategory.INTROSPECT_DECLARED_METHODS);
-
+    hints
+      .reflection()
+      .registerType(RestJHipsterModuleProperties.class, MemberCategory.values())
+      .registerType(RestJHipsterLandscape.class, MemberCategory.values())
+      .registerType(RestJHipsterLandscapeLevel.class, MemberCategory.values())
+      .registerType(RestJHipsterLandscapeElement.class, MemberCategory.values())
+      .registerType(RestJHipsterLandscapeModule.class, MemberCategory.values())
+      .registerType(RestJHipsterLandscapeFeature.class, MemberCategory.values())
+      .registerType(RestJHipsterLandscapeDependency.class, MemberCategory.values())
+      .registerType(RestJHipsterModulePropertiesDefinition.class, MemberCategory.values())
+      .registerType(JHipsterLandscapeElementType.class, MemberCategory.values());
   }
 }

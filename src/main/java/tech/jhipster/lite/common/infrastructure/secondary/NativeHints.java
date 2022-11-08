@@ -1,6 +1,5 @@
 package tech.jhipster.lite.common.infrastructure.secondary;
 
-import com.oracle.svm.core.posix.headers.darwin.*;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.internal.*;
 import org.eclipse.jgit.lib.*;

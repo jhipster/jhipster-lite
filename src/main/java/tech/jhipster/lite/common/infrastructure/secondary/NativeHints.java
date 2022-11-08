@@ -8,12 +8,6 @@ import org.springframework.aot.hint.*;
 
 public class NativeHints implements RuntimeHintsRegistrar {
 
-  private final MemberCategory[] memberCategories = {
-    MemberCategory.DECLARED_FIELDS,
-    MemberCategory.INTROSPECT_DECLARED_METHODS,
-    MemberCategory.INTROSPECT_DECLARED_CONSTRUCTORS,
-  };
-
   @Override
   public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
     /*

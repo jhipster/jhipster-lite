@@ -38,8 +38,17 @@ public class NativeHints implements RuntimeHintsRegistrar {
       .registerType(CoreConfig.SymLinks.class, MemberCategory.values())
       .registerType(CoreConfig.LogRefUpdates.class, MemberCategory.values());
 
+    // Needed for xml reading and writing via dom4j
+    hints
+      .reflection()
+      .registerType(TypeReference.of("org.dom4j.util.ProxyDocumentFactory"), MemberCategory.values())
+      .registerType(TypeReference.of("org.dom4j.DocumentFactory"), MemberCategory.values())
+      .registerType(TypeReference.of("org.dom4j.dom.NonLazyDocumentFactory"), MemberCategory.values());
+
+    // internal usage
     hints.reflection().registerType(TypeReference.of("com.sun.org.apache.xpath.internal.functions.FuncLocalPart"), MemberCategory.values());
 
+    // patterns for JGit and our own template files
     hints.resources().registerPattern("org.eclipse.jgit.internal.JGitText").registerPattern("generator/**");
   }
 }

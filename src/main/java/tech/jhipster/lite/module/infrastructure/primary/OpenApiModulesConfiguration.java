@@ -9,13 +9,10 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.springdoc.core.customizers.OpenApiCustomizer;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportRuntimeHints;
 import tech.jhipster.lite.common.domain.Enums;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyDefaultValue;
@@ -27,8 +24,14 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinitio
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 
-@Configuration
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @ImportRuntimeHints(NativeHints.class)
+@Configuration
 class OpenApiModulesConfiguration {
 
   private static final String STRING_TYPE = "string";

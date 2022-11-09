@@ -1,16 +1,16 @@
-package tech.jhipster.lite.common.infrastructure.secondary;
+package tech.jhipster.lite.module.infrastructure.secondary.git;
 
-import org.dom4j.*;
-import org.dom4j.util.*;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.internal.*;
 import org.eclipse.jgit.lib.*;
 import org.springframework.aot.hint.*;
+import tech.jhipster.lite.common.domain.*;
 
-public class NativeHints implements RuntimeHintsRegistrar {
-
+@Generated(reason = "Not testing native runtime hints")
+class NativeHints implements RuntimeHintsRegistrar {
   @Override
   public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+
     /*
     Mimics quarkus native configuration. See https://github.com/quarkiverse/quarkus-jgit/blob/main/deployment/src/main/java/io/quarkus/jgit/deployment/JGitProcessor.java
     Their calls to
@@ -19,7 +19,6 @@ public class NativeHints implements RuntimeHintsRegistrar {
 
     means methods, fields and constructors
      */
-    // Using declared fields, methods and constructors here, if we have it up and running we may be more strict to e.g. public fields only
     hints
       .reflection()
       .registerType(MergeCommand.FastForwardMode.class, MemberCategory.values())
@@ -32,16 +31,6 @@ public class NativeHints implements RuntimeHintsRegistrar {
       .registerType(CoreConfig.HideDotFiles.class, MemberCategory.values())
       .registerType(CoreConfig.SymLinks.class, MemberCategory.values())
       .registerType(CoreConfig.LogRefUpdates.class, MemberCategory.values());
-
-    // Needed for xml reading and writing via dom4j
-    hints
-      .reflection()
-      .registerType(ProxyDocumentFactory.class, MemberCategory.values())
-      .registerType(DocumentFactory.class, MemberCategory.values())
-      .registerType(NonLazyDocumentFactory.class, MemberCategory.values());
-
-    // internal usage
-    hints.reflection().registerType(TypeReference.of("com.sun.org.apache.xpath.internal.functions.FuncLocalPart"), MemberCategory.values());
 
     // patterns for JGit and our own template files
     hints.resources().registerPattern("org.eclipse.jgit.internal.JGitText").registerPattern("generator/**");

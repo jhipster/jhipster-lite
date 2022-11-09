@@ -1,10 +1,15 @@
-package tech.jhipster.lite.common.infrastructure.secondary.jgit;
+package tech.jhipster.lite.module.infrastructure.secondary.git;
 
-import com.oracle.svm.core.annotate.*;
-import java.util.concurrent.*;
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
+import tech.jhipster.lite.common.domain.Generated;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @TargetClass(className = "org.eclipse.jgit.lib.internal.WorkQueue")
 @Substitute
+@Generated
 public final class WorkQueueSubstitution {
 
   private WorkQueueSubstitution() {}

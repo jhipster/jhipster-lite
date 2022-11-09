@@ -7,5 +7,4 @@ import tech.jhipster.lite.common.domain.Generated;
 @ImportRuntimeHints(NativeHints.class)
 @Generated(reason = "Not testing native configuration")
 @Configuration
-public class NativeJavaDependencyConfiguration {
-}
+public class NativeJavaDependencyConfiguration {}

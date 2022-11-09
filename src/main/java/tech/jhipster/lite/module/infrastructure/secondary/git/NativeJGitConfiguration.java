@@ -6,5 +6,4 @@ import tech.jhipster.lite.common.domain.*;
 @ImportRuntimeHints(NativeHints.class)
 @Generated(reason = "Not testing native configuration")
 @Configuration
-class NativeJGitConfiguration {
-}
+class NativeJGitConfiguration {}

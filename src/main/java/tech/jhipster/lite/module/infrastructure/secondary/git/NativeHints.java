@@ -8,9 +8,9 @@ import tech.jhipster.lite.common.domain.*;
 
 @Generated(reason = "Not testing native runtime hints")
 class NativeHints implements RuntimeHintsRegistrar {
+
   @Override
   public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-
     /*
     Mimics quarkus native configuration. See https://github.com/quarkiverse/quarkus-jgit/blob/main/deployment/src/main/java/io/quarkus/jgit/deployment/JGitProcessor.java
     Their calls to

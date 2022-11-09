@@ -1,7 +1,10 @@
 package tech.jhipster.lite.project.infrastructure.secondary;
 
-import org.springframework.aot.hint.*;
-import tech.jhipster.lite.project.domain.history.*;
+import org.springframework.aot.hint.MemberCategory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import tech.jhipster.lite.project.domain.history.ProjectAction;
+import tech.jhipster.lite.project.domain.history.ProjectHistory;
 
 class NativeHints implements RuntimeHintsRegistrar {
 

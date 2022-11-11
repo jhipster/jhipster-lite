@@ -3,7 +3,11 @@ package tech.jhipster.lite.module.domain.replacement;
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import tech.jhipster.lite.UnitTest;
 
 @UnitTest
@@ -28,69 +32,59 @@ class TextNeedleBeforeReplacerTest {
     assertThat(updatedContent).isEqualTo("<root />");
   }
 
-  @Test
-  void shouldInsertTextLineBeforeFirstLineNeedle() {
+  @ParameterizedTest
+  @MethodSource("data")
+  void shouldInsertTextLine(String content, String replacement, String result) {
     TextNeedleBeforeReplacer replacer = new TextNeedleBeforeReplacer(always(), "<!-- needle !-->");
 
-    String updatedContent = replacer.replacement().apply("""
-            <!-- needle !-->
-            """, "<element />");
+    String updatedContent = replacer.replacement().apply(content, replacement);
 
-    assertThat(updatedContent).isEqualTo("""
-        <element />
-        <!-- needle !-->
-        """);
+    assertThat(updatedContent).isEqualTo(result);
   }
 
-  @Test
-  void shouldInsertTextLineBeforeNeedleLine() {
-    TextNeedleBeforeReplacer replacer = new TextNeedleBeforeReplacer(always(), "<!-- needle !-->");
-
-    String updatedContent = replacer
-      .replacement()
-      .apply("""
+  static Stream<Arguments> data() {
+    return Stream.of(
+      Arguments.of(
+        """
+            <!-- needle !-->
+            """,
+        "<element />",
+        """
+        <element />
+        <!-- needle !-->
+        """
+      ),
+      Arguments.of(
+        """
             <root>
             <!-- needle !-->
             </root>
-            """, "<element />");
-
-    assertThat(updatedContent).isEqualTo("""
+            """,
+        "<element />",
+        """
         <root>
         <element />
         <!-- needle !-->
         </root>
-        """);
-  }
-
-  @Test
-  void shouldInsertTextLineBeforeNeedleLinePart() {
-    TextNeedleBeforeReplacer replacer = new TextNeedleBeforeReplacer(always(), "<!-- needle !-->");
-
-    String updatedContent = replacer
-      .replacement()
-      .apply("""
+        """
+      ),
+      Arguments.of(
+        """
             <root>
               <!-- needle !-->
 
             </root>
-            """, "<element />");
-
-    assertThat(updatedContent).isEqualTo("""
+            """,
+        "<element />",
+        """
         <root>
         <element />
           <!-- needle !-->
 
         </root>
-        """);
-  }
-
-  @Test
-  void shouldReplaceMultipleNeedles() {
-    TextNeedleBeforeReplacer replacer = new TextNeedleBeforeReplacer(always(), "<!-- needle !-->");
-
-    String updatedContent = replacer
-      .replacement()
-      .apply(
+        """
+      ),
+      Arguments.of(
         """
             <root>
               <!-- needle !-->
@@ -100,11 +94,7 @@ class TextNeedleBeforeReplacerTest {
               <!-- needle !--> with trailling text
             </root>
             """,
-        "<element />"
-      );
-
-    assertThat(updatedContent)
-      .isEqualTo(
+        "<element />",
         """
         <root>
         <element />
@@ -117,7 +107,8 @@ class TextNeedleBeforeReplacerTest {
           <!-- needle !--> with trailling text
         </root>
         """
-      );
+      )
+    );
   }
 
   @Test

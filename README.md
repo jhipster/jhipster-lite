@@ -95,7 +95,7 @@ To create the image, run the following goal:
 Then, you can run the app like any other container:
 
 ```
-docker run --rm jhlite:<VERSION>
+docker run --rm docker.io/library/jhlite:<VERSION>
 ```
 
 ## Executable with Native Build Tools
@@ -108,13 +108,13 @@ NOTE: GraalVM 22.3+ is required.
 To create the executable, run the following goal:
 
 ```
-$ ./mvnw native:compile -Pnative -DskipTests
+./mvnw native:compile -Pnative -DskipTests
 ```
 
 Then, you can run the app as follows:
 
 ```
-$ ./target/jhlite
+./target/jhlite
 ```
 
 You can also run your existing tests suite in a native image. This is an efficient way to validate the compatibility of your application.
@@ -122,7 +122,7 @@ You can also run your existing tests suite in a native image. This is an efficie
 To run your existing tests in a native image, run the following goal:
 
 ```
-$ ./mvnw test -PnativeTest
+./mvnw test -PnativeTest
 ```
 
 ## Lint

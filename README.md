@@ -95,7 +95,7 @@ To create the image, run the following goal:
 Then, you can run the app like any other container:
 
 ```
-docker run --rm docker.io/library/jhlite:<VERSION>
+docker run -p 7471:7471 --rm docker.io/library/jhlite:<VERSION>
 ```
 
 ## Executable with Native Build Tools

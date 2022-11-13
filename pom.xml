@@ -6,6 +6,12 @@
 >
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.0.0-RC2</version>
+  </parent>
+
   <groupId>tech.jhipster.lite</groupId>
   <artifactId>jhlite</artifactId>
   <version>0.22.1-SNAPSHOT</version>
@@ -91,7 +97,6 @@
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
     <start-class>tech.jhipster.lite.JHLiteApp</start-class>
 
-    <spring-boot.version>3.0.0-RC2</spring-boot.version>
     <byte-buddy.version>1.12.18</byte-buddy.version>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
@@ -127,7 +132,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot.version}</version>
+        <version>${project.parent.version}</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -680,7 +685,7 @@
           <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>${spring-boot.version}</version>
+            <version>${project.parent.version}</version>
             <executions>
               <execution>
                 <goals>
@@ -689,6 +694,12 @@
               </execution>
             </executions>
             <configuration>
+              <image>
+                <buildpacks>
+                  <buildpack>gcr.io/paketo-buildpacks/bellsoft-liberica:9.9.0-ea</buildpack>
+                  <buildpack>gcr.io/paketo-buildpacks/java-native-image</buildpack>
+                </buildpacks>
+              </image>
               <mainClass>${start-class}</mainClass>
             </configuration>
           </plugin>

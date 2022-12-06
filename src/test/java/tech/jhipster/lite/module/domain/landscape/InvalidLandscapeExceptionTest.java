@@ -34,7 +34,7 @@ class InvalidLandscapeExceptionTest {
       .isEqualTo(
         "Can't build landscape this happens if you have an unknown dependency or circular dependencies. Known elements: known and trying to find element with all known dependencies in: remaining"
       );
-    assertThat(exception.key()).isEqualTo(LandscapeErrorKey.UNKNOWN_SLUG);
+    assertThat(exception.key()).isEqualTo(LandscapeErrorKey.UNKNOWN_DEPENDENCY);
     assertThat(exception.status()).isEqualTo(ErrorStatus.INTERNAL_SERVER_ERROR);
   }
 

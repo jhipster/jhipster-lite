@@ -3,7 +3,7 @@ package tech.jhipster.lite.module.domain.javadependency;
 import tech.jhipster.lite.error.domain.ErrorKey;
 
 enum JavaDependencyErrorKey implements ErrorKey {
-  UNKNOWN_DEPENDENCY("unknown-java-dependency");
+  UNKNOWN_VERSION("unknown-java-version");
 
   private final String key;
 

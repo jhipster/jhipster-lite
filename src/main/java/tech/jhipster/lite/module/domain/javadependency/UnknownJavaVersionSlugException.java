@@ -7,7 +7,7 @@ class UnknownJavaVersionSlugException extends GeneratorException {
 
   public UnknownJavaVersionSlugException(VersionSlug slug) {
     super(
-      internalServerError(JavaDependencyErrorKey.UNKNOWN_DEPENDENCY)
+      internalServerError(JavaDependencyErrorKey.UNKNOWN_VERSION)
         .message(buildMessage(slug))
         .addParameter("versionSlug", slug.propertyName())
     );

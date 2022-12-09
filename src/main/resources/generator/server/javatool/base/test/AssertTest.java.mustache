@@ -2,17 +2,18 @@ package {{packageName}}.error.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import {{packageName}}.UnitTest;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import {{packageName}}.UnitTest;
 
 @UnitTest
 class AssertTest {
@@ -21,64 +22,109 @@ class AssertTest {
 
   public static final String NOT_NULL_OR_EMPTY = "NotNullOrEmpty";
 
-  @Test
-  void shouldNotValidateNullInputs() {
-    assertThatThrownBy(() -> Assert.notNull("field", null))
-      .isExactlyInstanceOf(MissingMandatoryValueException.class)
-      .hasMessageContaining("\"field\"");
+  @Nested
+  class NotNullTest {
+
+    @Test
+    void shouldNotValidateNullInput() {
+      assertThatThrownBy(() -> Assert.notNull(FIELD_NAME, null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining(FIELD_NAME);
+    }
+
+    @Test
+    void shouldValidateNonNull() {
+      assertThatCode(() -> Assert.notNull(FIELD_NAME, NOT_NULL_OR_EMPTY)).doesNotThrowAnyException();
+    }
   }
 
-  @Test
-  void shouldValidateNonNull() {
-    assertThatCode(() -> Assert.notNull("field", NOT_NULL_OR_EMPTY)).doesNotThrowAnyException();
+  @Nested
+  class NotBlankTest {
+
+    @Test
+    void shouldNotValidateNullStringAsNotBlank() {
+      assertThatThrownBy(() -> Assert.notBlank(FIELD_NAME, null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining(FIELD_NAME)
+        .hasMessageContaining("(null)");
+    }
+
+    @Test
+    void shouldNotValidateEmptyString() {
+      assertNotBlankString("");
+    }
+
+    @Test
+    void shouldNotValidateSpaceString() {
+      assertNotBlankString(" ");
+    }
+
+    @Test
+    void shouldNotValidateTabString() {
+      assertNotBlankString("\t");
+    }
+
+    @Test
+    void shouldValidateActualString() {
+      assertThatCode(() -> Assert.notBlank(FIELD_NAME, NOT_NULL_OR_EMPTY)).doesNotThrowAnyException();
+    }
+
+    private void assertNotBlankString(String input) {
+      assertThatThrownBy(() -> Assert.notBlank(FIELD_NAME, input))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining(FIELD_NAME)
+        .hasMessageContaining("(blank)");
+    }
   }
 
-  @Test
-  void shouldNotValidateNullString() {
-    assertThatThrownBy(() -> Assert.notBlank("field", null))
-      .isExactlyInstanceOf(MissingMandatoryValueException.class)
-      .hasMessageContaining("\"field\"")
-      .hasMessageContaining("(null)");
+  @Nested
+  class NotEmptyCollectionTest {
+
+    @Test
+    void shouldNotValidateNullCollection() {
+      assertThatThrownBy(() -> Assert.notEmpty(FIELD_NAME, (Collection<String>) null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining(FIELD_NAME)
+        .hasMessageContaining("(null)");
+    }
+
+    @Test
+    void shouldNotValidateEmptyCollection() {
+      assertThatThrownBy(() -> Assert.notEmpty(FIELD_NAME, List.of()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining(FIELD_NAME)
+        .hasMessageContaining("(empty)");
+    }
+
+    @Test
+    void shouldValidateNotEmptyCollection() {
+      assertThatCode(() -> Assert.notEmpty(FIELD_NAME, List.of("Hello"))).doesNotThrowAnyException();
+    }
   }
 
-  @Test
-  void shouldNotValidateEmptyString() {
-    assertNotBlankString("");
-  }
+  @Nested
+  class NotEmptyMapTest {
 
-  @Test
-  void shouldNotValidateSpaceString() {
-    assertNotBlankString(" ");
-  }
+    @Test
+    void shouldNotValidateNullMap() {
+      assertThatThrownBy(() -> Assert.notEmpty(FIELD_NAME, (Map<String, String>) null))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining(FIELD_NAME)
+        .hasMessageContaining("(null)");
+    }
 
-  @Test
-  void shouldNotValidateTabString() {
-    assertNotBlankString("\t");
-  }
+    @Test
+    void shouldNotValidateEmptyMap() {
+      assertThatThrownBy(() -> Assert.notEmpty(FIELD_NAME, Map.of()))
+        .isExactlyInstanceOf(MissingMandatoryValueException.class)
+        .hasMessageContaining(FIELD_NAME)
+        .hasMessageContaining("(empty)");
+    }
 
-  @Test
-  void shouldValidateNonBlank() {
-    assertThatCode(() -> Assert.notBlank("field", NOT_NULL_OR_EMPTY)).doesNotThrowAnyException();
-  }
-
-  private void assertNotBlankString(String input) {
-    assertThatThrownBy(() -> Assert.notBlank("field", input))
-      .isExactlyInstanceOf(MissingMandatoryValueException.class)
-      .hasMessageContaining("\"field\"")
-      .hasMessageContaining("(blank)");
-  }
-
-  @Test
-  void shouldNotValidateEmptyCollection() {
-    List<String> list = List.of();
-    assertThatThrownBy(() -> Assert.notEmpty("field", list))
-      .isExactlyInstanceOf(MissingMandatoryValueException.class)
-      .hasMessageContaining("empty");
-  }
-
-  @Test
-  void shouldValidateNotEmptyCollection() {
-    assertThatCode(() -> Assert.notEmpty("field", List.of("Hello"))).doesNotThrowAnyException();
+    @Test
+    void shouldValidateNotEmptyMap() {
+      assertThatCode(() -> Assert.notEmpty(FIELD_NAME, Map.of("key", "value"))).doesNotThrowAnyException();
+    }
   }
 
   @Nested

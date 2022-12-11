@@ -37,15 +37,15 @@ public class SpringBootCoreModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
-    String mainClassName = properties.projectBaseName().capitalized();
+    String baseName = properties.projectBaseName().capitalized();
     String packagePath = properties.packagePath();
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);
-    String fullyQualifiedMainClass = properties.basePackage().get() + "." + mainClassName + "App";
+    String fullyQualifiedMainClass = properties.basePackage().get() + "." + baseName + "App";
 
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .put("mainClass", mainClassName)
+        .put("baseName", baseName)
         .and()
       .documentation(documentationTitle("Logs spy"), SOURCE.file("logs-spy.md"))
       .javaDependencies()
@@ -64,7 +64,7 @@ public class SpringBootCoreModuleFactory {
         .plugin(springBootMavenPlugin())
         .and()
       .files()
-        .add(SOURCE.template("MainApp.java"), toSrcMainJava().append(packagePath).append(mainClassName + "App.java"))
+        .add(SOURCE.template("MainApp.java"), toSrcMainJava().append(packagePath).append(baseName + "App.java"))
         .add(SOURCE.template("ApplicationStartupTraces.java"), toSrcMainJava().append(packagePath).append("ApplicationStartupTraces.java"))
         .add(SOURCE.template("IntegrationTest.java"), testDestination.append("IntegrationTest.java"))
         .add(SOURCE.template(APPLICATION_PROPERTIES), MAIN_CONFIG_DESTINATION.append(APPLICATION_PROPERTIES))

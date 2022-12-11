@@ -46,7 +46,6 @@ public class SQLCommonModuleBuilder {
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .put("applicationName", properties.projectBaseName().capitalized())
         .put("srcMainDocker", "src/main/docker") // To be used in <databaseId>>.md file
         .put(databaseId + "DockerImageWithVersion", dockerImage.fullName()) // To be used in <databaseId>.yml docker-compose file
         .and()

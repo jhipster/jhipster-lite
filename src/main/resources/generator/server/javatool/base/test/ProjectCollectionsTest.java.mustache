@@ -13,16 +13,16 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @UnitTest
-class {{collectionClass}}CollectionsTest {
+class {{ baseName }}CollectionsTest {
 
   @Nested
   @DisplayName("Collections")
-  class {{collectionClass}}CollectionsCollectionsTest {
+  class {{ baseName }}CollectionsCollectionsTest {
 
     @Test
     void shouldGetEmptyImmutableCollectionFromNullCollection() {
       Collection<Object> input = null;
-      Collection<Object> collection = {{collectionClass}}Collections.immutable(input);
+      Collection<Object> collection = {{ baseName }}Collections.immutable(input);
 
       assertThat(collection).isEmpty();
       assertThatThrownBy(() -> collection.clear()).isExactlyInstanceOf(UnsupportedOperationException.class);
@@ -32,7 +32,7 @@ class {{collectionClass}}CollectionsTest {
     void shouldGetImmutableCollectionFromMutableCollection() {
       Collection<String> input = new ArrayList<>();
       input.add("value");
-      Collection<String> collection = {{collectionClass}}Collections.immutable(input);
+      Collection<String> collection = {{ baseName }}Collections.immutable(input);
 
       assertThat(collection).containsExactly("value");
       assertThatThrownBy(() -> collection.clear()).isExactlyInstanceOf(UnsupportedOperationException.class);
@@ -41,12 +41,12 @@ class {{collectionClass}}CollectionsTest {
 
   @Nested
   @DisplayName("Set")
-  class {{collectionClass}}CollectionsSetTest {
+  class {{ baseName }}CollectionsSetTest {
 
     @Test
     void shouldGetEmptyImmutableCollectionFromNullCollection() {
       Set<Object> input = null;
-      Set<Object> set = {{collectionClass}}Collections.immutable(input);
+      Set<Object> set = {{ baseName }}Collections.immutable(input);
 
       assertThat(set).isEmpty();
       assertThatThrownBy(() -> set.clear()).isExactlyInstanceOf(UnsupportedOperationException.class);
@@ -56,7 +56,7 @@ class {{collectionClass}}CollectionsTest {
     void shouldGetImmutableCollectionFromMutableCollection() {
       Set<String> input = new HashSet<>();
       input.add("value");
-      Set<String> set = {{collectionClass}}Collections.immutable(input);
+      Set<String> set = {{ baseName }}Collections.immutable(input);
 
       assertThat(set).containsExactly("value");
       assertThatThrownBy(() -> set.clear()).isExactlyInstanceOf(UnsupportedOperationException.class);
@@ -65,12 +65,12 @@ class {{collectionClass}}CollectionsTest {
 
   @Nested
   @DisplayName("List")
-  class {{collectionClass}}CollectionsListTest {
+  class {{ baseName }}CollectionsListTest {
 
     @Test
     void shouldGetEmptyImmutableCollectionFromNullCollection() {
       List<Object> input = null;
-      List<Object> list = {{collectionClass}}Collections.immutable(input);
+      List<Object> list = {{ baseName }}Collections.immutable(input);
 
       assertThat(list).isEmpty();
       assertThatThrownBy(() -> list.clear()).isExactlyInstanceOf(UnsupportedOperationException.class);
@@ -80,7 +80,7 @@ class {{collectionClass}}CollectionsTest {
     void shouldGetImmutableCollectionFromMutableCollection() {
       List<String> input = new ArrayList<>();
       input.add("value");
-      List<String> list = {{collectionClass}}Collections.immutable(input);
+      List<String> list = {{ baseName }}Collections.immutable(input);
 
       assertThat(list).containsExactly("value");
       assertThatThrownBy(() -> list.clear()).isExactlyInstanceOf(UnsupportedOperationException.class);

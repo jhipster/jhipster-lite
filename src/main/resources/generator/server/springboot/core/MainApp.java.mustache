@@ -10,12 +10,12 @@ import {{packageName}}.common.domain.Generated;
 
 @SpringBootApplication
 @Generated(reason = "Not testing logs")
-public class {{mainClass}}App {
+public class {{ baseName }}App {
 
-  private static final Logger log = LoggerFactory.getLogger({{mainClass}}App.class);
+  private static final Logger log = LoggerFactory.getLogger({{ baseName }}App.class);
 
   public static void main(String[] args) {
-    Environment env = SpringApplication.run({{mainClass}}App.class, args).getEnvironment();
+    Environment env = SpringApplication.run({{ baseName }}App.class, args).getEnvironment();
 
     if (log.isInfoEnabled()) {
       log.info(ApplicationStartupTraces.of(env));

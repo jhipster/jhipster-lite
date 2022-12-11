@@ -6,13 +6,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 @Configuration
-class ErrorsConfiguration {
+class GeneratorErrorsConfiguration {
 
-  @Bean("assertionErrorMessageSource")
-  MessageSource assertionErrorMessageSource() {
+  @Bean("generatorErrorMessageSource")
+  MessageSource generatorErrorMessageSource() {
     ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
 
-    source.setBasename("classpath:/messages/assertions-errors/messages");
+    source.setBasename("classpath:/messages/errors/generator-errors-messages");
     source.setDefaultEncoding("UTF-8");
 
     return source;

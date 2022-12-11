@@ -32,7 +32,7 @@ class AssertionErrorsHandler {
   }
 
   @ExceptionHandler(AssertionException.class)
-  ProblemDetail handleMissingMandatoryValue(AssertionException exception) {
+  ProblemDetail handleAssertionError(AssertionException exception) {
     ProblemDetail problem = ProblemDetail.forStatusAndDetail(buildStatus(exception), buildDetail(exception));
 
     problem.setTitle(getMessage(exception.type(), "title"));

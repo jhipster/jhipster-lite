@@ -5,6 +5,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -21,6 +23,7 @@ import tech.jhipster.lite.error.domain.AssertionException;
 @Order(Ordered.LOWEST_PRECEDENCE - 1000)
 class AssertionErrorsHandler {
 
+  private static final Logger log = LoggerFactory.getLogger(AssertionErrorsHandler.class);
   private static final String MESSAGES_PREFIX = "assertion-error.";
 
   private final MessageSource messages;
@@ -33,10 +36,13 @@ class AssertionErrorsHandler {
 
   @ExceptionHandler(AssertionException.class)
   ProblemDetail handleAssertionError(AssertionException exception) {
-    ProblemDetail problem = ProblemDetail.forStatusAndDetail(buildStatus(exception), buildDetail(exception));
+    HttpStatus status = buildStatus(exception);
+    ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, buildDetail(exception));
 
     problem.setTitle(getMessage(exception.type(), "title"));
     problem.setProperty("key", exception.type().name());
+
+    logException(exception, status);
 
     return problem;
   }
@@ -84,5 +90,13 @@ class AssertionErrorsHandler {
 
   private Locale locale() {
     return LocaleContextHolder.getLocale();
+  }
+
+  private void logException(AssertionException exception, HttpStatus status) {
+    if (status.is4xxClientError()) {
+      log.info(exception.getMessage(), exception);
+    } else {
+      log.error(exception.getMessage(), exception);
+    }
   }
 }

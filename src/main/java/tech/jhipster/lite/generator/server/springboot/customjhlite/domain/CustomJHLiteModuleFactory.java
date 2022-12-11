@@ -41,7 +41,7 @@ public class CustomJHLiteModuleFactory {
     //@formatter:off
     return cucumberModuleBuilder(properties)
       .context()
-        .put("applicationName", properties.projectBaseName().capitalized())
+        .put("baseName", properties.projectBaseName().capitalized())
         .and()
       .documentation(documentationTitle("Module creation"), SOURCE.template("module-creation.md"))
       .documentation(documentationTitle("Cucumber"), CUCUMBER_SOURCE.template("cucumber.md"))

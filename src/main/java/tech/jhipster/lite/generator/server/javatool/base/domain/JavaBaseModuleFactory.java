@@ -35,7 +35,7 @@ public class JavaBaseModuleFactory {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.packagePath();
-    String baseClassName = properties.projectBaseName().capitalized();
+    String baseName = properties.projectBaseName().capitalized();
 
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath);
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
@@ -43,7 +43,7 @@ public class JavaBaseModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .put("collectionClass", baseClassName)
+        .put("baseName", baseName)
         .and()
       .documentation(documentationTitle("Package types"), MAIN_SOURCE.template("package-types.md"))
       .documentation(documentationTitle("Assertions"), MAIN_SOURCE.template("assertions.md"))
@@ -86,8 +86,8 @@ public class JavaBaseModuleFactory {
         .add(MAIN_SOURCE.template("package-info-error.java"), packageInfoDestination(mainDestination, Destination.ERROR))
         .add(MAIN_SOURCE.template("package-info-common.java"), packageInfoDestination(mainDestination,  Destination.COMMON))
         .add(MAIN_SOURCE.template("Generated.java"), mainDestination.append(Destination.COMMON_DOMAIN.path).append("Generated.java"))
-        .add(MAIN_SOURCE.template("ProjectCollections.java"), collectionsDestination(baseClassName, mainDestination))
-        .add(TEST_SOURCE.template("ProjectCollectionsTest.java"), collectionsTestDestination(baseClassName, testDestination))
+        .add(MAIN_SOURCE.template("ProjectCollections.java"), collectionsDestination(baseName, mainDestination))
+        .add(TEST_SOURCE.template("ProjectCollectionsTest.java"), collectionsTestDestination(baseName, testDestination))
         .and()
       .build();
     //@formatter:on

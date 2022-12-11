@@ -37,6 +37,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   GITPOD("gitpod"),
   INFINITEST_FILTERS("infinitest-filters"),
   INIT("init"),
+  INTERNATIONALIZED_ERRORS("internationalized-errors"),
   JACOCO_CHECK_MIN_COVERAGE("jacoco-check-min-coverage"),
   JAVA_ARCHUNIT("java-archunit"),
   JAVA_BASE("java-base"),

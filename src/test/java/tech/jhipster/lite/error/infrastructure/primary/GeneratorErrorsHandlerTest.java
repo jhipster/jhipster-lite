@@ -25,7 +25,7 @@ class GeneratorErrorsHandlerTest {
 
   @Test
   void shouldLogServerErrorAsError() {
-    handler.handelGeneratorException(
+    handler.handleGeneratorException(
       GeneratorException.internalServerError(StandardErrorKey.INTERNAL_SERVER_ERROR).message("Oops").build()
     );
 
@@ -34,7 +34,7 @@ class GeneratorErrorsHandlerTest {
 
   @Test
   void shouldLogClientErrorAsInfo() {
-    handler.handelGeneratorException(GeneratorException.badRequest(StandardErrorKey.BAD_REQUEST).message("Oops").build());
+    handler.handleGeneratorException(GeneratorException.badRequest(StandardErrorKey.BAD_REQUEST).message("Oops").build());
 
     logs.shouldHave(Level.INFO, "Oops");
   }

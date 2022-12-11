@@ -1,6 +1,8 @@
 package tech.jhipster.lite.error.infrastructure.primary;
 
 import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -18,6 +20,7 @@ import tech.jhipster.lite.error.domain.GeneratorException;
 @Order(Ordered.LOWEST_PRECEDENCE - 1000)
 class GeneratorErrorsHandler {
 
+  private static final Logger log = LoggerFactory.getLogger(GeneratorErrorsHandler.class);
   private static final String MESSAGES_PREFIX = "error.";
 
   private final MessageSource messages;
@@ -30,10 +33,13 @@ class GeneratorErrorsHandler {
 
   @ExceptionHandler(GeneratorException.class)
   ProblemDetail handelGeneratorException(GeneratorException exception) {
-    ProblemDetail problem = ProblemDetail.forStatusAndDetail(Enums.map(exception.status(), HttpStatus.class), buildDetail(exception));
+    HttpStatus status = Enums.map(exception.status(), HttpStatus.class);
+    ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, buildDetail(exception));
 
     problem.setTitle(getMessage(exception.key(), "title"));
     problem.setProperty("key", exception.key().get());
+
+    logException(exception, status);
 
     return problem;
   }
@@ -50,5 +56,13 @@ class GeneratorErrorsHandler {
 
   private Locale locale() {
     return LocaleContextHolder.getLocale();
+  }
+
+  private void logException(GeneratorException exception, HttpStatus status) {
+    if (status.is4xxClientError()) {
+      log.info(exception.getMessage(), exception);
+    } else {
+      log.error(exception.getMessage(), exception);
+    }
   }
 }

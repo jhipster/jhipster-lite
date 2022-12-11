@@ -20,7 +20,7 @@ class AssertionsErrorsResource {
 
   @GetMapping("missing-domain-mandatory-value")
   void missingDomainMandatoryValue() {
-    MissingMandatoryValueFactory.missingMandatoryValue();
+    MissingMandatoryValueFactory.throwMissingMandatoryValue();
   }
 
   @GetMapping("number-value-too-low")

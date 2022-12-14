@@ -12,8 +12,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class FrontendMavenModuleFactory {
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/web");
-  private static final JHipsterSource MAIN_SOURCE = SOURCE.append("src");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/frontend");
 
   private static final String REDIRECTION_PRIMARY = "technical/infrastructure/primary/redirection";
 
@@ -41,7 +40,7 @@ public class FrontendMavenModuleFactory {
         .and()
       .files()
         .add(
-          MAIN_SOURCE.template("RedirectionResource.java"),
+          SOURCE.template("RedirectionResource.java"),
           toSrcMainJava().append(packagePath).append(REDIRECTION_PRIMARY).append("RedirectionResource.java")
         )
         .and()

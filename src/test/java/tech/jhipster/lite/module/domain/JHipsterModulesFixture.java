@@ -47,7 +47,7 @@ public final class JHipsterModulesFixture {
         .addTemplate("Assert.java.mustache")
         .addTemplate("AssertionException.java.mustache")
         .and()
-        .add(from("server/springboot/core/MainApp.java.mustache"), to("src/main/java/com/company/myapp/MyApp.java"))
+        .add(from("server/springboot/core/main/MainApp.java.mustache"), to("src/main/java/com/company/myapp/MyApp.java"))
       .add(from("init/README.md.mustache"), to("README.md"))
       .move(path("dummy.txt"), to("dummy.json"))
       .and()

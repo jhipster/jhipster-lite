@@ -118,6 +118,7 @@ elif [[ $application == 'fullapp' ]]; then
   "github-codespaces" \
   "gitpod" \
   "java-memoizers" \
+  "java-enums" \
   "spring-boot-cache" \
   "caffeine-cache"
 

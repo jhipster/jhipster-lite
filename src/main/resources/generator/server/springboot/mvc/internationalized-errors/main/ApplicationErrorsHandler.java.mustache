@@ -1,4 +1,4 @@
-package tech.jhipster.lite.error.infrastructure.primary;
+package {{ packageName }}.error.infrastructure.primary;
 
 import java.util.Locale;
 import org.slf4j.Logger;
@@ -12,27 +12,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import tech.jhipster.lite.common.domain.Enums;
-import tech.jhipster.lite.error.domain.ErrorKey;
-import tech.jhipster.lite.error.domain.GeneratorException;
+import {{ packageName }}.common.domain.Enums;
+import {{ packageName }}.error.domain.ErrorKey;
+import {{ packageName }}.error.domain.{{ baseName }}Exception;
 
 @ControllerAdvice
 @Order(Ordered.LOWEST_PRECEDENCE - 1000)
-class GeneratorErrorsHandler {
+class {{ baseName }}ErrorsHandler {
 
-  private static final Logger log = LoggerFactory.getLogger(GeneratorErrorsHandler.class);
+  private static final Logger log = LoggerFactory.getLogger({{ baseName }}ErrorsHandler.class);
   private static final String MESSAGES_PREFIX = "error.";
 
   private final MessageSource messages;
 
-  public GeneratorErrorsHandler(@Qualifier("generatorErrorMessageSource") MessageSource messages) {
+  public {{ baseName }}ErrorsHandler(@Qualifier("applicationErrorMessageSource") MessageSource messages) {
     Locale.setDefault(Locale.ENGLISH);
 
     this.messages = messages;
   }
 
-  @ExceptionHandler(GeneratorException.class)
-  ProblemDetail handleGeneratorException(GeneratorException exception) {
+  @ExceptionHandler({{ baseName }}Exception.class)
+  ProblemDetail handle{{ baseName }}Exception({{ baseName }}Exception exception) {
     HttpStatus status = Enums.map(exception.status(), HttpStatus.class);
     ProblemDetail problem = ProblemDetail.forStatusAndDetail(status, buildDetail(exception));
 
@@ -44,7 +44,7 @@ class GeneratorErrorsHandler {
     return problem;
   }
 
-  private String buildDetail(GeneratorException exception) {
+  private String buildDetail({{ baseName }}Exception exception) {
     String messageTemplate = getMessage(exception.key(), "detail");
 
     return ArgumentsReplacer.replaceParameters(messageTemplate, exception.parameters());
@@ -58,7 +58,7 @@ class GeneratorErrorsHandler {
     return LocaleContextHolder.getLocale();
   }
 
-  private void logException(GeneratorException exception, HttpStatus status) {
+  private void logException({{ baseName }}Exception exception, HttpStatus status) {
     if (status.is4xxClientError()) {
       log.info(exception.getMessage(), exception);
     } else {

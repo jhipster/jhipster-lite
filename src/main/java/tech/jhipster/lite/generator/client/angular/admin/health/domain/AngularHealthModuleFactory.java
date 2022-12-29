@@ -2,14 +2,23 @@ package tech.jhipster.lite.generator.client.angular.admin.health.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
+import java.util.regex.Pattern;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.replacement.ElementReplacer;
+import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 
 public class AngularHealthModuleFactory {
+
+  private static final Pattern PROVIDERS_PATTERN = Pattern.compile("(providers: *\\[)");
+  private static final ElementReplacer EXISTING_PROVIDERS_NEEDLE = new RegexReplacer(
+    (contentBeforeReplacement, replacement) -> PROVIDERS_PATTERN.matcher(contentBeforeReplacement).find(),
+    PROVIDERS_PATTERN
+  );
 
   private static final JHipsterSource SOURCE = from("client/angular/admin/src/main/webapp/app");
 
@@ -64,6 +73,9 @@ public class AngularHealthModuleFactory {
           .and()
         .and()
       .mandatoryReplacements()
+        .in(path("src/main/webapp/main.ts"))
+          .add(EXISTING_PROVIDERS_NEEDLE, "providers: [ provideHttpClient(withInterceptorsFromDi()),")
+          .and()
         .in(APP_PATH.append("app.route.ts"))
           .add(lineBeforeText("// jhipster-needle-angular-route"), ADMIN_ROUTING)
           .and()

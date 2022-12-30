@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AccountService } from '../auth/account.service';
@@ -27,7 +27,11 @@ export default class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
 
-  constructor(private accountService: AccountService, private loginService: LoginService, private fb: FormBuilder) {
+  private accountService = inject(AccountService);
+  private loginService = inject(LoginService);
+  private fb = inject(FormBuilder);
+
+  constructor() {
     this.loginForm = this.fb.nonNullable.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],

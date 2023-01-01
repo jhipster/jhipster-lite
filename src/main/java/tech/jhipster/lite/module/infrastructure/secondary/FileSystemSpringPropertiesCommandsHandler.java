@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.common.domain.Generated;
+import tech.jhipster.lite.common.domain.ExcludeFromGeneratedCodeCoverage;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperties;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
@@ -60,7 +60,7 @@ class FileSystemSpringPropertiesCommandsHandler {
     return folder -> projectFolder.filePath(folder + propertiesFilename(property));
   }
 
-  @Generated(reason = "Jacoco thinks there is a missed branch")
+  @ExcludeFromGeneratedCodeCoverage(reason = "Jacoco thinks there is a missed branch")
   private static Supplier<Path> defaultPropertiesFile(JHipsterProjectFolder projectFolder, SpringProperty property) {
     return switch (property.type()) {
       case MAIN_PROPERTIES -> () -> projectFolder.filePath(DEFAULT_MAIN_FOLDER + propertiesFilename(property));

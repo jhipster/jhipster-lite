@@ -125,6 +125,7 @@ elif [[ $application == 'fullapp' ]]; then
   "jib" \
   "dockerfile" \
   "java-archunit" \
+  "git-information" \
   "github-codespaces" \
   "gitpod" \
   "java-memoizers" \

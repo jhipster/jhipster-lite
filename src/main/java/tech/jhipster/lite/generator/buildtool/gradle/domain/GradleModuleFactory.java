@@ -22,6 +22,9 @@ public class GradleModuleFactory {
           .addTemplate("build.gradle.kts")
           .addTemplate("settings.gradle.kts")
           .and()
+        .batch(SOURCE.append("gradle"), to("gradle"))
+          .addFile("libs.versions.toml")
+          .and()
         .and()
       .build();
     //@formatter:on

@@ -43,6 +43,7 @@ class GradleModuleFactoryTest {
 
     assertThatModuleWithFiles(module)
       .hasExecutableFiles("gradlew", "gradlew.bat")
-      .hasPrefixedFiles("gradle/wrapper", "gradle-wrapper.jar", "gradle-wrapper.properties");
+      .hasPrefixedFiles("gradle/wrapper", "gradle-wrapper.jar", "gradle-wrapper.properties")
+      .doNotHaveFiles("build.gradle.kts", "settings.gradle.kts");
   }
 }

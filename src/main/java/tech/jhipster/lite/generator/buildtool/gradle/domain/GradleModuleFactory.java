@@ -37,10 +37,6 @@ public class GradleModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .files()
-        .batch(SOURCE, to("."))
-          .addTemplate("build.gradle.kts")
-          .addTemplate("settings.gradle.kts")
-          .and()
         .batch(SOURCE.append("gradle/wrapper"), to("gradle/wrapper"))
           .addFile("gradle-wrapper.properties")
           .addFile("gradle-wrapper.jar")

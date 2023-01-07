@@ -100,6 +100,12 @@ elif [[ $application == 'fullstack' ]]; then
   spring_boot_mvc
   sonar_back_front
 
+elif [[ $application == 'gradleapp' ]]; then
+  applyModules \
+    "init" \
+    "gradle-java" \
+    "java-base"
+
 elif [[ $application == 'fullapp' ]]; then
   spring_boot_mvc
   sonar_back_front

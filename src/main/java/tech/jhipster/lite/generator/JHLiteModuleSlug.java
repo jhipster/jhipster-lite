@@ -31,6 +31,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   FLYWAY_MYSQL("flyway-mysql"),
   FRONTEND_MAVEN_PLUGIN("frontend-maven-plugin"),
   GATEWAY("gateway"),
+  GIT_INFORMATION("git-information"),
   GITHUB_ACTIONS("github-actions"),
   GITHUB_CODESPACES("github-codespaces"),
   GITLAB_CI("gitlab-ci"),

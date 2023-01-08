@@ -76,7 +76,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./mvnw initialize sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster_jhipster-lite -Dsonar.organization=jhipster
+        run: ./mvnw initialize sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster_jhipster-lite -Dsonar.organization=jhipster -Dsonar.login= -Dsonar.password=
       - name: 'Artifact: upload JaCoCo report'
         uses: actions/upload-artifact@v3
         with:

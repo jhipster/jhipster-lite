@@ -63,6 +63,8 @@ jobs:
         run: npm ci
       - name: 'Lint: check'
         run: npm run lint:ci
+      - name: 'TEMP: enable gradle build tool slug'
+        run: sed -i 's/jhlite-hidden-resources.slugs=gradle-java/jhlite-hidden-resources.slugs=/' src/main/resources/config/application.properties
       - name: 'Test: run backend tests'
         run: |
           chmod +x mvnw
@@ -154,6 +156,7 @@ jobs:
           - angularoauth2app
           - customjhlite
           - typescriptapp
+          - gradleapp
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v3
@@ -198,8 +201,9 @@ jobs:
         run: |
           if [ -f 'mvnw' ]; then
             ./mvnw clean verify sonar:sonar
-          fi
-          if [ ${{ matrix.app }} == 'typescriptapp' ]; then
+          elif [ -f 'gradlew' ]; then
+            ./gradlew build --no-daemon
+          else
             npm install
             npm test
           fi
@@ -218,7 +222,8 @@ jobs:
       - name: 'Test: start the application'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          if [ ${{ matrix.app }} != 'typescriptapp' ]; then
+          # TODO: add also 'gradlew' once gradle support is more advanced
+          if [ -f 'mvnw' ]; then
             ./start.sh
           fi
 

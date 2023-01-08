@@ -115,6 +115,7 @@ elif [[ $application == 'fullapp' ]]; then
   sonar_back_front
 
   applyModules \
+  "prettier" \
   "infinitest-filters" \
   "pagination-domain" \
   "rest-pagination" \

@@ -25,7 +25,7 @@ class SpringBootMvcModulesConfiguration {
       .builder()
       .slug(SPRING_BOOT_MVC)
       .propertiesDefinition(properties())
-      .apiDoc("Spring Boot MVC", "Add Spring Boot MVC")
+      .apiDoc("Spring Boot - MVC", "Add Spring Boot MVC")
       .organization(JHipsterModuleOrganization.builder().feature(SPRING_SERVER).addDependency(SPRING_BOOT).build())
       .tags(SERVER_TAG, SPRING_TAG, SPRING_BOOT_TAG, MVC_TAG, WEB_TAG)
       .factory(springBootMvc::buildEmptyModule);

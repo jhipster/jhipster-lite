@@ -36,7 +36,6 @@ public class FileSystemJavaBuildCommandsHandler {
     commands.get().forEach(command -> handle(handler, command));
   }
 
-  @ExcludeFromGeneratedCodeCoverage(reason = "Gradle does not yet handle commands")
   private static JavaDependenciesCommandHandler buildCommandHandler(Indentation indentation, JHipsterProjectFolder projectFolder) {
     Path pomPath = projectFolder.filePath("pom.xml");
     if (Files.exists(pomPath)) {

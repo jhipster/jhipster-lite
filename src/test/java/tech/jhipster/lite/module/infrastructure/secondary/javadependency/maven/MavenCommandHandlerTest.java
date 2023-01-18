@@ -1,8 +1,18 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaBuildPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.defaultVersionDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.jsonWebTokenDependencyId;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerPluginManagement;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.optionalTestDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyId;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyManagement;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootStarterWebDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootVersion;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,9 +34,6 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDepend
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
-import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.InvalidPomException;
-import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.MalformedAdditionalInformationException;
-import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.MavenCommandHandler;
 
 @UnitTest
 class MavenCommandHandlerTest {

@@ -2,18 +2,16 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.projectFrom;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootVersion;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import tech.jhipster.lite.TestFileUtils;
+
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
@@ -71,37 +69,6 @@ class GradleCommandHandlerTest {
     }
   }
 
-  private static JHipsterProjectFolder projectFrom(String sourceProject) {
-    Path folder = Paths.get(TestFileUtils.tmpDirForTest());
-
-    try {
-      Files.createDirectories(folder);
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
-
-    for (String buildFile : List.of("build.gradle.kts", "settings.gradle.kts")) {
-      Path buildConfigPath = folder.resolve(buildFile);
-      try {
-        Files.copy(Paths.get(sourceProject), buildConfigPath);
-      } catch (IOException e) {
-        throw new AssertionError(e);
-      }
-    }
-    Path sourceTomlVersionCatalogPath = Paths.get(sourceProject).resolve("gradle").resolve("libs.versions.toml");
-    if (Files.exists(sourceTomlVersionCatalogPath)) {
-      try {
-        Path gradleFolder = folder.resolve("gradle");
-        Files.createDirectories(gradleFolder);
-        Files.copy(sourceTomlVersionCatalogPath, gradleFolder.resolve("libs.versions.toml"));
-      } catch (IOException e) {
-        throw new AssertionError(e);
-      }
-    }
-
-    return new JHipsterProjectFolder(folder.toString());
-  }
-
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {
     return content(Paths.get(projectFolder.get()).resolve("build.gradle.kts"));
   }
@@ -110,11 +77,4 @@ class GradleCommandHandlerTest {
     return content(Paths.get(projectFolder.get()).resolve("gradle/libs.versions.toml"));
   }
 
-  private static String content(Path path) {
-    try {
-      return Files.readString(path);
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
-  }
 }

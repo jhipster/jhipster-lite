@@ -156,6 +156,9 @@ elif [[ $application == 'oauth2app' ]]; then
   sonar_back
 
   applyModules \
+  "java-memoizers" \
+
+  applyModules \
   "spring-boot-oauth2" \
   "spring-boot-oauth2-account" \
   "springdoc-mvc-openapi" \
@@ -296,6 +299,9 @@ elif [[ $application == 'angularapp' ]]; then
 elif [[ $application == 'angularoauth2app' ]]; then
   spring_boot_mvc
   sonar_back_front
+
+  applyModules \
+  "java-memoizers" \
 
   applyModules \
   "frontend-maven-plugin" \

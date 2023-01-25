@@ -25,7 +25,7 @@ class Hibernate2ndLevelCacheModuleFactoryTest {
       .containing(
         """
               <dependency>
-                <groupId>org.hibernate</groupId>
+                <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-jcache</artifactId>
               </dependency>
           """

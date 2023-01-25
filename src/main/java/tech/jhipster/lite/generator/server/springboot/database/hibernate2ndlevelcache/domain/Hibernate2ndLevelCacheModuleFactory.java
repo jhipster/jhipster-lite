@@ -31,7 +31,7 @@ public class Hibernate2ndLevelCacheModuleFactory {
       .addDependency(
         JavaDependency
           .builder()
-          .groupId(groupId("org.hibernate"))
+          .groupId(groupId("org.hibernate.orm"))
           .artifactId(artifactId("hibernate-jcache"))
           .build()
       )

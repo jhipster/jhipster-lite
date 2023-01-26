@@ -115,6 +115,7 @@ elif [[ $application == 'fullapp' ]]; then
   sonar_back_front
 
   applyModules \
+  "prettier" \
   "infinitest-filters" \
   "pagination-domain" \
   "rest-pagination" \
@@ -125,6 +126,7 @@ elif [[ $application == 'fullapp' ]]; then
   "jib" \
   "dockerfile" \
   "java-archunit" \
+  "git-information" \
   "github-codespaces" \
   "gitpod" \
   "java-memoizers" \

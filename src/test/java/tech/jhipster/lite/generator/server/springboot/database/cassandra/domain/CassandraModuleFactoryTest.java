@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.database.domain;
+package tech.jhipster.lite.generator.server.springboot.database.cassandra.domain;
 
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;

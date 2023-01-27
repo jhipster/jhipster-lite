@@ -60,8 +60,8 @@ class CassandraMigrationModuleFactoryTest {
       .hasFile("src/test/resources/META-INF/spring.factories")
       .containing(
         """
-          org.springframework.context.ApplicationListener=com.jhipster.test.TestCassandraManager, com.jhipster.test.TestCassandraMigrationLoader
-          """
+         org.springframework.context.ApplicationListener=com.jhipster.test.TestCassandraManager, com.jhipster.test.TestCassandraMigrationLoader
+         """
       )
       .and()
       .hasFile("README.md")

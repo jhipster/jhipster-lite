@@ -57,15 +57,13 @@ class CassandraMigrationModuleFactoryTest {
       .hasFiles("documentation/cassandra-migration.md")
       .hasPrefixedFiles("src/main/docker/cassandra/scripts", "autoMigrate.sh", "execute-cql.sh")
       .hasFiles("src/test/java/com/jhipster/test/TestCassandraMigrationLoader.java")
-      //      .hasFile("src/test/java/com/jhipster/test/TestCassandraManager.java")
-      //      .containing(
-      //        """
-      //              createTestKeyspace(session);
-      //              TestCassandraMigrationLoader.loadMigrationScripts(session);
-      //            }
-      //        """
-      //      )
-      //      .and()
+      .hasFile("src/test/resources/META-INF/spring.factories")
+      .containing(
+        """
+          org.springframework.context.ApplicationListener=com.jhipster.test.TestCassandraManager, com.jhipster.test.TestCassandraMigrationLoader
+          """
+      )
+      .and()
       .hasFile("README.md")
       .containing("""
         ```bash

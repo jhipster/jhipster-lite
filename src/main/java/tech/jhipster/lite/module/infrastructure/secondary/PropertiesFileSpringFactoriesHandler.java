@@ -5,22 +5,18 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import tech.jhipster.lite.common.domain.ExcludeFromGeneratedCodeCoverage;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 
-// todo factoriser avec le PropFilesSpringPropHandler ?
-// todo later manage trailing spaces between = and ,
-// todo change separator to ",\n"
 public class PropertiesFileSpringFactoriesHandler {
 
   private final Path file;
 
   private static final String EQUAL = "=";
 
-  private static final String COLLECTION_SEPARATOR = ",";
+  private static final String COLLECTION_SEPARATOR = ",\\\n" + "  ";
 
   public PropertiesFileSpringFactoriesHandler(Path file) {
     Assert.notNull("file", file);
@@ -35,7 +31,6 @@ public class PropertiesFileSpringFactoriesHandler {
     updateProperties(key, value);
   }
 
-  @ExcludeFromGeneratedCodeCoverage
   private void updateProperties(PropertyKey key, PropertyValue value) {
     try {
       String properties = buildProperties(key, value);
@@ -46,22 +41,30 @@ public class PropertiesFileSpringFactoriesHandler {
     }
   }
 
-  //todo y'a des saut de ligne en trop
-  // idem entre 2 options
   private String buildProperties(PropertyKey key, PropertyValue value) throws IOException {
     String currentProperties = readOrInitProperties();
 
     int propertyIndex = currentProperties.indexOf(propertyId(key));
     if (propertyIndex != -1) {
-      StringBuilder newProperties = new StringBuilder(currentProperties);
-
-      int eolIndex = newProperties.indexOf(LINE_BREAK, propertyIndex);
-      newProperties.insert(eolIndex, "," + concatenatedValues(value));
-
-      return newProperties.toString();
+      return appendValuesToExistingPropertyKey(propertyIndex, value, currentProperties);
     }
+    return addNewProperty(key, value, currentProperties);
+  }
 
-    return currentProperties + propertyLine(key, value);
+  private String addNewProperty(PropertyKey key, PropertyValue value, String currentProperties) {
+    if (currentProperties.isEmpty()) {
+      return propertyLine(key, value) + LINE_BREAK;
+    }
+    return currentProperties + propertyLine(key, value) + LINE_BREAK;
+  }
+
+  private static String appendValuesToExistingPropertyKey(int propertyIndex, PropertyValue value, String currentProperties) {
+    StringBuilder newProperties = new StringBuilder(currentProperties);
+
+    int eolIndex = newProperties.indexOf(LINE_BREAK, propertyIndex);
+    newProperties.insert(eolIndex, "," + joinedPropertyValues(value));
+
+    return newProperties.toString();
   }
 
   private String readOrInitProperties() throws IOException {
@@ -72,14 +75,14 @@ public class PropertiesFileSpringFactoriesHandler {
       return "";
     }
 
-    return Files.readString(file) + LINE_BREAK;
+    return Files.readString(file);
   }
 
   private String propertyLine(PropertyKey key, PropertyValue value) {
-    return propertyId(key) + concatenatedValues(value);
+    return propertyId(key) + joinedPropertyValues(value);
   }
 
-  private static String concatenatedValues(PropertyValue value) {
+  private static String joinedPropertyValues(PropertyValue value) {
     return String.join(COLLECTION_SEPARATOR, value.get());
   }
 

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestFileUtils.content;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.io.IOException;
@@ -46,14 +47,6 @@ class PropertiesFileSpringPropertiesHandlerTest {
     handler.set(propertyKey("spring.application.name"), propertyValue("alpha"));
 
     assertThat(content(propertiesFile)).startsWith("spring.application.name=alpha").doesNotContain("spring.application.name=JHLite");
-  }
-
-  private static String content(Path file) {
-    try {
-      return Files.readString(file);
-    } catch (IOException e) {
-      throw new AssertionError(e.getMessage(), e);
-    }
   }
 
   private void loadDefaultProperties(Path propertiesFile) {

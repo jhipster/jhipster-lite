@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static tech.jhipster.lite.TestFileUtils.content;
 import static tech.jhipster.lite.module.domain.JHipsterModule.comment;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
@@ -290,14 +291,6 @@ class FileSystemSpringCommentsCommandsHandlerTest {
           .build()
       )
     );
-  }
-
-  private static String content(Path file) {
-    try {
-      return Files.readString(file);
-    } catch (IOException e) {
-      throw new AssertionError(e.getMessage(), e);
-    }
   }
 
   private void loadDefaultProperties(Path propertiesFile) {

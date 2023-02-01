@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestFileUtils.content;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.io.IOException;
@@ -56,36 +57,28 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
   @ValueSource(strings = { "src/main/resources/config/application.properties", "src/main/resources/application.properties" })
   void shouldUpdateMainProperties(String propertiesPath) {
     String folder = TestFileUtils.tmpDirForTest();
-    Path propetiesFile = Paths.get(folder, propertiesPath);
-    loadDefaultProperties(propetiesFile);
+    Path propertiesFile = Paths.get(folder, propertiesPath);
+    loadDefaultProperties(propertiesFile);
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springMainProperty()));
 
-    assertThat(content(propetiesFile)).contains("springdoc.swagger-ui.operationsSorter=alpha,beta");
+    assertThat(content(propertiesFile)).contains("springdoc.swagger-ui.operationsSorter=alpha,beta");
   }
 
   @ParameterizedTest
   @ValueSource(strings = { "src/test/resources/config/application.properties", "src/test/resources/application.properties" })
   void shouldUpdateTestProperties(String propertiesPath) {
     String folder = TestFileUtils.tmpDirForTest();
-    Path propetiesFile = Paths.get(folder, propertiesPath);
-    loadDefaultProperties(propetiesFile);
+    Path propertiesFile = Paths.get(folder, propertiesPath);
+    loadDefaultProperties(propertiesFile);
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestProperty()));
 
-    assertThat(content(propetiesFile)).contains("springdoc.swagger-ui.operationsSorter=alpha,beta");
+    assertThat(content(propertiesFile)).contains("springdoc.swagger-ui.operationsSorter=alpha,beta");
   }
 
   private static SpringProperties properties(SpringProperty property) {
     return new SpringProperties(List.of(property));
-  }
-
-  private static String content(Path file) {
-    try {
-      return Files.readString(file);
-    } catch (IOException e) {
-      throw new AssertionError(e.getMessage(), e);
-    }
   }
 
   private void loadDefaultProperties(Path propertiesFile) {

@@ -52,9 +52,6 @@ public class PropertiesFileSpringFactoriesHandler {
   }
 
   private String addNewProperty(PropertyKey key, PropertyValue value, String currentProperties) {
-    if (currentProperties.isEmpty()) {
-      return propertyLine(key, value) + LINE_BREAK;
-    }
     return currentProperties + propertyLine(key, value) + LINE_BREAK;
   }
 

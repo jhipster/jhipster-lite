@@ -51,6 +51,7 @@ public class SpringFactory {
     }
   }
 
+  // todo maybe make a common interface ?
   public interface SpringFactoryKeyBuilder {
     SpringFactoryKeyBuilder key(PropertyKey key);
   }

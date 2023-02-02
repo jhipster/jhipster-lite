@@ -4,6 +4,7 @@ import tech.jhipster.lite.error.domain.Assert;
 
 public class SpringFactory {
 
+  private final SpringFactoryType type;
   private final PropertyKey key;
   private final PropertyValue value;
 
@@ -11,8 +12,17 @@ public class SpringFactory {
     Assert.notNull("key", builder.key);
     Assert.notNull("value", builder.value);
 
+    type = builder.type;
     key = builder.key;
     value = builder.value;
+  }
+
+  public static SpringFactoryBuilder builder(SpringFactoryType type) {
+    return new SpringFactoryBuilder(type);
+  }
+
+  public SpringFactoryType type() {
+    return type;
   }
 
   public PropertyKey key() {
@@ -25,35 +35,42 @@ public class SpringFactory {
 
   public static class SpringFactoryBuilder implements SpringFactoryKeyBuilder, SpringFactoryValueBuilder {
 
+    private final SpringFactoryType type;
     private PropertyKey key;
     private PropertyValue value;
 
-    //todo
-    private SpringFactoryBuilder() {}
+    private SpringFactoryBuilder(SpringFactoryType type) {
+      Assert.notNull("type", type);
+
+      this.type = type;
+    }
 
     @Override
-    public SpringFactoryKeyBuilder key(PropertyKey key) {
+    public SpringFactoryBuilder key(PropertyKey key) {
       this.key = key;
 
       return this;
     }
 
     @Override
-    public SpringFactoryValueBuilder value(PropertyValue value) {
+    public SpringFactoryBuilder value(PropertyValue value) {
       this.value = value;
 
       return this;
     }
 
-    // todo implem ?
+    @Override
     public SpringFactory build() {
       return new SpringFactory(this);
     }
   }
 
   // todo maybe make a common interface ?
+  // todo or a single one
   public interface SpringFactoryKeyBuilder {
     SpringFactoryKeyBuilder key(PropertyKey key);
+
+    SpringFactory build();
   }
 
   public interface SpringFactoryValueBuilder {

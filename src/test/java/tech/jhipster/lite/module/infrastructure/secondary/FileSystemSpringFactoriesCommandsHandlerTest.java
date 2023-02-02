@@ -1,0 +1,73 @@
+package tech.jhipster.lite.module.infrastructure.secondary;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import tech.jhipster.lite.TestFileUtils;
+import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.javaproperties.*;
+import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+
+@UnitTest
+class FileSystemSpringFactoriesCommandsHandlerTest {
+
+  private static final FileSystemSpringFactoriesCommandsHandler handler = new FileSystemSpringFactoriesCommandsHandler();
+
+  @Test
+  void shouldCreateDefaultTestPropertiesForProjectWithoutProperties() {
+    String folder = TestFileUtils.tmpDirForTest();
+
+    handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
+
+    assertThat(content(Paths.get(folder, "src/test/resources/META-INF/spring.factories")))
+      .contains("""
+        o.s.c.ApplicationListener=c.m.m.MyListener1,\\
+          c.m.m.MyListener2
+        """);
+  }
+
+  @Test
+  void shouldUpdateTestProperties() {
+    String folder = TestFileUtils.tmpDirForTest();
+    Path propertiesFile = Paths.get(folder, "src/test/resources/META-INF/spring.factories");
+    loadDefaultProperties(propertiesFile);
+
+    handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
+
+    assertThat(content(propertiesFile))
+      .contains("""
+        o.s.c.ApplicationListener=c.m.m.MyListener1,\\
+          c.m.m.MyListener2
+        """);
+  }
+
+  private SpringFactories properties(SpringFactory factory) {
+    return new SpringFactories(List.of(factory));
+  }
+
+  public SpringFactory springTestFactory() {
+    return SpringFactory
+      .builder(SpringFactoryType.TEST_FACTORIES)
+      .key(propertyKey("o.s.c.ApplicationListener"))
+      .value(propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"))
+      .build();
+  }
+
+  //todo factorize
+  private void loadDefaultProperties(Path propertiesFile) {
+    try {
+      Files.createDirectories(propertiesFile.getParent());
+      Files.copy(Paths.get("src/test/resources/projects/project-with-spring-factories/spring.factories"), propertiesFile);
+    } catch (IOException e) {
+      throw new AssertionError(e.getMessage(), e);
+    }
+  }
+}

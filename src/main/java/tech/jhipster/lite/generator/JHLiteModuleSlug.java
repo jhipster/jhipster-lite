@@ -89,7 +89,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   SPRING_BOOT_OAUTH_2_AUTH_0("spring-boot-oauth2-auth0"),
   SPRING_BOOT_OAUTH_2_OKTA("spring-boot-oauth2-okta"),
   SPRING_BOOT_PULSAR("spring-boot-pulsar"),
-  SPRING_BOOT_MVC("spring-boot-mvc"),
+  SPRING_BOOT_MVC_EMPTY("spring-boot-mvc-empty"),
   SPRING_BOOT_TOMCAT("spring-boot-tomcat"),
   SPRING_BOOT_UNDERTOW("spring-boot-undertow"),
   SPRING_BOOT_WEBFLUX("spring-boot-webflux"),

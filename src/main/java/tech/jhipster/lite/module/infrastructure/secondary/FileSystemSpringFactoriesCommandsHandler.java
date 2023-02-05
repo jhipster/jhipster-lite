@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModulesRepository.TEST_META_INF_FOLDER;
+
 import java.nio.file.Path;
 import java.util.function.Consumer;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,7 @@ class FileSystemSpringFactoriesCommandsHandler {
 
   private static Path getPath(JHipsterProjectFolder projectFolder, SpringFactory factory) {
     return switch (factory.type()) {
-      // todo probably move it in the repository class
-      case TEST_FACTORIES -> projectFolder.filePath("src/test/resources/META-INF/" + "spring.factories");
+      case TEST_FACTORIES -> projectFolder.filePath(TEST_META_INF_FOLDER + "spring.factories");
     };
   }
 }

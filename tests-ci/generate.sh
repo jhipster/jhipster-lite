@@ -92,7 +92,7 @@ cucumber_with_jwt() {
   "spring-boot-jwt-basic-auth" \
   "springdoc-mvc-openapi" \
   "springdoc-jwt" \
-  "spring-boot-cucumber" \
+  "spring-boot-cucumber-mvc" \
   "spring-boot-cucumber-jwt-authentication"
 }
 
@@ -165,7 +165,7 @@ elif [[ $application == 'oauth2app' ]]; then
   "springdoc-oauth2"
 
   applyModules \
-  "spring-boot-cucumber" \
+  "spring-boot-cucumber-mvc" \
   "spring-boot-cucumber-oauth2-authentication" \
   "dummy-feature"
 

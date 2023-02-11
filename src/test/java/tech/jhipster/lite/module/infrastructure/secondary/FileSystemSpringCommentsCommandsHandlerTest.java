@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModule.comment;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
@@ -33,6 +34,9 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 @UnitTest
 class FileSystemSpringCommentsCommandsHandlerTest {
 
+  public static final Path EXISTING_SPRING_PROPERTIES = Paths.get(
+    "src/test/resources/projects/project-with-spring-properties/application.properties"
+  );
   private static final FileSystemSpringCommentsCommandsHandler handler = new FileSystemSpringCommentsCommandsHandler();
 
   @ParameterizedTest
@@ -40,7 +44,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   void shouldCommentMainProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
     Path propetiesFile = Paths.get(path, propertiesPath);
-    loadDefaultProperties(propetiesFile);
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propetiesFile);
 
     handler.handle(folder(path), commentOnMain("spring.application.name"), emptySpringPropertiesBlockComments());
 
@@ -54,7 +58,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   void shouldCommentMainBootStrapProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
     Path propetiesFile = Paths.get(path, propertiesPath);
-    loadDefaultProperties(propetiesFile);
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propetiesFile);
 
     handler.handle(folder(path), commentOnMainBootstrap("spring.application.name"), emptySpringPropertiesBlockComments());
 
@@ -68,7 +72,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   void shouldCommentTestProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
     Path propetiesFile = Paths.get(path, propertiesPath);
-    loadDefaultProperties(propetiesFile);
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propetiesFile);
 
     handler.handle(folder(path), commentOnTest("logging.level.tech.jhipster.lite"), emptySpringPropertiesBlockComments());
 
@@ -82,7 +86,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   void shouldCommentTestBootStrapProperties(String propertiesPath) {
     String path = TestFileUtils.tmpDirForTest();
     Path propetiesFile = Paths.get(path, propertiesPath);
-    loadDefaultProperties(propetiesFile);
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propetiesFile);
 
     handler.handle(folder(path), commentOnTestBootstrap("logging.level.tech.jhipster.lite"), emptySpringPropertiesBlockComments());
 
@@ -107,7 +111,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   void shouldNotCommentWhenPropertieKeyDoesNotExists() {
     String path = TestFileUtils.tmpDirForTest();
     Path propetiesFile = Paths.get(path, "src/main/resources/config/application.properties");
-    loadDefaultProperties(propetiesFile);
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propetiesFile);
 
     handler.handle(folder(path), commentOnMain("springdoc.swagger-ui.operationsSorter"), emptySpringPropertiesBlockComments());
 
@@ -121,7 +125,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   void shouldOverwritePreviousComment(String propertyKey) {
     String path = TestFileUtils.tmpDirForTest();
     Path propetiesFile = Paths.get(path, "src/main/resources/config/application.properties");
-    loadDefaultProperties(propetiesFile);
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propetiesFile);
 
     handler.handle(folder(path), commentOnMain(propertyKey), emptySpringPropertiesBlockComments());
     handler.handle(folder(path), commentOnMain(propertyKey), emptySpringPropertiesBlockComments());
@@ -291,16 +295,6 @@ class FileSystemSpringCommentsCommandsHandlerTest {
           .build()
       )
     );
-  }
-
-  private void loadDefaultProperties(Path propertiesFile) {
-    try {
-      Files.createDirectories(propertiesFile.getParent());
-
-      Files.copy(Paths.get("src/test/resources/projects/project-with-spring-properties/application.properties"), propertiesFile);
-    } catch (IOException e) {
-      throw new AssertionError(e.getMessage(), e);
-    }
   }
 
   private SpringPropertiesBlockComments emptySpringPropertiesBlockComments() {

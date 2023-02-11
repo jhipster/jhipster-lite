@@ -2,11 +2,10 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
@@ -15,6 +14,10 @@ import tech.jhipster.lite.UnitTest;
 
 @UnitTest
 class PropertiesFileSpringFactoriesHandlerTest {
+
+  public static final Path EXISTING_SPRING_FACTORIES = Paths.get(
+    "src/test/resources/projects/project-with-spring-factories/spring.factories"
+  );
 
   @Test
   void shouldCreateUnknownFile() {
@@ -33,7 +36,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
   @Test
   void shouldAppendPropertyToFileWithProperties() {
     Path factoriesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/test/resources/META-INF/spring.factories");
-    loadDefaultFactoryProperties(factoriesFile);
+    loadDefaultProperties(EXISTING_SPRING_FACTORIES, factoriesFile);
     PropertiesFileSpringFactoriesHandler handler = new PropertiesFileSpringFactoriesHandler(factoriesFile);
 
     handler.set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
@@ -51,7 +54,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
   @Test
   void shouldAppendToExistingProperty() {
     Path factoriesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/test/resources/META-INF/spring.factories");
-    loadDefaultFactoryProperties(factoriesFile);
+    loadDefaultProperties(EXISTING_SPRING_FACTORIES, factoriesFile);
     PropertiesFileSpringFactoriesHandler handler = new PropertiesFileSpringFactoriesHandler(factoriesFile);
 
     handler.set(
@@ -70,7 +73,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
   @Test
   void shouldAppendNewAndExistingProperties() {
     Path factoriesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/test/resources/META-INF/spring.factories");
-    loadDefaultFactoryProperties(factoriesFile);
+    loadDefaultProperties(EXISTING_SPRING_FACTORIES, factoriesFile);
     PropertiesFileSpringFactoriesHandler handler = new PropertiesFileSpringFactoriesHandler(factoriesFile);
 
     handler.set(
@@ -86,15 +89,5 @@ class PropertiesFileSpringFactoriesHandlerTest {
           o.s.c.ApplicationListener=c.m.m.MyListener1
           """
       );
-  }
-
-  private void loadDefaultFactoryProperties(Path factoriesFile) {
-    try {
-      Files.createDirectories(factoriesFile.getParent());
-
-      Files.copy(Paths.get("src/test/resources/projects/project-with-spring-factories/spring.factories"), factoriesFile);
-    } catch (IOException e) {
-      throw new AssertionError(e.getMessage(), e);
-    }
   }
 }

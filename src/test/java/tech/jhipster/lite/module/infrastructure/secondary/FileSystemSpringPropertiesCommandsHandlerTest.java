@@ -2,10 +2,9 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -21,6 +20,9 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 @UnitTest
 class FileSystemSpringPropertiesCommandsHandlerTest {
 
+  public static final Path EXISTING_SPRING_PROPERTIES = Paths.get(
+    "src/test/resources/projects/project-with-spring-properties/application.properties"
+  );
   private static final FileSystemSpringPropertiesCommandsHandler handler = new FileSystemSpringPropertiesCommandsHandler();
 
   @Test
@@ -58,7 +60,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
   void shouldUpdateMainProperties(String propertiesPath) {
     String folder = TestFileUtils.tmpDirForTest();
     Path propertiesFile = Paths.get(folder, propertiesPath);
-    loadDefaultProperties(propertiesFile);
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springMainProperty()));
 
@@ -70,7 +72,7 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
   void shouldUpdateTestProperties(String propertiesPath) {
     String folder = TestFileUtils.tmpDirForTest();
     Path propertiesFile = Paths.get(folder, propertiesPath);
-    loadDefaultProperties(propertiesFile);
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestProperty()));
 
@@ -79,15 +81,5 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
   private static SpringProperties properties(SpringProperty property) {
     return new SpringProperties(List.of(property));
-  }
-
-  private void loadDefaultProperties(Path propertiesFile) {
-    try {
-      Files.createDirectories(propertiesFile.getParent());
-
-      Files.copy(Paths.get("src/test/resources/projects/project-with-spring-properties/application.properties"), propertiesFile);
-    } catch (IOException e) {
-      throw new AssertionError(e.getMessage(), e);
-    }
   }
 }

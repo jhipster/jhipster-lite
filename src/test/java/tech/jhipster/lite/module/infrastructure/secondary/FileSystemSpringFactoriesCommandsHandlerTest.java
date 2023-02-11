@@ -2,11 +2,10 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -19,6 +18,9 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 @UnitTest
 class FileSystemSpringFactoriesCommandsHandlerTest {
 
+  public static final Path EXISTING_SPRING_FACTORIES = Paths.get(
+    "src/test/resources/projects/project-with-spring-factories/spring.factories"
+  );
   private static final FileSystemSpringFactoriesCommandsHandler handler = new FileSystemSpringFactoriesCommandsHandler();
 
   @Test
@@ -38,7 +40,7 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
   void shouldUpdateTestProperties() {
     String folder = TestFileUtils.tmpDirForTest();
     Path propertiesFile = Paths.get(folder, "src/test/resources/META-INF/spring.factories");
-    loadDefaultProperties(propertiesFile);
+    loadDefaultProperties(EXISTING_SPRING_FACTORIES, propertiesFile);
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
 
@@ -59,15 +61,5 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
       .key(propertyKey("o.s.c.ApplicationListener"))
       .value(propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"))
       .build();
-  }
-
-  //todo factorize
-  private void loadDefaultProperties(Path propertiesFile) {
-    try {
-      Files.createDirectories(propertiesFile.getParent());
-      Files.copy(Paths.get("src/test/resources/projects/project-with-spring-factories/spring.factories"), propertiesFile);
-    } catch (IOException e) {
-      throw new AssertionError(e.getMessage(), e);
-    }
   }
 }

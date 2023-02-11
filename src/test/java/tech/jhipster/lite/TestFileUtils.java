@@ -38,6 +38,16 @@ public final class TestFileUtils {
     }
   }
 
+  public static void loadDefaultProperties(Path from, Path to) {
+    try {
+      Files.createDirectories(to.getParent());
+
+      Files.copy(from, to);
+    } catch (IOException e) {
+      throw new AssertionError(e.getMessage(), e);
+    }
+  }
+
   public static JHipsterProjectFolder projectFrom(String sourceProject) {
     Path targetFolder = Paths.get(TestFileUtils.tmpDirForTest());
 

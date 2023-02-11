@@ -31,8 +31,7 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
 
     assertThat(content(Paths.get(folder, "src/test/resources/META-INF/spring.factories")))
       .contains("""
-        o.s.c.ApplicationListener=c.m.m.MyListener1,\\
-          c.m.m.MyListener2
+        o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
         """);
   }
 
@@ -44,10 +43,8 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
 
-    assertThat(content(propertiesFile))
-      .contains("""
-        o.s.c.ApplicationListener=c.m.m.MyListener1,\\
-          c.m.m.MyListener2
+    assertThat(content(propertiesFile)).contains("""
+        o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
         """);
   }
 

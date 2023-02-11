@@ -231,8 +231,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .hasFile("src/test/resources/META-INF/spring.factories")
         .containing(
           """
-            o.s.c.ApplicationListener=c.m.m.MyListener1,\\
-              c.m.m.MyListener2
+            o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
             """
         )
         .and()

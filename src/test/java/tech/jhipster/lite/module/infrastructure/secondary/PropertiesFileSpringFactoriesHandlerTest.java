@@ -26,10 +26,8 @@ class PropertiesFileSpringFactoriesHandlerTest {
 
     handler.set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
 
-    assertThat(content(factoriesFile))
-      .isEqualTo("""
-          o.s.c.ApplicationListener=c.m.m.MyListener1,\\
-            c.m.m.MyListener2
+    assertThat(content(factoriesFile)).isEqualTo("""
+          o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
           """);
   }
 
@@ -45,8 +43,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
       .isEqualTo(
         """
         org.springframework.test.context.ContextCustomizerFactory=c.m.m.MyContextCustomizerFactory
-        o.s.c.ApplicationListener=c.m.m.MyListener1,\\
-          c.m.m.MyListener2
+        o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
         """
       );
   }

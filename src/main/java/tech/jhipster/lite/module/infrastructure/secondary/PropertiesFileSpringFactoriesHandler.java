@@ -17,7 +17,7 @@ public class PropertiesFileSpringFactoriesHandler {
 
   private static final String EQUAL = "=";
 
-  private static final String COLLECTION_SEPARATOR = ",\\" + LINE_BREAK + "  ";
+  private static final String COLLECTION_SEPARATOR = ",";
 
   public PropertiesFileSpringFactoriesHandler(Path file) {
     Assert.notNull("file", file);
@@ -61,7 +61,7 @@ public class PropertiesFileSpringFactoriesHandler {
     StringBuilder newProperties = new StringBuilder(currentProperties);
 
     int eolIndex = newProperties.indexOf(LINE_BREAK, propertyIndex);
-    newProperties.insert(eolIndex, "," + joinedPropertyValues(value));
+    newProperties.insert(eolIndex, COLLECTION_SEPARATOR + joinedPropertyValues(value));
 
     return newProperties.toString();
   }

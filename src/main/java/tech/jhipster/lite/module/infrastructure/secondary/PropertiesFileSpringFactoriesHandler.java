@@ -5,6 +5,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import tech.jhipster.lite.common.domain.ExcludeFromGeneratedCodeCoverage;
 import tech.jhipster.lite.error.domain.Assert;
 import tech.jhipster.lite.error.domain.GeneratorException;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
@@ -31,6 +32,7 @@ public class PropertiesFileSpringFactoriesHandler {
     updateProperties(key, value);
   }
 
+  @ExcludeFromGeneratedCodeCoverage(reason = "Hard to cover IOException")
   private void updateProperties(PropertyKey key, PropertyValue value) {
     try {
       String properties = buildProperties(key, value);

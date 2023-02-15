@@ -21,7 +21,7 @@ class FileSystemSpringFactoriesCommandsHandler {
   }
 
   private Consumer<SpringFactory> setProperty(JHipsterProjectFolder projectFolder) {
-    return property -> new PropertiesFileSpringFactoriesHandler(getPath(projectFolder, property)).set(property.key(), property.value());
+    return property -> new PropertiesFileSpringFactoriesHandler(getPath(projectFolder, property)).append(property.key(), property.value());
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "Jacoco thinks there is a missed branch")

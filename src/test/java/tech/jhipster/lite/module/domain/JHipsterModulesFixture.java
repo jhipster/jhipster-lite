@@ -121,8 +121,8 @@ public final class JHipsterModulesFixture {
         .build())
       .and()
     .springTestFactories()
-     .set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"))
-     .set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener2"))
+     .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"))
+     .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener2"))
      .and()
     .build();
     // @formatter:on

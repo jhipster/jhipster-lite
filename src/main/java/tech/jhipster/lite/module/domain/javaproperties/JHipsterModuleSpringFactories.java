@@ -32,21 +32,13 @@ public class JHipsterModuleSpringFactories {
       this.module = module;
     }
 
-    public JHipsterModuleSpringFactoriesBuilder set(PropertyKey key, PropertyValue value) {
+    public JHipsterModuleSpringFactoriesBuilder append(PropertyKey key, PropertyValue value) {
       Assert.notNull("key", key);
       Assert.notNull("value", value);
 
-      factories.merge(key, value, this::mergePropertyValues);
+      factories.merge(key, value, PropertyValue::merge);
 
       return this;
-    }
-
-    private PropertyValue mergePropertyValues(PropertyValue v1, PropertyValue v2) {
-      Collection<String> mergedValues = new ArrayList<>();
-      mergedValues.addAll(v1.get());
-      mergedValues.addAll(v2.get());
-
-      return new PropertyValue(mergedValues);
     }
 
     public JHipsterModuleBuilder and() {

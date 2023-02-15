@@ -3,8 +3,12 @@ package tech.jhipster.lite.module.domain;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
 
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;

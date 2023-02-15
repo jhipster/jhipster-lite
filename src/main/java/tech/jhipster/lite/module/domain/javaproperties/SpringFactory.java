@@ -9,6 +9,7 @@ public class SpringFactory {
   private final PropertyValue value;
 
   public SpringFactory(SpringFactoryBuilder builder) {
+    Assert.notNull("type", builder.type);
     Assert.notNull("key", builder.key);
     Assert.notNull("value", builder.value);
 
@@ -40,8 +41,6 @@ public class SpringFactory {
     private PropertyValue value;
 
     private SpringFactoryBuilder(SpringFactoryType type) {
-      Assert.notNull("type", type);
-
       this.type = type;
     }
 
@@ -65,13 +64,13 @@ public class SpringFactory {
     }
   }
 
+  public interface SpringFactoryValueBuilder {
+    SpringFactoryValueBuilder value(PropertyValue value);
+  }
+
   public interface SpringFactoryKeyBuilder {
     SpringFactoryKeyBuilder key(PropertyKey key);
 
     SpringFactory build();
-  }
-
-  public interface SpringFactoryValueBuilder {
-    SpringFactoryValueBuilder value(PropertyValue value);
   }
 }

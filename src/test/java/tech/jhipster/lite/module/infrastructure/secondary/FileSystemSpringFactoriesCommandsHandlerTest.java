@@ -1,8 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
-import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
+import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 

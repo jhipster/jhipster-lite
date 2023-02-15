@@ -1,8 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
-import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
+import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 
@@ -24,7 +23,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
     Path factoriesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/test/resources/META-INF/spring.factories");
     PropertiesFileSpringFactoriesHandler handler = new PropertiesFileSpringFactoriesHandler(factoriesFile);
 
-    handler.set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
+    handler.append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
 
     assertThat(contentNormalizingNewLines(factoriesFile))
       .isEqualTo("""
@@ -38,7 +37,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
     loadDefaultProperties(EXISTING_SPRING_FACTORIES, factoriesFile);
     PropertiesFileSpringFactoriesHandler handler = new PropertiesFileSpringFactoriesHandler(factoriesFile);
 
-    handler.set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
+    handler.append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
 
     assertThat(contentNormalizingNewLines(factoriesFile))
       .isEqualTo(
@@ -55,15 +54,15 @@ class PropertiesFileSpringFactoriesHandlerTest {
     loadDefaultProperties(EXISTING_SPRING_FACTORIES, factoriesFile);
     PropertiesFileSpringFactoriesHandler handler = new PropertiesFileSpringFactoriesHandler(factoriesFile);
 
-    handler.set(
+    handler.append(
       propertyKey("org.springframework.test.context.ContextCustomizerFactory"),
-      propertyValue("c.m.m.MyNewContextCustomizerFactory")
+      propertyValue("c.m.m.MyFactory", "c.m.m.MyFactory2")
     );
 
     assertThat(contentNormalizingNewLines(factoriesFile))
       .isEqualTo(
         """
-          org.springframework.test.context.ContextCustomizerFactory=c.m.m.MyContextCustomizerFactory,c.m.m.MyNewContextCustomizerFactory
+          org.springframework.test.context.ContextCustomizerFactory=c.m.m.MyContextCustomizerFactory,c.m.m.MyFactory,c.m.m.MyFactory2
           """
       );
   }
@@ -74,11 +73,11 @@ class PropertiesFileSpringFactoriesHandlerTest {
     loadDefaultProperties(EXISTING_SPRING_FACTORIES, factoriesFile);
     PropertiesFileSpringFactoriesHandler handler = new PropertiesFileSpringFactoriesHandler(factoriesFile);
 
-    handler.set(
+    handler.append(
       propertyKey("org.springframework.test.context.ContextCustomizerFactory"),
       propertyValue("c.m.m.MyNewContextCustomizerFactory")
     );
-    handler.set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"));
+    handler.append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"));
 
     assertThat(contentNormalizingNewLines(factoriesFile))
       .isEqualTo(
@@ -87,5 +86,26 @@ class PropertiesFileSpringFactoriesHandlerTest {
           o.s.c.ApplicationListener=c.m.m.MyListener1
           """
       );
+  }
+
+  @Test
+  void shouldNotAppendExistingValue() {
+    Path factoriesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/test/resources/META-INF/spring.factories");
+    PropertiesFileSpringFactoriesHandler handler = new PropertiesFileSpringFactoriesHandler(factoriesFile);
+
+    handler.append(
+      propertyKey("org.springframework.test.context.ContextCustomizerFactory"),
+      propertyValue("c.m.m.MyContextCustomizerFactory")
+    );
+
+    handler.append(
+      propertyKey("org.springframework.test.context.ContextCustomizerFactory"),
+      propertyValue("c.m.m.MyContextCustomizerFactory")
+    );
+
+    assertThat(contentNormalizingNewLines(factoriesFile))
+      .isEqualTo("""
+        org.springframework.test.context.ContextCustomizerFactory=c.m.m.MyContextCustomizerFactory
+        """);
   }
 }

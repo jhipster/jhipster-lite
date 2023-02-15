@@ -23,17 +23,17 @@ public class PropertiesFileSpringFactoriesHandler {
     this.file = file;
   }
 
-  public void set(PropertyKey key, PropertyValue value) {
+  public void append(PropertyKey key, PropertyValue value) {
     Assert.notNull("key", key);
     Assert.notNull("value", value);
 
-    updateProperties(key, value);
+    updateFactories(key, value);
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "Hard to cover IOException")
-  private void updateProperties(PropertyKey key, PropertyValue value) {
+  private void updateFactories(PropertyKey key, PropertyValue value) {
     try {
-      String properties = buildProperties(key, value);
+      String properties = buildFactories(key, value);
 
       Files.writeString(file, properties);
     } catch (IOException e) {
@@ -41,30 +41,34 @@ public class PropertiesFileSpringFactoriesHandler {
     }
   }
 
-  private String buildProperties(PropertyKey key, PropertyValue value) throws IOException {
-    String currentProperties = readOrInitProperties();
+  private String buildFactories(PropertyKey key, PropertyValue value) throws IOException {
+    String currentProperties = readOrInitFactories();
 
     int propertyIndex = currentProperties.indexOf(propertyId(key));
     if (propertyIndex != -1) {
       return appendValuesToExistingPropertyKey(propertyIndex, value, currentProperties);
     }
-    return addNewProperty(key, value, currentProperties);
+    return addNewFactory(key, value, currentProperties);
   }
 
-  private String addNewProperty(PropertyKey key, PropertyValue value, String currentProperties) {
+  private String addNewFactory(PropertyKey key, PropertyValue value, String currentProperties) {
     return currentProperties + propertyLine(key, value) + LINE_BREAK;
   }
 
   private static String appendValuesToExistingPropertyKey(int propertyIndex, PropertyValue value, String currentProperties) {
     StringBuilder newProperties = new StringBuilder(currentProperties);
-
     int eolIndex = newProperties.indexOf(LINE_BREAK, propertyIndex);
-    newProperties.insert(eolIndex, COLLECTION_SEPARATOR + joinedPropertyValues(value));
 
+    for (String propertyValue : value.get()) {
+      if (!newProperties.substring(propertyIndex, eolIndex).contains(propertyValue)) {
+        newProperties.insert(eolIndex, COLLECTION_SEPARATOR + propertyValue);
+        eolIndex = eolIndex + COLLECTION_SEPARATOR.length() + propertyValue.length();
+      }
+    }
     return newProperties.toString();
   }
 
-  private String readOrInitProperties() throws IOException {
+  private String readOrInitFactories() throws IOException {
     if (Files.notExists(file)) {
       Files.createDirectories(file.getParent());
       Files.createFile(file);

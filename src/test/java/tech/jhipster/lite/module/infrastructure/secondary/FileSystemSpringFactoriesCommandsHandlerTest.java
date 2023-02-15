@@ -1,9 +1,8 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestFileUtils.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
-import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

@@ -1,7 +1,5 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,8 +14,8 @@ public class PropertiesFileSpringFactoriesHandler {
   private final Path file;
 
   private static final String EQUAL = "=";
-
   private static final String COLLECTION_SEPARATOR = ",";
+  private static final String LINE_BREAK = System.lineSeparator();
 
   public PropertiesFileSpringFactoriesHandler(Path file) {
     Assert.notNull("file", file);

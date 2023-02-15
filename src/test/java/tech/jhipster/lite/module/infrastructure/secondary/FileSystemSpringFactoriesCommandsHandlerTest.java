@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
 import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
@@ -29,7 +29,7 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
 
-    assertThat(content(Paths.get(folder, "src/test/resources/META-INF/spring.factories")))
+    assertThat(contentNormalizingNewLines(Paths.get(folder, "src/test/resources/META-INF/spring.factories")))
       .contains("""
         o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
         """);
@@ -43,7 +43,8 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
 
-    assertThat(content(propertiesFile)).contains("""
+    assertThat(contentNormalizingNewLines(propertiesFile))
+      .contains("""
         o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
         """);
   }

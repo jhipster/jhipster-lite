@@ -38,6 +38,10 @@ public final class TestFileUtils {
     }
   }
 
+  public static String contentNormalizingNewLines(Path path) {
+    return content(path).replace("\r\n", "\n");
+  }
+
   public static void loadDefaultProperties(Path from, Path to) {
     try {
       Files.createDirectories(to.getParent());

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
 import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
@@ -26,7 +26,8 @@ class PropertiesFileSpringFactoriesHandlerTest {
 
     handler.set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
 
-    assertThat(content(factoriesFile)).isEqualTo("""
+    assertThat(contentNormalizingNewLines(factoriesFile))
+      .isEqualTo("""
           o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
           """);
   }
@@ -39,7 +40,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
 
     handler.set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
 
-    assertThat(content(factoriesFile))
+    assertThat(contentNormalizingNewLines(factoriesFile))
       .isEqualTo(
         """
         org.springframework.test.context.ContextCustomizerFactory=c.m.m.MyContextCustomizerFactory
@@ -59,7 +60,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
       propertyValue("c.m.m.MyNewContextCustomizerFactory")
     );
 
-    assertThat(content(factoriesFile))
+    assertThat(contentNormalizingNewLines(factoriesFile))
       .isEqualTo(
         """
           org.springframework.test.context.ContextCustomizerFactory=c.m.m.MyContextCustomizerFactory,c.m.m.MyNewContextCustomizerFactory
@@ -79,7 +80,7 @@ class PropertiesFileSpringFactoriesHandlerTest {
     );
     handler.set(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"));
 
-    assertThat(content(factoriesFile))
+    assertThat(contentNormalizingNewLines(factoriesFile))
       .isEqualTo(
         """
           org.springframework.test.context.ContextCustomizerFactory=c.m.m.MyContextCustomizerFactory,c.m.m.MyNewContextCustomizerFactory

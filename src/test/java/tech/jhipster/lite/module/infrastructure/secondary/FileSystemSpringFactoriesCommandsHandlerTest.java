@@ -55,7 +55,6 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
     return SpringFactory
       .builder(SpringFactoryType.TEST_FACTORIES)
       .key(propertyKey("o.s.c.ApplicationListener"))
-      .value(propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"))
-      .build();
+      .value(propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
   }
 }

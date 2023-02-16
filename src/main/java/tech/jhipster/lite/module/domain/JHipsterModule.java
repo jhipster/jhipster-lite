@@ -171,7 +171,7 @@ public class JHipsterModule {
   private Function<Entry<PropertyKey, PropertyValue>, SpringFactory> toSpringFactory(
     Entry<SpringFactoryType, JHipsterModuleSpringFactoriesBuilder> inputFactories
   ) {
-    return property -> SpringFactory.builder(inputFactories.getKey()).key(property.getKey()).value(property.getValue()).build();
+    return property -> SpringFactory.builder(inputFactories.getKey()).key(property.getKey()).value(property.getValue());
   }
 
   public static JHipsterModuleBuilder moduleBuilder(JHipsterModuleProperties properties) {

@@ -18,7 +18,7 @@ public class SpringFactory {
     value = builder.value;
   }
 
-  public static SpringFactoryBuilder builder(SpringFactoryType type) {
+  public static SpringFactoryKeyBuilder builder(SpringFactoryType type) {
     return new SpringFactoryBuilder(type);
   }
 
@@ -34,7 +34,7 @@ public class SpringFactory {
     return value;
   }
 
-  public static class SpringFactoryBuilder implements SpringFactoryKeyBuilder, SpringFactoryValueBuilder {
+  private static class SpringFactoryBuilder implements SpringFactoryKeyBuilder, SpringFactoryValueBuilder {
 
     private final SpringFactoryType type;
     private PropertyKey key;
@@ -45,32 +45,25 @@ public class SpringFactory {
     }
 
     @Override
-    public SpringFactoryBuilder key(PropertyKey key) {
+    public SpringFactoryValueBuilder key(PropertyKey key) {
       this.key = key;
 
       return this;
     }
 
     @Override
-    public SpringFactoryBuilder value(PropertyValue value) {
+    public SpringFactory value(PropertyValue value) {
       this.value = value;
 
-      return this;
-    }
-
-    @Override
-    public SpringFactory build() {
       return new SpringFactory(this);
     }
   }
 
-  public interface SpringFactoryValueBuilder {
-    SpringFactoryValueBuilder value(PropertyValue value);
+  public interface SpringFactoryKeyBuilder {
+    SpringFactoryValueBuilder key(PropertyKey key);
   }
 
-  public interface SpringFactoryKeyBuilder {
-    SpringFactoryKeyBuilder key(PropertyKey key);
-
-    SpringFactory build();
+  public interface SpringFactoryValueBuilder {
+    SpringFactory value(PropertyValue value);
   }
 }

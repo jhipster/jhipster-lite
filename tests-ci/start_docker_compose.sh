@@ -41,6 +41,9 @@ if [ -a src/main/docker/cassandra.yml ]; then
       ((retryCount+=1))
   done
 fi
+if [ -a src/main/docker/cassandra-migration.yml ]; then
+  docker compose -f src/main/docker/cassandra-migration.yml up -d
+fi
 if [ -a src/main/docker/mysql.yml ]; then
   docker compose -f src/main/docker/mysql.yml up -d
 fi

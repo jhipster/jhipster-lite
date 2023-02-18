@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+import static {{ packageName }}.dummy.domain.beer.BeerSellingState.NOT_SOLD;
+
 @Repository
 class SpringDataBeersRepository implements BeersRepository {
 
@@ -30,9 +32,11 @@ class SpringDataBeersRepository implements BeersRepository {
     CassandraBatchOperations batchOps = cassandraTemplate.batchOps();
 
     batchOps.insert(BeerTable.from(beer));
-    switch (beer.sellingState()){
-      case NOT_SOLD -> batchOps.delete(BeerCatalogTable.from(beer));
-      case SOLD -> batchOps.insert(BeerCatalogTable.from(beer));
+
+    if (beer.sellingState() == NOT_SOLD) {
+      batchOps.delete(BeerCatalogTable.from(beer));
+    } else {
+      batchOps.insert(BeerCatalogTable.from(beer));
     }
 
     batchOps.execute();

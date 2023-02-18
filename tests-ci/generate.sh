@@ -274,7 +274,7 @@ elif [[ $application == 'cassandraapp' ]]; then
   spring_boot_mvc
   sonar_back
 
-  applyModules "cassandra" "cassandra-migration"
+  applyModules "cassandra" "cassandra-migration" "dummy-cassandra-persistence"
 
 elif [[ $application == 'neo4japp' ]]; then
   spring_boot_mvc

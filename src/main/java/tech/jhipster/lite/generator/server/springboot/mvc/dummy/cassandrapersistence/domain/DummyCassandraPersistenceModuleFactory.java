@@ -24,7 +24,7 @@ public class DummyCassandraPersistenceModuleFactory {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.packagePath();
-    String baseName = properties.projectBaseName().get();
+    String pakageName = properties.projectBaseName().get();
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -53,7 +53,7 @@ public class DummyCassandraPersistenceModuleFactory {
         .and()
       .mandatoryReplacements()
         .in(path("src/main/resources/config/application.properties"))
-          .add(EXISTING_KEYSPACE_NEEDLE, "spring.cassandra.keyspace-name=" + baseName)
+          .add(EXISTING_KEYSPACE_NEEDLE, "spring.cassandra.keyspace-name=" + pakageName)
           .and()
         .and()
       .build();

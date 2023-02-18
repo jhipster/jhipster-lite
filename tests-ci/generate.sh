@@ -274,7 +274,11 @@ elif [[ $application == 'cassandraapp' ]]; then
   spring_boot_mvc
   sonar_back
 
-  applyModules "cassandra" "cassandra-migration" "dummy-cassandra-persistence"
+  applyModules "cassandra" "cassandra-migration"
+
+  cucumber_with_jwt
+
+  applyModules "dummy-feature" "dummy-cassandra-persistence"
 
 elif [[ $application == 'neo4japp' ]]; then
   spring_boot_mvc

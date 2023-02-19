@@ -75,16 +75,16 @@ class BeerTable {
 
   @Override
   @Generated
-  public boolean equals(Object obj) {
-    if (this == obj) {
+  public boolean equals(Object o) {
+    if (this == o) {
       return true;
     }
 
-    if (obj == null || getClass() != obj.getClass()) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 
-    BeerTable other = (BeerTable) obj;
+    BeerTable other = (BeerTable) o;
 
     return new EqualsBuilder().append(id, other.id).isEquals();
   }

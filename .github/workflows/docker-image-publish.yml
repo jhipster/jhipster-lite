@@ -2,11 +2,14 @@ name: Publish Docker Image
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    # Avoid building on main branch - see https://github.com/jhipster/jhipster-lite/issues/5341
+#    branches:
+#      - main
     # Publish semver tags as releases.
     tags:
       - 'v*.*.*'
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   build:

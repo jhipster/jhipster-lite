@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -55,6 +55,8 @@ class FileSystemPackageJsonHandler {
     content = replaceScripts(indentation, packageJson.scripts(), content);
     content = replaceDevDependencies(indentation, packageJson.devDependencies(), content);
     content = replaceDependencies(indentation, packageJson.dependencies(), content);
+    content = removeDependencies(indentation, packageJson.dependenciesToRemove(), content);
+    content = removeDevDependencies(indentation, packageJson.devDependenciesToRemove(), content);
 
     content = cleanupLineBreaks(indentation, content);
     write(file, content);
@@ -81,6 +83,7 @@ class FileSystemPackageJsonHandler {
       .jsonContent(content)
       .indentation(indentation)
       .entries(scriptEntries(scripts))
+      .action(JsonReplacerAction.ADD)
       .replace();
   }
 
@@ -95,6 +98,18 @@ class FileSystemPackageJsonHandler {
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(devDependencies))
+      .action(JsonReplacerAction.ADD)
+      .replace();
+  }
+
+  private String removeDevDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
+    return JsonReplacer
+      .builder()
+      .blocName("devDependencies")
+      .jsonContent(content)
+      .indentation(indentation)
+      .entries(dependenciesEntries(dependenciesToRemove))
+      .action(JsonReplacerAction.REMOVE)
       .replace();
   }
 
@@ -105,6 +120,18 @@ class FileSystemPackageJsonHandler {
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(dependencies))
+      .action(JsonReplacerAction.ADD)
+      .replace();
+  }
+
+  private String removeDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
+    return JsonReplacer
+      .builder()
+      .blocName("dependencies")
+      .jsonContent(content)
+      .indentation(indentation)
+      .entries(dependenciesEntries(dependenciesToRemove))
+      .action(JsonReplacerAction.REMOVE)
       .replace();
   }
 
@@ -140,12 +167,14 @@ class FileSystemPackageJsonHandler {
     private final String jsonContent;
     private final Indentation indentation;
     private final Collection<JsonEntry> entries;
+    private final JsonReplacerAction action;
 
     private JsonReplacer(JsonReplacerBuilder builder) {
       blocName = builder.blocName;
       jsonContent = builder.jsonContent;
       indentation = builder.indentation;
       entries = builder.entries;
+      action = builder.action;
     }
 
     public static JsonReplacerBuilder builder() {
@@ -153,10 +182,19 @@ class FileSystemPackageJsonHandler {
     }
 
     public String handle() {
+      Assert.notNull("action", action);
+
       if (entries.isEmpty()) {
         return jsonContent;
       }
 
+      return switch (action) {
+        case ADD -> addEntries();
+        case REMOVE -> removeEntries();
+      };
+    }
+
+    private String addEntries() {
       String result = removeExistingEntries();
 
       Matcher blocMatcher = buildBlocMatcher(result);
@@ -168,6 +206,10 @@ class FileSystemPackageJsonHandler {
       }
 
       return result;
+    }
+
+    private String removeEntries() {
+      return removeExistingEntries();
     }
 
     private String appendEntries(Matcher blocMatcher) {
@@ -237,6 +279,7 @@ class FileSystemPackageJsonHandler {
       private String jsonContent;
       private Indentation indentation;
       private Collection<JsonEntry> entries;
+      private JsonReplacerAction action;
 
       private JsonReplacerBuilder blocName(String blocName) {
         this.blocName = blocName;
@@ -262,13 +305,24 @@ class FileSystemPackageJsonHandler {
         return this;
       }
 
+      private JsonReplacerBuilder action(JsonReplacerAction action) {
+        this.action = action;
+
+        return this;
+      }
+
       private String replace() {
         return new JsonReplacer(this).handle();
       }
     }
   }
 
-  private static record JsonEntry(String key, String value) {
+  private enum JsonReplacerAction {
+    ADD,
+    REMOVE,
+  }
+
+  private record JsonEntry(String key, String value) {
     String toJson(Indentation indentation) {
       return new StringBuilder()
         .append(indentation.times(2))

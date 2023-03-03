@@ -181,6 +181,7 @@ class FileSystemPackageJsonHandler {
       return new JsonReplacerBuilder();
     }
 
+    @ExcludeFromGeneratedCodeCoverage(reason = "Jacoco thinks there is a missed branch")
     public String handle() {
       Assert.notNull("action", action);
 

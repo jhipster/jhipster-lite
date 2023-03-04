@@ -66,6 +66,21 @@ public class AngularOauth2ModuleFactory {
       import LoginComponent from './login/login.component';
       """;
 
+  private static final String OAUTH2_AUTH_SERVICE_IMPORT =
+    """
+      import { Oauth2AuthService } from './auth/oauth2-auth.service';
+      """;
+
+  private static final ElementReplacer APPNAME_NEEDLE = lineAfterRegex("appName = '';");
+
+  private static final String APP_COMPONENT_CONSTRUCTOR =
+    """
+
+        constructor(private oauth2AuthService: Oauth2AuthService) {
+          oauth2AuthService.initAuthentication();
+        }
+      """;
+
   private static final String LOGIN_COMPONENT_TEST =
     """
 
@@ -125,7 +140,10 @@ public class AngularOauth2ModuleFactory {
           .and()
         .in(path("src/main/webapp/app/app.component.ts"))
           .add(FILLED_STANDALONE_NEEDLE, "$1, LoginComponent]")
+          .add(fileStart(), OAUTH2_AUTH_SERVICE_IMPORT)
           .add(fileStart(), LOGIN_IMPORT)
+          .add(FILLED_STANDALONE_NEEDLE, "$1, LoginComponent]")
+          .add(APPNAME_NEEDLE, APP_COMPONENT_CONSTRUCTOR)
           .and()
         .in(path("src/main/webapp/app/app.component.spec.ts"))
           .add(fileStart(), TEST_IMPORTS)

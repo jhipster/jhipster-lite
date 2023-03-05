@@ -77,14 +77,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String replaceScripts(Indentation indentation, Scripts scripts, String content) {
-    return JsonReplacer
-      .builder()
-      .blocName("scripts")
-      .jsonContent(content)
-      .indentation(indentation)
-      .entries(scriptEntries(scripts))
-      .action(JsonReplacerAction.ADD)
-      .replace();
+    return JsonAction.replace().blocName("scripts").jsonContent(content).indentation(indentation).entries(scriptEntries(scripts)).apply();
   }
 
   private List<JsonEntry> scriptEntries(Scripts scripts) {
@@ -92,47 +85,43 @@ class FileSystemPackageJsonHandler {
   }
 
   private String replaceDevDependencies(Indentation indentation, PackageJsonDependencies devDependencies, String content) {
-    return JsonReplacer
-      .builder()
+    return JsonAction
+      .replace()
       .blocName("devDependencies")
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(devDependencies))
-      .action(JsonReplacerAction.ADD)
-      .replace();
+      .apply();
   }
 
   private String removeDevDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
-    return JsonReplacer
-      .builder()
+    return JsonAction
+      .remove()
       .blocName("devDependencies")
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(dependenciesToRemove))
-      .action(JsonReplacerAction.REMOVE)
-      .replace();
+      .apply();
   }
 
   private String replaceDependencies(Indentation indentation, PackageJsonDependencies dependencies, String content) {
-    return JsonReplacer
-      .builder()
+    return JsonAction
+      .replace()
       .blocName("dependencies")
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(dependencies))
-      .action(JsonReplacerAction.ADD)
-      .replace();
+      .apply();
   }
 
   private String removeDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
-    return JsonReplacer
-      .builder()
+    return JsonAction
+      .remove()
       .blocName("dependencies")
       .jsonContent(content)
       .indentation(indentation)
       .entries(dependenciesEntries(dependenciesToRemove))
-      .action(JsonReplacerAction.REMOVE)
-      .replace();
+      .apply();
   }
 
   private List<JsonEntry> dependenciesEntries(PackageJsonDependencies devDependencies) {
@@ -161,15 +150,15 @@ class FileSystemPackageJsonHandler {
     }
   }
 
-  private static class JsonReplacer {
+  private static class JsonAction {
 
     private final String blocName;
     private final String jsonContent;
     private final Indentation indentation;
     private final Collection<JsonEntry> entries;
-    private final JsonReplacerAction action;
+    private final JsonActionType action;
 
-    private JsonReplacer(JsonReplacerBuilder builder) {
+    private JsonAction(JsonActionBuilder builder) {
       blocName = builder.blocName;
       jsonContent = builder.jsonContent;
       indentation = builder.indentation;
@@ -177,8 +166,12 @@ class FileSystemPackageJsonHandler {
       action = builder.action;
     }
 
-    public static JsonReplacerBuilder builder() {
-      return new JsonReplacerBuilder();
+    public static JsonActionBuilder replace() {
+      return new JsonActionBuilder(JsonActionType.REPLACE);
+    }
+
+    public static JsonActionBuilder remove() {
+      return new JsonActionBuilder(JsonActionType.REMOVE);
     }
 
     @ExcludeFromGeneratedCodeCoverage(reason = "Jacoco thinks there is a missed branch")
@@ -190,12 +183,12 @@ class FileSystemPackageJsonHandler {
       }
 
       return switch (action) {
-        case ADD -> addEntries();
+        case REPLACE -> replaceEntries();
         case REMOVE -> removeEntries();
       };
     }
 
-    private String addEntries() {
+    private String replaceEntries() {
       String result = removeExistingEntries();
 
       Matcher blocMatcher = buildBlocMatcher(result);
@@ -274,52 +267,50 @@ class FileSystemPackageJsonHandler {
       return entries.stream().map(entry -> entry.toJson(indentation)).collect(Collectors.joining(LINE_SEPARATOR));
     }
 
-    private static class JsonReplacerBuilder {
+    private static class JsonActionBuilder {
 
       private String blocName;
       private String jsonContent;
       private Indentation indentation;
       private Collection<JsonEntry> entries;
-      private JsonReplacerAction action;
+      private JsonActionType action;
 
-      private JsonReplacerBuilder blocName(String blocName) {
+      private JsonActionBuilder(JsonActionType action) {
+        this.action = action;
+      }
+
+      private JsonActionBuilder blocName(String blocName) {
         this.blocName = blocName;
 
         return this;
       }
 
-      private JsonReplacerBuilder jsonContent(String jsonContent) {
+      private JsonActionBuilder jsonContent(String jsonContent) {
         this.jsonContent = jsonContent;
 
         return this;
       }
 
-      private JsonReplacerBuilder indentation(Indentation indentation) {
+      private JsonActionBuilder indentation(Indentation indentation) {
         this.indentation = indentation;
 
         return this;
       }
 
-      private JsonReplacerBuilder entries(Collection<JsonEntry> entries) {
+      private JsonActionBuilder entries(Collection<JsonEntry> entries) {
         this.entries = entries;
 
         return this;
       }
 
-      private JsonReplacerBuilder action(JsonReplacerAction action) {
-        this.action = action;
-
-        return this;
-      }
-
-      private String replace() {
-        return new JsonReplacer(this).handle();
+      private String apply() {
+        return new JsonAction(this).handle();
       }
     }
   }
 
-  private enum JsonReplacerAction {
-    ADD,
+  private enum JsonActionType {
+    REPLACE,
     REMOVE,
   }
 

@@ -30,7 +30,7 @@ class OAuth2ModuleConfiguration {
           .builder()
           .feature(AUTHENTICATION)
           .addDependency(JAVA_BASE)
-          .addDependency(SPRING_SERVER)
+          .addDependency(SPRING_MVC_SERVER)
           .addDependency(JAVA_MEMOIZERS)
           .build()
       )

@@ -58,6 +58,7 @@ public class AngularOauth2ModuleFactory {
   private static final String TEST_IMPORTS =
     """
       import { By } from '@angular/platform-browser';
+      import { Oauth2AuthService } from "./auth/oauth2-auth.service";
       import LoginComponent from './login/login.component';
       """;
   private static final ElementReplacer TEST_NEEDLE = lineAfterRegex("^\\s+it\\('should have appName',[^}]+\\}\\);");
@@ -86,6 +87,13 @@ public class AngularOauth2ModuleFactory {
       """;
 
   private static final ElementReplacer INJECT_NEEDLE = text("import { Component, OnInit } from '@angular/core';");
+
+  private static final ElementReplacer BEFORE_EACH_NEEDLE = lineAfterRegex("comp = fixture.componentInstance;");
+
+  private static final String TESTBED_INJECT_OAUTH2_AUTH_SERVICE =
+    """
+          oauth2AuthService = TestBed.inject(Oauth2AuthService);\
+      """;
 
   private static final String LOGIN_COMPONENT_TEST =
     """
@@ -150,12 +158,12 @@ public class AngularOauth2ModuleFactory {
           .add(fileStart(), LOGIN_IMPORT)
           .add(INJECT_NEEDLE ,INJECT_IMPORT)
           .add(APPNAME_NEEDLE, INJECT_OAUTH2_AUTH_SERVICE)
-          .add(FILLED_STANDALONE_NEEDLE, "$1, LoginComponent]")
           .add(lineAfterRegex("this.appName = '" + properties.projectBaseName().name() + "';"), INIT_AUTHENTICATION)
           .and()
         .in(path("src/main/webapp/app/app.component.spec.ts"))
           .add(fileStart(), TEST_IMPORTS)
           .add(TEST_NEEDLE, LOGIN_COMPONENT_TEST.indent(indentation.spacesCount() * 2))
+          .add(BEFORE_EACH_NEEDLE, TESTBED_INJECT_OAUTH2_AUTH_SERVICE)
           .and()
         .in(path("src/main/webapp/app/app.component.html"))
           .add(MENU_NEEDLE, indentation.spaces() + "<jhi-login></jhi-login>")

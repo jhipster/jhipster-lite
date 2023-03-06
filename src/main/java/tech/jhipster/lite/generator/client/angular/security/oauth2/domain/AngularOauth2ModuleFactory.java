@@ -73,13 +73,19 @@ public class AngularOauth2ModuleFactory {
 
   private static final ElementReplacer APPNAME_NEEDLE = lineAfterRegex("appName = '';");
 
-  private static final String APP_COMPONENT_CONSTRUCTOR =
-    """
-
-        constructor(private oauth2AuthService: Oauth2AuthService) {
-          oauth2AuthService.initAuthentication();
-        }
+  private static final String INJECT_OAUTH2_AUTH_SERVICE = """
+        private oauth2AuthService = inject(Oauth2AuthService);\
       """;
+
+  private static final String INIT_AUTHENTICATION = """
+          this.oauth2AuthService.initAuthentication();\
+      """;
+
+  private static final String INJECT_IMPORT = """
+      import { Component, inject, OnInit } from '@angular/core';
+      """;
+
+  private static final ElementReplacer INJECT_NEEDLE = text("import { Component, OnInit } from '@angular/core';");
 
   private static final String LOGIN_COMPONENT_TEST =
     """
@@ -142,8 +148,10 @@ public class AngularOauth2ModuleFactory {
           .add(FILLED_STANDALONE_NEEDLE, "$1, LoginComponent]")
           .add(fileStart(), OAUTH2_AUTH_SERVICE_IMPORT)
           .add(fileStart(), LOGIN_IMPORT)
+          .add(INJECT_NEEDLE ,INJECT_IMPORT)
+          .add(APPNAME_NEEDLE, INJECT_OAUTH2_AUTH_SERVICE)
           .add(FILLED_STANDALONE_NEEDLE, "$1, LoginComponent]")
-          .add(APPNAME_NEEDLE, APP_COMPONENT_CONSTRUCTOR)
+          .add(lineAfterRegex("this.appName = '" + properties.projectBaseName().name() + "';"), INIT_AUTHENTICATION)
           .and()
         .in(path("src/main/webapp/app/app.component.spec.ts"))
           .add(fileStart(), TEST_IMPORTS)

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.database.redis.primary;
+package tech.jhipster.lite.generator.server.springboot.database.redis.infastructure.primary;
 
 import static tech.jhipster.lite.generator.JHLiteModuleSlug.REDIS;
 

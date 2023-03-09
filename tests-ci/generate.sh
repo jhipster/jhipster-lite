@@ -270,6 +270,14 @@ elif [[ $application == 'mongodbapp' ]]; then
   "dummy-feature" \
   "dummy-mongodb-persistence"
 
+elif [[ $application == 'redisapp' ]]; then
+  spring_boot_mvc
+  sonar_back
+
+  applyModules "redis"
+
+  cucumber_with_jwt
+
 elif [[ $application == 'cassandraapp' ]]; then
   spring_boot_mvc
   sonar_back

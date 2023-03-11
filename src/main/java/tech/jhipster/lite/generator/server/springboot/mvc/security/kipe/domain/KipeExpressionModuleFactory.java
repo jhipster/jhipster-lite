@@ -18,7 +18,7 @@ public class KipeExpressionModuleFactory {
     Assert.notNull("properties", properties);
 
     JHipsterDestination mainDestination = toSrcMainJava().append(properties.packagePath()).append("kipe");
-    JHipsterDestination testjavaDestination = toSrcTestJava().append(properties.packagePath()).append("kipe");
+    JHipsterDestination testDestination = toSrcTestJava().append(properties.packagePath()).append("kipe");
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -37,7 +37,7 @@ public class KipeExpressionModuleFactory {
           .addTemplate("NullElementAccessContext.java")
           .addTemplate("ObjectAccessChecker.java")
           .and()
-        .batch(TEST_SOURCE, testjavaDestination.append("application"))
+        .batch(TEST_SOURCE, testDestination.append("application"))
           .addTemplate("AccessCheckerIntTest.java")
           .addTemplate("AccessContextFactoryTest.java")
           .addTemplate("AccessEvaluatorTest.java")
@@ -46,7 +46,7 @@ public class KipeExpressionModuleFactory {
           .addTemplate("KipeIntTest.java")
           .addTemplate("ObjectAccessCheckerTest.java")
           .and()
-        .batch(TEST_SOURCE, testjavaDestination.append("domain"))
+        .batch(TEST_SOURCE, testDestination.append("domain"))
           .addTemplate("KipeDummy.java")
           .addTemplate("KipeDummyChild.java")
           .and()

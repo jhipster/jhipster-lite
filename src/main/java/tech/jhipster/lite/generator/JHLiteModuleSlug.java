@@ -59,6 +59,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   MAVEN_WRAPPER("maven-wrapper"),
   MONGOCK("mongock"),
   MONGODB("mongodb"),
+  REDIS("redis"),
   MSSQL("mssql"),
   MYSQL("mysql"),
   NEO4J("neo4j"),

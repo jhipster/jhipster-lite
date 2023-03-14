@@ -52,7 +52,7 @@ public final class AuthenticatedUser {
    * @throws UnknownAuthenticationException
    *           if the authentication can't be read (unknown token type)
    */
-  private static String readPrincipal(Authentication authentication) {
+  public static String readPrincipal(Authentication authentication) {
     Assert.notNull("authentication", authentication);
 
     if (authentication.getPrincipal() instanceof UserDetails details) {

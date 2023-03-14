@@ -133,8 +133,7 @@ elif [[ $application == 'fullapp' ]]; then
   "java-enums" \
   "internationalized-errors" \
   "spring-boot-cache" \
-  "caffeine-cache" \
-  "kipe-expression"
+  "caffeine-cache"
 
   cucumber_with_jwt
 
@@ -144,6 +143,8 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "postgresql" "liquibase"
 
   applyModules \
+  "kipe-expression" \
+  "kipe-authorization" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-liquibase-changelog" \
@@ -168,6 +169,8 @@ elif [[ $application == 'oauth2app' ]]; then
   applyModules \
   "spring-boot-cucumber-mvc" \
   "spring-boot-cucumber-oauth2-authentication" \
+  "kipe-expression" \
+  "kipe-authorization" \
   "dummy-feature"
 
 elif [[ $application == 'mysqlapp' ]]; then
@@ -181,6 +184,8 @@ elif [[ $application == 'mysqlapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
+  "kipe-expression" \
+  "kipe-authorization" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-liquibase-changelog" \
@@ -213,6 +218,8 @@ elif [[ $application == 'flywayapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
+  "kipe-expression" \
+  "kipe-authorization" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-postgresql-flyway-changelog" \
@@ -230,6 +237,8 @@ elif [[ $application == 'undertowapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
+  "kipe-expression" \
+  "kipe-authorization" \
   "dummy-feature" \
   "dummy-jpa-persistence" \
   "dummy-not-postgresql-flyway-changelog" \
@@ -268,6 +277,8 @@ elif [[ $application == 'mongodbapp' ]]; then
   cucumber_with_jwt
 
   applyModules \
+  "kipe-expression" \
+  "kipe-authorization" \
   "dummy-feature" \
   "dummy-mongodb-persistence"
 
@@ -283,11 +294,17 @@ elif [[ $application == 'cassandraapp' ]]; then
   spring_boot_mvc
   sonar_back
 
-  applyModules "cassandra" "cassandra-migration"
+  applyModules 
+  "cassandra" \
+  "cassandra-migration"
 
   cucumber_with_jwt
 
-  applyModules "dummy-feature" "dummy-cassandra-persistence"
+  applyModules   
+  "kipe-expression" \
+  "kipe-authorization" \
+  "dummy-feature" \
+  "dummy-cassandra-persistence"
 
 elif [[ $application == 'neo4japp' ]]; then
   spring_boot_mvc

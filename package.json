@@ -62,7 +62,7 @@
     "cypress": "12.8.1",
     "eslint": "8.36.0",
     "eslint-plugin-cypress": "2.12.1",
-    "eslint-plugin-vue": "9.9.0",
+    "eslint-plugin-vue": "9.10.0",
     "fontello-cli": "0.6.2",
     "husky": "8.0.3",
     "jsdom": "21.1.1",

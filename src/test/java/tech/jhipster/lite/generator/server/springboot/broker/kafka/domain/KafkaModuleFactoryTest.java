@@ -148,9 +148,9 @@ class KafkaModuleFactoryTest {
       .and()
       .hasFile("README.md")
       .containing("""
-      ```bash
-      docker compose -f src/main/docker/akhq.yml up -d
-      ```
-      """);
+        ```bash
+        docker compose -f src/main/docker/akhq.yml up -d
+        ```
+        """);
   }
 }

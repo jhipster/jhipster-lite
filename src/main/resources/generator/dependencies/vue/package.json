@@ -11,7 +11,7 @@
     "vue-router": "4.1.6"
   },
   "devDependencies": {
-    "@pinia/testing": "0.0.15",
+    "@pinia/testing": "0.0.16",
     "@rushstack/eslint-patch": "1.2.0",
     "@types/sinon": "10.0.13",
     "@typescript-eslint/parser": "5.57.1",

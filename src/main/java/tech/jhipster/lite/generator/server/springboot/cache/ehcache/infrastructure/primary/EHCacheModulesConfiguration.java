@@ -45,6 +45,6 @@ class EHCacheModulesConfiguration {
   }
 
   private JHipsterModuleOrganization organization() {
-    return JHipsterModuleOrganization.builder().feature(JCACHE).addDependency(SPRING_BOOT).build();
+    return JHipsterModuleOrganization.builder().feature(JCACHE).addDependency(SPRING_BOOT_CACHE).build();
   }
 }

@@ -31,13 +31,7 @@ class Hibernate2ndLevelCacheModuleFactoryTest {
           """
       )
       .and()
-      .hasFile(
-        "src/main/java/com/jhipster/test/technical/infrastructure/secondary/hibernate2ndlevelcache/Hibernate2ndLevelCacheConfiguration.java"
-      )
-      .and()
-      .hasFile(
-        "src/test/java/com/jhipster/test/technical/infrastructure/secondary/hibernate2ndlevelcache/Hibernate2ndLevelCacheConfigurationIT.java"
-      )
+      .hasFile("src/test/java/com/jhipster/test/technical/infrastructure/secondary/cache/Hibernate2ndLevelCacheConfigurationIT.java")
       .and();
   }
 

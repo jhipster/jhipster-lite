@@ -11,18 +11,16 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 public class Hibernate2ndLevelCacheModuleFactory {
 
-  private static final String DEST_SECONDARY = "technical/infrastructure/secondary/hibernate2ndlevelcache";
+  private static final String DEST_SECONDARY = "technical/infrastructure/secondary/cache";
 
   private static final JHipsterSource SOURCE = from("server/springboot/database/hibernate2ndlevelcache");
 
-  private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.packagePath();
-    JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(DEST_SECONDARY);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(DEST_SECONDARY);
 
     //@formatter:off
@@ -37,7 +35,6 @@ public class Hibernate2ndLevelCacheModuleFactory {
       )
       .and()
       .files()
-      .add(MAIN_SOURCE.template("Hibernate2ndLevelCacheConfiguration.java"), mainDestination.append("Hibernate2ndLevelCacheConfiguration.java"))
       .add(TEST_SOURCE.template("Hibernate2ndLevelCacheConfigurationIT.java"), testDestination.append("Hibernate2ndLevelCacheConfigurationIT.java"))
       .and()
       .build();

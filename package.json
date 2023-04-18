@@ -52,7 +52,7 @@
     "@prettier/plugin-xml": "2.2.0",
     "@rushstack/eslint-patch": "1.2.0",
     "@tikui/core": "4.1.0",
-    "@types/sinon": "10.0.13",
+    "@types/sinon": "10.0.14",
     "@typescript-eslint/parser": "5.58.0",
     "@vitejs/plugin-vue": "4.1.0",
     "@vitest/coverage-istanbul": "0.30.1",

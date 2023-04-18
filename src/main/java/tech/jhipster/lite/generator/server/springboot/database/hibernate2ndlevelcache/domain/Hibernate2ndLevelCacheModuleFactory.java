@@ -26,17 +26,23 @@ public class Hibernate2ndLevelCacheModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-      .addDependency(
-        JavaDependency
-          .builder()
-          .groupId(groupId("org.hibernate.orm"))
-          .artifactId(artifactId("hibernate-jcache"))
-          .build()
-      )
-      .and()
+        .addDependency(
+          JavaDependency
+            .builder()
+            .groupId(groupId("org.hibernate.orm"))
+            .artifactId(artifactId("hibernate-jcache"))
+            .build()
+        )
+        .and()
+      .springMainProperties()
+        .set(propertyKey("spring.jpa.properties.hibernate.cache.use_second_level_cache"), propertyValue("true"))
+        .and()
+      .springTestProperties()
+        .set(propertyKey("spring.jpa.properties.hibernate.cache.use_second_level_cache"), propertyValue("true"))
+        .and()
       .files()
-      .add(TEST_SOURCE.template("Hibernate2ndLevelCacheConfigurationIT.java"), testDestination.append("Hibernate2ndLevelCacheConfigurationIT.java"))
-      .and()
+        .add(TEST_SOURCE.template("Hibernate2ndLevelCacheConfigurationIT.java"), testDestination.append("Hibernate2ndLevelCacheConfigurationIT.java"))
+        .and()
       .build();
     //@formatter:on
   }

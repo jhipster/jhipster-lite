@@ -14,6 +14,8 @@ import { stubWindow } from '../GlobalWindow.fixture';
 import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { BodyCursorUpdater } from '@/common/primary/cursor/BodyCursorUpdater';
 import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
+import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
+import { LocalStorageModuleParametersRepository } from '@/module/secondary/LocalStorageModuleParametersRepository';
 
 interface ApplicationListenerStub extends ApplicationListener {
   addEventListener: SinonStub;
@@ -44,16 +46,18 @@ interface WrapperOptions {
   landscapeScroller: LandscapeScroller;
   modules: ModulesRepository;
   applicationListener: ApplicationListener;
+  moduleParameters: ModuleParametersRepository;
 }
 
 const alertBus = stubAlertBus();
 
 const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
-  const { applicationListener, cursorUpdater, landscapeScroller, modules }: WrapperOptions = {
+  const { applicationListener, cursorUpdater, landscapeScroller, modules, moduleParameters }: WrapperOptions = {
     cursorUpdater: stubBodyCursorUpdater(),
     landscapeScroller: stubLandscapeScroller(),
     modules: repositoryWithLandscape(),
     applicationListener: stubApplicationListener(),
+    moduleParameters: repositoryWithModuleParameters(),
     ...options,
   };
 
@@ -67,6 +71,7 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
         landscapeScroller,
         modules,
         projectFolders: repositoryWithProjectFolders(),
+        moduleParameters,
       },
     },
   });
@@ -115,6 +120,20 @@ const repositoryWithProjectFoldersError = (): ProjectFoldersRepositoryStub => {
   return projectFolders;
 };
 
+const repositoryWithModuleParameters = (): LocalStorageModuleParametersRepository => {
+  const stubLocalStorage = {
+    getItem: sinon.stub(),
+    setItem: sinon.stub(),
+    removeItem: sinon.stub(),
+    clear: sinon.stub(),
+    length: 0,
+    key: sinon.stub(),
+  };
+  const moduleParameters = new LocalStorageModuleParametersRepository(stubLocalStorage);
+
+  return moduleParameters;
+};
+
 describe('Landscape', () => {
   beforeAll(() => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -130,11 +149,12 @@ describe('Landscape', () => {
 
     it('Should catch error when waiting for modules error', () => {
       try {
-        const { applicationListener, cursorUpdater, landscapeScroller, modules }: WrapperOptions = {
+        const { applicationListener, cursorUpdater, landscapeScroller, modules, moduleParameters }: WrapperOptions = {
           cursorUpdater: stubBodyCursorUpdater(),
           landscapeScroller: stubLandscapeScroller(),
           modules: repositoryWithLandscapeError(),
           applicationListener: stubApplicationListener(),
+          moduleParameters: repositoryWithModuleParameters(),
         };
 
         return mount(LandscapeVue, {
@@ -147,6 +167,7 @@ describe('Landscape', () => {
               landscapeScroller,
               modules,
               projectFolders: repositoryWithProjectFolders(),
+              moduleParameters,
             },
           },
         });
@@ -158,11 +179,12 @@ describe('Landscape', () => {
 
     it('Should catch error when waiting for project folders error', () => {
       try {
-        const { applicationListener, cursorUpdater, landscapeScroller, modules }: WrapperOptions = {
+        const { applicationListener, cursorUpdater, landscapeScroller, modules, moduleParameters }: WrapperOptions = {
           cursorUpdater: stubBodyCursorUpdater(),
           landscapeScroller: stubLandscapeScroller(),
           modules: repositoryWithLandscape(),
           applicationListener: stubApplicationListener(),
+          moduleParameters: repositoryWithModuleParameters(),
         };
 
         return mount(LandscapeVue, {
@@ -175,6 +197,7 @@ describe('Landscape', () => {
               landscapeScroller,
               modules,
               projectFolders: repositoryWithProjectFoldersError(),
+              moduleParameters,
             },
           },
         });

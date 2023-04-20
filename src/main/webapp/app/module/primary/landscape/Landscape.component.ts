@@ -13,7 +13,6 @@ import { ProjectHistory } from '@/module/domain/ProjectHistory';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
 import { ProjectActionsVue } from '../project-actions';
 import { castValue, empty } from '../PropertyValue';
-import { ModuleParameterType } from '@/module/domain/ModuleParameters';
 import { ModuleParameter } from '@/module/domain/ModuleParameter';
 import { Landscape } from '@/module/domain/landscape/Landscape';
 import { IconVue } from '@/common/primary/icon';
@@ -27,6 +26,7 @@ import { LandscapeElementId } from '@/module/domain/landscape/LandscapeElementId
 import { LandscapeFeatureSlug } from '@/module/domain/landscape/LandscapeFeatureSlug';
 import { BodyCursorUpdater } from '@/common/primary/cursor/BodyCursorUpdater';
 import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
+import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
 
 export default defineComponent({
   name: 'LandscapeVue',
@@ -52,7 +52,9 @@ export default defineComponent({
     const emphasizedModule = ref<ModuleSlug>();
 
     const folderPath = ref('');
-    const valuatedModuleParameters = ref(new Map<string, ModuleParameterType>());
+
+    const moduleParameters = inject('moduleParameters') as ModuleParametersRepository;
+    const moduleParametersValues = ref(moduleParameters.get());
 
     let commitModule = true;
 
@@ -322,7 +324,7 @@ export default defineComponent({
 
     const missingMandatoryProperty = () => {
       return selectedModulesProperties().some(
-        property => property.mandatory && empty(valuatedModuleParameters.value.get(property.key)) && empty(property.defaultValue)
+        property => property.mandatory && empty(moduleParametersValues.value.get(property.key)) && empty(property.defaultValue)
       );
     };
 
@@ -352,21 +354,24 @@ export default defineComponent({
 
       projectHistory.properties.forEach(property => {
         if (unknownProperty(property.key)) {
-          valuatedModuleParameters.value.set(property.key, property.value);
+          moduleParametersValues.value.set(property.key, property.value);
         }
       });
+      moduleParameters.store(moduleParametersValues.value);
     };
 
     const unknownProperty = (key: string) => {
-      return !valuatedModuleParameters.value.has(key);
+      return !moduleParametersValues.value.has(key);
     };
 
     const updateProperty = (property: ModuleParameter): void => {
-      valuatedModuleParameters.value.set(property.key, property.value);
+      moduleParametersValues.value.set(property.key, property.value);
+      moduleParameters.store(moduleParametersValues.value);
     };
 
     const deleteProperty = (key: string): void => {
-      valuatedModuleParameters.value.delete(key);
+      moduleParametersValues.value.delete(key);
+      moduleParameters.store(moduleParametersValues.value);
     };
 
     const applyNewModules = (): void => {
@@ -391,7 +396,7 @@ export default defineComponent({
           modules: modulesToApply,
           projectFolder: folderPath.value,
           commit: commitModule,
-          parameters: valuatedModuleParameters.value,
+          parameters: moduleParametersValues.value,
         })
         .then(() => {
           operationEnded();
@@ -443,7 +448,7 @@ export default defineComponent({
       selectedModulesCount,
       folderPath,
       selectedModulesProperties,
-      valuatedModuleParameters,
+      moduleParametersValues,
       updateModuleCommit,
       updateFolderPath,
       projectFolderUpdated,

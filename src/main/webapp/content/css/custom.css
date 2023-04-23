@@ -29,6 +29,15 @@
   --bs-svelte-rgb: 255, 62, 0;
   --primary-color-light: #4ba8f8;
   --success-color: #00543c;
+  --brand-800: #045085;
+  --modules-label: black;
+  --line-color: #475569;
+}
+
+:root[data-theme='dark'] {
+  --brand-800: #153751;
+  --modules-label: white;
+  --line-color: #9da9bf;
 }
 
 .bd-navbar .navbar-nav-svg {

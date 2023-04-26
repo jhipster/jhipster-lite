@@ -47,7 +47,7 @@ export default defineComponent({
     },
 
     getMediaPreference() {
-      const hasDarkPreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const hasDarkPreference: MediaQueryList['matches'] = window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (hasDarkPreference) {
         return 'dark-theme';
       } else {

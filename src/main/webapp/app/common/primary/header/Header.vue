@@ -93,10 +93,6 @@
 <script lang="ts" src="./Header.component.ts"></script>
 
 <style>
-#sf {
-  color: var(--line-color);
-}
-
 .with-theme-switch {
   display: flex;
   align-items: center;

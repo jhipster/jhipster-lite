@@ -1,10 +1,14 @@
 <template>
   <header class="jhlite-header">
-    <div class="jhlite-header--slot">
+    <div class="jhlite-header--slot with-theme-switch">
       <router-link class="jhlite-logo" to="/">
         <img class="jhlite-logo--icon" src="../../../../content/JHipster-Lite-neon-blue.png" alt="JHipster bow tie" width="48" />
         <span class="jhlite-logo--text">JHipster lite</span>
       </router-link>
+      <div class="container">
+        <input id="switch" class="container_toggle" type="checkbox" name="mode" @change="toggleTheme" />
+        <label for="switch">Toggle</label>
+      </div>
     </div>
     <div class="jhlite-header--slot -expand"></div>
     <div class="jhlite-header--slot">
@@ -87,3 +91,72 @@
 </template>
 
 <script lang="ts" src="./Header.component.ts"></script>
+
+<style>
+#sf {
+  color: var(--line-color);
+}
+
+.with-theme-switch {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.container {
+  display: flex;
+}
+
+input[type='checkbox'] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 55px;
+  height: 30px;
+  background: var(--lightBtn);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  position: relative;
+}
+
+label:after {
+  content: '';
+  background: #fff;
+  width: 20px;
+  height: 20px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 320ms;
+}
+
+input + label {
+  background: red;
+}
+
+input:checked + label {
+  background: #ffbd07;
+}
+
+input:checked + label:after {
+  left: calc(100% - 5px);
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+</style>

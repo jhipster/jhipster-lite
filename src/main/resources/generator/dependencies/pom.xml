@@ -13,7 +13,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <junit-jupiter.version>5.9.2</junit-jupiter.version>
+    <junit-jupiter.version>5.9.3</junit-jupiter.version>
     <assertj.version>3.24.2</assertj.version>
     <mockito.version>5.3.1</mockito.version>
     <logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>

@@ -92,7 +92,7 @@
 
 <script lang="ts" src="./Header.component.ts"></script>
 
-<style>
+<style scoped>
 .with-theme-switch {
   display: flex;
   align-items: center;

@@ -4,6 +4,7 @@
   --line-color: #475569;
   --bg-color: #fff;
   --jhlite-global-color-text: #1e293b;
+  --chip-bg-color: rgb(255 255 255 / 70%);
 
   font-family: $jhlite-global-font-primary-family;
   font-size: $jhlite-global-font-text-size;
@@ -15,6 +16,9 @@
   --line-color: #9da9bf;
   --bg-color: #0f172a;
   --jhlite-global-color-text: #fff;
+  --chip-bg-color:
+    #121212
+;
 }
 
 @media screen and (min-width: $jhlite-global-breakpoint-small-medium) {

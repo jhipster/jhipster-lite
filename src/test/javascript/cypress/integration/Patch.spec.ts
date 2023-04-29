@@ -42,9 +42,11 @@ describe('Patch', () => {
 
       cy.get('#switch').click({ force: true });
       cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(255, 255, 255)');
+      cy.get('.jhipster-module-parameters--type-stats').should('have.css', 'color', 'rgb(255, 255, 255)');
 
       cy.get('#switch').click({ force: true });
       cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(15, 23, 42)');
+      cy.get('.jhipster-module-parameters--type-stats').should('have.css', 'color', 'rgb(255, 255, 255)');
     });
 
     it('Should apply module without properties', () => {

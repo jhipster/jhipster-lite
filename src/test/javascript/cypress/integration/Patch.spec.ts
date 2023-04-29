@@ -31,6 +31,22 @@ describe('Patch', () => {
         });
     });
 
+    it('Should change theme after toggle switch theme button', () => {
+      cy.visit('/patches', {
+        onBeforeLoad(win) {
+          cy.stub(win, 'matchMedia').withArgs('(prefers-color-scheme: dark)').returns({ matches: true })
+        },
+      });
+
+      cy.get('#switch').should('exist');
+
+      cy.get('#switch').click({ force: true });
+      cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(255, 255, 255)');
+
+      cy.get('#switch').click({ force: true });
+      cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(15, 23, 42)');
+    });
+
     it('Should apply module without properties', () => {
       cy.intercept({ path: '/api/modules' }, { fixture: 'modules.json' });
 

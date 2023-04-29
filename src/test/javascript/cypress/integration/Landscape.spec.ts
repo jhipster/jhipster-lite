@@ -4,6 +4,22 @@ import { dataSelector } from '../support/selector';
 describe('Landscape', () => {
   beforeEach(() => cy.intercept({ path: '/api/project-folders' }, { body: '/tmp/jhlite/1234' }));
 
+  it('Should change theme after toggle switch theme button', () => {
+    cy.visit('/landscape', {
+      onBeforeLoad(win) {
+        cy.stub(win, 'matchMedia').withArgs('(prefers-color-scheme: dark)').returns({ matches: true })
+      },
+    });
+
+    cy.get('#switch').should('exist');
+
+    cy.get('#switch').click({ force: true });
+    cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(255, 255, 255)');
+
+    cy.get('#switch').click({ force: true });
+    cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(15, 23, 42)');
+  });
+
   it('Should display landscape as default page', () => {
     cy.intercept({ path: '/api/modules-landscape' }, { fixture: 'landscape.json' });
     cy.visit('/');

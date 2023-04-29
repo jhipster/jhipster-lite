@@ -7,7 +7,6 @@ $jhipster-landscape-padding: 20px;
 
 .jhipster-landscape {
   position: relative;
-  background: var(--landscape-bg-color);
 }
 
 .jhipster-landscape-map {

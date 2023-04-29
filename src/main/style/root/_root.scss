@@ -1,7 +1,9 @@
 :root {
   --brand-800: #045085;
-  --modules-label: black;
+  --modules-label: #000;
   --line-color: #475569;
+  --landscape-bg-color: initial;
+  --jhlite-global-color-text: #1e293b;
 
   font-family: $jhlite-global-font-primary-family;
   font-size: $jhlite-global-font-text-size;
@@ -9,8 +11,10 @@
 
 :root.dark-theme {
   --brand-800: #153751;
-  --modules-label: white;
+  --modules-label: #fff;
   --line-color: #9da9bf;
+  --landscape-bg-color: #0f172a;
+  --jhlite-global-color-text: #fff;
 }
 
 @media screen and (min-width: $jhlite-global-breakpoint-small-medium) {

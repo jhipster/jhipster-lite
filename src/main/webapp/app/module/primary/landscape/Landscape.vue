@@ -7,6 +7,7 @@ $jhipster-landscape-padding: 20px;
 
 .jhipster-landscape {
   position: relative;
+  background: var(--landscape-bg-color);
 }
 
 .jhipster-landscape-map {
@@ -112,6 +113,7 @@ $jhipster-landscape-padding: 20px;
     text-align: center;
     font-size: 1em;
     font-weight: bold;
+    color: var(--jhlite-global-color-text);
 
     &.-extended {
       margin: 5px;

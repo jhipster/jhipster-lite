@@ -21,6 +21,7 @@ export default defineComponent({
       userTheme: 'light-theme',
     };
   },
+
   mounted() {
     const initUserTheme = (this.getTheme() as 'light-theme' | 'dark-theme') || this.getMediaPreference();
     this.setTheme(initUserTheme);

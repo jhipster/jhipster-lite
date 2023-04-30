@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <input id="switch" class="container_toggle" type="checkbox" name="mode" @change="toggleTheme" />
+    <input id="switch" class="container_toggle" type="checkbox" name="mode" data-selector="theme-switch-button" @change="toggleTheme" />
     <label for="switch" class="theme-toggle-button__label">Toggle</label>
   </div>
 </template>

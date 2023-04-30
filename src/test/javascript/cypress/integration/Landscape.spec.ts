@@ -11,12 +11,13 @@ describe('Landscape', () => {
       },
     });
 
-    cy.get('#switch').should('exist');
+    const themeSwitchButton = dataSelector('theme-switch-button');
+    cy.get(themeSwitchButton).should('exist');
 
-    cy.get('#switch').click({ force: true });
+    cy.get(themeSwitchButton).click({ force: true });
     cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(255, 255, 255)');
 
-    cy.get('#switch').click({ force: true });
+    cy.get(themeSwitchButton).click({ force: true });
     cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(15, 23, 42)');
   });
 

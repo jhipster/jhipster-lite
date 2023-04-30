@@ -1,50 +1,55 @@
-import { defineComponent, onMounted } from 'vue';
+import LocalStorage from '@/common/secondary/LocalStorage';
+import { ThemePreference as Theme, getMediaPreference } from '@/module/secondary/GetMediaPreference';
+import { defineComponent, ref, computed, onMounted } from 'vue';
 
+/**
+ * ThemeSwitchButton
+ *
+ * 1. use localStorage saved theme first.
+ * 2. if no value set, use `prefer-color-scheme` defined.
+ * 3. can change theme by toggle button.
+ * 4. the change must be saved in localStorage for later theme decision.
+ */
 export default defineComponent({
   name: 'ThemeButton',
 
   setup() {
-    let userTheme = 'light-theme';
+    const THEME_STORAGE_KEY = 'theme';
+
+    const localStorage = new LocalStorage();
+
+    const isDarkTheme = ref(true);
+
+    // FIXME: how to set it and pass into `setTheme` fn.
+    const theme = computed({
+      get: () => getTheme() || (isDarkTheme.value ? 'dark-theme' : 'light-theme'),
+      set: val => {
+        isDarkTheme.value = val === 'dark-theme';
+        localStorage.save(THEME_STORAGE_KEY, val);
+      },
+    });
 
     onMounted(() => {
-      const initUserTheme = (getTheme() as 'light-theme' | 'dark-theme') || getMediaPreference();
+      const initUserTheme = (getTheme() as Theme) || getMediaPreference();
       setTheme(initUserTheme);
     });
 
     const toggleTheme = () => {
-      const activeTheme = localStorage.getItem('user-theme');
-      if (activeTheme === 'light-theme') {
-        setTheme('dark-theme');
-      } else {
-        setTheme('light-theme');
-      }
+      isDarkTheme.value = !isDarkTheme.value;
+      setTheme(isDarkTheme.value ? 'dark-theme' : 'light-theme');
     };
 
-    const getTheme = () => {
-      return localStorage.getItem('user-theme');
-    };
+    const getTheme = () => localStorage.load(THEME_STORAGE_KEY);
 
-    const setTheme = (theme: 'light-theme' | 'dark-theme') => {
-      localStorage.setItem('user-theme', theme);
-      userTheme = theme;
-      document.documentElement.className = theme;
-    };
-
-    const getMediaPreference = () => {
-      const hasDarkPreference: MediaQueryList['matches'] = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (hasDarkPreference) {
-        return 'dark-theme';
-      } else {
-        return 'light-theme';
-      }
+    const setTheme = (newTheme: Theme) => {
+      localStorage.save(THEME_STORAGE_KEY, newTheme);
+      document.documentElement.className = newTheme;
     };
 
     return {
-      userTheme,
+      isDarkTheme,
       toggleTheme,
-      getTheme,
-      setTheme,
-      getMediaPreference,
+      theme,
     };
   },
 });

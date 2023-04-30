@@ -1,5 +1,6 @@
 :root {
-  --brand-800: #045085;
+  --jhlite-brand: #045085;
+  --jhlite-white: #fff;
   --modules-label: #000;
   --line-color: #475569;
   --bg-color: #fff;
@@ -11,7 +12,7 @@
 }
 
 :root.dark-theme {
-  --brand-800: #153751;
+  --jhlite-brand: #153751;
   --modules-label: #fff;
   --line-color: #9da9bf;
   --bg-color: #0f172a;

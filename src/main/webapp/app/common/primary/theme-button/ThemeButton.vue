@@ -44,7 +44,7 @@
 
 .theme-toggle-button__label:after {
   content: '';
-  background: #fff;
+  background: var(--bg-color);
   width: 20px;
   height: 20px;
   -webkit-border-radius: 50%;

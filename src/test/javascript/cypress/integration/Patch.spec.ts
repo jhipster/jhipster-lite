@@ -39,15 +39,15 @@ describe('Patch', () => {
       });
 
       const themeSwitchButton = dataSelector('theme-switch-button');
-      cy.get(themeSwitchButton).should('exist');
+      cy.get(themeSwitchButton).should('exist').should('not.be.visible').should('not.be.checked');
 
-      cy.get(themeSwitchButton).click({ force: true });
+      cy.get(themeSwitchButton).click({ force: true })
+      cy.get(themeSwitchButton).should('be.checked');
       cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(255, 255, 255)');
-      cy.get('.jhipster-module-parameters--type-stats').should('have.css', 'color', 'rgb(255, 255, 255)');
 
-      cy.get(themeSwitchButton).click({ force: true });
+      cy.get(themeSwitchButton).click({ force: true })
+      cy.get(themeSwitchButton).should('not.be.checked');
       cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(15, 23, 42)');
-      cy.get('.jhipster-module-parameters--type-stats').should('have.css', 'color', 'rgb(255, 255, 255)');
     });
 
     it('Should apply module without properties', () => {

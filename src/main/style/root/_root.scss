@@ -6,6 +6,11 @@
   --bg-color: #fff;
   --jhlite-global-color-text: #1e293b;
   --chip-bg-color: rgb(255 255 255 / 70%);
+  --background-color-primary: #ebebeb;
+  --background-color-secondary: #fafafa;
+  --accent-color: #cacaca;
+  --text-primary-color: #222;
+  --element-size: 4rem;
 
   font-family: $jhlite-global-font-primary-family;
   font-size: $jhlite-global-font-text-size;
@@ -18,6 +23,10 @@
   --bg-color: #0f172a;
   --jhlite-global-color-text: #fff;
   --chip-bg-color: #121212;
+  --background-color-primary: #1e1e1e;
+  --background-color-secondary: #2d2d30;
+  --accent-color: #3f3f3f;
+  --text-primary-color: #ddd;
 }
 
 @media screen and (min-width: $jhlite-global-breakpoint-small-medium) {

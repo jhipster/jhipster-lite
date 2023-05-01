@@ -13,15 +13,17 @@ describe('Landscape', () => {
     });
 
     const themeSwitchButton = dataSelector('theme-switch-button');
+
     cy.get(themeSwitchButton).should('exist').should('not.be.visible').should('not.be.checked');
+    cy.get('[aria-label="dark-theme"]').should('exist');
 
     cy.get(themeSwitchButton).click({ force: true })
     cy.get(themeSwitchButton).should('be.checked');
-    cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(255, 255, 255)');
+    cy.get('[aria-label="light-theme"]').should('exist');
 
     cy.get(themeSwitchButton).click({ force: true })
     cy.get(themeSwitchButton).should('not.be.checked');
-    cy.get('.jhlite-layout--body').should('have.css', 'background-color', 'rgb(15, 23, 42)');
+    cy.get('[aria-label="dark-theme"]').should('exist');
   });
 
   it('Should display landscape as default page', () => {

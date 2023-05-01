@@ -1,6 +1,6 @@
 import { Storage } from '@/common/domain/Storage';
 
-export default class LocalStorageAdapter implements Storage {
+export default class LocalStorage implements Storage {
   save(key: string, value: string): void {
     localStorage.setItem(key, value);
   }

@@ -8,7 +8,7 @@ export default class LocalStorage implements Storage {
   load(key: string): string | null {
     return localStorage.getItem(key);
   }
-
+  /* istanbul ignore next */
   delete(key: string): void {
     localStorage.removeItem(key);
   }

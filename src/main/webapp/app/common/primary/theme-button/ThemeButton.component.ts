@@ -1,6 +1,6 @@
-import LocalStorage from '@/common/secondary/LocalStorage';
-import { ThemePreference as Theme, getMediaPreference } from '@/module/secondary/GetMediaPreference';
-import { defineComponent, ref, onMounted } from 'vue';
+import { ThemeRepository } from '@/module/domain/ThemeRepository';
+import { ThemePreference as Theme } from '@/module/secondary/GetMediaPreference';
+import { defineComponent, ref, onMounted, inject } from 'vue';
 
 /**
  * ThemeSwitchButton
@@ -14,32 +14,23 @@ export default defineComponent({
   name: 'ThemeButton',
 
   setup() {
-    const THEME_STORAGE_KEY = 'theme';
-
-    const localStorage = new LocalStorage();
-
     const isDarkTheme = ref<boolean>(true);
 
     const theme = ref<Theme>('dark-theme');
 
+    const localWindowTheme = inject('localWindowTheme') as ThemeRepository;
+
     onMounted(() => {
-      const initUserTheme = (getTheme() as Theme) || getMediaPreference();
+      const initUserTheme = localWindowTheme.get();
       isDarkTheme.value = initUserTheme === 'dark-theme';
       theme.value = initUserTheme;
-      setTheme(initUserTheme);
+      localWindowTheme.choose(initUserTheme);
     });
 
     const toggleTheme = () => {
       isDarkTheme.value = !isDarkTheme.value;
       theme.value = isDarkTheme.value ? 'dark-theme' : 'light-theme';
-      setTheme(theme.value);
-    };
-
-    const getTheme = () => localStorage.load(THEME_STORAGE_KEY);
-
-    const setTheme = (newTheme: Theme) => {
-      localStorage.save(THEME_STORAGE_KEY, newTheme);
-      document.documentElement.className = newTheme;
+      localWindowTheme.choose(theme.value);
     };
 
     return {

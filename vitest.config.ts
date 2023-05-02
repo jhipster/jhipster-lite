@@ -36,8 +36,6 @@ export default defineConfig({
         'src/main/webapp/app/router/index.ts',
         '**/*.d.ts',
         'src/test/**/*',
-        // we have e2e test to guarantee that it works.
-        'src/main/webapp/app/module/secondary/GetMediaPreference.ts',
       ],
       provider: 'istanbul',
       reportsDirectory: 'target/test-results/',

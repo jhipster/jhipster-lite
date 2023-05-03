@@ -41,11 +41,17 @@ export default defineComponent({
     let searchedText = '';
 
     onMounted(() => {
-      modules.list().then(response => {
-        applicationModules.all.loaded(ComponentModules.fromModules(response));
-        applicationModules.displayed.loaded(ComponentModules.fromModules(response));
-      });
-      projectFolders.get().then(projectFolder => (folderPath.value = projectFolder));
+      modules
+        .list()
+        .then(response => {
+          applicationModules.all.loaded(ComponentModules.fromModules(response));
+          applicationModules.displayed.loaded(ComponentModules.fromModules(response));
+        })
+        .catch(error => console.error(error));
+      projectFolders
+        .get()
+        .then(projectFolder => (folderPath.value = projectFolder))
+        .catch(error => console.error(error));
     });
 
     const operationStarted = (): void => {

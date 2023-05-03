@@ -65,8 +65,14 @@ export default defineComponent({
     const operationInProgress = ref(false);
 
     onMounted(() => {
-      modules.landscape().then(response => loadLandscape(response));
-      projectFolders.get().then(projectFolder => (folderPath.value = projectFolder));
+      modules
+        .landscape()
+        .then(response => loadLandscape(response))
+        .catch(error => console.error(error));
+      projectFolders
+        .get()
+        .then(projectFolder => (folderPath.value = projectFolder))
+        .catch(error => console.error(error));
     });
 
     const startGrabbing = (mouseEvent: MouseEvent): void => {
@@ -77,8 +83,8 @@ export default defineComponent({
       startX.value = mouseEvent.clientX;
       startY.value = mouseEvent.clientY;
       const rect = landscapeContainer.value;
-      currentScrollX.value = rect?.scrollLeft ?? 0;
-      currentScrollY.value = rect?.scrollTop ?? 0;
+      currentScrollX.value = rect?.scrollLeft || 0;
+      currentScrollY.value = rect?.scrollTop || 0;
       cursorUpdater.set('grabbing');
     };
 
@@ -100,9 +106,7 @@ export default defineComponent({
       landscape.value.loaded(response);
       levels.value.loaded(response.standaloneLevels());
 
-      nextTick(() => {
-        updateConnectors();
-      });
+      nextTick().then(updateConnectors);
 
       applicationListener.addEventListener('resize', updateConnectors);
     };
@@ -165,9 +169,7 @@ export default defineComponent({
     const selectMode = (mode: DisplayMode): void => {
       selectedMode.value = mode;
 
-      nextTick(() => {
-        updateConnectors();
-      });
+      nextTick().then(updateConnectors);
     };
 
     const elementFlavor = (module: LandscapeElementId): string => {

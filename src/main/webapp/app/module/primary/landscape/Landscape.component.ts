@@ -77,8 +77,8 @@ export default defineComponent({
       startX.value = mouseEvent.clientX;
       startY.value = mouseEvent.clientY;
       const rect = landscapeContainer.value;
-      currentScrollX.value = rect?.scrollLeft || 0;
-      currentScrollY.value = rect?.scrollTop || 0;
+      currentScrollX.value = rect?.scrollLeft ?? 0;
+      currentScrollY.value = rect?.scrollTop ?? 0;
       cursorUpdater.set('grabbing');
     };
 

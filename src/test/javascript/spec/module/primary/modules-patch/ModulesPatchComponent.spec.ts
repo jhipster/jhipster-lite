@@ -14,7 +14,7 @@ import { stubAlertBus } from '../../../common/domain/AlertBus.fixture';
 import { ProjectFoldersRepository } from '@/module/domain/ProjectFoldersRepository';
 import { ProjectFoldersRepositoryStub, stubProjectFoldersRepository } from '../../domain/ProjectFolders.fixture';
 import { stubWindow } from '../GlobalWindow.fixture';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { Modules } from '@/module/domain/Modules';
 import { Module } from '@/module/domain/Module';
 
@@ -51,12 +51,60 @@ const makeTaggedModule = (tag: string): Module => ({
 });
 
 describe('Modules', () => {
+  beforeAll(() => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
   describe('Loading', () => {
     it('Should display loader when waiting for modules', () => {
       const wrapper = wrap();
 
       expect(wrapper.find(wrappedElement('modules-loader')).exists()).toBe(true);
       expect(wrapper.find(wrappedElement('modules-list')).exists()).toBe(false);
+    });
+
+    it('Should catch error when waiting for modules error', () => {
+      try {
+        const { modules, projectFolders }: WrapperOptions = {
+          modules: repositoryWithModulesError(),
+          projectFolders: repositoryWithProjectFolders(),
+        };
+        return mount(ModulesVue, {
+          global: {
+            provide: {
+              modules,
+              projectFolders,
+              alertBus,
+              globalWindow: stubWindow(),
+            },
+          },
+        });
+      } catch (e) {
+        expect(e.message).toEqual('repositoryWithModulesError');
+        expect(console.error).toHaveBeenCalled();
+      }
+    });
+
+    it('Should catch error when waiting for project folders error', () => {
+      try {
+        const { modules, projectFolders }: WrapperOptions = {
+          modules: repositoryWithModules(),
+          projectFolders: repositoryWithProjectFoldersError(),
+        };
+        return mount(ModulesVue, {
+          global: {
+            provide: {
+              modules,
+              projectFolders,
+              alertBus,
+              globalWindow: stubWindow(),
+            },
+          },
+        });
+      } catch (e) {
+        expect(e.message).toEqual('repositoryWithProjectFoldersError');
+        expect(console.error).toHaveBeenCalled();
+      }
     });
 
     it('Should load modules at startup', async () => {
@@ -668,6 +716,13 @@ const repositoryWithModules = (): ModulesRepositoryStub => {
   return modules;
 };
 
+const repositoryWithModulesError = (): ModulesRepositoryStub => {
+  const modules = stubModulesRepository();
+  modules.list.rejects(new Error('repositoryWithModulesError'));
+
+  return modules;
+};
+
 const repositoryWithModulesAndNonDefaultProperties = (): ModulesRepositoryStub => {
   const modules = stubModulesRepository();
   modules.list.resolves(defaultModulesWithNonDefaultProperties());
@@ -678,6 +733,13 @@ const repositoryWithModulesAndNonDefaultProperties = (): ModulesRepositoryStub =
 const repositoryWithProjectFolders = (): ProjectFoldersRepositoryStub => {
   const projectFolders = stubProjectFoldersRepository();
   projectFolders.get.resolves('/tmp/jhlite/1234');
+
+  return projectFolders;
+};
+
+const repositoryWithProjectFoldersError = (): ProjectFoldersRepositoryStub => {
+  const projectFolders = stubProjectFoldersRepository();
+  projectFolders.get.rejects(new Error('repositoryWithProjectFoldersError'));
 
   return projectFolders;
 };

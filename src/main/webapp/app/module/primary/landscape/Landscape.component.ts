@@ -44,7 +44,7 @@ export default defineComponent({
     const landscape = ref(Loader.loading<Landscape>());
     const levels = ref(Loader.loading<LandscapeLevel[]>());
 
-    const landscapeContainer = ref<HTMLElement>();
+    const landscapeContainer = ref<HTMLElement>(document.createElement('div'));
     const landscapeConnectors = ref<LandscapeConnector[]>([]);
     const landscapeSize = ref<LandscapeConnectorsSize>(emptyLandscapeSize());
     const landscapeElements = ref(new Map<string, HTMLElement>());
@@ -83,8 +83,8 @@ export default defineComponent({
       startX.value = mouseEvent.clientX;
       startY.value = mouseEvent.clientY;
       const rect = landscapeContainer.value;
-      currentScrollX.value = rect?.scrollLeft || 0;
-      currentScrollY.value = rect?.scrollTop || 0;
+      currentScrollX.value = rect.scrollLeft;
+      currentScrollY.value = rect.scrollTop;
       cursorUpdater.set('grabbing');
     };
 
@@ -99,14 +99,14 @@ export default defineComponent({
       }
       const scrollX = currentScrollX.value + (startX.value - mouseEvent.clientX);
       const scrollY = currentScrollY.value + (startY.value - mouseEvent.clientY);
-      landscapeScroller.scroll(landscapeContainer.value!, scrollX, scrollY);
+      landscapeScroller.scroll(landscapeContainer.value, scrollX, scrollY);
     };
 
-    const loadLandscape = (response: Landscape): void => {
+    const loadLandscape = async (response: Landscape): Promise<void> => {
       landscape.value.loaded(response);
       levels.value.loaded(response.standaloneLevels());
 
-      nextTick().then(updateConnectors);
+      await nextTick().then(updateConnectors);
 
       applicationListener.addEventListener('resize', updateConnectors);
     };
@@ -166,10 +166,10 @@ export default defineComponent({
       return '-not-selected';
     };
 
-    const selectMode = (mode: DisplayMode): void => {
+    const selectMode = async (mode: DisplayMode): Promise<void> => {
       selectedMode.value = mode;
 
-      nextTick().then(updateConnectors);
+      await nextTick().then(updateConnectors);
     };
 
     const elementFlavor = (module: LandscapeElementId): string => {

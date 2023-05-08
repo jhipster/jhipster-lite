@@ -4,7 +4,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.error.domain.Assert;
-import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -42,8 +41,6 @@ public class AngularJwtModuleFactory {
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
-
-    Indentation indentation = properties.indentation();
 
     //@formatter:off
     return moduleBuilder(properties)

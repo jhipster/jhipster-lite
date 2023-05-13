@@ -31,18 +31,18 @@ describe('ThemeButton', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('Should switch theme', () => {
+  it('Should switch theme', async () => {
     const themeRepository = stubLocalWindowThemeRepository();
     const wrapper = wrap({ themeRepository });
 
     const checkbox = wrapper.find('.container_toggle');
     expect(themeRepository.get.calledOnce).toBe(true);
-    expect(themeRepository.choose.calledOnce).toBe(true);
+    expect(themeRepository.choose.callCount).toBe(1);
+
+    await checkbox.trigger('change');
+    expect(themeRepository.choose.callCount).toBe(2);
 
     checkbox.trigger('change');
-    expect(themeRepository.choose.called).toBe(true);
-
-    checkbox.trigger('change');
-    expect(themeRepository.choose.called).toBe(true);
+    expect(themeRepository.choose.callCount).toBe(3);
   });
 });

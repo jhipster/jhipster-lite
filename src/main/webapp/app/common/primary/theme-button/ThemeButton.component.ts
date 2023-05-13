@@ -18,19 +18,19 @@ export default defineComponent({
 
     const theme = ref<Theme>('dark-theme');
 
-    const localWindowTheme = inject('localWindowTheme') as ThemeRepository;
+    const themeRepository = inject('themeRepository') as ThemeRepository;
 
     onMounted(() => {
-      const initUserTheme = localWindowTheme.get();
+      const initUserTheme = themeRepository.get();
       isDarkTheme.value = initUserTheme === 'dark-theme';
       theme.value = initUserTheme;
-      localWindowTheme.choose(initUserTheme);
+      themeRepository.choose(initUserTheme);
     });
 
     const toggleTheme = () => {
       isDarkTheme.value = !isDarkTheme.value;
       theme.value = isDarkTheme.value ? 'dark-theme' : 'light-theme';
-      localWindowTheme.choose(theme.value);
+      themeRepository.choose(theme.value);
     };
 
     return {

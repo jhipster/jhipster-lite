@@ -43,7 +43,7 @@ app.provide('landscapeScroller', landscapeScroller);
 app.provide('modules', modulesRepository);
 app.provide('projectFolders', projectFoldersRepository);
 app.provide('applicationListener', applicationListener);
-app.provide('localWindowTheme', localWindowThemeRepository);
+app.provide('themeRepository', localWindowThemeRepository);
 app.provide('moduleParameters', moduleParametersRepository);
 app.provide('timeout', timeout);
 app.use(router);

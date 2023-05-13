@@ -5,19 +5,19 @@ import { stubWindow } from '../../../module/primary/GlobalWindow.fixture';
 import { LocalWindowThemeRepositoryStub, stubLocalWindowThemeRepository } from '../../../module/domain/ThemeRepository.fixture';
 
 interface WrapperOptions {
-  localWindowTheme: LocalWindowThemeRepositoryStub;
+  themeRepository: LocalWindowThemeRepositoryStub;
 }
 
 const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
-  const { localWindowTheme }: WrapperOptions = {
-    localWindowTheme: stubLocalWindowThemeRepository(),
+  const { themeRepository }: WrapperOptions = {
+    themeRepository: stubLocalWindowThemeRepository(),
     ...options,
   };
 
   return mount(ThemeButtonVue, {
     global: {
       provide: {
-        localWindowTheme,
+        themeRepository,
         globalWindow: stubWindow(),
       },
     },
@@ -32,17 +32,17 @@ describe('ThemeButton', () => {
   });
 
   it('Should switch theme', () => {
-    const localWindowThemeRepository = stubLocalWindowThemeRepository();
-    const wrapper = wrap({ localWindowTheme: localWindowThemeRepository });
+    const themeRepository = stubLocalWindowThemeRepository();
+    const wrapper = wrap({ themeRepository });
 
     const checkbox = wrapper.find('.container_toggle');
-    expect(localWindowThemeRepository.get.calledOnce).toBe(true);
-    expect(localWindowThemeRepository.choose.calledOnce).toBe(true);
+    expect(themeRepository.get.calledOnce).toBe(true);
+    expect(themeRepository.choose.calledOnce).toBe(true);
 
     checkbox.trigger('change');
-    expect(localWindowThemeRepository.choose.called).toBe(true);
+    expect(themeRepository.choose.called).toBe(true);
 
     checkbox.trigger('change');
-    expect(localWindowThemeRepository.choose.called).toBe(true);
+    expect(themeRepository.choose.called).toBe(true);
   });
 });

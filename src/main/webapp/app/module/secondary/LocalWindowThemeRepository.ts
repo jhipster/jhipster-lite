@@ -12,6 +12,6 @@ export class LocalWindowThemeRepository implements ThemeRepository {
 
   choose(theme: Theme): void {
     this.storage.setItem(THEME_STORAGE_KEY, theme);
-    document.documentElement.className = theme;
+    this.win.document.documentElement.className = theme;
   }
 }

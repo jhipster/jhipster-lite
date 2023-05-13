@@ -1,6 +1,6 @@
 <template>
   <header class="jhlite-header">
-    <div class="jhlite-header--slot with-theme-switch">
+    <div class="jhlite-header--slot jhlite-with-theme-switch">
       <router-link class="jhlite-logo" to="/">
         <img class="jhlite-logo--icon" src="../../../../content/JHipster-Lite-neon-blue.png" alt="JHipster bow tie" width="48" />
         <span class="jhlite-logo--text">JHipster lite</span>
@@ -89,8 +89,8 @@
 
 <script lang="ts" src="./Header.component.ts"></script>
 
-<style>
-.with-theme-switch {
+<style lang="scss">
+.jhlite-with-theme-switch {
   display: flex;
   align-items: center;
   gap: 16px;

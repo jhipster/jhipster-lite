@@ -1,36 +1,36 @@
 <template>
-  <div class="container">
+  <div class="jhlite-container">
     <input
       id="switch"
-      class="container_toggle"
+      class="jhlite-container_toggle"
       type="checkbox"
       name="mode"
       :checked="!isDarkTheme"
       data-selector="theme-switch-button"
       @change="toggleTheme"
     />
-    <label for="switch" class="theme-switch_label" :aria-label="theme">
+    <label for="switch" class="jhlite-theme-switch_label" :aria-label="theme">
       <span>🌙</span>
       <span>☀️</span>
-      <div class="theme-switch_toggle" :class="{ 'theme-switch_toggle-checked': theme === 'dark-theme' }"></div>
+      <div class="jhlite-theme-switch_toggle" :class="{ 'jhlite-theme-switch_toggle-checked': theme === 'dark-theme' }"></div>
     </label>
   </div>
 </template>
 
 <script lang="ts" src="./ThemeButton.component.ts"></script>
 
-<style>
-.container {
+<style lang="scss">
+.jhlite-container {
   display: flex;
 }
 
-.container_toggle {
+.jhlite-container_toggle {
   height: 0;
   width: 0;
   visibility: hidden;
 }
 
-.theme-switch_label {
+.jhlite-theme-switch_label {
   align-items: center;
   background: var(--jhlite-text-color-primary);
   border: calc(var(--jhlite-element-size) * 0.025) solid var(--jhlite-accent-color);
@@ -47,7 +47,7 @@
   z-index: 1;
 }
 
-.theme-switch_toggle {
+.jhlite-theme-switch_toggle {
   position: absolute;
   background-color: var(--jhlite-bg-color-primary);
   border-radius: 50%;
@@ -59,7 +59,7 @@
   transition: transform 0.3s ease, background-color 0.5s ease;
 }
 
-.theme-switch_toggle-checked {
+.jhlite-theme-switch_toggle-checked {
   transform: translateX(calc(var(--jhlite-element-size) * 0.6)) !important;
 }
 </style>

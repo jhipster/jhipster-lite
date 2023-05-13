@@ -19,7 +19,7 @@ $jhipster-landscape-padding: 20px;
   left: $jhipster-landscape-padding;
   position: absolute;
   z-index: 3;
-  background: var(--chip-bg-color);
+  background: var(--jhlite-chip-bg-color);
   padding: 10px;
   border: 1px dotted $jhipster-lite-line-color;
   border-radius: $jhipster-lite-box-radius;

@@ -32,34 +32,34 @@
 
 .theme-switch_label {
   align-items: center;
-  background: var(--text-primary-color);
-  border: calc(var(--element-size) * 0.025) solid var(--accent-color);
-  border-radius: var(--element-size);
+  background: var(--jhlite-text-color-primary);
+  border: calc(var(--jhlite-element-size) * 0.025) solid var(--jhlite-accent-color);
+  border-radius: var(--jhlite-element-size);
   cursor: pointer;
   display: flex;
-  font-size: calc(var(--element-size) * 0.3);
-  height: calc(var(--element-size) * 0.35);
+  font-size: calc(var(--jhlite-element-size) * 0.3);
+  height: calc(var(--jhlite-element-size) * 0.35);
   position: relative;
-  padding: calc(var(--element-size) * 0.1);
+  padding: calc(var(--jhlite-element-size) * 0.1);
   transition: background 0.5s ease;
   justify-content: space-between;
-  width: var(--element-size);
+  width: var(--jhlite-element-size);
   z-index: 1;
 }
 
 .theme-switch_toggle {
   position: absolute;
-  background-color: var(--background-color-primary);
+  background-color: var(--jhlite-bg-color-primary);
   border-radius: 50%;
-  top: calc(var(--element-size) * 0.07);
-  left: calc(var(--element-size) * 0.07);
-  height: calc(var(--element-size) * 0.4);
-  width: calc(var(--element-size) * 0.4);
+  top: calc(var(--jhlite-element-size) * 0.07);
+  left: calc(var(--jhlite-element-size) * 0.07);
+  height: calc(var(--jhlite-element-size) * 0.4);
+  width: calc(var(--jhlite-element-size) * 0.4);
   transform: translateX(0);
   transition: transform 0.3s ease, background-color 0.5s ease;
 }
 
 .theme-switch_toggle-checked {
-  transform: translateX(calc(var(--element-size) * 0.6)) !important;
+  transform: translateX(calc(var(--jhlite-element-size) * 0.6)) !important;
 }
 </style>

@@ -17,7 +17,7 @@
   &--commit-modules-label {
     margin-left: 10px;
     cursor: pointer;
-    color: var(--modules-label);
+    color: var(--jhlite-modules-label);
   }
 
   &--field {

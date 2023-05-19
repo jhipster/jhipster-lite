@@ -23,7 +23,7 @@
     "eslint": "8.40.0",
     "eslint-plugin-vue": "9.13.0",
     "jsdom": "22.0.0",
-    "sinon": "15.0.4",
+    "sinon": "15.1.0",
     "typescript": "5.0.4",
     "vite": "4.3.7",
     "vitest": "0.31.1",

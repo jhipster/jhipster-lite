@@ -4,7 +4,7 @@
   "description": "JHipster Lite : used for Dependencies",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@playwright/test": "1.34.0",
+    "@playwright/test": "1.34.2",
     "@prettier/plugin-xml": "2.2.0",
     "@types/jest": "29.5.1",
     "@types/node": "20.2.3",

@@ -6,7 +6,7 @@ FROM quay.io/keycloak/keycloak:21.1.1
 FROM mariadb:10.11.3
 FROM mongo:6.0.6
 FROM mysql:8.0.33
-FROM cassandra:4.1.1
+FROM cassandra:4.1.2
 FROM mcr.microsoft.com/mssql/server:2017-latest
 FROM postgres:15.3
 FROM confluentinc/cp-zookeeper:7.4.0

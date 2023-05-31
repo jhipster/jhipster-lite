@@ -808,7 +808,7 @@ describe('Landscape', () => {
         preventDefault: undefined,
       };
 
-      const landscape = await wrapper.find(wrappedElement('landscape-container'))!;
+      const landscape = wrapper.find(wrappedElement('landscape-container'))!;
       await landscape.trigger('mousedown', mouseEvent);
 
       const { args } = cursorUpdater.set.getCall(0);
@@ -826,7 +826,7 @@ describe('Landscape', () => {
         preventDefault: sinon.stub(),
       };
 
-      const landscape = await wrapper.find(wrappedElement('landscape-container'))!;
+      const landscape = wrapper.find(wrappedElement('landscape-container'))!;
       await landscape.trigger('mousedown', mouseEvent);
 
       expect(mouseEvent.preventDefault.called).toBe(true);
@@ -838,7 +838,7 @@ describe('Landscape', () => {
       const wrapper = wrap({ modules, cursorUpdater });
       await flushPromises();
 
-      const landscape = await wrapper.find(wrappedElement('landscape-container'))!;
+      const landscape = wrapper.find(wrappedElement('landscape-container'))!;
       await landscape.trigger('mouseup');
 
       expect(cursorUpdater.reset.called).toBe(true);
@@ -850,7 +850,7 @@ describe('Landscape', () => {
       const wrapper = wrap({ modules, cursorUpdater });
       await flushPromises();
 
-      const landscape = await wrapper.find(wrappedElement('landscape-container'))!;
+      const landscape = wrapper.find(wrappedElement('landscape-container'))!;
       await landscape.trigger('mouseleave');
 
       expect(cursorUpdater.reset.called).toBe(true);
@@ -871,7 +871,7 @@ describe('Landscape', () => {
         clientY: 10,
       };
 
-      const landscape = await wrapper.find(wrappedElement('landscape-container'))!;
+      const landscape = wrapper.find(wrappedElement('landscape-container'))!;
       await landscape.trigger('mousedown', mouseEventStart);
       await landscape.trigger('mousemove', mouseEventGrabbed);
 
@@ -889,7 +889,7 @@ describe('Landscape', () => {
         clientY: 10,
       };
 
-      const landscape = await wrapper.find(wrappedElement('landscape-container'))!;
+      const landscape = wrapper.find(wrappedElement('landscape-container'))!;
       await landscape.trigger('mousemove', mouseEventGrabbed);
 
       expect(landscapeScroller.scroll.called).toBe(false);

@@ -52,7 +52,6 @@ class ModulesResource {
   @PostMapping("apply-patches")
   @Operation(summary = "Apply multiple modules patches")
   public void applyPatches(@RequestBody @Validated RestJHipsterModulesToApply modulesToApply) {
-    String useless = "";
     modules.apply(modulesToApply.toDomain(projectFolder));
   }
 

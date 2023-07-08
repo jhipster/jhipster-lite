@@ -66,16 +66,4 @@ describe('LocalWindowThemeRepository', () => {
 
     expect(newTheme2).toBe('light-theme');
   });
-
-  // it('should return light theme if document matches it', () => {
-  //   const storage = fakeStorage();
-  //   storage.clear();
-
-  //   const windowStub = stubWindow() as any;
-  //   const repo = new LocalWindowThemeRepository(windowStub, storage);
-
-  //   const newTheme = repo.get();
-
-  //   expect(newTheme).toBe('dark-theme');
-  // });
 });

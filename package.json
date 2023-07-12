@@ -33,7 +33,7 @@
     "prepare": "husky install",
     "prettier:check": "npm run prettier:run -- --check",
     "prettier:format": "npm run prettier:run -- --write",
-    "prettier:run": "prettier \"{{src/**/,}*.{md,json,yml,html,vue,java,xml},*.{js,ts},src/{main/glyph,main/webapp,test/javascript}/**/*.{css,scss}}\"",
+    "prettier:run": "prettier \"{{src/**/,}*.{md,json,yml,html,vue,java,xml},*.{js,ts},.github/**/*.yml,documentation/**/*.md,src/{main/glyph,main/webapp,test/javascript}/**/*.{css,scss}}\"",
     "preview": "vite preview",
     "start": "npm run dev",
     "test": "npm run vitest -- run --coverage --",

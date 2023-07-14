@@ -88,14 +88,6 @@ updates:
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
-    directory: '/src/main/resources/generator/dependencies/svelte'
-    schedule:
-      interval: 'daily'
-      time: '00:00'
-    open-pull-requests-limit: 20
-    labels:
-      - 'area: dependencies'
-  - package-ecosystem: 'npm'
     directory: '/src/main/resources/generator/dependencies/angular'
     schedule:
       interval: 'daily'

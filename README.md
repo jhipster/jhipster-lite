@@ -208,7 +208,6 @@ These following profiles are available and you can use it to only display the fr
 
 - angular
 - react
-- svelte
 - vue
 
 For example, you can run:

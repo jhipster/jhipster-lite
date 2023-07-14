@@ -232,7 +232,6 @@ jobs:
   codecov:
     needs: cypress
     name: codecov
-    if: github.repository == 'jhipster/jhipster-lite'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -265,11 +264,19 @@ jobs:
   status-checks:
     name: status-checks
     needs: [codecov, generation]
+    permissions:
+      contents: none
+    if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Validation Status checks
-        run: echo 'Configuration for Status checks that are required'
+        run: |
+          echo '${{ toJSON(needs) }}'
+          if [ 'skipped' == '${{ needs.applications.result }}' ] || [ 'success' == '${{ needs.applications.result }}' ] || [ 'closed' == '${{ github.event.action }}' ]; then
+            exit 0
+          fi
+          exit 1
 
   #--------------------------------------------------
   # Dependabot auto merge PR

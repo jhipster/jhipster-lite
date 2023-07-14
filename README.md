@@ -29,6 +29,25 @@
 - You will only generate the code you want, no additional unused code
 - The best quality as possible: 💯% coverage, 0 code smell, no duplication 😎
 
+This is a [sample application](https://github.com/jhipster/jhipster-lite-sample-app) created with JHipster Lite.
+
+## Quick Start
+
+You need to clone this project and go into the folder:
+
+```
+git clone https://github.com/jhipster/jhipster-lite
+cd jhipster-lite
+```
+
+Run the project:
+
+```bash
+./mvnw
+```
+
+Then, you can navigate to http://localhost:7471 in your browser.
+
 ## Some videos
 
 - [What is JHipster Lite and why should you care?][devoxx-jhlite] by [Julien Dubois][jdubois]
@@ -64,23 +83,6 @@ You will only need to run this command when dependencies change in [package.json
 ```bash
 npm install
 ```
-
-## Quick Start
-
-You need to clone this project and go into the folder:
-
-```
-git clone https://github.com/jhipster/jhipster-lite
-cd jhipster-lite
-```
-
-Run the project:
-
-```bash
-./mvnw
-```
-
-Then, you can navigate to http://localhost:7471 in your browser.
 
 ## Test the project
 

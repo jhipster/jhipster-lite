@@ -55,33 +55,28 @@ You need to have Java 17 :
 
 After installing Node, you should be able to run the following command to install development tools.
 
-```
+```bash
 npm ci
 ```
 
 You will only need to run this command when dependencies change in [package.json](package.json).
 
-```
+```bash
 npm install
 ```
 
 ## Quick Start
 
-You need to clone this project:
+You need to clone this project and go into the folder:
 
 ```
 git clone https://github.com/jhipster/jhipster-lite
-```
-
-Go into the folder:
-
-```
 cd jhipster-lite
 ```
 
 Run the project:
 
-```
+```bash
 ./mvnw
 ```
 
@@ -91,13 +86,13 @@ Then, you can navigate to http://localhost:7471 in your browser.
 
 To launch tests:
 
-```
+```bash
 ./mvnw clean test
 ```
 
 To launch tests and integration tests:
 
-```
+```bash
 ./mvnw clean verify
 ```
 
@@ -111,13 +106,13 @@ Docker should be installed and configured on your machine prior to creating the 
 
 To create the image, run the following goal:
 
-```
+```bash
 ./mvnw spring-boot:build-image -Pnative
 ```
 
 Then, you can run the app like any other container:
 
-```
+```bash
 docker run -p 7471:7471 --rm docker.io/library/jhlite:<VERSION>
 ```
 
@@ -130,13 +125,13 @@ NOTE: GraalVM 22.3+ is required.
 
 To create the executable, run the following goal:
 
-```
+```bash
 ./mvnw native:compile -Pnative -DskipTests
 ```
 
 Then, you can run the app as follows:
 
-```
+```bash
 ./target/jhlite
 ```
 
@@ -144,7 +139,7 @@ You can also run your existing tests suite in a native image. This is an efficie
 
 To run your existing tests in a native image, run the following goal:
 
-```
+```bash
 ./mvnw test -PnativeTest
 ```
 
@@ -161,13 +156,13 @@ We use multiple linters check and lint your code:
 
 To check:
 
-```
+```bash
 npm run lint:ci
 ```
 
 To lint and fix all code:
 
-```
+```bash
 npm run lint
 ```
 
@@ -175,13 +170,13 @@ npm run lint
 
 To launch local Sonar Analysis:
 
-```
+```bash
 docker compose -f src/main/docker/sonar.yml up -d
 ```
 
 Then:
 
-```
+```bash
 ./mvnw clean verify sonar:sonar
 ```
 
@@ -191,35 +186,54 @@ So you can check the result at http://localhost:9001
 
 You can run the project using Maven, as `spring-boot:run` is the default target:
 
-```
+```bash
 ./mvnw
 ```
 
 Or, first, you can package as jar:
 
-```
+```bash
 ./mvnw package
 ```
 
 Then, run:
 
-```
+```bash
 java -jar target/*.jar
 ```
 
 So you can navigate to http://localhost:7471 in your browser.
 
+These following profiles are available and you can use it to only display the frameworks you want:
+
+- angular
+- react
+- svelte
+- vue
+
+For example, you can run:
+
+```bash
+./mvnw -Dspring-boot.run.profiles=vue
+```
+
+or
+
+```bash
+java -jar target/*.jar --spring.profiles.active=vue
+```
+
 ## Docker/Podman Quickstart
 
 To start a local instance of JHipster Lite, go to your desired application folder and run:
 
-```
+```bash
 docker run --rm --pull=always -p 7471:7471 -v $(pwd):/tmp/jhlite:Z -it jhipster/jhipster-lite:latest
 ```
 
 Or with podman:
 
-```
+```bash
 podman run --rm --pull=always -p 7471:7471 -v $(pwd):/tmp/jhlite:Z -u root -it jhipster/jhipster-lite:latest
 ```
 
@@ -229,13 +243,13 @@ Then, go to [http://localhost:7471](http://localhost:7471)
 
 You need to run the project first. Then, you can run the end-to-end tests:
 
-```
+```bash
 npm run e2e
 ```
 
 Or in headless mode:
 
-```
+```bash
 npm run e2e:headless
 ```
 

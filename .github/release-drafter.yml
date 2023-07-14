@@ -45,6 +45,8 @@ categories:
     label: 'area: documentation:books:'
   - title: 📦 Dependency updates
     label: 'area: dependencies'
+  - title: 🗑 Remove modules
+    label: 'area: remove'
   - title: 💩 Spam/Invalid
     labels:
       - 'area: spam'

@@ -185,6 +185,17 @@ jobs:
           ./start.sh 7471
           ./generate.sh ${{ matrix.app }}
           ./stop.sh
+      - name: 'Generation: display md5sum ${{ matrix.app }}'
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
+        run: |
+          app_md5=$(find . \
+            -not -path './.git/*' \
+            -not -path './.jhipster/*' \
+            -not -path './node_modules/*' \
+            -not -path './target/*' \
+            -not -path './build/*' \
+            -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | head -n1 | cut -d " " -f1)
+          echo $app_md5
       - name: 'Test: list ${{ matrix.app }}'
         id: cache_md5sum
         run: |

@@ -34,7 +34,11 @@ public class Rest{{baseName}}Page<T> {
     Assert.notNull("source", source);
     Assert.notNull("mapper", mapper);
 
+<<<<<<< HEAD
     return new Rest{{baseName}}PageBuilder<>(source.content().stream().map(mapper).toList())
+=======
+    return new Rest{{baseName}}PageBuilder<>(source.content().parallelStream().map(mapper).toList())
+>>>>>>> parent of 695cd87db (Switch to non-parallel stream in REST pagination mapping (Fixes #6803))
       .currentPage(source.currentPage())
       .pageSize(source.pageSize())
       .totalElementsCount(source.totalElementsCount())

@@ -34,7 +34,7 @@ public class Rest{{baseName}}Page<T> {
     Assert.notNull("source", source);
     Assert.notNull("mapper", mapper);
 
-    return new Rest{{baseName}}PageBuilder<>(source.content().parallelStream().map(mapper).toList())
+    return new Rest{{baseName}}PageBuilder<>(source.content().stream().collect(Collectors.toList()))
       .currentPage(source.currentPage())
       .pageSize(source.pageSize())
       .totalElementsCount(source.totalElementsCount())

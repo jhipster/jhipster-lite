@@ -2,6 +2,7 @@
 <!DOCTYPE configuration>
 <configuration scan="true">
   <include resource="org/springframework/boot/logging/logback/base.xml" />
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
   <!-- The FILE and ASYNC appenders are here as examples for a production configuration -->
   <!--
@@ -34,7 +35,7 @@
   <!-- jhipster-needle-logback-add-log -->
 
   <!-- https://logback.qos.ch/manual/configuration.html#shutdownHook and https://jira.qos.ch/browse/LOGBACK-1090 -->
-  <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" />
+  <shutdownHook class="ch.qos.logback.core.hook.DefaultShutdownHook" />
 
   <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
     <resetJUL>true</resetJUL>

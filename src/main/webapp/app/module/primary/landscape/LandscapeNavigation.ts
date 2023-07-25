@@ -101,11 +101,11 @@ export class LandscapeNavigation {
   }
 
   private isInDependencies(slug: string): boolean {
-    return this.module()
-      .dependencies()
-      .findIndex(dependecy => dependecy.get() == slug) >= 0
-      ? true
-      : false;
+    return (
+      this.module()
+        .dependencies()
+        .findIndex(dependency => dependency.get() == slug) >= 0
+    );
   }
 
   private findModuleIndexWithSlug(modules: LandscapeModule[]): number {

@@ -62,7 +62,7 @@
     "@vue/eslint-config-typescript": "11.0.3",
     "@vue/test-utils": "2.4.1",
     "cypress": "12.17.2",
-    "eslint": "8.45.0",
+    "eslint": "8.46.0",
     "eslint-plugin-cypress": "2.13.3",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-vue": "9.15.1",

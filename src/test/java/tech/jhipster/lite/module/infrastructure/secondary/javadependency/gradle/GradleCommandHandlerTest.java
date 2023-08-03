@@ -182,6 +182,82 @@ class GradleCommandHandlerTest {
     }
   }
 
+  @Nested
+  class HandleRemoveDirectJavaDependency {
+
+    private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+    @Test
+    void shouldRemoveEntryInLibrariesSection() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      gradleCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(springBootStarterWebDependency().id()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .doesNotContain("[libraries.spring-boot-starter-web]")
+        .doesNotContain("""
+          \t\tname = "spring-boot-starter-web"
+          \t\tgroup = "org.springframework.boot"
+          """);
+    }
+
+    @Test
+    void shouldRemoveDepencyInBuildGradleFile() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      gradleCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(springBootStarterWebDependency().id()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.spring.boot.starter.web)");
+    }
+
+    @Test
+    void shouldRemoveTestDepencyInBuildGradleFile() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      JavaDependency dependency = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.TEST)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("testImplementation(libs.junit.jupiter.engine)");
+    }
+
+    @Test
+    void shouldRemoveRuntimeDepencyInBuildGradleFile() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      JavaDependency dependency = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.RUNTIME)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("runtimeOnly(libs.junit.jupiter.engine)");
+    }
+
+    @Test
+    void shouldRemoveProvidedDepencyInBuildGradleFile() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      JavaDependency dependency = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.PROVIDED)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("compileOnly(libs.junit.jupiter.engine)");
+    }
+  }
+
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {
     return content(Paths.get(projectFolder.get()).resolve("build.gradle.kts"));
   }

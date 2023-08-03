@@ -2,6 +2,9 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.NotImplementedException;
 import com.electronwill.nightconfig.core.Config;
@@ -26,7 +29,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
 import tech.jhipster.lite.module.domain.replacement.MandatoryFileReplacer;
 import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
-import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
+import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
 
@@ -38,9 +41,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private static final String LIBRARIES_TOML_KEY = "libraries";
   private static final String BUILD_GRADLE_FILE = "build.gradle.kts";
 
-  private static final String GRADLE_DEPENDENCY_NEEDLE = "// jhipster-needle-gradle-add-dependency";
-  private static final String GRADLE_TEST_DEPENDENCY_NEEDLE = "// jhipster-needle-gradle-add-dependency-test";
+  private static final Pattern GRADLE_DEPENDENCY_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-add-dependency$", Pattern.MULTILINE);
+  private static final Pattern GRADLE_TEST_DEPENDENCY_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-add-dependency-test$", Pattern.MULTILINE);
 
+  private final Indentation indentation;
   private final JHipsterProjectFolder projectFolder;
   private final FileConfig versionsCatalog;
   private final FileSystemReplacer fileReplacer = new FileSystemReplacer();
@@ -49,6 +53,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull("indentation", indentation);
     Assert.notNull("projectFolder", projectFolder);
 
+    this.indentation = indentation;
     this.projectFolder = projectFolder;
     Path tomlVersionCatalogFile = tomlVersionCatalogPath();
     versionsCatalog = FileConfig.builder(tomlVersionCatalogFile)
@@ -98,11 +103,11 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     };
 
     MandatoryReplacer replacer = new MandatoryReplacer(
-      new TextNeedleBeforeReplacer(
+      new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
         gradleScope == GradleDependencyScope.TEST_IMPLEMENTATION ? GRADLE_TEST_DEPENDENCY_NEEDLE : GRADLE_DEPENDENCY_NEEDLE
       ),
-      "%s(libs.%s)".formatted(gradleScope.command(), dependencySlug(dependency).replace("-", "."))
+      "%s%s(libs.%s)".formatted(indentation.times(1), gradleScope.command(), dependencySlug(dependency).replace("-", "."))
     );
     fileReplacer.handle(projectFolder, ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)));
   }
@@ -113,7 +118,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     libraryConfig.set("name", dependency.id().artifactId().get());
     dependency.version().ifPresent(versionSlug -> libraryConfig.set("version.ref", versionSlug.slug()));
     String libraryEntryKey = dependencySlug(dependency);
-    versionsCatalog.set(LIBRARIES_TOML_KEY + "." + libraryEntryKey, libraryConfig);
+    versionsCatalog.set(List.of(LIBRARIES_TOML_KEY, libraryEntryKey), libraryConfig);
     versionsCatalog.save();
   }
 

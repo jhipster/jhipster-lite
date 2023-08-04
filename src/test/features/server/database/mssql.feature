@@ -20,7 +20,7 @@ Feature: mssql module
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"
-      | application.properties |
+      | application-test.properties |
 
   Scenario: Should get MsSQL module properties definition
     When I get module "mssql" properties definition

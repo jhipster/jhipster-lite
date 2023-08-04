@@ -94,7 +94,7 @@ class RedisModuleFactoryTest {
       .containing("spring.data.redis.database=0")
       .containing("spring.data.redis.url=redis://localhost:6379")
       .and()
-      .hasFile("src/test/resources/config/application.properties")
+      .hasFile("src/test/resources/config/application-test.properties")
       .containing("spring.data.redis.url=${TEST_REDIS_URL}")
       .and()
       .hasFile("src/main/resources/logback-spring.xml")

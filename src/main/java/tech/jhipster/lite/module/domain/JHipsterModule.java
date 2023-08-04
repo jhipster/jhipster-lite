@@ -521,7 +521,7 @@ public class JHipsterModule {
     }
 
     public JHipsterModuleSpringPropertiesBuilder springTestProperties() {
-      return springTestProperties(SpringProfile.DEFAULT);
+      return springTestProperties(SpringProfile.TEST);
     }
 
     public JHipsterModuleSpringPropertiesBuilder springTestBootstrapProperties() {

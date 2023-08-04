@@ -83,7 +83,7 @@ class Neo4jModuleFactoryTest {
       .containing("spring.neo4j.pool.metrics-enabled")
       .containing("spring.neo4j.uri=bolt://localhost:7687")
       .and()
-      .hasFile("src/test/resources/config/application.properties")
+      .hasFile("src/test/resources/config/application-test.properties")
       .containing("spring.neo4j.uri=${TEST_NEO4J_URI}")
       .and()
       .hasFile("src/main/resources/logback-spring.xml")

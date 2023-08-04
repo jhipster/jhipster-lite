@@ -34,9 +34,6 @@ class Hibernate2ndLevelCacheModuleFactoryTest {
       .hasFile("src/main/resources/config/application.properties")
       .containing("spring.jpa.properties.hibernate.cache.use_second_level_cache=true")
       .and()
-      .hasFile("src/test/resources/config/application.properties")
-      .containing("spring.jpa.properties.hibernate.cache.use_second_level_cache=true")
-      .and()
       .hasFile("src/test/java/com/jhipster/test/wire/cache/infrastructure/secondary/Hibernate2ndLevelCacheConfigurationIT.java")
       .and();
   }

@@ -12,7 +12,7 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
-import tech.jhipster.lite.shared.generation.domain.Generated;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public class PropertiesFileSpringPropertiesBlockCommentsHandler {
 
@@ -34,7 +34,7 @@ public class PropertiesFileSpringPropertiesBlockCommentsHandler {
     updatePropertiesBlockComments(comment, properties);
   }
 
-  @Generated
+  @ExcludeFromGeneratedCodeCoverage
   private void updatePropertiesBlockComments(Comment comment, Map<PropertyKey, PropertyValue> properties) {
     try {
       String propertiesBlock = buildPropertiesBlockComments(comment, properties);

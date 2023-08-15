@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.shared.error.domain.Assert;
-import tech.jhipster.lite.shared.generation.domain.Generated;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public class DependencyId {
 
@@ -50,13 +50,13 @@ public class DependencyId {
   }
 
   @Override
-  @Generated
+  @ExcludeFromGeneratedCodeCoverage
   public int hashCode() {
     return new HashCodeBuilder().append(artifactId).append(classifier).append(groupId).append(type).hashCode();
   }
 
   @Override
-  @Generated
+  @ExcludeFromGeneratedCodeCoverage
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;

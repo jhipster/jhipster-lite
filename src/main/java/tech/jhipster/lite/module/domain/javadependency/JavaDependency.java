@@ -15,7 +15,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
-import tech.jhipster.lite.shared.generation.domain.Generated;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public class JavaDependency {
 
@@ -165,13 +165,13 @@ public class JavaDependency {
   }
 
   @Override
-  @Generated
+  @ExcludeFromGeneratedCodeCoverage
   public int hashCode() {
     return new HashCodeBuilder().append(id).append(versionSlug).append(scope).append(optional).hashCode();
   }
 
   @Override
-  @Generated
+  @ExcludeFromGeneratedCodeCoverage
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;

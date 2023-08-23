@@ -12,7 +12,7 @@ Feature: Springdoc modules
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"
-      | application.properties |
+      | application-test.properties |
 
   Scenario: Should add Springdoc for Webflux
     When I apply modules to default project
@@ -27,7 +27,7 @@ Feature: Springdoc modules
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"
-      | application.properties |
+      | application-test.properties |
 
   Scenario: Should apply springdoc oauth2 module
     When I apply modules to default project

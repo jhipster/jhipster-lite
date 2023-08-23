@@ -16,7 +16,7 @@ Feature: MySQL module
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"
-      | application.properties |
+      | application-test.properties |
 
   Scenario: Should get MySQL module properties definition
     When I get module "mysql" properties definition
@@ -41,4 +41,4 @@ Feature: MySQL module
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"
-      | application.properties |
+      | application-test.properties |

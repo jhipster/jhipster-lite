@@ -105,7 +105,7 @@ class SpringBootMvcsModulesFactoryTest {
       .and()
       .hasFile("src/main/resources/public/error/404.html")
       .and()
-      .hasFile("src/test/resources/config/application.properties")
+      .hasFile("src/test/resources/config/application-test.properties")
       .containing("server.port=0")
       .and()
       .hasPrefixedFiles(

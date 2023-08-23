@@ -16,7 +16,7 @@ Feature: postgreSQL module
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"
-      | application.properties |
+      | application-test.properties |
 
   Scenario: Should get postgreSQL module properties definition
     When I get module "postgresql" properties definition
@@ -41,4 +41,4 @@ Feature: postgreSQL module
     And I should have files in "src/main/resources/config"
       | application.properties |
     And I should have files in "src/test/resources/config"
-      | application.properties |
+      | application-test.properties |

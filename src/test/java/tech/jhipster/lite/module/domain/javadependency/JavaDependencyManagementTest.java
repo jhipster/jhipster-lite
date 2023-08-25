@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyMa
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 
 @UnitTest
-class JavaDependencyMangementTest {
+class JavaDependencyManagementTest {
 
   @Test
   void shouldAddUnknownMinimalDependency() {

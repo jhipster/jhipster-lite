@@ -203,7 +203,7 @@ class GradleCommandHandlerTest {
     }
 
     @Test
-    void shouldRemoveDepencyInBuildGradleFile() {
+    void shouldRemoveDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
       gradleCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
 
@@ -213,7 +213,7 @@ class GradleCommandHandlerTest {
     }
 
     @Test
-    void shouldRemoveTestDepencyInBuildGradleFile() {
+    void shouldRemoveTestDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
       JavaDependency dependency = javaDependency()
         .groupId("org.junit.jupiter")
@@ -228,7 +228,7 @@ class GradleCommandHandlerTest {
     }
 
     @Test
-    void shouldRemoveRuntimeDepencyInBuildGradleFile() {
+    void shouldRemoveRuntimeDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
       JavaDependency dependency = javaDependency()
         .groupId("org.junit.jupiter")
@@ -243,7 +243,7 @@ class GradleCommandHandlerTest {
     }
 
     @Test
-    void shouldRemoveProvidedDepencyInBuildGradleFile() {
+    void shouldRemoveProvidedDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
       JavaDependency dependency = javaDependency()
         .groupId("org.junit.jupiter")

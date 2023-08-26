@@ -36,7 +36,7 @@ class ProjectsDownloaderTest {
   }
 
   @Test
-  void shouldNotDownloadUnknownProjecr() {
+  void shouldNotDownloadUnknownProject() {
     assertThatThrownBy(() -> downloader.download(new ProjectPath("unknown"))).isExactlyInstanceOf(UnknownProjectException.class);
   }
 

@@ -51,7 +51,7 @@ class JavaDependencyManagementTest {
   }
 
   @Test
-  void shouldUpgradeDepencencyOptionality() {
+  void shouldUpgradeDependencyOptionality() {
     ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
       .builder()
       .versions(projectVersions())
@@ -68,7 +68,7 @@ class JavaDependencyManagementTest {
   }
 
   @Test
-  void shouldNotDowngradeDepencencyOptionality() {
+  void shouldNotDowngradeDependencyOptionality() {
     ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
       .builder()
       .versions(projectVersions())

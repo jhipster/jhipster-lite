@@ -41,7 +41,7 @@ class ProjectsDownloaderTest {
   }
 
   @Test
-  void shouldDownloadPorjectFromRepository() {
+  void shouldDownloadProjectFromRepository() {
     Project project = new Project(new ProjectName("project"), new byte[] {});
     when(projects.get(any())).thenReturn(Optional.of(project));
 

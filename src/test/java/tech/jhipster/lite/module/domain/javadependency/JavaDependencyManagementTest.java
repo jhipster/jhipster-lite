@@ -174,12 +174,12 @@ class JavaDependencyManagementTest {
 
   @Test
   void shouldAppendDependencyWithDifferentType() {
-    JavaDependency noTypeDependencyManagment = springBootDefaultTypeDependencyManagement();
+    JavaDependency noTypeDependencyManagement = springBootDefaultTypeDependencyManagement();
 
     ProjectJavaDependencies projectDependencies = ProjectJavaDependencies
       .builder()
       .versions(projectVersions())
-      .dependenciesManagements(new JavaDependencies(List.of(noTypeDependencyManagment)))
+      .dependenciesManagements(new JavaDependencies(List.of(noTypeDependencyManagement)))
       .dependencies(null);
 
     JavaBuildCommands changes = changes().dependency(springBootDependencyManagement()).projectDependencies(projectDependencies).build();

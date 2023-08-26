@@ -25,7 +25,7 @@ class InvalidLandscapeException extends GeneratorException {
       .toString();
   }
 
-  static InvalidLandscapeException unknownDepdencency(Collection<JHipsterSlug> knownSlugs, Collection<JHipsterSlug> remainingElements) {
+  static InvalidLandscapeException unknownDependency(Collection<JHipsterSlug> knownSlugs, Collection<JHipsterSlug> remainingElements) {
     return new InvalidLandscapeException(
       internalServerError(LandscapeErrorKey.UNKNOWN_DEPENDENCY).message(buildUnknownDependencyMessage(knownSlugs, remainingElements))
     );

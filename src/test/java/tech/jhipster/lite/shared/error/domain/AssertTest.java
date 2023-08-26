@@ -59,7 +59,7 @@ class AssertTest {
   @Test
   void shouldNotValidateStringWithWhitespace() {
     assertThatThrownBy(() -> Assert.noWhitespace("field", "my tag"))
-      .isExactlyInstanceOf(StringWithWitespacesException.class)
+      .isExactlyInstanceOf(StringWithWhitespacesException.class)
       .hasMessageContaining("\"field\"")
       .hasMessageContaining("contains at least one space");
   }

@@ -108,13 +108,13 @@ class AssertionErrorsHandlerIntTest {
   }
 
   @Test
-  void shouldHandleStringWithWitespaces() throws Exception {
+  void shouldHandleStringWithWhitespaces() throws Exception {
     rest
-      .perform(get("/api/assertion-errors/string-with-witespaces"))
+      .perform(get("/api/assertion-errors/string-with-whitespaces"))
       .andExpect(status().isBadRequest())
-      .andExpect(jsonPath("title").value("String with witespaces"))
-      .andExpect(jsonPath("detail").value("The string myField must not have any witespaces"))
-      .andExpect(jsonPath("key").value("STRING_WITH_WITESPACES"));
+      .andExpect(jsonPath("title").value("String with whitespaces"))
+      .andExpect(jsonPath("detail").value("The string myField must not have any whitespaces"))
+      .andExpect(jsonPath("key").value("STRING_WITH_WHITESPACES"));
   }
 
   @Test

@@ -28,10 +28,10 @@ class CustomJHLiteModuleFactoryTest {
     //@formatter:off
     assertThatModuleWithFiles(module, pomFile(), mainAppFile())
       .hasFile("pom.xml")
-        .containing("<artifactId>cucumber-junit</artifactId>")
+        .containing("<artifactId>cucumber-junit-platform-engine</artifactId>")
         .containing("<artifactId>cucumber-java</artifactId>")
         .containing("<artifactId>cucumber-spring</artifactId>")
-        .containing("<artifactId>junit-vintage-engine</artifactId>")
+        .containing("<artifactId>junit-platform-suite</artifactId>")
         .containing(
           """
               <dependency>
@@ -76,7 +76,7 @@ class CustomJHLiteModuleFactoryTest {
         "src/test/java/tech/jhipster/test/security/infrastructure/primary/CorsFilterConfigurationIT.java"
       )
       .hasFile("src/test/java/com/jhipster/test/cucumber/CucumberTest.java")
-        .containing("glue = { \"com.jhipster.test\", \"tech.jhipster.lite.module.infrastructure.primary\" },")
+        .containing("key = GLUE_PROPERTY_NAME, value = \"com.jhipster.test, tech.jhipster.lite.module.infrastructure.primary\"")
         .and()
       .hasFile("src/test/java/com/jhipster/test/cucumber/CucumberConfiguration.java")
         .containing("import com.jhipster.test.MyappApp;")

@@ -450,7 +450,7 @@ class MavenCommandHandlerTest {
 
     @Test
     void shouldAddBuildPluginManagementToPomWithEmptyPluginManagement() {
-      Path pom = projectWithPom("src/test/resources/projects/maven-empty-plugin-managment/pom.xml");
+      Path pom = projectWithPom("src/test/resources/projects/maven-empty-plugin-management/pom.xml");
 
       addMavenEnforcerPlugin(pom);
 

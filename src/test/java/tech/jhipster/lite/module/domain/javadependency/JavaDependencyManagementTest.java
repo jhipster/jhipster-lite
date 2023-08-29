@@ -51,7 +51,7 @@ class JavaDependencyManagementTest {
   }
 
   @Test
-  void shouldUpgradeDepencencyOptionality() {
+  void shouldUpgradeDependencyOptionality() {
     ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
       .builder()
       .versions(projectVersions())
@@ -68,7 +68,7 @@ class JavaDependencyManagementTest {
   }
 
   @Test
-  void shouldNotDowngradeDepencencyOptionality() {
+  void shouldNotDowngradeDependencyOptionality() {
     ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
       .builder()
       .versions(projectVersions())
@@ -174,12 +174,12 @@ class JavaDependencyManagementTest {
 
   @Test
   void shouldAppendDependencyWithDifferentType() {
-    JavaDependency noTypeDependencyManagment = springBootDefaultTypeDependencyManagement();
+    JavaDependency noTypeDependencyManagement = springBootDefaultTypeDependencyManagement();
 
     ProjectJavaDependencies projectDependencies = ProjectJavaDependencies
       .builder()
       .versions(projectVersions())
-      .dependenciesManagements(new JavaDependencies(List.of(noTypeDependencyManagment)))
+      .dependenciesManagements(new JavaDependencies(List.of(noTypeDependencyManagement)))
       .dependencies(null);
 
     JavaBuildCommands changes = changes().dependency(springBootDependencyManagement()).projectDependencies(projectDependencies).build();

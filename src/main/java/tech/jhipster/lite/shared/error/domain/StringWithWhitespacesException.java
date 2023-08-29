@@ -1,8 +1,8 @@
 package tech.jhipster.lite.shared.error.domain;
 
-public class StringWithWitespacesException extends AssertionException {
+public class StringWithWhitespacesException extends AssertionException {
 
-  public StringWithWitespacesException(String field) {
+  public StringWithWhitespacesException(String field) {
     super(field, message(field));
   }
 
@@ -12,6 +12,6 @@ public class StringWithWitespacesException extends AssertionException {
 
   @Override
   public AssertionErrorType type() {
-    return AssertionErrorType.STRING_WITH_WITESPACES;
+    return AssertionErrorType.STRING_WITH_WHITESPACES;
   }
 }

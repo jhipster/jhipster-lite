@@ -28,7 +28,7 @@ class KipeIntTest {
 
   @Test
   @WithMockUser
-  void shouldBeAbleToMakeAuhtorizedUpdate() {
+  void shouldBeAbleToMakeAuthorizedUpdate() {
     assertThatCode(() -> service.update(new KipeDummy("authorized"))).doesNotThrowAnyException();
   }
 }

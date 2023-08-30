@@ -33,7 +33,7 @@ class DummyJpaPersistenceModuleFactoryTest {
       .hasPrefixedFiles(
         "src/test/java/com/jhipster/test/dummy/infrastructure/secondary",
         "BeerEntityTest.java",
-        "JpaBeersRepositoryIntTest.java"
+        "JpaBeersRepositoryIT.java"
       )
       .hasFile("src/main/java/com/jhipster/test/dummy/application/BeersApplicationService.java")
       .containing("import org.springframework.transaction.annotation.Transactional;")

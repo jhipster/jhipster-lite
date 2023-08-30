@@ -9,15 +9,15 @@ import static {{ packageName }}.dummy.domain.beer.BeersFixture.beer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @IntegrationTest
-class CassandraBeerCatalogRepositoryIntTest {
+class CassandraBeerRepositoryIT {
 
   @Autowired
-  private CassandraBeerCatalogRepository beerCatalog;
+  private CassandraBeerRepository beers;
 
   @Test
   void shouldSaveAndGetBeer() {
-    beerCatalog.save(BeerCatalogTable.from(beer()));
+    beers.save(BeerTable.from(beer()));
 
-    assertThat(beerCatalog.findById(cloackOfFeathersId().get()).get().toDomain()).usingRecursiveComparison().isEqualTo(beer());
+    assertThat(beers.findById(cloackOfFeathersId().get()).get().toDomain()).usingRecursiveComparison().isEqualTo(beer());
   }
 }

@@ -26,7 +26,7 @@ import tech.jhipster.lite.statistic.domain.criteria.StatisticsCriteria;
 @IntegrationTest
 @EnabledOnOs(OS.LINUX)
 @ActiveProfiles("mongodb")
-class MongoDBStatisticsRepositoryIntTest {
+class MongoDBStatisticsRepositoryIT {
 
   private static MongoDBContainer mongoDbContainer;
 

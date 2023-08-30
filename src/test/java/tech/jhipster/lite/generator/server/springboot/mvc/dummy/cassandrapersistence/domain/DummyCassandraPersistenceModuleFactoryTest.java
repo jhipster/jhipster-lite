@@ -38,10 +38,10 @@ class DummyCassandraPersistenceModuleFactoryTest {
         "src/test/java/com/jhipster/test/dummy/infrastructure/secondary",
         "BeerCatalogTableTest.java",
         "BeerTableTest.java",
-        "CassandraBeerCatalogRepositoryIntTest.java",
-        "CassandraBeerRepositoryIntTest.java",
+        "CassandraBeerCatalogRepositoryIT.java",
+        "CassandraBeerRepositoryIT.java",
         "CassandraBeersResetter.java",
-        "SpringDataRepositoryIntTest.java"
+        "SpringDataRepositoryIT.java"
       )
       .hasPrefixedFiles("src/main/resources/config/cql/changelog", "00000000000000_create-keyspace.cql", "00000000000001_create-tables.cql")
       .hasFile("src/main/resources/config/application.properties")

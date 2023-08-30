@@ -34,7 +34,7 @@ class DummyMongoDBPersistenceModuleFactoryTest {
       .hasPrefixedFiles(
         "src/test/java/com/jhipster/test/dummy/infrastructure/secondary",
         "BeerDocumentTest.java",
-        "MongoDBBeersRepositoryIntTest.java",
+        "MongoDBBeersRepositoryIT.java",
         "MongoDBBeersReseter.java"
       )
       .doNotHaveFiles(

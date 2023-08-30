@@ -54,7 +54,7 @@ public class OAuth2AccountModuleFactory {
           .add(ACCOUNT_TEST_SOURCE.append(DOMAIN).template("AccountsFixture.java"), accountTestDestination.append(DOMAIN).append("AccountsFixture.java"))
           .batch(ACCOUNT_TEST_SOURCE.append(PRIMARY), accountTestDestination.append(PRIMARY))
             .addTemplate("RestAccountTest.java")
-            .addTemplate("AccountsResourceIntTest.java")
+            .addTemplate("AccountsResourceIT.java")
             .addTemplate("AccountsResourceTest.java")
             .and()
           .add(ACCOUNT_TEST_SOURCE.append(SECONDARY).template("OAuth2AuthenticationReaderTest.java"), accountTestDestination.append(SECONDARY).append("OAuth2AuthenticationReaderTest.java"))

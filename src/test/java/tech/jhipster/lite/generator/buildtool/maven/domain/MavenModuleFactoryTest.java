@@ -58,7 +58,6 @@ class MavenModuleFactoryTest {
                   <runOrder>alphabetical</runOrder>
                   <excludes>
                     <exclude>**/*IT*</exclude>
-                    <exclude>**/*IntTest*</exclude>
                     <exclude>**/*CucumberTest*</exclude>
                   </excludes>
                 </configuration>
@@ -88,7 +87,6 @@ class MavenModuleFactoryTest {
                   <runOrder>alphabetical</runOrder>
                   <includes>
                     <include>**/*IT*</include>
-                    <include>**/*IntTest*</include>
                     <include>**/*CucumberTest*</include>
                   </includes>
                 </configuration>

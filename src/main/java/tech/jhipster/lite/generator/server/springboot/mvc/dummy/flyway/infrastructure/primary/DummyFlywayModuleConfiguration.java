@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class DummyFlywaModuleConfiguration {
+class DummyFlywayModuleConfiguration {
 
   @Bean
   JHipsterModuleResource dummyFlywayPostgresqlModule(DummyFlywayApplicationService dummyFlyway) {

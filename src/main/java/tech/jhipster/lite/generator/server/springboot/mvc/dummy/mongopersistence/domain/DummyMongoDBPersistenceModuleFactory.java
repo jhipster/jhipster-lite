@@ -30,7 +30,7 @@ public class DummyMongoDBPersistenceModuleFactory {
           .and()
         .batch(SOURCE.append("test").append(SECONDARY), toSrcTestJava().append(packagePath).append(SECONDARY_DESTINATION))
           .addTemplate("BeerDocumentTest.java")
-          .addTemplate("MongoDBBeersRepositoryIntTest.java")
+          .addTemplate("MongoDBBeersRepositoryIT.java")
           .addTemplate("MongoDBBeersReseter.java")
           .and()
         .delete(path("src/main/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersRepository.java"))

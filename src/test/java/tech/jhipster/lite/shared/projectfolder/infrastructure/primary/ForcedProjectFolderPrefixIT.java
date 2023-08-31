@@ -14,7 +14,7 @@ import tech.jhipster.lite.IntegrationTest;
 
 @AutoConfigureMockMvc
 @IntegrationTest(properties = { "application.forced-project-folder=/tmp/forced" })
-class ForcedProjectFolderPrefixIntTest {
+class ForcedProjectFolderPrefixIT {
 
   private static final String SEPARATOR = FileSystems.getDefault().getSeparator();
 

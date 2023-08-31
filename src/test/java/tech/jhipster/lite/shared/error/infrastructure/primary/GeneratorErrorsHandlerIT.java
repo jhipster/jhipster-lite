@@ -12,7 +12,7 @@ import tech.jhipster.lite.IntegrationTest;
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class GeneratorErrorsHandlerIntTest {
+class GeneratorErrorsHandlerIT {
 
   @Autowired
   private MockMvc rest;

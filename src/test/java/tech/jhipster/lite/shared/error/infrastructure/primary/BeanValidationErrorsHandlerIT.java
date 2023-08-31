@@ -1,4 +1,4 @@
-package {{ packageName }}.shared.error.infrastructure.primary;
+package tech.jhipster.lite.shared.error.infrastructure.primary;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import {{ packageName }}.IntegrationTest;
+import tech.jhipster.lite.IntegrationTest;
 
 @IntegrationTest
 @AutoConfigureMockMvc
-class BeanValidationErrorsHandlerIntTest {
+class BeanValidationErrorsHandlerIT {
 
   @Autowired
   private MockMvc rest;

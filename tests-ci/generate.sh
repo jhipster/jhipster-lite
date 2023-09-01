@@ -109,7 +109,8 @@ elif [[ $application == 'gradleapp' ]]; then
   applyModules \
     "init" \
     "gradle-java" \
-    "java-base"
+    "java-base" \
+    "pagination-domain"
 
 elif [[ $application == 'fullapp' ]]; then
   spring_boot_mvc

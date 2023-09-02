@@ -21,8 +21,8 @@ ext {
 }
 
 dependencies {
-  // jhipster-needle-gradle-add-dependency
-  // jhipster-needle-gradle-add-dependency-test
+  // jhipster-needle-gradle-dependency
+  // jhipster-needle-gradle-test-dependency
 }
 
 tasks.test {

@@ -241,6 +241,27 @@ class FileSystemPackageJsonHandlerTest {
     }
 
     @Test
+    void shouldAddDevDependencyToPackageJsonUsingVersionSourcePackage() {
+      when(npmVersions.get("@angular/core", NpmVersionSource.ANGULAR)).thenReturn(new NpmPackageVersion("1.1.1"));
+
+      JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");
+
+      packageJson.handle(
+        Indentation.DEFAULT,
+        folder,
+        emptyBuilder().addDevDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core")).build()
+      );
+
+      assertPackageJsonContent(
+        folder,
+        """
+          "devDependencies": {
+            "@angular/animations": "1.1.1",
+        """
+      );
+    }
+
+    @Test
     void shouldReplaceExistingDevDependency() {
       mockDevVersion();
 
@@ -332,6 +353,27 @@ class FileSystemPackageJsonHandlerTest {
           "dependencies": {
             "@fortawesome/fontawesome-svg-coree": "1.1.1",
             "@fortawesome/fontawesome-svg-core": "^6.1.1"
+        """
+      );
+    }
+
+    @Test
+    void shouldAddDependencyToPackageJsonUsingVersionSourcePackage() {
+      when(npmVersions.get("@angular/core", NpmVersionSource.ANGULAR)).thenReturn(new NpmPackageVersion("1.1.1"));
+
+      JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");
+
+      packageJson.handle(
+        Indentation.DEFAULT,
+        folder,
+        emptyBuilder().addDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core")).build()
+      );
+
+      assertPackageJsonContent(
+        folder,
+        """
+          "dependencies": {
+            "@angular/animations": "1.1.1",
         """
       );
     }

@@ -299,7 +299,7 @@ public final class JHipsterModulesAssertions {
       try {
         Path path = projectFolder.filePath(file);
 
-        assertThat(Files.readString(path)).as(() -> "Can't find " + content + " in " + path.toString()).contains(content);
+        assertThat(Files.readString(path)).as(() -> "Can't find " + content + " in " + path).contains(content);
       } catch (IOException e) {
         throw new AssertionError("Can't check file content: " + e.getMessage(), e);
       }
@@ -313,7 +313,7 @@ public final class JHipsterModulesAssertions {
       try {
         Path path = projectFolder.filePath(file);
 
-        assertThat(Files.readString(path)).as(() -> "Found " + content + " in " + path.toString()).doesNotContain(content);
+        assertThat(Files.readString(path)).as(() -> "Found " + content + " in " + path).doesNotContain(content);
       } catch (IOException e) {
         throw new AssertionError("Can't check file content: " + e.getMessage(), e);
       }

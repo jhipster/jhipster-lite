@@ -8,7 +8,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -102,8 +101,7 @@ class FileSystemPackageJsonHandlerTest {
   }
 
   @Nested
-  @DisplayName("Scripts")
-  class FileSystemPackageJsonHandlerScriptsTest {
+  class Scripts {
 
     @Test
     void shouldAddScriptToPackageJsonWithoutScriptSection() {
@@ -195,8 +193,7 @@ class FileSystemPackageJsonHandlerTest {
   }
 
   @Nested
-  @DisplayName("Dev dependencies")
-  class FileSystemPackageJsonHandlerDevDependenciesTest {
+  class DevDependencies {
 
     @Test
     void shouldAddDevDependencyToPackageJsonWithoutDevDependencySection() {
@@ -292,8 +289,7 @@ class FileSystemPackageJsonHandlerTest {
   }
 
   @Nested
-  @DisplayName("Dependencies")
-  class FileSystemPackageJsonHandleDependenciesTest {
+  class Dependencies {
 
     @Test
     void shouldAddDependencyToPackageJsonWithoutDependencySection() {
@@ -319,7 +315,7 @@ class FileSystemPackageJsonHandlerTest {
     }
 
     @Test
-    void shouldAddDevDependencyToPackageJsonWithDevDependencySection() {
+    void shouldAddDependencyToPackageJsonWithDependencySection() {
       mockVersion();
 
       JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");
@@ -341,7 +337,7 @@ class FileSystemPackageJsonHandlerTest {
     }
 
     @Test
-    void shouldReplaceExistingDevDependency() {
+    void shouldReplaceExistingDependency() {
       mockVersion();
 
       JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");

@@ -147,7 +147,7 @@ public class MavenModuleFactory {
   }
 
   private JavaBuildPlugin jacocoPlugin() {
-    return javaBuildPlugin().groupId(JACOCO_GROUP).artifactId(JACOCO_ARTIFACT_ID).versionSlug(JACOCO_VERSION).build();
+    return javaBuildPlugin().groupId(JACOCO_GROUP).artifactId(JACOCO_ARTIFACT_ID).build();
   }
 
   private JavaBuildPlugin failsafePlugin() {

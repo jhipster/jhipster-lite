@@ -69,7 +69,6 @@ class MavenModuleFactoryTest {
               <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
               </plugin>
         """
       )

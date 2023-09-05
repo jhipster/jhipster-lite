@@ -302,18 +302,6 @@
       </plugin>
 
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco.version}</version>
-        <configuration>
-          <excludes>
-            <exclude>**/generator/buildtool/maven/.mvn/wrapper/*</exclude>
-            <exclude>src/main/webapp/app/common/primary/applicationlistener/WindowApplicationListener.ts</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
@@ -342,6 +330,18 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <configuration>
+          <excludes>
+            <exclude>**/generator/buildtool/maven/.mvn/wrapper/*</exclude>
+            <exclude>src/main/webapp/app/common/primary/applicationlistener/WindowApplicationListener.ts</exclude>
+          </excludes>
+        </configuration>
       </plugin>
 
       <plugin>

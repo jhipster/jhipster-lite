@@ -296,18 +296,7 @@
           <runOrder>alphabetical</runOrder>
           <excludes>
             <exclude>**/*IT*</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco.version}</version>
-        <configuration>
-          <excludes>
-            <exclude>**/generator/buildtool/maven/.mvn/wrapper/*</exclude>
-            <exclude>src/main/webapp/app/common/primary/applicationlistener/WindowApplicationListener.ts</exclude>
+            <exclude>**/*CucumberTest*</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -324,6 +313,7 @@
           <runOrder>alphabetical</runOrder>
           <includes>
             <include>**/*IT*</include>
+            <include>**/*CucumberTest*</include>
           </includes>
         </configuration>
         <executions>
@@ -340,6 +330,18 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <configuration>
+          <excludes>
+            <exclude>**/generator/buildtool/maven/.mvn/wrapper/*</exclude>
+            <exclude>src/main/webapp/app/common/primary/applicationlistener/WindowApplicationListener.ts</exclude>
+          </excludes>
+        </configuration>
       </plugin>
 
       <plugin>

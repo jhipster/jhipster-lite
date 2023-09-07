@@ -88,7 +88,7 @@ class CucumberTestContextUnitTest {
   }
 
   @Test
-  void shouldNotReadStatusCodeForUreadableStatusCode() {
+  void shouldNotReadStatusCodeForUnreadableStatusCode() {
     ClientHttpResponse httpResponse = mock(ClientHttpResponse.class);
     try {
       when(httpResponse.getStatusCode()).thenThrow(IOException.class);
@@ -103,7 +103,7 @@ class CucumberTestContextUnitTest {
   }
 
   @Test
-  void shouldNotReadResponseCodeForUreadableResponse() {
+  void shouldNotReadResponseCodeForUnreadableResponse() {
     ClientHttpResponse httpResponse = mock(ClientHttpResponse.class);
     try {
       when(httpResponse.getStatusCode()).thenReturn(HttpStatus.OK);

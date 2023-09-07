@@ -3,7 +3,7 @@ package com.jhipster.test.dummy.infrastructure.secondary;
 import io.cucumber.java.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class InMemoryBeersReseter {
+public class InMemoryBeersResetter {
 
   @Autowired
   private InMemoryBeersRepository beers;

@@ -3,7 +3,7 @@ package tech.jhipster.lite.statistic.infrastructure.secondary;
 import io.cucumber.java.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class InMemoryStatisticsReseter {
+public class InMemoryStatisticsResetter {
 
   @Autowired
   private InMemoryStatisticsRepository statistics;

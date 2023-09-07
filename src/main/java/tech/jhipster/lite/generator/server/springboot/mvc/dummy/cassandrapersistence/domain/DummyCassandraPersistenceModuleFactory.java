@@ -49,7 +49,7 @@ public class DummyCassandraPersistenceModuleFactory {
           .addTemplate("00000000000001_create-tables.cql")
           .and()
         .delete(path("src/main/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersRepository.java"))
-        .delete(path("src/test/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersReseter.java"))
+        .delete(path("src/test/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersResetter.java"))
         .and()
       .mandatoryReplacements()
         .in(path("src/main/resources/config/application.properties"))

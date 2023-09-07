@@ -57,7 +57,7 @@ public class DummyJpaPersistenceModuleFactory {
           .addTemplate("JpaBeersRepositoryIT.java")
           .and()
         .delete(path("src/main/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersRepository.java"))
-        .delete(path("src/test/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersReseter.java"))
+        .delete(path("src/test/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersResetter.java"))
         .and()
         .mandatoryReplacements()
           .in(path("src/main/java").append(packagePath).append("dummy/application/BeersApplicationService.java"))

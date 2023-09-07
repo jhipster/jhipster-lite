@@ -23,7 +23,7 @@ class DummyJpaPersistenceModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, beersApplicationService(), dummyInMemoryRepository(), inMemoryBeersReseter())
+    assertThatModuleWithFiles(module, beersApplicationService(), dummyInMemoryRepository(), inMemoryBeersResetter())
       .hasPrefixedFiles(
         "src/main/java/com/jhipster/test/dummy/infrastructure/secondary",
         "BeerEntity.java",
@@ -60,7 +60,7 @@ class DummyJpaPersistenceModuleFactoryTest {
       .and()
       .doNotHaveFiles(
         "src/main/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersRepository.java",
-        "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersReseter.java"
+        "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersResetter.java"
       );
   }
 
@@ -78,10 +78,10 @@ class DummyJpaPersistenceModuleFactoryTest {
     );
   }
 
-  private ModuleFile inMemoryBeersReseter() {
+  private ModuleFile inMemoryBeersResetter() {
     return file(
-      "src/test/resources/projects/dummy-feature/InMemoryBeersReseter.java",
-      "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersReseter.java"
+      "src/test/resources/projects/dummy-feature/InMemoryBeersResetter.java",
+      "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersResetter.java"
     );
   }
 }

@@ -63,7 +63,7 @@
     "@vue/test-utils": "2.4.1",
     "cypress": "13.2.0",
     "eslint": "8.49.0",
-    "eslint-plugin-cypress": "2.14.0",
+    "eslint-plugin-cypress": "2.15.1",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-vue": "9.17.0",
     "fontello-cli": "0.6.2",

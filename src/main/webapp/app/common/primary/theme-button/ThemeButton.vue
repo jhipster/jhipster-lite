@@ -1,8 +1,8 @@
 <template>
-  <div class="jhlite-container">
+  <div class="jhlite-theme-button">
     <input
       id="switch"
-      class="jhlite-container-toggle"
+      class="jhlite-theme-button-toggle"
       type="checkbox"
       name="mode"
       :checked="!isDarkTheme"

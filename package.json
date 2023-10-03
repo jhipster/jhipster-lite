@@ -55,7 +55,7 @@
     "@tikui/core": "4.1.0",
     "@types/sinon": "10.0.18",
     "@typescript-eslint/eslint-plugin": "6.7.4",
-    "@typescript-eslint/parser": "6.7.3",
+    "@typescript-eslint/parser": "6.7.4",
     "@vitejs/plugin-vue": "4.4.0",
     "@vitest/coverage-istanbul": "0.34.6",
     "@vue/eslint-config-prettier": "8.0.0",

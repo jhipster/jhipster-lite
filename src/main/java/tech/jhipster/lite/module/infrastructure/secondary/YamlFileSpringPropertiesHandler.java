@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.Yaml;
@@ -52,7 +53,7 @@ class YamlFileSpringPropertiesHandler {
 
   @SuppressWarnings("unchecked")
   private static void appendPropertyToConfiguration(PropertyKey key, PropertyValue value, Map<String, Object> configuration) {
-    String[] allKeys = key.get().split("\\.");
+    String[] allKeys = extractKeysParts(key);
     String[] parentKeys = Arrays.copyOfRange(allKeys, 0, allKeys.length - 1);
     String localKey = allKeys[allKeys.length - 1];
 
@@ -66,6 +67,13 @@ class YamlFileSpringPropertiesHandler {
       }
     }
     parentMap.put(localKey, simplifiedValue(value));
+  }
+
+  private static String[] extractKeysParts(PropertyKey key) {
+    return Stream
+      .of(key.get().split("\\.(?![^.]*\\]')"))
+      .map(subKey -> subKey.replace("'[", "[").replace("]'", "]"))
+      .toArray(String[]::new);
   }
 
   private static Object simplifiedValue(PropertyValue value) {

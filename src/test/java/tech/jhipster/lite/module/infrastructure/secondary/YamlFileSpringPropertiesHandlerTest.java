@@ -82,4 +82,24 @@ class YamlFileSpringPropertiesHandlerTest {
         """
       );
   }
+
+  @Test
+  void shouldHandleEscapedKeyWithDot() {
+    Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+
+    handler.set(
+      propertyKey("kafka.consumer.'[key.deserializer]'"),
+      propertyValue("org.apache.kafka.common.serialization.StringDeserializer")
+    );
+
+    assertThat(content(yamlFile))
+      .contains(
+        """
+        kafka:
+          consumer:
+            '[key.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
+        """
+      );
+  }
 }

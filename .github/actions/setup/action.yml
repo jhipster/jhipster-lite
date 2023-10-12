@@ -24,6 +24,10 @@ runs:
       with:
         distribution: 'zulu'
         java-version: '${{ inputs.java-version }}'
+    - name: 'Disable maven interactive mode'
+      shell: bash
+      run: |
+        sed -i 's/<servers>/<interactiveMode>false\<\/interactiveMode>\n  <servers>/g' ~/.m2/settings.xml
     - name: 'Setup: check tools'
       shell: bash
       run: |

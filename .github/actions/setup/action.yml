@@ -22,7 +22,7 @@ runs:
     - name: 'Setup: Java ${{ inputs.java-version }}'
       uses: actions/setup-java@v3
       with:
-        distribution: 'zulu'
+        distribution: 'temurin'
         java-version: '${{ inputs.java-version }}'
     - name: 'Disable maven interactive mode'
       shell: bash

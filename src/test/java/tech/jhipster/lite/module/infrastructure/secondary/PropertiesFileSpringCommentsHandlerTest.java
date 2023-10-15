@@ -2,8 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static tech.jhipster.lite.TestFileUtils.content;
-import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
+import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.comment;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 
@@ -51,7 +50,7 @@ class PropertiesFileSpringCommentsHandlerTest {
 
     new PropertiesFileSpringCommentsHandler(propertiesFile).set(propertyKey("spring.application.name"), comment("This is a comment"));
 
-    assertThat(content(propertiesFile))
+    assertThat(contentNormalizingNewLines(propertiesFile))
       .contains(
         """
         # This is a comment
@@ -77,7 +76,7 @@ class PropertiesFileSpringCommentsHandlerTest {
         )
       );
 
-    assertThat(content(propertiesFile))
+    assertThat(contentNormalizingNewLines(propertiesFile))
       .contains(
         """
         # This is a

@@ -20,6 +20,7 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 class YamlFileSpringPropertiesHandler {
 
@@ -40,6 +41,7 @@ class YamlFileSpringPropertiesHandler {
     updateProperties(key, value);
   }
 
+  @ExcludeFromGeneratedCodeCoverage(reason = "Hard to cover IOException")
   private void updateProperties(PropertyKey key, PropertyValue value) {
     Map<String, Object> configuration = null;
     try {
@@ -66,7 +68,7 @@ class YamlFileSpringPropertiesHandler {
         throw GeneratorException.technicalError("Error updating Yaml properties: can't define a subproperty of %s ".formatted(partialKey));
       }
     }
-    parentMap.put(localKey, simplifiedValue(value));
+    parentMap.put(localKey, extractValue(value));
   }
 
   private static String[] extractKeysParts(PropertyKey key) {
@@ -76,11 +78,11 @@ class YamlFileSpringPropertiesHandler {
       .toArray(String[]::new);
   }
 
-  private static Object simplifiedValue(PropertyValue value) {
+  private static Object extractValue(PropertyValue value) {
     if (value.values().size() == 1) {
       return value.values().iterator().next();
     }
-    return value.values();
+    return value.values().toArray();
   }
 
   private Map<String, Object> loadConfiguration(File yamlFile) throws FileNotFoundException {

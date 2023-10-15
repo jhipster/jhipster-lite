@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest
 class YamlFileSpringPropertiesHandlerTest {
@@ -133,5 +134,33 @@ class YamlFileSpringPropertiesHandlerTest {
           count: 10
         """
       );
+  }
+
+  @Test
+  void shouldHandleCollectionValue() {
+    Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+
+    handler.set(propertyKey("coverage.count"), propertyValue(10, 50));
+
+    assertThat(content(yamlFile))
+      .contains(
+        """
+        coverage:
+          count:
+          - 10
+          - 50
+        """
+      );
+  }
+
+  @Test
+  void shouldGenerateExceptionWhenConfigurationIsInconsistent() {
+    Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    handler.set(propertyKey("coverage.count"), propertyValue(10));
+
+    assertThatExceptionOfType(GeneratorException.class)
+      .isThrownBy(() -> handler.set(propertyKey("coverage.count.value"), propertyValue(10)));
   }
 }

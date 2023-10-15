@@ -145,7 +145,7 @@ class FileSystemPackageJsonHandler {
     try {
       return Files.readString(file);
     } catch (IOException e) {
-      throw GeneratorException.technicalError("Error reading " + file.toAbsolutePath().toString() + " content" + e.getMessage(), e);
+      throw GeneratorException.technicalError("Error reading " + file.toAbsolutePath() + " content" + e.getMessage(), e);
     }
   }
 
@@ -154,7 +154,7 @@ class FileSystemPackageJsonHandler {
     try {
       Files.write(file, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.TRUNCATE_EXISTING);
     } catch (IOException e) {
-      throw GeneratorException.technicalError("Error writing " + file.toAbsolutePath().toString() + ": " + e.getMessage(), e);
+      throw GeneratorException.technicalError("Error writing " + file.toAbsolutePath() + ": " + e.getMessage(), e);
     }
   }
 

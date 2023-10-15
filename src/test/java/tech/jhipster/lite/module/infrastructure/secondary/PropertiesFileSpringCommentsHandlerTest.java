@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
 import static tech.jhipster.lite.module.domain.JHipsterModule.comment;
 import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
 
@@ -16,8 +17,12 @@ import tech.jhipster.lite.UnitTest;
 @UnitTest
 class PropertiesFileSpringCommentsHandlerTest {
 
+  public static final Path EXISTING_SPRING_PROPERTIES = Paths.get(
+    "src/test/resources/projects/project-with-spring-application-properties/application.properties"
+  );
+
   @Test
-  void shouldNotCommentWhenFileNotExists() {
+  void shouldNotCommentWhenFileDoesNotExist() {
     String path = TestFileUtils.tmpDirForTest();
     Path propertiesFile = Paths.get(path, "src/main/resources/config/application.properties");
 
@@ -27,5 +32,15 @@ class PropertiesFileSpringCommentsHandlerTest {
       content(Paths.get(path, "src/main/resources/config/application.properties"));
     });
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
+  }
+
+  @Test
+  void shouldNotCommentWhenKeyDoesNotExist() {
+    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
+
+    new PropertiesFileSpringCommentsHandler(propertiesFile).set(propertyKey("foo.bar"), comment("This is a comment"));
+
+    assertThat(content(propertiesFile)).doesNotContain("This is a comment");
   }
 }

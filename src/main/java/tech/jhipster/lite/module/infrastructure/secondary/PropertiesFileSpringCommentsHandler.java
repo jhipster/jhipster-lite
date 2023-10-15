@@ -33,7 +33,7 @@ class PropertiesFileSpringCommentsHandler {
     updateComments(key, comment);
   }
 
-  @ExcludeFromGeneratedCodeCoverage
+  @ExcludeFromGeneratedCodeCoverage(reason = "Hard to cover IOException")
   private void updateComments(PropertyKey key, Comment comment) {
     try {
       String properties = buildComments(key, comment);

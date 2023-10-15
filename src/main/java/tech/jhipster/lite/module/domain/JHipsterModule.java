@@ -506,6 +506,10 @@ public class JHipsterModule {
       return springMainProperties(SpringProfile.DEFAULT);
     }
 
+    public JHipsterModuleSpringPropertiesBuilder springLocalProperties() {
+      return springMainProperties(SpringProfile.LOCAL);
+    }
+
     public JHipsterModuleSpringPropertiesBuilder springMainBootstrapProperties() {
       return springMainBootstrapProperties(SpringProfile.DEFAULT);
     }

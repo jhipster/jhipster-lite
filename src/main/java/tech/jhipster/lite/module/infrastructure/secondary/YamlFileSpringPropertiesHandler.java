@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.Yaml;
+import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -25,9 +26,11 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 class YamlFileSpringPropertiesHandler {
 
   private final Path file;
+  private final Indentation indentation;
   private final Yaml yaml;
 
-  public YamlFileSpringPropertiesHandler(Path file) {
+  public YamlFileSpringPropertiesHandler(Path file, Indentation indentation) {
+    this.indentation = indentation;
     Assert.notNull("file", file);
 
     this.file = file;
@@ -101,7 +104,7 @@ class YamlFileSpringPropertiesHandler {
 
   private Yaml createYaml() {
     DumperOptions dumperOptions = new DumperOptions();
-    dumperOptions.setIndent(2);
+    dumperOptions.setIndent(indentation.spacesCount());
     dumperOptions.setPrettyFlow(true);
     dumperOptions.setDefaultFlowStyle(FlowStyle.BLOCK);
     dumperOptions.setSplitLines(true);

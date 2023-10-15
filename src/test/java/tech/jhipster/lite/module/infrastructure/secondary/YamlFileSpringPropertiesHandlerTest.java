@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest
@@ -21,7 +22,7 @@ class YamlFileSpringPropertiesHandlerTest {
   @Test
   void shouldCreateUnknownFile() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
-    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
     handler.set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
 
@@ -39,7 +40,7 @@ class YamlFileSpringPropertiesHandlerTest {
   void shouldAppendPropertyToFileWithProperties() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, yamlFile);
-    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
     handler.set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
 
@@ -60,10 +61,27 @@ class YamlFileSpringPropertiesHandlerTest {
   }
 
   @Test
+  void shouldRespectProjectIndentation() {
+    Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.from(4));
+
+    handler.set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
+
+    assertThat(content(yamlFile))
+      .contains(
+        """
+        springdoc:
+            swagger-ui:
+                operationsSorter: alpha
+        """
+      );
+  }
+
+  @Test
   void shouldReplaceExistingProperty() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, yamlFile);
-    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
     handler.set(propertyKey("spring.application.name"), propertyValue("alpha"));
 
@@ -87,7 +105,7 @@ class YamlFileSpringPropertiesHandlerTest {
   @Test
   void shouldHandleEscapedKeyWithDot() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
-    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
     handler.set(
       propertyKey("kafka.consumer.'[key.deserializer]'"),
@@ -107,7 +125,7 @@ class YamlFileSpringPropertiesHandlerTest {
   @Test
   void shouldHandleBooleanValue() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
-    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
     handler.set(propertyKey("coverage.enabled"), propertyValue(true));
 
@@ -123,7 +141,7 @@ class YamlFileSpringPropertiesHandlerTest {
   @Test
   void shouldHandleNumericValue() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
-    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
     handler.set(propertyKey("coverage.count"), propertyValue(10));
 
@@ -139,7 +157,7 @@ class YamlFileSpringPropertiesHandlerTest {
   @Test
   void shouldHandleCollectionValue() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
-    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
     handler.set(propertyKey("coverage.count"), propertyValue(10, 50));
 
@@ -157,7 +175,7 @@ class YamlFileSpringPropertiesHandlerTest {
   @Test
   void shouldGenerateExceptionWhenConfigurationIsInconsistent() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
-    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
     handler.set(propertyKey("coverage.count"), propertyValue(10));
 
     assertThatExceptionOfType(GeneratorException.class)

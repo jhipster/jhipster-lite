@@ -303,7 +303,7 @@ class FileSystemPackageJsonHandler {
       private String jsonContent;
       private Indentation indentation;
       private Collection<JsonEntry> entries;
-      private JsonActionType action;
+      private final JsonActionType action;
       private String blocValue;
 
       private JsonActionBuilder(JsonActionType action) {

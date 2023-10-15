@@ -43,4 +43,48 @@ class PropertiesFileSpringCommentsHandlerTest {
 
     assertThat(content(propertiesFile)).doesNotContain("This is a comment");
   }
+
+  @Test
+  void shouldAddSingleLineCommentForExistingProperty() {
+    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
+
+    new PropertiesFileSpringCommentsHandler(propertiesFile).set(propertyKey("spring.application.name"), comment("This is a comment"));
+
+    assertThat(content(propertiesFile))
+      .contains(
+        """
+        # This is a comment
+        spring.application.name=JHLite
+        """
+      );
+  }
+
+  @Test
+  void shouldAddMultilineCommentForExistingProperty() {
+    Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
+    loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
+
+    new PropertiesFileSpringCommentsHandler(propertiesFile)
+      .set(
+        propertyKey("spring.application.name"),
+        comment(
+          """
+          This is a
+          multiline
+          comment
+          """
+        )
+      );
+
+    assertThat(content(propertiesFile))
+      .contains(
+        """
+        # This is a
+        # multiline
+        # comment
+        spring.application.name=JHLite
+        """
+      );
+  }
 }

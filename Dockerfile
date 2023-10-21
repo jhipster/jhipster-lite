@@ -1,7 +1,6 @@
 FROM openjdk:17-slim AS build
 COPY . /code/jhipster-app/
 WORKDIR /code/jhipster-app/
-RUN rm -rf target node_modules
 RUN chmod +x mvnw && ./mvnw package -B -DskipTests -Dmaven.javadoc.skip=true -Dmaven.source.skip
 RUN mv /code/jhipster-app/target/*.jar /code/ && \
     rm -rf /code/*-tests.jar

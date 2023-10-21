@@ -9,7 +9,7 @@ RUN \
     cd /code/jhipster-app/ && \
     rm -rf target node_modules && \
     chmod +x mvnw && \
-    ./mvnw package -DskipTests -Dmaven.javadoc.skip=true -Dmaven.source.skip && \
+    ./mvnw package -B -DskipTests -Dmaven.javadoc.skip=true -Dmaven.source.skip && \
     # copy jar and clean unused files and folders
     mv /code/jhipster-app/target/*.jar /code/ && \
     rm -rf /code/*-javadoc.jar /code/*-sources.jar /code/*-tests.jar && \

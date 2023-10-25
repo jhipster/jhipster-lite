@@ -61,7 +61,7 @@ public class CustomJHLiteModuleFactory {
         .and()
       .springTestProperties()
         .set(SERVER_PORT_KEY, propertyValue(0))
-        .set(BEAN_DEFINITION_OVERRIDING_PROPERTY_KEY, propertyValue("true"))
+        .set(BEAN_DEFINITION_OVERRIDING_PROPERTY_KEY, propertyValue(true))
         .and()
       .files()
         .add(SOURCE.template("CucumberTest.java"), cucumberDestination.append("CucumberTest.java"))

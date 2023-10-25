@@ -5,7 +5,9 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -59,6 +61,33 @@ class JHipsterCollectionsTest {
 
       assertThat(map).containsExactly(entry("key", "value"));
       assertThatThrownBy(map::clear).isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+  }
+
+  @Nested
+  class Concat {
+
+    @Test
+    void shouldGetEmptyCollectionFromNullCollections() {
+      Collection<String> source = null;
+      Collection<String> concatenedCollection = JHipsterCollections.concat((Collection<String>) null);
+
+      assertThat(concatenedCollection).isEmpty();
+    }
+
+    @Test
+    void shouldConcatCollections() {
+      Collection<String> collection = JHipsterCollections.concat(List.of("first"), Set.of("second"));
+
+      assertThat(collection).containsExactly("first", "second");
+      assertThatThrownBy(collection::clear).isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    void shouldIgnoreNullInputs() {
+      Collection<String> collection = JHipsterCollections.concat(List.of("first"), null);
+
+      assertThat(collection).containsExactly("first");
     }
   }
 }

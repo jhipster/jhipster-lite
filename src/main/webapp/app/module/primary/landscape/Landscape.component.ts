@@ -30,6 +30,7 @@ import { BodyCursorUpdater } from '@/common/primary/cursor/BodyCursorUpdater';
 import { LandscapeScroller } from '@/module/primary/landscape/LandscapeScroller';
 import { ModuleParametersRepository } from '@/module/domain/ModuleParametersRepository';
 import { LandscapeNavigation } from './LandscapeNavigation';
+import { AnchorPointState } from '@/module/domain/AnchorPointState';
 
 export default defineComponent({
   name: 'LandscapeVue',
@@ -60,6 +61,7 @@ export default defineComponent({
     const moduleParameters = inject('moduleParameters') as ModuleParametersRepository;
     const folderPath = ref(moduleParameters.getCurrentFolderPath());
     const moduleParametersValues = ref(moduleParameters.get(folderPath.value));
+    const anchorPointModulesMap = ref(new Map<string, AnchorPointState>());
 
     let commitModule = true;
 
@@ -132,6 +134,28 @@ export default defineComponent({
       applicationListener.addEventListener('resize', updateConnectors);
 
       canLoadMiniMap.value = true;
+      loadAnchorPointModulesMap();
+    };
+
+    const loadAnchorPointModulesMap = (): void => {
+      landscapeConnectors.value.forEach(e => {
+        const startingElementSlug = e.startingElement.get();
+        const endingElementSlug = e.endingElement.get();
+
+        const startingElementSlugExists = anchorPointModulesMap.value.get(startingElementSlug);
+        if (!startingElementSlugExists) {
+          anchorPointModulesMap.value.set(startingElementSlug, { atStart: true, atEnd: false });
+        } else {
+          anchorPointModulesMap.value.set(startingElementSlug, { atStart: true, atEnd: startingElementSlugExists.atEnd });
+        }
+
+        const endingElementSlugExists = anchorPointModulesMap.value.get(endingElementSlug);
+        if (!endingElementSlugExists) {
+          anchorPointModulesMap.value.set(endingElementSlug, { atStart: false, atEnd: true });
+        } else {
+          anchorPointModulesMap.value.set(endingElementSlug, { atStart: endingElementSlugExists.atStart, atEnd: true });
+        }
+      });
     };
 
     type Navigation = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown' | 'Space';
@@ -244,25 +268,16 @@ export default defineComponent({
       }
 
       let className = '';
-      let isStarting = false;
-      let isEnding = false;
 
-      landscapeConnectors.value.forEach(element => {
-        if (element.startingElement.get() == module.get()) {
-          isStarting = true;
+      const anchorPointState = anchorPointModulesMap.value.get(module.get());
+      if (anchorPointState) {
+        if (anchorPointState.atStart) {
+          className += ' -left-anchor-point';
         }
 
-        if (element.endingElement.get() == module.get()) {
-          isEnding = true;
+        if (anchorPointState.atEnd) {
+          className += ' -right-anchor-point';
         }
-      });
-
-      if (isStarting) {
-        className += ' -left-anchor-point';
-      }
-
-      if (isEnding) {
-        className += ' -right-anchor-point';
       }
 
       return className;

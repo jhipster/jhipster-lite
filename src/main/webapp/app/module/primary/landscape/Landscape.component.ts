@@ -238,6 +238,36 @@ export default defineComponent({
       await nextTick().then(updateConnectors);
     };
 
+    const anchorPointClass = (module: LandscapeElementId): string => {
+      if (module instanceof LandscapeFeatureSlug) {
+        return '';
+      }
+
+      let className = '';
+      let isStarting = false;
+      let isEnding = false;
+
+      landscapeConnectors.value.forEach(element => {
+        if (element.startingElement.get() == module.get()) {
+          isStarting = true;
+        }
+
+        if (element.endingElement.get() == module.get()) {
+          isEnding = true;
+        }
+      });
+
+      if (isStarting) {
+        className += ' -left-anchor-point';
+      }
+
+      if (isEnding) {
+        className += ' -right-anchor-point';
+      }
+
+      return className;
+    };
+
     const elementFlavor = (module: LandscapeElementId): string => {
       return (
         operationInProgressClass() +
@@ -245,7 +275,8 @@ export default defineComponent({
         unselectionHighlightClass(module) +
         selectionClass(module) +
         applicationClass(module) +
-        flavorClass()
+        flavorClass() +
+        anchorPointClass(module)
       );
     };
 

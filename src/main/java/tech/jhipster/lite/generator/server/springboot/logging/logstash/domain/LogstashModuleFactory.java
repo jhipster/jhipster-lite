@@ -40,7 +40,7 @@ public class LogstashModuleFactory {
       .springMainProperties()
         .set(propertyKey("application.logging.logstash.tcp.enabled"), propertyValue("false"))
         .set(propertyKey("application.logging.logstash.tcp.host"), propertyValue("localhost"))
-        .set(propertyKey("application.logging.logstash.tcp.port"), propertyValue("5000"))
+        .set(propertyKey("application.logging.logstash.tcp.port"), propertyValue(5000))
         .set(propertyKey("application.logging.logstash.tcp.ring-buffer-size"), propertyValue("8192"))
         .set(propertyKey("application.logging.logstash.tcp.shutdown_grace_period"), propertyValue("PT1M"))
         .and()

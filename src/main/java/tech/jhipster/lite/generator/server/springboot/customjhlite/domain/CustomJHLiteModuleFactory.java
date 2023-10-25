@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.customjhlite.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.cucumbercommon.domain.CucumbersModules.*;
+import static tech.jhipster.lite.generator.server.springboot.cucumbercommon.domain.CucumbersModules.cucumberModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -53,14 +53,14 @@ public class CustomJHLiteModuleFactory {
         .and()
       .and()
       .springMainProperties()
-        .set(SERVER_PORT_KEY, propertyValue(properties.serverPort().stringValue()))
+        .set(SERVER_PORT_KEY, propertyValue(properties.serverPort().get()))
         .set(JACKSON_INCLUSION_KEY, propertyValue("non_null"))
         .set(HIDDEN_TAGS_PROPERTY_KEY, propertyValue("banner"))
         .comment(HIDDEN_SLUGS_PROPERTY_KEY, comment("Disable the modules and its dependencies by slugs"))
         .set(HIDDEN_SLUGS_PROPERTY_KEY, propertyValue("custom-jhlite"))
         .and()
       .springTestProperties()
-        .set(SERVER_PORT_KEY, propertyValue("0"))
+        .set(SERVER_PORT_KEY, propertyValue(0))
         .set(BEAN_DEFINITION_OVERRIDING_PROPERTY_KEY, propertyValue("true"))
         .and()
       .files()

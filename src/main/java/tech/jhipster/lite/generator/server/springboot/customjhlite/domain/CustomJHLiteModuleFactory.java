@@ -12,7 +12,6 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDepend
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -23,7 +22,6 @@ public class CustomJHLiteModuleFactory {
 
   private static final String SRC_MAIN_JAVA = "src/main/java";
 
-  private static final PropertyKey EXCEPTION_PACKAGE_KEY = propertyKey("application.exception.package");
   private static final PropertyKey SERVER_PORT_KEY = propertyKey("server.port");
   private static final PropertyKey JACKSON_INCLUSION_KEY = propertyKey("spring.jackson.default-property-inclusion");
 
@@ -35,7 +33,6 @@ public class CustomJHLiteModuleFactory {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.packagePath();
-    PropertyValue exceptionPackages = exceptionPackages(properties);
     JHipsterDestination cucumberDestination = toSrcTestJava().append(packagePath).append("cucumber");
 
     //@formatter:off
@@ -56,7 +53,6 @@ public class CustomJHLiteModuleFactory {
         .and()
       .and()
       .springMainProperties()
-        .set(EXCEPTION_PACKAGE_KEY, exceptionPackages)
         .set(SERVER_PORT_KEY, propertyValue(properties.serverPort().stringValue()))
         .set(JACKSON_INCLUSION_KEY, propertyValue("non_null"))
         .set(HIDDEN_TAGS_PROPERTY_KEY, propertyValue("banner"))
@@ -99,9 +95,5 @@ public class CustomJHLiteModuleFactory {
 
   private String mainClassName(JHipsterModuleProperties properties) {
     return properties.projectBaseName().capitalized() + "App";
-  }
-
-  private PropertyValue exceptionPackages(JHipsterModuleProperties properties) {
-    return propertyValue("org.", "java.", "net.", "jakarta.", "com.", "io.", "de.", "tech.jhipster.lite", properties.basePackage().get());
   }
 }

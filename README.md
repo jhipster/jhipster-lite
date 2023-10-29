@@ -260,7 +260,7 @@ Once started, go to http://localhost:7471, select your option and generate the c
 
 ## Contributing
 
-We are honoured by any contributions you may have small or large. Please refer to our [contribution guidelines and instructions document](https://github.com/jhipster/jhipster-lite/blob/main/CONTRIBUTING.md) for any information about contributing to the project.
+We are honored by any contributions you may have small or large. Please refer to our [contribution guidelines and instructions document](https://github.com/jhipster/jhipster-lite/blob/main/CONTRIBUTING.md) for any information about contributing to the project.
 
 ## Sponsors
 

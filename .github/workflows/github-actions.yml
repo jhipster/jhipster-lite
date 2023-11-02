@@ -72,7 +72,7 @@ jobs:
       - name: 'Lint: check'
         run: npm run lint:ci
       - name: 'TEMP: enable gradle build tool slug'
-        run: sed -i 's/jhlite-hidden-resources.slugs=gradle-java,/jhlite-hidden-resources.slugs=/' src/main/resources/config/application.properties
+        run: sed -i '/- gradle-java/d' src/main/resources/config/application.yml
       - name: 'Test: run backend tests'
         run: |
           chmod +x mvnw
@@ -172,10 +172,12 @@ jobs:
           - gradleapp
         include:
           - java-version: 17
+            spring-config-format: yaml
           - java-version: 21
             app: fullapp
           - java-version: 21
             app: customjhlite
+            spring-config-format: properties
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v4
@@ -193,7 +195,7 @@ jobs:
         working-directory: ./tests-ci/
         run: |
           ./start.sh 7471
-          ./generate.sh ${{ matrix.app }}
+          ./generate.sh ${{ matrix.app }} ${{ matrix.spring-config-format }}
           ./stop.sh
       - name: 'Generation: display md5sum ${{ matrix.app }}'
         working-directory: /tmp/jhlite/${{ matrix.app }}/

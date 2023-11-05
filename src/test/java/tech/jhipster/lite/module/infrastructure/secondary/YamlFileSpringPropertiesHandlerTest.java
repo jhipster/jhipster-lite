@@ -1,8 +1,11 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.TestFileUtils.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.loadDefaultProperties;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
+import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,7 +52,9 @@ class YamlFileSpringPropertiesHandlerTest {
         """
         spring:
           application:
-            name: JHLite
+            name: JHLite # This is the name of the application
+
+        # Logging
         logging:
           level:
             tech.jhipster.lite: INFO
@@ -73,6 +78,23 @@ class YamlFileSpringPropertiesHandlerTest {
         springdoc:
             swagger-ui:
                 operationsSorter: alpha
+        """
+      );
+  }
+
+  @Test
+  void shouldPreserveExistingComments() {
+    Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+    loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, yamlFile);
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.from(4));
+
+    handler.set(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
+
+    assertThat(content(yamlFile))
+      .contains(
+        """
+        # Logging
+        logging:
         """
       );
   }
@@ -139,7 +161,7 @@ class YamlFileSpringPropertiesHandlerTest {
   }
 
   @Test
-  void shouldHandleNumericValue() {
+  void shouldHandleIntegerValue() {
     Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
     YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
@@ -150,6 +172,22 @@ class YamlFileSpringPropertiesHandlerTest {
         """
         coverage:
           count: 10
+        """
+      );
+  }
+
+  @Test
+  void shouldHandleDoubleValue() {
+    Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+    YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
+
+    handler.set(propertyKey("coverage.count"), propertyValue(10.5));
+
+    assertThat(content(yamlFile))
+      .contains(
+        """
+        coverage:
+          count: 10.5
         """
       );
   }

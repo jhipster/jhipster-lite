@@ -26,7 +26,7 @@ describe('Router', () => {
 
   it('Should go to AppVue', async () => {
     wrap();
-    await router.push('/app');
+    await router.push('/home');
     await wrapper.vm.$nextTick();
 
     expect(wrapper.findComponent(AppVue)).toBeTruthy();

@@ -49,7 +49,7 @@ Here are the most important steps.
 
 #### Java
 
-You need to have [Java 21](https://openjdk.java.net/projects/jdk/21/) :
+You need to have [Java 21](https://openjdk.java.net/projects/jdk/21/):
 
 ```
 $ java -version

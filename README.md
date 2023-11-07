@@ -64,7 +64,7 @@ The original JHipster and JHLite are **not the same thing**, they are **not gene
 
 ### Java
 
-You need to have Java 17 :
+You need to have Java 17:
 
 - [JDK 17](https://openjdk.java.net/projects/jdk/17/)
 

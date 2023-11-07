@@ -60,6 +60,8 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   JPA_PAGINATION("jpa-pagination"),
   KIPE_AUTHORIZATION("kipe-authorization"),
   KIPE_EXPRESSION("kipe-expression"),
+  LICENSE_APACHE("license-apache"),
+  LICENSE_MIT("license-mit"),
   LIQUIBASE("liquibase"),
   LOGSTASH("logstash"),
   LOGS_SPY("logs-spy"),

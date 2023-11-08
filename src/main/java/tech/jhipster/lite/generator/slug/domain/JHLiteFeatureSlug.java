@@ -16,6 +16,7 @@ public enum JHLiteFeatureSlug implements JHipsterFeatureSlugFactory {
   FRONT_BROWSER_TEST("front-browser-test"),
   JAVA_BUILD_TOOL("java-build-tool"),
   JPA_PERSISTENCE("jpa-persistence"),
+  LICENSE("license"),
   OAUTH_PROVIDER("oauth-provider"),
   OAUTH_PROVIDER_SPRINGDOC("oauth-provider-springdoc"),
   SERVICE_DISCOVERY("service-discovery"),

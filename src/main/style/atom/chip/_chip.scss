@@ -1,3 +1,18 @@
+$jhlite-anchor-point-size: 6px;
+$jhlite-anchor-point-border-size: 3px;
+
+%anchor-point {
+  position: absolute;
+  top: calc(50% - $jhlite-anchor-point-size);
+  outline: solid 1px var(--jhlite-chip-default-anchor-color);
+  border: $jhlite-anchor-point-border-size solid var(--jhlite-chip-bg-color);
+  border-radius: $jhlite-anchor-point-size;
+  background-color: var(--jhlite-chip-default-anchor-color);
+  width: $jhlite-anchor-point-size;
+  height: $jhlite-anchor-point-size;
+  content: '';
+}
+
 .jhlite-chip {
   display: flex;
   position: relative;
@@ -58,29 +73,15 @@
   }
   
   &.-left-anchor-point::before {
-    position: absolute;
-    top: calc(50% - 6px);
-    left: -6px;
-    outline: solid 1px var(--jhlite-chip-default-anchor-color);
-    border: 3px solid var(--jhlite-chip-bg-color);
-    border-radius: 50%;
-    background-color: var(--jhlite-chip-default-anchor-color);
-    width: 6px;
-    height: 6px;
-    content: '';
-  }
+    @extend %anchor-point;
 
+    left: -$jhlite-anchor-point-size;
+  }
+  
   &.-right-anchor-point::after {
-    position: absolute;
-    top: calc(50% - 6px);
-    right: -6px;
-    outline: solid 1px var(--jhlite-chip-default-anchor-color);
-    border: 3px solid var(--jhlite-chip-bg-color);
-    border-radius: 50%;
-    background-color: var(--jhlite-chip-default-anchor-color);
-    width: 6px;
-    height: 6px;
-    content: '';
+    @extend %anchor-point;
+
+    right: -$jhlite-anchor-point-size;
   }
 
   &.-selectable-highlighted::before,

@@ -315,8 +315,8 @@ public final class JHipsterModulesFixture {
               <version>[${maven.version},)</version>
             </requireMavenVersion>
             <requireJavaVersion>
-              <message>You are running an incompatible version of Java. JHipster supports JDK 17.</message>
-              <version>[17,18)</version>
+                <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+                <version>[21,22)</version>
             </requireJavaVersion>
           </rules>
         </configuration>

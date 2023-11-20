@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static org.yaml.snakeyaml.comments.CommentType.BLOCK;
 import static org.yaml.snakeyaml.nodes.Tag.*;
 
 import java.io.File;
@@ -10,6 +11,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -17,6 +19,7 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.comments.CommentLine;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.Node;
@@ -26,6 +29,7 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.javaproperties.Comment;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -46,18 +50,28 @@ class YamlFileSpringPropertiesHandler {
     this.yaml = createYaml();
   }
 
-  public void set(PropertyKey key, PropertyValue value) {
+  @ExcludeFromGeneratedCodeCoverage(reason = "Hard to cover IOException")
+  public void setValue(PropertyKey key, PropertyValue value) {
     Assert.notNull("key", key);
     Assert.notNull("value", value);
 
-    updateProperties(key, value);
-  }
-
-  @ExcludeFromGeneratedCodeCoverage(reason = "Hard to cover IOException")
-  private void updateProperties(PropertyKey key, PropertyValue value) {
     try {
       MappingNode configuration = loadConfiguration(file.toFile());
       appendPropertyToConfiguration(key, value, configuration);
+      saveConfiguration(configuration);
+    } catch (IOException exception) {
+      throw GeneratorException.technicalError("Error updating Yaml properties: " + exception.getMessage(), exception);
+    }
+  }
+
+  @ExcludeFromGeneratedCodeCoverage(reason = "Hard to cover IOException")
+  public void setComment(PropertyKey key, Comment comment) {
+    Assert.notNull("key", key);
+    Assert.notNull("comment", comment);
+
+    try {
+      MappingNode configuration = loadConfiguration(file.toFile());
+      addCommentToConfiguration(key, comment, configuration);
       saveConfiguration(configuration);
     } catch (IOException exception) {
       throw GeneratorException.technicalError("Error updating Yaml properties: " + exception.getMessage(), exception);
@@ -80,6 +94,26 @@ class YamlFileSpringPropertiesHandler {
       .ifPresent(existingNodeTuple -> parentConfiguration.getValue().remove(existingNodeTuple));
     parentConfiguration.getValue().add(new NodeTuple(buildScalarNode(localKey), valueNode));
     return configuration;
+  }
+
+  private void addCommentToConfiguration(PropertyKey key, Comment comment, MappingNode configuration) {
+    String localKey = extractKeysParts(key).getLast();
+
+    parentPropertyNode(key, configuration)
+      .getValue()
+      .stream()
+      .filter(nodeTupleKeyEquals(localKey))
+      .map(NodeTuple::getKeyNode)
+      .findFirst()
+      .ifPresent(keyNode -> keyNode.setBlockComments(commentLines(comment)));
+  }
+
+  private List<CommentLine> commentLines(Comment comment) {
+    return splitLines(comment).stream().map(commentLine -> new CommentLine(null, null, " " + commentLine, BLOCK)).toList();
+  }
+
+  private static Collection<String> splitLines(Comment comment) {
+    return List.of(comment.get().split("\\r?\\n"));
   }
 
   private MappingNode parentPropertyNode(PropertyKey key, MappingNode configuration) {

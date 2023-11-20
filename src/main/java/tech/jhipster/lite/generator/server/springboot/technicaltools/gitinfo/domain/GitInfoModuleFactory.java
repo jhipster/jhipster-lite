@@ -33,7 +33,7 @@ public class GitInfoModuleFactory {
         .add(MAIN_SOURCE.template(PACKAGE_INFO), mainDestination.append(PACKAGE_INFO))
         .and()
       .springMainProperties()
-        .comment(propertyKey("management.info.git.mode"), comment("Git Information"))
+        .comment(propertyKey("management.info.git"), comment("Git Information"))
         .set(propertyKey("management.info.git.mode"), propertyValue("full"))
         .set(propertyKey("management.info.git.enabled"), propertyValue(true))
         .set(propertyKey("management.info.env.enabled"), propertyValue(true))

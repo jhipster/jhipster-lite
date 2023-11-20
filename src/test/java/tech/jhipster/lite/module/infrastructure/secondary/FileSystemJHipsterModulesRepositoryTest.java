@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.module;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.upgrade;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import ch.qos.logback.classic.Level;
@@ -235,7 +236,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .hasFile("src/test/resources/config/application-local.properties")
       .containing(
         """
-            ## Swagger properties
+            # Swagger properties
             springdoc.swagger-ui.operationsSorter=test
             springdoc.swagger-ui.tagsSorter=test
             # This is a comment

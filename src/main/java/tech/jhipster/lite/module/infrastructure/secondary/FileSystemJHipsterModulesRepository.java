@@ -82,7 +82,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     files.delete(changes.projectFolder(), changes.filesToDelete());
     javaBuild.handle(changes.indentation(), changes.projectFolder(), changes.javaBuildCommands());
     springProperties.handle(changes.projectFolder(), changes.springProperties());
-    springComments.handle(changes.projectFolder(), changes.springComments(), changes.springPropertiesBlockComments());
+    springComments.handle(changes.projectFolder(), changes.springComments());
     yamlSpringProperties.handle(changes.indentation(), changes.projectFolder(), changes.springYamlProperties());
     yamlSpringComments.handle(changes.indentation(), changes.projectFolder(), changes.springYamlComments());
     springFactories.handle(changes.projectFolder(), changes.springFactories());

@@ -65,7 +65,9 @@ class PropertiesFileSpringCommentsHandler {
   }
 
   private String deletePreviousComment(String currentProperties, int propertyIndex) {
-    if (isFirstLine(currentProperties, propertyIndex)) return currentProperties;
+    if (isFirstLine(currentProperties, propertyIndex)) {
+      return currentProperties;
+    }
     CommentPosition commentPosition = findPossibleCommentPosition(currentProperties, propertyIndex);
     if (propertyHasComment(currentProperties, commentPosition)) {
       return deleteComment(currentProperties, commentPosition);

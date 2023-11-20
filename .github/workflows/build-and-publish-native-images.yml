@@ -12,7 +12,7 @@ jobs:
     name: Build and publish the native (Linux) Docker image
     runs-on: ubuntu-22.04
     env:
-      DOCKER_IMAGE_NAME: 'ghcr.io/${{ github.action_repository }}/jhipster-lite-native'
+      DOCKER_IMAGE_NAME: 'ghcr.io/${{ env.GITHUB_ACTION_REPOSITORY }}/jhipster-lite-native'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

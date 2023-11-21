@@ -78,7 +78,7 @@ class YamlFileSpringPropertiesHandler {
     }
   }
 
-  private MappingNode appendPropertyToConfiguration(PropertyKey key, PropertyValue value, MappingNode configuration) {
+  private void appendPropertyToConfiguration(PropertyKey key, PropertyValue value, MappingNode configuration) {
     String localKey = extractKeysParts(key).getLast();
 
     MappingNode parentConfiguration = parentPropertyNode(key, configuration);
@@ -93,7 +93,6 @@ class YamlFileSpringPropertiesHandler {
       .findFirst()
       .ifPresent(existingNodeTuple -> parentConfiguration.getValue().remove(existingNodeTuple));
     parentConfiguration.getValue().add(new NodeTuple(buildScalarNode(localKey), valueNode));
-    return configuration;
   }
 
   private void addCommentToConfiguration(PropertyKey key, Comment comment, MappingNode configuration) {
@@ -145,7 +144,7 @@ class YamlFileSpringPropertiesHandler {
   }
 
   private static Predicate<NodeTuple> nodeTupleKeyEquals(String partialKey) {
-    return nodeTuple -> nodeTuple.getKeyNode() instanceof ScalarNode scalarNode && scalarNode.getValue().equals(partialKey);
+    return nodeTuple -> ((ScalarNode) nodeTuple.getKeyNode()).getValue().equals(partialKey);
   }
 
   private Node buildScalarNode(Object value) {

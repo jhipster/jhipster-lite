@@ -182,11 +182,43 @@ class YamlFileSpringPropertiesHandlerTest {
     }
 
     @Test
+    void shouldHandleLongValue() {
+      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
+
+      handler.setValue(propertyKey("coverage.count"), propertyValue(10L));
+
+      assertThat(content(yamlFile))
+        .contains(
+          """
+          coverage:
+            count: 10
+          """
+        );
+    }
+
+    @Test
     void shouldHandleDoubleValue() {
       Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10.5));
+
+      assertThat(content(yamlFile))
+        .contains(
+          """
+          coverage:
+            count: 10.5
+          """
+        );
+    }
+
+    @Test
+    void shouldHandleFloatValue() {
+      Path yamlFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.yml");
+      YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
+
+      handler.setValue(propertyKey("coverage.count"), propertyValue(10.5f));
 
       assertThat(content(yamlFile))
         .contains(

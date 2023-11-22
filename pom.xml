@@ -745,7 +745,7 @@
                   <BP_JVM_VERSION>21</BP_JVM_VERSION>
                 </env>
                 <buildpacks>
-                  <buildpack>gcr.io/paketo-buildpacks/bellsoft-liberica:9.11.0</buildpack>
+                  <buildpack>gcr.io/paketo-buildpacks/bellsoft-liberica:10.4.3</buildpack>
                   <buildpack>gcr.io/paketo-buildpacks/java-native-image</buildpack>
                 </buildpacks>
               </image>

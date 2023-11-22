@@ -2,7 +2,7 @@ name: Build and publish JVM-based images
 on:
   push:
     branches:
-      - graalvm
+      - main
     tags:
       - 'v*.*.*'
   pull_request:
@@ -39,6 +39,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

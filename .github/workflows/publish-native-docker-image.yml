@@ -2,7 +2,7 @@ name: Build and publish native (GraalVM) images
 on:
   push:
     branches:
-      - graalvm
+      - main
     tags:
       - 'v*.*.*'
   pull_request:
@@ -47,15 +47,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Tag the native (GraalVM) Docker image as "latest"
-        run: |
-          docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ env.DOCKER_IMAGE_NAME }}:latest
-
-      - name: Tag the native (GraalVM) Docker image with the current tag, if it exists
+      - name: Tag the native (GraalVM) Docker image
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         run: |
+          docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ env.DOCKER_IMAGE_NAME }}:latest
           docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ env.DOCKER_IMAGE_NAME }}:${{  github.ref_name }}
 
       - name: Push the native (GraalVM) Docker image
+        if: ${{ github.event_name == 'push' }}
         run: |
           docker push --all-tags ${{ env.DOCKER_IMAGE_NAME }}

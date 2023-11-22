@@ -1,4 +1,4 @@
-name: Build and publish JVM-based images
+name: Build and publish native (GraalVM) images
 on:
   push:
     branches:
@@ -10,14 +10,14 @@ on:
       - main
 
 jobs:
-  build_jvm_docker_image:
-    name: Build and publish the JVM-based Docker image
+  build_native_docker_image:
+    name: Build and publish the native (GraalVM) Docker image
     runs-on: ubuntu-22.04
     env:
-      DOCKER_IMAGE_NAME: '${{ github.repository }}/jhipster-lite'
+      DOCKER_IMAGE_NAME: '${{ github.repository }}/jhipster-lite-native'
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Extract Docker metadata
@@ -26,13 +26,17 @@ jobs:
         with:
           images: ${{ env.DOCKER_IMAGE_NAME }}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.0.0
+      - uses: graalvm/setup-graalvm@v1
         with:
-          platforms: arm64
+          distribution: 'graalvm'
+          java-version: '21'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3.0.0
+      - name: Build application with GraalVM
+        # to test the GraalVM Build using DevContainers, install GraalVM by running `sdk install java 21.0.1-graal`
+        run: |
+          ./mvnw -Pnative native:compile -DskipTests
 
       - name: Login to Docker Registry
         env:
@@ -44,10 +48,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build the JVM-based Docker image
+      - name: Build the native (GraalVM) Docker image
         uses: docker/build-push-action@v5
         with:
-          file: ./src/main/docker/Dockerfile.jvm
+          file: ./src/main/docker/Dockerfile.native
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}

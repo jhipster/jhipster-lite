@@ -47,13 +47,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Tag the native (GraalVM) Docker image
+      - name: Tag the native (GraalVM) Docker image and push it
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         run: |
           docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ env.DOCKER_IMAGE_NAME }}:latest
           docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ env.DOCKER_IMAGE_NAME }}:${{  github.ref_name }}
-
-      - name: Push the native (GraalVM) Docker image
-        if: ${{ github.event_name == 'push' }}
-        run: |
           docker push --all-tags ${{ env.DOCKER_IMAGE_NAME }}

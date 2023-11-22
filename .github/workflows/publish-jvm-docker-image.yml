@@ -24,7 +24,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5.0.0
         with:
-          images: 'jdubois/jhipster-lite'
+          images: ${{ env.DOCKER_IMAGE_NAME }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.0.0
@@ -50,5 +50,5 @@ jobs:
           file: ./src/main/docker/Dockerfile.jvm
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.DOCKER_IMAGE_NAME }}:graalvm
           labels: ${{ steps.meta.outputs.labels }}

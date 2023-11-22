@@ -38,7 +38,6 @@ jobs:
       - name: Build the JVM-based Docker image
         uses: docker/build-push-action@v5
         with:
-          file: ./src/main/docker/Dockerfile.jvm
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}

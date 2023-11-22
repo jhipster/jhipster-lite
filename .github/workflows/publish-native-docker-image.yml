@@ -36,7 +36,7 @@ jobs:
 
       - name: Build application with Buildpacks
         run: |
-          ./mvnw -Pnative -DskipTests clean spring-boot:build-image  -Dspring-boot.build-image.imageName=${{ env.DOCKER_IMAGE_NAME }}
+          ./mvnw -Pnative -DskipTests clean spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.DOCKER_IMAGE_NAME }}
 
       - name: Login to Docker Registry
         env:
@@ -47,9 +47,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Tag the native (GraalVM) Docker image
+      - name: Tag the native (GraalVM) Docker image as "latest"
         run: |
-          docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ steps.meta.outputs.tags }}
+          docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ env.DOCKER_IMAGE_NAME }}:latest
+
+      - name: Tag the native (GraalVM) Docker image with the current tag, if it exists
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+        run: |
+          docker tag ${{ env.DOCKER_IMAGE_NAME }} ${{ env.DOCKER_IMAGE_NAME }}:${{  github.ref_name }}
 
       - name: Push the native (GraalVM) Docker image
         run: |

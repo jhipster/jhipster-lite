@@ -24,7 +24,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5.0.0
         with:
-          images: ${{ env.DOCKER_IMAGE_NAME }}
+          images: 'jdubois/jhipster-lite'
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.0.0

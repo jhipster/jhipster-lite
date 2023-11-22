@@ -50,5 +50,5 @@ jobs:
           file: ./src/main/docker/Dockerfile.jvm
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKER_IMAGE_NAME }}:graalvm
+          tags: jdubois/jhipster-lite:graalvm
           labels: ${{ steps.meta.outputs.labels }}

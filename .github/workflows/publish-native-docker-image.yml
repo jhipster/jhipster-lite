@@ -55,3 +55,29 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  build_native_buildpacks_docker_image:
+    name: Build and publish the native (GraalVM) Docker image
+    runs-on: ubuntu-22.04
+    env:
+      DOCKER_IMAGE_NAME: '${{ github.repository_owner }}/jhipster-lite-native-buildpacks'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build application with Buildpacks
+        run: |
+          ./mvnw -Pnative -DskipTests clean spring-boot:build-image
+
+      - name: Login to Docker Registry
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        uses: docker/login-action@v3.0.0
+        id: login-hub
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push the native (GraalVM) Docker image
+        run: |
+          docker push --all-tags ${{ env.DOCKER_IMAGE_NAME }}

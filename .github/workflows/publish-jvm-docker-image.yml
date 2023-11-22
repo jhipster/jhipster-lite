@@ -13,6 +13,8 @@ jobs:
   build_jvm_docker_image:
     name: Build and publish the JVM-based Docker image
     runs-on: ubuntu-22.04
+    env:
+      DOCKER_IMAGE_NAME: '${{ github.repository }}/jhipster-lite'
 
     steps:
       - name: Checkout repository
@@ -21,6 +23,8 @@ jobs:
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5.0.0
+        with:
+          images: ${{ env.DOCKER_IMAGE_NAME }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3.0.0
@@ -46,5 +50,5 @@ jobs:
           file: ./src/main/docker/Dockerfile.jvm
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.DOCKER_IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}

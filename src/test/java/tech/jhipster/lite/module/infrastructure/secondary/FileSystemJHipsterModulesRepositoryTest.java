@@ -236,7 +236,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .hasFile("src/test/resources/config/application-local.properties")
       .containing(
         """
-            ## Swagger properties
+            # Swagger properties
             springdoc.swagger-ui.operationsSorter=test
             springdoc.swagger-ui.tagsSorter=test
             # This is a comment

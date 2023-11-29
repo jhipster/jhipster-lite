@@ -215,33 +215,40 @@ class FileSystemJHipsterModulesRepositoryTest {
             import java.util.Collection;
             """)
       .and()
-      .hasFile("src/main/resources/config/application.properties")
+      .hasFile("src/main/resources/config/application.yml")
       .containing("""
+        springdoc:
+          swagger-ui:
             # This is a comment
-            springdoc.swagger-ui.operationsSorter""")
-      .containing("springdoc.swagger-ui.operationsSorter=alpha")
+            operationsSorter: alpha
+        """)
       .and()
-      .hasFile("src/main/resources/config/application-local.properties")
+      .hasFile("src/main/resources/config/application-local.yml")
       .containing("""
+        springdoc:
+          swagger-ui:
             # This is a comment
-            springdoc.swagger-ui.tryItOutEnabled""")
-      .containing("springdoc.swagger-ui.tryItOutEnabled=false")
+            tryItOutEnabled: 'false'
+        """)
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
+      .hasFile("src/test/resources/config/application-test.yml")
       .containing("""
+        springdoc:
+          swagger-ui:
             # This is a comment
-            springdoc.swagger-ui.operationsSorter""")
-      .containing("springdoc.swagger-ui.operationsSorter=test")
+            operationsSorter: test
+        """)
       .and()
-      .hasFile("src/test/resources/config/application-local.properties")
-      .containing(
-        """
-            # Swagger properties
-            springdoc.swagger-ui.operationsSorter=test
-            springdoc.swagger-ui.tagsSorter=test
+      .hasFile("src/test/resources/config/application-local.yml")
+      .containing("""
+        springdoc:
+          # Swagger properties
+          swagger-ui:
+            operationsSorter: test
+            tagsSorter: test
             # This is a comment
-            springdoc.swagger-ui.tryItOutEnabled=test"""
-      )
+            tryItOutEnabled: test
+        """)
       .and()
       .hasFile("src/test/resources/META-INF/spring.factories")
       .containing("o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2")

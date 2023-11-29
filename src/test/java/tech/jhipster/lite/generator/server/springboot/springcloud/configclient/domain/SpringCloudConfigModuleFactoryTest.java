@@ -68,33 +68,65 @@ class SpringCloudConfigModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/resources/config/bootstrap.properties")
-      .containing("spring.application.name=myApp")
-      .containing("jhipster.registry.password=admin")
-      .containing("spring.cloud.compatibility-verifier.enabled=false")
-      .containing("spring.cloud.config.label=main")
-      .containing("spring.cloud.config.name=myApp")
-      .containing("spring.cloud.config.retry.initial-interval=1000")
-      .containing("spring.cloud.config.retry.max-attempts=100")
-      .containing("spring.cloud.config.retry.max-interval=2000")
-      .containing("spring.cloud.config.uri=http://admin:${jhipster.registry.password}@localhost:8761/config")
-      .containing("spring.cloud.config.fail-fast=true")
+      .hasFile("src/main/resources/config/bootstrap.yml")
+      .containing(
+        """
+        spring:
+          cloud:
+            config:
+              retry:
+                initial-interval: '1000'
+                max-attempts: '100'
+                max-interval: '2000'
+              name: myApp
+              label: main
+              uri: http://admin:${jhipster.registry.password}@localhost:8761/config
+              fail-fast: true
+            compatibility-verifier:
+              enabled: false
+          application:
+            name: myApp
+        jhipster:
+          registry:
+            password: admin
+        """
+      )
       .and()
-      .hasFile("src/main/resources/config/bootstrap-local.properties")
-      .containing("spring.application.name=myApp")
-      .containing("jhipster.registry.password=admin")
-      .containing("spring.cloud.compatibility-verifier.enabled=false")
-      .containing("spring.cloud.config.label=main")
-      .containing("spring.cloud.config.name=myApp")
-      .containing("spring.cloud.config.retry.initial-interval=1000")
-      .containing("spring.cloud.config.retry.max-attempts=100")
-      .containing("spring.cloud.config.retry.max-interval=2000")
-      .containing("spring.cloud.config.uri=http://admin:${jhipster.registry.password}@localhost:8761/config")
-      .containing("spring.cloud.config.fail-fast=false")
+      .hasFile("src/main/resources/config/bootstrap-local.yml")
+      .containing(
+        """
+        spring:
+          cloud:
+            config:
+              retry:
+                initial-interval: '1000'
+                max-attempts: '100'
+                max-interval: '2000'
+              name: myApp
+              label: main
+              uri: http://admin:${jhipster.registry.password}@localhost:8761/config
+              fail-fast: false
+            compatibility-verifier:
+              enabled: false
+          application:
+            name: myApp
+        jhipster:
+          registry:
+            password: admin
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/bootstrap.properties")
-      .containing("spring.application.name=myApp")
-      .containing("spring.cloud.config.enabled=false")
+      .hasFile("src/test/resources/config/bootstrap.yml")
+      .containing(
+        """
+        spring:
+          application:
+            name: myApp
+          cloud:
+            config:
+              enabled: false
+        """
+      )
       .and()
       .hasFiles("src/main/docker/jhipster-registry.yml", "src/main/docker/central-server-config/localhost-config/application.properties");
   }

@@ -55,21 +55,41 @@ class GatewayModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/resources/config/bootstrap.properties")
-      .containing("spring.application.name=myApp")
-      .containing("spring.cloud.gateway.discovery.locator.enabled=true")
-      .containing("spring.cloud.gateway.discovery.locator.lower-case-service-id=true")
-      .containing("spring.cloud.gateway.discovery.locator.predicates[0].name=Path")
-      .containing("spring.cloud.gateway.discovery.locator.predicates[0].args[pattern]='/services/'+serviceId.toLowerCase()+'/**'")
-      .containing("spring.cloud.gateway.discovery.locator.filters[0].name=RewritePath")
+      .hasFile("src/main/resources/config/bootstrap.yml")
       .containing(
-        "spring.cloud.gateway.discovery.locator.filters[0].args[regexp]='/services/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
+        """
+        spring:
+          cloud:
+            gateway:
+              discovery:
+                locator:
+                  enabled: true
+                  predicates[0]:
+                    name: Path
+                    args[pattern]: '''/services/''+serviceId.toLowerCase()+''/**'''
+                  filters[0]:
+                    args[replacement]: '''/${remaining}'''
+                    name: RewritePath
+                    args[regexp]: '''/services/'' + serviceId.toLowerCase() + ''/(?<remaining>.*)'''
+                  lower-case-service-id: true
+          application:
+            name: myApp
+        """
       )
-      .containing("spring.cloud.gateway.discovery.locator.filters[0].args[replacement]='/${remaining}'")
       .and()
-      .hasFile("src/test/resources/config/bootstrap.properties")
-      .containing("spring.application.name=myApp")
-      .containing("spring.cloud.gateway.discovery.locator.enabled=false")
+      .hasFile("src/test/resources/config/bootstrap.yml")
+      .containing(
+        """
+        spring:
+          cloud:
+            gateway:
+              discovery:
+                locator:
+                  enabled: false
+          application:
+            name: myApp
+        """
+      )
       .and()
       .hasJavaSources(
         "com/jhipster/test/wire/gateway/infrastructure/primary/GatewayResource.java",

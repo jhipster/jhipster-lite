@@ -67,7 +67,13 @@ class LiquibaseModuleFactoryTest {
       .containing("<logger name=\"LiquibaseSchemaResolver\" level=\"INFO\" />")
       .containing("<logger name=\"com.zaxxer.hikari\" level=\"WARN\" />")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.liquibase.change-log=classpath:config/liquibase/master.xml");
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          liquibase:
+            change-log: classpath:config/liquibase/master.xml
+        """
+      );
   }
 }

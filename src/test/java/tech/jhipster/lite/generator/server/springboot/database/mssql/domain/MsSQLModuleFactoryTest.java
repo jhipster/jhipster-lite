@@ -64,36 +64,63 @@ class MsSQLModuleFactoryTest {
       .containing("<groupId>org.testcontainers</groupId>")
       .containing("<artifactId>mssqlserver</artifactId>")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.datasource.url=jdbc:sqlserver://localhost:1433;database=myapp;trustServerCertificate=true")
-      .containing("spring.datasource.username=SA")
-      .containing("spring.datasource.password=")
-      .containing("spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver")
-      .containing("spring.datasource.type=com.zaxxer.hikari.HikariDataSource")
-      .containing("spring.datasource.hikari.poolName=Hikari")
-      .containing("spring.datasource.hikari.auto-commit=false")
-      .containing("spring.data.jpa.repositories.bootstrap-mode=deferred")
-      .containing("spring.jpa.hibernate.ddl-auto=update")
-      .containing("spring.jpa.hibernate.naming.implicit-strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy")
-      .containing("spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy")
-      .containing("spring.jpa.open-in-view=false")
-      .containing("spring.jpa.properties.hibernate.connection.provider_disables_autocommit=true")
-      .containing("spring.jpa.properties.hibernate.criteria.literal_handling_mode=BIND")
-      .containing("spring.jpa.properties.hibernate.generate_statistics=false")
-      .containing("spring.jpa.properties.hibernate.jdbc.batch_size=25")
-      .containing("spring.jpa.properties.hibernate.jdbc.fetch_size=150")
-      .containing("spring.jpa.properties.hibernate.jdbc.time_zone=UTC")
-      .containing("spring.jpa.properties.hibernate.order_inserts=true")
-      .containing("spring.jpa.properties.hibernate.order_updates=true")
-      .containing("spring.jpa.properties.hibernate.query.fail_on_pagination_over_collection_fetch=true")
-      .containing("spring.jpa.properties.hibernate.query.in_clause_parameter_padding=true")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          jpa:
+            properties:
+              hibernate:
+                criteria:
+                  literal_handling_mode: BIND
+                dialect: org.hibernate.dialect.SQLServer2012Dialect
+                jdbc:
+                  fetch_size: 150
+                  time_zone: UTC
+                  batch_size: '25'
+                query:
+                  fail_on_pagination_over_collection_fetch: true
+                  in_clause_parameter_padding: true
+                generate_statistics: false
+                order_updates: true
+                connection:
+                  provider_disables_autocommit: true
+                order_inserts: true
+                format_sql: true
+            hibernate:
+              ddl-auto: update
+              naming:
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+                physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+            open-in-view: false
+          datasource:
+            hikari:
+              poolName: Hikari
+              auto-commit: false
+            password: yourStrong(!)Password
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            username: SA
+            url: jdbc:sqlserver://localhost:1433;database=myapp;trustServerCertificate=true
+            type: com.zaxxer.hikari.HikariDataSource
+          data:
+            jpa:
+              repositories:
+                bootstrap-mode: deferred
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("spring.datasource.url=jdbc:tc:sqlserver")
-      .containing("spring.datasource.username=SA")
-      .containing("spring.datasource.password=")
-      .containing("spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver")
-      .containing("spring.datasource.hikari.maximum-pool-size=2");
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        spring:
+          datasource:
+            driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+            username: SA
+            hikari:
+              maximum-pool-size: '2'
+            url: jdbc:tc:sqlserver:///;database=myapp;trustServerCertificate=true?TC_TMPFS=/testtmpfs:rw
+            password:"""
+      );
   }
 
   private ModuleFile integrationTestAnnotation() {

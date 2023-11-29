@@ -27,11 +27,22 @@ class SpringDocAuth0ModuleFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module)
-      .hasFile("src/main/resources/config/application-auth0.properties")
-        .containing("springdoc.swagger-ui.oauth.client-id=my-client-id")
-        .containing("springdoc.swagger-ui.oauth.realm=jhipster")
-        .containing("springdoc.swagger-ui.oauth.scopes=openid,profile,email")
-        .containing("springdoc.oauth2.authorization-url=https://dev-123456.us.auth0.com/authorize?audience=https://dev-123456.us.auth0.com/api/v2/");
+      .hasFile("src/main/resources/config/application-auth0.yml")
+      .containing(
+        """
+        springdoc:
+          swagger-ui:
+            oauth:
+              scopes:
+              - openid
+              - profile
+              - email
+              client-id: my-client-id
+              realm: jhipster
+          oauth2:
+            authorization-url: https://dev-123456.us.auth0.com/authorize?audience=https://dev-123456.us.auth0.com/api/v2/
+        """
+      );
     //@formatter:on
   }
 }

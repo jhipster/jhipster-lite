@@ -27,11 +27,22 @@ class SpringDocOktaModuleFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module)
-      .hasFile("src/main/resources/config/application-okta.properties")
-        .containing("springdoc.swagger-ui.oauth.client-id=my-client-id")
-        .containing("springdoc.swagger-ui.oauth.realm=jhipster")
-        .containing("springdoc.swagger-ui.oauth.scopes=openid,profile,email")
-        .containing("springdoc.oauth2.authorization-url=https://dev-123456.okta.com/oauth2/default/v1/authorize?nonce=\"jhipster\"");
+      .hasFile("src/main/resources/config/application-okta.yml")
+      .containing(
+        """
+        springdoc:
+          swagger-ui:
+            oauth:
+              scopes:
+              - openid
+              - profile
+              - email
+              client-id: my-client-id
+              realm: jhipster
+          oauth2:
+            authorization-url: https://dev-123456.okta.com/oauth2/default/v1/authorize?nonce="jhipster"
+        """
+      );
     //@formatter:on
   }
 }

@@ -90,12 +90,26 @@ class MongoDbModuleFactoryTest {
       .hasFile("src/test/resources/META-INF/spring.factories")
       .containing("org.springframework.context.ApplicationListener=com.jhipster.test")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.data.mongodb.database=jhipster")
-      .containing("spring.data.mongodb.uri=mongodb://localhost:27017/jhipster")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          data:
+            mongodb:
+              database: jhipster
+              uri: mongodb://localhost:27017/jhipster
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("spring.data.mongodb.uri=${TEST_MONGODB_URI}")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        spring:
+          data:
+            mongodb:
+              uri: ${TEST_MONGODB_URI}
+        """
+      )
       .and()
       .hasFile("src/main/resources/logback-spring.xml")
       .containing("<logger name=\"org.reflections\" level=\"WARN\" />")

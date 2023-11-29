@@ -14,9 +14,9 @@ Feature: MySQL module
     And I should have files in "src/main/java/tech/jhipster/chips/wire/mysql/infrastructure/secondary"
       | DatabaseConfiguration.java |
     And I should have files in "src/main/resources/config"
-      | application.properties |
+      | application.yml |
     And I should have files in "src/test/resources/config"
-      | application-test.properties |
+      | application-test.yml |
 
   Scenario: Should get MySQL module properties definition
     When I get module "mysql" properties definition
@@ -40,6 +40,6 @@ Feature: MySQL module
     And I should have files in "src/main/java/tech/jhipster/chips/wire/mysql/infrastructure/secondary"
       | DatabaseConfiguration.java |
     And I should have files in "src/main/resources/config"
-      | application.properties |
+      | application.yml |
     And I should have files in "src/test/resources/config"
-      | application-test.properties |
+      | application-test.yml |

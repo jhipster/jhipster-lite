@@ -27,9 +27,21 @@ class Oauth2OktaModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
-      .hasFile("src/main/resources/config/application-okta.properties")
-      .containing("spring.security.oauth2.client.provider.oidc.issuer-uri=https://dev-123456.okta.com/oauth2/default")
-      .containing("spring.security.oauth2.client.registration.oidc.client-id=my-client-id")
+      .hasFile("src/main/resources/config/application-okta.yml")
+      .containing(
+        """
+        spring:
+          security:
+            oauth2:
+              client:
+                provider:
+                  oidc:
+                    issuer-uri: https://dev-123456.okta.com/oauth2/default
+                registration:
+                  oidc:
+                    client-id: my-client-id
+        """
+      )
       .and()
       .hasFile("documentation/okta.md")
       .and()

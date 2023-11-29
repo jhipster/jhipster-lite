@@ -79,12 +79,25 @@ class Neo4jModuleFactoryTest {
       .hasFile("src/test/resources/META-INF/spring.factories")
       .containing("org.springframework.context.ApplicationListener=com.jhipster.test")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.neo4j.pool.metrics-enabled")
-      .containing("spring.neo4j.uri=bolt://localhost:7687")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          neo4j:
+            uri: bolt://localhost:7687
+            pool:
+              metrics-enabled: true
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("spring.neo4j.uri=${TEST_NEO4J_URI}")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        spring:
+          neo4j:
+            uri: ${TEST_NEO4J_URI}
+        """
+      )
       .and()
       .hasFile("src/main/resources/logback-spring.xml")
       .containing("<logger name=\"org.neo4j.driver\" level=\"WARN\" />")

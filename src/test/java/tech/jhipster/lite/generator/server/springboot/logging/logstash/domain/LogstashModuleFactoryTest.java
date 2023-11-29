@@ -48,12 +48,20 @@ class LogstashModuleFactoryTest {
         "LogstashTcpLifeCycleTest.java",
         "LogstashTcpPropertiesTest.java"
       )
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("application.logging.logstash.tcp.enabled=false")
-      .containing("application.logging.logstash.tcp.host=localhost")
-      .containing("application.logging.logstash.tcp.port=5000")
-      .containing("application.logging.logstash.tcp.ring-buffer-size=8192")
-      .containing("application.logging.logstash.tcp.shutdown_grace_period=PT1M")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        application:
+          logging:
+            logstash:
+              tcp:
+                shutdown_grace_period: PT1M
+                enabled: false
+                ring-buffer-size: 8192
+                host: localhost
+                port: 5000
+        """
+      )
       .and()
       .hasFile("src/test/resources/logback.xml")
       .containing("<logger name=\"net.logstash.logback\" level=\"ERROR\" />")

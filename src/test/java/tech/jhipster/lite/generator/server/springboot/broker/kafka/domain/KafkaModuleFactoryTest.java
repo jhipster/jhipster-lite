@@ -54,18 +54,32 @@ class KafkaModuleFactoryTest {
       .and()
       .hasFile("src/main/docker/kafka.yml")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("kafka.bootstrap-servers=localhost:9092")
-      .containing("kafka.consumer.'[key.deserializer]'=org.apache.kafka.common.serialization.StringDeserializer")
-      .containing("kafka.consumer.'[value.deserializer]'=org.apache.kafka.common.serialization.StringDeserializer")
-      .containing("kafka.consumer.'[group.id]'=myapp")
-      .containing("kafka.consumer.'[auto.offset.reset]'=earliest")
-      .containing("kafka.producer.'[key.serializer]'=org.apache.kafka.common.serialization.StringSerializer")
-      .containing("kafka.producer.'[value.serializer]'=org.apache.kafka.common.serialization.StringSerializer")
-      .containing("kafka.polling.timeout=10000")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        kafka:
+          producer:
+            '[key.serializer]': org.apache.kafka.common.serialization.StringSerializer
+            '[value.serializer]': org.apache.kafka.common.serialization.StringSerializer
+          bootstrap-servers: localhost:9092
+          consumer:
+            '[value.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
+            '[auto':
+              offset.reset]: earliest
+            '[key.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
+            '[group.id]': myapp
+          polling:
+            timeout: '10000'
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("kafka.bootstrap-servers=localhost:9092")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        kafka:
+          bootstrap-servers: localhost:9092
+        """
+      )
       .and()
       .hasFile("src/test/java/com/jhipster/test/KafkaTestContainerExtension.java")
       .and()
@@ -105,8 +119,14 @@ class KafkaModuleFactoryTest {
     var dummyConsumerPath = "dummy/infrastructure/primary/kafka/consumer";
 
     assertThatModuleWithFiles(module, pomFile())
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("kafka.topic.dummy=queue.myapp.dummy")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        kafka:
+          topic:
+            dummy: queue.myapp.dummy
+        """
+      )
       .and()
       .hasPrefixedFiles(
         "src/main/java/com/jhipster/test",

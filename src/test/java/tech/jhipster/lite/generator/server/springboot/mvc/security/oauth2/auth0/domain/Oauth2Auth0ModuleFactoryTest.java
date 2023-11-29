@@ -27,10 +27,28 @@ class Oauth2Auth0ModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModule(module)
-      .hasFile("src/main/resources/config/application-auth0.properties")
-      .containing("application.security.oauth2.audience=account,api://default,https://dev-123456.us.auth0.com/api/v2/")
-      .containing("spring.security.oauth2.client.provider.oidc.issuer-uri=https://dev-123456.us.auth0.com/")
-      .containing("spring.security.oauth2.client.registration.oidc.client-id=my-client-id")
+      .hasFile("src/main/resources/config/application-auth0.yml")
+      .containing(
+        """
+        application:
+          security:
+            oauth2:
+              audience:
+              - application.security.oauth2.audience=account
+              - api://default
+              - https://dev-123456.us.auth0.com/api/v2/
+        spring:
+          security:
+            oauth2:
+              client:
+                provider:
+                  oidc:
+                    issuer-uri: https://dev-123456.us.auth0.com/
+                registration:
+                  oidc:
+                    client-id: my-client-id
+        """
+      )
       .and()
       .hasFile("documentation/auth0.md")
       .and()

@@ -29,10 +29,28 @@ class SpringBootActuatorModuleFactoryTest {
       .containing("<groupId>org.springframework.boot</groupId>")
       .containing("<artifactId>spring-boot-starter-actuator</artifactId>")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("management.endpoints.web.base-path=/management")
-      .containing("management.endpoints.web.exposure.include=configprops,env,health,info,logfile,loggers,threaddump")
-      .containing("management.endpoint.health.probes.enabled=true")
-      .containing("management.endpoint.health.show-details=always");
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        management:
+          endpoints:
+            web:
+              base-path: /management
+              exposure:
+                include:
+                - configprops
+                - env
+                - health
+                - info
+                - logfile
+                - loggers
+                - threaddump
+          endpoint:
+            health:
+              probes:
+                enabled: true
+              show-details: always
+        """
+      );
   }
 }

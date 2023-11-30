@@ -50,17 +50,10 @@ public class CucumberModuleFactory {
         .addTemplate("SyncResponseAsserter.java")
         .and()
       .add(SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
-      .and()
-    .javaDependencies()
-      .addDependency(awaitilityDependency())
       .and();
     //@formatter:on
 
     return builder.build();
-  }
-
-  private JavaDependency awaitilityDependency() {
-    return javaDependency().groupId("org.awaitility").artifactId("awaitility").scope(JavaDependencyScope.TEST).build();
   }
 
   public JHipsterModule buildJpaResetModule(JHipsterModuleProperties properties) {

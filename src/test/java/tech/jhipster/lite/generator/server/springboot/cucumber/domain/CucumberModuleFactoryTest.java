@@ -54,7 +54,6 @@ class CucumberModuleFactoryTest {
       .containing("<artifactId>cucumber-java</artifactId>")
       .containing("<artifactId>cucumber-spring</artifactId>")
       .containing("<artifactId>junit-platform-suite</artifactId>")
-      .containing("<artifactId>awaitility</artifactId>")
       .containing("<version>${cucumber.version}</version>")
       .and()
       .doNotHaveFiles("src/test/java/com/jhipster/test/cucumber/CucumberJpaReset.java");

@@ -143,6 +143,7 @@ class SpringBootCoreModuleFactoryTest {
       .hasPrefixedFiles("src/test/java/com/jhipster/test", "ApplicationStartupTracesTest.java", "IntegrationTest.java")
       .hasFile("src/main/resources/config/application.properties")
       .containing("spring.application.name=Myapp")
+      .containing("spring.threads.virtual.enabled=true")
       .containing("logging.level.com.jhipster.test=INFO")
       .and()
       .hasFile("src/main/resources/config/application-local.properties")

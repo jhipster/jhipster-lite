@@ -75,6 +75,9 @@ server:
   port: 7471
 
 spring:
+  threads:
+    virtual:
+      enabled: true
   jackson:
     default-property-inclusion: non_null
   application:

@@ -41,9 +41,7 @@ class MavenModuleFactoryTest {
                 <configuration>
                   <source>${java.version}</source>
                   <target>${java.version}</target>
-                  <compilerArgs>
-                    <arg>-parameters</arg>
-                  </compilerArgs>
+                  <parameters>true</parameters>
                 </configuration>
               </plugin>
         """

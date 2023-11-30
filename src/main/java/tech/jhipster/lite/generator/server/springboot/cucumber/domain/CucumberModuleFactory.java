@@ -6,8 +6,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -50,17 +48,10 @@ public class CucumberModuleFactory {
         .addTemplate("SyncResponseAsserter.java")
         .and()
       .add(SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
-      .and()
-    .javaDependencies()
-      .addDependency(awaitilityDependency())
       .and();
     //@formatter:on
 
     return builder.build();
-  }
-
-  private JavaDependency awaitilityDependency() {
-    return javaDependency().groupId("org.awaitility").artifactId("awaitility").scope(JavaDependencyScope.TEST).build();
   }
 
   public JHipsterModule buildJpaResetModule(JHipsterModuleProperties properties) {

@@ -90,12 +90,26 @@ class RedisModuleFactoryTest {
       .hasFile("src/test/resources/META-INF/spring.factories")
       .containing("org.springframework.context.ApplicationListener=com.jhipster.test")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.data.redis.database=0")
-      .containing("spring.data.redis.url=redis://localhost:6379")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          data:
+            redis:
+              url: redis://localhost:6379
+              database: '0'
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("spring.data.redis.url=${TEST_REDIS_URL}")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        spring:
+          data:
+            redis:
+              url: ${TEST_REDIS_URL}
+        """
+      )
       .and()
       .hasFile("src/main/resources/logback-spring.xml")
       .containing("<logger name=\"org.reflections\" level=\"WARN\" />")

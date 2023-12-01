@@ -110,11 +110,21 @@ class JwtAuthenticationModuleFactoryTest {
       .containing("@WithMockUser")
       .containing("import org.springframework.security.test.context.support.WithMockUser;")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("application.security.jwt-base64-secret=")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        application:
+          security:
+            jwt-base64-secret:"""
+      )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("application.security.jwt-base64-secret=")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        application:
+          security:
+            jwt-base64-secret:"""
+      )
       .and()
       .hasFile("src/main/resources/logback-spring.xml")
       .containing("<logger name=\"org.springframework.security\" level=\"WARN\" />")
@@ -135,12 +145,19 @@ class JwtAuthenticationModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
+    String config =
+      """
+      application:
+        security:
+          jwt-base64-secret:""" +
+      " " +
+      jwtBase64Secret;
     assertThatModuleWithFiles(module, pomFile(), integrationTestFile(), logbackFile(), testLogbackFile())
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("application.security.jwt-base64-secret=" + jwtBase64Secret)
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(config)
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("application.security.jwt-base64-secret=" + jwtBase64Secret);
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(config);
   }
 
   private ModuleFile integrationTestFile() {

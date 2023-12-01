@@ -55,7 +55,12 @@ class MongockModuleFactoryTest {
       )
       .and()
       .hasFiles("src/main/java/com/jhipster/test/wire/mongock/infrastructure/secondary/MongockDatabaseConfiguration.java")
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("mongock.migration-scan-package=com.jhipster.test");
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        mongock:
+          migration-scan-package: com.jhipster.test
+        """
+      );
   }
 }

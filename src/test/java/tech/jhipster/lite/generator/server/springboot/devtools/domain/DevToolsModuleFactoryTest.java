@@ -43,12 +43,28 @@ class DevToolsModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.devtools.livereload.enabled=false")
-      .containing("spring.devtools.restart.enabled=false")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          devtools:
+            restart:
+              enabled: false
+            livereload:
+              enabled: false
+        """
+      )
       .and()
-      .hasFile("src/main/resources/config/application-local.properties")
-      .containing("spring.devtools.livereload.enabled=true")
-      .containing("spring.devtools.restart.enabled=true");
+      .hasFile("src/main/resources/config/application-local.yml")
+      .containing(
+        """
+        spring:
+          devtools:
+            restart:
+              enabled: true
+            livereload:
+              enabled: true
+        """
+      );
   }
 }

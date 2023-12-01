@@ -5,9 +5,6 @@ Feature: Spring Boot Actuator modules
       | maven-java          |
       | spring-boot          |
       | spring-boot-actuator |
-    Then I should have entries in "src/main/resources/config/application.properties"
-      | management.endpoints.web.base-path                    |
-      | management.endpoints.web.exposure.include             |
-      | management.endpoint.health.probes.enabled             |
-      | management.endpoint.health.show-details               |
-
+    Then I should have entries in "src/main/resources/config/application.yml"
+      | base-path                    |
+      | show-details               |

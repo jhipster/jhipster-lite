@@ -26,15 +26,31 @@ class SpringDocOauth2ModuleFactoryTest {
     //@formatter:off
     assertThatModuleWithFiles(module, pomFile())
       .hasFiles("src/main/java/com/jhipster/test/wire/springdoc/infrastructure/primary/SpringdocOAuth2Configuration.java")
-      .hasFile("src/main/resources/config/application.properties")
-        .containing("springdoc.swagger-ui.oauth.client-id=web_app")
-        .containing("springdoc.swagger-ui.oauth.realm=jhipster")
-        .containing("springdoc.oauth2.authorization-url=http://localhost:9080/realms/jhipster/protocol/openid-connect/auth")
-        .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-        .containing("springdoc.swagger-ui.oauth.client-id=web_app")
-        .containing("springdoc.swagger-ui.oauth.realm=jhipster")
-        .containing("springdoc.oauth2.authorization-url=http://localhost:9080/realms/jhipster/protocol/openid-connect/auth");
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        springdoc:
+          swagger-ui:
+            oauth:
+              client-id: web_app
+              realm: jhipster
+          oauth2:
+            authorization-url: http://localhost:9080/realms/jhipster/protocol/openid-connect/auth
+        """
+      )
+      .and()
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        springdoc:
+          swagger-ui:
+            oauth:
+              client-id: web_app
+              realm: jhipster
+          oauth2:
+            authorization-url: http://localhost:9080/realms/jhipster/protocol/openid-connect/auth
+        """
+      );
     //@formatter:on
   }
 }

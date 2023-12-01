@@ -37,7 +37,14 @@ class Neo4jMigrationsModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("org.neo4j.migrations.check-location=false");
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        org:
+          neo4j:
+            migrations:
+              check-location: false
+        """
+      );
   }
 }

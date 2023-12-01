@@ -141,18 +141,48 @@ class SpringBootCoreModuleFactoryTest {
       .and()
       .hasFiles("src/main/java/com/jhipster/test/ApplicationStartupTraces.java")
       .hasPrefixedFiles("src/test/java/com/jhipster/test", "ApplicationStartupTracesTest.java", "IntegrationTest.java")
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.application.name=Myapp")
-      .containing("spring.threads.virtual.enabled=true")
-      .containing("logging.level.com.jhipster.test=INFO")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          application:
+            name: Myapp
+          threads:
+            virtual:
+              enabled: true
+        logging:
+          level:
+            com:
+              jhipster:
+                test: INFO
+        """
+      )
       .and()
-      .hasFile("src/main/resources/config/application-local.properties")
-      .containing("logging.level.com.jhipster.test=DEBUG")
+      .hasFile("src/main/resources/config/application-local.yml")
+      .containing(
+        """
+        logging:
+          level:
+            com:
+              jhipster:
+                test: DEBUG
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("spring.main.banner-mode=off")
-      .containing("logging.level.com.jhipster.test=OFF")
-      .containing("logging.config=classpath:logback.xml")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        logging:
+          level:
+            com:
+              jhipster:
+                test: 'OFF'
+          config: classpath:logback.xml
+        spring:
+          main:
+            banner-mode: 'off'
+        """
+      )
       .and()
       .hasFiles("src/test/resources/logback.xml", "src/main/resources/logback-spring.xml");
   }

@@ -44,8 +44,14 @@ class DummyCassandraPersistenceModuleFactoryTest {
         "SpringDataRepositoryIT.java"
       )
       .hasPrefixedFiles("src/main/resources/config/cql/changelog", "00000000000000_create-keyspace.cql", "00000000000001_create-tables.cql")
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.cassandra.keyspace-name=" + BASE_NAME)
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          cassandra:
+            keyspace-name: jhipster
+        """
+      )
       .and()
       .doNotHaveFiles(
         "src/main/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersRepository.java",

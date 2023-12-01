@@ -53,11 +53,17 @@ class SpringdocModuleFactoryTest {
 
   private static JHipsterModuleAsserter assertThatSpringDocModule(JHipsterModule module) {
     return assertThatModuleWithFiles(module, pomFile(), readmeFile(), logbackFile(), testLogbackFile())
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("springdoc.swagger-ui.operationsSorter=alpha")
-      .containing("springdoc.swagger-ui.tagsSorter=alpha")
-      .containing("springdoc.swagger-ui.tryItOutEnabled=true")
-      .containing("springdoc.enable-native-support=true")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        springdoc:
+          swagger-ui:
+            operationsSorter: alpha
+            tagsSorter: alpha
+            tryItOutEnabled: true
+          enable-native-support: true
+        """
+      )
       .and()
       .hasFile("README.md")
       .containing("- [Local API doc](http://localhost:8080/swagger-ui.html)")

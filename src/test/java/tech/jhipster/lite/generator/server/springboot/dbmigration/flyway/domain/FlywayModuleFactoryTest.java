@@ -38,9 +38,15 @@ class FlywayModuleFactoryTest {
       )
       .and()
       .hasFiles("src/main/resources/db/migration/V20071203101530__init.sql")
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.flyway.enabled=true")
-      .containing("spring.flyway.locations=classpath:db/migration");
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          flyway:
+            enabled: true
+            locations: classpath:db/migration
+        """
+      );
   }
 
   @Test

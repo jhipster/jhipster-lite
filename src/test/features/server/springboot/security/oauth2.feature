@@ -28,7 +28,7 @@ Feature: OAuth2 modules
       | oktaDomain   | dev-123456.okta.com |
       | oktaClientId | my-client-id        |
     And I should have files in "src/main/resources/config"
-      | application-okta.properties |
+      | application-okta.yml |
 
   Scenario: Should add OAuth2 Auth0
     When I apply modules to default project
@@ -41,4 +41,4 @@ Feature: OAuth2 modules
       | auth0Domain   | dev-123456.us.auth0.com |
       | auth0ClientId | my-client-id            |
     And I should have files in "src/main/resources/config"
-      | application-auth0.properties |
+      | application-auth0.yml |

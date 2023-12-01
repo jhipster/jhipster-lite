@@ -54,15 +54,30 @@ class CustomJHLiteModuleFactoryTest {
           """
         )
         .and()
-      .hasFile("src/main/resources/config/application.properties")
-        .containing("server.port=9000")
-        .containing("spring.jackson.default-property-inclusion=non_null")
-        .containing("jhlite-hidden-resources.tags=banner")
-        .containing("jhlite-hidden-resources.slugs=custom-jhlite")
+      .hasFile("src/main/resources/config/application.yml")
+        .containing(
+          """
+          jhlite-hidden-resources:
+            tags: banner
+            # Disable the modules and its dependencies by slugs
+            slugs: custom-jhlite
+          server:
+            port: 9000
+          spring:
+            jackson:
+              default-property-inclusion: non_null
+          """
+        )
         .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-        .containing("server.port=0")
-        .containing("spring.main.allow-bean-definition-overriding=true")
+      .hasFile("src/test/resources/config/application-test.yml")
+        .containing(
+          """
+          server:
+            port: 0
+          spring:
+            main:
+              allow-bean-definition-overriding: true
+          """)
         .and()
       .hasFile("src/main/java/com/jhipster/test/MyappApp.java")
         .containing("import tech.jhipster.lite.JHLiteApp;")

@@ -10,9 +10,9 @@ Feature: Springdoc modules
       | SpringdocConfiguration.java |
     And I should not have "jwt" in "src/main/java/tech/jhipster/chips/wire/springdoc/infrastructure/primary/SpringdocConfiguration.java"
     And I should have files in "src/main/resources/config"
-      | application.properties |
+      | application.yml |
     And I should have files in "src/test/resources/config"
-      | application-test.properties |
+      | application-test.yml |
 
   Scenario: Should add Springdoc for Webflux
     When I apply modules to default project
@@ -25,9 +25,9 @@ Feature: Springdoc modules
       | SpringdocConfiguration.java |
     And I should not have "jwt" in "src/main/java/tech/jhipster/chips/wire/springdoc/infrastructure/primary/SpringdocConfiguration.java"
     And I should have files in "src/main/resources/config"
-      | application.properties |
+      | application.yml |
     And I should have files in "src/test/resources/config"
-      | application-test.properties |
+      | application-test.yml |
 
   Scenario: Should apply springdoc oauth2 module
     When I apply modules to default project
@@ -52,7 +52,7 @@ Feature: Springdoc modules
     Then I should have files in "src/main/java/tech/jhipster/chips/wire/springdoc/infrastructure/primary/"
       | SpringdocOAuth2Configuration.java |
     And I should have files in "src/main/resources/config"
-      | application-okta.properties |
+      | application-okta.yml |
 
   Scenario: Should apply springdoc auth0 module
     When I apply modules to default project
@@ -68,7 +68,7 @@ Feature: Springdoc modules
     Then I should have files in "src/main/java/tech/jhipster/chips/wire/springdoc/infrastructure/primary/"
       | SpringdocOAuth2Configuration.java |
     And I should have files in "src/main/resources/config"
-      | application-auth0.properties |
+      | application-auth0.yml |
 
   Scenario: Should apply springdoc jwt module
     When I apply modules to default project

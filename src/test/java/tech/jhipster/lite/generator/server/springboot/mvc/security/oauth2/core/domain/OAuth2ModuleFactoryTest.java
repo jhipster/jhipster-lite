@@ -93,16 +93,42 @@ class OAuth2ModuleFactoryTest {
       .containing("spring-security-test")
       .containing("spring-boot-starter-oauth2-resource-server")
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.security.oauth2.client.provider.oidc.issuer-uri=http://localhost:9080/realms/jhipster")
-      .containing("spring.security.oauth2.client.registration.oidc.client-id=web_app")
-      .containing("spring.security.oauth2.client.registration.oidc.client-secret=web_app")
-      .containing("spring.security.oauth2.client.registration.oidc.scope=openid,profile,email")
-      .containing("application.security.oauth2.audience=account,api://default")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        application:
+          security:
+            oauth2:
+              audience: account,api://default
+        spring:
+          security:
+            oauth2:
+              client:
+                registration:
+                  oidc:
+                    client-secret: web_app
+                    client-id: web_app
+                    scope: openid,profile,email
+                provider:
+                  oidc:
+                    issuer-uri: http://localhost:9080/realms/jhipster
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("spring.main.allow-bean-definition-overriding=true")
-      .containing("spring.security.oauth2.client.provider.oidc.issuer-uri=http://DO_NOT_CALL:9080/realms/jhipster")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        spring:
+          security:
+            oauth2:
+              client:
+                provider:
+                  oidc:
+                    issuer-uri: http://DO_NOT_CALL:9080/realms/jhipster
+          main:
+            allow-bean-definition-overriding: true
+        """
+      )
       .and()
       .hasFile("src/test/java/com/jhipster/test/IntegrationTest.java")
       .containing("@SpringBootTest(classes = { MyappApp.class, TestSecurityConfiguration.class })")

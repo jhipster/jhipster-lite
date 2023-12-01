@@ -75,12 +75,20 @@ class CassandraModuleFactoryTest {
       .containing("cassandra:4.0.7")
       .containing("CASSANDRA_DC=" + DC)
       .and()
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.cassandra.contact-points=127.0.0.1")
-      .containing("#spring.cassandra.keyspace-name=yourKeyspace")
-      .containing("spring.cassandra.port=9042")
-      .containing("spring.cassandra.local-datacenter=" + DC)
-      .containing("spring.cassandra.schema-action=none")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          cassandra:
+            schema-action: none
+            local-datacenter: datacenter1
+            contact-points: 127.0.0.1
+            port: 9042
+        '#spring':
+          cassandra:
+            keyspace-name: yourKeyspace
+        """
+      )
       .and()
       .hasFiles("src/test/java/com/jhipster/test/CassandraKeyspaceIT.java")
       .hasFile("src/test/java/com/jhipster/test/TestCassandraManager.java")
@@ -92,11 +100,17 @@ class CassandraModuleFactoryTest {
         "CassandraJSR310DateConverters.java"
       )
       .hasFiles("src/test/java/com/jhipster/test/wire/cassandra/infrastructure/secondary/CassandraJSR310DateConvertersTest.java")
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("spring.cassandra.port=${TEST_CASSANDRA_PORT}")
-      .containing("spring.cassandra.contact-points=${TEST_CASSANDRA_CONTACT_POINT}")
-      .containing("spring.cassandra.local-datacenter=${TEST_CASSANDRA_DC}")
-      .containing("spring.cassandra.keyspace-name=${TEST_CASSANDRA_KEYSPACE}")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        spring:
+          cassandra:
+            local-datacenter: ${TEST_CASSANDRA_DC}
+            port: ${TEST_CASSANDRA_PORT}
+            contact-points: ${TEST_CASSANDRA_CONTACT_POINT}
+            keyspace-name: ${TEST_CASSANDRA_KEYSPACE}
+        """
+      )
       .and()
       .hasFile("src/test/resources/META-INF/spring.factories")
       .containing("org.springframework.context.ApplicationListener=com.jhipster.test.TestCassandraManager")

@@ -18,9 +18,9 @@ Feature: mssql module
     And I should have files in "src/test/resources"
       | container-license-acceptance.txt |
     And I should have files in "src/main/resources/config"
-      | application.properties |
+      | application.yml |
     And I should have files in "src/test/resources/config"
-      | application-test.properties |
+      | application-test.yml |
 
   Scenario: Should get MsSQL module properties definition
     When I get module "mssql" properties definition

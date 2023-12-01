@@ -36,11 +36,19 @@ class GitInfoModuleFactoryTest {
           """
         )
         .and()
-      .hasFile("src/main/resources/config/application.properties")
-        .containing("# Git Information")
-        .containing("management.info.git.mode=full")
-        .containing("management.info.git.enabled=true")
-        .containing("management.info.env.enabled=true")
+      .hasFile("src/main/resources/config/application.yml")
+        .containing(
+          """
+          management:
+            info:
+              # Git Information
+              git:
+                mode: full
+                enabled: true
+              env:
+                enabled: true
+          """
+        )
         .and()
       .hasPrefixedFiles("src/main/java/tech/jhipster/myapp/wire/gitinfo", "infrastructure/primary/GitInfoConfiguration.java", "package-info.java");
     //@formatter:on

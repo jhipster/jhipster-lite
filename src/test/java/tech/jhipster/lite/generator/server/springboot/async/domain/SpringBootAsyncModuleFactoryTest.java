@@ -26,12 +26,22 @@ class SpringBootAsyncModuleFactoryTest {
 
     assertThatModule(module)
       .hasJavaSources("com/jhipster/test/wire/async/infrastructure/secondary/AsyncConfiguration.java")
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("spring.task.execution.pool.keep-alive=10s")
-      .containing("spring.task.execution.pool.max-size=16")
-      .containing("spring.task.execution.pool.queue-capacity=100")
-      .containing("spring.task.execution.thread-name-prefix=myapp-task-")
-      .containing("spring.task.scheduling.pool.size=2")
-      .containing("spring.task.scheduling.thread-name-prefix=myapp-scheduling-");
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        spring:
+          task:
+            scheduling:
+              thread-name-prefix: myapp-scheduling-
+              pool:
+                size: '2'
+            execution:
+              pool:
+                keep-alive: 10s
+                queue-capacity: '100'
+                max-size: '16'
+              thread-name-prefix: myapp-task-
+        """
+      );
   }
 }

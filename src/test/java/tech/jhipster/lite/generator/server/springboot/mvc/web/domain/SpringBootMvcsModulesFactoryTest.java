@@ -100,13 +100,23 @@ class SpringBootMvcsModulesFactoryTest {
       .containing("- [Local server](http://localhost:9000)")
       .and()
       .hasFiles("documentation/cors-configuration.md")
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("server.port=9000")
+      .hasFile("src/main/resources/config/application.yml")
+      .containing(
+        """
+        server:
+          port: 9000
+        """
+      )
       .and()
       .hasFile("src/main/resources/public/error/404.html")
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("server.port=0")
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing(
+        """
+        server:
+          port: 0
+        """
+      )
       .and()
       .hasPrefixedFiles(
         "src/main/java/com/jhipster/test/wire/security/infrastructure/primary",

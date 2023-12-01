@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.domain;
 
-import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.YAML;
+import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.*;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -69,10 +69,10 @@ public class JHipsterModulesApplyer {
     //@formatter:on
 
     JHipsterModuleChanges changes;
-    if (moduleToApply.properties().configurationFormat() == YAML) {
-      changes = builder.springYamlProperties(module.springProperties()).springYamlComments(module.springComments());
-    } else {
+    if (moduleToApply.properties().configurationFormat() == PROPERTIES) {
       changes = builder.springProperties(module.springProperties()).springComments(module.springComments());
+    } else {
+      changes = builder.springYamlProperties(module.springProperties()).springYamlComments(module.springComments());
     }
 
     modules.apply(changes);

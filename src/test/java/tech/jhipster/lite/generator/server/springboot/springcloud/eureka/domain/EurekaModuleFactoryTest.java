@@ -70,27 +70,50 @@ class EurekaModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/resources/config/bootstrap.properties")
-      .containing("spring.application.name=myApp")
-      .containing("spring.cloud.compatibility-verifier.enabled=false")
-      .containing("eureka.client.service-url.defaultZone=http://admin:admin@localhost:8761/eureka")
-      .containing("eureka.client.enabled=true")
-      .containing("eureka.client.healthcheck.enabled=true")
-      .containing("eureka.client.fetch-registry=true")
-      .containing("eureka.client.register-with-eureka=true")
-      .containing("eureka.client.instance-info-replication-interval-seconds=10")
-      .containing("eureka.client.registry-fetch-interval-seconds=10")
-      .containing("eureka.instance.appname=myapp")
-      .containing("eureka.instance.instance-id=myapp:${spring.application.instance-id:${random.value}}")
-      .containing("eureka.instance.lease-renewal-interval-in-seconds=5")
-      .containing("eureka.instance.lease-expiration-duration-in-seconds=10")
-      .containing("eureka.instance.status-page-url-path=${management.endpoints.web.base-path}/info")
-      .containing("eureka.instance.health-check-url-path=${management.endpoints.web.base-path}/health")
+      .hasFile("src/main/resources/config/bootstrap.yml")
+      .containing(
+        """
+        eureka:
+          instance:
+            health-check-url-path: ${management.endpoints.web.base-path}/health
+            instance-id: myapp:${spring.application.instance-id:${random.value}}
+            status-page-url-path: ${management.endpoints.web.base-path}/info
+            lease-renewal-interval-in-seconds: '5'
+            appname: myapp
+            lease-expiration-duration-in-seconds: '10'
+          client:
+            register-with-eureka: true
+            registry-fetch-interval-seconds: '10'
+            healthcheck:
+              enabled: true
+            instance-info-replication-interval-seconds: '10'
+            service-url:
+              defaultZone: http://admin:admin@localhost:8761/eureka
+            fetch-registry: true
+            enabled: true
+        spring:
+          application:
+            name: myApp
+          cloud:
+            compatibility-verifier:
+              enabled: false
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/bootstrap.properties")
-      .containing("spring.application.name=myApp")
-      .containing("spring.cloud.compatibility-verifier.enabled=false")
-      .containing("eureka.client.enabled=false")
+      .hasFile("src/test/resources/config/bootstrap.yml")
+      .containing(
+        """
+        spring:
+          application:
+            name: myApp
+          cloud:
+            compatibility-verifier:
+              enabled: false
+        eureka:
+          client:
+            enabled: false
+        """
+      )
       .and()
       .hasFile("src/main/docker/jhipster-registry.yml")
       .containing("jhipster/jhipster-registry:1.1.1")

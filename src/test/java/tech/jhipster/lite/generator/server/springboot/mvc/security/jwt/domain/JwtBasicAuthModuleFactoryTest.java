@@ -26,37 +26,43 @@ class JwtBasicAuthModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFiles("documentation/jwt-basic-auth.md")
-      .hasFile("src/main/resources/config/application.properties")
-      .containing("application.security.token-validity=P1D")
-      .containing("application.security.remember-me-token-validity=P365D")
-      .containing("spring.security.user.name=admin")
-      .containing("spring.security.user.password=$2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O")
-      .containing("spring.security.user.roles=ADMIN")
+      .hasFile("src/main/resources/config/application.yml")
       .containing(
         """
-        application.security.content-security-policy=\
-        default-src 'self'; frame-src 'self' data:; \
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; \
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
-        img-src 'self' data:; \
-        font-src 'self' data: https://fonts.gstatic.com;\
+        application:
+          security:
+            remember-me-token-validity: P365D
+            token-validity: P1D
+            content-security-policy: 'default-src ''self''; frame-src ''self'' data:; script-src
+              ''self'' ''unsafe-inline'' ''unsafe-eval'' https://storage.googleapis.com; style-src
+              ''self'' ''unsafe-inline'' https://fonts.googleapis.com; img-src ''self'' data:;
+              font-src ''self'' data: https://fonts.gstatic.com;'
+        spring:
+          security:
+            user:
+              roles: ADMIN
+              name: admin
+              password: $2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O
         """
       )
       .and()
-      .hasFile("src/test/resources/config/application-test.properties")
-      .containing("application.security.token-validity=P1D")
-      .containing("application.security.remember-me-token-validity=P365D")
-      .containing("spring.security.user.name=admin")
-      .containing("spring.security.user.password=$2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O")
-      .containing("spring.security.user.roles=ADMIN")
+      .hasFile("src/test/resources/config/application-test.yml")
       .containing(
         """
-        application.security.content-security-policy=\
-        default-src 'self'; frame-src 'self' data:; \
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; \
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
-        img-src 'self' data:; \
-        font-src 'self' data: https://fonts.gstatic.com;\
+        application:
+          security:
+            remember-me-token-validity: P365D
+            token-validity: P1D
+            content-security-policy: 'default-src ''self''; frame-src ''self'' data:; script-src
+              ''self'' ''unsafe-inline'' ''unsafe-eval'' https://storage.googleapis.com; style-src
+              ''self'' ''unsafe-inline'' https://fonts.googleapis.com; img-src ''self'' data:;
+              font-src ''self'' data: https://fonts.gstatic.com;'
+        spring:
+          security:
+            user:
+              roles: ADMIN
+              name: admin
+              password: $2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O
         """
       )
       .and()

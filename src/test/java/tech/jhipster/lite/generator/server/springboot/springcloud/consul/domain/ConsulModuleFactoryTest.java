@@ -82,18 +82,48 @@ class ConsulModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/main/resources/config/bootstrap.properties")
-      .containing("spring.cloud.consul.discovery.health-check-path=${server.servlet.context-path:}/management/health")
-      .containing("spring.cloud.consul.discovery.tags[0]=version=@project.version@")
-      .containing("spring.cloud.consul.discovery.tags[1]=context-path=${server.servlet.context-path:}")
-      .containing("spring.cloud.consul.discovery.tags[2]=profile=${spring.profiles.active:}")
-      .containing("spring.cloud.consul.discovery.tags[3]=git-version=${git.commit.id.describe:}")
-      .containing("spring.cloud.consul.discovery.tags[4]=git-commit=${git.commit.id.abbrev:}")
-      .containing("spring.cloud.consul.discovery.tags[5]=git-branch=${git.branch:}")
+      .hasFile("src/main/resources/config/bootstrap.yml")
+      .containing(
+        """
+        spring:
+          cloud:
+            consul:
+              port: 8500
+              discovery:
+                health-check-path: ${server.servlet.context-path:}/management/health
+                tags[3]: git-version=${git.commit.id.describe:}
+                prefer-ip-address: true
+                tags[2]: profile=${spring.profiles.active:}
+                tags[5]: git-branch=${git.branch:}
+                tags[4]: git-commit=${git.commit.id.abbrev:}
+                tags[1]: context-path=${server.servlet.context-path:}
+                tags[0]: version=@project.version@
+                service-name: burger
+                instance-id: burger:${spring.application.instance-id:${random.value}}
+              config:
+                profile-separator: '-'
+                watch:
+                  enabled: false
+                format: yaml
+              host: localhost
+            compatibility-verifier:
+              enabled: false
+          application:
+            name: burger
+        """
+      )
       .and()
-      .hasFile("src/test/resources/config/bootstrap.properties")
-      .containing("spring.cloud.consul.enabled=false")
-      .containing("spring.cloud.compatibility-verifier.enabled=false")
+      .hasFile("src/test/resources/config/bootstrap.yml")
+      .containing(
+        """
+        spring:
+          cloud:
+            compatibility-verifier:
+              enabled: false
+            consul:
+              enabled: false
+        """
+      )
       .and()
       .hasFile("README.md")
       .containing(

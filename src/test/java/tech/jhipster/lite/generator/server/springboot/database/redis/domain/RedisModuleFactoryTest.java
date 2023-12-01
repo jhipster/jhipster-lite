@@ -97,7 +97,7 @@ class RedisModuleFactoryTest {
           data:
             redis:
               url: redis://localhost:6379
-              database: '0'
+              database: 0
         """
       )
       .and()

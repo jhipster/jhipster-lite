@@ -80,9 +80,9 @@ public class SpringCloudConfigModuleFactory {
       .set(propertyKey("spring.cloud.compatibility-verifier.enabled"), FALSE_VALUE)
       .set(propertyKey("spring.cloud.config.label"), propertyValue("main"))
       .set(propertyKey("spring.cloud.config.name"), baseNameValue)
-      .set(propertyKey("spring.cloud.config.retry.initial-interval"), propertyValue("1000"))
-      .set(propertyKey("spring.cloud.config.retry.max-attempts"), propertyValue("100"))
-      .set(propertyKey("spring.cloud.config.retry.max-interval"), propertyValue("2000"))
+      .set(propertyKey("spring.cloud.config.retry.initial-interval"), propertyValue(1000))
+      .set(propertyKey("spring.cloud.config.retry.max-attempts"), propertyValue(100))
+      .set(propertyKey("spring.cloud.config.retry.max-interval"), propertyValue(2000))
       .set(propertyKey("spring.cloud.config.uri"), propertyValue("http://admin:${jhipster.registry.password}@localhost:8761/config"));
   }
 }

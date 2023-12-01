@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.broker.pulsar.domain;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -76,7 +76,7 @@ class PulsarModuleFactoryTest {
         """
         pulsar:
           client:
-            num-io-threads: '8'
+            num-io-threads: 8
           consumer:
             subscription-name: test-subscription
             topic-names[0]: test-topic

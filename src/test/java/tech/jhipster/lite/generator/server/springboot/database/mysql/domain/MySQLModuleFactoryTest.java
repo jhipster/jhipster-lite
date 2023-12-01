@@ -1,7 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.database.mysql.domain;
 
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -84,7 +85,7 @@ class MySQLModuleFactoryTest {
               hibernate:
                 jdbc:
                   time_zone: UTC
-                  batch_size: '25'
+                  batch_size: 25
                 query:
                   fail_on_pagination_over_collection_fetch: true
                   in_clause_parameter_padding: true
@@ -110,7 +111,7 @@ class MySQLModuleFactoryTest {
             driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
             username: myapp
             hikari:
-              maximum-pool-size: '2'
+              maximum-pool-size: 2
             url: jdbc:tc:mysql:0.0.0:///myapp
             password: ''
         """

@@ -56,7 +56,7 @@ public class RedisModuleFactory {
         .add(SOURCE.template("TestRedisManager.java"), toSrcTestJava().append(packagePath).append("TestRedisManager.java"))
         .and()
       .springMainProperties()
-        .set(propertyKey("spring.data.redis.database"), propertyValue("0"))
+        .set(propertyKey("spring.data.redis.database"), propertyValue(0))
         .set(propertyKey("spring.data.redis.url"), propertyValue("redis://localhost:6379"))
         .and()
       .springTestProperties()

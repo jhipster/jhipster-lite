@@ -1,7 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.configclient.domain;
 
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -75,9 +76,9 @@ class SpringCloudConfigModuleFactoryTest {
           cloud:
             config:
               retry:
-                initial-interval: '1000'
-                max-attempts: '100'
-                max-interval: '2000'
+                initial-interval: 1000
+                max-attempts: 100
+                max-interval: 2000
               name: myApp
               label: main
               uri: http://admin:${jhipster.registry.password}@localhost:8761/config
@@ -99,9 +100,9 @@ class SpringCloudConfigModuleFactoryTest {
           cloud:
             config:
               retry:
-                initial-interval: '1000'
-                max-attempts: '100'
-                max-interval: '2000'
+                initial-interval: 1000
+                max-attempts: 100
+                max-interval: 2000
               name: myApp
               label: main
               uri: http://admin:${jhipster.registry.password}@localhost:8761/config

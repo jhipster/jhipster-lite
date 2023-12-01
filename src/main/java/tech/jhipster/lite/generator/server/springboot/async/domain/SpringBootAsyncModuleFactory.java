@@ -25,10 +25,10 @@ public class SpringBootAsyncModuleFactory {
         .and()
       .springMainProperties()
         .set(propertyKey("spring.task.execution.pool.keep-alive"), propertyValue("10s"))
-        .set(propertyKey("spring.task.execution.pool.max-size"), propertyValue("16"))
-        .set(propertyKey("spring.task.execution.pool.queue-capacity"), propertyValue("100"))
+        .set(propertyKey("spring.task.execution.pool.max-size"), propertyValue(16))
+        .set(propertyKey("spring.task.execution.pool.queue-capacity"), propertyValue(100))
         .set(propertyKey("spring.task.execution.thread-name-prefix"), propertyValue(baseName + "-task-"))
-        .set(propertyKey("spring.task.scheduling.pool.size"), propertyValue("2"))
+        .set(propertyKey("spring.task.scheduling.pool.size"), propertyValue(2))
         .set(propertyKey("spring.task.scheduling.thread-name-prefix"), propertyValue(baseName + "-scheduling-"))
         .and()
       .build();

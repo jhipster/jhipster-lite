@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.TestFileUtils.*;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.TestFileUtils.tmpDirForTest;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -69,7 +69,7 @@ class KafkaModuleFactoryTest {
             '[key.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
             '[group.id]': myapp
           polling:
-            timeout: '10000'
+            timeout: 10000
         """
       )
       .and()

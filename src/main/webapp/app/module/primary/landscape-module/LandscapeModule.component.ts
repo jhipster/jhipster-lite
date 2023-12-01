@@ -1,8 +1,10 @@
 import { LandscapeModule } from '@/module/domain/landscape/LandscapeModule';
+import { IconVue } from '@/common/primary/icon';
 import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'LandscapeComponentVue',
+  components: { IconVue },
   props: {
     module: {
       type: Object as PropType<LandscapeModule>,
@@ -17,7 +19,7 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ['over', 'out', 'clicked'],
+  emits: ['over', 'out', 'clicked', 'apply'],
   setup(props, { emit }) {
     const moduleClass = (): string => {
       return props.moduleFlavor;
@@ -35,11 +37,21 @@ export default defineComponent({
       emit('clicked');
     };
 
+    const applyModule = (): void => {
+      emit('apply');
+    };
+
+    const isAppliedModule = (): boolean => {
+      return moduleClass().includes('applied');
+    };
+
     return {
       moduleClass,
       emphasisizeModule,
       deEmphasisizeModule,
       clickedModule,
+      applyModule,
+      isAppliedModule,
     };
   },
 });

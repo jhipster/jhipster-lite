@@ -517,7 +517,7 @@ describe('Landscape', () => {
       expect(wrapper.find(wrappedElement('modules-apply-new-button')).attributes('disabled')).toBeUndefined();
     });
 
-    it('should apply module using repository', async () => {
+    it('should apply and re-apply module using repository', async () => {
       const modules = repositoryWithLandscape();
       const wrapper = wrap({ modules });
       await flushPromises();
@@ -529,13 +529,27 @@ describe('Landscape', () => {
 
       await flushPromises();
 
-      const [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
+      let [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
       expect(appliedModules.modules.map(slug => slug.get())).toEqual(['vue']);
       expect(wrapper.find(wrappedElement('modules-apply-new-button')).attributes('disabled')).toBeDefined();
-      const component: any = wrapper.vm;
+      let component: any = wrapper.vm;
       expect(component.isApplied('vue')).toBeTruthy();
       expect(component.isApplied('angular')).toBeFalsy();
-      const [message] = alertBus.success.lastCall.args;
+      let [message] = alertBus.success.lastCall.args;
+      expect(message).toBe('Modules applied');
+
+      const initClasses = wrapper.find(wrappedElement('vue-module')).find('em').classes();
+      expect(initClasses).toContain('jhlite-icon');
+
+      await wrapper.find(wrappedElement('vue-module')).find('em').trigger('click');
+
+      await flushPromises();
+
+      [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
+      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['vue']);
+      component = wrapper.vm;
+      expect(component.isApplied('vue')).toBeTruthy();
+      [message] = alertBus.success.lastCall.args;
       expect(message).toBe('Modules applied');
     });
   });

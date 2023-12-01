@@ -497,6 +497,10 @@ export default defineComponent({
       applyModules(landscapeValue().selectedModules());
     };
 
+    const applyModule = (module: ModuleSlug): void => {
+      applyModules([module]);
+    };
+
     const applyModules = (modulesToApply: ModuleSlug[]): void => {
       operationStarted();
 
@@ -573,6 +577,7 @@ export default defineComponent({
       projectFolderUpdated,
       updateProperty,
       deleteProperty,
+      applyModule,
       applyAllModules,
       applyNewModules,
       operationStarted,

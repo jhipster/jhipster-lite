@@ -65,7 +65,7 @@
     "eslint": "8.54.0",
     "eslint-plugin-cypress": "2.15.1",
     "eslint-plugin-prettier": "5.0.1",
-    "eslint-plugin-vue": "9.18.1",
+    "eslint-plugin-vue": "9.19.2",
     "fontello-cli": "0.6.2",
     "husky": "8.0.3",
     "jsdom": "23.0.0",

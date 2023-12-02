@@ -36,8 +36,8 @@ public class EHCacheModulesFactory {
         .add(TEST_SOURCE.template("CacheConfigurationTest.java"), testDestination.append("CacheConfigurationTest.java"))
         .and()
       .springMainProperties()
-        .set(propertyKey("application.cache.ehcache.max-entries"), propertyValue("100"))
-        .set(propertyKey("application.cache.ehcache.time-to-live-seconds"), propertyValue("3600"))
+        .set(propertyKey("application.cache.ehcache.max-entries"), propertyValue(100))
+        .set(propertyKey("application.cache.ehcache.time-to-live-seconds"), propertyValue(3600))
         .and()
       .build();
     //@formatter:on

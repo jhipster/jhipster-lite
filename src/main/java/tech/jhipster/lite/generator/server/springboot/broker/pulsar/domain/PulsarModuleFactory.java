@@ -54,7 +54,7 @@ public class PulsarModuleFactory {
         .set(propertyKey("pulsar.client.service-url"), propertyValue("pulsar://localhost:6650"))
         .and()
       .springTestProperties()
-        .set(propertyKey("pulsar.client.num-io-threads"), propertyValue("8"))
+        .set(propertyKey("pulsar.client.num-io-threads"), propertyValue(8))
         .set(propertyKey("pulsar.producer.topic-name"), propertyValue("test-topic"))
         .set(propertyKey("pulsar.consumer.topic-names[0]"), propertyValue("test-topic"))
         .set(propertyKey("pulsar.consumer.subscription-name"), propertyValue("test-subscription"))

@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.domain;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -78,15 +78,15 @@ class EurekaModuleFactoryTest {
             health-check-url-path: ${management.endpoints.web.base-path}/health
             instance-id: myapp:${spring.application.instance-id:${random.value}}
             status-page-url-path: ${management.endpoints.web.base-path}/info
-            lease-renewal-interval-in-seconds: '5'
+            lease-renewal-interval-in-seconds: 5
             appname: myapp
-            lease-expiration-duration-in-seconds: '10'
+            lease-expiration-duration-in-seconds: 10
           client:
             register-with-eureka: true
-            registry-fetch-interval-seconds: '10'
+            registry-fetch-interval-seconds: 10
             healthcheck:
               enabled: true
-            instance-info-replication-interval-seconds: '10'
+            instance-info-replication-interval-seconds: 10
             service-url:
               defaultZone: http://admin:admin@localhost:8761/eureka
             fetch-registry: true

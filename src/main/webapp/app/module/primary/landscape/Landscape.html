@@ -63,6 +63,7 @@
             @over="emphasizeModule(element.slug())"
             @out="deEmphasizeModule()"
             @clicked="toggleModule(element.slug())"
+            @apply="applyModule(element.slug())"
             v-else
           />
         </li>

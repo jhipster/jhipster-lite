@@ -538,7 +538,21 @@ describe('Landscape', () => {
       let [message] = alertBus.success.lastCall.args;
       expect(message).toBe('Modules applied');
 
-      const initClasses = wrapper.find(wrappedElement('vue-module')).find('em').classes();
+      let initClasses = wrapper.find(wrappedElement('init-module')).find('em').classes();
+      expect(initClasses).toContain('jhlite-icon');
+
+      await wrapper.find(wrappedElement('init-module')).find('em').trigger('click');
+
+      await flushPromises();
+
+      [appliedModules] = modules.applyAll.lastCall.args as ModulesToApply[];
+      expect(appliedModules.modules.map(slug => slug.get())).toEqual(['init']);
+      component = wrapper.vm;
+      expect(component.isApplied('vue')).toBeTruthy();
+      [message] = alertBus.success.lastCall.args;
+      expect(message).toBe('Modules applied');
+
+      initClasses = wrapper.find(wrappedElement('vue-module')).find('em').classes();
       expect(initClasses).toContain('jhlite-icon');
 
       await wrapper.find(wrappedElement('vue-module')).find('em').trigger('click');

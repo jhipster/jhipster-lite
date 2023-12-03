@@ -6,3 +6,4 @@ Feature: Spring Boot Thymeleaf module
       | spring-boot           |
       | spring-boot-thymeleaf |
     Then I should have "<artifactId>spring-boot-starter-thymeleaf</artifactId>" in "pom.xml"
+    And I should have "<artifactId>thymeleaf-layout-dialect</artifactId>" in "pom.xml"

@@ -51,6 +51,7 @@
     <cassandraunit.version>4.3.1.0</cassandraunit.version>
     <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
     <webjars-locator.version>0.50</webjars-locator.version>
+    <htmx-webjars.version>1.9.9</htmx-webjars.version>
   </properties>
 
   <dependencyManagement>
@@ -266,6 +267,11 @@
         <groupId>org.webjars</groupId>
         <artifactId>webjars-locator</artifactId>
         <version>${webjars-locator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.webjars.npm</groupId>
+        <artifactId>htmx.org</artifactId>
+        <version>${htmx-webjars.version}</version>
       </dependency>
       <dependency>
         <groupId>nz.net.ultraq.thymeleaf</groupId>

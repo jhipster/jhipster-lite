@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.webjars.domain;
+package tech.jhipster.lite.generator.server.webjars.locator.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
@@ -11,9 +11,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class WebjarsModuleFactoryTest {
+class WebjarsLocatorModuleFactoryTest {
 
-  private static final WebjarsModuleFactory factory = new WebjarsModuleFactory();
+  private static final WebjarsLocatorModuleFactory factory = new WebjarsLocatorModuleFactory();
 
   @Test
   void shouldCreateWebjarsModule() {

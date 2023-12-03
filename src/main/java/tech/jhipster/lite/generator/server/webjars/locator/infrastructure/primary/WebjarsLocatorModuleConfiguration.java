@@ -1,23 +1,22 @@
-package tech.jhipster.lite.generator.server.webjars.infrastructure.primary;
+package tech.jhipster.lite.generator.server.webjars.locator.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_THYMELEAF;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.WEBJARS;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.webjars.application.WebjarsApplicationService;
+import tech.jhipster.lite.generator.server.webjars.locator.application.WebjarsLocatorApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class WebjarsModuleConfiguration {
+class WebjarsLocatorModuleConfiguration {
 
   @Bean
-  public JHipsterModuleResource webjarsModule(WebjarsApplicationService webjarsModule) {
+  public JHipsterModuleResource webjarsLocatorModule(WebjarsLocatorApplicationService webjarsModule) {
     return JHipsterModuleResource
       .builder()
-      .slug(WEBJARS)
+      .slug(WEBJARS_LOCATOR)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
       )

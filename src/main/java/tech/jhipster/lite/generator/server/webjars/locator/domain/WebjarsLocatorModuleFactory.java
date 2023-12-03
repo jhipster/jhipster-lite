@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.webjars.domain;
+package tech.jhipster.lite.generator.server.webjars.locator.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class WebjarsModuleFactory {
+public class WebjarsLocatorModuleFactory {
 
   private static final GroupId WEBJARS_GROUP = groupId("org.webjars");
 

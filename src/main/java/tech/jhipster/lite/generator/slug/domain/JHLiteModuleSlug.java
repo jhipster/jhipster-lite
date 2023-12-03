@@ -118,6 +118,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   SPRINGDOC_OAUTH_2_AUTH_0("springdoc-oauth2-auth0"),
   SPRINGDOC_OAUTH_2_OKTA("springdoc-oauth2-okta"),
   SPRINGDOC_WEBFLUX_OPENAPI("springdoc-webflux-openapi"),
+  WEBJARS("webjars"),
   SVELTE_CORE("svelte-core"),
   TYPESCRIPT("typescript"),
   VUE_CORE("vue-core"),

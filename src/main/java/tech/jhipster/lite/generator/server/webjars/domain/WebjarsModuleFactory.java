@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.springboot.thymeleaf.domain;
+package tech.jhipster.lite.generator.server.webjars.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
@@ -7,9 +7,9 @@ import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SpringBootThymeleafModuleFactory {
+public class WebjarsModuleFactory {
 
-  private static final GroupId SPRING_GROUP = groupId("org.springframework.boot");
+  private static final GroupId WEBJARS_GROUP = groupId("org.webjars");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -17,9 +17,8 @@ public class SpringBootThymeleafModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-        .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-thymeleaf"))
-        .addDependency(groupId("nz.net.ultraq.thymeleaf"), artifactId("thymeleaf-layout-dialect"))
-        .and()
+      .addDependency(WEBJARS_GROUP, artifactId("webjars-locator"))
+      .and()
       .build();
     //@formatter:on
   }

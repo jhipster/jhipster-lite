@@ -76,7 +76,7 @@ public class JHipsterModulePropertyDefinition {
   public static JHipsterModulePropertyDefinition configurationFormatProperty() {
     return optionalStringProperty(JHipsterModuleProperties.SERVER_CONFIGURATION_FORMAT)
       .description("Format of the configuration files (yaml or properties)")
-      .defaultValue("properties")
+      .defaultValue("yaml")
       .order(500)
       .build();
   }

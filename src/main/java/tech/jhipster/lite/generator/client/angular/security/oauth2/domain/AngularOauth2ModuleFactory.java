@@ -171,7 +171,7 @@ public class AngularOauth2ModuleFactory {
           .add(FILLED_STANDALONE_NEEDLE, "$1, LoginComponent]")
           .add(fileStart(), OAUTH2_AUTH_SERVICE_IMPORT)
           .add(fileStart(), LOGIN_IMPORT)
-          .add(INJECT_NEEDLE ,INJECT_IMPORT)
+          .add(INJECT_NEEDLE, INJECT_IMPORT)
           .add(APPNAME_NEEDLE, INJECT_OAUTH2_AUTH_SERVICE)
           .add(lineAfterRegex("this.appName = '" + properties.projectBaseName().name() + "';"), INIT_AUTHENTICATION)
           .and()

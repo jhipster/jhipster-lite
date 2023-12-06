@@ -120,6 +120,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   SPRINGDOC_WEBFLUX_OPENAPI("springdoc-webflux-openapi"),
   WEBJARS_LOCATOR("webjars-locator"),
   HTMX_WEBJARS("htmx-webjars"),
+  ALPINE_JS_WEBJARS("alpinejs-webjars"),
   SVELTE_CORE("svelte-core"),
   TYPESCRIPT("typescript"),
   VUE_CORE("vue-core"),

@@ -420,6 +420,7 @@ elif [[ $application == 'thymeleafapp' ]]; then
 
   applyModules \
     "spring-boot-thymeleaf" \
+    "thymeleaf-template" \
     "webjars-locator" \
     "htmx-webjars"
 

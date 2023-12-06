@@ -32,6 +32,7 @@ class WebjarsModuleFactoryTest {
             <dependency>
               <groupId>org.webjars</groupId>
               <artifactId>webjars-locator</artifactId>
+              <version>${webjars-locator.version}</version>
             </dependency>
         """
       );
@@ -54,6 +55,7 @@ class WebjarsModuleFactoryTest {
             <dependency>
               <groupId>org.webjars.npm</groupId>
               <artifactId>htmx.org</artifactId>
+              <version>${htmx-webjars.version}</version>
             </dependency>
         """
       );
@@ -76,6 +78,7 @@ class WebjarsModuleFactoryTest {
             <dependency>
               <groupId>org.webjars.npm</groupId>
               <artifactId>alpinejs</artifactId>
+              <version>${alpinejs-webjars.version}</version>
             </dependency>
         """
       );

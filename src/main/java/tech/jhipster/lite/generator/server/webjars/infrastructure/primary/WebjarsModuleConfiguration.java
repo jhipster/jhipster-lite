@@ -12,6 +12,10 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 @Configuration
 class WebjarsModuleConfiguration {
 
+  private static final String SERVER_TAG = "server";
+  private static final String WEB_TAG = "web";
+  private static final String WEBJARS_GROUP = "WebJars";
+
   @Bean
   public JHipsterModuleResource webjarsLocatorModule(WebjarsApplicationService webjarsModule) {
     return JHipsterModuleResource
@@ -20,9 +24,9 @@ class WebjarsModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
       )
-      .apiDoc("WebJars", "Add webjars locator to the project")
+      .apiDoc(WEBJARS_GROUP, "Add webjars locator to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_THYMELEAF).build())
-      .tags("server", "web")
+      .tags(SERVER_TAG, WEB_TAG)
       .factory(webjarsModule::buildWebjarsLocatorModule);
   }
 
@@ -34,9 +38,9 @@ class WebjarsModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
       )
-      .apiDoc("WebJars", "Add HTMX webjar to the project")
+      .apiDoc(WEBJARS_GROUP, "Add HTMX webjar to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(WEBJARS_LOCATOR).build())
-      .tags("server", "web")
+      .tags(SERVER_TAG, WEB_TAG)
       .factory(webjarsModule::buildWebjarsHtmxModule);
   }
 
@@ -48,9 +52,9 @@ class WebjarsModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
       )
-      .apiDoc("WebJars", "Add alpine.js webjar to the project")
+      .apiDoc(WEBJARS_GROUP, "Add alpine.js webjar to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(WEBJARS_LOCATOR).build())
-      .tags("server", "web")
+      .tags(SERVER_TAG, WEB_TAG)
       .factory(webjarsModule::buildWebjarsAlpineJSModule);
   }
 }

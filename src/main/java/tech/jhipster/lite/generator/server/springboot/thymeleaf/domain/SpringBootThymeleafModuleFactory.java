@@ -18,7 +18,7 @@ public class SpringBootThymeleafModuleFactory {
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-thymeleaf"))
-        .addDependency(groupId("nz.net.ultraq.thymeleaf"), artifactId("thymeleaf-layout-dialect"))
+        .addDependency(javaDependency().groupId("nz.net.ultraq.thymeleaf").artifactId("thymeleaf-layout-dialect").versionSlug("thymeleaf-layout-dialect.version").build())
         .and()
       .build();
     //@formatter:on

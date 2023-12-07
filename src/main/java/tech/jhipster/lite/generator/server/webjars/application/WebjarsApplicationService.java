@@ -14,7 +14,15 @@ public class WebjarsApplicationService {
     webjarsModuleFactory = new WebjarsModuleFactory();
   }
 
-  public JHipsterModule buildWebjarsModule(JHipsterModuleProperties properties) {
-    return webjarsModuleFactory.buildModule(properties);
+  public JHipsterModule buildWebjarsLocatorModule(JHipsterModuleProperties properties) {
+    return webjarsModuleFactory.buildWebjarsLocatorModule(properties);
+  }
+
+  public JHipsterModule buildWebjarsHtmxModule(JHipsterModuleProperties properties) {
+    return webjarsModuleFactory.buildWebjarsHtmxModule(properties);
+  }
+
+  public JHipsterModule buildWebjarsAlpineJSModule(JHipsterModuleProperties properties) {
+    return webjarsModuleFactory.buildWebjarsAlpineJSModule(properties);
   }
 }

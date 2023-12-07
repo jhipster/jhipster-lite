@@ -418,7 +418,10 @@ elif [[ $application == 'thymeleafapp' ]]; then
   spring_boot_mvc
   sonar_back
 
-  applyModules "spring-boot-thymeleaf"
+  applyModules \
+    "spring-boot-thymeleaf" \
+    "webjars-locator" \
+    "htmx-webjars"
 
 else
   echo "*** Unknown configuration..."

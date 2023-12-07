@@ -16,14 +16,14 @@ class WebjarsModuleFactoryTest {
   private static final WebjarsModuleFactory factory = new WebjarsModuleFactory();
 
   @Test
-  void shouldCreateWebjarsModule() {
+  void shouldCreateWebjarsLocatorModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture
       .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
 
-    JHipsterModule module = factory.buildModule(properties);
+    JHipsterModule module = factory.buildWebjarsLocatorModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("pom.xml")
@@ -32,6 +32,53 @@ class WebjarsModuleFactoryTest {
             <dependency>
               <groupId>org.webjars</groupId>
               <artifactId>webjars-locator</artifactId>
+              <version>${webjars-locator.version}</version>
+            </dependency>
+        """
+      );
+  }
+
+  @Test
+  void shouldCreateHtmxWebjarsModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
+
+    JHipsterModule module = factory.buildWebjarsHtmxModule(properties);
+
+    assertThatModuleWithFiles(module, pomFile())
+      .hasFile("pom.xml")
+      .containing(
+        """
+            <dependency>
+              <groupId>org.webjars.npm</groupId>
+              <artifactId>htmx.org</artifactId>
+              <version>${htmx-webjars.version}</version>
+            </dependency>
+        """
+      );
+  }
+
+  @Test
+  void shouldCreateAlpineJSWebjarsModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
+
+    JHipsterModule module = factory.buildWebjarsAlpineJSModule(properties);
+
+    assertThatModuleWithFiles(module, pomFile())
+      .hasFile("pom.xml")
+      .containing(
+        """
+            <dependency>
+              <groupId>org.webjars.npm</groupId>
+              <artifactId>alpinejs</artifactId>
+              <version>${alpinejs-webjars.version}</version>
             </dependency>
         """
       );

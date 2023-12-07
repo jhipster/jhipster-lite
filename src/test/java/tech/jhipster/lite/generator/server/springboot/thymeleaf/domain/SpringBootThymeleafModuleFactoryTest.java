@@ -42,6 +42,7 @@ class SpringBootThymeleafModuleFactoryTest {
             <dependency>
               <groupId>nz.net.ultraq.thymeleaf</groupId>
               <artifactId>thymeleaf-layout-dialect</artifactId>
+              <version>${thymeleaf-layout-dialect.version}</version>
             </dependency>
         """
       );

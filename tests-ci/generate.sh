@@ -422,7 +422,9 @@ elif [[ $application == 'thymeleafapp' ]]; then
     "spring-boot-thymeleaf" \
     "thymeleaf-template" \
     "webjars-locator" \
-    "htmx-webjars"
+    "htmx-webjars" \
+    "thymeleaf-template" \
+    "thymeleaf-template-htmx-webjars"
 
 else
   echo "*** Unknown configuration..."

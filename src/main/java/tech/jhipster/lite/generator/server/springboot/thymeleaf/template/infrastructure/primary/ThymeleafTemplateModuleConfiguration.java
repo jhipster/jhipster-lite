@@ -25,4 +25,32 @@ class ThymeleafTemplateModuleConfiguration {
       .tags("server", "spring", "spring-boot", "thymeleaf")
       .factory(thymeleafTemplate::buildThymeleafTemplateModule);
   }
+
+  @Bean
+  public JHipsterModuleResource thymeleafTemplateHtmxWebjarsModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
+    return JHipsterModuleResource
+      .builder()
+      .slug(THYMELEAF_TEMPLATE_HTMX_WEBJAR)
+      .propertiesDefinition(
+        JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
+      )
+      .apiDoc("Thymeleaf", "Add htmx webjars scripts to thymeleaf layout")
+      .organization(JHipsterModuleOrganization.builder().addDependency(HTMX_WEBJARS).addDependency(THYMELEAF_TEMPLATE).build())
+      .tags("server", "spring", "spring-boot", "thymeleaf", "webjar")
+      .factory(thymeleafTemplate::buildThymeleafHtmxWebjarsModule);
+  }
+
+  @Bean
+  public JHipsterModuleResource thymeleafTemplateAlpineWebjarsModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
+    return JHipsterModuleResource
+      .builder()
+      .slug(THYMELEAF_TEMPLATE_ALPINEJS_WEBJAR)
+      .propertiesDefinition(
+        JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
+      )
+      .apiDoc("Thymeleaf", "Add alpine webjars scripts to thymeleaf layout")
+      .organization(JHipsterModuleOrganization.builder().addDependency(ALPINE_JS_WEBJARS).addDependency(THYMELEAF_TEMPLATE).build())
+      .tags("server", "spring", "spring-boot", "thymeleaf", "webjar")
+      .factory(thymeleafTemplate::buildThymeleafAlpinejsWebjarsModule);
+  }
 }

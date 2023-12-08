@@ -69,6 +69,7 @@ public class GitInfoModuleFactory {
             <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
             <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
             <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+            <includeOnlyProperty>^git.release$</includeOnlyProperty>
           </includeOnlyProperties>
           <verbose>false</verbose>
         </configuration>

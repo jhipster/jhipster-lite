@@ -5,6 +5,7 @@ export interface ManagementInfo {
 export interface GitManagementInfo {
   commit: CommitManagementInfo;
   branch: string;
+  release: string;
 }
 
 export interface CommitManagementInfo {

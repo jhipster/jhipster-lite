@@ -127,6 +127,11 @@
         <version>${testcontainers.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.mongock</groupId>
+        <artifactId>mongock-bom</artifactId>
+        <version>${mongock.version}</version>
+      </dependency>
+      <dependency>
         <groupId>net.nicoulaj.maven.plugins</groupId>
         <artifactId>checksum-maven-plugin</artifactId>
         <version>${checksum-maven-plugin.version}</version>
@@ -288,6 +293,11 @@
         <groupId>nz.net.ultraq.thymeleaf</groupId>
         <artifactId>thymeleaf-layout-dialect</artifactId>
         <version>${thymeleaf-layout-dialect.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.michael-simons.neo4j</groupId>
+        <artifactId>neo4j-migrations</artifactId>
+        <version>${neo4j-migrations.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

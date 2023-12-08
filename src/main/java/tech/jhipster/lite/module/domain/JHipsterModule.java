@@ -25,6 +25,8 @@ import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
+import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension.MavenBuildExtensionGroupIdBuilder;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildPlugin.JHipsterModuleJavaBuildPluginBuilder;
@@ -188,6 +190,10 @@ public class JHipsterModule {
 
   public static JavaDependencyGroupIdBuilder javaDependency() {
     return JavaDependency.builder();
+  }
+
+  public static MavenBuildExtensionGroupIdBuilder mavenBuildExtension() {
+    return MavenBuildExtension.builder();
   }
 
   public static JavaDependencyVersion javaDependencyVersion(String slug, String version) {

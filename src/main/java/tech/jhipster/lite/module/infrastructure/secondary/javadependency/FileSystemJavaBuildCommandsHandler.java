@@ -4,15 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
-import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.GradleCommandHandler;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.MavenCommandHandler;
@@ -57,6 +49,7 @@ public class FileSystemJavaBuildCommandsHandler {
       case AddDirectJavaDependency addDirectJavaDependency -> handler.handle(addDirectJavaDependency);
       case AddDirectJavaBuildPlugin addDirectJavaBuildPlugin -> handler.handle(addDirectJavaBuildPlugin);
       case AddBuildPluginManagement addBuildPluginManagement -> handler.handle(addBuildPluginManagement);
+      case AddMavenBuildExtension addMavenBuildExtension -> handler.handle(addMavenBuildExtension);
     }
   }
 }

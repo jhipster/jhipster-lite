@@ -11,13 +11,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
-import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -135,6 +129,11 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   @ExcludeFromGeneratedCodeCoverage(reason = "Not yet implemented")
   public void handle(AddBuildPluginManagement command) {
     throw new NotImplementedException(NOT_YET_IMPLEMENTED);
+  }
+
+  @Override
+  public void handle(AddMavenBuildExtension command) {
+    throw new NotImplementedException("This command is not support with Gradle");
   }
 
 }

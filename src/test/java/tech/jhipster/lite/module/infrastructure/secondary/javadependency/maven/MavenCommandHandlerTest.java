@@ -15,13 +15,7 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
@@ -576,6 +570,83 @@ class MavenCommandHandlerTest {
             </plugin>
           </plugins>
       """;
+    }
+  }
+
+  @Nested
+  class AddBuildExtension {
+
+    @Test
+    void shouldAddBuildExtensionInPomWithoutBuild() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddMavenBuildExtension(mavenBuildExtensionWithSlug()));
+
+      assertThat(content(pom))
+        .contains(
+          """
+              <extensions>
+                <extension>
+                  <groupId>kr.motd.maven</groupId>
+                  <artifactId>os-maven-plugin</artifactId>
+                  <version>${os-maven-plugin.version}</version>
+                </extension>
+              </extensions>
+          """
+        );
+    }
+
+    @Test
+    void shouldAddBuildExtensionInPomWithoutExtensions() {
+      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddMavenBuildExtension(mavenBuildExtensionWithSlug()));
+
+      String content = content(pom);
+      assertThat(content)
+        .contains(
+          """
+            <build>
+              <extensions>
+                <extension>
+                  <groupId>kr.motd.maven</groupId>
+                  <artifactId>os-maven-plugin</artifactId>
+                  <version>${os-maven-plugin.version}</version>
+                </extension>
+              </extensions>
+          """
+        );
+
+      assertThat(Pattern.compile("^ +$", Pattern.MULTILINE).matcher(content).find()).isFalse();
+    }
+
+    @Test
+    void shouldAddBuildExtensionInPomWithExtensions() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-extensions/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddMavenBuildExtension(mavenBuildExtensionWithSlug()));
+
+      String content = content(pom);
+      assertThat(content)
+        .contains(
+          """
+            <build>
+              <extensions>
+                <extension>
+                  <groupId>io.opentelemetry.contrib</groupId>
+                  <artifactId>opentelemetry-maven-extension</artifactId>
+                  <version>1.18.0</version>
+                </extension>
+                <extension>
+                  <groupId>kr.motd.maven</groupId>
+                  <artifactId>os-maven-plugin</artifactId>
+                  <version>${os-maven-plugin.version}</version>
+                </extension>
+              </extensions>
+          """
+        );
+
+      assertThat(Pattern.compile("^ +$", Pattern.MULTILINE).matcher(content).find()).isFalse();
     }
   }
 

@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.infrastructure.primary;
 
+import static org.apache.commons.lang3.StringUtils.*;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.thymeleaf.template.application.ThymeleafTemplateModuleApplicationService;
@@ -26,7 +28,7 @@ class ThymeleafTemplateModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
       )
-      .apiDoc("Thymeleaf", "Add thymeleaf skeleton layout files to the project")
+      .apiDoc(capitalize(TAG_THYMELEAF), "Add thymeleaf skeleton layout files to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_THYMELEAF).build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF)
       .factory(thymeleafTemplate::buildThymeleafTemplateModule);
@@ -40,7 +42,7 @@ class ThymeleafTemplateModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
       )
-      .apiDoc("Thymeleaf", "Add htmx webjars scripts to thymeleaf layout")
+      .apiDoc(capitalize(TAG_THYMELEAF), "Add htmx webjars scripts to thymeleaf layout")
       .organization(JHipsterModuleOrganization.builder().addDependency(HTMX_WEBJARS).addDependency(THYMELEAF_TEMPLATE).build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF, TAG_WEBJAR)
       .factory(thymeleafTemplate::buildThymeleafHtmxWebjarsModule);
@@ -54,7 +56,7 @@ class ThymeleafTemplateModuleConfiguration {
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
       )
-      .apiDoc("Thymeleaf", "Add alpine webjars scripts to thymeleaf layout")
+      .apiDoc(capitalize(TAG_THYMELEAF), "Add alpine webjars scripts to thymeleaf layout")
       .organization(JHipsterModuleOrganization.builder().addDependency(ALPINE_JS_WEBJARS).addDependency(THYMELEAF_TEMPLATE).build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF, TAG_WEBJAR)
       .factory(thymeleafTemplate::buildThymeleafAlpinejsWebjarsModule);

@@ -27,7 +27,7 @@ public class ThymeleafTemplateModuleFactory {
     return moduleBuilder(properties)
       .files()
         .add(SOURCE.append(TEMPLATES).template("index.html"), toSrcMainResources().append(TEMPLATES).append("index.html"))
-        .add(SOURCE.append(TEMPLATES_LAYOUT).template("main.html"), toSrcMainResources().append(TEMPLATES_LAYOUT).append(MAIN_HTML))
+        .add(SOURCE.append(TEMPLATES_LAYOUT).template(MAIN_HTML), toSrcMainResources().append(TEMPLATES_LAYOUT).append(MAIN_HTML))
         .add(SOURCE.append(STATIC_CSS).template("application.css"), DESTINATION.append(STATIC_CSS).append("application.css"))
         .and()
       .build();

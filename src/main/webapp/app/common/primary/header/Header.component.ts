@@ -20,7 +20,7 @@ export default defineComponent({
     management
       .getInfo()
       .then((info: ManagementInfo) => {
-        version.value = info?.git?.commit?.id?.describe;
+        version.value = info?.git?.build?.version;
       })
       .catch(error => console.error(error));
 

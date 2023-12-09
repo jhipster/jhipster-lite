@@ -29,7 +29,7 @@ const wrap = (options?: Partial<WrapperOptions>): VueWrapper => {
 
 const managementRepositoryStubResolves = (): ManagementRepositoryStub => {
   const management = stubLocalManagementRepository();
-  management.getInfo.resolves({ git: { commit: { id: { describe: '1.0.0' } } } });
+  management.getInfo.resolves({ git: { build: { version: '1.0.0' } } });
 
   return management;
 };

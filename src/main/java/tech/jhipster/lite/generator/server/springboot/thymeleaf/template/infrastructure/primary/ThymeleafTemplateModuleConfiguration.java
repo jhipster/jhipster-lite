@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.infras
 import static org.apache.commons.lang3.StringUtils.*;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.thymeleaf.template.application.ThymeleafTemplateModuleApplicationService;

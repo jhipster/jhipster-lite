@@ -12,6 +12,12 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 @Configuration
 class ThymeleafTemplateModuleConfiguration {
 
+  private static final String TAG_SERVER = "server";
+  private static final String TAG_SPRING = "spring";
+  private static final String TAG_BOOT = "spring-boot";
+  private static final String TAG_THYMELEAF = "thymeleaf";
+  private static final String TAG_WEBJAR = "webjar";
+
   @Bean
   public JHipsterModuleResource thymeleafTemplateModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
     return JHipsterModuleResource
@@ -22,7 +28,7 @@ class ThymeleafTemplateModuleConfiguration {
       )
       .apiDoc("Thymeleaf", "Add thymeleaf skeleton layout files to the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_THYMELEAF).build())
-      .tags("server", "spring", "spring-boot", "thymeleaf")
+      .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF)
       .factory(thymeleafTemplate::buildThymeleafTemplateModule);
   }
 
@@ -36,7 +42,7 @@ class ThymeleafTemplateModuleConfiguration {
       )
       .apiDoc("Thymeleaf", "Add htmx webjars scripts to thymeleaf layout")
       .organization(JHipsterModuleOrganization.builder().addDependency(HTMX_WEBJARS).addDependency(THYMELEAF_TEMPLATE).build())
-      .tags("server", "spring", "spring-boot", "thymeleaf", "webjar")
+      .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF, TAG_WEBJAR)
       .factory(thymeleafTemplate::buildThymeleafHtmxWebjarsModule);
   }
 
@@ -50,7 +56,7 @@ class ThymeleafTemplateModuleConfiguration {
       )
       .apiDoc("Thymeleaf", "Add alpine webjars scripts to thymeleaf layout")
       .organization(JHipsterModuleOrganization.builder().addDependency(ALPINE_JS_WEBJARS).addDependency(THYMELEAF_TEMPLATE).build())
-      .tags("server", "spring", "spring-boot", "thymeleaf", "webjar")
+      .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF, TAG_WEBJAR)
       .factory(thymeleafTemplate::buildThymeleafAlpinejsWebjarsModule);
   }
 }

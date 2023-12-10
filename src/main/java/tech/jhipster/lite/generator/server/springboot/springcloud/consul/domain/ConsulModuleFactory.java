@@ -70,7 +70,7 @@ public class ConsulModuleFactory {
         .set(propertyKey("spring.cloud.consul.discovery.tags[0]"), propertyValue("version=@project.version@"))
         .set(propertyKey("spring.cloud.consul.discovery.tags[1]"), propertyValue("context-path=${server.servlet.context-path:}"))
         .set(propertyKey("spring.cloud.consul.discovery.tags[2]"), propertyValue("profile=${spring.profiles.active:}"))
-        .set(propertyKey("spring.cloud.consul.discovery.tags[3]"), propertyValue("git-version=${git.commit.id.describe:}"))
+        .set(propertyKey("spring.cloud.consul.discovery.tags[3]"), propertyValue("git-version=${git.build.version:}"))
         .set(propertyKey("spring.cloud.consul.discovery.tags[4]"), propertyValue("git-commit=${git.commit.id.abbrev:}"))
         .set(propertyKey("spring.cloud.consul.discovery.tags[5]"), propertyValue("git-branch=${git.branch:}"))
         .set(propertyKey("spring.cloud.consul.discovery.instance-id"), propertyValue(baseName + ":${spring.application.instance-id:${random.value}}"))

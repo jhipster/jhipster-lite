@@ -91,7 +91,7 @@ class ConsulModuleFactoryTest {
               port: 8500
               discovery:
                 health-check-path: ${server.servlet.context-path:}/management/health
-                tags[3]: git-version=${git.commit.id.describe:}
+                tags[3]: git-version=${git.build.version:}
                 prefer-ip-address: true
                 tags[2]: profile=${spring.profiles.active:}
                 tags[5]: git-branch=${git.branch:}

@@ -20,6 +20,8 @@ public class ThymeleafTemplateModuleFactory {
   private static final JHipsterProjectFilePath MAIN_RESOURCES_PATH = path("src/main/resources");
   private static final JHipsterDestination DESTINATION = to(MAIN_RESOURCES_PATH.get());
 
+  private static final String MAIN_SCRIPT_NEEDLE = "<!-- jhipster-needle-thymeleaf-main-script -->";
+
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull(PROPERTIES, properties);
 
@@ -41,7 +43,7 @@ public class ThymeleafTemplateModuleFactory {
     return moduleBuilder(properties)
       .mandatoryReplacements()
       .in(MAIN_RESOURCES_PATH.append(TEMPLATES_LAYOUT).append(MAIN_HTML))
-      .add(lineBeforeText("<!-- jhipster-needle-thymeleaf-main-script -->"), "<script type=\"text/javascript\" th:src=\"@{/webjars/htmx.org/dist/htmx.min.js}\"></script>")
+      .add(lineBeforeText(MAIN_SCRIPT_NEEDLE), webjarsScriptTag("htmx.org/dist/htmx.min.js"))
       .and()
       .and()
       .build();
@@ -55,10 +57,14 @@ public class ThymeleafTemplateModuleFactory {
     return moduleBuilder(properties)
       .mandatoryReplacements()
       .in(MAIN_RESOURCES_PATH.append(TEMPLATES_LAYOUT).append(MAIN_HTML))
-      .add(lineBeforeText("<!-- jhipster-needle-thymeleaf-main-script -->"), "<script type=\"text/javascript\" th:src=\"@{/webjars/alpinejs/dist/cdn.js}\"></script>")
+      .add(lineBeforeText(MAIN_SCRIPT_NEEDLE), webjarsScriptTag("alpinejs/dist/cdn.js"))
       .and()
       .and()
       .build();
     //@formatter:on
+  }
+
+  private String webjarsScriptTag(String webjarsLocation) {
+    return "<script type=\"text/javascript\" th:src=\"@{/webjars/%s}\"></script>".formatted(webjarsLocation);
   }
 }

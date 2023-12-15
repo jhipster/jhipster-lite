@@ -11,10 +11,10 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -161,7 +161,7 @@ class YamlFileSpringPropertiesHandler {
   }
 
   private static List<String> extractKeysParts(PropertyKey key) {
-    return Stream.of(key.get().split("\\.(?![^.]*\\]')")).map(subKey -> subKey.replace("'[", "[").replace("]'", "]")).toList();
+    return Arrays.stream(key.get().split("\\.(?![^'\\[]*\\])")).map(subKey -> subKey.replace("'[", "[").replace("]'", "]")).toList();
   }
 
   private MappingNode loadConfiguration(File yamlFile) throws IOException {

@@ -64,8 +64,7 @@ class KafkaModuleFactoryTest {
           bootstrap-servers: localhost:9092
           consumer:
             '[value.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
-            '[auto':
-              offset.reset]: earliest
+            '[auto.offset.reset]': earliest
             '[key.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
             '[group.id]': myapp
           polling:

@@ -1,8 +1,9 @@
 package tech.jhipster.lite.module.infrastructure.primary;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.TestProjects.*;
-import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.TestProjects.lastProjectFolder;
+import static tech.jhipster.lite.TestProjects.newTestFolder;
+import static tech.jhipster.lite.cucumber.rest.CucumberRestAssertions.assertThatLastResponse;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,8 +21,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.SoftAssertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.*;
-import tech.jhipster.lite.cucumber.CucumberTestContext;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import tech.jhipster.lite.cucumber.rest.CucumberRestTestContext;
 import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
 
 public class ModulesSteps {
@@ -304,7 +309,7 @@ public class ModulesSteps {
     assertThatLastResponse().hasOkStatus();
 
     elements.forEach(element -> {
-      JSONArray types = (JSONArray) CucumberTestContext.getElement(
+      JSONArray types = (JSONArray) CucumberRestTestContext.getElement(
         "$.levels[" + level + "].elements[?(@.slug=='" + element.get("Slug") + "')].type"
       );
 

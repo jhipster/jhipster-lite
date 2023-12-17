@@ -1,6 +1,6 @@
-package tech.jhipster.lite.cucumber;
+package tech.jhipster.lite.cucumber.rest;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 import org.springframework.http.HttpStatus;
@@ -15,14 +15,14 @@ class AsyncResponseAsserter implements ResponseAsserter {
 
   @Override
   public AsyncResponseAsserter hasHttpStatus(HttpStatus status) {
-    Awaiter.await(maxTime, () -> CucumberAssertions.assertHttpStatus(status));
+    Awaiter.await(maxTime, () -> CucumberRestAssertions.assertHttpStatus(status));
 
     return this;
   }
 
   @Override
   public ResponseAsserter hasHttpStatusIn(HttpStatus... statuses) {
-    Awaiter.await(maxTime, () -> CucumberAssertions.assertHttpStatusIn(statuses));
+    Awaiter.await(maxTime, () -> CucumberRestAssertions.assertHttpStatusIn(statuses));
 
     return this;
   }
@@ -39,7 +39,7 @@ class AsyncResponseAsserter implements ResponseAsserter {
 
   @Override
   public AsyncResponseAsserter hasRawBody(String info) {
-    Awaiter.await(maxTime, () -> assertThat(CucumberAssertions.responseBody()).isEqualTo(info));
+    Awaiter.await(maxTime, () -> assertThat(CucumberRestAssertions.responseBody()).isEqualTo(info));
 
     return this;
   }

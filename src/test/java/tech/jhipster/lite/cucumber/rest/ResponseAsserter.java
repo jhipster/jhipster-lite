@@ -1,4 +1,4 @@
-package tech.jhipster.lite.cucumber;
+package tech.jhipster.lite.cucumber.rest;
 
 import java.util.stream.Stream;
 import org.springframework.http.HttpStatus;

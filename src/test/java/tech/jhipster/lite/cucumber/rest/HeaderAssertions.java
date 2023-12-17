@@ -1,9 +1,10 @@
-package tech.jhipster.lite.cucumber;
+package tech.jhipster.lite.cucumber.rest;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.assertj.core.api.Assertions;
 
 class HeaderAssertions {
 
@@ -12,18 +13,18 @@ class HeaderAssertions {
   HeaderAssertions(String header) {
     this.header = header;
 
-    assertThat(CucumberTestContext.getResponseHeader(header)).as("Can't find header " + header).isNotEmpty();
+    Assertions.assertThat(CucumberRestTestContext.getResponseHeader(header)).as("Can't find header " + header).isNotEmpty();
   }
 
   public void containing(String value) {
-    List<String> values = CucumberTestContext.getResponseHeader(header);
+    List<String> values = CucumberRestTestContext.getResponseHeader(header);
     assertThat(values)
       .as("Expecting header " + header + " to contain " + value + " but can't find it, current values are " + displayValues(values))
       .contains(value);
   }
 
   public void startingWith(String prefix) {
-    List<String> values = CucumberTestContext.getResponseHeader(header);
+    List<String> values = CucumberRestTestContext.getResponseHeader(header);
 
     assertThat(values)
       .as("Expecting header " + header + " to start with " + prefix + " but can't find it, current values are " + displayValues(values))

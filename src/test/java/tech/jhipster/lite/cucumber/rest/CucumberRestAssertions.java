@@ -1,18 +1,19 @@
-package tech.jhipster.lite.cucumber;
+package tech.jhipster.lite.cucumber.rest;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 import org.springframework.http.HttpStatus;
 
-public final class CucumberAssertions {
+public final class CucumberRestAssertions {
 
   private static final CallDescription JSON_DESCRIPTION = new CallDescription();
 
-  private CucumberAssertions() {}
+  private CucumberRestAssertions() {}
 
   public static ResponseAsserter assertThatLastResponse() {
     return new SyncResponseAsserter();
@@ -29,20 +30,21 @@ public final class CucumberAssertions {
   }
 
   static void assertHttpStatus(HttpStatus status) {
-    assertThat(CucumberTestContext.getStatus())
-      .as(() -> "Expecting request to result in " + status + " but got " + CucumberTestContext.getStatus() + callContext())
+    Assertions
+      .assertThat(CucumberRestTestContext.getStatus())
+      .as(() -> "Expecting request to result in " + status + " but got " + CucumberRestTestContext.getStatus() + callContext())
       .isEqualTo(status);
   }
 
   static void assertHttpStatusIn(HttpStatus[] statuses) {
     assertThat(statuses).as("Can't check statuses without statuses").isNotEmpty();
 
-    assertThat(CucumberTestContext.getStatus())
+    assertThat(CucumberRestTestContext.getStatus())
       .as(() ->
         "Expecting request to result in any of " +
         Stream.of(statuses).map(HttpStatus::toString).collect(Collectors.joining(", ")) +
         " but got " +
-        CucumberTestContext.getStatus() +
+        CucumberRestTestContext.getStatus() +
         callContext()
       )
       .isIn((Object[]) statuses);
@@ -53,7 +55,7 @@ public final class CucumberAssertions {
   }
 
   static String responseBody() {
-    return CucumberTestContext.getResponse().get();
+    return CucumberRestTestContext.getResponse().get();
   }
 
   private static class CallDescription extends Description {
@@ -62,10 +64,10 @@ public final class CucumberAssertions {
     public String value() {
       return (
         " from " +
-        CucumberTestContext.getUri() +
+        CucumberRestTestContext.getUri() +
         " in " +
         System.lineSeparator() +
-        CucumberTestContext.getResponse().map(CucumberJson::pretty).orElse("empty")
+        CucumberRestTestContext.getResponse().map(CucumberJson::pretty).orElse("empty")
       );
     }
   }

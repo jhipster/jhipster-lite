@@ -1,4 +1,4 @@
-package tech.jhipster.lite.cucumber;
+package tech.jhipster.lite.cucumber.rest;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;

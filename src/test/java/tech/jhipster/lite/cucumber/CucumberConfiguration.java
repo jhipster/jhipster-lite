@@ -17,6 +17,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import tech.jhipster.lite.JHLiteApp;
+import tech.jhipster.lite.cucumber.rest.CucumberRestTestContext;
 import tech.jhipster.lite.project.infrastructure.secondary.MockedProjectFormatterConfiguration;
 
 @ActiveProfiles("test")
@@ -29,7 +30,7 @@ public class CucumberConfiguration {
 
   @Before
   public void resetTestContext() {
-    CucumberTestContext.reset();
+    CucumberRestTestContext.reset();
   }
 
   @Before
@@ -46,7 +47,7 @@ public class CucumberConfiguration {
     return (request, body, execution) -> {
       ClientHttpResponse response = execution.execute(request, body);
 
-      CucumberTestContext.addResponse(request, response, execution, body);
+      CucumberRestTestContext.addResponse(request, response, execution, body);
 
       return response;
     };

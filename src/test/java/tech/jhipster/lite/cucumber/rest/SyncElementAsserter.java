@@ -1,4 +1,4 @@
-package tech.jhipster.lite.cucumber;
+package tech.jhipster.lite.cucumber.rest;
 
 import java.util.Collection;
 import java.util.List;

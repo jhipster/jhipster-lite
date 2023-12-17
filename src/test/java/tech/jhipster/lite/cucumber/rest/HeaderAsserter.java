@@ -1,4 +1,4 @@
-package tech.jhipster.lite.cucumber;
+package tech.jhipster.lite.cucumber.rest;
 
 public interface HeaderAsserter<T extends ResponseAsserter> {
   HeaderAsserter<T> containing(String value);

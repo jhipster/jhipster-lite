@@ -53,10 +53,16 @@
     <webjars-locator.version>0.50</webjars-locator.version>
     <htmx-webjars.version>1.9.9</htmx-webjars.version>
     <alpinejs-webjars.version>3.13.3</alpinejs-webjars.version>
+    <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>kr.motd.maven</groupId>
+        <artifactId>os-maven-plugin</artifactId>
+        <version>${os-maven-plugin.version>}</version>
+      </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>

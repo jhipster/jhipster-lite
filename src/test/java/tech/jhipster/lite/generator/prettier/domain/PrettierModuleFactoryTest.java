@@ -27,11 +27,15 @@ class PrettierModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, packageJsonFile())
-      .hasFiles(".lintstagedrc.js", ".prettierignore")
+      .hasFiles(".prettierignore")
+      .hasFile(".lintstagedrc.js")
+      .containing("*.{md,json,yml,html,css,scss,java,xml,feature}")
+      .and()
       .hasFile(".prettierrc")
       .containing("tabWidth: 4")
       .containing("endOfLine: \"crlf\"")
       .containing("@prettier/plugin-xml")
+      .containing("prettier-plugin-gherkin")
       .containing("prettier-plugin-java")
       .containing("prettier-plugin-packagejson")
       .and()
@@ -41,11 +45,14 @@ class PrettierModuleFactoryTest {
       .containing(nodeDependency("husky"))
       .containing(nodeDependency("lint-staged"))
       .containing(nodeDependency("prettier"))
+      .containing(nodeDependency("prettier-plugin-gherkin"))
       .containing(nodeDependency("prettier-plugin-java"))
       .containing(nodeDependency("prettier-plugin-packagejson"))
       .containing(nodeScript("prepare", "husky install"))
-      .containing(nodeScript("prettier:check", "prettier --check '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}'"))
-      .containing(nodeScript("prettier:format", "prettier --write '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}'"));
+      .containing(nodeScript("prettier:check", "prettier --check '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'"))
+      .containing(
+        nodeScript("prettier:format", "prettier --write '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'")
+      );
   }
 
   private JHipsterModuleProperties properties(String folder) {

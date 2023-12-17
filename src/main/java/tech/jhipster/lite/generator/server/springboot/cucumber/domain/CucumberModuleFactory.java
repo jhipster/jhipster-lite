@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.cucumber.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.cucumbercommon.domain.CucumbersModules.*;
+import static tech.jhipster.lite.generator.server.springboot.cucumbercommon.domain.CucumbersModules.cucumberModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -27,17 +27,19 @@ public class CucumberModuleFactory {
     .documentation(documentationTitle("Cucumber"), SOURCE.template("cucumber.md"))
     .files()
       .batch(SOURCE, destination)
+        .addTemplate("CucumberConfiguration.java")
+        .addTemplate("CucumberTest.java")
+        .and()
+      .batch(SOURCE.append("rest"), destination.append("rest"))
         .addTemplate("AsyncElementAsserter.java")
         .addTemplate("AsyncHeaderAsserter.java")
         .addTemplate("AsyncResponseAsserter.java")
         .addTemplate("Awaiter.java")
-        .addTemplate("CucumberAssertions.java")
+        .addTemplate("CucumberRestAssertions.java")
         .addTemplate("CucumberRestTemplate.java")
-        .addTemplate("CucumberConfiguration.java")
         .addTemplate("CucumberJson.java")
-        .addTemplate("CucumberTest.java")
-        .addTemplate("CucumberTestContext.java")
-        .addTemplate("CucumberTestContextUnitTest.java")
+        .addTemplate("CucumberRestTestContext.java")
+        .addTemplate("CucumberRestTestContextUnitTest.java")
         .addTemplate("ElementAsserter.java")
         .addTemplate("ElementAssertions.java")
         .addTemplate("HeaderAsserter.java")

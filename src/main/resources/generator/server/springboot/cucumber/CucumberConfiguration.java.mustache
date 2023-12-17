@@ -20,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import {{packageName}}.{{ baseName }}App;
 import {{packageName}}.cucumber.CucumberConfiguration.CucumberRestTemplateConfiguration;
+import {{packageName}}.cucumber.rest.CucumberRestTemplate;
+import {{packageName}}.cucumber.rest.CucumberTestContext;
 
 @ActiveProfiles("test")
 @CucumberContextConfiguration
@@ -31,7 +33,7 @@ public class CucumberConfiguration {
 
   @Before
   public void resetTestContext() {
-    CucumberTestContext.reset();
+    CucumberRestTestContext.reset();
   }
 
   @Before
@@ -48,7 +50,7 @@ public class CucumberConfiguration {
     return (request, body, execution) -> {
       ClientHttpResponse response = execution.execute(request, body);
 
-      CucumberTestContext.addResponse(request, response, execution, body);
+      CucumberRestTestContext.addResponse(request, response, execution, body);
 
       return response;
     };

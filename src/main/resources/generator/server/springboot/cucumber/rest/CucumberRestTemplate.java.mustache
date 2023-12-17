@@ -1,4 +1,4 @@
-package {{packageName}}.cucumber;
+package {{packageName}}.cucumber.rest;
 
 import java.util.List;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -30,7 +30,7 @@ public class CucumberRestTemplate {
   public void delete(String uri) {
     rest.delete(uri);
   }
-  
+
   public TestRestTemplate template() {
     return rest;
   }

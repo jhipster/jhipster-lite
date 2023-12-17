@@ -1,9 +1,8 @@
 package com.jhipster.test.cucumber;
 
 import com.jhipster.test.MyappApp;
-import com.jhipster.test.cucumber.CucumberConfiguration.CucumberRestTemplateConfiguration;
 import com.mycompany.myapp.cucumber.CucumberConfiguration.CucumberRestTemplateConfiguration;
-import com.mycompany.myapp.cucumber.CucumberRestTemplate;
+import com.mycompany.myapp.cucumber.rest.CucumberRestTemplate;
 import io.cucumber.java.Before;
 import io.cucumber.spring.CucumberContextConfiguration;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +10,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +30,7 @@ public class CucumberConfiguration {
 
   @Before
   public void resetTestContext() {
-    CucumberTestContext.reset();
+    CucumberRestTestContext.reset();
   }
 
   @Before
@@ -49,7 +47,7 @@ public class CucumberConfiguration {
     return (request, body, execution) -> {
       ClientHttpResponse response = execution.execute(request, body);
 
-      CucumberTestContext.addResponse(request, response, execution, body);
+      CucumberRestTestContext.addResponse(request, response, execution, body);
 
       return response;
     };

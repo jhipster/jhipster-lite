@@ -66,7 +66,7 @@ public class CustomJHLiteModuleFactory {
       .files()
         .add(SOURCE.template("CucumberTest.java"), cucumberDestination.append("CucumberTest.java"))
         .add(SOURCE.template("CucumberConfiguration.java"), cucumberDestination.append("CucumberConfiguration.java"))
-        .add(CUCUMBER_SOURCE.template("CucumberRestTemplate.java"), cucumberDestination.append("CucumberRestTemplate.java"))
+        .add(CUCUMBER_SOURCE.append("rest").template("CucumberRestTemplate.java"), cucumberDestination.append("rest").append("CucumberRestTemplate.java"))
         .add(CUCUMBER_SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
         .and()
       .build();

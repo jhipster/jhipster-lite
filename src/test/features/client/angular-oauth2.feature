@@ -1,6 +1,6 @@
 Feature: Angular oauth2 module
 
-  Scenario: Should apply Angular OAuth2 module    
+  Scenario: Should apply Angular OAuth2 module
     When I apply modules to default project
       | init           |
       | prettier       |

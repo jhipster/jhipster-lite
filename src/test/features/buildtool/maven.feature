@@ -6,18 +6,18 @@ Feature: Maven module
       | baseName    | jhipster            |
       | projectName | Jhipster            |
     Then I should have files in "."
-      | pom.xml |
+      | pom.xml  |
       | mvnw.cmd |
-      | mvnw |
+      | mvnw     |
     Then I should have files in ".mvn/wrapper"
-      | maven-wrapper.jar |
+      | maven-wrapper.jar        |
       | maven-wrapper.properties |
 
   Scenario: Should apply maven wrapper module
     When I apply "maven-wrapper" module to default project without parameters
     Then I should have files in ".mvn/wrapper"
-      | maven-wrapper.jar |
+      | maven-wrapper.jar        |
       | maven-wrapper.properties |
     Then I should have files in ""
       | mvnw.cmd |
-      | mvnw |
+      | mvnw     |

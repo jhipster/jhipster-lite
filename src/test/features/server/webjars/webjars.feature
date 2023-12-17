@@ -25,5 +25,3 @@ Feature: WebJars module
       | webjars-locator       |
       | alpinejs-webjars      |
     Then I should have "<artifactId>alpinejs</artifactId>" in "pom.xml"
-
-

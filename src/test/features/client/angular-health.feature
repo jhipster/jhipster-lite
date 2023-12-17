@@ -1,6 +1,6 @@
 Feature: Angular health module
 
-  Scenario: Should apply Angular health module    
+  Scenario: Should apply Angular health module
     When I apply modules to default project
       | init           |
       | prettier       |

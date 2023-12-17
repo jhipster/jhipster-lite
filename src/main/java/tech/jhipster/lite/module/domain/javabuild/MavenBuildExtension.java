@@ -21,60 +21,7 @@ public class MavenBuildExtension {
     return new MavenBuildExtensionBuilder();
   }
 
-  //  Collection<JavaBuildCommand> versionCommands(JavaDependenciesVersions currentVersions, ProjectJavaDependencies projectDependencies) {
-  //    return version().flatMap(toVersion(currentVersions, projectDependencies)).map(toSetVersionCommand()).map(List::of).orElse(List.of());
-  //  }
-  //
-  //  private static Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
-  //    JavaDependenciesVersions currentVersions,
-  //    ProjectJavaDependencies projectDependencies
-  //  ) {
-  //    return slug -> {
-  //      JavaDependencyVersion currentVersion = currentVersions.get(slug);
-  //
-  //      return projectDependencies.version(slug).map(toVersionToUse(currentVersion)).orElseGet(() -> Optional.of(currentVersion));
-  //    };
-  //  }
-  //
-  //  private static Function<JavaDependencyVersion, Optional<JavaDependencyVersion>> toVersionToUse(JavaDependencyVersion currentVersion) {
-  //    return version -> {
-  //      if (version.equals(currentVersion)) {
-  //        return Optional.empty();
-  //      }
-  //
-  //      return Optional.of(currentVersion);
-  //    };
-  //  }
-  //
-  //  private static Function<JavaDependencyVersion, JavaBuildCommand> toSetVersionCommand() {
-  //    return SetVersion::new;
-  //  }
-  //
-  //  Collection<JavaBuildCommand> dependencyCommands(DependenciesCommandsFactory commands, Optional<MavenBuildExtension> projectDependency) {
-  //    return projectDependency.map(toDependenciesCommands(commands)).orElseGet(() -> List.of(commands.addDependency(this)));
-  //  }
-  //
-  //  private Function<MavenBuildExtension, Collection<JavaBuildCommand>> toDependenciesCommands(DependenciesCommandsFactory commands) {
-  //    return projectDependency -> {
-  //      MavenBuildExtension resultingDependency = merge(projectDependency);
-  //
-  //      if (resultingDependency.equals(projectDependency)) {
-  //        return List.of();
-  //      }
-  //
-  //      return List.of(commands.removeDependency(id()), commands.addDependency(resultingDependency));
-  //    };
-  //  }
-
-  private MavenBuildExtension merge(MavenBuildExtension other) {
-    return MavenBuildExtension.builder().groupId(groupId()).artifactId(artifactId()).versionSlug(mergeVersionsSlugs(other)).build();
-  }
-
-  private VersionSlug mergeVersionsSlugs(MavenBuildExtension other) {
-    return versionSlug.orElseGet(() -> other.versionSlug.orElse(null));
-  }
-
-  public Optional<VersionSlug> version() {
+  public Optional<VersionSlug> versionSlug() {
     return versionSlug;
   }
 

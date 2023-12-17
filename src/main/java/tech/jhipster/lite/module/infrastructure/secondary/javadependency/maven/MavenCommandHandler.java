@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import static org.joox.JOOX.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static org.joox.JOOX.$;
+import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +27,16 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuild.command.*;
+import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginAdditionalElements;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
@@ -188,7 +197,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .append(indentation.times(level + 1))
       .append($(ARTIFACT_ID, command.buildExtension().artifactId().get()));
 
-    appendVersion(command.buildExtension().version(), extensionNode, level);
+    appendVersion(command.buildExtension().versionSlug(), extensionNode, level);
 
     return extensionNode.append(LINE_BREAK);
   }

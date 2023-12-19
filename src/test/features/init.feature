@@ -6,14 +6,14 @@ Feature: Init
       | baseName    | jhipster            |
       | endOfLine   | lf                  |
     Then I should have files in ""
-      | .gitignore                    |
-      | .gitattributes                |
-      | .editorconfig                 |
-      | package.json                  |
-      | README.md                     |
+      | .gitignore     |
+      | .gitattributes |
+      | .editorconfig  |
+      | package.json   |
+      | README.md      |
     And I should not have files in ""
-      | .lintstagedrc.js              |
-      | .prettierignore               |
-      | .prettierrc                   |
+      | .lintstagedrc.js |
+      | .prettierignore  |
+      | .prettierrc      |
     And I should not have files in ".husky"
-      | pre-commit                    |
+      | pre-commit |

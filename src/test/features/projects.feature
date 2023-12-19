@@ -7,11 +7,11 @@ Feature: project management
   Scenario: Should download project
     When I download the created project
     Then I should have "test-project.zip" project
-    
+
   Scenario: Should format project
     When I format the created project
     Then I should have formatted project
-    
+
   Scenario: Should get project information
     When I get the created project information
     Then I should have modules

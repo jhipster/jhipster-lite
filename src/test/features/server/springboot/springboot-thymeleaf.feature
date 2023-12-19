@@ -13,6 +13,6 @@ Feature: Spring Boot Thymeleaf module
       | maven-java            |
       | spring-boot           |
       | spring-boot-thymeleaf |
-      | thymeleaf-template |
+      | thymeleaf-template    |
     Then I should have files in "src/main/resources/templates"
       | index.html |

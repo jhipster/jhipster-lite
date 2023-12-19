@@ -33,11 +33,12 @@ public class PrettierModuleFactory {
         .addDevDependency(packageName("husky"), COMMON)
         .addDevDependency(packageName("lint-staged"), COMMON)
         .addDevDependency(packageName("prettier"), COMMON)
+        .addDevDependency(packageName("prettier-plugin-gherkin"), COMMON)
         .addDevDependency(packageName("prettier-plugin-java"), COMMON)
         .addDevDependency(packageName("prettier-plugin-packagejson"), COMMON)
         .addScript(scriptKey("prepare"), scriptCommand("husky install"))
-        .addScript(scriptKey("prettier:check"), scriptCommand("prettier --check '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}'"))
-        .addScript(scriptKey("prettier:format"), scriptCommand("prettier --write '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}'"))
+        .addScript(scriptKey("prettier:check"), scriptCommand("prettier --check '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'"))
+        .addScript(scriptKey("prettier:format"), scriptCommand("prettier --write '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'"))
         .and()
       .build();
     //@formatter:on

@@ -10,5 +10,6 @@ Feature: Vue.js modules
 
   Scenario: Should apply pinia module
     Given I apply "vue-core" module to default project with package json without parameters
+
     When I apply "vue-pinia" module without parameters to last project
     Then I should have "import piniaPersist from 'pinia-plugin-persist'" in "src/main/webapp/app/main.ts"

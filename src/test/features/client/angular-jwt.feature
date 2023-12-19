@@ -1,6 +1,6 @@
 Feature: Angular jwt module
 
-  Scenario: Should apply Angular jwt module    
+  Scenario: Should apply Angular jwt module
     When I apply modules to default project
       | init         |
       | prettier     |

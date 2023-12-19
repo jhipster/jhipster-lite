@@ -2,8 +2,8 @@ Feature: Redis module
 
   Scenario: Should apply redis module
     When I apply modules to default project
-      | maven-java |
+      | maven-java  |
       | spring-boot |
-      | redis    |
+      | redis       |
     Then I should have files in "src/main/java/tech/jhipster/chips/wire/redis/infrastructure/secondary"
       | RedisDatabaseConfiguration.java |

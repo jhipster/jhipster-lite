@@ -6,19 +6,19 @@ Feature: Gradle module
       | baseName    | jhipster            |
       | projectName | Jhipster            |
     Then I should have files in "."
-      | build.gradle.kts |
+      | build.gradle.kts    |
       | settings.gradle.kts |
-      | gradlew |
-      | gradlew.bat |
+      | gradlew             |
+      | gradlew.bat         |
     Then I should have files in "gradle/wrapper"
-      | gradle-wrapper.jar |
+      | gradle-wrapper.jar        |
       | gradle-wrapper.properties |
 
   Scenario: Should apply gradle wrapper module
     When I apply "gradle-wrapper" module to default project without parameters
     Then I should have files in "."
-      | gradlew |
+      | gradlew     |
       | gradlew.bat |
     Then I should have files in "gradle/wrapper"
-      | gradle-wrapper.jar |
+      | gradle-wrapper.jar        |
       | gradle-wrapper.properties |

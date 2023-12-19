@@ -2,7 +2,7 @@ Feature: Apache Kafka
 
   Scenario: Should apply Apache Kafka init module
     When I apply modules to default project
-      | maven-java       |
+      | maven-java        |
       | spring-boot       |
       | spring-boot-kafka |
     Then I should have files in "src/main/docker"
@@ -12,7 +12,7 @@ Feature: Apache Kafka
     Then I should have files in "src/test/java/tech/jhipster/chips/wire/kafka/infrastructure/config"
       | KafkaPropertiesTest.java |
     Then I should have files in "src/main/java/tech/jhipster/chips/wire/kafka/infrastructure/config"
-      | KafkaProperties.java |
+      | KafkaProperties.java    |
       | KafkaConfiguration.java |
 
   Scenario: Should apply Apache Kafka dummy producer consumer module
@@ -23,9 +23,9 @@ Feature: Apache Kafka
       | DummyProducer.java |
     Then I should have files in "src/test/java/tech/jhipster/chips/dummy/infrastructure/secondary/kafka/producer"
       | DummyProducerTest.java |
-      | DummyProducerIT.java |
+      | DummyProducerIT.java   |
     Then I should have files in "src/main/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer"
-      | DummyConsumer.java |
+      | DummyConsumer.java    |
       | AbstractConsumer.java |
     Then I should have files in "src/test/java/tech/jhipster/chips/dummy/infrastructure/primary/kafka/consumer"
       | DummyConsumerTest.java |

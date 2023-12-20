@@ -8,7 +8,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.TestFileUtils;
+import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.BuildProfileId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
@@ -203,6 +207,14 @@ public final class JHipsterModulesFixture {
 
   public static DependencyId jsonWebTokenDependencyId() {
     return DependencyId.of(new GroupId("io.jsonwebtoken"), new ArtifactId("jjwt-api"));
+  }
+
+  public static BuildProfileId localMavenProfile() {
+    return new BuildProfileId("local");
+  }
+
+  public static BuildProperty springProfilesActiveProperty() {
+    return new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("local"));
   }
 
   public static JHipsterModuleContext context() {

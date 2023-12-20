@@ -8,7 +8,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.nio.file.Paths;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -31,6 +30,16 @@ class GradleCommandHandlerTest {
 
     assertThatThrownBy(() -> new GradleCommandHandler(Indentation.DEFAULT, projectFolder))
       .isExactlyInstanceOf(InvalidTomlVersionCatalogException.class);
+  }
+
+  @Test
+  void addMavenBuildExtensionShouldThrowNotImplementedException() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
+
+    GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+    SetBuildProperty command = new SetBuildProperty(springProfilesActiveProperty());
+    assertThatThrownBy(() -> gradleCommandHandler.handle(command)).isInstanceOf(NotImplementedException.class);
+
   }
 
   @Nested

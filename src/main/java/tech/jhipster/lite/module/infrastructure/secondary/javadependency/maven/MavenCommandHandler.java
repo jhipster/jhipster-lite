@@ -26,6 +26,10 @@ import org.joox.Match;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.javabuild.BuildProfileId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
@@ -36,6 +40,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManag
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginAdditionalElements;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
@@ -118,37 +123,68 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(SetVersion command) {
     Assert.notNull(COMMAND, command);
 
-    Match properties = document.find("project > properties");
-    if (properties.isEmpty()) {
-      appendProperties(command);
+    BuildProperty property = new BuildProperty(new PropertyKey(command.property()), new PropertyValue(command.dependencyVersion()));
+    handle(new SetBuildProperty(property));
+  }
+
+  @Override
+  public void handle(SetBuildProperty command) {
+    Assert.notNull(COMMAND, command);
+
+    Match properties;
+    int indentationLevel;
+    if (command.buildProfile().isPresent()) {
+      BuildProfileId buildProfile = command.buildProfile().get();
+      properties = findBuildProfile(buildProfile).orElseThrow(() -> new MissingMavenProfileException(buildProfile)).child(PROPERTIES);
+      if (properties.isEmpty()) {
+        properties = appendPropertiesToBuildProfile(buildProfile);
+      }
+      indentationLevel = 3;
     } else {
-      appendPropertyLine(properties, command);
+      properties = document.find("project > properties");
+      if (properties.isEmpty()) {
+        properties = appendProperties();
+      }
+      indentationLevel = 1;
     }
+
+    appendPropertyLine(properties, command.property(), indentationLevel);
 
     writePom();
   }
 
-  private void appendProperties(SetVersion command) {
-    Match properties = $(PROPERTIES).append(LINE_BREAK).append(indentation.spaces());
-
-    appendPropertyLine(properties, command);
-
-    findFirst(PROPERTIES_ANCHORS).after(properties);
-
-    document.find("project > properties").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
+  private Optional<Match> findBuildProfile(BuildProfileId buildProfile) {
+    return document.find("project > profiles > profile").each().stream().filter(buildProfileMatch(buildProfile)).findFirst();
   }
 
-  private void appendPropertyLine(Match properties, SetVersion command) {
-    Match propertyNode = properties.children().filter(command.property());
+  private Predicate<Match> buildProfileMatch(BuildProfileId buildProfile) {
+    return profile -> profile.child("id").text().equals(buildProfile.value());
+  }
+
+  private Match appendProperties() {
+    Match properties = $(PROPERTIES).append(LINE_BREAK).append(indentation.spaces());
+    findFirst(PROPERTIES_ANCHORS).after(properties);
+    return document.find("project > properties").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
+  }
+
+  private Match appendPropertiesToBuildProfile(BuildProfileId buildProfile) {
+    Match properties = $(PROPERTIES).append(LINE_BREAK).append(indentation.times(3));
+    Match buildProfileNode = findBuildProfile(buildProfile).orElseThrow();
+    buildProfileNode.append(indentation.times(1)).append(properties).append(LINE_BREAK).append(indentation.times(2));
+    return buildProfileNode.child(PROPERTIES);
+  }
+
+  private void appendPropertyLine(Match properties, BuildProperty buildProperty, int level) {
+    Match propertyNode = properties.children().filter(buildProperty.key().get());
 
     if (propertyNode.isNotEmpty()) {
-      propertyNode.text(command.dependencyVersion());
+      propertyNode.text(buildProperty.value().get());
     } else {
       properties
-        .append(indentation.spaces())
-        .append($(command.property(), command.dependencyVersion()))
+        .append(indentation.times(1))
+        .append($(buildProperty.key().get(), buildProperty.value().get()))
         .append(LINE_BREAK)
-        .append(indentation.spaces());
+        .append(indentation.times(level));
     }
   }
 

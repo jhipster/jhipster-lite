@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
@@ -80,6 +83,139 @@ class MavenCommandHandlerTest {
         .contains("    <json-web-token.version>0.12.0</json-web-token.version>")
         .doesNotContain("    <json-web-token.version>0.11.5</json-web-token.version>")
         .doesNotContain(">  ");
+    }
+  }
+
+  @Nested
+  @DisplayName("Set build property")
+  class HandleSetBuildProperty {
+
+    @Nested
+    class WithoutProfile {
+
+      @Test
+      void shouldNotAddPropertiesToPomWithOnlyRootDefined() {
+        Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
+
+        assertThatThrownBy(() ->
+            new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()))
+          )
+          .isExactlyInstanceOf(InvalidPomException.class);
+      }
+
+      @Test
+      void shouldAddPropertiesToPomWithoutProperties() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()));
+
+        assertThat(content(pom))
+          .contains(
+            """
+              <properties>
+                <spring.profiles.active>local</spring.profiles.active>
+              </properties>
+            """
+          );
+      }
+
+      @Test
+      void shouldAddPropertiesToPomWithProperties() {
+        Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()));
+
+        assertThat(content(pom)).contains("    <spring.profiles.active>local</spring.profiles.active>").doesNotContain(">  ");
+      }
+
+      @Test
+      void shouldUpdateExistingProperty() {
+        Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+        new MavenCommandHandler(Indentation.DEFAULT, pom)
+          .handle(new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev"))));
+
+        assertThat(content(pom))
+          .contains("    <spring.profiles.active>dev</spring.profiles.active>")
+          .doesNotContain("    <spring.profiles.active>local</spring.profiles.active>")
+          .doesNotContain(">  ");
+      }
+    }
+
+    @Nested
+    class WithProfile {
+
+      @Test
+      void shouldNotAddPropertiesToPomWithoutProfile() {
+        Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
+
+        assertThatThrownBy(() ->
+            new MavenCommandHandler(Indentation.DEFAULT, pom)
+              .handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()))
+          )
+          .isExactlyInstanceOf(MissingMavenProfileException.class);
+      }
+
+      @Test
+      void shouldAddPropertiesToPomProfileWithoutProperties() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()));
+
+        assertThat(content(pom))
+          .contains(
+            """
+              <profiles>
+                <profile>
+                  <id>local</id>
+                  <properties>
+                    <spring.profiles.active>local</spring.profiles.active>
+                  </properties>
+                </profile>
+              </profiles>
+            """
+          );
+      }
+
+      @Test
+      void shouldAddPropertiesToPomProfileWithProperties() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile-and-properties/pom.xml");
+
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()));
+
+        assertThat(content(pom))
+          .contains(
+            """
+                    <spring.profiles.active>local</spring.profiles.active>
+                  </properties>
+                </profile>
+              </profiles>
+            """
+          )
+          .doesNotContain(">  ");
+      }
+
+      @Test
+      void shouldUpdateExistingProperty() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile-and-properties/pom.xml");
+        MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+        mavenCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()));
+
+        mavenCommandHandler.handle(
+          new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev")), localMavenProfile())
+        );
+
+        assertThat(content(pom))
+          .contains(
+            """
+                    <spring.profiles.active>dev</spring.profiles.active>
+                  </properties>
+                </profile>
+              </profiles>
+            """
+          )
+          .doesNotContain("<spring.profiles.active>local</spring.profiles.active>");
+      }
     }
   }
 

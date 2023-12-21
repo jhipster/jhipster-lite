@@ -29,12 +29,12 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
-import tech.jhipster.lite.module.domain.javabuild.BuildProfileId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
@@ -43,6 +43,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyMa
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginAdditionalElements;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
@@ -69,6 +70,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   private static final String DESCRIPTION = "description";
   private static final String NAME = "name";
   private static final String PROPERTIES = "properties";
+  private static final String BUILD = "build";
   private static final String DEPENDENCY_MANAGEMENT = "dependencyManagement";
   private static final String DEPENDENCIES = "dependencies";
   private static final String PLUGINS = "plugins";
@@ -87,6 +89,19 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   };
 
   private static final String[] BUILD_ANCHORS = new String[] {
+    DEPENDENCIES,
+    DEPENDENCY_MANAGEMENT,
+    PROPERTIES,
+    PARENT,
+    PACKAGING,
+    DESCRIPTION,
+    NAME,
+    VERSION,
+    ARTIFACT_ID,
+  };
+
+  private static final String[] PROFILES_ANCHORS = new String[] {
+    BUILD,
     DEPENDENCIES,
     DEPENDENCY_MANAGEMENT,
     PROPERTIES,
@@ -151,6 +166,52 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     appendPropertyLine(properties, command.property(), indentationLevel);
 
     writePom();
+  }
+
+  @Override
+  public void handle(AddJavaBuildProfile command) {
+    Match profiles = document.find("project > profiles");
+    if (profiles.isEmpty()) {
+      appendProfiles();
+    }
+
+    if (findBuildProfile(command.buildProfileId()).isEmpty()) {
+      appendProfile(command);
+    }
+
+    writePom();
+  }
+
+  private void appendProfile(AddJavaBuildProfile command) {
+    Match profile = $("profile")
+      .append(LINE_BREAK)
+      .append(indentation.times(3))
+      .append($("id", command.buildProfileId().value()))
+      .append(LINE_BREAK)
+      .append(indentation.times(2));
+
+    if (command.activation().isPresent()) {
+      profile
+        .append(indentation.times(1))
+        .append(
+          $("activation")
+            .append(LINE_BREAK)
+            .append(indentation.times(4))
+            .append(command.activation().get().get())
+            .append(LINE_BREAK)
+            .append(indentation.times(3))
+        )
+        .append(LINE_BREAK)
+        .append(indentation.times(2));
+    }
+
+    document.find("project > profiles").append(indentation.times(1)).append(profile).append(LINE_BREAK).append(indentation.times(1));
+  }
+
+  private void appendProfiles() {
+    Match profiles = $("profiles").append(LINE_BREAK).append(indentation.spaces());
+    findFirst(PROFILES_ANCHORS).after(profiles);
+    document.find("project > profiles").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
   }
 
   private Optional<Match> findBuildProfile(BuildProfileId buildProfile) {
@@ -551,7 +612,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void appendBuildNode(Match innerNode) {
-    Match build = $("build")
+    Match build = $(BUILD)
       .append(LINE_BREAK)
       .append(indentation.times(2))
       .append(innerNode)

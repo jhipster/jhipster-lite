@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import tech.jhipster.lite.module.domain.javabuild.BuildProfileId;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 class MissingMavenProfileException extends GeneratorException {

@@ -42,6 +42,16 @@ class GradleCommandHandlerTest {
 
   }
 
+  @Test
+  void addJavaBuildProfileShouldThrowNotImplementedException() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
+
+    GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+    AddJavaBuildProfile command = new AddJavaBuildProfile(localMavenProfile());
+    assertThatThrownBy(() -> gradleCommandHandler.handle(command)).isInstanceOf(NotImplementedException.class);
+
+  }
+
   @Nested
   class HandleSetVersion {
 

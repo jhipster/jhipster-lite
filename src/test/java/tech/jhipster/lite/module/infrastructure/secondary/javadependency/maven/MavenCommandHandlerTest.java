@@ -19,6 +19,8 @@ import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
@@ -216,6 +218,58 @@ class MavenCommandHandlerTest {
           )
           .doesNotContain("<spring.profiles.active>local</spring.profiles.active>");
       }
+    }
+  }
+
+  @Nested
+  @DisplayName("Add build profile")
+  class HandleAddJavaBuildProfile {
+
+    @Test
+    void shouldNotAddProfileToPomWithOnlyRootDefined() {
+      Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
+
+      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile())))
+        .isExactlyInstanceOf(InvalidPomException.class);
+    }
+
+    @Test
+    void shouldAddProfileToPomWithoutProfiles() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(new AddJavaBuildProfile(localMavenProfile(), new BuildProfileActivation("<activeByDefault>true</activeByDefault>")));
+
+      assertThat(content(pom))
+        .contains(
+          """
+            <profiles>
+              <profile>
+                <id>local</id>
+                <activation>
+                  <activeByDefault>true</activeByDefault>
+                </activation>
+              </profile>
+            </profiles>
+          """
+        );
+    }
+
+    @Test
+    void shouldAddProfileToPomWithProfiles() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(new BuildProfileId("dev")));
+
+      assertThat(content(pom))
+        .contains(
+          """
+              <profile>
+                <id>dev</id>
+              </profile>
+            </profiles>
+          """
+        );
     }
   }
 

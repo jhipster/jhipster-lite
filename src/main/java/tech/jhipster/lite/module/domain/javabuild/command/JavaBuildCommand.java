@@ -5,6 +5,7 @@ public sealed interface JavaBuildCommand
     AddBuildPluginManagement,
     AddDirectJavaBuildPlugin,
     AddDirectJavaDependency,
+    AddJavaBuildProfile,
     AddJavaDependencyManagement,
     AddMavenBuildExtension,
     RemoveDirectJavaDependency,

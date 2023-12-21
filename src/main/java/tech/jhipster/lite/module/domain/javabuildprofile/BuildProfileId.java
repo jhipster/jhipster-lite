@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain.javabuild;
+package tech.jhipster.lite.module.domain.javabuildprofile;
 
 public record BuildProfileId(String value) {
   @Override

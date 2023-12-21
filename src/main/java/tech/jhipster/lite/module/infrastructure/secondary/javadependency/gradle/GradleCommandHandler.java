@@ -139,4 +139,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     throw new NotImplementedException("This command is not support with Gradle");
   }
 
+  @Override
+  public void handle(AddJavaBuildProfile addJavaBuildProfile) {
+    throw new NotImplementedException(NOT_YET_IMPLEMENTED);
+  }
 }

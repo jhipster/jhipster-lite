@@ -299,6 +299,14 @@ public class JHipsterModule {
     return new BuildProfileId(id);
   }
 
+  public static tech.jhipster.lite.module.domain.buildproperties.PropertyKey buildPropertyKey(String key) {
+    return new tech.jhipster.lite.module.domain.buildproperties.PropertyKey(key);
+  }
+
+  public static tech.jhipster.lite.module.domain.buildproperties.PropertyValue buildPropertyValue(String value) {
+    return new tech.jhipster.lite.module.domain.buildproperties.PropertyValue(value);
+  }
+
   public static BuildProfileActivationBuilder buildProfileActivation() {
     return BuildProfileActivation.builder();
   }

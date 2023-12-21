@@ -3,8 +3,6 @@ package tech.jhipster.lite.generator.server.springboot.core.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
@@ -89,7 +87,7 @@ public class SpringBootCoreModuleFactory {
         .addProfile(buildProfileId("local"))
           .activation(buildProfileActivation().activeByDefault())
           .properties()
-            .set(new PropertyKey("spring.profiles.active"), new PropertyValue("local"))
+            .set(buildPropertyKey("spring.profiles.active"), buildPropertyValue("local"))
             .and()
           .and()
         .and()

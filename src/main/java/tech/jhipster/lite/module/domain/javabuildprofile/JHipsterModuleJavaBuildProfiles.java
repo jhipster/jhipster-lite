@@ -6,9 +6,11 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfile.JHipsterModuleJavaBuildProfileBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -26,14 +28,22 @@ public class JHipsterModuleJavaBuildProfiles {
 
   public JavaBuildCommands buildChanges() {
     Stream<JavaBuildCommand> addProfileCommands = profiles.stream().map(toAddProfileCommands());
-    return new JavaBuildCommands(addProfileCommands.toList());
-    //    Stream<JavaBuildCommand> addPropertyCommands = profiles.stream().map(toAddPropertyCommands());
+    Stream<JavaBuildCommand> addPropertyCommands = profiles.stream().flatMap(toAddPropertyCommands());
 
-    //    return new JavaBuildCommands(Stream.concat(addProfileCommands, addPropertyCommands).toList());
+    return new JavaBuildCommands(Stream.concat(addProfileCommands, addPropertyCommands).toList());
   }
 
   private Function<JHipsterModuleJavaBuildProfile, JavaBuildCommand> toAddProfileCommands() {
-    return (JHipsterModuleJavaBuildProfile profile) -> new AddJavaBuildProfile(profile.id(), profile.activation());
+    return profile -> new AddJavaBuildProfile(profile.id(), profile.activation());
+  }
+
+  private Function<JHipsterModuleJavaBuildProfile, Stream<JavaBuildCommand>> toAddPropertyCommands() {
+    return profile ->
+      profile
+        .properties()
+        .entrySet()
+        .stream()
+        .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue()), profile.id()));
   }
 
   public static class JHipsterModuleJavaBuildProfilesBuilder {

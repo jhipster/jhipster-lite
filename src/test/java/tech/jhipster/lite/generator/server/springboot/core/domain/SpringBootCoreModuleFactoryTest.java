@@ -142,11 +142,11 @@ class SpringBootCoreModuleFactoryTest {
               <activation>
                 <activeByDefault>true</activeByDefault>
               </activation>
+              <properties>
+                <spring.profiles.active>local</spring.profiles.active>
+              </properties>
             </profile>
         """
-        //          <properties>
-        //      <spring.profiles.active>local</spring.profiles.active>
-        //                </properties>
       )
       .and()
       .hasFile("src/main/java/com/jhipster/test/MyappApp.java")

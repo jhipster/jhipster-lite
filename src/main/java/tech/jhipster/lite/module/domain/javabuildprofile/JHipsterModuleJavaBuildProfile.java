@@ -1,9 +1,11 @@
 package tech.jhipster.lite.module.domain.javabuildprofile;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
-import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
+import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties;
+import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties.JHipsterModuleBuildPropertiesBuilder;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -11,12 +13,12 @@ public class JHipsterModuleJavaBuildProfile {
 
   private final BuildProfileId buildProfileId;
   private final Optional<BuildProfileActivation> activation;
-  private final Collection<BuildProperty> properties;
+  private final Map<PropertyKey, PropertyValue> properties;
 
   private JHipsterModuleJavaBuildProfile(JHipsterModuleJavaBuildProfileBuilder builder) {
     this.buildProfileId = builder.buildProfileId;
     this.activation = Optional.ofNullable(builder.activation);
-    this.properties = builder.properties;
+    this.properties = builder.propertiesBuilder.build().properties();
   }
 
   public static JHipsterModuleJavaBuildProfileBuilder builder(
@@ -34,12 +36,17 @@ public class JHipsterModuleJavaBuildProfile {
     return activation;
   }
 
+  public Map<PropertyKey, PropertyValue> properties() {
+    return properties;
+  }
+
   public static class JHipsterModuleJavaBuildProfileBuilder {
 
     private final JHipsterModuleJavaBuildProfilesBuilder profiles;
     private final BuildProfileId buildProfileId;
     private BuildProfileActivation activation;
-    private final Collection<BuildProperty> properties = new ArrayList<>();
+    private final JHipsterModuleBuildPropertiesBuilder<JHipsterModuleJavaBuildProfileBuilder> propertiesBuilder =
+      JHipsterModuleBuildProperties.builder(this);
 
     private JHipsterModuleJavaBuildProfileBuilder(JHipsterModuleJavaBuildProfilesBuilder profiles, BuildProfileId buildProfileId) {
       Assert.notNull("profiles", profiles);
@@ -48,22 +55,6 @@ public class JHipsterModuleJavaBuildProfile {
       this.profiles = profiles;
       this.buildProfileId = buildProfileId;
     }
-
-    //    public JHipsterModuleJavaBuildProfileBuilder pluginManagement(JavaBuildPlugin pluginManagement) {
-    //      Assert.notNull("pluginManagement", pluginManagement);
-    //
-    //      pluginsManagement.add(pluginManagement);
-    //
-    //      return this;
-    //    }
-    //
-    //    public JHipsterModuleJavaBuildProfileBuilder plugin(JavaBuildPlugin plugin) {
-    //      Assert.notNull("plugin", plugin);
-    //
-    //      plugins.add(plugin);
-    //
-    //      return this;
-    //    }
 
     public JHipsterModuleJavaBuildProfilesBuilder and() {
       return profiles;
@@ -81,6 +72,10 @@ public class JHipsterModuleJavaBuildProfile {
 
     public JHipsterModuleJavaBuildProfileBuilder activation(String activation) {
       return activation(new BuildProfileActivation(activation));
+    }
+
+    public JHipsterModuleBuildPropertiesBuilder<JHipsterModuleJavaBuildProfileBuilder> properties() {
+      return propertiesBuilder;
     }
   }
 }

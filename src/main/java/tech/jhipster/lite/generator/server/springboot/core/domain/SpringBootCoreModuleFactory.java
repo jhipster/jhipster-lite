@@ -3,6 +3,8 @@ package tech.jhipster.lite.generator.server.springboot.core.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
@@ -85,13 +87,12 @@ public class SpringBootCoreModuleFactory {
         .and()
       .javaBuildProfiles()
         .addProfile(buildProfileId("local"))
-           .activation("<activeByDefault>true</activeByDefault>")
-//          .setActiveByDefault(true)
-//          .and()
-//          .properties()
-//            .set(new PropertyKey("spring.profiles.active"), new PropertyValue("local"))
+          .activation("<activeByDefault>true</activeByDefault>") // TODO: add support for activeByDefault by API
+          .properties()
+            .set(new PropertyKey("spring.profiles.active"), new PropertyValue("local"))
             .and()
           .and()
+        .and()
       .optionalReplacements()
         .in(path("pom.xml"))
           .add(DEFAULT_GOAL_REPLACER, properties.indentation().times(2) + "<defaultGoal>spring-boot:run</defaultGoal>")

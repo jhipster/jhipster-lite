@@ -34,6 +34,9 @@ import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildP
 import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildPlugin.JHipsterModuleJavaBuildPluginBuilder;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin.JavaBuildPluginGroupIdBuilder;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
+import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles;
+import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies.JHipsterModuleJavaDependenciesBuilder;
@@ -89,6 +92,7 @@ public class JHipsterModule {
   private final JHipsterModuleOptionalReplacementsFactory optionalReplacements;
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
+  private final JHipsterModuleJavaBuildProfiles javaBuildProfiles;
   private final JHipsterModuleJavaBuildPlugin javaBuildPlugins;
   private final JHipsterModuleMavenBuildExtensions mavenBuildExtensions;
   private final JHipsterModulePackageJson packageJson;
@@ -106,6 +110,7 @@ public class JHipsterModule {
     optionalReplacements = builder.optionalReplacements.build();
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
+    javaBuildProfiles = builder.javaBuildProfiles.build();
     javaBuildPlugins = builder.javaBuildPlugins.build();
     mavenBuildExtensions = builder.mavenBuildExtensions.build();
     packageJson = builder.packageJson.build();
@@ -125,6 +130,7 @@ public class JHipsterModule {
     optionalReplacements = source.optionalReplacements.add(upgrade.replacements());
     context = source.context;
     javaDependencies = source.javaDependencies;
+    javaBuildProfiles = source.javaBuildProfiles;
     javaBuildPlugins = source.javaBuildPlugins;
     mavenBuildExtensions = source.mavenBuildExtensions;
     packageJson = source.packageJson;
@@ -287,6 +293,10 @@ public class JHipsterModule {
     return new RegexNeedleAfterReplacer(notContainingReplacement(), Pattern.compile(regex, Pattern.MULTILINE));
   }
 
+  public static BuildProfileId buildProfileId(String id) {
+    return new BuildProfileId(id);
+  }
+
   public static PropertyKey propertyKey(String key) {
     return new PropertyKey(key);
   }
@@ -377,6 +387,10 @@ public class JHipsterModule {
     return javaDependencies;
   }
 
+  public JHipsterModuleJavaBuildProfiles javaBuildProfiles() {
+    return javaBuildProfiles;
+  }
+
   public JHipsterModuleJavaBuildPlugin javaBuildPlugins() {
     return javaBuildPlugins;
   }
@@ -423,6 +437,7 @@ public class JHipsterModule {
       this
     );
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
+    private final JHipsterModuleJavaBuildProfilesBuilder javaBuildProfiles = JHipsterModuleJavaBuildProfiles.builder(this);
     private final JHipsterModuleJavaBuildPluginBuilder javaBuildPlugins = JHipsterModuleJavaBuildPlugin.builder(this);
     private final JHipsterModuleMavenBuildExtensionsBuilder mavenBuildExtensions = JHipsterModuleMavenBuildExtensions.builder(this);
     private final JHipsterModulePackageJsonBuilder packageJson = JHipsterModulePackageJson.builder(this);
@@ -503,6 +518,10 @@ public class JHipsterModule {
 
     public JHipsterModuleJavaDependenciesBuilder javaDependencies() {
       return javaDependencies;
+    }
+
+    public JHipsterModuleJavaBuildProfilesBuilder javaBuildProfiles() {
+      return javaBuildProfiles;
     }
 
     public JHipsterModuleJavaBuildPluginBuilder javaBuildPlugins() {

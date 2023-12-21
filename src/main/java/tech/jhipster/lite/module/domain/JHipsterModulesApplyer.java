@@ -65,6 +65,7 @@ public class JHipsterModulesApplyer {
         buildDependenciesChanges(module)
           .merge(buildPluginsChanges(module))
           .merge(buildMavenBuildExtensionsChanges(module))
+          .merge(buildProfilesChanges(module))
       )
       .packageJson(module.packageJson())
       .preActions(module.preActions())
@@ -115,6 +116,10 @@ public class JHipsterModulesApplyer {
 
   private JavaBuildCommands buildDependenciesChanges(JHipsterModule module) {
     return module.javaDependencies().buildChanges(javaVersions.get(), projectDependencies.get(module.projectFolder()));
+  }
+
+  private JavaBuildCommands buildProfilesChanges(JHipsterModule module) {
+    return module.javaBuildProfiles().buildChanges();
   }
 
   private JavaBuildCommands buildPluginsChanges(JHipsterModule module) {

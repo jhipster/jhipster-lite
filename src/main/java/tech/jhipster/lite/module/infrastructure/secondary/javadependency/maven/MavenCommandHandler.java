@@ -43,6 +43,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyMa
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginAdditionalElements;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
@@ -191,18 +192,19 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .append(indentation.times(2));
 
     if (command.activation().isPresent()) {
-      profile
-        .append(indentation.times(1))
-        .append(
-          $("activation")
+      Match activationNode = $("activation");
+      BuildProfileActivation buildProfileActivation = command.activation().orElseThrow();
+      if (buildProfileActivation.activeByDefault().isPresent()) {
+        activationNode =
+          activationNode
             .append(LINE_BREAK)
             .append(indentation.times(4))
-            .append(command.activation().get().get())
+            .append($("activeByDefault", buildProfileActivation.activeByDefault().orElseThrow().toString()))
             .append(LINE_BREAK)
-            .append(indentation.times(3))
-        )
-        .append(LINE_BREAK)
-        .append(indentation.times(2));
+            .append(indentation.times(3));
+      }
+
+      profile.append(indentation.times(1)).append(activationNode).append(LINE_BREAK).append(indentation.times(2));
     }
 
     document.find("project > profiles").append(indentation.times(1)).append(profile).append(LINE_BREAK).append(indentation.times(1));

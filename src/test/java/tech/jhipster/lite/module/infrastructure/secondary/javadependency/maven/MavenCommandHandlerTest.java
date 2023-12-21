@@ -238,7 +238,7 @@ class MavenCommandHandlerTest {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
       new MavenCommandHandler(Indentation.DEFAULT, pom)
-        .handle(new AddJavaBuildProfile(localMavenProfile(), new BuildProfileActivation("<activeByDefault>true</activeByDefault>")));
+        .handle(new AddJavaBuildProfile(localMavenProfile(), BuildProfileActivation.builder().activeByDefault().build()));
 
       assertThat(content(pom))
         .contains(
@@ -266,6 +266,26 @@ class MavenCommandHandlerTest {
           """
               <profile>
                 <id>dev</id>
+              </profile>
+            </profiles>
+          """
+        );
+    }
+
+    @Test
+    void shouldAddProfileWithEmptyActivation() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(new AddJavaBuildProfile(localMavenProfile(), BuildProfileActivation.builder().build()));
+
+      assertThat(content(pom))
+        .contains(
+          """
+            <profiles>
+              <profile>
+                <id>local</id>
+                <activation/>
               </profile>
             </profiles>
           """

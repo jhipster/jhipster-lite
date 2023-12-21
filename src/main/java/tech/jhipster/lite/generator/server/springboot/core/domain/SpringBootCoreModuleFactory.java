@@ -87,7 +87,7 @@ public class SpringBootCoreModuleFactory {
         .and()
       .javaBuildProfiles()
         .addProfile(buildProfileId("local"))
-          .activation("<activeByDefault>true</activeByDefault>") // TODO: add support for activeByDefault by API
+          .activation(buildProfileActivation().activeByDefault())
           .properties()
             .set(new PropertyKey("spring.profiles.active"), new PropertyValue("local"))
             .and()

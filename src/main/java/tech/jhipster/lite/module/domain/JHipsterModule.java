@@ -34,6 +34,8 @@ import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildP
 import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildPlugin.JHipsterModuleJavaBuildPluginBuilder;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin.JavaBuildPluginGroupIdBuilder;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
@@ -295,6 +297,10 @@ public class JHipsterModule {
 
   public static BuildProfileId buildProfileId(String id) {
     return new BuildProfileId(id);
+  }
+
+  public static BuildProfileActivationBuilder buildProfileActivation() {
+    return BuildProfileActivation.builder();
   }
 
   public static PropertyKey propertyKey(String key) {

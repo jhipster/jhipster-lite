@@ -6,6 +6,7 @@ import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildPrope
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties.JHipsterModuleBuildPropertiesBuilder;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -65,13 +66,16 @@ public class JHipsterModuleJavaBuildProfile {
     }
 
     public JHipsterModuleJavaBuildProfileBuilder activation(BuildProfileActivation activation) {
+      Assert.notNull("activation", activation);
       this.activation = activation;
 
       return this;
     }
 
-    public JHipsterModuleJavaBuildProfileBuilder activation(String activation) {
-      return activation(new BuildProfileActivation(activation));
+    public JHipsterModuleJavaBuildProfileBuilder activation(BuildProfileActivationBuilder activationBuilder) {
+      Assert.notNull("activationBuilder", activationBuilder);
+
+      return activation(activationBuilder.build());
     }
 
     public JHipsterModuleBuildPropertiesBuilder<JHipsterModuleJavaBuildProfileBuilder> properties() {

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
@@ -184,6 +185,10 @@ public final class JHipsterModulesFixture {
 
   public static JavaDependency optionalTestDependency() {
     return optionalTestDependencyBuilder().build();
+  }
+
+  public static MavenBuildExtension mavenBuildExtensionWithSlug() {
+    return mavenBuildExtension().groupId("kr.motd.maven").artifactId("os-maven-plugin").versionSlug("os-maven-plugin.version").build();
   }
 
   public static JavaDependencyOptionalValueBuilder optionalTestDependencyBuilder() {

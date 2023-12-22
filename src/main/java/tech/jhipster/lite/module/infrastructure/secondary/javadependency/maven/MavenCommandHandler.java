@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import static org.joox.JOOX.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static org.joox.JOOX.$;
+import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +33,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependenc
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
@@ -169,6 +170,67 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     document.find(rootPath).each().stream().filter(dependencyMatch(dependency)).forEach(Match::remove);
 
     writePom();
+  }
+
+  @Override
+  public void handle(AddMavenBuildExtension command) {
+    Assert.notNull(COMMAND, command);
+
+    Match extensionNode = extensionNode(command, 3);
+
+    Match buildNode = findBuildNode();
+    if (buildNode.isEmpty()) {
+      appendBuildNode(extensionsNode(extensionNode));
+    } else {
+      appendExtensionInBuildNode(extensionNode, buildNode);
+    }
+
+    writePom();
+  }
+
+  private Match extensionNode(AddMavenBuildExtension command, int level) {
+    Match extensionNode = $("extension")
+      .append(LINE_BREAK)
+      .append(indentation.times(level + 1))
+      .append($(GROUP_ID, command.buildExtension().groupId().get()))
+      .append(LINE_BREAK)
+      .append(indentation.times(level + 1))
+      .append($(ARTIFACT_ID, command.buildExtension().artifactId().get()));
+
+    appendVersion(command.buildExtension().versionSlug(), extensionNode, level);
+
+    return extensionNode.append(LINE_BREAK);
+  }
+
+  private Match extensionsNode(Match extensionNode) {
+    return $("extensions")
+      .append(LINE_BREAK)
+      .append(indentation.times(3))
+      .append(extensionNode.append(indentation.times(3)))
+      .append(LINE_BREAK)
+      .append(indentation.times(2));
+  }
+
+  private void appendExtensionInBuildNode(Match extensionNode, Match buildNode) {
+    Match extensionsNode = buildNode.child("extensions");
+
+    if (extensionsNode.isEmpty()) {
+      prependExtensions(extensionNode, buildNode);
+    } else {
+      appendInExtensions(extensionNode, extensionsNode);
+    }
+  }
+
+  private Match prependExtensions(Match extensionNode, Match buildNode) {
+    return buildNode.prepend(extensionsNode(extensionNode)).prepend(indentation.times(2)).prepend(LINE_BREAK);
+  }
+
+  private Match appendInExtensions(Match extensionNode, Match extensionsNode) {
+    return extensionsNode
+      .append(indentation.times(1))
+      .append(extensionNode.append(indentation.times(3)))
+      .append(LINE_BREAK)
+      .append(indentation.times(2));
   }
 
   @Override

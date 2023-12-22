@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.dummy.feature.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -24,6 +25,17 @@ class DummyFeatureModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
+      .hasFile("pom.xml")
+      .containing(
+        """
+              <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>${os-maven-plugin.version}</version>
+              </extension>
+        """
+      )
+      .and()
       .hasFiles("documentation/dummy.md")
       .hasPrefixedFiles("src/main/java/com/jhipster/test/dummy", "package-info.java")
       .hasPrefixedFiles(

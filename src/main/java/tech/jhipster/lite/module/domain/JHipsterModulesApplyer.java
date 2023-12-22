@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.domain;
 
-import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.*;
+import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.PROPERTIES;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -61,7 +61,11 @@ public class JHipsterModulesApplyer {
       .filesToMove(module.filesToMove())
       .filesToDelete(module.filesToDelete())
       .replacers(buildReplacers(module))
-      .javaBuildCommands(buildDependenciesChanges(module).merge(buildPluginsChanges(module)))
+      .javaBuildCommands(
+        buildDependenciesChanges(module)
+          .merge(buildPluginsChanges(module))
+          .merge(buildMavenBuildExtensionsChanges(module))
+      )
       .packageJson(module.packageJson())
       .preActions(module.preActions())
       .postActions(module.postActions())
@@ -115,5 +119,9 @@ public class JHipsterModulesApplyer {
 
   private JavaBuildCommands buildPluginsChanges(JHipsterModule module) {
     return module.javaBuildPlugins().buildChanges(javaVersions.get());
+  }
+
+  private JavaBuildCommands buildMavenBuildExtensionsChanges(JHipsterModule module) {
+    return module.mavenBuildExtensions().buildChanges(javaVersions.get());
   }
 }

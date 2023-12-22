@@ -8,17 +8,15 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.nio.file.Paths;
+
+import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
@@ -324,6 +322,16 @@ class GradleCommandHandlerTest {
 
       assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
     }
+  }
+
+  @Test
+  void addMavenBuildExtensionShouldThrowNotImplementedException() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
+
+    GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+    AddMavenBuildExtension command = new AddMavenBuildExtension(mavenBuildExtensionWithSlug());
+    assertThatThrownBy(() -> gradleCommandHandler.handle(command)).isInstanceOf(NotImplementedException.class);
+
   }
 
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {

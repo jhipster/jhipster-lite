@@ -313,7 +313,7 @@ public class ModulesSteps {
         "$.levels[" + level + "].elements[?(@.slug=='" + element.get("Slug") + "')].type"
       );
 
-      assertThat(types.get(0)).isEqualTo(element.get("Type"));
+      assertThat(types.getFirst()).isEqualTo(element.get("Type"));
     });
   }
 

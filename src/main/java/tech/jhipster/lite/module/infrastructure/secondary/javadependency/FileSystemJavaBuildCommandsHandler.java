@@ -43,6 +43,7 @@ public class FileSystemJavaBuildCommandsHandler {
   private void handle(JavaDependenciesCommandHandler handler, JavaBuildCommand command) {
     switch (command) {
       case SetVersion setVersion -> handler.handle(setVersion);
+      case SetBuildProperty setBuildProperty -> handler.handle(setBuildProperty);
       case RemoveJavaDependencyManagement removeJavaDependencyManagement -> handler.handle(removeJavaDependencyManagement);
       case AddJavaDependencyManagement addJavaDependencyManagement -> handler.handle(addJavaDependencyManagement);
       case RemoveDirectJavaDependency removeDirectJavaDependency -> handler.handle(removeDirectJavaDependency);
@@ -50,6 +51,7 @@ public class FileSystemJavaBuildCommandsHandler {
       case AddDirectJavaBuildPlugin addDirectJavaBuildPlugin -> handler.handle(addDirectJavaBuildPlugin);
       case AddBuildPluginManagement addBuildPluginManagement -> handler.handle(addBuildPluginManagement);
       case AddMavenBuildExtension addMavenBuildExtension -> handler.handle(addMavenBuildExtension);
+      case AddJavaBuildProfile addJavaBuildProfile -> handler.handle(addJavaBuildProfile);
     }
   }
 }

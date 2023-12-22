@@ -1,13 +1,11 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.commons.lang3.NotImplementedException;
-
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
@@ -132,8 +130,17 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @Override
+  public void handle(SetBuildProperty command) {
+    throw new NotImplementedException(NOT_YET_IMPLEMENTED);
+  }
+
+  @Override
   public void handle(AddMavenBuildExtension command) {
     throw new NotImplementedException("This command is not support with Gradle");
   }
 
+  @Override
+  public void handle(AddJavaBuildProfile addJavaBuildProfile) {
+    throw new NotImplementedException(NOT_YET_IMPLEMENTED);
+  }
 }

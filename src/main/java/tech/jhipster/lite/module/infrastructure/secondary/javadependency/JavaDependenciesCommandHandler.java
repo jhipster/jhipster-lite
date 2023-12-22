@@ -18,4 +18,8 @@ public interface JavaDependenciesCommandHandler {
   void handle(AddBuildPluginManagement command);
 
   void handle(AddMavenBuildExtension command);
+
+  void handle(SetBuildProperty command);
+
+  void handle(AddJavaBuildProfile addJavaBuildProfile);
 }

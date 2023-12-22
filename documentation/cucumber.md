@@ -15,7 +15,7 @@ Feature: Simple WebService test
 You'll then have to define the glue code:
 
 ```java
-import static tech.jhipster.lite.cucumber.CucumberAssertions.*;
+import static tech.jhipster.lite.cucumber.rest.CucumberRestAssertions.*;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -82,9 +82,9 @@ public void shouldGetResponseContent(List<Map<String, Object>> responses) {
 Sometimes you may want to access the last response content without asserting it, you can do:
 
 ```java
-CucumberTestContext.getElement("$.path");
-CucumberTestContext.getElement("uri-path", "$.path");
-CucumberTestContext.countEntries("$.path");
+CucumberRestTestContext.getElement("$.path");
+CucumberRestTestContext.getElement("uri-path", "$.path");
+CucumberRestTestContext.countEntries("$.path");
 ```
 
 ## Async services

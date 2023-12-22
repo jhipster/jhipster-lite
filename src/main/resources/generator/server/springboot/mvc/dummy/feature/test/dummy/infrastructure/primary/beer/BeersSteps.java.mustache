@@ -1,9 +1,9 @@
 package {{packageName}}.dummy.infrastructure.primary.beer;
 
-import static {{packageName}}.cucumber.CucumberAssertions.*;
+import static {{packageName}}.cucumber.rest.CucumberRestAssertions.*;
 
-import {{packageName}}.cucumber.CucumberRestTemplate;
-import {{packageName}}.cucumber.CucumberTestContext;
+import {{packageName}}.cucumber.rest.CucumberRestTemplate;
+import {{packageName}}.cucumber.rest.CucumberRestTestContext;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.List;
@@ -31,7 +31,7 @@ public class BeersSteps {
 
   @When("I remove the created beer from the catalog")
   public void removeCreatedBeerFromCatalog() {
-    rest.delete("/api/beers/" + CucumberTestContext.getElement("$.id"));
+    rest.delete("/api/beers/" + CucumberRestTestContext.getElement("$.id"));
   }
 
   @Then("I should have beers catalog")

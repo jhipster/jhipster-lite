@@ -22,6 +22,7 @@ import tech.jhipster.lite.cucumber.CucumberTestContext;
 
 import {{packageName}}.{{ baseName }}App;
 import {{packageName}}.cucumber.CucumberConfiguration.CucumberRestTemplateConfiguration;
+import {{packageName}}.cucumber.rest.CucumberRestTemplate;
 
 @CucumberContextConfiguration
 @SpringBootTest(classes = { {{ baseName }}App.class, CucumberRestTemplateConfiguration.class }, webEnvironment = WebEnvironment.RANDOM_PORT)

@@ -150,7 +150,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Match properties;
     int indentationLevel;
     if (command.buildProfile().isPresent()) {
-      BuildProfileId buildProfile = command.buildProfile().get();
+      BuildProfileId buildProfile = command.buildProfile().orElseThrow();
       properties = findBuildProfile(buildProfile).orElseThrow(() -> new MissingMavenProfileException(buildProfile)).child(PROPERTIES);
       if (properties.isEmpty()) {
         properties = appendPropertiesToBuildProfile(buildProfile);
@@ -171,8 +171,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   @Override
   public void handle(AddJavaBuildProfile command) {
-    Match profiles = document.find("project > profiles");
-    if (profiles.isEmpty()) {
+    if (profiles().isEmpty()) {
       appendProfiles();
     }
 
@@ -181,6 +180,10 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     }
 
     writePom();
+  }
+
+  private Match profiles() {
+    return document.find("project > profiles");
   }
 
   private void appendProfile(AddJavaBuildProfile command) {
@@ -207,13 +210,13 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       profile.append(indentation.times(1)).append(activationNode).append(LINE_BREAK).append(indentation.times(2));
     }
 
-    document.find("project > profiles").append(indentation.times(1)).append(profile).append(LINE_BREAK).append(indentation.times(1));
+    profiles().append(indentation.times(1)).append(profile).append(LINE_BREAK).append(indentation.times(1));
   }
 
   private void appendProfiles() {
     Match profiles = $("profiles").append(LINE_BREAK).append(indentation.spaces());
     findFirst(PROFILES_ANCHORS).after(profiles);
-    document.find("project > profiles").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
+    profiles().before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
   }
 
   private Optional<Match> findBuildProfile(BuildProfileId buildProfile) {

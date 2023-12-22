@@ -115,7 +115,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
   }
 
   @Test
-  void shouldNotCommentWhenPropertieKeyDoesNotExists() {
+  void shouldNotCommentWhenPropertyKeyDoesNotExist() {
     String path = TestFileUtils.tmpDirForTest();
     Path propertiesFile = Paths.get(path, "src/main/resources/config/application.yml");
     loadDefaultProperties(EXISTING_SPRING_CONFIGURATION, propertiesFile);

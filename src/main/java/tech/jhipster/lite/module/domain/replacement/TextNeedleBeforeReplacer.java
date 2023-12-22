@@ -64,7 +64,7 @@ public record TextNeedleBeforeReplacer(ReplacementCondition condition, String te
       blocks.add(content.substring(blockStart(needlesLinesIndexes, index), needlesLinesIndexes.get(index)));
     }
 
-    blocks.add(content.substring(needlesLinesIndexes.get(needlesLinesIndexes.size() - 1)));
+    blocks.add(content.substring(needlesLinesIndexes.getLast()));
 
     return blocks;
   }

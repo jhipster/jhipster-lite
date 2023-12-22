@@ -33,7 +33,7 @@ class GradleCommandHandlerTest {
   }
 
   @Test
-  void addMavenBuildExtensionShouldThrowNotImplementedException() {
+  void setBuildPropertyShouldThrowNotImplementedException() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
 
     GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);

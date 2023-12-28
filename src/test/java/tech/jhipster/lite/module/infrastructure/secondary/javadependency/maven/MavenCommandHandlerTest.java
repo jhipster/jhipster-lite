@@ -245,11 +245,20 @@ class MavenCommandHandlerTest {
   class HandleAddJavaBuildProfile {
 
     @Test
-    void shouldNotAddProfileToPomWithOnlyRootDefined() {
+    void shouldAddProfileToPomWithOnlyRootDefined() {
       Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile())))
-        .isExactlyInstanceOf(InvalidPomException.class);
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile()));
+
+      assertThat(content(pom))
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+              </profile>
+            </profiles>
+          """
+        );
     }
 
     @Test
@@ -322,7 +331,7 @@ class MavenCommandHandlerTest {
             <profiles>
               <profile>
                 <id>local</id>
-                <activation/>
+                <activation />
               </profile>
             </profiles>
           """

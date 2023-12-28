@@ -11,12 +11,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import org.apache.maven.model.Activation;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -183,60 +185,29 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   @Override
   public void handle(AddJavaBuildProfile command) {
-    if (profiles().isEmpty()) {
-      appendProfiles();
+    Assert.notNull(COMMAND, command);
+
+    List<Profile> profiles = pomModel.getProfiles();
+    if (profiles.stream().noneMatch(profileMatch(command.buildProfileId()))) {
+      Profile profile = toMavenProfile(command);
+      pomModel.addProfile(profile);
     }
 
-    if (findBuildProfile(command.buildProfileId()).isEmpty()) {
-      appendProfile(command);
-    }
-
-    writePom();
+    writePomFromModel();
   }
 
-  private Match profiles() {
-    return document.find("project > profiles");
+  private static Profile toMavenProfile(AddJavaBuildProfile command) {
+    Profile profile = new Profile();
+    profile.setId(command.buildProfileId().value());
+    command.activation().ifPresent(activation -> profile.setActivation(toMavenActivation(activation)));
+
+    return profile;
   }
 
-  private void appendProfile(AddJavaBuildProfile command) {
-    Match profile = $("profile")
-      .append(LINE_BREAK)
-      .append(indentation.times(3))
-      .append($("id", command.buildProfileId().value()))
-      .append(LINE_BREAK)
-      .append(indentation.times(2));
-
-    if (command.activation().isPresent()) {
-      Match activationNode = $("activation");
-      BuildProfileActivation buildProfileActivation = command.activation().orElseThrow();
-      if (buildProfileActivation.activeByDefault().isPresent()) {
-        activationNode =
-          activationNode
-            .append(LINE_BREAK)
-            .append(indentation.times(4))
-            .append($("activeByDefault", buildProfileActivation.activeByDefault().orElseThrow().toString()))
-            .append(LINE_BREAK)
-            .append(indentation.times(3));
-      }
-
-      profile.append(indentation.times(1)).append(activationNode).append(LINE_BREAK).append(indentation.times(2));
-    }
-
-    profiles().append(indentation.times(1)).append(profile).append(LINE_BREAK).append(indentation.times(1));
-  }
-
-  private void appendProfiles() {
-    Match profiles = $("profiles").append(LINE_BREAK).append(indentation.spaces());
-    findFirst(PROFILES_ANCHORS).after(profiles);
-    profiles().before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
-  }
-
-  private Optional<Match> findBuildProfile(BuildProfileId buildProfile) {
-    return document.find("project > profiles > profile").each().stream().filter(buildProfileMatch(buildProfile)).findFirst();
-  }
-
-  private Predicate<Match> buildProfileMatch(BuildProfileId buildProfile) {
-    return profile -> profile.child("id").text().equals(buildProfile.value());
+  private static Activation toMavenActivation(BuildProfileActivation activation) {
+    Activation mavenActivation = new Activation();
+    activation.activeByDefault().ifPresent(mavenActivation::setActiveByDefault);
+    return mavenActivation;
   }
 
   @Override

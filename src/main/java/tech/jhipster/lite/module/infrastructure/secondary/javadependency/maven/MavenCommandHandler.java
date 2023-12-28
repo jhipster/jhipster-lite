@@ -100,19 +100,6 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     ARTIFACT_ID,
   };
 
-  private static final String[] PROFILES_ANCHORS = new String[] {
-    BUILD,
-    DEPENDENCIES,
-    DEPENDENCY_MANAGEMENT,
-    PROPERTIES,
-    PARENT,
-    PACKAGING,
-    DESCRIPTION,
-    NAME,
-    VERSION,
-    ARTIFACT_ID,
-  };
-
   private final Indentation indentation;
   private final Path pomPath;
   private final Match document;
@@ -170,7 +157,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       pomModel.addProperty(command.property().key().get(), command.property().value().get());
     }
 
-    writePomFromModel();
+    writePomFromMavenModel();
   }
 
   private static Predicate<Profile> profileMatch(BuildProfileId buildProfileId) {
@@ -187,7 +174,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       pomModel.addProfile(profile);
     }
 
-    writePomFromModel();
+    writePomFromMavenModel();
   }
 
   private static Profile toMavenProfile(AddJavaBuildProfile command) {
@@ -224,7 +211,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
     if (dependencies != null) {
       dependencies.removeIf(dependencyIdMatch(dependency));
-      writePomFromModel();
+      writePomFromMavenModel();
     }
   }
 
@@ -243,7 +230,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
     projectBuild().addExtension(toMavenExtension(command.buildExtension()));
 
-    writePomFromModel();
+    writePomFromMavenModel();
   }
 
   private Build projectBuild() {
@@ -290,7 +277,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       insertDependencyBeforeFirstTestDependency(mavenDependency, dependencies);
     }
 
-    writePomFromModel();
+    writePomFromMavenModel();
   }
 
   private void insertDependencyBeforeFirstTestDependency(Dependency mavenDependency, List<Dependency> dependencies) {
@@ -346,7 +333,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       appendPluginManagementInBuildNode(pluginNode, buildNode);
     }
 
-    writePom();
+    writePomFromXmlDocument();
   }
 
   private void appendPluginManagementInBuildNode(Match pluginNode, Match buildNode) {
@@ -395,7 +382,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       appendPluginInBuildNode(pluginNode, buildNode);
     }
 
-    writePom();
+    writePomFromXmlDocument();
   }
 
   private void appendPluginInBuildNode(Match pluginNode, Match buildNode) {
@@ -515,7 +502,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
-  private void writePom() {
+  private void writePomFromXmlDocument() {
     try (Writer writer = Files.newBufferedWriter(pomPath, StandardCharsets.UTF_8)) {
       writer.write(HEADER);
 
@@ -532,7 +519,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
-  private void writePomFromModel() {
+  private void writePomFromMavenModel() {
     MavenXpp3Writer mavenWriter = new MavenXpp3Writer();
     try (Writer writer = Files.newBufferedWriter(pomPath, StandardCharsets.UTF_8)) {
       mavenWriter.write(writer, pomModel);

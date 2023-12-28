@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.apache.maven.model.Activation;
 import org.apache.maven.model.Build;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.model.Extension;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
@@ -217,20 +219,33 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(RemoveJavaDependencyManagement command) {
     Assert.notNull(COMMAND, command);
 
-    removeDependency("project > dependencyManagement > dependencies > dependency", command.dependency());
+    DependencyManagement dependenciesManagement = pomModel.getDependencyManagement();
+    if (dependenciesManagement != null) {
+      removeDependencyFrom(command.dependency(), dependenciesManagement.getDependencies());
+    }
   }
 
   @Override
   public void handle(RemoveDirectJavaDependency command) {
     Assert.notNull(COMMAND, command);
 
-    removeDependency("project > dependencies > dependency", command.dependency());
+    removeDependencyFrom(command.dependency(), pomModel.getDependencies());
   }
 
-  private void removeDependency(String rootPath, DependencyId dependency) {
-    document.find(rootPath).each().stream().filter(dependencyMatch(dependency)).forEach(Match::remove);
+  private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
+    if (dependencies != null) {
+      dependencies.removeIf(dependencyIdMatch(dependency));
+      writePomFromModel();
+    }
+  }
 
-    writePom();
+  private Predicate<Dependency> dependencyIdMatch(DependencyId dependencyId) {
+    return mavenDependency -> {
+      boolean sameGroupId = mavenDependency.getGroupId().equals(dependencyId.groupId().get());
+      boolean sameArtifactId = mavenDependency.getArtifactId().equals(dependencyId.artifactId().get());
+
+      return sameGroupId && sameArtifactId;
+    };
   }
 
   @Override

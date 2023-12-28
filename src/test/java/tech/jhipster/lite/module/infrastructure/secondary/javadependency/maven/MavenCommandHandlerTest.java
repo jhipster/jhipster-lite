@@ -495,7 +495,6 @@ class MavenCommandHandlerTest {
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-implementation</artifactId>
               </dependency>
-
               <dependency>
                 <groupId>io.another</groupId>
                 <artifactId>jjwt-api</artifactId>

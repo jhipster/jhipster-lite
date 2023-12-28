@@ -397,8 +397,8 @@ class MavenCommandHandlerTest {
                   <groupId>org.springframework.boot</groupId>
                   <artifactId>spring-boot-dependencies</artifactId>
                   <version>${spring-boot.version}</version>
-                  <scope>import</scope>
                   <type>pom</type>
+                  <scope>import</scope>
                 </dependency>
               </dependencies>
             </dependencyManagement>
@@ -419,8 +419,8 @@ class MavenCommandHandlerTest {
                   <groupId>org.springframework.boot</groupId>
                   <artifactId>spring-boot-dependencies</artifactId>
                   <version>${spring-boot.version}</version>
-                  <scope>import</scope>
                   <type>pom</type>
+                  <scope>import</scope>
                 </dependency>
               </dependencies>
             </dependencyManagement>
@@ -594,12 +594,10 @@ class MavenCommandHandlerTest {
           """
                 <artifactId>logstash-logback-encoder</artifactId>
               </dependency>
-
               <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
               </dependency>
-
               <dependency>
                 <groupId>io.jsonwebtoken</groupId>
           """

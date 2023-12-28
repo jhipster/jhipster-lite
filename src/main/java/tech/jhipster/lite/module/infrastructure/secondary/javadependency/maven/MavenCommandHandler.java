@@ -19,6 +19,8 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.apache.maven.model.Activation;
+import org.apache.maven.model.Build;
+import org.apache.maven.model.Extension;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -36,6 +38,7 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
@@ -234,61 +237,24 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddMavenBuildExtension command) {
     Assert.notNull(COMMAND, command);
 
-    Match extensionNode = extensionNode(command, 3);
+    projectBuild().addExtension(toMavenExtension(command.buildExtension()));
 
-    Match buildNode = findBuildNode();
-    if (buildNode.isEmpty()) {
-      appendBuildNode(extensionsNode(extensionNode));
-    } else {
-      appendExtensionInBuildNode(extensionNode, buildNode);
+    writePomFromModel();
+  }
+
+  private Build projectBuild() {
+    if (pomModel.getBuild() == null) {
+      pomModel.setBuild(new Build());
     }
-
-    writePom();
+    return pomModel.getBuild();
   }
 
-  private Match extensionNode(AddMavenBuildExtension command, int level) {
-    Match extensionNode = $("extension")
-      .append(LINE_BREAK)
-      .append(indentation.times(level + 1))
-      .append($(GROUP_ID, command.buildExtension().groupId().get()))
-      .append(LINE_BREAK)
-      .append(indentation.times(level + 1))
-      .append($(ARTIFACT_ID, command.buildExtension().artifactId().get()));
-
-    appendVersion(command.buildExtension().versionSlug(), extensionNode, level);
-
-    return extensionNode.append(LINE_BREAK);
-  }
-
-  private Match extensionsNode(Match extensionNode) {
-    return $("extensions")
-      .append(LINE_BREAK)
-      .append(indentation.times(3))
-      .append(extensionNode.append(indentation.times(3)))
-      .append(LINE_BREAK)
-      .append(indentation.times(2));
-  }
-
-  private void appendExtensionInBuildNode(Match extensionNode, Match buildNode) {
-    Match extensionsNode = buildNode.child("extensions");
-
-    if (extensionsNode.isEmpty()) {
-      prependExtensions(extensionNode, buildNode);
-    } else {
-      appendInExtensions(extensionNode, extensionsNode);
-    }
-  }
-
-  private Match prependExtensions(Match extensionNode, Match buildNode) {
-    return buildNode.prepend(extensionsNode(extensionNode)).prepend(indentation.times(2)).prepend(LINE_BREAK);
-  }
-
-  private Match appendInExtensions(Match extensionNode, Match extensionsNode) {
-    return extensionsNode
-      .append(indentation.times(1))
-      .append(extensionNode.append(indentation.times(3)))
-      .append(LINE_BREAK)
-      .append(indentation.times(2));
+  private static Extension toMavenExtension(MavenBuildExtension mavenBuildExtension) {
+    Extension extension = new Extension();
+    extension.setArtifactId(mavenBuildExtension.artifactId().get());
+    extension.setGroupId(mavenBuildExtension.groupId().get());
+    mavenBuildExtension.versionSlug().map(VersionSlug::mavenVariable).ifPresent(extension::setVersion);
+    return extension;
   }
 
   @Override

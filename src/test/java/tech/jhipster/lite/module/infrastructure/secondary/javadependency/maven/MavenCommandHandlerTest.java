@@ -48,7 +48,7 @@ class MavenCommandHandlerTest {
 
     new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
-    assertThat(content(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+    assertThat(content(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   }
 
   @Nested
@@ -56,11 +56,15 @@ class MavenCommandHandlerTest {
   class MavenCommandHandlerSetVersionTest {
 
     @Test
-    void shouldNotAddPropertiesToPomWithOnlyRootDefined() {
+    void shouldAddPropertiesToPomWithOnlyRootDefined() {
       Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion())))
-        .isExactlyInstanceOf(InvalidPomException.class);
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
+
+      assertThat(content(pom))
+        .contains("  <properties>")
+        .contains("    <spring-boot.version>1.2.3</spring-boot.version>")
+        .contains("  </properties>");
     }
 
     @Test
@@ -105,13 +109,19 @@ class MavenCommandHandlerTest {
     class WithoutProfile {
 
       @Test
-      void shouldNotAddPropertiesToPomWithOnlyRootDefined() {
+      void shouldAddPropertiesToPomWithOnlyRootDefined() {
         Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-        assertThatThrownBy(() ->
-            new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()))
-          )
-          .isExactlyInstanceOf(InvalidPomException.class);
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()));
+
+        assertThat(content(pom))
+          .contains(
+            """
+              <properties>
+                <spring.profiles.active>local</spring.profiles.active>
+              </properties>
+            """
+          );
       }
 
       @Test
@@ -337,8 +347,10 @@ class MavenCommandHandlerTest {
     @Test
     void shouldRemoveDependency() {
       Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependencyManagement(springBootDependencyId()));
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyId()));
 
       assertThat(content(pom))
         .doesNotContain(

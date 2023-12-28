@@ -17,6 +17,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.Profile;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.io.OutputFormat;
@@ -76,8 +81,6 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   private static final String DEPENDENCIES = "dependencies";
   private static final String PLUGINS = "plugins";
 
-  private static final String[] PROPERTIES_ANCHORS = new String[] { PARENT, PACKAGING, DESCRIPTION, NAME, VERSION, ARTIFACT_ID };
-
   private static final String[] DEPENDENCIES_ANCHORS = new String[] {
     DEPENDENCY_MANAGEMENT,
     PROPERTIES,
@@ -117,6 +120,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   private final Indentation indentation;
   private final Path pomPath;
   private final Match document;
+  private final Model pomModel;
 
   public MavenCommandHandler(Indentation indentation, Path pomPath) {
     Assert.notNull("indentation", indentation);
@@ -125,6 +129,16 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     this.indentation = indentation;
     this.pomPath = pomPath;
     document = readDocument(pomPath);
+    pomModel = readModel(pomPath);
+  }
+
+  private Model readModel(Path pomPath) {
+    try (InputStream input = Files.newInputStream(pomPath)) {
+      MavenXpp3Reader reader = new MavenXpp3Reader();
+      return reader.read(input);
+    } catch (IOException | XmlPullParserException e) {
+      throw GeneratorException.technicalError("Error reading pom file: " + e.getMessage(), e);
+    }
   }
 
   private Match readDocument(Path pomPath) {
@@ -147,26 +161,24 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(SetBuildProperty command) {
     Assert.notNull(COMMAND, command);
 
-    Match properties;
-    int indentationLevel;
     if (command.buildProfile().isPresent()) {
-      BuildProfileId buildProfile = command.buildProfile().orElseThrow();
-      properties = findBuildProfile(buildProfile).orElseThrow(() -> new MissingMavenProfileException(buildProfile)).child(PROPERTIES);
-      if (properties.isEmpty()) {
-        properties = appendPropertiesToBuildProfile(buildProfile);
-      }
-      indentationLevel = 3;
+      BuildProfileId buildProfileId = command.buildProfile().orElseThrow();
+      Profile mavenProfile = pomModel
+        .getProfiles()
+        .stream()
+        .filter(profileMatch(buildProfileId))
+        .findFirst()
+        .orElseThrow(() -> new MissingMavenProfileException(buildProfileId));
+      mavenProfile.addProperty(command.property().key().get(), command.property().value().get());
     } else {
-      properties = document.find("project > properties");
-      if (properties.isEmpty()) {
-        properties = appendProperties();
-      }
-      indentationLevel = 1;
+      pomModel.addProperty(command.property().key().get(), command.property().value().get());
     }
 
-    appendPropertyLine(properties, command.property(), indentationLevel);
+    writePomFromModel();
+  }
 
-    writePom();
+  private static Predicate<Profile> profileMatch(BuildProfileId buildProfileId) {
+    return profile -> profile.getId().equals(buildProfileId.value());
   }
 
   @Override
@@ -225,33 +237,6 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   private Predicate<Match> buildProfileMatch(BuildProfileId buildProfile) {
     return profile -> profile.child("id").text().equals(buildProfile.value());
-  }
-
-  private Match appendProperties() {
-    Match properties = $(PROPERTIES).append(LINE_BREAK).append(indentation.spaces());
-    findFirst(PROPERTIES_ANCHORS).after(properties);
-    return document.find("project > properties").before(LINE_BREAK).before(LINE_BREAK).before(indentation.spaces());
-  }
-
-  private Match appendPropertiesToBuildProfile(BuildProfileId buildProfile) {
-    Match properties = $(PROPERTIES).append(LINE_BREAK).append(indentation.times(3));
-    Match buildProfileNode = findBuildProfile(buildProfile).orElseThrow();
-    buildProfileNode.append(indentation.times(1)).append(properties).append(LINE_BREAK).append(indentation.times(2));
-    return buildProfileNode.child(PROPERTIES);
-  }
-
-  private void appendPropertyLine(Match properties, BuildProperty buildProperty, int level) {
-    Match propertyNode = properties.children().filter(buildProperty.key().get());
-
-    if (propertyNode.isNotEmpty()) {
-      propertyNode.text(buildProperty.value().get());
-    } else {
-      properties
-        .append(indentation.times(1))
-        .append($(buildProperty.key().get(), buildProperty.value().get()))
-        .append(LINE_BREAK)
-        .append(indentation.times(level));
-    }
   }
 
   @Override
@@ -717,6 +702,16 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
         writer.write(element);
       }
+    } catch (IOException e) {
+      throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
+    }
+  }
+
+  @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
+  private void writePomFromModel() {
+    MavenXpp3Writer mavenWriter = new MavenXpp3Writer();
+    try (Writer writer = Files.newBufferedWriter(pomPath, StandardCharsets.UTF_8)) {
+      mavenWriter.write(writer, pomModel);
     } catch (IOException e) {
       throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
     }

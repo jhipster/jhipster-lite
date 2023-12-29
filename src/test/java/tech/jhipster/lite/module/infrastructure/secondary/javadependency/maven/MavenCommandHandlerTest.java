@@ -51,6 +51,18 @@ class MavenCommandHandlerTest {
     assertThat(content(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   }
 
+  @Test
+  void shouldEnforceIndentation() {
+    Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+    new MavenCommandHandler(Indentation.from(4), pom).handle(new SetVersion(springBootVersion()));
+
+    assertThat(content(pom))
+      .contains("    <properties>")
+      .contains("        <spring-boot.version>1.2.3</spring-boot.version>")
+      .contains("    </properties>");
+  }
+
   @Nested
   @DisplayName("Set dependency version")
   class MavenCommandHandlerSetVersionTest {

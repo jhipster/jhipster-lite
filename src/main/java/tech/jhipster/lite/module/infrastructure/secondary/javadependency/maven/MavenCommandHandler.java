@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -65,7 +66,9 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 
 public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
+  private static final MavenXpp3Writer mavenWriter = new MavenXpp3Writer();
   private static final String COMMAND = "command";
+  private static final int DEFAULT_MAVEN_INDENTATION = 2;
 
   private final Indentation indentation;
   private final Path pomPath;
@@ -341,11 +344,19 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
   private void writePom() {
-    MavenXpp3Writer mavenWriter = new MavenXpp3Writer();
-    try (Writer writer = Files.newBufferedWriter(pomPath, StandardCharsets.UTF_8)) {
-      mavenWriter.write(writer, pomModel);
+    try (Writer fileWriter = Files.newBufferedWriter(pomPath, StandardCharsets.UTF_8)) {
+      StringWriter stringWriter = new StringWriter();
+      mavenWriter.write(stringWriter, pomModel);
+      fileWriter.write(applyIndentation(stringWriter.getBuffer().toString()));
     } catch (IOException e) {
       throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
     }
+  }
+
+  private String applyIndentation(String pomContent) {
+    if (indentation.spacesCount() == DEFAULT_MAVEN_INDENTATION) {
+      return pomContent;
+    }
+    return pomContent.replace(" ".repeat(DEFAULT_MAVEN_INDENTATION), indentation.spaces());
   }
 }

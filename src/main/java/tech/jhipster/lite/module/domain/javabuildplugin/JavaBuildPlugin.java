@@ -1,5 +1,10 @@
 package tech.jhipster.lite.module.domain.javabuildplugin;
 
+import static java.util.function.Predicate.not;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
@@ -10,12 +15,14 @@ public class JavaBuildPlugin {
 
   private final DependencyId dependencyId;
   private final Optional<VersionSlug> versionSlug;
-  private final Optional<JavaBuildPluginAdditionalElements> additionalElements;
+  private final Optional<JavaBuildPluginConfiguration> configuration;
+  private final Optional<JavaBuildPluginExecutions> executions;
 
   private JavaBuildPlugin(JavaBuildPluginBuilder builder) {
     dependencyId = DependencyId.of(builder.groupId, builder.artifactId);
     versionSlug = Optional.ofNullable(builder.versionSlug);
-    additionalElements = Optional.ofNullable(builder.additionalElements);
+    configuration = Optional.ofNullable(builder.configuration);
+    executions = Optional.ofNullable(builder.executions).filter(not(Collection::isEmpty)).map(JavaBuildPluginExecutions::new);
   }
 
   public static JavaBuildPluginGroupIdBuilder builder() {
@@ -26,8 +33,12 @@ public class JavaBuildPlugin {
     return versionSlug;
   }
 
-  public Optional<JavaBuildPluginAdditionalElements> additionalElements() {
-    return additionalElements;
+  public Optional<JavaBuildPluginConfiguration> configuration() {
+    return configuration;
+  }
+
+  public Optional<JavaBuildPluginExecutions> executions() {
+    return executions;
   }
 
   public DependencyId dependencyId() {
@@ -40,7 +51,8 @@ public class JavaBuildPlugin {
     private GroupId groupId;
     private ArtifactId artifactId;
     private VersionSlug versionSlug;
-    private JavaBuildPluginAdditionalElements additionalElements;
+    private JavaBuildPluginConfiguration configuration;
+    private final List<JavaBuildPluginExecution> executions = new ArrayList<>();
 
     private JavaBuildPluginBuilder() {}
 
@@ -66,9 +78,14 @@ public class JavaBuildPlugin {
     }
 
     @Override
-    public JavaBuildPluginOptionalBuilder additionalElements(JavaBuildPluginAdditionalElements additionalElements) {
-      this.additionalElements = additionalElements;
+    public JavaBuildPluginOptionalBuilder configuration(JavaBuildPluginConfiguration configuration) {
+      this.configuration = configuration;
+      return this;
+    }
 
+    @Override
+    public JavaBuildPluginOptionalBuilder addExecution(JavaBuildPluginExecution executions) {
+      this.executions.add(executions);
       return this;
     }
 
@@ -97,16 +114,22 @@ public class JavaBuildPlugin {
   public interface JavaBuildPluginOptionalBuilder {
     JavaBuildPluginOptionalBuilder versionSlug(VersionSlug slug);
 
-    JavaBuildPluginOptionalBuilder additionalElements(JavaBuildPluginAdditionalElements additionalElements);
-
     JavaBuildPlugin build();
 
     default JavaBuildPluginOptionalBuilder versionSlug(String slug) {
       return versionSlug(new VersionSlug(slug));
     }
 
-    default JavaBuildPluginOptionalBuilder additionalElements(String additionalElements) {
-      return additionalElements(new JavaBuildPluginAdditionalElements(additionalElements));
+    JavaBuildPluginOptionalBuilder configuration(JavaBuildPluginConfiguration configuration);
+
+    default JavaBuildPluginOptionalBuilder configuration(String configuration) {
+      return configuration(new JavaBuildPluginConfiguration(configuration));
+    }
+
+    JavaBuildPluginOptionalBuilder addExecution(JavaBuildPluginExecution executions);
+
+    default JavaBuildPluginOptionalBuilder addExecution(JavaBuildPluginExecution.JavaBuildPluginExecutionOptionalBuilder builder) {
+      return addExecution(builder.build());
     }
   }
 }

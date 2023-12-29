@@ -47,9 +47,9 @@ class CustomJHLiteModuleFactoryTest {
                 <groupId>tech.jhipster.lite</groupId>
                 <artifactId>jhlite</artifactId>
                 <version>${jhlite.version}</version>
+                <type>test-jar</type>
                 <classifier>tests</classifier>
                 <scope>test</scope>
-                <type>test-jar</type>
               </dependency>
           """
         )

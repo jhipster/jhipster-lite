@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -121,13 +122,11 @@ public class MavenModuleFactory {
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-compiler-plugin")
       .versionSlug("compiler-plugin")
-      .additionalElements(
+      .configuration(
         """
-        <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
           <parameters>true</parameters>
-        </configuration>
         """
       )
       .build();
@@ -138,16 +137,14 @@ public class MavenModuleFactory {
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-surefire-plugin")
       .versionSlug("surefire-plugin")
-      .additionalElements(
+      .configuration(
         """
-        <configuration>
-          <!-- Force alphabetical order to have a reproducible build -->
-          <runOrder>alphabetical</runOrder>
-          <excludes>
-            <exclude>**/*IT*</exclude>
-            <exclude>**/*CucumberTest*</exclude>
-          </excludes>
-        </configuration>
+        <!-- Force alphabetical order to have a reproducible build -->
+        <runOrder>alphabetical</runOrder>
+        <excludes>
+          <exclude>**/*IT*</exclude>
+          <exclude>**/*CucumberTest*</exclude>
+        </excludes>
         """
       )
       .build();
@@ -162,9 +159,8 @@ public class MavenModuleFactory {
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-failsafe-plugin")
       .versionSlug("failsafe-plugin")
-      .additionalElements(
+      .configuration(
         """
-        <configuration>
           <!-- Due to spring-boot repackage, without adding this property test classes are not found
                  See https://github.com/spring-projects/spring-boot/issues/6254 -->
           <classesDirectory>${project.build.outputDirectory}</classesDirectory>
@@ -174,23 +170,10 @@ public class MavenModuleFactory {
             <include>**/*IT*</include>
             <include>**/*CucumberTest*</include>
           </includes>
-        </configuration>
-        <executions>
-          <execution>
-            <id>integration-test</id>
-            <goals>
-              <goal>integration-test</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>verify</id>
-            <goals>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
         """
       )
+      .addExecution(pluginExecution().goals("integration-test").id("integration-test"))
+      .addExecution(pluginExecution().goals("verify").id("verify"))
       .build();
   }
 
@@ -199,68 +182,40 @@ public class MavenModuleFactory {
       .groupId(JACOCO_GROUP)
       .artifactId(JACOCO_ARTIFACT_ID)
       .versionSlug(JACOCO_VERSION)
-      .additionalElements(
-        """
-        <executions>
-          <execution>
-            <id>pre-unit-tests</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run -->
-          <execution>
-            <id>post-unit-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>pre-integration-tests</id>
-            <goals>
-              <goal>prepare-agent-integration</goal>
-            </goals>
-          </execution>
-          <!-- Ensures that the code coverage report for integration tests is created after integration tests have been run -->
-          <execution>
-            <id>post-integration-tests</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>report-integration</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>merge</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>merge</goal>
-            </goals>
-            <configuration>
+      .addExecution(pluginExecution().goals("prepare-agent").id("pre-unit-tests"))
+      .addExecution(pluginExecution().goals("report").id("post-unit-test").phase(TEST))
+      .addExecution(pluginExecution().goals("prepare-agent-integration").id("pre-integration-tests"))
+      .addExecution(pluginExecution().goals("report-integration").id("post-integration-tests").phase(POST_INTEGRATION_TEST))
+      .addExecution(
+        pluginExecution()
+          .goals("merge")
+          .id("merge")
+          .phase(VERIFY)
+          .configuration(
+            """
               <fileSets>
-                <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
-                  <directory>${project.basedir}</directory>
-                  <includes>
-                    <include>**/*.exec</include>
-                  </includes>
-                </fileSet>
-              </fileSets>
-              <destFile>target/jacoco/allTest.exec</destFile>
-            </configuration>
-          </execution>
-          <execution>
-            <id>post-merge-report</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-            <configuration>
+              <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
+                <directory>${project.basedir}</directory>
+                <includes>
+                  <include>**/*.exec</include>
+                </includes>
+              </fileSet>
+            </fileSets>
+            <destFile>target/jacoco/allTest.exec</destFile>
+            """
+          )
+      )
+      .addExecution(
+        pluginExecution()
+          .goals("report")
+          .id("post-merge-report")
+          .phase(VERIFY)
+          .configuration(
+            """
               <dataFile>target/jacoco/allTest.exec</dataFile>
               <outputDirectory>target/jacoco/</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-        """
+            """
+          )
       )
       .build();
   }
@@ -270,40 +225,32 @@ public class MavenModuleFactory {
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-enforcer-plugin")
       .versionSlug("maven-enforcer-plugin")
-      .additionalElements(
+      .addExecution(pluginExecution().goals("enforce").id("enforce-versions"))
+      .addExecution(
+        pluginExecution()
+          .goals("enforce")
+          .id("enforce-dependencyConvergence")
+          .configuration(
+            """
+            <rules>
+              <DependencyConvergence />
+            </rules>
+            <fail>false</fail>
+            """
+          )
+      )
+      .configuration(
         """
-        <executions>
-          <execution>
-            <id>enforce-versions</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>enforce-dependencyConvergence</id>
-            <configuration>
-              <rules>
-                <DependencyConvergence />
-              </rules>
-              <fail>false</fail>
-            </configuration>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <rules>
-            <requireMavenVersion>
-              <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
-              <version>[${maven.version},)</version>
-            </requireMavenVersion>
-            <requireJavaVersion>
-              <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
-              <version>[21,22)</version>
-            </requireJavaVersion>
-          </rules>
-        </configuration>
+        <rules>
+          <requireMavenVersion>
+            <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+            <version>[${maven.version},)</version>
+          </requireMavenVersion>
+          <requireJavaVersion>
+            <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+            <version>[21,22)</version>
+          </requireJavaVersion>
+        </rules>
         """
       )
       .build();

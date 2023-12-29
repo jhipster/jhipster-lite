@@ -28,8 +28,8 @@ class SpringBootCoreModuleFactoryTest {
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
-                <scope>import</scope>
                 <type>pom</type>
+                <scope>import</scope>
               </dependency>
         """
       )

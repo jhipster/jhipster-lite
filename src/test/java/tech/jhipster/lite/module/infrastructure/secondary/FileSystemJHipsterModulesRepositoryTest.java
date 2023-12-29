@@ -91,8 +91,8 @@ class FileSystemJHipsterModulesRepositoryTest {
                   <groupId>org.springframework.boot</groupId>
                   <artifactId>spring-boot-dependencies</artifactId>
                   <version>${spring-boot.version}</version>
-                  <scope>import</scope>
                   <type>pom</type>
+                  <scope>import</scope>
                 </dependency>
           """
       )
@@ -125,16 +125,6 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing(
         """
               <build>
-                <plugins>
-                  <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                  </plugin>
-                  <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                  </plugin>
-                </plugins>
                 <pluginManagement>
                   <plugins>
                     <plugin>
@@ -153,7 +143,6 @@ class FileSystemJHipsterModulesRepositoryTest {
                       </configuration>
                     </plugin>
                     <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
                       <artifactId>maven-enforcer-plugin</artifactId>
                       <version>${maven-enforcer-plugin.version}</version>
                       <executions>
@@ -165,15 +154,15 @@ class FileSystemJHipsterModulesRepositoryTest {
                         </execution>
                         <execution>
                           <id>enforce-dependencyConvergence</id>
-                          <configuration>
-                            <rules>
-                              <DependencyConvergence/>
-                            </rules>
-                            <fail>false</fail>
-                          </configuration>
                           <goals>
                             <goal>enforce</goal>
                           </goals>
+                          <configuration>
+                            <rules>
+                              <DependencyConvergence />
+                            </rules>
+                            <fail>false</fail>
+                          </configuration>
                         </execution>
                       </executions>
                       <configuration>
@@ -191,6 +180,15 @@ class FileSystemJHipsterModulesRepositoryTest {
                     </plugin>
                   </plugins>
                 </pluginManagement>
+                <plugins>
+                  <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                  </plugin>
+                  <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                  </plugin>
+                </plugins>
               </build>
             """
       )

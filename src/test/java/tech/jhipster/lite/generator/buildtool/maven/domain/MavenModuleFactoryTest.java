@@ -35,7 +35,6 @@ class MavenModuleFactoryTest {
       .containing(
         """
               <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
                 <configuration>
@@ -49,11 +48,9 @@ class MavenModuleFactoryTest {
       .containing(
         """
               <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-plugin.version}</version>
                 <configuration>
-                  <!-- Force alphabetical order to have a reproducible build -->
                   <runOrder>alphabetical</runOrder>
                   <excludes>
                     <exclude>**/*IT*</exclude>
@@ -74,20 +71,8 @@ class MavenModuleFactoryTest {
       .containing(
         """
               <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${failsafe-plugin.version}</version>
-                <configuration>
-                  <!-- Due to spring-boot repackage, without adding this property test classes are not found
-                       See https://github.com/spring-projects/spring-boot/issues/6254 -->
-                  <classesDirectory>${project.build.outputDirectory}</classesDirectory>
-                  <!-- Force alphabetical order to have a reproducible build -->
-                  <runOrder>alphabetical</runOrder>
-                  <includes>
-                    <include>**/*IT*</include>
-                    <include>**/*CucumberTest*</include>
-                  </includes>
-                </configuration>
                 <executions>
                   <execution>
                     <id>integration-test</id>
@@ -102,6 +87,14 @@ class MavenModuleFactoryTest {
                     </goals>
                   </execution>
                 </executions>
+                <configuration>
+                  <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+                  <runOrder>alphabetical</runOrder>
+                  <includes>
+                    <include>**/*IT*</include>
+                    <include>**/*CucumberTest*</include>
+                  </includes>
+                </configuration>
               </plugin>
         """
       )
@@ -118,7 +111,6 @@ class MavenModuleFactoryTest {
                         <goal>prepare-agent</goal>
                       </goals>
                     </execution>
-                    <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run -->
                     <execution>
                       <id>post-unit-test</id>
                       <phase>test</phase>
@@ -132,7 +124,6 @@ class MavenModuleFactoryTest {
                         <goal>prepare-agent-integration</goal>
                       </goals>
                     </execution>
-                    <!-- Ensures that the code coverage report for integration tests is created after integration tests have been run -->
                     <execution>
                       <id>post-integration-tests</id>
                       <phase>post-integration-test</phase>

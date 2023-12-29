@@ -1,7 +1,8 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 
-import static org.mockito.Mockito.*;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static org.mockito.Mockito.when;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -60,10 +61,10 @@ class FrontendMavenModuleFactoryTest {
                   </execution>
                   <execution>
                     <id>create-compiled-webapp-checksum</id>
+                    <phase>compile</phase>
                     <goals>
                       <goal>files</goal>
                     </goals>
-                    <phase>compile</phase>
                     <configuration>
                       <csvSummaryFile>checksums.csv.old</csvSummaryFile>
                     </configuration>
@@ -97,7 +98,6 @@ class FrontendMavenModuleFactoryTest {
       .containing(
         """
               <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>${maven-antrun-plugin.version}</version>
                 <executions>
@@ -111,9 +111,9 @@ class FrontendMavenModuleFactoryTest {
                       <target>
                         <condition else="false" property="skip.npm" value="true">
                           <and>
-                            <available file="checksums.csv" filepath="${project.build.directory}"/>
-                            <available file="checksums.csv.old" filepath="${project.build.directory}"/>
-                            <filesmatch file1="${project.build.directory}/checksums.csv" file2="${project.build.directory}/checksums.csv.old"/>
+                            <available file="checksums.csv" filepath="${project.build.directory}" />
+                            <available file="checksums.csv.old" filepath="${project.build.directory}" />
+                            <filesmatch file2="${project.build.directory}/checksums.csv.old" file1="${project.build.directory}/checksums.csv" />
                           </and>
                         </condition>
                       </target>
@@ -149,10 +149,10 @@ class FrontendMavenModuleFactoryTest {
                   </execution>
                   <execution>
                     <id>build front</id>
+                    <phase>generate-resources</phase>
                     <goals>
                       <goal>npm</goal>
                     </goals>
-                    <phase>generate-resources</phase>
                     <configuration>
                       <arguments>run build</arguments>
                       <environmentVariables>
@@ -163,10 +163,10 @@ class FrontendMavenModuleFactoryTest {
                   </execution>
                   <execution>
                     <id>front test</id>
+                    <phase>test</phase>
                     <goals>
                       <goal>npm</goal>
                     </goals>
-                    <phase>test</phase>
                     <configuration>
                       <arguments>run test</arguments>
                       <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>

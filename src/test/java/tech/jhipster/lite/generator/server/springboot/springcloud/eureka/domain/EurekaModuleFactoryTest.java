@@ -47,8 +47,8 @@ class EurekaModuleFactoryTest {
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
-                <scope>import</scope>
                 <type>pom</type>
+                <scope>import</scope>
               </dependency>
         """
       )

@@ -130,20 +130,8 @@ public class SpringBootCoreModuleFactory {
       .groupId(SPRING_BOOT_GROUP)
       .artifactId("spring-boot-maven-plugin")
       .versionSlug("spring-boot")
-      .additionalElements(
-        """
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <mainClass>%s</mainClass>
-        </configuration>
-        """.formatted(fullyQualifiedMainClass)
-      )
+      .addExecution(pluginExecution().goals("repackage"))
+      .configuration("<mainClass>%s</mainClass>".formatted(fullyQualifiedMainClass))
       .build();
   }
 

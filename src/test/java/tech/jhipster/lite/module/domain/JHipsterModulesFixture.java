@@ -304,38 +304,32 @@ public final class JHipsterModulesFixture {
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-enforcer-plugin")
       .versionSlug("maven-enforcer-plugin")
-      .additionalElements(
+      .addExecution(pluginExecution().goals("enforce").id("enforce-versions"))
+      .addExecution(
+        pluginExecution()
+          .goals("enforce")
+          .id("enforce-dependencyConvergence")
+          .configuration(
+            """
+            <rules>
+              <DependencyConvergence/>
+            </rules>
+            <fail>false</fail>
+            """
+          )
+      )
+      .configuration(
         """
-        <executions><execution><id>enforce-versions</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>enforce-dependencyConvergence</id>
-            <configuration>
-              <rules>
-                <DependencyConvergence/>
-              </rules>
-              <fail>false</fail>
-            </configuration>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <rules>
-            <requireMavenVersion>
-              <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
-              <version>[${maven.version},)</version>
-            </requireMavenVersion>
-            <requireJavaVersion>
-                <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
-                <version>[21,22)</version>
-            </requireJavaVersion>
-          </rules>
-        </configuration>
+        <rules>
+          <requireMavenVersion>
+            <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+            <version>[${maven.version},)</version>
+          </requireMavenVersion>
+          <requireJavaVersion>
+              <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+              <version>[21,22)</version>
+          </requireJavaVersion>
+        </rules>
         """
       )
       .build();

@@ -644,18 +644,14 @@ class MavenCommandHandlerTest {
   class MavenCommandHandlerAddBuildPluginManagementTest {
 
     @Test
-    void shouldHandleMalformedAdditionalElements() {
+    void shouldHandleMalformedConfiguration() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
       assertThatThrownBy(() ->
           new MavenCommandHandler(Indentation.DEFAULT, pom)
             .handle(
               new AddBuildPluginManagement(
-                javaBuildPlugin()
-                  .groupId("org.apache.maven.plugins")
-                  .artifactId("maven-enforcer-plugin")
-                  .additionalElements("<dummy")
-                  .build()
+                javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build()
               )
             )
         )
@@ -721,7 +717,6 @@ class MavenCommandHandlerTest {
     private String pluginManagement() {
       return """
               <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven-enforcer-plugin.version}</version>
                 <executions>
@@ -733,15 +728,15 @@ class MavenCommandHandlerTest {
                   </execution>
                   <execution>
                     <id>enforce-dependencyConvergence</id>
-                    <configuration>
-                      <rules>
-                        <DependencyConvergence/>
-                      </rules>
-                      <fail>false</fail>
-                    </configuration>
                     <goals>
                       <goal>enforce</goal>
                     </goals>
+                    <configuration>
+                      <rules>
+                        <DependencyConvergence />
+                      </rules>
+                      <fail>false</fail>
+                    </configuration>
                   </execution>
                 </executions>
                 <configuration>
@@ -758,8 +753,6 @@ class MavenCommandHandlerTest {
                 </configuration>
               </plugin>
             </plugins>
-          </pluginManagement>
-        </build>
       """;
     }
   }
@@ -813,6 +806,26 @@ class MavenCommandHandlerTest {
         );
     }
 
+    @Test
+    void shouldAddMinimalBuildPluginExecutionToPomWithPlugins() {
+      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom))
+        .contains(plugins())
+        .doesNotContain(
+          """
+              <plugins>
+                <plugin>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+              </plugins>
+          """
+        );
+    }
+
     private void addMavenEnforcerPlugin(Path pom) {
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaBuildPlugin(mavenEnforcerPlugin()));
     }
@@ -820,7 +833,6 @@ class MavenCommandHandlerTest {
     private String plugins() {
       return """
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
           </plugins>

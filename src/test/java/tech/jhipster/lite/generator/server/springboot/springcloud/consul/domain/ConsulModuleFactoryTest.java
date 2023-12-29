@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.consul.domain;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -52,8 +52,8 @@ class ConsulModuleFactoryTest {
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
-                <scope>import</scope>
                 <type>pom</type>
+                <scope>import</scope>
               </dependency>
         """
       )

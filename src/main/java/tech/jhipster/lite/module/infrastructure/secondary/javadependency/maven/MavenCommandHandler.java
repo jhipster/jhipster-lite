@@ -169,11 +169,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
-    dependencies.removeIf(dependencyIdMatch(dependency));
+    dependencies.removeIf(dependencyMatch(dependency));
     writePom();
   }
 
-  private Predicate<Dependency> dependencyIdMatch(DependencyId dependencyId) {
+  private Predicate<Dependency> dependencyMatch(DependencyId dependencyId) {
     return mavenDependency -> {
       boolean sameGroupId = mavenDependency.getGroupId().equals(dependencyId.groupId().get());
       boolean sameArtifactId = mavenDependency.getArtifactId().equals(dependencyId.artifactId().get());

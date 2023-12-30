@@ -17,4 +17,12 @@ public class ThymeleafTemplateModuleApplicationService {
   public JHipsterModule buildThymeleafTemplateModule(JHipsterModuleProperties properties) {
     return thymeleafTemplateFactory.buildModule(properties);
   }
+
+  public JHipsterModule buildThymeleafHtmxWebjarsModule(JHipsterModuleProperties properties) {
+    return thymeleafTemplateFactory.buildHtmxWebjarsModule(properties);
+  }
+
+  public JHipsterModule buildThymeleafAlpinejsWebjarsModule(JHipsterModuleProperties properties) {
+    return thymeleafTemplateFactory.buildAlpineWebjarsModule(properties);
+  }
 }

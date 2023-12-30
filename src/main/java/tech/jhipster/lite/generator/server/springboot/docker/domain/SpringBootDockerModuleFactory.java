@@ -46,11 +46,11 @@ public class SpringBootDockerModuleFactory {
       .groupId("com.google.cloud.tools")
       .artifactId("jib-maven-plugin")
       .versionSlug("jib-maven-plugin")
-      .configuration(jibPluginAdditionalElements(properties))
+      .configuration(jibPluginConfiguration(properties))
       .build();
   }
 
-  private JavaBuildPluginConfiguration jibPluginAdditionalElements(JHipsterModuleProperties properties) {
+  private JavaBuildPluginConfiguration jibPluginConfiguration(JHipsterModuleProperties properties) {
     return new JavaBuildPluginConfiguration(
       """
         <from>

@@ -169,10 +169,8 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
-    if (dependencies != null) {
-      dependencies.removeIf(dependencyIdMatch(dependency));
-      writePom();
-    }
+    dependencies.removeIf(dependencyIdMatch(dependency));
+    writePom();
   }
 
   private Predicate<Dependency> dependencyIdMatch(DependencyId dependencyId) {

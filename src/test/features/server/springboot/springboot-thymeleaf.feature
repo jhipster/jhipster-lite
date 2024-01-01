@@ -19,14 +19,14 @@ Feature: Spring Boot Thymeleaf module
 
   Scenario: Should apply Thymeleaf Template htmx, alpinejs webjars
     When I apply modules to default project
-      | maven-java            |
-      | spring-boot           |
-      | spring-boot-thymeleaf |
-      | thymeleaf-template    |
-      | webjars-locator       |
-      | htmx-webjars          |
-      | alpinejs-webjars      |
-      | thymeleaf-template-htmx-webjars |
+      | maven-java                          |
+      | spring-boot                         |
+      | spring-boot-thymeleaf               |
+      | thymeleaf-template                  |
+      | webjars-locator                     |
+      | htmx-webjars                        |
+      | alpinejs-webjars                    |
+      | thymeleaf-template-htmx-webjars     |
       | thymeleaf-template-alpinejs-webjars |
     Then I should have files in "src/main/resources/templates/layout"
       | main.html |

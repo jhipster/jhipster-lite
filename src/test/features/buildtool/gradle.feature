@@ -10,6 +10,8 @@ Feature: Gradle module
       | settings.gradle.kts |
       | gradlew             |
       | gradlew.bat         |
+    Then I should have files in "gradle"
+      | libs.versions.toml |
     Then I should have files in "gradle/wrapper"
       | gradle-wrapper.jar        |
       | gradle-wrapper.properties |

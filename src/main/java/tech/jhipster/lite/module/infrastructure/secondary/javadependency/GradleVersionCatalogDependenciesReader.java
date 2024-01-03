@@ -1,8 +1,10 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
@@ -21,8 +23,7 @@ class GradleVersionCatalogDependenciesReader implements JavaDependenciesReader {
   public GradleVersionCatalogDependenciesReader(ProjectFiles files) {
     String tomlConfigContent = files.readString(CURRENT_VERSIONS_FILE);
     try {
-      Path tempFile = Files.createTempFile(null, ".toml");
-      Files.writeString(tempFile, tomlConfigContent);
+      Path tempFile = writeToTemporaryFile(tomlConfigContent);
       versionsCatalog = new VersionsCatalog(tempFile);
     } catch (IOException exception) {
       throw GeneratorException.technicalError(
@@ -30,6 +31,12 @@ class GradleVersionCatalogDependenciesReader implements JavaDependenciesReader {
         exception
       );
     }
+  }
+
+  private static Path writeToTemporaryFile(String tomlConfigContent) throws IOException {
+    File tempFile = File.createTempFile("gradle-deps", ".toml", Paths.get(System.getProperty("java.io.tmpdir")).toFile());
+    Files.writeString(tempFile.toPath(), tomlConfigContent);
+    return tempFile.toPath();
   }
 
   @Override

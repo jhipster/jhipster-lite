@@ -115,6 +115,7 @@ elif [[ $application == 'gradleapp' ]]; then
     "checkstyle" \
     "java-memoizers" \
     "java-enums" \
+    "jib" \
     "pagination-domain"
 
 elif [[ $application == 'fullapp' ]]; then

@@ -23,6 +23,8 @@ import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles.JHipsterModuleF
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin.GradleCommunityPluginIdBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin.GradleCorePluginIdBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugin;
@@ -370,6 +372,10 @@ public class JHipsterModule {
 
   public static GradleCorePluginIdBuilder gradleCorePlugin() {
     return GradleCorePlugin.builder();
+  }
+
+  public static GradleCommunityPluginIdBuilder gradleCommunityPlugin() {
+    return GradleCommunityPlugin.builder();
   }
 
   public JHipsterModule withUpgrade(JHipsterModuleUpgrade upgrade) {

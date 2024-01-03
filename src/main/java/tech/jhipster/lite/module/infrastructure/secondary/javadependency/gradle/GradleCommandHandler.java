@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
+import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginSlug;
 
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -8,6 +9,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.NotImplementedException;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
@@ -160,7 +162,11 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     switch (command.plugin()) {
-      case GradleCorePlugin corePlugin -> declarePlugin(corePlugin.id().get());
+      case GradleCorePlugin plugin -> declarePlugin(plugin.id().get());
+      case GradleCommunityPlugin plugin -> {
+        declarePlugin("alias(libs.plugins.%s)".formatted(pluginSlug(plugin)));
+        versionsCatalog.addPlugin(plugin);
+      }
     }
     command.plugin().configuration().ifPresent(this::addPluginConfiguration);
   }

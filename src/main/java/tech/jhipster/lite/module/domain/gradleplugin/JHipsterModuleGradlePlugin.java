@@ -38,8 +38,15 @@ public class JHipsterModuleGradlePlugin {
       .map(GradleCorePlugin::toolVersionSlug)
       .flatMap(Optional::stream)
       .map(toSetVersionCommand(versions));
+    Stream<JavaBuildCommand> pluginsVersionCommands = plugins
+      .stream()
+      .filter(GradleCommunityPlugin.class::isInstance)
+      .map(GradleCommunityPlugin.class::cast)
+      .map(GradleCommunityPlugin::versionSlug)
+      .flatMap(Optional::stream)
+      .map(toSetVersionCommand(versions));
 
-    return new JavaBuildCommands(Stream.concat(pluginsCommands, toolVersionCommands).toList());
+    return new JavaBuildCommands(Stream.concat(pluginsCommands, Stream.concat(toolVersionCommands, pluginsVersionCommands)).toList());
   }
 
   private static Function<VersionSlug, JavaBuildCommand> toSetVersionCommand(JavaDependenciesVersions versions) {

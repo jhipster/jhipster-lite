@@ -15,7 +15,7 @@ class SpringBootDockerModuleFactoryTest {
   private static final SpringBootDockerModuleFactory factory = new SpringBootDockerModuleFactory();
 
   @Test
-  void shouldBuildJibModule() {
+  void shouldBuildJibModuleForMaven() {
     JHipsterModuleProperties properties = JHipsterModulesFixture
       .propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
@@ -73,6 +73,83 @@ class SpringBootDockerModuleFactoryTest {
                   </extraDirectories>
                 </configuration>
               </plugin>
+        """
+      )
+      .and()
+      .hasFile("src/main/docker/jib/entrypoint.sh")
+      .containing("\"com.jhipster.test.MyappApp\"");
+  }
+
+  @Test
+  void shouldBuildJibModuleForGradle() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .put("serverPort", 9000)
+      .build();
+
+    JHipsterModule module = factory.buildJibModule(properties);
+
+    assertThatModuleWithFiles(module, gradleBuildFile(), gradleLibsVersionFile())
+      .hasFile("gradle/libs.versions.toml")
+      .containing(
+        """
+        [versions]
+        \tjib = "\
+        """
+      )
+      .containing(
+        """
+        \t[plugins.jib]
+        \t\tid = "com.google.cloud.tools.jib"
+
+        \t\t[plugins.jib.version]
+        \t\t\tref = "jib"
+        """
+      )
+      .and()
+      .hasFile("build.gradle.kts")
+      .containing(
+        """
+          alias(libs.plugins.jib)
+          // jhipster-needle-gradle-plugins
+        """
+      )
+      .containing(
+        """
+        jib {
+          from {
+            image = "eclipse-temurin:21-jre-jammy"
+            platforms {
+              platform {
+                architecture = "amd64"
+                os = "linux"
+              }
+            }
+          }
+          to {
+            image = "myapp:latest"
+          }
+          container {
+            entrypoint = listOf("bash", "-c", "/entrypoint.sh")
+            ports = listOf("9000")
+            environment = mapOf(
+             "SPRING_OUTPUT_ANSI_ENABLED" to "ALWAYS",
+             "JHIPSTER_SLEEP" to "0"
+            )
+            creationTime = "USE_CURRENT_TIMESTAMP"
+            user = "1000"
+          }
+          extraDirectories {
+            paths {
+              path {
+                setFrom("src/main/docker/jib")
+              }
+            }
+            permissions = mapOf("/entrypoint.sh" to "755")
+          }
+        }
         """
       )
       .and()

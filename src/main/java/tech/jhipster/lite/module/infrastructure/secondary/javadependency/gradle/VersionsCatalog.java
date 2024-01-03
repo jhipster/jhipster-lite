@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginSlug;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
@@ -20,6 +22,7 @@ public class VersionsCatalog {
 
   private static final String VERSIONS_TOML_KEY = "versions";
   private static final String LIBRARIES_TOML_KEY = "libraries";
+  private static final String PLUGINS_TOML_KEY = "plugins";
 
   private final FileConfig tomlConfigFile;
 
@@ -121,5 +124,18 @@ public class VersionsCatalog {
       .flatMap(Collection::stream)
       .map(entry -> new JavaDependencyVersion(entry.getKey(), entry.getValue()))
       .toList();
+  }
+
+  public static String pluginSlug(GradleCommunityPlugin communityPlugin) {
+    return communityPlugin.pluginSlug().map(GradlePluginSlug::get).orElse(communityPlugin.id().get());
+  }
+
+  public void addPlugin(GradleCommunityPlugin plugin) {
+    Config pluginConfig = Config.inMemory();
+    pluginConfig.set("id", plugin.id().get());
+    plugin.versionSlug().ifPresent(versionSlug -> pluginConfig.set("version.ref", versionSlug.slug()));
+    String pluginEntryKey = pluginSlug(plugin);
+    tomlConfigFile.set(List.of(PLUGINS_TOML_KEY, pluginEntryKey), pluginConfig);
+    save();
   }
 }

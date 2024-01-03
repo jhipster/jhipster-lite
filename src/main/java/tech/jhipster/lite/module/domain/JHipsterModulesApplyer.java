@@ -66,6 +66,7 @@ public class JHipsterModulesApplyer {
           .merge(buildPluginsChanges(module))
           .merge(buildMavenBuildExtensionsChanges(module))
           .merge(buildProfilesChanges(module))
+          .merge(buildGradlePluginsChanges(module))
       )
       .packageJson(module.packageJson())
       .preActions(module.preActions())
@@ -112,6 +113,10 @@ public class JHipsterModulesApplyer {
 
   private String commitMessage(JHipsterModuleToApply moduleToApply) {
     return new StringBuilder().append("Apply ").append(moduleToApply.slug().get()).append(" module").toString();
+  }
+
+  private JavaBuildCommands buildGradlePluginsChanges(JHipsterModule module) {
+    return module.gradlePlugins().buildChanges(javaVersions.get());
   }
 
   private JavaBuildCommands buildDependenciesChanges(JHipsterModule module) {

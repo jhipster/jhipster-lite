@@ -21,6 +21,7 @@ import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
@@ -927,6 +928,15 @@ class MavenCommandHandlerTest {
 
       assertThat(Pattern.compile("^ +$", Pattern.MULTILINE).matcher(content).find()).isFalse();
     }
+  }
+
+  @Test
+  void addAddGradlePluginShouldNotBeHandled() {
+    Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+    MavenCommandHandler commandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+    AddGradlePlugin command = new AddGradlePlugin(checkstyleGradlePlugin());
+    assertThatCode(() -> commandHandler.handle(command)).doesNotThrowAnyException();
   }
 
   private static Path projectWithPom(String sourcePom) {

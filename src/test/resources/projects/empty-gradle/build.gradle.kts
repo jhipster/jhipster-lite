@@ -1,5 +1,6 @@
 plugins {
   java
+  // jhipster-needle-gradle-plugins
 }
 
 java {
@@ -7,6 +8,8 @@ java {
     languageVersion.set(JavaLanguageVersion.of(21))
   }
 }
+
+// jhipster-needle-gradle-plugins-configurations
 
 repositories {
   mavenCentral()

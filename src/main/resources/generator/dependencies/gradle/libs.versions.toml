@@ -1,0 +1,8 @@
+[versions]
+checkstyle = "10.12.6"
+
+[libraries]
+
+[bundles]
+
+[plugins]

@@ -11,6 +11,7 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
@@ -330,6 +331,20 @@ public final class JHipsterModulesFixture {
               <version>[21,22)</version>
           </requireJavaVersion>
         </rules>
+        """
+      )
+      .build();
+  }
+
+  public static GradlePlugin checkstyleGradlePlugin() {
+    return gradleCorePlugin()
+      .id("checkstyle")
+      .toolVersionSlug("checkstyle")
+      .configuration(
+        """
+        checkstyle {
+          toolVersion = libs.versions.checkstyle.get()
+        }
         """
       )
       .build();

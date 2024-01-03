@@ -10,19 +10,19 @@ java {
 
 repositories {
   mavenCentral()
-  // jhipster-needle-gradle-repository
+  // jhipster-needle-gradle-repositories
 }
 
 group = "tech.jhipster.chips"
 version = "0.0.1-SNAPSHOT"
 
 ext {
-  // jhipster-needle-gradle-property
+  // jhipster-needle-gradle-properties
 }
 
 dependencies {
-  // jhipster-needle-gradle-dependency
-  // jhipster-needle-gradle-test-dependency
+  // jhipster-needle-gradle-dependencies
+  // jhipster-needle-gradle-test-dependencies
 }
 
 tasks.test {

@@ -29,8 +29,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
   private static final String BUILD_GRADLE_FILE = "build.gradle.kts";
 
-  private static final Pattern GRADLE_DEPENDENCY_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-dependency$", Pattern.MULTILINE);
-  private static final Pattern GRADLE_TEST_DEPENDENCY_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-test-dependency$", Pattern.MULTILINE);
+  private static final Pattern GRADLE_DEPENDENCY_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-dependencies$", Pattern.MULTILINE);
+  private static final Pattern GRADLE_TEST_DEPENDENCY_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-test-dependencies$", Pattern.MULTILINE);
 
   private final Indentation indentation;
   private final JHipsterProjectFolder projectFolder;

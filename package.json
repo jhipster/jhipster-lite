@@ -77,7 +77,7 @@
     "prettier-plugin-packagejson": "2.4.8",
     "pug-lint": "2.7.0",
     "rimraf": "5.0.5",
-    "sass": "1.69.6",
+    "sass": "1.69.7",
     "sinon": "17.0.1",
     "stylelint": "15.11.0",
     "stylelint-config-concentric-order": "5.2.0",

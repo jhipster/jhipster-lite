@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.nio.file.Files;
@@ -13,16 +13,16 @@ import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 
 @UnitTest
-class FileSystemJavaDependenciesReaderTest {
+class MavenDependenciesReaderTest {
 
-  private FileSystemJavaDependenciesReader reader;
+  private MavenDependenciesReader reader;
 
   @BeforeEach
   void loadReader() {
     ProjectFiles files = mock(ProjectFiles.class);
     when(files.readString(anyString())).thenAnswer(fileContent());
 
-    reader = new FileSystemJavaDependenciesReader(files);
+    reader = new MavenDependenciesReader(files);
   }
 
   private Answer<String> fileContent() {

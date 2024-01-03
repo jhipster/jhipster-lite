@@ -11,14 +11,14 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 
 @Repository
 @Order(Ordered.LOWEST_PRECEDENCE)
-class FileSystemJavaDependenciesReader implements JavaDependenciesReader {
+class MavenDependenciesReader implements JavaDependenciesReader {
 
   private static final String CURRENT_VERSIONS_FILE = "/generator/dependencies/pom.xml";
   private static final Pattern VERSIONS_PATTERN = Pattern.compile("<([^>]+)\\.version>([^>]+)<\\/");
 
   private final ProjectFiles files;
 
-  public FileSystemJavaDependenciesReader(ProjectFiles files) {
+  public MavenDependenciesReader(ProjectFiles files) {
     this.files = files;
   }
 

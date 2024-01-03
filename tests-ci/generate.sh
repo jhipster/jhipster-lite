@@ -112,6 +112,9 @@ elif [[ $application == 'gradleapp' ]]; then
     "init" \
     "gradle-java" \
     "java-base" \
+    "checkstyle" \
+    "java-memoizers" \
+    "java-enums" \
     "pagination-domain"
 
 elif [[ $application == 'fullapp' ]]; then

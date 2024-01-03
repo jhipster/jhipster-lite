@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -33,6 +33,18 @@ public final class JHipsterModulesAssertions {
 
   public static ModuleFile pomFile() {
     return file("src/test/resources/projects/init-maven/pom.xml", "pom.xml");
+  }
+
+  public static ModuleFile gradleBuildFile() {
+    return file("src/test/resources/projects/init-gradle/build.gradle.kts", "build.gradle.kts");
+  }
+
+  public static ModuleFile gradleSettingsFile() {
+    return file("src/test/resources/projects/init-gradle/settings.gradle.kts", "settings.gradle.kts");
+  }
+
+  public static ModuleFile gradleLibsVersionFile() {
+    return file("src/test/resources/projects/init-gradle/gradle/libs.versions.toml", "gradle/libs.versions.toml");
   }
 
   public static ModuleFile propertiesFile() {

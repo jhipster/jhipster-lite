@@ -1,7 +1,6 @@
 package tech.jhipster.lite.generator.server.javatool.checkstyle.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -16,7 +15,7 @@ class CheckstyleModuleFactoryTest {
   private final CheckstyleModuleFactory factory = new CheckstyleModuleFactory();
 
   @Test
-  void shouldBuildModule() {
+  void shouldBuildModuleForMaven() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
     JHipsterModule module = factory.buildModule(properties);
@@ -53,5 +52,33 @@ class CheckstyleModuleFactoryTest {
       .containing("<module name=\"Checker\">")
       .containing("<module name=\"TreeWalker\">")
       .containing("<module name=\"UnusedImports\" />");
+  }
+
+  @Test
+  void shouldBuildModuleForGradle() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    assertThatModuleWithFiles(module, gradleBuildFile(), gradleLibsVersionFile())
+      .hasFile("build.gradle.kts")
+      .containing(
+        """
+          checkstyle
+          // jhipster-needle-gradle-plugins
+        }
+        """
+      )
+      .containing(
+        """
+        checkstyle {
+          configDirectory = rootProject.projectDir
+          toolVersion = libs.versions.checkstyle.get()
+        }
+        """
+      )
+      .and()
+      .hasFile("gradle/libs.versions.toml")
+      .containing("checkstyle = \"");
   }
 }

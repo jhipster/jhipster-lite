@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
+import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginSlug;
 
@@ -188,7 +189,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
         GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE
       ),
-      System.lineSeparator() + pluginConfiguration.get()
+      LINE_BREAK + pluginConfiguration.get()
     );
     fileReplacer.handle(projectFolder, ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)));
   }

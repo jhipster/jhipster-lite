@@ -2,8 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
-import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
-import static tech.jhipster.lite.TestFileUtils.projectFrom;
+import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
@@ -401,7 +400,7 @@ class GradleCommandHandlerTest {
           """
           java {
             toolchain {
-              languageVersion.set(JavaLanguageVersion.of(21))
+              languageVersion = JavaLanguageVersion.of(21)
             }
           }
 
@@ -444,7 +443,7 @@ class GradleCommandHandlerTest {
   }
 
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {
-    return contentNormalizingNewLines(Paths.get(projectFolder.get()).resolve("build.gradle.kts"));
+    return content(Paths.get(projectFolder.get()).resolve("build.gradle.kts"));
   }
 
   private static String versionCatalogContent(JHipsterProjectFolder projectFolder) {

@@ -27,15 +27,8 @@ class CheckstyleModuleFactoryTest {
       .containing(
         """
               <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin.version}</version>
-                <configuration>
-                  <configLocation>checkstyle.xml</configLocation>
-                  <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                  <consoleOutput>true</consoleOutput>
-                  <failsOnError>true</failsOnError>
-                </configuration>
                 <executions>
                   <execution>
                     <id>validate</id>
@@ -45,6 +38,12 @@ class CheckstyleModuleFactoryTest {
                     </goals>
                   </execution>
                 </executions>
+                <configuration>
+                  <configLocation>checkstyle.xml</configLocation>
+                  <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                  <consoleOutput>true</consoleOutput>
+                  <failsOnError>true</failsOnError>
+                </configuration>
               </plugin>
         """
       )

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.sonarqube.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.INITIALIZE;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
@@ -66,22 +67,17 @@ public class SonarQubeModulesFactory {
       .groupId("org.codehaus.mojo")
       .artifactId("properties-maven-plugin")
       .versionSlug("properties-maven-plugin")
-      .additionalElements(
-        """
-         <executions>
-          <execution>
-            <phase>initialize</phase>
-            <goals>
-              <goal>read-project-properties</goal>
-            </goals>
-            <configuration>
-              <files>
-                <file>sonar-project.properties</file>
-              </files>
-            </configuration>
-          </execution>
-        </executions>
-        """
+      .addExecution(
+        pluginExecution()
+          .goals("read-project-properties")
+          .phase(INITIALIZE)
+          .configuration(
+            """
+            <files>
+              <file>sonar-project.properties</file>
+            </files>
+            """
+          )
       )
       .build();
   }

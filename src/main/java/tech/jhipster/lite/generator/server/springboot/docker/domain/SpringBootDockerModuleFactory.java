@@ -5,6 +5,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginConfiguration;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -45,52 +46,52 @@ public class SpringBootDockerModuleFactory {
       .groupId("com.google.cloud.tools")
       .artifactId("jib-maven-plugin")
       .versionSlug("jib-maven-plugin")
-      .additionalElements(jibPluginAdditionalElements(properties))
+      .configuration(jibPluginConfiguration(properties))
       .build();
   }
 
-  private String jibPluginAdditionalElements(JHipsterModuleProperties properties) {
-    return """
-    <configuration>
-      <from>
-        <image>eclipse-temurin:21-jre-jammy</image>
-        <platforms>
-          <platform>
-            <architecture>amd64</architecture>
-            <os>linux</os>
-          </platform>
-        </platforms>
-      </from>
-      <to>
-        <image>%s:latest</image>
-      </to>
-      <container>
-        <entrypoint>
-          <shell>bash</shell>
-          <option>-c</option>
-          <arg>/entrypoint.sh</arg>
-        </entrypoint>
-        <ports>
-          <port>%s</port>
-        </ports>
-        <environment>
-          <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
-          <JHIPSTER_SLEEP>0</JHIPSTER_SLEEP>
-        </environment>
-        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-        <user>1000</user>
-      </container>
-      <extraDirectories>
-        <paths>src/main/docker/jib</paths>
-        <permissions>
-          <permission>
-            <file>/entrypoint.sh</file>
-            <mode>755</mode>
-          </permission>
-        </permissions>
-      </extraDirectories>
-    </configuration>
-    """.formatted(properties.projectBaseName().get(), properties.serverPort().get());
+  private JavaBuildPluginConfiguration jibPluginConfiguration(JHipsterModuleProperties properties) {
+    return new JavaBuildPluginConfiguration(
+      """
+        <from>
+          <image>eclipse-temurin:21-jre-jammy</image>
+          <platforms>
+            <platform>
+              <architecture>amd64</architecture>
+              <os>linux</os>
+            </platform>
+          </platforms>
+        </from>
+        <to>
+          <image>%s:latest</image>
+        </to>
+        <container>
+          <entrypoint>
+            <shell>bash</shell>
+            <option>-c</option>
+            <arg>/entrypoint.sh</arg>
+          </entrypoint>
+          <ports>
+            <port>%s</port>
+          </ports>
+          <environment>
+            <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
+            <JHIPSTER_SLEEP>0</JHIPSTER_SLEEP>
+          </environment>
+          <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+          <user>1000</user>
+        </container>
+        <extraDirectories>
+          <paths>src/main/docker/jib</paths>
+          <permissions>
+            <permission>
+              <file>/entrypoint.sh</file>
+              <mode>755</mode>
+            </permission>
+          </permissions>
+        </extraDirectories>
+      """.formatted(properties.projectBaseName().get(), properties.serverPort().get())
+    );
   }
 
   public JHipsterModule buildDockerFileModule(JHipsterModuleProperties properties) {

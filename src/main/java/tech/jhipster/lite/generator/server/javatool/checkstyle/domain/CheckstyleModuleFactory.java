@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.javatool.checkstyle.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.VALIDATE;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -30,25 +31,15 @@ public class CheckstyleModuleFactory {
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-checkstyle-plugin")
       .versionSlug("maven-checkstyle-plugin")
-      .additionalElements(
+      .configuration(
         """
-          <configuration>
-            <configLocation>checkstyle.xml</configLocation>
-            <includeTestSourceDirectory>true</includeTestSourceDirectory>
-            <consoleOutput>true</consoleOutput>
-            <failsOnError>true</failsOnError>
-          </configuration>
-          <executions>
-            <execution>
-              <id>validate</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>check</goal>
-              </goals>
-            </execution>
-          </executions>
+        <configLocation>checkstyle.xml</configLocation>
+        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        <consoleOutput>true</consoleOutput>
+        <failsOnError>true</failsOnError>
         """
       )
+      .addExecution(pluginExecution().goals("check").id("validate").phase(VALIDATE))
       .build();
   }
 }

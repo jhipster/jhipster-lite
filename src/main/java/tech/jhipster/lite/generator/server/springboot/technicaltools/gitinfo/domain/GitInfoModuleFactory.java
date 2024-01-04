@@ -52,16 +52,8 @@ public class GitInfoModuleFactory {
       .groupId("io.github.git-commit-id")
       .artifactId("git-commit-id-maven-plugin")
       .versionSlug("git-commit-id-plugin")
-      .additionalElements(
+      .configuration(
         """
-        <executions>
-          <execution>
-            <goals>
-              <goal>revision</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
           <failOnNoGitDirectory>false</failOnNoGitDirectory>
           <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
           <generateGitPropertiesFile>true</generateGitPropertiesFile>
@@ -72,9 +64,9 @@ public class GitInfoModuleFactory {
             <includeOnlyProperty>^git.build(time|version)$</includeOnlyProperty>
           </includeOnlyProperties>
           <verbose>false</verbose>
-        </configuration>
         """
       )
+      .addExecution(pluginExecution().goals("revision"))
       .build();
   }
 

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.mongock.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -32,8 +33,8 @@ class MongockModuleFactoryTest {
                 <groupId>io.mongock</groupId>
                 <artifactId>mongock-bom</artifactId>
                 <version>${mongock.version}</version>
-                <scope>import</scope>
                 <type>pom</type>
+                <scope>import</scope>
               </dependency>
         """
       )

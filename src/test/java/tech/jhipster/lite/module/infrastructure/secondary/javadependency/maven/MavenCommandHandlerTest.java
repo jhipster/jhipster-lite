@@ -48,7 +48,19 @@ class MavenCommandHandlerTest {
 
     new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
-    assertThat(content(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+    assertThat(content(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+  }
+
+  @Test
+  void shouldEnforceIndentation() {
+    Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+    new MavenCommandHandler(Indentation.from(4), pom).handle(new SetVersion(springBootVersion()));
+
+    assertThat(content(pom))
+      .contains("    <properties>")
+      .contains("        <spring-boot.version>1.2.3</spring-boot.version>")
+      .contains("    </properties>");
   }
 
   @Nested
@@ -56,11 +68,15 @@ class MavenCommandHandlerTest {
   class MavenCommandHandlerSetVersionTest {
 
     @Test
-    void shouldNotAddPropertiesToPomWithOnlyRootDefined() {
+    void shouldAddPropertiesToPomWithOnlyRootDefined() {
       Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion())))
-        .isExactlyInstanceOf(InvalidPomException.class);
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
+
+      assertThat(content(pom))
+        .contains("  <properties>")
+        .contains("    <spring-boot.version>1.2.3</spring-boot.version>")
+        .contains("  </properties>");
     }
 
     @Test
@@ -105,13 +121,19 @@ class MavenCommandHandlerTest {
     class WithoutProfile {
 
       @Test
-      void shouldNotAddPropertiesToPomWithOnlyRootDefined() {
+      void shouldAddPropertiesToPomWithOnlyRootDefined() {
         Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-        assertThatThrownBy(() ->
-            new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()))
-          )
-          .isExactlyInstanceOf(InvalidPomException.class);
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()));
+
+        assertThat(content(pom))
+          .contains(
+            """
+              <properties>
+                <spring.profiles.active>local</spring.profiles.active>
+              </properties>
+            """
+          );
       }
 
       @Test
@@ -235,11 +257,20 @@ class MavenCommandHandlerTest {
   class HandleAddJavaBuildProfile {
 
     @Test
-    void shouldNotAddProfileToPomWithOnlyRootDefined() {
+    void shouldAddProfileToPomWithOnlyRootDefined() {
       Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile())))
-        .isExactlyInstanceOf(InvalidPomException.class);
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile()));
+
+      assertThat(content(pom))
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+              </profile>
+            </profiles>
+          """
+        );
     }
 
     @Test
@@ -312,7 +343,7 @@ class MavenCommandHandlerTest {
             <profiles>
               <profile>
                 <id>local</id>
-                <activation/>
+                <activation />
               </profile>
             </profiles>
           """
@@ -337,8 +368,10 @@ class MavenCommandHandlerTest {
     @Test
     void shouldRemoveDependency() {
       Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveJavaDependencyManagement(springBootDependencyId()));
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyId()));
 
       assertThat(content(pom))
         .doesNotContain(
@@ -376,8 +409,8 @@ class MavenCommandHandlerTest {
                   <groupId>org.springframework.boot</groupId>
                   <artifactId>spring-boot-dependencies</artifactId>
                   <version>${spring-boot.version}</version>
-                  <scope>import</scope>
                   <type>pom</type>
+                  <scope>import</scope>
                 </dependency>
               </dependencies>
             </dependencyManagement>
@@ -398,8 +431,8 @@ class MavenCommandHandlerTest {
                   <groupId>org.springframework.boot</groupId>
                   <artifactId>spring-boot-dependencies</artifactId>
                   <version>${spring-boot.version}</version>
-                  <scope>import</scope>
                   <type>pom</type>
+                  <scope>import</scope>
                 </dependency>
               </dependencies>
             </dependencyManagement>
@@ -474,7 +507,6 @@ class MavenCommandHandlerTest {
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-implementation</artifactId>
               </dependency>
-
               <dependency>
                 <groupId>io.another</groupId>
                 <artifactId>jjwt-api</artifactId>
@@ -574,12 +606,10 @@ class MavenCommandHandlerTest {
           """
                 <artifactId>logstash-logback-encoder</artifactId>
               </dependency>
-
               <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
               </dependency>
-
               <dependency>
                 <groupId>io.jsonwebtoken</groupId>
           """
@@ -626,18 +656,14 @@ class MavenCommandHandlerTest {
   class MavenCommandHandlerAddBuildPluginManagementTest {
 
     @Test
-    void shouldHandleMalformedAdditionalElements() {
+    void shouldHandleMalformedConfiguration() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
       assertThatThrownBy(() ->
           new MavenCommandHandler(Indentation.DEFAULT, pom)
             .handle(
               new AddBuildPluginManagement(
-                javaBuildPlugin()
-                  .groupId("org.apache.maven.plugins")
-                  .artifactId("maven-enforcer-plugin")
-                  .additionalElements("<dummy")
-                  .build()
+                javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build()
               )
             )
         )
@@ -703,7 +729,6 @@ class MavenCommandHandlerTest {
     private String pluginManagement() {
       return """
               <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven-enforcer-plugin.version}</version>
                 <executions>
@@ -715,15 +740,15 @@ class MavenCommandHandlerTest {
                   </execution>
                   <execution>
                     <id>enforce-dependencyConvergence</id>
-                    <configuration>
-                      <rules>
-                        <DependencyConvergence/>
-                      </rules>
-                      <fail>false</fail>
-                    </configuration>
                     <goals>
                       <goal>enforce</goal>
                     </goals>
+                    <configuration>
+                      <rules>
+                        <DependencyConvergence />
+                      </rules>
+                      <fail>false</fail>
+                    </configuration>
                   </execution>
                 </executions>
                 <configuration>
@@ -740,8 +765,6 @@ class MavenCommandHandlerTest {
                 </configuration>
               </plugin>
             </plugins>
-          </pluginManagement>
-        </build>
       """;
     }
   }
@@ -795,6 +818,26 @@ class MavenCommandHandlerTest {
         );
     }
 
+    @Test
+    void shouldAddMinimalBuildPluginExecutionToPomWithPlugins() {
+      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+      addMavenEnforcerPlugin(pom);
+
+      assertThat(content(pom))
+        .contains(plugins())
+        .doesNotContain(
+          """
+              <plugins>
+                <plugin>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+              </plugins>
+          """
+        );
+    }
+
     private void addMavenEnforcerPlugin(Path pom) {
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaBuildPlugin(mavenEnforcerPlugin()));
     }
@@ -802,7 +845,6 @@ class MavenCommandHandlerTest {
     private String plugins() {
       return """
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
           </plugins>

@@ -7,8 +7,8 @@ plugins {
 
 java {
   toolchain {
-    languageVersion.set(JavaLanguageVersion.of(21))
-    vendor.set(JvmVendorSpec.ADOPTIUM)
+    languageVersion = JavaLanguageVersion.of(21)
+    vendor = JvmVendorSpec.ADOPTIUM
   }
 }
 

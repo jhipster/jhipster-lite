@@ -58,7 +58,7 @@ public class CheckstyleModuleFactory {
       .configuration(
         """
         checkstyle {
-          configDirectory = rootProject.projectDir
+          configFile = rootProject.file("checkstyle.xml")
           toolVersion = libs.versions.%s.get()
         }
         """.formatted(toolVersionSlug.slug())

@@ -72,7 +72,7 @@ class CheckstyleModuleFactoryTest {
       .containing(
         """
         checkstyle {
-          configDirectory = rootProject.projectDir
+          configFile = rootProject.file("checkstyle.xml")
           toolVersion = libs.versions.checkstyle.get()
         }
         """

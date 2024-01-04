@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -309,13 +310,8 @@ public final class JHipsterModulesAssertions {
     public JHipsterModuleFileAsserter<T> containing(String content) {
       assertThat(content).as("Can't check blank content").isNotBlank();
 
-      try {
-        Path path = projectFolder.filePath(file);
-
-        assertThat(Files.readString(path)).as(() -> "Can't find " + content + " in " + path).contains(content);
-      } catch (IOException e) {
-        throw new AssertionError("Can't check file content: " + e.getMessage(), e);
-      }
+      Path path = projectFolder.filePath(file);
+      assertThat(contentNormalizingNewLines(path)).as(() -> "Can't find " + content + " in " + path).contains(content);
 
       return this;
     }

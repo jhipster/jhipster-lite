@@ -357,7 +357,7 @@ class GradleCommandHandlerTest {
     private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     @Test
-    void shouldAddEntryInPluginsSectionToExistingTomlVersionCatalog() {
+    void shouldDeclareAndConfigurePluginInBuildGradleFile() {
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddGradlePlugin(checkstyleGradlePlugin()));
 
       assertThat(buildGradleContent(projectFolder))
@@ -368,14 +368,50 @@ class GradleCommandHandlerTest {
             // jhipster-needle-gradle-plugins
           }
           """)
-        .contains("""
+        .contains(
+          """
 
           checkstyle {
             toolVersion = libs.versions.checkstyle.get()
           }
 
           // jhipster-needle-gradle-plugins-configurations
-          """);
+          """
+        );
+    }
+
+    @Test
+    void shouldIgnoreAlreadyDeclaredPluginInBuildGradleFile() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      AddGradlePlugin command = new AddGradlePlugin(checkstyleGradlePlugin());
+      gradleCommandHandler.handle(command);
+
+      gradleCommandHandler.handle(command);
+
+      assertThat(buildGradleContent(projectFolder))
+        .contains("""
+          plugins {
+            java
+            checkstyle
+            // jhipster-needle-gradle-plugins
+          }
+          """)
+        .contains(
+          """
+          java {
+            toolchain {
+              languageVersion.set(JavaLanguageVersion.of(21))
+            }
+          }
+
+
+          checkstyle {
+            toolVersion = libs.versions.checkstyle.get()
+          }
+
+          // jhipster-needle-gradle-plugins-configurations
+          """
+        );
     }
   }
 

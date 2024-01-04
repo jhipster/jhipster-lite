@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @Repository
 @Order(Ordered.LOWEST_PRECEDENCE)
@@ -20,6 +21,7 @@ class GradleVersionCatalogDependenciesReader implements JavaDependenciesReader {
   private static final String CURRENT_VERSIONS_FILE = "/generator/dependencies/gradle/libs.versions.toml";
   private final VersionsCatalog versionsCatalog;
 
+  @ExcludeFromGeneratedCodeCoverage(reason = "The error handling is an hard to test implementation detail")
   public GradleVersionCatalogDependenciesReader(ProjectFiles files) {
     String tomlConfigContent = files.readString(CURRENT_VERSIONS_FILE);
     try {

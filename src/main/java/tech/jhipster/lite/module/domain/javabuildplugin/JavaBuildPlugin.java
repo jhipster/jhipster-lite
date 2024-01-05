@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public class JavaBuildPlugin {
 
@@ -131,5 +134,15 @@ public class JavaBuildPlugin {
     default JavaBuildPluginOptionalBuilder addExecution(JavaBuildPluginExecution.JavaBuildPluginExecutionOptionalBuilder builder) {
       return addExecution(builder.build());
     }
+  }
+
+  @Override
+  @ExcludeFromGeneratedCodeCoverage
+  public String toString() {
+    ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("dependencyId", dependencyId);
+    versionSlug.ifPresent(slug -> builder.append("versionSlug", slug));
+    configuration.ifPresent(config -> builder.append("configuration", config));
+    executions.ifPresent(execs -> builder.append("executions", execs));
+    return builder.toString();
   }
 }

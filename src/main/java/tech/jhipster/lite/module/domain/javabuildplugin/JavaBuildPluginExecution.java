@@ -4,8 +4,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public final class JavaBuildPluginExecution {
 
@@ -104,5 +107,15 @@ public final class JavaBuildPluginExecution {
     }
 
     JavaBuildPluginExecution build();
+  }
+
+  @Override
+  @ExcludeFromGeneratedCodeCoverage
+  public String toString() {
+    ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("goals", goals);
+    id.ifPresent(value -> builder.append("id", value));
+    phase.ifPresent(value -> builder.append("phase", value));
+    configuration.ifPresent(value -> builder.append("configuration", value));
+    return builder.toString();
   }
 }

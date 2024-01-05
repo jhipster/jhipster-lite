@@ -3,6 +3,8 @@ package tech.jhipster.lite.module.domain.javadependency;
 import java.util.Optional;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -131,5 +133,16 @@ public class DependencyId {
     DependencyIdOptionalFieldsBuilder type(JavaDependencyType type);
 
     DependencyId build();
+  }
+
+  @Override
+  @ExcludeFromGeneratedCodeCoverage
+  public String toString() {
+    ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+      .append("groupId", groupId)
+      .append("artifactId", artifactId);
+    classifier.ifPresent(dependencyClassifier -> builder.append("classifier", dependencyClassifier));
+    type.ifPresent(dependencyType -> builder.append("type", dependencyType));
+    return builder.toString();
   }
 }

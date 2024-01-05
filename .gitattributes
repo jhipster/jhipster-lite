@@ -19,6 +19,7 @@
 *.java          text
 *.js            text
 *.json          text
+*.kts           text
 *.less          text
 *.properties    text
 *.sass          text

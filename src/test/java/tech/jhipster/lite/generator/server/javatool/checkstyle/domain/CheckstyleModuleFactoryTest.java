@@ -89,6 +89,7 @@ class CheckstyleModuleFactoryTest {
       )
       .and()
       .hasFile("gradle/libs.versions.toml")
-      .containing("checkstyle = \"");
+      .containing("checkstyle = \"")
+      .notContaining("maven-checkstyle-plugin");
   }
 }

@@ -350,6 +350,10 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
+  public static JavaDependencyVersion checkstyleToolVersion() {
+    return new JavaDependencyVersion("checkstyle", "8.42.1");
+  }
+
   public static JavaBuildPlugin mavenEnforcerPlugin() {
     return javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").build();
   }

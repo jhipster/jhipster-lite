@@ -2,15 +2,12 @@ package tech.jhipster.lite.module.domain.gradleplugin;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin.AddGradlePluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -30,27 +27,27 @@ public class JHipsterModuleGradlePlugin {
   public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
     Assert.notNull("versions", versions);
 
-    Stream<JavaBuildCommand> pluginsCommands = plugins.stream().map(AddGradlePlugin::new);
-    Stream<JavaBuildCommand> toolVersionCommands = plugins
-      .stream()
-      .filter(GradleCorePlugin.class::isInstance)
-      .map(GradleCorePlugin.class::cast)
-      .map(GradleCorePlugin::toolVersionSlug)
-      .flatMap(Optional::stream)
-      .map(toSetVersionCommand(versions));
-    Stream<JavaBuildCommand> pluginsVersionCommands = plugins
-      .stream()
-      .filter(GradleCommunityPlugin.class::isInstance)
-      .map(GradleCommunityPlugin.class::cast)
-      .map(GradleCommunityPlugin::versionSlug)
-      .flatMap(Optional::stream)
-      .map(toSetVersionCommand(versions));
-
-    return new JavaBuildCommands(Stream.concat(pluginsCommands, Stream.concat(toolVersionCommands, pluginsVersionCommands)).toList());
+    return new JavaBuildCommands(plugins.stream().map(toCommands(versions)).toList());
   }
 
-  private static Function<VersionSlug, JavaBuildCommand> toSetVersionCommand(JavaDependenciesVersions versions) {
-    return versionSlug -> new SetVersion(versions.get(versionSlug));
+  private Function<GradlePlugin, JavaBuildCommand> toCommands(JavaDependenciesVersions versions) {
+    return plugin ->
+      switch (plugin) {
+        case GradleCorePlugin corePlugin -> mapCorePlugin(corePlugin, versions);
+        case GradleCommunityPlugin gradleCommunityPlugin -> mapCommunityPlugin(gradleCommunityPlugin, versions);
+      };
+  }
+
+  private JavaBuildCommand mapCorePlugin(GradleCorePlugin plugin, JavaDependenciesVersions versions) {
+    AddGradlePluginOptionalBuilder commandBuilder = AddGradlePlugin.builder().plugin(plugin);
+    plugin.toolVersionSlug().map(versions::get).ifPresent(commandBuilder::toolVersion);
+    return commandBuilder.build();
+  }
+
+  private JavaBuildCommand mapCommunityPlugin(GradleCommunityPlugin plugin, JavaDependenciesVersions versions) {
+    AddGradlePluginOptionalBuilder commandBuilder = AddGradlePlugin.builder().plugin(plugin);
+    plugin.versionSlug().map(versions::get).ifPresent(commandBuilder::pluginVersion);
+    return commandBuilder.build();
   }
 
   public static class JHipsterModuleGradlePluginBuilder {

@@ -660,14 +660,11 @@ class MavenCommandHandlerTest {
     void shouldHandleMalformedConfiguration() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      assertThatThrownBy(() ->
-          new MavenCommandHandler(Indentation.DEFAULT, pom)
-            .handle(
-              new AddBuildPluginManagement(
-                javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build()
-              )
-            )
-        )
+      AddBuildPluginManagement command = AddBuildPluginManagement
+        .builder()
+        .plugin(javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build())
+        .build();
+      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command))
         .isExactlyInstanceOf(MalformedAdditionalInformationException.class);
     }
 
@@ -678,6 +675,16 @@ class MavenCommandHandlerTest {
       addMavenEnforcerPlugin(pom);
 
       assertThat(content(pom)).contains(pluginManagement());
+    }
+
+    @Test
+    void shouldAddPropertyForPluginVersion() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(AddBuildPluginManagement.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
+
+      assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
     }
 
     @Test
@@ -724,7 +731,8 @@ class MavenCommandHandlerTest {
     }
 
     private void addMavenEnforcerPlugin(Path pom) {
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddBuildPluginManagement(mavenEnforcerPluginManagement()));
+      AddBuildPluginManagement command = AddBuildPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).build();
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
     }
 
     private String pluginManagement() {
@@ -784,6 +792,16 @@ class MavenCommandHandlerTest {
     }
 
     @Test
+    void shouldAddPropertyForPluginVersion() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
+
+      assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+    }
+
+    @Test
     void shouldAddBuildPluginToPomWithEmptyBuild() {
       Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
 
@@ -840,7 +858,8 @@ class MavenCommandHandlerTest {
     }
 
     private void addMavenEnforcerPlugin(Path pom) {
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaBuildPlugin(mavenEnforcerPlugin()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
     }
 
     private String plugins() {
@@ -935,7 +954,7 @@ class MavenCommandHandlerTest {
     Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
 
     MavenCommandHandler commandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
-    AddGradlePlugin command = new AddGradlePlugin(checkstyleGradlePlugin());
+    AddGradlePlugin command = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build();
     assertThatCode(() -> commandHandler.handle(command)).doesNotThrowAnyException();
   }
 

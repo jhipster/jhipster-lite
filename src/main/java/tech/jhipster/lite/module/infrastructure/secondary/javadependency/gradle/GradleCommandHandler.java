@@ -170,6 +170,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       }
     }
     command.plugin().configuration().ifPresent(this::addPluginConfiguration);
+    command.toolVersion().ifPresent(version -> handle(new SetVersion(version)));
+    command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
   }
 
   private void declarePlugin(String pluginDeclaration) {

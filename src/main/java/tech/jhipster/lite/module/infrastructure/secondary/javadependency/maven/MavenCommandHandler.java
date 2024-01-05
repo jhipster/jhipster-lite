@@ -284,6 +284,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     pluginManagement().addPlugin(toMavenPlugin(command));
+    command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
 
     writePom();
   }
@@ -300,6 +301,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     projectBuild().addPlugin(toMavenPlugin(command));
+    command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
 
     writePom();
   }

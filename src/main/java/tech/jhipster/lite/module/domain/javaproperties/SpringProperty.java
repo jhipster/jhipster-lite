@@ -27,7 +27,7 @@ public class SpringProperty implements SpringPropertyTypeFileName {
     return profile;
   }
 
-  public static SpringPropertyBuilder builder(SpringPropertyType type) {
+  public static SpringPropertyKeyBuilder builder(SpringPropertyType type) {
     return new SpringPropertyBuilder(type);
   }
 
@@ -53,7 +53,7 @@ public class SpringProperty implements SpringPropertyTypeFileName {
     return type.filePrefix() + "-" + profile.get();
   }
 
-  public static class SpringPropertyBuilder implements SpringPropertyKeyBuilder, SpringPropertyValueBuilder, SpringPropertyProfileBuilder {
+  private static class SpringPropertyBuilder implements SpringPropertyKeyBuilder, SpringPropertyValueBuilder, SpringPropertyProfileBuilder {
 
     private final SpringPropertyType type;
     private PropertyKey key;

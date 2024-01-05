@@ -11,7 +11,7 @@ public class Beer {
   private final BeerId id;
   private final BeerName name;
   private final Amount unitPrice;
-  
+
   private BeerSellingState sellingState;
 
   private Beer(BeerBuilder builder) {
@@ -49,12 +49,12 @@ public class Beer {
   public void removeFromSell() {
     sellingState = BeerSellingState.NOT_SOLD;
   }
-  
+
   public BeerSellingState sellingState() {
     return sellingState;
   }
 
-  public static class BeerBuilder
+  private static class BeerBuilder
     implements BeerIdBuilder, BeerNameBuilder, BeerUnitPriceBuilder, BeerSellStateBuilder, BeerOptionalBuilder {
 
     private BeerId id;

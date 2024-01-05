@@ -133,7 +133,7 @@ public class JHipsterModulePropertyDefinition {
     return order;
   }
 
-  public static class JHipsterModulePropertyDefinitionBuilder
+  private static class JHipsterModulePropertyDefinitionBuilder
     implements
       JHipsterModulePropertyDefinitionTypeBuilder,
       JHipsterModulePropertyDefinitionOptionalityBuilder,

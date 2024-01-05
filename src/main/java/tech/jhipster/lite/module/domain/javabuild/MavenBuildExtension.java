@@ -59,7 +59,7 @@ public class MavenBuildExtension {
       .isEquals();
   }
 
-  public static class MavenBuildExtensionBuilder
+  private static class MavenBuildExtensionBuilder
     implements MavenBuildExtensionGroupIdBuilder, MavenBuildExtensionArtifactIdBuilder, MavenBuildExtensionOptionalValueBuilder {
 
     private GroupId groupId;

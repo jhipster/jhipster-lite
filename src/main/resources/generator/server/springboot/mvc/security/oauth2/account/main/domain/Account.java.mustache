@@ -51,7 +51,7 @@ public class Account {
     return roles;
   }
 
-  public static class UserBuilder implements AccountUsernameBuilder, AccountFirstnameBuilder, AccountLastnameBuilder,
+  private static class UserBuilder implements AccountUsernameBuilder, AccountFirstnameBuilder, AccountLastnameBuilder,
       AccountEmailBuilder, AccountRolesBuilder, AccountOptionalFieldBuilder {
 
     private Username username;

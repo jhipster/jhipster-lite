@@ -61,7 +61,7 @@ public class ProjectJavaDependencies {
     return dependencies;
   }
 
-  public static class ProjectJavaDependenciesBuilder
+  private static class ProjectJavaDependenciesBuilder
     implements
       ProjectJavaDependenciesVersionsBuilder,
       ProjectJavaDependenciesDependenciesManagementBuilder,

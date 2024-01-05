@@ -56,11 +56,11 @@ public final class PackageJsonDependency {
     return "PackageJsonDependency[" + "packageName=" + packageName + ", " + "versionSource=" + versionSource + ']';
   }
 
-  public static PackageJsonDependencyBuilder builder() {
+  public static PackageJsonDependencyPackageNameBuilder builder() {
     return new PackageJsonDependencyBuilder();
   }
 
-  public static class PackageJsonDependencyBuilder
+  private static class PackageJsonDependencyBuilder
     implements PackageJsonDependencyPackageNameBuilder, PackageJsonDependencyVersionSourceBuilder, PackageJsonDependencyOptionalBuilder {
 
     private PackageName packageName;

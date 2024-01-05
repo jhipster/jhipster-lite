@@ -37,11 +37,11 @@ public final class GradleCommunityPlugin implements GradlePlugin {
     return pluginSlug;
   }
 
-  public static GradleCommunityPluginBuilder builder() {
+  public static GradleCommunityPluginIdBuilder builder() {
     return new GradleCommunityPluginBuilder();
   }
 
-  public static class GradleCommunityPluginBuilder implements GradleCommunityPluginIdBuilder, GradleCommunityPluginOptionalBuilder {
+  private static class GradleCommunityPluginBuilder implements GradleCommunityPluginIdBuilder, GradleCommunityPluginOptionalBuilder {
 
     private GradlePluginId id;
     private GradlePluginConfiguration configuration;

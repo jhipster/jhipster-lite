@@ -35,7 +35,7 @@ public class AuthenticationQuery {
     return rememberMe;
   }
 
-  public static class AuthenticationQueryBuilder
+  private static class AuthenticationQueryBuilder
     implements AuthenticationQueryUsernameBuilder, AuthenticationQueryRolesBuilder, AuthenticationQueryRememberMeBuilder {
 
     private Username username;

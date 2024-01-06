@@ -27,7 +27,7 @@ public class SpringComment implements SpringPropertyTypeFileName {
     return profile;
   }
 
-  public static SpringCommentBuilder builder(SpringPropertyType type) {
+  public static SpringCommentPropertyKeyBuilder builder(SpringPropertyType type) {
     return new SpringCommentBuilder(type);
   }
 
@@ -53,7 +53,7 @@ public class SpringComment implements SpringPropertyTypeFileName {
     return type.filePrefix() + "-" + profile.get();
   }
 
-  public static class SpringCommentBuilder
+  private static class SpringCommentBuilder
     implements SpringCommentPropertyKeyBuilder, SpringCommentCommentBuilder, SpringCommentProfileBuilder {
 
     private final SpringPropertyType type;

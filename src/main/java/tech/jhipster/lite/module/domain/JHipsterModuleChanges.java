@@ -131,7 +131,7 @@ public class JHipsterModuleChanges {
     return springFactories;
   }
 
-  public static class JHipsterModuleChangesBuilder
+  private static class JHipsterModuleChangesBuilder
     implements
       JHipsterModuleChangesProjectFolderBuilder,
       JHipsterModuleChangesIndentationBuilder,

@@ -65,7 +65,7 @@ public class JHipsterModuleResource {
     return propertiesDefinition;
   }
 
-  public static class JHipsterModuleResourceBuilder
+  private static class JHipsterModuleResourceBuilder
     implements
       JHipsterModuleResourceSlugBuilder,
       JHipsterModuleResourcePropertiesDefinitionBuilder,

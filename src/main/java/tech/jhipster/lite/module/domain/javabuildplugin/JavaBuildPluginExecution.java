@@ -42,7 +42,7 @@ public final class JavaBuildPluginExecution {
     return configuration;
   }
 
-  public static class JavaBuildPluginExecutionBuilder
+  private static class JavaBuildPluginExecutionBuilder
     implements JavaBuildPluginExecutionGoalsBuilder, JavaBuildPluginExecutionOptionalBuilder {
 
     private JavaBuildPluginExecutionId id;

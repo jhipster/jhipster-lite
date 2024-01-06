@@ -36,7 +36,8 @@ public class ProjectAction {
     return parameters;
   }
 
-  public static class ProjectActionBuilder implements ProjectActionModuleBuilder, ProjectActionDateBuilder, ProjectActionParametersBuilder {
+  private static class ProjectActionBuilder
+    implements ProjectActionModuleBuilder, ProjectActionDateBuilder, ProjectActionParametersBuilder {
 
     private ModuleSlug module;
     private Instant date;

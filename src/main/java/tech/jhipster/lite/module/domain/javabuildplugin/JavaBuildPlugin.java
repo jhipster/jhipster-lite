@@ -45,7 +45,7 @@ public class JavaBuildPlugin {
     return dependencyId;
   }
 
-  public static class JavaBuildPluginBuilder
+  private static class JavaBuildPluginBuilder
     implements JavaBuildPluginGroupIdBuilder, JavaBuildPluginArtifactIdBuilder, JavaBuildPluginOptionalBuilder {
 
     private GroupId groupId;

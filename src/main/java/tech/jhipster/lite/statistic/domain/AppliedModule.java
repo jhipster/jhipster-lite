@@ -55,7 +55,7 @@ public class AppliedModule {
     return properties;
   }
 
-  public static class ModuleAppliedBuilder
+  private static class ModuleAppliedBuilder
     implements
       ModuleAppliedIdBuilder,
       ModuleAppliedPathBuilder,

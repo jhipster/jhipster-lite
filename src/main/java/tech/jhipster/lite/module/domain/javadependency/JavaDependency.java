@@ -192,7 +192,7 @@ public class JavaDependency {
       .isEquals();
   }
 
-  public static class JavaDependencyBuilder
+  private static class JavaDependencyBuilder
     implements JavaDependencyGroupIdBuilder, JavaDependencyArtifactIdBuilder, JavaDependencyOptionalValueBuilder {
 
     private GroupId groupId;

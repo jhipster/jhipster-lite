@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.gateway.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -24,7 +25,7 @@ class GatewayModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, pomFile(), propertiesFile())
+    assertThatModuleWithFiles(module, pomFile())
       .hasFile("pom.xml")
       .containing("<spring-cloud.version>")
       .containing(

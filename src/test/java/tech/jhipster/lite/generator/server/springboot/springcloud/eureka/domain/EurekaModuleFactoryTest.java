@@ -1,7 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.springcloud.eureka.domain;
 
 import static org.mockito.Mockito.when;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +38,7 @@ class EurekaModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, pomFile(), propertiesFile())
+    assertThatModuleWithFiles(module, pomFile())
       .hasFile("pom.xml")
       .containing("<spring-cloud.version>")
       .containing("<spring-cloud-netflix-eureka-client.version>")

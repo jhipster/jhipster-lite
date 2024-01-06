@@ -702,6 +702,26 @@
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <groupId>com.gradle</groupId>
+          <artifactId>gradle-enterprise-maven-extension</artifactId>
+          <configuration>
+            <gradleEnterprise>
+              <normalization>
+                <runtimeClassPath>
+                  <propertiesNormalizations>
+                    <propertiesNormalization>
+                      <path>**/git.properties</path>
+                      <ignoredProperties>
+                        <ignore>git.build.time</ignore>
+                      </ignoredProperties>
+                    </propertiesNormalization>
+                  </propertiesNormalizations>
+                </runtimeClassPath>
+              </normalization>
+            </gradleEnterprise>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>

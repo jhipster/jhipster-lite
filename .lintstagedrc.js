@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   '{src/test/javascript,src/main/webapp}/**/*.{js,ts,tsx,vue}': ['eslint --fix'],
   'src/main/style/**/*.{css,scss}': ['stylelint --fix'],
   'src/main/style/**/*.pug': ['pug-lint'],

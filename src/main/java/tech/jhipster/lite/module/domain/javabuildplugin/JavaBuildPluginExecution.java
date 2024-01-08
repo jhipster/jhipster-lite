@@ -112,10 +112,11 @@ public final class JavaBuildPluginExecution {
   @Override
   @ExcludeFromGeneratedCodeCoverage
   public String toString() {
-    ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("goals", goals);
-    id.ifPresent(value -> builder.append("id", value));
-    phase.ifPresent(value -> builder.append("phase", value));
-    configuration.ifPresent(value -> builder.append("configuration", value));
+    ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+      .append("goals", goals)
+      .append("id", id.map(JavaBuildPluginExecutionId::toString).orElse("(empty)"))
+      .append("phase", phase.map(JavaBuildPhase::toString).orElse("(empty)"))
+      .append("configuration", configuration.map(JavaBuildPluginConfiguration::toString).orElse("(empty)"));
     return builder.toString();
   }
 }

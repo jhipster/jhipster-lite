@@ -139,10 +139,11 @@ public class JavaBuildPlugin {
   @Override
   @ExcludeFromGeneratedCodeCoverage
   public String toString() {
-    ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("dependencyId", dependencyId);
-    versionSlug.ifPresent(slug -> builder.append("versionSlug", slug));
-    configuration.ifPresent(config -> builder.append("configuration", config));
-    executions.ifPresent(execs -> builder.append("executions", execs));
+    ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+      .append("dependencyId", dependencyId)
+      .append("versionSlug", versionSlug.map(VersionSlug::toString).orElse("(empty)"))
+      .append("configuration", configuration.map(JavaBuildPluginConfiguration::toString).orElse("(empty)"))
+      .append("executions", executions.map(JavaBuildPluginExecutions::toString).orElse("(empty)"));
     return builder.toString();
   }
 }

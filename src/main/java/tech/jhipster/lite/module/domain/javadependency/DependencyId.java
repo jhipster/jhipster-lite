@@ -140,9 +140,9 @@ public class DependencyId {
   public String toString() {
     ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
       .append("groupId", groupId)
-      .append("artifactId", artifactId);
-    classifier.ifPresent(dependencyClassifier -> builder.append("classifier", dependencyClassifier));
-    type.ifPresent(dependencyType -> builder.append("type", dependencyType));
+      .append("artifactId", artifactId)
+      .append("classifier", classifier.map(JavaDependencyClassifier::toString).orElse("(empty)"))
+      .append("type", type.map(JavaDependencyType::toString).orElse("(empty)"));
     return builder.toString();
   }
 }

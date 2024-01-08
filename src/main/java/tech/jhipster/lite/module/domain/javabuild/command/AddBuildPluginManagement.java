@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.shared.error.domain.Assert;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public final class AddBuildPluginManagement implements JavaBuildCommand, AddJavaBuildPlugin {
 
@@ -68,9 +69,11 @@ public final class AddBuildPluginManagement implements JavaBuildCommand, AddJava
   }
 
   @Override
+  @ExcludeFromGeneratedCodeCoverage
   public String toString() {
-    ToStringBuilder builder = new ToStringBuilder(this, SHORT_PREFIX_STYLE).append("plugin", plugin);
-    pluginVersion.ifPresent(version -> builder.append("pluginVersion", version));
+    ToStringBuilder builder = new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+      .append("plugin", plugin)
+      .append("pluginVersion", pluginVersion.map(JavaDependencyVersion::toString).orElse("(empty)"));
     return builder.toString();
   }
 }

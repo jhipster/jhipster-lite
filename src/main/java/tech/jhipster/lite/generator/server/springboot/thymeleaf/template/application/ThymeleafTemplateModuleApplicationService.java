@@ -18,6 +18,10 @@ public class ThymeleafTemplateModuleApplicationService {
     return thymeleafTemplateFactory.buildModule(properties);
   }
 
+  public JHipsterModule buildThymeleafTemplateTailwindcssModule(JHipsterModuleProperties properties) {
+    return thymeleafTemplateFactory.buildTailwindcssModule(properties);
+  }
+
   public JHipsterModule buildThymeleafHtmxWebjarsModule(JHipsterModuleProperties properties) {
     return thymeleafTemplateFactory.buildHtmxWebjarsModule(properties);
   }

@@ -17,6 +17,7 @@ class ThymeleafTemplateModuleConfiguration {
   private static final String TAG_SPRING = "spring";
   private static final String TAG_BOOT = "spring-boot";
   private static final String TAG_THYMELEAF = "thymeleaf";
+  private static final String TAG_TAILWINDCSS = "tailwindcss";
   private static final String TAG_WEBJAR = "webjar";
 
   @Bean
@@ -31,6 +32,20 @@ class ThymeleafTemplateModuleConfiguration {
       .organization(JHipsterModuleOrganization.builder().addDependency(SPRING_BOOT_THYMELEAF).build())
       .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF)
       .factory(thymeleafTemplate::buildThymeleafTemplateModule);
+  }
+
+  @Bean
+  public JHipsterModuleResource thymeleafTemplateTailwindcssModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
+    return JHipsterModuleResource
+      .builder()
+      .slug(THYMELEAF_TEMPLATE_TAILWINDCSS)
+      .propertiesDefinition(
+        JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
+      )
+      .apiDoc(capitalize(TAG_THYMELEAF), "Add tailwindcss to the thymeleaf template")
+      .organization(JHipsterModuleOrganization.builder().addDependency(THYMELEAF_TEMPLATE).build())
+      .tags(TAG_SERVER, TAG_SPRING, TAG_BOOT, TAG_THYMELEAF, TAG_TAILWINDCSS)
+      .factory(thymeleafTemplate::buildThymeleafTemplateTailwindcssModule);
   }
 
   @Bean

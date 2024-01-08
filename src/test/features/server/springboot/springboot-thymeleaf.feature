@@ -10,6 +10,7 @@ Feature: Spring Boot Thymeleaf module
 
   Scenario: Should apply Thymeleaf Template module
     When I apply modules to default project
+      | init                  |
       | maven-java            |
       | spring-boot           |
       | spring-boot-thymeleaf |
@@ -17,8 +18,20 @@ Feature: Spring Boot Thymeleaf module
     Then I should have files in "src/main/resources/templates"
       | index.html |
 
+  Scenario: Should apply Thymeleaf Template Tailwindcss module
+    When I apply modules to default project
+      | init                           |
+      | maven-java                     |
+      | spring-boot                    |
+      | spring-boot-thymeleaf          |
+      | thymeleaf-template             |
+      | thymeleaf-template-tailwindcss |
+    Then I should have files in ""
+      | tailwind.config.js |
+
   Scenario: Should apply Thymeleaf Template htmx, alpinejs webjars
     When I apply modules to default project
+      | init                                |
       | maven-java                          |
       | spring-boot                         |
       | spring-boot-thymeleaf               |

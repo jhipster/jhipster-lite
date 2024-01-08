@@ -110,6 +110,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   THYMELEAF_TEMPLATE("thymeleaf-template"),
   THYMELEAF_TEMPLATE_HTMX_WEBJAR("thymeleaf-template-htmx-webjars"),
   THYMELEAF_TEMPLATE_ALPINEJS_WEBJAR("thymeleaf-template-alpinejs-webjars"),
+  THYMELEAF_TEMPLATE_TAILWINDCSS("thymeleaf-template-tailwindcss"),
   SPRING_BOOT_TOMCAT("spring-boot-tomcat"),
   SPRING_BOOT_UNDERTOW("spring-boot-undertow"),
   SPRING_BOOT_WEBFLUX_EMPTY("spring-boot-webflux-empty"),

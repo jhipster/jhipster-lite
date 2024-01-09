@@ -6,10 +6,11 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement.AddBuildPluginManagementOptionalBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin.AddDirectJavaBuildPluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -30,23 +31,23 @@ public class JHipsterModuleJavaBuildPlugin {
   public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
     Assert.notNull("versions", versions);
 
-    Stream<JavaBuildCommand> managementCommands = pluginsManagement.stream().flatMap(toCommands(versions, AddBuildPluginManagement::new));
-    Stream<JavaBuildCommand> pluginsCommands = plugins.stream().flatMap(toCommands(versions, AddDirectJavaBuildPlugin::new));
+    Stream<JavaBuildCommand> managementCommands = pluginsManagement.stream().map(toAddBuildPluginManagement(versions));
+    Stream<JavaBuildCommand> pluginsCommands = plugins.stream().map(toAddDirectJavaBuildPlugin(versions));
 
     return new JavaBuildCommands(Stream.concat(managementCommands, pluginsCommands).toList());
   }
 
-  private static Function<JavaBuildPlugin, Stream<JavaBuildCommand>> toCommands(
-    JavaDependenciesVersions versions,
-    Function<JavaBuildPlugin, JavaBuildCommand> addCommandFactory
-  ) {
+  private static Function<JavaBuildPlugin, AddBuildPluginManagement> toAddBuildPluginManagement(JavaDependenciesVersions versions) {
     return plugin -> {
-      JavaBuildCommand addPluginCommand = addCommandFactory.apply(plugin);
+      AddBuildPluginManagementOptionalBuilder commandBuilder = AddBuildPluginManagement.builder().plugin(plugin);
+      return plugin.versionSlug().map(versions::get).map(commandBuilder::pluginVersion).orElse(commandBuilder.build());
+    };
+  }
 
-      return plugin
-        .versionSlug()
-        .map(version -> Stream.of(new SetVersion(versions.get(version)), addPluginCommand))
-        .orElseGet(() -> Stream.of(addPluginCommand));
+  private static Function<JavaBuildPlugin, AddDirectJavaBuildPlugin> toAddDirectJavaBuildPlugin(JavaDependenciesVersions versions) {
+    return plugin -> {
+      AddDirectJavaBuildPluginOptionalBuilder commandBuilder = AddDirectJavaBuildPlugin.builder().javaBuildPlugin(plugin);
+      return plugin.versionSlug().map(versions::get).map(commandBuilder::pluginVersion).orElse(commandBuilder.build());
     };
   }
 

@@ -4,6 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginConfiguration;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -13,6 +14,7 @@ public class SpringBootDockerModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/docker");
   private static final JHipsterSource JIB_SOURCE = SOURCE.append("jib");
+  private static final String JAVA_DOCKER_IMAGE = "eclipse-temurin:21-jre-jammy";
 
   public JHipsterModule buildJibModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -23,7 +25,10 @@ public class SpringBootDockerModuleFactory {
         .put("mainClass", mainClassName(properties))
         .and()
       .javaBuildPlugins()
-        .plugin(jibPlugin(properties))
+        .plugin(mavenJibPlugin(properties))
+        .and()
+      .gradlePlugins()
+        .plugin(gradleJibPlugin(properties))
         .and()
       .files()
         .add(JIB_SOURCE.template("entrypoint.sh"), to("src/main/docker/jib").append("entrypoint.sh"))
@@ -41,7 +46,7 @@ public class SpringBootDockerModuleFactory {
       .toString();
   }
 
-  private JavaBuildPlugin jibPlugin(JHipsterModuleProperties properties) {
+  private JavaBuildPlugin mavenJibPlugin(JHipsterModuleProperties properties) {
     return javaBuildPlugin()
       .groupId("com.google.cloud.tools")
       .artifactId("jib-maven-plugin")
@@ -54,7 +59,7 @@ public class SpringBootDockerModuleFactory {
     return new JavaBuildPluginConfiguration(
       """
         <from>
-          <image>eclipse-temurin:21-jre-jammy</image>
+          <image>%s</image>
           <platforms>
             <platform>
               <architecture>amd64</architecture>
@@ -90,8 +95,51 @@ public class SpringBootDockerModuleFactory {
             </permission>
           </permissions>
         </extraDirectories>
-      """.formatted(properties.projectBaseName().get(), properties.serverPort().get())
+      """.formatted(JAVA_DOCKER_IMAGE, properties.projectBaseName().get(), properties.serverPort().get())
     );
+  }
+
+  private GradlePlugin gradleJibPlugin(JHipsterModuleProperties properties) {
+    return gradleCommunityPlugin()
+      .id("com.google.cloud.tools.jib")
+      .pluginSlug("jib")
+      .versionSlug("jib")
+      .configuration(
+        """
+        jib {
+          from {
+            image = "%s"
+            platforms {
+              platform {
+                architecture = "amd64"
+                os = "linux"
+              }
+            }
+          }
+          to {
+            image = "%s:latest"
+          }
+          container {
+            entrypoint = listOf("bash", "-c", "/entrypoint.sh")
+            ports = listOf("%s")
+            environment = mapOf(
+             "SPRING_OUTPUT_ANSI_ENABLED" to "ALWAYS",
+             "JHIPSTER_SLEEP" to "0"
+            )
+            creationTime = "USE_CURRENT_TIMESTAMP"
+            user = "1000"
+          }
+          extraDirectories {
+            paths {
+              path {
+                setFrom("src/main/docker/jib")
+              }
+            }
+            permissions = mapOf("/entrypoint.sh" to "755")
+          }
+        }""".formatted(JAVA_DOCKER_IMAGE, properties.projectBaseName().get(), properties.serverPort().get())
+      )
+      .build();
   }
 
   public JHipsterModule buildDockerFileModule(JHipsterModuleProperties properties) {

@@ -20,6 +20,16 @@ updates:
     labels:
       - 'area: dependencies'
 
+  - package-ecosystem: 'gradle'
+    directory: '/src/main/resources/generator/dependencies/'
+    schedule:
+      interval: 'daily'
+      time: '00:00'
+    open-pull-requests-limit: 20
+    rebase-strategy: 'disabled'
+    labels:
+      - 'area: dependencies'
+
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:

@@ -1,0 +1,10 @@
+[versions]
+checkstyle = "10.12.6"
+jib = "3.3.0"
+
+[libraries]
+
+[plugins]
+[plugins.jib]
+id = "com.google.cloud.tools.jib"
+version.ref = "jib"

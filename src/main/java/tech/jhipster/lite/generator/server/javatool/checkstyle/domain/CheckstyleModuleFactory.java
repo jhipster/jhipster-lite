@@ -5,6 +5,8 @@ import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.VA
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -16,17 +18,22 @@ public class CheckstyleModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
+    //@formatter:off
     return moduleBuilder(properties)
       .javaBuildPlugins()
-      .plugin(checkstylePlugin())
-      .and()
+        .plugin(checkstyleMavenPlugin())
+        .and()
+      .gradlePlugins()
+        .plugin(checkstyleGradlePlugin())
+        .and()
       .files()
-      .add(TEMPLATES_SOURCE.template("checkstyle.xml"), to("checkstyle.xml"))
-      .and()
+        .add(TEMPLATES_SOURCE.template("checkstyle.xml"), to("checkstyle.xml"))
+        .and()
       .build();
+    //@formatter:on
   }
 
-  private JavaBuildPlugin checkstylePlugin() {
+  private JavaBuildPlugin checkstyleMavenPlugin() {
     return javaBuildPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-checkstyle-plugin")
@@ -40,6 +47,29 @@ public class CheckstyleModuleFactory {
         """
       )
       .addExecution(pluginExecution().goals("check").id("validate").phase(VALIDATE))
+      .build();
+  }
+
+  private GradlePlugin checkstyleGradlePlugin() {
+    VersionSlug toolVersionSlug = new VersionSlug("checkstyle");
+    return gradleCorePlugin()
+      .id("checkstyle")
+      .toolVersionSlug(toolVersionSlug)
+      .configuration(
+        """
+        checkstyle {
+          configFile = rootProject.file("checkstyle.xml")
+          toolVersion = libs.versions.%s.get()
+        }
+
+        // Workaround for https://github.com/gradle/gradle/issues/27035
+        configurations.checkstyle {
+          resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
+            select("com.google.guava:guava:0")
+          }
+        }
+        """.formatted(toolVersionSlug.slug())
+      )
       .build();
   }
 }

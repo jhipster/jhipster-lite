@@ -1,28 +1,31 @@
 plugins {
   java
+  // jhipster-needle-gradle-plugins
 }
 
 java {
   toolchain {
-    languageVersion.set(JavaLanguageVersion.of(17))
+    languageVersion = JavaLanguageVersion.of(21)
   }
 }
 
+// jhipster-needle-gradle-plugins-configurations
+
 repositories {
   mavenCentral()
-  // jhipster-needle-gradle-repository
+  // jhipster-needle-gradle-repositories
 }
 
 group = "tech.jhipster.chips"
 version = "0.0.1-SNAPSHOT"
 
 ext {
-  // jhipster-needle-gradle-property
+  // jhipster-needle-gradle-properties
 }
 
 dependencies {
-  // jhipster-needle-gradle-add-dependency
-  // jhipster-needle-gradle-add-dependency-test
+  // jhipster-needle-gradle-dependencies
+  // jhipster-needle-gradle-test-dependencies
 }
 
 tasks.test {

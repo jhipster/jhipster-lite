@@ -38,6 +38,7 @@ import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependency;
@@ -283,6 +284,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     pluginManagement().addPlugin(toMavenPlugin(command));
+    command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
 
     writePom();
   }
@@ -299,8 +301,14 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     projectBuild().addPlugin(toMavenPlugin(command));
+    command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
 
     writePom();
+  }
+
+  @Override
+  public void handle(AddGradlePlugin command) {
+    // Gradle commands are ignored
   }
 
   private Plugin toMavenPlugin(AddJavaBuildPlugin command) {

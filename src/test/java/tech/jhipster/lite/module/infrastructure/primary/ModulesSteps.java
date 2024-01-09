@@ -125,7 +125,16 @@ public class ModulesSteps {
   public void applyModuleForDefaultProjectWithMavenFile(String moduleSlug, Map<String, String> parameters) {
     String projectFolder = newTestFolder();
 
-    addPomToProject(projectFolder);
+    post(applyModuleUrl("maven-java"), buildModuleQuery(projectFolder, parameters));
+
+    post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, parameters));
+  }
+
+  @When("I apply {string} module to default project with gradle build")
+  public void applyModuleForDefaultProjectWithGradle(String moduleSlug, Map<String, String> parameters) {
+    String projectFolder = newTestFolder();
+
+    post(applyModuleUrl("gradle-java"), buildModuleQuery(projectFolder, parameters));
 
     post(applyModuleUrl(moduleSlug), buildModuleQuery(projectFolder, parameters));
   }
@@ -218,10 +227,6 @@ public class ModulesSteps {
 
   private static void addPackageJsonToProject(String folder) {
     addFileToProject(folder, "src/test/resources/projects/empty-node/package.json", "package.json");
-  }
-
-  private static void addPomToProject(String folder) {
-    addFileToProject(folder, "src/test/resources/projects/init-maven/pom.xml", "pom.xml");
   }
 
   private static void addFileToProject(String folder, String source, String destination) {

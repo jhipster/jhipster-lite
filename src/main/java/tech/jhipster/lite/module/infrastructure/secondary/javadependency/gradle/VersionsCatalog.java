@@ -1,32 +1,36 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Collection;
-import java.util.List;
-import java.util.function.Predicate;
-
 import com.electronwill.nightconfig.core.Config;
 import com.electronwill.nightconfig.core.Config.Entry;
 import com.electronwill.nightconfig.core.UnmodifiableConfig;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import com.electronwill.nightconfig.core.io.ParsingException;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Predicate;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginSlug;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
-class VersionsCatalog {
+public class VersionsCatalog {
 
   private static final String VERSIONS_TOML_KEY = "versions";
   private static final String LIBRARIES_TOML_KEY = "libraries";
+  private static final String PLUGINS_TOML_KEY = "plugins";
 
   private final FileConfig tomlConfigFile;
 
   public VersionsCatalog(JHipsterProjectFolder projectFolder) {
-    Path tomlVersionCatalogFile = tomlVersionCatalogPath(projectFolder);
+    this(tomlVersionCatalogPath(projectFolder));
+  }
+
+  public VersionsCatalog(Path tomlVersionCatalogFile) {
     tomlConfigFile = FileConfig.builder(tomlVersionCatalogFile)
       .sync()
       .build();
@@ -108,5 +112,30 @@ class VersionsCatalog {
       .map(UnmodifiableConfig.Entry::getKey)
       .map(DependencySlug::new)
       .toList();
+  }
+
+  public Collection<JavaDependencyVersion> retrieveVersions() {
+    return tomlConfigFile.entrySet().stream()
+      .filter(entry -> entry.getKey().equals(VERSIONS_TOML_KEY))
+      .map(Entry::getValue)
+      .filter(Config.class::isInstance)
+      .map(Config.class::cast)
+      .map(Config::entrySet)
+      .flatMap(Collection::stream)
+      .map(entry -> new JavaDependencyVersion(entry.getKey(), entry.getValue()))
+      .toList();
+  }
+
+  public static String pluginSlug(GradleCommunityPlugin communityPlugin) {
+    return communityPlugin.pluginSlug().map(GradlePluginSlug::get).orElse(communityPlugin.id().get());
+  }
+
+  public void addPlugin(GradleCommunityPlugin plugin) {
+    Config pluginConfig = Config.inMemory();
+    pluginConfig.set("id", plugin.id().get());
+    plugin.versionSlug().ifPresent(versionSlug -> pluginConfig.set("version.ref", versionSlug.slug()));
+    String pluginEntryKey = pluginSlug(plugin);
+    tomlConfigFile.set(List.of(PLUGINS_TOML_KEY, pluginEntryKey), pluginConfig);
+    save();
   }
 }

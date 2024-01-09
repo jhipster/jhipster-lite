@@ -1,7 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
 import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
@@ -15,7 +14,17 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.javabuild.command.*;
+import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
@@ -49,7 +58,6 @@ class GradleCommandHandlerTest {
     GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
     AddJavaBuildProfile command = new AddJavaBuildProfile(localMavenProfile());
     assertThatThrownBy(() -> gradleCommandHandler.handle(command)).isInstanceOf(NotImplementedException.class);
-
   }
 
   @Nested
@@ -343,14 +351,116 @@ class GradleCommandHandlerTest {
     }
   }
 
+  @Nested
+  class HandleAddGradlePlugin {
+
+    private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+    @Test
+    void shouldDeclareAndConfigurePluginInBuildGradleFile() {
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build());
+
+      assertThat(buildGradleContent(projectFolder))
+        .contains("""
+          plugins {
+            java
+            checkstyle
+            // jhipster-needle-gradle-plugins
+          }
+          """)
+        .contains(
+          """
+
+          checkstyle {
+            toolVersion = libs.versions.checkstyle.get()
+          }
+
+          // jhipster-needle-gradle-plugins-configurations
+          """
+        );
+    }
+
+    @Test
+    void shouldAddToolVersion() {
+      AddGradlePlugin build = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).toolVersion(checkstyleToolVersion()).build();
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(build);
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("""
+          checkstyle = "8.42.1"
+          """);
+    }
+    @Test
+    void shouldAddPluginVersion() {
+      AddGradlePlugin build = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).pluginVersion(checkstyleToolVersion()).build();
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(build);
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("""
+          checkstyle = "8.42.1"
+          """);
+    }
+
+    @Test
+    void shouldIgnoreAlreadyDeclaredPluginInBuildGradleFile() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      AddGradlePlugin command = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build();
+      gradleCommandHandler.handle(command);
+
+      gradleCommandHandler.handle(command);
+
+      assertThat(buildGradleContent(projectFolder))
+        .contains("""
+          plugins {
+            java
+            checkstyle
+            // jhipster-needle-gradle-plugins
+          }
+          """)
+        .contains(
+          """
+          java {
+            toolchain {
+              languageVersion = JavaLanguageVersion.of(21)
+            }
+          }
+
+
+          checkstyle {
+            toolVersion = libs.versions.checkstyle.get()
+          }
+
+          // jhipster-needle-gradle-plugins-configurations
+          """
+        );
+    }
+  }
+
   @Test
-  void addMavenBuildExtensionShouldThrowNotImplementedException() {
+  void addMavenBuildExtensionShouldNotBeHandled() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
 
     GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
     AddMavenBuildExtension command = new AddMavenBuildExtension(mavenBuildExtensionWithSlug());
-    assertThatThrownBy(() -> gradleCommandHandler.handle(command)).isInstanceOf(NotImplementedException.class);
+    assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
+  }
 
+  @Test
+  void addAddDirectJavaBuildPluginShouldNotBeHandled() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
+
+    GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+    AddDirectJavaBuildPlugin command = AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build();
+    assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
+  }
+
+  @Test
+  void addAddBuildPluginManagementShouldNotBeHandled() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
+
+    GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+    AddBuildPluginManagement command = AddBuildPluginManagement.builder().plugin(mavenEnforcerPlugin()).build();
+    assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
   }
 
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {

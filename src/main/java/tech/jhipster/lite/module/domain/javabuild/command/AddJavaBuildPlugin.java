@@ -6,23 +6,26 @@ import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginConfiguration;
 import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginExecutions;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 
 public interface AddJavaBuildPlugin {
-  JavaBuildPlugin javaBuildPlugin();
+  JavaBuildPlugin plugin();
 
   default Optional<VersionSlug> versionSlug() {
-    return javaBuildPlugin().versionSlug();
+    return plugin().versionSlug();
   }
 
   default Optional<JavaBuildPluginConfiguration> configuration() {
-    return javaBuildPlugin().configuration();
+    return plugin().configuration();
   }
 
   default Optional<JavaBuildPluginExecutions> executions() {
-    return javaBuildPlugin().executions();
+    return plugin().executions();
   }
 
   default DependencyId dependencyId() {
-    return javaBuildPlugin().dependencyId();
+    return plugin().dependencyId();
   }
+
+  Optional<JavaDependencyVersion> pluginVersion();
 }

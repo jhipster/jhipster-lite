@@ -22,7 +22,7 @@ repositories {
   // jhipster-needle-gradle-repositories
 }
 
-group = "{{packageName}}"
+group = "com.jhipster.test"
 version = "0.0.1-SNAPSHOT"
 
 ext {

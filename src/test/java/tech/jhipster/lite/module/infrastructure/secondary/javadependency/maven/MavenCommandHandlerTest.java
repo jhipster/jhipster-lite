@@ -21,6 +21,7 @@ import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
@@ -659,14 +660,11 @@ class MavenCommandHandlerTest {
     void shouldHandleMalformedConfiguration() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      assertThatThrownBy(() ->
-          new MavenCommandHandler(Indentation.DEFAULT, pom)
-            .handle(
-              new AddBuildPluginManagement(
-                javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build()
-              )
-            )
-        )
+      AddBuildPluginManagement command = AddBuildPluginManagement
+        .builder()
+        .plugin(javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build())
+        .build();
+      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command))
         .isExactlyInstanceOf(MalformedAdditionalInformationException.class);
     }
 
@@ -677,6 +675,16 @@ class MavenCommandHandlerTest {
       addMavenEnforcerPlugin(pom);
 
       assertThat(content(pom)).contains(pluginManagement());
+    }
+
+    @Test
+    void shouldAddPropertyForPluginVersion() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(AddBuildPluginManagement.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
+
+      assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
     }
 
     @Test
@@ -723,7 +731,8 @@ class MavenCommandHandlerTest {
     }
 
     private void addMavenEnforcerPlugin(Path pom) {
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddBuildPluginManagement(mavenEnforcerPluginManagement()));
+      AddBuildPluginManagement command = AddBuildPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).build();
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
     }
 
     private String pluginManagement() {
@@ -783,6 +792,16 @@ class MavenCommandHandlerTest {
     }
 
     @Test
+    void shouldAddPropertyForPluginVersion() {
+      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
+
+      assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+    }
+
+    @Test
     void shouldAddBuildPluginToPomWithEmptyBuild() {
       Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
 
@@ -839,7 +858,8 @@ class MavenCommandHandlerTest {
     }
 
     private void addMavenEnforcerPlugin(Path pom) {
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaBuildPlugin(mavenEnforcerPlugin()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
     }
 
     private String plugins() {
@@ -927,6 +947,15 @@ class MavenCommandHandlerTest {
 
       assertThat(Pattern.compile("^ +$", Pattern.MULTILINE).matcher(content).find()).isFalse();
     }
+  }
+
+  @Test
+  void addAddGradlePluginShouldNotBeHandled() {
+    Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+    MavenCommandHandler commandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+    AddGradlePlugin command = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build();
+    assertThatCode(() -> commandHandler.handle(command)).doesNotThrowAnyException();
   }
 
   private static Path projectWithPom(String sourcePom) {

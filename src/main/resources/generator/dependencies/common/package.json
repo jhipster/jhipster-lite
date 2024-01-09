@@ -13,7 +13,7 @@
     "@typescript-eslint/parser": "6.18.0",
     "autoprefixer": "10.4.16",
     "browser-sync": "2.29.3",
-    "cssnano": "6.0.1",
+    "cssnano": "6.0.3",
     "cypress": "13.6.2",
     "eslint": "8.56.0",
     "eslint-import-resolver-typescript": "3.6.1",

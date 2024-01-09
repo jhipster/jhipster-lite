@@ -137,6 +137,7 @@ public class JavaBuildPlugin {
   }
 
   @Override
+  @SuppressWarnings("java:S1192")
   @ExcludeFromGeneratedCodeCoverage
   public String toString() {
     ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)

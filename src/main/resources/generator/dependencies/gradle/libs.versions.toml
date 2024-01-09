@@ -1,6 +1,6 @@
 [versions]
 checkstyle = "10.12.6"
-jib = "3.3.0"
+jib = "3.4.0"
 
 [libraries]
 

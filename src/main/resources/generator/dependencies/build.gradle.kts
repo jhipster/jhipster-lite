@@ -31,6 +31,7 @@ ext {
 }
 
 dependencies {
+  implementation(libs.checkstyle)
   // jhipster-needle-gradle-dependencies
   // jhipster-needle-gradle-test-dependencies
 }

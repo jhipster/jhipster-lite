@@ -14,13 +14,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
@@ -446,11 +446,11 @@ class GradleCommandHandlerTest {
   }
 
   @Test
-  void addAddDirectJavaBuildPluginShouldNotBeHandled() {
+  void addAddDirectMavenPluginShouldNotBeHandled() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
 
     GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
-    AddDirectJavaBuildPlugin command = AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build();
+    AddDirectMavenPlugin command = AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build();
     assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
   }
 
@@ -459,7 +459,7 @@ class GradleCommandHandlerTest {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
 
     GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
-    AddBuildPluginManagement command = AddBuildPluginManagement.builder().plugin(mavenEnforcerPlugin()).build();
+    AddMavenPluginManagement command = AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).build();
     assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
   }
 

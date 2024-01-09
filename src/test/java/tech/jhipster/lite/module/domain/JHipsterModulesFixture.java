@@ -19,7 +19,6 @@ import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependenc
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
@@ -30,6 +29,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
@@ -88,7 +88,7 @@ public final class JHipsterModulesFixture {
       .addDependencyManagement(springBootDefaultTypeDependencyManagement())
       .removeDependencyManagement(dependencyId("org.springdoc", "springdoc-openapi-ui"))
       .and()
-    .javaBuildPlugins()
+    .mavenPlugins()
       .pluginManagement(mavenEnforcerPluginManagement())
       .plugin(mavenEnforcerPlugin())
       .and()
@@ -300,7 +300,7 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
-  public static JavaBuildPlugin mavenEnforcerPluginManagement() {
+  public static MavenPlugin mavenEnforcerPluginManagement() {
     return javaBuildPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-enforcer-plugin")
@@ -354,7 +354,7 @@ public final class JHipsterModulesFixture {
     return new JavaDependencyVersion("checkstyle", "8.42.1");
   }
 
-  public static JavaBuildPlugin mavenEnforcerPlugin() {
+  public static MavenPlugin mavenEnforcerPlugin() {
     return javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").build();
   }
 

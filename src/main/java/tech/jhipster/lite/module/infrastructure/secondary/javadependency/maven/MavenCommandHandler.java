@@ -35,30 +35,30 @@ import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginConfiguration;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginExecution;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginExecutionGoal;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginExecutionId;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginExecutions;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginConfiguration;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutionGoal;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutionId;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutions;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -280,7 +280,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @Override
-  public void handle(AddBuildPluginManagement command) {
+  public void handle(AddMavenPluginManagement command) {
     Assert.notNull(COMMAND, command);
 
     pluginManagement().addPlugin(toMavenPlugin(command));
@@ -297,7 +297,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @Override
-  public void handle(AddDirectJavaBuildPlugin command) {
+  public void handle(AddDirectMavenPlugin command) {
     Assert.notNull(COMMAND, command);
 
     projectBuild().addPlugin(toMavenPlugin(command));
@@ -311,7 +311,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     // Gradle commands are ignored
   }
 
-  private Plugin toMavenPlugin(AddJavaBuildPlugin command) {
+  private Plugin toMavenPlugin(AddMavenPlugin command) {
     Plugin mavenPlugin = new Plugin();
     mavenPlugin.setArtifactId(command.dependencyId().artifactId().get());
     mavenPlugin.setGroupId(command.dependencyId().groupId().get());
@@ -320,25 +320,25 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     command
       .executions()
       .stream()
-      .map(JavaBuildPluginExecutions::get)
+      .map(MavenPluginExecutions::get)
       .flatMap(Collection::stream)
       .map(toMavenExecution())
       .forEach(mavenPlugin::addExecution);
     return mavenPlugin;
   }
 
-  private Function<JavaBuildPluginExecution, PluginExecution> toMavenExecution() {
+  private Function<MavenPluginExecution, PluginExecution> toMavenExecution() {
     return execution -> {
       PluginExecution mavenExecution = new PluginExecution();
-      execution.id().map(JavaBuildPluginExecutionId::get).ifPresent(mavenExecution::setId);
-      execution.phase().map(JavaBuildPhase::mavenKey).ifPresent(mavenExecution::setPhase);
-      execution.goals().stream().map(JavaBuildPluginExecutionGoal::get).forEach(mavenExecution::addGoal);
+      execution.id().map(MavenPluginExecutionId::get).ifPresent(mavenExecution::setId);
+      execution.phase().map(MavenBuildPhase::mavenKey).ifPresent(mavenExecution::setPhase);
+      execution.goals().stream().map(MavenPluginExecutionGoal::get).forEach(mavenExecution::addGoal);
       execution.configuration().map(toMavenConfiguration()).ifPresent(mavenExecution::setConfiguration);
       return mavenExecution;
     };
   }
 
-  private Function<JavaBuildPluginConfiguration, Xpp3Dom> toMavenConfiguration() {
+  private Function<MavenPluginConfiguration, Xpp3Dom> toMavenConfiguration() {
     return configuration -> {
       try (Reader reader = new StringReader("<configuration>" + configuration.get() + "</configuration>")) {
         return Xpp3DomBuilder.build(reader);

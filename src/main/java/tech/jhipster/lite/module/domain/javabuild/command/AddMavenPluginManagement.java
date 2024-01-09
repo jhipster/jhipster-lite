@@ -4,24 +4,24 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-public final class AddBuildPluginManagement implements JavaBuildCommand, AddJavaBuildPlugin {
+public final class AddMavenPluginManagement implements JavaBuildCommand, AddMavenPlugin {
 
-  private final JavaBuildPlugin plugin;
+  private final MavenPlugin plugin;
   private final Optional<JavaDependencyVersion> pluginVersion;
 
-  private AddBuildPluginManagement(AddBuildPluginManagementBuilder builder) {
+  private AddMavenPluginManagement(AddMavenPluginManagementBuilder builder) {
     Assert.notNull("javaBuildPlugin", builder.plugin);
     this.plugin = builder.plugin;
     this.pluginVersion = Optional.ofNullable(builder.pluginVersion);
   }
 
   @Override
-  public JavaBuildPlugin plugin() {
+  public MavenPlugin plugin() {
     return plugin;
   }
 
@@ -30,42 +30,42 @@ public final class AddBuildPluginManagement implements JavaBuildCommand, AddJava
     return pluginVersion;
   }
 
-  public static AddBuildPluginManagementPluginBuilder builder() {
-    return new AddBuildPluginManagementBuilder();
+  public static AddMavenPluginManagementPluginBuilder builder() {
+    return new AddMavenPluginManagementBuilder();
   }
 
-  private static class AddBuildPluginManagementBuilder
-    implements AddBuildPluginManagementPluginBuilder, AddBuildPluginManagementOptionalBuilder {
+  private static class AddMavenPluginManagementBuilder
+    implements AddMavenPluginManagementPluginBuilder, AddMavenPluginManagementOptionalBuilder {
 
-    private JavaBuildPlugin plugin;
+    private MavenPlugin plugin;
     private JavaDependencyVersion pluginVersion;
 
-    private AddBuildPluginManagementBuilder() {}
+    private AddMavenPluginManagementBuilder() {}
 
     @Override
-    public AddBuildPluginManagementBuilder plugin(JavaBuildPlugin javaBuildPlugin) {
+    public AddMavenPluginManagementBuilder plugin(MavenPlugin javaBuildPlugin) {
       this.plugin = javaBuildPlugin;
       return this;
     }
 
     @Override
-    public AddBuildPluginManagement pluginVersion(JavaDependencyVersion pluginVersion) {
+    public AddMavenPluginManagement pluginVersion(JavaDependencyVersion pluginVersion) {
       this.pluginVersion = pluginVersion;
       return build();
     }
 
-    public AddBuildPluginManagement build() {
-      return new AddBuildPluginManagement(this);
+    public AddMavenPluginManagement build() {
+      return new AddMavenPluginManagement(this);
     }
   }
 
-  public interface AddBuildPluginManagementPluginBuilder {
-    AddBuildPluginManagementOptionalBuilder plugin(JavaBuildPlugin javaBuildPlugin);
+  public interface AddMavenPluginManagementPluginBuilder {
+    AddMavenPluginManagementOptionalBuilder plugin(MavenPlugin javaBuildPlugin);
   }
 
-  public interface AddBuildPluginManagementOptionalBuilder {
-    AddBuildPluginManagement pluginVersion(JavaDependencyVersion version);
-    AddBuildPluginManagement build();
+  public interface AddMavenPluginManagementOptionalBuilder {
+    AddMavenPluginManagement pluginVersion(JavaDependencyVersion version);
+    AddMavenPluginManagement build();
   }
 
   @Override

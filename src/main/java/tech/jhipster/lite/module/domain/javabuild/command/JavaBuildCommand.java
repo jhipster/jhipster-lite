@@ -2,8 +2,8 @@ package tech.jhipster.lite.module.domain.javabuild.command;
 
 public sealed interface JavaBuildCommand
   permits
-    AddBuildPluginManagement,
-    AddDirectJavaBuildPlugin,
+    AddMavenPluginManagement,
+    AddDirectMavenPlugin,
     AddDirectJavaDependency,
     AddGradlePlugin,
     AddJavaBuildProfile,

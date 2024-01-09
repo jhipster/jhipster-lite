@@ -1,15 +1,15 @@
-package tech.jhipster.lite.module.domain.javabuildplugin;
+package tech.jhipster.lite.module.domain.mavenplugin;
 
 import java.util.Collection;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-public record JavaBuildPluginExecutions(Collection<JavaBuildPluginExecution> executions) {
-  public JavaBuildPluginExecutions {
+public record MavenPluginExecutions(Collection<MavenPluginExecution> executions) {
+  public MavenPluginExecutions {
     Assert.notEmpty("executions", executions);
   }
 
-  public Collection<JavaBuildPluginExecution> get() {
+  public Collection<MavenPluginExecution> get() {
     return executions;
   }
 

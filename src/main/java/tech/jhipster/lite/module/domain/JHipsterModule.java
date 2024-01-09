@@ -36,12 +36,6 @@ import tech.jhipster.lite.module.domain.javabuild.JHipsterModuleMavenBuildExtens
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension.MavenBuildExtensionGroupIdBuilder;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildPlugin;
-import tech.jhipster.lite.module.domain.javabuildplugin.JHipsterModuleJavaBuildPlugin.JHipsterModuleJavaBuildPluginBuilder;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin.JavaBuildPluginGroupIdBuilder;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginExecution;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginExecution.JavaBuildPluginExecutionGoalsBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -69,6 +63,12 @@ import tech.jhipster.lite.module.domain.javaproperties.SpringProfile;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperties;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
+import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins;
+import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins.JHipsterModuleMavenPluginsBuilder;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin.MavenPluginGroupIdBuilder;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution.MavenPluginExecutionGoalsBuilder;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
 import tech.jhipster.lite.module.domain.packagejson.PackageName;
@@ -103,7 +103,7 @@ public class JHipsterModule {
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
   private final JHipsterModuleJavaBuildProfiles javaBuildProfiles;
-  private final JHipsterModuleJavaBuildPlugin javaBuildPlugins;
+  private final JHipsterModuleMavenPlugins javaBuildPlugins;
   private final JHipsterModuleGradlePlugin gradlePlugins;
   private final JHipsterModuleMavenBuildExtensions mavenBuildExtensions;
   private final JHipsterModulePackageJson packageJson;
@@ -122,7 +122,7 @@ public class JHipsterModule {
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
     javaBuildProfiles = builder.javaBuildProfiles.build();
-    javaBuildPlugins = builder.javaBuildPlugins.build();
+    javaBuildPlugins = builder.mavenPlugins.build();
     gradlePlugins = builder.gradlePlugins.build();
     mavenBuildExtensions = builder.mavenBuildExtensions.build();
     packageJson = builder.packageJson.build();
@@ -228,8 +228,8 @@ public class JHipsterModule {
     return DependencyId.of(groupId(groupId), artifactId(artifactId));
   }
 
-  public static JavaBuildPluginGroupIdBuilder javaBuildPlugin() {
-    return JavaBuildPlugin.builder();
+  public static MavenPluginGroupIdBuilder javaBuildPlugin() {
+    return MavenPlugin.builder();
   }
 
   public static JHipsterSource from(String source) {
@@ -322,8 +322,8 @@ public class JHipsterModule {
     return BuildProfileActivation.builder();
   }
 
-  public static JavaBuildPluginExecutionGoalsBuilder pluginExecution() {
-    return JavaBuildPluginExecution.builder();
+  public static MavenPluginExecutionGoalsBuilder pluginExecution() {
+    return MavenPluginExecution.builder();
   }
 
   public static PropertyKey propertyKey(String key) {
@@ -428,7 +428,7 @@ public class JHipsterModule {
     return javaBuildProfiles;
   }
 
-  public JHipsterModuleJavaBuildPlugin javaBuildPlugins() {
+  public JHipsterModuleMavenPlugins javaBuildPlugins() {
     return javaBuildPlugins;
   }
 
@@ -479,7 +479,7 @@ public class JHipsterModule {
     );
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
     private final JHipsterModuleJavaBuildProfilesBuilder javaBuildProfiles = JHipsterModuleJavaBuildProfiles.builder(this);
-    private final JHipsterModuleJavaBuildPluginBuilder javaBuildPlugins = JHipsterModuleJavaBuildPlugin.builder(this);
+    private final JHipsterModuleMavenPluginsBuilder mavenPlugins = JHipsterModuleMavenPlugins.builder(this);
     private final JHipsterModuleGradlePluginBuilder gradlePlugins = JHipsterModuleGradlePlugin.builder(this);
     private final JHipsterModuleMavenBuildExtensionsBuilder mavenBuildExtensions = JHipsterModuleMavenBuildExtensions.builder(this);
     private final JHipsterModulePackageJsonBuilder packageJson = JHipsterModulePackageJson.builder(this);
@@ -566,8 +566,8 @@ public class JHipsterModule {
       return javaBuildProfiles;
     }
 
-    public JHipsterModuleJavaBuildPluginBuilder javaBuildPlugins() {
-      return javaBuildPlugins;
+    public JHipsterModuleMavenPluginsBuilder mavenPlugins() {
+      return mavenPlugins;
     }
 
     public JHipsterModuleGradlePluginBuilder gradlePlugins() {

@@ -1,13 +1,13 @@
 package tech.jhipster.lite.generator.server.sonarqube.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.INITIALIZE;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.INITIALIZE;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -52,7 +52,7 @@ public class SonarQubeModulesFactory {
         ./mvnw clean verify sonar:sonar\
         """
       )
-      .javaBuildPlugins()
+      .mavenPlugins()
       .plugin(propertiesPlugin())
       .pluginManagement(sonarPlugin())
       .and()
@@ -61,8 +61,8 @@ public class SonarQubeModulesFactory {
       .and();
   }
 
-  private JavaBuildPlugin propertiesPlugin() {
-    return JavaBuildPlugin
+  private MavenPlugin propertiesPlugin() {
+    return MavenPlugin
       .builder()
       .groupId("org.codehaus.mojo")
       .artifactId("properties-maven-plugin")
@@ -82,8 +82,8 @@ public class SonarQubeModulesFactory {
       .build();
   }
 
-  private JavaBuildPlugin sonarPlugin() {
-    return JavaBuildPlugin
+  private MavenPlugin sonarPlugin() {
+    return MavenPlugin
       .builder()
       .groupId("org.sonarsource.scanner.maven")
       .artifactId("sonar-maven-plugin")

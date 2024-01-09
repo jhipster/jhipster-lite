@@ -1,15 +1,15 @@
-package tech.jhipster.lite.module.domain.javabuildplugin;
+package tech.jhipster.lite.module.domain.mavenplugin;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-public record JavaBuildPluginExecutionId(String executionId) {
-  public JavaBuildPluginExecutionId {
-    Assert.notBlank("executionId", executionId);
+public record MavenPluginConfiguration(String configuration) {
+  public MavenPluginConfiguration {
+    Assert.notBlank("configuration", configuration);
   }
 
   public String get() {
-    return executionId();
+    return configuration();
   }
 
   @Override

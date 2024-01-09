@@ -2,24 +2,24 @@ package tech.jhipster.lite.module.domain.javabuild.command;
 
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginConfiguration;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginExecutions;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginConfiguration;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutions;
 
-public interface AddJavaBuildPlugin {
-  JavaBuildPlugin plugin();
+public interface AddMavenPlugin {
+  MavenPlugin plugin();
 
   default Optional<VersionSlug> versionSlug() {
     return plugin().versionSlug();
   }
 
-  default Optional<JavaBuildPluginConfiguration> configuration() {
+  default Optional<MavenPluginConfiguration> configuration() {
     return plugin().configuration();
   }
 
-  default Optional<JavaBuildPluginExecutions> executions() {
+  default Optional<MavenPluginExecutions> executions() {
     return plugin().executions();
   }
 

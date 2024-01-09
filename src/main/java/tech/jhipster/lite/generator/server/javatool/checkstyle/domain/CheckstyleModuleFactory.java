@@ -1,13 +1,13 @@
 package tech.jhipster.lite.generator.server.javatool.checkstyle.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.VALIDATE;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.VALIDATE;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -20,7 +20,7 @@ public class CheckstyleModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .javaBuildPlugins()
+      .mavenPlugins()
         .plugin(checkstyleMavenPlugin())
         .and()
       .gradlePlugins()
@@ -33,7 +33,7 @@ public class CheckstyleModuleFactory {
     //@formatter:on
   }
 
-  private JavaBuildPlugin checkstyleMavenPlugin() {
+  private MavenPlugin checkstyleMavenPlugin() {
     return javaBuildPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-checkstyle-plugin")

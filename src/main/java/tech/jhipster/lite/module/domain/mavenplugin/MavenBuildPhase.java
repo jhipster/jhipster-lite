@@ -1,6 +1,6 @@
-package tech.jhipster.lite.module.domain.javabuildplugin;
+package tech.jhipster.lite.module.domain.mavenplugin;
 
-public enum JavaBuildPhase {
+public enum MavenBuildPhase {
   INITIALIZE("initialize"),
   VALIDATE("validate"),
   GENERATE_SOURCES("generate-sources"),
@@ -28,7 +28,7 @@ public enum JavaBuildPhase {
 
   private final String mavenKey;
 
-  JavaBuildPhase(String mavenKey) {
+  MavenBuildPhase(String mavenKey) {
     this.mavenKey = mavenKey;
   }
 

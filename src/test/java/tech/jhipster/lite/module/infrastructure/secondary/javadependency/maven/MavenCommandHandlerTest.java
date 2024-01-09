@@ -18,13 +18,13 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
-import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
@@ -654,13 +654,13 @@ class MavenCommandHandlerTest {
 
   @Nested
   @DisplayName("Add build plugin management")
-  class MavenCommandHandlerAddBuildPluginManagementTest {
+  class MavenCommandHandlerAddMavenPluginManagementTest {
 
     @Test
     void shouldHandleMalformedConfiguration() {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      AddBuildPluginManagement command = AddBuildPluginManagement
+      AddMavenPluginManagement command = AddMavenPluginManagement
         .builder()
         .plugin(javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build())
         .build();
@@ -682,7 +682,7 @@ class MavenCommandHandlerTest {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
       new MavenCommandHandler(Indentation.DEFAULT, pom)
-        .handle(AddBuildPluginManagement.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
+        .handle(AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
 
       assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
     }
@@ -731,7 +731,7 @@ class MavenCommandHandlerTest {
     }
 
     private void addMavenEnforcerPlugin(Path pom) {
-      AddBuildPluginManagement command = AddBuildPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).build();
+      AddMavenPluginManagement command = AddMavenPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).build();
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
     }
 
@@ -796,7 +796,7 @@ class MavenCommandHandlerTest {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
       new MavenCommandHandler(Indentation.DEFAULT, pom)
-        .handle(AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
+        .handle(AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
 
       assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
     }
@@ -859,7 +859,7 @@ class MavenCommandHandlerTest {
 
     private void addMavenEnforcerPlugin(Path pom) {
       new MavenCommandHandler(Indentation.DEFAULT, pom)
-        .handle(AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
+        .handle(AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
     }
 
     private String plugins() {

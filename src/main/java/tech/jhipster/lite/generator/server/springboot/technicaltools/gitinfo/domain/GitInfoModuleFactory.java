@@ -5,7 +5,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -38,7 +38,7 @@ public class GitInfoModuleFactory {
         .set(propertyKey("management.info.git.enabled"), propertyValue(true))
         .set(propertyKey("management.info.env.enabled"), propertyValue(true))
         .and()
-      .javaBuildPlugins()
+      .mavenPlugins()
         .plugin(gitCommitIdPlugin())
         .pluginManagement(gitCommitIdPluginManagement())
         .and()
@@ -46,8 +46,8 @@ public class GitInfoModuleFactory {
     //@formatter:on
   }
 
-  private JavaBuildPlugin gitCommitIdPluginManagement() {
-    return JavaBuildPlugin
+  private MavenPlugin gitCommitIdPluginManagement() {
+    return MavenPlugin
       .builder()
       .groupId("io.github.git-commit-id")
       .artifactId("git-commit-id-maven-plugin")
@@ -70,7 +70,7 @@ public class GitInfoModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin gitCommitIdPlugin() {
-    return JavaBuildPlugin.builder().groupId("io.github.git-commit-id").artifactId("git-commit-id-maven-plugin").build();
+  private MavenPlugin gitCommitIdPlugin() {
+    return MavenPlugin.builder().groupId("io.github.git-commit-id").artifactId("git-commit-id-maven-plugin").build();
   }
 }

@@ -1,20 +1,20 @@
-package tech.jhipster.lite.module.domain.javabuildplugin;
+package tech.jhipster.lite.module.domain.mavenplugin;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.javabuild.command.AddBuildPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaBuildPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 
 @UnitTest
-class JHipsterModuleJavaBuildPluginTest {
+class JHipsterModuleMavenPluginsTest {
 
   @Test
   void shouldAddNewDependencyManagement() {
-    JavaBuildCommands changes = JHipsterModuleJavaBuildPlugin
+    JavaBuildCommands changes = JHipsterModuleMavenPlugins
       .builder(emptyModuleBuilder())
       .pluginManagement(mavenEnforcerPluginManagement())
       .build()
@@ -22,12 +22,12 @@ class JHipsterModuleJavaBuildPluginTest {
 
     assertThat(changes.get())
       .usingRecursiveFieldByFieldElementComparator()
-      .containsExactly(AddBuildPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).pluginVersion(mavenEnforcerVersion()));
+      .containsExactly(AddMavenPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).pluginVersion(mavenEnforcerVersion()));
   }
 
   @Test
   void shouldAddNewDependency() {
-    JavaBuildCommands changes = JHipsterModuleJavaBuildPlugin
+    JavaBuildCommands changes = JHipsterModuleMavenPlugins
       .builder(emptyModuleBuilder())
       .plugin(mavenEnforcerPlugin())
       .build()
@@ -35,6 +35,6 @@ class JHipsterModuleJavaBuildPluginTest {
 
     assertThat(changes.get())
       .usingRecursiveFieldByFieldElementComparator()
-      .containsExactly(AddDirectJavaBuildPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
+      .containsExactly(AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
   }
 }

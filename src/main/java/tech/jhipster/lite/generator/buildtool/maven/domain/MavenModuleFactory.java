@@ -1,16 +1,16 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.*;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -49,7 +49,7 @@ public class MavenModuleFactory {
         .addDependency(assertjDependency())
         .addDependency(mockitoDependency())
         .and()
-      .javaBuildPlugins()
+      .mavenPlugins()
         .plugin(mavenCompilerPlugin())
         .plugin(surefirePlugin())
         .plugin(failsafePlugin())
@@ -117,7 +117,7 @@ public class MavenModuleFactory {
     //@formatter:on
   }
 
-  private JavaBuildPlugin mavenCompilerPlugin() {
+  private MavenPlugin mavenCompilerPlugin() {
     return javaBuildPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-compiler-plugin")
@@ -132,7 +132,7 @@ public class MavenModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin surefirePlugin() {
+  private MavenPlugin surefirePlugin() {
     return javaBuildPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-surefire-plugin")
@@ -150,11 +150,11 @@ public class MavenModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin jacocoPlugin() {
+  private MavenPlugin jacocoPlugin() {
     return javaBuildPlugin().groupId(JACOCO_GROUP).artifactId(JACOCO_ARTIFACT_ID).build();
   }
 
-  private JavaBuildPlugin failsafePlugin() {
+  private MavenPlugin failsafePlugin() {
     return javaBuildPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-failsafe-plugin")
@@ -177,7 +177,7 @@ public class MavenModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin jacocoPluginManagement() {
+  private MavenPlugin jacocoPluginManagement() {
     return javaBuildPlugin()
       .groupId(JACOCO_GROUP)
       .artifactId(JACOCO_ARTIFACT_ID)
@@ -220,7 +220,7 @@ public class MavenModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin enforcerPluginManagement() {
+  private MavenPlugin enforcerPluginManagement() {
     return javaBuildPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-enforcer-plugin")

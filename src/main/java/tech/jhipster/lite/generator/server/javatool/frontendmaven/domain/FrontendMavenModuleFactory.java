@@ -1,14 +1,14 @@
 package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.COMPILE;
-import static tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase.GENERATE_RESOURCES;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.COMPILE;
+import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.GENERATE_RESOURCES;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPhase;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -41,7 +41,7 @@ public class FrontendMavenModuleFactory {
         .setVersion(javaDependencyVersion("node", "v" + npmVersions.get("node", NpmVersionSource.COMMON).get()))
         .setVersion(javaDependencyVersion("npm", npmVersions.get("npm", NpmVersionSource.COMMON).get()))
         .and()
-      .javaBuildPlugins()
+      .mavenPlugins()
         .plugin(checksumPlugin())
         .plugin(antrunPlugin())
         .plugin(frontendMavenPlugin())
@@ -57,7 +57,7 @@ public class FrontendMavenModuleFactory {
     //@formatter:on
   }
 
-  private JavaBuildPlugin checksumPlugin() {
+  private MavenPlugin checksumPlugin() {
     return javaBuildPlugin()
       .groupId("net.nicoulaj.maven.plugins")
       .artifactId("checksum-maven-plugin")
@@ -101,7 +101,7 @@ public class FrontendMavenModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin antrunPlugin() {
+  private MavenPlugin antrunPlugin() {
     return javaBuildPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-antrun-plugin")
@@ -129,7 +129,7 @@ public class FrontendMavenModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin frontendMavenPlugin() {
+  private MavenPlugin frontendMavenPlugin() {
     return javaBuildPlugin()
       .groupId("com.github.eirslett")
       .artifactId("frontend-maven-plugin")
@@ -165,7 +165,7 @@ public class FrontendMavenModuleFactory {
         pluginExecution()
           .goals("npm")
           .id("front test")
-          .phase(JavaBuildPhase.TEST)
+          .phase(MavenBuildPhase.TEST)
           .configuration(
             """
             <arguments>run test</arguments>

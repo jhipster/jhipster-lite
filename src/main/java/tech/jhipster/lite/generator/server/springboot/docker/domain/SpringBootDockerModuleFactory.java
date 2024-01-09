@@ -5,8 +5,8 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPluginConfiguration;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginConfiguration;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -24,7 +24,7 @@ public class SpringBootDockerModuleFactory {
       .context()
         .put("mainClass", mainClassName(properties))
         .and()
-      .javaBuildPlugins()
+      .mavenPlugins()
         .plugin(mavenJibPlugin(properties))
         .and()
       .gradlePlugins()
@@ -46,7 +46,7 @@ public class SpringBootDockerModuleFactory {
       .toString();
   }
 
-  private JavaBuildPlugin mavenJibPlugin(JHipsterModuleProperties properties) {
+  private MavenPlugin mavenJibPlugin(JHipsterModuleProperties properties) {
     return javaBuildPlugin()
       .groupId("com.google.cloud.tools")
       .artifactId("jib-maven-plugin")
@@ -55,8 +55,8 @@ public class SpringBootDockerModuleFactory {
       .build();
   }
 
-  private JavaBuildPluginConfiguration jibPluginConfiguration(JHipsterModuleProperties properties) {
-    return new JavaBuildPluginConfiguration(
+  private MavenPluginConfiguration jibPluginConfiguration(JHipsterModuleProperties properties) {
+    return new MavenPluginConfiguration(
       """
         <from>
           <image>%s</image>

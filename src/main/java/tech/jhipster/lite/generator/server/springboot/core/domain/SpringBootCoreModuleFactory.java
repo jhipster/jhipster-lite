@@ -6,10 +6,10 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
-import tech.jhipster.lite.module.domain.javabuildplugin.JavaBuildPlugin;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -58,7 +58,7 @@ public class SpringBootCoreModuleFactory {
         .addDependency(groupId("org.apache.commons"), artifactId("commons-lang3"))
         .addDependency(springBootTest())
         .and()
-      .javaBuildPlugins()
+      .mavenPlugins()
         .pluginManagement(springBootPluginManagement(fullyQualifiedMainClass))
         .plugin(springBootMavenPlugin())
         .and()
@@ -124,8 +124,8 @@ public class SpringBootCoreModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin springBootPluginManagement(String fullyQualifiedMainClass) {
-    return JavaBuildPlugin
+  private MavenPlugin springBootPluginManagement(String fullyQualifiedMainClass) {
+    return MavenPlugin
       .builder()
       .groupId(SPRING_BOOT_GROUP)
       .artifactId("spring-boot-maven-plugin")
@@ -135,7 +135,7 @@ public class SpringBootCoreModuleFactory {
       .build();
   }
 
-  private JavaBuildPlugin springBootMavenPlugin() {
-    return JavaBuildPlugin.builder().groupId(SPRING_BOOT_GROUP).artifactId("spring-boot-maven-plugin").build();
+  private MavenPlugin springBootMavenPlugin() {
+    return MavenPlugin.builder().groupId(SPRING_BOOT_GROUP).artifactId("spring-boot-maven-plugin").build();
   }
 }

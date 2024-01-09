@@ -1,5 +1,5 @@
 [versions]
-checkstyle = "10.12.6"
+checkstyle = "10.12.7"
 jib = "3.4.0"
 
 [libraries]

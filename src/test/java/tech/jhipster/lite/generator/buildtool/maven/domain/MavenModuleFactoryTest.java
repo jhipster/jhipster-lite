@@ -192,12 +192,12 @@ class MavenModuleFactoryTest {
                   <configuration>
                     <rules>
                       <requireMavenVersion>
-                        <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
-                        <version>[${maven.version},)</version>
+                        <message>You are running an older version of Maven: minimum required version is ${maven.version}</message>
+                        <version>${maven.version}</version>
                       </requireMavenVersion>
                       <requireJavaVersion>
-                        <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
-                        <version>[21,22)</version>
+                        <message>You are running an incompatible version of Java: minimum required version is ${java.version}</message>
+                        <version>${java.version}</version>
                       </requireJavaVersion>
                     </rules>
                   </configuration>

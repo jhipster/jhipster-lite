@@ -19,6 +19,7 @@ public class MavenModuleFactory {
   private static final JHipsterSource SOURCE = from("buildtool/maven");
 
   private static final GroupId APACHE_PLUGINS_GROUP = groupId("org.apache.maven.plugins");
+  private static final ArtifactId ENFORCER_ARTIFACTID = artifactId("maven-enforcer-plugin");
 
   private static final GroupId JACOCO_GROUP = groupId("org.jacoco");
   private static final ArtifactId JACOCO_ARTIFACT_ID = artifactId("jacoco-maven-plugin");
@@ -54,6 +55,7 @@ public class MavenModuleFactory {
         .plugin(surefirePlugin())
         .plugin(failsafePlugin())
         .plugin(jacocoPlugin())
+        .plugin(enforcerPlugin())
         .pluginManagement(jacocoPluginManagement())
         .pluginManagement(enforcerPluginManagement())
         .and()
@@ -220,10 +222,14 @@ public class MavenModuleFactory {
       .build();
   }
 
+  private MavenPlugin enforcerPlugin() {
+    return javaBuildPlugin().groupId(APACHE_PLUGINS_GROUP).artifactId(ENFORCER_ARTIFACTID).build();
+  }
+
   private MavenPlugin enforcerPluginManagement() {
     return javaBuildPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
-      .artifactId("maven-enforcer-plugin")
+      .artifactId(ENFORCER_ARTIFACTID)
       .versionSlug("maven-enforcer-plugin")
       .addExecution(pluginExecution().goals("enforce").id("enforce-versions"))
       .addExecution(
@@ -243,12 +249,12 @@ public class MavenModuleFactory {
         """
         <rules>
           <requireMavenVersion>
-            <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
-            <version>[${maven.version},)</version>
+            <message>You are running an older version of Maven: minimum required version is ${maven.version}</message>
+            <version>${maven.version}</version>
           </requireMavenVersion>
           <requireJavaVersion>
-            <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
-            <version>[21,22)</version>
+            <message>You are running an incompatible version of Java: minimum required version is ${java.version}</message>
+            <version>${java.version}</version>
           </requireJavaVersion>
         </rules>
         """

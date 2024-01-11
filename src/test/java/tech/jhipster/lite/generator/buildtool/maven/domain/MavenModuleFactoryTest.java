@@ -164,6 +164,53 @@ class MavenModuleFactoryTest {
                 </plugin>
         """
       )
+      .containing(
+        """
+                <plugin>
+                  <artifactId>maven-enforcer-plugin</artifactId>
+                  <version>${maven-enforcer-plugin.version}</version>
+                  <executions>
+                    <execution>
+                      <id>enforce-versions</id>
+                      <goals>
+                        <goal>enforce</goal>
+                      </goals>
+                    </execution>
+                    <execution>
+                      <id>enforce-dependencyConvergence</id>
+                      <goals>
+                        <goal>enforce</goal>
+                      </goals>
+                      <configuration>
+                        <rules>
+                          <DependencyConvergence />
+                        </rules>
+                        <fail>false</fail>
+                      </configuration>
+                    </execution>
+                  </executions>
+                  <configuration>
+                    <rules>
+                      <requireMavenVersion>
+                        <message>You are running an older version of Maven: minimum required version is ${maven.version}</message>
+                        <version>${maven.version}</version>
+                      </requireMavenVersion>
+                      <requireJavaVersion>
+                        <message>You are running an incompatible version of Java: minimum required version is ${java.version}</message>
+                        <version>${java.version}</version>
+                      </requireJavaVersion>
+                    </rules>
+                  </configuration>
+                </plugin>
+        """
+      )
+      .containing(
+        """
+              <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+              </plugin>
+        """
+      )
       .and()
       .hasExecutableFiles("mvnw", "mvnw.cmd")
       .hasPrefixedFiles(".mvn/wrapper", "maven-wrapper.jar", "maven-wrapper.properties")

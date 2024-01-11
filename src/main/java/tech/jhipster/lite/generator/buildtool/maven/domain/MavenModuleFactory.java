@@ -19,6 +19,7 @@ public class MavenModuleFactory {
   private static final JHipsterSource SOURCE = from("buildtool/maven");
 
   private static final GroupId APACHE_PLUGINS_GROUP = groupId("org.apache.maven.plugins");
+  private static final ArtifactId ENFORCER_ARTIFACTID = artifactId("maven-enforcer-plugin");
 
   private static final GroupId JACOCO_GROUP = groupId("org.jacoco");
   private static final ArtifactId JACOCO_ARTIFACT_ID = artifactId("jacoco-maven-plugin");
@@ -54,6 +55,7 @@ public class MavenModuleFactory {
         .plugin(surefirePlugin())
         .plugin(failsafePlugin())
         .plugin(jacocoPlugin())
+        .plugin(enforcerPlugin())
         .pluginManagement(jacocoPluginManagement())
         .pluginManagement(enforcerPluginManagement())
         .and()
@@ -220,10 +222,14 @@ public class MavenModuleFactory {
       .build();
   }
 
+  private MavenPlugin enforcerPlugin() {
+    return javaBuildPlugin().groupId(APACHE_PLUGINS_GROUP).artifactId(ENFORCER_ARTIFACTID).build();
+  }
+
   private MavenPlugin enforcerPluginManagement() {
     return javaBuildPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
-      .artifactId("maven-enforcer-plugin")
+      .artifactId(ENFORCER_ARTIFACTID)
       .versionSlug("maven-enforcer-plugin")
       .addExecution(pluginExecution().goals("enforce").id("enforce-versions"))
       .addExecution(

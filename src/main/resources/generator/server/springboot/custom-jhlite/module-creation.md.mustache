@@ -4,8 +4,8 @@ So you want to create a JHLite module? Great!
 
 For that you'll need to provide 2 main parts:
 
-* `JHipsterModuleResource`: describe the module organization, it is used to generate the APIs;
-* `JHipsterModule`: describe the changes done by the module.
+- `JHipsterModuleResource`: describe the module organization, it is used to generate the APIs;
+- `JHipsterModule`: describe the changes done by the module.
 
 You can start by the element you prefer but to create a `JHipsterModuleResource` you'll need to be able to build a `JHipsterModule`.
 
@@ -27,6 +27,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 class MyModuleFactoryTest {
+
   private static final MyModuleFactory factory = new MyModuleFactory();
 
   @Test
@@ -38,17 +39,17 @@ class MyModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModule(module)
-      .hasPrefixedFiles("src/test/java/com/jhipster/test/my_package", "Dummy.java");
+    assertThatModule(module).hasPrefixedFiles("src/main/java/com/jhipster/test/my_package", "Dummy.java");
   }
 }
+
 ```
 
 A few things to note here:
 
-* We are expecting to have a `buildModule(...)` method in `MyModuleFactory`;
-* The `JHipsterModulesAssertions.assertThatModule(...)` will really apply the module to a project and give you a fluent API to ensure some operations;
-* Even if the feedback loops are not perfect on that they should be short enough to allow a decent TDD implementation of the factory (on eclipse with [infinitest](https://infinitest.github.io/) feedbacks are under a second).
+- We are expecting to have a `buildModule(...)` method in `MyModuleFactory`;
+- The `JHipsterModulesAssertions.assertThatModule(...)` will really apply the module to a project and give you a fluent API to ensure some operations;
+- Even if the feedback loops are not perfect on that they should be short enough to allow a decent TDD implementation of the factory (on eclipse with [infinitest](https://infinitest.github.io/) feedbacks are under a second).
 
 So, now that we have a first test we can do a simple implementation:
 
@@ -69,6 +70,7 @@ public class MyModuleFactory {
     //@formatter:on
   }
 }
+
 ```
 
 This implementation will take a file from `src/main/resources/generator/my-module` and put it in the generated project.
@@ -79,9 +81,9 @@ The file is a template named `Dummy.java.mustache` and can contains some mustach
 package {{packageName}}.my_package;
 
 public class Dummy {
-
   // ...
 }
+
 ```
 
 Those placeholders will be replaced by properties values during module application.
@@ -104,21 +106,38 @@ Feature: My module
 
 > The goal of this test is not to duplicate your factory unit test! Just ensure that one change done by your module is visible here, it is enough since we only want to ensure that the WebService is working as expected.
 
-You can now run `CucumberTest` and ensure that it is failing as expected (with a 404).
+You can now run `CucumberTest` and ensure that it is failing as expected:
+
+```json
+{
+  "type": "about:blank",
+  "title": "Unknown slug",
+  "status": 500,
+  "detail": "Unknown slug my-module",
+  "instance": "/api/modules/my-module/apply-patch",
+  "key": "unknown-slug"
+}
+```
 
 To be used by JHLite, the `JHipsterModuleResource` needs to be a Spring bean so, let's create a configuration in `{{packageName}}.my_module.infrastructure.primary`:
 
 ```java
+import static {{packageName}}.slug.domain.MyAppModuleSlug.*;
+
+import {{packageName}}.my_module.application.MyModuleApplicationService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
+
 @Configuration
 class MyModuleModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource myModule(
-    MyModuleApplicationService myModules
-  ) {
+  JHipsterModuleResource myModule(MyModuleApplicationService myModules) {
     return JHipsterModuleResource
       .builder()
-      .slug("my-module")
+      .slug(MY_MODULE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Group", "This is my module")
       .standalone()
@@ -126,9 +145,44 @@ class MyModuleModuleConfiguration {
       .factory(myModules::buildModule);
   }
 }
+
 ```
 
 In fact, you don't really have choices here, the `JHipsterModuleResource.builder()` is fluent and will only let you go to the next possible step. The most confusing one may be the last one `.factory(myModules::buildModule)` which is, in fact, a method called to build the module.
+
+You'll need to create the MyAppModuleSlug.MY_MODULE enum, which was mentioned earlier. Let's create it in the `{{packageName}}.slug.domain` package:
+
+```java
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import tech.jhipster.lite.module.domain.resource.JHipsterModuleSlugFactory;
+
+public enum MyAppModuleSlug implements JHipsterModuleSlugFactory {
+  MY_MODULE("my-module");
+
+  private static final Map<String, MyAppModuleSlug> moduleSlugMap = Stream
+    .of(values())
+    .collect(Collectors.toMap(MyAppModuleSlug::get, Function.identity()));
+  private final String slug;
+
+  MyAppModuleSlug(String slug) {
+    this.slug = slug;
+  }
+
+  @Override
+  public String get() {
+    return slug;
+  }
+
+  public static Optional<MyAppModuleSlug> fromString(String slug) {
+    return Optional.ofNullable(moduleSlugMap.get(slug));
+  }
+}
+
+```
 
 For this to work, we'll need to add a simple orchestration class in `{{packageName}}.my_module.application`:
 
@@ -155,8 +209,8 @@ In your `JHipsterModuleResource` you can define additional properties and an org
 
 You can hide modules from your custom instance in project configuration with:
 
-* `jhlite-hidden-resources.slugs`: To disable including its dependencies by slugs
-* `jhlite-hidden-resources.tags`: To disable by tags
+- `jhlite-hidden-resources.slugs`: To disable including its dependencies by slugs
+- `jhlite-hidden-resources.tags`: To disable by tags
 
 ## Docker versions
 
@@ -171,6 +225,7 @@ class MyDockerImagesReader implements DockerImagesReader {
     return new DockerImageVersions(List.of(new DockerImageVersion("tomcat", "1.2.3")));
   }
 }
+
 ```
 
 Of course you can add any version resolution logic you want in the implementation. You can have a look at [FileSystemDockerImagesReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/docker/FileSystemDockerImagesReader.java) for an implementation reading from a local file (managed by dependabot).
@@ -188,6 +243,7 @@ class MyJavaDependenciesReader implements JavaDependenciesReader {
     return new JavaDependenciesVersions(List.of(new JavaDependencyVersion("json-web-token", "1.2.3")));
   }
 }
+
 ```
 
 Of course you can add any version resolution logic you want in the implementation. You can have a look at [FileSystemJavaDependenciesReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/javadependency/FileSystemJavaDependenciesReader.java) for an implementation reading from a local file (managed by dependabot).
@@ -214,12 +270,10 @@ class MyNpmVersionsReader implements NpmVersionsReader {
 
   @Override
   public NpmPackagesVersions get() {
-    return NpmPackagesVersions
-        .builder()
-        .put(NpmVersionSource.COMMON, packages(new NpmPackage("vue", "1.2.7")))
-        .build();
+    return NpmPackagesVersions.builder().put(NpmVersionSource.COMMON, packages(new NpmPackage("vue", "1.2.7"))).build();
   }
 }
+
 ```
 
 Of course you can add any version resolution logic you want in the implementation. You can have a look at [FileSystemNpmVersionReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/javadependency/FileSystemJavaDependenciesReader.java) for an implementation reading from a local file (managed by dependabot).

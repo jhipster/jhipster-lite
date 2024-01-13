@@ -5,7 +5,9 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
@@ -24,6 +26,7 @@ public class SpringBootCoreModuleFactory {
 
   private static final String JUNIT_GROUP = "org.junit.jupiter";
   private static final String MOCKITO_GROUP = "org.mockito";
+  private static final VersionSlug SPRING_BOOT_VERSION_SLUG = versionSlug("spring-boot");
 
   private static final TextNeedleBeforeReplacer DEFAULT_GOAL_REPLACER = new TextNeedleBeforeReplacer(
     (contentBeforeReplacement, replacement) -> !contentBeforeReplacement.contains("<defaultGoal>"),
@@ -62,6 +65,9 @@ public class SpringBootCoreModuleFactory {
         .pluginManagement(springBootPluginManagement(fullyQualifiedMainClass))
         .plugin(springBootMavenPlugin())
         .and()
+      .gradlePlugins()
+        .plugin(springBootGradlePlugin(fullyQualifiedMainClass))
+        .and()
       .files()
         .add(MAIN_SOURCE.template("MainApp.java"), toSrcMainJava().append(packagePath).append(baseName + "App.java"))
         .add(MAIN_SOURCE.template("ApplicationStartupTraces.java"), toSrcMainJava().append(packagePath).append("ApplicationStartupTraces.java"))
@@ -92,12 +98,29 @@ public class SpringBootCoreModuleFactory {
     //@formatter:on
   }
 
+  private GradlePlugin springBootGradlePlugin(String fullyQualifiedMainClass) {
+    return gradleCommunityPlugin()
+      .id("org.springframework.boot")
+      .pluginSlug("spring-boot")
+      .versionSlug(SPRING_BOOT_VERSION_SLUG)
+      .configuration(
+        """
+        defaultTasks "bootRun"
+
+        springBoot {
+          mainClass = "%s"
+        }
+        """.formatted(fullyQualifiedMainClass)
+      )
+      .build();
+  }
+
   private JavaDependency springBootBom() {
     return JavaDependency
       .builder()
-      .groupId("org.springframework.boot")
+      .groupId(SPRING_BOOT_GROUP)
       .artifactId("spring-boot-dependencies")
-      .versionSlug("spring-boot")
+      .versionSlug(SPRING_BOOT_VERSION_SLUG)
       .type(JavaDependencyType.POM)
       .scope(JavaDependencyScope.IMPORT)
       .build();
@@ -121,7 +144,7 @@ public class SpringBootCoreModuleFactory {
       .builder()
       .groupId(SPRING_BOOT_GROUP)
       .artifactId("spring-boot-maven-plugin")
-      .versionSlug("spring-boot")
+      .versionSlug(SPRING_BOOT_VERSION_SLUG)
       .addExecution(pluginExecution().goals("repackage"))
       .configuration("<mainClass>%s</mainClass>".formatted(fullyQualifiedMainClass))
       .build();

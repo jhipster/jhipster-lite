@@ -1,7 +1,6 @@
 <template>
   <div v-if="show" class="jhlite-toast-overlay" data-selector="toast-overlay">
     <div
-      v-if="show"
       ref="toast"
       :class="{ '-success': type === 'SUCCESS', '-error': type === 'ERROR' }"
       class="jhlite-toast"

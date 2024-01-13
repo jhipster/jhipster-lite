@@ -7,6 +7,8 @@ describe('Icon', () => {
     const wrapper = shallowMount(IconVue, {
       props: {
         name: 'icon-name',
+        ariaHidden: true,
+        ariaLabel: 'icon-label',
       },
     });
 

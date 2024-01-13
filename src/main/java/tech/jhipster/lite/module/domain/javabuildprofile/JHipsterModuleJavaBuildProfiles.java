@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfile.JHipsterModuleJavaBuildProfileBuilder;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JHipsterModuleJavaBuildProfiles {
@@ -26,11 +27,17 @@ public class JHipsterModuleJavaBuildProfiles {
     return new JHipsterModuleJavaBuildProfilesBuilder(module);
   }
 
-  public JavaBuildCommands buildChanges() {
+  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
     Stream<JavaBuildCommand> addProfileCommands = profiles.stream().map(toAddProfileCommands());
     Stream<JavaBuildCommand> addPropertyCommands = profiles.stream().flatMap(toAddPropertyCommands());
+    Stream<JavaBuildCommand> mavenPluginCommands = profiles.stream().flatMap(toMavenPluginCommands(versions));
 
-    return new JavaBuildCommands(Stream.concat(addProfileCommands, addPropertyCommands).toList());
+    Collection<JavaBuildCommand> commands = Stream
+      .of(addProfileCommands, addPropertyCommands, mavenPluginCommands)
+      .flatMap(Function.identity())
+      .toList();
+
+    return new JavaBuildCommands(commands);
   }
 
   private Function<JHipsterModuleJavaBuildProfile, JavaBuildCommand> toAddProfileCommands() {
@@ -44,6 +51,10 @@ public class JHipsterModuleJavaBuildProfiles {
         .entrySet()
         .stream()
         .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue()), profile.id()));
+  }
+
+  private Function<JHipsterModuleJavaBuildProfile, Stream<JavaBuildCommand>> toMavenPluginCommands(JavaDependenciesVersions versions) {
+    return profile -> profile.mavenPlugins().buildChanges(versions, profile.id()).commands().stream();
   }
 
   public static class JHipsterModuleJavaBuildProfilesBuilder {

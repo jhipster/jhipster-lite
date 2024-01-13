@@ -479,7 +479,7 @@ public class JHipsterModule {
     );
     private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
     private final JHipsterModuleJavaBuildProfilesBuilder javaBuildProfiles = JHipsterModuleJavaBuildProfiles.builder(this);
-    private final JHipsterModuleMavenPluginsBuilder mavenPlugins = JHipsterModuleMavenPlugins.builder(this);
+    private final JHipsterModuleMavenPluginsBuilder<JHipsterModuleBuilder> mavenPlugins = JHipsterModuleMavenPlugins.builder(this);
     private final JHipsterModuleGradlePluginBuilder gradlePlugins = JHipsterModuleGradlePlugin.builder(this);
     private final JHipsterModuleMavenBuildExtensionsBuilder mavenBuildExtensions = JHipsterModuleMavenBuildExtensions.builder(this);
     private final JHipsterModulePackageJsonBuilder packageJson = JHipsterModulePackageJson.builder(this);
@@ -566,7 +566,7 @@ public class JHipsterModule {
       return javaBuildProfiles;
     }
 
-    public JHipsterModuleMavenPluginsBuilder mavenPlugins() {
+    public JHipsterModuleMavenPluginsBuilder<JHipsterModuleBuilder> mavenPlugins() {
       return mavenPlugins;
     }
 

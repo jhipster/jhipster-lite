@@ -15,11 +15,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import org.apache.maven.model.Activation;
 import org.apache.maven.model.Build;
+import org.apache.maven.model.BuildBase;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.model.Exclusion;
 import org.apache.maven.model.Extension;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.ModelBase;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.PluginManagement;
@@ -105,20 +107,19 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(SetBuildProperty command) {
     Assert.notNull(COMMAND, command);
 
-    if (command.buildProfile().isPresent()) {
-      BuildProfileId buildProfileId = command.buildProfile().orElseThrow();
-      Profile mavenProfile = pomModel
-        .getProfiles()
-        .stream()
-        .filter(profileMatch(buildProfileId))
-        .findFirst()
-        .orElseThrow(() -> new MissingMavenProfileException(buildProfileId));
-      mavenProfile.addProperty(command.property().key().get(), command.property().value().get());
-    } else {
-      pomModel.addProperty(command.property().key().get(), command.property().value().get());
-    }
+    ModelBase model = command.buildProfile().map(this::findProfile).map(ModelBase.class::cast).orElse(pomModel);
+    model.addProperty(command.property().key().get(), command.property().value().get());
 
     writePom();
+  }
+
+  private Profile findProfile(BuildProfileId buildProfileId) {
+    return pomModel
+      .getProfiles()
+      .stream()
+      .filter(profileMatch(buildProfileId))
+      .findFirst()
+      .orElseThrow(() -> new MissingMavenProfileException(buildProfileId));
   }
 
   private static Predicate<Profile> profileMatch(BuildProfileId buildProfileId) {
@@ -286,7 +287,21 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     pluginManagement().addPlugin(toMavenPlugin(command));
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
 
+    PluginManagement pluginManagement = command
+      .buildProfile()
+      .map(this::findProfile)
+      .map(this::pluginManagement)
+      .orElse(pluginManagement());
+    pluginManagement.addPlugin(toMavenPlugin(command));
+
     writePom();
+  }
+
+  private PluginManagement pluginManagement(Profile mavenProfile) {
+    if (profileBuild(mavenProfile).getPluginManagement() == null) {
+      profileBuild(mavenProfile).setPluginManagement(new PluginManagement());
+    }
+    return profileBuild(mavenProfile).getPluginManagement();
   }
 
   private PluginManagement pluginManagement() {
@@ -300,10 +315,19 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddDirectMavenPlugin command) {
     Assert.notNull(COMMAND, command);
 
-    projectBuild().addPlugin(toMavenPlugin(command));
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
 
+    BuildBase projectBuild = command.buildProfile().map(this::findProfile).map(this::profileBuild).orElse(projectBuild());
+    projectBuild.addPlugin(toMavenPlugin(command));
+
     writePom();
+  }
+
+  private BuildBase profileBuild(Profile mavenProfile) {
+    if (mavenProfile.getBuild() == null) {
+      mavenProfile.setBuild(new Build());
+    }
+    return mavenProfile.getBuild();
   }
 
   @Override

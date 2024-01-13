@@ -15,7 +15,7 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
   private final Optional<JavaDependencyVersion> pluginVersion;
 
   private AddMavenPluginManagement(AddMavenPluginManagementBuilder builder) {
-    Assert.notNull("javaBuildPlugin", builder.plugin);
+    Assert.notNull("plugin", builder.plugin);
     this.plugin = builder.plugin;
     this.pluginVersion = Optional.ofNullable(builder.pluginVersion);
   }
@@ -43,8 +43,8 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
     private AddMavenPluginManagementBuilder() {}
 
     @Override
-    public AddMavenPluginManagementBuilder plugin(MavenPlugin javaBuildPlugin) {
-      this.plugin = javaBuildPlugin;
+    public AddMavenPluginManagementBuilder plugin(MavenPlugin plugin) {
+      this.plugin = plugin;
       return this;
     }
 
@@ -60,7 +60,7 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
   }
 
   public interface AddMavenPluginManagementPluginBuilder {
-    AddMavenPluginManagementOptionalBuilder plugin(MavenPlugin javaBuildPlugin);
+    AddMavenPluginManagementOptionalBuilder plugin(MavenPlugin plugin);
   }
 
   public interface AddMavenPluginManagementOptionalBuilder {

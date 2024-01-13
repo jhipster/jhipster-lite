@@ -12,7 +12,7 @@ public final class AddGradlePlugin implements JavaBuildCommand {
   private final Optional<JavaDependencyVersion> toolVersion;
 
   private AddGradlePlugin(AddGradlePlugin.AddGradlePluginBuilder builder) {
-    Assert.notNull("javaBuildPlugin", builder.plugin);
+    Assert.notNull("plugin", builder.plugin);
     this.plugin = builder.plugin;
     this.pluginVersion = Optional.ofNullable(builder.pluginVersion);
     this.toolVersion = Optional.ofNullable(builder.toolVersion);
@@ -66,7 +66,7 @@ public final class AddGradlePlugin implements JavaBuildCommand {
   }
 
   public interface AddGradlePluginPluginBuilder {
-    AddGradlePlugin.AddGradlePluginOptionalBuilder plugin(GradlePlugin javaBuildPlugin);
+    AddGradlePluginOptionalBuilder plugin(GradlePlugin plugin);
   }
 
   public interface AddGradlePluginOptionalBuilder {

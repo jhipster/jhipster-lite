@@ -124,11 +124,6 @@ public class DummyFeatureModuleFactory {
   }
 
   private MavenPlugin springBootMavenPlugin() {
-    return MavenPlugin
-      .builder()
-      .groupId("org.springframework.boot")
-      .artifactId("spring-boot-maven-plugin")
-      .versionSlug("spring-boot-maven-plugin")
-      .build();
+    return MavenPlugin.builder().groupId("org.springframework.boot").artifactId("spring-boot-maven-plugin").build();
   }
 }

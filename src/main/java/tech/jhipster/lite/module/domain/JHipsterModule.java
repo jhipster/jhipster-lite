@@ -103,7 +103,7 @@ public class JHipsterModule {
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
   private final JHipsterModuleJavaBuildProfiles javaBuildProfiles;
-  private final JHipsterModuleMavenPlugins javaBuildPlugins;
+  private final JHipsterModuleMavenPlugins mavenPlugins;
   private final JHipsterModuleGradlePlugin gradlePlugins;
   private final JHipsterModuleMavenBuildExtensions mavenBuildExtensions;
   private final JHipsterModulePackageJson packageJson;
@@ -122,7 +122,7 @@ public class JHipsterModule {
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
     javaBuildProfiles = builder.javaBuildProfiles.build();
-    javaBuildPlugins = builder.mavenPlugins.build();
+    mavenPlugins = builder.mavenPlugins.build();
     gradlePlugins = builder.gradlePlugins.build();
     mavenBuildExtensions = builder.mavenBuildExtensions.build();
     packageJson = builder.packageJson.build();
@@ -143,7 +143,7 @@ public class JHipsterModule {
     context = source.context;
     javaDependencies = source.javaDependencies;
     javaBuildProfiles = source.javaBuildProfiles;
-    javaBuildPlugins = source.javaBuildPlugins;
+    mavenPlugins = source.mavenPlugins;
     gradlePlugins = source.gradlePlugins;
     mavenBuildExtensions = source.mavenBuildExtensions;
     packageJson = source.packageJson;
@@ -428,8 +428,8 @@ public class JHipsterModule {
     return javaBuildProfiles;
   }
 
-  public JHipsterModuleMavenPlugins javaBuildPlugins() {
-    return javaBuildPlugins;
+  public JHipsterModuleMavenPlugins mavenPlugins() {
+    return mavenPlugins;
   }
 
   public JHipsterModuleGradlePlugin gradlePlugins() {

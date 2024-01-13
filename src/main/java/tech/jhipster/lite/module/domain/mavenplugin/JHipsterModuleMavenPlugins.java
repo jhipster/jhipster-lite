@@ -53,11 +53,11 @@ public class JHipsterModuleMavenPlugins {
   ) {
     return plugin -> {
       AddMavenPluginManagementOptionalBuilder commandBuilder = AddMavenPluginManagement.builder().plugin(plugin);
+      buildProfile.ifPresent(commandBuilder::buildProfile);
       return plugin
         .versionSlug()
         .map(versions::get)
         .map(commandBuilder::pluginVersion)
-        .map(builder -> builder.buildProfile(buildProfile.orElse(null)))
         .map(AddMavenPluginManagementOptionalBuilder::build)
         .orElse(commandBuilder.build());
     };
@@ -69,11 +69,11 @@ public class JHipsterModuleMavenPlugins {
   ) {
     return plugin -> {
       AddDirectMavenPluginOptionalBuilder commandBuilder = AddDirectMavenPlugin.builder().plugin(plugin);
+      buildProfile.ifPresent(commandBuilder::buildProfile);
       return plugin
         .versionSlug()
         .map(versions::get)
         .map(commandBuilder::pluginVersion)
-        .map(builder -> builder.buildProfile(buildProfile.orElse(null)))
         .map(AddDirectMavenPluginOptionalBuilder::build)
         .orElse(commandBuilder.build());
     };

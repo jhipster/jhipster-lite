@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
 import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.javaBuildPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.io.IOException;
@@ -662,7 +662,7 @@ class MavenCommandHandlerTest {
 
       AddMavenPluginManagement command = AddMavenPluginManagement
         .builder()
-        .plugin(javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build())
+        .plugin(mavenPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build())
         .build();
       assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command))
         .isExactlyInstanceOf(MalformedAdditionalInformationException.class);

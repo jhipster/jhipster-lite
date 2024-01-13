@@ -228,7 +228,7 @@ public class JHipsterModule {
     return DependencyId.of(groupId(groupId), artifactId(artifactId));
   }
 
-  public static MavenPluginGroupIdBuilder javaBuildPlugin() {
+  public static MavenPluginGroupIdBuilder mavenPlugin() {
     return MavenPlugin.builder();
   }
 

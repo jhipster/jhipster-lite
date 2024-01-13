@@ -58,7 +58,7 @@ public class FrontendMavenModuleFactory {
   }
 
   private MavenPlugin checksumPlugin() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId("net.nicoulaj.maven.plugins")
       .artifactId("checksum-maven-plugin")
       .versionSlug("checksum-maven-plugin")
@@ -102,7 +102,7 @@ public class FrontendMavenModuleFactory {
   }
 
   private MavenPlugin antrunPlugin() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-antrun-plugin")
       .versionSlug("maven-antrun-plugin")
@@ -130,7 +130,7 @@ public class FrontendMavenModuleFactory {
   }
 
   private MavenPlugin frontendMavenPlugin() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId("com.github.eirslett")
       .artifactId("frontend-maven-plugin")
       .versionSlug("frontend-maven-plugin")

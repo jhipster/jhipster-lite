@@ -47,7 +47,7 @@ public class SpringBootDockerModuleFactory {
   }
 
   private MavenPlugin mavenJibPlugin(JHipsterModuleProperties properties) {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId("com.google.cloud.tools")
       .artifactId("jib-maven-plugin")
       .versionSlug("jib-maven-plugin")

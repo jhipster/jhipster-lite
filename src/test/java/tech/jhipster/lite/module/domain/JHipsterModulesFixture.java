@@ -301,7 +301,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static MavenPlugin mavenEnforcerPluginManagement() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-enforcer-plugin")
       .versionSlug("maven-enforcer-plugin")
@@ -355,7 +355,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static MavenPlugin mavenEnforcerPlugin() {
-    return javaBuildPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").build();
+    return mavenPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").build();
   }
 
   public static JHipsterModulesToApply modulesToApply() {

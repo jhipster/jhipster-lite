@@ -111,14 +111,6 @@ public class DummyFeatureModuleFactory {
         .add(TEST_SOURCE.file("beers-catalog.feature"), to("src/test/features/beers-catalog.feature"))
         .add(TEST_SOURCE.template("HttpSteps.java"), toSrcTestJava().append(packagePath).append("HttpSteps.java"))
         .and()
-      .javaBuildProfiles()
-        .addProfile(buildProfileId("local"))
-          .mavenPlugins()
-            .pluginManagement(springBootMavenPlugin())
-            .plugin(springBootMavenPlugin())
-            .and()
-          .and()
-        .and()
       .build();
     //@formatter:on
   }

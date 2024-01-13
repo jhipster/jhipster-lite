@@ -284,7 +284,6 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddMavenPluginManagement command) {
     Assert.notNull(COMMAND, command);
 
-    pluginManagement().addPlugin(toMavenPlugin(command));
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
 
     PluginManagement pluginManagement = command

@@ -68,7 +68,7 @@ public class JHipsterModuleMavenPlugins {
     Optional<BuildProfileId> buildProfile
   ) {
     return plugin -> {
-      AddDirectMavenPluginOptionalBuilder commandBuilder = AddDirectMavenPlugin.builder().javaBuildPlugin(plugin);
+      AddDirectMavenPluginOptionalBuilder commandBuilder = AddDirectMavenPlugin.builder().plugin(plugin);
       return plugin
         .versionSlug()
         .map(versions::get)

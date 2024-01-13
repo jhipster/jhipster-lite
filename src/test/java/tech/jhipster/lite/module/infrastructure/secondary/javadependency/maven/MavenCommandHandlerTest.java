@@ -859,7 +859,7 @@ class MavenCommandHandlerTest {
         Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
         new MavenCommandHandler(Indentation.DEFAULT, pom)
-          .handle(AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build());
+          .handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build());
 
         assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
       }
@@ -921,8 +921,7 @@ class MavenCommandHandlerTest {
       }
 
       private void addMavenEnforcerPlugin(Path pom) {
-        new MavenCommandHandler(Indentation.DEFAULT, pom)
-          .handle(AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build());
       }
 
       private String plugins() {
@@ -968,7 +967,7 @@ class MavenCommandHandlerTest {
           .handle(
             AddDirectMavenPlugin
               .builder()
-              .javaBuildPlugin(mavenEnforcerPlugin())
+              .plugin(mavenEnforcerPlugin())
               .pluginVersion(mavenEnforcerVersion())
               .buildProfile(localMavenProfile())
               .build()

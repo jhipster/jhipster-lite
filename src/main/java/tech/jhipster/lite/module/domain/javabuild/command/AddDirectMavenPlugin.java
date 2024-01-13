@@ -46,7 +46,7 @@ public final class AddDirectMavenPlugin implements JavaBuildCommand, AddMavenPlu
     private AddDirectMavenPluginBuilder() {}
 
     @Override
-    public AddDirectMavenPluginBuilder javaBuildPlugin(MavenPlugin plugin) {
+    public AddDirectMavenPluginBuilder plugin(MavenPlugin plugin) {
       this.plugin = plugin;
       return this;
     }
@@ -69,7 +69,7 @@ public final class AddDirectMavenPlugin implements JavaBuildCommand, AddMavenPlu
   }
 
   public interface AddDirectMavenPluginPluginBuilder {
-    AddDirectMavenPluginOptionalBuilder javaBuildPlugin(MavenPlugin javaBuildPlugin);
+    AddDirectMavenPluginOptionalBuilder plugin(MavenPlugin javaBuildPlugin);
   }
 
   public interface AddDirectMavenPluginOptionalBuilder {

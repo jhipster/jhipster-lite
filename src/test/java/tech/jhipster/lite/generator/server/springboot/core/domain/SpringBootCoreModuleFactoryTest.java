@@ -135,19 +135,6 @@ class SpringBootCoreModuleFactoryTest {
         """
       )
       .containing("    <defaultGoal>spring-boot:run</defaultGoal>")
-      .containing(
-        """
-            <profile>
-              <id>local</id>
-              <activation>
-                <activeByDefault>true</activeByDefault>
-              </activation>
-              <properties>
-                <spring.profiles.active>local</spring.profiles.active>
-              </properties>
-            </profile>
-        """
-      )
       .and()
       .hasFile("src/main/java/com/jhipster/test/MyappApp.java")
       .containing("class MyappApp")

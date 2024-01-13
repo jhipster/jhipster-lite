@@ -238,7 +238,7 @@ class SpringBootCoreModuleFactoryTest {
         .hasFile("build.gradle.kts")
         .containing(
           """
-            alias(libs.plugins.spring-boot)
+            alias(libs.plugins.spring.boot)
             // jhipster-needle-gradle-plugins
           """
         )

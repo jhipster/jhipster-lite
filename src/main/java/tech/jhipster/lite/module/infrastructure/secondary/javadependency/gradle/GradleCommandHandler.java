@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
+import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.dependencySlug;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginSlug;
 
 import java.util.regex.Pattern;
@@ -80,7 +81,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private void addDependencyToBuildGradle(JavaDependency dependency) {
     GradleDependencyScope gradleScope = gradleDependencyScope(dependency);
 
-    String libraryVersionCatalogReference = "libs.%s".formatted(VersionsCatalog.dependencySlug(dependency).replace("-", "."));
+    String libraryVersionCatalogReference = versionCatalogReference(dependency);
     String dependencyDeclaration = dependency.scope() == JavaDependencyScope.IMPORT
       ? "%s%s(platform(%s))".formatted(indentation.times(1), gradleScope.command(), libraryVersionCatalogReference)
       : "%s%s(%s)".formatted(indentation.times(1), gradleScope.command(), libraryVersionCatalogReference);
@@ -92,6 +93,14 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       dependencyDeclaration
     );
     fileReplacer.handle(projectFolder, ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)));
+  }
+
+  private static String versionCatalogReference(JavaDependency dependency) {
+      return "libs.%s".formatted(applyVersionCatalogReferenceConvention(dependencySlug(dependency)));
+  }
+
+  private static String applyVersionCatalogReferenceConvention(String rawVersionCatalogReference) {
+      return rawVersionCatalogReference.replace("-", "\\.");
   }
 
   private static GradleDependencyScope gradleDependencyScope(JavaDependency dependency) {
@@ -165,7 +174,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     switch (command.plugin()) {
       case GradleCorePlugin plugin -> declarePlugin(plugin.id().get());
       case GradleCommunityPlugin plugin -> {
-        declarePlugin("alias(libs.plugins.%s)".formatted(pluginSlug(plugin)));
+        declarePlugin("alias(libs.plugins.%s)".formatted(applyVersionCatalogReferenceConvention(pluginSlug(plugin))));
         versionsCatalog.addPlugin(plugin);
       }
     }

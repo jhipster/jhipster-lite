@@ -71,6 +71,6 @@ public class GitInfoModuleFactory {
   }
 
   private MavenPlugin gitCommitIdPlugin() {
-    return MavenPlugin.builder().groupId("io.github.git-commit-id").artifactId("git-commit-id-maven-plugin").build();
+    return mavenPlugin().groupId("io.github.git-commit-id").artifactId("git-commit-id-maven-plugin").build();
   }
 }

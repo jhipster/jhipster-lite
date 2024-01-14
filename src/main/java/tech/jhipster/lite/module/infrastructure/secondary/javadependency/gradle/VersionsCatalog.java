@@ -9,7 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.StringUtils;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginSlug;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
@@ -54,7 +56,12 @@ public class VersionsCatalog {
   }
 
   public static String dependencySlug(JavaDependency dependency) {
-    return dependency.slug().map(DependencySlug::slug).orElse(dependency.id().artifactId().get());
+    return dependency
+      .slug()
+      .map(DependencySlug::slug)
+      .or(() -> Optional.of(dependency.id().artifactId().get()))
+      .map(StringUtils::uncapitalize)
+      .orElseThrow();
   }
 
   public void setVersion(JavaDependencyVersion javaDependencyVersion) {

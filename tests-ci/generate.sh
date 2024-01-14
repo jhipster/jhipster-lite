@@ -461,7 +461,6 @@ elif [[ $application == 'thymeleafapp' ]]; then
   sonar_back
 
   applyModules \
-    "init" \
     "spring-boot-thymeleaf" \
     "thymeleaf-template" \
     "thymeleaf-template-tailwindcss" \

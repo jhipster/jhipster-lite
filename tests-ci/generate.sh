@@ -45,10 +45,22 @@ applyModules() {
   done
 }
 
-spring_boot() {
+maven() {
   applyModules \
   "init" \
+  "maven-wrapper" \
   "maven-java" \
+}
+
+gradle() {
+  applyModules \
+  "init" \
+  "gradle-wrapper" \
+  "gradle-java" \
+}
+
+spring_boot() {
+  applyModules \
   "github-actions" \
   "java-base" \
   "checkstyle" \
@@ -100,17 +112,19 @@ cucumber_with_jwt() {
 }
 
 if [[ $application == 'spring-boot' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
 elif [[ $application == 'fullstack' ]]; then
+  maven
   spring_boot_mvc
   sonar_back_front
 
 elif [[ $application == 'gradleapp' ]]; then
+  gradle
+  # TODO: use spring_boot instead of the following individual modules when jacoco-check-min-coverage and github-actions support gradle
   applyModules \
-    "init" \
-    "gradle-java" \
     "java-base" \
     "checkstyle" \
     "java-memoizers" \
@@ -119,6 +133,7 @@ elif [[ $application == 'gradleapp' ]]; then
     "pagination-domain"
 
 elif [[ $application == 'fullapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back_front
 
@@ -165,6 +180,7 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "frontend-maven-plugin" "vue-core"
 
 elif [[ $application == 'oauth2app' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -186,6 +202,7 @@ elif [[ $application == 'oauth2app' ]]; then
   "dummy-feature"
 
 elif [[ $application == 'mysqlapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -205,6 +222,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   applyModules "ehcache-xml-config"
 
 elif [[ $application == 'mariadbapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -213,6 +231,7 @@ elif [[ $application == 'mariadbapp' ]]; then
   applyModules "ehcache-xml-config"
 
 elif [[ $application == 'mssqlapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -220,6 +239,7 @@ elif [[ $application == 'mssqlapp' ]]; then
   applyModules "mssql"
 
 elif [[ $application == 'flywayapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -237,6 +257,7 @@ elif [[ $application == 'flywayapp' ]]; then
   "dummy-postgresql-flyway-changelog" \
 
 elif [[ $application == 'undertowapp' ]]; then
+  maven
   spring_boot_undertow
   sonar_back
 
@@ -258,6 +279,7 @@ elif [[ $application == 'undertowapp' ]]; then
   applyModules "spring-boot-cache"
 
 elif [[ $application == 'eurekaapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -266,12 +288,14 @@ elif [[ $application == 'eurekaapp' ]]; then
   "spring-cloud" \
 
 elif [[ $application == 'consulapp' ]]; then
+  maven
   spring_boot_undertow
   sonar_back
 
   applyModules "consul"
 
 elif [[ $application == 'gatewayapp' ]]; then
+  maven
   spring_boot_webflux
   sonar_back
 
@@ -281,6 +305,7 @@ elif [[ $application == 'gatewayapp' ]]; then
   "gateway"
 
 elif [[ $application == 'mongodbapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -295,6 +320,7 @@ elif [[ $application == 'mongodbapp' ]]; then
   "dummy-mongodb-persistence"
 
 elif [[ $application == 'redisapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -303,6 +329,7 @@ elif [[ $application == 'redisapp' ]]; then
   cucumber_with_jwt
 
 elif [[ $application == 'cassandraapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
   cucumber_with_jwt
@@ -316,6 +343,7 @@ elif [[ $application == 'cassandraapp' ]]; then
   "dummy-cassandra-persistence"
 
 elif [[ $application == 'neo4japp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
@@ -324,6 +352,7 @@ elif [[ $application == 'neo4japp' ]]; then
   cucumber_with_jwt
 
 elif [[ $application == 'angularapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back_front
 
@@ -336,6 +365,7 @@ elif [[ $application == 'angularapp' ]]; then
   applyModules "angular-jwt" "angular-health"
 
 elif [[ $application == 'angularoauth2app' ]]; then
+  maven
   spring_boot_mvc
   sonar_back_front
 
@@ -356,6 +386,7 @@ elif [[ $application == 'angularoauth2app' ]]; then
   applyModules "angular-oauth2"
 
 elif [[ $application == 'reactapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back_front
 
@@ -369,6 +400,7 @@ elif [[ $application == 'reactapp' ]]; then
   applyModules "react-jwt"
 
 elif [[ $application == 'vueapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back_front
 
@@ -379,6 +411,7 @@ elif [[ $application == 'vueapp' ]]; then
   "cypress"
 
 elif [[ $application == 'svelteapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back_front
 
@@ -388,18 +421,21 @@ elif [[ $application == 'svelteapp' ]]; then
   "svelte-core"
 
 elif [[ $application == 'kafkaapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
-   applyModules "spring-boot-kafka" "spring-boot-kafka-akhq"
+  applyModules "spring-boot-kafka" "spring-boot-kafka-akhq"
 
 elif [[ $application == 'pulsarapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 
   applyModules "spring-boot-pulsar"
 
 elif [[ $application == 'reactiveapp' ]]; then
+  maven
   spring_boot_webflux
   sonar_back
 
@@ -407,6 +443,7 @@ elif [[ $application == 'reactiveapp' ]]; then
   "springdoc-webflux-openapi"
 
 elif [[ $application == 'customjhlite' ]]; then
+  maven
   spring_boot
   sonar_back
 
@@ -419,6 +456,7 @@ elif [[ $application == 'typescriptapp' ]]; then
     "optional-typescript"
 
 elif [[ $application == 'thymeleafapp' ]]; then
+  maven
   spring_boot_mvc
   sonar_back
 

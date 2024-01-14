@@ -450,7 +450,7 @@ class GradleCommandHandlerTest {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
 
     GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
-    AddDirectMavenPlugin command = AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build();
+    AddDirectMavenPlugin command = AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build();
     assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
   }
 

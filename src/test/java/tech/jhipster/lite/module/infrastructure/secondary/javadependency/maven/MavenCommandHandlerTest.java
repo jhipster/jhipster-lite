@@ -656,125 +656,185 @@ class MavenCommandHandlerTest {
   @DisplayName("Add build plugin management")
   class MavenCommandHandlerAddMavenPluginManagementTest {
 
-    @Test
-    void shouldHandleMalformedConfiguration() {
-      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+    @Nested
+    class WithoutProfile {
 
-      AddMavenPluginManagement command = AddMavenPluginManagement
-        .builder()
-        .plugin(mavenPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build())
-        .build();
-      assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command))
-        .isExactlyInstanceOf(MalformedAdditionalInformationException.class);
+      @Test
+      void shouldHandleMalformedConfiguration() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        AddMavenPluginManagement command = AddMavenPluginManagement
+          .builder()
+          .plugin(mavenPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").configuration("<dummy").build())
+          .build();
+        assertThatThrownBy(() -> new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command))
+          .isExactlyInstanceOf(MalformedAdditionalInformationException.class);
+      }
+
+      @Test
+      void shouldAddBuildPluginManagementToEmptyPom() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        addMavenEnforcerPlugin(pom);
+
+        assertThat(content(pom)).contains(pluginManagement());
+      }
+
+      @Test
+      void shouldAddPropertyForPluginVersion() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        new MavenCommandHandler(Indentation.DEFAULT, pom)
+          .handle(AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build());
+
+        assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+      }
+
+      @Test
+      void shouldAddBuildPluginManagementToPomWithoutPluginManagement() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
+
+        addMavenEnforcerPlugin(pom);
+
+        assertThat(content(pom))
+          .contains(pluginManagement())
+          .doesNotContain(
+            """
+              <build>
+              </build>
+            """
+          );
+      }
+
+      @Test
+      void shouldAddBuildPluginManagementToPomWithEmptyPluginManagement() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-empty-plugin-management/pom.xml");
+
+        addMavenEnforcerPlugin(pom);
+
+        assertThat(content(pom))
+          .contains(pluginManagement())
+          .doesNotContain(
+            """
+              <build>
+                <pluginManagement>
+                </pluginManagement>
+              </build>
+            """
+          );
+      }
+
+      @Test
+      void shouldAddBuildPluginManagementToPomWithPluginManagementPlugins() {
+        Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+        addMavenEnforcerPlugin(pom);
+
+        assertThat(content(pom)).contains(pluginManagement());
+      }
+
+      private void addMavenEnforcerPlugin(Path pom) {
+        AddMavenPluginManagement command = AddMavenPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).build();
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
+      }
+
+      private String pluginManagement() {
+        return """
+                <plugin>
+                  <artifactId>maven-enforcer-plugin</artifactId>
+                  <version>${maven-enforcer-plugin.version}</version>
+                  <executions>
+                    <execution>
+                      <id>enforce-versions</id>
+                      <goals>
+                        <goal>enforce</goal>
+                      </goals>
+                    </execution>
+                    <execution>
+                      <id>enforce-dependencyConvergence</id>
+                      <goals>
+                        <goal>enforce</goal>
+                      </goals>
+                      <configuration>
+                        <rules>
+                          <DependencyConvergence />
+                        </rules>
+                        <fail>false</fail>
+                      </configuration>
+                    </execution>
+                  </executions>
+                  <configuration>
+                    <rules>
+                      <requireMavenVersion>
+                        <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                        <version>[${maven.version},)</version>
+                      </requireMavenVersion>
+                      <requireJavaVersion>
+                        <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+                        <version>[21,22)</version>
+                      </requireJavaVersion>
+                    </rules>
+                  </configuration>
+                </plugin>
+              </plugins>
+        """;
+      }
     }
 
-    @Test
-    void shouldAddBuildPluginManagementToEmptyPom() {
-      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+    @Nested
+    class WithProfile {
 
-      addMavenEnforcerPlugin(pom);
+      @Test
+      void shouldNotAddBuildPluginToEmptyPom() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      assertThat(content(pom)).contains(pluginManagement());
-    }
+        assertThatThrownBy(() -> addMavenEnforcerPlugin(pom)).isExactlyInstanceOf(MissingMavenProfileException.class);
+      }
 
-    @Test
-    void shouldAddPropertyForPluginVersion() {
-      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+      @Test
+      void shouldAddPropertyForPluginVersion() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom)
-        .handle(AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
+        addMavenEnforcerPlugin(pom);
 
-      assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
-    }
+        assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+      }
 
-    @Test
-    void shouldAddBuildPluginManagementToPomWithoutPluginManagement() {
-      Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
+      @Test
+      void shouldAddBuildPluginToPomWithPlugins() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
 
-      addMavenEnforcerPlugin(pom);
+        addMavenEnforcerPlugin(pom);
 
-      assertThat(content(pom))
-        .contains(pluginManagement())
-        .doesNotContain(
-          """
-            <build>
-            </build>
-          """
-        );
-    }
+        assertThat(content(pom)).contains(plugins());
+      }
 
-    @Test
-    void shouldAddBuildPluginManagementToPomWithEmptyPluginManagement() {
-      Path pom = projectWithPom("src/test/resources/projects/maven-empty-plugin-management/pom.xml");
+      private void addMavenEnforcerPlugin(Path pom) {
+        AddMavenPluginManagement command = AddMavenPluginManagement
+          .builder()
+          .plugin(mavenEnforcerPlugin())
+          .pluginVersion(mavenEnforcerVersion())
+          .buildProfile(localMavenProfile())
+          .build();
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
+      }
 
-      addMavenEnforcerPlugin(pom);
-
-      assertThat(content(pom))
-        .contains(pluginManagement())
-        .doesNotContain(
-          """
-            <build>
-              <pluginManagement>
-              </pluginManagement>
-            </build>
-          """
-        );
-    }
-
-    @Test
-    void shouldAddBuildPluginManagementToPomWithPluginManagementPlugins() {
-      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
-
-      addMavenEnforcerPlugin(pom);
-
-      assertThat(content(pom)).contains(pluginManagement());
-    }
-
-    private void addMavenEnforcerPlugin(Path pom) {
-      AddMavenPluginManagement command = AddMavenPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).build();
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
-    }
-
-    private String pluginManagement() {
-      return """
-              <plugin>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven-enforcer-plugin.version}</version>
-                <executions>
-                  <execution>
-                    <id>enforce-versions</id>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                  </execution>
-                  <execution>
-                    <id>enforce-dependencyConvergence</id>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                    <configuration>
-                      <rules>
-                        <DependencyConvergence />
-                      </rules>
-                      <fail>false</fail>
-                    </configuration>
-                  </execution>
-                </executions>
-                <configuration>
-                  <rules>
-                    <requireMavenVersion>
-                      <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
-                      <version>[${maven.version},)</version>
-                    </requireMavenVersion>
-                    <requireJavaVersion>
-                      <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
-                      <version>[21,22)</version>
-                    </requireJavaVersion>
-                  </rules>
-                </configuration>
-              </plugin>
-            </plugins>
-      """;
+      private String plugins() {
+        return """
+            <profile>
+              <id>local</id>
+              <build>
+                <pluginManagement>
+                  <plugins>
+                    <plugin>
+                      <artifactId>maven-enforcer-plugin</artifactId>
+                    </plugin>
+                  </plugins>
+                </pluginManagement>
+              </build>
+            </profile>
+        """;
+      }
     }
   }
 
@@ -782,93 +842,152 @@ class MavenCommandHandlerTest {
   @DisplayName("Add build plugin")
   class MavenCommandHandlerAddBuildPluginTest {
 
-    @Test
-    void shouldAddBuildPluginToEmptyPom() {
-      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+    @Nested
+    class WithoutProfile {
 
-      addMavenEnforcerPlugin(pom);
+      @Test
+      void shouldAddBuildPluginToEmptyPom() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      assertThat(content(pom)).contains(plugins());
+        addMavenEnforcerPlugin(pom);
+
+        assertThat(content(pom)).contains(plugins());
+      }
+
+      @Test
+      void shouldAddPropertyForPluginVersion() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        new MavenCommandHandler(Indentation.DEFAULT, pom)
+          .handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build());
+
+        assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+      }
+
+      @Test
+      void shouldAddBuildPluginToPomWithEmptyBuild() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
+
+        addMavenEnforcerPlugin(pom);
+
+        assertThat(content(pom))
+          .contains(plugins())
+          .doesNotContain(
+            """
+              <build>
+              </build>
+            """
+          );
+      }
+
+      @Test
+      void shouldAddBuildPluginToPomWithPlugins() {
+        Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+        addMavenEnforcerPlugin(pom);
+
+        assertThat(content(pom))
+          .contains(plugins())
+          .doesNotContain(
+            """
+                <plugins>
+                  <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                  </plugin>
+                </plugins>
+            """
+          );
+      }
+
+      @Test
+      void shouldAddMinimalBuildPluginExecutionToPomWithPlugins() {
+        Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+
+        addMavenEnforcerPlugin(pom);
+
+        assertThat(content(pom))
+          .contains(plugins())
+          .doesNotContain(
+            """
+                <plugins>
+                  <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                  </plugin>
+                </plugins>
+            """
+          );
+      }
+
+      private void addMavenEnforcerPlugin(Path pom) {
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build());
+      }
+
+      private String plugins() {
+        return """
+              <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+              </plugin>
+            </plugins>
+        """;
+      }
     }
 
-    @Test
-    void shouldAddPropertyForPluginVersion() {
-      Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+    @Nested
+    class WithProfile {
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom)
-        .handle(AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()));
+      @Test
+      void shouldNotAddBuildPluginToEmptyPom() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
-      assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
-    }
+        assertThatThrownBy(() -> addMavenEnforcerPlugin(pom)).isExactlyInstanceOf(MissingMavenProfileException.class);
+      }
 
-    @Test
-    void shouldAddBuildPluginToPomWithEmptyBuild() {
-      Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
+      @Test
+      void shouldAddPropertyForPluginVersion() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
 
-      addMavenEnforcerPlugin(pom);
+        addMavenEnforcerPlugin(pom);
 
-      assertThat(content(pom))
-        .contains(plugins())
-        .doesNotContain(
-          """
-            <build>
-            </build>
-          """
-        );
-    }
+        assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+      }
 
-    @Test
-    void shouldAddBuildPluginToPomWithPlugins() {
-      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+      @Test
+      void shouldAddBuildPluginToPomWithPlugins() {
+        Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
 
-      addMavenEnforcerPlugin(pom);
+        addMavenEnforcerPlugin(pom);
 
-      assertThat(content(pom))
-        .contains(plugins())
-        .doesNotContain(
-          """
-              <plugins>
-                <plugin>
-                  <groupId>org.springframework.boot</groupId>
-                  <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-              </plugins>
-          """
-        );
-    }
+        assertThat(content(pom)).contains(plugins());
+      }
 
-    @Test
-    void shouldAddMinimalBuildPluginExecutionToPomWithPlugins() {
-      Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
+      private void addMavenEnforcerPlugin(Path pom) {
+        new MavenCommandHandler(Indentation.DEFAULT, pom)
+          .handle(
+            AddDirectMavenPlugin
+              .builder()
+              .plugin(mavenEnforcerPlugin())
+              .pluginVersion(mavenEnforcerVersion())
+              .buildProfile(localMavenProfile())
+              .build()
+          );
+      }
 
-      addMavenEnforcerPlugin(pom);
-
-      assertThat(content(pom))
-        .contains(plugins())
-        .doesNotContain(
-          """
-              <plugins>
-                <plugin>
-                  <groupId>org.springframework.boot</groupId>
-                  <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-              </plugins>
-          """
-        );
-    }
-
-    private void addMavenEnforcerPlugin(Path pom) {
-      new MavenCommandHandler(Indentation.DEFAULT, pom)
-        .handle(AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
-    }
-
-    private String plugins() {
-      return """
-            <plugin>
-              <artifactId>maven-enforcer-plugin</artifactId>
-            </plugin>
-          </plugins>
-      """;
+      private String plugins() {
+        return """
+            <profile>
+              <id>local</id>
+              <build>
+                <plugins>
+                  <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                  </plugin>
+                </plugins>
+              </build>
+            </profile>
+        """;
+      }
     }
   }
 

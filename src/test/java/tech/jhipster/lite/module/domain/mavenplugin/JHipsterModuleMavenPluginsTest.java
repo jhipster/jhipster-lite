@@ -22,7 +22,9 @@ class JHipsterModuleMavenPluginsTest {
 
     assertThat(changes.get())
       .usingRecursiveFieldByFieldElementComparator()
-      .containsExactly(AddMavenPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).pluginVersion(mavenEnforcerVersion()));
+      .containsExactly(
+        AddMavenPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).pluginVersion(mavenEnforcerVersion()).build()
+      );
   }
 
   @Test
@@ -35,6 +37,6 @@ class JHipsterModuleMavenPluginsTest {
 
     assertThat(changes.get())
       .usingRecursiveFieldByFieldElementComparator()
-      .containsExactly(AddDirectMavenPlugin.builder().javaBuildPlugin(mavenEnforcerPlugin()).build());
+      .containsExactly(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build());
   }
 }

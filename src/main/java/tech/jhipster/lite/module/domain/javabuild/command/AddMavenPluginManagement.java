@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -13,11 +14,13 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
 
   private final MavenPlugin plugin;
   private final Optional<JavaDependencyVersion> pluginVersion;
+  private final Optional<BuildProfileId> buildProfile;
 
   private AddMavenPluginManagement(AddMavenPluginManagementBuilder builder) {
     Assert.notNull("plugin", builder.plugin);
     this.plugin = builder.plugin;
     this.pluginVersion = Optional.ofNullable(builder.pluginVersion);
+    this.buildProfile = Optional.ofNullable(builder.buildProfile);
   }
 
   @Override
@@ -30,6 +33,10 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
     return pluginVersion;
   }
 
+  public Optional<BuildProfileId> buildProfile() {
+    return buildProfile;
+  }
+
   public static AddMavenPluginManagementPluginBuilder builder() {
     return new AddMavenPluginManagementBuilder();
   }
@@ -39,6 +46,7 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
 
     private MavenPlugin plugin;
     private JavaDependencyVersion pluginVersion;
+    private BuildProfileId buildProfile;
 
     private AddMavenPluginManagementBuilder() {}
 
@@ -49,9 +57,15 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
     }
 
     @Override
-    public AddMavenPluginManagement pluginVersion(JavaDependencyVersion pluginVersion) {
+    public AddMavenPluginManagementOptionalBuilder pluginVersion(JavaDependencyVersion pluginVersion) {
       this.pluginVersion = pluginVersion;
-      return build();
+      return this;
+    }
+
+    @Override
+    public AddMavenPluginManagementOptionalBuilder buildProfile(BuildProfileId buildProfile) {
+      this.buildProfile = buildProfile;
+      return this;
     }
 
     public AddMavenPluginManagement build() {
@@ -64,7 +78,8 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
   }
 
   public interface AddMavenPluginManagementOptionalBuilder {
-    AddMavenPluginManagement pluginVersion(JavaDependencyVersion version);
+    AddMavenPluginManagementOptionalBuilder pluginVersion(JavaDependencyVersion version);
+    AddMavenPluginManagementOptionalBuilder buildProfile(BuildProfileId buildProfile);
     AddMavenPluginManagement build();
   }
 

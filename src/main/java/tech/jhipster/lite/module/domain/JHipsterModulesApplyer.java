@@ -124,7 +124,7 @@ public class JHipsterModulesApplyer {
   }
 
   private JavaBuildCommands buildProfilesChanges(JHipsterModule module) {
-    return module.javaBuildProfiles().buildChanges();
+    return module.javaBuildProfiles().buildChanges(javaVersions.get());
   }
 
   private JavaBuildCommands buildPluginsChanges(JHipsterModule module) {

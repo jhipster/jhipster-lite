@@ -100,7 +100,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private static String applyVersionCatalogReferenceConvention(String rawVersionCatalogReference) {
-      return rawVersionCatalogReference.replace("-", "\\.");
+      return rawVersionCatalogReference.replace("-", ".");
   }
 
   private static GradleDependencyScope gradleDependencyScope(JavaDependency dependency) {

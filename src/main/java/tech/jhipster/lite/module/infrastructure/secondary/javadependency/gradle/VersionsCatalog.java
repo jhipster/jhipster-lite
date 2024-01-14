@@ -31,9 +31,7 @@ public class VersionsCatalog {
   }
 
   public VersionsCatalog(Path tomlVersionCatalogFile) {
-    tomlConfigFile = FileConfig.builder(tomlVersionCatalogFile)
-      .sync()
-      .build();
+    tomlConfigFile = FileConfig.builder(tomlVersionCatalogFile).sync().build();
 
     // Missing TOML file will be automatically created, but its parent folder should exist
     if (!Files.exists(tomlVersionCatalogFile.getParent())) {
@@ -75,12 +73,15 @@ public class VersionsCatalog {
   }
 
   public void removeLibrary(DependencyId dependency) {
-    libraryEntriesMatchingDependency(dependency).forEach(libraryConfig -> tomlConfigFile.remove(List.of(LIBRARIES_TOML_KEY, libraryConfig.getKey())));
+    libraryEntriesMatchingDependency(dependency)
+      .forEach(libraryConfig -> tomlConfigFile.remove(List.of(LIBRARIES_TOML_KEY, libraryConfig.getKey())));
     save();
   }
 
   private List<? extends Entry> libraryEntriesMatchingDependency(DependencyId dependency) {
-    return tomlConfigFile.entrySet().stream()
+    return tomlConfigFile
+      .entrySet()
+      .stream()
       .filter(entry -> entry.getKey().equals(LIBRARIES_TOML_KEY))
       .map(Entry::getValue)
       .filter(Config.class::isInstance)
@@ -107,15 +108,13 @@ public class VersionsCatalog {
   }
 
   public Collection<DependencySlug> retrieveDependencySlugsFrom(DependencyId dependency) {
-    return libraryEntriesMatchingDependency(dependency)
-      .stream()
-      .map(UnmodifiableConfig.Entry::getKey)
-      .map(DependencySlug::new)
-      .toList();
+    return libraryEntriesMatchingDependency(dependency).stream().map(UnmodifiableConfig.Entry::getKey).map(DependencySlug::new).toList();
   }
 
   public Collection<JavaDependencyVersion> retrieveVersions() {
-    return tomlConfigFile.entrySet().stream()
+    return tomlConfigFile
+      .entrySet()
+      .stream()
       .filter(entry -> entry.getKey().equals(VERSIONS_TOML_KEY))
       .map(Entry::getValue)
       .filter(Config.class::isInstance)

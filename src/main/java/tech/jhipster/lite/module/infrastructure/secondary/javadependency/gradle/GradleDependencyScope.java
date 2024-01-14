@@ -7,8 +7,7 @@ enum GradleDependencyScope {
   RUNTIME_ONLY("runtimeOnly"),
   TEST_IMPLEMENTATION("testImplementation"),
   TEST_COMPILE_ONLY("testCompileOnly"),
-  TEST_RUNTIME_ONLY("testRuntimeOnly"),
-  ;
+  TEST_RUNTIME_ONLY("testRuntimeOnly");
 
   private final String command;
 

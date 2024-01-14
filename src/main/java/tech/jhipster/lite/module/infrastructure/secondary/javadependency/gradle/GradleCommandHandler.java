@@ -45,9 +45,18 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private static final String BUILD_GRADLE_FILE = "build.gradle.kts";
 
   private static final Pattern GRADLE_PLUGIN_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-plugins$", Pattern.MULTILINE);
-  private static final Pattern GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE = Pattern.compile("^// jhipster-needle-gradle-plugins-configurations$", Pattern.MULTILINE);
-  private static final Pattern GRADLE_DEPENDENCY_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-dependencies$", Pattern.MULTILINE);
-  private static final Pattern GRADLE_TEST_DEPENDENCY_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-test-dependencies$", Pattern.MULTILINE);
+  private static final Pattern GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE = Pattern.compile(
+    "^// jhipster-needle-gradle-plugins-configurations$",
+    Pattern.MULTILINE
+  );
+  private static final Pattern GRADLE_DEPENDENCY_NEEDLE = Pattern.compile(
+    "^\\s+// jhipster-needle-gradle-dependencies$",
+    Pattern.MULTILINE
+  );
+  private static final Pattern GRADLE_TEST_DEPENDENCY_NEEDLE = Pattern.compile(
+    "^\\s+// jhipster-needle-gradle-test-dependencies$",
+    Pattern.MULTILINE
+  );
 
   private final Indentation indentation;
   private final JHipsterProjectFolder projectFolder;
@@ -92,19 +101,22 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       ),
       dependencyDeclaration
     );
-    fileReplacer.handle(projectFolder, ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)));
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
   }
 
   private static String versionCatalogReference(JavaDependency dependency) {
-      return "libs.%s".formatted(applyVersionCatalogReferenceConvention(dependencySlug(dependency)));
+    return "libs.%s".formatted(applyVersionCatalogReferenceConvention(dependencySlug(dependency)));
   }
 
   private static String applyVersionCatalogReferenceConvention(String rawVersionCatalogReference) {
-      return rawVersionCatalogReference.replace("-", ".");
+    return rawVersionCatalogReference.replace("-", ".");
   }
 
   private static GradleDependencyScope gradleDependencyScope(JavaDependency dependency) {
-    return switch(dependency.scope()) {
+    return switch (dependency.scope()) {
       case TEST -> GradleDependencyScope.TEST_IMPLEMENTATION;
       case PROVIDED -> GradleDependencyScope.COMPILE_ONLY;
       case RUNTIME -> GradleDependencyScope.RUNTIME_ONLY;
@@ -119,7 +131,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void removeDependencyFromBuildGradle(DependencySlug dependencySlug) {
-    String scopePattern = Stream.of(GradleDependencyScope.values())
+    String scopePattern = Stream
+      .of(GradleDependencyScope.values())
       .map(GradleDependencyScope::command)
       .collect(Collectors.joining("|", "(", ")"));
     Pattern dependencyLinePattern = Pattern.compile(
@@ -127,7 +140,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       Pattern.MULTILINE
     );
     MandatoryReplacer replacer = new MandatoryReplacer(new RegexReplacer(always(), dependencyLinePattern), "");
-    fileReplacer.handle(projectFolder, ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)));
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
   }
 
   @Override
@@ -191,7 +207,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       ),
       indentation.times(1) + pluginDeclaration
     );
-    fileReplacer.handle(projectFolder, ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)));
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
   }
 
   private void addPluginConfiguration(GradlePluginConfiguration pluginConfiguration) {
@@ -202,6 +221,9 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       ),
       LINE_BREAK + pluginConfiguration.get()
     );
-    fileReplacer.handle(projectFolder, ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)));
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
   }
 }

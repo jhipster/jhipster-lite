@@ -120,7 +120,7 @@ public class MavenModuleFactory {
   }
 
   private MavenPlugin mavenCompilerPlugin() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-compiler-plugin")
       .versionSlug("compiler-plugin")
@@ -135,7 +135,7 @@ public class MavenModuleFactory {
   }
 
   private MavenPlugin surefirePlugin() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-surefire-plugin")
       .versionSlug("surefire-plugin")
@@ -153,11 +153,11 @@ public class MavenModuleFactory {
   }
 
   private MavenPlugin jacocoPlugin() {
-    return javaBuildPlugin().groupId(JACOCO_GROUP).artifactId(JACOCO_ARTIFACT_ID).build();
+    return mavenPlugin().groupId(JACOCO_GROUP).artifactId(JACOCO_ARTIFACT_ID).build();
   }
 
   private MavenPlugin failsafePlugin() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId("maven-failsafe-plugin")
       .versionSlug("failsafe-plugin")
@@ -180,7 +180,7 @@ public class MavenModuleFactory {
   }
 
   private MavenPlugin jacocoPluginManagement() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId(JACOCO_GROUP)
       .artifactId(JACOCO_ARTIFACT_ID)
       .versionSlug(JACOCO_VERSION)
@@ -223,11 +223,11 @@ public class MavenModuleFactory {
   }
 
   private MavenPlugin enforcerPlugin() {
-    return javaBuildPlugin().groupId(APACHE_PLUGINS_GROUP).artifactId(ENFORCER_ARTIFACTID).build();
+    return mavenPlugin().groupId(APACHE_PLUGINS_GROUP).artifactId(ENFORCER_ARTIFACTID).build();
   }
 
   private MavenPlugin enforcerPluginManagement() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
       .artifactId(ENFORCER_ARTIFACTID)
       .versionSlug("maven-enforcer-plugin")

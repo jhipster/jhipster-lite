@@ -11,7 +11,7 @@ public final class AddDirectMavenPlugin implements JavaBuildCommand, AddMavenPlu
   private final Optional<JavaDependencyVersion> pluginVersion;
 
   private AddDirectMavenPlugin(AddDirectMavenPluginBuilder builder) {
-    Assert.notNull("javaBuildPlugin", builder.plugin);
+    Assert.notNull("plugin", builder.plugin);
     this.plugin = builder.plugin;
     this.pluginVersion = Optional.ofNullable(builder.pluginVersion);
   }

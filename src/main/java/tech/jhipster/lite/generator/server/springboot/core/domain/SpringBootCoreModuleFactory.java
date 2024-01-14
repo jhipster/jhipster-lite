@@ -136,6 +136,6 @@ public class SpringBootCoreModuleFactory {
   }
 
   private MavenPlugin springBootMavenPlugin() {
-    return MavenPlugin.builder().groupId(SPRING_BOOT_GROUP).artifactId("spring-boot-maven-plugin").build();
+    return mavenPlugin().groupId(SPRING_BOOT_GROUP).artifactId("spring-boot-maven-plugin").build();
   }
 }

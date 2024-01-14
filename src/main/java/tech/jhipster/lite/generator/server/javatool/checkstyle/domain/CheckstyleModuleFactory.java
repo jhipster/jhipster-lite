@@ -34,7 +34,7 @@ public class CheckstyleModuleFactory {
   }
 
   private MavenPlugin checkstyleMavenPlugin() {
-    return javaBuildPlugin()
+    return mavenPlugin()
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-checkstyle-plugin")
       .versionSlug("maven-checkstyle-plugin")

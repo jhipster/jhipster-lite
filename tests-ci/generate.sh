@@ -123,14 +123,23 @@ elif [[ $application == 'fullstack' ]]; then
 
 elif [[ $application == 'gradleapp' ]]; then
   gradle
-  # TODO: use spring_boot instead of the following individual modules when jacoco-check-min-coverage and github-actions support gradle
+  # TODO: use "spring_boot", "spring_boot_mvc" instead of the following individual modules
+  #  when jacoco-check-min-coverage and github-actions support gradle
   applyModules \
     "java-base" \
     "checkstyle" \
     "java-memoizers" \
     "java-enums" \
     "jib" \
-    "pagination-domain"
+    "pagination-domain" \
+    "spring-boot" \
+    "logs-spy" \
+    "spring-boot-tomcat" \
+    "spring-boot-actuator" \
+    "postgresql" \
+    "liquibase"
+
+  cucumber_with_jwt
 
 elif [[ $application == 'fullapp' ]]; then
   maven

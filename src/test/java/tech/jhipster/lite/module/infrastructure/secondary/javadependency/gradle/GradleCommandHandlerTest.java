@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
 import static tech.jhipster.lite.TestFileUtils.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCommunityPlugin;
 import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
@@ -14,6 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
@@ -378,6 +380,20 @@ class GradleCommandHandlerTest {
           // jhipster-needle-gradle-plugins-configurations
           """
         );
+    }
+
+    @Test
+    void shouldApplyVersionCatalogReferenceConvention() {
+      GradlePlugin plugin = gradleCommunityPlugin()
+        .id("org.springframework.boot")
+        .pluginSlug("spring-boot")
+        .build();
+      AddGradlePlugin build = AddGradlePlugin.builder().plugin(plugin).build();
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(build);
+
+      assertThat(versionCatalogContent(projectFolder)).contains("[plugins.spring-boot]");
+      // "-" is transformed to "." in the plugin slug
+      assertThat(buildGradleContent(projectFolder)).contains("alias(libs.plugins.spring.boot)");
     }
 
     @Test

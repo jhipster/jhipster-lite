@@ -223,7 +223,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static BuildProfileId localMavenProfile() {
-    return new BuildProfileId("local");
+    return buildProfileId("local");
   }
 
   public static BuildProperty springProfilesActiveProperty() {

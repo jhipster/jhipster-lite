@@ -55,7 +55,7 @@ public class VersionsCatalog {
     tomlConfigFile.save();
   }
 
-  public static String dependencySlug(JavaDependency dependency) {
+  public static String libraryAlias(JavaDependency dependency) {
     return dependency
       .slug()
       .map(DependencySlug::slug)
@@ -74,7 +74,7 @@ public class VersionsCatalog {
     libraryConfig.set("group", dependency.id().groupId().get());
     libraryConfig.set("name", dependency.id().artifactId().get());
     dependency.version().ifPresent(versionSlug -> libraryConfig.set("version.ref", versionSlug.slug()));
-    String libraryEntryKey = dependencySlug(dependency);
+    String libraryEntryKey = libraryAlias(dependency);
     tomlConfigFile.set(List.of(LIBRARIES_TOML_KEY, libraryEntryKey), libraryConfig);
     save();
   }

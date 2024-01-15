@@ -2,7 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
-import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.dependencySlug;
+import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginSlug;
 
 import java.util.regex.Pattern;
@@ -108,7 +108,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private static String versionCatalogReference(JavaDependency dependency) {
-    return "libs.%s".formatted(applyVersionCatalogReferenceConvention(dependencySlug(dependency)));
+    return "libs.%s".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)));
   }
 
   private static String applyVersionCatalogReferenceConvention(String rawVersionCatalogReference) {

@@ -49,14 +49,14 @@ maven() {
   applyModules \
   "init" \
   "maven-wrapper" \
-  "maven-java" \
+  "maven-java"
 }
 
 gradle() {
   applyModules \
   "init" \
   "gradle-wrapper" \
-  "gradle-java" \
+  "gradle-java"
 }
 
 spring_boot() {

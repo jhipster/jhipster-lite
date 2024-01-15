@@ -1,6 +1,7 @@
 [versions]
 checkstyle = "10.12.7"
 jib = "3.4.0"
+git-properties = "2.4.1"
 
 [libraries]
 [libraries.checkstyle]
@@ -12,3 +13,7 @@ version.ref = "checkstyle"
 [plugins.jib]
 id = "com.google.cloud.tools.jib"
 version.ref = "jib"
+
+[plugins.git-properties]
+id = "com.gorylenko.gradle-git-properties"
+version.ref = "git-properties"

@@ -5,6 +5,8 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -42,8 +44,28 @@ public class GitInfoModuleFactory {
         .plugin(gitCommitIdPlugin())
         .pluginManagement(gitCommitIdPluginManagement())
         .and()
+      .gradlePlugins()
+        .plugin(gradleGitPropertiesPlugin())
+        .and()
       .build();
     //@formatter:on
+  }
+
+  private GradlePlugin gradleGitPropertiesPlugin() {
+    return GradleCommunityPlugin
+      .builder()
+      .id("com.gorylenko.gradle-git-properties")
+      .pluginSlug("git-properties")
+      .versionSlug("git-properties")
+      .configuration(
+        """
+        gitProperties {
+          failOnNoGitDirectory = false
+          keys = ['git.branch','git.commit.id.abbrev','git.commit.id.describe', 'git.build.version']
+        }
+        """
+      )
+      .build();
   }
 
   private MavenPlugin gitCommitIdPluginManagement() {

@@ -4,6 +4,7 @@
   <module name="TreeWalker">
     <module name="RedundantImport" />
     <module name="UnusedImports" />
+    <module name="RedundantImport" />
     <module name="IllegalImport">
       <property name="regexp" value="true" />
       <!-- Reject any org.junit import that's not also org.junit.jupiter: -->

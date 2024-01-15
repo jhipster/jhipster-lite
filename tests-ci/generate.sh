@@ -136,6 +136,7 @@ elif [[ $application == 'gradleapp' ]]; then
     "logs-spy" \
     "spring-boot-tomcat" \
     "spring-boot-actuator" \
+    "git-information" \
     "postgresql" \
     "liquibase"
 

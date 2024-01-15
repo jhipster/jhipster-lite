@@ -3,7 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
-import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginSlug;
+import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
 
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -190,7 +190,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     switch (command.plugin()) {
       case GradleCorePlugin plugin -> declarePlugin(plugin.id().get());
       case GradleCommunityPlugin plugin -> {
-        declarePlugin("alias(libs.plugins.%s)".formatted(applyVersionCatalogReferenceConvention(pluginSlug(plugin))));
+        declarePlugin("alias(libs.plugins.%s)".formatted(applyVersionCatalogReferenceConvention(pluginAlias(plugin))));
         versionsCatalog.addPlugin(plugin);
       }
     }

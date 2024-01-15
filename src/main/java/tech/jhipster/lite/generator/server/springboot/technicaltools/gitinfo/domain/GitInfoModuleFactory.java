@@ -61,7 +61,7 @@ public class GitInfoModuleFactory {
         """
         gitProperties {
           failOnNoGitDirectory = false
-          keys = ['git.branch','git.commit.id.abbrev','git.commit.id.describe', 'git.build.version']
+          keys = listOf("git.branch", "git.commit.id.abbrev", "git.commit.id.describe", "git.build.version")
         }
         """
       )

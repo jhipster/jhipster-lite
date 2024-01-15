@@ -170,6 +170,24 @@ class GradleCommandHandlerTest {
         );
     }
 
+    @Test
+    void shouldUseValidLibraryAlias() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+
+      JavaDependency dependency = javaDependency().groupId("com.zaxxer").artifactId("HikariCP").build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains(
+          """
+          [libraries.hikariCP]
+          \t\tname = "HikariCP"
+          \t\tgroup = "com.zaxxer"
+          """
+        );
+      assertThat(buildGradleContent(projectFolder)).contains("implementation(libs.hikariCP)");
+    }
+
     @EnumSource(value = JavaDependencyScope.class, mode = EXCLUDE, names = { "TEST", "RUNTIME", "PROVIDED", "IMPORT" })
     @ParameterizedTest
     void shouldAddImplementationDependencyInBuildGradleFileForScope(JavaDependencyScope scope) {

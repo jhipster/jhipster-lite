@@ -9,7 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.StringUtils;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginSlug;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
@@ -53,8 +55,13 @@ public class VersionsCatalog {
     tomlConfigFile.save();
   }
 
-  public static String dependencySlug(JavaDependency dependency) {
-    return dependency.slug().map(DependencySlug::slug).orElse(dependency.id().artifactId().get());
+  public static String libraryAlias(JavaDependency dependency) {
+    return dependency
+      .slug()
+      .map(DependencySlug::slug)
+      .or(() -> Optional.of(dependency.id().artifactId().get()))
+      .map(StringUtils::uncapitalize)
+      .orElseThrow();
   }
 
   public void setVersion(JavaDependencyVersion javaDependencyVersion) {
@@ -67,7 +74,7 @@ public class VersionsCatalog {
     libraryConfig.set("group", dependency.id().groupId().get());
     libraryConfig.set("name", dependency.id().artifactId().get());
     dependency.version().ifPresent(versionSlug -> libraryConfig.set("version.ref", versionSlug.slug()));
-    String libraryEntryKey = dependencySlug(dependency);
+    String libraryEntryKey = libraryAlias(dependency);
     tomlConfigFile.set(List.of(LIBRARIES_TOML_KEY, libraryEntryKey), libraryConfig);
     save();
   }
@@ -125,7 +132,7 @@ public class VersionsCatalog {
       .toList();
   }
 
-  public static String pluginSlug(GradleCommunityPlugin communityPlugin) {
+  public static String pluginAlias(GradleCommunityPlugin communityPlugin) {
     return communityPlugin.pluginSlug().map(GradlePluginSlug::get).orElse(communityPlugin.id().get());
   }
 
@@ -133,7 +140,7 @@ public class VersionsCatalog {
     Config pluginConfig = Config.inMemory();
     pluginConfig.set("id", plugin.id().get());
     plugin.versionSlug().ifPresent(versionSlug -> pluginConfig.set("version.ref", versionSlug.slug()));
-    String pluginEntryKey = pluginSlug(plugin);
+    String pluginEntryKey = pluginAlias(plugin);
     tomlConfigFile.set(List.of(PLUGINS_TOML_KEY, pluginEntryKey), pluginConfig);
     save();
   }

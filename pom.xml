@@ -720,6 +720,30 @@
                 </runtimeClassPath>
               </normalization>
             </gradleEnterprise>
+            <plugins>
+              <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <inputs>
+                  <properties>
+                    <property>
+                      <name>junit.platform.listeners.uid.tracking.output.dir</name>
+                      <value>target/test-ids</value>
+                    </property>
+                  </properties>
+                </inputs>
+                <outputs>
+                  <fileSets>
+                    <fileSet>
+                      <name>test-ids</name>
+                      <paths>
+                        <path>target/test-ids</path>
+                      </paths>
+                      <normalization>RELATIVE_PATH</normalization>
+                    </fileSet>
+                  </fileSets>
+                </outputs>
+              </plugin>
+            </plugins>
           </configuration>
         </plugin>
       </plugins>

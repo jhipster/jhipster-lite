@@ -722,56 +722,14 @@
             </gradleEnterprise>
             <plugins>
               <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                  <execution>
-                    <id>enforce-versions</id>
-                  </execution>
-                  <execution>
-                    <id>enforce-dependencyConvergence</id>
-                    <inputs>
-                      <properties>
-                        <property>
-                          <name>fail</name>
-                        </property>
-                        <property>
-                          <name>failFast</name>
-                        </property>
-                        <property>
-                          <name>failIfNoRules</name>
-                        </property>
-                        <property>
-                          <name>rulesToSkip</name>
-                        </property>
-                        <property>
-                          <name>rulesToExecute</name>
-                        </property>
-                        <property>
-                          <name>rules</name>
-                        </property>
-                        <property>
-                          <name>skip</name>
-                        </property>
-                      </properties>
-                      <ignoredProperties>
-                        <ignore>ignoreCache</ignore>
-                        <ignore>mojoExecution</ignore>
-                        <ignore>session</ignore>
-                      </ignoredProperties>
-                    </inputs>
-                  </execution>
-                </executions>
-              </plugin>
-              <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <inputs>
-                  <systemProperties>
-                    <systemProperty>
+                  <systemPropertyVariables>
+                    <systemPropertyVariable>
                       <name>junit.platform.listeners.uid.tracking.output.dir</name>
                       <value>target/test-ids</value>
-                    </systemProperty>
-                  </systemProperties>
+                    </systemPropertyVariable>
+                  </systemPropertyVariables>
                   <properties>
                     <property>
                       <name>junit.platform.listeners.uid.tracking.output.dir</name>

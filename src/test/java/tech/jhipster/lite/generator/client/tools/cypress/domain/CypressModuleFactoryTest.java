@@ -26,7 +26,7 @@ class CypressModuleFactoryTest {
       .containing(
         """
           },
-          "exclude": ["src/test/javascript/integration/**/*.ts"],
+          "exclude": ["src/test/javascript/integration/**/*.ts"]
         }\
         """
       );

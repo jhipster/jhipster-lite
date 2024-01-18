@@ -78,10 +78,10 @@ public class CypressModuleFactory {
 
   private String newExclusionNode(JHipsterModuleProperties properties) {
     return new StringBuilder()
+      .append(",")
       .append(LINE_BREAK)
       .append(properties.indentation().spaces())
       .append("\"exclude\": [" + CYPRESS_EXCLUSION + "]")
-      .append(",")
       .append(LINE_BREAK)
       .append("}")
       .toString();

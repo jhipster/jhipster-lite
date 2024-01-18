@@ -23,7 +23,13 @@ class CypressModuleFactoryTest {
   void shouldBuildModuleOnProjectWithEmptyTsConfig() {
     assertCypressModule(packageJsonFile(), file("src/test/resources/projects/empty-ts-config/tsconfig.json", "tsconfig.json"))
       .hasFile("tsconfig.json")
-      .containing("},\n  \"exclude\": [\"src/test/javascript/integration/**/*.ts\"]\n}");
+      .containing(
+        """
+          },
+          "exclude": ["src/test/javascript/integration/**/*.ts"],
+        }\
+        """
+      );
   }
 
   @Test

@@ -18,8 +18,8 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["main/webapp/app/*"],
-      "@assets/*": ["main/webapp/assets/*"],
-    },
+      "@assets/*": ["main/webapp/assets/*"]
+    }
   },
-  "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "src/tests/**/*"],
+  "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "src/tests/**/*"]
 }

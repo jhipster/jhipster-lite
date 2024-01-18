@@ -3,7 +3,7 @@
     "strict": true,
     "target": "es6",
     "lib": ["es5", "es6", "dom", "dom.iterable"],
-    "types": ["cypress"],
+    "types": ["cypress"]
   },
-  "include": ["**/*.spec.ts"],
+  "include": ["**/*.spec.ts"]
 }

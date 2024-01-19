@@ -23,6 +23,7 @@ xmlWhitespaceSensitivity: ignore
 
 overrides:
   - files:
-      - '*.json'
+      - '{src/**/,}tsconfig*.json'
     options:
-      parser: 'json'
+      parser: 'jsonc'
+      trailingComma: none

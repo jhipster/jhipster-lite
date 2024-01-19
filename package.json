@@ -93,5 +93,7 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "cacheDirectories": ["node_modules"]
+  "cacheDirectories": [
+    "node_modules"
+  ]
 }

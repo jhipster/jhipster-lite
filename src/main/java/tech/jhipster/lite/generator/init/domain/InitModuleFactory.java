@@ -5,7 +5,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -28,7 +27,7 @@ public class InitModuleFactory {
     return moduleBuilder(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
-        .put("nodeVersion", npmVersions.get("node", NpmVersionSource.COMMON).get())
+        .put("nodeVersion", npmVersions.getNodeVersion())
         .put("endOfLine", endOfLine(properties))
         .and()
       .files()

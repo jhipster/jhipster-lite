@@ -21,7 +21,7 @@ class FileSystemJHipsterModulesRepositoryTest {
   private LogsSpy logs;
 
   @Test
-  void shouldApplyModule() {
+  void shouldApplyMavenModule() {
     JHipsterModule module = module();
 
     // @formatter:off
@@ -165,6 +165,19 @@ class FileSystemJHipsterModulesRepositoryTest {
                           </configuration>
                         </execution>
                       </executions>
+                      <dependencies>
+                        <dependency>
+                          <groupId>io.jsonwebtoken</groupId>
+                          <artifactId>jjwt-jackson</artifactId>
+                          <version>${jjwt-jackson.version}</version>
+                          <exclusions>
+                            <exclusion>
+                              <groupId>com.fasterxml.jackson.core</groupId>
+                              <artifactId>jackson-databind</artifactId>
+                            </exclusion>
+                          </exclusions>
+                        </dependency>
+                      </dependencies>
                       <configuration>
                         <rules>
                           <requireMavenVersion>
@@ -224,6 +237,19 @@ class FileSystemJHipsterModulesRepositoryTest {
                               </configuration>
                             </execution>
                           </executions>
+                          <dependencies>
+                            <dependency>
+                              <groupId>io.jsonwebtoken</groupId>
+                              <artifactId>jjwt-jackson</artifactId>
+                              <version>${jjwt-jackson.version}</version>
+                              <exclusions>
+                                <exclusion>
+                                  <groupId>com.fasterxml.jackson.core</groupId>
+                                  <artifactId>jackson-databind</artifactId>
+                                </exclusion>
+                              </exclusions>
+                            </dependency>
+                          </dependencies>
                           <configuration>
                             <rules>
                               <requireMavenVersion>

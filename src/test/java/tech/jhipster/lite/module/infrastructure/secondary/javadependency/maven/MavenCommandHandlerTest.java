@@ -763,6 +763,19 @@ class MavenCommandHandlerTest {
                       </configuration>
                     </execution>
                   </executions>
+                  <dependencies>
+                    <dependency>
+                      <groupId>io.jsonwebtoken</groupId>
+                      <artifactId>jjwt-jackson</artifactId>
+                      <version>${jjwt-jackson.version}</version>
+                      <exclusions>
+                        <exclusion>
+                          <groupId>com.fasterxml.jackson.core</groupId>
+                          <artifactId>jackson-databind</artifactId>
+                        </exclusion>
+                      </exclusions>
+                    </dependency>
+                  </dependencies>
                   <configuration>
                     <rules>
                       <requireMavenVersion>
@@ -812,7 +825,7 @@ class MavenCommandHandlerTest {
       private void addMavenEnforcerPlugin(Path pom) {
         AddMavenPluginManagement command = AddMavenPluginManagement
           .builder()
-          .plugin(mavenEnforcerPlugin())
+          .plugin(mavenEnforcerPluginManagement())
           .pluginVersion(mavenEnforcerVersion())
           .buildProfile(localMavenProfile())
           .build();
@@ -828,6 +841,52 @@ class MavenCommandHandlerTest {
                   <plugins>
                     <plugin>
                       <artifactId>maven-enforcer-plugin</artifactId>
+                      <version>${maven-enforcer-plugin.version}</version>
+                      <executions>
+                        <execution>
+                          <id>enforce-versions</id>
+                          <goals>
+                            <goal>enforce</goal>
+                          </goals>
+                        </execution>
+                        <execution>
+                          <id>enforce-dependencyConvergence</id>
+                          <goals>
+                            <goal>enforce</goal>
+                          </goals>
+                          <configuration>
+                            <rules>
+                              <DependencyConvergence />
+                            </rules>
+                            <fail>false</fail>
+                          </configuration>
+                        </execution>
+                      </executions>
+                      <dependencies>
+                        <dependency>
+                          <groupId>io.jsonwebtoken</groupId>
+                          <artifactId>jjwt-jackson</artifactId>
+                          <version>${jjwt-jackson.version}</version>
+                          <exclusions>
+                            <exclusion>
+                              <groupId>com.fasterxml.jackson.core</groupId>
+                              <artifactId>jackson-databind</artifactId>
+                            </exclusion>
+                          </exclusions>
+                        </dependency>
+                      </dependencies>
+                      <configuration>
+                        <rules>
+                          <requireMavenVersion>
+                            <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                            <version>[${maven.version},)</version>
+                          </requireMavenVersion>
+                          <requireJavaVersion>
+                            <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+                            <version>[21,22)</version>
+                          </requireJavaVersion>
+                        </rules>
+                      </configuration>
                     </plugin>
                   </plugins>
                 </pluginManagement>
@@ -921,13 +980,60 @@ class MavenCommandHandlerTest {
       }
 
       private void addMavenEnforcerPlugin(Path pom) {
-        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build());
+        new MavenCommandHandler(Indentation.DEFAULT, pom)
+          .handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPluginManagement()).build());
       }
 
       private String plugins() {
         return """
               <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                  <execution>
+                    <id>enforce-versions</id>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                  </execution>
+                  <execution>
+                    <id>enforce-dependencyConvergence</id>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                      <rules>
+                        <DependencyConvergence />
+                      </rules>
+                      <fail>false</fail>
+                    </configuration>
+                  </execution>
+                </executions>
+                <dependencies>
+                  <dependency>
+                    <groupId>io.jsonwebtoken</groupId>
+                    <artifactId>jjwt-jackson</artifactId>
+                    <version>${jjwt-jackson.version}</version>
+                    <exclusions>
+                      <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                      </exclusion>
+                    </exclusions>
+                  </dependency>
+                </dependencies>
+                <configuration>
+                  <rules>
+                    <requireMavenVersion>
+                      <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                      <version>[${maven.version},)</version>
+                    </requireMavenVersion>
+                    <requireJavaVersion>
+                      <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+                      <version>[21,22)</version>
+                    </requireJavaVersion>
+                  </rules>
+                </configuration>
               </plugin>
             </plugins>
         """;
@@ -967,7 +1073,7 @@ class MavenCommandHandlerTest {
           .handle(
             AddDirectMavenPlugin
               .builder()
-              .plugin(mavenEnforcerPlugin())
+              .plugin(mavenEnforcerPluginManagement())
               .pluginVersion(mavenEnforcerVersion())
               .buildProfile(localMavenProfile())
               .build()
@@ -982,6 +1088,52 @@ class MavenCommandHandlerTest {
                 <plugins>
                   <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                    <executions>
+                      <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                          <goal>enforce</goal>
+                        </goals>
+                      </execution>
+                      <execution>
+                        <id>enforce-dependencyConvergence</id>
+                        <goals>
+                          <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                          <rules>
+                            <DependencyConvergence />
+                          </rules>
+                          <fail>false</fail>
+                        </configuration>
+                      </execution>
+                    </executions>
+                    <dependencies>
+                      <dependency>
+                        <groupId>io.jsonwebtoken</groupId>
+                        <artifactId>jjwt-jackson</artifactId>
+                        <version>${jjwt-jackson.version}</version>
+                        <exclusions>
+                          <exclusion>
+                            <groupId>com.fasterxml.jackson.core</groupId>
+                            <artifactId>jackson-databind</artifactId>
+                          </exclusion>
+                        </exclusions>
+                      </dependency>
+                    </dependencies>
+                    <configuration>
+                      <rules>
+                        <requireMavenVersion>
+                          <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                          <version>[${maven.version},)</version>
+                        </requireMavenVersion>
+                        <requireJavaVersion>
+                          <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+                          <version>[21,22)</version>
+                        </requireJavaVersion>
+                      </rules>
+                    </configuration>
                   </plugin>
                 </plugins>
               </build>

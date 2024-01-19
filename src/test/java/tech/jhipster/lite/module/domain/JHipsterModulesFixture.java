@@ -186,8 +186,13 @@ public final class JHipsterModulesFixture {
     return javaDependency().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
   }
 
-  public static JavaDependency dependencyWithVersion() {
-    return javaDependency().groupId("io.jsonwebtoken").artifactId("jjwt-api").versionSlug("json-web-token").build();
+  public static JavaDependency dependencyWithVersionAndExclusion() {
+    return javaDependency()
+      .groupId("io.jsonwebtoken")
+      .artifactId("jjwt-jackson")
+      .versionSlug("jjwt-jackson")
+      .addExclusion(DependencyId.of(new GroupId("com.fasterxml.jackson.core"), new ArtifactId("jackson-databind")))
+      .build();
   }
 
   public static JavaBuildCommands javaDependenciesCommands() {
@@ -317,6 +322,8 @@ public final class JHipsterModulesFixture {
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-enforcer-plugin")
       .versionSlug("maven-enforcer-plugin")
+      .addDependency(dependencyWithVersionAndExclusion())
+      .addDependency(groupId("io.jsonwebtoken"), artifactId("jjwt-jackson"), versionSlug("jjwt-jackson"))
       .addExecution(pluginExecution().goals("enforce").id("enforce-versions"))
       .addExecution(
         pluginExecution()

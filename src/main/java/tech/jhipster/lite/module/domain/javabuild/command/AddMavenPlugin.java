@@ -1,8 +1,10 @@
 package tech.jhipster.lite.module.domain.javabuild.command;
 
+import java.util.Collection;
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginConfiguration;
@@ -21,6 +23,10 @@ public interface AddMavenPlugin {
 
   default Optional<MavenPluginExecutions> executions() {
     return plugin().executions();
+  }
+
+  default Collection<JavaDependency> dependencies() {
+    return plugin().dependencies();
   }
 
   default DependencyId dependencyId() {

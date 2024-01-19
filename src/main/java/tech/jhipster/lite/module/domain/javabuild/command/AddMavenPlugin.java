@@ -8,7 +8,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginConfiguration;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutions;
+import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
 
 public interface AddMavenPlugin {
   MavenPlugin plugin();
@@ -21,7 +21,7 @@ public interface AddMavenPlugin {
     return plugin().configuration();
   }
 
-  default Optional<MavenPluginExecutions> executions() {
+  default Collection<MavenPluginExecution> executions() {
     return plugin().executions();
   }
 

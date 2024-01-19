@@ -92,7 +92,7 @@ public final class JHipsterModulesFixture {
       .pluginManagement(mavenEnforcerPluginManagement())
       .plugin(mavenEnforcerPlugin())
       .and()
-     .javaBuildProfiles()
+    .javaBuildProfiles()
       .addProfile(localMavenProfile())
         .activation(buildProfileActivation().activeByDefault(false))
         .properties()

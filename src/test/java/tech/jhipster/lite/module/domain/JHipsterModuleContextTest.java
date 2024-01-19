@@ -32,13 +32,14 @@ class JHipsterModuleContextTest {
     Map<String, Object> context = JHipsterModuleContext.builder(emptyModuleBuilder()).build().get();
 
     assertThat(context)
-      .hasSize(5)
+      .hasSize(6)
       .contains(
         entry("baseName", "jhipster"),
         entry("projectName", "JHipster Project"),
         entry("packageName", "com.mycompany.myapp"),
         entry("serverPort", 8080),
-        entry("indentSize", 2)
+        entry("indentSize", 2),
+        entry("javaVersion", "21")
       );
   }
 }

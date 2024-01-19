@@ -12,8 +12,6 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
-import tech.jhipster.lite.module.domain.npm.NpmPackageVersion;
-import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
@@ -31,7 +29,7 @@ class InitModuleFactoryTest {
   void shouldBuildModule() {
     String folder = TestFileUtils.tmpDirForTest();
     JHipsterModuleProperties properties = properties(folder);
-    when(npmVersions.get("node", NpmVersionSource.COMMON)).thenReturn(new NpmPackageVersion("16.0.0"));
+    when(npmVersions.getNodeVersion()).thenReturn("16.0.0");
 
     JHipsterModule module = factory.buildModule(properties);
 

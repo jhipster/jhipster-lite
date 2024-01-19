@@ -14,7 +14,7 @@ public class SpringBootDockerModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/docker");
   private static final JHipsterSource JIB_SOURCE = SOURCE.append("jib");
-  private static final String JAVA_DOCKER_IMAGE = "eclipse-temurin:21-jre-jammy";
+  private static final String JAVA_DOCKER_IMAGE = "eclipse-temurin:%s-jre-jammy";
 
   public JHipsterModule buildJibModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -53,6 +53,10 @@ public class SpringBootDockerModuleFactory {
       .versionSlug("jib-maven-plugin")
       .configuration(jibPluginConfiguration(properties))
       .build();
+  }
+
+  private String dockerBaseImage(JHipsterModuleProperties properties) {
+    return JAVA_DOCKER_IMAGE.formatted(properties.getJavaVersion().get());
   }
 
   private MavenPluginConfiguration jibPluginConfiguration(JHipsterModuleProperties properties) {
@@ -95,7 +99,7 @@ public class SpringBootDockerModuleFactory {
             </permission>
           </permissions>
         </extraDirectories>
-      """.formatted(JAVA_DOCKER_IMAGE, properties.projectBaseName().get(), properties.serverPort().get())
+      """.formatted(dockerBaseImage(properties), properties.projectBaseName().get(), properties.serverPort().get())
     );
   }
 
@@ -137,7 +141,7 @@ public class SpringBootDockerModuleFactory {
             }
             permissions = mapOf("/entrypoint.sh" to "755")
           }
-        }""".formatted(JAVA_DOCKER_IMAGE, properties.projectBaseName().get(), properties.serverPort().get())
+        }""".formatted(dockerBaseImage(properties), properties.projectBaseName().get(), properties.serverPort().get())
       )
       .build();
   }

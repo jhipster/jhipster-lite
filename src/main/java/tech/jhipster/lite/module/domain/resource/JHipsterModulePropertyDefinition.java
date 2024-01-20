@@ -1,6 +1,8 @@
 package tech.jhipster.lite.module.domain.resource;
 
 import java.util.Optional;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyDefaultValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyDescription;
@@ -131,6 +133,18 @@ public final class JHipsterModulePropertyDefinition {
 
   public int order() {
     return order;
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+      .append("type", type)
+      .append("key", key)
+      .append("mandatory", mandatory)
+      .append("description", description)
+      .append("defaultValue", defaultValue)
+      .append("order", order)
+      .build();
   }
 
   private static final class JHipsterModulePropertyDefinitionBuilder

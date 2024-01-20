@@ -460,6 +460,31 @@ class MavenCommandHandlerTest {
           """
         );
     }
+
+    @Test
+    void shouldAddDependencyManagementToMavenProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+
+      new MavenCommandHandler(Indentation.DEFAULT, pom)
+        .handle(new AddJavaDependencyManagement(defaultVersionDependency(), localMavenProfile()));
+
+      assertThat(content(pom))
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+                <dependencyManagement>
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.springframework.boot</groupId>
+                      <artifactId>spring-boot-starter</artifactId>
+                    </dependency>
+                  </dependencies>
+                </dependencyManagement>
+              </profile>
+          """
+        );
+    }
   }
 
   @Nested

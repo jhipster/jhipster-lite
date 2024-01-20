@@ -215,7 +215,19 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddJavaDependencyManagement command) {
     Assert.notNull(COMMAND, command);
 
-    addDependencyTo(command.dependency(), dependencyManagement().getDependencies());
+    DependencyManagement dependencyManagement = command
+      .buildProfile()
+      .map(this::findProfile)
+      .map(this::dependencyManagement)
+      .orElse(dependencyManagement());
+    addDependencyTo(command.dependency(), dependencyManagement.getDependencies());
+  }
+
+  private DependencyManagement dependencyManagement(Profile mavenProfile) {
+    if (mavenProfile.getDependencyManagement() == null) {
+      mavenProfile.setDependencyManagement(new DependencyManagement());
+    }
+    return mavenProfile.getDependencyManagement();
   }
 
   private DependencyManagement dependencyManagement() {

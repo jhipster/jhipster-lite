@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
 import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.io.IOException;
@@ -30,6 +30,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
+import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
@@ -510,6 +511,31 @@ class MavenCommandHandlerTest {
         .doesNotContain("      <version>${json-web-token.version}</version>")
         .doesNotContain("      <scope>test</scope>")
         .doesNotContain("      <optional>true</optional>");
+    }
+
+    @Test
+    void shouldRemoveDependencyFromProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency(), localMavenProfile()));
+
+      mavenCommandHandler.handle(
+        new RemoveDirectJavaDependency(
+          DependencyId.of(groupId("org.springframework.boot"), artifactId("spring-boot-starter-web")),
+          localMavenProfile()
+        )
+      );
+
+      assertThat(content(pom))
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+              </profile>
+          """
+        )
+        .doesNotContain("      <groupId>org.springframework.boot</groupId>")
+        .doesNotContain("      <artifactId>spring-boot-starter-web</artifactId>");
     }
   }
 

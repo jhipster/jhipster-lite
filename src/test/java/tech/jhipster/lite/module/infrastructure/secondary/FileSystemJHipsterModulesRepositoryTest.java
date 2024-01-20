@@ -21,7 +21,7 @@ class FileSystemJHipsterModulesRepositoryTest {
   private LogsSpy logs;
 
   @Test
-  void shouldApplyModule() {
+  void shouldApplyMavenModule() {
     JHipsterModule module = module();
 
     // @formatter:off
@@ -122,6 +122,7 @@ class FileSystemJHipsterModulesRepositoryTest {
           """
       )
       .containing("<maven-enforcer-plugin.version>")
+      .containing("<json-web-token.version>")
       .containing(
         """
               <build>
@@ -165,6 +166,19 @@ class FileSystemJHipsterModulesRepositoryTest {
                           </configuration>
                         </execution>
                       </executions>
+                      <dependencies>
+                        <dependency>
+                          <groupId>io.jsonwebtoken</groupId>
+                          <artifactId>jjwt-jackson</artifactId>
+                          <version>${json-web-token.version}</version>
+                          <exclusions>
+                            <exclusion>
+                              <groupId>com.fasterxml.jackson.core</groupId>
+                              <artifactId>jackson-databind</artifactId>
+                            </exclusion>
+                          </exclusions>
+                        </dependency>
+                      </dependencies>
                       <configuration>
                         <rules>
                           <requireMavenVersion>
@@ -224,6 +238,19 @@ class FileSystemJHipsterModulesRepositoryTest {
                               </configuration>
                             </execution>
                           </executions>
+                          <dependencies>
+                            <dependency>
+                              <groupId>io.jsonwebtoken</groupId>
+                              <artifactId>jjwt-jackson</artifactId>
+                              <version>${json-web-token.version}</version>
+                              <exclusions>
+                                <exclusion>
+                                  <groupId>com.fasterxml.jackson.core</groupId>
+                                  <artifactId>jackson-databind</artifactId>
+                                </exclusion>
+                              </exclusions>
+                            </dependency>
+                          </dependencies>
                           <configuration>
                             <rules>
                               <requireMavenVersion>

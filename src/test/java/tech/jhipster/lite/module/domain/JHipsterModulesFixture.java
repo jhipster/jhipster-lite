@@ -92,7 +92,7 @@ public final class JHipsterModulesFixture {
       .pluginManagement(mavenEnforcerPluginManagement())
       .plugin(mavenEnforcerPlugin())
       .and()
-     .javaBuildProfiles()
+    .javaBuildProfiles()
       .addProfile(localMavenProfile())
         .activation(buildProfileActivation().activeByDefault(false))
         .properties()
@@ -186,8 +186,13 @@ public final class JHipsterModulesFixture {
     return javaDependency().groupId("org.springframework.boot").artifactId("spring-boot-starter").build();
   }
 
-  public static JavaDependency dependencyWithVersion() {
-    return javaDependency().groupId("io.jsonwebtoken").artifactId("jjwt-api").versionSlug("json-web-token").build();
+  public static JavaDependency dependencyWithVersionAndExclusion() {
+    return javaDependency()
+      .groupId("io.jsonwebtoken")
+      .artifactId("jjwt-jackson")
+      .versionSlug("json-web-token")
+      .addExclusion(DependencyId.of(new GroupId("com.fasterxml.jackson.core"), new ArtifactId("jackson-databind")))
+      .build();
   }
 
   public static JavaBuildCommands javaDependenciesCommands() {
@@ -243,7 +248,11 @@ public final class JHipsterModulesFixture {
   }
 
   public static JavaDependenciesVersions currentJavaDependenciesVersion() {
-    return new JavaDependenciesVersions(List.of(springBootVersion(), problemVersion(), mavenEnforcerVersion()));
+    return new JavaDependenciesVersions(List.of(springBootVersion(), problemVersion(), mavenEnforcerVersion(), jsonWebTokenVersion()));
+  }
+
+  public static JavaDependencyVersion jsonWebTokenVersion() {
+    return new JavaDependencyVersion("json-web-token", "1.2.3");
   }
 
   private static JavaDependencyVersion problemVersion() {
@@ -317,6 +326,8 @@ public final class JHipsterModulesFixture {
       .groupId("org.apache.maven.plugins")
       .artifactId("maven-enforcer-plugin")
       .versionSlug("maven-enforcer-plugin")
+      .addDependency(dependencyWithVersionAndExclusion())
+      .addDependency(groupId("io.jsonwebtoken"), artifactId("jjwt-jackson"), versionSlug("json-web-token"))
       .addExecution(pluginExecution().goals("enforce").id("enforce-versions"))
       .addExecution(
         pluginExecution()

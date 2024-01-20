@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin.AddDirectMavenPluginOptionalBuilder;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement.AddMavenPluginManagementOptionalBuilder;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginOptionalBuilder;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginPluginBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
+import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JHipsterModuleMavenPlugins {
@@ -29,54 +34,61 @@ public class JHipsterModuleMavenPlugins {
     return new JHipsterModuleMavenPluginsBuilder<>(parentModuleBuilder);
   }
 
-  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
-    return buildChanges(versions, Optional.empty());
+  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions, ProjectJavaDependencies projectJavaDependencies) {
+    return buildChanges(versions, projectJavaDependencies, Optional.empty());
   }
 
-  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions, BuildProfileId buildProfile) {
+  public JavaBuildCommands buildChanges(
+    JavaDependenciesVersions versions,
+    ProjectJavaDependencies projectJavaDependencies,
+    BuildProfileId buildProfile
+  ) {
     Assert.notNull("buildProfile", buildProfile);
-    return buildChanges(versions, Optional.of(buildProfile));
+    return buildChanges(versions, projectJavaDependencies, Optional.of(buildProfile));
   }
 
-  private JavaBuildCommands buildChanges(JavaDependenciesVersions versions, Optional<BuildProfileId> buildProfile) {
+  private JavaBuildCommands buildChanges(
+    JavaDependenciesVersions versions,
+    ProjectJavaDependencies projectJavaDependencies,
+    Optional<BuildProfileId> buildProfile
+  ) {
     Assert.notNull("versions", versions);
+    Assert.notNull("projectJavaDependencies", projectJavaDependencies);
 
-    Stream<JavaBuildCommand> managementCommands = pluginsManagement.stream().map(toAddMavenPluginManagement(versions, buildProfile));
-    Stream<JavaBuildCommand> pluginsCommands = plugins.stream().map(toAddDirectMavenPlugin(versions, buildProfile));
+    Stream<JavaBuildCommand> managementCommands = pluginsManagement
+      .stream()
+      .map(toAddMavenPlugin(versions, projectJavaDependencies, buildProfile, AddMavenPluginManagement::builder));
+    Stream<JavaBuildCommand> pluginsCommands = plugins
+      .stream()
+      .map(toAddMavenPlugin(versions, projectJavaDependencies, buildProfile, AddDirectMavenPlugin::builder));
 
     return new JavaBuildCommands(Stream.concat(managementCommands, pluginsCommands).toList());
   }
 
-  private static Function<MavenPlugin, AddMavenPluginManagement> toAddMavenPluginManagement(
+  private static <C extends AddMavenPlugin> Function<MavenPlugin, C> toAddMavenPlugin(
     JavaDependenciesVersions versions,
-    Optional<BuildProfileId> buildProfile
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile,
+    Supplier<AddMavenPluginPluginBuilder<C>> builderFactory
   ) {
     return plugin -> {
-      AddMavenPluginManagementOptionalBuilder commandBuilder = AddMavenPluginManagement.builder().plugin(plugin);
+      AddMavenPluginOptionalBuilder<C> commandBuilder = builderFactory.get().plugin(plugin);
       buildProfile.ifPresent(commandBuilder::buildProfile);
-      return plugin
-        .versionSlug()
-        .map(versions::get)
-        .map(commandBuilder::pluginVersion)
-        .map(AddMavenPluginManagementOptionalBuilder::build)
-        .orElse(commandBuilder.build());
+      plugin
+        .dependencies()
+        .stream()
+        .flatMap(toDependencyVersion(versions, projectDependencies))
+        .forEach(commandBuilder::addDependencyVersion);
+      plugin.versionSlug().map(versions::get).ifPresent(commandBuilder::pluginVersion);
+      return commandBuilder.build();
     };
   }
 
-  private static Function<MavenPlugin, AddDirectMavenPlugin> toAddDirectMavenPlugin(
+  private static Function<JavaDependency, Stream<JavaDependencyVersion>> toDependencyVersion(
     JavaDependenciesVersions versions,
-    Optional<BuildProfileId> buildProfile
+    ProjectJavaDependencies projectDependencies
   ) {
-    return plugin -> {
-      AddDirectMavenPluginOptionalBuilder commandBuilder = AddDirectMavenPlugin.builder().plugin(plugin);
-      buildProfile.ifPresent(commandBuilder::buildProfile);
-      return plugin
-        .versionSlug()
-        .map(versions::get)
-        .map(commandBuilder::pluginVersion)
-        .map(AddDirectMavenPluginOptionalBuilder::build)
-        .orElse(commandBuilder.build());
-    };
+    return dependency -> dependency.version().flatMap(JavaDependency.toVersion(versions, projectDependencies)).stream();
   }
 
   public static class JHipsterModuleMavenPluginsBuilder<T> {

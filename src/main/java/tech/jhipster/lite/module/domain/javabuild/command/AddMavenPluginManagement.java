@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.domain.javabuild.command;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
+import java.util.Collection;
 import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -15,12 +16,15 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
   private final MavenPlugin plugin;
   private final Optional<JavaDependencyVersion> pluginVersion;
   private final Optional<BuildProfileId> buildProfile;
+  private final Collection<JavaDependencyVersion> dependenciesVersions;
 
-  private AddMavenPluginManagement(AddMavenPluginManagementBuilder builder) {
-    Assert.notNull("plugin", builder.plugin);
-    this.plugin = builder.plugin;
-    this.pluginVersion = Optional.ofNullable(builder.pluginVersion);
-    this.buildProfile = Optional.ofNullable(builder.buildProfile);
+  private AddMavenPluginManagement(AddMavenPluginBuilder<?> builder) {
+    Assert.notNull("plugin", builder.plugin());
+    Assert.notNull("dependenciesVersions", builder.dependenciesVersions());
+    this.plugin = builder.plugin();
+    this.dependenciesVersions = builder.dependenciesVersions();
+    this.pluginVersion = Optional.ofNullable(builder.pluginVersion());
+    this.buildProfile = Optional.ofNullable(builder.buildProfile());
   }
 
   @Override
@@ -37,50 +41,12 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
     return buildProfile;
   }
 
-  public static AddMavenPluginManagementPluginBuilder builder() {
-    return new AddMavenPluginManagementBuilder();
+  public Collection<JavaDependencyVersion> dependenciesVersions() {
+    return dependenciesVersions;
   }
 
-  private static class AddMavenPluginManagementBuilder
-    implements AddMavenPluginManagementPluginBuilder, AddMavenPluginManagementOptionalBuilder {
-
-    private MavenPlugin plugin;
-    private JavaDependencyVersion pluginVersion;
-    private BuildProfileId buildProfile;
-
-    private AddMavenPluginManagementBuilder() {}
-
-    @Override
-    public AddMavenPluginManagementBuilder plugin(MavenPlugin plugin) {
-      this.plugin = plugin;
-      return this;
-    }
-
-    @Override
-    public AddMavenPluginManagementOptionalBuilder pluginVersion(JavaDependencyVersion pluginVersion) {
-      this.pluginVersion = pluginVersion;
-      return this;
-    }
-
-    @Override
-    public AddMavenPluginManagementOptionalBuilder buildProfile(BuildProfileId buildProfile) {
-      this.buildProfile = buildProfile;
-      return this;
-    }
-
-    public AddMavenPluginManagement build() {
-      return new AddMavenPluginManagement(this);
-    }
-  }
-
-  public interface AddMavenPluginManagementPluginBuilder {
-    AddMavenPluginManagementOptionalBuilder plugin(MavenPlugin plugin);
-  }
-
-  public interface AddMavenPluginManagementOptionalBuilder {
-    AddMavenPluginManagementOptionalBuilder pluginVersion(JavaDependencyVersion version);
-    AddMavenPluginManagementOptionalBuilder buildProfile(BuildProfileId buildProfile);
-    AddMavenPluginManagement build();
+  public static AddMavenPluginPluginBuilder<AddMavenPluginManagement> builder() {
+    return new AddMavenPluginBuilder<>(AddMavenPluginManagement::new);
   }
 
   @Override
@@ -88,7 +54,8 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
   public String toString() {
     ToStringBuilder builder = new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("plugin", plugin)
-      .append("pluginVersion", pluginVersion.map(JavaDependencyVersion::toString).orElse("(empty)"));
+      .append("pluginVersion", pluginVersion.map(JavaDependencyVersion::toString).orElse("(empty)"))
+      .append("dependenciesVersions", pluginVersion.map(JavaDependencyVersion::toString).orElse("(empty)"));
     return builder.toString();
   }
 }

@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -65,8 +64,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Set dependency version")
-  class MavenCommandHandlerSetVersionTest {
+  class HandleSetVersion {
 
     @Test
     void shouldAddPropertiesToPomWithOnlyRootDefined() {
@@ -115,7 +113,6 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Set build property")
   class HandleSetBuildProperty {
 
     @Nested
@@ -254,7 +251,6 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add build profile")
   class HandleAddJavaBuildProfile {
 
     @Test
@@ -353,8 +349,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Remove dependency management")
-  class MavenCommandHandlerRemoveDependencyManagementTest {
+  class HandleRemoveJavaDependencyManagement {
 
     @Test
     void shouldNotRemoveUnknownDependency() {
@@ -392,8 +387,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add dependency management")
-  class MavenCommandHandlerAddDependencyManagementTest {
+  class HandleAddJavaDependencyManagement {
 
     @Test
     void shouldAddDependencyInPomWithoutDependenciesManagement() {
@@ -468,8 +462,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Remove dependency")
-  class MavenCommandHandlerRemoveDependencyTest {
+  class HandleRemoveDirectJavaDependency {
 
     @Test
     void shouldNotRemoveUnknownDependency() {
@@ -521,8 +514,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add dependency")
-  class MavenCommandHandlerAddDependencyTest {
+  class HandleAddDirectJavaDependency {
 
     @Test
     void shouldAddDependencyInPomWithoutDependencies() {
@@ -653,8 +645,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add build plugin management")
-  class MavenCommandHandlerAddMavenPluginManagementTest {
+  class HandleAddMavenPluginManagement {
 
     @Nested
     class WithoutProfile {
@@ -688,6 +679,20 @@ class MavenCommandHandlerTest {
           .handle(AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build());
 
         assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+      }
+
+      @Test
+      void shouldAddPropertyForPluginDependencyVersion() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        AddMavenPluginManagement command = AddMavenPluginManagement
+          .builder()
+          .plugin(mavenEnforcerPluginManagement())
+          .addDependencyVersion(new JavaDependencyVersion("json-web-token", "1.1.1"))
+          .build();
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
+
+        assertThat(content(pom)).contains("<json-web-token.version>1.1.1</json-web-token.version>");
       }
 
       @Test
@@ -763,6 +768,19 @@ class MavenCommandHandlerTest {
                       </configuration>
                     </execution>
                   </executions>
+                  <dependencies>
+                    <dependency>
+                      <groupId>io.jsonwebtoken</groupId>
+                      <artifactId>jjwt-jackson</artifactId>
+                      <version>${json-web-token.version}</version>
+                      <exclusions>
+                        <exclusion>
+                          <groupId>com.fasterxml.jackson.core</groupId>
+                          <artifactId>jackson-databind</artifactId>
+                        </exclusion>
+                      </exclusions>
+                    </dependency>
+                  </dependencies>
                   <configuration>
                     <rules>
                       <requireMavenVersion>
@@ -812,7 +830,7 @@ class MavenCommandHandlerTest {
       private void addMavenEnforcerPlugin(Path pom) {
         AddMavenPluginManagement command = AddMavenPluginManagement
           .builder()
-          .plugin(mavenEnforcerPlugin())
+          .plugin(mavenEnforcerPluginManagement())
           .pluginVersion(mavenEnforcerVersion())
           .buildProfile(localMavenProfile())
           .build();
@@ -828,6 +846,52 @@ class MavenCommandHandlerTest {
                   <plugins>
                     <plugin>
                       <artifactId>maven-enforcer-plugin</artifactId>
+                      <version>${maven-enforcer-plugin.version}</version>
+                      <executions>
+                        <execution>
+                          <id>enforce-versions</id>
+                          <goals>
+                            <goal>enforce</goal>
+                          </goals>
+                        </execution>
+                        <execution>
+                          <id>enforce-dependencyConvergence</id>
+                          <goals>
+                            <goal>enforce</goal>
+                          </goals>
+                          <configuration>
+                            <rules>
+                              <DependencyConvergence />
+                            </rules>
+                            <fail>false</fail>
+                          </configuration>
+                        </execution>
+                      </executions>
+                      <dependencies>
+                        <dependency>
+                          <groupId>io.jsonwebtoken</groupId>
+                          <artifactId>jjwt-jackson</artifactId>
+                          <version>${json-web-token.version}</version>
+                          <exclusions>
+                            <exclusion>
+                              <groupId>com.fasterxml.jackson.core</groupId>
+                              <artifactId>jackson-databind</artifactId>
+                            </exclusion>
+                          </exclusions>
+                        </dependency>
+                      </dependencies>
+                      <configuration>
+                        <rules>
+                          <requireMavenVersion>
+                            <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                            <version>[${maven.version},)</version>
+                          </requireMavenVersion>
+                          <requireJavaVersion>
+                            <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+                            <version>[21,22)</version>
+                          </requireJavaVersion>
+                        </rules>
+                      </configuration>
                     </plugin>
                   </plugins>
                 </pluginManagement>
@@ -839,8 +903,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add build plugin")
-  class MavenCommandHandlerAddBuildPluginTest {
+  class HandleAddDirectMavenPlugin {
 
     @Nested
     class WithoutProfile {
@@ -862,6 +925,20 @@ class MavenCommandHandlerTest {
           .handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build());
 
         assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+      }
+
+      @Test
+      void shouldAddPropertyForPluginDependencyVersion() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        AddDirectMavenPlugin command = AddDirectMavenPlugin
+          .builder()
+          .plugin(mavenEnforcerPluginManagement())
+          .addDependencyVersion(new JavaDependencyVersion("json-web-token", "1.1.1"))
+          .build();
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
+
+        assertThat(content(pom)).contains("<json-web-token.version>1.1.1</json-web-token.version>");
       }
 
       @Test
@@ -921,13 +998,60 @@ class MavenCommandHandlerTest {
       }
 
       private void addMavenEnforcerPlugin(Path pom) {
-        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build());
+        new MavenCommandHandler(Indentation.DEFAULT, pom)
+          .handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPluginManagement()).build());
       }
 
       private String plugins() {
         return """
               <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                  <execution>
+                    <id>enforce-versions</id>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                  </execution>
+                  <execution>
+                    <id>enforce-dependencyConvergence</id>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                      <rules>
+                        <DependencyConvergence />
+                      </rules>
+                      <fail>false</fail>
+                    </configuration>
+                  </execution>
+                </executions>
+                <dependencies>
+                  <dependency>
+                    <groupId>io.jsonwebtoken</groupId>
+                    <artifactId>jjwt-jackson</artifactId>
+                    <version>${json-web-token.version}</version>
+                    <exclusions>
+                      <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                      </exclusion>
+                    </exclusions>
+                  </dependency>
+                </dependencies>
+                <configuration>
+                  <rules>
+                    <requireMavenVersion>
+                      <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                      <version>[${maven.version},)</version>
+                    </requireMavenVersion>
+                    <requireJavaVersion>
+                      <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+                      <version>[21,22)</version>
+                    </requireJavaVersion>
+                  </rules>
+                </configuration>
               </plugin>
             </plugins>
         """;
@@ -967,7 +1091,7 @@ class MavenCommandHandlerTest {
           .handle(
             AddDirectMavenPlugin
               .builder()
-              .plugin(mavenEnforcerPlugin())
+              .plugin(mavenEnforcerPluginManagement())
               .pluginVersion(mavenEnforcerVersion())
               .buildProfile(localMavenProfile())
               .build()
@@ -982,6 +1106,52 @@ class MavenCommandHandlerTest {
                 <plugins>
                   <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                    <executions>
+                      <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                          <goal>enforce</goal>
+                        </goals>
+                      </execution>
+                      <execution>
+                        <id>enforce-dependencyConvergence</id>
+                        <goals>
+                          <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                          <rules>
+                            <DependencyConvergence />
+                          </rules>
+                          <fail>false</fail>
+                        </configuration>
+                      </execution>
+                    </executions>
+                    <dependencies>
+                      <dependency>
+                        <groupId>io.jsonwebtoken</groupId>
+                        <artifactId>jjwt-jackson</artifactId>
+                        <version>${json-web-token.version}</version>
+                        <exclusions>
+                          <exclusion>
+                            <groupId>com.fasterxml.jackson.core</groupId>
+                            <artifactId>jackson-databind</artifactId>
+                          </exclusion>
+                        </exclusions>
+                      </dependency>
+                    </dependencies>
+                    <configuration>
+                      <rules>
+                        <requireMavenVersion>
+                          <message>You are running an older version of Maven. JHipster requires at least Maven ${maven.version}</message>
+                          <version>[${maven.version},)</version>
+                        </requireMavenVersion>
+                        <requireJavaVersion>
+                          <message>You are running an incompatible version of Java. JHipster engine supports JDK 21+.</message>
+                          <version>[21,22)</version>
+                        </requireJavaVersion>
+                      </rules>
+                    </configuration>
                   </plugin>
                 </plugins>
               </build>
@@ -992,7 +1162,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  class AddBuildExtension {
+  class HandleAddMavenBuildExtension {
 
     @Test
     void shouldAddBuildExtensionInPomWithoutBuild() {
@@ -1069,7 +1239,7 @@ class MavenCommandHandlerTest {
   }
 
   @Test
-  void addAddGradlePluginShouldNotBeHandled() {
+  void addGradlePluginCommandShouldNotBeHandled() {
     Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
 
     MavenCommandHandler commandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);

@@ -124,11 +124,11 @@ public class JHipsterModulesApplyer {
   }
 
   private JavaBuildCommands buildProfilesChanges(JHipsterModule module) {
-    return module.javaBuildProfiles().buildChanges(javaVersions.get());
+    return module.javaBuildProfiles().buildChanges(javaVersions.get(), projectDependencies.get(module.projectFolder()));
   }
 
   private JavaBuildCommands buildPluginsChanges(JHipsterModule module) {
-    return module.mavenPlugins().buildChanges(javaVersions.get());
+    return module.mavenPlugins().buildChanges(javaVersions.get(), projectDependencies.get(module.projectFolder()));
   }
 
   private JavaBuildCommands buildMavenBuildExtensionsChanges(JHipsterModule module) {

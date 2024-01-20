@@ -9,7 +9,6 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -41,7 +40,6 @@ import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependenc
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPlugin;
@@ -53,6 +51,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase;
@@ -60,7 +59,6 @@ import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginConfiguration;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutionGoal;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutionId;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutions;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -212,7 +210,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddJavaDependencyManagement command) {
     Assert.notNull(COMMAND, command);
 
-    addDependencyTo(command, dependencyManagement().getDependencies());
+    addDependencyTo(command.dependency(), dependencyManagement().getDependencies());
   }
 
   private DependencyManagement dependencyManagement() {
@@ -226,14 +224,14 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddDirectJavaDependency command) {
     Assert.notNull(COMMAND, command);
 
-    addDependencyTo(command, pomModel.getDependencies());
+    addDependencyTo(command.dependency(), pomModel.getDependencies());
   }
 
-  private void addDependencyTo(AddJavaDependency command, List<Dependency> dependencies) {
-    if (command.scope() == JavaDependencyScope.TEST) {
-      dependencies.add(toMavenDependency(command));
+  private void addDependencyTo(JavaDependency dependency, List<Dependency> dependencies) {
+    if (dependency.scope() == JavaDependencyScope.TEST) {
+      dependencies.add(toMavenDependency(dependency));
     } else {
-      Dependency mavenDependency = toMavenDependency(command);
+      Dependency mavenDependency = toMavenDependency(dependency);
       insertDependencyBeforeFirstTestDependency(mavenDependency, dependencies);
     }
 
@@ -252,19 +250,19 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     }
   }
 
-  private Dependency toMavenDependency(AddJavaDependency command) {
+  private Dependency toMavenDependency(JavaDependency javaDependency) {
     Dependency mavenDependency = new Dependency();
-    mavenDependency.setGroupId(command.dependencyId().groupId().get());
-    mavenDependency.setArtifactId(command.dependencyId().artifactId().get());
-    command.version().map(VersionSlug::mavenVariable).ifPresent(mavenDependency::setVersion);
-    command.classifier().map(JavaDependencyClassifier::get).ifPresent(mavenDependency::setClassifier);
-    command.dependencyType().map(type -> Enums.map(type, MavenType.class)).map(MavenType::key).ifPresent(mavenDependency::setType);
-    command.exclusions().stream().map(toMavenExclusion()).forEach(mavenDependency::addExclusion);
+    mavenDependency.setGroupId(javaDependency.id().groupId().get());
+    mavenDependency.setArtifactId(javaDependency.id().artifactId().get());
+    javaDependency.version().map(VersionSlug::mavenVariable).ifPresent(mavenDependency::setVersion);
+    javaDependency.classifier().map(JavaDependencyClassifier::get).ifPresent(mavenDependency::setClassifier);
+    javaDependency.type().map(type -> Enums.map(type, MavenType.class)).map(MavenType::key).ifPresent(mavenDependency::setType);
+    javaDependency.exclusions().stream().map(toMavenExclusion()).forEach(mavenDependency::addExclusion);
 
-    if (command.scope() != JavaDependencyScope.COMPILE) {
-      mavenDependency.setScope(Enums.map(command.scope(), MavenScope.class).key());
+    if (javaDependency.scope() != JavaDependencyScope.COMPILE) {
+      mavenDependency.setScope(Enums.map(javaDependency.scope(), MavenScope.class).key());
     }
-    if (command.optional()) {
+    if (javaDependency.optional()) {
       mavenDependency.setOptional(true);
     }
 
@@ -285,6 +283,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
+    command.dependenciesVersions().forEach(version -> handle(new SetVersion(version)));
 
     PluginManagement pluginManagement = command
       .buildProfile()
@@ -315,6 +314,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
+    command.dependenciesVersions().forEach(version -> handle(new SetVersion(version)));
 
     BuildBase projectBuild = command.buildProfile().map(this::findProfile).map(this::profileBuild).orElse(projectBuild());
     projectBuild.addPlugin(toMavenPlugin(command));
@@ -340,13 +340,8 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     mavenPlugin.setGroupId(command.dependencyId().groupId().get());
     command.versionSlug().map(VersionSlug::mavenVariable).ifPresent(mavenPlugin::setVersion);
     command.configuration().map(toMavenConfiguration()).ifPresent(mavenPlugin::setConfiguration);
-    command
-      .executions()
-      .stream()
-      .map(MavenPluginExecutions::get)
-      .flatMap(Collection::stream)
-      .map(toMavenExecution())
-      .forEach(mavenPlugin::addExecution);
+    command.executions().stream().map(toMavenExecution()).forEach(mavenPlugin::addExecution);
+    command.dependencies().stream().map(this::toMavenDependency).forEach(mavenPlugin::addDependency);
     return mavenPlugin;
   }
 

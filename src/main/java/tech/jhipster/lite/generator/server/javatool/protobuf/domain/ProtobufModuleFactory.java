@@ -93,7 +93,7 @@ public class ProtobufModuleFactory {
   }
 
   private MavenPluginOptionalBuilder protobufMavenPluginBuilder() {
-    return javaBuildPlugin().groupId("org.xolstice.maven.plugins").artifactId("protobuf-maven-plugin");
+    return mavenPlugin().groupId("org.xolstice.maven.plugins").artifactId("protobuf-maven-plugin");
   }
 
   public JHipsterModule buildProtobufBackwardsCompatibilityCheckModule(JHipsterModuleProperties properties) {
@@ -115,6 +115,6 @@ public class ProtobufModuleFactory {
   }
 
   private MavenPluginOptionalBuilder protoBackwardsCompatibilityMavenPluginBuilder() {
-    return javaBuildPlugin().groupId("com.salesforce.servicelibs").artifactId("proto-backwards-compatibility");
+    return mavenPlugin().groupId("com.salesforce.servicelibs").artifactId("proto-backwards-compatibility");
   }
 }

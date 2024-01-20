@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.gradle.infrastructure.primary;
 
 import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JAVA_BUILD_TOOL;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.JAVA_BUILD_TOOL_WRAPPER;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GRADLE_JAVA;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.GRADLE_WRAPPER;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.INIT;
@@ -34,7 +35,7 @@ class GradleModuleConfiguration {
       .slug(GRADLE_WRAPPER)
       .withoutProperties()
       .apiDoc("Build Tool", "Add gradle wrapper")
-      .standalone()
+      .organization(JHipsterModuleOrganization.builder().feature(JAVA_BUILD_TOOL_WRAPPER).addDependency(GRADLE_JAVA).build())
       .tags("buildtool", "test")
       .factory(gradle::buildGradleWrapperModule);
   }

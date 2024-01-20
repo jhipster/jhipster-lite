@@ -3,7 +3,6 @@ package tech.jhipster.lite.module.domain.javabuild.command;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -19,13 +18,13 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
   private final Optional<BuildProfileId> buildProfile;
   private final Collection<JavaDependencyVersion> dependenciesVersions;
 
-  private AddMavenPluginManagement(AddMavenPluginManagementBuilder builder) {
-    Assert.notNull("plugin", builder.plugin);
-    Assert.notNull("dependenciesVersions", builder.dependenciesVersions);
-    this.plugin = builder.plugin;
-    this.dependenciesVersions = builder.dependenciesVersions;
-    this.pluginVersion = Optional.ofNullable(builder.pluginVersion);
-    this.buildProfile = Optional.ofNullable(builder.buildProfile);
+  private AddMavenPluginManagement(AddMavenPluginBuilder<?> builder) {
+    Assert.notNull("plugin", builder.plugin());
+    Assert.notNull("dependenciesVersions", builder.dependenciesVersions());
+    this.plugin = builder.plugin();
+    this.dependenciesVersions = builder.dependenciesVersions();
+    this.pluginVersion = Optional.ofNullable(builder.pluginVersion());
+    this.buildProfile = Optional.ofNullable(builder.buildProfile());
   }
 
   @Override
@@ -46,58 +45,8 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
     return dependenciesVersions;
   }
 
-  public static AddMavenPluginManagementPluginBuilder builder() {
-    return new AddMavenPluginManagementBuilder();
-  }
-
-  private static class AddMavenPluginManagementBuilder
-    implements AddMavenPluginManagementPluginBuilder, AddMavenPluginManagementOptionalBuilder {
-
-    private MavenPlugin plugin;
-    private JavaDependencyVersion pluginVersion;
-    private BuildProfileId buildProfile;
-    private final Collection<JavaDependencyVersion> dependenciesVersions = new HashSet<>();
-
-    private AddMavenPluginManagementBuilder() {}
-
-    @Override
-    public AddMavenPluginManagementBuilder plugin(MavenPlugin plugin) {
-      this.plugin = plugin;
-      return this;
-    }
-
-    @Override
-    public AddMavenPluginManagementOptionalBuilder pluginVersion(JavaDependencyVersion pluginVersion) {
-      this.pluginVersion = pluginVersion;
-      return this;
-    }
-
-    @Override
-    public AddMavenPluginManagementOptionalBuilder buildProfile(BuildProfileId buildProfile) {
-      this.buildProfile = buildProfile;
-      return this;
-    }
-
-    @Override
-    public AddMavenPluginManagementOptionalBuilder addDependencyVersion(JavaDependencyVersion dependencyVersion) {
-      this.dependenciesVersions.add(dependencyVersion);
-      return this;
-    }
-
-    public AddMavenPluginManagement build() {
-      return new AddMavenPluginManagement(this);
-    }
-  }
-
-  public interface AddMavenPluginManagementPluginBuilder {
-    AddMavenPluginManagementOptionalBuilder plugin(MavenPlugin plugin);
-  }
-
-  public interface AddMavenPluginManagementOptionalBuilder {
-    AddMavenPluginManagementOptionalBuilder pluginVersion(JavaDependencyVersion version);
-    AddMavenPluginManagementOptionalBuilder buildProfile(BuildProfileId buildProfile);
-    AddMavenPluginManagementOptionalBuilder addDependencyVersion(JavaDependencyVersion javaDependencyVersion);
-    AddMavenPluginManagement build();
+  public static AddMavenPluginPluginBuilder<AddMavenPluginManagement> builder() {
+    return new AddMavenPluginBuilder<>(AddMavenPluginManagement::new);
   }
 
   @Override

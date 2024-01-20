@@ -6,9 +6,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin.AddDirectMavenPluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement.AddMavenPluginManagementOptionalBuilder;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -67,7 +66,7 @@ public class JHipsterModuleMavenPlugins {
     Optional<BuildProfileId> buildProfile
   ) {
     return plugin -> {
-      AddMavenPluginManagementOptionalBuilder commandBuilder = AddMavenPluginManagement.builder().plugin(plugin);
+      var commandBuilder = AddMavenPluginManagement.builder().plugin(plugin);
       buildProfile.ifPresent(commandBuilder::buildProfile);
       plugin
         .dependencies()
@@ -81,7 +80,7 @@ public class JHipsterModuleMavenPlugins {
         .versionSlug()
         .map(versions::get)
         .map(commandBuilder::pluginVersion)
-        .map(AddMavenPluginManagementOptionalBuilder::build)
+        .map(AddMavenPluginOptionalBuilder::build)
         .orElse(commandBuilder.build());
     };
   }
@@ -92,7 +91,7 @@ public class JHipsterModuleMavenPlugins {
     Optional<BuildProfileId> buildProfile
   ) {
     return plugin -> {
-      AddDirectMavenPluginOptionalBuilder commandBuilder = AddDirectMavenPlugin.builder().plugin(plugin);
+      var commandBuilder = AddDirectMavenPlugin.builder().plugin(plugin);
       buildProfile.ifPresent(commandBuilder::buildProfile);
       plugin
         .dependencies()
@@ -106,7 +105,7 @@ public class JHipsterModuleMavenPlugins {
         .versionSlug()
         .map(versions::get)
         .map(commandBuilder::pluginVersion)
-        .map(AddDirectMavenPluginOptionalBuilder::build)
+        .map(AddMavenPluginOptionalBuilder::build)
         .orElse(commandBuilder.build());
     };
   }

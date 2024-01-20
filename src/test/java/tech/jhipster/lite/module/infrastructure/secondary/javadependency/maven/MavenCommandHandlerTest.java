@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -65,8 +64,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Set dependency version")
-  class MavenCommandHandlerSetVersionTest {
+  class HandleSetVersion {
 
     @Test
     void shouldAddPropertiesToPomWithOnlyRootDefined() {
@@ -115,7 +113,6 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Set build property")
   class HandleSetBuildProperty {
 
     @Nested
@@ -254,7 +251,6 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add build profile")
   class HandleAddJavaBuildProfile {
 
     @Test
@@ -353,8 +349,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Remove dependency management")
-  class MavenCommandHandlerRemoveDependencyManagementTest {
+  class HandleRemoveJavaDependencyManagement {
 
     @Test
     void shouldNotRemoveUnknownDependency() {
@@ -392,8 +387,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add dependency management")
-  class MavenCommandHandlerAddDependencyManagementTest {
+  class HandleAddJavaDependencyManagement {
 
     @Test
     void shouldAddDependencyInPomWithoutDependenciesManagement() {
@@ -468,8 +462,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Remove dependency")
-  class MavenCommandHandlerRemoveDependencyTest {
+  class HandleRemoveDirectJavaDependency {
 
     @Test
     void shouldNotRemoveUnknownDependency() {
@@ -521,8 +514,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add dependency")
-  class MavenCommandHandlerAddDependencyTest {
+  class HandleAddDirectJavaDependency {
 
     @Test
     void shouldAddDependencyInPomWithoutDependencies() {
@@ -653,8 +645,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add build plugin management")
-  class MavenCommandHandlerAddMavenPluginManagementTest {
+  class HandleAddMavenPluginManagement {
 
     @Nested
     class WithoutProfile {
@@ -898,8 +889,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  @DisplayName("Add build plugin")
-  class MavenCommandHandlerAddBuildPluginTest {
+  class HandleAddDirectMavenPlugin {
 
     @Nested
     class WithoutProfile {
@@ -1144,7 +1134,7 @@ class MavenCommandHandlerTest {
   }
 
   @Nested
-  class AddBuildExtension {
+  class HandleAddMavenBuildExtension {
 
     @Test
     void shouldAddBuildExtensionInPomWithoutBuild() {
@@ -1221,7 +1211,7 @@ class MavenCommandHandlerTest {
   }
 
   @Test
-  void addAddGradlePluginShouldNotBeHandled() {
+  void addGradlePluginCommandShouldNotBeHandled() {
     Path pom = projectWithPom("src/test/resources/projects/maven/pom.xml");
 
     MavenCommandHandler commandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);

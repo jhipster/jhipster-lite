@@ -18,3 +18,10 @@ bracketSameLine: false
 
 # xml rules:
 xmlWhitespaceSensitivity: ignore
+
+overrides:
+  - files:
+      - '{src/**/,}tsconfig*.json'
+    options:
+      parser: 'jsonc'
+      trailingComma: none

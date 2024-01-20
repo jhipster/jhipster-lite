@@ -385,6 +385,32 @@ class MavenCommandHandlerTest {
           """
         );
     }
+
+    @Test
+    void shouldRemoveDependencyFromProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootStarterWebDependency(), localMavenProfile()));
+
+      mavenCommandHandler.handle(
+        new RemoveJavaDependencyManagement(
+          DependencyId.of(groupId("org.springframework.boot"), artifactId("spring-boot-starter-web")),
+          localMavenProfile()
+        )
+      );
+
+      assertThat(content(pom))
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+                <dependencyManagement />
+              </profile>
+          """
+        )
+        .doesNotContain("<groupId>org.springframework.boot</groupId>")
+        .doesNotContain("<artifactId>spring-boot-starter-web</artifactId>");
+    }
   }
 
   @Nested

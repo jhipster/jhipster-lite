@@ -155,7 +155,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(RemoveJavaDependencyManagement command) {
     Assert.notNull(COMMAND, command);
 
-    DependencyManagement dependenciesManagement = pomModel.getDependencyManagement();
+    DependencyManagement dependenciesManagement = command
+      .buildProfile()
+      .map(this::findProfile)
+      .map(Profile::getDependencyManagement)
+      .orElse(pomModel.getDependencyManagement());
     if (dependenciesManagement != null) {
       removeDependencyFrom(command.dependency(), dependenciesManagement.getDependencies());
     }

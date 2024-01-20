@@ -37,7 +37,7 @@ class FrontendMavenModuleFactoryTest {
       .build();
 
     when(npmVersions.get("npm", NpmVersionSource.COMMON)).thenReturn(new NpmPackageVersion("4.0.0"));
-    when(npmVersions.get("node", NpmVersionSource.COMMON)).thenReturn(new NpmPackageVersion("16.0.0"));
+    when(npmVersions.getNodeVersion()).thenReturn("16.0.0");
 
     JHipsterModule module = factory.buildModule(properties);
 

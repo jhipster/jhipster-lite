@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.javadependency.Version;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JHipsterModuleProperties {
@@ -14,6 +15,7 @@ public class JHipsterModuleProperties {
   public static final String PROJECT_BASE_NAME_PARAMETER = "baseName";
   public static final String SERVER_PORT_PARAMETER = "serverPort";
   public static final String SERVER_CONFIGURATION_FORMAT = "configurationFormat";
+  public static final String JAVA_VERSION = "javaVersion";
 
   private final JHipsterProjectFolder projectFolder;
   private final boolean commitModule;
@@ -25,6 +27,7 @@ public class JHipsterModuleProperties {
   private final JHipsterProjectBaseName projectBaseName;
   private final JHipsterServerPort serverPort;
   private final SpringConfigurationFormat configurationFormat;
+  private final Version javaVersion = new Version("21");
 
   public JHipsterModuleProperties(String projectFolder, boolean commitModule, Map<String, Object> parameters) {
     this.projectFolder = new JHipsterProjectFolder(projectFolder);
@@ -45,6 +48,10 @@ public class JHipsterModuleProperties {
 
   public boolean commitNeeded() {
     return commitModule;
+  }
+
+  public Version getJavaVersion() {
+    return javaVersion;
   }
 
   public String getString(String key) {

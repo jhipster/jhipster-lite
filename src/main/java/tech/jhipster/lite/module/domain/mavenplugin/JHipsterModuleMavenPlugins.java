@@ -16,6 +16,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -76,10 +77,7 @@ public class JHipsterModuleMavenPlugins {
       plugin
         .dependencies()
         .stream()
-        .map(JavaDependency::version)
-        .flatMap(Optional::stream)
-        .map(JavaDependency.toVersion(versions, projectDependencies))
-        .flatMap(Optional::stream)
+        .flatMap(toDependencyVersion(versions, projectDependencies))
         .forEach(commandBuilder::addDependencyVersion);
       return plugin
         .versionSlug()
@@ -88,6 +86,13 @@ public class JHipsterModuleMavenPlugins {
         .map(AddMavenPluginOptionalBuilder::build)
         .orElse(commandBuilder.build());
     };
+  }
+
+  private static Function<JavaDependency, Stream<JavaDependencyVersion>> toDependencyVersion(
+    JavaDependenciesVersions versions,
+    ProjectJavaDependencies projectDependencies
+  ) {
+    return dependency -> dependency.version().flatMap(JavaDependency.toVersion(versions, projectDependencies)).stream();
   }
 
   public static class JHipsterModuleMavenPluginsBuilder<T> {

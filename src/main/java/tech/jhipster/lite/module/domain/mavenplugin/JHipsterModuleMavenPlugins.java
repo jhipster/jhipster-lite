@@ -79,12 +79,8 @@ public class JHipsterModuleMavenPlugins {
         .stream()
         .flatMap(toDependencyVersion(versions, projectDependencies))
         .forEach(commandBuilder::addDependencyVersion);
-      return plugin
-        .versionSlug()
-        .map(versions::get)
-        .map(commandBuilder::pluginVersion)
-        .map(AddMavenPluginOptionalBuilder::build)
-        .orElse(commandBuilder.build());
+      plugin.versionSlug().map(versions::get).ifPresent(commandBuilder::pluginVersion);
+      return commandBuilder.build();
     };
   }
 

@@ -224,7 +224,12 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddDirectJavaDependency command) {
     Assert.notNull(COMMAND, command);
 
-    addDependencyTo(command.dependency(), pomModel.getDependencies());
+    List<Dependency> dependencies = command
+      .buildProfile()
+      .map(this::findProfile)
+      .map(Profile::getDependencies)
+      .orElse(pomModel.getDependencies());
+    addDependencyTo(command.dependency(), dependencies);
   }
 
   private void addDependencyTo(JavaDependency dependency, List<Dependency> dependencies) {

@@ -3,7 +3,6 @@ package {{packageName}}.cucumber.rest;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 class HeaderAssertions {
 
@@ -31,6 +30,6 @@ class HeaderAssertions {
   }
 
   private String displayValues(List<String> values) {
-    return values.stream().collect(Collectors.joining(", "));
+    return String.join(", ", values);
   }
 }

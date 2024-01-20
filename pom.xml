@@ -301,6 +301,11 @@
             <exclude>**/*IT*</exclude>
             <exclude>**/*CucumberTest*</exclude>
           </excludes>
+          <!--          <systemPropertyVariables>-->
+          <!--            <junit.platform.listeners.uid.tracking.output.dir>-->
+          <!--              ${junit.platform.listeners.uid.tracking.output.dir}-->
+          <!--            </junit.platform.listeners.uid.tracking.output.dir>-->
+          <!--          </systemPropertyVariables>-->
         </configuration>
       </plugin>
 
@@ -708,6 +713,11 @@
           <configuration>
             <gradleEnterprise>
               <normalization>
+                <systemProperties>
+                  <ignoredKeys>
+                    <ignore>junit.platform.listeners.uid.tracking.output.dir</ignore>
+                  </ignoredKeys>
+                </systemProperties>
                 <runtimeClassPath>
                   <propertiesNormalizations>
                     <propertiesNormalization>
@@ -719,19 +729,20 @@
                   </propertiesNormalizations>
                 </runtimeClassPath>
               </normalization>
-              <plugins>
-                <plugin>
-                  <artifactId>maven-surefire-plugin</artifactId>
-                  <outputs>
-                    <directories>
-                      <directory>
-                        <name>target/test-ids</name>
-                      </directory>
-                    </directories>
-                    <cacheableBecause>same content if nothing has changed</cacheableBecause>
-                  </outputs>
-                </plugin>
-              </plugins>
+              <!--              <plugins>-->
+              <!--                <plugin>-->
+              <!--                  <groupId>org.apache.maven.plugins</groupId>-->
+              <!--                  <artifactId>maven-surefire-plugin</artifactId>-->
+              <!--                  <outputs>-->
+              <!--                    <directories>-->
+              <!--                      <directory>-->
+              <!--                        <name>test-ids</name>-->
+              <!--                        <path>${junit.platform.listeners.uid.tracking.output.dir}</path>-->
+              <!--                      </directory>-->
+              <!--                    </directories>-->
+              <!--                  </outputs>-->
+              <!--                </plugin>-->
+              <!--              </plugins>-->
             </gradleEnterprise>
           </configuration>
         </plugin>

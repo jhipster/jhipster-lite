@@ -3,7 +3,7 @@
     <url>https://ge.jhipster.tech</url>
   </server>
   <buildScan>
-    <capture>                                         
+    <capture>
       <goalInputFiles>true</goalInputFiles>
     </capture>
     <publish>ALWAYS</publish>
@@ -15,7 +15,7 @@
   </buildScan>
     <buildCache>
     <local>
-      <enabled>false</enabled>
+      <enabled>true</enabled>
     </local>
     <remote>
       <enabled>false</enabled>

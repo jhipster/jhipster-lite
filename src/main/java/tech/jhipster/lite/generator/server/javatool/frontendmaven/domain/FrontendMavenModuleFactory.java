@@ -38,7 +38,7 @@ public class FrontendMavenModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaDependencies()
-        .setVersion(javaDependencyVersion("node", "v" + npmVersions.get("node", NpmVersionSource.COMMON).get()))
+        .setVersion(javaDependencyVersion("node", "v" + npmVersions.getNodeVersion()))
         .setVersion(javaDependencyVersion("npm", npmVersions.get("npm", NpmVersionSource.COMMON).get()))
         .and()
       .mavenPlugins()

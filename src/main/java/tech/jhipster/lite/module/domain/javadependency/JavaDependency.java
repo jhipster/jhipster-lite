@@ -53,7 +53,7 @@ public class JavaDependency {
     return version().flatMap(toVersion(currentVersions, projectDependencies)).map(toSetVersionCommand()).map(List::of).orElse(List.of());
   }
 
-  private Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
+  public static Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
     JavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies
   ) {
@@ -64,7 +64,7 @@ public class JavaDependency {
     };
   }
 
-  private Function<JavaDependencyVersion, Optional<JavaDependencyVersion>> toVersionToUse(JavaDependencyVersion currentVersion) {
+  private static Function<JavaDependencyVersion, Optional<JavaDependencyVersion>> toVersionToUse(JavaDependencyVersion currentVersion) {
     return version -> {
       if (version.equals(currentVersion)) {
         return Optional.empty();

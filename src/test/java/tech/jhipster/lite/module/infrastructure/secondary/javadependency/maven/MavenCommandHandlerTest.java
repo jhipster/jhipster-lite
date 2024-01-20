@@ -682,6 +682,20 @@ class MavenCommandHandlerTest {
       }
 
       @Test
+      void shouldAddPropertyForPluginDependencyVersion() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        AddMavenPluginManagement command = AddMavenPluginManagement
+          .builder()
+          .plugin(mavenEnforcerPluginManagement())
+          .addDependencyVersion(new JavaDependencyVersion("json-web-token", "1.1.1"))
+          .build();
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
+
+        assertThat(content(pom)).contains("<json-web-token.version>1.1.1</json-web-token.version>");
+      }
+
+      @Test
       void shouldAddBuildPluginManagementToPomWithoutPluginManagement() {
         Path pom = projectWithPom("src/test/resources/projects/maven-empty-build/pom.xml");
 
@@ -758,7 +772,7 @@ class MavenCommandHandlerTest {
                     <dependency>
                       <groupId>io.jsonwebtoken</groupId>
                       <artifactId>jjwt-jackson</artifactId>
-                      <version>${jjwt-jackson.version}</version>
+                      <version>${json-web-token.version}</version>
                       <exclusions>
                         <exclusion>
                           <groupId>com.fasterxml.jackson.core</groupId>
@@ -857,7 +871,7 @@ class MavenCommandHandlerTest {
                         <dependency>
                           <groupId>io.jsonwebtoken</groupId>
                           <artifactId>jjwt-jackson</artifactId>
-                          <version>${jjwt-jackson.version}</version>
+                          <version>${json-web-token.version}</version>
                           <exclusions>
                             <exclusion>
                               <groupId>com.fasterxml.jackson.core</groupId>
@@ -911,6 +925,20 @@ class MavenCommandHandlerTest {
           .handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build());
 
         assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+      }
+
+      @Test
+      void shouldAddPropertyForPluginDependencyVersion() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+
+        AddDirectMavenPlugin command = AddDirectMavenPlugin
+          .builder()
+          .plugin(mavenEnforcerPluginManagement())
+          .addDependencyVersion(new JavaDependencyVersion("json-web-token", "1.1.1"))
+          .build();
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
+
+        assertThat(content(pom)).contains("<json-web-token.version>1.1.1</json-web-token.version>");
       }
 
       @Test
@@ -1003,7 +1031,7 @@ class MavenCommandHandlerTest {
                   <dependency>
                     <groupId>io.jsonwebtoken</groupId>
                     <artifactId>jjwt-jackson</artifactId>
-                    <version>${jjwt-jackson.version}</version>
+                    <version>${json-web-token.version}</version>
                     <exclusions>
                       <exclusion>
                         <groupId>com.fasterxml.jackson.core</groupId>
@@ -1103,7 +1131,7 @@ class MavenCommandHandlerTest {
                       <dependency>
                         <groupId>io.jsonwebtoken</groupId>
                         <artifactId>jjwt-jackson</artifactId>
-                        <version>${jjwt-jackson.version}</version>
+                        <version>${json-web-token.version}</version>
                         <exclusions>
                           <exclusion>
                             <groupId>com.fasterxml.jackson.core</groupId>

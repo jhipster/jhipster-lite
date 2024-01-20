@@ -122,6 +122,7 @@ class FileSystemJHipsterModulesRepositoryTest {
           """
       )
       .containing("<maven-enforcer-plugin.version>")
+      .containing("<json-web-token.version>")
       .containing(
         """
               <build>
@@ -169,7 +170,7 @@ class FileSystemJHipsterModulesRepositoryTest {
                         <dependency>
                           <groupId>io.jsonwebtoken</groupId>
                           <artifactId>jjwt-jackson</artifactId>
-                          <version>${jjwt-jackson.version}</version>
+                          <version>${json-web-token.version}</version>
                           <exclusions>
                             <exclusion>
                               <groupId>com.fasterxml.jackson.core</groupId>
@@ -241,7 +242,7 @@ class FileSystemJHipsterModulesRepositoryTest {
                             <dependency>
                               <groupId>io.jsonwebtoken</groupId>
                               <artifactId>jjwt-jackson</artifactId>
-                              <version>${jjwt-jackson.version}</version>
+                              <version>${json-web-token.version}</version>
                               <exclusions>
                                 <exclusion>
                                   <groupId>com.fasterxml.jackson.core</groupId>

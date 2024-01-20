@@ -13,6 +13,8 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JHipsterModuleMavenPlugins {
@@ -29,31 +31,52 @@ public class JHipsterModuleMavenPlugins {
     return new JHipsterModuleMavenPluginsBuilder<>(parentModuleBuilder);
   }
 
-  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
-    return buildChanges(versions, Optional.empty());
+  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions, ProjectJavaDependencies projectJavaDependencies) {
+    return buildChanges(versions, projectJavaDependencies, Optional.empty());
   }
 
-  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions, BuildProfileId buildProfile) {
+  public JavaBuildCommands buildChanges(
+    JavaDependenciesVersions versions,
+    ProjectJavaDependencies projectJavaDependencies,
+    BuildProfileId buildProfile
+  ) {
     Assert.notNull("buildProfile", buildProfile);
-    return buildChanges(versions, Optional.of(buildProfile));
+    return buildChanges(versions, projectJavaDependencies, Optional.of(buildProfile));
   }
 
-  private JavaBuildCommands buildChanges(JavaDependenciesVersions versions, Optional<BuildProfileId> buildProfile) {
+  private JavaBuildCommands buildChanges(
+    JavaDependenciesVersions versions,
+    ProjectJavaDependencies projectJavaDependencies,
+    Optional<BuildProfileId> buildProfile
+  ) {
     Assert.notNull("versions", versions);
 
-    Stream<JavaBuildCommand> managementCommands = pluginsManagement.stream().map(toAddMavenPluginManagement(versions, buildProfile));
-    Stream<JavaBuildCommand> pluginsCommands = plugins.stream().map(toAddDirectMavenPlugin(versions, buildProfile));
+    Stream<JavaBuildCommand> managementCommands = pluginsManagement
+      .stream()
+      .map(toAddMavenPluginManagement(versions, projectJavaDependencies, buildProfile));
+    Stream<JavaBuildCommand> pluginsCommands = plugins
+      .stream()
+      .map(toAddDirectMavenPlugin(versions, projectJavaDependencies, buildProfile));
 
     return new JavaBuildCommands(Stream.concat(managementCommands, pluginsCommands).toList());
   }
 
   private static Function<MavenPlugin, AddMavenPluginManagement> toAddMavenPluginManagement(
     JavaDependenciesVersions versions,
+    ProjectJavaDependencies projectDependencies,
     Optional<BuildProfileId> buildProfile
   ) {
     return plugin -> {
       AddMavenPluginManagementOptionalBuilder commandBuilder = AddMavenPluginManagement.builder().plugin(plugin);
       buildProfile.ifPresent(commandBuilder::buildProfile);
+      plugin
+        .dependencies()
+        .stream()
+        .map(JavaDependency::version)
+        .flatMap(Optional::stream)
+        .map(JavaDependency.toVersion(versions, projectDependencies))
+        .flatMap(Optional::stream)
+        .forEach(commandBuilder::addDependencyVersion);
       return plugin
         .versionSlug()
         .map(versions::get)
@@ -65,11 +88,20 @@ public class JHipsterModuleMavenPlugins {
 
   private static Function<MavenPlugin, AddDirectMavenPlugin> toAddDirectMavenPlugin(
     JavaDependenciesVersions versions,
+    ProjectJavaDependencies projectDependencies,
     Optional<BuildProfileId> buildProfile
   ) {
     return plugin -> {
       AddDirectMavenPluginOptionalBuilder commandBuilder = AddDirectMavenPlugin.builder().plugin(plugin);
       buildProfile.ifPresent(commandBuilder::buildProfile);
+      plugin
+        .dependencies()
+        .stream()
+        .map(JavaDependency::version)
+        .flatMap(Optional::stream)
+        .map(JavaDependency.toVersion(versions, projectDependencies))
+        .flatMap(Optional::stream)
+        .forEach(commandBuilder::addDependencyVersion);
       return plugin
         .versionSlug()
         .map(versions::get)

@@ -8,6 +8,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 
 @UnitTest
 class JHipsterModuleMavenPluginsTest {
@@ -18,12 +19,17 @@ class JHipsterModuleMavenPluginsTest {
       .builder(emptyModuleBuilder())
       .pluginManagement(mavenEnforcerPluginManagement())
       .build()
-      .buildChanges(currentJavaDependenciesVersion());
+      .buildChanges(currentJavaDependenciesVersion(), ProjectJavaDependencies.EMPTY);
 
     assertThat(changes.get())
       .usingRecursiveFieldByFieldElementComparator()
       .containsExactly(
-        AddMavenPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).pluginVersion(mavenEnforcerVersion()).build()
+        AddMavenPluginManagement
+          .builder()
+          .plugin(mavenEnforcerPluginManagement())
+          .pluginVersion(mavenEnforcerVersion())
+          .addDependencyVersion(jsonWebTokenVersion())
+          .build()
       );
   }
 
@@ -31,12 +37,19 @@ class JHipsterModuleMavenPluginsTest {
   void shouldAddNewDependency() {
     JavaBuildCommands changes = JHipsterModuleMavenPlugins
       .builder(emptyModuleBuilder())
-      .plugin(mavenEnforcerPlugin())
+      .plugin(mavenEnforcerPluginManagement())
       .build()
-      .buildChanges(currentJavaDependenciesVersion());
+      .buildChanges(currentJavaDependenciesVersion(), ProjectJavaDependencies.EMPTY);
 
     assertThat(changes.get())
       .usingRecursiveFieldByFieldElementComparator()
-      .containsExactly(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build());
+      .containsExactly(
+        AddDirectMavenPlugin
+          .builder()
+          .plugin(mavenEnforcerPluginManagement())
+          .pluginVersion(mavenEnforcerVersion())
+          .addDependencyVersion(jsonWebTokenVersion())
+          .build()
+      );
   }
 }

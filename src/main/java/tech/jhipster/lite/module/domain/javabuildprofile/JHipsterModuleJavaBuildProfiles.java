@@ -13,6 +13,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfile.JHipsterModuleJavaBuildProfileBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
+import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JHipsterModuleJavaBuildProfiles {
@@ -27,10 +28,10 @@ public class JHipsterModuleJavaBuildProfiles {
     return new JHipsterModuleJavaBuildProfilesBuilder(module);
   }
 
-  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
+  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions, ProjectJavaDependencies projectJavaDependencies) {
     Stream<JavaBuildCommand> addProfileCommands = profiles.stream().map(toAddProfileCommands());
     Stream<JavaBuildCommand> addPropertyCommands = profiles.stream().flatMap(toAddPropertyCommands());
-    Stream<JavaBuildCommand> mavenPluginCommands = profiles.stream().flatMap(toMavenPluginCommands(versions));
+    Stream<JavaBuildCommand> mavenPluginCommands = profiles.stream().flatMap(toMavenPluginCommands(versions, projectJavaDependencies));
 
     Collection<JavaBuildCommand> commands = Stream
       .of(addProfileCommands, addPropertyCommands, mavenPluginCommands)
@@ -53,8 +54,11 @@ public class JHipsterModuleJavaBuildProfiles {
         .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue()), profile.id()));
   }
 
-  private Function<JHipsterModuleJavaBuildProfile, Stream<JavaBuildCommand>> toMavenPluginCommands(JavaDependenciesVersions versions) {
-    return profile -> profile.mavenPlugins().buildChanges(versions, profile.id()).commands().stream();
+  private Function<JHipsterModuleJavaBuildProfile, Stream<JavaBuildCommand>> toMavenPluginCommands(
+    JavaDependenciesVersions versions,
+    ProjectJavaDependencies projectJavaDependencies
+  ) {
+    return profile -> profile.mavenPlugins().buildChanges(versions, projectJavaDependencies, profile.id()).commands().stream();
   }
 
   public static class JHipsterModuleJavaBuildProfilesBuilder {

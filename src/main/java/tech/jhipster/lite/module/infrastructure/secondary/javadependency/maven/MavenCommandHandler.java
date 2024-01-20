@@ -283,6 +283,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
+    command.dependenciesVersions().forEach(version -> handle(new SetVersion(version)));
 
     PluginManagement pluginManagement = command
       .buildProfile()
@@ -313,6 +314,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
+    command.dependenciesVersions().forEach(version -> handle(new SetVersion(version)));
 
     BuildBase projectBuild = command.buildProfile().map(this::findProfile).map(this::profileBuild).orElse(projectBuild());
     projectBuild.addPlugin(toMavenPlugin(command));

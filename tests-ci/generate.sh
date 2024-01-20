@@ -64,6 +64,8 @@ spring_boot() {
   "github-actions" \
   "java-base" \
   "checkstyle" \
+  "protobuf" \
+  "protobuf-backwards-compatibility-check" \
   "jacoco-check-min-coverage" \
   "spring-boot" \
   "logs-spy"
@@ -131,6 +133,7 @@ elif [[ $application == 'gradleapp' ]]; then
     "java-memoizers" \
     "java-enums" \
     "jib" \
+    "protobuf" \
     "pagination-domain" \
     "spring-boot" \
     "logs-spy" \

@@ -2,7 +2,8 @@
 
   <h3>Properties</h3>
 
-  <table *ngIf="healthDetails" mat-table [dataSource]="healthDetails.details | keyvalue" class="mat-elevation-z8" aria-describedby="Health modal table">
+@if (healthDetails) {
+  <table mat-table [dataSource]="healthDetails.details | keyvalue" class="mat-elevation-z8" aria-describedby="Health modal table">
 
     <ng-container matColumnDef="key">
       <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -17,6 +18,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+}
 
 </mat-dialog-content>
 

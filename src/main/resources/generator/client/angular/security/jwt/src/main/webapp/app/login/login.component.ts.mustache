@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AccountService } from '../auth/account.service';
@@ -20,7 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 export default class LoginComponent implements OnInit {
   private readonly destroy$ = new Subject<void>();
 
-  account: Account | null = null;
+  account = signal<Account | null>(null);
 
   loginForm: FormGroup;
 
@@ -44,7 +44,7 @@ export default class LoginComponent implements OnInit {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(account => (this.account = account));
+      .subscribe(account => (this.account.set(account)));
   }
 
   login(): void {

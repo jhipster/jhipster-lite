@@ -730,12 +730,16 @@
                   <artifactId>frontend-maven-plugin</artifactId>
                   <execution>
                     <executions>
-                      <id>build front</id>
-                      <cacheableBecause>just need to build in case source or deps have changed</cacheableBecause>
+                      <execution>
+                        <id>build front</id>
+                        <cacheableBecause>just need to build in case source or deps have changed</cacheableBecause>
+                      </execution>
                     </executions>
                     <executions>
-                      <id>front test</id>
-                      <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
+                      <execution>
+                        <id>front test</id>
+                        <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
+                      </execution>
                     </executions>
                   </execution>
                 </plugin>

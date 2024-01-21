@@ -728,20 +728,27 @@
                 <plugin>
                   <groupId>com.github.eirslett</groupId>
                   <artifactId>frontend-maven-plugin</artifactId>
-                  <execution>
-                    <executions>
-                      <execution>
-                        <id>build front</id>
+                  <executions>
+                    <execution>
+                      <id>npm install</id>
+                      <inputs />
+                      <outputs>
                         <cacheableBecause>just need to build in case source or deps have changed</cacheableBecause>
-                      </execution>
-                    </executions>
-                    <executions>
-                      <execution>
-                        <id>front test</id>
+                      </outputs>
+                    </execution>
+                    <execution>
+                      <id>build front</id>
+                      <outputs>
+                        <cacheableBecause>just need to build in case source or deps have changed</cacheableBecause>
+                      </outputs>
+                    </execution>
+                    <execution>
+                      <id>front test</id>
+                      <outputs>
                         <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
-                      </execution>
-                    </executions>
-                  </execution>
+                      </outputs>
+                    </execution>
+                  </executions>
                 </plugin>
                 <plugin>
                   <groupId>org.apache.maven.plugins</groupId>

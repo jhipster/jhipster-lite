@@ -731,19 +731,173 @@
                   <executions>
                     <execution>
                       <id>npm install</id>
-                      <inputs />
+                      <inputs>
+                        <properties>
+                          <property>
+                            <name>arguments</name>
+                          </property>
+                          <property>
+                            <name>environmentVariables</name>
+                          </property>
+                          <property>
+                            <name>npmInheritsProxyConfigFromMaven</name>
+                          </property>
+                          <property>
+                            <name>npmRegistryURL</name>
+                          </property>
+                          <property>
+                            <name>skip</name>
+                          </property>
+                          <property>
+                            <name>testFailureIgnore</name>
+                          </property>
+                          <property>
+                            <name>installDirectory</name>
+                          </property>
+                        </properties>
+                        <ignoredProperties>
+                          <ignore>execution</ignore>
+                          <ignore>project</ignore>
+                          <ignore>repositorySystemSession</ignore>
+                          <ignore>workingDirectory</ignore>
+                          <ignore>skipTests</ignore>
+                          <ignore>session</ignore>
+                        </ignoredProperties>
+                        <fileSets>
+                          <fileSet>
+                            <name>package-json</name>
+                            <paths>
+                              <path>${project.basedir}/package.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>package-lock</name>
+                            <paths>
+                              <path>${project.basedir}/package-lock.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                        </fileSets>
+                      </inputs>
                       <outputs>
+                        <directories>
+                          <directory>
+                            <name>node_modules</name>
+                            <path>node_modules</path>
+                          </directory>
+                        </directories>
                         <cacheableBecause>just need to build in case source or deps have changed</cacheableBecause>
                       </outputs>
                     </execution>
                     <execution>
                       <id>build front</id>
+                      <inputs>
+                        <properties>
+                          <property>
+                            <name>arguments</name>
+                          </property>
+                          <property>
+                            <name>environmentVariables</name>
+                          </property>
+                          <property>
+                            <name>npmInheritsProxyConfigFromMaven</name>
+                          </property>
+                          <property>
+                            <name>npmRegistryURL</name>
+                          </property>
+                          <property>
+                            <name>skip</name>
+                          </property>
+                          <property>
+                            <name>testFailureIgnore</name>
+                          </property>
+                          <property>
+                            <name>installDirectory</name>
+                          </property>
+                        </properties>
+                        <ignoredProperties>
+                          <ignore>execution</ignore>
+                          <ignore>project</ignore>
+                          <ignore>repositorySystemSession</ignore>
+                          <ignore>workingDirectory</ignore>
+                          <ignore>skipTests</ignore>
+                          <ignore>session</ignore>
+                        </ignoredProperties>
+                        <fileSets>
+                          <fileSet>
+                            <name>sources</name>
+                            <paths>
+                              <path>${project.basedir}/src/main/webapp</path>
+                            </paths>
+                            <includes>
+                              <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                        </fileSets>
+                      </inputs>
                       <outputs>
                         <cacheableBecause>just need to build in case source or deps have changed</cacheableBecause>
                       </outputs>
                     </execution>
                     <execution>
                       <id>front test</id>
+                      <inputs>
+                        <properties>
+                          <property>
+                            <name>arguments</name>
+                          </property>
+                          <property>
+                            <name>environmentVariables</name>
+                          </property>
+                          <property>
+                            <name>npmInheritsProxyConfigFromMaven</name>
+                          </property>
+                          <property>
+                            <name>npmRegistryURL</name>
+                          </property>
+                          <property>
+                            <name>skip</name>
+                          </property>
+                          <property>
+                            <name>testFailureIgnore</name>
+                          </property>
+                          <property>
+                            <name>installDirectory</name>
+                          </property>
+                        </properties>
+                        <ignoredProperties>
+                          <ignore>execution</ignore>
+                          <ignore>project</ignore>
+                          <ignore>repositorySystemSession</ignore>
+                          <ignore>workingDirectory</ignore>
+                          <ignore>skipTests</ignore>
+                          <ignore>session</ignore>
+                        </ignoredProperties>
+                        <fileSets>
+                          <fileset>
+                            <name>sources</name>
+                            <paths>
+                              <path>${project.basedir}/src/main/webapp</path>
+                            </paths>
+                            <includes>
+                              <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileset>
+                          <fileSet>
+                            <name>test-sources</name>
+                            <paths>
+                              <path>${project.basedir}/src/main/test/javascript</path>
+                            </paths>
+                            <includes>
+                              <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                        </fileSets>
+                      </inputs>
                       <outputs>
                         <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
                       </outputs>
@@ -756,22 +910,12 @@
                   <executions>
                     <execution>
                       <id>default-compile</id>
-                      <inputs>
-                        <ignoredProperties>
-                          <ignore>outputTimestamp</ignore>
-                        </ignoredProperties>
-                      </inputs>
                       <outputs>
                         <cacheableBecause>compilation outcome does not not change with property</cacheableBecause>
                       </outputs>
                     </execution>
                     <execution>
                       <id>default-testCompile</id>
-                      <inputs>
-                        <ignoredProperties>
-                          <ignore>outputTimestamp</ignore>
-                        </ignoredProperties>
-                      </inputs>
                       <outputs>
                         <cacheableBecause>compilation outcome does not not change with property</cacheableBecause>
                       </outputs>

@@ -212,10 +212,7 @@ class MavenModuleFactoryTest {
         """
       )
       .and()
-      .hasExecutableFiles("mvnw", "mvnw.cmd")
-      .hasPrefixedFiles(".mvn/wrapper", "maven-wrapper.jar", "maven-wrapper.properties")
       .hasFile("README.md")
-      .containing("./mvnw")
       .containing(
         """
         ### Java
@@ -253,8 +250,10 @@ class MavenModuleFactoryTest {
 
     JHipsterModule module = factory.buildMavenWrapperModule(properties);
 
-    assertThatModuleWithFiles(module)
+    assertThatModuleWithFiles(module, readmeFile())
       .hasExecutableFiles("mvnw", "mvnw.cmd")
-      .hasPrefixedFiles(".mvn/wrapper", "maven-wrapper.jar", "maven-wrapper.properties");
+      .hasPrefixedFiles(".mvn/wrapper", "maven-wrapper.jar", "maven-wrapper.properties")
+      .hasFile("README.md")
+      .containing("./mvnw");
   }
 }

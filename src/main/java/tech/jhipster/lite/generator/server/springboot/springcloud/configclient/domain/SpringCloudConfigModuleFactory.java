@@ -6,6 +6,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.generator.base64.domain.Base64Utils;
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties.JHipsterModuleSpringPropertiesBuilder;
@@ -14,6 +15,8 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class SpringCloudConfigModuleFactory {
+
+  private static final String JWT_BASE_64_SECRET = "jwtBase64Secret";
 
   private static final JHipsterSource SOURCE = from("server/springboot/springcloud/configclient");
 
@@ -52,11 +55,13 @@ public class SpringCloudConfigModuleFactory {
   }
 
   private JHipsterModuleBuilder initBuilder(JHipsterModuleProperties properties) {
+    String jwtBase64secret = properties.getOrDefaultString(JWT_BASE_64_SECRET, Base64Utils.getBase64Secret());
+
     //@formatter:off
     return moduleBuilder(properties)
       .context()
         .put("jhipsterRegistryDockerImage", dockerImages.get("jhipster/jhipster-registry").fullName())
-        .put("base64JwtSecret", Base64Utils.getBase64Secret())
+        .put("base64JwtSecret", jwtBase64secret)
         .and()
       .javaDependencies()
         .addDependencyManagement(springCloudDependenciesManagement())

@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -43,10 +44,7 @@ class GradleModuleFactoryTest {
       .containing("[libraries.junit-engine]")
       .containing("[libraries.junit-params]")
       .containing("[libraries.assertj]")
-      .containing("[libraries.mockito]")
-      .and()
-      .hasExecutableFiles("gradlew", "gradlew.bat")
-      .hasPrefixedFiles("gradle/wrapper", "gradle-wrapper.jar", "gradle-wrapper.properties");
+      .containing("[libraries.mockito]");
   }
 
   @Test
@@ -57,7 +55,6 @@ class GradleModuleFactoryTest {
 
     assertThatModuleWithFiles(module)
       .hasExecutableFiles("gradlew", "gradlew.bat")
-      .hasPrefixedFiles("gradle/wrapper", "gradle-wrapper.jar", "gradle-wrapper.properties")
-      .doNotHaveFiles("build.gradle.kts", "settings.gradle.kts", "gradle/libs.versions.toml");
+      .hasPrefixedFiles("gradle/wrapper", "gradle-wrapper.jar", "gradle-wrapper.properties");
   }
 }

@@ -34,12 +34,13 @@ public class MavenModuleFactory {
     - [JDK 21](https://openjdk.java.net/projects/jdk/21/)""";
 
   public JHipsterModule buildMavenModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
     //@formatter:off
-    return mavenWrapperModulesFiles(properties)
+    return moduleBuilder(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
         .and()
-      .startupCommand("./mvnw")
       .prerequisites(JAVA_PREREQUISITES)
       .files()
         .add(SOURCE.template("pom.xml"), to("pom.xml"))
@@ -100,22 +101,20 @@ public class MavenModuleFactory {
   }
 
   public JHipsterModule buildMavenWrapperModule(JHipsterModuleProperties properties) {
-    return mavenWrapperModulesFiles(properties).build();
-  }
-
-  private JHipsterModuleBuilder mavenWrapperModulesFiles(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     //@formatter:off
     return moduleBuilder(properties)
+      .startupCommand("./mvnw")
       .files()
         .addExecutable(SOURCE.file("mvnw"), to("mvnw"))
         .addExecutable(SOURCE.file("mvnw.cmd"), to("mvnw.cmd"))
         .batch(SOURCE.append(".mvn/wrapper"), to(".mvn/wrapper"))
-        .addFile("maven-wrapper.jar")
-        .addFile("maven-wrapper.properties")
+          .addFile("maven-wrapper.jar")
+          .addFile("maven-wrapper.properties")
+          .and()
         .and()
-      .and();
+      .build();
     //@formatter:on
   }
 

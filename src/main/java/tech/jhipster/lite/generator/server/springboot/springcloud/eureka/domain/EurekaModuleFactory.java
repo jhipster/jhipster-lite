@@ -14,6 +14,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class EurekaModuleFactory {
 
+  private static final String JWT_BASE_64_SECRET = "jwtBase64Secret";
   private static final PropertyValue TRUE_VALUE = propertyValue(true);
   private static final PropertyValue FALSE_VALUE = propertyValue(false);
   private static final JHipsterSource SPRING_CLOUD_SOURCE = from("server/springboot/springcloud/configclient");
@@ -28,6 +29,7 @@ public class EurekaModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
+    String jwtBase64secret = properties.getOrDefaultString(JWT_BASE_64_SECRET, Base64Utils.getBase64Secret());
     String baseName = properties.projectBaseName().get();
     String lowerCaseBaseName = baseName.toLowerCase();
 
@@ -35,7 +37,7 @@ public class EurekaModuleFactory {
     return moduleBuilder(properties)
       .context()
         .put("jhipsterRegistryDockerImage", dockerImages.get("jhipster/jhipster-registry").fullName())
-        .put("base64JwtSecret", Base64Utils.getBase64Secret())
+        .put("base64JwtSecret", jwtBase64secret)
         .and()
       .javaDependencies()
         .addDependencyManagement(springCloudDependenciesManagement())

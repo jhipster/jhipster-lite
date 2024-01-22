@@ -4,6 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.generator.base64.domain.Base64Utils;
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
@@ -20,6 +21,7 @@ public class ConsulModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/springcloud/consul");
 
+  private static final String JWT_BASE_64_SECRET = "jwtBase64Secret";
   private static final GroupId SPRING_CLOUD_GROUP_ID = groupId("org.springframework.cloud");
   private static final PropertyValue FALSE_VALUE = propertyValue(false);
   private static final PropertyValue TRUE_VALUE = propertyValue(true);
@@ -37,6 +39,7 @@ public class ConsulModuleFactory {
     Assert.notNull("properties", properties);
 
     String baseName = properties.projectBaseName().get();
+    String jwtBase64secret = properties.getOrDefaultString(JWT_BASE_64_SECRET, Base64Utils.getBase64Secret());
     DockerImageVersion dockerImageConsul = dockerImages.get(DOCKER_IMAGE_CONSUL);
     DockerImageVersion dockerImageConfigLoader = dockerImages.get(DOCKER_IMAGE_CONFIG_LOADER);
 
@@ -45,7 +48,7 @@ public class ConsulModuleFactory {
       .context()
         .put("dockerImageConsul", dockerImageConsul.fullName())
         .put("dockerImageConfigLoader", dockerImageConfigLoader.fullName())
-        .put("base64JwtSecret", Base64Utils.getBase64Secret())
+        .put("base64JwtSecret", jwtBase64secret)
         .and()
       .files()
         .add(SOURCE.append("src").template("consul.yml"), toSrcMainDocker().append("consul.yml"))

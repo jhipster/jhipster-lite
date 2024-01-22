@@ -479,7 +479,6 @@ elif [[ $application == 'thymeleafapp' ]]; then
     "thymeleaf-template-tailwindcss" \
     "webjars-locator" \
     "htmx-webjars" \
-    "thymeleaf-template" \
     "thymeleaf-template-htmx-webjars"
 
 else

@@ -14,8 +14,10 @@ public class GradleModuleFactory {
   private static final JHipsterSource SOURCE = from("buildtool/gradle");
 
   public JHipsterModule buildGradleModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
     //@formatter:off
-    return gradleWrapperModulesFiles(properties)
+    return moduleBuilder(properties)
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
         .and()
@@ -79,10 +81,6 @@ public class GradleModuleFactory {
   }
 
   public JHipsterModule buildGradleWrapperModule(JHipsterModuleProperties properties) {
-    return gradleWrapperModulesFiles(properties).build();
-  }
-
-  private static JHipsterModuleBuilder gradleWrapperModulesFiles(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     //@formatter:off
@@ -94,7 +92,8 @@ public class GradleModuleFactory {
           .and()
         .addExecutable(SOURCE.file("gradlew"), to("gradlew"))
         .addExecutable(SOURCE.file("gradlew.bat"), to("gradlew.bat"))
-        .and();
+        .and()
+      .build();
     //@formatter:on
   }
 }

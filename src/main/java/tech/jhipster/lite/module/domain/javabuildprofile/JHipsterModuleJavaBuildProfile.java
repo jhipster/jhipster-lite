@@ -8,6 +8,8 @@ import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
+import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies;
+import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies.JHipsterModuleJavaDependenciesBuilder;
 import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins;
 import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins.JHipsterModuleMavenPluginsBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -18,12 +20,18 @@ public class JHipsterModuleJavaBuildProfile {
   private final Optional<BuildProfileActivation> activation;
   private final Map<PropertyKey, PropertyValue> properties;
   private final JHipsterModuleMavenPlugins mavenPlugins;
+  private final JHipsterModuleJavaDependencies javaDependencies;
 
   private JHipsterModuleJavaBuildProfile(JHipsterModuleJavaBuildProfileBuilder builder) {
+    Assert.notNull("buildProfileId", builder.buildProfileId);
+    Assert.notNull("propertiesBuilder", builder.propertiesBuilder);
+    Assert.notNull("mavenPluginsBuilder", builder.mavenPluginsBuilder);
+    Assert.notNull("javaDependenciesBuilder", builder.javaDependenciesBuilder);
     this.buildProfileId = builder.buildProfileId;
     this.activation = Optional.ofNullable(builder.activation);
     this.properties = builder.propertiesBuilder.build().properties();
     this.mavenPlugins = builder.mavenPluginsBuilder.build();
+    this.javaDependencies = builder.javaDependenciesBuilder.build();
   }
 
   public static JHipsterModuleJavaBuildProfileBuilder builder(
@@ -49,6 +57,10 @@ public class JHipsterModuleJavaBuildProfile {
     return mavenPlugins;
   }
 
+  public JHipsterModuleJavaDependencies javaDependencies() {
+    return javaDependencies;
+  }
+
   public static class JHipsterModuleJavaBuildProfileBuilder {
 
     private final JHipsterModuleJavaBuildProfilesBuilder profiles;
@@ -58,6 +70,8 @@ public class JHipsterModuleJavaBuildProfile {
       JHipsterModuleBuildProperties.builder(this);
     private final JHipsterModuleMavenPluginsBuilder<JHipsterModuleJavaBuildProfileBuilder> mavenPluginsBuilder =
       JHipsterModuleMavenPlugins.builder(this);
+    private final JHipsterModuleJavaDependenciesBuilder<JHipsterModuleJavaBuildProfileBuilder> javaDependenciesBuilder =
+      JHipsterModuleJavaDependencies.builder(this);
 
     private JHipsterModuleJavaBuildProfileBuilder(JHipsterModuleJavaBuildProfilesBuilder profiles, BuildProfileId buildProfileId) {
       Assert.notNull("profiles", profiles);
@@ -94,6 +108,10 @@ public class JHipsterModuleJavaBuildProfile {
 
     public JHipsterModuleMavenPluginsBuilder<JHipsterModuleJavaBuildProfileBuilder> mavenPlugins() {
       return mavenPluginsBuilder;
+    }
+
+    public JHipsterModuleJavaDependenciesBuilder<JHipsterModuleJavaBuildProfileBuilder> javaDependencies() {
+      return javaDependenciesBuilder;
     }
   }
 }

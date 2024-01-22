@@ -477,7 +477,9 @@ public class JHipsterModule {
     private final JHipsterModuleOptionalReplacementsFactoryBuilder optionalReplacements = JHipsterModuleOptionalReplacementsFactory.builder(
       this
     );
-    private final JHipsterModuleJavaDependenciesBuilder javaDependencies = JHipsterModuleJavaDependencies.builder(this);
+    private final JHipsterModuleJavaDependenciesBuilder<JHipsterModuleBuilder> javaDependencies = JHipsterModuleJavaDependencies.builder(
+      this
+    );
     private final JHipsterModuleJavaBuildProfilesBuilder javaBuildProfiles = JHipsterModuleJavaBuildProfiles.builder(this);
     private final JHipsterModuleMavenPluginsBuilder<JHipsterModuleBuilder> mavenPlugins = JHipsterModuleMavenPlugins.builder(this);
     private final JHipsterModuleGradlePluginBuilder gradlePlugins = JHipsterModuleGradlePlugin.builder(this);
@@ -558,7 +560,7 @@ public class JHipsterModule {
       return optionalReplacements;
     }
 
-    public JHipsterModuleJavaDependenciesBuilder javaDependencies() {
+    public JHipsterModuleJavaDependenciesBuilder<JHipsterModuleBuilder> javaDependencies() {
       return javaDependencies;
     }
 

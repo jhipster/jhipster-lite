@@ -220,12 +220,21 @@ class FileSystemJHipsterModulesRepositoryTest {
               </build>
             """
       )
+      .containing("<cassandraunit.version>")
       .containing(
         """
               <profiles>
                 <profile>
                   <id>local</id>
                   <activation />
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.cassandraunit</groupId>
+                      <artifactId>cassandra-unit</artifactId>
+                      <version>${cassandraunit.version}</version>
+                      <scope>test</scope>
+                    </dependency>
+                  </dependencies>
                   <build>
                     <pluginManagement>
                       <plugins>

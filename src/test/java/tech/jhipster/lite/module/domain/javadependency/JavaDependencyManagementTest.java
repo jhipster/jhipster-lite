@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.util.List;

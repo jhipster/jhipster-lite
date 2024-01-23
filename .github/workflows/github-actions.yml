@@ -113,7 +113,8 @@ jobs:
       !contains(github.event.head_commit.message, '[ci skip]') &&
       !contains(github.event.head_commit.message, '[skip ci]') &&
       !contains(github.event.pull_request.title, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[ci skip]')
+      !contains(github.event.pull_request.title, '[ci skip]') &&
+      github.event_name == 'pull_request'
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v4
@@ -136,7 +137,7 @@ jobs:
         run: npm run lint:ci
       - name: 'TEMP: enable gradle build tool slug'
         run: sed -i '/- gradle-java/d' src/main/resources/config/application.yml
-      - name: 'Test: run backend tests'
+      - name: 'Build application JAR'
         run: |
           chmod +x mvnw
           ./mvnw clean package -DskipTests
@@ -181,10 +182,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: >-
+      !cancelled() &&
       !contains(github.event.head_commit.message, '[ci skip]') &&
       !contains(github.event.head_commit.message, '[skip ci]') &&
       !contains(github.event.pull_request.title, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[ci skip]')
+      !contains(github.event.pull_request.title, '[ci skip]') &&
+      needs.tests-linux.result == 'success' &&
+      (needs.generate-main-branch-jar.result == 'success' ||
+      needs.generate-main-branch-jar.result == 'skipped')
     strategy:
       matrix:
         app:
@@ -219,25 +224,30 @@ jobs:
             spring-config-format: properties
     steps:
       - name: 'Setup: checkout project from main branch'
+        if: github.event_name == 'pull_request'
         uses: actions/checkout@v4
         with:
           ref: 'main'
           path: 'main-branch'
       - name: 'Setup: environment from main branch'
+        if: github.event_name == 'pull_request'
         id: setup-main
         uses: ./main-branch/.github/actions/setup
       - name: 'Artifact: download JAR from main branch'
+        if: github.event_name == 'pull_request'
         uses: actions/download-artifact@v4
         with:
           name: jhlite-main-jar
           path: ./main-branch/tests-ci/
       - name: 'Generation: generate ${{ matrix.app }} from main branch'
+        if: github.event_name == 'pull_request'
         working-directory: ./main-branch/tests-ci/
         run: |
           ./start.sh 7471
           ./generate.sh ${{ matrix.app }} ${{ matrix.spring-config-format }}
           ./stop.sh
       - name: 'Generation: calculate md5sum ${{ matrix.app }} from main branch'
+        if: github.event_name == 'pull_request'
         id: calculate-md5sum-main
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
@@ -253,22 +263,23 @@ jobs:
           echo "hash=$app_md5" >> $GITHUB_OUTPUT
           ls -al /tmp/jhlite/${{ matrix.app }}
       - name: 'Clean: delete ${{ matrix.app }} from main branch'
+        if: github.event_name == 'pull_request'
         run: |
           rm -rf /tmp/jhlite/${{ matrix.app }}
       - name: 'Setup: checkout project'
         uses: actions/checkout@v4
         with:
-          path: 'pr-branch'
+          path: 'current-branch'
       - name: 'Setup: environment'
         id: setup
-        uses: ./pr-branch/.github/actions/setup
+        uses: ./current-branch/.github/actions/setup
       - name: 'Artifact: download JAR'
         uses: actions/download-artifact@v4
         with:
           name: jhlite-jar
-          path: ./pr-branch/tests-ci/
+          path: ./current-branch/tests-ci/
       - name: 'Generation: generate ${{ matrix.app }}'
-        working-directory: ./pr-branch/tests-ci/
+        working-directory: ./current-branch/tests-ci/
         run: |
           ./start.sh 7471
           ./generate.sh ${{ matrix.app }} ${{ matrix.spring-config-format }}
@@ -288,7 +299,8 @@ jobs:
           echo pull request branch hash from project ${{ matrix.app }} $app_md5
           echo "hash=$app_md5" >> $GITHUB_OUTPUT
           ls -al /tmp/jhlite/${{ matrix.app }}
-      - name: 'Compare Hash Main x Pull Request ${{ matrix.app }}'
+      - name: 'Compare hash main x pull request ${{ matrix.app }}'
+        if: github.event_name == 'pull_request'
         id: compare-hash
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
@@ -300,8 +312,16 @@ jobs:
           else
             echo "different=false" >> $GITHUB_OUTPUT
           fi
+      - name: 'Determine if tests are needed'
+        id: tests-requirement-check
+        run: |
+          if [[ "${{ steps.compare-hash.outputs.different }}" == "true" || "${{ steps.compare-hash.conclusion }}" == "skipped" ]]; then
+            echo "execute_tests=true" >> $GITHUB_OUTPUT
+          else
+            echo "execute_tests=false" >> $GITHUB_OUTPUT
+          fi
       - name: 'Test: list ${{ matrix.app }}'
-        if: steps.compare-hash.outputs.different == 'true'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         id: cache_md5sum
         run: |
           ls -al /tmp/jhlite/${{ matrix.app }}
@@ -309,7 +329,7 @@ jobs:
           echo $MD5SUM_POM_XML
           echo "md5sum_pom_xml=${MD5SUM_POM_XML}" >> $GITHUB_OUTPUT
       - name: 'Init: cache local Maven repository'
-        if: steps.compare-hash.outputs.different == 'true'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
@@ -317,16 +337,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: 'Test: starting Sonar'
-        if: steps.compare-hash.outputs.different == 'true'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           if [ -f 'src/main/docker/sonar.yml' ]; then
             docker-compose -f src/main/docker/sonar.yml up -d
-            ${{ github.workspace }}/pr-branch/tests-ci/wait_sonar.sh
+            ${{ github.workspace }}/current-branch/tests-ci/wait_sonar.sh
             docker ps -a
           fi
       - name: 'Test: verify ${{ matrix.app }}'
-        if: steps.compare-hash.outputs.different == 'true'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           if [ -f 'mvnw' ]; then
@@ -338,21 +358,21 @@ jobs:
             npm test
           fi
       - name: 'Test: check local Sonar Analysis'
-        if: steps.compare-hash.outputs.different == 'true'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         run: |
           if [ -f '/tmp/jhlite/${{ matrix.app }}/src/main/docker/sonar.yml' ]; then
-            ./pr-branch/tests-ci/sonar.sh ${{ matrix.app }}
+            ./current-branch/tests-ci/sonar.sh ${{ matrix.app }}
           fi
       - name: 'Test: copy shell scripts'
-        if: steps.compare-hash.outputs.different == 'true'
-        run: cp ./pr-branch/tests-ci/start.sh /tmp/jhlite/${{ matrix.app }}/
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
+        run: cp ./current-branch/tests-ci/start.sh /tmp/jhlite/${{ matrix.app }}/
       - name: 'Test: start docker compose services'
-        if: steps.compare-hash.outputs.different == 'true'
-        working-directory: ./pr-branch/tests-ci/
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
+        working-directory: ./current-branch/tests-ci/
         run: |
           ./start_docker_compose.sh /tmp/jhlite/${{ matrix.app }}/
       - name: 'Test: start the application'
-        if: steps.compare-hash.outputs.different == 'true'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           # TODO: add also 'gradlew' once gradle support is more advanced

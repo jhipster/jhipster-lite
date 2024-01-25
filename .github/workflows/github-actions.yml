@@ -11,6 +11,47 @@ on:
     branches:
       - main
 jobs:
+  #------------------------------------------------------
+  # Setup values which is going to be used in other jobs
+  #------------------------------------------------------
+  setup:
+    name: setup
+    runs-on: ubuntu-latest
+    outputs:
+      skip_ci: ${{ steps.check-ci-skip.outputs.skip_ci }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get the head commit message
+        id: commit-message
+        run: |
+          head_commit_message=$(git log -1 --no-merges --pretty=%B | tr '\n' ' ')
+          echo head commit message: $head_commit_message
+          echo "message=$head_commit_message" >> $GITHUB_OUTPUT
+      - name: Check for ci skip tags
+        id: check-ci-skip
+        run: |
+          commit_message="${{ steps.commit-message.outputs.message }}"
+          pr_title="${{ github.event.pull_request.title }}"
+          skip_tags=('[ci ignore]' '[ignore ci]')
+
+          echo "Checking commit message and pr title for ci skip tags..."
+
+          for tag in "${skip_tags[@]}"; do
+            if [[ "$commit_message" == *"$tag"* ]] || [[ "$pr_title" == *"$tag"* ]]; then
+              echo "Found ci skip tag '$tag'."
+              echo "skip_ci=true" >> $GITHUB_OUTPUT
+              skip_ci="true"
+              break
+            fi
+          done
+
+          if [ -z ${skip_ci+x} ]; then
+            echo "No ci skip tag found."
+            echo "skip_ci=false" >> $GITHUB_OUTPUT
+          fi
   #--------------------------------------------------
   # Build and Tests the project on Windows
   #--------------------------------------------------
@@ -41,13 +82,11 @@ jobs:
   #--------------------------------------------------
   tests-linux:
     name: tests-linux
+    needs: [setup]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     if: >-
-      !contains(github.event.head_commit.message, '[ci skip]') &&
-      !contains(github.event.head_commit.message, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[ci skip]')
+      needs.setup.outputs.skip_ci != 'true'
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v4
@@ -107,13 +146,11 @@ jobs:
   #------------------------------------------------------
   generate-main-branch-jar:
     name: generate-main-branch-jar
+    needs: [setup]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     if: >-
-      !contains(github.event.head_commit.message, '[ci skip]') &&
-      !contains(github.event.head_commit.message, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[ci skip]') &&
+      needs.setup.outputs.skip_ci != 'true' &&
       github.event_name == 'pull_request'
     steps:
       - name: 'Setup: checkout project'
@@ -178,15 +215,12 @@ jobs:
   # Tests generated projects
   #--------------------------------------------------
   generation:
-    needs: [tests-linux, generate-main-branch-jar]
+    needs: [setup, tests-linux, generate-main-branch-jar]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: >-
       !cancelled() &&
-      !contains(github.event.head_commit.message, '[ci skip]') &&
-      !contains(github.event.head_commit.message, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[ci skip]') &&
+      needs.setup.outputs.skip_ci != 'true' &&
       needs.tests-linux.result == 'success' &&
       (needs.generate-main-branch-jar.result == 'success' ||
       needs.generate-main-branch-jar.result == 'skipped')
@@ -384,14 +418,11 @@ jobs:
   # Send analysis to Codecov
   #--------------------------------------------------
   codecov:
-    needs: cypress
+    needs: [setup, cypress]
     name: codecov
     if: >-
       github.repository == 'jhipster/jhipster-lite' &&
-      !contains(github.event.head_commit.message, '[ci skip]') &&
-      !contains(github.event.head_commit.message, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[skip ci]') &&
-      !contains(github.event.pull_request.title, '[ci skip]')
+      needs.setup.outputs.skip_ci != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

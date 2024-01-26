@@ -91,6 +91,7 @@ public final class JHipsterModulesFixture {
     .mavenPlugins()
       .pluginManagement(mavenEnforcerPluginManagement())
       .plugin(mavenEnforcerPlugin())
+      .plugin(asciidoctorPlugin())
       .and()
     .javaBuildProfiles()
       .addProfile(localMavenProfile())
@@ -379,6 +380,16 @@ public final class JHipsterModulesFixture {
 
   public static MavenPlugin mavenEnforcerPlugin() {
     return mavenPlugin().groupId("org.apache.maven.plugins").artifactId("maven-enforcer-plugin").build();
+  }
+
+  public static MavenPlugin asciidoctorPlugin() {
+    GroupId asciidoctorGroupId = new GroupId("org.asciidoctor");
+    return mavenPlugin()
+      .groupId(asciidoctorGroupId)
+      .artifactId("asciidoctor-maven-plugin")
+      .addDependency(javaDependency().groupId(asciidoctorGroupId).artifactId("asciidoctorj-screenshot").build())
+      .addDependency(javaDependency().groupId(asciidoctorGroupId).artifactId("asciidoctorj-diagram").build())
+      .build();
   }
 
   public static JHipsterModulesToApply modulesToApply() {

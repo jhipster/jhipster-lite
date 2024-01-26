@@ -1,10 +1,6 @@
 package tech.jhipster.lite.module.domain.mavenplugin;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
@@ -66,7 +62,7 @@ public class MavenPlugin {
     private VersionSlug versionSlug;
     private MavenPluginConfiguration configuration;
     private final List<MavenPluginExecution> executions = new ArrayList<>();
-    private final Collection<JavaDependency> dependencies = new HashSet<>();
+    private final Collection<JavaDependency> dependencies = new LinkedHashSet<>();
 
     private MavenPluginBuilder() {}
 

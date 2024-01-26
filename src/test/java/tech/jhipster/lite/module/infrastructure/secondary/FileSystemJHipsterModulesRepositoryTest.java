@@ -202,6 +202,20 @@ class FileSystemJHipsterModulesRepositoryTest {
                   <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
                   </plugin>
+                  <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <dependencies>
+                      <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-screenshot</artifactId>
+                      </dependency>
+                      <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-diagram</artifactId>
+                      </dependency>
+                    </dependencies>
+                  </plugin>
                 </plugins>
               </build>
             """

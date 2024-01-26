@@ -1,7 +1,6 @@
 package tech.jhipster.lite.module.domain.javabuild.command;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 import java.util.function.Function;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
@@ -13,7 +12,7 @@ class AddMavenPluginBuilder<T extends AddMavenPlugin> implements AddMavenPluginP
   private MavenPlugin plugin;
   private JavaDependencyVersion pluginVersion;
   private BuildProfileId buildProfile;
-  private final Collection<JavaDependencyVersion> dependenciesVersions = new HashSet<>();
+  private final Collection<JavaDependencyVersion> dependenciesVersions = new LinkedHashSet<>();
 
   AddMavenPluginBuilder(Function<AddMavenPluginBuilder<T>, T> factory) {
     this.factory = factory;

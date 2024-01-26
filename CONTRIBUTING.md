@@ -409,7 +409,7 @@ Please ensure to run `npm run prettier:format` on the project root before submit
 
 We have rules over how our git commit messages must be formatted. Please ensure to [squash](https://help.github.com/articles/about-git-rebase/#commands-available-while-rebasing) unnecessary commits so that your commit history is clean.
 
-If the commit only involves documentation changes you can skip the continuous integration pipelines using `[ci skip]` or `[skip ci]` in your commit message header.
+If the commit only involves documentation changes you can skip the continuous integration pipelines using `[ci ignore]` or `[ignore ci]` in your commit message header.
 
 ### <a name="commit-message-format"></a> Commit Message Format
 

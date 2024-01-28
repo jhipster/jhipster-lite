@@ -94,7 +94,6 @@ public class AngularModuleFactory {
           .addTemplate("index.html")
           .addTemplate("styles.css")
           .addTemplate("main.ts")
-          .addTemplate("polyfills.ts")
           .and()
         .and()
       .mandatoryReplacements()

@@ -5,6 +5,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
@@ -251,7 +252,7 @@ class JavaDependencyManagementTest {
     }
 
     public JavaBuildCommands build() {
-      return new JavaDependencyManagement(dependency).changeCommands(currentVersions, projectDependencies);
+      return new JavaDependencyManagement(dependency).changeCommands(currentVersions, projectDependencies, Optional.empty());
     }
   }
 }

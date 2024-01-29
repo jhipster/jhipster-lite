@@ -227,14 +227,6 @@ class FileSystemJHipsterModulesRepositoryTest {
                 <profile>
                   <id>local</id>
                   <activation />
-                  <dependencies>
-                    <dependency>
-                      <groupId>org.cassandraunit</groupId>
-                      <artifactId>cassandra-unit</artifactId>
-                      <version>${cassandraunit.version}</version>
-                      <scope>test</scope>
-                    </dependency>
-                  </dependencies>
                   <build>
                     <pluginManagement>
                       <plugins>
@@ -298,6 +290,14 @@ class FileSystemJHipsterModulesRepositoryTest {
                   <properties>
                     <spring.profiles.active>local</spring.profiles.active>
                   </properties>
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.cassandraunit</groupId>
+                      <artifactId>cassandra-unit</artifactId>
+                      <version>${cassandraunit.version}</version>
+                      <scope>test</scope>
+                    </dependency>
+                  </dependencies>
                 </profile>
               </profiles>
             """

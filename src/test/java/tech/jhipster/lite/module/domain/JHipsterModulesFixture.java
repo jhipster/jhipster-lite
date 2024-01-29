@@ -104,6 +104,7 @@ public final class JHipsterModulesFixture {
           .plugin(mavenEnforcerPlugin())
           .and()
         .javaDependencies()
+          .addTestDependency(groupId("org.cassandraunit"), artifactId("cassandra-unit"), versionSlug("cassandraunit"))
           .removeDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web"))
           .removeDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-web"))
           .and()

@@ -63,9 +63,9 @@ public class JHipsterModuleJavaDependencies {
       .of(
         settedVersionsCommands(),
         dependenciesToRemoveCommands(buildProfile),
-        dependenciesManagementChanges(versions, projectDependencies),
+        dependenciesManagementChanges(versions, projectDependencies, buildProfile),
         dependenciesManagementToRemoveCommands(buildProfile),
-        dependenciesChanges(versions, projectDependencies)
+        dependenciesChanges(versions, projectDependencies, buildProfile)
       )
       .flatMap(Function.identity())
       .reduce(JavaBuildCommands.EMPTY, JavaBuildCommands::merge);
@@ -89,9 +89,10 @@ public class JHipsterModuleJavaDependencies {
 
   private Stream<JavaBuildCommands> dependenciesManagementChanges(
     JavaDependenciesVersions currentVersions,
-    ProjectJavaDependencies projectDependencies
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
   ) {
-    return dependenciesManagement.stream().map(dependency -> dependency.changeCommands(currentVersions, projectDependencies));
+    return dependenciesManagement.stream().map(dependency -> dependency.changeCommands(currentVersions, projectDependencies, buildProfile));
   }
 
   private Stream<JavaBuildCommands> dependenciesManagementToRemoveCommands(Optional<BuildProfileId> buildProfile) {
@@ -106,9 +107,10 @@ public class JHipsterModuleJavaDependencies {
 
   private Stream<JavaBuildCommands> dependenciesChanges(
     JavaDependenciesVersions currentVersions,
-    ProjectJavaDependencies projectDependencies
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
   ) {
-    return dependencies.stream().map(dependency -> dependency.changeCommands(currentVersions, projectDependencies));
+    return dependencies.stream().map(dependency -> dependency.changeCommands(currentVersions, projectDependencies, buildProfile));
   }
 
   public static class JHipsterModuleJavaDependenciesBuilder<T> {

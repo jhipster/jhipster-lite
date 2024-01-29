@@ -1,7 +1,9 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
 import java.util.Collection;
+import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 
 public class DirectJavaDependency extends JavaDependencyCommandsCreator {
 
@@ -10,7 +12,11 @@ public class DirectJavaDependency extends JavaDependencyCommandsCreator {
   }
 
   @Override
-  protected Collection<JavaBuildCommand> dependencyCommands(ProjectJavaDependencies projectDependencies) {
-    return dependency().dependencyCommands(DependenciesCommandsFactory.DIRECT, projectDependencies.dependency(dependency().id()));
+  protected Collection<JavaBuildCommand> dependencyCommands(
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
+  ) {
+    return dependency()
+      .dependencyCommands(DependenciesCommandsFactory.DIRECT, projectDependencies.dependency(dependency().id()), buildProfile);
   }
 }

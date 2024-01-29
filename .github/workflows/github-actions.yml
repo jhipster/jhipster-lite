@@ -33,11 +33,12 @@ jobs:
       - name: Check for ci skip tags
         id: check-ci-skip
         run: |
-          commit_message="${{ steps.commit-message.outputs.message }}"
-          pr_title="${{ github.event.pull_request.title }}"
+          commit_message='${{ steps.commit-message.outputs.message }}'
+          pr_title='${{ github.event.pull_request.title }}'
           skip_tags=('[ci ignore]' '[ignore ci]')
 
           echo "Checking commit message and pr title for ci skip tags..."
+          skip_ci="false"
 
           for tag in "${skip_tags[@]}"; do
             if [[ "$commit_message" == *"$tag"* ]] || [[ "$pr_title" == *"$tag"* ]]; then
@@ -48,7 +49,7 @@ jobs:
             fi
           done
 
-          if [ -z ${skip_ci+x} ]; then
+          if [[ "$skip_ci" == "false" ]]; then
             echo "No ci skip tag found."
             echo "skip_ci=false" >> $GITHUB_OUTPUT
           fi

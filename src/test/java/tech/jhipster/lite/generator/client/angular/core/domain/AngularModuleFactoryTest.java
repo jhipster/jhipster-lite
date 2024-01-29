@@ -96,6 +96,6 @@ class AngularModuleFactoryTest {
         "environment.prod.spec.ts",
         "environment.spec.ts"
       )
-      .hasPrefixedFiles("src/main/webapp", "index.html", "main.ts", "polyfills.ts", "styles.css");
+      .hasPrefixedFiles("src/main/webapp", "index.html", "main.ts", "styles.css");
   }
 }

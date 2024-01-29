@@ -10,12 +10,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/project",
             "index": "src/main/webapp/index.html",
-            "main": "src/main/webapp/main.ts",
-            "polyfills": "src/main/webapp/polyfills.ts",
+            "browser": "src/main/webapp/main.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/main/webapp/content",
@@ -25,7 +25,7 @@
                 "output": "content"
               }
             ],
-            "styles": ["src/main/webapp/styles.css"],
+            "styles": ["src/main/webapp/styles.css", "@angular/material/prebuilt-themes/indigo-pink.css"],
             "scripts": [],
             "allowedCommonJsDependencies": ["dummy.js"]
           },
@@ -52,9 +52,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true

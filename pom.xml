@@ -336,6 +336,7 @@
         <configuration>
           <excludes>
             <exclude>**/generator/buildtool/maven/.mvn/wrapper/*</exclude>
+            <exclude>**/generator/buildtool/gradle/gradle/wrapper/*</exclude>
             <exclude>src/main/webapp/app/common/primary/applicationlistener/WindowApplicationListener.ts</exclude>
           </excludes>
         </configuration>
@@ -655,6 +656,32 @@
               <configuration>
                 <dataFile>target/jacoco/allTest.exec</dataFile>
                 <outputDirectory>target/jacoco/</outputDirectory>
+              </configuration>
+            </execution>
+            <execution>
+              <id>check</id>
+              <goals>
+                <goal>check</goal>
+              </goals>
+              <configuration>
+                <dataFile>target/jacoco/allTest.exec</dataFile>
+                <rules>
+                  <rule>
+                    <element>CLASS</element>
+                    <limits>
+                      <limit>
+                        <counter>LINE</counter>
+                        <value>COVEREDRATIO</value>
+                        <minimum>1.00</minimum>
+                      </limit>
+                      <limit>
+                        <counter>BRANCH</counter>
+                        <value>COVEREDRATIO</value>
+                        <minimum>1.00</minimum>
+                      </limit>
+                    </limits>
+                  </rule>
+                </rules>
               </configuration>
             </execution>
           </executions>

@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import org.apache.maven.model.Activation;
@@ -228,10 +229,14 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private DependencyManagement dependencyManagement(Profile mavenProfile) {
-    if (mavenProfile.getDependencyManagement() == null) {
-      mavenProfile.setDependencyManagement(new DependencyManagement());
-    }
-    return mavenProfile.getDependencyManagement();
+    return Optional
+      .ofNullable(mavenProfile.getDependencyManagement())
+      .or(() -> Optional.of(new DependencyManagement()))
+      .map(dependencyManagement -> {
+        mavenProfile.setDependencyManagement(dependencyManagement);
+        return dependencyManagement;
+      })
+      .orElseThrow();
   }
 
   private DependencyManagement dependencyManagement() {

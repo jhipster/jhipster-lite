@@ -21,14 +21,14 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
-import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JHipsterProjectFolderJavaDependenciesReader;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @Repository
-public class FileSystemProjectJavaDependenciesRepository implements ProjectJavaDependenciesRepository {
+public class MavenProjectJavaDependenciesRepository implements JHipsterProjectFolderJavaDependenciesReader {
 
   private static final String POM_XML = "pom.xml";
 

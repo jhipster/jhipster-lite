@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import org.junit.jupiter.api.Test;
@@ -20,9 +21,9 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest
-class FileSystemProjectJavaDependenciesRepositoryTest {
+class MavenProjectJavaDependenciesRepositoryTest {
 
-  private static final FileSystemProjectJavaDependenciesRepository projectDependencies = new FileSystemProjectJavaDependenciesRepository();
+  private static final MavenProjectJavaDependenciesRepository projectDependencies = new MavenProjectJavaDependenciesRepository();
 
   @Test
   void shouldNotReadFromUnreadableMavenFile() {

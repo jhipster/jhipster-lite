@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.domain.javadependency;
 
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
+import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class ProjectJavaDependencies {
 
@@ -59,6 +60,16 @@ public class ProjectJavaDependencies {
 
   public JavaDependencies dependencies() {
     return dependencies;
+  }
+
+  public ProjectJavaDependencies merge(ProjectJavaDependencies other) {
+    Assert.notNull("other", other);
+
+    return ProjectJavaDependencies
+      .builder()
+      .versions(versions.merge(other.versions()))
+      .dependenciesManagements(dependenciesManagement.merge(other.dependenciesManagement))
+      .dependencies(dependencies.merge(other.dependencies));
   }
 
   private static class ProjectJavaDependenciesBuilder

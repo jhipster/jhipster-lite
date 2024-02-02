@@ -267,14 +267,12 @@
         <directory>${basedir}/src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>config/*.properties</include>
           <include>generator/dependencies/pom.xml</include>
         </includes>
       </resource>
       <resource>
         <directory>${basedir}/src/main/resources</directory>
         <excludes>
-          <exclude>config/*.properties</exclude>
           <exclude>generator/dependencies/pom.xml</exclude>
         </excludes>
       </resource>

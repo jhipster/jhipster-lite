@@ -205,6 +205,24 @@ class ThymeleafTemplateModuleFactoryTest {
     //@formatter:on
   }
 
+  @Test
+  void shouldProxyBeUpdatedWhenServerPortPropertyNotDefault() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .projectBaseName("jhipster")
+      .put("serverPort", 8081)
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+
+    //@formatter:off
+    assertThatModuleWithFiles(module, packageJsonFile())
+      .hasFile("package.json")
+      .containing("browser-sync start --proxy localhost:8081 --files 'target/classes/templates' 'target/classes/static'")
+      .notContaining("browser-sync start --proxy localhost:8080 --files 'target/classes/templates' 'target/classes/static'");
+    //@formatter:on
+  }
+
   private static ModuleFile appPostcssFile() {
     return new ModuleFile("src/test/resources/projects/thymeleaf/postcss.config.js.template", "postcss.config.js");
   }

@@ -381,7 +381,9 @@ jobs:
             docker ps -a
           fi
       - name: 'Install jhlite snapshot in local maven repository for ${{ matrix.app }}'
-        if: steps.tests-requirement-check.outputs.execute_tests == 'true' && ${{ matrix.app }} == 'customjhlite'
+        if: >-
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          '${{ matrix.app }}' == 'customjhlite'
         working-directory: ./current-branch/
         run: |
           export JHLITE_VERSION=$(grep "<jhlite.version>" /tmp/jhlite/${{ matrix.app }}/pom.xml | sed -e 's/<jhlite.version>\(.*\)<\/jhlite.version>/\1/')

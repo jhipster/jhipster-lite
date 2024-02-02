@@ -17,6 +17,7 @@ public class AngularModuleFactory {
   private static final JHipsterSource COMMON_ESLINT = from("client/common/eslint");
 
   private static final String CACHE_NEEDLE = "  \"cacheDirectories\":";
+  private static final String SERVER_PORT_NEEDLE = "8080";
   private static final PackageName ANGULAR_CORE_PACKAGE = packageName("@angular/core");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -100,9 +101,16 @@ public class AngularModuleFactory {
         .in(path("package.json"))
           .add(lineBeforeText(CACHE_NEEDLE), jestSonar(properties.indentation()))
         .and()
+        .in(path("proxy.conf.json"))
+          .add(text(SERVER_PORT_NEEDLE), serverPort(properties))
+        .and()
       .and()
       .build();
     //@formatter:on
+  }
+
+  private static String serverPort(JHipsterModuleProperties properties) {
+    return String.valueOf(properties.getOrDefaultInteger("serverPort", 8080));
   }
 
   private static String jestSonar(Indentation indentation) {

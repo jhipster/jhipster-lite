@@ -7,6 +7,7 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 class ReactCoreModulesFactoryTest {
@@ -68,6 +69,27 @@ class ReactCoreModulesFactoryTest {
       .and()
       .hasFiles("src/main/webapp/app/common/primary/app/App.css")
       .hasPrefixedFiles("src/main/webapp/assets", "ReactLogo.png", "JHipster-Lite-neon-blue.png");
+  }
+
+  @Test
+  void shouldViteConfigBeUpdatedWhenServerPortPropertyNotDefault() {
+    JHipsterModule module = factory.buildModule(
+      JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").put("serverPort", 8081).build()
+    );
+
+    assertThatModuleWithFiles(module, packageJsonFile())
+      .hasFile("vite.config.ts")
+      .containing("localhost:8081")
+      .notContaining("localhost:8080");
+  }
+
+  @Test
+  void shouldViteConfigBeDefaultWhenServerPortPropertyMissing() {
+    JHipsterModule module = factory.buildModule(
+      JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).projectBaseName("jhipster").build()
+    );
+
+    assertThatModuleWithFiles(module, packageJsonFile()).hasFile("vite.config.ts").containing("localhost:8080");
   }
 
   private String nodeScript(String key, String value) {

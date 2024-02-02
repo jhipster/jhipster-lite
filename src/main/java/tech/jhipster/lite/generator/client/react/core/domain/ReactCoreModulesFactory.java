@@ -27,6 +27,7 @@ public class ReactCoreModulesFactory {
   private static final JHipsterDestination PRIMARY_APP_DESTINATION = APP_DESTINATION.append(PRIMARY_APP);
 
   private static final String TEST_PRIMARY = "src/test/javascript/spec/common/primary/app";
+  private static final String SERVER_PORT_NEEDLE = "8080";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
@@ -84,7 +85,16 @@ public class ReactCoreModulesFactory {
           .addFile("ReactLogo.png")
           .and()
         .and()
+      .mandatoryReplacements()
+        .in(path("vite.config.ts"))
+          .add(text(SERVER_PORT_NEEDLE), serverPort(properties))
+          .and()
+        .and()
       .build();
     //@formatter:on
+  }
+
+  private String serverPort(JHipsterModuleProperties properties) {
+    return String.valueOf(properties.getOrDefaultInteger("serverPort", 8080));
   }
 }

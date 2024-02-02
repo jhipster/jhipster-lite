@@ -15,7 +15,7 @@ public class GitpodModuleFactory {
     return moduleBuilder(properties)
       .files()
         .batch(from("setup/gitpod"), to("."))
-          .addFile(".gitpod.yml")
+          .addTemplate(".gitpod.yml")
           .addFile(".gitpod.Dockerfile")
           .and()
         .and()

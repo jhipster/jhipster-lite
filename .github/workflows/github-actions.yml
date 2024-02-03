@@ -314,7 +314,6 @@ jobs:
           name: jhlite-jar
           path: ./current-branch/tests-ci/
       - name: 'Install jhlite snapshot jar in local maven repository'
-        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: ./current-branch/
         run: |
           export JHLITE_VERSION=$(find tests-ci -maxdepth 1 -name "*.jar" | grep -P "jhlite-\d+\.\d+\.\d+(-SNAPSHOT)?\.jar" | sed -e 's/.*jhlite-\(.*\)\.jar/\1/')

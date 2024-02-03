@@ -82,7 +82,6 @@
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-    <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -563,16 +562,6 @@
     </plugins>
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>${maven-resources-plugin.version}</version>
-          <configuration>
-            <delimiters>
-              <delimiter>@</delimiter>
-            </delimiters>
-          </configuration>
-        </plugin>
         <plugin>
           <groupId>io.github.git-commit-id</groupId>
           <artifactId>git-commit-id-maven-plugin</artifactId>

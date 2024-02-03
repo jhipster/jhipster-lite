@@ -70,9 +70,11 @@ public class AngularModuleFactory {
         .add(SOURCE.file("tsconfig.json"), to("tsconfig.json"))
         .add(SOURCE.file("tsconfig.app.json"), to("tsconfig.app.json"))
         .add(SOURCE.file("tsconfig.spec.json"), to("tsconfig.spec.json"))
-        .add(SOURCE.file("proxy.conf.json"), to("proxy.conf.json"))
         .add(SOURCE.file(".eslintrc.json"), to(".eslintrc.json"))
         .add(COMMON_ESLINT.file(".eslintignore"), to(".eslintignore"))
+        .batch(SOURCE, to("."))
+          .addTemplate("proxy.conf.json")
+          .and()
         .batch(SOURCE.file("src/main/webapp/app"), to("src/main/webapp/app"))
           .addTemplate("app.component.ts")
           .addTemplate("app.component.css")
@@ -101,16 +103,9 @@ public class AngularModuleFactory {
         .in(path("package.json"))
           .add(lineBeforeText(CACHE_NEEDLE), jestSonar(properties.indentation()))
         .and()
-        .in(path("proxy.conf.json"))
-          .add(text(SERVER_PORT_NEEDLE), serverPort(properties))
-        .and()
       .and()
       .build();
     //@formatter:on
-  }
-
-  private static String serverPort(JHipsterModuleProperties properties) {
-    return String.valueOf(properties.getOrDefaultInteger("serverPort", 8080));
   }
 
   private static String jestSonar(Indentation indentation) {

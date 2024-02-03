@@ -64,7 +64,7 @@ public class ReactCoreModulesFactory {
       .files()
         .batch(SOURCE, to("."))
           .addFile("tsconfig.json")
-          .addFile("vite.config.ts")
+          .addTemplate("vite.config.ts")
           .addFile("vitest.config.ts")
           .addFile(".eslintrc.cjs")
           .and()
@@ -85,16 +85,7 @@ public class ReactCoreModulesFactory {
           .addFile("ReactLogo.png")
           .and()
         .and()
-      .mandatoryReplacements()
-        .in(path("vite.config.ts"))
-          .add(text(SERVER_PORT_NEEDLE), serverPort(properties))
-          .and()
-        .and()
       .build();
     //@formatter:on
-  }
-
-  private String serverPort(JHipsterModuleProperties properties) {
-    return String.valueOf(properties.getOrDefaultInteger("serverPort", 8080));
   }
 }

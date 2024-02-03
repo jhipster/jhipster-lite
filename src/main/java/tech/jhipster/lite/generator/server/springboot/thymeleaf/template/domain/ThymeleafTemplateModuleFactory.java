@@ -112,7 +112,7 @@ public class ThymeleafTemplateModuleFactory {
         .addScript(scriptKey("watch:css"), scriptCommand("onchange 'src/main/resources/static/css/**/*.css' -- npm run build:css"))
         .addScript(scriptKey("watch:js"), scriptCommand("onchange 'src/main/resources/static/js/**/*.js' -- npm run build:js"))
         .addScript(scriptKey("watch:svg"), scriptCommand("onchange 'src/main/resources/static/svg/**/*.svg' -- npm run build:svg"))
-        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(getServerPort(properties))))
+        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(properties.serverPort())))
         .and()
       .files()
         .add(RESOURCES_SOURCE.append(TEMPLATES).template("index.html"), toSrcMainResources().append(TEMPLATES).append("index.html"))
@@ -132,7 +132,7 @@ public class ThymeleafTemplateModuleFactory {
       .packageJson()
         .addDevDependency(packageName("tailwindcss"), COMMON)
         .addScript(scriptKey("watch:html"), scriptCommand("onchange 'src/main/resources/templates/**/*.html' -- npm-run-all --serial build:css build:html"))
-        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --no-inject-changes --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(getServerPort(properties))))
+        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --no-inject-changes --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(properties.serverPort())))
         .and()
       .mandatoryReplacements()
         .in(path(POSTCSS_CONFIG_JS))
@@ -151,12 +151,6 @@ public class ThymeleafTemplateModuleFactory {
         .and()
       .build();
     //@formatter:on
-  }
-
-  private int getServerPort(JHipsterModuleProperties properties) {
-    Assert.notNull(PROPERTIES, properties);
-
-    return properties.getOrDefaultInteger("serverPort", 8080);
   }
 
   public JHipsterModule buildHtmxWebjarsModule(JHipsterModuleProperties properties) {

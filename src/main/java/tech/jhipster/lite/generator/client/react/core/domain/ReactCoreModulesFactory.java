@@ -27,7 +27,6 @@ public class ReactCoreModulesFactory {
   private static final JHipsterDestination PRIMARY_APP_DESTINATION = APP_DESTINATION.append(PRIMARY_APP);
 
   private static final String TEST_PRIMARY = "src/test/javascript/spec/common/primary/app";
-  private static final String SERVER_PORT_NEEDLE = "8080";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off

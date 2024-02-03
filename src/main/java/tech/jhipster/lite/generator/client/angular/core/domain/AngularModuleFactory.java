@@ -17,7 +17,6 @@ public class AngularModuleFactory {
   private static final JHipsterSource COMMON_ESLINT = from("client/common/eslint");
 
   private static final String CACHE_NEEDLE = "  \"cacheDirectories\":";
-  private static final String SERVER_PORT_NEEDLE = "8080";
   private static final PackageName ANGULAR_CORE_PACKAGE = packageName("@angular/core");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {

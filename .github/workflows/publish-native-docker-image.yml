@@ -36,7 +36,7 @@ jobs:
 
       - name: Build application with Buildpacks
         run: |
-          ./mvnw -Pnative -DskipTests clean spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.DOCKER_IMAGE_NAME }}
+          ./mvnw -Pnative -P'!spring-boot-build' -DskipTests clean spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.DOCKER_IMAGE_NAME }}
 
       - name: Login to Docker Registry
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}

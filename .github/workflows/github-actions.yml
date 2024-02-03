@@ -313,12 +313,6 @@ jobs:
         with:
           name: jhlite-jar
           path: ./current-branch/tests-ci/
-      - name: 'Install jhlite snapshot jar in local maven repository'
-        working-directory: ./current-branch/
-        run: |
-          export JHLITE_VERSION=$(find tests-ci -maxdepth 1 -name "*.jar" | grep -P "jhlite-\d+\.\d+\.\d+(-SNAPSHOT)?\.jar" | sed -e 's/.*jhlite-\(.*\)\.jar/\1/')
-          mvn install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION}
-          mvn install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}-tests.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION} -Dclassifier=tests
       - name: 'Generation: generate ${{ matrix.app }}'
         working-directory: ./current-branch/tests-ci/
         run: |
@@ -386,6 +380,13 @@ jobs:
             ${{ github.workspace }}/current-branch/tests-ci/wait_sonar.sh
             docker ps -a
           fi
+      - name: 'Install jhlite snapshot jar in local maven repository'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
+        working-directory: ./current-branch/
+        run: |
+          export JHLITE_VERSION=$(find tests-ci -maxdepth 1 -name "*.jar" | grep -P "jhlite-\d+\.\d+\.\d+(-SNAPSHOT)?\.jar" | sed -e 's/.*jhlite-\(.*\)\.jar/\1/')
+          mvn install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION}
+          mvn install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}-tests.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION} -Dclassifier=tests
       - name: 'Test: verify ${{ matrix.app }}'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/

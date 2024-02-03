@@ -16,9 +16,6 @@ public class CodespacesModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .context()
-        .put("serverPort", properties.getOrDefaultInteger("serverPort", 8080))
-        .and()
       .files()
         .batch(SOURCE, to(".devcontainer"))
           .addTemplate("devcontainer.json")

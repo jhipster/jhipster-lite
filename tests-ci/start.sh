@@ -2,8 +2,8 @@
 
 PORT=$1
 if [[ $PORT == '' ]]; then
-  echo "*** Using default port 8080"
-  PORT='8080'
+  echo "*** Using default port 8081"
+  PORT='8081'
 fi
 
 echo "*** Waiting 5sec to be sure the Jar is here"

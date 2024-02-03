@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
@@ -112,7 +112,7 @@ public class ThymeleafTemplateModuleFactory {
         .addScript(scriptKey("watch:css"), scriptCommand("onchange 'src/main/resources/static/css/**/*.css' -- npm run build:css"))
         .addScript(scriptKey("watch:js"), scriptCommand("onchange 'src/main/resources/static/js/**/*.js' -- npm run build:js"))
         .addScript(scriptKey("watch:svg"), scriptCommand("onchange 'src/main/resources/static/svg/**/*.svg' -- npm run build:svg"))
-        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(properties.serverPort())))
+        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(properties.serverPort().get())))
         .and()
       .files()
         .add(RESOURCES_SOURCE.append(TEMPLATES).template("index.html"), toSrcMainResources().append(TEMPLATES).append("index.html"))
@@ -132,7 +132,7 @@ public class ThymeleafTemplateModuleFactory {
       .packageJson()
         .addDevDependency(packageName("tailwindcss"), COMMON)
         .addScript(scriptKey("watch:html"), scriptCommand("onchange 'src/main/resources/templates/**/*.html' -- npm-run-all --serial build:css build:html"))
-        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --no-inject-changes --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(properties.serverPort())))
+        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --no-inject-changes --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(properties.serverPort().get())))
         .and()
       .mandatoryReplacements()
         .in(path(POSTCSS_CONFIG_JS))

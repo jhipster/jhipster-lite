@@ -3,6 +3,7 @@
   "commit": true,
   "parameters": {
     "projectName": "Chips Project",
+    "serverPort": 8081,
     "baseName": "APP_NAME",
     "packageName": "tech.jhipster.APP_NAME",
     "jwtBase64Secret": "NmE2NDhmMmQ5OWQzYzk4NmE4NjNlMmQzNmU3ZTU4ZDY2MmUxOWEwZGI4YTk4NDY0MTk4MmQyMWZlNDNlM2FjYg==",

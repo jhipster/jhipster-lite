@@ -140,7 +140,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jhlite-jar
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}/target/*.jar.*'
           retention-days: 1
   #------------------------------------------------------
   # Build and Upload *.jar from main branch on Linux
@@ -386,7 +386,7 @@ jobs:
         run: |
           export JHLITE_VERSION=$(find tests-ci -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" | sed -e 's/.*jhlite-\(.*\)\.jar/\1/')
           echo "JHLITE_VERSION=${JHLITE_VERSION}"
-          ./mvnw install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION}
+          ./mvnw install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}.jar.original -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION}
           ./mvnw install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}-tests.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION} -Dclassifier=tests
       - name: 'Test: verify ${{ matrix.app }}'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'

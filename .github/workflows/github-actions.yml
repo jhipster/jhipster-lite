@@ -384,7 +384,7 @@ jobs:
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: ./current-branch/
         run: |
-          export JHLITE_VERSION=$(find tests-ci -maxdepth 1 -name "*.jar" | grep -P "jhlite-\d+\.\d+\.\d+(-SNAPSHOT)?\.jar" | sed -e 's/.*jhlite-\(.*\)\.jar/\1/')
+          export JHLITE_VERSION=$(find tests-ci -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" | sed -e 's/.*jhlite-\(.*\)\.jar/\1/')
           echo "JHLITE_VERSION=${JHLITE_VERSION}"
           ./mvnw install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION}
           ./mvnw install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}-tests.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION} -Dclassifier=tests

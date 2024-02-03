@@ -63,7 +63,7 @@ public class ReactCoreModulesFactory {
       .files()
         .batch(SOURCE, to("."))
           .addFile("tsconfig.json")
-          .addFile("vite.config.ts")
+          .addTemplate("vite.config.ts")
           .addFile("vitest.config.ts")
           .addFile(".eslintrc.cjs")
           .and()

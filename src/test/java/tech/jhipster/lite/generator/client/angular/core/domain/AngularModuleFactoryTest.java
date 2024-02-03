@@ -98,4 +98,32 @@ class AngularModuleFactoryTest {
       )
       .hasPrefixedFiles("src/main/webapp", "index.html", "main.ts", "styles.css");
   }
+
+  @Test
+  void shouldProxyBeUpdatedWhenServerPortPropertyNotDefault() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .projectBaseName("jhiTest")
+      .put("serverPort", 8081)
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+      .hasFile("proxy.conf.json")
+      .containing("\"target\": \"http://localhost:8081\"")
+      .notContaining("\"target\": \"http://localhost:8080\"");
+  }
+
+  @Test
+  void shouldProxyBeDefaultWhenServerPortPropertyMissing() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture
+      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .projectBaseName("jhiTest")
+      .build();
+
+    JHipsterModule module = factory.buildModule(properties);
+    assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
+      .hasFile("proxy.conf.json")
+      .containing("\"target\": \"http://localhost:8080\"");
+  }
 }

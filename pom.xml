@@ -734,6 +734,7 @@
               </execution>
             </executions>
             <configuration>
+              <classifier>exec</classifier>
               <image>
                 <env>
                   <BP_JVM_VERSION>21</BP_JVM_VERSION>

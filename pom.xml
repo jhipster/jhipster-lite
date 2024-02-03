@@ -714,7 +714,7 @@
     <profile>
       <id>spring-boot-build</id>
       <activation>
-        <activeByDefault />
+        <activeByDefault>true</activeByDefault>
       </activation>
       <build>
         <plugins>

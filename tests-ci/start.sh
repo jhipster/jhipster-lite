@@ -19,11 +19,14 @@ elif test -f "gradlew"; then
 fi
 
 echo "*** Identifying application executable..."
-export APP_JAR=$(find . -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests")
+export EXEC_JAR=$(\
+  find . -maxdepth 1 -name "*-exec.jar" | grep . \
+  || find . -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" \
+)
 
-echo "*** Starting application ${APP_JAR}..."
+echo "*** Starting application using ${EXEC_JAR}..."
 java \
-  -jar ${APP_JAR} \
+  -jar ${EXEC_JAR} \
   --logging.level.ROOT=OFF & > /dev/null
 echo $! > .pid-jhlite
 

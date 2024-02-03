@@ -2,8 +2,7 @@ FROM openjdk:21-slim AS build
 COPY . /code/jhipster-app/
 WORKDIR /code/jhipster-app/
 RUN chmod +x mvnw && ./mvnw package -B -DskipTests -Dmaven.javadoc.skip=true -Dmaven.source.skip
-RUN mv /code/jhipster-app/target/*.jar /code/ && \
-    rm -rf /code/*-tests.jar
+RUN mv /code/jhipster-app/target/*-exec.jar /code/
 
 FROM openjdk:21-slim
 COPY --from=build /code/*.jar /code/

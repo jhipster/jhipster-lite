@@ -559,6 +559,37 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.graalvm.buildtools</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${project.parent.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <classifier>exec</classifier>
+          <image>
+            <env>
+              <BP_JVM_VERSION>21</BP_JVM_VERSION>
+            </env>
+            <buildpacks>
+              <buildpack>gcr.io/paketo-buildpacks/bellsoft-liberica:10.4.3</buildpack>
+              <buildpack>gcr.io/paketo-buildpacks/java-native-image</buildpack>
+            </buildpacks>
+          </image>
+          <mainClass>${start-class}</mainClass>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -711,48 +742,6 @@
   </build>
 
   <profiles>
-    <profile>
-      <id>spring-boot-build</id>
-      <activation>
-        <property>
-          <name>release</name>
-          <value>!true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.graalvm.buildtools</groupId>
-            <artifactId>native-maven-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>${project.parent.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>repackage</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <image>
-                <env>
-                  <BP_JVM_VERSION>21</BP_JVM_VERSION>
-                </env>
-                <buildpacks>
-                  <buildpack>gcr.io/paketo-buildpacks/bellsoft-liberica:10.4.3</buildpack>
-                  <buildpack>gcr.io/paketo-buildpacks/java-native-image</buildpack>
-                </buildpacks>
-              </image>
-              <mainClass>${start-class}</mainClass>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
     <profile>
       <id>deploy-central</id>
       <activation>

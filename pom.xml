@@ -313,9 +313,6 @@
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
         <configuration>
-          <!-- Due to spring-boot repackage, without adding this property test classes are not found
-               See https://github.com/spring-projects/spring-boot/issues/6254 -->
-          <classesDirectory>${project.build.outputDirectory}</classesDirectory>
           <!-- Force alphabetical order to have a reproducible build -->
           <runOrder>alphabetical</runOrder>
           <includes>

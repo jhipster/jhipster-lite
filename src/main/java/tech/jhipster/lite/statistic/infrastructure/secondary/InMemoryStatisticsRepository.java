@@ -1,6 +1,5 @@
 package tech.jhipster.lite.statistic.infrastructure.secondary;
 
-import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,7 +24,9 @@ class InMemoryStatisticsRepository implements StatisticsRepository {
   }
 
   @Override
-  public Statistics get(@NotNull StatisticsCriteria criteria) {
+  public Statistics get(StatisticsCriteria criteria) {
+    Assert.notNull("criteria", criteria);
+
     long appliedModulesCount = appliedModules.size();
     if (criteria.isAnyCriteriaApplied()) {
       appliedModulesCount =

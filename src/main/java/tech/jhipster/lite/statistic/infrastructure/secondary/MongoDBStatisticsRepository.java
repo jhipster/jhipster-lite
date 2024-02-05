@@ -33,7 +33,9 @@ class MongoDBStatisticsRepository implements StatisticsRepository {
   }
 
   @Override
-  public Statistics get(@NotNull StatisticsCriteria criteria) {
+  public Statistics get(StatisticsCriteria criteria) {
+    Assert.notNull("criteria", criteria);
+
     if (criteria.isAnyCriteriaApplied()) {
       Query query = generateQuery(criteria);
       return new Statistics(mongoTemplate.count(query, AppliedModuleDocument.class));

@@ -838,6 +838,16 @@
                         </fileSets>
                       </inputs>
                       <outputs>
+                        <directories>
+                          <directory>
+                            <name>target-classes-public</name>
+                            <path>${project.basedir}/target/classes/public</path>
+                          </directory>
+                          <directory>
+                            <name>target-classes-static</name>
+                            <path>${project.basedir}/target/classes/static</path>
+                          </directory>
+                        </directories>
                         <cacheableBecause>just need to build in case source or deps have changed</cacheableBecause>
                       </outputs>
                     </execution>

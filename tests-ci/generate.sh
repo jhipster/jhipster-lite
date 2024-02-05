@@ -226,6 +226,7 @@ elif [[ $application == 'mysqlapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
 
   applyModules \
+  "spring-boot-local-profile" \
   "kipe-expression" \
   "kipe-authorization" \
   "dummy-feature" \

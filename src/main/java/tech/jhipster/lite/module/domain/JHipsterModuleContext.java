@@ -64,7 +64,7 @@ public class JHipsterModuleContext {
       init.put(JHipsterModuleProperties.BASE_PACKAGE_PARAMETER, properties.basePackage().get());
       init.put(JHipsterModuleProperties.SERVER_PORT_PARAMETER, properties.serverPort().get());
       init.put(JHipsterModuleProperties.INDENTATION_PARAMETER, properties.indentation().spacesCount());
-      init.put(JHipsterModuleProperties.JAVA_VERSION, properties.getJavaVersion().get());
+      init.put(JHipsterModuleProperties.JAVA_VERSION, properties.javaVersion().get());
 
       return init;
     }

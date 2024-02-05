@@ -50,7 +50,7 @@ public class JHipsterModuleProperties {
     return commitModule;
   }
 
-  public Version getJavaVersion() {
+  public Version javaVersion() {
     return javaVersion;
   }
 

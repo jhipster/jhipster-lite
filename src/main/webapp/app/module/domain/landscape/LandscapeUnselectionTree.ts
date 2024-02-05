@@ -1,7 +1,7 @@
 import { LandscapeElementId } from './LandscapeElementId';
 
 export class LandscapeUnselectionTree {
-  public static EMPTY: LandscapeUnselectionTree = new LandscapeUnselectionTree([]);
+  public static readonly EMPTY: LandscapeUnselectionTree = new LandscapeUnselectionTree([]);
 
   constructor(public readonly elements: LandscapeElementId[]) {}
 

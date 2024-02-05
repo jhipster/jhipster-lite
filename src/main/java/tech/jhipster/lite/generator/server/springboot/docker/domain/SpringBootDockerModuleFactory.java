@@ -56,7 +56,7 @@ public class SpringBootDockerModuleFactory {
   }
 
   private String dockerBaseImage(JHipsterModuleProperties properties) {
-    return JAVA_DOCKER_IMAGE.formatted(properties.getJavaVersion().get());
+    return JAVA_DOCKER_IMAGE.formatted(properties.javaVersion().get());
   }
 
   private MavenPluginConfiguration jibPluginConfiguration(JHipsterModuleProperties properties) {

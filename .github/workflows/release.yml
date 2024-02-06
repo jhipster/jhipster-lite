@@ -32,7 +32,12 @@ jobs:
         run: |
           chmod +x mvnw
           ./mvnw clean verify
-          rm target/*-javadoc.jar target/*-sources.jar target/*-tests.jar
+          ARTIFACT_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+          rm target/*${ARTIFACT_VERSION}.jar
+          rm target/*${ARTIFACT_VERSION}-javadoc.jar
+          rm target/*${ARTIFACT_VERSION}-sources.jar
+          rm target/*${ARTIFACT_VERSION}-tests.jar
+          mv target/jhlite-${ARTIFACT_VERSION}-exec.jar target/jhlite-${ARTIFACT_VERSION}.jar
       - name: 'Artifact: upload JAR'
         uses: actions/upload-artifact@v4
         with:

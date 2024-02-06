@@ -136,6 +136,9 @@ jobs:
           name: lcov
           path: '${{ github.workspace }}/target/test-results/lcov.info'
           retention-days: 1
+      - name: 'Artifact: remove unused JARs'
+        run: |
+          rm target/*-javadoc.jar target/*-sources.jar
       - name: 'Artifact: upload JAR'
         uses: actions/upload-artifact@v4
         with:

@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import org.apache.maven.model.Activation;
@@ -155,7 +156,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(RemoveJavaDependencyManagement command) {
     Assert.notNull(COMMAND, command);
 
-    DependencyManagement dependenciesManagement = pomModel.getDependencyManagement();
+    DependencyManagement dependenciesManagement = command
+      .buildProfile()
+      .map(this::findProfile)
+      .map(Profile::getDependencyManagement)
+      .orElse(pomModel.getDependencyManagement());
     if (dependenciesManagement != null) {
       removeDependencyFrom(command.dependency(), dependenciesManagement.getDependencies());
     }
@@ -165,7 +170,12 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(RemoveDirectJavaDependency command) {
     Assert.notNull(COMMAND, command);
 
-    removeDependencyFrom(command.dependency(), pomModel.getDependencies());
+    List<Dependency> dependencies = command
+      .buildProfile()
+      .map(this::findProfile)
+      .map(Profile::getDependencies)
+      .orElse(pomModel.getDependencies());
+    removeDependencyFrom(command.dependency(), dependencies);
   }
 
   private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
@@ -210,7 +220,23 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddJavaDependencyManagement command) {
     Assert.notNull(COMMAND, command);
 
-    addDependencyTo(command.dependency(), dependencyManagement().getDependencies());
+    DependencyManagement dependencyManagement = command
+      .buildProfile()
+      .map(this::findProfile)
+      .map(this::dependencyManagement)
+      .orElse(dependencyManagement());
+    addDependencyTo(command.dependency(), dependencyManagement.getDependencies());
+  }
+
+  private DependencyManagement dependencyManagement(Profile mavenProfile) {
+    return Optional
+      .ofNullable(mavenProfile.getDependencyManagement())
+      .or(() -> Optional.of(new DependencyManagement()))
+      .map(dependencyManagement -> {
+        mavenProfile.setDependencyManagement(dependencyManagement);
+        return dependencyManagement;
+      })
+      .orElseThrow();
   }
 
   private DependencyManagement dependencyManagement() {
@@ -224,7 +250,12 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddDirectJavaDependency command) {
     Assert.notNull(COMMAND, command);
 
-    addDependencyTo(command.dependency(), pomModel.getDependencies());
+    List<Dependency> dependencies = command
+      .buildProfile()
+      .map(this::findProfile)
+      .map(Profile::getDependencies)
+      .orElse(pomModel.getDependencies());
+    addDependencyTo(command.dependency(), dependencies);
   }
 
   private void addDependencyTo(JavaDependency dependency, List<Dependency> dependencies) {

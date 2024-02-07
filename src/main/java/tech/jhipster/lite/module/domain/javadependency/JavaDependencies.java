@@ -1,5 +1,6 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -29,5 +30,14 @@ public class JavaDependencies {
     Assert.notNull("id", id);
 
     return Optional.ofNullable(dependencies.get(id));
+  }
+
+  public JavaDependencies merge(JavaDependencies other) {
+    Assert.notNull("other", other);
+
+    Collection<JavaDependency> mergedDependencies = new ArrayList<>(other.dependencies.values());
+    mergedDependencies.addAll(dependencies.values());
+
+    return new JavaDependencies(mergedDependencies);
   }
 }

@@ -1,9 +1,11 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 abstract class JavaDependencyCommandsCreator {
@@ -16,12 +18,16 @@ abstract class JavaDependencyCommandsCreator {
     this.dependency = dependency;
   }
 
-  JavaBuildCommands changeCommands(JavaDependenciesVersions currentVersions, ProjectJavaDependencies projectDependencies) {
+  JavaBuildCommands changeCommands(
+    JavaDependenciesVersions currentVersions,
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
+  ) {
     Assert.notNull("currentVersion", currentVersions);
     Assert.notNull("projectDependencies", projectDependencies);
 
     Collection<JavaBuildCommand> versionCommands = dependency.versionCommands(currentVersions, projectDependencies);
-    Collection<JavaBuildCommand> dependencyCommands = dependencyCommands(projectDependencies);
+    Collection<JavaBuildCommand> dependencyCommands = dependencyCommands(projectDependencies, buildProfile);
 
     return new JavaBuildCommands(Stream.of(versionCommands, dependencyCommands).flatMap(Collection::stream).toList());
   }
@@ -30,5 +36,8 @@ abstract class JavaDependencyCommandsCreator {
     return dependency;
   }
 
-  protected abstract Collection<JavaBuildCommand> dependencyCommands(ProjectJavaDependencies projectDependencies);
+  protected abstract Collection<JavaBuildCommand> dependencyCommands(
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
+  );
 }

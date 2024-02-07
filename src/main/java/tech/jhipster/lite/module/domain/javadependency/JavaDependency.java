@@ -13,6 +13,7 @@ import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
@@ -78,11 +79,20 @@ public class JavaDependency {
     return SetVersion::new;
   }
 
-  Collection<JavaBuildCommand> dependencyCommands(DependenciesCommandsFactory commands, Optional<JavaDependency> projectDependency) {
-    return projectDependency.map(toDependenciesCommands(commands)).orElseGet(() -> List.of(commands.addDependency(this)));
+  Collection<JavaBuildCommand> dependencyCommands(
+    DependenciesCommandsFactory commands,
+    Optional<JavaDependency> projectDependency,
+    Optional<BuildProfileId> buildProfile
+  ) {
+    return projectDependency
+      .map(toDependenciesCommands(commands, buildProfile))
+      .orElseGet(() -> List.of(commands.addDependency(this, buildProfile)));
   }
 
-  private Function<JavaDependency, Collection<JavaBuildCommand>> toDependenciesCommands(DependenciesCommandsFactory commands) {
+  private Function<JavaDependency, Collection<JavaBuildCommand>> toDependenciesCommands(
+    DependenciesCommandsFactory commands,
+    Optional<BuildProfileId> buildProfile
+  ) {
     return projectDependency -> {
       JavaDependency resultingDependency = merge(projectDependency);
 
@@ -90,7 +100,7 @@ public class JavaDependency {
         return List.of();
       }
 
-      return List.of(commands.removeDependency(id()), commands.addDependency(resultingDependency));
+      return List.of(commands.removeDependency(id(), buildProfile), commands.addDependency(resultingDependency, buildProfile));
     };
   }
 

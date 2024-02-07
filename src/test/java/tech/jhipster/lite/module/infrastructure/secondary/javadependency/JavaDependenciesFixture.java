@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
-import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.FileSystemProjectJavaDependenciesRepository;
+import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.MavenProjectJavaDependenciesRepository;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JavaDependenciesFixture {
@@ -34,6 +34,6 @@ public final class JavaDependenciesFixture {
   }
 
   public static ProjectJavaDependenciesRepository projectVersionsRepository() {
-    return new FileSystemProjectJavaDependenciesRepository();
+    return new JHipsterJavaDependenciesRepository(List.of(new MavenProjectJavaDependenciesRepository()));
   }
 }

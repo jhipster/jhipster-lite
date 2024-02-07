@@ -11,12 +11,9 @@ import tech.jhipster.lite.shared.projectfolder.domain.ProjectFolder;
 @Configuration
 class ProjectFolderConfiguration {
 
-  @Value("${application.forced-project-folder:}")
-  private String forcedProjectFolder;
-
   @Bean
   @ConditionalOnProperty(value = "application.forced-project-folder")
-  ProjectFolder forcedProjectFolder() {
+  ProjectFolder forcedProjectFolder(@Value("${application.forced-project-folder}") String forcedProjectFolder) {
     return new ForcedProjectFolder(forcedProjectFolder);
   }
 

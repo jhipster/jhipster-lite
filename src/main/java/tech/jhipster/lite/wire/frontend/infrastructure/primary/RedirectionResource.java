@@ -2,6 +2,7 @@ package tech.jhipster.lite.wire.frontend.infrastructure.primary;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 class RedirectionResource {
@@ -19,7 +20,7 @@ class RedirectionResource {
       "/*/*" + TRAILING_DIR_PATTERN,
     }
   )
-  public String redirectApi() {
+  public String redirectApi(@PathVariable(required = false) String file, @PathVariable(required = false) String trailingDir) {
     return "forward:/";
   }
 }

@@ -88,6 +88,10 @@ public class JHipsterModuleJavaBuildProfiles {
       return profiles.computeIfAbsent(buildProfileId, id -> JHipsterModuleJavaBuildProfile.builder(this, buildProfileId));
     }
 
+    public JHipsterModuleJavaBuildProfileBuilder addProfile(String buildProfileId) {
+      return addProfile(new BuildProfileId(buildProfileId));
+    }
+
     public JHipsterModuleBuilder and() {
       return module;
     }

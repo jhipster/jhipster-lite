@@ -48,10 +48,6 @@ public final class JHipsterModulesAssertions {
     return file("src/test/resources/projects/init-gradle/gradle/libs.versions.toml", "gradle/libs.versions.toml");
   }
 
-  public static ModuleFile propertiesFile() {
-    return file("src/test/resources/projects/files/application.properties", "src/main/resources/application.properties");
-  }
-
   public static ModuleFile logbackFile() {
     return file("src/test/resources/projects/logback/logback.xml", "src/main/resources/logback-spring.xml");
   }

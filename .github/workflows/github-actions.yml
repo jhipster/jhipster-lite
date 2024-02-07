@@ -136,6 +136,9 @@ jobs:
           name: lcov
           path: '${{ github.workspace }}/target/test-results/lcov.info'
           retention-days: 1
+      - name: 'Artifact: remove unused JARs'
+        run: |
+          rm target/*-javadoc.jar target/*-sources.jar
       - name: 'Artifact: upload JAR'
         uses: actions/upload-artifact@v4
         with:
@@ -380,6 +383,14 @@ jobs:
             ${{ github.workspace }}/current-branch/tests-ci/wait_sonar.sh
             docker ps -a
           fi
+      - name: 'Install jhlite snapshot jar in local maven repository'
+        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
+        working-directory: ./current-branch/
+        run: |
+          export JHLITE_VERSION=$(find tests-ci -maxdepth 1 -name "*-tests.jar" | sed -e 's/.*jhlite-\(.*\)-tests\.jar/\1/')
+          echo "JHLITE_VERSION=${JHLITE_VERSION}"
+          ./mvnw install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION}
+          ./mvnw install:install-file -Dfile=tests-ci/jhlite-${JHLITE_VERSION}-tests.jar -DgroupId=tech.jhipster.lite -DartifactId=jhlite -Dversion=${JHLITE_VERSION} -Dclassifier=tests
       - name: 'Test: verify ${{ matrix.app }}'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/

@@ -18,12 +18,15 @@ elif test -f "gradlew"; then
   cd build/libs/
 fi
 
-echo "*** Removing other jar files..."
-rm *-javadoc.jar *-sources.jar *-tests.jar
+echo "*** Identifying application executable..."
+export EXEC_JAR=$(\
+  find . -maxdepth 1 -name "*-exec.jar" | grep . \
+  || find . -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" \
+)
 
-echo "*** Starting application..."
+echo "*** Starting application using ${EXEC_JAR}..."
 java \
-  -jar *.jar \
+  -jar ${EXEC_JAR} \
   --logging.level.ROOT=OFF & > /dev/null
 echo $! > .pid-jhlite
 

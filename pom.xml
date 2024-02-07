@@ -266,13 +266,13 @@
         <directory>${basedir}/src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>config/*.properties</include>
+          <include>generator/dependencies/pom.xml</include>
         </includes>
       </resource>
       <resource>
         <directory>${basedir}/src/main/resources</directory>
         <excludes>
-          <exclude>config/*.properties</exclude>
+          <exclude>generator/dependencies/pom.xml</exclude>
         </excludes>
       </resource>
     </resources>
@@ -313,9 +313,6 @@
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
         <configuration>
-          <!-- Due to spring-boot repackage, without adding this property test classes are not found
-               See https://github.com/spring-projects/spring-boot/issues/6254 -->
-          <classesDirectory>${project.build.outputDirectory}</classesDirectory>
           <!-- Force alphabetical order to have a reproducible build -->
           <runOrder>alphabetical</runOrder>
           <includes>
@@ -559,6 +556,25 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.graalvm.buildtools</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>repackage</id>
+            <configuration>
+              <attach>false</attach>
+              <classifier>exec</classifier>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -711,48 +727,6 @@
   </build>
 
   <profiles>
-    <profile>
-      <id>spring-boot-build</id>
-      <activation>
-        <property>
-          <name>release</name>
-          <value>!true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.graalvm.buildtools</groupId>
-            <artifactId>native-maven-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>${project.parent.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>repackage</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <image>
-                <env>
-                  <BP_JVM_VERSION>21</BP_JVM_VERSION>
-                </env>
-                <buildpacks>
-                  <buildpack>gcr.io/paketo-buildpacks/bellsoft-liberica:10.4.3</buildpack>
-                  <buildpack>gcr.io/paketo-buildpacks/java-native-image</buildpack>
-                </buildpacks>
-              </image>
-              <mainClass>${start-class}</mainClass>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
     <profile>
       <id>deploy-central</id>
       <activation>

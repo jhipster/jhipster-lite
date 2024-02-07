@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,8 +19,14 @@ class RedirectionResourceIT {
   @Autowired
   MockMvc mockMvc;
 
+  @ValueSource(strings = { "/dummy", "/dummy/", "/foo/dummy", "/foo/bar/dummy" })
+  @ParameterizedTest
+  void shouldGetViewForForwarding(String path) throws Exception {
+    mockMvc.perform(get(path)).andExpect(status().isOk()).andExpect(view().name("forward:/"));
+  }
+
   @Test
-  void shouldGetViewForForwarding() throws Exception {
-    mockMvc.perform(get("/dummy")).andExpect(status().isOk()).andExpect(view().name("forward:/"));
+  void shouldNotGetViewForForwardingForFileWithExtension() throws Exception {
+    mockMvc.perform(get("/dummy.html")).andExpect(status().isNotFound());
   }
 }

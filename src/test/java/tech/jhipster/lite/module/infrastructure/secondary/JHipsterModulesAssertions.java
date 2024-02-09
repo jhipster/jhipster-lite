@@ -61,7 +61,7 @@ public final class JHipsterModulesAssertions {
   }
 
   public static ModuleFile lintStagedConfigFile() {
-    return file("src/test/resources/projects/init/.lintstagedrc.js", ".lintstagedrc.js");
+    return file("src/test/resources/projects/init/.lintstagedrc.cjs", ".lintstagedrc.cjs");
   }
 
   public static ModuleFile readmeFile() {

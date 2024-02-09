@@ -28,7 +28,7 @@ class PrettierModuleFactoryTest {
 
     assertThatModuleWithFiles(module, packageJsonFile())
       .hasFiles(".prettierignore")
-      .hasFile(".lintstagedrc.js")
+      .hasFile(".lintstagedrc.cjs")
       .containing("*.{md,json,yml,html,css,scss,java,xml,feature}")
       .and()
       .hasFile(".prettierrc")

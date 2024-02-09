@@ -56,7 +56,7 @@ class VueModulesFactoryTest {
         .containing("\"test\": \"vitest run --coverage\"")
         .containing("\"test:watch\": \"vitest --\"")
         .and()
-      .hasFile(".lintstagedrc.js")
+      .hasFile(".lintstagedrc.cjs")
         .containing(
           """
             module.exports = {

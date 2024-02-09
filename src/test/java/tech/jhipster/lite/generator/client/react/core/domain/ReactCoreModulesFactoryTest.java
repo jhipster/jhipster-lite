@@ -49,7 +49,7 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeScript("test", "vitest run --coverage"))
       .containing(nodeScript("test:watch", "vitest --"))
       .and()
-      .hasFile(".lintstagedrc.js")
+      .hasFile(".lintstagedrc.cjs")
       .containing(
         """
         module.exports = {

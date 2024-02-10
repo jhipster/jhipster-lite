@@ -16,7 +16,7 @@
     <module name="InterfaceIsType" />
     <module name="MutableException" />
     <module name="VisibilityModifier" />
-    <!-- Naming Coding -->
+    <!-- Coding -->
     <module name="DeclarationOrder" />
     <module name="InnerAssignment" />
     <module name="UnusedLocalVariable" />

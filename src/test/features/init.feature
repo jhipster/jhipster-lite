@@ -12,8 +12,8 @@ Feature: Init
       | package.json   |
       | README.md      |
     And I should not have files in ""
-      | .lintstagedrc.js |
-      | .prettierignore  |
-      | .prettierrc      |
+      | .lintstagedrc.cjs |
+      | .prettierignore   |
+      | .prettierrc       |
     And I should not have files in ".husky"
       | pre-commit |

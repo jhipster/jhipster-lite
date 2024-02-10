@@ -6,8 +6,8 @@ Feature: Prettier
       | baseName    | jhipster            |
       | endOfLine   | lf                  |
     Then I should have files in ""
-      | .lintstagedrc.js |
-      | .prettierignore  |
-      | .prettierrc      |
+      | .lintstagedrc.cjs |
+      | .prettierignore   |
+      | .prettierrc       |
     And I should have files in ".husky"
       | pre-commit |

@@ -55,7 +55,7 @@ class AngularModuleFactoryTest {
       .containing("\"lint\": \"ng lint\"")
       .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },")
       .and()
-      .hasFile(".lintstagedrc.js")
+      .hasFile(".lintstagedrc.cjs")
       .containing(
         """
         module.exports = {

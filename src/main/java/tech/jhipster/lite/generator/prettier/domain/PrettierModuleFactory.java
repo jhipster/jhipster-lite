@@ -22,7 +22,7 @@ public class PrettierModuleFactory {
         .and()
       .files()
         .batch(SOURCE, DESTINATION)
-          .addFile(".lintstagedrc.js")
+          .addFile(".lintstagedrc.cjs")
           .addFile(".prettierignore")
           .addTemplate(".prettierrc")
           .and()

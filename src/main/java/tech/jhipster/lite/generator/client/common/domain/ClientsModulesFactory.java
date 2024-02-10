@@ -16,7 +16,7 @@ public class ClientsModulesFactory {
       .optionalReplacements()
       .in(path("package.json"))
       .and()
-      .in(path(".lintstagedrc.js"))
+      .in(path(".lintstagedrc.cjs"))
       .add(lineBeforeRegex("\\['prettier --write'\\]"), "  '{src/**/,}*.{js,ts,tsx,vue}': ['eslint --fix'],")
       .and()
       .and();

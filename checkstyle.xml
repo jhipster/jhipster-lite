@@ -13,5 +13,6 @@
     </module>
     <!-- Class design -->
     <module name="FinalClass" />
+    <module name="VisibilityModifier" />
   </module>
 </module>

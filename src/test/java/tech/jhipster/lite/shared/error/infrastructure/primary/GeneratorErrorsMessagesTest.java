@@ -1,6 +1,6 @@
 package tech.jhipster.lite.shared.error.infrastructure.primary;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -80,7 +80,7 @@ class GeneratorErrorsMessagesTest {
   }
 
   private Stream<ErrorKey> errorKeys() {
-    return ERRORS.stream().filter(error -> error.isEnum()).flatMap(error -> Stream.of(error.getEnumConstants()));
+    return ERRORS.stream().filter(Class::isEnum).flatMap(error -> Stream.of(error.getEnumConstants()));
   }
 
   private Consumer<String> assertHasMessage() {

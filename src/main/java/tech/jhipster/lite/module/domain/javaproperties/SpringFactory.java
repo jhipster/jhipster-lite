@@ -2,7 +2,7 @@ package tech.jhipster.lite.module.domain.javaproperties;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SpringFactory {
+public final class SpringFactory {
 
   private final SpringFactoryType type;
   private final PropertyKey key;
@@ -34,7 +34,7 @@ public class SpringFactory {
     return value;
   }
 
-  private static class SpringFactoryBuilder implements SpringFactoryKeyBuilder, SpringFactoryValueBuilder {
+  private static final class SpringFactoryBuilder implements SpringFactoryKeyBuilder, SpringFactoryValueBuilder {
 
     private final SpringFactoryType type;
     private PropertyKey key;

@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.Map;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class ProjectAction {
+public final class ProjectAction {
 
   private final ModuleSlug module;
   private final Instant date;

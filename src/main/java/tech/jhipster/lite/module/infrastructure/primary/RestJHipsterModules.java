@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @Schema(name = "JHipsterModules", description = "Available modules")
-class RestJHipsterModules {
+final class RestJHipsterModules {
 
   private static final Comparator<RestJHipsterModuleCategory> CATEGORY_COMPARATOR = Comparator.comparing(
     RestJHipsterModuleCategory::getName

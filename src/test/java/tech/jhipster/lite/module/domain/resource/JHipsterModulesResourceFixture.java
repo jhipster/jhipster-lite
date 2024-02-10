@@ -69,7 +69,7 @@ public final class JHipsterModulesResourceFixture {
       .build();
   }
 
-  public static class JHipsterTestModuleResourceBuilder {
+  public static final class JHipsterTestModuleResourceBuilder {
 
     private String slug;
     private String group = "group";

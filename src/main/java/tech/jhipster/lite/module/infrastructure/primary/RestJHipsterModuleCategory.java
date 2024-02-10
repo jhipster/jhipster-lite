@@ -7,7 +7,7 @@ import java.util.Comparator;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Schema(name = "JHipsterModuleCategory", description = "Information for a module category")
-class RestJHipsterModuleCategory {
+final class RestJHipsterModuleCategory {
 
   private static final Comparator<RestJHipsterModule> MODULE_COMPARATOR = Comparator.comparing(RestJHipsterModule::getSlug);
 

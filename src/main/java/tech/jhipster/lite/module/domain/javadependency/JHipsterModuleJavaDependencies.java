@@ -18,7 +18,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleJavaDependencies {
+public final class JHipsterModuleJavaDependencies {
 
   private final Collection<JavaDependencyVersion> versions;
   private final Collection<DependencyId> dependenciesToRemove;
@@ -113,7 +113,7 @@ public class JHipsterModuleJavaDependencies {
     return dependencies.stream().map(dependency -> dependency.changeCommands(currentVersions, projectDependencies, buildProfile));
   }
 
-  public static class JHipsterModuleJavaDependenciesBuilder<T> {
+  public static final class JHipsterModuleJavaDependenciesBuilder<T> {
 
     private static final String DEPENDENCY = "dependency";
 

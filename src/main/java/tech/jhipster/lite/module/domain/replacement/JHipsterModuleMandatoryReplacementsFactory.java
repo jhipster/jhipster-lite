@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 
-public class JHipsterModuleMandatoryReplacementsFactory extends JHipsterModuleReplacementsFactory {
+public final class JHipsterModuleMandatoryReplacementsFactory extends JHipsterModuleReplacementsFactory {
 
   private JHipsterModuleMandatoryReplacementsFactory(JHipsterModuleMandatoryReplacementsFactoryBuilder builder) {
     super(builder);
@@ -18,7 +18,7 @@ public class JHipsterModuleMandatoryReplacementsFactory extends JHipsterModuleRe
     return getReplacers().stream();
   }
 
-  public static class JHipsterModuleMandatoryReplacementsFactoryBuilder
+  public static final class JHipsterModuleMandatoryReplacementsFactoryBuilder
     extends JHipsterModuleReplacementsFactoryBuilder<
       JHipsterModuleMandatoryReplacementsFactory,
       JHipsterModuleFileMandatoryReplacementsFactoryBuilder
@@ -39,7 +39,7 @@ public class JHipsterModuleMandatoryReplacementsFactory extends JHipsterModuleRe
     }
   }
 
-  public static class JHipsterModuleFileMandatoryReplacementsFactoryBuilder
+  public static final class JHipsterModuleFileMandatoryReplacementsFactoryBuilder
     extends JHipsterModuleFileReplacementsBuilder<
       JHipsterModuleMandatoryReplacementsFactoryBuilder,
       JHipsterModuleFileMandatoryReplacementsFactoryBuilder

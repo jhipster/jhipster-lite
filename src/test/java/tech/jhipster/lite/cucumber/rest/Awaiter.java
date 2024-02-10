@@ -5,7 +5,7 @@ import org.assertj.core.api.SoftAssertionsProvider.ThrowingRunnable;
 import org.awaitility.Awaitility;
 import org.awaitility.core.ConditionFactory;
 
-class Awaiter {
+final class Awaiter {
 
   private Awaiter() {}
 

@@ -2,7 +2,7 @@ package tech.jhipster.lite.shared.error.domain;
 
 import java.time.Instant;
 
-public class NotAfterTimeException extends AssertionException {
+public final class NotAfterTimeException extends AssertionException {
 
   private NotAfterTimeException(String field, String message) {
     super(field, message);

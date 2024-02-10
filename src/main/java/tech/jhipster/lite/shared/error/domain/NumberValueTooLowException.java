@@ -2,7 +2,7 @@ package tech.jhipster.lite.shared.error.domain;
 
 import java.util.Map;
 
-public class NumberValueTooLowException extends AssertionException {
+public final class NumberValueTooLowException extends AssertionException {
 
   private final String min;
   private final String value;

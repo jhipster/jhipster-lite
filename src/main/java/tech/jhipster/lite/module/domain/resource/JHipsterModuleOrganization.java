@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeDependency;
 import tech.jhipster.lite.module.domain.landscape.JHipsterModuleDependency;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleOrganization {
+public final class JHipsterModuleOrganization {
 
   public static final JHipsterModuleOrganization STANDALONE = builder().build();
   public static final JHipsterModuleOrganization SPRINGBOOT_DEPENDENCY = builder().addDependency(JHLiteModuleSlug.SPRING_BOOT).build();

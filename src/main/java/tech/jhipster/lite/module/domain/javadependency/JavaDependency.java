@@ -18,7 +18,7 @@ import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-public class JavaDependency {
+public final class JavaDependency {
 
   private final DependencyId id;
   private final Optional<DependencySlug> dependencySlug;
@@ -202,7 +202,7 @@ public class JavaDependency {
       .isEquals();
   }
 
-  private static class JavaDependencyBuilder
+  private static final class JavaDependencyBuilder
     implements JavaDependencyGroupIdBuilder, JavaDependencyArtifactIdBuilder, JavaDependencyOptionalValueBuilder {
 
     private GroupId groupId;

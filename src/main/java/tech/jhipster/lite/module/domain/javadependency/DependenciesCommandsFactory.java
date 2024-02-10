@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDepend
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 
-class DependenciesCommandsFactory {
+final class DependenciesCommandsFactory {
 
   public static final DependenciesCommandsFactory MANAGEMENT = new DependenciesCommandsFactory(
     AddJavaDependencyManagement::new,

@@ -6,7 +6,7 @@ import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleSpringProperties {
+public final class JHipsterModuleSpringProperties {
 
   private final Map<PropertyKey, PropertyValue> properties;
   private final Map<PropertyKey, Comment> comments;
@@ -28,7 +28,7 @@ public class JHipsterModuleSpringProperties {
     return comments;
   }
 
-  public static class JHipsterModuleSpringPropertiesBuilder {
+  public static final class JHipsterModuleSpringPropertiesBuilder {
 
     private final JHipsterModuleBuilder module;
     private final Map<PropertyKey, PropertyValue> properties = new HashMap<>();

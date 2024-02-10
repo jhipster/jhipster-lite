@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class NpmPackagesVersions {
+public final class NpmPackagesVersions {
 
   public static final NpmPackagesVersions EMPTY = builder().build();
 
@@ -61,7 +61,7 @@ public class NpmPackagesVersions {
     }
   }
 
-  private static class NpmSourceVersions {
+  private static final class NpmSourceVersions {
 
     private final NpmVersionSource source;
     private final Map<NpmPackageName, NpmPackageVersion> versions = new ConcurrentHashMap<>();

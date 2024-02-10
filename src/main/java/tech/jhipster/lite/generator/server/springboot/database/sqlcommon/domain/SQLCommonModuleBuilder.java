@@ -15,7 +15,7 @@ import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SQLCommonModuleBuilder {
+public final class SQLCommonModuleBuilder {
 
   private static final String ORG_HIBERNATE = "org.hibernate.orm";
   private static final PropertyValue FALSE = propertyValue(false);

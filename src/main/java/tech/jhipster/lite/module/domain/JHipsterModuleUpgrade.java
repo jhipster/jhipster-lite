@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.replacement.JHipsterUpgradeFilesReplacem
 import tech.jhipster.lite.module.domain.replacement.JHipsterUpgradeFilesReplacements;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleUpgrade {
+public final class JHipsterModuleUpgrade {
 
   private final JHipsterDestinations skippedFiles;
   private final JHipsterProjectFilesPaths filesToDelete;

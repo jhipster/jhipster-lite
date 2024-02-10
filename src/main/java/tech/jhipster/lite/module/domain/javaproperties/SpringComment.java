@@ -2,7 +2,7 @@ package tech.jhipster.lite.module.domain.javaproperties;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SpringComment implements SpringPropertyTypeFileName {
+public final class SpringComment implements SpringPropertyTypeFileName {
 
   private final SpringPropertyType type;
   private final PropertyKey key;
@@ -53,7 +53,7 @@ public class SpringComment implements SpringPropertyTypeFileName {
     return type.filePrefix() + "-" + profile.get();
   }
 
-  private static class SpringCommentBuilder
+  private static final class SpringCommentBuilder
     implements SpringCommentPropertyKeyBuilder, SpringCommentCommentBuilder, SpringCommentProfileBuilder {
 
     private final SpringPropertyType type;

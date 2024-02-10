@@ -2,7 +2,7 @@ package tech.jhipster.lite.module.domain.javaproperties;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class SpringProperty implements SpringPropertyTypeFileName {
+public final class SpringProperty implements SpringPropertyTypeFileName {
 
   private final SpringPropertyType type;
   private final PropertyKey key;
@@ -53,7 +53,8 @@ public class SpringProperty implements SpringPropertyTypeFileName {
     return type.filePrefix() + "-" + profile.get();
   }
 
-  private static class SpringPropertyBuilder implements SpringPropertyKeyBuilder, SpringPropertyValueBuilder, SpringPropertyProfileBuilder {
+  private static final class SpringPropertyBuilder
+    implements SpringPropertyKeyBuilder, SpringPropertyValueBuilder, SpringPropertyProfileBuilder {
 
     private final SpringPropertyType type;
     private PropertyKey key;

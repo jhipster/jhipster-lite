@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleFiles {
+public final class JHipsterModuleFiles {
 
   private final Collection<JHipsterModuleFile> filesToAdd;
   private final JHipsterFilesToDelete filesToDelete;
@@ -53,7 +53,7 @@ public class JHipsterModuleFiles {
     return filesToDelete;
   }
 
-  public static class JHipsterModuleFilesBuilder {
+  public static final class JHipsterModuleFilesBuilder {
 
     private final JHipsterModuleBuilder module;
     private final Collection<JHipsterModuleFile> filesToAdd = new ArrayList<>();
@@ -105,7 +105,7 @@ public class JHipsterModuleFiles {
     }
   }
 
-  public static class JHipsterModuleFileBatchBuilder {
+  public static final class JHipsterModuleFileBatchBuilder {
 
     private final JHipsterSource source;
     private final JHipsterDestination destination;

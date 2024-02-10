@@ -116,7 +116,7 @@ public final class JHipsterModulesAssertions {
       });
   }
 
-  public static class JHipsterModuleAsserter {
+  public static final class JHipsterModuleAsserter {
 
     private static final String SLASH = "/";
 
@@ -282,7 +282,7 @@ public final class JHipsterModulesAssertions {
     }
   }
 
-  public static class JHipsterModuleFileAsserter<T> {
+  public static final class JHipsterModuleFileAsserter<T> {
 
     private final T moduleAsserter;
     private final JHipsterProjectFolder projectFolder;

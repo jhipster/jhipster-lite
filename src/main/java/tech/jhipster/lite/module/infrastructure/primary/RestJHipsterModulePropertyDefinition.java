@@ -8,7 +8,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterPropertyType;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition;
 
 @Schema(name = "JHipsterModulePropertyDefinition", description = "Definition for a given property")
-class RestJHipsterModulePropertyDefinition {
+final class RestJHipsterModulePropertyDefinition {
 
   private final JHipsterPropertyType type;
   private final boolean mandatory;

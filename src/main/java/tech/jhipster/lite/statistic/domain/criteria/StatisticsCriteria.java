@@ -7,7 +7,7 @@ import tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug;
 /**
  * Criteria class for {@link tech.jhipster.lite.statistic.domain.Statistics}.
  */
-public class StatisticsCriteria {
+public final class StatisticsCriteria {
 
   private final Optional<Instant> startTime;
   private final Optional<Instant> endTime;

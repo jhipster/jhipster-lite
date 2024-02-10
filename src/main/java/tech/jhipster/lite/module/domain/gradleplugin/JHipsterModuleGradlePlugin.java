@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleGradlePlugin {
+public final class JHipsterModuleGradlePlugin {
 
   private final Collection<GradlePlugin> plugins;
 
@@ -50,7 +50,7 @@ public class JHipsterModuleGradlePlugin {
     return commandBuilder.build();
   }
 
-  public static class JHipsterModuleGradlePluginBuilder {
+  public static final class JHipsterModuleGradlePluginBuilder {
 
     private final JHipsterModuleBuilder module;
     private final Collection<GradlePlugin> plugins = new ArrayList<>();

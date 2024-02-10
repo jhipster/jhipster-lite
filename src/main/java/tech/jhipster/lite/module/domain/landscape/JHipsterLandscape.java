@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 
-public class JHipsterLandscape {
+public final class JHipsterLandscape {
 
   private final JHipsterLandscapeLevels levels;
 

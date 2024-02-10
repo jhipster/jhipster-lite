@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleContext {
+public final class JHipsterModuleContext {
 
   private static final Logger log = LoggerFactory.getLogger(JHipsterModuleContext.class);
 
@@ -44,7 +44,7 @@ public class JHipsterModuleContext {
     return indentation;
   }
 
-  public static class JHipsterModuleContextBuilder {
+  public static final class JHipsterModuleContextBuilder {
 
     private final JHipsterModuleBuilder module;
     private final Map<String, Object> context;

@@ -10,7 +10,7 @@ import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-public class DependencyId {
+public final class DependencyId {
 
   private final GroupId groupId;
   private final ArtifactId artifactId;

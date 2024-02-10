@@ -48,7 +48,7 @@ public final class NpmPackagesVersions {
 
   public static class NpmPackagesVersionsBuilder {
 
-    public final Map<NpmVersionSource, NpmSourceVersions> versions = new ConcurrentHashMap<>();
+    private final Map<NpmVersionSource, NpmSourceVersions> versions = new ConcurrentHashMap<>();
 
     public NpmPackagesVersionsBuilder put(NpmVersionSource source, Collection<NpmPackage> packages) {
       versions.computeIfAbsent(source, key -> new NpmSourceVersions(source)).add(packages);

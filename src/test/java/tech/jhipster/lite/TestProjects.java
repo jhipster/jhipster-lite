@@ -7,7 +7,8 @@ public final class TestProjects {
   private TestProjects() {}
 
   public static String newTestFolder() {
-    return lastProjectFolder = TestFileUtils.tmpDirForTest();
+    lastProjectFolder = TestFileUtils.tmpDirForTest();
+    return lastProjectFolder();
   }
 
   public static String lastProjectFolder() {

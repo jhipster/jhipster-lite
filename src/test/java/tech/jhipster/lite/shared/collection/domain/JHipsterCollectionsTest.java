@@ -69,7 +69,6 @@ class JHipsterCollectionsTest {
 
     @Test
     void shouldGetEmptyCollectionFromNullCollections() {
-      Collection<String> source = null;
       Collection<String> concatenedCollection = JHipsterCollections.concat((Collection<String>) null);
 
       assertThat(concatenedCollection).isEmpty();

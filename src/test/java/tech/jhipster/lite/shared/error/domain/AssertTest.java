@@ -1,6 +1,7 @@
 package tech.jhipster.lite.shared.error.domain;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -19,7 +20,7 @@ class AssertTest {
 
   private static final String FIELD_NAME = "fieldName";
 
-  public static final String NOT_NULL_OR_EMPTY = "NotNullOrEmpty";
+  private static final String NOT_NULL_OR_EMPTY = "NotNullOrEmpty";
 
   @Test
   void shouldNotValidateNullInputs() {

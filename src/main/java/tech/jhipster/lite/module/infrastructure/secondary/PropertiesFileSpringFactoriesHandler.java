@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.joining;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,11 +13,11 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 
 public class PropertiesFileSpringFactoriesHandler {
 
-  private final Path file;
-
   private static final String EQUAL = "=";
   private static final String COLLECTION_SEPARATOR = ",";
   private static final String LINE_BREAK = System.lineSeparator();
+
+  private final Path file;
 
   public PropertiesFileSpringFactoriesHandler(Path file) {
     Assert.notNull("file", file);

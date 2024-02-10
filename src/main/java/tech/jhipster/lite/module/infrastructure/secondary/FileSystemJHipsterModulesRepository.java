@@ -23,19 +23,6 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   public static final String DEFAULT_TEST_FOLDER = "src/test/resources/config/";
   public static final String TEST_META_INF_FOLDER = "src/test/resources/META-INF/";
 
-  public static Map<SpringPropertyType, List<String>> buildPaths() {
-    return Map.of(
-      SpringPropertyType.MAIN_PROPERTIES,
-      List.of(DEFAULT_MAIN_FOLDER, "src/main/resources/"),
-      SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES,
-      List.of(DEFAULT_MAIN_FOLDER, "src/main/resources/"),
-      SpringPropertyType.TEST_PROPERTIES,
-      List.of(DEFAULT_TEST_FOLDER, "src/test/resources/"),
-      SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES,
-      List.of(DEFAULT_TEST_FOLDER, "src/test/resources/")
-    );
-  }
-
   private final JavaProjects projects;
   private final JHipsterModulesResources resources;
 
@@ -69,6 +56,19 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     springFactories = new FileSystemSpringFactoriesCommandsHandler();
     packageJson = new FileSystemPackageJsonHandler(npmVersions);
     replacer = new FileSystemReplacer();
+  }
+
+  public static Map<SpringPropertyType, List<String>> buildPaths() {
+    return Map.of(
+      SpringPropertyType.MAIN_PROPERTIES,
+      List.of(DEFAULT_MAIN_FOLDER, "src/main/resources/"),
+      SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES,
+      List.of(DEFAULT_MAIN_FOLDER, "src/main/resources/"),
+      SpringPropertyType.TEST_PROPERTIES,
+      List.of(DEFAULT_TEST_FOLDER, "src/test/resources/"),
+      SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES,
+      List.of(DEFAULT_TEST_FOLDER, "src/test/resources/")
+    );
   }
 
   @Override

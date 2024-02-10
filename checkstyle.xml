@@ -18,6 +18,7 @@
     <module name="VisibilityModifier" />
     <!-- Naming Coding -->
     <module name="DeclarationOrder" />
+    <module name="InnerAssignment" />
     <module name="UnusedLocalVariable" />
   </module>
 </module>

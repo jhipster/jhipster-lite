@@ -34,6 +34,9 @@ jobs:
       - name: 'Init: install Node.js packages'
         run: npm ci
       - name: 'Test: run backend tests'
+        with:
+          env:
+            GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
         run: |
           ./mvnw clean verify
   #--------------------------------------------------

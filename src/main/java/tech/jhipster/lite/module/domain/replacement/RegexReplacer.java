@@ -11,6 +11,11 @@ public record RegexReplacer(ReplacementCondition condition, Pattern pattern) imp
     this(condition, buildPattern(regex));
   }
 
+  public RegexReplacer {
+    Assert.notNull("condition", condition);
+    Assert.notNull("pattern", pattern);
+  }
+
   private static Pattern buildPattern(String regex) {
     Assert.notBlank("regex", regex);
 
@@ -19,11 +24,6 @@ public record RegexReplacer(ReplacementCondition condition, Pattern pattern) imp
     } catch (PatternSyntaxException e) {
       throw GeneratorException.technicalError("Can't compile regex " + regex + ": " + e.getMessage(), e);
     }
-  }
-
-  public RegexReplacer {
-    Assert.notNull("condition", condition);
-    Assert.notNull("pattern", pattern);
   }
 
   @Override

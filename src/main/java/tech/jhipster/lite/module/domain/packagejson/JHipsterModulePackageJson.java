@@ -5,7 +5,7 @@ import java.util.Collection;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModulePackageJson {
+public final class JHipsterModulePackageJson {
 
   private final Scripts scripts;
   private final PackageJsonDependencies dependencies;
@@ -61,7 +61,7 @@ public class JHipsterModulePackageJson {
     return type;
   }
 
-  public static class JHipsterModulePackageJsonBuilder {
+  public static final class JHipsterModulePackageJsonBuilder {
 
     private final JHipsterModuleBuilder module;
     private final Collection<Script> scripts = new ArrayList<>();

@@ -84,7 +84,7 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
     return new EqualsBuilder().append(module, other.module).isEquals();
   }
 
-  private static class JHipsterLandscapeModuleBuilder
+  private static final class JHipsterLandscapeModuleBuilder
     implements
       JHipsterLandscapeModuleSlugBuilder,
       JHipsterLandscapeModuleOperationBuilder,

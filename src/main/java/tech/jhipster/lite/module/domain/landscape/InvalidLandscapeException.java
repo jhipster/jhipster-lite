@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
-class InvalidLandscapeException extends GeneratorException {
+final class InvalidLandscapeException extends GeneratorException {
 
   private InvalidLandscapeException(GeneratorExceptionBuilder builder) {
     super(builder);

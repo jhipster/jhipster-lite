@@ -41,7 +41,7 @@ public final class GradleCommunityPlugin implements GradlePlugin {
     return new GradleCommunityPluginBuilder();
   }
 
-  private static class GradleCommunityPluginBuilder implements GradleCommunityPluginIdBuilder, GradleCommunityPluginOptionalBuilder {
+  private static final class GradleCommunityPluginBuilder implements GradleCommunityPluginIdBuilder, GradleCommunityPluginOptionalBuilder {
 
     private GradlePluginId id;
     private GradlePluginConfiguration configuration;

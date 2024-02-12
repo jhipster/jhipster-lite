@@ -48,7 +48,7 @@ public class JHipsterModuleMavenBuildExtensions {
     return new JHipsterModuleMavenBuildExtensionsBuilder(module);
   }
 
-  public static class JHipsterModuleMavenBuildExtensionsBuilder {
+  public static final class JHipsterModuleMavenBuildExtensionsBuilder {
 
     private final JHipsterModuleBuilder module;
     private final Collection<MavenBuildExtension> buildExtensions = new ArrayList<>();

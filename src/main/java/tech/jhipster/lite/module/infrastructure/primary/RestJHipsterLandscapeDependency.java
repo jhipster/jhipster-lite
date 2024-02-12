@@ -6,7 +6,7 @@ import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeDependency;
 import tech.jhipster.lite.module.domain.landscape.JHipsterLandscapeElementType;
 
 @Schema(name = "JHipsterLandscapeDependency", description = "A dependency to another element")
-class RestJHipsterLandscapeDependency {
+final class RestJHipsterLandscapeDependency {
 
   private final JHipsterLandscapeElementType type;
   private final String slug;

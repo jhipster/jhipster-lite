@@ -15,7 +15,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @SuppressWarnings("java:S6539")
-public class JHipsterModuleChanges {
+public final class JHipsterModuleChanges {
 
   private final JHipsterProjectFolder projectFolder;
   private final Indentation indentation;
@@ -131,7 +131,7 @@ public class JHipsterModuleChanges {
     return springFactories;
   }
 
-  private static class JHipsterModuleChangesBuilder
+  private static final class JHipsterModuleChangesBuilder
     implements
       JHipsterModuleChangesProjectFolderBuilder,
       JHipsterModuleChangesIndentationBuilder,

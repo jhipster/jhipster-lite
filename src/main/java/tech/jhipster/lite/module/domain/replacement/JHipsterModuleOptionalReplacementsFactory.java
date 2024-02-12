@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleOptionalReplacementsFactory extends JHipsterModuleReplacementsFactory {
+public final class JHipsterModuleOptionalReplacementsFactory extends JHipsterModuleReplacementsFactory {
 
   private final Optional<JHipsterUpgradeFilesReplacements> upgrades;
 
@@ -43,7 +43,7 @@ public class JHipsterModuleOptionalReplacementsFactory extends JHipsterModuleRep
     );
   }
 
-  public static class JHipsterModuleOptionalReplacementsFactoryBuilder
+  public static final class JHipsterModuleOptionalReplacementsFactoryBuilder
     extends JHipsterModuleReplacementsFactoryBuilder<
       JHipsterModuleOptionalReplacementsFactory,
       JHipsterModuleFileOptionalReplacementsFactoryBuilder
@@ -64,7 +64,7 @@ public class JHipsterModuleOptionalReplacementsFactory extends JHipsterModuleRep
     }
   }
 
-  public static class JHipsterModuleFileOptionalReplacementsFactoryBuilder
+  public static final class JHipsterModuleFileOptionalReplacementsFactoryBuilder
     extends JHipsterModuleFileReplacementsBuilder<
       JHipsterModuleOptionalReplacementsFactoryBuilder,
       JHipsterModuleFileOptionalReplacementsFactoryBuilder

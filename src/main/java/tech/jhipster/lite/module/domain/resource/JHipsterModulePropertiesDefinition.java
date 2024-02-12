@@ -11,13 +11,13 @@ import java.util.TreeSet;
 import java.util.stream.Stream;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModulePropertiesDefinition {
+public final class JHipsterModulePropertiesDefinition {
+
+  public static final JHipsterModulePropertiesDefinition EMPTY = builder().build();
 
   private static final Comparator<JHipsterModulePropertyDefinition> DEFINITION_COMPARATOR = Comparator
     .comparing(JHipsterModulePropertyDefinition::order)
     .thenComparing(definition -> definition.key().get());
-
-  public static final JHipsterModulePropertiesDefinition EMPTY = builder().build();
 
   private final Set<JHipsterModulePropertyDefinition> definitions;
 
@@ -44,7 +44,7 @@ public class JHipsterModulePropertiesDefinition {
     return definitions.stream();
   }
 
-  public static class JHipsterModulePropertiesDefinitionBuilder {
+  public static final class JHipsterModulePropertiesDefinitionBuilder {
 
     private final Collection<JHipsterModulePropertyDefinition> definitions = new ArrayList<>();
 

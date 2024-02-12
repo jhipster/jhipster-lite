@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins;
 import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins.JHipsterModuleMavenPluginsBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleJavaBuildProfile {
+public final class JHipsterModuleJavaBuildProfile {
 
   private final BuildProfileId buildProfileId;
   private final Optional<BuildProfileActivation> activation;
@@ -61,7 +61,7 @@ public class JHipsterModuleJavaBuildProfile {
     return javaDependencies;
   }
 
-  public static class JHipsterModuleJavaBuildProfileBuilder {
+  public static final class JHipsterModuleJavaBuildProfileBuilder {
 
     private final JHipsterModuleJavaBuildProfilesBuilder profiles;
     private final BuildProfileId buildProfileId;

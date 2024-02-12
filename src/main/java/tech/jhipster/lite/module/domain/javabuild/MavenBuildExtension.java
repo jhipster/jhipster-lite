@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-public class MavenBuildExtension {
+public final class MavenBuildExtension {
 
   private final GroupId groupId;
   private final ArtifactId artifactId;
@@ -59,7 +59,7 @@ public class MavenBuildExtension {
       .isEquals();
   }
 
-  private static class MavenBuildExtensionBuilder
+  private static final class MavenBuildExtensionBuilder
     implements MavenBuildExtensionGroupIdBuilder, MavenBuildExtensionArtifactIdBuilder, MavenBuildExtensionOptionalValueBuilder {
 
     private GroupId groupId;

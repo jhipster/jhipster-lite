@@ -5,7 +5,7 @@ import java.util.Collection;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModulePostActions {
+public final class JHipsterModulePostActions {
 
   private final Collection<RunnableInContext> actions;
 
@@ -23,7 +23,7 @@ public class JHipsterModulePostActions {
     actions.forEach(action -> action.run(context));
   }
 
-  public static class JHipsterModulePostActionsBuilder {
+  public static final class JHipsterModulePostActionsBuilder {
 
     private final JHipsterModuleBuilder module;
     private final Collection<RunnableInContext> actions = new ArrayList<>();

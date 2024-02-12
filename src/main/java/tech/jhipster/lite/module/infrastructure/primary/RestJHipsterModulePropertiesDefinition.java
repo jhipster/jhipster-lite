@@ -5,7 +5,7 @@ import java.util.Collection;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 
 @Schema(name = "JHipsterModulePropertiesDefinition", description = "Definition for module properties")
-class RestJHipsterModulePropertiesDefinition {
+final class RestJHipsterModulePropertiesDefinition {
 
   private final Collection<RestJHipsterModulePropertyDefinition> definitions;
 

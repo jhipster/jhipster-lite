@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import tech.jhipster.lite.project.domain.history.ProjectAction;
 
 @Schema(name = "appliedModule", description = "Information for an applied module")
-class RestAppliedModule {
+final class RestAppliedModule {
 
   private final String slug;
 

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class AppliedModule {
+public final class AppliedModule {
 
   private final AppliedModuleId id;
   private final ProjectPath path;
@@ -55,7 +55,7 @@ public class AppliedModule {
     return properties;
   }
 
-  private static class ModuleAppliedBuilder
+  private static final class ModuleAppliedBuilder
     implements
       ModuleAppliedIdBuilder,
       ModuleAppliedPathBuilder,

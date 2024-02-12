@@ -19,7 +19,7 @@ public final class BuildProfileActivation {
     return new BuildProfileActivationBuilder();
   }
 
-  public static class BuildProfileActivationBuilder {
+  public static final class BuildProfileActivationBuilder {
 
     private Boolean activeByDefault;
 

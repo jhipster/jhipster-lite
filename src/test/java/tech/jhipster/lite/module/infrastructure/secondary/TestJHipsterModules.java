@@ -55,7 +55,7 @@ public final class TestJHipsterModules {
     return new TestJHipsterModulesApplyer(module);
   }
 
-  private static class TestJHipsterModulesApplyer implements TestJHipsterModulesFinalApplyer {
+  private static final class TestJHipsterModulesApplyer implements TestJHipsterModulesFinalApplyer {
 
     private final JHipsterModule module;
     private final JHipsterModuleSlug slug;

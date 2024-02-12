@@ -101,7 +101,7 @@ public class GeneratorException extends RuntimeException {
     return parameters;
   }
 
-  public static class GeneratorExceptionBuilder {
+  public static final class GeneratorExceptionBuilder {
 
     private final ErrorKey key;
     private final Map<String, String> parameters = new HashMap<>();

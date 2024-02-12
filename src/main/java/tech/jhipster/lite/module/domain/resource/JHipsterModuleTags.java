@@ -3,7 +3,7 @@ package tech.jhipster.lite.module.domain.resource;
 import java.util.*;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleTags {
+public final class JHipsterModuleTags {
 
   private static final Comparator<JHipsterModuleTag> TAG_COMPARATOR = Comparator.comparing(JHipsterModuleTag::get);
 

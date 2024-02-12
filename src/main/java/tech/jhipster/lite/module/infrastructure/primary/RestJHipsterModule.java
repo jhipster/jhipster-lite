@@ -9,7 +9,7 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleTag;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @Schema(name = "JHipsterModule", description = "Information for a JHipster module")
-class RestJHipsterModule {
+final class RestJHipsterModule {
 
   private final String slug;
   private final String description;

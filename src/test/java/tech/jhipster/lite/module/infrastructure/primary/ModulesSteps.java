@@ -31,9 +31,6 @@ import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
 
 public class ModulesSteps {
 
-  @Autowired
-  private TestRestTemplate rest;
-
   private static final String MODULE_APPLICATION_TEMPLATE =
     """
     {
@@ -67,6 +64,9 @@ public class ModulesSteps {
         }
     }
     """;
+
+  @Autowired
+  private TestRestTemplate rest;
 
   @When("I apply modules to default project")
   public void applyModulesForDefaultProject(List<String> modulesSlugs) {

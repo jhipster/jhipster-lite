@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.Map;
 import tech.jhipster.lite.project.domain.history.ProjectAction;
 
-class PersistedProjectAction {
+final class PersistedProjectAction {
 
   private final String module;
   private final Instant date;

@@ -1,9 +1,10 @@
 package tech.jhipster.lite;
 
-import static com.tngtech.archunit.base.DescribedPredicate.*;
-import static com.tngtech.archunit.core.domain.JavaClass.Predicates.*;
-import static com.tngtech.archunit.lang.conditions.ArchPredicates.*;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
+import static com.tngtech.archunit.base.DescribedPredicate.not;
+import static com.tngtech.archunit.core.domain.JavaClass.Predicates.equivalentTo;
+import static com.tngtech.archunit.core.domain.JavaClass.Predicates.simpleNameEndingWith;
+import static com.tngtech.archunit.lang.conditions.ArchPredicates.are;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
@@ -16,7 +17,7 @@ class AnnotationArchTest {
   private static final String ROOT_PACKAGE_PROJECT = ROOT_PACKAGE + "..";
 
   //@formatter:off
-  JavaClasses classes = new ClassFileImporter()
+  private final JavaClasses classes = new ClassFileImporter()
     .importPackages(ROOT_PACKAGE)
     .that(
       are(

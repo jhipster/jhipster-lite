@@ -157,7 +157,7 @@ class FileSystemPackageJsonHandler {
     }
   }
 
-  private static class JsonAction {
+  private static final class JsonAction {
 
     private final String blocName;
     private final String jsonContent;
@@ -295,7 +295,7 @@ class FileSystemPackageJsonHandler {
       return entries.stream().map(entry -> entry.toJson(indentation)).collect(Collectors.joining(LINE_SEPARATOR));
     }
 
-    private static class JsonActionBuilder {
+    private static final class JsonActionBuilder {
 
       private String blocName;
       private String jsonContent;

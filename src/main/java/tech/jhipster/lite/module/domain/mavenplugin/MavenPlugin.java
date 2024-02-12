@@ -12,7 +12,7 @@ import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution.MavenPl
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
-public class MavenPlugin {
+public final class MavenPlugin {
 
   private final DependencyId dependencyId;
   private final Optional<VersionSlug> versionSlug;
@@ -55,7 +55,8 @@ public class MavenPlugin {
     return dependencies;
   }
 
-  private static class MavenPluginBuilder implements MavenPluginGroupIdBuilder, MavenPluginArtifactIdBuilder, MavenPluginOptionalBuilder {
+  private static final class MavenPluginBuilder
+    implements MavenPluginGroupIdBuilder, MavenPluginArtifactIdBuilder, MavenPluginOptionalBuilder {
 
     private GroupId groupId;
     private ArtifactId artifactId;

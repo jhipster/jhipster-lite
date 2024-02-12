@@ -16,7 +16,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleJavaBuildProfiles {
+public final class JHipsterModuleJavaBuildProfiles {
 
   private final Collection<JHipsterModuleJavaBuildProfile> profiles;
 
@@ -71,7 +71,7 @@ public class JHipsterModuleJavaBuildProfiles {
     return profile -> profile.javaDependencies().buildChanges(versions, projectJavaDependencies, profile.id()).commands().stream();
   }
 
-  public static class JHipsterModuleJavaBuildProfilesBuilder {
+  public static final class JHipsterModuleJavaBuildProfilesBuilder {
 
     private final JHipsterModuleBuilder module;
     private final Map<BuildProfileId, JHipsterModuleJavaBuildProfileBuilder> profiles = new HashMap<>();

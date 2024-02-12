@@ -6,7 +6,7 @@ import java.util.Collection;
 import tech.jhipster.lite.module.domain.landscape.JHipsterLandscape;
 
 @Schema(name = "JHipsterLandscape", description = "Landscape of modules in JHipster")
-class RestJHipsterLandscape {
+final class RestJHipsterLandscape {
 
   private final Collection<RestJHipsterLandscapeLevel> levels;
 

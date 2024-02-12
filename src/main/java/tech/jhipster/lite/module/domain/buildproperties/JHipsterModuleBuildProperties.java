@@ -5,7 +5,7 @@ import java.util.Map;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleBuildProperties {
+public final class JHipsterModuleBuildProperties {
 
   private final Map<PropertyKey, PropertyValue> properties;
 
@@ -21,7 +21,7 @@ public class JHipsterModuleBuildProperties {
     return properties;
   }
 
-  public static class JHipsterModuleBuildPropertiesBuilder<T> {
+  public static final class JHipsterModuleBuildPropertiesBuilder<T> {
 
     private final T parent;
     private final Map<PropertyKey, PropertyValue> properties = new HashMap<>();

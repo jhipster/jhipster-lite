@@ -4,7 +4,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleResource {
+public final class JHipsterModuleResource {
 
   private final JHipsterModuleSlug slug;
   private final JHipsterModulePropertiesDefinition propertiesDefinition;
@@ -65,7 +65,7 @@ public class JHipsterModuleResource {
     return propertiesDefinition;
   }
 
-  private static class JHipsterModuleResourceBuilder
+  private static final class JHipsterModuleResourceBuilder
     implements
       JHipsterModuleResourceSlugBuilder,
       JHipsterModuleResourcePropertiesDefinitionBuilder,

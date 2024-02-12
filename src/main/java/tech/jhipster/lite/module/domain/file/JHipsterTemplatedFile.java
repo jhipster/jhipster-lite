@@ -6,7 +6,7 @@ import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterTemplatedFile {
+public final class JHipsterTemplatedFile {
 
   private final JHipsterModuleFile file;
   private final JHipsterModuleContext context;

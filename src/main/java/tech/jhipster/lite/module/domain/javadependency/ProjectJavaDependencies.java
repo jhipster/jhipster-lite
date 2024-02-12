@@ -4,7 +4,7 @@ import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class ProjectJavaDependencies {
+public final class ProjectJavaDependencies {
 
   public static final ProjectJavaDependencies EMPTY = builder().versions(null).dependenciesManagements(null).dependencies(null);
 

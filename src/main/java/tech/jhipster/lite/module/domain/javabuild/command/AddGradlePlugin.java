@@ -34,7 +34,7 @@ public final class AddGradlePlugin implements JavaBuildCommand {
     return new AddGradlePluginBuilder();
   }
 
-  private static class AddGradlePluginBuilder implements AddGradlePluginPluginBuilder, AddGradlePluginOptionalBuilder {
+  private static final class AddGradlePluginBuilder implements AddGradlePluginPluginBuilder, AddGradlePluginOptionalBuilder {
 
     private GradlePlugin plugin;
     private JavaDependencyVersion pluginVersion;

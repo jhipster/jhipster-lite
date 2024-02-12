@@ -92,7 +92,7 @@ import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @SuppressWarnings("java:S6539")
-public class JHipsterModule {
+public final class JHipsterModule {
 
   public static final String LINE_BREAK = "\n";
 
@@ -464,7 +464,7 @@ public class JHipsterModule {
     return springFactories;
   }
 
-  public static class JHipsterModuleBuilder {
+  public static final class JHipsterModuleBuilder {
 
     private static final String PROFILE = "profile";
 

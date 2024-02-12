@@ -426,7 +426,7 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
-  public static class JHipsterModulePropertiesBuilder {
+  public static final class JHipsterModulePropertiesBuilder {
 
     private boolean commitModules = false;
     private final String projectFolder;

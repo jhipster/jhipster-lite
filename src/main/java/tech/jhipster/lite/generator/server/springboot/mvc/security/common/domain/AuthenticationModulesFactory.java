@@ -20,7 +20,7 @@ public final class AuthenticationModulesFactory {
   private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
 
-  public static final GroupId SPRING_GROUP = groupId("org.springframework.boot");
+  private static final GroupId SPRING_GROUP = groupId("org.springframework.boot");
 
   private static final String APPLICATION = "application";
   private static final String DOMAIN = "domain";

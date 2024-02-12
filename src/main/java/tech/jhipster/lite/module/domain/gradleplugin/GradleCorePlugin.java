@@ -35,7 +35,7 @@ public final class GradleCorePlugin implements GradlePlugin {
     return new GradleCorePluginBuilder();
   }
 
-  private static class GradleCorePluginBuilder implements GradleCorePluginIdBuilder, GradleCorePluginOptionalBuilder {
+  private static final class GradleCorePluginBuilder implements GradleCorePluginIdBuilder, GradleCorePluginOptionalBuilder {
 
     private GradlePluginId id;
     private GradlePluginConfiguration configuration;

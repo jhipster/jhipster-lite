@@ -17,7 +17,7 @@ import tech.jhipster.lite.IntegrationTest;
 class RedirectionResourceIT {
 
   @Autowired
-  MockMvc mockMvc;
+  private MockMvc mockMvc;
 
   @ValueSource(strings = { "/dummy", "/dummy/", "/foo/dummy", "/foo/bar/dummy" })
   @ParameterizedTest

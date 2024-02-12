@@ -20,7 +20,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependencies;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModuleMavenPlugins {
+public final class JHipsterModuleMavenPlugins {
 
   private final Collection<MavenPlugin> pluginsManagement;
   private final Collection<MavenPlugin> plugins;
@@ -91,7 +91,7 @@ public class JHipsterModuleMavenPlugins {
     return dependency -> dependency.version().flatMap(JavaDependency.toVersion(versions, projectDependencies)).stream();
   }
 
-  public static class JHipsterModuleMavenPluginsBuilder<T> {
+  public static final class JHipsterModuleMavenPluginsBuilder<T> {
 
     private final T parentModuleBuilder;
     private final Collection<MavenPlugin> pluginsManagement = new ArrayList<>();

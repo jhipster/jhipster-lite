@@ -8,7 +8,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterPropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyType;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class JHipsterModulePropertyDefinition {
+public final class JHipsterModulePropertyDefinition {
 
   private final JHipsterPropertyType type;
   private final boolean mandatory;
@@ -133,7 +133,7 @@ public class JHipsterModulePropertyDefinition {
     return order;
   }
 
-  private static class JHipsterModulePropertyDefinitionBuilder
+  private static final class JHipsterModulePropertyDefinitionBuilder
     implements
       JHipsterModulePropertyDefinitionTypeBuilder,
       JHipsterModulePropertyDefinitionOptionalityBuilder,

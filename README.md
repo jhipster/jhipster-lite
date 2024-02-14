@@ -206,7 +206,7 @@ java -jar target/*.jar
 
 So you can navigate to http://localhost:7471 in your browser.
 
-These following profiles are available and you can use it to only display the frameworks you want:
+These following profiles are available, and you can use it to only display the frameworks you want:
 
 - angular
 - react

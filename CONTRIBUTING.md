@@ -472,7 +472,7 @@ or joined the [JHipster team](https://www.jhipster.tech/team/).
 - Follow the project's [policies](https://www.jhipster.tech/policies/#-policies).
 - Follow the project's [Code of Conduct](https://github.com/jhipster/jhipster-lite/blob/main/CODE_OF_CONDUCT.md)
   and be polite and helpful to users when answering questions/bug reports and when reviewing PRs.
-- We work on our free time so we have no obligation nor commitment. Work/life balance is important, so don't
+- We work on our free time, so we have no obligation nor commitment. Work/life balance is important, so don't
   feel tempted to put in all your free time fixing something.
 
 [issue-template]: https://github.com/jhipster/jhipster-lite/issues/new?template=BUG_REPORT.md

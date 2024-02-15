@@ -40,7 +40,7 @@ public class SimpleSteps {
 
 ```
 
-Use a `TestRestTemplate` to make your rest calls so you'll have the `context` management: the stuff allowing easier assertions in the `Then` steps.
+Use a `TestRestTemplate` to make your rest calls, so you'll have the `context` management: the stuff allowing easier assertions in the `Then` steps.
 
 The `assertThatLastResponse()` is a fluent API to assert your WebServices results.
 

@@ -112,6 +112,7 @@ public final class SQLCommonModuleBuilder {
     return javaDependency()
       .groupId("org.testcontainers")
       .artifactId(testContainerArtifactId)
+      .dependencySlug("%s-%s".formatted("testcontainers", testContainerArtifactId))
       .versionSlug("testcontainers")
       .scope(JavaDependencyScope.TEST)
       .build();

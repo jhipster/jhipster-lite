@@ -108,10 +108,10 @@ public final class SQLCommonModuleBuilder {
     //@formatter:on
   }
 
-  private static JavaDependency testContainer(ArtifactId testContainerArtifactI) {
+  private static JavaDependency testContainer(ArtifactId testContainerArtifactId) {
     return javaDependency()
       .groupId("org.testcontainers")
-      .artifactId(testContainerArtifactI)
+      .artifactId(testContainerArtifactId)
       .versionSlug("testcontainers")
       .scope(JavaDependencyScope.TEST)
       .build();

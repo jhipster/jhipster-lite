@@ -2,7 +2,7 @@
 
 So, you want to create a JHLite module? Great!
 
-For that you'll need to provide 2 main parts:
+For that, you'll need to provide two main parts:
 
 - `JHipsterModuleResource`: describe the module organization, it is used to generate the APIs;
 - `JHipsterModule`: describe the changes done by the module.
@@ -49,7 +49,7 @@ A few things to note here:
 
 - We are expecting to have a `buildModule(...)` method in `MyModuleFactory`;
 - The `JHipsterModulesAssertions.assertThatModule(...)` will really apply the module to a project and give you a fluent API to ensure some operations;
-- Even if the feedback loops are not perfect on that they should be short enough to allow a decent TDD implementation of the factory (on eclipse with [infinitest](https://infinitest.github.io/) feedbacks are under a second).
+- Even if the feedback loops are not perfect on that, they should be short enough to allow a decent TDD implementation of the factory (on eclipse with [infinitest](https://infinitest.github.io/) feedbacks are under a second).
 
 So, now that we have a first test we can do a simple implementation:
 
@@ -88,7 +88,7 @@ public class Dummy {
 
 Those placeholders will be replaced by properties values during module application.
 
-And this is it for this part of the documentation... Of course you can do a lot more than that in the `JHipsterModule` but the goal of this documentation is not to go deep in this usage! You have a lot of running example and you can always ask for help, we'll be really happy to help you provide your implementations!
+And this is it for this part of the documentation... Of course, you can do a lot more than that in the `JHipsterModule` but the goal of this documentation is not to go deep in this usage! You have a lot of running examples and you can always ask for help, we'll be really happy to help you provide your implementations!
 
 ## Add relevant dependencies required for the new module in the Version files
 
@@ -182,7 +182,7 @@ In your `JHipsterModuleResource` you can define additional properties and an org
 
 ## Applying module in CI
 
-Now that you are confident about your module's action you can add it to the JHLite ci by adding it in the `fullapp` application in [generate.sh](../tests-ci/generate.sh) so it will be compiled and analyzed by SonarQube. You can also create a brand new app if needed.
+Now that you are confident about your module's action you can add it to the JHLite ci by adding it in the `fullapp` application in [generate.sh](../tests-ci/generate.sh), so it will be compiled and analyzed by SonarQube. You can also create a brand new app if needed.
 
 If your app launches a docker container, you must edit [start_docker_compose.sh](../tests-ci/start_docker_compose.sh).
 

@@ -75,7 +75,7 @@ public class MyModuleFactory {
 
 This implementation will take a file from `src/main/resources/generator/my-module` and put it in the generated project.
 
-The file is a template named `Dummy.java.mustache` and can contains some mustache placeholders:
+The file is a template named `Dummy.java.mustache` and can contain some mustache placeholders:
 
 ```java
 package {{packageName}}.my_package;

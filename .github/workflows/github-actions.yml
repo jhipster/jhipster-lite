@@ -398,7 +398,7 @@ jobs:
           if [ -f 'mvnw' ]; then
             ./mvnw clean verify -Dsonar.qualitygate.wait=true sonar:sonar
           elif [ -f 'gradlew' ]; then
-            ./gradlew build --no-daemon
+            ./gradlew integrationTest --no-daemon
           else
             npm install
             npm test

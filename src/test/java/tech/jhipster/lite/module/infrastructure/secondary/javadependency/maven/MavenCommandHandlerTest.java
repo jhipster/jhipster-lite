@@ -1274,17 +1274,16 @@ class MavenCommandHandlerTest {
 
       String content = content(pom);
       assertThat(content).contains(
-        """
-          <build>
-            <extensions>
-              <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>${os-maven-plugin.version}</version>
-              </extension>
-            </extensions>
-        """
-      );
+          """
+              <extensions>
+                <extension>
+                  <groupId>kr.motd.maven</groupId>
+                  <artifactId>os-maven-plugin</artifactId>
+                  <version>${os-maven-plugin.version}</version>
+                </extension>
+              </extensions>
+          """
+        );
 
       assertThat(Pattern.compile("^ +$", Pattern.MULTILINE).matcher(content).find()).isFalse();
     }

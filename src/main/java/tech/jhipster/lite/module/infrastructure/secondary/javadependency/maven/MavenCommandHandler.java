@@ -1,11 +1,10 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
+import io.fabric8.maven.Maven;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,8 +25,6 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.PluginManagement;
 import org.apache.maven.model.Profile;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
@@ -68,7 +65,6 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 
 public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
-  private static final MavenXpp3Writer mavenWriter = new MavenXpp3Writer();
   private static final String COMMAND = "command";
   private static final int DEFAULT_MAVEN_INDENTATION = 2;
 
@@ -86,11 +82,10 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private Model readModel(Path pomPath) {
-    try (InputStream input = Files.newInputStream(pomPath)) {
-      MavenXpp3Reader reader = new MavenXpp3Reader();
-      return reader.read(input);
-    } catch (IOException | XmlPullParserException e) {
-      throw GeneratorException.technicalError("Error reading pom file: " + e.getMessage(), e);
+    try {
+      return Maven.readModel(pomPath);
+    } catch (UncheckedIOException e) {
+      throw GeneratorException.technicalError("Error reading pom: " + e.getMessage(), e);
     }
   }
 
@@ -398,10 +393,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
   private void writePom() {
-    try (Writer fileWriter = Files.newBufferedWriter(pomPath, StandardCharsets.UTF_8)) {
-      StringWriter stringWriter = new StringWriter();
-      mavenWriter.write(stringWriter, pomModel);
-      fileWriter.write(applyIndentation(stringWriter.getBuffer().toString()));
+    Maven.writeModel(pomModel, pomPath);
+
+    try {
+      String pomContent = Files.readString(pomPath, StandardCharsets.UTF_8);
+      Files.writeString(pomPath, applyIndentation(pomContent), StandardCharsets.UTF_8);
     } catch (IOException e) {
       throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
     }

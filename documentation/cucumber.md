@@ -89,7 +89,7 @@ CucumberRestTestContext.countEntries("$.path");
 
 ## Async services
 
-Sometimes you have to validate behavior of async operations. You can do:
+Sometimes you have to validate the behavior of async operations. You can do:
 
 ```java
 assertThatLastAsyncResponse().hasOkStatus();
@@ -105,7 +105,7 @@ Behind the scene, your last service will be recalled until the assertions are OK
 
 ## Mocking beans
 
-You may need to mock beans for your component tests but you won't be able to do it in a "classic" way (using `@MockBean`) since the application context will be already loaded. A way to achieve that is to overload beans to have mocks:
+You may need to mock beans for your component tests, but you won't be able to do it in a "classic" way (using `@MockBean`) since the application context will be already loaded. A way to achieve that is to overload beans to have mocks:
 
 ```java
 @RunWith(Cucumber.class)

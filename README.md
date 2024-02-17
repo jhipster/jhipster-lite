@@ -22,7 +22,7 @@
 
 [JHipster][jhipster-url] is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
 
-**JHipster Lite** will help you to start your project, by generating step by step only what you need.
+**JHipster Lite** will help you to start your project by generating step by step only what you need.
 
 - The generated code uses [Hexagonal Architecture](./documentation/hexagonal-architecture.md)
 - The technical code is separated from your business code

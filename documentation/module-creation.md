@@ -51,7 +51,7 @@ A few things to note here:
 - The `JHipsterModulesAssertions.assertThatModule(...)` will really apply the module to a project and give you a fluent API to ensure some operations;
 - Even if the feedback loops are not perfect on that, they should be short enough to allow a decent TDD implementation of the factory (on eclipse with [infinitest](https://infinitest.github.io/) feedbacks are under a second).
 
-So, now that we have a first test we can do a simple implementation:
+So, now that we have a first test, we can do a simple implementation:
 
 ```java
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
@@ -178,7 +178,7 @@ public class MyModuleApplicationService {
 
 ```
 
-In your `JHipsterModuleResource` you can define additional properties and an organization to display your module in the landscape (replacing `.standalone()`). Here again, you have a lot of example to rely on.
+In your `JHipsterModuleResource` you can define additional properties and an organization to display your module in the landscape (replacing `.standalone()`). Here again, you have a lot of examples to rely on.
 
 ## Applying module in CI
 

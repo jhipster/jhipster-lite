@@ -34,7 +34,7 @@ If you submitted a Pull Request that fixes a ticket with the "\$100" tag, then y
 ## <a name="feature"></a> Feature Requests
 
 You can request a new feature by submitting a ticket to our [GitHub issues](https://github.com/jhipster/jhipster-lite/issues). If you
-would like to implement a new feature then consider what kind of change it is:
+would like to implement a new feature, then consider what kind of change it is:
 
 - **Major Changes** that you wish to contribute to the project should be discussed first. Please open a ticket which clearly states that it is a feature request in the title and explain clearly what you want to achieve in the description, and the JHipster team will discuss with you what should be done in that ticket. You can then start working on a Pull Request.
 - **Small Changes** can be proposed without any discussion. Open up a ticket which clearly states that it is a feature request in the title. Explain your change in the description, and you can propose a Pull Request straight away.
@@ -205,7 +205,7 @@ Issues opened without any of these info can be **closed** without any explanatio
 
 ### [Submitting a Pull Request](https://opensource.guide/how-to-contribute/#opening-a-pull-request)
 
-Before you submit your pull request consider the following guidelines:
+Before you submit your pull request, consider the following guidelines:
 
 - Search [GitHub](https://github.com/jhipster/jhipster-lite/pulls?utf8=%E2%9C%93&q=is%3Apr) for an open or closed Pull Request
   that relates to your submission.
@@ -277,7 +277,7 @@ That's it! Thank you for your contribution!
 
 #### Resolving merge conflicts ("This branch has conflicts that must be resolved")
 
-Sometimes your PR will have merge conflicts with the upstream repository's main branch. There are several ways to solve this but if not done correctly this can end up as a true nightmare. So here is one method that works quite well.
+Sometimes your PR will have merge conflicts with the upstream repository's main branch. There are several ways to solve this, but if not done correctly this can end up as a true nightmare. So here is one method that works quite well.
 
 - First, fetch the latest information from the main
 
@@ -341,9 +341,9 @@ from the main (upstream) repository:
 
 - The `tests-ci/generate.sh` file is used in the Continuous Integration pipeline to test generated projects.
 - This script takes as input:
-  - the **application-name**: this is the type of project you would like generate.
+  - the **application-name**: this is the type of project you would like to generate.
   - the **spring-configuration-format**: this is the format of spring configuration files.
-- Below are the list of applications that can be generated for testing (supported input params for the generate.sh script):
+- Below is the list of applications that can be generated for testing (supported input params for the generate.sh script):
   - spring
   - fullstack
   - fullapp
@@ -369,17 +369,17 @@ from the main (upstream) repository:
   - reactiveapp
   - customjhlite
   - typescriptapp
-- Below are the list of formats that can be used for testing (supported input params for the generate.sh script):
+- Below is the list of formats that can be used for testing (supported input params for the generate.sh script):
   - properties
   - yaml
 
 ### Generate project builds locally
 
-- Start JHipster Lite application in local machine
+- Start JHipster Lite application on local machine
   ```shell
   ./mvnw
   ```
-- Run the generate.sh script with desired project build name.
+- Run the generate.sh script with the desired project build name.
   ```shell
   ./tests-ci/generate.sh <application>
   ```
@@ -409,7 +409,7 @@ Please ensure to run `npm run prettier:format` on the project root before submit
 
 We have rules over how our git commit messages must be formatted. Please ensure to [squash](https://help.github.com/articles/about-git-rebase/#commands-available-while-rebasing) unnecessary commits so that your commit history is clean.
 
-If the commit only involves documentation changes you can skip the continuous integration pipelines using `[ci ignore]` or `[ignore ci]` in your commit message header.
+If the commit only involves documentation changes, you can skip the continuous integration pipelines using `[ci ignore]` or `[ignore ci]` in your commit message header.
 
 ### <a name="commit-message-format"></a> Commit Message Format
 
@@ -423,7 +423,7 @@ Each commit message consists of a **header**, a **body** and a **footer**.
 <footer>
 ```
 
-Any line of the commit message cannot be longer 100 characters! This allows the message to be easier
+Any line of the commit message cannot be longer than 100 characters! This allows the message to be easier
 to read on GitHub as well as in various git tools.
 
 ### Header

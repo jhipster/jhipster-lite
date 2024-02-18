@@ -2,7 +2,7 @@
 
 So you want to create a JHLite module? Great!
 
-For that you'll need to provide 2 main parts:
+For that, you'll need to provide 2 main parts:
 
 - `JHipsterModuleResource`: describe the module organization, it is used to generate the APIs;
 - `JHipsterModule`: describe the changes done by the module.
@@ -75,7 +75,7 @@ public class MyModuleFactory {
 
 This implementation will take a file from `src/main/resources/generator/my-module` and put it in the generated project.
 
-The file is a template named `Dummy.java.mustache` and can contains some mustache placeholders:
+The file is a template named `Dummy.java.mustache` and can contain some mustache placeholders:
 
 ```java
 package {{packageName}}.my_package;
@@ -203,7 +203,7 @@ public class MyModuleApplicationService {
 
 ```
 
-In your `JHipsterModuleResource` you can define additional properties and an organization to display your module in the landscape (replacing `.standalone()`). Here again, you have a lot of example to rely on.
+In your `JHipsterModuleResource` you can define additional properties and an organization to display your module in the landscape (replacing `.standalone()`). Here again, you have a lot of examples to rely on.
 
 ## Hide modules
 

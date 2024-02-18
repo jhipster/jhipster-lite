@@ -8,7 +8,7 @@ public {{baseName}}Page<Beer> list({{baseName}}Pageable pagination) {
 }
 ```
 
-To call that and expose a result using a rest service we can do something like that: 
+To call that and expose a result using a rest service, we can do something like that:
 
 ```java
 private final BeersApplicationService beers;
@@ -20,7 +20,7 @@ ResponseEntity<Rest{{baseName}}Page<RestBeer>> list(@Validated Rest{{baseName}}P
 }
 ```
 
-And we'll need a mapping method in `RestBeer`: 
+And we'll need a mapping method in `RestBeer`:
 
 ```java
 static RestBeer from(Beer beer) {

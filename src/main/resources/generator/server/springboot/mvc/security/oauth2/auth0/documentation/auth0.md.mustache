@@ -48,7 +48,7 @@ Modify `auth0.sh` to use your Auth0 settings.
 export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET={client-secret}
 ```
 
-If you have a doubt on the `issuer-uri` value, then, you can get the value from **Applications > {Your Application} > Settings > Advanced Settings > Endpoints > OpenID Configuration**. Remove `.well-known/openid-configuration` suffix since that will be added by the Spring Security.
+If you have a doubt on the `issuer-uri` value, then you can get the value from **Applications > {Your Application} > Settings > Advanced Settings > Endpoints > OpenID Configuration**. Remove `.well-known/openid-configuration` suffix since that will be added by the Spring Security.
 
 You can use the default `Auth0 Management API` audience value from the **Applications > API > API Audience** field. You can also define your own custom API and use the identifier as the API audience.
 
@@ -63,7 +63,7 @@ Note: Auth0 requires a user to provide authorization consent on the first login.
 
 ### Running locally
 
-In order to run your application with OAuth 2.0 and Auth0:
+To run your application with OAuth 2.0 and Auth0:
 
 ```bash
 source auth0.sh

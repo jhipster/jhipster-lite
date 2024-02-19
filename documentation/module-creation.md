@@ -112,7 +112,7 @@ And this is it for this part of the documentation... Of course, you can do a lot
 
 - **NPM versions**
   - Common npm dependencies can be added in the `src/main/resources/generator/dependencies/common/package.json`
-  - Framework specific npm dependencies can be added in the `package.json` of the respective framework folders. For eg: `src/main/resources/generator/dependencies/react/package.json`
+  - Framework specific npm dependencies can be added in the `package.json` of the respective framework folders. For e.g.: `src/main/resources/generator/dependencies/react/package.json`
   - These dependencies are resolved using [FileSystemNpmVersionReader](https://github.com/jhipster/jhipster-lite/blob/main/src/main/java/tech/jhipster/lite/module/infrastructure/secondary/npm/FileSystemNpmVersionReader.java), an implementation of the `NpmVersionsReader` bean to read from a local file.
 
 ## Creating JHipsterModuleResource

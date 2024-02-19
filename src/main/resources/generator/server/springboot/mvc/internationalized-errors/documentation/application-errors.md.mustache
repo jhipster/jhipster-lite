@@ -16,7 +16,7 @@ class UnknownFileToDeleteException extends {{ baseName }}Exception {
 
 ```
 
-With `FilesErrorKey`: 
+With `FilesErrorKey`:
 
 ```
 enum FilesErrorKey implements ErrorKey {
@@ -44,4 +44,4 @@ This may sound like a lot of work but that way you'll:
 
 * Have really clear stack traces whenever a problem occurs;
 * Never have a missing translation (this is tested);
-* Won't have to sync client <-> server deployment since client just have to display message sent by the server.
+* Won't have to sync client <-> server deployment since client just have to display a message sent by the server.

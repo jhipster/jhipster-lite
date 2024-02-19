@@ -39,6 +39,13 @@ jobs:
         run: |
           ./mvnw clean verify
 
+      - name: Archive results
+        uses: actions/upload-artifact@v4
+        with:
+          name: target
+          path: |
+            target/**/*.*
+
   #--------------------------------------------------
   # Build and Tests the project on Linux
   #--------------------------------------------------

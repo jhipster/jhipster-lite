@@ -4,6 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -30,6 +31,9 @@ public class GradleModuleFactory {
           .addFile("libs.versions.toml")
           .and()
         .and()
+      .gradlePlugins()
+        .plugin(gradleJacocoPlugin())
+        .and()
       .javaDependencies()
         .addDependency(junitEngineDependency())
         .addDependency(junitParamsDependency())
@@ -38,6 +42,20 @@ public class GradleModuleFactory {
         .and()
       .build();
     //@formatter:on
+  }
+
+  private static GradlePlugin gradleJacocoPlugin() {
+    return gradleCorePlugin()
+      .id("jacoco")
+      .toolVersionSlug("jacoco")
+      .configuration(
+        """
+        jacoco {
+          toolVersion = libs.versions.jacoco.get()
+        }
+        """
+      )
+      .build();
   }
 
   private static JavaDependency junitEngineDependency() {

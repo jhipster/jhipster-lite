@@ -1,6 +1,5 @@
 plugins {
   java
-  jacoco
   // jhipster-needle-gradle-plugins
 }
 
@@ -9,11 +8,6 @@ java {
     languageVersion = JavaLanguageVersion.of({{javaVersion}})
   }
 }
-
-jacoco {
-  toolVersion = libs.versions.jacoco.get()
-}
-
 // jhipster-needle-gradle-plugins-configurations
 
 repositories {

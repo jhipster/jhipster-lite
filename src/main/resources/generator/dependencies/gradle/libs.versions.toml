@@ -3,6 +3,7 @@ checkstyle = "10.13.0"
 jib = "3.4.0"
 git-properties = "2.4.1"
 protobuf-plugin = "0.9.4"
+jacoco = "0.8.11"
 
 [libraries]
 [libraries.checkstyle]

@@ -27,6 +27,19 @@ class GradleModuleFactoryTest {
 
     assertThatModule(module)
       .hasFile("build.gradle.kts")
+      .containing(
+        """
+          jacoco
+          // jhipster-needle-gradle-plugins
+        """
+      )
+      .containing(
+        """
+        jacoco {
+          toolVersion = libs.versions.jacoco.get()
+        }
+        """
+      )
       .containing("group = \"com.jhipster.test\"")
       .containing("testImplementation(libs.junit.engine)")
       .containing("testImplementation(libs.junit.params)")

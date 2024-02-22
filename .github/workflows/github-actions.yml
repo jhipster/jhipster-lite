@@ -257,9 +257,12 @@ jobs:
           - gradleapp
           - thymeleafapp
         include:
+          - java-build-tool: maven
           - spring-config-format: yaml
           - app: customjhlite
             spring-config-format: properties
+          - app: gradleapp
+            java-build-tool: maven
     steps:
       - name: 'Setup: checkout project from main branch'
         if: github.event_name == 'pull_request'
@@ -320,7 +323,7 @@ jobs:
         working-directory: ./current-branch/tests-ci/
         run: |
           ./start.sh 7471
-          ./generate.sh ${{ matrix.app }} ${{ matrix.spring-config-format }}
+          ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
           ./stop.sh
       - name: 'Generation: calculate md5sum ${{ matrix.app }}'
         id: calculate-md5sum

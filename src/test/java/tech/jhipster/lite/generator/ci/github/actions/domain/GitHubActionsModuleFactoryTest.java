@@ -15,10 +15,19 @@ class GitHubActionsModuleFactoryTest {
   private static final GitHubActionsModuleFactory factory = new GitHubActionsModuleFactory();
 
   @Test
-  void shouldBuildModule() {
+  void shouldBuildGitHubActionsMavenModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
-    JHipsterModule module = factory.buildModule(properties);
+    JHipsterModule module = factory.buildGitHubActionsMavenModule(properties);
+
+    assertThatModule(module).hasFiles(".github/actions/setup/action.yml", ".github/workflows/github-actions.yml");
+  }
+
+  @Test
+  void shouldBuildGitHubActionsGradleModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
+
+    JHipsterModule module = factory.buildGitHubActionsGradleModule(properties);
 
     assertThatModule(module).hasFiles(".github/actions/setup/action.yml", ".github/workflows/github-actions.yml");
   }

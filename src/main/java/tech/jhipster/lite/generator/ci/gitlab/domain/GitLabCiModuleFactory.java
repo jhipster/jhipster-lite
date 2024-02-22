@@ -13,9 +13,15 @@ public class GitLabCiModuleFactory {
 
   private static final JHipsterSource SOURCE = from("ci/gitlab");
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildGitLabCiMavenModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     return moduleBuilder(properties).files().add(SOURCE.template(".gitlab-ci-maven.yml.mustache"), to(".gitlab-ci.yml")).and().build();
+  }
+
+  public JHipsterModule buildGitLabCiGradleModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    return moduleBuilder(properties).files().add(SOURCE.template(".gitlab-ci-gradle.yml.mustache"), to(".gitlab-ci.yml")).and().build();
   }
 }

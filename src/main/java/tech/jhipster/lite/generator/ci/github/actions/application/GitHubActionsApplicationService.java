@@ -14,7 +14,11 @@ public class GitHubActionsApplicationService {
     factory = new GitHubActionsModuleFactory();
   }
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return factory.buildModule(properties);
+  public JHipsterModule buildGitHubActionsMavenModule(JHipsterModuleProperties properties) {
+    return factory.buildGitHubActionsMavenModule(properties);
+  }
+
+  public JHipsterModule buildGitHubActionsGradleModule(JHipsterModuleProperties properties) {
+    return factory.buildGitHubActionsGradleModule(properties);
   }
 }

@@ -15,10 +15,19 @@ class GitLabCiModuleFactoryTest {
   private static final GitLabCiModuleFactory factory = new GitLabCiModuleFactory();
 
   @Test
-  void shouldBuildModule() {
+  void buildGitLabCiMavenModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
 
-    JHipsterModule module = factory.buildModule(properties);
+    JHipsterModule module = factory.buildGitLabCiMavenModule(properties);
+
+    assertThatModule(module).hasFiles(".gitlab-ci.yml");
+  }
+
+  @Test
+  void buildGitLabCiGradleModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
+
+    JHipsterModule module = factory.buildGitLabCiGradleModule(properties);
 
     assertThatModule(module).hasFiles(".gitlab-ci.yml");
   }

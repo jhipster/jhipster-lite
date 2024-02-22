@@ -1,5 +1,6 @@
 package tech.jhipster.lite.generator.ci.gitlab.infrastructure.primary;
 
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
@@ -11,15 +12,31 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 @Configuration
 class GitLabCiModuleConfiguration {
 
+  private static final String CI_TAG = "ci";
+  private static final String GITLAB_TAG = "gitlab";
+  private static final String CONTINUOUS_INTEGRATION_GROUP_DOC = "Continuous Integration";
+
   @Bean
-  JHipsterModuleResource gitLabCiModule(GitLabCiApplicationService gitlabCi) {
+  JHipsterModuleResource gitLabCiMavenModule(GitLabCiApplicationService gitlabCi) {
     return JHipsterModuleResource
       .builder()
-      .slug(GITLAB_CI)
+      .slug(GITLAB_CI_MAVEN)
       .withoutProperties()
-      .apiDoc("Continuous Integration", "Add GitLab CI for Maven Build")
-      .organization(JHipsterModuleOrganization.builder().addDependency(MAVEN_JAVA).build())
-      .tags("ci", "gitlab")
-      .factory(gitlabCi::buildModule);
+      .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitLab CI for Maven Build")
+      .organization(JHipsterModuleOrganization.builder().feature(GITLAB_CI).addDependency(MAVEN_JAVA).build())
+      .tags(CI_TAG, GITLAB_TAG)
+      .factory(gitlabCi::buildGitLabCiMavenModule);
+  }
+
+  @Bean
+  JHipsterModuleResource gitLabCiGradleModule(GitLabCiApplicationService gitlabCi) {
+    return JHipsterModuleResource
+      .builder()
+      .slug(GITLAB_CI_GRADLE)
+      .withoutProperties()
+      .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitLab CI for Gradle Build")
+      .organization(JHipsterModuleOrganization.builder().feature(GITLAB_CI).addDependency(GRADLE_JAVA).build())
+      .tags(CI_TAG, GITLAB_TAG)
+      .factory(gitlabCi::buildGitLabCiGradleModule);
   }
 }

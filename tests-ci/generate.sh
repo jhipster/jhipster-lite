@@ -61,7 +61,7 @@ gradle() {
 
 spring_boot() {
   applyModules \
-  "github-actions" \
+  "github-actions-maven" \
   "java-base" \
   "checkstyle" \
   "protobuf" \
@@ -128,6 +128,7 @@ elif [[ $application == 'gradleapp' ]]; then
   # TODO: use "spring_boot", "spring_boot_mvc" instead of the following individual modules
   #  when jacoco-check-min-coverage and github-actions support gradle
   applyModules \
+    "github-actions-gradle" \
     "java-base" \
     "checkstyle" \
     "java-memoizers" \

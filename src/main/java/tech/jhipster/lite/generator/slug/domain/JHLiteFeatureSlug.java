@@ -14,6 +14,8 @@ public enum JHLiteFeatureSlug implements JHipsterFeatureSlugFactory {
   DUMMY_PERSISTENCE("dummy-persistence"),
   DUMMY_SCHEMA("dummy-schema"),
   FRONT_BROWSER_TEST("front-browser-test"),
+  GITHUB_ACTIONS("github-actions"),
+  GITLAB_CI("gitlab-ci"),
   JAVA_BUILD_TOOL("java-build-tool"),
   JAVA_BUILD_TOOL_WRAPPER("java-build-tool-wrapper"),
   JPA_PERSISTENCE("jpa-persistence"),

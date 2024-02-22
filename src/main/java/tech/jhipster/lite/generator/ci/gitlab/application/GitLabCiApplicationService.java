@@ -14,7 +14,11 @@ public class GitLabCiApplicationService {
     factory = new GitLabCiModuleFactory();
   }
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    return factory.buildModule(properties);
+  public JHipsterModule buildGitLabCiMavenModule(JHipsterModuleProperties properties) {
+    return factory.buildGitLabCiMavenModule(properties);
+  }
+
+  public JHipsterModule buildGitLabCiGradleModule(JHipsterModuleProperties properties) {
+    return factory.buildGitLabCiGradleModule(properties);
   }
 }

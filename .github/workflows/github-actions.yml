@@ -262,7 +262,7 @@ jobs:
           - app: customjhlite
             spring-config-format: properties
           - app: gradleapp
-            java-build-tool: maven
+            java-build-tool: gradle
     steps:
       - name: 'Setup: checkout project from main branch'
         if: github.event_name == 'pull_request'

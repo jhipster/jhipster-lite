@@ -9,6 +9,7 @@ plugins:
   - '@prettier/plugin-xml'
   - prettier-plugin-java
   - prettier-plugin-gherkin
+  - prettier-plugin-packagejson
 
 # js and ts rules:
 arrowParens: avoid

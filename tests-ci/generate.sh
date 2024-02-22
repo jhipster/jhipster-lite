@@ -97,6 +97,15 @@ sonar_back_front() {
   applyModules "sonar-qube-java-backend-and-frontend"
 }
 
+frontend_server_plugin() {
+  if [[ $java_build_tool == 'maven' ]]; then
+    applyModules "frontend-maven-plugin"
+  else
+    echo -e "No frontend server plugin for $java_build_tool!"
+    exit 1
+  fi
+}
+
 cucumber_with_jwt() {
   applyModules \
   "spring-boot-jwt" \
@@ -188,7 +197,8 @@ elif [[ $application == 'fullapp' ]]; then
 
   applyModules "hibernate-2nd-level-cache"
 
-  applyModules "frontend-maven-plugin" "vue-core"
+  frontend_server_plugin
+  applyModules "vue-core"
 
 elif [[ $application == 'oauth2app' ]]; then
   init_server
@@ -368,9 +378,8 @@ elif [[ $application == 'angularapp' ]]; then
   spring_boot_mvc
   sonar_back_front
 
-  applyModules \
-  "frontend-maven-plugin" \
-  "angular-core" \
+  frontend_server_plugin
+  applyModules "angular-core"
 
   cucumber_with_jwt
 
@@ -384,8 +393,8 @@ elif [[ $application == 'angularoauth2app' ]]; then
   applyModules \
   "java-memoizers" \
 
+  frontend_server_plugin
   applyModules \
-  "frontend-maven-plugin" \
   "angular-core" \
   "cypress"
 
@@ -402,8 +411,8 @@ elif [[ $application == 'reactapp' ]]; then
   spring_boot_mvc
   sonar_back_front
 
+  frontend_server_plugin
   applyModules \
-  "frontend-maven-plugin" \
   "react-core" \
   "cypress"
 
@@ -416,8 +425,8 @@ elif [[ $application == 'vueapp' ]]; then
   spring_boot_mvc
   sonar_back_front
 
+  frontend_server_plugin
   applyModules \
-  "frontend-maven-plugin" \
   "vue-core" \
   "vue-pinia" \
   "cypress"
@@ -427,8 +436,8 @@ elif [[ $application == 'svelteapp' ]]; then
   spring_boot_mvc
   sonar_back_front
 
+  frontend_server_plugin
   applyModules \
-  "frontend-maven-plugin" \
   "prettier" \
   "svelte-core"
 

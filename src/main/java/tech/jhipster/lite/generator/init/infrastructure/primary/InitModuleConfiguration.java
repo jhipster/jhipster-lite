@@ -13,8 +13,7 @@ class InitModuleConfiguration {
 
   @Bean
   JHipsterModuleResource initModule(InitApplicationService inits) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(INIT)
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc("Init", "Init project")

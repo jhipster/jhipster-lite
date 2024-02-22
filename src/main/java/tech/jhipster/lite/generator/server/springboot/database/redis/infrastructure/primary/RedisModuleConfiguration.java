@@ -14,8 +14,7 @@ class RedisModuleConfiguration {
 
   @Bean
   JHipsterModuleResource redisModule(RedisApplicationService redis) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(REDIS)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc("Spring Boot - Database", "Add Redis drivers and dependencies, with testcontainers")

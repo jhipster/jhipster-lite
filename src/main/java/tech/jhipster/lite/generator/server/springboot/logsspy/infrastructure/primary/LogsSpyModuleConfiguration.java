@@ -15,8 +15,7 @@ class LogsSpyModuleConfiguration {
 
   @Bean
   JHipsterModuleResource logSpyModule(LogsSpyApplicationService logSpy) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(LOGS_SPY)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc("Spring Boot", "Add LogsSpy JUnit5 extension to project")

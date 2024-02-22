@@ -13,10 +13,9 @@ class InvalidJHipsterSlugExceptionTest {
   void shouldGetExceptionInformation() {
     InvalidJHipsterSlugException exception = new InvalidJHipsterSlugException("invalid slug");
 
-    assertThat(exception.getMessage())
-      .isEqualTo(
-        "The slug \"invalid slug\" is invalid (blank, bad format, ...). Slug should be only lower case letters, numbers and hyphens (-)"
-      );
+    assertThat(exception.getMessage()).isEqualTo(
+      "The slug \"invalid slug\" is invalid (blank, bad format, ...). Slug should be only lower case letters, numbers and hyphens (-)"
+    );
     assertThat(exception.status()).isEqualTo(ErrorStatus.INTERNAL_SERVER_ERROR);
     assertThat(exception.key()).isEqualTo(ModuleErrorKey.INVALID_SLUG);
     assertThat(exception.parameters()).containsOnly(entry("slug", "invalid slug"));

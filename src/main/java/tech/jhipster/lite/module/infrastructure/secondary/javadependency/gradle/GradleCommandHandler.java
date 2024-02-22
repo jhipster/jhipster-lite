@@ -131,8 +131,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void removeDependencyFromBuildGradle(DependencySlug dependencySlug) {
-    String scopePattern = Stream
-      .of(GradleDependencyScope.values())
+    String scopePattern = Stream.of(GradleDependencyScope.values())
       .map(GradleDependencyScope::command)
       .collect(Collectors.joining("|", "(", ")"));
     Pattern dependencyLinePattern = Pattern.compile(

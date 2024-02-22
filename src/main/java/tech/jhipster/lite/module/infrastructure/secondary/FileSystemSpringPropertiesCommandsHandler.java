@@ -31,8 +31,7 @@ class FileSystemSpringPropertiesCommandsHandler {
   }
 
   private static Path getPath(JHipsterProjectFolder projectFolder, SpringProperty property) {
-    return PROPERTIES_PATHS
-      .get(property.type())
+    return PROPERTIES_PATHS.get(property.type())
       .stream()
       .map(toFilePath(projectFolder, property))
       .filter(Files::exists)

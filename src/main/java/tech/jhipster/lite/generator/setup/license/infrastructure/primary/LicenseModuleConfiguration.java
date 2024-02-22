@@ -15,8 +15,7 @@ public class LicenseModuleConfiguration {
 
   @Bean
   JHipsterModuleResource mitLicenseModule(LicenseApplicationService license) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(LICENSE_MIT)
       .withoutProperties()
       .apiDoc("License", "Add MIT license file")
@@ -27,8 +26,7 @@ public class LicenseModuleConfiguration {
 
   @Bean
   JHipsterModuleResource apacheLicenseModule(LicenseApplicationService license) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(LICENSE_APACHE)
       .withoutProperties()
       .apiDoc("License", "Add APACHE license file")

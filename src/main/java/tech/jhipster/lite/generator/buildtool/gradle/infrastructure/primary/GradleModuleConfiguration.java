@@ -18,8 +18,7 @@ class GradleModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gradleModule(GradleApplicationService gradle) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GRADLE_JAVA)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addProjectName().build())
       .apiDoc("Build Tool", "Init Gradle project with kotlin dsl and wrapper")
@@ -30,8 +29,7 @@ class GradleModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gradleWrapperModule(GradleApplicationService gradle) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GRADLE_WRAPPER)
       .withoutProperties()
       .apiDoc("Build Tool", "Add gradle wrapper")

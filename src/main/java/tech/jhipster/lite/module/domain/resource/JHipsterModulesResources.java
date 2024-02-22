@@ -27,11 +27,11 @@ public class JHipsterModulesResources {
 
     assertUniqueSlugs(modulesResources);
 
-    resources =
-      Collections.unmodifiableMap(
-        removeHiddenModules(modulesResources, hiddenModules)
-          .collect(Collectors.toMap(JHipsterModuleResource::slug, Function.identity(), (x, y) -> y, LinkedHashMap::new))
-      );
+    resources = Collections.unmodifiableMap(
+      removeHiddenModules(modulesResources, hiddenModules).collect(
+        Collectors.toMap(JHipsterModuleResource::slug, Function.identity(), (x, y) -> y, LinkedHashMap::new)
+      )
+    );
   }
 
   private Stream<JHipsterModuleResource> removeHiddenModules(
@@ -90,8 +90,9 @@ public class JHipsterModulesResources {
   }
 
   private Stream<String> allSlugsNestedDependenciesOf(String slug, Collection<JHipsterModuleResource> modulesResources) {
-    return allResourcesNestedDependenciesOf(new JHipsterModuleSlug(slug), modulesResources)
-      .map(moduleResource -> moduleResource.slug().get());
+    return allResourcesNestedDependenciesOf(new JHipsterModuleSlug(slug), modulesResources).map(
+      moduleResource -> moduleResource.slug().get()
+    );
   }
 
   private Stream<JHipsterModuleResource> allResourcesNestedDependenciesOf(

@@ -23,9 +23,9 @@ class AssertionErrorMessagesTest {
 
   private static Map<String, Properties> loadMessages() {
     try {
-      return Files
-        .list(Paths.get("src/main/resources/messages/assertions-errors"))
-        .collect(Collectors.toUnmodifiableMap(Path::toString, toProperties()));
+      return Files.list(Paths.get("src/main/resources/messages/assertions-errors")).collect(
+        Collectors.toUnmodifiableMap(Path::toString, toProperties())
+      );
     } catch (IOException e) {
       throw new AssertionError();
     }
@@ -46,24 +46,23 @@ class AssertionErrorMessagesTest {
 
   @Test
   void shouldHaveAssertionErrorTitleInAllSupportedLanguages() {
-    Stream
-      .of(AssertionErrorType.values())
+    Stream.of(AssertionErrorType.values())
       .map(assertionError -> "assertion-error." + assertionError.name() + ".title")
       .forEach(assertHasMessage());
   }
 
   @Test
   void shouldHaveAssertionErrorDetailInAllSupportedLanguages() {
-    Stream
-      .of(AssertionErrorType.values())
+    Stream.of(AssertionErrorType.values())
       .map(assertionError -> "assertion-error." + assertionError.name() + ".detail")
       .forEach(assertHasMessage());
   }
 
   private Consumer<String> assertHasMessage() {
     return messageKey ->
-      ALL_ASSERTION_MESSAGES.forEach((file, localeMessages) ->
-        assertThat(localeMessages).as(() -> "Missing " + messageKey + " translation in " + file).containsKey(messageKey)
+      ALL_ASSERTION_MESSAGES.forEach(
+        (file, localeMessages) ->
+          assertThat(localeMessages).as(() -> "Missing " + messageKey + " translation in " + file).containsKey(messageKey)
       );
   }
 }

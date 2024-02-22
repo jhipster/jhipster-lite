@@ -37,8 +37,7 @@ public final class JavaDependency {
   }
 
   private DependencyId buildId(JavaDependencyBuilder builder) {
-    return DependencyId
-      .builder()
+    return DependencyId.builder()
       .groupId(builder.groupId)
       .artifactId(builder.artifactId)
       .classifier(builder.classifier)
@@ -105,8 +104,7 @@ public final class JavaDependency {
   }
 
   private JavaDependency merge(JavaDependency other) {
-    return JavaDependency
-      .builder()
+    return JavaDependency.builder()
       .groupId(groupId())
       .artifactId(artifactId())
       .versionSlug(mergeVersionsSlugs(other))

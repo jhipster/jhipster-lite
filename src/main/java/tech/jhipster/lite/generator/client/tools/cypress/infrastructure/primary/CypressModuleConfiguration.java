@@ -15,8 +15,7 @@ class CypressModuleConfiguration {
 
   @Bean
   JHipsterModuleResource cypressModule(CypressApplicationService cypress) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(CYPRESS)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc("E2e", "Add Cypress")

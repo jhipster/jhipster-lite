@@ -16,8 +16,7 @@ class SpringBootDockerModuleFactoryTest {
 
   @Test
   void shouldBuildJibModuleForMaven() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .put("serverPort", 9000)
@@ -82,8 +81,7 @@ class SpringBootDockerModuleFactoryTest {
 
   @Test
   void shouldBuildJibModuleForGradle() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .put("serverPort", 9000)
@@ -159,8 +157,7 @@ class SpringBootDockerModuleFactoryTest {
 
   @Test
   void shouldBuildDockerFileModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .put("serverPort", 9000)
       .build();
 

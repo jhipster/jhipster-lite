@@ -13,8 +13,7 @@ class CodespaceModuleConfiguration {
 
   @Bean
   JHipsterModuleResource codespaceModule(CodespacesApplicationService codespaces) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GITHUB_CODESPACES)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().build())
       .apiDoc("Codespaces", "Init GitHub Codespaces configuration files")

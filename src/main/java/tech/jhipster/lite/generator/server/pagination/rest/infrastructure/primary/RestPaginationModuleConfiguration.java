@@ -15,8 +15,7 @@ class RestPaginationModuleConfiguration {
 
   @Bean
   JHipsterModuleResource restPaginationModule(RestPaginationModuleApplicationService restPagination) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(REST_PAGINATION)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
       .apiDoc("Pagination", "Add rest models for pagination handling")

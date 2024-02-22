@@ -27,14 +27,16 @@ class MavenProjectJavaDependenciesRepositoryTest {
 
   @Test
   void shouldNotReadFromUnreadableMavenFile() {
-    assertThatThrownBy(() -> projectDependencies.get(new JHipsterProjectFolder("src/test/resources/projects/maven-unreadable")))
-      .isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(
+      () -> projectDependencies.get(new JHipsterProjectFolder("src/test/resources/projects/maven-unreadable"))
+    ).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
   void shouldGetEmptyDependenciesFromEmptyProject() {
-    assertThat(projectDependencies.get(new JHipsterProjectFolder("src/test/resources/projects/empty")))
-      .isEqualTo(ProjectJavaDependencies.EMPTY);
+    assertThat(projectDependencies.get(new JHipsterProjectFolder("src/test/resources/projects/empty"))).isEqualTo(
+      ProjectJavaDependencies.EMPTY
+    );
   }
 
   @Test
@@ -49,8 +51,9 @@ class MavenProjectJavaDependenciesRepositoryTest {
     ProjectJavaDependenciesVersions versions = mavenDependencies().versions();
 
     assertThat(versions.get(new VersionSlug("json-web-token"))).contains(new JavaDependencyVersion("json-web-token", "0.11.5"));
-    assertThat(versions.get(new VersionSlug("logstash-logback-encoder.version")))
-      .contains(new JavaDependencyVersion("logstash-logback-encoder", "7.2"));
+    assertThat(versions.get(new VersionSlug("logstash-logback-encoder.version"))).contains(
+      new JavaDependencyVersion("logstash-logback-encoder", "7.2")
+    );
     assertThat(versions.get(new VersionSlug("dummy"))).isEmpty();
   }
 
@@ -74,8 +77,7 @@ class MavenProjectJavaDependenciesRepositoryTest {
   private void assertJJWTDependency(JavaDependencies dependencies) {
     JavaDependency jjwt = dependencies
       .get(
-        DependencyId
-          .builder()
+        DependencyId.builder()
           .groupId(new GroupId("io.jsonwebtoken"))
           .artifactId(new ArtifactId("jjwt-api"))
           .classifier(new JavaDependencyClassifier("classif"))

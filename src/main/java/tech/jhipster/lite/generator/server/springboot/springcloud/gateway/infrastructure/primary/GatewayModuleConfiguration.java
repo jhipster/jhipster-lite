@@ -14,8 +14,7 @@ class GatewayModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gatewayModule(GatewayApplicationService gateway) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GATEWAY)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
       .apiDoc("Spring Boot - Spring Cloud", "Add Spring Cloud Gateway")

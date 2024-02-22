@@ -15,8 +15,7 @@ class SonarQubeModuleConfiguration {
 
   @Bean
   JHipsterModuleResource sonarBackendModule(SonarQubeApplicationService sonar) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SONAR_QUBE_JAVA_BACKEND)
       .propertiesDefinition(propertiesDefinition())
       .apiDoc("Sonar", "Add Sonar configuration for Java Backend to inspect code quality")
@@ -27,8 +26,7 @@ class SonarQubeModuleConfiguration {
 
   @Bean
   JHipsterModuleResource sonarBackendFrontendModule(SonarQubeApplicationService sonar) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SONAR_QUBE_JAVA_BACKEND_AND_FRONTEND)
       .propertiesDefinition(propertiesDefinition())
       .apiDoc("Sonar", "Add Sonar configuration for Java Backend and Frontend to inspect code quality")

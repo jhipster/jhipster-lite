@@ -38,12 +38,11 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), commentOnMain("spring.application.name"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-        # This is a comment
-        spring.application.name"""
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+      # This is a comment
+      spring.application.name"""
+    );
   }
 
   @ParameterizedTest
@@ -55,12 +54,11 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), commentOnMainBootstrap("spring.application.name"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-        # This is a comment
-        spring.application.name"""
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+      # This is a comment
+      spring.application.name"""
+    );
   }
 
   @ParameterizedTest
@@ -72,12 +70,11 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), commentOnTest("logging.level.tech.jhipster.lite"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-        # This is a comment
-        logging.level.tech.jhipster.lite"""
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+      # This is a comment
+      logging.level.tech.jhipster.lite"""
+    );
   }
 
   @ParameterizedTest
@@ -89,12 +86,11 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), commentOnTestBootstrap("logging.level.tech.jhipster.lite"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-        # This is a comment
-        logging.level.tech.jhipster.lite"""
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+      # This is a comment
+      logging.level.tech.jhipster.lite"""
+    );
   }
 
   @Test
@@ -117,12 +113,11 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), commentOnMain("springdoc.swagger-ui.operationsSorter"));
 
-    assertThat(content(propertiesFile))
-      .doesNotContain(
-        """
-        # This is a comment
-        springdoc.swagger-ui.operationsSorter"""
-      );
+    assertThat(content(propertiesFile)).doesNotContain(
+      """
+      # This is a comment
+      springdoc.swagger-ui.operationsSorter"""
+    );
   }
 
   @ParameterizedTest
@@ -135,21 +130,19 @@ class FileSystemSpringCommentsCommandsHandlerTest {
     handler.handle(folder(path), commentOnMain(propertyKey));
     handler.handle(folder(path), commentOnMain(propertyKey));
 
-    assertThat(content(propertiesFile))
-      .doesNotContain(
-        """
-        # This is a comment
-        # This is a comment
-        """ +
-        propertyKey
-      );
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-        # This is a comment
-        """ +
-        propertyKey
-      );
+    assertThat(content(propertiesFile)).doesNotContain(
+      """
+      # This is a comment
+      # This is a comment
+      """ +
+      propertyKey
+    );
+    assertThat(content(propertiesFile)).contains(
+      """
+      # This is a comment
+      """ +
+      propertyKey
+    );
   }
 
   @Test
@@ -171,8 +164,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   private SpringComments commentOnMain(String propertyKey) {
     return new SpringComments(
       List.of(
-        SpringComment
-          .builder(SpringPropertyType.MAIN_PROPERTIES)
+        SpringComment.builder(SpringPropertyType.MAIN_PROPERTIES)
           .key(propertyKey(propertyKey))
           .comment(comment("This is a comment"))
           .build()
@@ -183,8 +175,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   private SpringComments commentOnMainBootstrap(String propertyKey) {
     return new SpringComments(
       List.of(
-        SpringComment
-          .builder(SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES)
+        SpringComment.builder(SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES)
           .key(propertyKey(propertyKey))
           .comment(comment("This is a comment"))
           .build()
@@ -195,8 +186,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   private SpringComments commentOnTest(String propertyKey) {
     return new SpringComments(
       List.of(
-        SpringComment
-          .builder(SpringPropertyType.TEST_PROPERTIES)
+        SpringComment.builder(SpringPropertyType.TEST_PROPERTIES)
           .key(propertyKey(propertyKey))
           .comment(comment("This is a comment"))
           .build()
@@ -207,8 +197,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
   private SpringComments commentOnTestBootstrap(String propertyKey) {
     return new SpringComments(
       List.of(
-        SpringComment
-          .builder(SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES)
+        SpringComment.builder(SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES)
           .key(propertyKey(propertyKey))
           .comment(comment("This is a comment"))
           .build()

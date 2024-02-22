@@ -87,8 +87,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String replaceDevDependencies(Indentation indentation, PackageJsonDependencies devDependencies, String content) {
-    return JsonAction
-      .replace()
+    return JsonAction.replace()
       .blocName("devDependencies")
       .jsonContent(content)
       .indentation(indentation)
@@ -97,8 +96,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String removeDevDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
-    return JsonAction
-      .remove()
+    return JsonAction.remove()
       .blocName("devDependencies")
       .jsonContent(content)
       .indentation(indentation)
@@ -107,8 +105,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String replaceDependencies(Indentation indentation, PackageJsonDependencies dependencies, String content) {
-    return JsonAction
-      .replace()
+    return JsonAction.replace()
       .blocName("dependencies")
       .jsonContent(content)
       .indentation(indentation)
@@ -117,8 +114,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String removeDependencies(Indentation indentation, PackageJsonDependencies dependenciesToRemove, String content) {
-    return JsonAction
-      .remove()
+    return JsonAction.remove()
       .blocName("dependencies")
       .jsonContent(content)
       .indentation(indentation)

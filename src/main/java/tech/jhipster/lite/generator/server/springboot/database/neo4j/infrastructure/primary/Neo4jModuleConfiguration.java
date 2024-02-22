@@ -14,8 +14,7 @@ class Neo4jModuleConfiguration {
 
   @Bean
   JHipsterModuleResource neo4jModule(Neo4jApplicationService applicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(NEO4J)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().addConfigurationFormat().build()

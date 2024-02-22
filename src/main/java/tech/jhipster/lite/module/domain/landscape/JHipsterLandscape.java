@@ -69,8 +69,7 @@ public final class JHipsterLandscape {
   private JHipsterLandscapeModule moduleWithoutNestedDependencies(JHipsterLandscapeModule module) {
     List<JHipsterLandscapeDependency> knownDependencies = knownDependencies(module);
 
-    return JHipsterLandscapeModule
-      .builder()
+    return JHipsterLandscapeModule.builder()
       .module(module.slug())
       .operation(module.operation())
       .propertiesDefinition(module.propertiesDefinition())
@@ -129,9 +128,9 @@ public final class JHipsterLandscape {
   }
 
   private Function<JHipsterLandscapeLevel, JHipsterLandscapeLevel> toSortedLevel() {
-    Comparator<JHipsterLandscapeElement> levelComparator = Comparator
-      .comparing(this::linksCount)
-      .thenComparing(element -> element.slug().get());
+    Comparator<JHipsterLandscapeElement> levelComparator = Comparator.comparing(this::linksCount).thenComparing(
+      element -> element.slug().get()
+    );
 
     return level -> new JHipsterLandscapeLevel(level.elements().stream().sorted(levelComparator).toList());
   }

@@ -34,14 +34,13 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          springdoc:
-            swagger-ui:
-              operationsSorter: alpha
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        springdoc:
+          swagger-ui:
+            operationsSorter: alpha
+        """
+      );
     }
 
     @Test
@@ -52,22 +51,21 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          spring:
-            application:
-              name: JHLite # This is the name of the application
+      assertThat(content(yamlFile)).contains(
+        """
+        spring:
+          application:
+            name: JHLite # This is the name of the application
 
-          # Logging
-          logging:
-            level:
-              tech.jhipster.lite: INFO
-          springdoc:
-            swagger-ui:
-              operationsSorter: alpha
-          """
-        );
+        # Logging
+        logging:
+          level:
+            tech.jhipster.lite: INFO
+        springdoc:
+          swagger-ui:
+            operationsSorter: alpha
+        """
+      );
     }
 
     @Test
@@ -77,14 +75,13 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          springdoc:
-              swagger-ui:
-                  operationsSorter: alpha
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        springdoc:
+            swagger-ui:
+                operationsSorter: alpha
+        """
+      );
     }
 
     @Test
@@ -95,13 +92,12 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("springdoc.swagger-ui.operationsSorter"), propertyValue("alpha"));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          # Logging
-          logging:
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        # Logging
+        logging:
+        """
+      );
     }
 
     @Test
@@ -139,14 +135,13 @@ class YamlFileSpringPropertiesHandlerTest {
         propertyValue("org.apache.kafka.common.serialization.StringDeserializer")
       );
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          kafka:
-            consumer:
-              '[key.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        kafka:
+          consumer:
+            '[key.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
+        """
+      );
     }
 
     @Test
@@ -156,13 +151,12 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("coverage.enabled"), propertyValue(true));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          coverage:
-            enabled: true
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        coverage:
+          enabled: true
+        """
+      );
     }
 
     @Test
@@ -172,13 +166,12 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          coverage:
-            count: 10
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        coverage:
+          count: 10
+        """
+      );
     }
 
     @Test
@@ -188,13 +181,12 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10L));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          coverage:
-            count: 10
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        coverage:
+          count: 10
+        """
+      );
     }
 
     @Test
@@ -204,13 +196,12 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10.5));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          coverage:
-            count: 10.5
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        coverage:
+          count: 10.5
+        """
+      );
     }
 
     @Test
@@ -220,13 +211,12 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10.5f));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          coverage:
-            count: 10.5
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        coverage:
+          count: 10.5
+        """
+      );
     }
 
     @Test
@@ -236,15 +226,14 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setValue(propertyKey("coverage.count"), propertyValue(10, 50));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          coverage:
-            count:
-            - 10
-            - 50
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        coverage:
+          count:
+          - 10
+          - 50
+        """
+      );
     }
 
     @Test
@@ -253,8 +242,9 @@ class YamlFileSpringPropertiesHandlerTest {
       YamlFileSpringPropertiesHandler handler = new YamlFileSpringPropertiesHandler(yamlFile, Indentation.DEFAULT);
       handler.setValue(propertyKey("coverage.count"), propertyValue(10));
 
-      assertThatExceptionOfType(GeneratorException.class)
-        .isThrownBy(() -> handler.setValue(propertyKey("coverage.count.value"), propertyValue(10)));
+      assertThatExceptionOfType(GeneratorException.class).isThrownBy(
+        () -> handler.setValue(propertyKey("coverage.count.value"), propertyValue(10))
+      );
     }
   }
 
@@ -269,15 +259,14 @@ class YamlFileSpringPropertiesHandlerTest {
 
       handler.setComment(propertyKey("spring.application.name"), new Comment("Application Name"));
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          spring:
-            application:
-              # Application Name
-              name: JHLite # This is the name of the application
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        spring:
+          application:
+            # Application Name
+            name: JHLite # This is the name of the application
+        """
+      );
     }
 
     @Test
@@ -297,17 +286,16 @@ class YamlFileSpringPropertiesHandlerTest {
         )
       );
 
-      assertThat(content(yamlFile))
-        .contains(
-          """
-          spring:
-            application:
-              # This is a
-              # multiline
-              # comment
-              name: JHLite # This is the name of the application
-          """
-        );
+      assertThat(content(yamlFile)).contains(
+        """
+        spring:
+          application:
+            # This is a
+            # multiline
+            # comment
+            name: JHLite # This is the name of the application
+        """
+      );
     }
   }
 }

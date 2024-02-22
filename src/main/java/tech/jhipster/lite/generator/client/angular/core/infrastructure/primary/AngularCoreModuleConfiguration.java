@@ -15,8 +15,7 @@ class AngularCoreModuleConfiguration {
 
   @Bean
   JHipsterModuleResource angularModule(AngularApplicationService angular) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(ANGULAR_CORE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addProjectName().build())
       .apiDoc("Angular", "Add Angular + Angular CLI")

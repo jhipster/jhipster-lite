@@ -39,8 +39,7 @@ class DirectJavaDependencyTest {
 
   @Test
   void shouldNotUpdateExistingDefaultVersionDependency() {
-    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(null)
       .dependencies(new JavaDependencies(List.of(defaultVersionDependency())));
@@ -52,25 +51,22 @@ class DirectJavaDependencyTest {
 
   @Test
   void shouldUpgradeDependencyOptionality() {
-    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(null)
       .dependencies(new JavaDependencies(List.of(optionalSpringBootDependency())));
 
     JavaBuildCommands commands = changes().projectDependencies(projectJavaDependencies).build();
 
-    assertThat(commands.get())
-      .containsExactly(
-        new RemoveDirectJavaDependency(optionalSpringBootDependency().id()),
-        new AddDirectJavaDependency(defaultVersionDependency())
-      );
+    assertThat(commands.get()).containsExactly(
+      new RemoveDirectJavaDependency(optionalSpringBootDependency().id()),
+      new AddDirectJavaDependency(defaultVersionDependency())
+    );
   }
 
   @Test
   void shouldNotDowngradeDependencyOptionality() {
-    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(null)
       .dependencies(new JavaDependencies(List.of(defaultVersionDependency())));
@@ -128,17 +124,15 @@ class DirectJavaDependencyTest {
       .projectDependencies(projectDependenciesWithoutJunitVersion())
       .build();
 
-    assertThat(commands.get())
-      .containsExactly(
-        new SetVersion(updatedJunitVersion),
-        new RemoveDirectJavaDependency(upgraded.id()),
-        new AddDirectJavaDependency(upgraded)
-      );
+    assertThat(commands.get()).containsExactly(
+      new SetVersion(updatedJunitVersion),
+      new RemoveDirectJavaDependency(upgraded.id()),
+      new AddDirectJavaDependency(upgraded)
+    );
   }
 
   private ProjectJavaDependencies projectDependenciesWithoutJunitVersion() {
-    return ProjectJavaDependencies
-      .builder()
+    return ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(projectDependenciesManagement())
       .dependencies(noJunitVersionInCurrentProject());

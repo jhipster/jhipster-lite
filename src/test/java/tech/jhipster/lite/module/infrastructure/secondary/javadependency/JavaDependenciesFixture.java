@@ -24,12 +24,10 @@ public final class JavaDependenciesFixture {
     Assert.notNull("customReaders", customReaders);
 
     return new JHipsterJavaDependenciesVersionsRepository(
-      Stream
-        .concat(
-          Stream.of(new MavenDependenciesReader(filesReader), new GradleVersionCatalogDependenciesReader(filesReader)),
-          customReaders.stream()
-        )
-        .toList()
+      Stream.concat(
+        Stream.of(new MavenDependenciesReader(filesReader), new GradleVersionCatalogDependenciesReader(filesReader)),
+        customReaders.stream()
+      ).toList()
     );
   }
 

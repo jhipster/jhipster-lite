@@ -16,8 +16,7 @@ class DummyFlywayModuleFactoryTest {
 
   @Test
   void shouldBuildModuleForPostGreSQL() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .put("date", "2021-12-03T10:15:30.00Z")
       .build();
 
@@ -30,8 +29,7 @@ class DummyFlywayModuleFactoryTest {
 
   @Test
   void shouldBuildModuleForNotPostGreSQL() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .put("date", "2021-12-03T10:15:30.00Z")
       .build();
 

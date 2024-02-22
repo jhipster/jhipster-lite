@@ -14,8 +14,7 @@ class DevToolsModuleConfiguration {
 
   @Bean
   JHipsterModuleResource devTools(DevToolsApplicationService devtools) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_DEVTOOLS)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().addConfigurationFormat().build()

@@ -20,8 +20,7 @@ class BannerModuleConfiguration {
 
   @Bean
   JHipsterModuleResource jhipsterV7BannerResource(BannerApplicationService banners) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(BANNER_JHIPSTER_V7)
       .withoutProperties()
       .apiDoc(GROUP, "Add banner JHipster v7 for Angular")
@@ -32,8 +31,7 @@ class BannerModuleConfiguration {
 
   @Bean
   JHipsterModuleResource jhipsterV7ReactBannerResource(BannerApplicationService banners) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(BANNER_JHIPSTER_V7_REACT)
       .withoutProperties()
       .apiDoc(GROUP, "Add banner JHipster v7 for React")
@@ -44,8 +42,7 @@ class BannerModuleConfiguration {
 
   @Bean
   JHipsterModuleResource jhipsterV7VueBannerResource(BannerApplicationService banners) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(BANNER_JHIPSTER_V7_VUE)
       .withoutProperties()
       .apiDoc(GROUP, "Add banner JHipster v7 for Vue")
@@ -56,8 +53,7 @@ class BannerModuleConfiguration {
 
   @Bean
   JHipsterModuleResource jhipsterV2BannerResource(BannerApplicationService banners) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(BANNER_JHIPSTER_V2)
       .withoutProperties()
       .apiDoc(GROUP, "Add banner JHipster v2")
@@ -68,8 +64,7 @@ class BannerModuleConfiguration {
 
   @Bean
   JHipsterModuleResource jhipsterV3BannerResource(BannerApplicationService banners) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(BANNER_JHIPSTER_V3)
       .withoutProperties()
       .apiDoc(GROUP, "Add banner JHipster v3")

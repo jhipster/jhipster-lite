@@ -23,8 +23,7 @@ class SpringdocModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springdocMvcModule(SpringdocApplicationService springdocApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_MVC_OPENAPI)
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(API_GROUP, "Add springdoc-openapi for spring MVC")
@@ -35,8 +34,7 @@ class SpringdocModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springdocWebfluxModule(SpringdocApplicationService springdocApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_WEBFLUX_OPENAPI)
       .propertiesDefinition(buildPropertiesDefinition())
       .apiDoc(API_GROUP, "Add springdoc-openapi for webflux")
@@ -46,8 +44,7 @@ class SpringdocModuleConfiguration {
   }
 
   private JHipsterModulePropertiesDefinition buildPropertiesDefinition() {
-    return JHipsterModulePropertiesDefinition
-      .builder()
+    return JHipsterModulePropertiesDefinition.builder()
       .addBasePackage()
       .addProjectBaseName()
       .addIndentation()

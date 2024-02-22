@@ -213,8 +213,7 @@ class SpringBootCoreModuleFactoryTest {
 
     @Test
     void shouldBuildModule() {
-      JHipsterModuleProperties properties = JHipsterModulesFixture
-        .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
         .basePackage("com.jhipster.test")
         .projectBaseName("myapp")
         .put("serverPort", 9000)
@@ -259,8 +258,7 @@ class SpringBootCoreModuleFactoryTest {
   }
 
   private JHipsterModuleProperties properties() {
-    return JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();

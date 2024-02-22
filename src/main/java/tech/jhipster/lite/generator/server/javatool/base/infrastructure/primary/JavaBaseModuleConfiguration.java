@@ -15,8 +15,7 @@ class JavaBaseModuleConfiguration {
 
   @Bean
   JHipsterModuleResource javaBaseModule(JavaBaseApplicationService javaBase) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.JAVA_BASE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
       .apiDoc("Java", "Add Base classes and Error domain to project")

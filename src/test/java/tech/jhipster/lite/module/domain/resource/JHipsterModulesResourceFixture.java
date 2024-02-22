@@ -56,8 +56,7 @@ public final class JHipsterModulesResourceFixture {
   }
 
   public static JHipsterModulePropertiesDefinition propertiesDefinition() {
-    return JHipsterModulePropertiesDefinition
-      .builder()
+    return JHipsterModulePropertiesDefinition.builder()
       .addBasePackage()
       .addIndentation()
       .addProjectName()
@@ -132,8 +131,7 @@ public final class JHipsterModulesResourceFixture {
     }
 
     public JHipsterModuleResource build() {
-      return JHipsterModuleResource
-        .builder()
+      return JHipsterModuleResource.builder()
         .slug(() -> slug)
         .propertiesDefinition(JHipsterModulesResourceFixture.propertiesDefinition())
         .apiDoc(group, operation)

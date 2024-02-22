@@ -24,8 +24,9 @@ class GeneratorErrorsHandlerIT {
       .andExpect(status().isInternalServerError())
       .andExpect(jsonPath("title").value("Unknown docker image"))
       .andExpect(
-        jsonPath("detail")
-          .value("Image \"unknown-image\" is unknown, forgot to add it to src/main/resources/generator/dependencies/Dockerfile?")
+        jsonPath("detail").value(
+          "Image \"unknown-image\" is unknown, forgot to add it to src/main/resources/generator/dependencies/Dockerfile?"
+        )
       )
       .andExpect(jsonPath("key").value("unknown-docker-image"));
   }
@@ -37,10 +38,9 @@ class GeneratorErrorsHandlerIT {
       .andExpect(status().isInternalServerError())
       .andExpect(jsonPath("title").value("Image docker inconnue"))
       .andExpect(
-        jsonPath("detail")
-          .value(
-            "L'image \"unknown-image\" n'est pas connue, avez-vous oublié de l'ajouter dans src/main/resources/generator/dependencies/Dockerfile ?"
-          )
+        jsonPath("detail").value(
+          "L'image \"unknown-image\" n'est pas connue, avez-vous oublié de l'ajouter dans src/main/resources/generator/dependencies/Dockerfile ?"
+        )
       )
       .andExpect(jsonPath("key").value("unknown-docker-image"));
   }

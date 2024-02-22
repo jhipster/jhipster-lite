@@ -20,8 +20,7 @@ class OAuth2OktaModuleConfiguration {
 
   @Bean
   JHipsterModuleResource oAuth2OktaModule(OAuth2OktaSecurityApplicationService oAuth2) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_OAUTH_2_OKTA)
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc(
@@ -34,8 +33,7 @@ class OAuth2OktaModuleConfiguration {
   }
 
   private JHipsterModulePropertiesDefinition initPropertiesDefinition() {
-    return JHipsterModulePropertiesDefinition
-      .builder()
+    return JHipsterModulePropertiesDefinition.builder()
       .addProjectBaseName()
       .addProjectName()
       .add(oktaDomain())

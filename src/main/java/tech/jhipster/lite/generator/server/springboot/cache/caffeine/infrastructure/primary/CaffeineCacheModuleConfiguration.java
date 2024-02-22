@@ -13,8 +13,7 @@ class CaffeineCacheModuleConfiguration {
 
   @Bean
   JHipsterModuleResource caffeineCacheModule(CaffeineCacheApplicationService caffeineCaches) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.CAFFEINE_CACHE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Spring Boot - Cache", "Add caffeine cache")

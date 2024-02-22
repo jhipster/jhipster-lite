@@ -14,8 +14,7 @@ class LocalProfileModuleConfiguration {
 
   @Bean
   JHipsterModuleResource localProfile(LocalProfileApplicationService localProfile) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_LOCAL_PROFILE)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().addConfigurationFormat().build()

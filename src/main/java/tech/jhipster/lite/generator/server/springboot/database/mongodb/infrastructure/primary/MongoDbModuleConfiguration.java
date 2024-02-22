@@ -14,8 +14,7 @@ class MongoDbModuleConfiguration {
 
   @Bean
   JHipsterModuleResource mongoDbModule(MongodbApplicationService mongoDb) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(MONGODB)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc("Spring Boot - Database", "Add MongoDB drivers and dependencies, with testcontainers")

@@ -12,8 +12,7 @@ class GitpodModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gitpodModule(GitpodApplicationService gitPods) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GITPOD)
       .withoutProperties()
       .apiDoc("Gitpod", "Init Gitpod configuration files")

@@ -15,8 +15,7 @@ class SpringBootActuatorModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springBootActuatorModule(SpringBootActuatorApplicationService actuatorModule) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_ACTUATOR)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()

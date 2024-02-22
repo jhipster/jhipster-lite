@@ -123,17 +123,15 @@ class OpenApiModulesConfiguration {
   }
 
   private List<String> buildRequirements(JHipsterModuleResource module) {
-    return Stream
-      .concat(
-        Stream.of("projectFolder"),
-        module
-          .propertiesDefinition()
-          .stream()
-          .filter(JHipsterModulePropertyDefinition::isMandatory)
-          .map(JHipsterModulePropertyDefinition::key)
-          .map(JHipsterPropertyKey::get)
-      )
-      .toList();
+    return Stream.concat(
+      Stream.of("projectFolder"),
+      module
+        .propertiesDefinition()
+        .stream()
+        .filter(JHipsterModulePropertyDefinition::isMandatory)
+        .map(JHipsterModulePropertyDefinition::key)
+        .map(JHipsterPropertyKey::get)
+    ).toList();
   }
 
   @SuppressWarnings("rawtypes")

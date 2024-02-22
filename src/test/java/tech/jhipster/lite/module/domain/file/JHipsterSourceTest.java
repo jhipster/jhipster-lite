@@ -16,8 +16,9 @@ class JHipsterSourceTest {
 
   @Test
   void shouldNotAppendMustacheExtensionTwiceWhenReadingTemplate() {
-    assertThat(new JHipsterSource(Paths.get("src/main/resources")).template("Assert.java.mustache").get().toString())
-      .doesNotEndWith(".mustache.mustache");
+    assertThat(new JHipsterSource(Paths.get("src/main/resources")).template("Assert.java.mustache").get().toString()).doesNotEndWith(
+      ".mustache.mustache"
+    );
   }
 
   @Test

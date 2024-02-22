@@ -15,9 +15,9 @@ public final class JHipsterModulePropertiesDefinition {
 
   public static final JHipsterModulePropertiesDefinition EMPTY = builder().build();
 
-  private static final Comparator<JHipsterModulePropertyDefinition> DEFINITION_COMPARATOR = Comparator
-    .comparing(JHipsterModulePropertyDefinition::order)
-    .thenComparing(definition -> definition.key().get());
+  private static final Comparator<JHipsterModulePropertyDefinition> DEFINITION_COMPARATOR = Comparator.comparing(
+    JHipsterModulePropertyDefinition::order
+  ).thenComparing(definition -> definition.key().get());
 
   private final Set<JHipsterModulePropertyDefinition> definitions;
 

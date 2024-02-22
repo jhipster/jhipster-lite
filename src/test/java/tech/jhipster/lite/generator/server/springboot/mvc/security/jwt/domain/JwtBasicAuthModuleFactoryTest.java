@@ -16,8 +16,7 @@ class JwtBasicAuthModuleFactoryTest {
 
   @Test
   void shouldBuildBasicAuthModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("jhipster")
       .build();

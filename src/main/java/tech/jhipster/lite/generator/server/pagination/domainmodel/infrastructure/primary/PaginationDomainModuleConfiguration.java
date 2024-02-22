@@ -14,8 +14,7 @@ class PaginationDomainModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource paginationDomainModule(PaginationDomainApplicationService paginationDomain) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(PAGINATION_DOMAIN)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
       .apiDoc("Pagination", "Add domain model for pagination management")

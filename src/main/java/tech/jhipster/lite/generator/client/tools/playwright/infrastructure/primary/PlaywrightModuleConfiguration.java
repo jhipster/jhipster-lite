@@ -15,8 +15,7 @@ class PlaywrightModuleConfiguration {
 
   @Bean
   JHipsterModuleResource playwrightModule(PlaywrightApplicationService playwright) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(PLAYWRIGHT)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().build())
       .apiDoc("E2e", "Add Playwright")

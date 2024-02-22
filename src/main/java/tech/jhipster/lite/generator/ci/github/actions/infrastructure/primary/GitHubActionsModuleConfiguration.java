@@ -18,8 +18,7 @@ class GitHubActionsModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gitHubActionsMavenModule(GitHubActionsApplicationService gitHubActions) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GITHUB_ACTIONS_MAVEN)
       .withoutProperties()
       .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitHub Actions for Maven Build")
@@ -30,8 +29,7 @@ class GitHubActionsModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gitHubActionsGradleModule(GitHubActionsApplicationService gitHubActions) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GITHUB_ACTIONS_GRADLE)
       .withoutProperties()
       .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitHub Actions for Gradle Build")

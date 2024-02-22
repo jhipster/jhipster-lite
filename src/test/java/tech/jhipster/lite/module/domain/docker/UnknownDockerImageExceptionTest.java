@@ -13,8 +13,9 @@ class UnknownDockerImageExceptionTest {
   void shouldGetExceptionInformation() {
     UnknownDockerImageException exception = new UnknownDockerImageException(new DockerImageName("image name"));
 
-    assertThat(exception.getMessage())
-      .isEqualTo("Can't find image image name, forgot to add it to src/main/resources/generator/dependencies/Dockerfile?");
+    assertThat(exception.getMessage()).isEqualTo(
+      "Can't find image image name, forgot to add it to src/main/resources/generator/dependencies/Dockerfile?"
+    );
     assertThat(exception.status()).isEqualTo(ErrorStatus.INTERNAL_SERVER_ERROR);
     assertThat(exception.key()).isEqualTo(DockerErrorKey.UNKNOWN_DOCKER_IMAGE);
     assertThat(exception.parameters()).containsOnly(entry("imageName", "image name"));

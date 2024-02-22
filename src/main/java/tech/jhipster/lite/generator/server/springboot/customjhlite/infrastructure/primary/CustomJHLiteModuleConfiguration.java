@@ -14,8 +14,7 @@ class CustomJHLiteModuleConfiguration {
 
   @Bean
   JHipsterModuleResource customJHLiteModule(CustomJHLiteApplicationService customJHLite) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(CUSTOM_JHLITE)
       .propertiesDefinition(propertiesDefinition())
       .apiDoc("JHLite", "Create a custom JHLite instance to build custom modules")
@@ -25,8 +24,7 @@ class CustomJHLiteModuleConfiguration {
   }
 
   private JHipsterModulePropertiesDefinition propertiesDefinition() {
-    return JHipsterModulePropertiesDefinition
-      .builder()
+    return JHipsterModulePropertiesDefinition.builder()
       .addBasePackage()
       .addProjectBaseName()
       .addIndentation()

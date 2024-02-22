@@ -21,8 +21,7 @@ class CucumberModuleConfiguration {
 
   @Bean
   JHipsterModuleResource cucumberMvcInitializationModule(CucumberApplicationService cucumber) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_CUCUMBER_MVC)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(SPRING_BOOT_COMPONENT_TESTS_API_GROUP, "Add Cucumber integration for Spring MVC to project")
@@ -33,8 +32,7 @@ class CucumberModuleConfiguration {
 
   @Bean
   JHipsterModuleResource cucumberWebfluxInitializationModule(CucumberApplicationService cucumber) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_CUCUMBER_WEBFLUX)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc(SPRING_BOOT_COMPONENT_TESTS_API_GROUP, "Add Cucumber integration for Webflux to project")
@@ -45,8 +43,7 @@ class CucumberModuleConfiguration {
 
   @Bean
   JHipsterModuleResource cucumberJpaResetModule(CucumberApplicationService cucumber) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_CUCUMBER_JPA_RESET)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc(SPRING_BOOT_COMPONENT_TESTS_API_GROUP, "Add jpa reset for cucumber")

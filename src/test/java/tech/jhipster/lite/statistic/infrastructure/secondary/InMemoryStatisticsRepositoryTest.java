@@ -29,20 +29,17 @@ class InMemoryStatisticsRepositoryTest {
 
   static Stream<StatisticsCriteria> provideFalseCriteria() {
     return Stream.of(
-      StatisticsCriteria
-        .builder()
+      StatisticsCriteria.builder()
         .startTime(Instant.parse("2020-12-03T10:15:30.00Z"))
         .endTime(Instant.parse("2022-12-03T10:15:30.00Z"))
         .moduleSlug(JHLiteModuleSlug.ANGULAR_CORE.get())
         .build(),
-      StatisticsCriteria
-        .builder()
+      StatisticsCriteria.builder()
         .startTime(Instant.parse("2022-12-03T10:15:30.00Z"))
         .endTime(Instant.parse("2022-12-03T10:15:30.00Z"))
         .moduleSlug(null)
         .build(),
-      StatisticsCriteria
-        .builder()
+      StatisticsCriteria.builder()
         .startTime(Instant.parse("2020-12-03T10:15:30.00Z"))
         .endTime(Instant.parse("2020-12-03T10:15:30.00Z"))
         .moduleSlug(null)

@@ -52,8 +52,7 @@ public class GitInfoModuleFactory {
   }
 
   private GradlePlugin gradleGitPropertiesPlugin() {
-    return GradleCommunityPlugin
-      .builder()
+    return GradleCommunityPlugin.builder()
       .id("com.gorylenko.gradle-git-properties")
       .pluginSlug("git-properties")
       .versionSlug("git-properties")
@@ -69,8 +68,7 @@ public class GitInfoModuleFactory {
   }
 
   private MavenPlugin gitCommitIdPluginManagement() {
-    return MavenPlugin
-      .builder()
+    return MavenPlugin.builder()
       .groupId("io.github.git-commit-id")
       .artifactId("git-commit-id-maven-plugin")
       .versionSlug("git-commit-id-plugin")

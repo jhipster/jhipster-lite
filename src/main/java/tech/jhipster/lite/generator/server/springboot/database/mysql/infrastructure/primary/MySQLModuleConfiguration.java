@@ -16,8 +16,7 @@ class MySQLModuleConfiguration {
 
   @Bean
   JHipsterModuleResource mySQLModule(MySQLApplicationService applicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(MYSQL)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().addConfigurationFormat().build()

@@ -17,14 +17,12 @@ class DummyCassandraPersistenceModuleConfiguration {
   JHipsterModuleResource dummyCassandraPersistenceModule(
     DummyCassandraPersistenceApplicationService dummyCassandraPersistenceApplicationService
   ) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(DUMMY_CASSANDRA_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Spring Boot - MVC", "Add Cassandra persistence for dummy feature")
       .organization(
-        JHipsterModuleOrganization
-          .builder()
+        JHipsterModuleOrganization.builder()
           .feature(DUMMY_PERSISTENCE)
           .addDependency(DUMMY_FEATURE)
           .addDependency(CASSANDRA_MIGRATION)

@@ -26,8 +26,7 @@ class SpringJHipsterModuleEventListener implements ApplicationListener<PayloadAp
   }
 
   private AppliedModule toModuleApplied(JHipsterModuleApplied moduleApplied) {
-    return AppliedModule
-      .builder()
+    return AppliedModule.builder()
       .id(AppliedModuleId.newId())
       .path(new ProjectPath(moduleApplied.properties().projectFolder().get()))
       .module(new Module(moduleApplied.slug().get()))

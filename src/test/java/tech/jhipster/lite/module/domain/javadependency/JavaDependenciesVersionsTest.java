@@ -12,7 +12,8 @@ class JavaDependenciesVersionsTest {
 
   @Test
   void shouldNotGetUnknownDependency() {
-    assertThatThrownBy(() -> currentJavaDependenciesVersion().get(new VersionSlug("unknown")))
-      .isExactlyInstanceOf(UnknownJavaVersionSlugException.class);
+    assertThatThrownBy(() -> currentJavaDependenciesVersion().get(new VersionSlug("unknown"))).isExactlyInstanceOf(
+      UnknownJavaVersionSlugException.class
+    );
   }
 }

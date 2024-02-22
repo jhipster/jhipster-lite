@@ -15,8 +15,7 @@ class CassandraMigrationModuleConfiguration {
 
   @Bean
   JHipsterModuleResource cassandraMigrationModule(CassandraMigrationApplicationService cassandraMigration) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(CASSANDRA_MIGRATION)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Spring Boot - Database Migration", "Add Cassandra Migration tools")

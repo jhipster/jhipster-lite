@@ -15,8 +15,7 @@ class ArchUnitModuleConfiguration {
 
   @Bean
   JHipsterModuleResource archUnitModule(JavaArchUnitApplicationService archUnit) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JAVA_ARCHUNIT)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Java", "Add Hexagonal Arch Unit Tests to project")

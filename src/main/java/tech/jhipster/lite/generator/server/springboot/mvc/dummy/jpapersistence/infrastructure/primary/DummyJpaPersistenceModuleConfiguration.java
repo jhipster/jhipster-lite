@@ -15,14 +15,12 @@ class DummyJpaPersistenceModuleConfiguration {
 
   @Bean
   JHipsterModuleResource dummyJpaPersistenceModule(DummyJpaPersistenceApplicationService dummyJpaPersistence) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(DUMMY_JPA_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Spring Boot - MVC", "Add JPA persistence for dummy feature")
       .organization(
-        JHipsterModuleOrganization
-          .builder()
+        JHipsterModuleOrganization.builder()
           .feature(DUMMY_PERSISTENCE)
           .addDependency(DUMMY_SCHEMA)
           .addDependency(SPRING_BOOT_CUCUMBER_JPA_RESET)

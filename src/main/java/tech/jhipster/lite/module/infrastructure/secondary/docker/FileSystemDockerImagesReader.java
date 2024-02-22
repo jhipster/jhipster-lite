@@ -25,8 +25,7 @@ class FileSystemDockerImagesReader implements DockerImagesReader {
 
   @Override
   public DockerImageVersions get() {
-    Collection<DockerImageVersion> versionsRead = Stream
-      .of(files.readString("/generator/dependencies/Dockerfile").split("[\r\n]"))
+    Collection<DockerImageVersion> versionsRead = Stream.of(files.readString("/generator/dependencies/Dockerfile").split("[\r\n]"))
       .map(String::trim)
       .map(String::toLowerCase)
       .map(toDockerImage())

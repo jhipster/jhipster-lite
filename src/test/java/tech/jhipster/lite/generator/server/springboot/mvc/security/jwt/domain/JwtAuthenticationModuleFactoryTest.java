@@ -16,8 +16,7 @@ class JwtAuthenticationModuleFactoryTest {
 
   @Test
   void shouldBuildModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("jhipster")
       .build();
@@ -136,8 +135,7 @@ class JwtAuthenticationModuleFactoryTest {
   @Test
   void shouldBuildModuleWithJwtBase64Secret() {
     String jwtBase64Secret = "Y2EyZjQ2YmNmZjMwMTE5YjcxOTBjYzZiYWVjZjY0NzZlMzNmNjY5MjgwMjUxZDNjOTA3N2M5YjAyYTg3ODEzMA==";
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("jhipster")
       .put("jwtBase64Secret", jwtBase64Secret)

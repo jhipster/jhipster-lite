@@ -16,8 +16,7 @@ class CucumberAuthenticationModuleFactoryTest {
 
   @Test
   void shouldBuildOauthAuthenticationModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
@@ -75,8 +74,7 @@ class CucumberAuthenticationModuleFactoryTest {
 
   @Test
   void shouldBuildJwtAuthenticationModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();

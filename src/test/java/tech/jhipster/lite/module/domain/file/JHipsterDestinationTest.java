@@ -24,8 +24,9 @@ class JHipsterDestinationTest {
 
   @Test
   void shouldDeduplicateSlashes() {
-    assertThat(new JHipsterDestination("src/main/").append("/file").pathInProject(PROJECT).toString())
-      .endsWith(path("src", "main", "file"));
+    assertThat(new JHipsterDestination("src/main/").append("/file").pathInProject(PROJECT).toString()).endsWith(
+      path("src", "main", "file")
+    );
   }
 
   @Test

@@ -13,8 +13,7 @@ class OptionalTypescriptModuleConfiguration {
 
   @Bean
   JHipsterModuleResource optionalTypescriptModule(OptionalTypescriptApplicationService optionalTypescriptApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(OPTIONAL_TYPESCRIPT)
       .withoutProperties()
       .apiDoc("Typescript", "Add Optional class domain to project")

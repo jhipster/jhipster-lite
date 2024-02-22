@@ -82,8 +82,7 @@ public final class AuthenticationModulesFactory {
   }
 
   private static JavaDependency springSecurityTest() {
-    return JavaDependency
-      .builder()
+    return JavaDependency.builder()
       .groupId("org.springframework.security")
       .artifactId("spring-security-test")
       .scope(JavaDependencyScope.TEST)

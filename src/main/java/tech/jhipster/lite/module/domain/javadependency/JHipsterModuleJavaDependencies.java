@@ -59,14 +59,13 @@ public final class JHipsterModuleJavaDependencies {
     Assert.notNull("versions", versions);
     Assert.notNull("projectDependencies", projectDependencies);
 
-    return Stream
-      .of(
-        settedVersionsCommands(),
-        dependenciesToRemoveCommands(buildProfile),
-        dependenciesManagementChanges(versions, projectDependencies, buildProfile),
-        dependenciesManagementToRemoveCommands(buildProfile),
-        dependenciesChanges(versions, projectDependencies, buildProfile)
-      )
+    return Stream.of(
+      settedVersionsCommands(),
+      dependenciesToRemoveCommands(buildProfile),
+      dependenciesManagementChanges(versions, projectDependencies, buildProfile),
+      dependenciesManagementToRemoveCommands(buildProfile),
+      dependenciesChanges(versions, projectDependencies, buildProfile)
+    )
       .flatMap(Function.identity())
       .reduce(JavaBuildCommands.EMPTY, JavaBuildCommands::merge);
   }
@@ -149,8 +148,7 @@ public final class JHipsterModuleJavaDependencies {
     }
 
     public JHipsterModuleJavaDependenciesBuilder<T> addTestDependency(GroupId groupId, ArtifactId artifactId, VersionSlug versionSlug) {
-      JavaDependency dependency = JavaDependency
-        .builder()
+      JavaDependency dependency = JavaDependency.builder()
         .groupId(groupId)
         .artifactId(artifactId)
         .versionSlug(versionSlug)

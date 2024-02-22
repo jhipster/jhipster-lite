@@ -32,8 +32,7 @@ class MyModuleFactoryTest {
 
   @Test
   void shouldBuildModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .build();
 
@@ -143,8 +142,7 @@ class MyModuleModuleConfiguration {
 
   @Bean
   JHipsterModuleResource myModule(MyModuleApplicationService myModules) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.MY_MODULE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Group", "This is my module")

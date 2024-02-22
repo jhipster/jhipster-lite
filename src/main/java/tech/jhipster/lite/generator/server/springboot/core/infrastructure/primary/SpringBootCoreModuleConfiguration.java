@@ -15,8 +15,7 @@ class SpringBootCoreModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springBootCoreModule(SpringBootApplicationService springBoot) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().addConfigurationFormat().build()

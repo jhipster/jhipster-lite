@@ -13,8 +13,7 @@ class AngularHealthModuleConfiguration {
 
   @Bean
   JHipsterModuleResource angularHealthModule(AngularHealthApplicationService angularHealth) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(ANGULAR_HEALTH)
       .withoutProperties()
       .apiDoc("Angular", "Angular Health")

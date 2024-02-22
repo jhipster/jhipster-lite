@@ -15,8 +15,7 @@ class JpaPaginationModuleConfiguration {
 
   @Bean
   JHipsterModuleResource jpaPaginationModule(JpaPaginationModuleApplicationService jpaPagination) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JPA_PAGINATION)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
       .apiDoc("Pagination", "Add utility class for JPA pagination")

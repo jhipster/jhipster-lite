@@ -20,8 +20,7 @@ class ProtobufModuleFactoryTest {
 
     @Test
     void shouldBuildModuleForMaven() {
-      JHipsterModuleProperties properties = JHipsterModulesFixture
-        .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
         .basePackage("com.jhipster.test")
         .build();
 
@@ -145,8 +144,7 @@ class ProtobufModuleFactoryTest {
 
     @Test
     void shouldBuildModuleForMaven() {
-      JHipsterModuleProperties properties = JHipsterModulesFixture
-        .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
         .basePackage("com.jhipster.test")
         .build();
 

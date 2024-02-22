@@ -72,8 +72,7 @@ public record JHipsterLandscapeLevels(Collection<JHipsterLandscapeLevel> levels)
     }
 
     private static JHipsterLandscapeModule landscapeModule(JHipsterModuleResource resource) {
-      return JHipsterLandscapeModule
-        .builder()
+      return JHipsterLandscapeModule.builder()
         .module(resource.slug())
         .operation(resource.apiDoc().operation())
         .propertiesDefinition(resource.propertiesDefinition())

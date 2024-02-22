@@ -56,8 +56,7 @@ class PrettierModuleFactoryTest {
   }
 
   private JHipsterModuleProperties properties(String folder) {
-    return JHipsterModulesFixture
-      .propertiesBuilder(folder)
+    return JHipsterModulesFixture.propertiesBuilder(folder)
       .projectBaseName("testProject")
       .put("projectName", "Test Project")
       .put("indentSize", 4)

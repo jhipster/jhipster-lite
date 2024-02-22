@@ -72,9 +72,10 @@ public class ModulesSteps {
   public void applyModulesForDefaultProject(List<String> modulesSlugs) {
     String projectFolder = newTestFolder();
 
-    String query = DEFAULT_MODULES_PROPERTIES_TEMPLATE
-      .replace("{PROJECT_FOLDER}", projectFolder)
-      .replace("{MODULES}", buildModulesList(modulesSlugs));
+    String query = DEFAULT_MODULES_PROPERTIES_TEMPLATE.replace("{PROJECT_FOLDER}", projectFolder).replace(
+      "{MODULES}",
+      buildModulesList(modulesSlugs)
+    );
 
     post("/api/apply-patches", query);
   }
@@ -153,9 +154,10 @@ public class ModulesSteps {
 
     loadGitConfig(projectPath);
 
-    String query = MODULE_APPLY_AND_COMMIT_TEMPLATE
-      .replace("{PROJECT_FOLDER}", projectFolder)
-      .replace("{{ PARAMETERS }}", buildModuleParameters(parameters));
+    String query = MODULE_APPLY_AND_COMMIT_TEMPLATE.replace("{PROJECT_FOLDER}", projectFolder).replace(
+      "{{ PARAMETERS }}",
+      buildModuleParameters(parameters)
+    );
 
     post(applyModuleUrl(moduleSlug), query);
   }
@@ -188,9 +190,10 @@ public class ModulesSteps {
   }
 
   private String buildModuleQuery(String projectFolder, Map<String, String> parameters) {
-    return MODULE_APPLICATION_TEMPLATE
-      .replace("{PROJECT_FOLDER}", projectFolder)
-      .replace("{{ PARAMETERS }}", buildModuleParameters(parameters));
+    return MODULE_APPLICATION_TEMPLATE.replace("{PROJECT_FOLDER}", projectFolder).replace(
+      "{{ PARAMETERS }}",
+      buildModuleParameters(parameters)
+    );
   }
 
   private String buildModuleParameters(Map<String, String> parameters) {

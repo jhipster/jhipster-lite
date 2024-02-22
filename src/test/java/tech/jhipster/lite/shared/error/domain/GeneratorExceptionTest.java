@@ -35,8 +35,7 @@ class GeneratorExceptionTest {
   @Test
   void shouldGetFullGeneratorException() {
     RuntimeException cause = new RuntimeException();
-    GeneratorException exception = GeneratorException
-      .builder(StandardErrorKey.BAD_REQUEST)
+    GeneratorException exception = GeneratorException.builder(StandardErrorKey.BAD_REQUEST)
       .message("This is an error")
       .cause(cause)
       .addParameter("parameter", "value")

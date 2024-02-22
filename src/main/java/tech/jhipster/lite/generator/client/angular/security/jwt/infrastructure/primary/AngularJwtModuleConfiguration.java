@@ -15,8 +15,7 @@ class AngularJwtModuleConfiguration {
 
   @Bean
   JHipsterModuleResource angularJwtModule(AngularJwtApplicationService angularJwt) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(ANGULAR_JWT)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().addIndentation().build())
       .apiDoc("Angular", "Add Angular with authentication JWT")

@@ -11,21 +11,20 @@ class InvalidPropertyTypeExceptionTest {
 
   @Test
   void shouldGetExceptionInformation() {
-    InvalidPropertyTypeException exception = InvalidPropertyTypeException
-      .builder()
+    InvalidPropertyTypeException exception = InvalidPropertyTypeException.builder()
       .key("propertyKey")
       .expectedType(String.class)
       .actualType(Integer.class);
 
-    assertThat(exception.getMessage())
-      .isEqualTo("Can't get property propertyKey, expecting class java.lang.String but is a class java.lang.Integer");
+    assertThat(exception.getMessage()).isEqualTo(
+      "Can't get property propertyKey, expecting class java.lang.String but is a class java.lang.Integer"
+    );
     assertThat(exception.key()).isEqualTo(PropertiesErrorKey.INVALID_PROPERTY_TYPE);
     assertThat(exception.status()).isEqualTo(ErrorStatus.BAD_REQUEST);
-    assertThat(exception.parameters())
-      .containsOnly(
-        entry("propertyKey", "propertyKey"),
-        entry("expectedType", "java.lang.String"),
-        entry("actualType", "java.lang.Integer")
-      );
+    assertThat(exception.parameters()).containsOnly(
+      entry("propertyKey", "propertyKey"),
+      entry("expectedType", "java.lang.String"),
+      entry("actualType", "java.lang.Integer")
+    );
   }
 }

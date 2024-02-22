@@ -39,13 +39,12 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_PROPERTIES, "spring.application.name"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-            # This is a comment
-            name: JHLite # This is the name of the application\
-        """
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+          # This is a comment
+          name: JHLite # This is the name of the application\
+      """
+    );
   }
 
   @ParameterizedTest
@@ -57,13 +56,12 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_BOOTSTRAP_PROPERTIES, "spring.application.name"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-            # This is a comment
-            name: JHLite # This is the name of the application\
-        """
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+          # This is a comment
+          name: JHLite # This is the name of the application\
+      """
+    );
   }
 
   @ParameterizedTest
@@ -75,13 +73,12 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.TEST_PROPERTIES, "spring.application.name"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-            # This is a comment
-            name: JHLite # This is the name of the application\
-        """
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+          # This is a comment
+          name: JHLite # This is the name of the application\
+      """
+    );
   }
 
   @ParameterizedTest
@@ -93,13 +90,12 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.TEST_BOOTSTRAP_PROPERTIES, "spring.application.name"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-            # This is a comment
-            name: JHLite # This is the name of the application\
-        """
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+          # This is a comment
+          name: JHLite # This is the name of the application\
+      """
+    );
   }
 
   @Test
@@ -126,12 +122,11 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
       commentOn(SpringPropertyType.MAIN_PROPERTIES, "springdoc.swagger-ui.operationsSorter")
     );
 
-    assertThat(content(propertiesFile))
-      .doesNotContain(
-        """
-        # This is a comment
-        springdoc.swagger-ui.operationsSorter"""
-      );
+    assertThat(content(propertiesFile)).doesNotContain(
+      """
+      # This is a comment
+      springdoc.swagger-ui.operationsSorter"""
+    );
   }
 
   @ParameterizedTest
@@ -144,25 +139,23 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_PROPERTIES, "spring.application.name"));
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_PROPERTIES, "spring.application.name"));
 
-    assertThat(content(propertiesFile))
-      .doesNotContain(
-        """
-        spring:
-          application:
-            # This is a comment
-            # This is a comment
-            name: JHLite # This is the name of the application
-        """
-      );
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-        spring:
-          application:
-            # This is a comment
-            name: JHLite # This is the name of the application
-        """
-      );
+    assertThat(content(propertiesFile)).doesNotContain(
+      """
+      spring:
+        application:
+          # This is a comment
+          # This is a comment
+          name: JHLite # This is the name of the application
+      """
+    );
+    assertThat(content(propertiesFile)).contains(
+      """
+      spring:
+        application:
+          # This is a comment
+          name: JHLite # This is the name of the application
+      """
+    );
   }
 
   @Test

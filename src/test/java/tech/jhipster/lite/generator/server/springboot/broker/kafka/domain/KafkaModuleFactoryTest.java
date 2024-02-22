@@ -31,8 +31,7 @@ class KafkaModuleFactoryTest {
     when(dockerImages.get("confluentinc/cp-zookeeper")).thenReturn(new DockerImageVersion("confluentinc/cp-zookeeper", "1.0.0"));
     when(dockerImages.get("confluentinc/cp-kafka")).thenReturn(new DockerImageVersion("confluentinc/cp-kafka", "1.0.0"));
 
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
@@ -106,8 +105,7 @@ class KafkaModuleFactoryTest {
 
   @Test
   void shouldBuildKafkaModuleDummyProducerConsumer() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
@@ -146,8 +144,7 @@ class KafkaModuleFactoryTest {
   void shouldBuildKafkaModuleAkhq() {
     when(dockerImages.get("tchiotludo/akhq")).thenReturn(new DockerImageVersion("tchiotludo/akhq", "1.0.0"));
 
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();

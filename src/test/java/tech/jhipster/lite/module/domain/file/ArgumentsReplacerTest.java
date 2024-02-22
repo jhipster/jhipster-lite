@@ -22,8 +22,9 @@ class ArgumentsReplacerTest {
 
   @Test
   void shouldReplaceKnownArguments() {
-    assertThat(ArgumentsReplacer.replaceArguments("Hey {{ user }}, how's {{ friend }} doing? Say {{user}}", Map.of("user", "Joe")))
-      .isEqualTo("Hey Joe, how's {{ friend }} doing? Say Joe");
+    assertThat(
+      ArgumentsReplacer.replaceArguments("Hey {{ user }}, how's {{ friend }} doing? Say {{user}}", Map.of("user", "Joe"))
+    ).isEqualTo("Hey Joe, how's {{ friend }} doing? Say Joe");
   }
 
   @Test
@@ -32,7 +33,8 @@ class ArgumentsReplacerTest {
     arguments.put("number", 42);
     arguments.put("null", null);
 
-    assertThat(ArgumentsReplacer.replaceArguments("Hey {{ number }}, how's {{ null }} doing?", arguments))
-      .isEqualTo("Hey 42, how's {{ null }} doing?");
+    assertThat(ArgumentsReplacer.replaceArguments("Hey {{ number }}, how's {{ null }} doing?", arguments)).isEqualTo(
+      "Hey 42, how's {{ null }} doing?"
+    );
   }
 }

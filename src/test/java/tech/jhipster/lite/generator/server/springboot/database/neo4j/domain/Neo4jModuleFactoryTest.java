@@ -34,8 +34,7 @@ class Neo4jModuleFactoryTest {
   void shouldBuildModule() {
     when(dockerImages.get("neo4j")).thenReturn(new DockerImageVersion("neo4j", "4.4.11-community"));
 
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .build();
 

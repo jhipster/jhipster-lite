@@ -116,8 +116,7 @@ public class SpringBootCoreModuleFactory {
   }
 
   private JavaDependency springBootBom() {
-    return JavaDependency
-      .builder()
+    return JavaDependency.builder()
       .groupId(SPRING_BOOT_GROUP)
       .artifactId("spring-boot-dependencies")
       .versionSlug(SPRING_BOOT_VERSION_SLUG)
@@ -131,8 +130,7 @@ public class SpringBootCoreModuleFactory {
   }
 
   private JavaDependency springBootTest() {
-    return JavaDependency
-      .builder()
+    return JavaDependency.builder()
       .groupId(SPRING_BOOT_GROUP)
       .artifactId("spring-boot-starter-test")
       .scope(JavaDependencyScope.TEST)
@@ -140,8 +138,7 @@ public class SpringBootCoreModuleFactory {
   }
 
   private MavenPlugin springBootPluginManagement(String fullyQualifiedMainClass) {
-    return MavenPlugin
-      .builder()
+    return MavenPlugin.builder()
       .groupId(SPRING_BOOT_GROUP)
       .artifactId("spring-boot-maven-plugin")
       .versionSlug(SPRING_BOOT_VERSION_SLUG)

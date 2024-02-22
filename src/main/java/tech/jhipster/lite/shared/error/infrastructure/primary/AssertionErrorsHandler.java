@@ -48,8 +48,7 @@ class AssertionErrorsHandler {
   }
 
   private HttpStatus buildStatus(AssertionException exception) {
-    return Stream
-      .of(exception.getStackTrace())
+    return Stream.of(exception.getStackTrace())
       .map(StackTraceElement::getClassName)
       .filter(inApplication())
       .filter(notInErrorDomain())

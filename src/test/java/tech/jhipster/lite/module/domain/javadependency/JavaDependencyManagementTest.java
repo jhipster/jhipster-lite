@@ -27,8 +27,10 @@ class JavaDependencyManagementTest {
   void shouldAddUnknownFullDependency() {
     JavaBuildCommands commands = changes().dependency(optionalTestDependency()).build();
 
-    assertThat(commands.get())
-      .containsExactly(new SetVersion(springBootVersion()), new AddJavaDependencyManagement(optionalTestDependency()));
+    assertThat(commands.get()).containsExactly(
+      new SetVersion(springBootVersion()),
+      new AddJavaDependencyManagement(optionalTestDependency())
+    );
   }
 
   @Test
@@ -40,8 +42,7 @@ class JavaDependencyManagementTest {
 
   @Test
   void shouldNotUpdateExistingDefaultVersionDependency() {
-    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(new JavaDependencies(List.of(defaultVersionDependency())))
       .dependencies(null);
@@ -53,25 +54,22 @@ class JavaDependencyManagementTest {
 
   @Test
   void shouldUpgradeDependencyOptionality() {
-    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(new JavaDependencies(List.of(optionalSpringBootDependency())))
       .dependencies(null);
 
     JavaBuildCommands commands = changes().projectDependencies(projectJavaDependencies).build();
 
-    assertThat(commands.get())
-      .containsExactly(
-        new RemoveJavaDependencyManagement(optionalSpringBootDependency().id()),
-        new AddJavaDependencyManagement(defaultVersionDependency())
-      );
+    assertThat(commands.get()).containsExactly(
+      new RemoveJavaDependencyManagement(optionalSpringBootDependency().id()),
+      new AddJavaDependencyManagement(defaultVersionDependency())
+    );
   }
 
   @Test
   void shouldNotDowngradeDependencyOptionality() {
-    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectJavaDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(new JavaDependencies(List.of(defaultVersionDependency())))
       .dependencies(null);
@@ -105,8 +103,10 @@ class JavaDependencyManagementTest {
 
     JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectJavaDependencies()).build();
 
-    assertThat(commands.get())
-      .containsExactly(new RemoveJavaDependencyManagement(upgraded.id()), new AddJavaDependencyManagement(upgraded));
+    assertThat(commands.get()).containsExactly(
+      new RemoveJavaDependencyManagement(upgraded.id()),
+      new AddJavaDependencyManagement(upgraded)
+    );
   }
 
   @Test
@@ -115,8 +115,10 @@ class JavaDependencyManagementTest {
 
     JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectDependenciesWithoutJunitVersion()).build();
 
-    assertThat(commands.get())
-      .containsExactly(new RemoveJavaDependencyManagement(upgraded.id()), new AddJavaDependencyManagement(upgraded));
+    assertThat(commands.get()).containsExactly(
+      new RemoveJavaDependencyManagement(upgraded.id()),
+      new AddJavaDependencyManagement(upgraded)
+    );
   }
 
   @Test
@@ -131,17 +133,15 @@ class JavaDependencyManagementTest {
       .projectDependencies(projectDependenciesWithoutJunitVersion())
       .build();
 
-    assertThat(commands.get())
-      .containsExactly(
-        new SetVersion(updatedJunitVersion),
-        new RemoveJavaDependencyManagement(upgraded.id()),
-        new AddJavaDependencyManagement(upgraded)
-      );
+    assertThat(commands.get()).containsExactly(
+      new SetVersion(updatedJunitVersion),
+      new RemoveJavaDependencyManagement(upgraded.id()),
+      new AddJavaDependencyManagement(upgraded)
+    );
   }
 
   private ProjectJavaDependencies projectDependenciesWithoutJunitVersion() {
-    return ProjectJavaDependencies
-      .builder()
+    return ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(noJunitVersionInCurrentProject())
       .dependencies(null);
@@ -162,8 +162,7 @@ class JavaDependencyManagementTest {
 
   @Test
   void shouldNotUpdateDependencyWithSameType() {
-    ProjectJavaDependencies projectDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(new JavaDependencies(List.of(springBootDependencyManagement())))
       .dependencies(null);
@@ -177,8 +176,7 @@ class JavaDependencyManagementTest {
   void shouldAppendDependencyWithDifferentType() {
     JavaDependency noTypeDependencyManagement = springBootDefaultTypeDependencyManagement();
 
-    ProjectJavaDependencies projectDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(new JavaDependencies(List.of(noTypeDependencyManagement)))
       .dependencies(null);
@@ -192,8 +190,7 @@ class JavaDependencyManagementTest {
   void shouldAppendDependencyWithDifferentClassifier() {
     JavaDependency differentClassifier = optionalTestDependencyBuilder().classifier("different").build();
 
-    ProjectJavaDependencies projectDependencies = ProjectJavaDependencies
-      .builder()
+    ProjectJavaDependencies projectDependencies = ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(new JavaDependencies(List.of(differentClassifier)))
       .dependencies(null);
@@ -208,8 +205,7 @@ class JavaDependencyManagementTest {
   }
 
   private ProjectJavaDependencies projectJavaDependencies() {
-    return ProjectJavaDependencies
-      .builder()
+    return ProjectJavaDependencies.builder()
       .versions(projectVersions())
       .dependenciesManagements(projectDependenciesManagement())
       .dependencies(null);

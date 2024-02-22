@@ -37,8 +37,7 @@ public class PostgresqlModuleFactory {
     )
       .javaDependencies()
       .addDependency(
-        JavaDependency
-          .builder()
+        JavaDependency.builder()
           .groupId(groupId(ORG_POSTGRESQL))
           .artifactId(artifactId("postgresql"))
           .scope(JavaDependencyScope.RUNTIME)

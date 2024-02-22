@@ -40,11 +40,12 @@ class JHipsterLandscapeTest {
 
   @Test
   void shouldNotBuildLandscapeWithUnknownDependency() {
-    assertThatThrownBy(() ->
+    assertThatThrownBy(
+      () ->
         JHipsterLandscape.from(
           moduleResources(defaultModuleResource(), defaultModuleResourceBuilder().slug("dummy").moduleDependency("unknown").build())
         )
-      )
+    )
       .isExactlyInstanceOf(InvalidLandscapeException.class)
       .hasMessageContaining("unknown dependency");
   }
@@ -143,8 +144,7 @@ class JHipsterLandscapeTest {
           landscapeFeature("my-feature", noDependencyLandscapeModule("second"), oneModuleDependencyLandscapeModule("third", "first"))
         ),
         landscapeLevel(
-          JHipsterLandscapeModule
-            .builder()
+          JHipsterLandscapeModule.builder()
             .module("forth")
             .operation("operation")
             .propertiesDefinition(propertiesDefinition())
@@ -206,8 +206,10 @@ class JHipsterLandscapeTest {
 
     JHipsterLandscape landscape = JHipsterLandscape.from(moduleResources(firstModule, secondModule));
 
-    assertThat(landscape.sort(List.of(moduleSlug("second"), moduleSlug("first"))))
-      .containsExactly(moduleSlug("first"), moduleSlug("second"));
+    assertThat(landscape.sort(List.of(moduleSlug("second"), moduleSlug("first")))).containsExactly(
+      moduleSlug("first"),
+      moduleSlug("second")
+    );
   }
 
   @Test

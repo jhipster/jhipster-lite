@@ -18,8 +18,7 @@ class PostgresqlModuleConfiguration {
 
   @Bean
   JHipsterModuleResource postgresqlModule(PostgresqlApplicationService postgresql) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(POSTGRESQL)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().addConfigurationFormat().build()

@@ -26,8 +26,7 @@ public class JavaProjects {
   private static ProjectActionToAppend projectActionToAdd(JHipsterModuleApplied moduleApplied) {
     ProjectPath path = new ProjectPath(moduleApplied.properties().projectFolder().get());
 
-    ProjectAction action = ProjectAction
-      .builder()
+    ProjectAction action = ProjectAction.builder()
       .module(moduleApplied.slug().get())
       .date(moduleApplied.time())
       .parameters(moduleApplied.properties().getParameters());

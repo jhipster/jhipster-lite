@@ -15,8 +15,7 @@ class SpringBootDockerModuleConfiguration {
 
   @Bean
   JHipsterModuleResource jibModule(SpringBootDockerApplicationService springBootDocker) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JIB)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addServerPort().build())
       .apiDoc("Spring Boot - Tools", "Add Docker image building with Jib")
@@ -27,8 +26,7 @@ class SpringBootDockerModuleConfiguration {
 
   @Bean
   JHipsterModuleResource dockerFileModule(SpringBootDockerApplicationService springBootDocker) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(DOCKERFILE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addServerPort().build())
       .apiDoc("Spring Boot - Tools", "Add Dockerfile")

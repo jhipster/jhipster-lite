@@ -16,8 +16,7 @@ class MsSQLModuleConfiguration {
 
   @Bean
   JHipsterModuleResource msSQLModule(MsSQLApplicationService applicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(MSSQL)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().addConfigurationFormat().build()

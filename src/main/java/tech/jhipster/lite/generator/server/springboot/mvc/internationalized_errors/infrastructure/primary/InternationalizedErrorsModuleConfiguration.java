@@ -13,14 +13,12 @@ class InternationalizedErrorsModuleConfiguration {
 
   @Bean
   JHipsterModuleResource internationalizedErrorsModule(InternationalizedErrorsApplicationService internationalizedErrors) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.INTERNATIONALIZED_ERRORS)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().build())
       .apiDoc("Spring Boot", "Add internationalization for application errors")
       .organization(
-        JHipsterModuleOrganization
-          .builder()
+        JHipsterModuleOrganization.builder()
           .addDependency(JHLiteModuleSlug.JAVA_ENUMS)
           .addDependency(JHLiteModuleSlug.SPRING_BOOT_MVC_EMPTY)
           .build()

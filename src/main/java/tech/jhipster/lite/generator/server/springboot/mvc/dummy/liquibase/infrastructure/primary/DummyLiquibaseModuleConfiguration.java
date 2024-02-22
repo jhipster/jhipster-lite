@@ -14,8 +14,7 @@ class DummyLiquibaseModuleConfiguration {
 
   @Bean
   JHipsterModuleResource dummyLiquibaseModule(DummyLiquibaseApplicationService dummyLiquibase) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(DUMMY_LIQUIBASE_CHANGELOG)
       .withoutProperties()
       .apiDoc("Spring Boot - MVC", "Add liquibase changelog for dummy feature")

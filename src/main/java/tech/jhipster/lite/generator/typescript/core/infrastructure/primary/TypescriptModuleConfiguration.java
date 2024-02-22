@@ -13,8 +13,7 @@ class TypescriptModuleConfiguration {
 
   @Bean
   JHipsterModuleResource typescriptModule(TypescriptApplicationService typescriptApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(TYPESCRIPT)
       .withoutProperties()
       .apiDoc("Typescript", "Init Typescript project")

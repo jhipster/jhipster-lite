@@ -26,8 +26,7 @@ class RestJHipsterLandscapeTest {
       JsonHelper.writeAsString(
         RestJHipsterLandscape.from(JHipsterLandscape.from(JHipsterLandscapeFixture.moduleResources(firstModule, secondModule)))
       )
-    )
-      .isEqualTo(json());
+    ).isEqualTo(json());
   }
 
   private String json() {

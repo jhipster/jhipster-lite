@@ -16,8 +16,7 @@ class AngularModuleFactoryTest {
 
   @Test
   void shouldCreateAngularModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhiTest")
       .build();
 
@@ -101,8 +100,7 @@ class AngularModuleFactoryTest {
 
   @Test
   void shouldProxyBeUpdatedWhenServerPortPropertyNotDefault() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhiTest")
       .put("serverPort", 8081)
       .build();
@@ -116,8 +114,7 @@ class AngularModuleFactoryTest {
 
   @Test
   void shouldProxyBeDefaultWhenServerPortPropertyMissing() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhiTest")
       .build();
 

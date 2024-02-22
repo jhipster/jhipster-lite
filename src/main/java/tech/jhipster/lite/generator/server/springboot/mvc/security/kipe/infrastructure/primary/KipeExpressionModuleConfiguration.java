@@ -14,8 +14,7 @@ class KipeExpressionModuleConfiguration {
 
   @Bean
   JHipsterModuleResource kipeExpressionModule(KipeApplicationService kipe) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.KIPE_EXPRESSION)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Spring Boot - MVC - Security", "Create a new security expression for spring security: can('action', #element)")

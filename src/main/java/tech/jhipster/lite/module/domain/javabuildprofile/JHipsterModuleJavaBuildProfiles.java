@@ -36,8 +36,12 @@ public final class JHipsterModuleJavaBuildProfiles {
       .stream()
       .flatMap(toJavaDependenciesCommands(versions, projectJavaDependencies));
 
-    Collection<JavaBuildCommand> commands = Stream
-      .of(addProfileCommands, addPropertyCommands, mavenPluginCommands, javaDependenciesCommands)
+    Collection<JavaBuildCommand> commands = Stream.of(
+      addProfileCommands,
+      addPropertyCommands,
+      mavenPluginCommands,
+      javaDependenciesCommands
+    )
       .flatMap(Function.identity())
       .toList();
 

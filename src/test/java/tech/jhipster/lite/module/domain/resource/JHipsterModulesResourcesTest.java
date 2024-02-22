@@ -35,7 +35,8 @@ class JHipsterModulesResourcesTest {
   void shouldNotBuildWithDuplicatedSlug() {
     JHipsterModuleResource resource = defaultModuleResourceBuilder().slug("dummy").build();
 
-    assertThatThrownBy(() -> new JHipsterModulesResources(List.of(resource, resource), emptyHiddenModules()))
-      .isExactlyInstanceOf(DuplicatedSlugException.class);
+    assertThatThrownBy(() -> new JHipsterModulesResources(List.of(resource, resource), emptyHiddenModules())).isExactlyInstanceOf(
+      DuplicatedSlugException.class
+    );
   }
 }

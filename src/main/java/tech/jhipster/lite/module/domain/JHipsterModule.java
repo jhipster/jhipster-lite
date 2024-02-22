@@ -166,8 +166,7 @@ public final class JHipsterModule {
     Entry<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> inputProperties
   ) {
     return property ->
-      SpringProperty
-        .builder(inputProperties.getKey().type())
+      SpringProperty.builder(inputProperties.getKey().type())
         .key(property.getKey())
         .value(property.getValue())
         .profile(inputProperties.getKey().profile())
@@ -186,8 +185,7 @@ public final class JHipsterModule {
     Entry<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> inputProperties
   ) {
     return propertyComment ->
-      SpringComment
-        .builder(inputProperties.getKey().type())
+      SpringComment.builder(inputProperties.getKey().type())
         .key(propertyComment.getKey())
         .comment(propertyComment.getValue())
         .profile(inputProperties.getKey().profile())

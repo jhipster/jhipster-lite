@@ -13,8 +13,7 @@ class JavaEnumsModuleConfiguration {
 
   @Bean
   JHipsterModuleResource javaEnumsModule(JavaEnumsApplicationService javaEnums) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.JAVA_ENUMS)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Java", "Add simple enums mapper")

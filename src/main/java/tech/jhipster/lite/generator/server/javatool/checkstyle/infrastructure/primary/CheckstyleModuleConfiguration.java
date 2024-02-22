@@ -14,8 +14,7 @@ class CheckstyleModuleConfiguration {
 
   @Bean
   JHipsterModuleResource checkstyleModule(CheckstyleApplicationService checkstyle) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(CHECKSTYLE)
       .withoutProperties()
       .apiDoc("Java", "Add Checkstyle configuration to check unused imports")

@@ -20,8 +20,7 @@ class GitInfoModuleFactoryTest {
 
     @Test
     void shouldAddGitInformation() {
-      JHipsterModuleProperties properties = JHipsterModulesFixture
-        .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
         .basePackage("tech.jhipster.myapp")
         .projectBaseName("myapp")
         .build();
@@ -64,8 +63,7 @@ class GitInfoModuleFactoryTest {
 
     @Test
     void shouldAddGitInformation() {
-      JHipsterModuleProperties properties = JHipsterModulesFixture
-        .propertiesBuilder(TestFileUtils.tmpDirForTest())
+      JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
         .basePackage("tech.jhipster.myapp")
         .projectBaseName("myapp")
         .build();

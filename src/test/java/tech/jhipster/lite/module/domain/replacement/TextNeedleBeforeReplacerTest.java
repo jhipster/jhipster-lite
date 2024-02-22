@@ -41,13 +41,12 @@ class TextNeedleBeforeReplacerTest {
         "<element />"
       );
 
-    assertThat(updatedContent)
-      .isEqualTo(
-        """
-        <element />
-        <!-- needle !-->
-        """
-      );
+    assertThat(updatedContent).isEqualTo(
+      """
+      <element />
+      <!-- needle !-->
+      """
+    );
   }
 
   @Test
@@ -65,15 +64,14 @@ class TextNeedleBeforeReplacerTest {
         "<element />"
       );
 
-    assertThat(updatedContent)
-      .isEqualTo(
-        """
-        <root>
-        <element />
-        <!-- needle !-->
-        </root>
-        """
-      );
+    assertThat(updatedContent).isEqualTo(
+      """
+      <root>
+      <element />
+      <!-- needle !-->
+      </root>
+      """
+    );
   }
 
   @Test
@@ -92,16 +90,15 @@ class TextNeedleBeforeReplacerTest {
         "<element />"
       );
 
-    assertThat(updatedContent)
-      .isEqualTo(
-        """
-        <root>
-        <element />
-          <!-- needle !-->
+    assertThat(updatedContent).isEqualTo(
+      """
+      <root>
+      <element />
+        <!-- needle !-->
 
-        </root>
-        """
-      );
+      </root>
+      """
+    );
   }
 
   @Test
@@ -123,21 +120,20 @@ class TextNeedleBeforeReplacerTest {
         "<element />"
       );
 
-    assertThat(updatedContent)
-      .isEqualTo(
-        """
-        <root>
-        <element />
-          <!-- needle !-->
+    assertThat(updatedContent).isEqualTo(
+      """
+      <root>
+      <element />
+        <!-- needle !-->
 
 
-        <element />
-          <!-- needle !-->
-        <element />
-          <!-- needle !--> with trailing text
-        </root>
-        """
-      );
+      <element />
+        <!-- needle !-->
+      <element />
+        <!-- needle !--> with trailing text
+      </root>
+      """
+    );
   }
 
   @Test

@@ -16,8 +16,7 @@ class FlywayModuleConfiguration {
 
   @Bean
   JHipsterModuleResource flywayInitializationModule(FlywayApplicationService flyway) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(FLYWAY)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc("Spring Boot - Database Migration", "Add Flyway")
@@ -28,8 +27,7 @@ class FlywayModuleConfiguration {
 
   @Bean
   JHipsterModuleResource flywayMysqlModule(FlywayApplicationService flyway) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(FLYWAY_MYSQL)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Spring Boot - Database Migration", "Add Flyway mysql")

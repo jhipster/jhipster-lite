@@ -15,8 +15,7 @@ class FrontendMavenModuleConfiguration {
 
   @Bean
   JHipsterModuleResource frontendMavenModule(FrontendMavenApplicationService frontendMaven) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(FRONTEND_MAVEN_PLUGIN)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc("Frontend Maven Plugin", "Add Frontend Maven Plugin")

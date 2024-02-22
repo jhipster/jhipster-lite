@@ -15,8 +15,7 @@ class AngularOAuth2ModuleConfiguration {
 
   @Bean
   JHipsterModuleResource angularOAuth2Module(AngularOauth2ApplicationService angularOAuth2) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(ANGULAR_OAUTH_2)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc("Angular", "Add OAuth2 authentication")

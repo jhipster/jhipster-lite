@@ -92,12 +92,10 @@ public class JHipsterModulesApplyer {
   }
 
   private ContentReplacers buildReplacers(JHipsterModule module) {
-    List<ContentReplacer> replacers = Stream
-      .concat(
-        module.mandatoryReplacements().replacers(),
-        module.optionalReplacements().buildReplacers(module.projectFolder(), generatedProject)
-      )
-      .toList();
+    List<ContentReplacer> replacers = Stream.concat(
+      module.mandatoryReplacements().replacers(),
+      module.optionalReplacements().buildReplacers(module.projectFolder(), generatedProject)
+    ).toList();
 
     return new ContentReplacers(replacers);
   }

@@ -14,8 +14,7 @@ public class SvelteModuleConfiguration {
 
   @Bean
   JHipsterModuleResource svelteModule(SvelteApplicationService svelteApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SVELTE_CORE)
       .withoutProperties()
       .apiDoc("Svelte", "Add Svelte")

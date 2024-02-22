@@ -43,8 +43,7 @@ class JHipsterNpmVersionsTest {
     NpmVersionsReader firstReader = () ->
       NpmPackagesVersions.builder().put(NpmVersionSource.COMMON, packages(new NpmPackage("vue", "1.2.3"))).build();
     NpmVersionsReader secondReader = () ->
-      NpmPackagesVersions
-        .builder()
+      NpmPackagesVersions.builder()
         .put(NpmVersionSource.COMMON, packages(new NpmPackage("vue", "1.2.7")))
         .put(NpmVersionSource.VUE, packages(new NpmPackage("vue", "1.2.7")))
         .build();

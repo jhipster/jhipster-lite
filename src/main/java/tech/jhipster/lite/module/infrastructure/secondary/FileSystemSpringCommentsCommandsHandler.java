@@ -37,8 +37,7 @@ class FileSystemSpringCommentsCommandsHandler {
   }
 
   private static Optional<Path> getPath(JHipsterProjectFolder projectFolder, SpringPropertyTypeFileName springPropertyTypeFileName) {
-    return PROPERTIES_PATHS
-      .get(springPropertyTypeFileName.type())
+    return PROPERTIES_PATHS.get(springPropertyTypeFileName.type())
       .stream()
       .map(toFilePath(projectFolder, springPropertyTypeFileName))
       .filter(Files::exists)

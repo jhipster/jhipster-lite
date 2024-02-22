@@ -31,8 +31,9 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springMainProperty()));
 
-    assertThat(content(Paths.get(folder, "src/main/resources/config/application.properties")))
-      .contains("springdoc.swagger-ui.operationsSorter=alpha,beta");
+    assertThat(content(Paths.get(folder, "src/main/resources/config/application.properties"))).contains(
+      "springdoc.swagger-ui.operationsSorter=alpha,beta"
+    );
   }
 
   @Test
@@ -41,8 +42,9 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springLocalMainProperty()));
 
-    assertThat(content(Paths.get(folder, "src/main/resources/config/application-local.properties")))
-      .contains("springdoc.swagger-ui.operationsSorter=alpha,beta");
+    assertThat(content(Paths.get(folder, "src/main/resources/config/application-local.properties"))).contains(
+      "springdoc.swagger-ui.operationsSorter=alpha,beta"
+    );
   }
 
   @Test
@@ -51,8 +53,9 @@ class FileSystemSpringPropertiesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestProperty()));
 
-    assertThat(content(Paths.get(folder, "src/test/resources/config/application.properties")))
-      .contains("springdoc.swagger-ui.operationsSorter=alpha,beta");
+    assertThat(content(Paths.get(folder, "src/test/resources/config/application.properties"))).contains(
+      "springdoc.swagger-ui.operationsSorter=alpha,beta"
+    );
   }
 
   @ParameterizedTest

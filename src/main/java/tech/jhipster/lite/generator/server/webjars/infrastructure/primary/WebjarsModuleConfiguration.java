@@ -18,8 +18,7 @@ class WebjarsModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource webjarsLocatorModule(WebjarsApplicationService webjarsModule) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(WEBJARS_LOCATOR)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
@@ -32,8 +31,7 @@ class WebjarsModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource webjarsHtmxModule(WebjarsApplicationService webjarsModule) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(HTMX_WEBJARS)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
@@ -46,8 +44,7 @@ class WebjarsModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource webjarsAlpineJSModule(WebjarsApplicationService webjarsModule) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(ALPINE_JS_WEBJARS)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()

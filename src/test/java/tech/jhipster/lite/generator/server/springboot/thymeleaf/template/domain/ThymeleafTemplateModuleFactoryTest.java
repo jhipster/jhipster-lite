@@ -17,8 +17,7 @@ class ThymeleafTemplateModuleFactoryTest {
 
   @Test
   void shouldCreateThymeleafTemplateModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhiTest")
       .basePackage("com.jhipster.test")
       .build();
@@ -130,8 +129,7 @@ class ThymeleafTemplateModuleFactoryTest {
 
   @Test
   void shouldCreateTailwindcssModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhipster")
       .build();
 
@@ -207,8 +205,7 @@ class ThymeleafTemplateModuleFactoryTest {
 
   @Test
   void shouldProxyBeUpdatedWhenServerPortPropertyNotDefault() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .projectBaseName("jhipster")
       .put("serverPort", 8081)
       .build();

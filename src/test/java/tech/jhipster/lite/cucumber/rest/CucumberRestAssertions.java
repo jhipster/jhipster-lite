@@ -30,8 +30,7 @@ public final class CucumberRestAssertions {
   }
 
   static void assertHttpStatus(HttpStatus status) {
-    Assertions
-      .assertThat(CucumberRestTestContext.getStatus())
+    Assertions.assertThat(CucumberRestTestContext.getStatus())
       .as(() -> "Expecting request to result in " + status + " but got " + CucumberRestTestContext.getStatus() + callContext())
       .isEqualTo(status);
   }
@@ -40,12 +39,13 @@ public final class CucumberRestAssertions {
     assertThat(statuses).as("Can't check statuses without statuses").isNotEmpty();
 
     assertThat(CucumberRestTestContext.getStatus())
-      .as(() ->
-        "Expecting request to result in any of " +
-        Stream.of(statuses).map(HttpStatus::toString).collect(Collectors.joining(", ")) +
-        " but got " +
-        CucumberRestTestContext.getStatus() +
-        callContext()
+      .as(
+        () ->
+          "Expecting request to result in any of " +
+          Stream.of(statuses).map(HttpStatus::toString).collect(Collectors.joining(", ")) +
+          " but got " +
+          CucumberRestTestContext.getStatus() +
+          callContext()
       )
       .isIn((Object[]) statuses);
   }

@@ -62,8 +62,7 @@ public class SonarQubeModulesFactory {
   }
 
   private MavenPlugin propertiesPlugin() {
-    return MavenPlugin
-      .builder()
+    return MavenPlugin.builder()
       .groupId("org.codehaus.mojo")
       .artifactId("properties-maven-plugin")
       .versionSlug("properties-maven-plugin")
@@ -83,8 +82,7 @@ public class SonarQubeModulesFactory {
   }
 
   private MavenPlugin sonarPlugin() {
-    return MavenPlugin
-      .builder()
+    return MavenPlugin.builder()
       .groupId("org.sonarsource.scanner.maven")
       .artifactId("sonar-maven-plugin")
       .versionSlug("sonar-maven-plugin")

@@ -17,14 +17,12 @@ class SpringdocOauth2ModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springDocOAuth2Module(SpringdocOauth2ApplicationService springdocOauth2) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_OAUTH_2)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc("Spring Boot - API Documentation", "Add OAuth2 authentication for springdoc")
       .organization(
-        JHipsterModuleOrganization
-          .builder()
+        JHipsterModuleOrganization.builder()
           .feature(AUTHENTICATION_SPRINGDOC)
           .addDependency(SPRINGDOC)
           .addDependency(SPRING_BOOT_OAUTH_2)

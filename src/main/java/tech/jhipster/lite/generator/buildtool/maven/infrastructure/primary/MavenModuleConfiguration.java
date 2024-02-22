@@ -18,8 +18,7 @@ class MavenModuleConfiguration {
 
   @Bean
   JHipsterModuleResource mavenModule(MavenApplicationService maven) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(MAVEN_JAVA)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addProjectName().build())
       .apiDoc("Build Tool", "Init Maven project with pom.xml and wrapper")
@@ -30,8 +29,7 @@ class MavenModuleConfiguration {
 
   @Bean
   JHipsterModuleResource mavenWrapperModule(MavenApplicationService maven) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(MAVEN_WRAPPER)
       .withoutProperties()
       .apiDoc("Build Tool", "Add maven wrapper")

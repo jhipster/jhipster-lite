@@ -19,8 +19,9 @@ class FileSystemGeneratedProjectRepositoryTest {
 
   @Test
   void shouldGracefullyHandleException() {
-    assertThatThrownBy(() -> generatedProject.list(new JHipsterProjectFolder("unknown"), allMatch()))
-      .isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> generatedProject.list(new JHipsterProjectFolder("unknown"), allMatch())).isExactlyInstanceOf(
+      GeneratorException.class
+    );
   }
 
   @Test

@@ -18,16 +18,16 @@ class JHipsterModuleMandatoryReplacementsTest {
 
   @Test
   void shouldNotApplyReplacementOnUnknownCurrentValue() {
-    assertThatThrownBy(() -> replaceIn("src/test/resources/projects/maven/pom.xml"))
-      .isExactlyInstanceOf(UnknownCurrentValueException.class);
+    assertThatThrownBy(() -> replaceIn("src/test/resources/projects/maven/pom.xml")).isExactlyInstanceOf(
+      UnknownCurrentValueException.class
+    );
   }
 
   private static String replaceIn(String file) {
     JHipsterProjectFolder folder = new JHipsterProjectFolder("src/test/resources/projects");
     JHipsterModuleBuilder module = moduleBuilder(JHipsterModulesFixture.propertiesBuilder(folder.get()).build());
 
-    return JHipsterModuleMandatoryReplacementsFactory
-      .builder(module)
+    return JHipsterModuleMandatoryReplacementsFactory.builder(module)
       .in(new JHipsterProjectFilePath(file))
       .add(new TextReplacer(always(), "old"), "new")
       .and()

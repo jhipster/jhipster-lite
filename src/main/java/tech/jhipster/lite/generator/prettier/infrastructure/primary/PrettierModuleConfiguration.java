@@ -14,8 +14,7 @@ class PrettierModuleConfiguration {
 
   @Bean
   JHipsterModuleResource prettierModule(PrettierApplicationService prettier) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(PRETTIER)
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc("Prettier", "Format project with prettier")

@@ -65,8 +65,7 @@ public final class ProjectJavaDependencies {
   public ProjectJavaDependencies merge(ProjectJavaDependencies other) {
     Assert.notNull("other", other);
 
-    return ProjectJavaDependencies
-      .builder()
+    return ProjectJavaDependencies.builder()
       .versions(versions.merge(other.versions()))
       .dependenciesManagements(dependenciesManagement.merge(other.dependenciesManagement))
       .dependencies(dependencies.merge(other.dependencies));

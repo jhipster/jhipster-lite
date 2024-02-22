@@ -14,8 +14,7 @@ class ProtobufModuleConfiguration {
 
   @Bean
   JHipsterModuleResource protobufModule(ProtobufApplicationService protobuf) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.PROTOBUF)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Java", "Add protobuf support")
@@ -26,8 +25,7 @@ class ProtobufModuleConfiguration {
 
   @Bean
   JHipsterModuleResource protobufBackwardsCompatibilityCheckModule(ProtobufApplicationService protobuf) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JHLiteModuleSlug.PROTOBUF_BACKWARDS_COMPATIBILITY_CHECK)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Java", "Add protobuf backwards compatibility check")

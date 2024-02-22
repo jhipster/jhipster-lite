@@ -30,8 +30,7 @@ class RedisModuleFactoryTest {
   void shouldBuildModule() {
     when(dockerImages.get("redis")).thenReturn(new DockerImageVersion("redis", "1.1.1"));
 
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .build();
 

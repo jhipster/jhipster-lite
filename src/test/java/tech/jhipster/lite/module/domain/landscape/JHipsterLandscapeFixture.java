@@ -20,8 +20,7 @@ public final class JHipsterLandscapeFixture {
   }
 
   public static JHipsterLandscapeModule noDependencyLandscapeModule(String slug) {
-    return JHipsterLandscapeModule
-      .builder()
+    return JHipsterLandscapeModule.builder()
       .module(slug)
       .operation("operation")
       .propertiesDefinition(propertiesDefinition())
@@ -29,8 +28,7 @@ public final class JHipsterLandscapeFixture {
   }
 
   public static JHipsterLandscapeModule oneModuleDependencyLandscapeModule(String slug, String dependency) {
-    return JHipsterLandscapeModule
-      .builder()
+    return JHipsterLandscapeModule.builder()
       .module(slug)
       .operation("operation")
       .propertiesDefinition(propertiesDefinition())

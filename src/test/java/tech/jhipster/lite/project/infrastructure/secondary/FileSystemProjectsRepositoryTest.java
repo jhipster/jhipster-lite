@@ -150,22 +150,21 @@ class FileSystemProjectsRepositoryTest {
 
       projects.save(new ProjectHistory(path, List.of(projectAction())));
 
-      assertThat(Files.readString(Paths.get(path.get(), ".jhipster/modules", "history.json")))
-        .isEqualToIgnoringWhitespace(
-          """
-          {
-            "actions" : [
-              {
-                "module" : "test-module",
-                "date" : "2021-12-03T10:15:30Z",
-                "properties" : {
-                  "key" : "value"
-                }
+      assertThat(Files.readString(Paths.get(path.get(), ".jhipster/modules", "history.json"))).isEqualToIgnoringWhitespace(
+        """
+        {
+          "actions" : [
+            {
+              "module" : "test-module",
+              "date" : "2021-12-03T10:15:30Z",
+              "properties" : {
+                "key" : "value"
               }
-            ]
-          }
-          """
-        );
+            }
+          ]
+        }
+        """
+      );
     }
   }
 

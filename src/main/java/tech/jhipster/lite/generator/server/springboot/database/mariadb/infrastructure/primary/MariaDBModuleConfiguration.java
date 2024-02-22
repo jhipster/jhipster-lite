@@ -16,8 +16,7 @@ class MariaDBModuleConfiguration {
 
   @Bean
   JHipsterModuleResource mariaDBModule(MariaDBApplicationService applicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(MARIADB)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().addConfigurationFormat().build()

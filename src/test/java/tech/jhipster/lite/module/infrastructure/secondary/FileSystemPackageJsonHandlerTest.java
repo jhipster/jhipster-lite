@@ -45,10 +45,10 @@ class FileSystemPackageJsonHandlerTest {
 
   @Test
   void shouldNotHandleCommandsOnProjectWithoutPackageJson() {
-    assertThatThrownBy(() ->
+    assertThatThrownBy(
+      () ->
         packageJson.handle(Indentation.DEFAULT, emptyFolder(), emptyBuilder().addScript(scriptKey("key"), scriptCommand("value")).build())
-      )
-      .isExactlyInstanceOf(MissingPackageJsonException.class);
+    ).isExactlyInstanceOf(MissingPackageJsonException.class);
   }
 
   private JHipsterProjectFolder emptyFolder() {

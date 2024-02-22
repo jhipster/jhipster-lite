@@ -15,8 +15,7 @@ class CacheModuleConfiguration {
 
   @Bean
   JHipsterModuleResource simpleCacheModule(SpringBootCacheSimpleApplicationService caches) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_CACHE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Spring Boot - Cache", "Add simple cache")

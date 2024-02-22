@@ -20,8 +20,7 @@ class OAuth2Auth0ModuleConfiguration {
 
   @Bean
   JHipsterModuleResource oAuth2Auth0Module(OAuth2Auth0SecurityApplicationService oAuth2) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_OAUTH_2_AUTH_0)
       .propertiesDefinition(initPropertiesDefinition())
       .apiDoc(
@@ -34,8 +33,7 @@ class OAuth2Auth0ModuleConfiguration {
   }
 
   private JHipsterModulePropertiesDefinition initPropertiesDefinition() {
-    return JHipsterModulePropertiesDefinition
-      .builder()
+    return JHipsterModulePropertiesDefinition.builder()
       .addProjectBaseName()
       .addProjectName()
       .add(auth0Domain())

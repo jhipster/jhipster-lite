@@ -16,14 +16,14 @@ class SpringdocJwtModuleFactoryTest {
 
   @Test
   void shouldBuildModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModule(module)
-      .hasFiles("src/main/java/com/jhipster/test/wire/springdoc/infrastructure/primary/SpringdocJWTConfiguration.java");
+    assertThatModule(module).hasFiles(
+      "src/main/java/com/jhipster/test/wire/springdoc/infrastructure/primary/SpringdocJWTConfiguration.java"
+    );
   }
 }

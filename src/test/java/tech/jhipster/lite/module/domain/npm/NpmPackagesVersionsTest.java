@@ -21,8 +21,7 @@ class NpmPackagesVersionsTest {
 
   @Test
   void shouldNotGetUnknownPackageVersion() {
-    NpmPackagesVersions versions = NpmPackagesVersions
-      .builder()
+    NpmPackagesVersions versions = NpmPackagesVersions.builder()
       .put(NpmVersionSource.COMMON, List.of(new NpmPackage("vue", "1.2.3")))
       .build();
 
@@ -34,8 +33,7 @@ class NpmPackagesVersionsTest {
 
   @Test
   void shouldGetVersion() {
-    NpmPackagesVersions versions = NpmPackagesVersions
-      .builder()
+    NpmPackagesVersions versions = NpmPackagesVersions.builder()
       .put(NpmVersionSource.COMMON, List.of(new NpmPackage("vue", "1.2.3")))
       .put(NpmVersionSource.VUE, List.of(new NpmPackage("vue", "1.2.4")))
       .build();

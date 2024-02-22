@@ -180,8 +180,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static DependencyId springBootDependencyId() {
-    return DependencyId
-      .builder()
+    return DependencyId.builder()
       .groupId(groupId("org.springframework.boot"))
       .artifactId(artifactId("spring-boot-dependencies"))
       .type(JavaDependencyType.POM)
@@ -303,8 +302,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static SpringProperty springLocalMainProperty() {
-    return SpringProperty
-      .builder(SpringPropertyType.MAIN_PROPERTIES)
+    return SpringProperty.builder(SpringPropertyType.MAIN_PROPERTIES)
       .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
       .value(propertyValue("alpha", "beta"))
       .profile(springProfile("local"))
@@ -312,16 +310,14 @@ public final class JHipsterModulesFixture {
   }
 
   public static SpringProperty springMainProperty() {
-    return SpringProperty
-      .builder(SpringPropertyType.MAIN_PROPERTIES)
+    return SpringProperty.builder(SpringPropertyType.MAIN_PROPERTIES)
       .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
       .value(propertyValue("alpha", "beta"))
       .build();
   }
 
   public static SpringProperty springTestProperty() {
-    return SpringProperty
-      .builder(SpringPropertyType.TEST_PROPERTIES)
+    return SpringProperty.builder(SpringPropertyType.TEST_PROPERTIES)
       .key(propertyKey("springdoc.swagger-ui.operationsSorter"))
       .value(propertyValue("alpha", "beta"))
       .build();
@@ -418,8 +414,7 @@ public final class JHipsterModulesFixture {
   }
 
   public static JHipsterModuleUpgrade upgrade() {
-    return JHipsterModuleUpgrade
-      .builder()
+    return JHipsterModuleUpgrade.builder()
       .doNotAdd(to(".gitignore"))
       .delete(path("documentation/cucumber-integration.md"))
       .replace(filesWithExtension("java"), fileStart(), "// This is an updated file\n\n")

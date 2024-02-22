@@ -80,8 +80,9 @@ public class VersionsCatalog {
   }
 
   public void removeLibrary(DependencyId dependency) {
-    libraryEntriesMatchingDependency(dependency)
-      .forEach(libraryConfig -> tomlConfigFile.remove(List.of(LIBRARIES_TOML_KEY, libraryConfig.getKey())));
+    libraryEntriesMatchingDependency(dependency).forEach(
+      libraryConfig -> tomlConfigFile.remove(List.of(LIBRARIES_TOML_KEY, libraryConfig.getKey()))
+    );
     save();
   }
 

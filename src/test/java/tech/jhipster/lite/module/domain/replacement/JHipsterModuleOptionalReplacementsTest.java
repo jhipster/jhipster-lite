@@ -26,8 +26,7 @@ class JHipsterModuleOptionalReplacementsTest {
     JHipsterProjectFolder folder = new JHipsterProjectFolder("src/test/resources/projects");
     JHipsterModuleBuilder module = moduleBuilder(JHipsterModulesFixture.propertiesBuilder(folder.get()).build());
 
-    return JHipsterModuleOptionalReplacementsFactory
-      .builder(module)
+    return JHipsterModuleOptionalReplacementsFactory.builder(module)
       .in(path(file))
       .add(new TextReplacer(always(), "old"), "new")
       .and()

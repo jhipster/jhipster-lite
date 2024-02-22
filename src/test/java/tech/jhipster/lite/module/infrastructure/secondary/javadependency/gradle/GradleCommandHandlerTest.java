@@ -39,8 +39,9 @@ class GradleCommandHandlerTest {
   void shouldHandleInvalidTomlVersionCatalog() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-unreadable");
 
-    assertThatThrownBy(() -> new GradleCommandHandler(Indentation.DEFAULT, projectFolder))
-      .isExactlyInstanceOf(InvalidTomlVersionCatalogException.class);
+    assertThatThrownBy(() -> new GradleCommandHandler(Indentation.DEFAULT, projectFolder)).isExactlyInstanceOf(
+      InvalidTomlVersionCatalogException.class
+    );
   }
 
   @Test
@@ -70,13 +71,12 @@ class GradleCommandHandlerTest {
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new SetVersion(springBootVersion()));
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [versions]
-          \tspring-boot = "1.2.3"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [versions]
+        \tspring-boot = "1.2.3"
+        """
+      );
     }
 
     @Test
@@ -85,13 +85,12 @@ class GradleCommandHandlerTest {
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new SetVersion(springBootVersion()));
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [versions]
-          \tspring-boot = "1.2.3"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [versions]
+        \tspring-boot = "1.2.3"
+        """
+      );
     }
 
     @Test
@@ -102,13 +101,12 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new SetVersion(new JavaDependencyVersion("jjwt", "0.13.0")));
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [versions]
-          \tjjwt = "0.13.0"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [versions]
+        \tjjwt = "0.13.0"
+        """
+      );
     }
   }
 
@@ -121,14 +119,13 @@ class GradleCommandHandlerTest {
     void shouldAddEntryInLibrariesSectionToExistingTomlVersionCatalog() {
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [libraries.spring-boot-starter-web]
-          \t\tname = "spring-boot-starter-web"
-          \t\tgroup = "org.springframework.boot"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.spring-boot-starter-web]
+        \t\tname = "spring-boot-starter-web"
+        \t\tgroup = "org.springframework.boot"
+        """
+      );
     }
 
     @Test
@@ -140,14 +137,13 @@ class GradleCommandHandlerTest {
       JavaDependency updatedDependency = javaDependency().groupId("org.spring.boot").artifactId("spring-boot-starter-web").build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(updatedDependency));
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [libraries.spring-boot-starter-web]
-          \t\tname = "spring-boot-starter-web"
-          \t\tgroup = "org.spring.boot"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.spring-boot-starter-web]
+        \t\tname = "spring-boot-starter-web"
+        \t\tgroup = "org.spring.boot"
+        """
+      );
     }
 
     @Test
@@ -161,13 +157,12 @@ class GradleCommandHandlerTest {
         .build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [libraries.spring-boot-starter-web.version]
-          \t\t\tref = "spring-boot"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.spring-boot-starter-web.version]
+        \t\t\tref = "spring-boot"
+        """
+      );
     }
 
     @Test
@@ -177,14 +172,13 @@ class GradleCommandHandlerTest {
       JavaDependency dependency = javaDependency().groupId("com.zaxxer").artifactId("HikariCP").build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [libraries.hikariCP]
-          \t\tname = "HikariCP"
-          \t\tgroup = "com.zaxxer"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.hikariCP]
+        \t\tname = "HikariCP"
+        \t\tgroup = "com.zaxxer"
+        """
+      );
       assertThat(buildGradleContent(projectFolder)).contains("implementation(libs.hikariCP)");
     }
 
@@ -319,31 +313,31 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldAddEntryInLibrariesSectionToExistingTomlVersionCatalog() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder)
-        .handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(
+        new AddJavaDependencyManagement(springBootDependencyManagement())
+      );
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [libraries.spring-boot-dependencies]
-          \t\tname = "spring-boot-dependencies"
-          \t\tgroup = "org.springframework.boot"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.spring-boot-dependencies]
+        \t\tname = "spring-boot-dependencies"
+        \t\tgroup = "org.springframework.boot"
+        """
+      );
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          [libraries.spring-boot-dependencies.version]
-          \t\t\tref = "spring-boot"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.spring-boot-dependencies.version]
+        \t\t\tref = "spring-boot"
+        """
+      );
     }
 
     @Test
     void shouldAddImplementationDependencyInBuildGradleFileForScope() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder)
-        .handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(
+        new AddJavaDependencyManagement(springBootDependencyManagement())
+      );
 
       assertThat(buildGradleContent(projectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
     }
@@ -389,8 +383,9 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldDeclareAndConfigurePluginInBuildGradleFile() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder)
-        .handle(AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build());
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(
+        AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build()
+      );
 
       assertThat(buildGradleContent(projectFolder))
         .contains(
@@ -430,12 +425,11 @@ class GradleCommandHandlerTest {
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).toolVersion(checkstyleToolVersion()).build();
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(build);
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          checkstyle = "8.42.1"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        checkstyle = "8.42.1"
+        """
+      );
     }
 
     @Test
@@ -443,12 +437,11 @@ class GradleCommandHandlerTest {
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).pluginVersion(checkstyleToolVersion()).build();
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(build);
 
-      assertThat(versionCatalogContent(projectFolder))
-        .contains(
-          """
-          checkstyle = "8.42.1"
-          """
-        );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        checkstyle = "8.42.1"
+        """
+      );
     }
 
     @Test

@@ -17,14 +17,12 @@ class SpringDocOktaModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springDocOktaModule(SpringDocOktaApplicationService springdocOkta) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_OAUTH_2_OKTA)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc("Spring Boot - API Documentation", "Add Okta authentication for springdoc")
       .organization(
-        JHipsterModuleOrganization
-          .builder()
+        JHipsterModuleOrganization.builder()
           .feature(OAUTH_PROVIDER_SPRINGDOC)
           .addDependency(SPRINGDOC)
           .addDependency(SPRING_BOOT_OAUTH_2_OKTA)

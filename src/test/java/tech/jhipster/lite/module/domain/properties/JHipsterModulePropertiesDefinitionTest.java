@@ -14,8 +14,7 @@ class JHipsterModulePropertiesDefinitionTest {
 
   @Test
   void shouldDeduplicateProperties() {
-    Collection<JHipsterModulePropertyDefinition> properties = JHipsterModulePropertiesDefinition
-      .builder()
+    Collection<JHipsterModulePropertyDefinition> properties = JHipsterModulePropertiesDefinition.builder()
       .addIndentation()
       .addBasePackage()
       .addBasePackage()

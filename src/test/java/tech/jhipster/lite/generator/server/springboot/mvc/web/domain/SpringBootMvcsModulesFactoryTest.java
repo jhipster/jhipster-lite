@@ -16,8 +16,7 @@ class SpringBootMvcsModulesFactoryTest {
 
   @Test
   void shouldBuildTomcatMvcModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .put("serverPort", 9000)
       .build();
@@ -54,8 +53,7 @@ class SpringBootMvcsModulesFactoryTest {
 
   @Test
   void shouldBuildUndertowModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .put("serverPort", 9000)
       .build();

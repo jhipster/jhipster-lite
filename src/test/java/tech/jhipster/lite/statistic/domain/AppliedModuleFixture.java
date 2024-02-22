@@ -14,8 +14,7 @@ public final class AppliedModuleFixture {
   }
 
   public static AppliedModule appliedModule(String slug) {
-    return AppliedModule
-      .builder()
+    return AppliedModule.builder()
       .id(appliedModuleId())
       .path(folder())
       .module(moduleSlug(slug))

@@ -15,14 +15,12 @@ class SpringdocJwtModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springdocJwtModule(SpringdocJwtApplicationService springdocJwt) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRINGDOC_JWT)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().build())
       .apiDoc("Spring Boot - API Documentation", "Add JWT authentication for springdoc")
       .organization(
-        JHipsterModuleOrganization
-          .builder()
+        JHipsterModuleOrganization.builder()
           .feature(AUTHENTICATION_SPRINGDOC)
           .addDependency(SPRINGDOC)
           .addDependency(SPRING_BOOT_JWT)

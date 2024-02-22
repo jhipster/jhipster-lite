@@ -29,15 +29,15 @@ class InMemoryStatisticsRepository implements StatisticsRepository {
 
     long appliedModulesCount = appliedModules.size();
     if (criteria.isAnyCriteriaApplied()) {
-      appliedModulesCount =
-        appliedModules
-          .stream()
-          .filter(am ->
+      appliedModulesCount = appliedModules
+        .stream()
+        .filter(
+          am ->
             (criteria.getStartTime().isEmpty() || am.date().isAfter(criteria.getStartTime().get())) &&
             (criteria.getEndTime().isEmpty() || am.date().isBefore(criteria.getEndTime().get())) &&
             (criteria.getModuleSlug().isEmpty() || criteria.getModuleSlug().map(ms -> am.module().slug().equals(ms.get())).orElse(false))
-          )
-          .count();
+        )
+        .count();
     }
     return new Statistics(appliedModulesCount);
   }

@@ -22,8 +22,7 @@ class ThymeleafTemplateModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource thymeleafTemplateModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
@@ -36,8 +35,7 @@ class ThymeleafTemplateModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource thymeleafTemplateTailwindcssModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE_TAILWINDCSS)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
@@ -50,8 +48,7 @@ class ThymeleafTemplateModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource thymeleafTemplateHtmxWebjarsModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE_HTMX_WEBJAR)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()
@@ -64,8 +61,7 @@ class ThymeleafTemplateModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource thymeleafTemplateAlpineWebjarsModule(ThymeleafTemplateModuleApplicationService thymeleafTemplate) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(THYMELEAF_TEMPLATE_ALPINEJS_WEBJAR)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()

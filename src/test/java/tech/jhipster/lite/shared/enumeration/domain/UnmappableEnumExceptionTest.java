@@ -14,10 +14,9 @@ class UnmappableEnumExceptionTest {
   void shouldGetExceptionInformation() {
     UnmappableEnumException exception = new UnmappableEnumException(StandardErrorKey.class, ErrorStatus.class);
 
-    assertThat(exception.getMessage())
-      .isEqualTo(
-        "Can't map class tech.jhipster.lite.shared.error.domain.StandardErrorKey to class tech.jhipster.lite.shared.error.domain.ErrorStatus"
-      );
+    assertThat(exception.getMessage()).isEqualTo(
+      "Can't map class tech.jhipster.lite.shared.error.domain.StandardErrorKey to class tech.jhipster.lite.shared.error.domain.ErrorStatus"
+    );
     assertThat(exception.status()).isEqualTo(ErrorStatus.INTERNAL_SERVER_ERROR);
     assertThat(exception.key()).isEqualTo(EnumsErrorKey.UNMAPPABLE_ENUM);
   }

@@ -53,10 +53,9 @@ class JHipsterFileContentTest {
   void shouldGetRawContentForNotTemplatedFile() throws IOException {
     JHipsterFileContent content = content("/generator/client/vue/webapp/content/images/JHipster-Lite-neon-green.png");
 
-    assertThat(content.read(files, context()))
-      .isEqualTo(
-        Files.readAllBytes(Paths.get("src/main/resources/generator/client/vue/webapp/content/images/JHipster-Lite-neon-green.png"))
-      );
+    assertThat(content.read(files, context())).isEqualTo(
+      Files.readAllBytes(Paths.get("src/main/resources/generator/client/vue/webapp/content/images/JHipster-Lite-neon-green.png"))
+    );
   }
 
   @Test

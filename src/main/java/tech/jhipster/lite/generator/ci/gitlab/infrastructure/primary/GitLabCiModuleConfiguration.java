@@ -18,8 +18,7 @@ class GitLabCiModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gitLabCiMavenModule(GitLabCiApplicationService gitlabCi) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GITLAB_CI_MAVEN)
       .withoutProperties()
       .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitLab CI for Maven Build")
@@ -30,8 +29,7 @@ class GitLabCiModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gitLabCiGradleModule(GitLabCiApplicationService gitlabCi) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GITLAB_CI_GRADLE)
       .withoutProperties()
       .apiDoc(CONTINUOUS_INTEGRATION_GROUP_DOC, "Add GitLab CI for Gradle Build")

@@ -27,12 +27,11 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
 
-    assertThat(contentNormalizingNewLines(Paths.get(folder, "src/test/resources/META-INF/spring.factories")))
-      .contains(
-        """
-        o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
-        """
-      );
+    assertThat(contentNormalizingNewLines(Paths.get(folder, "src/test/resources/META-INF/spring.factories"))).contains(
+      """
+      o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
+      """
+    );
   }
 
   @Test
@@ -43,12 +42,11 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
 
     handler.handle(new JHipsterProjectFolder(folder), properties(springTestFactory()));
 
-    assertThat(contentNormalizingNewLines(propertiesFile))
-      .contains(
-        """
-        o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
-        """
-      );
+    assertThat(contentNormalizingNewLines(propertiesFile)).contains(
+      """
+      o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2
+      """
+    );
   }
 
   private SpringFactories properties(SpringFactory factory) {
@@ -56,8 +54,7 @@ class FileSystemSpringFactoriesCommandsHandlerTest {
   }
 
   public SpringFactory springTestFactory() {
-    return SpringFactory
-      .builder(SpringFactoryType.TEST_FACTORIES)
+    return SpringFactory.builder(SpringFactoryType.TEST_FACTORIES)
       .key(propertyKey("o.s.c.ApplicationListener"))
       .value(propertyValue("c.m.m.MyListener1", "c.m.m.MyListener2"));
   }

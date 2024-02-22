@@ -15,8 +15,7 @@ class GitInfoModuleConfiguration {
 
   @Bean
   JHipsterModuleResource gitInfoModule(GitInfoApplicationService gitInfoModule) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(GIT_INFORMATION)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()

@@ -15,8 +15,7 @@ class Neo4jMigrationsModuleConfiguration {
 
   @Bean
   JHipsterModuleResource neo4jMigrations(Neo4jMigrationsApplicationService neo4jMigrations) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(NEO4J_MIGRATIONS)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc("Spring Boot - Database Migration", "Add neo4j migrations")

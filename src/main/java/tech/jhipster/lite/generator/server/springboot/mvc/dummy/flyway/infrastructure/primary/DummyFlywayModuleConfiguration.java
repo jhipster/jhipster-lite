@@ -14,14 +14,12 @@ class DummyFlywayModuleConfiguration {
 
   @Bean
   JHipsterModuleResource dummyFlywayPostgresqlModule(DummyFlywayApplicationService dummyFlyway) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(DUMMY_POSTGRESQL_FLYWAY_CHANGELOG)
       .withoutProperties()
       .apiDoc("Spring Boot - MVC", "Add postgresql flyway changelog for dummy feature")
       .organization(
-        JHipsterModuleOrganization
-          .builder()
+        JHipsterModuleOrganization.builder()
           .feature(DUMMY_SCHEMA)
           .addDependency(FLYWAY)
           .addDependency(DUMMY_FEATURE)
@@ -34,8 +32,7 @@ class DummyFlywayModuleConfiguration {
 
   @Bean
   JHipsterModuleResource dummyFlywayNotPostgresqlModule(DummyFlywayApplicationService dummyFlyway) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(DUMMY_NOT_POSTGRESQL_FLYWAY_CHANGELOG)
       .withoutProperties()
       .apiDoc("Spring Boot - MVC", "Add not postgresql flyway changelog for dummy feature")

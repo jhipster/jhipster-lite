@@ -31,8 +31,7 @@ class ProjectHistoryTest {
   }
 
   private ProjectAction firstAction() {
-    return ProjectAction
-      .builder()
+    return ProjectAction.builder()
       .module("test-module")
       .date(Instant.parse("2020-12-03T10:16:30.00Z"))
       .parameters(Map.of("key", "old-value", "port", 8080));

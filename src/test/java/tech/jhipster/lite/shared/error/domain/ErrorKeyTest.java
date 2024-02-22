@@ -22,24 +22,25 @@ class ErrorKeyTest {
       .setUrls(ClasspathHelper.forPackage(BASE_PACKAGE))
       .setScanners(Scanners.SubTypes)
       .filterInputsBy(new FilterBuilder().includePackage(BASE_PACKAGE))
-  )
-    .getSubTypesOf(ErrorKey.class);
+  ).getSubTypesOf(ErrorKey.class);
 
   @Test
   void shouldHaveOnlyEnumsImplementations() {
-    KEYS.forEach(error ->
-      assertThat(error.isEnum() || error.isInterface())
-        .as(() -> "Implementations of " + ErrorKey.class.getName() + " must be enums and " + error.getName() + " wasn't")
-        .isTrue()
+    KEYS.forEach(
+      error ->
+        assertThat(error.isEnum() || error.isInterface())
+          .as(() -> "Implementations of " + ErrorKey.class.getName() + " must be enums and " + error.getName() + " wasn't")
+          .isTrue()
     );
   }
 
   @Test
   void shouldNotGenerateBlankStringKey() {
-    KEYS.forEach(key ->
-      Stream
-        .of(key.getEnumConstants())
-        .forEach(enumKey -> assertThat(enumKey.get()).as(() -> key + "." + enumKey + " generates a blank key").isNotBlank())
+    KEYS.forEach(
+      key ->
+        Stream.of(key.getEnumConstants()).forEach(
+          enumKey -> assertThat(enumKey.get()).as(() -> key + "." + enumKey + " generates a blank key").isNotBlank()
+        )
     );
   }
 }

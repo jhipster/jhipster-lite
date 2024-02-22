@@ -17,8 +17,7 @@ class ReactCoreModulesConfiguration {
 
   @Bean
   JHipsterModuleResource reactCoreModule(ReactCoreApplicationService react) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(REACT_CORE)
       .propertiesDefinition(properties())
       .apiDoc("React", "Add React+Vite with minimal CSS")

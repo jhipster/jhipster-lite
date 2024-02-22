@@ -15,8 +15,7 @@ class SpringBootWebfluxModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springBootWebfluxModule(SpringBootWebfluxApplicationService webflux) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_WEBFLUX_EMPTY)
       .propertiesDefinition(properties())
       .apiDoc("Spring Boot - Webflux", "Empty module: do not use alone. You should add module Spring Boot Webflux Netty")
@@ -27,8 +26,7 @@ class SpringBootWebfluxModuleConfiguration {
 
   @Bean
   JHipsterModuleResource springBootWebfluxNettyModule(SpringBootWebfluxApplicationService webflux) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_WEBFLUX_NETTY)
       .propertiesDefinition(properties())
       .apiDoc("Spring Boot - Webflux", "Add Spring Boot Webflux Netty")

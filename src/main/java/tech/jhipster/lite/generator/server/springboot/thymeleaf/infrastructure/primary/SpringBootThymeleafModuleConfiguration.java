@@ -15,8 +15,7 @@ class SpringBootThymeleafModuleConfiguration {
 
   @Bean
   public JHipsterModuleResource springBootThymeleafModule(SpringBootThymeleafApplicationService thymeleafModule) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_THYMELEAF)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addConfigurationFormat().build()

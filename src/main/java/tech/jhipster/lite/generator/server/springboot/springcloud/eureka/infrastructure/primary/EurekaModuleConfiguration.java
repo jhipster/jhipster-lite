@@ -14,8 +14,7 @@ class EurekaModuleConfiguration {
 
   @Bean
   JHipsterModuleResource eurekaModule(EurekaApplicationService eureka) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(EUREKA_CLIENT)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addProjectBaseName().addIndentation().build())
       .apiDoc("Spring Boot - Spring Cloud", "Add Spring Cloud Eureka Client")

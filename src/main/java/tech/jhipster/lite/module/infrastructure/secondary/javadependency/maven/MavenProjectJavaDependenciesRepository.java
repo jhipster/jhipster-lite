@@ -44,8 +44,7 @@ public class MavenProjectJavaDependenciesRepository implements JHipsterProjectFo
       MavenXpp3Reader reader = new MavenXpp3Reader();
       Model pomContent = reader.read(input);
 
-      return ProjectJavaDependencies
-        .builder()
+      return ProjectJavaDependencies.builder()
         .versions(extractVersions(pomContent))
         .dependenciesManagements(extractDependenciesManagement(pomContent))
         .dependencies(extractDependencies(pomContent));
@@ -94,8 +93,7 @@ public class MavenProjectJavaDependenciesRepository implements JHipsterProjectFo
 
   private Function<Dependency, JavaDependency> toJavaDependency() {
     return dependency ->
-      JavaDependency
-        .builder()
+      JavaDependency.builder()
         .groupId(dependency.getGroupId())
         .artifactId(dependency.getArtifactId())
         .versionSlug(dependency.getVersion())

@@ -97,23 +97,21 @@ public final class JHipsterModulesAssertions {
   }
 
   private static void addFilesToProject(JHipsterProjectFolder project, ModuleFile... files) {
-    Stream
-      .of(files)
-      .forEach(file -> {
-        Path destination = Paths.get(project.folder()).resolve(file.destination);
+    Stream.of(files).forEach(file -> {
+      Path destination = Paths.get(project.folder()).resolve(file.destination);
 
-        try {
-          Files.createDirectories(destination.getParent());
-        } catch (IOException e) {
-          throw new AssertionError(e);
-        }
+      try {
+        Files.createDirectories(destination.getParent());
+      } catch (IOException e) {
+        throw new AssertionError(e);
+      }
 
-        try {
-          Files.copy(Paths.get(file.source), destination);
-        } catch (IOException e) {
-          throw new AssertionError(e);
-        }
-      });
+      try {
+        Files.copy(Paths.get(file.source), destination);
+      } catch (IOException e) {
+        throw new AssertionError(e);
+      }
+    });
   }
 
   public static final class JHipsterModuleAsserter {
@@ -202,8 +200,7 @@ public final class JHipsterModulesAssertions {
 
   private static String projectFiles(JHipsterProjectFolder projectFolder) {
     try {
-      return Files
-        .walk(Paths.get(projectFolder.folder()))
+      return Files.walk(Paths.get(projectFolder.folder()))
         .filter(Files::isRegularFile)
         .map(Path::toString)
         .collect(Collectors.joining(", "));

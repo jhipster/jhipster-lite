@@ -32,16 +32,15 @@ class GeneratorErrorsMessagesTest {
       .setUrls(ClasspathHelper.forPackage(BASE_PACKAGE))
       .setScanners(Scanners.SubTypes)
       .filterInputsBy(new FilterBuilder().includePackage(BASE_PACKAGE))
-  )
-    .getSubTypesOf(ErrorKey.class);
+  ).getSubTypesOf(ErrorKey.class);
 
   private static final Map<String, Properties> ALL_ASSERTION_MESSAGES = loadMessages();
 
   private static Map<String, Properties> loadMessages() {
     try {
-      return Files
-        .list(Paths.get("src/main/resources/messages/errors"))
-        .collect(Collectors.toUnmodifiableMap(Path::toString, toProperties()));
+      return Files.list(Paths.get("src/main/resources/messages/errors")).collect(
+        Collectors.toUnmodifiableMap(Path::toString, toProperties())
+      );
     } catch (IOException e) {
       throw new AssertionError();
     }
@@ -62,10 +61,11 @@ class GeneratorErrorsMessagesTest {
 
   @Test
   void shouldHaveOnlyEnumImplementations() {
-    ERRORS.forEach(error ->
-      assertThat(error.isEnum() || error.isInterface())
-        .as("Implementations of " + ErrorKey.class.getName() + " must be enums and " + error.getName() + " wasn't")
-        .isTrue()
+    ERRORS.forEach(
+      error ->
+        assertThat(error.isEnum() || error.isInterface())
+          .as("Implementations of " + ErrorKey.class.getName() + " must be enums and " + error.getName() + " wasn't")
+          .isTrue()
     );
   }
 
@@ -85,8 +85,9 @@ class GeneratorErrorsMessagesTest {
 
   private Consumer<String> assertHasMessage() {
     return messageKey ->
-      ALL_ASSERTION_MESSAGES.forEach((file, localeMessages) ->
-        assertThat(localeMessages).as(() -> "Missing " + messageKey + " translation in " + file).containsKey(messageKey)
+      ALL_ASSERTION_MESSAGES.forEach(
+        (file, localeMessages) ->
+          assertThat(localeMessages).as(() -> "Missing " + messageKey + " translation in " + file).containsKey(messageKey)
       );
   }
 }

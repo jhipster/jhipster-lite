@@ -16,8 +16,7 @@ class Hibernate2ndLevelCacheModuleConfiguration {
 
   @Bean
   JHipsterModuleResource hibernate2ndLevelCacheModule(Hibernate2ndLevelCacheApplicationService hibernate2ndLevelCacheApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(HIBERNATE_2ND_LEVEL_CACHE)
       .propertiesDefinition(
         JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().addConfigurationFormat().build()

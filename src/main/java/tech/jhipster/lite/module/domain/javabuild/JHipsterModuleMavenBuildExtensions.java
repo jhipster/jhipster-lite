@@ -68,8 +68,7 @@ public class JHipsterModuleMavenBuildExtensions {
     }
 
     public JHipsterModuleMavenBuildExtensionsBuilder addExtension(GroupId groupId, ArtifactId artifactId, VersionSlug versionSlug) {
-      MavenBuildExtension buildExtension = MavenBuildExtension
-        .builder()
+      MavenBuildExtension buildExtension = MavenBuildExtension.builder()
         .groupId(groupId)
         .artifactId(artifactId)
         .versionSlug(versionSlug)

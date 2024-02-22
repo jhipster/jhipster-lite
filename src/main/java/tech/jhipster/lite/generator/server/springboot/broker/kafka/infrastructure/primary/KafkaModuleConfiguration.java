@@ -20,8 +20,7 @@ class KafkaModuleConfiguration {
 
   @Bean
   JHipsterModuleResource kafkaResourceInit(KafkaApplicationService kafkaApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_KAFKA)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc(TAG, "Add Kafka dependencies, with testcontainers")
@@ -32,8 +31,7 @@ class KafkaModuleConfiguration {
 
   @Bean
   JHipsterModuleResource kafkaResourceDummyProducerConsumer(KafkaApplicationService kafkaApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_KAFKA_DUMMY_PRODUCER_CONSUMER)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc(TAG, "Add dummy Kafka producer and consumer")
@@ -44,8 +42,7 @@ class KafkaModuleConfiguration {
 
   @Bean
   JHipsterModuleResource kafkaResourceAkhq(KafkaApplicationService kafkaApplicationService) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(SPRING_BOOT_KAFKA_AKHQ)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().build())
       .apiDoc(TAG, "Add AKHQ")

@@ -15,8 +15,7 @@ class JHipsterModuleMavenPluginsTest {
 
   @Test
   void shouldAddNewDependencyManagement() {
-    JavaBuildCommands changes = JHipsterModuleMavenPlugins
-      .builder(emptyModuleBuilder())
+    JavaBuildCommands changes = JHipsterModuleMavenPlugins.builder(emptyModuleBuilder())
       .pluginManagement(mavenEnforcerPluginManagement())
       .build()
       .buildChanges(currentJavaDependenciesVersion(), ProjectJavaDependencies.EMPTY);
@@ -24,8 +23,7 @@ class JHipsterModuleMavenPluginsTest {
     assertThat(changes.get())
       .usingRecursiveFieldByFieldElementComparator()
       .containsExactly(
-        AddMavenPluginManagement
-          .builder()
+        AddMavenPluginManagement.builder()
           .plugin(mavenEnforcerPluginManagement())
           .pluginVersion(mavenEnforcerVersion())
           .addDependencyVersion(jsonWebTokenVersion())
@@ -35,8 +33,7 @@ class JHipsterModuleMavenPluginsTest {
 
   @Test
   void shouldAddNewDependency() {
-    JavaBuildCommands changes = JHipsterModuleMavenPlugins
-      .builder(emptyModuleBuilder())
+    JavaBuildCommands changes = JHipsterModuleMavenPlugins.builder(emptyModuleBuilder())
       .plugin(mavenEnforcerPluginManagement())
       .build()
       .buildChanges(currentJavaDependenciesVersion(), ProjectJavaDependencies.EMPTY);
@@ -44,8 +41,7 @@ class JHipsterModuleMavenPluginsTest {
     assertThat(changes.get())
       .usingRecursiveFieldByFieldElementComparator()
       .containsExactly(
-        AddDirectMavenPlugin
-          .builder()
+        AddDirectMavenPlugin.builder()
           .plugin(mavenEnforcerPluginManagement())
           .pluginVersion(mavenEnforcerVersion())
           .addDependencyVersion(jsonWebTokenVersion())

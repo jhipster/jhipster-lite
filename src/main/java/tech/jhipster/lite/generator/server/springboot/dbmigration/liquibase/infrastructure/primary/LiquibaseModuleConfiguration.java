@@ -17,8 +17,7 @@ class LiquibaseModuleConfiguration {
 
   @Bean
   JHipsterModuleResource liquibaseModule(LiquibaseApplicationService liquibase) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(LIQUIBASE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addIndentation().addBasePackage().addConfigurationFormat().build())
       .apiDoc("Spring Boot - Database Migration", "Add Liquibase")

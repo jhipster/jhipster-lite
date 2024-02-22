@@ -25,12 +25,11 @@ class NpmProjectFormatterTest {
 
     formatter.format(new ProjectPath(directory));
 
-    assertThat(Files.readString(jsonFile))
-      .isEqualTo(
-        """
-        { "key": "value" }
-        """
-      );
+    assertThat(Files.readString(jsonFile)).isEqualTo(
+      """
+      { "key": "value" }
+      """
+    );
   }
 
   private static Path simpleNpmProject(String directory) throws IOException {

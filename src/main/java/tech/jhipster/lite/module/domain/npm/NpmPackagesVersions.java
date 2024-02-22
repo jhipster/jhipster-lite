@@ -31,8 +31,7 @@ public final class NpmPackagesVersions {
     Assert.notNull("packageName", packageName);
     Assert.notNull("source", source);
 
-    return Optional
-      .ofNullable(versions.get(source))
+    return Optional.ofNullable(versions.get(source))
       .orElseThrow(() -> new UnknownNpmPackageException(packageName, source))
       .get(packageName);
   }

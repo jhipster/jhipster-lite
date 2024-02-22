@@ -36,29 +36,28 @@ class MongoDBStatisticsRepositoryIT {
   @BeforeAll
   @SuppressWarnings("resource")
   static void startMongo() {
-    mongoDbContainer =
-      new MongoDBContainer(DockerImageName.parse("mongo:5.0.11"))
-        .withTmpFs(Collections.singletonMap("/testtmpfs", "rw"))
-        .withCommand(
-          """
-          --wiredTigerCacheSizeGB 0.25 \
-          --wiredTigerCollectionBlockCompressor none \
-          --slowOpSampleRate 0 \
-          --setParameter ttlMonitorEnabled=false \
-          --setParameter diagnosticDataCollectionEnabled=false \
-          --setParameter logicalSessionRefreshMillis=6000000 \
-          --setParameter enableFlowControl=false \
-          --setParameter oplogFetcherUsesExhaust=false \
-          --setParameter disableResumableRangeDeleter=true \
-          --setParameter enableShardedIndexConsistencyCheck=false \
-          --setParameter enableFinerGrainedCatalogCacheRefresh=false \
-          --setParameter readHedgingMode=off \
-          --setParameter loadRoutingTableOnStartup=false \
-          --setParameter rangeDeleterBatchDelayMS=2000000 \
-          --setParameter skipShardingConfigurationChecks=true \
-          --setParameter syncdelay=3600\
-          """
-        );
+    mongoDbContainer = new MongoDBContainer(DockerImageName.parse("mongo:5.0.11"))
+      .withTmpFs(Collections.singletonMap("/testtmpfs", "rw"))
+      .withCommand(
+        """
+        --wiredTigerCacheSizeGB 0.25 \
+        --wiredTigerCollectionBlockCompressor none \
+        --slowOpSampleRate 0 \
+        --setParameter ttlMonitorEnabled=false \
+        --setParameter diagnosticDataCollectionEnabled=false \
+        --setParameter logicalSessionRefreshMillis=6000000 \
+        --setParameter enableFlowControl=false \
+        --setParameter oplogFetcherUsesExhaust=false \
+        --setParameter disableResumableRangeDeleter=true \
+        --setParameter enableShardedIndexConsistencyCheck=false \
+        --setParameter enableFinerGrainedCatalogCacheRefresh=false \
+        --setParameter readHedgingMode=off \
+        --setParameter loadRoutingTableOnStartup=false \
+        --setParameter rangeDeleterBatchDelayMS=2000000 \
+        --setParameter skipShardingConfigurationChecks=true \
+        --setParameter syncdelay=3600\
+        """
+      );
 
     mongoDbContainer.start();
 
@@ -80,20 +79,17 @@ class MongoDBStatisticsRepositoryIT {
 
   static Stream<StatisticsCriteria> provideFalseCriteria() {
     return Stream.of(
-      StatisticsCriteria
-        .builder()
+      StatisticsCriteria.builder()
         .startTime(Instant.parse("2020-12-03T10:15:30.00Z"))
         .endTime(Instant.parse("2022-12-03T10:15:30.00Z"))
         .moduleSlug(JHLiteModuleSlug.ANGULAR_CORE.get())
         .build(),
-      StatisticsCriteria
-        .builder()
+      StatisticsCriteria.builder()
         .startTime(Instant.parse("2022-12-03T10:15:30.00Z"))
         .endTime(Instant.parse("2022-12-03T10:15:30.00Z"))
         .moduleSlug(null)
         .build(),
-      StatisticsCriteria
-        .builder()
+      StatisticsCriteria.builder()
         .startTime(Instant.parse("2020-12-03T10:15:30.00Z"))
         .endTime(Instant.parse("2020-12-03T10:15:30.00Z"))
         .moduleSlug(null)

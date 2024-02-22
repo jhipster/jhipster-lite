@@ -135,9 +135,9 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   VUE_CORE("vue-core"),
   VUE_PINIA("vue-pinia");
 
-  private static final Map<String, JHLiteModuleSlug> moduleSlugMap = Stream
-    .of(values())
-    .collect(Collectors.toMap(JHLiteModuleSlug::get, Function.identity()));
+  private static final Map<String, JHLiteModuleSlug> moduleSlugMap = Stream.of(values()).collect(
+    Collectors.toMap(JHLiteModuleSlug::get, Function.identity())
+  );
   private final String slug;
 
   JHLiteModuleSlug(String slug) {

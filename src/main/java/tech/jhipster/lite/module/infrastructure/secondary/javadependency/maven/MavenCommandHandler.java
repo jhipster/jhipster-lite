@@ -229,8 +229,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private DependencyManagement dependencyManagement(Profile mavenProfile) {
-    return Optional
-      .ofNullable(mavenProfile.getDependencyManagement())
+    return Optional.ofNullable(mavenProfile.getDependencyManagement())
       .or(() -> Optional.of(new DependencyManagement()))
       .map(dependencyManagement -> {
         mavenProfile.setDependencyManagement(dependencyManagement);

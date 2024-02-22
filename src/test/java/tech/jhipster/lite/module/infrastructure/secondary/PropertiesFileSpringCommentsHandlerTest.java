@@ -50,12 +50,11 @@ class PropertiesFileSpringCommentsHandlerTest {
 
     new PropertiesFileSpringCommentsHandler(propertiesFile).set(propertyKey("logging.level"), comment("Logging configuration"));
 
-    assertThat(content(propertiesFile))
-      .contains(
-        """
-        # Logging configuration
-        logging.level.tech.jhipster.lite=INFO"""
-      );
+    assertThat(content(propertiesFile)).contains(
+      """
+      # Logging configuration
+      logging.level.tech.jhipster.lite=INFO"""
+    );
   }
 
   @Test
@@ -65,13 +64,12 @@ class PropertiesFileSpringCommentsHandlerTest {
 
     new PropertiesFileSpringCommentsHandler(propertiesFile).set(propertyKey("spring.application.name"), comment("This is a comment"));
 
-    assertThat(contentNormalizingNewLines(propertiesFile))
-      .contains(
-        """
-        # This is a comment
-        spring.application.name=JHLite
-        """
-      );
+    assertThat(contentNormalizingNewLines(propertiesFile)).contains(
+      """
+      # This is a comment
+      spring.application.name=JHLite
+      """
+    );
   }
 
   @Test
@@ -79,26 +77,24 @@ class PropertiesFileSpringCommentsHandlerTest {
     Path propertiesFile = Paths.get(TestFileUtils.tmpDirForTest(), "src/main/resources/application.properties");
     loadDefaultProperties(EXISTING_SPRING_PROPERTIES, propertiesFile);
 
-    new PropertiesFileSpringCommentsHandler(propertiesFile)
-      .set(
-        propertyKey("spring.application.name"),
-        comment(
-          """
-          This is a
-          multiline
-          comment
-          """
-        )
-      );
+    new PropertiesFileSpringCommentsHandler(propertiesFile).set(
+      propertyKey("spring.application.name"),
+      comment(
+        """
+        This is a
+        multiline
+        comment
+        """
+      )
+    );
 
-    assertThat(contentNormalizingNewLines(propertiesFile))
-      .contains(
-        """
-        # This is a
-        # multiline
-        # comment
-        spring.application.name=JHLite
-        """
-      );
+    assertThat(contentNormalizingNewLines(propertiesFile)).contains(
+      """
+      # This is a
+      # multiline
+      # comment
+      spring.application.name=JHLite
+      """
+    );
   }
 }

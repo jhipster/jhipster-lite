@@ -30,13 +30,13 @@ class FileSystemYamlSpringCommentsCommandsHandler {
 
   private Consumer<SpringComment> setComment(Indentation indentation, JHipsterProjectFolder projectFolder) {
     return comment ->
-      getPath(projectFolder, comment)
-        .ifPresent(value -> new YamlFileSpringPropertiesHandler(value, indentation).setComment(comment.key(), comment.value()));
+      getPath(projectFolder, comment).ifPresent(
+        value -> new YamlFileSpringPropertiesHandler(value, indentation).setComment(comment.key(), comment.value())
+      );
   }
 
   private static Optional<Path> getPath(JHipsterProjectFolder projectFolder, SpringPropertyTypeFileName springPropertyTypeFileName) {
-    return PROPERTIES_PATHS
-      .get(springPropertyTypeFileName.type())
+    return PROPERTIES_PATHS.get(springPropertyTypeFileName.type())
       .stream()
       .map(toFilePath(projectFolder, springPropertyTypeFileName))
       .filter(Files::exists)

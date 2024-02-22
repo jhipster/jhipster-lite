@@ -35,12 +35,12 @@ class FileSystemReplacerTest {
   void shouldHandleMandatoryReplacementError() {
     String path = TestFileUtils.tmpDirForTest();
 
-    assertThatThrownBy(() ->
+    assertThatThrownBy(
+      () ->
         replacer.handle(
           new JHipsterProjectFolder(path),
           new ContentReplacers(
-            JHipsterModuleMandatoryReplacementsFactory
-              .builder(emptyModuleBuilder())
+            JHipsterModuleMandatoryReplacementsFactory.builder(emptyModuleBuilder())
               .in(new JHipsterProjectFilePath("unknown"))
               .add(new TextReplacer(always(), "old"), "new")
               .and()
@@ -49,20 +49,19 @@ class FileSystemReplacerTest {
               .toList()
           )
         )
-      )
-      .isExactlyInstanceOf(MandatoryReplacementException.class);
+    ).isExactlyInstanceOf(MandatoryReplacementException.class);
   }
 
   @Test
   void shouldHandleOptionalReplacementError() {
     String path = TestFileUtils.tmpDirForTest();
 
-    assertThatCode(() ->
+    assertThatCode(
+      () ->
         replacer.handle(
           new JHipsterProjectFolder(path),
           new ContentReplacers(
-            JHipsterModuleOptionalReplacementsFactory
-              .builder(emptyModuleBuilder())
+            JHipsterModuleOptionalReplacementsFactory.builder(emptyModuleBuilder())
               .in(new JHipsterProjectFilePath("unknown"))
               .add(new TextReplacer(always(), "old"), "new")
               .and()
@@ -71,8 +70,7 @@ class FileSystemReplacerTest {
               .toList()
           )
         )
-      )
-      .doesNotThrowAnyException();
+    ).doesNotThrowAnyException();
 
     logs.shouldHave(Level.DEBUG, "Can't apply optional replacement");
   }

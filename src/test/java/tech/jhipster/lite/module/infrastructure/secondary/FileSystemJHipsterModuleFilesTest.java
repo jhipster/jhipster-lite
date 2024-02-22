@@ -67,12 +67,13 @@ class FileSystemJHipsterModuleFilesTest {
   void shouldNotMoveUnknownFile() {
     JHipsterProjectFolder project = new JHipsterProjectFolder(TestFileUtils.tmpDirForTest());
 
-    assertThatThrownBy(() ->
+    assertThatThrownBy(
+      () ->
         files.move(
           project,
           new JHipsterFilesToMove(List.of(new JHipsterFileToMove(new JHipsterProjectFilePath("unknown-file"), to("dummy"))))
         )
-      )
+    )
       .isExactlyInstanceOf(UnknownFileToMoveException.class)
       .hasMessageContaining("unknown-file");
   }

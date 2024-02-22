@@ -14,8 +14,7 @@ class JavaMemoizersModuleConfiguration {
 
   @Bean
   JHipsterModuleResource javaMemoizersModule(JavaMemoizersApplicationService javaMemoizers) {
-    return JHipsterModuleResource
-      .builder()
+    return JHipsterModuleResource.builder()
       .slug(JAVA_MEMOIZERS)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Java", "Add simple memoizers factory")

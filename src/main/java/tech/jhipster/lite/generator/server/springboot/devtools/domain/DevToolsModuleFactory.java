@@ -38,8 +38,7 @@ public class DevToolsModuleFactory {
   }
 
   private JavaDependency springBootDevtoolsDependency() {
-    return JavaDependency
-      .builder()
+    return JavaDependency.builder()
       .groupId(SPRING_GROUP)
       .artifactId(artifactId("spring-boot-devtools"))
       .scope(JavaDependencyScope.RUNTIME)

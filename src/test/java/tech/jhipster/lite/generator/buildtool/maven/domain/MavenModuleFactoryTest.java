@@ -17,8 +17,7 @@ class MavenModuleFactoryTest {
 
   @Test
   void shouldBuildMavenModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myApp")
       .projectName("JHipster test")
@@ -225,8 +224,7 @@ class MavenModuleFactoryTest {
 
   @Test
   void shouldDeclareJacocoPluginAfterFailsafePluginInPomXml() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture
-      .propertiesBuilder(TestFileUtils.tmpDirForTest())
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myApp")
       .projectName("JHipster test")

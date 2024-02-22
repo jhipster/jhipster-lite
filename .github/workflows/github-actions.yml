@@ -362,8 +362,10 @@ jobs:
             echo "execute_tests=false" >> $GITHUB_OUTPUT
           fi
       - name: 'Test: list ${{ matrix.app }}'
-        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
-        id: cache_md5sum
+        if: |
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          ${{ matrix.java-build-tool }} == 'maven'
+        id: cache_maven_md5sum
         run: |
           ls -al /tmp/jhlite/${{ matrix.app }}
           MD5SUM_POM_XML=$(md5sum /tmp/jhlite/${{ matrix.app }}/pom.xml | cut -d ' ' -f 1)
@@ -376,9 +378,24 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-${{ matrix.java-build-tool }}-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
+          key: ${{ runner.os }}-${{ matrix.java-build-tool }}-${{ matrix.app }}-${{ steps.cache_maven_md5sum.outputs.md5sum_pom_xml }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.java-build-tool }}-
+      - name: 'Test: list ${{ matrix.app }}'
+        if: |
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          ${{ matrix.java-build-tool }} == 'gradle'
+        id: cache_gradle_md5sum
+        run: |
+          ls -al /tmp/jhlite/${{ matrix.app }}
+          GRADLE_DEPS_MD5=$(md5sum \
+            build.gradle.kts \
+            settings.gradle.kts \
+            gradle/libs.versions.toml \
+            gradle/wrapper/gradle-wrapper.properties\
+            | md5sum | head -n1 | cut -d " " -f1)
+          echo $GRADLE_DEPS_MD5
+          echo "md5sum=${GRADLE_DEPS_MD5}" >> $GITHUB_OUTPUT
       - name: 'Init: cache local Gradle repository'
         if: |
           steps.tests-requirement-check.outputs.execute_tests == 'true' &&
@@ -388,7 +405,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-${{ matrix.java-build-tool }}-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
+          key: ${{ runner.os }}-${{ matrix.java-build-tool }}-${{ matrix.app }}-${{ steps.cache_gradle_md5sum.outputs.md5sum }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.java-build-tool }}-
       - name: 'Test: starting Sonar'

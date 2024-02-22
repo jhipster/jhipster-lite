@@ -370,13 +370,27 @@ jobs:
           echo $MD5SUM_POM_XML
           echo "md5sum_pom_xml=${MD5SUM_POM_XML}" >> $GITHUB_OUTPUT
       - name: 'Init: cache local Maven repository'
-        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
+        if: |
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          ${{ matrix.java-build-tool }} == 'maven'
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
+          key: ${{ runner.os }}-${{ matrix.java-build-tool }}-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
           restore-keys: |
-            ${{ runner.os }}-maven-
+            ${{ runner.os }}-${{ matrix.java-build-tool }}-
+      - name: 'Init: cache local Gradle repository'
+        if: |
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          ${{ matrix.java-build-tool }} == 'gradle'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-${{ matrix.java-build-tool }}-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.java-build-tool }}-
       - name: 'Test: starting Sonar'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/

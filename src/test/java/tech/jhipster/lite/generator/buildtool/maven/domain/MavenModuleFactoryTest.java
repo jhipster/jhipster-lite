@@ -1,7 +1,6 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.readmeFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -248,7 +247,7 @@ class MavenModuleFactoryTest {
 
     JHipsterModule module = factory.buildMavenWrapperModule(properties);
 
-    assertThatModuleWithFiles(module, readmeFile())
+    assertThatModuleWithFiles(module, pomFile(), readmeFile())
       .hasExecutableFiles("mvnw", "mvnw.cmd")
       .hasPrefixedFiles(".mvn/wrapper", "maven-wrapper.jar", "maven-wrapper.properties")
       .hasFile("README.md")

@@ -370,7 +370,9 @@ class FileSystemJHipsterModulesRepositoryTest {
            <!-- jhipster-needle-documentation -->
            """
       )
-      .containing("This is a startup section")
+      .containing("docker compose -f src/main/docker/sonar.yml up -d")
+      .containing("./mvnw clean verify sonar:sonar")
+      .notContaining("./gradlew clean build sonarqube --info")
       .and()
       .hasPrefixedFiles(".git", "config", "HEAD")
       .doNotHaveFiles("dummy.txt")

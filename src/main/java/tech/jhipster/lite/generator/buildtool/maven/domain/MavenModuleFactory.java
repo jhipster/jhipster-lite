@@ -105,7 +105,9 @@ public class MavenModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .startupCommand("./mvnw")
+      .startupCommands()
+        .maven("./mvnw")
+        .and()
       .files()
         .addExecutable(SOURCE.file("mvnw"), to("mvnw"))
         .addExecutable(SOURCE.file("mvnw.cmd"), to("mvnw.cmd"))

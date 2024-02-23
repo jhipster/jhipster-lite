@@ -366,9 +366,10 @@ jobs:
           steps.tests-requirement-check.outputs.execute_tests == 'true' &&
           ${{ matrix.java-build-tool }} == 'maven'
         id: cache_maven_md5sum
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          ls -al /tmp/jhlite/${{ matrix.app }}
-          MD5SUM_POM_XML=$(md5sum /tmp/jhlite/${{ matrix.app }}/pom.xml | cut -d ' ' -f 1)
+          ls -al
+          MD5SUM_POM_XML=$(md5sum pom.xml | cut -d ' ' -f 1)
           echo $MD5SUM_POM_XML
           echo "md5sum_pom_xml=${MD5SUM_POM_XML}" >> $GITHUB_OUTPUT
       - name: 'Init: cache local Maven repository'
@@ -386,8 +387,9 @@ jobs:
           steps.tests-requirement-check.outputs.execute_tests == 'true' &&
           ${{ matrix.java-build-tool }} == 'gradle'
         id: cache_gradle_md5sum
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          ls -al /tmp/jhlite/${{ matrix.app }}
+          ls -al
           GRADLE_DEPS_MD5=$(md5sum \
             build.gradle.kts \
             settings.gradle.kts \

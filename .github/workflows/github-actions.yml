@@ -394,7 +394,7 @@ jobs:
             build.gradle.kts \
             settings.gradle.kts \
             gradle/libs.versions.toml \
-            gradle/wrapper/gradle-wrapper.properties\
+            gradle/wrapper/gradle-wrapper.properties \
             | md5sum | head -n1 | cut -d " " -f1)
           echo $GRADLE_DEPS_MD5
           echo "md5sum=${GRADLE_DEPS_MD5}" >> $GITHUB_OUTPUT

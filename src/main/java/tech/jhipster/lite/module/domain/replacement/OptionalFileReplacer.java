@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-record OptionalFileReplacer(JHipsterProjectFilePath file, OptionalReplacer replacement) implements ContentReplacer {
+public record OptionalFileReplacer(JHipsterProjectFilePath file, OptionalReplacer replacement) implements ContentReplacer {
   private static final Logger log = LoggerFactory.getLogger(OptionalFileReplacer.class);
 
-  OptionalFileReplacer {
+  public OptionalFileReplacer {
     Assert.notNull("file", file);
     Assert.notNull("replacement", replacement);
   }

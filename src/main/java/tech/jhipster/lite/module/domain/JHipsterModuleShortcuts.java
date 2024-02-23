@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
+import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleAfterReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
@@ -14,22 +15,12 @@ final class JHipsterModuleShortcuts {
   private static final TextNeedleBeforeReplacer JHIPSTER_LOCAL_ENVIRONMENT_NEEDLE = lineBeforeText(
     "\n<!-- jhipster-needle-localEnvironment -->"
   );
-  private static final TextNeedleBeforeReplacer JHIPSTER_STARTUP_COMMAND_SECTION_NEEDLE = lineBeforeText(
-    "\n<!-- jhipster-needle-startupCommand -->"
-  );
 
   private static final TextNeedleAfterReplacer JHIPSTER_PREREQUISITES = lineAfterText("\n## Prerequisites");
 
   private static final JHipsterProjectFilePath SPRING_MAIN_LOG_FILE = path("src/main/resources/logback-spring.xml");
   private static final JHipsterProjectFilePath SPRING_TEST_LOG_FILE = path("src/test/resources/logback.xml");
   private static final TextNeedleBeforeReplacer JHIPSTER_LOGGER_NEEDLE = lineBeforeText("<!-- jhipster-needle-logback-add-log -->");
-
-  private static final String BASH_TEMPLATE =
-    """
-    ```bash
-    {{command}}
-    ```
-    """;
 
   private final JHipsterModuleBuilder builder;
 
@@ -54,14 +45,6 @@ final class JHipsterModuleShortcuts {
     Assert.notNull("localEnvironment", localEnvironment);
 
     builder.optionalReplacements().in(README).add(JHIPSTER_LOCAL_ENVIRONMENT_NEEDLE, localEnvironment.get());
-  }
-
-  void startupCommand(String startupCommand) {
-    Assert.notBlank("startupCommand", startupCommand);
-    builder
-      .optionalReplacements()
-      .in(README)
-      .add(JHIPSTER_STARTUP_COMMAND_SECTION_NEEDLE, BASH_TEMPLATE.replace("{{command}}", startupCommand));
   }
 
   void prerequisites(String prerequisites) {

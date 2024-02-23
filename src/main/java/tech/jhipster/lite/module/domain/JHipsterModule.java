@@ -89,6 +89,8 @@ import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleAfterReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextReplacer;
+import tech.jhipster.lite.module.domain.startupcommand.*;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands.JHipsterModuleStartupCommandsBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @SuppressWarnings("java:S6539")
@@ -100,6 +102,7 @@ public final class JHipsterModule {
   private final JHipsterModuleFiles files;
   private final JHipsterModuleMandatoryReplacementsFactory mandatoryReplacements;
   private final JHipsterModuleOptionalReplacementsFactory optionalReplacements;
+  private final JHipsterModuleStartupCommands startupCommands;
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
   private final JHipsterModuleJavaBuildProfiles javaBuildProfiles;
@@ -119,6 +122,7 @@ public final class JHipsterModule {
     files = builder.files.build();
     mandatoryReplacements = builder.mandatoryReplacements.build();
     optionalReplacements = builder.optionalReplacements.build();
+    startupCommands = builder.startupCommands.build();
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
     javaBuildProfiles = builder.javaBuildProfiles.build();
@@ -140,6 +144,7 @@ public final class JHipsterModule {
     files = source.files.forUpgrade(upgrade);
     mandatoryReplacements = source.mandatoryReplacements;
     optionalReplacements = source.optionalReplacements.add(upgrade.replacements());
+    startupCommands = source.startupCommands;
     context = source.context;
     javaDependencies = source.javaDependencies;
     javaBuildProfiles = source.javaBuildProfiles;
@@ -418,6 +423,10 @@ public final class JHipsterModule {
     return optionalReplacements;
   }
 
+  public JHipsterStartupCommands startupCommands() {
+    return startupCommands.commands();
+  }
+
   public JHipsterModuleJavaDependencies javaDependencies() {
     return javaDependencies;
   }
@@ -475,6 +484,7 @@ public final class JHipsterModule {
     private final JHipsterModuleOptionalReplacementsFactoryBuilder optionalReplacements = JHipsterModuleOptionalReplacementsFactory.builder(
       this
     );
+    private final JHipsterModuleStartupCommandsBuilder startupCommands = JHipsterModuleStartupCommands.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder<JHipsterModuleBuilder> javaDependencies = JHipsterModuleJavaDependencies.builder(
       this
     );
@@ -512,10 +522,8 @@ public final class JHipsterModule {
       return this;
     }
 
-    public JHipsterModuleBuilder startupCommand(String startupCommand) {
-      shortcuts.startupCommand(startupCommand);
-
-      return this;
+    public JHipsterModuleStartupCommandsBuilder startupCommands() {
+      return startupCommands;
     }
 
     public JHipsterModuleBuilder prerequisites(String prerequisites) {

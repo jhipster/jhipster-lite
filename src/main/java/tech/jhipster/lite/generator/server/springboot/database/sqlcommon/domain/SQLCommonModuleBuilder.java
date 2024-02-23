@@ -51,7 +51,9 @@ public final class SQLCommonModuleBuilder {
         .put(databaseId + "DockerImageWithVersion", dockerImage.fullName()) // To be used in <databaseId>.yml docker-compose file
         .and()
       .documentation(documentationTitle, source.template(databaseId + ".md"))
-      .startupCommand(startupCommand(databaseId))
+      .startupCommands()
+        .docker(startupCommand(databaseId))
+        .and()
       .files()
         .add(source.template("DatabaseConfiguration.java"), mainDestination.append("DatabaseConfiguration.java"))
         .add(source.template(databaseId + ".yml"), toSrcMainDocker().append(databaseId + ".yml"))

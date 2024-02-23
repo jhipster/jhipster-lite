@@ -61,6 +61,7 @@ public class JHipsterModulesApplyer {
       .filesToMove(module.filesToMove())
       .filesToDelete(module.filesToDelete())
       .replacers(buildReplacers(module))
+      .startupCommands(module.startupCommands())
       .javaBuildCommands(
         buildDependenciesChanges(module)
           .merge(buildPluginsChanges(module))

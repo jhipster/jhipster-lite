@@ -11,6 +11,7 @@ import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
@@ -23,6 +24,7 @@ public final class JHipsterModuleChanges {
   private final JHipsterFilesToMove filesToMove;
   private final JHipsterFilesToDelete filesToDelete;
   private final ContentReplacers replacers;
+  private final JHipsterStartupCommands startupCommands;
   private final JavaBuildCommands javaBuildCommands;
   private final JHipsterModulePackageJson packageJson;
   private final JHipsterModulePreActions preActions;
@@ -42,6 +44,7 @@ public final class JHipsterModuleChanges {
     filesToMove = builder.filesToMove;
     filesToDelete = builder.filesToDelete;
     replacers = builder.replacers;
+    startupCommands = builder.startupCommands;
     javaBuildCommands = builder.javaBuildCommands;
     packageJson = builder.packageJson;
     preActions = builder.preActions;
@@ -94,6 +97,10 @@ public final class JHipsterModuleChanges {
     return replacers;
   }
 
+  public JHipsterStartupCommands startupCommands() {
+    return startupCommands;
+  }
+
   public JavaBuildCommands javaBuildCommands() {
     return javaBuildCommands;
   }
@@ -139,6 +146,7 @@ public final class JHipsterModuleChanges {
       JHipsterModuleChangesFilesToMoveBuilder,
       JHipsterModuleChangesFilesToDeleteBuilder,
       JHipsterModuleChangesReplacersBuilder,
+      JHipsterModuleChangesStartupCommandsBuilder,
       JHipsterModuleChangesJavaBuildCommandsBuilder,
       JHipsterModuleChangesPackageJsonBuilder,
       JHipsterModuleChangesPreActionsBuilder,
@@ -153,6 +161,7 @@ public final class JHipsterModuleChanges {
     private JHipsterFilesToMove filesToMove;
     private JHipsterFilesToDelete filesToDelete;
     private ContentReplacers replacers;
+    private JHipsterStartupCommands startupCommands;
     private JavaBuildCommands javaBuildCommands;
     private JHipsterModulePackageJson packageJson;
     private Indentation indentation;
@@ -202,8 +211,15 @@ public final class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesJavaBuildCommandsBuilder replacers(ContentReplacers replacers) {
+    public JHipsterModuleChangesStartupCommandsBuilder replacers(ContentReplacers replacers) {
       this.replacers = replacers;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChangesJavaBuildCommandsBuilder startupCommands(JHipsterStartupCommands startupCommands) {
+      this.startupCommands = startupCommands;
 
       return this;
     }
@@ -293,7 +309,11 @@ public final class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesReplacersBuilder {
-    JHipsterModuleChangesJavaBuildCommandsBuilder replacers(ContentReplacers replacers);
+    JHipsterModuleChangesStartupCommandsBuilder replacers(ContentReplacers replacers);
+  }
+
+  public interface JHipsterModuleChangesStartupCommandsBuilder {
+    JHipsterModuleChangesJavaBuildCommandsBuilder startupCommands(JHipsterStartupCommands startupCommands);
   }
 
   public interface JHipsterModuleChangesJavaBuildCommandsBuilder {

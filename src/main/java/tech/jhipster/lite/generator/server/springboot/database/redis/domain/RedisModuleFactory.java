@@ -34,7 +34,9 @@ public class RedisModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Redis"), SOURCE.template("redis.md"))
-      .startupCommand(startupCommand())
+      .startupCommands()
+        .docker(startupCommand())
+        .and()
       .context()
         .put("redisDockerImage", dockerImages.get("redis").fullName())
         .and()

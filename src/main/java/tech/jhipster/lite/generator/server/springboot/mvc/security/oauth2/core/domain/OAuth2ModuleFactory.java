@@ -75,7 +75,9 @@ public class OAuth2ModuleFactory {
 
     //@formatter:off
     builder
-    .startupCommand("docker compose -f src/main/docker/keycloak.yml up -d")
+    .startupCommands()
+      .docker("docker compose -f src/main/docker/keycloak.yml up -d")
+      .and()
     .files()
       .add(MAIN_SOURCE.append(APPLICATION).template("AuthenticatedUser.java"), mainDestination.append(APPLICATION).append("AuthenticatedUser.java"))
       .batch(MAIN_SOURCE.append(PRIMARY), mainDestination.append(PRIMARY))

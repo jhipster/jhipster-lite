@@ -34,7 +34,9 @@ public class KafkaModuleFactory {
         .put("kafkaDockerImage", dockerImages.get("confluentinc/cp-kafka").fullName())
         .and()
       .documentation(documentationTitle("Apache Kafka"), SOURCE.template("apache-kafka.md"))
-      .startupCommand(KAFKA_DOCKER_COMPOSE_COMMAND)
+      .startupCommands()
+        .docker(KAFKA_DOCKER_COMPOSE_COMMAND)
+        .and()
       .javaDependencies()
         .addDependency(groupId("org.apache.kafka"), artifactId("kafka-clients"), versionSlug("kafka-clients.version"))
         .addDependency(groupId("org.testcontainers"), artifactId("kafka"), versionSlug("testcontainers.version"))
@@ -94,7 +96,9 @@ public class KafkaModuleFactory {
       .files()
         .add(SOURCE.template("akhq.yml"), toSrcMainDocker().append("akhq.yml"))
         .and()
-      .startupCommand(AKHQ_DOCKER_COMPOSE_COMMAND)
+        .startupCommands()
+          .docker(AKHQ_DOCKER_COMPOSE_COMMAND)
+          .and()
       .build();
     //@formatter:on
   }

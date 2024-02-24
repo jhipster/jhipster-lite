@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 
 @JsonDeserialize(builder = RestAuthenticationQueryBuilder.class)
 @Schema(name = "AuthenticationQuery", description = "Query to authenticate au user")
-class RestAuthenticationQuery {
+final class RestAuthenticationQuery {
 
   private final String username;
   private final String password;

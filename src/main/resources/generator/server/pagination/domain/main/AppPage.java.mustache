@@ -6,10 +6,10 @@ import java.util.function.Function;
 import {{packageName}}.shared.collection.domain.{{baseName}}Collections;
 import {{packageName}}.shared.error.domain.Assert;
 
-public class {{baseName}}Page<T> {
+public final class {{baseName}}Page<T> {
 
   private static final int MINIMAL_PAGE_COUNT = 1;
-  
+
   private final List<T> content;
   private final int currentPage;
   private final int pageSize;
@@ -104,7 +104,7 @@ public class {{baseName}}Page<T> {
       .build();
   }
 
-  public static class {{baseName}}PageBuilder<T> {
+  public static final class {{baseName}}PageBuilder<T> {
 
     private final List<T> content;
     private int currentPage;

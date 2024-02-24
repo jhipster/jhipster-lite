@@ -2,7 +2,7 @@ package {{packageName}}.shared.error.domain;
 
 import java.util.Map;
 
-public class StringTooLongException extends AssertionException {
+public final class StringTooLongException extends AssertionException {
 
   private final String maxLength;
   private final String currentLength;
@@ -17,7 +17,7 @@ public class StringTooLongException extends AssertionException {
     return new StringTooLongExceptionBuilder();
   }
 
-  static class StringTooLongExceptionBuilder {
+  static final class StringTooLongExceptionBuilder {
 
     private String value;
     private int maxLength;

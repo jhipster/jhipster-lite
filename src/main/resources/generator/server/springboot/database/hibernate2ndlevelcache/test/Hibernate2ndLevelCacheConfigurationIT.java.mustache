@@ -11,7 +11,7 @@ import {{packageName}}.IntegrationTest;
 class Hibernate2ndLevelCacheConfigurationIT {
 
   @PersistenceUnit
-  EntityManagerFactory factory;
+  private EntityManagerFactory factory;
 
   @Test
   void shouldEnableHibernateCaching() {

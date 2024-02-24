@@ -18,13 +18,13 @@ class CacheConfigurationTest {
   private static final CacheConfiguration cacheConfiguration = new CacheConfiguration(new EhcacheProperties());
 
   @Mock
-  CacheManager cm;
+  private CacheManager cm;
 
   @Mock
-  Cache<Object, Object> cache;
+  private Cache<Object, Object> cache;
 
   @Mock
-  Configuration<Object, Object> customConfig;
+  private Configuration<Object, Object> customConfig;
 
   @Test
   void shouldCreateDefaultCache() {

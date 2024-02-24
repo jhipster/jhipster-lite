@@ -16,13 +16,13 @@ import {{packageName}}.IntegrationTest;
 class CacheConfigurationIT {
 
   @Autowired
-  ApplicationContext applicationContext;
+  private ApplicationContext applicationContext;
 
   @Autowired
-  CacheConfiguration cacheConfiguration;
+  private CacheConfiguration cacheConfiguration;
 
   @Autowired
-  CacheManager cm;
+  private CacheManager cm;
 
   @Test
   void shouldApplyProperties() {

@@ -48,7 +48,7 @@ class PrettierModuleFactoryTest {
       .containing(nodeDependency("prettier-plugin-gherkin"))
       .containing(nodeDependency("prettier-plugin-java"))
       .containing(nodeDependency("prettier-plugin-packagejson"))
-      .containing(nodeScript("prepare", "husky install"))
+      .containing(nodeScript("prepare", "husky"))
       .containing(nodeScript("prettier:check", "prettier --check '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'"))
       .containing(
         nodeScript("prettier:format", "prettier --write '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'")

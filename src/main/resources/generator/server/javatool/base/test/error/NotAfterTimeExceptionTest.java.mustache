@@ -22,7 +22,7 @@ class NotAfterTimeExceptionTest {
   }
 
   @Test
-  void shouldGetNotStriclyAfterExceptionInformation() {
+  void shouldGetNotStrictlyAfterExceptionInformation() {
     NotAfterTimeException exception = NotAfterTimeException.strictlyNotAfter().value(VALUE).field(FIELD).other(OTHER);
 
     assertDefaultInformation(exception);

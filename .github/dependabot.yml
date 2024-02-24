@@ -6,7 +6,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 15
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
 
@@ -16,7 +15,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 20
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
 
@@ -26,7 +24,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 20
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
 
@@ -36,7 +33,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 10
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'github-actions'
@@ -45,7 +41,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 10
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'github-actions'
@@ -54,7 +49,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 10
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
 
@@ -64,7 +58,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 10
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
@@ -73,7 +66,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 20
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
     ignore:
@@ -85,7 +77,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 20
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
@@ -94,7 +85,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 20
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'npm'
@@ -103,7 +93,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 20
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
     groups:
@@ -120,7 +109,6 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 20
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'
   - package-ecosystem: 'docker'
@@ -129,6 +117,5 @@ updates:
       interval: 'daily'
       time: '00:00'
     open-pull-requests-limit: 20
-    rebase-strategy: 'disabled'
     labels:
       - 'area: dependencies'

@@ -31,7 +31,7 @@
     "lint:js:run": "eslint --ext .js,.ts,.vue --ignore-path .gitignore  src/main/webapp src/test/javascript",
     "lint:pug": "npm run lint:ci:pug",
     "lint:sass": "npm run lint:ci:sass -- --fix",
-    "prepare": "husky install",
+    "prepare": "husky",
     "prettier:check": "npm run prettier:run -- --check",
     "prettier:format": "npm run prettier:run -- --write",
     "prettier:run": "prettier '{{src/**/,}*.{md,json,yml,html,vue,java,xml,feature},*.{js,ts},.github/**/*.yml,documentation/**/*.md,src/{main/glyph,main/webapp,test/javascript}/**/*.{css,scss}}'",

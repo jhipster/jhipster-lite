@@ -14,14 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @IntegrationTest
 class SpringDataRepositoryIT {
 
+  private static final String FIND_BEER = "select writetime(name) from beer where id = ?";
+  private static final String FIND_CATALOG = "select writetime(name) from beer_catalog where id = ?";
+
   @Autowired
   private SpringDataBeersRepository repository;
 
   @Autowired
   private CqlSession cqlSession;
-
-  private static final String FIND_BEER = "select writetime(name) from beer where id = ?";
-  private static final String FIND_CATALOG = "select writetime(name) from beer_catalog where id = ?";
 
   @Test
   void shouldSaveInBatch() {

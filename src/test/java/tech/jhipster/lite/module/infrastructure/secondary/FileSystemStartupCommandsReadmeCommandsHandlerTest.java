@@ -42,7 +42,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
-    assertThat(content(projectFolder.filePath("README.md"))).contains("clean verify sonar:sonar");
+    assertThat(content(projectFolder.filePath("README.md"))).contains("./mvnw clean verify sonar:sonar");
   }
 
   @Test
@@ -62,7 +62,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
-    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("clean verify sonar:sonar");
+    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("./mvnw clean verify sonar:sonar");
   }
 
   @Test
@@ -72,7 +72,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
-    assertThat(content(projectFolder.filePath("README.md"))).contains("clean build sonar --info");
+    assertThat(content(projectFolder.filePath("README.md"))).contains("./gradlew clean build sonar --info");
   }
 
   @Test
@@ -82,7 +82,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
-    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("clean build sonar --info");
+    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("./gradlew clean build sonar --info");
   }
 
   @Test
@@ -94,8 +94,8 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(mavenCommand, gradleCommand)));
 
     assertThat(content(projectFolder.filePath("README.md")))
-      .doesNotContain("clean verify sonar:sonar")
-      .doesNotContain("clean build sonar --info");
+      .doesNotContain("./mvnw clean verify sonar:sonar")
+      .doesNotContain("./gradlew clean build sonar --info");
   }
 
   @Test

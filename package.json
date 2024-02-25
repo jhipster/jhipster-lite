@@ -93,8 +93,5 @@
   },
   "engines": {
     "node": ">=20.11.1"
-  },
-  "cacheDirectories": [
-    "node_modules"
-  ]
+  }
 }

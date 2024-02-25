@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.ANGULAR;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -16,7 +16,7 @@ public class AngularModuleFactory {
 
   private static final JHipsterSource COMMON_ESLINT = from("client/common/eslint");
 
-  private static final String CACHE_NEEDLE = "  \"cacheDirectories\":";
+  private static final String ENGINES_NEEDLE = "  \"engines\":";
   private static final PackageName ANGULAR_CORE_PACKAGE = packageName("@angular/core");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -100,7 +100,7 @@ public class AngularModuleFactory {
         .and()
       .mandatoryReplacements()
         .in(path("package.json"))
-          .add(lineBeforeText(CACHE_NEEDLE), jestSonar(properties.indentation()))
+          .add(lineBeforeText(ENGINES_NEEDLE), jestSonar(properties.indentation()))
         .and()
       .and()
       .build();

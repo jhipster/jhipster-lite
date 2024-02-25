@@ -16,7 +16,7 @@ public class AngularModuleFactory {
 
   private static final JHipsterSource COMMON_ESLINT = from("client/common/eslint");
 
-  private static final String END_OF_PACKAGE_JSON_NEEDLE = "^}$";
+  private static final String ENGINES_NEEDLE = "  \"engines\":";
   private static final PackageName ANGULAR_CORE_PACKAGE = packageName("@angular/core");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
@@ -100,7 +100,7 @@ public class AngularModuleFactory {
         .and()
       .mandatoryReplacements()
         .in(path("package.json"))
-          .add(lineBeforeRegex(END_OF_PACKAGE_JSON_NEEDLE), jestSonar(properties.indentation()))
+          .add(lineBeforeText(ENGINES_NEEDLE), jestSonar(properties.indentation()))
         .and()
       .and()
       .build();

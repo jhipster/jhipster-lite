@@ -15,7 +15,7 @@ public class SvelteModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/svelte");
 
-  private static final String CACHE_NEEDLE = "  \"cacheDirectories\":";
+  private static final String ENGINES_NEEDLE = "  \"engines\":";
 
   private static final JHipsterSource PRIMARY_MAIN_SOURCE = SOURCE.append("src/main/webapp/app/common/primary/app");
   private static final JHipsterDestination PRIMARY_MAIN_DESTINATION = to("src/main/webapp/app/common/primary/app");
@@ -69,7 +69,7 @@ public class SvelteModuleFactory {
         .and()
       .optionalReplacements()
         .in(path("package.json"))
-          .add(lineBeforeText(CACHE_NEEDLE), type(properties.indentation()))
+          .add(lineBeforeText(ENGINES_NEEDLE), type(properties.indentation()))
           .and()
         .and()
       .files()

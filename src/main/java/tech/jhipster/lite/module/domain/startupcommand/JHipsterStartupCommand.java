@@ -2,7 +2,6 @@ package tech.jhipster.lite.module.domain.startupcommand;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-@SuppressWarnings("java:S1192")
 public sealed interface JHipsterStartupCommand
   permits
     JHipsterStartupCommand.DockerComposeStartupCommandLine,

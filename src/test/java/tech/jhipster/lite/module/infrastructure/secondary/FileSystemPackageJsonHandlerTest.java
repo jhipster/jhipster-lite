@@ -3,7 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -352,7 +352,7 @@ class FileSystemPackageJsonHandlerTest {
         """
           "dependencies": {
             "@fortawesome/fontawesome-svg-coree": "1.1.1",
-            "@fortawesome/fontawesome-svg-core": "^6.1.1"
+            "@fortawesome/fontawesome-svg-core": "6.1.1"
         """
       );
     }

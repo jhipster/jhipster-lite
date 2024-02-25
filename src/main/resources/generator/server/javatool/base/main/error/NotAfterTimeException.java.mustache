@@ -2,7 +2,7 @@ package {{packageName}}.shared.error.domain;
 
 import java.time.Instant;
 
-public class NotAfterTimeException extends AssertionException {
+public final class NotAfterTimeException extends AssertionException {
 
   private NotAfterTimeException(String field, String message) {
     super(field, message);
@@ -21,7 +21,7 @@ public class NotAfterTimeException extends AssertionException {
     return new NotAfterTimeExceptionBuilder("must be after");
   }
 
-  public static class NotAfterTimeExceptionBuilder
+  public static final class NotAfterTimeExceptionBuilder
     implements NotAfterTimeExceptionValueBuilder, NotAfterTimeExceptionFieldBuilder, NotAfterTimeExceptionOtherBuilder {
 
     private final String hint;

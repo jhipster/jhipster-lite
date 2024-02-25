@@ -79,7 +79,7 @@ public class AuthenticationSteps {
     return "Trying to authenticate an unknown user: " + user;
   }
 
-  private static class UsersBuilder {
+  private static final class UsersBuilder {
 
     private final SecretKey key;
     private final Map<String, User> users = new ConcurrentHashMap<>();

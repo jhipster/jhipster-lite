@@ -2,7 +2,7 @@ package {{packageName}}.shared.error.domain;
 
 import java.time.Instant;
 
-public class NotBeforeTimeException extends AssertionException {
+public final class NotBeforeTimeException extends AssertionException {
 
   private NotBeforeTimeException(String field, String message) {
     super(field, message);
@@ -21,7 +21,7 @@ public class NotBeforeTimeException extends AssertionException {
     return new NotBeforeTimeExceptionBuilder("must be before");
   }
 
-  public static class NotBeforeTimeExceptionBuilder
+  public static final class NotBeforeTimeExceptionBuilder
     implements NotBeforeTimeExceptionValueBuilder, NotBeforeTimeExceptionFieldBuilder, NotBeforeTimeExceptionOtherBuilder {
 
     private final String hint;

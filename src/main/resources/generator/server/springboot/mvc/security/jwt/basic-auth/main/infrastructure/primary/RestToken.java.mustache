@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 
 @Schema(name = "token", description = "A JWT token")
-class RestToken {
+final class RestToken {
 
   private String idToken;
 

@@ -101,7 +101,7 @@ public class {{ baseName }}Exception extends RuntimeException {
     return parameters;
   }
 
-  public static class {{ baseName }}ExceptionBuilder {
+  public static final class {{ baseName }}ExceptionBuilder {
 
     private final ErrorKey key;
     private final Map<String, String> parameters = new HashMap<>();

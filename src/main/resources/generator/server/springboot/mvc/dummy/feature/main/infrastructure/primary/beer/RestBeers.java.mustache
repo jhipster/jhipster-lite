@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Collection;
 
 @Schema(name = "beers", description = "Some beers")
-class RestBeers {
+final class RestBeers {
 
   private final Collection<RestBeer> beers;
 

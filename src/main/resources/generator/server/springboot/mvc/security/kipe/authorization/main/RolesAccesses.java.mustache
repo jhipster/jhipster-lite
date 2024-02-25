@@ -78,7 +78,7 @@ public final class RolesAccesses {
     return new RolesAccesses(mergedRoles);
   }
 
-  public static class RolesAccessesBuilder {
+  public static final class RolesAccessesBuilder {
 
     private final Map<Role, RoleAccessesBuilder> roles = new ConcurrentHashMap<>();
 

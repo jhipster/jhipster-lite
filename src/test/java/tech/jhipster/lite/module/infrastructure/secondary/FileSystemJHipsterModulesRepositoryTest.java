@@ -313,7 +313,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("Another dummy replacement")
       .containing("Dummy collection replacement")
       .containing("Another dummy collection replacement")
-      .containing("// Dummy comment\n  public static class IntegerAsserter {")
+      .containing("// Dummy comment\n  public static final class IntegerAsserter {")
       .notContaining("""
             import java.math.BigDecimal;
             import java.math.BigDecimal;

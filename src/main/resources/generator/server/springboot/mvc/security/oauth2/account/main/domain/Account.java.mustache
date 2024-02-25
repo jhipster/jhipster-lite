@@ -12,7 +12,7 @@ import {{packageName}}.shared.useridentity.domain.Firstname;
 import {{packageName}}.shared.useridentity.domain.Lastname;
 import {{packageName}}.shared.useridentity.domain.Name;
 
-public class Account {
+public final class Account {
 
   private final Username username;
   private final Name name;
@@ -51,7 +51,7 @@ public class Account {
     return roles;
   }
 
-  private static class UserBuilder implements AccountUsernameBuilder, AccountFirstnameBuilder, AccountLastnameBuilder,
+  private static final class UserBuilder implements AccountUsernameBuilder, AccountFirstnameBuilder, AccountLastnameBuilder,
       AccountEmailBuilder, AccountRolesBuilder, AccountOptionalFieldBuilder {
 
     private Username username;

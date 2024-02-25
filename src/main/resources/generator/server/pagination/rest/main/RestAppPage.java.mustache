@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 
 @Schema(name = "Page", description = "Paginated content")
-public class Rest{{baseName}}Page<T> {
+public final class Rest{{baseName}}Page<T> {
 
   private final List<T> content;
   private final int currentPage;
@@ -79,7 +79,7 @@ public class Rest{{baseName}}Page<T> {
     return hasNext;
   }
 
-  private static class Rest{{baseName}}PageBuilder<T> {
+  private static final class Rest{{baseName}}PageBuilder<T> {
 
     private final List<T> content;
     private int currentPage;

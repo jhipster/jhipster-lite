@@ -32,13 +32,14 @@ public sealed interface JHipsterStartupCommand
     }
   }
 
-  record DockerStartupCommandLine(StartupCommandLine commandLine) implements JHipsterStartupCommand {
+  record DockerStartupCommandLine(DockerComposeFile dockerComposeFile) implements JHipsterStartupCommand {
     public DockerStartupCommandLine {
-      Assert.notNull("commandLine", commandLine);
+      Assert.notNull("dockerComposeFile", dockerComposeFile);
     }
 
-    public DockerStartupCommandLine(String commandLine) {
-      this(new StartupCommandLine(commandLine));
+    @Override
+    public StartupCommandLine commandLine() {
+      return new StartupCommandLine("docker compose -f %s up -d".formatted(dockerComposeFile.path()));
     }
   }
 }

@@ -17,6 +17,7 @@ import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.LogsSpyExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.domain.startupcommand.DockerComposeFile;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.GradleStartupCommandLine;
@@ -100,7 +101,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldAddDockerComposeCommandToMavenProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
-    JHipsterStartupCommand command = new DockerStartupCommandLine("docker compose -f src/main/docker/sonar.yml up -d");
+    JHipsterStartupCommand command = new DockerStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -110,7 +111,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldAddDockerComposeCommandToGradleProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
-    JHipsterStartupCommand command = new DockerStartupCommandLine("docker compose -f src/main/docker/sonar.yml up -d");
+    JHipsterStartupCommand command = new DockerStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -135,7 +136,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
   private static Stream<Arguments> commandOrderScenarios() {
     JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("clean verify sonar:sonar");
-    JHipsterStartupCommand dockerComposeCommand = new DockerStartupCommandLine("docker compose -f src/main/docker/sonar.yml up -d");
+    JHipsterStartupCommand dockerComposeCommand = new DockerStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
     return Stream.of(
       Arguments.of(

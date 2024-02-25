@@ -15,8 +15,6 @@ public class KafkaModuleFactory {
   private static final String DUMMY_INFRASTRUCTURE_PRIMARY_KAFKA_CONSUMER = "dummy/infrastructure/primary/kafka/consumer";
   private static final String STRING_DESERIALIZER = "org.apache.kafka.common.serialization.StringDeserializer";
   private static final String STRING_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
-  private static final String KAFKA_DOCKER_COMPOSE_COMMAND = "docker compose -f src/main/docker/kafka.yml up -d";
-  private static final String AKHQ_DOCKER_COMPOSE_COMMAND = "docker compose -f src/main/docker/akhq.yml up -d";
 
   private final DockerImages dockerImages;
 
@@ -35,7 +33,7 @@ public class KafkaModuleFactory {
         .and()
       .documentation(documentationTitle("Apache Kafka"), SOURCE.template("apache-kafka.md"))
       .startupCommands()
-        .docker(KAFKA_DOCKER_COMPOSE_COMMAND)
+        .docker("src/main/docker/kafka.yml")
         .and()
       .javaDependencies()
         .addDependency(groupId("org.apache.kafka"), artifactId("kafka-clients"), versionSlug("kafka-clients.version"))
@@ -97,7 +95,7 @@ public class KafkaModuleFactory {
         .add(SOURCE.template("akhq.yml"), toSrcMainDocker().append("akhq.yml"))
         .and()
         .startupCommands()
-          .docker(AKHQ_DOCKER_COMPOSE_COMMAND)
+          .docker("src/main/docker/akhq.yml")
           .and()
       .build();
     //@formatter:on

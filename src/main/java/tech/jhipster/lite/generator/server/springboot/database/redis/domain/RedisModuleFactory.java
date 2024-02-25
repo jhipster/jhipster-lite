@@ -16,7 +16,6 @@ public class RedisModuleFactory {
   private static final JHipsterSource SOURCE = from("server/springboot/database/redis");
 
   private static final String REDIS_SECONDARY = "wire/redis/infrastructure/secondary";
-  private static final String DOCKER_COMPOSE_COMMAND = "docker compose -f src/main/docker/redis.yml up -d";
   private static final String REFLECTIONS_GROUP = "org.reflections";
 
   private final DockerImages dockerImages;
@@ -35,7 +34,7 @@ public class RedisModuleFactory {
     return moduleBuilder(properties)
       .documentation(documentationTitle("Redis"), SOURCE.template("redis.md"))
       .startupCommands()
-        .docker(startupCommand())
+        .docker("src/main/docker/redis.yml")
         .and()
       .context()
         .put("redisDockerImage", dockerImages.get("redis").fullName())
@@ -75,10 +74,6 @@ public class RedisModuleFactory {
       .springTestLogger("org.testcontainers", LogLevel.WARN)
       .build();
     //@formatter:on
-  }
-
-  private String startupCommand() {
-    return DOCKER_COMPOSE_COMMAND;
   }
 
   private JavaDependency testContainerDependency() {

@@ -35,8 +35,8 @@ public final class JHipsterModuleStartupCommands {
       this.module = module;
     }
 
-    public JHipsterModuleStartupCommandsBuilder docker(String commandLine) {
-      commands.add(new DockerStartupCommandLine(commandLine));
+    public JHipsterModuleStartupCommandsBuilder docker(String dockerComposeFile) {
+      commands.add(new DockerStartupCommandLine(new DockerComposeFile(dockerComposeFile)));
       return this;
     }
 

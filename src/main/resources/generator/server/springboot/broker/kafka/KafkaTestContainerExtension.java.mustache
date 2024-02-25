@@ -8,8 +8,8 @@ import org.testcontainers.utility.DockerImageName;
 
 public class KafkaTestContainerExtension implements BeforeAllCallback {
 
-  protected static AtomicBoolean kafkaContainerStarted = new AtomicBoolean(false);
-  public static KafkaContainer kafkaContainer;
+  private static final AtomicBoolean kafkaContainerStarted = new AtomicBoolean(false);
+  private static KafkaContainer kafkaContainer;
 
   @Override
   public void beforeAll(final ExtensionContext context) {

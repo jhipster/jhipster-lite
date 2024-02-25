@@ -52,7 +52,7 @@ class AngularModuleFactoryTest {
       .containing("\"build\": \"ng build --output-path=target/classes/static\"")
       .containing("\"test\": \"ng test --coverage\"")
       .containing("\"lint\": \"ng lint\"")
-      .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  },")
+      .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
       .and()
       .hasFile(".lintstagedrc.cjs")
       .containing(

@@ -1,18 +1,22 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
 
 import java.nio.file.Files;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.function.Predicate;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.*;
+import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
+import tech.jhipster.lite.module.domain.replacement.OptionalFileReplacer;
+import tech.jhipster.lite.module.domain.replacement.OptionalReplacer;
+import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.GradleStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.MavenStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
-import tech.jhipster.lite.module.domain.startupcommand.StartupCommandType;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @Service
@@ -36,14 +40,6 @@ class FileSystemStartupCommandsReadmeCommandsHandler {
     UNKNOWN,
   }
 
-  private final Map<StartupCommandType, Set<ProjectType>> commandTypeToProjectTypesMap = new EnumMap<>(StartupCommandType.class);
-
-  public FileSystemStartupCommandsReadmeCommandsHandler() {
-    commandTypeToProjectTypesMap.put(StartupCommandType.MAVEN, Set.of(ProjectType.MAVEN));
-    commandTypeToProjectTypesMap.put(StartupCommandType.GRADLE, Set.of(ProjectType.GRADLE));
-    commandTypeToProjectTypesMap.put(StartupCommandType.DOCKER_COMPOSE, Set.of(ProjectType.MAVEN, ProjectType.GRADLE));
-  }
-
   public void handle(JHipsterProjectFolder projectFolder, JHipsterStartupCommands commands) {
     Assert.notNull("projectFolder", projectFolder);
     Assert.notNull("commands", commands);
@@ -55,11 +51,7 @@ class FileSystemStartupCommandsReadmeCommandsHandler {
 
   private void handleCommandsForProjectType(JHipsterProjectFolder projectFolder, JHipsterStartupCommands commands) {
     ProjectType projectType = identifyProjectType(projectFolder);
-    for (JHipsterStartupCommand command : commands.get()) {
-      if (shouldAddCommand(command, projectType)) {
-        addCommandToReadme(projectFolder, command);
-      }
-    }
+    commands.get().stream().filter(shouldAddCommand(projectType)).forEach(command -> addCommandToReadme(projectFolder, command));
   }
 
   private ProjectType identifyProjectType(JHipsterProjectFolder projectFolder) {
@@ -72,9 +64,13 @@ class FileSystemStartupCommandsReadmeCommandsHandler {
     return projectType;
   }
 
-  private boolean shouldAddCommand(JHipsterStartupCommand command, ProjectType projectType) {
-    Set<ProjectType> validProjectTypes = commandTypeToProjectTypesMap.getOrDefault(command.type(), Set.of());
-    return validProjectTypes.contains(projectType);
+  private Predicate<JHipsterStartupCommand> shouldAddCommand(ProjectType projectType) {
+    return command ->
+      switch (command) {
+        case MavenStartupCommandLine __ -> projectType == ProjectType.MAVEN;
+        case GradleStartupCommandLine __ -> projectType == ProjectType.GRADLE;
+        case DockerStartupCommandLine __ -> true;
+      };
   }
 
   private void addCommandToReadme(JHipsterProjectFolder projectFolder, JHipsterStartupCommand command) {

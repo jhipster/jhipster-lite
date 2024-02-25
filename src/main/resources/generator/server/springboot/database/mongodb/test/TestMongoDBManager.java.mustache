@@ -11,7 +11,7 @@ import org.testcontainers.utility.DockerImageName;
 
 public class TestMongoDBManager implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
-  private final Logger log = LoggerFactory.getLogger(TestMongoDBManager.class);
+  private static final Logger log = LoggerFactory.getLogger(TestMongoDBManager.class);
 
   private static MongoDBContainer mongoDbContainer;
 

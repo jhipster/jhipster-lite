@@ -237,7 +237,7 @@ class CustomClaimConverterTest {
     return new UserBuilder();
   }
 
-  private class UserBuilder {
+  private final class UserBuilder {
 
     private static final ObjectMapper json = new ObjectMapper();
     private ObjectNode user;

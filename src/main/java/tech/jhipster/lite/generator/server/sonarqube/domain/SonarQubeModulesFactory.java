@@ -48,7 +48,7 @@ public class SonarQubeModulesFactory {
       .documentation(documentationTitle("sonar"), SOURCE.template("sonar.md"))
       .startupCommands()
       .docker("docker compose -f src/main/docker/sonar.yml up -d")
-      .maven("./mvnw clean verify sonar:sonar")
+      .maven("clean verify sonar:sonar")
       .and()
       .mavenPlugins()
       .plugin(propertiesPlugin())

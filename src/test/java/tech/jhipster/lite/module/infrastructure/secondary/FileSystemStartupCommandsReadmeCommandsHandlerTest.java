@@ -37,17 +37,17 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldAddMavenCommandToMavenProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
-    JHipsterStartupCommand command = new MavenStartupCommandLine("./mvnw clean verify sonar:sonar");
+    JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
-    assertThat(content(projectFolder.filePath("README.md"))).contains("./mvnw clean verify sonar:sonar");
+    assertThat(content(projectFolder.filePath("README.md"))).contains("clean verify sonar:sonar");
   }
 
   @Test
   void shouldNotAddMavenCommandToMavenProjectWithoutReadme() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/" + EMPTY_MAVEN);
-    JHipsterStartupCommand command = new MavenStartupCommandLine("./mvnw clean verify sonar:sonar");
+    JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -57,44 +57,44 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldNotAddMavenCommandToGradleProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
-    JHipsterStartupCommand command = new MavenStartupCommandLine("./mvnw clean verify sonar:sonar");
+    JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
-    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("./mvnw clean verify sonar:sonar");
+    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("clean verify sonar:sonar");
   }
 
   @Test
   void shouldAddGradleCommandToGradleProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
-    JHipsterStartupCommand command = new GradleStartupCommandLine("./gradlew clean build sonar --info");
+    JHipsterStartupCommand command = new GradleStartupCommandLine("clean build sonar --info");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
-    assertThat(content(projectFolder.filePath("README.md"))).contains("./gradlew clean build sonar --info");
+    assertThat(content(projectFolder.filePath("README.md"))).contains("clean build sonar --info");
   }
 
   @Test
   void shouldNotAddGradleCommandToMavenProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
-    JHipsterStartupCommand command = new GradleStartupCommandLine("./gradlew clean build sonar --info");
+    JHipsterStartupCommand command = new GradleStartupCommandLine("clean build sonar --info");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
-    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("./gradlew clean build sonar --info");
+    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("clean build sonar --info");
   }
 
   @Test
   void shouldNotAdddMavenAndGradleCommandToNotMavenOrGradleProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme("empty");
-    JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("./mvnw clean verify sonar:sonar");
-    JHipsterStartupCommand gradleCommand = new GradleStartupCommandLine("./gradlew clean build sonar --info");
+    JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("clean verify sonar:sonar");
+    JHipsterStartupCommand gradleCommand = new GradleStartupCommandLine("clean build sonar --info");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(mavenCommand, gradleCommand)));
 
     assertThat(content(projectFolder.filePath("README.md")))
-      .doesNotContain("./mvnw clean verify sonar:sonar")
-      .doesNotContain("./gradlew clean build sonar --info");
+      .doesNotContain("clean verify sonar:sonar")
+      .doesNotContain("clean build sonar --info");
   }
 
   @Test
@@ -134,7 +134,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   }
 
   private static Stream<Arguments> commandOrderScenarios() {
-    JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("./mvnw clean verify sonar:sonar");
+    JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("clean verify sonar:sonar");
     JHipsterStartupCommand dockerComposeCommand = new DockerStartupCommandLine("docker compose -f src/main/docker/sonar.yml up -d");
 
     return Stream.of(

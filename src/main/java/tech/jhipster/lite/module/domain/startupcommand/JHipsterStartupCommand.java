@@ -10,23 +10,25 @@ public sealed interface JHipsterStartupCommand
     JHipsterStartupCommand.MavenStartupCommandLine {
   StartupCommandLine commandLine();
 
-  record MavenStartupCommandLine(StartupCommandLine commandLine) implements JHipsterStartupCommand {
+  record MavenStartupCommandLine(String commandLineParameters) implements JHipsterStartupCommand {
     public MavenStartupCommandLine {
-      Assert.notNull("commandLine", commandLine);
+      Assert.notNull("commandLineParameters", commandLineParameters);
     }
 
-    public MavenStartupCommandLine(String commandLine) {
-      this(new StartupCommandLine(commandLine));
+    @Override
+    public StartupCommandLine commandLine() {
+      return new StartupCommandLine("./mvnw " + commandLineParameters.trim());
     }
   }
 
-  record GradleStartupCommandLine(StartupCommandLine commandLine) implements JHipsterStartupCommand {
+  record GradleStartupCommandLine(String commandLineParameters) implements JHipsterStartupCommand {
     public GradleStartupCommandLine {
-      Assert.notNull("commandLine", commandLine);
+      Assert.notNull("commandLineParameters", commandLineParameters);
     }
 
-    public GradleStartupCommandLine(String commandLine) {
-      this(new StartupCommandLine(commandLine));
+    @Override
+    public StartupCommandLine commandLine() {
+      return new StartupCommandLine("./gradlew " + commandLineParameters.trim());
     }
   }
 

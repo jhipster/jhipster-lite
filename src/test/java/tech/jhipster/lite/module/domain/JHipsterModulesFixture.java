@@ -61,7 +61,7 @@ public final class JHipsterModulesFixture {
     .startupCommands()
       .docker("docker compose -f src/main/docker/sonar.yml up -d")
       .maven("./mvnw clean verify sonar:sonar")
-      .gradle("./gradlew clean build sonarqube --info")
+      .gradle("clean build sonarqube --info")
       .and()
     .mandatoryReplacements()
       .in(path("src/main/java/com/company/myapp/errors/Assert.java"))

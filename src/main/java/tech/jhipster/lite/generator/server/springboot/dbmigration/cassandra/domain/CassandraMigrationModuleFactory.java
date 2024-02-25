@@ -37,7 +37,7 @@ public class CassandraMigrationModuleFactory {
         .and()
       .documentation(documentationTitle("Cassandra Migration"), SOURCE.file("cassandra-migration.md"))
       .startupCommands()
-        .docker("src/main/docker/cassandra-migration.yml")
+        .dockerCompose("src/main/docker/cassandra-migration.yml")
         .and()
       .files()
         .add(SOURCE.template("TestCassandraMigrationLoader.java"), toSrcTestJava().append(packagePath).append("TestCassandraMigrationLoader.java"))

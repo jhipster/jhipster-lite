@@ -59,7 +59,7 @@ public final class JHipsterModulesFixture {
     .documentation(documentationTitle("Cucumber integration"), from("server/springboot/cucumber/cucumber.md.mustache"))
     .documentation(documentationTitle("Another cucumber integration"), from("server/springboot/cucumber/cucumber.md.mustache"))
     .startupCommands()
-      .docker("docker compose -f src/main/docker/sonar.yml up -d")
+      .dockerCompose("docker compose -f src/main/docker/sonar.yml up -d")
       .maven("./mvnw clean verify sonar:sonar")
       .gradle("clean build sonarqube --info")
       .and()

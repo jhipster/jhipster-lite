@@ -59,7 +59,7 @@ public class ConsulModuleFactory {
         .addDependency(SPRING_CLOUD_GROUP_ID, artifactId("spring-cloud-starter-consul-config"))
         .and()
       .startupCommands()
-        .docker("src/main/docker/consul.yml")
+        .dockerCompose("src/main/docker/consul.yml")
         .and()
       .springMainBootstrapProperties()
         .set(propertyKey("spring.application.name"), propertyValue(baseName))

@@ -36,7 +36,7 @@ public class CassandraModuleFactory {
         .and()
       .documentation(documentationTitle("Cassandra"), SOURCE.file("cassandra.md"))
       .startupCommands()
-        .docker("src/main/docker/cassandra.yml")
+        .dockerCompose("src/main/docker/cassandra.yml")
         .and()
       .context()
         .put("cassandraDockerImage", dockerImages.get("cassandra").fullName())

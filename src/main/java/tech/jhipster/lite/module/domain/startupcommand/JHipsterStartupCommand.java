@@ -5,7 +5,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 @SuppressWarnings("java:S1192")
 public sealed interface JHipsterStartupCommand
   permits
-    JHipsterStartupCommand.DockerStartupCommandLine,
+    JHipsterStartupCommand.DockerComposeStartupCommandLine,
     JHipsterStartupCommand.GradleStartupCommandLine,
     JHipsterStartupCommand.MavenStartupCommandLine {
   StartupCommandLine commandLine();
@@ -32,8 +32,8 @@ public sealed interface JHipsterStartupCommand
     }
   }
 
-  record DockerStartupCommandLine(DockerComposeFile dockerComposeFile) implements JHipsterStartupCommand {
-    public DockerStartupCommandLine {
+  record DockerComposeStartupCommandLine(DockerComposeFile dockerComposeFile) implements JHipsterStartupCommand {
+    public DockerComposeStartupCommandLine {
       Assert.notNull("dockerComposeFile", dockerComposeFile);
     }
 

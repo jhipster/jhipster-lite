@@ -33,7 +33,7 @@ public class Neo4jModuleFactory {
     return moduleBuilder(properties)
       .documentation(documentationTitle("Neo4j DB"), SOURCE.template("neo4j.md"))
       .startupCommands()
-        .docker("src/main/docker/neo4j.yml")
+        .dockerCompose("src/main/docker/neo4j.yml")
         .and()
       .context()
       .put("neo4jDockerImage", dockerImages.get("neo4j").fullName())

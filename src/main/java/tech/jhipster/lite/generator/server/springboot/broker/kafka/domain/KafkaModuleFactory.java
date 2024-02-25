@@ -33,7 +33,7 @@ public class KafkaModuleFactory {
         .and()
       .documentation(documentationTitle("Apache Kafka"), SOURCE.template("apache-kafka.md"))
       .startupCommands()
-        .docker("src/main/docker/kafka.yml")
+        .dockerCompose("src/main/docker/kafka.yml")
         .and()
       .javaDependencies()
         .addDependency(groupId("org.apache.kafka"), artifactId("kafka-clients"), versionSlug("kafka-clients.version"))
@@ -95,7 +95,7 @@ public class KafkaModuleFactory {
         .add(SOURCE.template("akhq.yml"), toSrcMainDocker().append("akhq.yml"))
         .and()
         .startupCommands()
-          .docker("src/main/docker/akhq.yml")
+          .dockerCompose("src/main/docker/akhq.yml")
           .and()
       .build();
     //@formatter:on

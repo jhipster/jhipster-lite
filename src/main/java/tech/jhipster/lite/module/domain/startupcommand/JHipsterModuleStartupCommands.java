@@ -3,7 +3,7 @@ package tech.jhipster.lite.module.domain.startupcommand;
 import java.util.ArrayList;
 import java.util.Collection;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerComposeStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.GradleStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.MavenStartupCommandLine;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -35,18 +35,22 @@ public final class JHipsterModuleStartupCommands {
       this.module = module;
     }
 
-    public JHipsterModuleStartupCommandsBuilder docker(String dockerComposeFile) {
-      commands.add(new DockerStartupCommandLine(new DockerComposeFile(dockerComposeFile)));
+    public JHipsterModuleStartupCommandsBuilder dockerCompose(DockerComposeFile dockerComposeFile) {
+      commands.add(new DockerComposeStartupCommandLine(dockerComposeFile));
       return this;
     }
 
-    public JHipsterModuleStartupCommandsBuilder maven(String commandLine) {
-      commands.add(new MavenStartupCommandLine(commandLine));
+    public JHipsterModuleStartupCommandsBuilder dockerCompose(String dockerComposeFile) {
+      return dockerCompose(new DockerComposeFile(dockerComposeFile));
+    }
+
+    public JHipsterModuleStartupCommandsBuilder maven(String commandLineParameters) {
+      commands.add(new MavenStartupCommandLine(commandLineParameters));
       return this;
     }
 
-    public JHipsterModuleStartupCommandsBuilder gradle(String commandLine) {
-      commands.add(new GradleStartupCommandLine(commandLine));
+    public JHipsterModuleStartupCommandsBuilder gradle(String commandLineParameters) {
+      commands.add(new GradleStartupCommandLine(commandLineParameters));
       return this;
     }
 

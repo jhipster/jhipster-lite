@@ -36,7 +36,7 @@ public class MongoDbModuleFactory {
     return moduleBuilder(properties)
       .documentation(documentationTitle("Mongo DB"), SOURCE.template("mongodb.md"))
       .startupCommands()
-        .docker("src/main/docker/mongodb.yml")
+        .dockerCompose("src/main/docker/mongodb.yml")
         .and()
       .context()
         .put("mongodbDockerImage", dockerImages.get("mongo").fullName())

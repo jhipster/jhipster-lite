@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.replacement.OptionalFileReplacer;
 import tech.jhipster.lite.module.domain.replacement.OptionalReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerComposeStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.GradleStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.MavenStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
@@ -69,7 +69,7 @@ class FileSystemStartupCommandsReadmeCommandsHandler {
       switch (command) {
         case MavenStartupCommandLine __ -> projectType == ProjectType.MAVEN;
         case GradleStartupCommandLine __ -> projectType == ProjectType.GRADLE;
-        case DockerStartupCommandLine __ -> true;
+        case DockerComposeStartupCommandLine __ -> true;
       };
   }
 

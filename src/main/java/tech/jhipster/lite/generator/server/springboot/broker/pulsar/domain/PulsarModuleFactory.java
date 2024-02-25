@@ -48,7 +48,7 @@ public class PulsarModuleFactory {
         .add(SOURCE.template("PulsarConfigurationIT.java"), testDestination.append(PULSAR_CONFIG).append("PulsarConfigurationIT.java"))
         .and()
       .startupCommands()
-        .docker("src/main/docker/pulsar.yml")
+        .dockerCompose("src/main/docker/pulsar.yml")
         .and()
       .springMainProperties()
         .set(propertyKey("pulsar.client.service-url"), propertyValue("pulsar://localhost:6650"))

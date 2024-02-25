@@ -5,7 +5,7 @@
   "description": "Test",
   "license": "UNLICENSED",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "prettier:check": "prettier --check \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\"",
     "prettier:format": "prettier --write \"{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml}\""
   },

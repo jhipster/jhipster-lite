@@ -28,12 +28,8 @@ class FileSystemSpringCommentsCommandsHandler {
   }
 
   private Consumer<SpringComment> setComment(JHipsterProjectFolder projectFolder) {
-    return comment -> {
-      Optional<Path> path = getPath(projectFolder, comment);
-      if (path.isPresent()) {
-        new PropertiesFileSpringCommentsHandler(path.get()).set(comment.key(), comment.value());
-      }
-    };
+    return comment ->
+      getPath(projectFolder, comment).ifPresent(path -> new PropertiesFileSpringCommentsHandler(path).set(comment.key(), comment.value()));
   }
 
   private static Optional<Path> getPath(JHipsterProjectFolder projectFolder, SpringPropertyTypeFileName springPropertyTypeFileName) {

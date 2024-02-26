@@ -103,10 +103,7 @@ public class JHipsterModulesResources {
     if (noMoreNestedResource(childrenDependencies)) {
       return Stream.of();
     }
-    return Stream.concat(
-      childrenDependencies.stream(),
-      childrenDependencies.stream().map(moveToNextNestedResource(modulesResources)).flatMap(t -> t)
-    );
+    return Stream.concat(childrenDependencies.stream(), childrenDependencies.stream().flatMap(moveToNextNestedResource(modulesResources)));
   }
 
   private boolean noMoreNestedResource(Collection<JHipsterModuleResource> childrenDependencies) {

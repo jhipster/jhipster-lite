@@ -157,7 +157,9 @@ class MavenCommandHandlerTest {
 
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()));
 
-        assertThat(contentNormalizingNewLines(pom)).contains("    <spring.profiles.active>local</spring.profiles.active>").doesNotContain(">  ");
+        assertThat(contentNormalizingNewLines(pom))
+          .contains("    <spring.profiles.active>local</spring.profiles.active>")
+          .doesNotContain(">  ");
       }
 
       @Test

@@ -25,7 +25,7 @@ class SyncHeaderAsserter implements HeaderAsserter<SyncResponseAsserter> {
   }
 
   @Override
-  public SyncResponseAsserter and() {
+  public ResponseAsserter and() {
     return responseAsserter;
   }
 }

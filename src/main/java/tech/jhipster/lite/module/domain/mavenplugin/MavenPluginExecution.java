@@ -12,10 +12,10 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 
 public final class MavenPluginExecution {
 
-  private Collection<MavenPluginExecutionGoal> goals;
-  private Optional<MavenPluginExecutionId> id;
-  private Optional<MavenBuildPhase> phase;
-  private Optional<MavenPluginConfiguration> configuration;
+  private final Collection<MavenPluginExecutionGoal> goals;
+  private final Optional<MavenPluginExecutionId> id;
+  private final Optional<MavenBuildPhase> phase;
+  private final Optional<MavenPluginConfiguration> configuration;
 
   private MavenPluginExecution(MavenPluginExecutionBuilder builder) {
     Assert.notEmpty("goals", builder.goals);

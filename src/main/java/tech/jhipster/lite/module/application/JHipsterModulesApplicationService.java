@@ -10,6 +10,7 @@ import tech.jhipster.lite.module.domain.JHipsterModulesApplyer;
 import tech.jhipster.lite.module.domain.JHipsterModulesRepository;
 import tech.jhipster.lite.module.domain.JHipsterModulesToApply;
 import tech.jhipster.lite.module.domain.git.GitRepository;
+import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
 import tech.jhipster.lite.module.domain.landscape.JHipsterLandscape;
@@ -27,13 +28,14 @@ public class JHipsterModulesApplicationService {
     JHipsterModulesRepository modules,
     JavaDependenciesVersionsRepository currentVersions,
     ProjectJavaDependenciesRepository projectDependencies,
+    ProjectJavaBuildToolRepository javaBuildTools,
     GitRepository git,
     GeneratedProjectRepository generatedProject
   ) {
     this.events = events;
     this.modules = modules;
 
-    applyer = new JHipsterModulesApplyer(modules, currentVersions, projectDependencies, git, generatedProject);
+    applyer = new JHipsterModulesApplyer(modules, currentVersions, projectDependencies, javaBuildTools, git, generatedProject);
   }
 
   public void apply(JHipsterModulesToApply modulesToApply) {

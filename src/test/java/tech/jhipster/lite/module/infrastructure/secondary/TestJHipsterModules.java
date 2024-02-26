@@ -85,6 +85,7 @@ public final class TestJHipsterModules {
         modulesRepository,
         JavaDependenciesFixture.javaVersionsRepository(filesReader, customJavaDependenciesReaders),
         JavaDependenciesFixture.projectVersionsRepository(),
+        new FileSystemProjectJavaBuildToolRepository(),
         GitTestUtil.gitRepository(),
         new FileSystemGeneratedProjectRepository()
       );

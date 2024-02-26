@@ -25,8 +25,7 @@ class SpringdocModuleFactoryTest {
       .hasFile("pom.xml")
       .containing("<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>")
       .containing("<artifactId>springdoc-openapi-starter-webmvc-api</artifactId>")
-      .notContaining("<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>")
-      .and();
+      .notContaining("<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>");
   }
 
   @Test
@@ -39,8 +38,7 @@ class SpringdocModuleFactoryTest {
       .and()
       .hasFile("pom.xml")
       .containing("<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>")
-      .containing("<artifactId>springdoc-openapi-starter-webflux-api</artifactId>")
-      .and();
+      .containing("<artifactId>springdoc-openapi-starter-webflux-api</artifactId>");
   }
 
   private JHipsterModuleProperties properties() {

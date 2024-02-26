@@ -148,7 +148,7 @@ class YamlFileSpringPropertiesHandler {
   }
 
   private Node buildScalarNode(Object value) {
-    Tag tag = STR;
+    Tag tag = Tag.STR;
     if (value instanceof Integer || value instanceof Long) {
       tag = INT;
     } else if (value instanceof Double || value instanceof Float) {

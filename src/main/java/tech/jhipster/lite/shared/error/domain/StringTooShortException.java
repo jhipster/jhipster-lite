@@ -17,7 +17,7 @@ public final class StringTooShortException extends AssertionException {
     return new StringTooShortExceptionBuilder();
   }
 
-  static final class StringTooShortExceptionBuilder {
+  public static final class StringTooShortExceptionBuilder {
 
     private String value;
     private int minLength;

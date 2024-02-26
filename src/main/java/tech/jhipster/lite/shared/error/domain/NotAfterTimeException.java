@@ -12,7 +12,7 @@ public final class NotAfterTimeException extends AssertionException {
     return new NotAfterTimeExceptionBuilder(fieldName, value);
   }
 
-  record NotAfterTimeExceptionBuilder(String fieldName, Instant value) {
+  public record NotAfterTimeExceptionBuilder(String fieldName, Instant value) {
     public NotAfterTimeException strictlyNotAfter(Instant other) {
       return build("must be strictly after", other);
     }

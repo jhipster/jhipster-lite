@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectJavaBuildToolRepository;
+import tech.jhipster.lite.module.infrastructure.secondary.javabuild.FileSystemProjectJavaBuildToolRepository;
 
 @UnitTest
 class FileSystemJavaBuildCommandsHandlerTest {

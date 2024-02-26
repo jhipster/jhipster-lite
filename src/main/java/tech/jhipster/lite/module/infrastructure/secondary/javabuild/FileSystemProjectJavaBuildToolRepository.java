@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.infrastructure.secondary;
+package tech.jhipster.lite.module.infrastructure.secondary.javabuild;
 
 import java.util.Optional;
 import org.springframework.stereotype.Component;

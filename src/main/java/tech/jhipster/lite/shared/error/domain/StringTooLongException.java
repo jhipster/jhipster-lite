@@ -17,7 +17,7 @@ public final class StringTooLongException extends AssertionException {
     return new StringTooLongExceptionBuilder();
   }
 
-  static final class StringTooLongExceptionBuilder {
+  public static final class StringTooLongExceptionBuilder {
 
     private String value;
     private int maxLength;

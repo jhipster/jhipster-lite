@@ -7,7 +7,7 @@ public class StringWithWhitespacesException extends AssertionException {
   }
 
   private static String message(String field) {
-    return new StringBuilder().append("The field \"").append(field).append("\" contains at least one space").toString();
+    return "The field \"%s\" contains at least one space".formatted(field);
   }
 
   @Override

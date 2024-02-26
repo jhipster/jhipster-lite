@@ -38,12 +38,7 @@ public class SpringBootDockerModuleFactory {
   }
 
   private String mainClassName(JHipsterModuleProperties properties) {
-    return new StringBuilder()
-      .append(properties.basePackage().get())
-      .append(".")
-      .append(properties.projectBaseName().capitalized())
-      .append("App")
-      .toString();
+    return "%s.%sApp".formatted(properties.basePackage().get(), properties.projectBaseName().capitalized());
   }
 
   private MavenPlugin mavenJibPlugin(JHipsterModuleProperties properties) {

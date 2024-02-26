@@ -27,9 +27,7 @@ class PropertiesFileSpringCommentsHandlerTest {
 
     new PropertiesFileSpringCommentsHandler(propertiesFile).set(propertyKey("spring.application.name"), comment("This is a comment"));
 
-    Throwable thrown = catchThrowable(() -> {
-      content(Paths.get(path, "src/main/resources/config/application.properties"));
-    });
+    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.properties")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 

@@ -99,9 +99,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), commentOnMain("spring.application.name"));
 
-    Throwable thrown = catchThrowable(() -> {
-      content(Paths.get(path, "src/main/resources/config/application.properties"));
-    });
+    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.properties")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 
@@ -151,9 +149,7 @@ class FileSystemSpringCommentsCommandsHandlerTest {
 
     handler.handle(folder(path), emptySpringComments());
 
-    Throwable thrown = catchThrowable(() -> {
-      content(Paths.get(path, "src/main/resources/config/application.properties"));
-    });
+    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.properties")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 

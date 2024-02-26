@@ -46,10 +46,6 @@ public class DummyLiquibaseModuleFactory {
   }
 
   private String changelogLine(String changelogFilename) {
-    return new StringBuilder()
-      .append("<include file=\"config/liquibase/changelog/")
-      .append(changelogFilename)
-      .append("\" relativeToChangelogFile=\"false\"/>")
-      .toString();
+    return "<include file=\"config/liquibase/changelog/%s\" relativeToChangelogFile=\"false\"/>".formatted(changelogFilename);
   }
 }

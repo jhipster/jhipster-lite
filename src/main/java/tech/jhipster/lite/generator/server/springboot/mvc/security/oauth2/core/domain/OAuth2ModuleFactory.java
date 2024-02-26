@@ -136,10 +136,6 @@ public class OAuth2ModuleFactory {
   }
 
   private String testSecurityConfigurationImport(JHipsterModuleProperties properties) {
-    return new StringBuilder()
-      .append("import ")
-      .append(properties.basePackage().get())
-      .append(".shared.authentication.infrastructure.primary.TestSecurityConfiguration;")
-      .toString();
+    return "import %s.shared.authentication.infrastructure.primary.TestSecurityConfiguration;".formatted(properties.basePackage().get());
   }
 }

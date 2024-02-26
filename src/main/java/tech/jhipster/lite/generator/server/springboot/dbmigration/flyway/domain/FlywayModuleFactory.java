@@ -41,7 +41,7 @@ public class FlywayModuleFactory {
   }
 
   private String initFilename(Instant date) {
-    return new StringBuilder().append("V").append(FILE_DATE_FORMAT.format(date)).append("__init.sql").toString();
+    return "V%s__init.sql".formatted(FILE_DATE_FORMAT.format(date));
   }
 
   public JHipsterModule buildMysqlDependencyModule(JHipsterModuleProperties properties) {

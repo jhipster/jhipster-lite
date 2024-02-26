@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
@@ -15,7 +14,7 @@ import tech.jhipster.lite.shared.error.domain.GeneratorException;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @Repository
-@Order(Ordered.LOWEST_PRECEDENCE)
+@Order
 class GradleVersionCatalogDependenciesReader implements JavaDependenciesReader {
 
   private static final String CURRENT_VERSIONS_FILE = "/generator/dependencies/gradle/libs.versions.toml";

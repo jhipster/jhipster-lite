@@ -2,7 +2,7 @@ package tech.jhipster.lite.cucumber.rest;
 
 import java.time.Duration;
 
-public class AsyncHeaderAsserter implements HeaderAsserter<AsyncResponseAsserter> {
+class AsyncHeaderAsserter implements HeaderAsserter<AsyncResponseAsserter> {
 
   private final Duration maxTime;
   private final AsyncResponseAsserter responseAsserter;
@@ -29,7 +29,7 @@ public class AsyncHeaderAsserter implements HeaderAsserter<AsyncResponseAsserter
   }
 
   @Override
-  public AsyncResponseAsserter and() {
+  public ResponseAsserter and() {
     return responseAsserter;
   }
 }

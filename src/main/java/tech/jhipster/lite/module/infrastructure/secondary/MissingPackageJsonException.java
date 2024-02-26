@@ -10,6 +10,6 @@ class MissingPackageJsonException extends GeneratorException {
   }
 
   private static String buildMessage(JHipsterProjectFolder folder) {
-    return new StringBuilder().append("package.json is missing in ").append(folder.get()).append(", can't apply module").toString();
+    return "package.json is missing in %s, can't apply module".formatted(folder.get());
   }
 }

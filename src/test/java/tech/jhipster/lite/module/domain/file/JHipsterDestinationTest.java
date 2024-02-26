@@ -1,10 +1,8 @@
 package tech.jhipster.lite.module.domain.file;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.file.FileSystems;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
@@ -35,6 +33,6 @@ class JHipsterDestinationTest {
   }
 
   private static String path(String... part) {
-    return Stream.of(part).collect(Collectors.joining(SEPARATOR));
+    return String.join(SEPARATOR, part);
   }
 }

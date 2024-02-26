@@ -5,5 +5,5 @@ public interface HeaderAsserter<T extends ResponseAsserter> {
 
   HeaderAsserter<T> startingWith(String prefix);
 
-  T and();
+  ResponseAsserter and();
 }

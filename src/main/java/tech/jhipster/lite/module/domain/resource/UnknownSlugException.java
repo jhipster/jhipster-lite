@@ -10,6 +10,6 @@ class UnknownSlugException extends GeneratorException {
   }
 
   private static String buildMessage(JHipsterModuleSlug slug) {
-    return new StringBuilder().append("Module ").append(slug.get()).append(" does not exist").toString();
+    return "Module %s does not exist".formatted(slug.get());
   }
 }

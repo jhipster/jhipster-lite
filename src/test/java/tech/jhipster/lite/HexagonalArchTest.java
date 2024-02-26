@@ -1,6 +1,7 @@
 package tech.jhipster.lite;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
@@ -86,16 +87,17 @@ class HexagonalArchTest {
 
     @Test
     void shouldNotDependOnOtherBoundedContextDomains() {
-      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(context -> {
-        noClasses()
-          .that()
-          .resideInAnyPackage(context + "..")
-          .should()
-          .dependOnClassesThat()
-          .resideInAnyPackage(otherBusinessContextsDomains(context))
-          .because("Contexts can only depend on classes in the same context or shared kernels")
-          .check(classes);
-      });
+      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(
+        context ->
+          noClasses()
+            .that()
+            .resideInAnyPackage(context + "..")
+            .should()
+            .dependOnClassesThat()
+            .resideInAnyPackage(otherBusinessContextsDomains(context))
+            .because("Contexts can only depend on classes in the same context or shared kernels")
+            .check(classes)
+      );
     }
 
     @Test
@@ -225,16 +227,17 @@ class HexagonalArchTest {
 
     @Test
     void shouldNotDependOnSameContextPrimary() {
-      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(context -> {
-        noClasses()
-          .that()
-          .resideInAPackage(context + ".infrastructure.secondary..")
-          .should()
-          .dependOnClassesThat()
-          .resideInAPackage(context + ".infrastructure.primary")
-          .because("Secondary should not loop to its own context's primary")
-          .check(classes);
-      });
+      Stream.concat(businessContexts.stream(), sharedKernels.stream()).forEach(
+        context ->
+          noClasses()
+            .that()
+            .resideInAPackage(context + ".infrastructure.secondary..")
+            .should()
+            .dependOnClassesThat()
+            .resideInAPackage(context + ".infrastructure.primary")
+            .because("Secondary should not loop to its own context's primary")
+            .check(classes)
+      );
     }
   }
 }

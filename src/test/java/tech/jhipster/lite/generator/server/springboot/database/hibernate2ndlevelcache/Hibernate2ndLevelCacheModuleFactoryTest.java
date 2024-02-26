@@ -43,8 +43,7 @@ class Hibernate2ndLevelCacheModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/test/java/com/jhipster/test/wire/cache/infrastructure/secondary/Hibernate2ndLevelCacheConfigurationIT.java")
-      .and();
+      .hasFile("src/test/java/com/jhipster/test/wire/cache/infrastructure/secondary/Hibernate2ndLevelCacheConfigurationIT.java");
   }
 
   private JHipsterModuleProperties properties() {

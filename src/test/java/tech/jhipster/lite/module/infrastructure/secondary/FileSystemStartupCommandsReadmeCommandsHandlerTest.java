@@ -18,11 +18,11 @@ import tech.jhipster.lite.LogsSpyExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.startupcommand.DockerComposeFile;
+import tech.jhipster.lite.module.domain.startupcommand.DockerComposeStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.GradleStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerComposeStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.GradleStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.MavenStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
+import tech.jhipster.lite.module.domain.startupcommand.MavenStartupCommandLine;
 
 @UnitTest
 @ExtendWith(LogsSpyExtension.class)

@@ -12,11 +12,11 @@ import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
 import tech.jhipster.lite.module.domain.replacement.OptionalFileReplacer;
 import tech.jhipster.lite.module.domain.replacement.OptionalReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
+import tech.jhipster.lite.module.domain.startupcommand.DockerComposeStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.GradleStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerComposeStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.GradleStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.MavenStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
+import tech.jhipster.lite.module.domain.startupcommand.MavenStartupCommandLine;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @Service

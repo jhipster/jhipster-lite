@@ -3,9 +3,6 @@ package tech.jhipster.lite.module.domain.startupcommand;
 import java.util.ArrayList;
 import java.util.Collection;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.DockerComposeStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.GradleStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand.MavenStartupCommandLine;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModuleStartupCommands {

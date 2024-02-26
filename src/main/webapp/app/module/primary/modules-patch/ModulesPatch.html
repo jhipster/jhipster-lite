@@ -9,7 +9,6 @@
       </div>
 
       <input
-        tabindex="3"
         type="text"
         class="jhipster-modules-filters--filter"
         placeholder="Filter"
@@ -28,7 +27,6 @@
           <h2 class="jhipster-module-category--name">{{ category.name }}</h2>
           <div v-for="module in category.modules" class="jhipster-module" :class="moduleClass(module.slug)">
             <div
-              tabindex="4"
               class="jhipster-module--content"
               :class="moduleClass(module.slug)"
               @click="toggleModule(module.slug)"
@@ -59,7 +57,6 @@
             </div>
 
             <button
-              tabindex="4"
               class="jhipster-module--apply-button"
               :class="moduleClass(module.slug)"
               :disabled="disabledApplication(module.slug)"

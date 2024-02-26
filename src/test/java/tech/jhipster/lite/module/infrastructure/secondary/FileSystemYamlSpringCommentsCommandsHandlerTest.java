@@ -104,9 +104,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
     handler.handle(Indentation.DEFAULT, folder(path), commentOn(SpringPropertyType.MAIN_PROPERTIES, "spring.application.name"));
 
-    Throwable thrown = catchThrowable(() -> {
-      content(Paths.get(path, "src/main/resources/config/application.yml"));
-    });
+    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.yml")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 
@@ -164,9 +162,7 @@ class FileSystemYamlSpringCommentsCommandsHandlerTest {
 
     handler.handle(Indentation.DEFAULT, folder(path), emptySpringComments());
 
-    Throwable thrown = catchThrowable(() -> {
-      content(Paths.get(path, "src/main/resources/config/application.yml"));
-    });
+    Throwable thrown = catchThrowable(() -> content(Paths.get(path, "src/main/resources/config/application.yml")));
     assertThat(thrown).hasCauseInstanceOf(NoSuchFileException.class);
   }
 

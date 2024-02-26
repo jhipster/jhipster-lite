@@ -54,10 +54,6 @@ public class DummyFlywayModuleFactory {
   }
 
   private String dummyFlywayFilename(Instant date) {
-    return new StringBuilder()
-      .append("V")
-      .append(FILE_DATE_FORMAT.format(date.plusSeconds(1)))
-      .append("__dummy_feature_schema.sql")
-      .toString();
+    return "V%s__dummy_feature_schema.sql".formatted(FILE_DATE_FORMAT.format(date.plusSeconds(1)));
   }
 }

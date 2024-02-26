@@ -10,6 +10,6 @@ class UnknownFileToDeleteException extends GeneratorException {
   }
 
   private static String buildMessage(JHipsterProjectFilePath file) {
-    return new StringBuilder().append("File to delete ").append(file.get()).append(", can't be found").toString();
+    return "File to delete %s, can't be found".formatted(file.get());
   }
 }

@@ -1,8 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocauth0.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
-import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
@@ -38,14 +36,6 @@ public class SpringDocAuth0ModuleFactory {
 
   private static PropertyValue authorizationUrl(JHipsterModuleProperties properties) {
     String auth0Domain = properties.getString(AUTH0_DOMAIN_PROPERTY);
-    return propertyValue(
-      new StringBuilder()
-        .append("https://")
-        .append(auth0Domain)
-        .append("/authorize?audience=https://")
-        .append(auth0Domain)
-        .append("/api/v2/")
-        .toString()
-    );
+    return propertyValue("https://%s/authorize?audience=https://%s/api/v2/".formatted(auth0Domain, auth0Domain));
   }
 }

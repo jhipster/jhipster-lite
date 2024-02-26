@@ -41,7 +41,7 @@ final class ApplicationStartupTraces {
       return "Application is running!";
     }
 
-    return new StringBuilder().append("Application '").append(applicationName).append("' is running!").toString();
+    return "Application '%s' is running!".formatted(applicationName);
   }
 
   private static String localUrl(Environment environment) {
@@ -96,7 +96,7 @@ final class ApplicationStartupTraces {
       return null;
     }
 
-    return new StringBuilder().append("Profile(s): \t").append(String.join(", ", profiles)).toString();
+    return "Profile(s): \t%s".formatted(String.join(", ", profiles));
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "Hard to test implement detail error management")
@@ -127,7 +127,7 @@ final class ApplicationStartupTraces {
       return null;
     }
 
-    return new StringBuilder().append("Config Server: ").append(configServer).append(BREAK).append(SEPARATOR).append(BREAK).toString();
+    return "Config Server: " + configServer + BREAK + SEPARATOR + BREAK;
   }
 
   private static class ApplicationStartupTracesBuilder {

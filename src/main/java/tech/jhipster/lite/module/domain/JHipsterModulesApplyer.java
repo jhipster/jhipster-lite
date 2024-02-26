@@ -111,7 +111,7 @@ public class JHipsterModulesApplyer {
   }
 
   private String commitMessage(JHipsterModuleToApply moduleToApply) {
-    return new StringBuilder().append("Apply ").append(moduleToApply.slug().get()).append(" module").toString();
+    return "Apply %s module".formatted(moduleToApply.slug().get());
   }
 
   private JavaBuildCommands buildGradlePluginsChanges(JHipsterModule module) {

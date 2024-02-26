@@ -9,6 +9,6 @@ class UnknownFileToMoveException extends GeneratorException {
   }
 
   private static String buildMessage(String filename) {
-    return new StringBuilder().append("Can't move ").append(filename).append(", can't find it in project").toString();
+    return "Can't move %s, can't find it in project".formatted(filename);
   }
 }

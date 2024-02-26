@@ -14,7 +14,6 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class CassandraMigrationModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/dbmigration/cassandra");
-  private static final String DOCKER_COMPOSE_COMMAND = "docker compose -f src/main/docker/cassandra-migration.yml up -d";
   private static final String CASSANDRA = "cassandra";
   private final DockerImages dockerImages;
 
@@ -38,7 +37,7 @@ public class CassandraMigrationModuleFactory {
         .and()
       .documentation(documentationTitle("Cassandra Migration"), SOURCE.file("cassandra-migration.md"))
       .startupCommands()
-        .docker(DOCKER_COMPOSE_COMMAND)
+        .dockerCompose("src/main/docker/cassandra-migration.yml")
         .and()
       .files()
         .add(SOURCE.template("TestCassandraMigrationLoader.java"), toSrcTestJava().append(packagePath).append("TestCassandraMigrationLoader.java"))

@@ -52,7 +52,7 @@ public final class SQLCommonModuleBuilder {
         .and()
       .documentation(documentationTitle, source.template(databaseId + ".md"))
       .startupCommands()
-        .docker(startupCommand(databaseId))
+        .dockerCompose(startupCommand(databaseId))
         .and()
       .files()
         .add(source.template("DatabaseConfiguration.java"), mainDestination.append("DatabaseConfiguration.java"))

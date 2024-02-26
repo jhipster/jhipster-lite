@@ -15,7 +15,6 @@ public class CassandraModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/database/cassandra");
   private static final String CASSANDRA_SECONDARY = "wire/cassandra/infrastructure/secondary";
-  private static final String DOCKER_COMPOSE_COMMAND = "docker compose -f src/main/docker/cassandra.yml up -d";
   private static final String DC = "datacenter1";
   private final DockerImages dockerImages;
 
@@ -37,7 +36,7 @@ public class CassandraModuleFactory {
         .and()
       .documentation(documentationTitle("Cassandra"), SOURCE.file("cassandra.md"))
       .startupCommands()
-        .docker(DOCKER_COMPOSE_COMMAND)
+        .dockerCompose("src/main/docker/cassandra.yml")
         .and()
       .context()
         .put("cassandraDockerImage", dockerImages.get("cassandra").fullName())

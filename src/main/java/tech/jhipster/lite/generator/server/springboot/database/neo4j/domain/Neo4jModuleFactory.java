@@ -16,7 +16,6 @@ public class Neo4jModuleFactory {
   private static final JHipsterSource SOURCE = from("server/springboot/database/neo4j");
 
   private static final String NEO4J_SECONDARY = "technical/infrastructure/secondary/neo4j";
-  private static final String DOCKER_COMPOSE_COMMAND = "docker compose -f src/main/docker/neo4j.yml up -d";
 
   private final DockerImages dockerImages;
 
@@ -34,7 +33,7 @@ public class Neo4jModuleFactory {
     return moduleBuilder(properties)
       .documentation(documentationTitle("Neo4j DB"), SOURCE.template("neo4j.md"))
       .startupCommands()
-        .docker(DOCKER_COMPOSE_COMMAND)
+        .dockerCompose("src/main/docker/neo4j.yml")
         .and()
       .context()
       .put("neo4jDockerImage", dockerImages.get("neo4j").fullName())

@@ -1,6 +1,5 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestFileUtils.*;
 
@@ -18,10 +17,12 @@ import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.LogsSpyExtension;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.domain.startupcommand.DockerComposeFile;
+import tech.jhipster.lite.module.domain.startupcommand.DockerComposeStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.GradleStartupCommandLine;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
-import tech.jhipster.lite.module.domain.startupcommand.StartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.StartupCommandType;
+import tech.jhipster.lite.module.domain.startupcommand.MavenStartupCommandLine;
 
 @UnitTest
 @ExtendWith(LogsSpyExtension.class)
@@ -37,7 +38,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldAddMavenCommandToMavenProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
-    JHipsterStartupCommand command = createCommand("./mvnw clean verify sonar:sonar", StartupCommandType.MAVEN);
+    JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -47,7 +48,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldNotAddMavenCommandToMavenProjectWithoutReadme() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/" + EMPTY_MAVEN);
-    JHipsterStartupCommand command = createCommand("./mvnw clean verify sonar:sonar", StartupCommandType.MAVEN);
+    JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -57,7 +58,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldNotAddMavenCommandToGradleProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
-    JHipsterStartupCommand command = createCommand("./mvnw clean verify sonar:sonar", StartupCommandType.MAVEN);
+    JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -67,7 +68,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldAddGradleCommandToGradleProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
-    JHipsterStartupCommand command = createCommand("./gradlew clean build sonar --info", StartupCommandType.GRADLE);
+    JHipsterStartupCommand command = new GradleStartupCommandLine("clean build sonar --info");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -77,7 +78,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldNotAddGradleCommandToMavenProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
-    JHipsterStartupCommand command = createCommand("./gradlew clean build sonar --info", StartupCommandType.GRADLE);
+    JHipsterStartupCommand command = new GradleStartupCommandLine("clean build sonar --info");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -87,8 +88,8 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldNotAdddMavenAndGradleCommandToNotMavenOrGradleProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme("empty");
-    JHipsterStartupCommand mavenCommand = createCommand("./mvnw clean verify sonar:sonar", StartupCommandType.MAVEN);
-    JHipsterStartupCommand gradleCommand = createCommand("./gradlew clean build sonar --info", StartupCommandType.GRADLE);
+    JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("clean verify sonar:sonar");
+    JHipsterStartupCommand gradleCommand = new GradleStartupCommandLine("clean build sonar --info");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(mavenCommand, gradleCommand)));
 
@@ -100,7 +101,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldAddDockerComposeCommandToMavenProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
-    JHipsterStartupCommand command = createCommand("docker compose -f src/main/docker/sonar.yml up -d", StartupCommandType.DOCKER_COMPOSE);
+    JHipsterStartupCommand command = new DockerComposeStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -110,7 +111,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @Test
   void shouldAddDockerComposeCommandToGradleProjectReadme() {
     JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
-    JHipsterStartupCommand command = createCommand("docker compose -f src/main/docker/sonar.yml up -d", StartupCommandType.DOCKER_COMPOSE);
+    JHipsterStartupCommand command = new DockerComposeStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
 
@@ -133,16 +134,9 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
     return projectFolder;
   }
 
-  private static JHipsterStartupCommand createCommand(String commandLine, StartupCommandType commandType) {
-    return new JHipsterStartupCommand(new StartupCommandLine(commandLine), commandType);
-  }
-
   private static Stream<Arguments> commandOrderScenarios() {
-    JHipsterStartupCommand mavenCommand = createCommand("./mvnw clean verify sonar:sonar", StartupCommandType.MAVEN);
-    JHipsterStartupCommand dockerComposeCommand = createCommand(
-      "docker compose -f src/main/docker/sonar.yml up -d",
-      StartupCommandType.DOCKER_COMPOSE
-    );
+    JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("clean verify sonar:sonar");
+    JHipsterStartupCommand dockerComposeCommand = new DockerComposeStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
     return Stream.of(
       Arguments.of(

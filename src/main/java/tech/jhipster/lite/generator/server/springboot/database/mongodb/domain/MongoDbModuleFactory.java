@@ -18,7 +18,6 @@ public class MongoDbModuleFactory {
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
 
   private static final String MONGO_SECONDARY = "wire/mongodb/infrastructure/secondary";
-  private static final String DOCKER_COMPOSE_COMMAND = "docker compose -f src/main/docker/mongodb.yml up -d";
   private static final String REFLECTIONS_GROUP = "org.reflections";
 
   private final DockerImages dockerImages;
@@ -37,7 +36,7 @@ public class MongoDbModuleFactory {
     return moduleBuilder(properties)
       .documentation(documentationTitle("Mongo DB"), SOURCE.template("mongodb.md"))
       .startupCommands()
-        .docker(startupCommand())
+        .dockerCompose("src/main/docker/mongodb.yml")
         .and()
       .context()
         .put("mongodbDockerImage", dockerImages.get("mongo").fullName())
@@ -77,10 +76,6 @@ public class MongoDbModuleFactory {
       .springTestLogger("org.testcontainers", LogLevel.WARN)
       .build();
     //@formatter:on
-  }
-
-  private String startupCommand() {
-    return DOCKER_COMPOSE_COMMAND;
   }
 
   private JavaDependency testContainerDependency() {

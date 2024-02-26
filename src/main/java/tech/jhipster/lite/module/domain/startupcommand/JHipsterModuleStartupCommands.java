@@ -24,7 +24,7 @@ public final class JHipsterModuleStartupCommands {
   public static final class JHipsterModuleStartupCommandsBuilder {
 
     private final JHipsterModuleBuilder module;
-    private Collection<JHipsterStartupCommand> commands = new ArrayList<>();
+    private final Collection<JHipsterStartupCommand> commands = new ArrayList<>();
 
     private JHipsterModuleStartupCommandsBuilder(JHipsterModuleBuilder module) {
       Assert.notNull("module", module);
@@ -32,18 +32,22 @@ public final class JHipsterModuleStartupCommands {
       this.module = module;
     }
 
-    public JHipsterModuleStartupCommandsBuilder docker(String commandLine) {
-      addCommand(commandLine, StartupCommandType.DOCKER_COMPOSE);
+    public JHipsterModuleStartupCommandsBuilder dockerCompose(DockerComposeFile dockerComposeFile) {
+      commands.add(new DockerComposeStartupCommandLine(dockerComposeFile));
       return this;
     }
 
-    public JHipsterModuleStartupCommandsBuilder maven(String commandLine) {
-      addCommand(commandLine, StartupCommandType.MAVEN);
+    public JHipsterModuleStartupCommandsBuilder dockerCompose(String dockerComposeFile) {
+      return dockerCompose(new DockerComposeFile(dockerComposeFile));
+    }
+
+    public JHipsterModuleStartupCommandsBuilder maven(String commandLineParameters) {
+      commands.add(new MavenStartupCommandLine(commandLineParameters));
       return this;
     }
 
-    public JHipsterModuleStartupCommandsBuilder gradle(String commandLine) {
-      addCommand(commandLine, StartupCommandType.GRADLE);
+    public JHipsterModuleStartupCommandsBuilder gradle(String commandLineParameters) {
+      commands.add(new GradleStartupCommandLine(commandLineParameters));
       return this;
     }
 
@@ -53,11 +57,6 @@ public final class JHipsterModuleStartupCommands {
 
     public JHipsterModuleStartupCommands build() {
       return new JHipsterModuleStartupCommands(this);
-    }
-
-    private void addCommand(String commandLine, StartupCommandType commandType) {
-      Assert.notNull("commandLine", commandLine);
-      this.commands.add(new JHipsterStartupCommand(new StartupCommandLine(commandLine), commandType));
     }
   }
 }

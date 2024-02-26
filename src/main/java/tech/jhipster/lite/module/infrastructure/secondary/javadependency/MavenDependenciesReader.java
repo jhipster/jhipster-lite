@@ -2,7 +2,6 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
 import java.util.List;
 import java.util.regex.Pattern;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
@@ -10,7 +9,7 @@ import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 
 @Repository
-@Order(Ordered.LOWEST_PRECEDENCE)
+@Order
 class MavenDependenciesReader implements JavaDependenciesReader {
 
   private static final String CURRENT_VERSIONS_FILE = "/generator/dependencies/pom.xml";

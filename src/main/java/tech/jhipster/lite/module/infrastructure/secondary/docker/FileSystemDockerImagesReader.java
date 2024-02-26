@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
@@ -12,7 +11,7 @@ import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersions;
 
 @Repository
-@Order(Ordered.LOWEST_PRECEDENCE)
+@Order
 class FileSystemDockerImagesReader implements DockerImagesReader {
 
   private static final String DOCKER_FROM = "from ";

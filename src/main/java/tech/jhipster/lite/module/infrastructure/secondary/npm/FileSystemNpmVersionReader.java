@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.ProjectFiles;
@@ -15,7 +14,7 @@ import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 
 @Repository
-@Order(Ordered.LOWEST_PRECEDENCE)
+@Order
 class FileSystemNpmVersionReader implements NpmVersionsReader {
 
   private static final Pattern DEV_DEPENDENCIES_PATTERN = Pattern.compile("\"devDependencies\"\\s*:\\s*\\{([^}]*)\\}", Pattern.DOTALL);

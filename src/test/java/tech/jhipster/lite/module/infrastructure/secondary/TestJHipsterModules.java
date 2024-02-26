@@ -74,6 +74,7 @@ public final class TestJHipsterModules {
         filesReader,
         NpmVersionsFixture.npmVersions(filesReader, customNpmVersionsReaders),
         mock(JavaProjects.class),
+        new FileSystemProjectJavaBuildToolRepository(),
         new JHipsterModulesResources(
           List.of(defaultModuleResourceBuilder().slug("test-module").factory(properties -> module).build()),
           emptyHiddenModules()

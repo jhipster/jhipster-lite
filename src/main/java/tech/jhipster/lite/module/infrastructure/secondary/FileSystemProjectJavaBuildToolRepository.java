@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @Component
-class FileSystemProjectJavaBuildToolRepository implements ProjectJavaBuildToolRepository {
+public class FileSystemProjectJavaBuildToolRepository implements ProjectJavaBuildToolRepository {
 
   @Override
   public Optional<JavaBuildTool> detect(JHipsterProjectFolder projectFolder) {

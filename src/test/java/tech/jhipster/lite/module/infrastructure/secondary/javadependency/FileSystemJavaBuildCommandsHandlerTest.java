@@ -1,8 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestFileUtils.content;
 import static tech.jhipster.lite.TestFileUtils.projectFrom;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.javaDependenciesCommands;
@@ -15,11 +13,14 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectJavaBuildToolRepository;
 
 @UnitTest
 class FileSystemJavaBuildCommandsHandlerTest {
 
-  private static final FileSystemJavaBuildCommandsHandler handler = new FileSystemJavaBuildCommandsHandler();
+  private static final FileSystemJavaBuildCommandsHandler handler = new FileSystemJavaBuildCommandsHandler(
+    new FileSystemProjectJavaBuildToolRepository()
+  );
 
   @Test
   void shouldNotTryToHandleEmptyCommands() {

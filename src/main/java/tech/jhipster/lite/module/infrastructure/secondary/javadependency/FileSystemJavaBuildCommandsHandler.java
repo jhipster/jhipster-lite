@@ -1,9 +1,9 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
+import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
@@ -26,6 +26,12 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 @Service
 public class FileSystemJavaBuildCommandsHandler {
 
+  private final ProjectJavaBuildToolRepository javaBuildTools;
+
+  public FileSystemJavaBuildCommandsHandler(ProjectJavaBuildToolRepository javaBuildTools) {
+    this.javaBuildTools = javaBuildTools;
+  }
+
   public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, JavaBuildCommands commands) {
     Assert.notNull("indentation", indentation);
     Assert.notNull("projectFolder", projectFolder);
@@ -40,15 +46,14 @@ public class FileSystemJavaBuildCommandsHandler {
     commands.get().forEach(command -> handle(handler, command));
   }
 
-  private static JavaDependenciesCommandHandler buildCommandHandler(Indentation indentation, JHipsterProjectFolder projectFolder) {
-    Path pomPath = projectFolder.filePath("pom.xml");
-    if (Files.exists(pomPath)) {
-      return new MavenCommandHandler(indentation, pomPath);
-    }
-    if (Files.exists(projectFolder.filePath("build.gradle.kts"))) {
-      return new GradleCommandHandler(indentation, projectFolder);
-    }
-    throw new MissingJavaBuildConfigurationException(projectFolder);
+  private JavaDependenciesCommandHandler buildCommandHandler(Indentation indentation, JHipsterProjectFolder projectFolder) {
+    JavaBuildTool javaBuildTool = javaBuildTools
+      .detect(projectFolder)
+      .orElseThrow(() -> new MissingJavaBuildConfigurationException(projectFolder));
+    return switch (javaBuildTool) {
+      case MAVEN -> new MavenCommandHandler(indentation, projectFolder.filePath("pom.xml"));
+      case GRADLE -> new GradleCommandHandler(indentation, projectFolder);
+    };
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "Jacoco thinks there is a missed branch")

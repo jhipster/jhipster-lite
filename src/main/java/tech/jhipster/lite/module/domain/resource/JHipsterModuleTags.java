@@ -1,6 +1,9 @@
 package tech.jhipster.lite.module.domain.resource;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModuleTags {
@@ -10,7 +13,7 @@ public final class JHipsterModuleTags {
   private final Collection<JHipsterModuleTag> tags;
 
   private JHipsterModuleTags(JHipsterModuleTagsBuilder builder) {
-    tags = Collections.unmodifiableCollection(builder.tags.stream().sorted(TAG_COMPARATOR).toList());
+    tags = builder.tags.stream().sorted(TAG_COMPARATOR).toList();
   }
 
   public static JHipsterModuleTagsBuilder builder() {

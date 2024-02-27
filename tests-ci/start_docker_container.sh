@@ -14,7 +14,7 @@ PORT=7471
 
 # Start docker container
 echo "*** Starting docker container using image ${DOCKER_IMAGE}..."
-docker run -p $PORT:7471 --rm -d ${DOCKER_IMAGE}
+docker run -p $PORT:7471 -d ${DOCKER_IMAGE} > .container_jhlite
 
 retryCount=1
 maxRetry=10
@@ -32,5 +32,7 @@ done
 
 if [ "$status" -ne 0 ]; then
   echo "*** [$(date)] Not connected after" $retryCount " retries."
+  echo "*** Container logs:"
+  docker logs "$(cat .container_jhlite)"
   return 1
 fi

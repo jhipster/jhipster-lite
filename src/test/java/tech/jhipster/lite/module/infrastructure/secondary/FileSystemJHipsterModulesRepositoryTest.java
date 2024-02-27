@@ -125,6 +125,29 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing(
         """
               <build>
+                <plugins>
+                  <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                  </plugin>
+                  <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                  </plugin>
+                  <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <dependencies>
+                      <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-screenshot</artifactId>
+                      </dependency>
+                      <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-diagram</artifactId>
+                      </dependency>
+                    </dependencies>
+                  </plugin>
+                </plugins>
                 <pluginManagement>
                   <plugins>
                     <plugin>
@@ -193,29 +216,6 @@ class FileSystemJHipsterModulesRepositoryTest {
                     </plugin>
                   </plugins>
                 </pluginManagement>
-                <plugins>
-                  <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                  </plugin>
-                  <plugin>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                  </plugin>
-                  <plugin>
-                    <groupId>org.asciidoctor</groupId>
-                    <artifactId>asciidoctor-maven-plugin</artifactId>
-                    <dependencies>
-                      <dependency>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctorj-screenshot</artifactId>
-                      </dependency>
-                      <dependency>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctorj-diagram</artifactId>
-                      </dependency>
-                    </dependencies>
-                  </plugin>
-                </plugins>
               </build>
             """
       )

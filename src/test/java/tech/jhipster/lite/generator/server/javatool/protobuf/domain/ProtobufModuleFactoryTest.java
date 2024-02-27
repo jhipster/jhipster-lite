@@ -88,7 +88,6 @@ class ProtobufModuleFactoryTest {
         )
         .containing(
           """
-            <build>
               <extensions>
                 <extension>
                   <groupId>kr.motd.maven</groupId>

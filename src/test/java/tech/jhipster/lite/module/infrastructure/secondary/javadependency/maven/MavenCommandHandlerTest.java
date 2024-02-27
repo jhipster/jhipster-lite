@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
 import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
@@ -50,7 +51,7 @@ class MavenCommandHandlerTest {
 
     new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
-    assertThat(content(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+    assertThat(contentNormalizingNewLines(pom)).startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
   }
 
   @Test
@@ -59,7 +60,7 @@ class MavenCommandHandlerTest {
 
     new MavenCommandHandler(Indentation.from(4), pom).handle(new SetVersion(springBootVersion()));
 
-    assertThat(content(pom))
+    assertThat(contentNormalizingNewLines(pom))
       .contains("    <properties>")
       .contains("        <spring-boot.version>1.2.3</spring-boot.version>")
       .contains("    </properties>");
@@ -74,7 +75,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
-      assertThat(content(pom))
+      assertThat(contentNormalizingNewLines(pom))
         .contains("  <properties>")
         .contains("    <spring-boot.version>1.2.3</spring-boot.version>")
         .contains("  </properties>");
@@ -86,7 +87,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
-      assertThat(content(pom))
+      assertThat(contentNormalizingNewLines(pom))
         .contains("  <properties>")
         .contains("    <spring-boot.version>1.2.3</spring-boot.version>")
         .contains("  </properties>");
@@ -98,7 +99,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(springBootVersion()));
 
-      assertThat(content(pom)).contains("    <spring-boot.version>1.2.3</spring-boot.version>").doesNotContain(">  ");
+      assertThat(contentNormalizingNewLines(pom)).contains("    <spring-boot.version>1.2.3</spring-boot.version>").doesNotContain(">  ");
     }
 
     @Test
@@ -107,7 +108,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetVersion(new JavaDependencyVersion("json-web-token", "0.12.0")));
 
-      assertThat(content(pom))
+      assertThat(contentNormalizingNewLines(pom))
         .contains("    <json-web-token.version>0.12.0</json-web-token.version>")
         .doesNotContain("    <json-web-token.version>0.11.5</json-web-token.version>")
         .doesNotContain(">  ");
@@ -126,7 +127,7 @@ class MavenCommandHandlerTest {
 
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()));
 
-        assertThat(content(pom)).contains(
+        assertThat(contentNormalizingNewLines(pom)).contains(
           """
             <properties>
               <spring.profiles.active>local</spring.profiles.active>
@@ -141,7 +142,7 @@ class MavenCommandHandlerTest {
 
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()));
 
-        assertThat(content(pom)).contains(
+        assertThat(contentNormalizingNewLines(pom)).contains(
           """
             <properties>
               <spring.profiles.active>local</spring.profiles.active>
@@ -156,7 +157,9 @@ class MavenCommandHandlerTest {
 
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty()));
 
-        assertThat(content(pom)).contains("    <spring.profiles.active>local</spring.profiles.active>").doesNotContain(">  ");
+        assertThat(contentNormalizingNewLines(pom))
+          .contains("    <spring.profiles.active>local</spring.profiles.active>")
+          .doesNotContain(">  ");
       }
 
       @Test
@@ -167,7 +170,7 @@ class MavenCommandHandlerTest {
           new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev")))
         );
 
-        assertThat(content(pom))
+        assertThat(contentNormalizingNewLines(pom))
           .contains("    <spring.profiles.active>dev</spring.profiles.active>")
           .doesNotContain("    <spring.profiles.active>local</spring.profiles.active>")
           .doesNotContain(">  ");
@@ -195,7 +198,7 @@ class MavenCommandHandlerTest {
 
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()));
 
-        assertThat(content(pom)).contains(
+        assertThat(contentNormalizingNewLines(pom)).contains(
           """
             <profiles>
               <profile>
@@ -215,7 +218,7 @@ class MavenCommandHandlerTest {
 
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()));
 
-        assertThat(content(pom))
+        assertThat(contentNormalizingNewLines(pom))
           .contains(
             """
                     <spring.profiles.active>local</spring.profiles.active>
@@ -237,7 +240,7 @@ class MavenCommandHandlerTest {
           new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev")), localMavenProfile())
         );
 
-        assertThat(content(pom))
+        assertThat(contentNormalizingNewLines(pom))
           .contains(
             """
                     <spring.profiles.active>dev</spring.profiles.active>
@@ -260,7 +263,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
             <profile>
               <id>local</id>
@@ -278,7 +281,7 @@ class MavenCommandHandlerTest {
         new AddJavaBuildProfile(localMavenProfile(), BuildProfileActivation.builder().activeByDefault().build())
       );
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
           <profiles>
             <profile>
@@ -298,7 +301,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(new BuildProfileId("dev")));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
             <profile>
               <id>dev</id>
@@ -314,7 +317,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
           <profiles>
             <profile>
@@ -333,7 +336,7 @@ class MavenCommandHandlerTest {
         new AddJavaBuildProfile(localMavenProfile(), BuildProfileActivation.builder().build())
       );
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
           <profiles>
             <profile>
@@ -366,7 +369,7 @@ class MavenCommandHandlerTest {
 
       mavenCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyId()));
 
-      assertThat(content(pom)).doesNotContain(
+      assertThat(contentNormalizingNewLines(pom)).doesNotContain(
         """
               <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -394,7 +397,7 @@ class MavenCommandHandlerTest {
         )
       );
 
-      assertThat(content(pom))
+      assertThat(contentNormalizingNewLines(pom))
         .contains(
           """
               <profile>
@@ -417,7 +420,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
           <dependencyManagement>
             <dependencies>
@@ -440,7 +443,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
               <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -461,7 +464,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaDependencyManagement(springBootStarterWebDependency()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
               <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -487,7 +490,7 @@ class MavenCommandHandlerTest {
         new AddJavaDependencyManagement(defaultVersionDependency(), localMavenProfile())
       );
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
             <profile>
               <id>local</id>
@@ -523,7 +526,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveDirectJavaDependency(jsonWebTokenDependencyId()));
 
-      assertThat(content(pom))
+      assertThat(contentNormalizingNewLines(pom))
         .doesNotContain("      <groupId>io.jsonwebtoken</groupId>")
         .doesNotContain("      <artifactId>jjwt-api</artifactId>")
         .doesNotContain("      <version>${json-web-token.version}</version>")
@@ -537,7 +540,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new RemoveDirectJavaDependency(jsonWebTokenDependencyId()));
 
-      assertThat(content(pom))
+      assertThat(contentNormalizingNewLines(pom))
         .contains(
           """
               <dependency>
@@ -568,7 +571,7 @@ class MavenCommandHandlerTest {
         )
       );
 
-      assertThat(content(pom))
+      assertThat(contentNormalizingNewLines(pom))
         .contains(
           """
               <profile>
@@ -590,7 +593,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(optionalTestDependency()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
           <dependencies>
             <dependency>
@@ -612,7 +615,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(optionalTestDependency()));
 
-      String content = content(pom);
+      String content = contentNormalizingNewLines(pom);
       assertThat(content).contains(
         """
             <dependency>
@@ -636,7 +639,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
 
-      String content = content(pom);
+      String content = contentNormalizingNewLines(pom);
       assertThat(content).contains(
         """
             <dependency>
@@ -659,7 +662,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
               <artifactId>logstash-logback-encoder</artifactId>
             </dependency>
@@ -679,7 +682,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-starter</artifactId>
@@ -695,7 +698,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-starter</artifactId>
@@ -713,7 +716,7 @@ class MavenCommandHandlerTest {
         new AddDirectJavaDependency(defaultVersionDependency(), localMavenProfile())
       );
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
             <profile>
               <id>local</id>
@@ -753,7 +756,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom)).contains(pluginManagement());
+        assertThat(contentNormalizingNewLines(pom)).contains(pluginManagement());
       }
 
       @Test
@@ -764,7 +767,7 @@ class MavenCommandHandlerTest {
           AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build()
         );
 
-        assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+        assertThat(contentNormalizingNewLines(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
       }
 
       @Test
@@ -777,7 +780,7 @@ class MavenCommandHandlerTest {
           .build();
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
 
-        assertThat(content(pom)).contains("<json-web-token.version>1.1.1</json-web-token.version>");
+        assertThat(contentNormalizingNewLines(pom)).contains("<json-web-token.version>1.1.1</json-web-token.version>");
       }
 
       @Test
@@ -786,7 +789,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom))
+        assertThat(contentNormalizingNewLines(pom))
           .contains(pluginManagement())
           .doesNotContain(
             """
@@ -802,7 +805,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom))
+        assertThat(contentNormalizingNewLines(pom))
           .contains(pluginManagement())
           .doesNotContain(
             """
@@ -820,7 +823,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom)).contains(pluginManagement());
+        assertThat(contentNormalizingNewLines(pom)).contains(pluginManagement());
       }
 
       private void addMavenEnforcerPlugin(Path pom) {
@@ -900,7 +903,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+        assertThat(contentNormalizingNewLines(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
       }
 
       @Test
@@ -909,7 +912,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom)).contains(plugins());
+        assertThat(contentNormalizingNewLines(pom)).contains(plugins());
       }
 
       private void addMavenEnforcerPlugin(Path pom) {
@@ -998,7 +1001,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom)).contains(plugins());
+        assertThat(contentNormalizingNewLines(pom)).contains(plugins());
       }
 
       @Test
@@ -1009,7 +1012,7 @@ class MavenCommandHandlerTest {
           AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).pluginVersion(mavenEnforcerVersion()).build()
         );
 
-        assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+        assertThat(contentNormalizingNewLines(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
       }
 
       @Test
@@ -1022,7 +1025,7 @@ class MavenCommandHandlerTest {
           .build();
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
 
-        assertThat(content(pom)).contains("<json-web-token.version>1.1.1</json-web-token.version>");
+        assertThat(contentNormalizingNewLines(pom)).contains("<json-web-token.version>1.1.1</json-web-token.version>");
       }
 
       @Test
@@ -1031,7 +1034,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom))
+        assertThat(contentNormalizingNewLines(pom))
           .contains(plugins())
           .doesNotContain(
             """
@@ -1047,7 +1050,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom))
+        assertThat(contentNormalizingNewLines(pom))
           .contains(plugins())
           .doesNotContain(
             """
@@ -1067,7 +1070,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom))
+        assertThat(contentNormalizingNewLines(pom))
           .contains(plugins())
           .doesNotContain(
             """
@@ -1159,7 +1162,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
+        assertThat(contentNormalizingNewLines(pom)).contains("<maven-enforcer-plugin.version>1.1.1</maven-enforcer-plugin.version>");
       }
 
       @Test
@@ -1168,7 +1171,7 @@ class MavenCommandHandlerTest {
 
         addMavenEnforcerPlugin(pom);
 
-        assertThat(content(pom)).contains(plugins());
+        assertThat(contentNormalizingNewLines(pom)).contains(plugins());
       }
 
       private void addMavenEnforcerPlugin(Path pom) {
@@ -1253,7 +1256,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddMavenBuildExtension(mavenBuildExtensionWithSlug()));
 
-      assertThat(content(pom)).contains(
+      assertThat(contentNormalizingNewLines(pom)).contains(
         """
             <extensions>
               <extension>
@@ -1272,10 +1275,9 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddMavenBuildExtension(mavenBuildExtensionWithSlug()));
 
-      String content = content(pom);
+      String content = contentNormalizingNewLines(pom);
       assertThat(content).contains(
         """
-          <build>
             <extensions>
               <extension>
                 <groupId>kr.motd.maven</groupId>
@@ -1295,7 +1297,7 @@ class MavenCommandHandlerTest {
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddMavenBuildExtension(mavenBuildExtensionWithSlug()));
 
-      String content = content(pom);
+      String content = contentNormalizingNewLines(pom);
       assertThat(content).contains(
         """
           <build>
@@ -1344,13 +1346,5 @@ class MavenCommandHandlerTest {
     }
 
     return pomPath;
-  }
-
-  private static String content(Path path) {
-    try {
-      return Files.readString(path);
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    }
   }
 }

@@ -1,7 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.module;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.upgrade;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import ch.qos.logback.classic.Level;
@@ -21,8 +20,8 @@ class FileSystemJHipsterModulesRepositoryTest {
   private LogsSpy logs;
 
   @Test
-  void shouldApplyMavenModule() {
-    JHipsterModule module = module();
+  void shouldApplyModuleToMavenProject() {
+    JHipsterModule module = fullModule();
 
     // @formatter:off
     assertThatModuleWithFiles(
@@ -383,6 +382,138 @@ class FileSystemJHipsterModulesRepositoryTest {
     assertPostActions();
   }
 
+  @Test
+  void shouldApplyModuleToGradleProject() {
+    JHipsterModule module = gradleSupportedModule();
+
+    // @formatter:off
+    assertThatModuleWithFiles(
+      module,
+      gradleBuildFile(),
+      gradleLibsVersionFile(),
+      packageJsonFile(),
+      file("src/test/resources/projects/files/dummy.txt", "dummy.txt")
+    )
+      .hasFiles(
+        "src/main/java/com/company/myapp/MyApp.java",
+        "src/main/java/com/company/myapp/errors/Assert.java",
+        "src/main/java/com/company/myapp/errors/AssertionException.java",
+        "documentation/cucumber-integration.md",
+        ".gitignore"
+      )
+      .hasExecutableFiles(".husky/pre-commit")
+      .hasFile("src/main/java/com/company/myapp/MyApp.java")
+      .containing("com.test.myapp")
+      .and()
+      .hasFile("gradle/libs.versions.toml")
+      .containing("dummy-dependency = \"4.5.8\"")
+      .containing("spring-boot = \"")
+      .containing("json-web-token = \"")
+      .and()
+      .hasFile("build.gradle.kts")
+      .notContaining("implementation(libs.logstash.logback.encoder)")
+      .notContaining("implementation(libs.springdoc.openapi.ui)")
+      .containing("implementation(platform(libs.spring.boot.dependencies))")
+      .containing("implementation(libs.spring.boot.starter.web)")
+      .containing("testImplementation(libs.junit.jupiter.engine)")
+      .containing("implementation(libs.spring.boot.starter)")
+      .notContaining("testImplementation(libs.assertj.core)")
+      .containing("""
+        plugins {
+          java
+          jacoco
+          checkstyle
+          // jhipster-needle-gradle-plugins
+        }
+        """
+      )
+      .containing("""
+        checkstyle {
+          toolVersion = libs.versions.checkstyle.get()
+        }
+        """
+      )
+      .and()
+      .hasFile("package.json")
+      .containing("\"scripts\": {\n    \"serve\": \"tikui-core serve\"")
+      .containing("\"dependencies\": {\n    \"@angular/animations\": \"")
+      .containing("\"devDependencies\": {\n    \"@playwright/test\": \"")
+      .and()
+      .hasFile("src/main/java/com/company/myapp/errors/Assert.java")
+      .containing("Dummy replacement")
+      .containing("Another dummy replacement")
+      .containing("Dummy collection replacement")
+      .containing("Another dummy collection replacement")
+      .containing("// Dummy comment\n  public static final class IntegerAsserter {")
+      .notContaining("""
+            import java.math.BigDecimal;
+            import java.math.BigDecimal;
+            """)
+      .notContaining("""
+            import java.util.Collection;
+            import java.util.Collection;
+            """)
+      .and()
+      .hasFile("src/main/resources/config/application.yml")
+      .containing("""
+        springdoc:
+          swagger-ui:
+            # This is a comment
+            operationsSorter: alpha
+        """)
+      .and()
+      .hasFile("src/main/resources/config/application-local.yml")
+      .containing("""
+        springdoc:
+          swagger-ui:
+            # This is a comment
+            tryItOutEnabled: 'false'
+        """)
+      .and()
+      .hasFile("src/test/resources/config/application-test.yml")
+      .containing("""
+        springdoc:
+          swagger-ui:
+            # This is a comment
+            operationsSorter: test
+        """)
+      .and()
+      .hasFile("src/test/resources/config/application-local.yml")
+      .containing("""
+        springdoc:
+          # Swagger properties
+          swagger-ui:
+            operationsSorter: test
+            tagsSorter: test
+            # This is a comment
+            tryItOutEnabled: test
+        """)
+      .and()
+      .hasFile("src/test/resources/META-INF/spring.factories")
+      .containing("o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2")
+      .and()
+      .hasFile("README.md")
+      .containing(
+        """
+           - [Cucumber integration](documentation/cucumber-integration.md)
+           - [Another cucumber integration](documentation/another-cucumber-integration.md)
+
+           <!-- jhipster-needle-documentation -->
+           """
+      )
+      .containing("docker compose -f src/main/docker/sonar.yml up -d")
+      .containing("./gradlew clean build sonarqube --info")
+      .notContaining("./mvnw clean verify sonar:sonar")
+      .and()
+      .hasPrefixedFiles(".git", "config", "HEAD")
+      .doNotHaveFiles("dummy.txt")
+      .hasFiles("dummy.json");
+    // @formatter:on
+
+    assertPreActions();
+    assertPostActions();
+  }
+
   private void assertPreActions() {
     logs.shouldHave(Level.DEBUG, "Applying fixture module");
     logs.shouldHave(Level.DEBUG, "You shouldn't add this by default in your modules :D");
@@ -397,7 +528,7 @@ class FileSystemJHipsterModulesRepositoryTest {
   @Test
   void shouldApplyUpgrade() {
     assertThatModuleUpgrade(
-      module(),
+      fullModule(),
       upgrade(),
       file("src/test/resources/projects/maven/pom.xml", "pom.xml"),
       packageJsonFile(),

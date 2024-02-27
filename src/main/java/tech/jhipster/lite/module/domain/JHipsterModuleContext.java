@@ -2,8 +2,6 @@ package tech.jhipster.lite.module.domain;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
@@ -11,25 +9,10 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModuleContext {
 
-  private static final Logger log = LoggerFactory.getLogger(JHipsterModuleContext.class);
-
   private final Map<String, Object> context;
-  private final Indentation indentation;
 
   private JHipsterModuleContext(JHipsterModuleContextBuilder builder) {
     context = JHipsterCollections.immutable(builder.context);
-    indentation = loadIndentation();
-  }
-
-  private Indentation loadIndentation() {
-    Object contextIndentation = context.get(JHipsterModuleProperties.INDENTATION_PARAMETER);
-
-    if (contextIndentation instanceof Integer integerIndentation) {
-      return Indentation.from(integerIndentation);
-    }
-
-    log.info("Context contains an invalid indentation, using default");
-    return Indentation.DEFAULT;
   }
 
   static JHipsterModuleContextBuilder builder(JHipsterModuleBuilder module) {
@@ -38,10 +21,6 @@ public final class JHipsterModuleContext {
 
   public Map<String, Object> get() {
     return context;
-  }
-
-  public Indentation indentation() {
-    return indentation;
   }
 
   public static final class JHipsterModuleContextBuilder {

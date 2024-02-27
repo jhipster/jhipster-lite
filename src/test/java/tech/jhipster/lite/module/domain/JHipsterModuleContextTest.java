@@ -1,9 +1,9 @@
 package tech.jhipster.lite.module.domain;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
 
-import ch.qos.logback.classic.Level;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,14 +18,6 @@ class JHipsterModuleContextTest {
 
   @Logs
   private LogsSpy logs;
-
-  @Test
-  void shouldGetIndentSizeFromInvalidIndentation() {
-    Indentation indentation = JHipsterModuleContext.builder(emptyModuleBuilder()).put("indentSize", "dummy").build().indentation();
-
-    logs.shouldHave(Level.INFO, "invalid indentation, using default");
-    assertThat(indentation).isEqualTo(Indentation.DEFAULT);
-  }
 
   @Test
   void shouldGetDefaultContext() {

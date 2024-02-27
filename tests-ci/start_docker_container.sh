@@ -17,7 +17,7 @@ echo "*** Starting docker container using image ${DOCKER_IMAGE}..."
 docker run -p $PORT:7471 --rm -d ${DOCKER_IMAGE}
 
 retryCount=1
-maxRetry=30
+maxRetry=10
 httpUrl="http://localhost:"$PORT"/management/health"
 
 rep=$(curl -v "$httpUrl")

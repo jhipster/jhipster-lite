@@ -66,7 +66,9 @@ public class JHipsterModulesApplyer {
     Assert.notNull("moduleToApply", moduleToApply);
 
     JHipsterModule module = modules.resources().build(moduleToApply.slug(), moduleToApply.properties());
-    Optional<JavaBuildTool> detectedJavaBuildTool = javaBuildTools.detect(module.projectFolder());
+    Optional<JavaBuildTool> detectedJavaBuildTool = javaBuildTools
+      .detect(module.projectFolder())
+      .or(() -> javaBuildTools.detect(module.files()));
     //@formatter:off
     var builder = JHipsterModuleChanges
       .builder()

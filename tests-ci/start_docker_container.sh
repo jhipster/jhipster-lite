@@ -34,5 +34,5 @@ if [ "$status" -ne 0 ]; then
   echo "*** [$(date)] Not connected after" $retryCount " retries."
   echo "*** Container logs:"
   docker logs "$(cat .container_jhlite)"
-  return 1
+  exit 1
 fi

@@ -11,6 +11,7 @@ public enum JHLiteFeatureSlug implements JHipsterFeatureSlugFactory {
   CLIENT_CORE("client-core"),
   CUCUMBER_AUTHENTICATION("cucumber-authentication"),
   DATABASE_MIGRATION("database-migration"),
+  DOCKERFILE("dockerfile"),
   DUMMY_PERSISTENCE("dummy-persistence"),
   DUMMY_SCHEMA("dummy-schema"),
   FRONT_BROWSER_TEST("front-browser-test"),

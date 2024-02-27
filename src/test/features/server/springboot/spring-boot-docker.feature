@@ -7,7 +7,12 @@ Feature: Spring boot docker
     Then I should have files in "src/main/docker/jib"
       | entrypoint.sh |
 
-  Scenario: Should apply dockerfile module
-    When I apply "dockerfile" module to default project without parameters
+  Scenario: Should apply dockerfile maven module
+    When I apply "dockerfile-maven" module to default project without parameters
+    Then I should have files in "."
+      | Dockerfile |
+
+  Scenario: Should apply dockerfile gradle module
+    When I apply "dockerfile-gradle" module to default project without parameters
     Then I should have files in "."
       | Dockerfile |

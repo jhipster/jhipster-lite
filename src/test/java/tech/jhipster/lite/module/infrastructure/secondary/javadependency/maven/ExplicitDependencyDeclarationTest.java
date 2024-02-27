@@ -12,11 +12,34 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 
 @UnitTest
 class ExplicitDependencyDeclarationTest {
 
   private static final String CURRENT_VERSIONS_FILE = "/generator/dependencies/pom.xml";
+
+  public static Stream<Arguments> versions() {
+    Model mavenModel = readMavenModel();
+    return mavenModel
+      .getProperties()
+      .keySet()
+      .stream()
+      .map(Object::toString)
+      .filter(key -> key.endsWith(".version"))
+      .map(VersionSlug::new)
+      .map(Arguments::of);
+  }
+
+  @MethodSource("versions")
+  @ParameterizedTest
+  void allDeclaredVersionsShouldBeAssociatedWithADependency(VersionSlug versionSlug) {
+    Model mavenModel = readMavenModel();
+
+    assertThat(mavenModel.getDependencyManagement().getDependencies()).anyMatch(
+      dependency -> dependency.getVersion().equals(versionSlug.mavenVariable())
+    );
+  }
 
   public static Stream<Arguments> dependencies() {
     Model mavenModel = readMavenModel();

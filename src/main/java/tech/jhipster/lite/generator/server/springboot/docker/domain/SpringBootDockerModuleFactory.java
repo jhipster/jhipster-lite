@@ -12,12 +12,13 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class SpringBootDockerModuleFactory {
 
+  private static final String PROPERTIES_FIELD = "properties";
   private static final JHipsterSource SOURCE = from("server/springboot/docker");
   private static final JHipsterSource JIB_SOURCE = SOURCE.append("jib");
   private static final String JAVA_DOCKER_IMAGE = "eclipse-temurin:%s-jre-jammy";
 
   public JHipsterModule buildJibModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES_FIELD, properties);
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -141,9 +142,15 @@ public class SpringBootDockerModuleFactory {
       .build();
   }
 
-  public JHipsterModule buildDockerFileModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+  public JHipsterModule buildDockerFileMavenModule(JHipsterModuleProperties properties) {
+    Assert.notNull(PROPERTIES_FIELD, properties);
 
-    return moduleBuilder(properties).files().add(SOURCE.template("Dockerfile"), to("Dockerfile")).and().build();
+    return moduleBuilder(properties).files().add(SOURCE.template("Dockerfile-maven"), to("Dockerfile")).and().build();
+  }
+
+  public JHipsterModule buildDockerFileGradleModule(JHipsterModuleProperties properties) {
+    Assert.notNull(PROPERTIES_FIELD, properties);
+
+    return moduleBuilder(properties).files().add(SOURCE.template("Dockerfile-gradle"), to("Dockerfile")).and().build();
   }
 }

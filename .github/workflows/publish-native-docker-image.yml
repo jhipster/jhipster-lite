@@ -38,6 +38,10 @@ jobs:
         run: |
           ./mvnw -Pnative -DskipTests clean spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.DOCKER_IMAGE_NAME }}
 
+      - name: Test native image
+        working-directory: tests-ci
+        run: ./start_docker_container.sh ${{ env.DOCKER_IMAGE_NAME }}
+
       - name: Login to Docker Registry
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         env:

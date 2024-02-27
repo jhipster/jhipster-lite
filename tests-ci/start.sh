@@ -46,5 +46,5 @@ done
 
 if [ "$status" -ne 0 ]; then
   echo "*** [$(date)] Not connected after" $retryCount " retries."
-  return 1
+  exit 1
 fi

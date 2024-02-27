@@ -9,7 +9,6 @@
       </div>
       <div class="jhlite-field--field">
         <input
-          tabindex="1"
           type="text"
           id="folder-path"
           class="jhlite-input-text"
@@ -30,7 +29,6 @@
       </div>
       <div class="jhlite-field--field">
         <input
-          tabindex="2"
           type="text"
           class="jhlite-input-text"
           :id="`module-parameter-${property.key}`"
@@ -41,7 +39,6 @@
           v-if="property.type === 'STRING'"
         />
         <input
-          tabindex="2"
           type="number"
           class="jhlite-input-text"
           :id="`module-parameter-${property.key}`"
@@ -52,7 +49,6 @@
           v-if="property.type === 'INTEGER'"
         />
         <select
-          tabindex="2"
           class="jhipster-modules-properties-form--field"
           :id="`module-parameter-${property.key}`"
           @change="setBooleanProperty(property.key, $event.target.value)"

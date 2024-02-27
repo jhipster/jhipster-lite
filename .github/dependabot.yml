@@ -104,14 +104,6 @@ updates:
           - '@typescript-eslint*'
 
   - package-ecosystem: 'docker'
-    directory: '/src/main/docker'
-    schedule:
-      interval: 'daily'
-      time: '00:00'
-    open-pull-requests-limit: 20
-    labels:
-      - 'area: dependencies'
-  - package-ecosystem: 'docker'
     directory: '/src/main/resources/generator/dependencies'
     schedule:
       interval: 'daily'

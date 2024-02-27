@@ -139,7 +139,7 @@ elif [[ $application == 'gradleapp' ]]; then
     "java-memoizers" \
     "java-enums" \
     "jib" \
-    "dockerfile-gradle" \
+    "dockerfile-${java_build_tool}" \
     "protobuf" \
     "pagination-domain" \
     "spring-boot" \
@@ -167,7 +167,7 @@ elif [[ $application == 'fullapp' ]]; then
   "spring-boot-devtools" \
   "logstash" \
   "jib" \
-  "dockerfile-maven" \
+  "dockerfile-${java_build_tool}" \
   "java-archunit" \
   "git-information" \
   "github-codespaces" \

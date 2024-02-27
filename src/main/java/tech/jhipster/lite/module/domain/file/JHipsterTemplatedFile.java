@@ -19,10 +19,6 @@ public final class JHipsterTemplatedFile {
     context = builder.context;
   }
 
-  public JHipsterModuleFile file() {
-    return file;
-  }
-
   public static TemplatedFileBuilder builder() {
     return new TemplatedFileBuilder();
   }

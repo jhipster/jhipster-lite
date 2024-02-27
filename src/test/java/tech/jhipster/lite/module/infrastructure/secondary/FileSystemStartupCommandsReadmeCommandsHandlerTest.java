@@ -36,8 +36,8 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   private LogsSpy logs;
 
   @Test
-  void shouldAddMavenCommandToMavenProjectReadme() {
-    JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
+  void shouldAddMavenCommandToReadme() {
+    JHipsterProjectFolder projectFolder = projectFolderWithReadme();
     JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
@@ -47,7 +47,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
   @Test
   void shouldNotAddMavenCommandToMavenProjectWithoutReadme() {
-    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/" + EMPTY_MAVEN);
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
     JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
@@ -56,18 +56,8 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   }
 
   @Test
-  void shouldNotAddMavenCommandToGradleProjectReadme() {
-    JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
-    JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
-
-    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
-
-    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("./mvnw clean verify sonar:sonar");
-  }
-
-  @Test
-  void shouldAddGradleCommandToGradleProjectReadme() {
-    JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
+  void shouldAddGradleCommandToReadme() {
+    JHipsterProjectFolder projectFolder = projectFolderWithReadme();
     JHipsterStartupCommand command = new GradleStartupCommandLine("clean build sonar --info");
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
@@ -76,41 +66,8 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   }
 
   @Test
-  void shouldNotAddGradleCommandToMavenProjectReadme() {
-    JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
-    JHipsterStartupCommand command = new GradleStartupCommandLine("clean build sonar --info");
-
-    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
-
-    assertThat(content(projectFolder.filePath("README.md"))).doesNotContain("./gradlew clean build sonar --info");
-  }
-
-  @Test
-  void shouldNotAdddMavenAndGradleCommandToNotMavenOrGradleProjectReadme() {
-    JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme("empty");
-    JHipsterStartupCommand mavenCommand = new MavenStartupCommandLine("clean verify sonar:sonar");
-    JHipsterStartupCommand gradleCommand = new GradleStartupCommandLine("clean build sonar --info");
-
-    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(mavenCommand, gradleCommand)));
-
-    assertThat(content(projectFolder.filePath("README.md")))
-      .doesNotContain("./mvnw clean verify sonar:sonar")
-      .doesNotContain("./gradlew clean build sonar --info");
-  }
-
-  @Test
-  void shouldAddDockerComposeCommandToMavenProjectReadme() {
-    JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
-    JHipsterStartupCommand command = new DockerComposeStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
-
-    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
-
-    assertThat(content(projectFolder.filePath("README.md"))).contains("docker compose -f src/main/docker/sonar.yml up -d");
-  }
-
-  @Test
-  void shouldAddDockerComposeCommandToGradleProjectReadme() {
-    JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_GRADLE);
+  void shouldAddDockerComposeCommandToReadme() {
+    JHipsterProjectFolder projectFolder = projectFolderWithReadme();
     JHipsterStartupCommand command = new DockerComposeStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
     handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
@@ -121,15 +78,15 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   @ParameterizedTest
   @MethodSource("commandOrderScenarios")
   void shouldAddCommandsToProjectReadmeRespectingInsertOrder(List<JHipsterStartupCommand> commands, String expectedReadmeContent) {
-    JHipsterProjectFolder projectFolder = prepareProjectFolderWithReadme(EMPTY_MAVEN);
+    JHipsterProjectFolder projectFolder = projectFolderWithReadme();
 
     handler.handle(projectFolder, new JHipsterStartupCommands(commands));
 
     assertThat(content(projectFolder.filePath("README.md"))).contains(expectedReadmeContent);
   }
 
-  private JHipsterProjectFolder prepareProjectFolderWithReadme(String projectType) {
-    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/" + projectType);
+  private JHipsterProjectFolder projectFolderWithReadme() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
     copy(Paths.get("src/test/resources/projects/README.md"), projectFolder.filePath("README.md"));
     return projectFolder;
   }

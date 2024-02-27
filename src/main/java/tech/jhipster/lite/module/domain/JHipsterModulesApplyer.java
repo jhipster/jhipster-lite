@@ -1,19 +1,30 @@
 package tech.jhipster.lite.module.domain;
 
+import static tech.jhipster.lite.module.domain.javabuild.JavaBuildTool.GRADLE;
+import static tech.jhipster.lite.module.domain.javabuild.JavaBuildTool.MAVEN;
 import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.PROPERTIES;
 
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.git.GitRepository;
+import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
+import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacer;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
+import tech.jhipster.lite.module.domain.startupcommand.DockerComposeStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.GradleStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
+import tech.jhipster.lite.module.domain.startupcommand.MavenStartupCommandLine;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JHipsterModulesApplyer {
@@ -21,6 +32,7 @@ public class JHipsterModulesApplyer {
   private final JHipsterModulesRepository modules;
   private final JavaDependenciesVersionsRepository javaVersions;
   private final ProjectJavaDependenciesRepository projectDependencies;
+  private final ProjectJavaBuildToolRepository javaBuildTools;
   private final GitRepository git;
   private final GeneratedProjectRepository generatedProject;
 
@@ -28,12 +40,14 @@ public class JHipsterModulesApplyer {
     JHipsterModulesRepository modules,
     JavaDependenciesVersionsRepository currentVersions,
     ProjectJavaDependenciesRepository projectDependencies,
+    ProjectJavaBuildToolRepository javaBuildTools,
     GitRepository git,
     GeneratedProjectRepository generatedProject
   ) {
     this.modules = modules;
     this.javaVersions = currentVersions;
     this.projectDependencies = projectDependencies;
+    this.javaBuildTools = javaBuildTools;
     this.git = git;
     this.generatedProject = generatedProject;
   }
@@ -52,6 +66,9 @@ public class JHipsterModulesApplyer {
     Assert.notNull("moduleToApply", moduleToApply);
 
     JHipsterModule module = modules.resources().build(moduleToApply.slug(), moduleToApply.properties());
+    Optional<JavaBuildTool> detectedJavaBuildTool = javaBuildTools
+      .detect(module.projectFolder())
+      .or(() -> javaBuildTools.detect(module.files()));
     //@formatter:off
     var builder = JHipsterModuleChanges
       .builder()
@@ -61,7 +78,7 @@ public class JHipsterModulesApplyer {
       .filesToMove(module.filesToMove())
       .filesToDelete(module.filesToDelete())
       .replacers(buildReplacers(module))
-      .startupCommands(module.startupCommands())
+      .startupCommands(buildStartupCommands(module.startupCommands(), detectedJavaBuildTool))
       .javaBuildCommands(
         buildDependenciesChanges(module)
           .merge(buildPluginsChanges(module))
@@ -90,6 +107,30 @@ public class JHipsterModulesApplyer {
     commitIfNeeded(moduleToApply);
 
     return moduleApplied;
+  }
+
+  private JHipsterStartupCommands buildStartupCommands(
+    JHipsterStartupCommands jHipsterStartupCommands,
+    Optional<JavaBuildTool> detectedJavaBuildTool
+  ) {
+    if (detectedJavaBuildTool.isEmpty()) {
+      return jHipsterStartupCommands;
+    }
+    List<JHipsterStartupCommand> filteredCommands = jHipsterStartupCommands
+      .get()
+      .stream()
+      .filter(isStartupCommandCompatibleWith(detectedJavaBuildTool.get()))
+      .toList();
+    return new JHipsterStartupCommands(filteredCommands);
+  }
+
+  private Predicate<JHipsterStartupCommand> isStartupCommandCompatibleWith(JavaBuildTool javaBuildTool) {
+    return startupCommand ->
+      switch (startupCommand) {
+        case MavenStartupCommandLine __ -> javaBuildTool == MAVEN;
+        case GradleStartupCommandLine __ -> javaBuildTool == GRADLE;
+        case DockerComposeStartupCommandLine __ -> true;
+      };
   }
 
   private ContentReplacers buildReplacers(JHipsterModule module) {

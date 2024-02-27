@@ -17,6 +17,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleToApply;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 import tech.jhipster.lite.module.infrastructure.secondary.git.GitTestUtil;
+import tech.jhipster.lite.module.infrastructure.secondary.javabuild.FileSystemProjectJavaBuildToolRepository;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesFixture;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesReader;
 import tech.jhipster.lite.module.infrastructure.secondary.npm.NpmVersionsFixture;
@@ -74,6 +75,7 @@ public final class TestJHipsterModules {
         filesReader,
         NpmVersionsFixture.npmVersions(filesReader, customNpmVersionsReaders),
         mock(JavaProjects.class),
+        new FileSystemProjectJavaBuildToolRepository(),
         new JHipsterModulesResources(
           List.of(defaultModuleResourceBuilder().slug("test-module").factory(properties -> module).build()),
           emptyHiddenModules()
@@ -85,6 +87,7 @@ public final class TestJHipsterModules {
         modulesRepository,
         JavaDependenciesFixture.javaVersionsRepository(filesReader, customJavaDependenciesReaders),
         JavaDependenciesFixture.projectVersionsRepository(),
+        new FileSystemProjectJavaBuildToolRepository(),
         GitTestUtil.gitRepository(),
         new FileSystemGeneratedProjectRepository()
       );

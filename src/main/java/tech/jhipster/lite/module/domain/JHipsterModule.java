@@ -89,8 +89,9 @@ import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleAfterReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.module.domain.replacement.TextReplacer;
-import tech.jhipster.lite.module.domain.startupcommand.*;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands.JHipsterModuleStartupCommandsBuilder;
+import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @SuppressWarnings("java:S6539")
@@ -395,6 +396,10 @@ public final class JHipsterModule {
 
   public Indentation indentation() {
     return properties.indentation();
+  }
+
+  public JHipsterModuleFiles files() {
+    return files;
   }
 
   public JHipsterTemplatedFiles templatedFiles() {

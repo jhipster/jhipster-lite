@@ -22,6 +22,10 @@ public class JHipsterDestination {
     this.destination = buildDestination(destination);
   }
 
+  public String get() {
+    return destination;
+  }
+
   private static String buildDestination(String destination) {
     Assert.notBlank("destination", destination);
 

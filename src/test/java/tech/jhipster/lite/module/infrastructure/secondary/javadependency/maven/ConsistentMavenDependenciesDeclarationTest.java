@@ -15,20 +15,13 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 
 @UnitTest
-class ExplicitDependencyDeclarationTest {
+class ConsistentMavenDependenciesDeclarationTest {
 
   private static final String CURRENT_VERSIONS_FILE = "/generator/dependencies/pom.xml";
 
   public static Stream<Arguments> versions() {
     Model mavenModel = readMavenModel();
-    return mavenModel
-      .getProperties()
-      .keySet()
-      .stream()
-      .map(Object::toString)
-      .filter(key -> key.endsWith(".version"))
-      .map(VersionSlug::new)
-      .map(Arguments::of);
+    return mavenModel.getProperties().keySet().stream().map(Object::toString).map(VersionSlug::new).map(Arguments::of);
   }
 
   @MethodSource("versions")
@@ -54,7 +47,7 @@ class ExplicitDependencyDeclarationTest {
 
   private static Model readMavenModel() {
     var reader = new InputStreamReader(
-      Objects.requireNonNull(ExplicitDependencyDeclarationTest.class.getResourceAsStream(CURRENT_VERSIONS_FILE))
+      Objects.requireNonNull(ConsistentMavenDependenciesDeclarationTest.class.getResourceAsStream(CURRENT_VERSIONS_FILE))
     );
     return Maven.readModel(reader);
   }

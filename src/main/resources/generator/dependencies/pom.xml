@@ -13,17 +13,44 @@
   <packaging>pom</packaging>
 
   <properties>
-    <junit-jupiter.version>5.10.2</junit-jupiter.version>
-    <assertj.version>3.25.3</assertj.version>
-    <mockito.version>5.10.0</mockito.version>
+    <jhlite.version>@project.version@</jhlite.version>
+    <!-- Dependencies -->
     <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
     <spring-boot.version>3.2.3</spring-boot.version>
     <spring-cloud.version>2023.0.0</spring-cloud.version>
     <spring-cloud-netflix-eureka-client.version>4.1.0</spring-cloud-netflix-eureka-client.version>
     <springdoc-openapi-starter-webmvc.version>2.3.0</springdoc-openapi-starter-webmvc.version>
     <springdoc-openapi-starter-webflux.version>2.3.0</springdoc-openapi-starter-webflux.version>
-    <testcontainers.version>1.19.4</testcontainers.version>
     <kafka-clients.version>3.7.0</kafka-clients.version>
+    <mongock.version>5.2.2</mongock.version>
+    <neo4j-migrations.version>2.9.1</neo4j-migrations.version>
+    <pulsar.version>2.10.0</pulsar.version>
+    <liquibase.version>4.26.0</liquibase.version>
+    <reflections.version>0.10.2</reflections.version>
+    <json-web-token.version>0.12.5</json-web-token.version>
+    <commons-lang3.version>3.14.0</commons-lang3.version>
+    <ehcache.version>3.10.8</ehcache.version>
+    <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
+    <webjars-locator.version>0.50</webjars-locator.version>
+    <htmx-webjars.version>1.9.10</htmx-webjars.version>
+    <alpinejs-webjars.version>3.13.5</alpinejs-webjars.version>
+    <protobuf.version>3.25.3</protobuf.version>
+    <proto-backwards-compatibility.version>1.0.7</proto-backwards-compatibility.version>
+    <!-- Test dependencies -->
+    <junit-jupiter.version>5.10.2</junit-jupiter.version>
+    <assertj.version>3.25.3</assertj.version>
+    <mockito.version>5.10.0</mockito.version>
+    <cassandraunit.version>4.3.1.0</cassandraunit.version>
+    <testcontainers.version>1.19.4</testcontainers.version>
+    <archunit-junit5.version>1.2.1</archunit-junit5.version>
+    <cucumber.version>7.15.0</cucumber.version>
+    <jacoco.version>0.8.11</jacoco.version>
+    <!-- Maven Plugins -->
+    <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
+    <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
+    <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+    <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
+    <git-commit-id-plugin.version>7.0.0</git-commit-id-plugin.version>
     <frontend-maven-plugin.version>1.15.0</frontend-maven-plugin.version>
     <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
@@ -31,33 +58,9 @@
     <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
     <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
     <jib-maven-plugin.version>3.4.0</jib-maven-plugin.version>
-    <mongock.version>5.2.2</mongock.version>
-    <neo4j-migrations.version>2.9.1</neo4j-migrations.version>
-    <archunit-junit5.version>1.2.1</archunit-junit5.version>
-    <cucumber.version>7.15.0</cucumber.version>
-    <pulsar.version>2.10.0</pulsar.version>
-    <liquibase.version>4.26.0</liquibase.version>
     <compiler-plugin.version>3.12.1</compiler-plugin.version>
     <surefire-plugin.version>3.2.5</surefire-plugin.version>
     <failsafe-plugin.version>3.0.0-M5</failsafe-plugin.version>
-    <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
-    <jacoco.version>0.8.11</jacoco.version>
-    <reflections.version>0.10.2</reflections.version>
-    <json-web-token.version>0.12.5</json-web-token.version>
-    <jhlite.version>@project.version@</jhlite.version>
-    <commons-lang3.version>3.14.0</commons-lang3.version>
-    <ehcache.version>3.10.8</ehcache.version>
-    <git-commit-id-plugin.version>7.0.0</git-commit-id-plugin.version>
-    <cassandraunit.version>4.3.1.0</cassandraunit.version>
-    <thymeleaf-layout-dialect.version>3.3.0</thymeleaf-layout-dialect.version>
-    <webjars-locator.version>0.50</webjars-locator.version>
-    <htmx-webjars.version>1.9.10</htmx-webjars.version>
-    <alpinejs-webjars.version>3.13.5</alpinejs-webjars.version>
-    <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
-    <protobuf.version>3.25.3</protobuf.version>
-    <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
-    <proto-backwards-compatibility.version>1.0.7</proto-backwards-compatibility.version>
-    <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
   </properties>
 
   <dependencyManagement>

@@ -8,5 +8,8 @@
     ":automergeRequireAllStatusChecks",
     ":label(area: dependencies)"
   ],
-  "enabledManagers": ["maven-wrapper", "gradle-wrapper"]
+  "enabledManagers": ["maven-wrapper", "gradle-wrapper", "docker-compose"],
+  "docker-compose": {
+    "fileMatch": ["^src/main/docker/[^/]*\\.ya?ml$"]
+  }
 }

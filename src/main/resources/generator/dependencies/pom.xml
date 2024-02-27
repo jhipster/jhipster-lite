@@ -44,7 +44,6 @@
     <testcontainers.version>1.19.6</testcontainers.version>
     <archunit-junit5.version>1.2.1</archunit-junit5.version>
     <cucumber.version>7.15.0</cucumber.version>
-    <jacoco.version>0.8.11</jacoco.version>
     <!-- Maven Plugins -->
     <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
     <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>

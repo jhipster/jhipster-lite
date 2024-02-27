@@ -69,6 +69,7 @@ public class GradleModuleFactory {
          .and()
         .and()
       .gradlePlugins()
+      //TODO - remove jacoco plugin from here!
         .plugin(gradleJacocoPlugin())
         .and()
       .javaDependencies()

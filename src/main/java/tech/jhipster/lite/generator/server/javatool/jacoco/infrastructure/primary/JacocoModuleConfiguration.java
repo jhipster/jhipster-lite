@@ -10,16 +10,27 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class JacocoThresholdModuleConfiguration {
+class JacocoModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource jacocoThresholdModule(JacocoApplicationService jacoco) {
+  JHipsterModuleResource jacocoModule(JacocoApplicationService jacoco) {
     return JHipsterModuleResource.builder()
-      .slug(JACOCO_CHECK_MIN_COVERAGE)
+      .slug(JACOCO)
+      .withoutProperties()
+      .apiDoc("Java", "Add JaCoCo basic configuration")
+      .organization(JHipsterModuleOrganization.builder().feature(CODE_COVERAGE_JAVA).addDependency(JAVA_BUILD_TOOL).build())
+      .tags("server", "tools", "coverage")
+      .factory(jacoco::buildJacocoModule);
+  }
+
+  @Bean
+  JHipsterModuleResource jacocoWithMinCoverageCheckModule(JacocoApplicationService jacoco) {
+    return JHipsterModuleResource.builder()
+      .slug(JACOCO_WITH_MIN_COVERAGE_CHECK)
       .withoutProperties()
       .apiDoc("Java", "Add JaCoCo configuration to check minimum coverage")
-      .organization(JHipsterModuleOrganization.builder().addDependency(JAVA_BUILD_TOOL).build())
+      .organization(JHipsterModuleOrganization.builder().feature(CODE_COVERAGE_JAVA).addDependency(JAVA_BUILD_TOOL).build())
       .tags("server", "tools", "coverage")
-      .factory(jacoco::buildModule);
+      .factory(jacoco::buildJacocoWithMinCoverageCheckModule);
   }
 }

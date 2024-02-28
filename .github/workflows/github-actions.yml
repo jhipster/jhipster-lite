@@ -285,7 +285,7 @@ jobs:
         working-directory: ./main-branch/tests-ci/
         run: |
           ./start.sh 7471
-          ./generate.sh ${{ matrix.app }} ${{ matrix.spring-config-format }}
+          ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
           ./stop.sh
       - name: 'Generation: calculate md5sum ${{ matrix.app }} from main branch'
         if: github.event_name == 'pull_request'

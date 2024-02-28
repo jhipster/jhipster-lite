@@ -27,6 +27,7 @@ import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
 import tech.jhipster.lite.module.domain.startupcommand.MavenStartupCommandLine;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
+@SuppressWarnings("java:S6539")
 public class JHipsterModulesApplyer {
 
   private final JHipsterModulesRepository modules;

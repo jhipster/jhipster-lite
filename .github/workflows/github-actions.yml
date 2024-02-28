@@ -257,9 +257,12 @@ jobs:
           - gradleapp
           - thymeleafapp
         include:
+          - java-build-tool: maven
           - spring-config-format: yaml
           - app: customjhlite
             spring-config-format: properties
+          - app: gradleapp
+            java-build-tool: gradle
     steps:
       - name: 'Setup: checkout project from main branch'
         if: github.event_name == 'pull_request'
@@ -320,7 +323,7 @@ jobs:
         working-directory: ./current-branch/tests-ci/
         run: |
           ./start.sh 7471
-          ./generate.sh ${{ matrix.app }} ${{ matrix.spring-config-format }}
+          ./generate.sh ${{ matrix.app }} ${{ matrix.java-build-tool }} ${{ matrix.spring-config-format }}
           ./stop.sh
       - name: 'Generation: calculate md5sum ${{ matrix.app }}'
         id: calculate-md5sum
@@ -359,21 +362,54 @@ jobs:
             echo "execute_tests=false" >> $GITHUB_OUTPUT
           fi
       - name: 'Test: list ${{ matrix.app }}'
-        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
-        id: cache_md5sum
+        if: |
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          ${{ matrix.java-build-tool }} == 'maven'
+        id: cache_maven_md5sum
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          ls -al /tmp/jhlite/${{ matrix.app }}
-          MD5SUM_POM_XML=$(md5sum /tmp/jhlite/${{ matrix.app }}/pom.xml | cut -d ' ' -f 1)
+          ls -al
+          MD5SUM_POM_XML=$(md5sum pom.xml | cut -d ' ' -f 1)
           echo $MD5SUM_POM_XML
           echo "md5sum_pom_xml=${MD5SUM_POM_XML}" >> $GITHUB_OUTPUT
       - name: 'Init: cache local Maven repository'
-        if: steps.tests-requirement-check.outputs.execute_tests == 'true'
+        if: |
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          ${{ matrix.java-build-tool }} == 'maven'
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ matrix.app }}-${{ steps.cache_md5sum.outputs.md5sum_pom_xml }}
+          key: ${{ runner.os }}-${{ matrix.java-build-tool }}-${{ matrix.app }}-${{ steps.cache_maven_md5sum.outputs.md5sum_pom_xml }}
           restore-keys: |
-            ${{ runner.os }}-maven-
+            ${{ runner.os }}-${{ matrix.java-build-tool }}-
+      - name: 'Test: list ${{ matrix.app }}'
+        if: |
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          ${{ matrix.java-build-tool }} == 'gradle'
+        id: cache_gradle_md5sum
+        working-directory: /tmp/jhlite/${{ matrix.app }}/
+        run: |
+          ls -al
+          GRADLE_DEPS_MD5=$(md5sum \
+            build.gradle.kts \
+            settings.gradle.kts \
+            gradle/libs.versions.toml \
+            gradle/wrapper/gradle-wrapper.properties \
+            | md5sum | head -n1 | cut -d " " -f1)
+          echo $GRADLE_DEPS_MD5
+          echo "md5sum=${GRADLE_DEPS_MD5}" >> $GITHUB_OUTPUT
+      - name: 'Init: cache local Gradle repository'
+        if: |
+          steps.tests-requirement-check.outputs.execute_tests == 'true' &&
+          ${{ matrix.java-build-tool }} == 'gradle'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-${{ matrix.java-build-tool }}-${{ matrix.app }}-${{ steps.cache_gradle_md5sum.outputs.md5sum }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.java-build-tool }}-
       - name: 'Test: starting Sonar'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/

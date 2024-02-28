@@ -28,7 +28,7 @@ class KafkaModuleFactoryTest {
 
   @Test
   void shouldBuildKafkaModuleInit() {
-    when(dockerImages.get("confluentinc/cp-kafka")).thenReturn(new DockerImageVersion("confluentinc/cp-kafka", "1.0.0"));
+    when(dockerImages.get("apache/kafka")).thenReturn(new DockerImageVersion("apache/kafka", "1.0.0"));
 
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
       .basePackage("com.jhipster.test")

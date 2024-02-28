@@ -51,8 +51,9 @@ class GradleModuleFactoryTest {
         """
         tasks.test {
           filter {
-            includeTestsMatching("*Test.*")
-            excludeTestsMatching("*IT.*")
+            includeTestsMatching("**Test*")
+            excludeTestsMatching("**IT*")
+            excludeTestsMatching("**CucumberTest*")
           }
           useJUnitPlatform()
           finalizedBy("jacocoTestReport")

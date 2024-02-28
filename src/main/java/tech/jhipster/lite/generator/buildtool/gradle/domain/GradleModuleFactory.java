@@ -20,8 +20,9 @@ public class GradleModuleFactory {
     """
     tasks.test {
       filter {
-        includeTestsMatching("*Test.*")
-        excludeTestsMatching("*IT.*")
+        includeTestsMatching("**Test*")
+        excludeTestsMatching("**IT*")
+        excludeTestsMatching("**CucumberTest*")
       }
       useJUnitPlatform()
     }
@@ -36,8 +37,9 @@ public class GradleModuleFactory {
     """
     tasks.test {
       filter {
-        includeTestsMatching("*Test.*")
-        excludeTestsMatching("*IT.*")
+        includeTestsMatching("**Test*")
+        excludeTestsMatching("**IT*")
+        excludeTestsMatching("**CucumberTest*")
       }
       useJUnitPlatform()
       finalizedBy("jacocoTestReport")

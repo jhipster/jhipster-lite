@@ -121,6 +121,6 @@ public final class SQLCommonModuleBuilder {
   }
 
   private static String startupCommand(String databaseId) {
-    return "docker compose -f src/main/docker/" + databaseId + ".yml up -d";
+    return "src/main/docker/" + databaseId + ".yml";
   }
 }

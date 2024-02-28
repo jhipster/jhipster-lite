@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.VUE;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -76,9 +76,11 @@ public class VueModulesFactory {
         .add(SOURCE.file(".eslintrc.js"), to(".eslintrc.js"))
         .add(SOURCE.file("tsconfig.json"), to("tsconfig.json"))
         .add(SOURCE.file("tsconfig.build.json"), to("tsconfig.build.json"))
-        .add(SOURCE.file("vite.config.mts"), to("vite.config.mts"))
-        .add(SOURCE.file("vitest.config.mts"), to("vitest.config.mts"))
         .add(SOURCE.template("webapp/app/http/AxiosHttp.ts.mustache"), MAIN_DESTINATION.append("http/AxiosHttp.ts"))
+        .batch(SOURCE, to("."))
+          .addTemplate("vite.config.mts")
+          .addTemplate("vitest.config.mts")
+          .and()
         .add(COMMON_ESLINT.file(".eslintignore"), to(".eslintignore"))
         .batch(SOURCE.file("test/spec/http"), to("src/test/javascript/spec/http"))
           .addTemplate("AxiosHttp.spec.ts")

@@ -6,8 +6,8 @@ const config = {
 
   kit: {
     adapter: adapter({
-      pages: 'target/classes/static/',
-      assets: 'target/classes/static/',
+      pages: '{{projectBuildDirectory}}/classes/static/',
+      assets: '{{projectBuildDirectory}}/classes/static/',
       fallback: 'index.html',
     }),
     appDir: '_app',

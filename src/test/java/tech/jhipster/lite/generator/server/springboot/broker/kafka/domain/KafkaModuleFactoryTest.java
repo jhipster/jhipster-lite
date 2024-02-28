@@ -28,12 +28,12 @@ class KafkaModuleFactoryTest {
 
   @Test
   void shouldBuildKafkaModuleInit() {
-    when(dockerImages.get("confluentinc/cp-zookeeper")).thenReturn(new DockerImageVersion("confluentinc/cp-zookeeper", "1.0.0"));
     when(dockerImages.get("confluentinc/cp-kafka")).thenReturn(new DockerImageVersion("confluentinc/cp-kafka", "1.0.0"));
 
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
+      .put("kafkaClusterId", "my-cluster")
       .build();
 
     JHipsterModule module = factory.buildModuleInit(properties);
@@ -52,6 +52,7 @@ class KafkaModuleFactoryTest {
       .containing("<artifactId>kafka</artifactId>")
       .and()
       .hasFile("src/main/docker/kafka.yml")
+      .containing("CLUSTER_ID: 'my-cluster'")
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(

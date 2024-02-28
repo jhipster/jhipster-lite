@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.server.springboot.broker.kafka.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
+import java.util.UUID;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -24,12 +25,13 @@ public class KafkaModuleFactory {
 
   public JHipsterModule buildModuleInit(JHipsterModuleProperties properties) {
     String packagePath = properties.packagePath();
+    String kafkaClusterId = properties.getOrDefaultString("kafkaClusterId", UUID.randomUUID().toString());
 
     //@formatter:off
     return moduleBuilder(properties)
       .context()
-        .put("zookeeperDockerImage", dockerImages.get("confluentinc/cp-zookeeper").fullName())
         .put("kafkaDockerImage", dockerImages.get("confluentinc/cp-kafka").fullName())
+        .put("kafkaClusterId", kafkaClusterId)
         .and()
       .documentation(documentationTitle("Apache Kafka"), SOURCE.template("apache-kafka.md"))
       .startupCommands()

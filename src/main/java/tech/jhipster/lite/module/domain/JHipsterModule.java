@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
@@ -23,8 +22,6 @@ import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
-import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin.GradleCommunityPluginIdBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
@@ -402,16 +399,6 @@ public final class JHipsterModule {
 
   public JHipsterModuleFiles files() {
     return files;
-  }
-
-  public JHipsterTemplatedFiles templatedFiles() {
-    List<JHipsterTemplatedFile> templatedFiles = files
-      .filesToAdd()
-      .stream()
-      .map(file -> JHipsterTemplatedFile.builder().file(file).context(context).build())
-      .toList();
-
-    return new JHipsterTemplatedFiles(templatedFiles);
   }
 
   public JHipsterModuleContext context() {

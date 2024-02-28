@@ -19,7 +19,7 @@ class SonarQubeModuleConfiguration {
       .slug(SONAR_QUBE_JAVA_BACKEND)
       .propertiesDefinition(propertiesDefinition())
       .apiDoc("Sonar", "Add Sonar configuration for Java Backend to inspect code quality")
-      .organization(JHipsterModuleOrganization.builder().addDependency(JAVA_BUILD_TOOL).build())
+      .organization(JHipsterModuleOrganization.builder().feature(SONAR_QUBE_JAVA).addDependency(JAVA_BUILD_TOOL).build())
       .tags("server", "sonar")
       .factory(sonar::buildBackendModule);
   }
@@ -30,7 +30,7 @@ class SonarQubeModuleConfiguration {
       .slug(SONAR_QUBE_JAVA_BACKEND_AND_FRONTEND)
       .propertiesDefinition(propertiesDefinition())
       .apiDoc("Sonar", "Add Sonar configuration for Java Backend and Frontend to inspect code quality")
-      .organization(JHipsterModuleOrganization.builder().addDependency(JAVA_BUILD_TOOL).build())
+      .organization(JHipsterModuleOrganization.builder().feature(SONAR_QUBE_JAVA).addDependency(JAVA_BUILD_TOOL).build())
       .tags("server", "sonar")
       .factory(sonar::buildBackendFrontendModule);
   }

@@ -130,6 +130,7 @@ elif [[ $application == 'fullstack' ]]; then
 # It should be removed once gradle is fully supported
 elif [[ $application == 'gradleapp' ]]; then
   init_server
+  sonar_back
   # TODO: use "spring_boot", "spring_boot_mvc" instead of the following individual modules
   #  when jacoco-check-min-coverage supports gradle
   applyModules \

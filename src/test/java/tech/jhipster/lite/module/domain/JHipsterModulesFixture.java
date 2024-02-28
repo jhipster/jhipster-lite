@@ -133,6 +133,7 @@ public final class JHipsterModulesFixture {
       .plugin(asciidoctorPlugin())
       .and()
     .gradlePlugins()
+      .plugin(jacocoGradlePlugin())
       .plugin(checkstyleGradlePlugin())
       .and()
     .packageJson()
@@ -380,6 +381,28 @@ public final class JHipsterModulesFixture {
               <version>[21,22)</version>
           </requireJavaVersion>
         </rules>
+        """
+      )
+      .build();
+  }
+
+  public static GradlePlugin jacocoGradlePlugin() {
+    return gradleCorePlugin()
+      .id("jacoco")
+      .toolVersionSlug("jacoco")
+      .configuration(
+        """
+        jacoco {
+          toolVersion = libs.versions.jacoco.get()
+        }
+
+        tasks.jacocoTestReport {
+          dependsOn("test", "integrationTest")
+          reports {
+            xml.required.set(true)
+            html.required.set(false)
+          }
+        }
         """
       )
       .build();

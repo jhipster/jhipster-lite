@@ -42,8 +42,9 @@ class GradleModuleFactoryTest {
           dependsOn("test", "integrationTest")
           reports {
             xml.required.set(true)
-            html.required.set(false)
+            html.required.set(true)
           }
+          executionData.setFrom(fileTree(buildDir).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
         }
         """
       )

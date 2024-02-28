@@ -14,7 +14,7 @@
 
   <groupId>tech.jhipster.lite</groupId>
   <artifactId>jhlite</artifactId>
-  <version>1.4.1-SNAPSHOT</version>
+  <version>1.5.0</version>
   <name>jhlite</name>
   <description>JHipster Lite</description>
   <packaging>jar</packaging>

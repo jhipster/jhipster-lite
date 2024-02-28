@@ -1,5 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":disableDependencyDashboard"],
-  "enabledManagers": ["maven-wrapper", "gradle-wrapper"]
+  "extends": [
+    "config:recommended",
+    ":disableDependencyDashboard",
+    ":automergeMinor",
+    ":automergePr",
+    ":automergeRequireAllStatusChecks",
+    ":label(area: dependencies)"
+  ],
+  "enabledManagers": ["maven-wrapper", "gradle-wrapper", "docker-compose"],
+  "docker-compose": {
+    "fileMatch": ["^src/main/docker/[^/]*\\.ya?ml$"]
+  }
 }

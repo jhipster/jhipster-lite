@@ -12,13 +12,13 @@ public final class JHipsterModuleContext {
 
   private final Map<String, Object> context;
 
+  private JHipsterModuleContext(Map<String, Object> context) {
+    this.context = JHipsterCollections.immutable(context);
+  }
+
   public JHipsterModuleContext withJavaBuildTool(JavaBuildTool javaBuildTool) {
     Map<String, Object> additionalValues = Map.of(JHipsterModuleProperties.PROJECT_BUILD_DIRECTORY, javaBuildTool.buildDirectory().get());
     return new JHipsterModuleContext(JHipsterCollections.concat(context, additionalValues));
-  }
-
-  private JHipsterModuleContext(Map<String, Object> context) {
-    this.context = JHipsterCollections.immutable(context);
   }
 
   static JHipsterModuleContextBuilder builder(JHipsterModuleBuilder module) {

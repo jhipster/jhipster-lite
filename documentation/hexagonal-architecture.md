@@ -77,7 +77,7 @@ Finally, the architecture part you were looking for :P.
 
 So, first things first: **an application is made of multiple "hexagons"**, one for each [Bounded Context](https://martinfowler.com/bliki/BoundedContext.html). (Yes, sometimes you can have only one but this is an exception). We usually have each Bounded Context as root packages in the application.
 
-Originally, this architecture was presented in an hexagon (hence the name) with the Domain Model at it's center:
+Originally, this architecture was presented in a hexagon (hence the name) with the Domain Model at its center:
 
 ![Hexagonal architecture overview](hexagonal-global-schema.png)
 

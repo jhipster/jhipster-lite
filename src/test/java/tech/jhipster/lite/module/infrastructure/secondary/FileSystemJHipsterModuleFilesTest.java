@@ -1,8 +1,8 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.context;
 
 import ch.qos.logback.classic.Level;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import tech.jhipster.lite.Logs;
@@ -23,7 +24,10 @@ import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.file.JHipsterFileToMove;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 
 @UnitTest
@@ -45,7 +49,7 @@ class FileSystemJHipsterModuleFilesTest {
       .and()
       .build();
 
-    assertThatThrownBy(() -> files.create(project, module.templatedFiles())).isExactlyInstanceOf(GeneratorException.class);
+    assertThatThrownBy(() -> files.create(project, templatedFilesFrom(module))).isExactlyInstanceOf(GeneratorException.class);
   }
 
   @Test
@@ -58,9 +62,17 @@ class FileSystemJHipsterModuleFilesTest {
       .and()
       .build();
 
-    files.create(project, module.templatedFiles());
+    files.create(project, templatedFilesFrom(module));
 
     logs.shouldHave(Level.DEBUG, "MainApp.java");
+  }
+
+  @NotNull
+  private static JHipsterTemplatedFiles templatedFilesFrom(JHipsterModule module) {
+    Assert.notEmpty("module.filesToAdd", module.filesToAdd());
+    return new JHipsterTemplatedFiles(
+      List.of(JHipsterTemplatedFile.builder().file(module.filesToAdd().iterator().next()).context(context()).build())
+    );
   }
 
   @Test

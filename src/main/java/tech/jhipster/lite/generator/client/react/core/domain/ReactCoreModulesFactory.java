@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.REACT;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -64,7 +64,7 @@ public class ReactCoreModulesFactory {
         .batch(SOURCE, to("."))
           .addFile("tsconfig.json")
           .addTemplate("vite.config.ts")
-          .addFile("vitest.config.ts")
+          .addTemplate("vitest.config.ts")
           .addFile(".eslintrc.cjs")
           .and()
         .batch(COMMON_ESLINT, to("."))

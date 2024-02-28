@@ -9,8 +9,8 @@ module.exports = {
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   roots: ['<rootDir>', `<rootDir>/${baseUrl}`],
   modulePaths: [`<rootDir>/${baseUrl}`],
-  cacheDirectory: '<rootDir>/target/jest-cache',
-  coverageDirectory: '<rootDir>/target/test-results/',
+  cacheDirectory: '<rootDir>/{{projectBuildDirectory}}/jest-cache',
+  coverageDirectory: '<rootDir>/{{projectBuildDirectory}}/test-results/',
   coverageThreshold: {
     global: {
       statements: 100,

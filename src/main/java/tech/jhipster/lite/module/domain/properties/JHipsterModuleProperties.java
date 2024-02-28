@@ -16,6 +16,7 @@ public class JHipsterModuleProperties {
   public static final String SERVER_PORT_PARAMETER = "serverPort";
   public static final String SERVER_CONFIGURATION_FORMAT = "configurationFormat";
   public static final String JAVA_VERSION = "javaVersion";
+  public static final String PROJECT_BUILD_DIRECTORY = "projectBuildDirectory";
 
   private final JHipsterProjectFolder projectFolder;
   private final boolean commitModule;

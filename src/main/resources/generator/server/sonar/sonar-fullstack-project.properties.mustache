@@ -9,15 +9,15 @@ sonar.tests=src/test/
 sonar.host.url=http://localhost:9001
 
 sonar.test.inclusions=src/test/**/*.*, src/main/webapp/**/*.spec.ts
-sonar.coverage.jacoco.xmlReportPaths=target/jacoco/jacoco.xml
+sonar.coverage.jacoco.xmlReportPaths={{projectBuildDirectory}}/jacoco/jacoco.xml
 sonar.java.codeCoveragePlugin=jacoco
-sonar.junit.reportPaths=target/surefire-reports,target/failsafe-reports
+sonar.junit.reportPaths={{projectBuildDirectory}}/surefire-reports,{{projectBuildDirectory}}/failsafe-reports
 
-sonar.testExecutionReportPaths=target/test-results/TESTS-results-sonar.xml
-sonar.javascript.lcov.reportPaths=target/test-results/lcov.info
+sonar.testExecutionReportPaths={{projectBuildDirectory}}/test-results/TESTS-results-sonar.xml
+sonar.javascript.lcov.reportPaths={{projectBuildDirectory}}/test-results/lcov.info
 
 sonar.sourceEncoding=UTF-8
-sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, src/main/webapp/i18n/*.js, target/classes/static/**/*.*, src/main/webapp/app/index.tsx, src/main/webapp/routes/+page.svelte
+sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, src/main/webapp/i18n/*.js, {{projectBuildDirectory}}/classes/static/**/*.*, src/main/webapp/app/index.tsx, src/main/webapp/routes/+page.svelte
 
 sonar.issue.ignore.multicriteria=S119,S125,S3437,S4502,S4684,S4032,S5778,S1133,S6206,S2699,S6564,UndocumentedApi
 

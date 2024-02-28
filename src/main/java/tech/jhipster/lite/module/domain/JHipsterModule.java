@@ -4,6 +4,7 @@ import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
 
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import tech.jhipster.lite.module.domain.JHipsterModulePreActions.JHipsterModuleP
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
+import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -410,6 +412,14 @@ public final class JHipsterModule {
       .toList();
 
     return new JHipsterTemplatedFiles(templatedFiles);
+  }
+
+  public JHipsterModuleContext context() {
+    return context;
+  }
+
+  public Collection<JHipsterModuleFile> filesToAdd() {
+    return files.filesToAdd();
   }
 
   public JHipsterFilesToMove filesToMove() {

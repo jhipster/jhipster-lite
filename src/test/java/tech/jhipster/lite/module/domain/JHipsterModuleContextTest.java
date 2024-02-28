@@ -1,7 +1,6 @@
 package tech.jhipster.lite.module.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.entry;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
 
 import java.util.Map;
@@ -11,6 +10,7 @@ import tech.jhipster.lite.Logs;
 import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.LogsSpyExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 
 @UnitTest
 @ExtendWith(LogsSpyExtension.class)
@@ -24,14 +24,31 @@ class JHipsterModuleContextTest {
     Map<String, Object> context = JHipsterModuleContext.builder(emptyModuleBuilder()).build().get();
 
     assertThat(context)
-      .hasSize(6)
-      .contains(
-        entry("baseName", "jhipster"),
-        entry("projectName", "JHipster Project"),
-        entry("packageName", "com.mycompany.myapp"),
-        entry("serverPort", 8080),
-        entry("indentSize", 2),
-        entry("javaVersion", "21")
-      );
+      .hasSize(7)
+      .containsEntry("baseName", "jhipster")
+      .containsEntry("projectName", "JHipster Project")
+      .containsEntry("packageName", "com.mycompany.myapp")
+      .containsEntry("serverPort", 8080)
+      .containsEntry("indentSize", 2)
+      .containsEntry("javaVersion", "21")
+      .containsEntry("projectBuildDirectory", "target");
+  }
+
+  @Test
+  void shouldEnrichContextWithJavaBuildTool() {
+    JHipsterModuleContext context = JHipsterModuleContext.builder(emptyModuleBuilder()).build();
+
+    Map<String, Object> newContext = context.withJavaBuildTool(JavaBuildTool.GRADLE).get();
+
+    assertThat(newContext)
+      .hasSize(7)
+      .containsKey("baseName")
+      .containsKey("projectName")
+      .containsKey("packageName")
+      .containsKey("serverPort")
+      .containsKey("indentSize")
+      .containsKey("javaVersion")
+      .containsEntry("projectBuildDirectory", "build");
+    assertThat(context.get()).containsEntry("projectBuildDirectory", "target");
   }
 }

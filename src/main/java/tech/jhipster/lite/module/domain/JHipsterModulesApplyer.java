@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.git.GitRepository;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
@@ -75,7 +77,7 @@ public class JHipsterModulesApplyer {
       .builder()
       .projectFolder(module.projectFolder())
       .indentation(module.indentation())
-      .filesToAdd(module.templatedFiles())
+      .filesToAdd(buildTemplatedFiles(module, detectedJavaBuildTool))
       .filesToMove(module.filesToMove())
       .filesToDelete(module.filesToDelete())
       .replacers(buildReplacers(module))
@@ -110,7 +112,20 @@ public class JHipsterModulesApplyer {
     return moduleApplied;
   }
 
-  private JHipsterStartupCommands buildStartupCommands(
+  private static JHipsterTemplatedFiles buildTemplatedFiles(JHipsterModule module, Optional<JavaBuildTool> detectedJavaBuildTool) {
+    JHipsterModuleContext context = detectedJavaBuildTool
+      .map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool))
+      .orElse(module.context());
+    List<JHipsterTemplatedFile> templatedFiles = module
+      .filesToAdd()
+      .stream()
+      .map(file -> JHipsterTemplatedFile.builder().file(file).context(context).build())
+      .toList();
+
+    return new JHipsterTemplatedFiles(templatedFiles);
+  }
+
+  private static JHipsterStartupCommands buildStartupCommands(
     JHipsterStartupCommands jHipsterStartupCommands,
     Optional<JavaBuildTool> detectedJavaBuildTool
   ) {
@@ -125,7 +140,7 @@ public class JHipsterModulesApplyer {
     return new JHipsterStartupCommands(filteredCommands);
   }
 
-  private Predicate<JHipsterStartupCommand> isStartupCommandCompatibleWith(JavaBuildTool javaBuildTool) {
+  private static Predicate<JHipsterStartupCommand> isStartupCommandCompatibleWith(JavaBuildTool javaBuildTool) {
     return startupCommand ->
       switch (startupCommand) {
         case MavenStartupCommandLine __ -> javaBuildTool == MAVEN;

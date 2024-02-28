@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.domain;
 import java.util.HashMap;
 import java.util.Map;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -11,8 +12,13 @@ public final class JHipsterModuleContext {
 
   private final Map<String, Object> context;
 
-  private JHipsterModuleContext(JHipsterModuleContextBuilder builder) {
-    context = JHipsterCollections.immutable(builder.context);
+  public JHipsterModuleContext withJavaBuildTool(JavaBuildTool javaBuildTool) {
+    Map<String, Object> additionalValues = Map.of(JHipsterModuleProperties.PROJECT_BUILD_DIRECTORY, javaBuildTool.buildDirectory().get());
+    return new JHipsterModuleContext(JHipsterCollections.concat(context, additionalValues));
+  }
+
+  private JHipsterModuleContext(Map<String, Object> context) {
+    this.context = JHipsterCollections.immutable(context);
   }
 
   static JHipsterModuleContextBuilder builder(JHipsterModuleBuilder module) {
@@ -44,6 +50,7 @@ public final class JHipsterModuleContext {
       init.put(JHipsterModuleProperties.SERVER_PORT_PARAMETER, properties.serverPort().get());
       init.put(JHipsterModuleProperties.INDENTATION_PARAMETER, properties.indentation().spacesCount());
       init.put(JHipsterModuleProperties.JAVA_VERSION, properties.javaVersion().get());
+      init.put(JHipsterModuleProperties.PROJECT_BUILD_DIRECTORY, JavaBuildTool.MAVEN.buildDirectory().get());
 
       return init;
     }
@@ -58,7 +65,7 @@ public final class JHipsterModuleContext {
     }
 
     public JHipsterModuleContext build() {
-      return new JHipsterModuleContext(this);
+      return new JHipsterModuleContext(this.context);
     }
 
     public JHipsterModuleBuilder and() {

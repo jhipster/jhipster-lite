@@ -119,7 +119,7 @@ class AsyncSpringLiquibaseTest {
     }
   }
 
-  private static class DirectExecutor implements Executor {
+  private static final class DirectExecutor implements Executor {
 
     @Override
     public void execute(Runnable command) {

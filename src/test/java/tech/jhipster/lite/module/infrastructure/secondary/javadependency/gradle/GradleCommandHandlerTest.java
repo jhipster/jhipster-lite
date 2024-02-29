@@ -404,6 +404,27 @@ class GradleCommandHandlerTest {
 
       assertThat(buildGradleContent(projectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
     }
+
+    @Test
+    void shouldAddDependencyExclusionsInBuildGradleFile() {
+      JavaDependency dependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-starter-web")
+        .scope(JavaDependencyScope.IMPORT)
+        .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
+        .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-json"))
+        .build();
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddJavaDependencyManagement(dependency));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+          implementation(platform(libs.spring.boot.starter.web)) {
+            exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+            exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
+          }
+        """
+      );
+    }
   }
 
   @Nested

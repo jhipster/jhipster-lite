@@ -299,15 +299,15 @@ class GradleCommandHandlerTest {
     @Test
     void shouldRemoveEntryInLibrariesSection() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
-      gradleCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
+      gradleCommandHandler.handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
-      gradleCommandHandler.handle(new RemoveDirectJavaDependency(springBootStarterWebDependency().id()));
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(defaultVersionDependency().id()));
 
       assertThat(versionCatalogContent(projectFolder))
-        .doesNotContain("[libraries.spring-boot-starter-web]")
+        .doesNotContain("[libraries.spring-boot-starter]")
         .doesNotContain(
           """
-          \t\tname = "spring-boot-starter-web"
+          \t\tname = "spring-boot-starter"
           \t\tgroup = "org.springframework.boot"
           """
         );
@@ -316,11 +316,21 @@ class GradleCommandHandlerTest {
     @Test
     void shouldRemoveDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
-      gradleCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
+      gradleCommandHandler.handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
-      gradleCommandHandler.handle(new RemoveDirectJavaDependency(springBootStarterWebDependency().id()));
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(defaultVersionDependency().id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.spring.boot.starter.web)");
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.spring.boot.starter)");
+    }
+
+    @Test
+    void shouldRemoveDependencyWithExclusionInBuildGradleFile() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyWithVersionAndExclusion()));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependencyWithVersionAndExclusion().id()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.jjwt.jackson)");
     }
 
     @Test

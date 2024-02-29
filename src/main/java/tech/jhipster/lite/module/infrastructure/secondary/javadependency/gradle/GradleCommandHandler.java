@@ -174,9 +174,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private void removeDependencyFromBuildGradle(DependencySlug dependencySlug) {
     String scopePattern = Stream.of(GradleDependencyScope.values())
       .map(GradleDependencyScope::command)
-      .collect(Collectors.joining("|", "(", ")"));
+      .collect(Collectors.joining("|", "(?:", ")"));
     Pattern dependencyLinePattern = Pattern.compile(
-      "^\\s+%s\\((platform\\()?libs\\.%s\\)?\\)$".formatted(scopePattern, dependencySlug.slug().replace("-", "\\.")),
+      "^\\s+%s\\((?:platform\\()?libs\\.%s\\)?\\)(?:\\s+\\{\\n(?:\\s+exclude\\([^)]*\\)\\n)+\\s+\\})?$".formatted(
+          scopePattern,
+          dependencySlug.slug().replace("-", "\\.")
+        ),
       Pattern.MULTILINE
     );
     MandatoryReplacer replacer = new MandatoryReplacer(new RegexReplacer(always(), dependencyLinePattern), "");

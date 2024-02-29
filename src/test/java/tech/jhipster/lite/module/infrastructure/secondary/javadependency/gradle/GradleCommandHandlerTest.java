@@ -28,6 +28,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
@@ -465,6 +466,24 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
       gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
+    }
+
+    @Test
+    void shouldRemoveDependencyWithExclusionInBuildGradleFile() {
+      var dependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-dependencies")
+        .addExclusion(jsonWebTokenDependencyId())
+        .scope(JavaDependencyScope.IMPORT)
+        .type(JavaDependencyType.POM)
+        .build();
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(dependency));
+      assertThat(buildGradleContent(projectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
 
       assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
     }

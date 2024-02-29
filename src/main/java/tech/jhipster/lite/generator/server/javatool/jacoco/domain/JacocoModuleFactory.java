@@ -18,9 +18,10 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JacocoModuleFactory {
 
+  private static final String JACOCO = "jacoco";
   private static final GroupId JACOCO_GROUP = groupId("org.jacoco");
   private static final ArtifactId JACOCO_ARTIFACT_ID = artifactId("jacoco-maven-plugin");
-  private static final VersionSlug JACOCO_VERSION = versionSlug("jacoco");
+  private static final VersionSlug JACOCO_VERSION = versionSlug(JACOCO);
   private static final Pattern BUILD_GRADLE_TASK_TEST_NEEDLE = Pattern.compile(
     """
     tasks.test {
@@ -99,43 +100,6 @@ public class JacocoModuleFactory {
       .optionalReplacements()
         .in(path("build.gradle.kts"))
         .add(EXISTING_BUILD_GRADLE_TASK_TEST_NEEDLE, ADD_JACOCO_WITH_MIN_COVERAGE_CHECK_BUILD_GRADLE_TASK_TEST)
-        .and()
-      .and()
-      .optionalReplacements()
-        .in(path("pom.xml"))
-          .add(
-            lineAfterRegex(
-              "<outputDirectory>target\\/jacoco\\/<\\/outputDirectory>[\n\r]*\\s*<\\/configuration>[\n\r]*\\s*<\\/execution>\\s*$"
-            ),
-            """
-                        <execution>
-                          <id>check</id>
-                          <goals>
-                            <goal>check</goal>
-                          </goals>
-                          <configuration>
-                            <dataFile>target/jacoco/allTest.exec</dataFile>
-                            <rules>
-                              <rule>
-                                <element>CLASS</element>
-                                <limits>
-                                  <limit>
-                                    <counter>LINE</counter>
-                                    <value>COVEREDRATIO</value>
-                                    <minimum>1.00</minimum>
-                                  </limit>
-                                  <limit>
-                                    <counter>BRANCH</counter>
-                                    <value>COVEREDRATIO</value>
-                                    <minimum>1.00</minimum>
-                                  </limit>
-                                </limits>
-                              </rule>
-                            </rules>
-                          </configuration>
-                        </execution>\
-            """
-          )
         .and()
       .and()
       .build();
@@ -226,8 +190,8 @@ public class JacocoModuleFactory {
 
   private static GradlePlugin gradleJacocoPlugin() {
     return gradleCorePlugin()
-      .id("jacoco")
-      .toolVersionSlug("jacoco")
+      .id(JACOCO)
+      .toolVersionSlug(JACOCO)
       .configuration(
         """
         jacoco {
@@ -249,8 +213,8 @@ public class JacocoModuleFactory {
 
   private static GradlePlugin gradleJacocoWithMinCoverageCheckPlugin() {
     return gradleCorePlugin()
-      .id("jacoco")
-      .toolVersionSlug("jacoco")
+      .id(JACOCO)
+      .toolVersionSlug(JACOCO)
       .configuration(
         """
         jacoco {

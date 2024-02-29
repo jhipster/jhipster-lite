@@ -61,14 +61,6 @@ class MavenModuleFactoryTest {
       .containing(
         """
               <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-              </plugin>
-        """
-      )
-      .containing(
-        """
-              <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${failsafe-plugin.version}</version>
                 <executions>
@@ -94,72 +86,6 @@ class MavenModuleFactoryTest {
                   </includes>
                 </configuration>
               </plugin>
-        """
-      )
-      .containing(
-        """
-                <plugin>
-                  <groupId>org.jacoco</groupId>
-                  <artifactId>jacoco-maven-plugin</artifactId>
-                  <version>${jacoco.version}</version>
-                  <executions>
-                    <execution>
-                      <id>pre-unit-tests</id>
-                      <goals>
-                        <goal>prepare-agent</goal>
-                      </goals>
-                    </execution>
-                    <execution>
-                      <id>post-unit-test</id>
-                      <phase>test</phase>
-                      <goals>
-                        <goal>report</goal>
-                      </goals>
-                    </execution>
-                    <execution>
-                      <id>pre-integration-tests</id>
-                      <goals>
-                        <goal>prepare-agent-integration</goal>
-                      </goals>
-                    </execution>
-                    <execution>
-                      <id>post-integration-tests</id>
-                      <phase>post-integration-test</phase>
-                      <goals>
-                        <goal>report-integration</goal>
-                      </goals>
-                    </execution>
-                    <execution>
-                      <id>merge</id>
-                      <phase>verify</phase>
-                      <goals>
-                        <goal>merge</goal>
-                      </goals>
-                      <configuration>
-                        <fileSets>
-                          <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
-                            <directory>${project.basedir}</directory>
-                            <includes>
-                              <include>**/*.exec</include>
-                            </includes>
-                          </fileSet>
-                        </fileSets>
-                        <destFile>target/jacoco/allTest.exec</destFile>
-                      </configuration>
-                    </execution>
-                    <execution>
-                      <id>post-merge-report</id>
-                      <phase>verify</phase>
-                      <goals>
-                        <goal>report</goal>
-                      </goals>
-                      <configuration>
-                        <dataFile>target/jacoco/allTest.exec</dataFile>
-                        <outputDirectory>target/jacoco/</outputDirectory>
-                      </configuration>
-                    </execution>
-                  </executions>
-                </plugin>
         """
       )
       .containing(
@@ -222,7 +148,7 @@ class MavenModuleFactoryTest {
   }
 
   @Test
-  void shouldDeclareJacocoPluginAfterFailsafePluginInPomXml() {
+  void shouldDeclareFailsafePluginAfterSurefirePluginInPomXml() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myApp")
@@ -236,8 +162,8 @@ class MavenModuleFactoryTest {
       .containingInSequence(
         "</pluginManagement>",
         "<plugins>",
-        "<artifactId>maven-failsafe-plugin</artifactId>",
-        "<artifactId>jacoco-maven-plugin</artifactId>"
+        "<artifactId>maven-surefire-plugin</artifactId>",
+        "<artifactId>maven-failsafe-plugin</artifactId>"
       );
   }
 

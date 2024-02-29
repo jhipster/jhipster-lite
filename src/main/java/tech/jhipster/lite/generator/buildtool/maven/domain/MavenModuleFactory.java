@@ -1,13 +1,11 @@
 package tech.jhipster.lite.generator.buildtool.maven.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
-import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
@@ -20,10 +18,6 @@ public class MavenModuleFactory {
 
   private static final GroupId APACHE_PLUGINS_GROUP = groupId("org.apache.maven.plugins");
   private static final ArtifactId ENFORCER_ARTIFACTID = artifactId("maven-enforcer-plugin");
-
-  private static final GroupId JACOCO_GROUP = groupId("org.jacoco");
-  private static final ArtifactId JACOCO_ARTIFACT_ID = artifactId("jacoco-maven-plugin");
-  private static final VersionSlug JACOCO_VERSION = versionSlug("jacoco");
 
   private static final String JAVA_PREREQUISITES =
     """
@@ -55,9 +49,7 @@ public class MavenModuleFactory {
         .plugin(mavenCompilerPlugin())
         .plugin(surefirePlugin())
         .plugin(failsafePlugin())
-        .plugin(jacocoPlugin())
         .plugin(enforcerPlugin())
-        .pluginManagement(jacocoPluginManagement())
         .pluginManagement(enforcerPluginManagement())
         .and()
       .build();
@@ -153,10 +145,6 @@ public class MavenModuleFactory {
       .build();
   }
 
-  private MavenPlugin jacocoPlugin() {
-    return mavenPlugin().groupId(JACOCO_GROUP).artifactId(JACOCO_ARTIFACT_ID).build();
-  }
-
   private MavenPlugin failsafePlugin() {
     return mavenPlugin()
       .groupId(APACHE_PLUGINS_GROUP)
@@ -177,49 +165,6 @@ public class MavenModuleFactory {
       )
       .addExecution(pluginExecution().goals("integration-test").id("integration-test"))
       .addExecution(pluginExecution().goals("verify").id("verify"))
-      .build();
-  }
-
-  private MavenPlugin jacocoPluginManagement() {
-    return mavenPlugin()
-      .groupId(JACOCO_GROUP)
-      .artifactId(JACOCO_ARTIFACT_ID)
-      .versionSlug(JACOCO_VERSION)
-      .addExecution(pluginExecution().goals("prepare-agent").id("pre-unit-tests"))
-      .addExecution(pluginExecution().goals("report").id("post-unit-test").phase(TEST))
-      .addExecution(pluginExecution().goals("prepare-agent-integration").id("pre-integration-tests"))
-      .addExecution(pluginExecution().goals("report-integration").id("post-integration-tests").phase(POST_INTEGRATION_TEST))
-      .addExecution(
-        pluginExecution()
-          .goals("merge")
-          .id("merge")
-          .phase(VERIFY)
-          .configuration(
-            """
-              <fileSets>
-              <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
-                <directory>${project.basedir}</directory>
-                <includes>
-                  <include>**/*.exec</include>
-                </includes>
-              </fileSet>
-            </fileSets>
-            <destFile>target/jacoco/allTest.exec</destFile>
-            """
-          )
-      )
-      .addExecution(
-        pluginExecution()
-          .goals("report")
-          .id("post-merge-report")
-          .phase(VERIFY)
-          .configuration(
-            """
-              <dataFile>target/jacoco/allTest.exec</dataFile>
-              <outputDirectory>target/jacoco/</outputDirectory>
-            """
-          )
-      )
       .build();
   }
 

@@ -98,10 +98,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private void addDependencyToBuildGradle(JavaDependency dependency) {
     GradleDependencyScope gradleScope = gradleDependencyScope(dependency);
 
-    String libraryVersionCatalogReference = versionCatalogReference(dependency);
-    String dependencyDeclaration = dependency.scope() == JavaDependencyScope.IMPORT
-      ? "%s%s(platform(%s))".formatted(indentation.times(1), gradleScope.command(), libraryVersionCatalogReference)
-      : "%s%s(%s)".formatted(indentation.times(1), gradleScope.command(), libraryVersionCatalogReference);
+    String dependencyDeclaration = dependencyDeclaration(dependency);
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
@@ -122,6 +119,33 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       case GradleDependencyScope.RUNTIME_ONLY -> GRADLE_RUNTIME_DEPENDENCY_NEEDLE;
       case GradleDependencyScope.TEST_IMPLEMENTATION -> GRADLE_TEST_DEPENDENCY_NEEDLE;
     };
+  }
+
+  private String dependencyDeclaration(JavaDependency dependency) {
+    StringBuilder dependencyDeclaration = new StringBuilder()
+      .append(indentation.times(1))
+      .append(gradleDependencyScope(dependency).command())
+      .append("(");
+    if (dependency.scope() == JavaDependencyScope.IMPORT) {
+      dependencyDeclaration.append("platform(%s)".formatted(versionCatalogReference(dependency)));
+    } else {
+      dependencyDeclaration.append(versionCatalogReference(dependency));
+    }
+    dependencyDeclaration.append(")");
+
+    if (!dependency.exclusions().isEmpty()) {
+      dependencyDeclaration.append(" {");
+      for (var exclusion : dependency.exclusions()) {
+        dependencyDeclaration.append(LINE_BREAK);
+        dependencyDeclaration
+          .append(indentation.times(2))
+          .append("exclude(group = \"%s\", module = \"%s\")".formatted(exclusion.groupId(), exclusion.artifactId()));
+      }
+      dependencyDeclaration.append(LINE_BREAK);
+      dependencyDeclaration.append(indentation.times(1)).append("}");
+    }
+
+    return dependencyDeclaration.toString();
   }
 
   private static String versionCatalogReference(JavaDependency dependency) {

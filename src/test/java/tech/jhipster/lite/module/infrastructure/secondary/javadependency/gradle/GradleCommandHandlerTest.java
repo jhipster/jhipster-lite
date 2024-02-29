@@ -3,8 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
 import static tech.jhipster.lite.TestFileUtils.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCommunityPlugin;
-import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.nio.file.Paths;
@@ -225,6 +224,26 @@ class GradleCommandHandlerTest {
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddDirectJavaDependency(dependency));
 
       assertThat(buildGradleContent(projectFolder)).contains("testImplementation(libs.junit.jupiter.engine)");
+    }
+
+    @Test
+    void shouldAddDependencyExclusionsInBuildGradleFile() {
+      JavaDependency dependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-starter-web")
+        .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
+        .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-json"))
+        .build();
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddDirectJavaDependency(dependency));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+          implementation(libs.spring.boot.starter.web) {
+            exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+            exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
+          }
+        """
+      );
     }
 
     @Test

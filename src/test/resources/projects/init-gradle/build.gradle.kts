@@ -1,6 +1,5 @@
 plugins {
   java
-  jacoco
   // jhipster-needle-gradle-plugins
 }
 
@@ -8,10 +7,6 @@ java {
   toolchain {
     languageVersion = JavaLanguageVersion.of(21)
   }
-}
-
-jacoco {
-  toolVersion = libs.versions.jacoco.get()
 }
 
 // jhipster-needle-gradle-plugins-configurations
@@ -37,8 +32,9 @@ dependencies {
 
 tasks.test {
   filter {
-    includeTestsMatching("*Test.*")
-    excludeTestsMatching("*IT.*")
+    includeTestsMatching("**Test*")
+    excludeTestsMatching("**IT*")
+    excludeTestsMatching("**CucumberTest*")
   }
   useJUnitPlatform()
 }
@@ -48,8 +44,9 @@ val integrationTest = task<Test>("integrationTest") {
   group = "verification"
   shouldRunAfter("test")
   filter {
-    includeTestsMatching("*IT.*")
-    excludeTestsMatching("*Test.*")
+    includeTestsMatching("**IT*")
+    includeTestsMatching("**CucumberTest*")
+    excludeTestsMatching("**Test*")
   }
   useJUnitPlatform()
 }

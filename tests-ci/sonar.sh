@@ -6,7 +6,32 @@ if [[ $application == '' ]]; then
   application='jhlite'
 fi
 
-sonar=$(curl -s 'http://localhost:9001/api/measures/component?component='"$application"'&metricKeys=bugs%2Ccoverage%2Cvulnerabilities%2Cduplicated_lines_density%2Ccode_smells%2Csecurity_hotspots');
+retry_count=0
+max_retries=30
+success=false
+
+while [[ $retry_count -lt $max_retries ]]; do
+    sonar=$(curl -s 'http://localhost:9001/api/measures/component?component='"$application"'&metricKeys=bugs%2Ccoverage%2Cvulnerabilities%2Cduplicated_lines_density%2Ccode_smells%2Csecurity_hotspots')
+
+    echo "sonar analysis response: $sonar"
+
+    error=$(echo $sonar | jq -r .errors)
+    measures_length=$(echo "$sonar" | jq '.component.measures | length')
+
+    if [[ $error == null && $measures_length -gt 0 ]]; then
+        success=true
+        break
+    else
+        echo "Attempt $((retry_count + 1))/$max_retries failed: $error"
+        ((retry_count++))
+        sleep 1
+    fi
+done
+
+if [[ $success == false ]]; then
+    echo "Failed to get Sonar analysis after $max_retries attempts."
+    exit 1
+fi
 
 measure ()
 {

@@ -24,6 +24,7 @@ public enum JHLiteFeatureSlug implements JHipsterFeatureSlugFactory {
   OAUTH_PROVIDER("oauth-provider"),
   OAUTH_PROVIDER_SPRINGDOC("oauth-provider-springdoc"),
   SERVICE_DISCOVERY("service-discovery"),
+  SONAR_QUBE_JAVA("sonar-qube-java"),
   SPRING_BOOT_CUCUMBER("spring-boot-cucumber"),
   SPRING_SERVER("spring-server"),
   SPRING_MVC_SERVER("spring-mvc-server"),

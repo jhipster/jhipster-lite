@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.TestFileUtils;
+import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
@@ -133,6 +134,7 @@ public final class JHipsterModulesFixture {
       .plugin(asciidoctorPlugin())
       .and()
     .gradlePlugins()
+      .plugin(jacocoGradlePlugin())
       .plugin(checkstyleGradlePlugin())
       .and()
     .packageJson()
@@ -380,6 +382,29 @@ public final class JHipsterModulesFixture {
               <version>[21,22)</version>
           </requireJavaVersion>
         </rules>
+        """
+      )
+      .build();
+  }
+
+  public static GradlePlugin jacocoGradlePlugin() {
+    return gradleCorePlugin()
+      .id("jacoco")
+      .toolVersionSlug("jacoco")
+      .configuration(
+        """
+        jacoco {
+          toolVersion = libs.versions.jacoco.get()
+        }
+
+        tasks.jacocoTestReport {
+          dependsOn("test", "integrationTest")
+          reports {
+            xml.required.set(true)
+            html.required.set(false)
+          }
+          executionData.setFrom(fileTree(buildDir).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
+        }
         """
       )
       .build();

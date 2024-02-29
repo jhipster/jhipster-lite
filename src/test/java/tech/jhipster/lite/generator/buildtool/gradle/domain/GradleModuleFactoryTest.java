@@ -37,6 +37,28 @@ class GradleModuleFactoryTest {
         jacoco {
           toolVersion = libs.versions.jacoco.get()
         }
+
+        tasks.jacocoTestReport {
+          dependsOn("test", "integrationTest")
+          reports {
+            xml.required.set(true)
+            html.required.set(true)
+          }
+          executionData.setFrom(fileTree(buildDir).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
+        }
+        """
+      )
+      .containing(
+        """
+        tasks.test {
+          filter {
+            includeTestsMatching("**Test*")
+            excludeTestsMatching("**IT*")
+            excludeTestsMatching("**CucumberTest*")
+          }
+          useJUnitPlatform()
+          finalizedBy("jacocoTestReport")
+        }
         """
       )
       .containing("group = \"com.jhipster.test\"")

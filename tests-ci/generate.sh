@@ -60,7 +60,7 @@ spring_boot() {
   "checkstyle" \
   "protobuf" \
   "protobuf-backwards-compatibility-check" \
-  "jacoco-check-min-coverage" \
+  "jacoco-with-min-coverage-check" \
   "spring-boot" \
   "logs-spy"
 }
@@ -131,22 +131,14 @@ elif [[ $application == 'fullstack' ]]; then
 elif [[ $application == 'gradleapp' ]]; then
   init_server
   sonar_back
-  # TODO: use "spring_boot", "spring_boot_mvc" instead of the following individual modules
-  #  when jacoco-check-min-coverage supports gradle
+  spring_boot_mvc
+
   applyModules \
-    "github-actions-${java_build_tool}" \
-    "java-base" \
-    "checkstyle" \
     "java-memoizers" \
     "java-enums" \
     "jib" \
     "dockerfile-${java_build_tool}" \
-    "protobuf" \
     "pagination-domain" \
-    "spring-boot" \
-    "logs-spy" \
-    "spring-boot-tomcat" \
-    "spring-boot-actuator" \
     "git-information" \
     "postgresql" \
     "liquibase"

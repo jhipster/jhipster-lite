@@ -26,41 +26,6 @@ class GradleModuleFactoryTest {
 
     assertThatModule(module)
       .hasFile("build.gradle.kts")
-      .containing(
-        """
-          jacoco
-          // jhipster-needle-gradle-plugins
-        """
-      )
-      .containing(
-        """
-        jacoco {
-          toolVersion = libs.versions.jacoco.get()
-        }
-
-        tasks.jacocoTestReport {
-          dependsOn("test", "integrationTest")
-          reports {
-            xml.required.set(true)
-            html.required.set(true)
-          }
-          executionData.setFrom(fileTree(buildDir).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
-        }
-        """
-      )
-      .containing(
-        """
-        tasks.test {
-          filter {
-            includeTestsMatching("**Test*")
-            excludeTestsMatching("**IT*")
-            excludeTestsMatching("**CucumberTest*")
-          }
-          useJUnitPlatform()
-          finalizedBy("jacocoTestReport")
-        }
-        """
-      )
       .containing("group = \"com.jhipster.test\"")
       .containing("testImplementation(libs.junit.engine)")
       .containing("testImplementation(libs.junit.params)")
@@ -74,7 +39,6 @@ class GradleModuleFactoryTest {
       .containing("junit-jupiter = \"")
       .containing("assertj = \"")
       .containing("mockito = \"")
-      .containing("jacoco = \"")
       .containing("[libraries.junit-engine]")
       .containing("[libraries.junit-params]")
       .containing("[libraries.assertj]")

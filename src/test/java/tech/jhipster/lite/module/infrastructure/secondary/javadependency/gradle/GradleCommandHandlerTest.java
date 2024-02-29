@@ -3,8 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
 import static tech.jhipster.lite.TestFileUtils.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCommunityPlugin;
-import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.nio.file.Paths;
@@ -29,6 +28,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
@@ -228,6 +228,26 @@ class GradleCommandHandlerTest {
     }
 
     @Test
+    void shouldAddDependencyExclusionsInBuildGradleFile() {
+      JavaDependency dependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-starter-web")
+        .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
+        .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-json"))
+        .build();
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddDirectJavaDependency(dependency));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+          implementation(libs.spring.boot.starter.web) {
+            exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+            exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
+          }
+        """
+      );
+    }
+
+    @Test
     void shouldAddDependenciesInOrder() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
 
@@ -280,15 +300,15 @@ class GradleCommandHandlerTest {
     @Test
     void shouldRemoveEntryInLibrariesSection() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
-      gradleCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
+      gradleCommandHandler.handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
-      gradleCommandHandler.handle(new RemoveDirectJavaDependency(springBootStarterWebDependency().id()));
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(defaultVersionDependency().id()));
 
       assertThat(versionCatalogContent(projectFolder))
-        .doesNotContain("[libraries.spring-boot-starter-web]")
+        .doesNotContain("[libraries.spring-boot-starter]")
         .doesNotContain(
           """
-          \t\tname = "spring-boot-starter-web"
+          \t\tname = "spring-boot-starter"
           \t\tgroup = "org.springframework.boot"
           """
         );
@@ -297,11 +317,21 @@ class GradleCommandHandlerTest {
     @Test
     void shouldRemoveDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
-      gradleCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency()));
+      gradleCommandHandler.handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
-      gradleCommandHandler.handle(new RemoveDirectJavaDependency(springBootStarterWebDependency().id()));
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(defaultVersionDependency().id()));
 
-      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.spring.boot.starter.web)");
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.spring.boot.starter)");
+    }
+
+    @Test
+    void shouldRemoveDependencyWithExclusionInBuildGradleFile() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyWithVersionAndExclusion()));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependencyWithVersionAndExclusion().id()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(libs.jjwt.jackson)");
     }
 
     @Test
@@ -385,6 +415,27 @@ class GradleCommandHandlerTest {
 
       assertThat(buildGradleContent(projectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
     }
+
+    @Test
+    void shouldAddDependencyExclusionsInBuildGradleFile() {
+      JavaDependency dependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-starter-web")
+        .scope(JavaDependencyScope.IMPORT)
+        .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
+        .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-json"))
+        .build();
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddJavaDependencyManagement(dependency));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+          implementation(platform(libs.spring.boot.starter.web)) {
+            exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+            exclude(group = "org.springframework.boot", module = "spring-boot-starter-json")
+          }
+        """
+      );
+    }
   }
 
   @Nested
@@ -415,6 +466,24 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
       gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
+    }
+
+    @Test
+    void shouldRemoveDependencyWithExclusionInBuildGradleFile() {
+      var dependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-dependencies")
+        .addExclusion(jsonWebTokenDependencyId())
+        .scope(JavaDependencyScope.IMPORT)
+        .type(JavaDependencyType.POM)
+        .build();
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(dependency));
+      assertThat(buildGradleContent(projectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
 
       assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
     }

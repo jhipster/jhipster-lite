@@ -226,6 +226,50 @@ class GradleCommandHandlerTest {
 
       assertThat(buildGradleContent(projectFolder)).contains("testImplementation(libs.junit.jupiter.engine)");
     }
+
+    @Test
+    void shouldAddDependenciesInOrder() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+
+      JavaDependency dependencyCompile = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.PROVIDED)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyCompile));
+
+      JavaDependency dependencyRuntime = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-starter-web")
+        .scope(JavaDependencyScope.RUNTIME)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyRuntime));
+
+      JavaDependency dependencyTestImplementation = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.TEST)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyTestImplementation));
+
+      JavaDependency dependencyImplementetion = javaDependency().groupId("com.google.guava").artifactId("guava").build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyImplementetion));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        dependencies {
+          implementation(libs.guava)
+          // jhipster-needle-gradle-implementation-dependencies
+          compileOnly(libs.junit.jupiter.engine)
+          // jhipster-needle-gradle-compile-dependencies
+          runtimeOnly(libs.spring.boot.starter.web)
+          // jhipster-needle-gradle-runtime-dependencies
+          testImplementation(libs.junit.jupiter.engine)
+          // jhipster-needle-gradle-test-dependencies
+        }
+        """
+      );
+    }
   }
 
   @Nested

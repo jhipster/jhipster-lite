@@ -49,8 +49,16 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     "^// jhipster-needle-gradle-plugins-configurations$",
     Pattern.MULTILINE
   );
-  private static final Pattern GRADLE_DEPENDENCY_NEEDLE = Pattern.compile(
-    "^\\s+// jhipster-needle-gradle-dependencies$",
+  private static final Pattern GRADLE_IMPLEMENTATION_DEPENDENCY_NEEDLE = Pattern.compile(
+    "^\\s+// jhipster-needle-gradle-implementation-dependencies$",
+    Pattern.MULTILINE
+  );
+  private static final Pattern GRADLE_COMPILE_DEPENDENCY_NEEDLE = Pattern.compile(
+    "^\\s+// jhipster-needle-gradle-compile-dependencies$",
+    Pattern.MULTILINE
+  );
+  private static final Pattern GRADLE_RUNTIME_DEPENDENCY_NEEDLE = Pattern.compile(
+    "^\\s+// jhipster-needle-gradle-runtime-dependencies$",
     Pattern.MULTILINE
   );
   private static final Pattern GRADLE_TEST_DEPENDENCY_NEEDLE = Pattern.compile(
@@ -97,7 +105,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
-        gradleScope == GradleDependencyScope.TEST_IMPLEMENTATION ? GRADLE_TEST_DEPENDENCY_NEEDLE : GRADLE_DEPENDENCY_NEEDLE
+        needleForGradleDependencyScope(gradleScope)
       ),
       dependencyDeclaration
     );
@@ -105,6 +113,15 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       projectFolder,
       ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
     );
+  }
+
+  private Pattern needleForGradleDependencyScope(GradleDependencyScope gradleScope) {
+    return switch (gradleScope) {
+      case GradleDependencyScope.IMPLEMENTATION -> GRADLE_IMPLEMENTATION_DEPENDENCY_NEEDLE;
+      case GradleDependencyScope.COMPILE_ONLY -> GRADLE_COMPILE_DEPENDENCY_NEEDLE;
+      case GradleDependencyScope.RUNTIME_ONLY -> GRADLE_RUNTIME_DEPENDENCY_NEEDLE;
+      case GradleDependencyScope.TEST_IMPLEMENTATION -> GRADLE_TEST_DEPENDENCY_NEEDLE;
+    };
   }
 
   private static String versionCatalogReference(JavaDependency dependency) {

@@ -28,9 +28,6 @@ public class SonarQubeModulesFactory {
 
   public JHipsterModule buildBackendModule(JHipsterModuleProperties properties) {
     return commonModuleFiles(properties)
-      .gradlePlugins()
-      .plugin(gradleSonarPluginBackendModule())
-      .and()
       .files()
       .add(SOURCE.template("sonar-project.properties"), SONAR_PROPERTIES_DESTINATION)
       .and()
@@ -39,9 +36,6 @@ public class SonarQubeModulesFactory {
 
   public JHipsterModule buildBackendFrontendModule(JHipsterModuleProperties properties) {
     return commonModuleFiles(properties)
-      .gradlePlugins()
-      .plugin(gradleSonarPluginBackendFrontendModule())
-      .and()
       .files()
       .add(SOURCE.template("sonar-fullstack-project.properties"), SONAR_PROPERTIES_DESTINATION)
       .and()
@@ -64,6 +58,9 @@ public class SonarQubeModulesFactory {
       .mavenPlugins()
       .plugin(propertiesPlugin())
       .pluginManagement(sonarPlugin())
+      .and()
+      .gradlePlugins()
+      .plugin(gradleSonarPlugin())
       .and()
       .files()
       .add(SOURCE.template("sonar.yml"), toSrcMainDocker().append("sonar.yml"))
@@ -96,14 +93,6 @@ public class SonarQubeModulesFactory {
       .artifactId("sonar-maven-plugin")
       .versionSlug("sonar-maven-plugin")
       .build();
-  }
-
-  private GradlePlugin gradleSonarPluginBackendModule() {
-    return gradleSonarPlugin();
-  }
-
-  private GradlePlugin gradleSonarPluginBackendFrontendModule() {
-    return gradleSonarPlugin();
   }
 
   private GradlePlugin gradleSonarPlugin() {

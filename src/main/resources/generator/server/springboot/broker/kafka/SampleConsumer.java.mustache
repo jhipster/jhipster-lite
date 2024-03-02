@@ -1,4 +1,4 @@
-package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
+package {{packageName}}.sample.infrastructure.primary.kafka.consumer;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -12,12 +12,12 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DummyConsumer extends AbstractConsumer<String> {
+public class SampleConsumer extends AbstractConsumer<String> {
 
-  private final Logger log = LoggerFactory.getLogger(DummyConsumer.class);
+  private final Logger log = LoggerFactory.getLogger(SampleConsumer.class);
 
-  public DummyConsumer(
-    @Value("${kafka.topic.dummy}") final String topicName,
+  public SampleConsumer(
+    @Value("${kafka.topic.sample}") final String topicName,
     @Value("${kafka.polling.timeout}") final int pollingTimeout,
     final KafkaConsumer<String, String> kafkaConsumer
   ) {

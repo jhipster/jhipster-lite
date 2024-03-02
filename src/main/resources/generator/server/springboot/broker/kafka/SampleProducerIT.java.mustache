@@ -1,4 +1,4 @@
-package {{packageName}}.dummy.infrastructure.secondary.kafka.producer;
+package {{packageName}}.sample.infrastructure.secondary.kafka.producer;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -9,15 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import {{packageName}}.IntegrationTest;
 
 @IntegrationTest
-class DummyProducerIT {
+class SampleProducerIT {
 
   @Autowired
-  private DummyProducer dummyProducer;
+  private SampleProducer sampleProducer;
 
   @Test
   void shouldSend() {
-    final Future<RecordMetadata> dummy = dummyProducer.send("dummy");
+    final Future<RecordMetadata> sample = sampleProducer.send("sample");
 
-    assertNotNull(dummy);
+    assertNotNull(sample);
   }
 }

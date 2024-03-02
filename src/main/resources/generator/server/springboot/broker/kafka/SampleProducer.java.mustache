@@ -1,4 +1,4 @@
-package {{packageName}}.dummy.infrastructure.secondary.kafka.producer;
+package {{packageName}}.sample.infrastructure.secondary.kafka.producer;
 
 import java.util.concurrent.Future;
 import jakarta.annotation.PostConstruct;
@@ -11,14 +11,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DummyProducer {
-  private final Logger log = LoggerFactory.getLogger(DummyProducer.class);
+public class SampleProducer {
+  private final Logger log = LoggerFactory.getLogger(SampleProducer.class);
 
   private final Producer<String, String> kafkaProducer;
 
   private final String topicName;
 
-  public DummyProducer(@Value("${kafka.topic.dummy}") String topicName, Producer<String, String> kafkaProducer) {
+  public SampleProducer(@Value("${kafka.topic.sample}") String topicName, Producer<String, String> kafkaProducer) {
     this.kafkaProducer = kafkaProducer;
     this.topicName = topicName;
   }

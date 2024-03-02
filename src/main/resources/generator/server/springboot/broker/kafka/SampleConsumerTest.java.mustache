@@ -1,4 +1,4 @@
-package {{packageName}}.dummy.infrastructure.primary.kafka.consumer;
+package {{packageName}}.sample.infrastructure.primary.kafka.consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -21,39 +21,39 @@ import {{packageName}}.UnitTest;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class DummyConsumerTest {
+class SampleConsumerTest {
 
   public static final int TIMEOUT_FOR_EXECUTOR = 3000;
 
   @Mock
   private KafkaConsumer<String, String> consumer;
 
-  private DummyConsumer dummyConsumer;
+  private SampleConsumer sampleConsumer;
 
   @BeforeEach
   public void setUp() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-    dummyConsumer = new DummyConsumer("queue.jhipster.dummy", 10_000, consumer);
+    sampleConsumer = new SampleConsumer("queue.jhipster.sample", 10_000, consumer);
 
-    Method postConstructInit = DummyConsumer.class.getDeclaredMethod("init");
+    Method postConstructInit = SampleConsumer.class.getDeclaredMethod("init");
     postConstructInit.setAccessible(true);
-    postConstructInit.invoke(dummyConsumer);
+    postConstructInit.invoke(sampleConsumer);
 
-    Method postConstructDestroy = DummyConsumer.class.getDeclaredMethod("destroy");
+    Method postConstructDestroy = SampleConsumer.class.getDeclaredMethod("destroy");
     postConstructDestroy.setAccessible(true);
-    postConstructDestroy.invoke(dummyConsumer);
+    postConstructDestroy.invoke(sampleConsumer);
   }
 
   @Test
   void shouldHandleMessage() {
-    ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, "dummy message");
-    boolean actualResult = dummyConsumer.handleMessage(record);
+    ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.sample", 0, 0, null, "sample message");
+    boolean actualResult = sampleConsumer.handleMessage(record);
     assertThat(actualResult).isTrue();
   }
 
   @Test
   void shouldNotHandleMessage() {
-    ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, null);
-    boolean actualResult = dummyConsumer.handleMessage(record);
+    ConsumerRecord<String, String> record = new ConsumerRecord<>("queue.jhipster.sample", 0, 0, null, null);
+    boolean actualResult = sampleConsumer.handleMessage(record);
     assertThat(actualResult).isFalse();
   }
 
@@ -61,59 +61,59 @@ class DummyConsumerTest {
   void shouldExecuteKafkaRunner() {
     Map<TopicPartition, List<ConsumerRecord<String, String>>> recordsMap = new HashMap<>();
     List<ConsumerRecord<String, String>> recordsList = new ArrayList<>();
-    recordsList.add(new ConsumerRecord<>("queue.jhipster.dummy", 0, 0, null, "dummy message"));
+    recordsList.add(new ConsumerRecord<>("queue.jhipster.sample", 0, 0, null, "sample message"));
     recordsMap.put(new TopicPartition("queue.jhipster", 0), recordsList);
     ConsumerRecords<String, String> records = new ConsumerRecords(recordsMap);
     when(consumer.poll(Duration.ofMillis(10000))).thenReturn(records);
-    dummyConsumer.setClosed(false);
+    sampleConsumer.setClosed(false);
 
-    dummyConsumer.executeKafkaRunner();
+    sampleConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.sample"));
   }
 
   @Test
   void shouldExecuteKafkaRunnerNotPolling() {
-    dummyConsumer.setClosed(true);
+    sampleConsumer.setClosed(true);
 
-    dummyConsumer.executeKafkaRunner();
+    sampleConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.sample"));
   }
 
   @Test
   void shouldThrowsException() {
-    dummyConsumer.setClosed(false);
+    sampleConsumer.setClosed(false);
     when(consumer.poll(Duration.ofMillis(10000))).thenThrow(NullPointerException.class);
 
-    dummyConsumer.executeKafkaRunner();
+    sampleConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.sample"));
   }
 
   @Test
   void shouldThrowsWakeupException() {
-    dummyConsumer.setClosed(false);
+    sampleConsumer.setClosed(false);
     when(consumer.poll(Duration.ofMillis(10000))).thenThrow(WakeupException.class);
 
-    dummyConsumer.executeKafkaRunner();
+    sampleConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.sample"));
   }
 
   @Test
   void shouldThrowsWakeupExceptionWithClosing() {
-    dummyConsumer.setClosed(true);
-    doThrow(WakeupException.class).when(consumer).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    sampleConsumer.setClosed(true);
+    doThrow(WakeupException.class).when(consumer).subscribe(Collections.singleton("queue.jhipster.sample"));
 
-    dummyConsumer.executeKafkaRunner();
+    sampleConsumer.executeKafkaRunner();
 
-    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.dummy"));
+    verify(consumer, timeout(TIMEOUT_FOR_EXECUTOR)).subscribe(Collections.singleton("queue.jhipster.sample"));
   }
 
   @Test
   void shouldSetClosed() {
-    dummyConsumer.setClosed(true);
-    assertThat(dummyConsumer.isClosed()).isTrue();
+    sampleConsumer.setClosed(true);
+    assertThat(sampleConsumer.isClosed()).isTrue();
   }
 }

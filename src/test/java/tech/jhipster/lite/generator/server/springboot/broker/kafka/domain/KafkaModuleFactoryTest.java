@@ -103,16 +103,16 @@ class KafkaModuleFactoryTest {
   }
 
   @Test
-  void shouldBuildKafkaModuleDummyProducerConsumer() {
+  void shouldBuildKafkaModuleSampleProducerConsumer() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
       .build();
 
-    JHipsterModule module = factory.buildModuleDummyProducerConsumer(properties);
+    JHipsterModule module = factory.buildModuleSampleProducerConsumer(properties);
 
-    var dummyProducerPath = "dummy/infrastructure/secondary/kafka/producer";
-    var dummyConsumerPath = "dummy/infrastructure/primary/kafka/consumer";
+    var sampleProducerPath = "sample/infrastructure/secondary/kafka/producer";
+    var sampleConsumerPath = "sample/infrastructure/primary/kafka/consumer";
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("src/main/resources/config/application.yml")
@@ -120,22 +120,22 @@ class KafkaModuleFactoryTest {
         """
         kafka:
           topic:
-            dummy: queue.myapp.dummy
+            sample: queue.myapp.sample
         """
       )
       .and()
       .hasPrefixedFiles(
         "src/main/java/com/jhipster/test",
-        dummyProducerPath + "/DummyProducer.java",
-        dummyConsumerPath + "/AbstractConsumer.java",
-        dummyConsumerPath + "/DummyConsumer.java"
+        sampleProducerPath + "/SampleProducer.java",
+        sampleConsumerPath + "/AbstractConsumer.java",
+        sampleConsumerPath + "/SampleConsumer.java"
       )
       .hasPrefixedFiles(
         "src/test/java/com/jhipster/test",
-        dummyProducerPath + "/DummyProducerTest.java",
-        dummyProducerPath + "/DummyProducerIT.java",
-        dummyConsumerPath + "/DummyConsumerTest.java",
-        dummyConsumerPath + "/DummyConsumerIT.java"
+        sampleProducerPath + "/SampleProducerTest.java",
+        sampleProducerPath + "/SampleProducerIT.java",
+        sampleConsumerPath + "/SampleConsumerTest.java",
+        sampleConsumerPath + "/SampleConsumerIT.java"
       );
   }
 

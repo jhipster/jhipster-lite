@@ -1,17 +1,17 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.jpapersistence.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.mvc.sample.jpapersistence.domain.DummyJpaPersistenceModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.mvc.sample.jpapersistence.domain.SampleJpaPersistenceModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class DummyJpaPersistenceApplicationService {
+public class SampleJpaPersistenceApplicationService {
 
-  private final DummyJpaPersistenceModuleFactory factory;
+  private final SampleJpaPersistenceModuleFactory factory;
 
-  public DummyJpaPersistenceApplicationService() {
-    factory = new DummyJpaPersistenceModuleFactory();
+  public SampleJpaPersistenceApplicationService() {
+    factory = new SampleJpaPersistenceModuleFactory();
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {

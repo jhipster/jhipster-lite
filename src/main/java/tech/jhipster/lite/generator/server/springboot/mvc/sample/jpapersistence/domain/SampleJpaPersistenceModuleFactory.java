@@ -11,7 +11,7 @@ import tech.jhipster.lite.module.domain.replacement.ReplacementCondition;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class DummyJpaPersistenceModuleFactory {
+public class SampleJpaPersistenceModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/jpapersistence");
 

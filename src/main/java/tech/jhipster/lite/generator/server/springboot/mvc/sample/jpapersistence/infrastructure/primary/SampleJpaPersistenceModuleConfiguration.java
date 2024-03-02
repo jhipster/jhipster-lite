@@ -7,20 +7,20 @@ import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_B
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.springboot.mvc.sample.jpapersistence.application.DummyJpaPersistenceApplicationService;
+import tech.jhipster.lite.generator.server.springboot.mvc.sample.jpapersistence.application.SampleJpaPersistenceApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class DummyJpaPersistenceModuleConfiguration {
+class SampleJpaPersistenceModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource dummyJpaPersistenceModule(DummyJpaPersistenceApplicationService dummyJpaPersistence) {
+  JHipsterModuleResource sampleJpaPersistenceModule(SampleJpaPersistenceApplicationService sampleJpaPersistence) {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_JPA_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
-      .apiDoc("Spring Boot - MVC", "Add JPA persistence for dummy feature")
+      .apiDoc("Spring Boot - MVC", "Add JPA persistence for sample feature")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(SAMPLE_PERSISTENCE)
@@ -29,6 +29,6 @@ class DummyJpaPersistenceModuleConfiguration {
           .build()
       )
       .tags("server")
-      .factory(dummyJpaPersistence::buildModule);
+      .factory(sampleJpaPersistence::buildModule);
   }
 }

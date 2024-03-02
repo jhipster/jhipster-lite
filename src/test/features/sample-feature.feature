@@ -1,4 +1,4 @@
-Feature: Dummy feature module
+Feature: Sample feature module
 
   Scenario: Should apply sample feature module
     When I apply "sample-feature" module to default project with maven file

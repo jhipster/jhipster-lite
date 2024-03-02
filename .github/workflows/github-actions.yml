@@ -38,14 +38,6 @@ jobs:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
         run: |
           ./mvnw clean verify
-
-      - name: Archive results
-        uses: actions/upload-artifact@v4
-        with:
-          name: target
-          path: |
-            target/**/*.*
-
   #--------------------------------------------------
   # Build and Tests the project on Linux
   #--------------------------------------------------

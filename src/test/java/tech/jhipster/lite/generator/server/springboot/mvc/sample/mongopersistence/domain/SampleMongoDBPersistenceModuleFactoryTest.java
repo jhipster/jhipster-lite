@@ -44,14 +44,14 @@ class SampleMongoDBPersistenceModuleFactoryTest {
 
   private ModuleFile sampleInMemoryRepository() {
     return file(
-      "src/test/resources/projects/dummy-feature/InMemoryBeersRepository.java",
+      "src/test/resources/projects/sample-feature/InMemoryBeersRepository.java",
       "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java"
     );
   }
 
   private ModuleFile inMemoryBeersResetter() {
     return file(
-      "src/test/resources/projects/dummy-feature/InMemoryBeersResetter.java",
+      "src/test/resources/projects/sample-feature/InMemoryBeersResetter.java",
       "src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java"
     );
   }

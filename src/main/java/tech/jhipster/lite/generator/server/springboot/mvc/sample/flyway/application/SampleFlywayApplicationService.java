@@ -1,17 +1,17 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.flyway.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.mvc.sample.flyway.domain.DummyFlywayModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.mvc.sample.flyway.domain.SampleFlywayModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class DummyFlywayApplicationService {
+public class SampleFlywayApplicationService {
 
-  private final DummyFlywayModuleFactory factory;
+  private final SampleFlywayModuleFactory factory;
 
-  public DummyFlywayApplicationService() {
-    factory = new DummyFlywayModuleFactory();
+  public SampleFlywayApplicationService() {
+    factory = new SampleFlywayModuleFactory();
   }
 
   public JHipsterModule buildPostgresqlModule(JHipsterModuleProperties properties) {

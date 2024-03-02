@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.flyway.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class DummyFlywayModuleFactoryTest {
+class SampleFlywayModuleFactoryTest {
 
-  private static final DummyFlywayModuleFactory factory = new DummyFlywayModuleFactory();
+  private static final SampleFlywayModuleFactory factory = new SampleFlywayModuleFactory();
 
   @Test
   void shouldBuildModuleForPostGreSQL() {
@@ -23,7 +23,7 @@ class DummyFlywayModuleFactoryTest {
     JHipsterModule module = factory.buildPostgresqlModule(properties);
 
     assertThatModule(module)
-      .hasFile("src/main/resources/db/migration/V20211203101531__dummy_feature_schema.sql")
+      .hasFile("src/main/resources/db/migration/V20211203101531__sample_feature_schema.sql")
       .containing("  id            UUID NOT NULL PRIMARY KEY,");
   }
 
@@ -36,7 +36,7 @@ class DummyFlywayModuleFactoryTest {
     JHipsterModule module = factory.buildNotPostgresqlModule(properties);
 
     assertThatModule(module)
-      .hasFile("src/main/resources/db/migration/V20211203101531__dummy_feature_schema.sql")
+      .hasFile("src/main/resources/db/migration/V20211203101531__sample_feature_schema.sql")
       .containing("  id            BINARY(16) NOT NULL PRIMARY KEY,");
   }
 }

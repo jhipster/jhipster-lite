@@ -5,19 +5,19 @@ import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.springboot.mvc.sample.flyway.application.DummyFlywayApplicationService;
+import tech.jhipster.lite.generator.server.springboot.mvc.sample.flyway.application.SampleFlywayApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class DummyFlywayModuleConfiguration {
+class SampleFlywayModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource dummyFlywayPostgresqlModule(DummyFlywayApplicationService dummyFlyway) {
+  JHipsterModuleResource sampleFlywayPostgresqlModule(SampleFlywayApplicationService sampleFlyway) {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_POSTGRESQL_FLYWAY_CHANGELOG)
       .withoutProperties()
-      .apiDoc("Spring Boot - MVC", "Add postgresql flyway changelog for dummy feature")
+      .apiDoc("Spring Boot - MVC", "Add postgresql flyway changelog for sample feature")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(SAMPLE_SCHEMA)
@@ -27,17 +27,17 @@ class DummyFlywayModuleConfiguration {
           .build()
       )
       .tags("server")
-      .factory(dummyFlyway::buildPostgresqlModule);
+      .factory(sampleFlyway::buildPostgresqlModule);
   }
 
   @Bean
-  JHipsterModuleResource dummyFlywayNotPostgresqlModule(DummyFlywayApplicationService dummyFlyway) {
+  JHipsterModuleResource sampleFlywayNotPostgresqlModule(SampleFlywayApplicationService sampleFlyway) {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_NOT_POSTGRESQL_FLYWAY_CHANGELOG)
       .withoutProperties()
-      .apiDoc("Spring Boot - MVC", "Add not postgresql flyway changelog for dummy feature")
+      .apiDoc("Spring Boot - MVC", "Add not postgresql flyway changelog for sample feature")
       .organization(JHipsterModuleOrganization.builder().feature(SAMPLE_SCHEMA).addDependency(FLYWAY).addDependency(SAMPLE_FEATURE).build())
       .tags("server")
-      .factory(dummyFlyway::buildNotPostgresqlModule);
+      .factory(sampleFlyway::buildNotPostgresqlModule);
   }
 }

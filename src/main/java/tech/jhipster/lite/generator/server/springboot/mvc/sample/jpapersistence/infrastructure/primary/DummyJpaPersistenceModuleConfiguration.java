@@ -1,7 +1,9 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.jpapersistence.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SAMPLE_PERSISTENCE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SAMPLE_SCHEMA;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SAMPLE_JPA_PERSISTENCE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.SPRING_BOOT_CUCUMBER_JPA_RESET;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,13 +18,13 @@ class DummyJpaPersistenceModuleConfiguration {
   @Bean
   JHipsterModuleResource dummyJpaPersistenceModule(DummyJpaPersistenceApplicationService dummyJpaPersistence) {
     return JHipsterModuleResource.builder()
-      .slug(DUMMY_JPA_PERSISTENCE)
+      .slug(SAMPLE_JPA_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Spring Boot - MVC", "Add JPA persistence for dummy feature")
       .organization(
         JHipsterModuleOrganization.builder()
-          .feature(DUMMY_PERSISTENCE)
-          .addDependency(DUMMY_SCHEMA)
+          .feature(SAMPLE_PERSISTENCE)
+          .addDependency(SAMPLE_SCHEMA)
           .addDependency(SPRING_BOOT_CUCUMBER_JPA_RESET)
           .build()
       )

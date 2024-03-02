@@ -16,7 +16,7 @@ Feature: Apache Kafka
       | KafkaConfiguration.java |
 
   Scenario: Should apply Apache Kafka dummy producer consumer module
-    When I apply "spring-boot-kafka-dummy-producer-consumer" module to default project with maven file
+    When I apply "spring-boot-kafka-sample-producer-consumer" module to default project with maven file
       | packageName | tech.jhipster.chips |
       | baseName    | jhipster            |
     Then I should have files in "src/main/java/tech/jhipster/chips/dummy/infrastructure/secondary/kafka/producer"

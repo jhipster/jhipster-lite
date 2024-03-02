@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.cassandrapersistence.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.DUMMY_PERSISTENCE;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SAMPLE_PERSISTENCE;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
@@ -18,13 +18,13 @@ class DummyCassandraPersistenceModuleConfiguration {
     DummyCassandraPersistenceApplicationService dummyCassandraPersistenceApplicationService
   ) {
     return JHipsterModuleResource.builder()
-      .slug(DUMMY_CASSANDRA_PERSISTENCE)
+      .slug(SAMPLE_CASSANDRA_PERSISTENCE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().build())
       .apiDoc("Spring Boot - MVC", "Add Cassandra persistence for dummy feature")
       .organization(
         JHipsterModuleOrganization.builder()
-          .feature(DUMMY_PERSISTENCE)
-          .addDependency(DUMMY_FEATURE)
+          .feature(SAMPLE_PERSISTENCE)
+          .addDependency(SAMPLE_FEATURE)
           .addDependency(CASSANDRA_MIGRATION)
           .build()
       )

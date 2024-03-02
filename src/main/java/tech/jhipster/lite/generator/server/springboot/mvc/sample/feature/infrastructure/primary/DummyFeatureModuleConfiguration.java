@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.feature.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.*;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.CUCUMBER_AUTHENTICATION;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteFeatureSlug.SPRINGDOC;
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ class DummyFeatureModuleConfiguration {
   @Bean
   JHipsterModuleResource dummyFeatureModule(DummyApplicationService dummy) {
     return JHipsterModuleResource.builder()
-      .slug(DUMMY_FEATURE)
+      .slug(SAMPLE_FEATURE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
       .apiDoc("Spring Boot - MVC", "Add Dummy context with some APIs")
       .organization(

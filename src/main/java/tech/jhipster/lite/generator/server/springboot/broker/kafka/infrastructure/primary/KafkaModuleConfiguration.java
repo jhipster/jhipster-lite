@@ -32,7 +32,7 @@ class KafkaModuleConfiguration {
   @Bean
   JHipsterModuleResource kafkaResourceDummyProducerConsumer(KafkaApplicationService kafkaApplicationService) {
     return JHipsterModuleResource.builder()
-      .slug(SPRING_BOOT_KAFKA_DUMMY_PRODUCER_CONSUMER)
+      .slug(SPRING_BOOT_KAFKA_SAMPLE_PRODUCER_CONSUMER)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addConfigurationFormat().build())
       .apiDoc(TAG, "Add dummy Kafka producer and consumer")
       .organization(kafkaDependency())

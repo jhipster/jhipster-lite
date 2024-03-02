@@ -37,7 +37,7 @@ The hexagonal architecture allows us to reduce all those complexities to their b
 
 The very clear Separation Of Concern enforced by the architecture eases automatic testing of each part since it's only doing one thing. Being able to build solid tests is also a great way to build a changes welcoming Software!
 
-> Even if the architecture eases tests writing, being able to write good tests takes times and practice!
+> Even if the architecture eases tests writing, being able to write good tests takes time and practice!
 
 ### Shorten feedback loops
 

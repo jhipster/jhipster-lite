@@ -10,10 +10,10 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class DummyCassandraPersistenceModuleFactoryTest {
+class SampleCassandraPersistenceModuleFactoryTest {
 
   private static final String BASE_NAME = "jhipster";
-  private static final DummyCassandraPersistenceModuleFactory factory = new DummyCassandraPersistenceModuleFactory();
+  private static final SampleCassandraPersistenceModuleFactory factory = new SampleCassandraPersistenceModuleFactory();
 
   @Test
   void shouldBuildModule() {
@@ -24,9 +24,9 @@ class DummyCassandraPersistenceModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, dummyInMemoryRepository(), inMemoryBeersResetter(), customPropertiesFile())
+    assertThatModuleWithFiles(module, sampleInMemoryRepository(), inMemoryBeersResetter(), customPropertiesFile())
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/dummy/infrastructure/secondary",
+        "src/main/java/com/jhipster/test/sample/infrastructure/secondary",
         "BeerCatalogTable.java",
         "BeerTable.java",
         "CassandraBeerCatalogRepository.java",
@@ -34,7 +34,7 @@ class DummyCassandraPersistenceModuleFactoryTest {
         "SpringDataBeersRepository.java"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/dummy/infrastructure/secondary",
+        "src/test/java/com/jhipster/test/sample/infrastructure/secondary",
         "BeerCatalogTableTest.java",
         "BeerTableTest.java",
         "CassandraBeerCatalogRepositoryIT.java",
@@ -53,8 +53,8 @@ class DummyCassandraPersistenceModuleFactoryTest {
       )
       .and()
       .doNotHaveFiles(
-        "src/main/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersRepository.java",
-        "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersResetter.java"
+        "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java",
+        "src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java"
       );
   }
 
@@ -62,17 +62,17 @@ class DummyCassandraPersistenceModuleFactoryTest {
     return file("src/test/resources/projects/cassandra/application.properties", "src/main/resources/config/application.properties");
   }
 
-  private ModuleFile dummyInMemoryRepository() {
+  private ModuleFile sampleInMemoryRepository() {
     return file(
       "src/test/resources/projects/dummy-feature/InMemoryBeersRepository.java",
-      "src/main/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersRepository.java"
+      "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java"
     );
   }
 
   private ModuleFile inMemoryBeersResetter() {
     return file(
       "src/test/resources/projects/dummy-feature/InMemoryBeersResetter.java",
-      "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersResetter.java"
+      "src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java"
     );
   }
 }

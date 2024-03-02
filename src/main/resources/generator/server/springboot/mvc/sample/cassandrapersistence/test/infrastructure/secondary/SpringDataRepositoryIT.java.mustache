@@ -1,4 +1,4 @@
-package {{ packageName }}.dummy.infrastructure.secondary;
+package {{ packageName }}.sample.infrastructure.secondary;
 
 import {{ packageName }}.IntegrationTest;
 import com.datastax.oss.driver.api.core.CqlSession;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.cql.CqlTemplate;
 import org.springframework.data.cassandra.core.cql.session.DefaultSessionFactory;
 
-import static {{ packageName }}.dummy.domain.BeersIdentityFixture.cloackOfFeathersId;
-import static {{ packageName }}.dummy.domain.beer.BeersFixture.beer;
+import static {{ packageName }}.sample.domain.BeersIdentityFixture.cloackOfFeathersId;
+import static {{ packageName }}.sample.domain.beer.BeersFixture.beer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @IntegrationTest

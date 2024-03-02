@@ -1,9 +1,9 @@
-package {{ packageName }}.dummy.infrastructure.secondary;
+package {{ packageName }}.sample.infrastructure.secondary;
 
-import {{ packageName }}.dummy.domain.BeerId;
-import {{ packageName }}.dummy.domain.beer.Beer;
-import {{ packageName }}.dummy.domain.beer.Beers;
-import {{ packageName }}.dummy.domain.beer.BeersRepository;
+import {{ packageName }}.sample.domain.BeerId;
+import {{ packageName }}.sample.domain.beer.Beer;
+import {{ packageName }}.sample.domain.beer.Beers;
+import {{ packageName }}.sample.domain.beer.BeersRepository;
 import {{ packageName }}.shared.error.domain.Assert;
 import org.springframework.data.cassandra.core.CassandraBatchOperations;
 import org.springframework.data.cassandra.core.CassandraOperations;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-import static {{ packageName }}.dummy.domain.beer.BeerSellingState.NOT_SOLD;
+import static {{ packageName }}.sample.domain.beer.BeerSellingState.NOT_SOLD;
 
 @Repository
 class SpringDataBeersRepository implements BeersRepository {

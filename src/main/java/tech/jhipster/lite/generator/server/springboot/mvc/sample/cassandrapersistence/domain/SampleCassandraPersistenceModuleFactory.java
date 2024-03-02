@@ -8,11 +8,11 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class DummyCassandraPersistenceModuleFactory {
+public class SampleCassandraPersistenceModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/cassandrapersistence");
   private static final String SECONDARY = "infrastructure/secondary";
-  private static final String SECONDARY_DESTINATION = "dummy/" + SECONDARY;
+  private static final String SECONDARY_DESTINATION = "sample/" + SECONDARY;
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

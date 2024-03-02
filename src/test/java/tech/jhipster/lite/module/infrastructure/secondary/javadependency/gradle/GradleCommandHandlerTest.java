@@ -476,6 +476,7 @@ class GradleCommandHandlerTest {
         .groupId("org.springframework.boot")
         .artifactId("spring-boot-dependencies")
         .addExclusion(jsonWebTokenDependencyId())
+        .addExclusion(springBootDependencyId())
         .scope(JavaDependencyScope.IMPORT)
         .type(JavaDependencyType.POM)
         .build();

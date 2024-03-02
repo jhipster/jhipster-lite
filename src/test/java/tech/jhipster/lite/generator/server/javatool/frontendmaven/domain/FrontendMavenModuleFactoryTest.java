@@ -172,6 +172,9 @@ class FrontendMavenModuleFactoryTest {
                     </configuration>
                   </execution>
                 </executions>
+                <configuration>
+                  <installDirectory>${project.build.directory}</installDirectory>
+                </configuration>
               </plugin>
         """
       )

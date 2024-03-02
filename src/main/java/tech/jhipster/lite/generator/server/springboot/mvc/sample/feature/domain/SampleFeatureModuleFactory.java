@@ -8,15 +8,15 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class DummyFeatureModuleFactory {
+public class SampleFeatureModuleFactory {
 
-  private static final String DUMMY = "dummy";
+  private static final String SAMPLE = "sample";
 
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/feature");
 
   private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
-  private static final JHipsterSource DUMMY_TEST_SOURCE = TEST_SOURCE.append(DUMMY);
+  private static final JHipsterSource SAMPLE_TEST_SOURCE = TEST_SOURCE.append(SAMPLE);
 
   private static final String APPLICATION = "application";
   private static final String DOMAIN = "domain";
@@ -30,15 +30,15 @@ public class DummyFeatureModuleFactory {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.basePackage().path();
-    JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(DUMMY);
-    JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(DUMMY);
+    JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(SAMPLE);
+    JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(SAMPLE);
 
     //@formatter:off
     return moduleBuilder(properties)
       .context()
         .put("baseName", properties.projectBaseName().capitalized())
         .and()
-      .documentation(documentationTitle("Dummy"), SOURCE.file("dummy.md"))
+      .documentation(documentationTitle("Sample"), SOURCE.file("sample.md"))
       .files()
         .batch(MAIN_SOURCE, mainDestination)
           .addTemplate("package-info.java")
@@ -80,30 +80,30 @@ public class DummyFeatureModuleFactory {
              MAIN_SOURCE.append(SECONDARY).template("InMemoryBeersRepository.java"),
              mainDestination.append(SECONDARY).append("InMemoryBeersRepository.java")
            )
-        .batch(DUMMY_TEST_SOURCE.append(APPLICATION), testDestination.append(APPLICATION))
+        .batch(SAMPLE_TEST_SOURCE.append(APPLICATION), testDestination.append(APPLICATION))
           .addTemplate("BeerIdAccessCheckerTest.java")
           .addTemplate("BeerToCreateAccessCheckerTest.java")
           .and()
-        .batch(DUMMY_TEST_SOURCE.append(DOMAIN), testDestination.append(DOMAIN))
+        .batch(SAMPLE_TEST_SOURCE.append(DOMAIN), testDestination.append(DOMAIN))
           .addTemplate("AmountTest.java")
           .addTemplate("BeersIdentityFixture.java")
           .and()
-        .batch(DUMMY_TEST_SOURCE.append(DOMAIN).append(BEER), testDestination.append(DOMAIN).append(BEER))
+        .batch(SAMPLE_TEST_SOURCE.append(DOMAIN).append(BEER), testDestination.append(DOMAIN).append(BEER))
           .addTemplate("BeersFixture.java")
           .addTemplate("BeersRemoverTest.java")
           .addTemplate("BeersTest.java")
           .and()
-        .batch(DUMMY_TEST_SOURCE.append(DOMAIN).append(ORDER), testDestination.append(DOMAIN).append(ORDER))
+        .batch(SAMPLE_TEST_SOURCE.append(DOMAIN).append(ORDER), testDestination.append(DOMAIN).append(ORDER))
           .addTemplate("BeerOrderFixture.java")
           .addTemplate("BeerOrderTest.java")
           .and()
-        .batch(DUMMY_TEST_SOURCE.append(PRIMARY).append(BEER), testDestination.append(PRIMARY).append(BEER))
+        .batch(SAMPLE_TEST_SOURCE.append(PRIMARY).append(BEER), testDestination.append(PRIMARY).append(BEER))
           .addTemplate("BeersSteps.java")
           .addTemplate("RestBeersTest.java")
           .addTemplate("RestBeerTest.java")
           .addTemplate("RestBeerToCreateTest.java")
           .and()
-        .add(DUMMY_TEST_SOURCE.append(SECONDARY).template("InMemoryBeersResetter.java"), testDestination.append(SECONDARY).append("InMemoryBeersResetter.java"))
+        .add(SAMPLE_TEST_SOURCE.append(SECONDARY).template("InMemoryBeersResetter.java"), testDestination.append(SECONDARY).append("InMemoryBeersResetter.java"))
         .add(TEST_SOURCE.file("beers-catalog.feature"), to("src/test/features/beers-catalog.feature"))
         .add(TEST_SOURCE.template("HttpSteps.java"), toSrcTestJava().append(packagePath).append("HttpSteps.java"))
         .and()

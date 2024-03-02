@@ -1,12 +1,12 @@
-package {{packageName}}.dummy.application;
+package {{packageName}}.sample.application;
 
-import {{packageName}}.dummy.domain.BeerId;
-import {{packageName}}.dummy.domain.beer.Beer;
-import {{packageName}}.dummy.domain.beer.BeerToCreate;
-import {{packageName}}.dummy.domain.beer.Beers;
-import {{packageName}}.dummy.domain.beer.BeersCreator;
-import {{packageName}}.dummy.domain.beer.BeersRemover;
-import {{packageName}}.dummy.domain.beer.BeersRepository;
+import {{packageName}}.sample.domain.BeerId;
+import {{packageName}}.sample.domain.beer.Beer;
+import {{packageName}}.sample.domain.beer.BeerToCreate;
+import {{packageName}}.sample.domain.beer.Beers;
+import {{packageName}}.sample.domain.beer.BeersCreator;
+import {{packageName}}.sample.domain.beer.BeersRemover;
+import {{packageName}}.sample.domain.beer.BeersRepository;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class BeersApplicationService {
   public Beer create(BeerToCreate beerToCreate) {
     return creator.create(beerToCreate);
   }
-  
+
   @PreAuthorize("can('remove', #beer)")
   public void remove(BeerId beer) {
     remover.remove(beer);

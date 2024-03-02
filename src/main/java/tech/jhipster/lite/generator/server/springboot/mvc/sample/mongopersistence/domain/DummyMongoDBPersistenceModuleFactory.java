@@ -12,7 +12,7 @@ public class DummyMongoDBPersistenceModuleFactory {
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/mongodbpersistence");
 
   private static final String SECONDARY = "infrastructure/secondary";
-  private static final String SECONDARY_DESTINATION = "dummy/" + SECONDARY;
+  private static final String SECONDARY_DESTINATION = "sample/" + SECONDARY;
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

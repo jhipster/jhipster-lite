@@ -24,17 +24,17 @@ class DummyJpaPersistenceModuleFactoryTest {
 
     assertThatModuleWithFiles(module, beersApplicationService(), dummyInMemoryRepository(), inMemoryBeersResetter())
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/dummy/infrastructure/secondary",
+        "src/main/java/com/jhipster/test/sample/infrastructure/secondary",
         "BeerEntity.java",
         "JpaBeersRepository.java",
         "SpringDataBeersRepository.java"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/dummy/infrastructure/secondary",
+        "src/test/java/com/jhipster/test/sample/infrastructure/secondary",
         "BeerEntityTest.java",
         "JpaBeersRepositoryIT.java"
       )
-      .hasFile("src/main/java/com/jhipster/test/dummy/application/BeersApplicationService.java")
+      .hasFile("src/main/java/com/jhipster/test/sample/application/BeersApplicationService.java")
       .containing("import org.springframework.transaction.annotation.Transactional;")
       .containing(
         """
@@ -58,29 +58,29 @@ class DummyJpaPersistenceModuleFactoryTest {
       )
       .and()
       .doNotHaveFiles(
-        "src/main/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersRepository.java",
-        "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersResetter.java"
+        "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java",
+        "src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java"
       );
   }
 
   private ModuleFile beersApplicationService() {
     return file(
       "src/test/resources/projects/dummy-feature/BeersApplicationService.java",
-      "src/main/java/com/jhipster/test/dummy/application/BeersApplicationService.java"
+      "src/main/java/com/jhipster/test/sample/application/BeersApplicationService.java"
     );
   }
 
   private ModuleFile dummyInMemoryRepository() {
     return file(
       "src/test/resources/projects/dummy-feature/InMemoryBeersRepository.java",
-      "src/main/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersRepository.java"
+      "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java"
     );
   }
 
   private ModuleFile inMemoryBeersResetter() {
     return file(
       "src/test/resources/projects/dummy-feature/InMemoryBeersResetter.java",
-      "src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersResetter.java"
+      "src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java"
     );
   }
 }

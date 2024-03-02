@@ -16,7 +16,7 @@ public class DummyJpaPersistenceModuleFactory {
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/jpapersistence");
 
   private static final String SECONDARY = "infrastructure/secondary";
-  private static final String SECONDARY_DESTINATION = "dummy/" + SECONDARY;
+  private static final String SECONDARY_DESTINATION = "sample/" + SECONDARY;
 
   private static final TextNeedleBeforeReplacer IMPORT_NEEDLE = lineBeforeText("import org.springframework.stereotype.Service;");
 
@@ -60,7 +60,7 @@ public class DummyJpaPersistenceModuleFactory {
         .delete(path("src/test/java").append(packagePath).append(SECONDARY_DESTINATION).append("InMemoryBeersResetter.java"))
         .and()
         .mandatoryReplacements()
-          .in(path("src/main/java").append(packagePath).append("dummy/application/BeersApplicationService.java"))
+          .in(path("src/main/java").append(packagePath).append("sample/application/BeersApplicationService.java"))
             .add(IMPORT_NEEDLE, "import org.springframework.transaction.annotation.Transactional;")
             .add(CATALOG_METHOD_NEEDLE, spaces + "@Transactional(readOnly = true)")
             .add(REMOVE_METHOD_NEEDLE, spaces + "@Transactional")

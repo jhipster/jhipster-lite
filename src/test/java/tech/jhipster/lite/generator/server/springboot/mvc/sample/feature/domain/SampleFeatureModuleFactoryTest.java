@@ -11,9 +11,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class DummyFeatureModuleFactoryTest {
+class SampleFeatureModuleFactoryTest {
 
-  private static final DummyFeatureModuleFactory factory = new DummyFeatureModuleFactory();
+  private static final SampleFeatureModuleFactory factory = new SampleFeatureModuleFactory();
 
   @Test
   void shouldBuildModule() {
@@ -26,10 +26,10 @@ class DummyFeatureModuleFactoryTest {
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("pom.xml")
       .and()
-      .hasFiles("documentation/dummy.md")
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/dummy", "package-info.java")
+      .hasFiles("documentation/sample.md")
+      .hasPrefixedFiles("src/main/java/com/jhipster/test/sample", "package-info.java")
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/dummy/application",
+        "src/main/java/com/jhipster/test/sample/application",
         "BeersApplicationService.java",
         "BeerIdAccessChecker.java",
         "BeerResource.java",
@@ -37,7 +37,7 @@ class DummyFeatureModuleFactoryTest {
         "BeerToCreateAccessChecker.java"
       )
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/dummy/domain/beer",
+        "src/main/java/com/jhipster/test/sample/domain/beer",
         "Beer.java",
         "BeerName.java",
         "Beers.java",
@@ -48,32 +48,37 @@ class DummyFeatureModuleFactoryTest {
         "BeerToCreate.java",
         "UnknownBeerException.java"
       )
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/dummy/domain/order", "BeerOrder.java", "BeerOrderLine.java", "OrderedBeer.java")
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/dummy/domain", "Amount.java", "BeerId.java")
+      .hasPrefixedFiles("src/main/java/com/jhipster/test/sample/domain/order", "BeerOrder.java", "BeerOrderLine.java", "OrderedBeer.java")
+      .hasPrefixedFiles("src/main/java/com/jhipster/test/sample/domain", "Amount.java", "BeerId.java")
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/dummy/infrastructure/primary/beer",
+        "src/main/java/com/jhipster/test/sample/infrastructure/primary/beer",
         "BeersResource.java",
         "RestBeer.java",
         "RestBeers.java",
         "RestBeerToCreate.java"
       )
-      .hasFiles("src/main/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersRepository.java")
+      .hasFiles("src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/dummy/application",
+        "src/test/java/com/jhipster/test/sample/application",
         "BeerIdAccessCheckerTest.java",
         "BeerToCreateAccessCheckerTest.java"
       )
-      .hasPrefixedFiles("src/test/java/com/jhipster/test/dummy/domain/beer", "BeersFixture.java", "BeersRemoverTest.java", "BeersTest.java")
-      .hasPrefixedFiles("src/test/java/com/jhipster/test/dummy/domain/order", "BeerOrderFixture.java", "BeerOrderTest.java")
-      .hasPrefixedFiles("src/test/java/com/jhipster/test/dummy/domain", "AmountTest.java", "BeersIdentityFixture.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/dummy/infrastructure/primary/beer",
+        "src/test/java/com/jhipster/test/sample/domain/beer",
+        "BeersFixture.java",
+        "BeersRemoverTest.java",
+        "BeersTest.java"
+      )
+      .hasPrefixedFiles("src/test/java/com/jhipster/test/sample/domain/order", "BeerOrderFixture.java", "BeerOrderTest.java")
+      .hasPrefixedFiles("src/test/java/com/jhipster/test/sample/domain", "AmountTest.java", "BeersIdentityFixture.java")
+      .hasPrefixedFiles(
+        "src/test/java/com/jhipster/test/sample/infrastructure/primary/beer",
         "BeersSteps.java",
         "RestBeersTest.java",
         "RestBeerTest.java",
         "RestBeerToCreateTest.java"
       )
-      .hasFiles("src/test/java/com/jhipster/test/dummy/infrastructure/secondary/InMemoryBeersResetter.java")
+      .hasFiles("src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java")
       .hasFiles("src/test/java/com/jhipster/test/HttpSteps.java")
       .hasFiles("src/test/features/beers-catalog.feature");
   }

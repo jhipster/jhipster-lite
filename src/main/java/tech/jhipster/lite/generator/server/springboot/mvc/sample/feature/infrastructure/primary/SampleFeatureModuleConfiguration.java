@@ -6,20 +6,20 @@ import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.springboot.mvc.sample.feature.application.DummyApplicationService;
+import tech.jhipster.lite.generator.server.springboot.mvc.sample.feature.application.SampleFeatureApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class DummyFeatureModuleConfiguration {
+class SampleFeatureModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource dummyFeatureModule(DummyApplicationService dummy) {
+  JHipsterModuleResource sampleFeatureModule(SampleFeatureApplicationService sample) {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_FEATURE)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addIndentation().addProjectBaseName().build())
-      .apiDoc("Spring Boot - MVC", "Add Dummy context with some APIs")
+      .apiDoc("Spring Boot - MVC", "Add sample context with some APIs")
       .organization(
         JHipsterModuleOrganization.builder()
           .addDependency(CUCUMBER_AUTHENTICATION)
@@ -30,6 +30,6 @@ class DummyFeatureModuleConfiguration {
           .build()
       )
       .tags("server")
-      .factory(dummy::buildModule);
+      .factory(sample::buildModule);
   }
 }

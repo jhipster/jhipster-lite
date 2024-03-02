@@ -13,7 +13,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class DummyJpaPersistenceModuleFactory {
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/dummy/jpapersistence");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/jpapersistence");
 
   private static final String SECONDARY = "infrastructure/secondary";
   private static final String SECONDARY_DESTINATION = "dummy/" + SECONDARY;

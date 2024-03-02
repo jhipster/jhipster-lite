@@ -12,7 +12,7 @@ public class DummyFeatureModuleFactory {
 
   private static final String DUMMY = "dummy";
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/dummy/feature");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/feature");
 
   private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
   private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");

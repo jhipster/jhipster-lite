@@ -10,7 +10,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class DummyCassandraPersistenceModuleFactory {
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/dummy/cassandrapersistence");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/cassandrapersistence");
   private static final String SECONDARY = "infrastructure/secondary";
   private static final String SECONDARY_DESTINATION = "dummy/" + SECONDARY;
 

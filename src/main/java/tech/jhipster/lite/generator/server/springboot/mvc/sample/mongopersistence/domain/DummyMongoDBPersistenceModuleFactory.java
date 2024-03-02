@@ -9,7 +9,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class DummyMongoDBPersistenceModuleFactory {
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/dummy/mongodbpersistence");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/mongodbpersistence");
 
   private static final String SECONDARY = "infrastructure/secondary";
   private static final String SECONDARY_DESTINATION = "dummy/" + SECONDARY;

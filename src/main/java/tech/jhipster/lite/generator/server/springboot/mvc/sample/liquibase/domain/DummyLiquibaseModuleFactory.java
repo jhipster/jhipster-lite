@@ -16,7 +16,7 @@ public class DummyLiquibaseModuleFactory {
 
   private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").withZone(ZoneOffset.UTC);
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/dummy/liquibase");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/liquibase");
   private static final JHipsterDestination CHANGELOG_DESTINATION = to("src/main/resources/config/liquibase/changelog");
 
   private static final TextNeedleBeforeReplacer CHANGELOG_NEEDLE = lineBeforeText("<!-- jhipster-needle-liquibase-add-changelog -->");

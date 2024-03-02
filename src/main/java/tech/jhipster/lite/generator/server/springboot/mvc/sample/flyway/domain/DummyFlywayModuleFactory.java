@@ -15,7 +15,7 @@ public class DummyFlywayModuleFactory {
 
   private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").withZone(ZoneOffset.UTC);
 
-  private static final JHipsterSource SOURCE = from("server/springboot/mvc/dummy/flyway");
+  private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/flyway");
   private static final JHipsterDestination MIGRATION_DESTINATION = to("src/main/resources/db/migration/");
 
   private static final String NOT_POSTGRESQL_CHANGELOG = "00000000000_dummy_feature_schema.sql";

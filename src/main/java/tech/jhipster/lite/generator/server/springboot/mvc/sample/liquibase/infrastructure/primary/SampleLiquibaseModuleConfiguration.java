@@ -5,23 +5,23 @@ import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tech.jhipster.lite.generator.server.springboot.mvc.sample.liquibase.application.DummyLiquibaseApplicationService;
+import tech.jhipster.lite.generator.server.springboot.mvc.sample.liquibase.application.SampleLiquibaseApplicationService;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
-class DummyLiquibaseModuleConfiguration {
+class SampleLiquibaseModuleConfiguration {
 
   @Bean
-  JHipsterModuleResource dummyLiquibaseModule(DummyLiquibaseApplicationService dummyLiquibase) {
+  JHipsterModuleResource sampleLiquibaseModule(SampleLiquibaseApplicationService sampleLiquibase) {
     return JHipsterModuleResource.builder()
       .slug(SAMPLE_LIQUIBASE_CHANGELOG)
       .withoutProperties()
-      .apiDoc("Spring Boot - MVC", "Add liquibase changelog for dummy feature")
+      .apiDoc("Spring Boot - MVC", "Add liquibase changelog for sample feature")
       .organization(
         JHipsterModuleOrganization.builder().feature(SAMPLE_SCHEMA).addDependency(LIQUIBASE).addDependency(SAMPLE_FEATURE).build()
       )
       .tags("server")
-      .factory(dummyLiquibase::buildModule);
+      .factory(sampleLiquibase::buildModule);
   }
 }

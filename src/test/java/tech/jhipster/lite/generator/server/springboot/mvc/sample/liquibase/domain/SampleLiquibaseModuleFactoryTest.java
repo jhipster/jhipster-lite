@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class DummyLiquibaseModuleFactoryTest {
+class SampleLiquibaseModuleFactoryTest {
 
-  private static final DummyLiquibaseModuleFactory factory = new DummyLiquibaseModuleFactory();
+  private static final SampleLiquibaseModuleFactory factory = new SampleLiquibaseModuleFactory();
 
   @Test
   void shouldBuildModule() {
@@ -25,10 +25,10 @@ class DummyLiquibaseModuleFactoryTest {
     assertThatModuleWithFiles(module, masterChangelog())
       .hasFile("src/main/resources/config/liquibase/master.xml")
       .containing(
-        "<include file=\"config/liquibase/changelog/20211203101530_dummy_feature_schema.xml\" relativeToChangelogFile=\"false\"/>"
+        "<include file=\"config/liquibase/changelog/20211203101530_sample_feature_schema.xml\" relativeToChangelogFile=\"false\"/>"
       )
       .and()
-      .hasFiles("src/main/resources/config/liquibase/changelog/20211203101530_dummy_feature_schema.xml");
+      .hasFiles("src/main/resources/config/liquibase/changelog/20211203101530_sample_feature_schema.xml");
   }
 
   private ModuleFile masterChangelog() {

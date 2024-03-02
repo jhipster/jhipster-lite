@@ -12,7 +12,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class DummyLiquibaseModuleFactory {
+public class SampleLiquibaseModuleFactory {
 
   private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").withZone(ZoneOffset.UTC);
 
@@ -30,7 +30,7 @@ public class DummyLiquibaseModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .files()
-        .add(SOURCE.file("00000000000_dummy_feature_schema.xml"), CHANGELOG_DESTINATION.append(changelogFilename))
+        .add(SOURCE.file("00000000000_sample_feature_schema.xml"), CHANGELOG_DESTINATION.append(changelogFilename))
         .and()
       .mandatoryReplacements()
         .in(path("src/main/resources/config/liquibase/master.xml"))
@@ -42,7 +42,7 @@ public class DummyLiquibaseModuleFactory {
   }
 
   private String changelogFilename(Instant date) {
-    return FILE_DATE_FORMAT.format(date) + "_dummy_feature_schema.xml";
+    return FILE_DATE_FORMAT.format(date) + "_sample_feature_schema.xml";
   }
 
   private String changelogLine(String changelogFilename) {

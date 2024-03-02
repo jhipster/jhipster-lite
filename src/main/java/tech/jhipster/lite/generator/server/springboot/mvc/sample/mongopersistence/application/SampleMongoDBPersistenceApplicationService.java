@@ -1,17 +1,17 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.sample.mongopersistence.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.springboot.mvc.sample.mongopersistence.domain.DummyMongoDBPersistenceModuleFactory;
+import tech.jhipster.lite.generator.server.springboot.mvc.sample.mongopersistence.domain.SampleMongoDBPersistenceModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @Service
-public class DummyMongoDBPersistenceApplicationService {
+public class SampleMongoDBPersistenceApplicationService {
 
-  private final DummyMongoDBPersistenceModuleFactory factory;
+  private final SampleMongoDBPersistenceModuleFactory factory;
 
-  public DummyMongoDBPersistenceApplicationService() {
-    factory = new DummyMongoDBPersistenceModuleFactory();
+  public SampleMongoDBPersistenceApplicationService() {
+    factory = new SampleMongoDBPersistenceModuleFactory();
   }
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {

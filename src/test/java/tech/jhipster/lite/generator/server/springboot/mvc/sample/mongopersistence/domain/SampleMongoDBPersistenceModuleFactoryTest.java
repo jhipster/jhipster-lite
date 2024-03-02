@@ -10,9 +10,9 @@ import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
-class DummyMongoDBPersistenceModuleFactoryTest {
+class SampleMongoDBPersistenceModuleFactoryTest {
 
-  private static final DummyMongoDBPersistenceModuleFactory factory = new DummyMongoDBPersistenceModuleFactory();
+  private static final SampleMongoDBPersistenceModuleFactory factory = new SampleMongoDBPersistenceModuleFactory();
 
   @Test
   void shouldBuildModule() {
@@ -22,7 +22,7 @@ class DummyMongoDBPersistenceModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, dummyInMemoryRepository(), inMemoryBeersResetter())
+    assertThatModuleWithFiles(module, sampleInMemoryRepository(), inMemoryBeersResetter())
       .hasPrefixedFiles(
         "src/main/java/com/jhipster/test/sample/infrastructure/secondary",
         "BeerDocument.java",
@@ -42,7 +42,7 @@ class DummyMongoDBPersistenceModuleFactoryTest {
       );
   }
 
-  private ModuleFile dummyInMemoryRepository() {
+  private ModuleFile sampleInMemoryRepository() {
     return file(
       "src/test/resources/projects/dummy-feature/InMemoryBeersRepository.java",
       "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java"

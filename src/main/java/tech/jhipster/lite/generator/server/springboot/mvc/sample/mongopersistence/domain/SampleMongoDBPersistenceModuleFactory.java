@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class DummyMongoDBPersistenceModuleFactory {
+public class SampleMongoDBPersistenceModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/mvc/sample/mongodbpersistence");
 

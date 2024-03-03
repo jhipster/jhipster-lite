@@ -42,7 +42,7 @@ public final class JHipsterModuleContext {
     }
 
     private Map<String, Object> initialContext(JHipsterModuleProperties properties) {
-      HashMap<String, Object> init = new HashMap<>();
+      Map<String, Object> init = new HashMap<>();
 
       init.put(JHipsterModuleProperties.PROJECT_BASE_NAME_PARAMETER, properties.projectBaseName().get());
       init.put(JHipsterModuleProperties.PROJECT_NAME_PARAMETER, properties.projectName().get());

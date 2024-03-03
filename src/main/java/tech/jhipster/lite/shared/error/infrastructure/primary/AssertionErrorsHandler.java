@@ -77,7 +77,7 @@ class AssertionErrorsHandler {
   }
 
   private Map<String, String> parameters(AssertionException exception) {
-    HashMap<String, String> parameters = new HashMap<>(exception.parameters());
+    Map<String, String> parameters = new HashMap<>(exception.parameters());
     parameters.put("field", exception.field());
 
     return parameters;

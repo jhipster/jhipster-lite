@@ -442,6 +442,9 @@
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
         <version>${frontend-maven-plugin.version}</version>
+        <configuration>
+          <installDirectory>${project.build.directory}</installDirectory>
+        </configuration>
         <executions>
           <execution>
             <id>install-node-and-npm</id>

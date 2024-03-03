@@ -134,6 +134,7 @@ public class FrontendMavenModuleFactory {
       .groupId("com.github.eirslett")
       .artifactId("frontend-maven-plugin")
       .versionSlug("frontend-maven-plugin")
+      .configuration("<installDirectory>${project.build.directory}</installDirectory>")
       .addExecution(
         pluginExecution()
           .goals("install-node-and-npm")

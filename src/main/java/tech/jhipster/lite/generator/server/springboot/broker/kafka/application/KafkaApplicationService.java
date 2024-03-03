@@ -19,8 +19,8 @@ public class KafkaApplicationService {
     return kafkaModuleFactory.buildModuleInit(properties);
   }
 
-  public JHipsterModule addDummyProducerConsumer(final JHipsterModuleProperties properties) {
-    return kafkaModuleFactory.buildModuleDummyProducerConsumer(properties);
+  public JHipsterModule addSampleProducerConsumer(final JHipsterModuleProperties properties) {
+    return kafkaModuleFactory.buildModuleSampleProducerConsumer(properties);
   }
 
   public JHipsterModule addAkhq(final JHipsterModuleProperties properties) {

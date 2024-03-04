@@ -105,7 +105,7 @@ public class SpringBootCoreModuleFactory {
       .versionSlug(SPRING_BOOT_VERSION_SLUG)
       .configuration(
         """
-        defaultTasks "bootRun"
+        defaultTasks("bootRun")
 
         springBoot {
           mainClass = "%s"

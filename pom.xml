@@ -73,7 +73,7 @@
     <cucumber.version>7.15.0</cucumber.version>
     <maven-model-helper.version>28</maven-model-helper.version>
     <night-config.version>3.6.7</night-config.version>
-    <testcontainers.version>1.19.6</testcontainers.version>
+    <testcontainers.version>1.19.7</testcontainers.version>
     <mongock.version>5.4.0</mongock.version>
     <git-commit-id-plugin.version>7.0.0</git-commit-id-plugin.version>
     <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>

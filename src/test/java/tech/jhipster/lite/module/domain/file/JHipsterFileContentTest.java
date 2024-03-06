@@ -61,7 +61,7 @@ class JHipsterFileContentTest {
   @Test
   void testToStringShowsPath() {
     //Given
-    final JHipsterFileContent content = content("path");
+    JHipsterFileContent content = content("path");
     //When Then
     assertThat(content).hasToString("path");
   }

@@ -18,7 +18,7 @@ public class KafkaModuleFactory {
 
   private final DockerImages dockerImages;
 
-  public KafkaModuleFactory(final DockerImages dockerImages) {
+  public KafkaModuleFactory(DockerImages dockerImages) {
     this.dockerImages = dockerImages;
   }
 

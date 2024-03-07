@@ -34,6 +34,7 @@
     <webjars-locator.version>0.50</webjars-locator.version>
     <htmx-webjars.version>1.9.10</htmx-webjars.version>
     <alpinejs-webjars.version>3.13.5</alpinejs-webjars.version>
+    <jmolecules-bom.version>2023.1.2</jmolecules-bom.version>
     <protobuf.version>3.25.3</protobuf.version>
     <proto-backwards-compatibility.version>1.0.7</proto-backwards-compatibility.version>
     <!-- Test dependencies -->
@@ -335,6 +336,13 @@
         <groupId>org.apache.pulsar</groupId>
         <artifactId>pulsar-client</artifactId>
         <version>${pulsar.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jmolecules</groupId>
+        <artifactId>jmolecules-bom</artifactId>
+        <version>${jmolecules-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

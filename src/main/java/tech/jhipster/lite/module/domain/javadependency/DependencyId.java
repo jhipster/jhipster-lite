@@ -32,7 +32,7 @@ public final class DependencyId {
   }
 
   public static DependencyId of(GroupId groupId, ArtifactId artifactId) {
-    return DependencyId.builder().groupId(groupId).artifactId(artifactId).build();
+    return builder().groupId(groupId).artifactId(artifactId).build();
   }
 
   public GroupId groupId() {

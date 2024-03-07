@@ -104,7 +104,7 @@ public final class JavaDependency {
   }
 
   private JavaDependency merge(JavaDependency other) {
-    return JavaDependency.builder()
+    return builder()
       .groupId(groupId())
       .artifactId(artifactId())
       .versionSlug(mergeVersionsSlugs(other))

@@ -18,6 +18,8 @@
 [![sonarcloud-security][sonarcloud-security]][sonarcloud-url]
 [![sonarcloud-code-smells][sonarcloud-code-smells]][sonarcloud-url]
 
+[![Revved up by Develocity][develocity-badge]][develocity-url]
+
 ## Description
 
 [JHipster][jhipster-url] is a development platform to quickly generate, develop & deploy modern web applications & microservice architectures.
@@ -308,3 +310,5 @@ Support this project by becoming a sponsor! [Become a sponsor](https://opencolle
 [webservices-with-jhlite]: https://youtu.be/mEECPRZjajI
 [jhipster-vs-jhlite]: https://youtu.be/t5GA329FMfU
 [cdamon]: https://www.linkedin.com/in/colin-damon/
+[develocity-badge]: https://img.shields.io/badge/Revved%20up%20by-Develocity-06A0CE?logo=Gradle&labelColor=02303A
+[develocity-url]: https://ge.jhipster.tech/scans

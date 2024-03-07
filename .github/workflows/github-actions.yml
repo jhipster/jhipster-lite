@@ -76,6 +76,8 @@ jobs:
       - name: 'Init: install Node.js packages'
         run: npm ci
       - name: 'Test: run backend tests'
+        env:
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
         run: |
           ./mvnw clean verify
   #--------------------------------------------------
@@ -112,6 +114,8 @@ jobs:
       - name: 'TEMP: enable gradle build tool slug'
         run: sed -i '/- gradle-java/d' src/main/resources/config/application.yml
       - name: 'Test: run backend tests'
+        env:
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
         run: |
           chmod +x mvnw
           ./mvnw clean verify -Dsonar.qualitygate.wait=true sonar:sonar

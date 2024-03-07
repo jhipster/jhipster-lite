@@ -36,6 +36,8 @@
     <alpinejs-webjars.version>3.14.0</alpinejs-webjars.version>
     <protobuf.version>4.27.1</protobuf.version>
     <proto-backwards-compatibility.version>1.0.7</proto-backwards-compatibility.version>
+    <jmolecules-bom.version>2023.1.2</jmolecules-bom.version>
+    <protobuf.version>3.25.3</protobuf.version>
     <!-- Test dependencies -->
     <junit-jupiter.version>5.10.2</junit-jupiter.version>
     <assertj.version>3.26.0</assertj.version>
@@ -349,6 +351,13 @@
         <artifactId>jqwik</artifactId>
         <version>${jqwik.version}</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jmolecules</groupId>
+        <artifactId>jmolecules-bom</artifactId>
+        <version>${jmolecules-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

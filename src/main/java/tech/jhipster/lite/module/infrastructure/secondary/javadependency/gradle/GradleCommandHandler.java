@@ -5,10 +5,16 @@ import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.NotImplementedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
@@ -40,6 +46,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
+  private static final Logger log = LoggerFactory.getLogger(GradleCommandHandler.class);
   private static final String COMMAND = "command";
   private static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
   private static final String BUILD_GRADLE_FILE = "build.gradle.kts";
@@ -63,6 +70,14 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   );
   private static final Pattern GRADLE_TEST_DEPENDENCY_NEEDLE = Pattern.compile(
     "^\\s+// jhipster-needle-gradle-test-dependencies$",
+    Pattern.MULTILINE
+  );
+  private static final Pattern GRADLE_PROFILE_ACTIVATION_NEEDLE = Pattern.compile(
+    "^// jhipster-needle-profile-activation$",
+    Pattern.MULTILINE
+  );
+  private static final Pattern GRADLE_PROCESS_RESOURCES_NEEDLE = Pattern.compile(
+    "^\\s+// jhipster-needle-gradle-process-resources$",
     Pattern.MULTILINE
   );
 
@@ -222,8 +237,17 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @Override
-  public void handle(AddJavaBuildProfile addJavaBuildProfile) {
-    throw new NotImplementedException(NOT_YET_IMPLEMENTED);
+  public void handle(AddJavaBuildProfile command) {
+    Assert.notNull(COMMAND, command);
+
+    prerequisiteBuildProfile();
+    addProfile(command);
+  }
+
+  private void prerequisiteBuildProfile() {
+    addProfileIdentifier();
+    addProcessResourcesApplicationReplacer();
+    enablePrecompiledScriptPlugins();
   }
 
   @Override
@@ -268,5 +292,102 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       projectFolder,
       ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
     );
+  }
+
+  private void addProfileIdentifier() {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(
+        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
+        GRADLE_PROFILE_ACTIVATION_NEEDLE
+      ),
+      """
+      val profiles = (project.findProperty("profiles") as String? ?: "")
+        .split(",")
+        .map { it.trim() }
+        .filter { it.isNotEmpty() }\
+      """
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
+  }
+
+  private void addProcessResourcesApplicationReplacer() {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(
+        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
+        GRADLE_PROCESS_RESOURCES_NEEDLE
+      ),
+      """
+        filesMatching("**/application.yml") {
+          filter {
+            // jhipster-needle-gradle-profiles-properties
+          }
+        }\
+      """
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
+  }
+
+  private void enablePrecompiledScriptPlugins() {
+    addFileToProject("generator/buildtool/gradle/buildSrc/build.gradle.kts.template", "buildSrc/build.gradle.kts");
+  }
+
+  private void addProfile(AddJavaBuildProfile command) {
+    addProfileActivation(command);
+    addProfileBuildGradleFile(command);
+  }
+
+  private void addProfileActivation(AddJavaBuildProfile command) {
+    String profileTemplate =
+      """
+      if (profiles.contains("%s")) {
+        apply(plugin = "profile-%s")
+      }\
+      """;
+    String profileTemplateFilled = profileTemplate.formatted(command.buildProfileId(), command.buildProfileId());
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(
+        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
+        GRADLE_PROFILE_ACTIVATION_NEEDLE
+      ),
+      profileTemplateFilled
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
+  }
+
+  private void addProfileBuildGradleFile(AddJavaBuildProfile command) {
+    addFileToProject(
+      "generator/buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template",
+      "buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(command.buildProfileId())
+    );
+  }
+
+  private void addFileToProject(String source, String destination) {
+    Path sourcePath = Paths.get("src/main/resources").resolve(source);
+    Path destinationPath = Paths.get(projectFolder.get()).resolve(destination);
+    if (Files.exists(destinationPath)) {
+      log.info("Not coping {} since {} already exists", sourcePath, destinationPath);
+
+      return;
+    }
+    try {
+      Files.createDirectories(destinationPath.getParent());
+    } catch (IOException e) {
+      throw new UnableCreateFolderException(destinationPath.getParent().toString(), e);
+    }
+
+    try {
+      Files.copy(sourcePath, destinationPath);
+    } catch (IOException e) {
+      throw new UnableCopyFileException(sourcePath.toString(), destinationPath.toString(), e);
+    }
   }
 }

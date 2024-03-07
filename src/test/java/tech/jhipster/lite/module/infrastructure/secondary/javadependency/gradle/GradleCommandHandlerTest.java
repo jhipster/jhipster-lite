@@ -6,6 +6,8 @@ import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Nested;
@@ -53,15 +55,6 @@ class GradleCommandHandlerTest {
     assertThatThrownBy(() -> gradleCommandHandler.handle(command)).isInstanceOf(NotImplementedException.class);
   }
 
-  @Test
-  void addJavaBuildProfileShouldThrowNotImplementedException() {
-    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
-
-    GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
-    AddJavaBuildProfile command = new AddJavaBuildProfile(localMavenProfile());
-    assertThatThrownBy(() -> gradleCommandHandler.handle(command)).isInstanceOf(NotImplementedException.class);
-  }
-
   @Nested
   class HandleSetVersion {
 
@@ -106,6 +99,152 @@ class GradleCommandHandlerTest {
         [versions]
         \tjjwt = "0.13.0"
         """
+      );
+    }
+  }
+
+  @Nested
+  class HandleAddJavaBuildProfile {
+
+    @Test
+    void shouldAddProfilePrerequisitesToBuildGradleFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddJavaBuildProfile(buildProfileId("local")));
+
+      assertThat(buildGradleContent(projectFolder))
+        .containsSubsequence(
+          """
+          val profiles = (project.findProperty("profiles") as String? ?: "")
+            .split(",")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }\
+          """,
+          "// jhipster-needle-profile-activation"
+        )
+        .contains(
+          """
+            filesMatching("**/application.yml") {
+              filter {
+                // jhipster-needle-gradle-profiles-properties
+              }
+            }
+            // jhipster-needle-gradle-process-resources\
+          """
+        );
+      assertFileExists(projectFolder, "buildSrc/build.gradle.kts", "The file build.gradle.kts should exist at %s");
+    }
+
+    @Test
+    void shouldNotDuplicateExistingProfilePrerequisites() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("dev")));
+
+      assertThat(buildGradleContent(projectFolder))
+        .contains(
+          """
+          // jhipster-needle-gradle-properties
+
+          val profiles = (project.findProperty("profiles") as String? ?: "")
+            .split(",")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+          if (profiles.contains("local")) {
+            apply(plugin = "profile-local")
+          }
+          if (profiles.contains("dev")) {
+            apply(plugin = "profile-dev")
+          }
+          // jhipster-needle-profile-activation\
+          """
+        )
+        .contains(
+          """
+            filesMatching("**/application.yml") {
+              filter {
+                // jhipster-needle-gradle-profiles-properties
+              }
+            }
+            // jhipster-needle-gradle-process-resources\
+          """
+        );
+      assertFileExists(projectFolder, "buildSrc/build.gradle.kts", "The file build.gradle.kts should exist at %s");
+    }
+
+    @Test
+    void shouldAddProfileWithIdOnlyToBuildGradleFileWithoutProfiles() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder).handle(new AddJavaBuildProfile(buildProfileId("local")));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        if (profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        // jhipster-needle-profile-activation\
+        """
+      );
+      assertFileExists(
+        projectFolder,
+        "buildSrc/src/main/kotlin/profile-local.gradle.kts",
+        "The file profile-local.gradle.kts should exist at %s"
+      );
+    }
+
+    @Test
+    void shouldAddProfileWithIdOnlyToBuildGradleFileWithProfiles() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("dev")));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        if (profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        if (profiles.contains("dev")) {
+          apply(plugin = "profile-dev")
+        }
+        // jhipster-needle-profile-activation\
+        """
+      );
+      assertFileExists(
+        projectFolder,
+        "buildSrc/src/main/kotlin/profile-local.gradle.kts",
+        "The file profile-local.gradle.kts should exist at %s"
+      );
+    }
+
+    @Test
+    void shouldNotDuplicateExistingProfile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder);
+
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        val profiles = (project.findProperty("profiles") as String? ?: "")
+          .split(",")
+          .map { it.trim() }
+          .filter { it.isNotEmpty() }
+        if (profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        // jhipster-needle-profile-activation\
+        """
+      );
+      assertFileExists(
+        projectFolder,
+        "buildSrc/src/main/kotlin/profile-local.gradle.kts",
+        "The file profile-local.gradle.kts should exist at %s"
       );
     }
   }
@@ -272,8 +411,8 @@ class GradleCommandHandlerTest {
         .build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyTestImplementation));
 
-      JavaDependency dependencyImplementetion = javaDependency().groupId("com.google.guava").artifactId("guava").build();
-      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyImplementetion));
+      JavaDependency dependencyImplementation = javaDependency().groupId("com.google.guava").artifactId("guava").build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyImplementation));
 
       assertThat(buildGradleContent(projectFolder)).contains(
         """
@@ -628,5 +767,12 @@ class GradleCommandHandlerTest {
 
   private static String versionCatalogContent(JHipsterProjectFolder projectFolder) {
     return contentNormalizingNewLines(Paths.get(projectFolder.get()).resolve("gradle/libs.versions.toml"));
+  }
+
+  //TODO: RENAN - move this to JHipsterModulesFixture.java
+
+  private static void assertFileExists(JHipsterProjectFolder projectFolder, String other, String description) {
+    Path profileGradlePath = Paths.get(projectFolder.get()).resolve(other);
+    assertThat(Files.exists(profileGradlePath)).as(description, profileGradlePath.toString()).isTrue();
   }
 }

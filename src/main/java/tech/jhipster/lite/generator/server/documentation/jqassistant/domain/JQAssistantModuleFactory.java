@@ -4,6 +4,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.VERIFY;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin.MavenPluginOptionalBuilder;
@@ -16,9 +17,11 @@ public class JQAssistantModuleFactory {
   private static final String SOURCE = "server/documentation/jqassistant";
   private static final String JHIPSTER_NEEDLE_JQASSISTANT_PLUGIN = "# jhipster-needle-jqassistant-plugin";
   private static final String JHIPSTER_NEEDLE_JQASSISTANT_ANALYZE_GROUP = "# jhipster-needle-jqassistant-analyze-group";
+  private static final GroupId JQASSISTANT_PLUGIN_GROUP_ID = groupId("org.jqassistant.plugin");
+  private static final String PROPERTIES = "properties";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -40,7 +43,7 @@ public class JQAssistantModuleFactory {
 
   private static JavaDependency jQAssistantContextMapperDependency() {
     return JavaDependency.builder()
-      .groupId("org.jqassistant.plugin")
+      .groupId(JQASSISTANT_PLUGIN_GROUP_ID)
       .artifactId("jqassistant-context-mapper-plugin")
       .versionSlug("jqassistant-context-mapper-plugin")
       .build();
@@ -86,7 +89,7 @@ public class JQAssistantModuleFactory {
   }
 
   public JHipsterModule buildJMoleculesModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -119,14 +122,14 @@ public class JQAssistantModuleFactory {
 
   private static JavaDependency jQAssistantJMoleculesDependency() {
     return JavaDependency.builder()
-      .groupId("org.jqassistant.plugin")
+      .groupId(JQASSISTANT_PLUGIN_GROUP_ID)
       .artifactId("jqassistant-jmolecules-plugin")
       .versionSlug("jqassistant-jmolecules-plugin")
       .build();
   }
 
   public JHipsterModule buildSpringModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     //@formatter:off
     return moduleBuilder(properties)
@@ -151,7 +154,7 @@ public class JQAssistantModuleFactory {
 
   private JavaDependency jQAssistantSpringDependency() {
     return JavaDependency.builder()
-      .groupId("org.jqassistant.plugin")
+      .groupId(JQASSISTANT_PLUGIN_GROUP_ID)
       .artifactId("jqassistant-spring-plugin")
       .versionSlug("jqassistant-spring-plugin")
       .build();

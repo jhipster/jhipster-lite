@@ -52,6 +52,14 @@ class JMoleculesModuleFactoryTest {
               <artifactId>jmolecules-hexagonal-architecture</artifactId>
             </dependency>
         """
+      )
+      .containing(
+        """
+            <dependency>
+              <groupId>org.jmolecules</groupId>
+              <artifactId>jmolecules-events</artifactId>
+            </dependency>
+        """
       );
   }
 }

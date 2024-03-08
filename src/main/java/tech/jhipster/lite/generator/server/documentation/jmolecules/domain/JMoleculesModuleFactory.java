@@ -20,6 +20,7 @@ public class JMoleculesModuleFactory {
         .addDependencyManagement(jMoleculesBomDependency())
         .addDependency(JMOLECULES_GROUP_ID, artifactId("jmolecules-ddd"))
         .addDependency(JMOLECULES_GROUP_ID, artifactId("jmolecules-hexagonal-architecture"))
+        .addDependency(JMOLECULES_GROUP_ID, artifactId("jmolecules-events"))
         .and()
       .build();
     //@formatter:on

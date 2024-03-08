@@ -19,10 +19,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
+import tech.jhipster.lite.module.domain.gradleprofile.GradleProfileActivation;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradleProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
@@ -30,7 +31,6 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDepend
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
-import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
@@ -116,7 +116,7 @@ class GradleCommandHandlerTest {
     void shouldAddEnablePrecompiledScriptPluginsToBuildGradleFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddJavaBuildProfile(buildProfileId("local")));
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddGradleProfile(gradleProfileId("local")));
 
       assertFileExists(projectFolder, "buildSrc/build.gradle.kts", "The file build.gradle.kts should exist at %s");
     }
@@ -125,7 +125,7 @@ class GradleCommandHandlerTest {
     void shouldAddProfileWithIdOnlyToBuildGradleFileWithoutProfiles() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddJavaBuildProfile(buildProfileId("local")));
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddGradleProfile(gradleProfileId("local")));
 
       assertThat(buildGradleContent(projectFolder)).contains(
         """
@@ -147,8 +147,8 @@ class GradleCommandHandlerTest {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
 
-      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
-      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("dev")));
+      gradleCommandHandler.handle(new AddGradleProfile(gradleProfileId("local")));
+      gradleCommandHandler.handle(new AddGradleProfile(gradleProfileId("dev")));
 
       assertThat(buildGradleContent(projectFolder)).contains(
         """
@@ -173,8 +173,8 @@ class GradleCommandHandlerTest {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
 
-      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
-      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+      gradleCommandHandler.handle(new AddGradleProfile(gradleProfileId("local")));
+      gradleCommandHandler.handle(new AddGradleProfile(gradleProfileId("local")));
 
       assertThat(buildGradleContent(projectFolder)).contains(
         """
@@ -196,12 +196,12 @@ class GradleCommandHandlerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideBuildProfileActivations")
-    void shouldNotAddDefaultActivationToBuildGradleFile(BuildProfileActivation profileActivation) {
+    @MethodSource("provideGradleProfileActivations")
+    void shouldNotAddDefaultActivationToBuildGradleFile(GradleProfileActivation profileActivation) {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-        new AddJavaBuildProfile(buildProfileId("local"), profileActivation)
+        new AddGradleProfile(gradleProfileId("local"), profileActivation)
       );
 
       assertThat(buildGradleContent(projectFolder)).contains(
@@ -214,10 +214,10 @@ class GradleCommandHandlerTest {
       );
     }
 
-    private static Stream<BuildProfileActivation> provideBuildProfileActivations() {
+    private static Stream<GradleProfileActivation> provideGradleProfileActivations() {
       return Stream.of(
-        BuildProfileActivation.builder().build(), // Empty Activation
-        BuildProfileActivation.builder().activeByDefault(false).build() // Activation with activeByDefault = false
+        GradleProfileActivation.builder().build(), // Empty Activation
+        GradleProfileActivation.builder().activeByDefault(false).build() // Activation with activeByDefault = false
       );
     }
 
@@ -226,7 +226,7 @@ class GradleCommandHandlerTest {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-        new AddJavaBuildProfile(buildProfileId("local"), BuildProfileActivation.builder().activeByDefault().build())
+        new AddGradleProfile(gradleProfileId("local"), GradleProfileActivation.builder().activeByDefault().build())
       );
 
       assertThat(buildGradleContent(projectFolder)).contains(

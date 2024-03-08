@@ -2,8 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
-import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
-import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
+import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,14 +23,29 @@ import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
+import tech.jhipster.lite.module.domain.gradleprofile.GradleProfileActivation;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
-import tech.jhipster.lite.module.domain.javabuild.command.*;
-import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradleProfile;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.*;
+import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
+import tech.jhipster.lite.module.domain.replacement.MandatoryFileReplacer;
+import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
+import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
+import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModuleFiles;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
@@ -68,6 +82,18 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     "^// jhipster-needle-profile-activation$",
     Pattern.MULTILINE
   );
+  private static final String PROFILE_CONDITIONAL_TEMPLATE =
+    """
+    if (profiles.contains("%s")) {
+      apply(plugin = "profile-%s")
+    }\
+    """;
+  private static final String PROFILE_DEFAULT_ACTIVATION_CONDITIONAL_TEMPLATE =
+    """
+    if (profiles.isEmpty() || profiles.contains("%s")) {
+      apply(plugin = "profile-%s")
+    }\
+    """;
 
   private final Indentation indentation;
   private final JHipsterProjectFolder projectFolder;
@@ -228,6 +254,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   @Override
   public void handle(AddJavaBuildProfile command) {
+    // Maven commands are ignored
+  }
+
+  public void handle(AddGradleProfile command) {
     Assert.notNull(COMMAND, command);
 
     enablePrecompiledScriptPlugins();
@@ -282,40 +312,18 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
   }
 
-  private void addProfile(AddJavaBuildProfile command) {
+  private void addProfile(AddGradleProfile command) {
     addProfileActivation(command);
     addProfileBuildGradleFile(command);
   }
 
-  private void addProfileActivation(AddJavaBuildProfile command) {
-    String profileConditionalTemplate =
-      """
-      if (profiles.contains("%s")) {
-        apply(plugin = "profile-%s")
-      }\
-      """;
-
-    String profileDefaultActivationConditionalTemplate =
-      """
-      if (profiles.isEmpty() || profiles.contains("%s")) {
-        apply(plugin = "profile-%s")
-      }\
-      """;
-
-    Optional<Boolean> isActiveByDefault = command.activation().flatMap(BuildProfileActivation::activeByDefault);
-
-    String filledTemplate =
-      (isActiveByDefault.orElse(false) ? profileDefaultActivationConditionalTemplate : profileConditionalTemplate).formatted(
-          command.buildProfileId(),
-          command.buildProfileId()
-        );
-
+  private void addProfileActivation(AddGradleProfile command) {
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
         GRADLE_PROFILE_ACTIVATION_NEEDLE
       ),
-      filledTemplate
+      fillProfileActivationTemplate(command)
     );
     fileReplacer.handle(
       projectFolder,
@@ -323,7 +331,16 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
   }
 
-  private void addProfileBuildGradleFile(AddJavaBuildProfile command) {
+  private static String fillProfileActivationTemplate(AddGradleProfile command) {
+    Optional<Boolean> isActiveByDefault = command.activation().flatMap(GradleProfileActivation::activeByDefault);
+
+    return (isActiveByDefault.orElse(false) ? PROFILE_DEFAULT_ACTIVATION_CONDITIONAL_TEMPLATE : PROFILE_CONDITIONAL_TEMPLATE).formatted(
+        command.buildProfileId(),
+        command.buildProfileId()
+      );
+  }
+
+  private void addProfileBuildGradleFile(AddGradleProfile command) {
     addFileToProject(
       from("buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template"),
       to("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(command.buildProfileId()))

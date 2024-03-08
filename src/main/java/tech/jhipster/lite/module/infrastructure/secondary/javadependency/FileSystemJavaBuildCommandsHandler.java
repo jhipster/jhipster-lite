@@ -8,6 +8,7 @@ import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradleProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
@@ -73,6 +74,7 @@ public class FileSystemJavaBuildCommandsHandler {
       case AddMavenBuildExtension addMavenBuildExtension -> handler.handle(addMavenBuildExtension);
       case AddJavaBuildProfile addJavaBuildProfile -> handler.handle(addJavaBuildProfile);
       case AddGradlePlugin addGradlePlugin -> handler.handle(addGradlePlugin);
+      case AddGradleProfile addGradleProfile -> handler.handle(addGradleProfile);
     }
   }
 }

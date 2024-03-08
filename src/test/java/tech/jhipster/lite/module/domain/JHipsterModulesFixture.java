@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
+import tech.jhipster.lite.module.domain.gradleprofile.GradleProfileId;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
@@ -41,10 +42,24 @@ public final class JHipsterModulesFixture {
 
   /**
    * Module that contains all features currently supported with Gradle
+   *
    * @implNote This is a temporary method to be used until all features are supported with Gradle
    */
   public static JHipsterModule gradleSupportedModule() {
-    return gradleSupportedModuleBuilder().build();
+    // @formatter:off
+    return gradleSupportedModuleBuilder()
+      .javaBuildProfiles()
+        .addProfile(localMavenProfile())
+          .activation(buildProfileActivation().activeByDefault(false))
+          .and()
+        .and()
+      .gradleProfiles()
+        .addProfile(localGradleProfile())
+          .activation(gradleProfileActivation().activeByDefault(true))
+          .and()
+        .and()
+      .build();
+    // @formatter:on
   }
 
   /**
@@ -70,6 +85,11 @@ public final class JHipsterModulesFixture {
           .and()
         .and()
      .and()
+    .gradleProfiles()
+      .addProfile(localGradleProfile())
+        .activation(gradleProfileActivation().activeByDefault(true))
+        .and()
+      .and()
     .build();
     // @formatter:on
   }
@@ -259,6 +279,10 @@ public final class JHipsterModulesFixture {
 
   public static BuildProfileId localMavenProfile() {
     return buildProfileId("local");
+  }
+
+  public static GradleProfileId localGradleProfile() {
+    return gradleProfileId("local");
   }
 
   public static BuildProperty springProfilesActiveProperty() {

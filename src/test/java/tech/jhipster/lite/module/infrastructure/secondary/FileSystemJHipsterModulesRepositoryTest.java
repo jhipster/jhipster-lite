@@ -433,6 +433,18 @@ class FileSystemJHipsterModulesRepositoryTest {
         }
         """
       )
+      .containing(
+        """
+        val profiles = (project.findProperty("profiles") as String? ?: "")
+          .split(",")
+          .map { it.trim() }
+          .filter { it.isNotEmpty() }
+        if (profiles.isEmpty() || profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        // jhipster-needle-profile-activation\
+        """
+      )
       .and()
       .hasFile("package.json")
       .containing("\"scripts\": {\n    \"serve\": \"tikui-core serve\"")

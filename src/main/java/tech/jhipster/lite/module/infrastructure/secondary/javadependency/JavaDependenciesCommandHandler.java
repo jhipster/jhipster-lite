@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradleProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
@@ -32,6 +33,8 @@ public interface JavaDependenciesCommandHandler {
   void handle(SetBuildProperty command);
 
   void handle(AddJavaBuildProfile command);
+
+  void handle(AddGradleProfile command);
 
   void handle(AddGradlePlugin command);
 }

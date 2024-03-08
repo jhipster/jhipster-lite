@@ -37,6 +37,7 @@ import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradleProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
@@ -131,6 +132,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     }
 
     writePom();
+  }
+
+  @Override
+  public void handle(AddGradleProfile command) {
+    // Gradle commands are ignored
   }
 
   private static Profile toMavenProfile(AddJavaBuildProfile command) {

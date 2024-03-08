@@ -120,6 +120,14 @@ class JQAssistantModuleFactoryTest {
             # jhipster-needle-jqassistant-plugin
         """
       )
+      .containing(
+        """
+              - jmolecules-ddd:Default
+              - jmolecules-hexagonal:Default
+              - jmolecules-event:Default
+              # jhipster-needle-jqassistant-analyze-group
+        """
+      )
       .and()
       .hasFile("pom.xml")
       // jQAssistant

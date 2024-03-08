@@ -154,6 +154,9 @@ elif [[ $application == 'fullapp' ]]; then
   "spring-boot-cache" \
   "caffeine-cache" \
   "jmolecules" \
+  "jqassistant" \
+  "jqassistant-jmolecules" \
+  "jqassistant-spring" \
   "license-apache" \
   "renovate"
 

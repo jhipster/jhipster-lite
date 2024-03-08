@@ -56,6 +56,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   JIB("jib"),
   JMOLECULES("jmolecules"),
   JPA_PAGINATION("jpa-pagination"),
+  JQASSISTANT("jqassistant"),
   KIPE_AUTHORIZATION("kipe-authorization"),
   KIPE_EXPRESSION("kipe-expression"),
   LICENSE_APACHE("license-apache"),

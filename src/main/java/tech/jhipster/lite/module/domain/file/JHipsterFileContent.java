@@ -5,11 +5,11 @@ import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-class JHipsterFileContent {
+public class JHipsterFileContent {
 
   private final JHipsterSource source;
 
-  JHipsterFileContent(JHipsterSource source) {
+  public JHipsterFileContent(JHipsterSource source) {
     Assert.notNull("source", source);
 
     this.source = source;

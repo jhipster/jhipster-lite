@@ -1,52 +1,40 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.NotImplementedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
+import tech.jhipster.lite.module.domain.ProjectFiles;
+import tech.jhipster.lite.module.domain.file.JHipsterFileContent;
+import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
-import tech.jhipster.lite.module.domain.replacement.MandatoryFileReplacer;
-import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
+import tech.jhipster.lite.module.domain.replacement.*;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModuleFiles;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
-  private static final Logger log = LoggerFactory.getLogger(GradleCommandHandler.class);
   private static final String COMMAND = "command";
   private static final String NOT_YET_IMPLEMENTED = "Not yet implemented";
   private static final String BUILD_GRADLE_FILE = "build.gradle.kts";
@@ -85,14 +73,16 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private final JHipsterProjectFolder projectFolder;
   private final VersionsCatalog versionsCatalog;
   private final FileSystemReplacer fileReplacer = new FileSystemReplacer();
+  private final FileSystemJHipsterModuleFiles files;
 
-  public GradleCommandHandler(Indentation indentation, JHipsterProjectFolder projectFolder) {
+  public GradleCommandHandler(Indentation indentation, JHipsterProjectFolder projectFolder, ProjectFiles filesReader) {
     Assert.notNull("indentation", indentation);
     Assert.notNull("projectFolder", projectFolder);
 
     this.indentation = indentation;
     this.projectFolder = projectFolder;
     this.versionsCatalog = new VersionsCatalog(projectFolder);
+    this.files = new FileSystemJHipsterModuleFiles(filesReader);
   }
 
   @Override
@@ -334,7 +324,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void enablePrecompiledScriptPlugins() {
-    addFileToProject("generator/buildtool/gradle/buildSrc/build.gradle.kts.template", "buildSrc/build.gradle.kts");
+    addFileToProject("buildtool/gradle/buildSrc/build.gradle.kts.template", "buildSrc/build.gradle.kts");
   }
 
   private void addProfile(AddJavaBuildProfile command) {
@@ -365,29 +355,27 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   private void addProfileBuildGradleFile(AddJavaBuildProfile command) {
     addFileToProject(
-      "generator/buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template",
+      "buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template",
       "buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(command.buildProfileId())
     );
   }
 
   private void addFileToProject(String source, String destination) {
-    Path sourcePath = Paths.get("src/main/resources").resolve(source);
-    Path destinationPath = Paths.get(projectFolder.get()).resolve(destination);
-    if (Files.exists(destinationPath)) {
-      log.info("Not coping {} since {} already exists", sourcePath, destinationPath);
+    files.create(
+      projectFolder,
+      new JHipsterTemplatedFiles(
+        List.of(
+          JHipsterTemplatedFile.builder()
+            .file(new JHipsterModuleFile(new JHipsterFileContent(from(source)), to(destination), false))
+            .context(context())
+            .build()
+        )
+      )
+    );
+  }
 
-      return;
-    }
-    try {
-      Files.createDirectories(destinationPath.getParent());
-    } catch (IOException e) {
-      throw new UnableCreateFolderException(destinationPath.getParent().toString(), e);
-    }
-
-    try {
-      Files.copy(sourcePath, destinationPath);
-    } catch (IOException e) {
-      throw new UnableCopyFileException(sourcePath.toString(), destinationPath.toString(), e);
-    }
+  private JHipsterModuleContext context() {
+    JHipsterModuleProperties properties = new JHipsterModuleProperties(projectFolder.get(), false, null);
+    return JHipsterModuleContext.builder(moduleBuilder(properties)).build();
   }
 }

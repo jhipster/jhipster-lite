@@ -21,7 +21,7 @@ public final class JHipsterModuleContext {
     return new JHipsterModuleContext(JHipsterCollections.concat(context, additionalValues));
   }
 
-  static JHipsterModuleContextBuilder builder(JHipsterModuleBuilder module) {
+  public static JHipsterModuleContextBuilder builder(JHipsterModuleBuilder module) {
     return new JHipsterModuleContextBuilder(module);
   }
 

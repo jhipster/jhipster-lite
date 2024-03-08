@@ -51,7 +51,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     landscape = JHipsterLandscape.from(resources);
 
     files = new FileSystemJHipsterModuleFiles(filesReader);
-    javaBuild = new FileSystemJavaBuildCommandsHandler(javaBuildTools);
+    javaBuild = new FileSystemJavaBuildCommandsHandler(javaBuildTools, filesReader);
     springProperties = new FileSystemSpringPropertiesCommandsHandler();
     springComments = new FileSystemSpringCommentsCommandsHandler();
     yamlSpringProperties = new FileSystemYamlSpringPropertiesCommandsHandler();

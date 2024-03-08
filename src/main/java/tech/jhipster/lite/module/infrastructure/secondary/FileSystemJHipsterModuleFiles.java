@@ -24,7 +24,7 @@ import tech.jhipster.lite.shared.error.domain.GeneratorException;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 @Repository
-class FileSystemJHipsterModuleFiles {
+public class FileSystemJHipsterModuleFiles {
 
   private static final Logger log = LoggerFactory.getLogger(FileSystemJHipsterModuleFiles.class);
   private static final Set<PosixFilePermission> EXECUTABLE_FILE_PERMISSIONS = buildExecutableFilePermission();
@@ -39,7 +39,7 @@ class FileSystemJHipsterModuleFiles {
     return Set.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, GROUP_READ, GROUP_WRITE, GROUP_EXECUTE);
   }
 
-  void create(JHipsterProjectFolder projectFolder, JHipsterTemplatedFiles files) {
+  public void create(JHipsterProjectFolder projectFolder, JHipsterTemplatedFiles files) {
     files.get().forEach(writeFile(projectFolder));
   }
 

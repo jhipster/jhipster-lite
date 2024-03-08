@@ -213,8 +213,6 @@ public final class JavaDependency {
     private JavaDependencyType type;
     private final Collection<DependencyId> exclusions = new ArrayList<>();
 
-    private JavaDependencyBuilder() {}
-
     @Override
     public JavaDependencyArtifactIdBuilder groupId(GroupId groupId) {
       this.groupId = groupId;

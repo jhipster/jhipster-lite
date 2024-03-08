@@ -82,8 +82,6 @@ public final class JHipsterModuleResource {
     private JHipsterModuleTags tags;
     private JHipsterModuleOrganization organization;
 
-    private JHipsterModuleResourceBuilder() {}
-
     @Override
     public JHipsterModuleResourcePropertiesDefinitionBuilder slug(JHipsterModuleSlugFactory slug) {
       this.slug = slug;

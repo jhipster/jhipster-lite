@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.documentation.jqassistant.infrastructure.primary;
 
-import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.JQASSISTANT;
+import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +17,20 @@ class JQAssistantModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(JQASSISTANT)
       .withoutProperties()
-      .apiDoc("Documentation", "Setup jAssistant for documentation and analysis of the project")
+      .apiDoc("Documentation", "Setup jQAssistant for documentation and analysis of the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(JHLiteFeatureSlug.JAVA_BUILD_TOOL).build())
       .tags("server", "documentation")
       .factory(jqassistant::buildModule);
+  }
+
+  @Bean
+  JHipsterModuleResource jQAssistantJMoleculesModule(JQAssistantApplicationService jqassistant) {
+    return JHipsterModuleResource.builder()
+      .slug(JQASSISTANT_JMOLECULES)
+      .withoutProperties()
+      .apiDoc("Documentation", "Add jMolecules support for jQAssistant")
+      .organization(JHipsterModuleOrganization.builder().addDependency(JQASSISTANT).addDependency(JMOLECULES).build())
+      .tags("server", "documentation")
+      .factory(jqassistant::buildJMoleculesModule);
   }
 }

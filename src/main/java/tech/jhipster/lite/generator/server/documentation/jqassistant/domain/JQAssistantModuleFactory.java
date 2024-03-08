@@ -82,4 +82,40 @@ public class JQAssistantModuleFactory {
       .versionSlug("jqassistant-asciidoctorj-extensions")
       .build();
   }
+
+  public JHipsterModule buildJMoleculesModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    //@formatter:off
+    return moduleBuilder(properties)
+      .javaDependencies()
+        .addDependencyManagement(jQAssistantJMoleculesDependency())
+        .and()
+      .mandatoryReplacements()
+        .in(path(JQASSISTANT_CONFIGURATION_FILE))
+          .add(
+            lineBeforeText("# jhipster-needle-jqassistant-plugin"),
+            """
+                - group-id: %s
+                  artifact-id: %s
+                  version: ${%s.version}\
+            """.formatted(
+                jQAssistantJMoleculesDependency().id().groupId(),
+                jQAssistantJMoleculesDependency().id().artifactId(),
+                jQAssistantJMoleculesDependency().version().orElseThrow()
+              )
+          )
+          .and()
+        .and()
+      .build();
+    //@formatter:on
+  }
+
+  private static JavaDependency jQAssistantJMoleculesDependency() {
+    return JavaDependency.builder()
+      .groupId("org.jqassistant.plugin")
+      .artifactId("jqassistant-jmolecules-plugin")
+      .versionSlug("jqassistant-jmolecules-plugin")
+      .build();
+  }
 }

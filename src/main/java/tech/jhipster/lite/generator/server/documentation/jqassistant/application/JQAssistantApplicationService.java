@@ -17,4 +17,8 @@ public class JQAssistantApplicationService {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return factory.buildModule(properties);
   }
+
+  public JHipsterModule buildJMoleculesModule(JHipsterModuleProperties properties) {
+    return factory.buildJMoleculesModule(properties);
+  }
 }

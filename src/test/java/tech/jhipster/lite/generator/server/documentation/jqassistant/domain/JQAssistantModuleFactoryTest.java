@@ -1,7 +1,6 @@
 package tech.jhipster.lite.generator.server.documentation.jqassistant.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -9,6 +8,7 @@ import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterModulesFixture;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions;
 
 @UnitTest
 class JQAssistantModuleFactoryTest {
@@ -100,5 +100,33 @@ class JQAssistantModuleFactoryTest {
               </plugin>
         """
       );
+  }
+
+  @Test
+  void shouldBuildJqassistantJmoleculesModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .build();
+
+    JHipsterModule module = factory.buildJMoleculesModule(properties);
+
+    assertThatModuleWithFiles(module, pomFile(), jQAssistantYmlFile())
+      .hasFile(".jqassistant.yml")
+      .containing(
+        """
+            - group-id: org.jqassistant.plugin
+              artifact-id: jqassistant-jmolecules-plugin
+              version: ${jqassistant-jmolecules-plugin.version}
+            # jhipster-needle-jqassistant-plugin
+        """
+      )
+      .and()
+      .hasFile("pom.xml")
+      // jQAssistant
+      .containing("<jqassistant-jmolecules-plugin.version>");
+  }
+
+  private JHipsterModulesAssertions.ModuleFile jQAssistantYmlFile() {
+    return file("src/main/resources/generator/server/documentation/jqassistant/.jqassistant.yml", ".jqassistant.yml");
   }
 }

@@ -110,7 +110,7 @@ class GradleCommandHandlerTest {
   }
 
   @Nested
-  class HandleAddJavaBuildProfile {
+  class HandleAddGradleProfile {
 
     @Test
     void shouldAddProfilePrerequisitesToBuildGradleFile() {
@@ -118,26 +118,15 @@ class GradleCommandHandlerTest {
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddJavaBuildProfile(buildProfileId("local")));
 
-      assertThat(buildGradleContent(projectFolder))
-        .containsSubsequence(
-          """
-          val profiles = (project.findProperty("profiles") as String? ?: "")
-            .split(",")
-            .map { it.trim() }
-            .filter { it.isNotEmpty() }\
-          """,
-          "// jhipster-needle-profile-activation"
-        )
-        .contains(
-          """
-            filesMatching("**/application.yml") {
-              filter {
-                // jhipster-needle-gradle-profiles-properties
-              }
-            }
-            // jhipster-needle-gradle-process-resources\
-          """
-        );
+      assertThat(buildGradleContent(projectFolder)).containsSubsequence(
+        """
+        val profiles = (project.findProperty("profiles") as String? ?: "")
+          .split(",")
+          .map { it.trim() }
+          .filter { it.isNotEmpty() }\
+        """,
+        "// jhipster-needle-profile-activation"
+      );
       assertFileExists(projectFolder, "buildSrc/build.gradle.kts", "The file build.gradle.kts should exist at %s");
     }
 
@@ -149,34 +138,23 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
       gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("dev")));
 
-      assertThat(buildGradleContent(projectFolder))
-        .contains(
-          """
-          // jhipster-needle-gradle-properties
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        // jhipster-needle-gradle-properties
 
-          val profiles = (project.findProperty("profiles") as String? ?: "")
-            .split(",")
-            .map { it.trim() }
-            .filter { it.isNotEmpty() }
-          if (profiles.contains("local")) {
-            apply(plugin = "profile-local")
-          }
-          if (profiles.contains("dev")) {
-            apply(plugin = "profile-dev")
-          }
-          // jhipster-needle-profile-activation\
-          """
-        )
-        .contains(
-          """
-            filesMatching("**/application.yml") {
-              filter {
-                // jhipster-needle-gradle-profiles-properties
-              }
-            }
-            // jhipster-needle-gradle-process-resources\
-          """
-        );
+        val profiles = (project.findProperty("profiles") as String? ?: "")
+          .split(",")
+          .map { it.trim() }
+          .filter { it.isNotEmpty() }
+        if (profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        if (profiles.contains("dev")) {
+          apply(plugin = "profile-dev")
+        }
+        // jhipster-needle-profile-activation\
+        """
+      );
       assertFileExists(projectFolder, "buildSrc/build.gradle.kts", "The file build.gradle.kts should exist at %s");
     }
 

@@ -15,8 +15,10 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.ProjectFiles;
+import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterFileContent;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
+import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
@@ -232,13 +234,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddJavaBuildProfile command) {
     Assert.notNull(COMMAND, command);
 
-    prerequisiteBuildProfile();
+    prerequisiteGradleProfile();
     addProfile(command);
   }
 
-  private void prerequisiteBuildProfile() {
+  private void prerequisiteGradleProfile() {
     addProfileIdentifier();
-    addProcessResourcesApplicationReplacer();
     enablePrecompiledScriptPlugins();
   }
 
@@ -305,28 +306,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
   }
 
-  private void addProcessResourcesApplicationReplacer() {
-    MandatoryReplacer replacer = new MandatoryReplacer(
-      new RegexNeedleBeforeReplacer(
-        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
-        GRADLE_PROCESS_RESOURCES_NEEDLE
-      ),
-      """
-        filesMatching("**/application.yml") {
-          filter {
-            // jhipster-needle-gradle-profiles-properties
-          }
-        }\
-      """
-    );
-    fileReplacer.handle(
-      projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
-    );
-  }
-
   private void enablePrecompiledScriptPlugins() {
-    addFileToProject("buildtool/gradle/buildSrc/build.gradle.kts.template", "buildSrc/build.gradle.kts");
+    addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
   }
 
   private void addProfile(AddJavaBuildProfile command) {
@@ -372,18 +353,18 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   private void addProfileBuildGradleFile(AddJavaBuildProfile command) {
     addFileToProject(
-      "buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template",
-      "buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(command.buildProfileId())
+      from("buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template"),
+      to("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(command.buildProfileId()))
     );
   }
 
-  private void addFileToProject(String source, String destination) {
+  private void addFileToProject(JHipsterSource source, JHipsterDestination destination) {
     files.create(
       projectFolder,
       new JHipsterTemplatedFiles(
         List.of(
           JHipsterTemplatedFile.builder()
-            .file(new JHipsterModuleFile(new JHipsterFileContent(from(source)), to(destination), false))
+            .file(new JHipsterModuleFile(new JHipsterFileContent(source), destination, false))
             .context(context())
             .build()
         )

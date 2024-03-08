@@ -14,6 +14,8 @@ public class JQAssistantModuleFactory {
 
   private static final String JQASSISTANT_CONFIGURATION_FILE = ".jqassistant.yml";
   private static final String SOURCE = "server/documentation/jqassistant";
+  private static final String JHIPSTER_NEEDLE_JQASSISTANT_PLUGIN = "# jhipster-needle-jqassistant-plugin";
+  private static final String JHIPSTER_NEEDLE_JQASSISTANT_ANALYZE_GROUP = "# jhipster-needle-jqassistant-analyze-group";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -94,16 +96,20 @@ public class JQAssistantModuleFactory {
       .mandatoryReplacements()
         .in(path(JQASSISTANT_CONFIGURATION_FILE))
           .add(
-            lineBeforeText("# jhipster-needle-jqassistant-plugin"),
-            """
-                - group-id: %s
-                  artifact-id: %s
-                  version: ${%s.version}\
-            """.formatted(
-                jQAssistantJMoleculesDependency().id().groupId(),
-                jQAssistantJMoleculesDependency().id().artifactId(),
-                jQAssistantJMoleculesDependency().version().orElseThrow()
-              )
+            lineBeforeText(JHIPSTER_NEEDLE_JQASSISTANT_PLUGIN),
+            jQAssistantPluginDeclaration(jQAssistantJMoleculesDependency())
+          )
+          .add(
+            lineBeforeText(JHIPSTER_NEEDLE_JQASSISTANT_ANALYZE_GROUP),
+            conceptOrGroupDeclaration("jmolecules-ddd:Default")
+          )
+          .add(
+            lineBeforeText(JHIPSTER_NEEDLE_JQASSISTANT_ANALYZE_GROUP),
+            conceptOrGroupDeclaration("jmolecules-hexagonal:Default")
+          )
+          .add(
+            lineBeforeText(JHIPSTER_NEEDLE_JQASSISTANT_ANALYZE_GROUP),
+            conceptOrGroupDeclaration("jmolecules-event:Default")
           )
           .and()
         .and()
@@ -117,5 +123,17 @@ public class JQAssistantModuleFactory {
       .artifactId("jqassistant-jmolecules-plugin")
       .versionSlug("jqassistant-jmolecules-plugin")
       .build();
+  }
+
+  private static String jQAssistantPluginDeclaration(JavaDependency pluginDependency) {
+    return """
+        - group-id: %s
+          artifact-id: %s
+          version: ${%s.version}\
+    """.formatted(pluginDependency.id().groupId(), pluginDependency.id().artifactId(), pluginDependency.version().orElseThrow());
+  }
+
+  private static String conceptOrGroupDeclaration(String conceptOrGroup) {
+    return "      - " + conceptOrGroup;
   }
 }

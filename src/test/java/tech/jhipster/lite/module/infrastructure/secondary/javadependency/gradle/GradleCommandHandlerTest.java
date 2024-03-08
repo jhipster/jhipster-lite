@@ -9,15 +9,28 @@ import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.*;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
+import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
+import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
+import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
@@ -238,6 +251,50 @@ class GradleCommandHandlerTest {
         projectFolder,
         "buildSrc/src/main/kotlin/profile-local.gradle.kts",
         "The file profile-local.gradle.kts should exist at %s"
+      );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideBuildProfileActivations")
+    void shouldNotAddDefaultActivationToBuildGradleFile(BuildProfileActivation profileActivation) {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        new AddJavaBuildProfile(buildProfileId("local"), profileActivation)
+      );
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        if (profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        // jhipster-needle-profile-activation\
+        """
+      );
+    }
+
+    private static Stream<BuildProfileActivation> provideBuildProfileActivations() {
+      return Stream.of(
+        BuildProfileActivation.builder().build(), // Empty Activation
+        BuildProfileActivation.builder().activeByDefault(false).build() // Activation with activeByDefault = false
+      );
+    }
+
+    @Test
+    void shouldAddDefaultActivationWithActivationByDefaultTrueToBuildGradleFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        new AddJavaBuildProfile(buildProfileId("local"), BuildProfileActivation.builder().activeByDefault().build())
+      );
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        if (profiles.isEmpty() || profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        // jhipster-needle-profile-activation\
+        """
       );
     }
   }

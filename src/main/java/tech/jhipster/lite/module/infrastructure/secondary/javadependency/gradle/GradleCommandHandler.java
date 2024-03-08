@@ -6,6 +6,7 @@ import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,6 +24,7 @@ import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
@@ -333,19 +335,34 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void addProfileActivation(AddJavaBuildProfile command) {
-    String profileTemplate =
+    String profileConditionalTemplate =
       """
       if (profiles.contains("%s")) {
         apply(plugin = "profile-%s")
       }\
       """;
-    String profileTemplateFilled = profileTemplate.formatted(command.buildProfileId(), command.buildProfileId());
+
+    String profileDefaultActivationConditionalTemplate =
+      """
+      if (profiles.isEmpty() || profiles.contains("%s")) {
+        apply(plugin = "profile-%s")
+      }\
+      """;
+
+    Optional<Boolean> isActiveByDefault = command.activation().flatMap(BuildProfileActivation::activeByDefault);
+
+    String filledTemplate =
+      (isActiveByDefault.orElse(false) ? profileDefaultActivationConditionalTemplate : profileConditionalTemplate).formatted(
+          command.buildProfileId(),
+          command.buildProfileId()
+        );
+
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
         GRADLE_PROFILE_ACTIVATION_NEEDLE
       ),
-      profileTemplateFilled
+      filledTemplate
     );
     fileReplacer.handle(
       projectFolder,

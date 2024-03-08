@@ -125,6 +125,38 @@ public class JQAssistantModuleFactory {
       .build();
   }
 
+  public JHipsterModule buildSpringModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    //@formatter:off
+    return moduleBuilder(properties)
+      .javaDependencies()
+        .addDependencyManagement(jQAssistantSpringDependency())
+        .and()
+      .mandatoryReplacements()
+        .in(path(JQASSISTANT_CONFIGURATION_FILE))
+          .add(
+            lineBeforeText(JHIPSTER_NEEDLE_JQASSISTANT_PLUGIN),
+            jQAssistantPluginDeclaration(jQAssistantSpringDependency())
+          )
+          .add(
+            lineBeforeText(JHIPSTER_NEEDLE_JQASSISTANT_ANALYZE_GROUP),
+            conceptOrGroupDeclaration("spring-boot:Default")
+          )
+          .and()
+        .and()
+      .build();
+    //@formatter:on
+  }
+
+  private JavaDependency jQAssistantSpringDependency() {
+    return JavaDependency.builder()
+      .groupId("org.jqassistant.plugin")
+      .artifactId("jqassistant-spring-plugin")
+      .versionSlug("jqassistant-spring-plugin")
+      .build();
+  }
+
   private static String jQAssistantPluginDeclaration(JavaDependency pluginDependency) {
     return """
         - group-id: %s

@@ -26,8 +26,6 @@ repositories {
 group = "tech.jhipster.lite"
 version = "0.0.1-SNAPSHOT"
 
-// jhipster-needle-gradle-properties
-
 // jhipster-needle-profile-activation
 
 tasks.build {

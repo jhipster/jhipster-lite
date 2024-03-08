@@ -134,6 +134,36 @@ class JQAssistantModuleFactoryTest {
       .containing("<jqassistant-jmolecules-plugin.version>");
   }
 
+  @Test
+  void shouldBuildJqassistantSpringModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .build();
+
+    JHipsterModule module = factory.buildSpringModule(properties);
+
+    assertThatModuleWithFiles(module, pomFile(), jQAssistantYmlFile())
+      .hasFile(".jqassistant.yml")
+      .containing(
+        """
+            - group-id: org.jqassistant.plugin
+              artifact-id: jqassistant-spring-plugin
+              version: ${jqassistant-spring-plugin.version}
+            # jhipster-needle-jqassistant-plugin
+        """
+      )
+      .containing(
+        """
+              - spring-boot:Default
+              # jhipster-needle-jqassistant-analyze-group
+        """
+      )
+      .and()
+      .hasFile("pom.xml")
+      // jQAssistant
+      .containing("<jqassistant-spring-plugin.version>");
+  }
+
   private JHipsterModulesAssertions.ModuleFile jQAssistantYmlFile() {
     return file("src/main/resources/generator/server/documentation/jqassistant/.jqassistant.yml", ".jqassistant.yml");
   }

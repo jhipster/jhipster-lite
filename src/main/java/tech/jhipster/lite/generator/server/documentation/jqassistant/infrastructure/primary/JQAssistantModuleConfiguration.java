@@ -33,4 +33,15 @@ class JQAssistantModuleConfiguration {
       .tags("server", "documentation")
       .factory(jqassistant::buildJMoleculesModule);
   }
+
+  @Bean
+  JHipsterModuleResource jQAssistantSpringModule(JQAssistantApplicationService jqassistant) {
+    return JHipsterModuleResource.builder()
+      .slug(JQASSISTANT_SPRING)
+      .withoutProperties()
+      .apiDoc("Documentation", "Add Spring support for jQAssistant")
+      .organization(JHipsterModuleOrganization.builder().addDependency(JQASSISTANT).addDependency(SPRING_BOOT).build())
+      .tags("server", "documentation")
+      .factory(jqassistant::buildSpringModule);
+  }
 }

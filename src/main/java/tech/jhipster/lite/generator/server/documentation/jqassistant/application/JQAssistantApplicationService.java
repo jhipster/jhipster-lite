@@ -21,4 +21,8 @@ public class JQAssistantApplicationService {
   public JHipsterModule buildJMoleculesModule(JHipsterModuleProperties properties) {
     return factory.buildJMoleculesModule(properties);
   }
+
+  public JHipsterModule buildSpringModule(JHipsterModuleProperties properties) {
+    return factory.buildSpringModule(properties);
+  }
 }

@@ -15,3 +15,12 @@ Feature: jQAssistant module
       | jqassistant-jmolecules |
     Then I should have "<jqassistant-jmolecules-plugin.version>" in "pom.xml"
     Then I should have "${jqassistant-jmolecules-plugin.version}" in ".jqassistant.yml"
+
+  Scenario: Should apply jQAssistant-Spring module
+    When I apply modules to default project
+      | maven-java         |
+      | spring-boot        |
+      | jqassistant        |
+      | jqassistant-spring |
+    Then I should have "<jqassistant-spring-plugin.version>" in "pom.xml"
+    Then I should have "${jqassistant-spring-plugin.version}" in ".jqassistant.yml"

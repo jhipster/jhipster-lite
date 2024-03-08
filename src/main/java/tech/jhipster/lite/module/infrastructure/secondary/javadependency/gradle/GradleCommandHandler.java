@@ -68,10 +68,6 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     "^// jhipster-needle-profile-activation$",
     Pattern.MULTILINE
   );
-  private static final Pattern GRADLE_PROCESS_RESOURCES_NEEDLE = Pattern.compile(
-    "^\\s+// jhipster-needle-gradle-process-resources$",
-    Pattern.MULTILINE
-  );
 
   private final Indentation indentation;
   private final JHipsterProjectFolder projectFolder;
@@ -234,13 +230,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(AddJavaBuildProfile command) {
     Assert.notNull(COMMAND, command);
 
-    prerequisiteGradleProfile();
-    addProfile(command);
-  }
-
-  private void prerequisiteGradleProfile() {
-    addProfileIdentifier();
     enablePrecompiledScriptPlugins();
+    addProfile(command);
   }
 
   @Override
@@ -280,25 +271,6 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE
       ),
       LINE_BREAK + pluginConfiguration.get()
-    );
-    fileReplacer.handle(
-      projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
-    );
-  }
-
-  private void addProfileIdentifier() {
-    MandatoryReplacer replacer = new MandatoryReplacer(
-      new RegexNeedleBeforeReplacer(
-        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
-        GRADLE_PROFILE_ACTIVATION_NEEDLE
-      ),
-      """
-      val profiles = (project.findProperty("profiles") as String? ?: "")
-        .split(",")
-        .map { it.trim() }
-        .filter { it.isNotEmpty() }\
-      """
     );
     fileReplacer.handle(
       projectFolder,

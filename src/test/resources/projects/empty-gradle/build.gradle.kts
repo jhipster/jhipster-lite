@@ -21,6 +21,10 @@ version = "0.0.1-SNAPSHOT"
 
 // jhipster-needle-gradle-properties
 
+val profiles = (project.findProperty("profiles") as String? ?: "")
+  .split(",")
+  .map { it.trim() }
+  .filter { it.isNotEmpty() }
 // jhipster-needle-profile-activation
 
 tasks.build {

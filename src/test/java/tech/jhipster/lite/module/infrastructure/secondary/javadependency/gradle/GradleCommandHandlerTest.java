@@ -113,48 +113,11 @@ class GradleCommandHandlerTest {
   class HandleAddGradleProfile {
 
     @Test
-    void shouldAddProfilePrerequisitesToBuildGradleFile() {
+    void shouldAddEnablePrecompiledScriptPluginsToBuildGradleFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddJavaBuildProfile(buildProfileId("local")));
 
-      assertThat(buildGradleContent(projectFolder)).containsSubsequence(
-        """
-        val profiles = (project.findProperty("profiles") as String? ?: "")
-          .split(",")
-          .map { it.trim() }
-          .filter { it.isNotEmpty() }\
-        """,
-        "// jhipster-needle-profile-activation"
-      );
-      assertFileExists(projectFolder, "buildSrc/build.gradle.kts", "The file build.gradle.kts should exist at %s");
-    }
-
-    @Test
-    void shouldNotDuplicateExistingProfilePrerequisites() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
-      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
-
-      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
-      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("dev")));
-
-      assertThat(buildGradleContent(projectFolder)).contains(
-        """
-        // jhipster-needle-gradle-properties
-
-        val profiles = (project.findProperty("profiles") as String? ?: "")
-          .split(",")
-          .map { it.trim() }
-          .filter { it.isNotEmpty() }
-        if (profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        if (profiles.contains("dev")) {
-          apply(plugin = "profile-dev")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      );
       assertFileExists(projectFolder, "buildSrc/build.gradle.kts", "The file build.gradle.kts should exist at %s");
     }
 

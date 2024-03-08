@@ -12,14 +12,18 @@ import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 @Configuration
 class JQAssistantModuleConfiguration {
 
+  private static final String DOCUMENTATION = "Documentation";
+  private static final String SERVER_TAG = "server";
+  private static final String DOCUMENTATION_TAG = "documentation";
+
   @Bean
   JHipsterModuleResource jQAssistantModule(JQAssistantApplicationService jqassistant) {
     return JHipsterModuleResource.builder()
       .slug(JQASSISTANT)
       .withoutProperties()
-      .apiDoc("Documentation", "Setup jQAssistant for documentation and analysis of the project")
+      .apiDoc(DOCUMENTATION, "Setup jQAssistant for documentation and analysis of the project")
       .organization(JHipsterModuleOrganization.builder().addDependency(JHLiteFeatureSlug.JAVA_BUILD_TOOL).build())
-      .tags("server", "documentation")
+      .tags(SERVER_TAG, DOCUMENTATION_TAG)
       .factory(jqassistant::buildModule);
   }
 
@@ -28,9 +32,9 @@ class JQAssistantModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(JQASSISTANT_JMOLECULES)
       .withoutProperties()
-      .apiDoc("Documentation", "Add jMolecules support for jQAssistant")
+      .apiDoc(DOCUMENTATION, "Add jMolecules support for jQAssistant")
       .organization(JHipsterModuleOrganization.builder().addDependency(JQASSISTANT).addDependency(JMOLECULES).build())
-      .tags("server", "documentation")
+      .tags(SERVER_TAG, DOCUMENTATION_TAG)
       .factory(jqassistant::buildJMoleculesModule);
   }
 
@@ -39,9 +43,9 @@ class JQAssistantModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(JQASSISTANT_SPRING)
       .withoutProperties()
-      .apiDoc("Documentation", "Add Spring support for jQAssistant")
+      .apiDoc(DOCUMENTATION, "Add Spring support for jQAssistant")
       .organization(JHipsterModuleOrganization.builder().addDependency(JQASSISTANT).addDependency(SPRING_BOOT).build())
-      .tags("server", "documentation")
+      .tags(SERVER_TAG, DOCUMENTATION_TAG)
       .factory(jqassistant::buildSpringModule);
   }
 }

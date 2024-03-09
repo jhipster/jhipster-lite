@@ -1,18 +1,13 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -264,7 +259,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     enablePrecompiledScriptPlugins();
-    addProfile(command);
+
+    File scriptPlugin = scriptPluginForProfile(command.buildProfileId());
+    if (!scriptPlugin.exists()) {
+      addProfileActivation(command);
+      addScriptPluginForProfile(command.buildProfileId());
+    }
   }
 
   @Override
@@ -315,33 +315,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
   }
 
-  private void addProfile(AddJavaBuildProfile command) {
-    List<BuildProfileId> profiles = getProfiles();
-    if (profiles.stream().noneMatch(profileMatch(command.buildProfileId()))) {
-      addProfileActivation(command);
-      addProfileBuildGradleFile(command);
-    }
-  }
-
-  private List<BuildProfileId> getProfiles() {
-    File directory = new File(projectFolder.filePath("buildSrc/src/main/kotlin").toString());
-    List<String> profilesId = new ArrayList<>();
-
-    if (directory.isDirectory()) {
-      for (File file : Optional.ofNullable(directory.listFiles()).orElse(new File[0])) {
-        String fileName = file.getName();
-        if (fileName.startsWith("profile-") && fileName.endsWith(".gradle.kts")) {
-          String profileId = fileName.substring(fileName.indexOf("profile-") + "profile-".length(), fileName.lastIndexOf(".gradle.kts"));
-          profilesId.add(profileId);
-        }
-      }
-    }
-
-    return profilesId.stream().map(BuildProfileId::new).toList();
-  }
-
-  private static Predicate<BuildProfileId> profileMatch(BuildProfileId buildProfileId) {
-    return profileId -> profileId.value().equals(buildProfileId.value());
+  private File scriptPluginForProfile(BuildProfileId buildProfileId) {
+    return projectFolder.filePath("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(buildProfileId.value())).toFile();
   }
 
   private void addProfileActivation(AddJavaBuildProfile command) {
@@ -364,10 +339,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       );
   }
 
-  private void addProfileBuildGradleFile(AddJavaBuildProfile command) {
+  private void addScriptPluginForProfile(BuildProfileId buildProfileId) {
     addFileToProject(
       from("buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template"),
-      to("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(command.buildProfileId()))
+      to("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(buildProfileId))
     );
   }
 

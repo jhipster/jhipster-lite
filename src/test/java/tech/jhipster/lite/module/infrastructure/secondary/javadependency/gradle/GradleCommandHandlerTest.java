@@ -1,10 +1,29 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
-import static tech.jhipster.lite.TestFileUtils.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.TestFileUtils.content;
+import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
+import static tech.jhipster.lite.TestFileUtils.projectFrom;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.buildProfileId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCommunityPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.checkstyleGradlePlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.checkstyleToolVersion;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.defaultVersionDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.dependencyWithVersionAndExclusion;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.jsonWebTokenDependencyId;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenBuildExtensionWithSlug;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyId;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyManagement;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootStarterWebDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootVersion;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springProfilesActiveProperty;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,11 +38,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
-import tech.jhipster.lite.module.domain.gradleprofile.GradleProfileActivation;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradleProfile;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
 import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
@@ -31,6 +49,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDepend
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
@@ -110,13 +129,13 @@ class GradleCommandHandlerTest {
   }
 
   @Nested
-  class HandleAddGradleProfile {
+  class HandleAddJavaBuildProfile {
 
     @Test
-    void shouldAddEnablePrecompiledScriptPluginsToBuildGradleFile() {
+    void shouldEnablePrecompiledScriptPluginsToBuildGradleFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddGradleProfile(gradleProfileId("local")));
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddJavaBuildProfile(buildProfileId("local")));
 
       assertFileExists(projectFolder, "buildSrc/build.gradle.kts", "The file build.gradle.kts should exist at %s");
     }
@@ -125,7 +144,7 @@ class GradleCommandHandlerTest {
     void shouldAddProfileWithIdOnlyToBuildGradleFileWithoutProfiles() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddGradleProfile(gradleProfileId("local")));
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddJavaBuildProfile(buildProfileId("local")));
 
       assertThat(buildGradleContent(projectFolder)).contains(
         """
@@ -147,8 +166,8 @@ class GradleCommandHandlerTest {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
 
-      gradleCommandHandler.handle(new AddGradleProfile(gradleProfileId("local")));
-      gradleCommandHandler.handle(new AddGradleProfile(gradleProfileId("dev")));
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("dev")));
 
       assertThat(buildGradleContent(projectFolder)).contains(
         """
@@ -173,8 +192,8 @@ class GradleCommandHandlerTest {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
 
-      gradleCommandHandler.handle(new AddGradleProfile(gradleProfileId("local")));
-      gradleCommandHandler.handle(new AddGradleProfile(gradleProfileId("local")));
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
 
       assertThat(buildGradleContent(projectFolder)).contains(
         """
@@ -196,12 +215,12 @@ class GradleCommandHandlerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideGradleProfileActivations")
-    void shouldNotAddDefaultActivationToBuildGradleFile(GradleProfileActivation profileActivation) {
+    @MethodSource("provideBuildProfileActivations")
+    void shouldNotAddDefaultActivationToBuildGradleFile(BuildProfileActivation profileActivation) {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-        new AddGradleProfile(gradleProfileId("local"), profileActivation)
+        new AddJavaBuildProfile(buildProfileId("local"), profileActivation)
       );
 
       assertThat(buildGradleContent(projectFolder)).contains(
@@ -214,11 +233,8 @@ class GradleCommandHandlerTest {
       );
     }
 
-    private static Stream<GradleProfileActivation> provideGradleProfileActivations() {
-      return Stream.of(
-        GradleProfileActivation.builder().build(), // Empty Activation
-        GradleProfileActivation.builder().activeByDefault(false).build() // Activation with activeByDefault = false
-      );
+    private static Stream<BuildProfileActivation> provideBuildProfileActivations() {
+      return Stream.of(BuildProfileActivation.builder().build(), BuildProfileActivation.builder().activeByDefault(false).build());
     }
 
     @Test
@@ -226,7 +242,7 @@ class GradleCommandHandlerTest {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-        new AddGradleProfile(gradleProfileId("local"), GradleProfileActivation.builder().activeByDefault().build())
+        new AddJavaBuildProfile(buildProfileId("local"), BuildProfileActivation.builder().activeByDefault().build())
       );
 
       assertThat(buildGradleContent(projectFolder)).contains(
@@ -236,6 +252,64 @@ class GradleCommandHandlerTest {
         }
         // jhipster-needle-profile-activation\
         """
+      );
+    }
+
+    @Test
+    void shouldNotDuplicateExistingProfileWithDifferentActivation() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+
+      gradleCommandHandler.handle(
+        new AddJavaBuildProfile(buildProfileId("local"), BuildProfileActivation.builder().activeByDefault(false).build())
+      );
+      gradleCommandHandler.handle(
+        new AddJavaBuildProfile(buildProfileId("local"), BuildProfileActivation.builder().activeByDefault(true).build())
+      );
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        val profiles = (project.findProperty("profiles") as String? ?: "")
+          .split(",")
+          .map { it.trim() }
+          .filter { it.isNotEmpty() }
+        if (profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        // jhipster-needle-profile-activation\
+        """
+      );
+      assertFileExists(
+        projectFolder,
+        "buildSrc/src/main/kotlin/profile-local.gradle.kts",
+        "The file profile-local.gradle.kts should exist at %s"
+      );
+    }
+
+    @Test
+    void shouldNotDuplicateExistingProfileWithInvalidProfileNameGradleFiles() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-invalid-profiles-file-name");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
+
+      assertThat(buildGradleContent(projectFolder)).contains(
+        """
+        val profiles = (project.findProperty("profiles") as String? ?: "")
+          .split(",")
+          .map { it.trim() }
+          .filter { it.isNotEmpty() }
+        if (profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        // jhipster-needle-profile-activation\
+        """
+      );
+      assertFileExists(
+        projectFolder,
+        "buildSrc/src/main/kotlin/profile-local.gradle.kts",
+        "The file profile-local.gradle.kts should exist at %s"
       );
     }
   }

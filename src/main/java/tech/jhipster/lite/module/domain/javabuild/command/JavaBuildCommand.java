@@ -7,7 +7,6 @@ public sealed interface JavaBuildCommand
     AddDirectJavaDependency,
     AddGradlePlugin,
     AddJavaBuildProfile,
-    AddGradleProfile,
     AddJavaDependencyManagement,
     AddMavenBuildExtension,
     RemoveDirectJavaDependency,

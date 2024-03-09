@@ -12,7 +12,6 @@ import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
-import tech.jhipster.lite.module.domain.gradleprofile.GradleProfileId;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
@@ -49,13 +48,8 @@ public final class JHipsterModulesFixture {
     // @formatter:off
     return gradleSupportedModuleBuilder()
       .javaBuildProfiles()
-        .addProfile(localMavenProfile())
+        .addProfile(localBuildProfile())
           .activation(buildProfileActivation().activeByDefault(false))
-          .and()
-        .and()
-      .gradleProfiles()
-        .addProfile(localGradleProfile())
-          .activation(gradleProfileActivation().activeByDefault(true))
           .and()
         .and()
       .build();
@@ -69,7 +63,7 @@ public final class JHipsterModulesFixture {
     // @formatter:off
    return gradleSupportedModuleBuilder()
     .javaBuildProfiles()
-      .addProfile(localMavenProfile())
+      .addProfile(localBuildProfile())
         .activation(buildProfileActivation().activeByDefault(false))
         .properties()
           .set(buildPropertyKey("spring.profiles.active"), buildPropertyValue("local"))
@@ -85,11 +79,6 @@ public final class JHipsterModulesFixture {
           .and()
         .and()
      .and()
-    .gradleProfiles()
-      .addProfile(localGradleProfile())
-        .activation(gradleProfileActivation().activeByDefault(true))
-        .and()
-      .and()
     .build();
     // @formatter:on
   }
@@ -277,12 +266,8 @@ public final class JHipsterModulesFixture {
     return DependencyId.of(new GroupId("io.jsonwebtoken"), new ArtifactId("jjwt-api"));
   }
 
-  public static BuildProfileId localMavenProfile() {
+  public static BuildProfileId localBuildProfile() {
     return buildProfileId("local");
-  }
-
-  public static GradleProfileId localGradleProfile() {
-    return gradleProfileId("local");
   }
 
   public static BuildProperty springProfilesActiveProperty() {

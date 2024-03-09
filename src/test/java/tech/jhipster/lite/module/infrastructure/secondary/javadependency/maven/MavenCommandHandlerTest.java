@@ -1,9 +1,26 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
+import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.checkstyleGradlePlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.defaultVersionDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.jsonWebTokenDependencyId;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.localBuildProfile;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenBuildExtensionWithSlug;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerPlugin;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerPluginManagement;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerVersion;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.optionalTestDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyId;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyManagement;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootStarterWebDependency;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootVersion;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springProfilesActiveProperty;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -187,7 +204,7 @@ class MavenCommandHandlerTest {
         assertThatThrownBy(
           () ->
             new MavenCommandHandler(Indentation.DEFAULT, pom).handle(
-              new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile())
+              new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
             )
         ).isExactlyInstanceOf(MissingMavenProfileException.class);
       }
@@ -196,7 +213,7 @@ class MavenCommandHandlerTest {
       void shouldAddPropertiesToPomProfileWithoutProperties() {
         Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
 
-        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()));
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
 
         assertThat(contentNormalizingNewLines(pom)).contains(
           """
@@ -216,7 +233,7 @@ class MavenCommandHandlerTest {
       void shouldAddPropertiesToPomProfileWithProperties() {
         Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile-and-properties/pom.xml");
 
-        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()));
+        new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
 
         assertThat(contentNormalizingNewLines(pom))
           .contains(
@@ -234,10 +251,10 @@ class MavenCommandHandlerTest {
       void shouldUpdateExistingProperty() {
         Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile-and-properties/pom.xml");
         MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
-        mavenCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localMavenProfile()));
+        mavenCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
 
         mavenCommandHandler.handle(
-          new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev")), localMavenProfile())
+          new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev")), localBuildProfile())
         );
 
         assertThat(contentNormalizingNewLines(pom))
@@ -261,7 +278,7 @@ class MavenCommandHandlerTest {
     void shouldAddProfileToPomWithOnlyRootDefined() {
       Path pom = projectWithPom("src/test/resources/projects/root-only-maven/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localBuildProfile()));
 
       assertThat(contentNormalizingNewLines(pom)).contains(
         """
@@ -278,7 +295,7 @@ class MavenCommandHandlerTest {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(
-        new AddJavaBuildProfile(localMavenProfile(), BuildProfileActivation.builder().activeByDefault().build())
+        new AddJavaBuildProfile(localBuildProfile(), BuildProfileActivation.builder().activeByDefault().build())
       );
 
       assertThat(contentNormalizingNewLines(pom)).contains(
@@ -315,7 +332,7 @@ class MavenCommandHandlerTest {
     void shouldNotDuplicateExistingProfile() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
 
-      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localMavenProfile()));
+      new MavenCommandHandler(Indentation.DEFAULT, pom).handle(new AddJavaBuildProfile(localBuildProfile()));
 
       assertThat(contentNormalizingNewLines(pom)).contains(
         """
@@ -333,7 +350,7 @@ class MavenCommandHandlerTest {
       Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(
-        new AddJavaBuildProfile(localMavenProfile(), BuildProfileActivation.builder().build())
+        new AddJavaBuildProfile(localBuildProfile(), BuildProfileActivation.builder().build())
       );
 
       assertThat(contentNormalizingNewLines(pom)).contains(
@@ -388,12 +405,12 @@ class MavenCommandHandlerTest {
     void shouldRemoveDependencyFromProfile() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
       MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
-      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootStarterWebDependency(), localMavenProfile()));
+      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootStarterWebDependency(), localBuildProfile()));
 
       mavenCommandHandler.handle(
         new RemoveJavaDependencyManagement(
           DependencyId.of(groupId("org.springframework.boot"), artifactId("spring-boot-starter-web")),
-          localMavenProfile()
+          localBuildProfile()
         )
       );
 
@@ -487,7 +504,7 @@ class MavenCommandHandlerTest {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(
-        new AddJavaDependencyManagement(defaultVersionDependency(), localMavenProfile())
+        new AddJavaDependencyManagement(defaultVersionDependency(), localBuildProfile())
       );
 
       assertThat(contentNormalizingNewLines(pom)).contains(
@@ -562,12 +579,12 @@ class MavenCommandHandlerTest {
     void shouldRemoveDependencyFromProfile() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
       MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
-      mavenCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency(), localMavenProfile()));
+      mavenCommandHandler.handle(new AddDirectJavaDependency(springBootStarterWebDependency(), localBuildProfile()));
 
       mavenCommandHandler.handle(
         new RemoveDirectJavaDependency(
           DependencyId.of(groupId("org.springframework.boot"), artifactId("spring-boot-starter-web")),
-          localMavenProfile()
+          localBuildProfile()
         )
       );
 
@@ -713,7 +730,7 @@ class MavenCommandHandlerTest {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
 
       new MavenCommandHandler(Indentation.DEFAULT, pom).handle(
-        new AddDirectJavaDependency(defaultVersionDependency(), localMavenProfile())
+        new AddDirectJavaDependency(defaultVersionDependency(), localBuildProfile())
       );
 
       assertThat(contentNormalizingNewLines(pom)).contains(
@@ -919,7 +936,7 @@ class MavenCommandHandlerTest {
         AddMavenPluginManagement command = AddMavenPluginManagement.builder()
           .plugin(mavenEnforcerPluginManagement())
           .pluginVersion(mavenEnforcerVersion())
-          .buildProfile(localMavenProfile())
+          .buildProfile(localBuildProfile())
           .build();
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
       }
@@ -1179,7 +1196,7 @@ class MavenCommandHandlerTest {
           AddDirectMavenPlugin.builder()
             .plugin(mavenEnforcerPluginManagement())
             .pluginVersion(mavenEnforcerVersion())
-            .buildProfile(localMavenProfile())
+            .buildProfile(localBuildProfile())
             .build()
         );
       }

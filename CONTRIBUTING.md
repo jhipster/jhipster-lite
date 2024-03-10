@@ -385,7 +385,7 @@ from the main (upstream) repository:
   ```
 - Run the generate.sh script with the desired project build name.
   ```shell
-  ./tests-ci/generate.sh <application>
+  ./tests-ci/generate.sh <application> <java-build-tool> <spring-configuration-format>
   ```
 - This will generate the project in `/tmp/jhlite/<application>`. Then, you can test it.
 - The project location of the generated build is configured in the `test-ci/modulePayload.json`.

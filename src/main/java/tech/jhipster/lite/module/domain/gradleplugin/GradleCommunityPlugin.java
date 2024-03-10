@@ -48,8 +48,6 @@ public final class GradleCommunityPlugin implements GradlePlugin {
     private VersionSlug versionSlug;
     private GradlePluginSlug pluginSlug;
 
-    private GradleCommunityPluginBuilder() {}
-
     @Override
     public GradleCommunityPluginOptionalBuilder id(GradlePluginId id) {
       this.id = id;

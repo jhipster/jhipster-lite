@@ -96,8 +96,6 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
     private Collection<JHipsterLandscapeDependency> dependencies;
     private JHipsterModulePropertiesDefinition propertiesDefinition;
 
-    private JHipsterLandscapeModuleBuilder() {}
-
     @Override
     public JHipsterLandscapeModuleOperationBuilder module(JHipsterModuleSlug module) {
       this.module = module;

@@ -40,8 +40,6 @@ public final class AddGradlePlugin implements JavaBuildCommand {
     private JavaDependencyVersion pluginVersion;
     private JavaDependencyVersion toolVersion;
 
-    private AddGradlePluginBuilder() {}
-
     @Override
     public AddGradlePluginBuilder plugin(GradlePlugin plugin) {
       this.plugin = plugin;

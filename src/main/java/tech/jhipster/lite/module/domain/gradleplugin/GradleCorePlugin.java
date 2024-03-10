@@ -41,8 +41,6 @@ public final class GradleCorePlugin implements GradlePlugin {
     private GradlePluginConfiguration configuration;
     private VersionSlug toolVersionSlug;
 
-    private GradleCorePluginBuilder() {}
-
     @Override
     public GradleCorePluginOptionalBuilder id(GradlePluginId id) {
       this.id = id;

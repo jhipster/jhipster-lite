@@ -147,8 +147,6 @@ public final class JHipsterModulePropertyDefinition {
     private String defaultValue;
     private int order;
 
-    private JHipsterModulePropertyDefinitionBuilder() {}
-
     @Override
     public JHipsterModulePropertyDefinitionOptionalityBuilder type(JHipsterPropertyType type) {
       this.type = type;

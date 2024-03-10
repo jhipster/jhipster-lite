@@ -342,6 +342,7 @@ from the main (upstream) repository:
 - The `tests-ci/generate.sh` file is used in the Continuous Integration pipeline to test generated projects.
 - This script takes as input:
   - the **application-name**: this is the type of project you would like to generate.
+  - the **java-build-tool**: this is the build tool for the project.
   - the **spring-configuration-format**: this is the format of spring configuration files.
 - Below is the list of applications that can be generated for testing (supported input params for the generate.sh script):
   - spring
@@ -369,6 +370,9 @@ from the main (upstream) repository:
   - reactiveapp
   - customjhlite
   - typescriptapp
+- Below is the list of build tools that can be used for testing (supported input params for the generate.sh script):
+  - gradle
+  - maven
 - Below is the list of formats that can be used for testing (supported input params for the generate.sh script):
   - properties
   - yaml

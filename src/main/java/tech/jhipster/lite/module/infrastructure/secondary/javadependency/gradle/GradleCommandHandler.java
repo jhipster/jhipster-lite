@@ -1,6 +1,9 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
@@ -347,19 +350,20 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void addFileToProject(JHipsterSource source, JHipsterDestination destination) {
-    if (!projectFolder.fileExists(destination.get())) {
-      files.create(
-        projectFolder,
-        new JHipsterTemplatedFiles(
-          List.of(
-            JHipsterTemplatedFile.builder()
-              .file(new JHipsterModuleFile(new JHipsterFileContent(source), destination, false))
-              .context(context())
-              .build()
-          )
-        )
-      );
+    if (projectFolder.fileExists(destination.get())) {
+      return;
     }
+    files.create(
+      projectFolder,
+      new JHipsterTemplatedFiles(
+        List.of(
+          JHipsterTemplatedFile.builder()
+            .file(new JHipsterModuleFile(new JHipsterFileContent(source), destination, false))
+            .context(context())
+            .build()
+        )
+      )
+    );
   }
 
   private JHipsterModuleContext context() {

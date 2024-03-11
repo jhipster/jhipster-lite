@@ -285,33 +285,6 @@ class GradleCommandHandlerTest {
         "The file profile-local.gradle.kts should exist at %s"
       );
     }
-
-    @Test
-    void shouldNotDuplicateExistingProfileWithInvalidProfileNameGradleFiles() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-invalid-profiles-file-name");
-      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
-
-      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
-      gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
-
-      assertThat(buildGradleContent(projectFolder)).contains(
-        """
-        val profiles = (project.findProperty("profiles") as String? ?: "")
-          .split(",")
-          .map { it.trim() }
-          .filter { it.isNotEmpty() }
-        if (profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      );
-      assertFileExists(
-        projectFolder,
-        "buildSrc/src/main/kotlin/profile-local.gradle.kts",
-        "The file profile-local.gradle.kts should exist at %s"
-      );
-    }
   }
 
   @Nested

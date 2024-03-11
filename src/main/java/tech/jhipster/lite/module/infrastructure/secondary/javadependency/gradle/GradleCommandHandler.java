@@ -1,16 +1,30 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModule.to;
 import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
 import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
 
+import java.io.File;
+import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.NotImplementedException;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
+import tech.jhipster.lite.module.domain.ProjectFiles;
+import tech.jhipster.lite.module.domain.file.JHipsterDestination;
+import tech.jhipster.lite.module.domain.file.JHipsterFileContent;
+import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
+import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
+import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
@@ -26,14 +40,18 @@ import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDepend
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
 import tech.jhipster.lite.module.domain.replacement.MandatoryFileReplacer;
 import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
 import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
 import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModuleFiles;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -65,19 +83,37 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     "^\\s+// jhipster-needle-gradle-test-dependencies$",
     Pattern.MULTILINE
   );
+  private static final Pattern GRADLE_PROFILE_ACTIVATION_NEEDLE = Pattern.compile(
+    "^// jhipster-needle-profile-activation$",
+    Pattern.MULTILINE
+  );
+  private static final String PROFILE_CONDITIONAL_TEMPLATE =
+    """
+    if (profiles.contains("%s")) {
+      apply(plugin = "profile-%s")
+    }\
+    """;
+  private static final String PROFILE_DEFAULT_ACTIVATION_CONDITIONAL_TEMPLATE =
+    """
+    if (profiles.isEmpty() || profiles.contains("%s")) {
+      apply(plugin = "profile-%s")
+    }\
+    """;
 
   private final Indentation indentation;
   private final JHipsterProjectFolder projectFolder;
   private final VersionsCatalog versionsCatalog;
   private final FileSystemReplacer fileReplacer = new FileSystemReplacer();
+  private final FileSystemJHipsterModuleFiles files;
 
-  public GradleCommandHandler(Indentation indentation, JHipsterProjectFolder projectFolder) {
+  public GradleCommandHandler(Indentation indentation, JHipsterProjectFolder projectFolder, ProjectFiles filesReader) {
     Assert.notNull("indentation", indentation);
     Assert.notNull("projectFolder", projectFolder);
 
     this.indentation = indentation;
     this.projectFolder = projectFolder;
     this.versionsCatalog = new VersionsCatalog(projectFolder);
+    this.files = new FileSystemJHipsterModuleFiles(filesReader);
   }
 
   @Override
@@ -222,8 +258,16 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @Override
-  public void handle(AddJavaBuildProfile addJavaBuildProfile) {
-    throw new NotImplementedException(NOT_YET_IMPLEMENTED);
+  public void handle(AddJavaBuildProfile command) {
+    Assert.notNull(COMMAND, command);
+
+    enablePrecompiledScriptPlugins();
+
+    File scriptPlugin = scriptPluginForProfile(command.buildProfileId());
+    if (!scriptPlugin.exists()) {
+      addProfileActivation(command);
+      addScriptPluginForProfile(command.buildProfileId());
+    }
   }
 
   @Override
@@ -268,5 +312,62 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       projectFolder,
       ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
     );
+  }
+
+  private void enablePrecompiledScriptPlugins() {
+    addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
+  }
+
+  private File scriptPluginForProfile(BuildProfileId buildProfileId) {
+    return projectFolder.filePath("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(buildProfileId.value())).toFile();
+  }
+
+  private void addProfileActivation(AddJavaBuildProfile command) {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(always(), GRADLE_PROFILE_ACTIVATION_NEEDLE),
+      fillProfileActivationTemplate(command)
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
+  }
+
+  private static String fillProfileActivationTemplate(AddJavaBuildProfile command) {
+    Optional<Boolean> isActiveByDefault = command.activation().flatMap(BuildProfileActivation::activeByDefault);
+
+    return (isActiveByDefault.orElse(false) ? PROFILE_DEFAULT_ACTIVATION_CONDITIONAL_TEMPLATE : PROFILE_CONDITIONAL_TEMPLATE).formatted(
+        command.buildProfileId(),
+        command.buildProfileId()
+      );
+  }
+
+  private void addScriptPluginForProfile(BuildProfileId buildProfileId) {
+    addFileToProject(
+      from("buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template"),
+      to("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(buildProfileId))
+    );
+  }
+
+  private void addFileToProject(JHipsterSource source, JHipsterDestination destination) {
+    if (projectFolder.fileExists(destination.get())) {
+      return;
+    }
+    files.create(
+      projectFolder,
+      new JHipsterTemplatedFiles(
+        List.of(
+          JHipsterTemplatedFile.builder()
+            .file(new JHipsterModuleFile(new JHipsterFileContent(source), destination, false))
+            .context(context())
+            .build()
+        )
+      )
+    );
+  }
+
+  private JHipsterModuleContext context() {
+    JHipsterModuleProperties properties = new JHipsterModuleProperties(projectFolder.get(), false, null);
+    return JHipsterModuleContext.builder(moduleBuilder(properties)).build();
   }
 }

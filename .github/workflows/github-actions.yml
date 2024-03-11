@@ -27,7 +27,7 @@ jobs:
       - name: Get the head commit message
         id: commit-message
         run: |
-          head_commit_message=$(git log -1 --no-merges --pretty=%B | tr '\n' ' ')
+          head_commit_message=$(git log -1 --no-merges --pretty=%B | tr '\n' ' ' | sed "s/'/'\\\\''/g")
           echo head commit message: $head_commit_message
           echo "message=$head_commit_message" >> $GITHUB_OUTPUT
       - name: Check for ci skip tags

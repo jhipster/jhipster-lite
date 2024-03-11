@@ -41,10 +41,19 @@ public final class JHipsterModulesFixture {
 
   /**
    * Module that contains all features currently supported with Gradle
+   *
    * @implNote This is a temporary method to be used until all features are supported with Gradle
    */
   public static JHipsterModule gradleSupportedModule() {
-    return gradleSupportedModuleBuilder().build();
+    // @formatter:off
+    return gradleSupportedModuleBuilder()
+      .javaBuildProfiles()
+        .addProfile(localBuildProfile())
+          .activation(buildProfileActivation().activeByDefault(false))
+          .and()
+        .and()
+      .build();
+    // @formatter:on
   }
 
   /**
@@ -54,7 +63,7 @@ public final class JHipsterModulesFixture {
     // @formatter:off
    return gradleSupportedModuleBuilder()
     .javaBuildProfiles()
-      .addProfile(localMavenProfile())
+      .addProfile(localBuildProfile())
         .activation(buildProfileActivation().activeByDefault(false))
         .properties()
           .set(buildPropertyKey("spring.profiles.active"), buildPropertyValue("local"))
@@ -257,7 +266,7 @@ public final class JHipsterModulesFixture {
     return DependencyId.of(new GroupId("io.jsonwebtoken"), new ArtifactId("jjwt-api"));
   }
 
-  public static BuildProfileId localMavenProfile() {
+  public static BuildProfileId localBuildProfile() {
     return buildProfileId("local");
   }
 

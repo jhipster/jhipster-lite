@@ -19,8 +19,20 @@ repositories {
 group = "tech.jhipster.chips"
 version = "0.0.1-SNAPSHOT"
 
-ext {
-  // jhipster-needle-gradle-properties
+// jhipster-needle-gradle-properties
+
+val profiles = (project.findProperty("profiles") as String? ?: "")
+  .split(",")
+  .map { it.trim() }
+  .filter { it.isNotEmpty() }
+// jhipster-needle-profile-activation
+
+tasks.build {
+  dependsOn("processResources")
+}
+
+tasks.processResources {
+  // jhipster-needle-gradle-process-resources
 }
 
 dependencies {

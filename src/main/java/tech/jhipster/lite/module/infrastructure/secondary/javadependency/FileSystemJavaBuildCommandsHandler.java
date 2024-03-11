@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
@@ -27,9 +28,11 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 public class FileSystemJavaBuildCommandsHandler {
 
   private final ProjectJavaBuildToolRepository javaBuildTools;
+  private final ProjectFiles filesReader;
 
-  public FileSystemJavaBuildCommandsHandler(ProjectJavaBuildToolRepository javaBuildTools) {
+  public FileSystemJavaBuildCommandsHandler(ProjectJavaBuildToolRepository javaBuildTools, ProjectFiles filesReader) {
     this.javaBuildTools = javaBuildTools;
+    this.filesReader = filesReader;
   }
 
   public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, JavaBuildCommands commands) {
@@ -52,7 +55,7 @@ public class FileSystemJavaBuildCommandsHandler {
       .orElseThrow(() -> new MissingJavaBuildConfigurationException(projectFolder));
     return switch (javaBuildTool) {
       case MAVEN -> new MavenCommandHandler(indentation, projectFolder.filePath("pom.xml"));
-      case GRADLE -> new GradleCommandHandler(indentation, projectFolder);
+      case GRADLE -> new GradleCommandHandler(indentation, projectFolder, filesReader);
     };
   }
 

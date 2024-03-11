@@ -1,7 +1,14 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.fullModule;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.gradleSupportedModule;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.upgrade;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleUpgrade;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.file;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleLibsVersionFile;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
 
 import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Test;
@@ -431,6 +438,18 @@ class FileSystemJHipsterModulesRepositoryTest {
         checkstyle {
           toolVersion = libs.versions.checkstyle.get()
         }
+        """
+      )
+      .containing(
+        """
+        val profiles = (project.findProperty("profiles") as String? ?: "")
+          .split(",")
+          .map { it.trim() }
+          .filter { it.isNotEmpty() }
+        if (profiles.contains("local")) {
+          apply(plugin = "profile-local")
+        }
+        // jhipster-needle-profile-activation\
         """
       )
       .and()

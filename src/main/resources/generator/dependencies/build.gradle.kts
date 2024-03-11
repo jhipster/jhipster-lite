@@ -26,8 +26,14 @@ repositories {
 group = "tech.jhipster.lite"
 version = "0.0.1-SNAPSHOT"
 
-ext {
-  // jhipster-needle-gradle-properties
+// jhipster-needle-profile-activation
+
+tasks.build {
+  dependsOn("processResources")
+}
+
+tasks.processResources {
+  // jhipster-needle-gradle-process-resources
 }
 
 dependencies {

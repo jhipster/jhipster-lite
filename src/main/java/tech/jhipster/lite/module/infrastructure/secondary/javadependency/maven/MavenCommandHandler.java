@@ -4,6 +4,7 @@ import io.fabric8.maven.Maven;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -393,11 +394,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
   private void writePom() {
-    Maven.writeModel(pomModel, pomPath);
+    StringWriter stringWriter = new StringWriter();
+    Maven.writeModel(pomModel, pomPath, stringWriter);
 
     try {
-      String pomContent = Files.readString(pomPath, StandardCharsets.UTF_8);
-      Files.writeString(pomPath, applyIndentation(pomContent), StandardCharsets.UTF_8);
+      Files.writeString(pomPath, applyIndentation(stringWriter.toString()), StandardCharsets.UTF_8);
     } catch (IOException e) {
       throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
     }

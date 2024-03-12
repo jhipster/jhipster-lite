@@ -270,50 +270,6 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     }
   }
 
-  @Override
-  public void handle(AddGradlePlugin command) {
-    Assert.notNull(COMMAND, command);
-
-    switch (command.plugin()) {
-      case GradleCorePlugin plugin -> declarePlugin(plugin.id().get());
-      case GradleCommunityPlugin plugin -> {
-        declarePlugin("alias(libs.plugins.%s)".formatted(applyVersionCatalogReferenceConvention(pluginAlias(plugin))));
-        versionsCatalog.addPlugin(plugin);
-      }
-    }
-    command.plugin().configuration().ifPresent(this::addPluginConfiguration);
-    command.toolVersion().ifPresent(version -> handle(new SetVersion(version)));
-    command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
-  }
-
-  private void declarePlugin(String pluginDeclaration) {
-    MandatoryReplacer replacer = new MandatoryReplacer(
-      new RegexNeedleBeforeReplacer(
-        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
-        GRADLE_PLUGIN_NEEDLE
-      ),
-      indentation.times(1) + pluginDeclaration
-    );
-    fileReplacer.handle(
-      projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
-    );
-  }
-
-  private void addPluginConfiguration(GradlePluginConfiguration pluginConfiguration) {
-    MandatoryReplacer replacer = new MandatoryReplacer(
-      new RegexNeedleBeforeReplacer(
-        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
-        GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE
-      ),
-      LINE_BREAK + pluginConfiguration.get()
-    );
-    fileReplacer.handle(
-      projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
-    );
-  }
-
   private void enablePrecompiledScriptPlugins() {
     addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
   }
@@ -369,5 +325,49 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private JHipsterModuleContext context() {
     JHipsterModuleProperties properties = new JHipsterModuleProperties(projectFolder.get(), false, null);
     return JHipsterModuleContext.builder(moduleBuilder(properties)).build();
+  }
+
+  @Override
+  public void handle(AddGradlePlugin command) {
+    Assert.notNull(COMMAND, command);
+
+    switch (command.plugin()) {
+      case GradleCorePlugin plugin -> declarePlugin(plugin.id().get());
+      case GradleCommunityPlugin plugin -> {
+        declarePlugin("alias(libs.plugins.%s)".formatted(applyVersionCatalogReferenceConvention(pluginAlias(plugin))));
+        versionsCatalog.addPlugin(plugin);
+      }
+    }
+    command.plugin().configuration().ifPresent(this::addPluginConfiguration);
+    command.toolVersion().ifPresent(version -> handle(new SetVersion(version)));
+    command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
+  }
+
+  private void declarePlugin(String pluginDeclaration) {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(
+        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
+        GRADLE_PLUGIN_NEEDLE
+      ),
+      indentation.times(1) + pluginDeclaration
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
+  }
+
+  private void addPluginConfiguration(GradlePluginConfiguration pluginConfiguration) {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(
+        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
+        GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE
+      ),
+      LINE_BREAK + pluginConfiguration.get()
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
   }
 }

@@ -453,6 +453,14 @@ class FileSystemJHipsterModulesRepositoryTest {
         """
       )
       .and()
+      .hasFile("buildSrc/src/main/kotlin/profile-local.gradle.kts")
+      .containing(
+        """
+        val springProfilesActive by extra("local")
+        // jhipster-needle-gradle-properties
+        """
+      )
+      .and()
       .hasFile("package.json")
       .containing("\"scripts\": {\n    \"serve\": \"tikui-core serve\"")
       .containing("\"dependencies\": {\n    \"@angular/animations\": \"")

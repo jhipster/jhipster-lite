@@ -296,11 +296,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private String convertToKotlinFormat(BuildProperty property) {
-    String camelCase = Arrays.stream(property.key().get().split("\\."))
-      .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
-      .collect(Collectors.collectingAndThen(Collectors.joining(), str -> str.substring(0, 1).toLowerCase() + str.substring(1)));
-
-    return "val %s by extra(\"%s\")".formatted(camelCase, property.value().get());
+    return "val %s by extra(\"%s\")".formatted(convertToKotlinFormat(property.key()), property.value().get());
   }
 
   private String convertToKotlinFormat(PropertyKey key) {

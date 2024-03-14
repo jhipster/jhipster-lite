@@ -271,8 +271,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void addPropertyTo(BuildProperty property, File buildGradleFile) {
-    String gradlePropertyFormatted = convertToKotlinFormat(property);
-    Optional<String> propertyLine = readPropertyFrom(convertToKotlinFormat(property.key()), buildGradleFile.toPath());
+    String gradlePropertyDeclaration = convertToKotlinFormat(property);
+    Optional<String> propertyLine = readPropertyFrom(toCamelCasedKotlinVariable(property.key()), buildGradleFile.toPath());
 
     MandatoryReplacer replacer = propertyLine
       .map(line -> {
@@ -282,10 +282,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
             (contentBeforeReplacement, replacement) -> propertyLinePattern.matcher(contentBeforeReplacement).find(),
             propertyLinePattern
           ),
-          gradlePropertyFormatted
+          gradlePropertyDeclaration
         );
       })
-      .orElseGet(() -> new MandatoryReplacer(new RegexNeedleBeforeReplacer(always(), GRADLE_PROPERTY_NEEDLE), gradlePropertyFormatted));
+      .orElseGet(() -> new MandatoryReplacer(new RegexNeedleBeforeReplacer(always(), GRADLE_PROPERTY_NEEDLE), gradlePropertyDeclaration));
     fileReplacer.handle(
       projectFolder,
       ContentReplacers.of(
@@ -298,10 +298,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private String convertToKotlinFormat(BuildProperty property) {
-    return "val %s by extra(\"%s\")".formatted(convertToKotlinFormat(property.key()), property.value().get());
+    return "val %s by extra(\"%s\")".formatted(toCamelCasedKotlinVariable(property.key()), property.value().get());
   }
 
-  private String convertToKotlinFormat(PropertyKey key) {
+  private String toCamelCasedKotlinVariable(PropertyKey key) {
     return Arrays.stream(key.get().split("\\."))
       .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
       .collect(Collectors.collectingAndThen(Collectors.joining(), str -> str.substring(0, 1).toLowerCase() + str.substring(1)));

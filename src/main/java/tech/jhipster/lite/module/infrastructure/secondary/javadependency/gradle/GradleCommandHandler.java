@@ -272,20 +272,14 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   private void addPropertyTo(BuildProperty property, File buildGradleFile) {
     String gradlePropertyDeclaration = convertToKotlinFormat(property);
-    Optional<String> propertyLine = readPropertyFrom(toCamelCasedKotlinVariable(property.key()), buildGradleFile.toPath());
 
-    MandatoryReplacer replacer = propertyLine
-      .map(line -> {
-        Pattern propertyLinePattern = Pattern.compile(line, Pattern.LITERAL);
-        return new MandatoryReplacer(
-          new RegexReplacer(
-            (contentBeforeReplacement, replacement) -> propertyLinePattern.matcher(contentBeforeReplacement).find(),
-            propertyLinePattern
-          ),
-          gradlePropertyDeclaration
-        );
-      })
-      .orElseGet(() -> new MandatoryReplacer(new RegexNeedleBeforeReplacer(always(), GRADLE_PROPERTY_NEEDLE), gradlePropertyDeclaration));
+    MandatoryReplacer replacer;
+    if (propertyExistsFrom(toCamelCasedKotlinVariable(property.key()), buildGradleFile.toPath())) {
+      replacer = existingPropertyReplacer(property, gradlePropertyDeclaration);
+    } else {
+      replacer = addNewPropertyReplacer(gradlePropertyDeclaration);
+    }
+
     fileReplacer.handle(
       projectFolder,
       ContentReplacers.of(
@@ -295,6 +289,24 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         )
       )
     );
+  }
+
+  private MandatoryReplacer existingPropertyReplacer(BuildProperty property, String gradlePropertyDeclaration) {
+    Pattern propertyLinePattern = Pattern.compile(
+      "val %s by extra\\(\"(.*?)\"\\)".formatted(toCamelCasedKotlinVariable(property.key())),
+      Pattern.MULTILINE
+    );
+    return new MandatoryReplacer(
+      new RegexReplacer(
+        (contentBeforeReplacement, replacement) -> propertyLinePattern.matcher(contentBeforeReplacement).find(),
+        propertyLinePattern
+      ),
+      gradlePropertyDeclaration
+    );
+  }
+
+  private static MandatoryReplacer addNewPropertyReplacer(String gradlePropertyDeclaration) {
+    return new MandatoryReplacer(new RegexNeedleBeforeReplacer(always(), GRADLE_PROPERTY_NEEDLE), gradlePropertyDeclaration);
   }
 
   private String convertToKotlinFormat(BuildProperty property) {
@@ -308,22 +320,14 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
-  private Optional<String> readPropertyFrom(String gradlePropertyFormatted, Path buildGradleProfileFile) {
+  private Boolean propertyExistsFrom(String gradlePropertyFormatted, Path buildGradleProfileFile) {
     try {
       String content = Files.readString(buildGradleProfileFile);
 
-      if (content.contains(gradlePropertyFormatted)) {
-        String[] lines = content.split("\\R");
-        for (String line : lines) {
-          if (line.contains(gradlePropertyFormatted)) {
-            return Optional.of(line);
-          }
-        }
-      }
+      return content.contains(gradlePropertyFormatted);
     } catch (IOException e) {
       throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
     }
-    return Optional.empty();
   }
 
   @Override

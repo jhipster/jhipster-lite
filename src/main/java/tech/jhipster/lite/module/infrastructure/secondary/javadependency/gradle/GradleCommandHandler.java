@@ -11,6 +11,7 @@ import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -265,17 +266,13 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         if (!scriptPlugin.exists()) {
           throw new MissingGradleProfileException(buildProfile);
         }
-        addPropertyToProfile(command.property(), buildProfile);
+        addPropertyTo(command.property(), scriptPlugin);
       });
   }
 
-  private void addPropertyToProfile(BuildProperty property, BuildProfileId buildProfileId) {
-    addProperty(property, BUILD_GRADLE_PROFILE_PATH_TEMPLATE.formatted(buildProfileId));
-  }
-
-  private void addProperty(BuildProperty property, String buildGradleProfileFilePath) {
+  private void addPropertyTo(BuildProperty property, File buildGradleFile) {
     String gradlePropertyFormatted = convertToKotlinFormat(property);
-    Optional<String> propertyLine = readPropertyFrom(convertToKotlinFormat(property.key()), buildGradleProfileFilePath);
+    Optional<String> propertyLine = readPropertyFrom(convertToKotlinFormat(property.key()), buildGradleFile.toPath());
 
     MandatoryReplacer replacer = propertyLine
       .map(line -> {
@@ -291,7 +288,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       .orElseGet(() -> new MandatoryReplacer(new RegexNeedleBeforeReplacer(always(), GRADLE_PROPERTY_NEEDLE), gradlePropertyFormatted));
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(buildGradleProfileFilePath), replacer))
+      ContentReplacers.of(
+        new MandatoryFileReplacer(
+          new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile.toPath()).toString()),
+          replacer
+        )
+      )
     );
   }
 
@@ -306,9 +308,9 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
-  private Optional<String> readPropertyFrom(String gradlePropertyFormatted, String buildGradleProfileFilePath) {
+  private Optional<String> readPropertyFrom(String gradlePropertyFormatted, Path buildGradleProfileFile) {
     try {
-      String content = Files.readString(projectFolder.filePath(buildGradleProfileFilePath));
+      String content = Files.readString(buildGradleProfileFile);
 
       if (content.contains(gradlePropertyFormatted)) {
         String[] lines = content.split("\\R");

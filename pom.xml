@@ -68,7 +68,7 @@
     <archunit-junit5.version>1.2.1</archunit-junit5.version>
     <springdoc-openapi-starter-webmvc-ui.version>2.4.0</springdoc-openapi-starter-webmvc-ui.version>
     <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
-    <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
+    <sonar-maven-plugin.version>3.11.0.3922</sonar-maven-plugin.version>
     <apache-commons-io.version>2.15.1</apache-commons-io.version>
     <cucumber.version>7.15.0</cucumber.version>
     <maven-model-helper.version>30</maven-model-helper.version>

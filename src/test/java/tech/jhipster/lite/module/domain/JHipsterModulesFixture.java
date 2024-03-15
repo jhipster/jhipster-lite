@@ -50,6 +50,9 @@ public final class JHipsterModulesFixture {
       .javaBuildProfiles()
         .addProfile(localBuildProfile())
           .activation(buildProfileActivation().activeByDefault(false))
+          .properties()
+            .set(buildPropertyKey("spring.profiles.active"), buildPropertyValue("local"))
+            .and()
           .and()
         .and()
       .build();

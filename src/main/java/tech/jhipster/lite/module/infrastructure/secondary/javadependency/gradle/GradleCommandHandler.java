@@ -271,13 +271,11 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void addPropertyTo(BuildProperty property, File buildGradleFile) {
-    String gradlePropertyDeclaration = convertToKotlinFormat(property);
-
     MandatoryReplacer replacer;
-    if (propertyExistsFrom(toCamelCasedKotlinVariable(property.key()), buildGradleFile.toPath())) {
-      replacer = existingPropertyReplacer(property, gradlePropertyDeclaration);
+    if (propertyExistsFrom(property.key(), buildGradleFile.toPath())) {
+      replacer = existingPropertyReplacer(property);
     } else {
-      replacer = addNewPropertyReplacer(gradlePropertyDeclaration);
+      replacer = addNewPropertyReplacer(property);
     }
 
     fileReplacer.handle(
@@ -291,7 +289,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
   }
 
-  private MandatoryReplacer existingPropertyReplacer(BuildProperty property, String gradlePropertyDeclaration) {
+  private MandatoryReplacer existingPropertyReplacer(BuildProperty property) {
     Pattern propertyLinePattern = Pattern.compile(
       "val %s by extra\\(\"(.*?)\"\\)".formatted(toCamelCasedKotlinVariable(property.key())),
       Pattern.MULTILINE
@@ -301,30 +299,30 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         (contentBeforeReplacement, replacement) -> propertyLinePattern.matcher(contentBeforeReplacement).find(),
         propertyLinePattern
       ),
-      gradlePropertyDeclaration
+      convertToKotlinFormat(property)
     );
   }
 
-  private static MandatoryReplacer addNewPropertyReplacer(String gradlePropertyDeclaration) {
-    return new MandatoryReplacer(new RegexNeedleBeforeReplacer(always(), GRADLE_PROPERTY_NEEDLE), gradlePropertyDeclaration);
+  private static MandatoryReplacer addNewPropertyReplacer(BuildProperty property) {
+    return new MandatoryReplacer(new RegexNeedleBeforeReplacer(always(), GRADLE_PROPERTY_NEEDLE), convertToKotlinFormat(property));
   }
 
-  private String convertToKotlinFormat(BuildProperty property) {
+  private static String convertToKotlinFormat(BuildProperty property) {
     return "val %s by extra(\"%s\")".formatted(toCamelCasedKotlinVariable(property.key()), property.value().get());
   }
 
-  private String toCamelCasedKotlinVariable(PropertyKey key) {
+  private static String toCamelCasedKotlinVariable(PropertyKey key) {
     return Arrays.stream(key.get().split("\\."))
       .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
       .collect(Collectors.collectingAndThen(Collectors.joining(), str -> str.substring(0, 1).toLowerCase() + str.substring(1)));
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
-  private Boolean propertyExistsFrom(String gradlePropertyFormatted, Path buildGradleProfileFile) {
+  private boolean propertyExistsFrom(PropertyKey key, Path buildGradleProfileFile) {
     try {
       String content = Files.readString(buildGradleProfileFile);
 
-      return content.contains(gradlePropertyFormatted);
+      return content.contains(toCamelCasedKotlinVariable(key));
     } catch (IOException e) {
       throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
     }

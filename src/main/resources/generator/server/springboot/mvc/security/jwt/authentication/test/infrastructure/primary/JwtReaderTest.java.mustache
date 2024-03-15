@@ -68,7 +68,7 @@ class JwtReaderTest {
   private String userToken() {
     return Jwts
       .builder()
-      .setSubject("test")
+      .subject("test")
       .claim("auth", "ROLE_USER,ROLE_ADMIN,,")
       .signWith(KEY, SignatureAlgorithm.HS512)
       .setExpiration(Date.from(Instant.now().plusSeconds(120)))
@@ -86,7 +86,7 @@ class JwtReaderTest {
   private String userTokenWithoutRoles() {
     return Jwts
       .builder()
-      .setSubject("test")
+      .subject("test")
       .signWith(KEY, SignatureAlgorithm.HS512)
       .setExpiration(Date.from(Instant.now().plusSeconds(120)))
       .compact();

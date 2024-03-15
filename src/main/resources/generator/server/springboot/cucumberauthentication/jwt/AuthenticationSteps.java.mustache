@@ -114,7 +114,7 @@ public class AuthenticationSteps {
     private String token() {
       return Jwts
         .builder()
-        .setSubject(username)
+        .subject(username)
         .signWith(key)
         .claim("auth", authorities)
         .setExpiration(Date.from(Instant.now().plusSeconds(300)))

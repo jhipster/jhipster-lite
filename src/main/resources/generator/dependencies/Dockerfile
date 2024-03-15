@@ -9,8 +9,7 @@ FROM mysql:8.3.0
 FROM cassandra:4.1.4
 FROM mcr.microsoft.com/mssql/server:2017-latest
 FROM postgres:16.2
-FROM confluentinc/cp-zookeeper:7.6.0
-FROM confluentinc/cp-kafka:7.6.0
+FROM apache/kafka:3.7.0
 FROM tchiotludo/akhq:0.24.0
 FROM apachepulsar/pulsar:3.2.0
 FROM neo4j:5.18.0-community

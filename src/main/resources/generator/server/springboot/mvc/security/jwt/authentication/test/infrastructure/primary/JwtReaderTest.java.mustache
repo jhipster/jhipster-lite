@@ -71,7 +71,7 @@ class JwtReaderTest {
       .subject("test")
       .claim("auth", "ROLE_USER,ROLE_ADMIN,,")
       .signWith(KEY, SignatureAlgorithm.HS512)
-      .setExpiration(Date.from(Instant.now().plusSeconds(120)))
+      .expiration(Date.from(Instant.now().plusSeconds(120)))
       .compact();
   }
 
@@ -88,7 +88,7 @@ class JwtReaderTest {
       .builder()
       .subject("test")
       .signWith(KEY, SignatureAlgorithm.HS512)
-      .setExpiration(Date.from(Instant.now().plusSeconds(120)))
+      .expiration(Date.from(Instant.now().plusSeconds(120)))
       .compact();
   }
 }

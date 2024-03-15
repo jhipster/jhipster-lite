@@ -97,7 +97,7 @@ public class AuthenticationSteps {
         .subject("authentication")
         .signWith(CucumberAuthenticationConfiguration.JWT_KEY)
         .setClaims(claims)
-        .setExpiration(Date.from(Instant.now().plusSeconds(300)))
+        .expiration(Date.from(Instant.now().plusSeconds(300)))
         .compact();
     }
   }

@@ -117,7 +117,7 @@ public class AuthenticationSteps {
         .subject(username)
         .signWith(key)
         .claim("auth", authorities)
-        .setExpiration(Date.from(Instant.now().plusSeconds(300)))
+        .expiration(Date.from(Instant.now().plusSeconds(300)))
         .compact();
     }
   }

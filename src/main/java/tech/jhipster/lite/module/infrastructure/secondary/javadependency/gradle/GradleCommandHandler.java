@@ -318,13 +318,13 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
-  private boolean propertyExistsFrom(PropertyKey key, Path buildGradleProfileFile) {
+  private boolean propertyExistsFrom(PropertyKey key, Path buildGradleFile) {
     try {
-      String content = Files.readString(buildGradleProfileFile);
+      String content = Files.readString(buildGradleFile);
 
-      return content.contains(toCamelCasedKotlinVariable(key));
+      return content.contains("val %s by extra(".formatted(toCamelCasedKotlinVariable(key)));
     } catch (IOException e) {
-      throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
+      throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
     }
   }
 

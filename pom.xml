@@ -774,9 +774,6 @@
                           <property>
                             <name>testFailureIgnore</name>
                           </property>
-                          <property>
-                            <name>installDirectory</name>
-                          </property>
                         </properties>
                         <ignoredProperties>
                           <ignore>execution</ignore>
@@ -785,6 +782,7 @@
                           <ignore>workingDirectory</ignore>
                           <ignore>skipTests</ignore>
                           <ignore>session</ignore>
+                          <ignore>installDirectory</ignore>
                         </ignoredProperties>
                         <fileSets>
                           <fileSet>
@@ -835,9 +833,6 @@
                           <property>
                             <name>testFailureIgnore</name>
                           </property>
-                          <property>
-                            <name>installDirectory</name>
-                          </property>
                         </properties>
                         <ignoredProperties>
                           <ignore>execution</ignore>
@@ -846,6 +841,7 @@
                           <ignore>workingDirectory</ignore>
                           <ignore>skipTests</ignore>
                           <ignore>session</ignore>
+                          <ignore>installDirectory</ignore>
                         </ignoredProperties>
                         <fileSets>
                           <fileSet>
@@ -896,9 +892,6 @@
                           <property>
                             <name>testFailureIgnore</name>
                           </property>
-                          <property>
-                            <name>installDirectory</name>
-                          </property>
                         </properties>
                         <ignoredProperties>
                           <ignore>execution</ignore>
@@ -907,6 +900,7 @@
                           <ignore>workingDirectory</ignore>
                           <ignore>skipTests</ignore>
                           <ignore>session</ignore>
+                          <ignore>installDirectory</ignore>
                         </ignoredProperties>
                         <fileSets>
                           <fileset>

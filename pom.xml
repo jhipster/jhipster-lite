@@ -912,6 +912,12 @@
                         </fileSets>
                       </inputs>
                       <outputs>
+                        <directories>
+                          <directory>
+                            <name>target-test-results</name>
+                            <path>${project.basedir}/target/test-results</path>
+                          </directory>
+                        </directories>
                         <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
                       </outputs>
                     </execution>

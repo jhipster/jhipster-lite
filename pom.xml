@@ -930,13 +930,13 @@
                     <execution>
                       <id>default-compile</id>
                       <outputs>
-                        <cacheableBecause>compilation outcome does not not change with property</cacheableBecause>
+                        <cacheableBecause>compilation outcome does not change with property</cacheableBecause>
                       </outputs>
                     </execution>
                     <execution>
                       <id>default-testCompile</id>
                       <outputs>
-                        <cacheableBecause>compilation outcome does not not change with property</cacheableBecause>
+                        <cacheableBecause>compilation outcome does not change with property</cacheableBecause>
                       </outputs>
                     </execution>
                   </executions>

@@ -61,13 +61,6 @@ public class CheckstyleModuleFactory {
           configFile = rootProject.file("checkstyle.xml")
           toolVersion = libs.versions.%s.get()
         }
-
-        // Workaround for https://github.com/gradle/gradle/issues/27035
-        configurations.checkstyle {
-          resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
-            select("com.google.guava:guava:0")
-          }
-        }
         """.formatted(toolVersionSlug.slug())
       )
       .build();

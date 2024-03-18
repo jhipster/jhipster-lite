@@ -1,26 +1,9 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
-import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
-import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
-import static tech.jhipster.lite.module.domain.JHipsterModule.mavenPlugin;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.checkstyleGradlePlugin;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.defaultVersionDependency;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.jsonWebTokenDependencyId;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.localBuildProfile;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenBuildExtensionWithSlug;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerPlugin;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerPluginManagement;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerVersion;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.optionalTestDependency;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyId;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyManagement;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootStarterWebDependency;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootVersion;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springProfilesActiveProperty;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestFileUtils.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -419,7 +402,8 @@ class MavenCommandHandlerTest {
           """
               <profile>
                 <id>local</id>
-                <dependencyManagement />
+                <dependencyManagement>
+                </dependencyManagement>
               </profile>
           """
         )
@@ -564,6 +548,7 @@ class MavenCommandHandlerTest {
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-implementation</artifactId>
               </dependency>
+
               <dependency>
                 <groupId>io.another</groupId>
                 <artifactId>jjwt-api</artifactId>
@@ -683,6 +668,7 @@ class MavenCommandHandlerTest {
         """
               <artifactId>logstash-logback-encoder</artifactId>
             </dependency>
+
             <dependency>
               <groupId>org.springframework.boot</groupId>
               <artifactId>spring-boot-starter</artifactId>

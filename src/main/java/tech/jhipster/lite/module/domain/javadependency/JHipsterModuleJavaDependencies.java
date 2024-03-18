@@ -20,14 +20,12 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModuleJavaDependencies {
 
-  private final Collection<JavaDependencyVersion> versions;
   private final Collection<DependencyId> dependenciesToRemove;
   private final Collection<JavaDependencyManagement> dependenciesManagement;
   private final Collection<DependencyId> dependenciesManagementToRemove;
   private final Collection<DirectJavaDependency> dependencies;
 
   private JHipsterModuleJavaDependencies(JHipsterModuleJavaDependenciesBuilder<?> builder) {
-    versions = builder.versions;
     dependenciesToRemove = builder.dependenciesToRemove;
     dependenciesManagement = builder.dependenciesManagement;
     dependenciesManagementToRemove = builder.dependenciesManagementToRemove;
@@ -60,7 +58,6 @@ public final class JHipsterModuleJavaDependencies {
     Assert.notNull("projectDependencies", projectDependencies);
 
     return Stream.of(
-      settedVersionsCommands(),
       dependenciesToRemoveCommands(buildProfile),
       dependenciesManagementChanges(versions, projectDependencies, buildProfile),
       dependenciesManagementToRemoveCommands(buildProfile),
@@ -68,10 +65,6 @@ public final class JHipsterModuleJavaDependencies {
     )
       .flatMap(Function.identity())
       .reduce(JavaBuildCommands.EMPTY, JavaBuildCommands::merge);
-  }
-
-  private Stream<JavaBuildCommands> settedVersionsCommands() {
-    return Stream.of(new JavaBuildCommands(versions.stream().map(toSetVersionCommand()).toList()));
   }
 
   private Function<JavaDependencyVersion, JavaBuildCommand> toSetVersionCommand() {
@@ -162,14 +155,6 @@ public final class JHipsterModuleJavaDependencies {
       Assert.notNull(DEPENDENCY, dependency);
 
       dependencies.add(new DirectJavaDependency(dependency));
-
-      return this;
-    }
-
-    public JHipsterModuleJavaDependenciesBuilder<T> setVersion(JavaDependencyVersion version) {
-      Assert.notNull("version", version);
-
-      versions.add(version);
 
       return this;
     }

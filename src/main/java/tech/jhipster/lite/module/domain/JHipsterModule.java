@@ -15,6 +15,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext.JHipsterModuleContextBuilder;
 import tech.jhipster.lite.module.domain.JHipsterModulePreActions.JHipsterModulePreActionsBuilder;
+import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties;
+import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties.JHipsterModuleBuildPropertiesBuilder;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
@@ -105,6 +107,7 @@ public final class JHipsterModule {
   private final JHipsterModuleStartupCommands startupCommands;
   private final JHipsterModuleContext context;
   private final JHipsterModuleJavaDependencies javaDependencies;
+  private final JHipsterModuleBuildProperties javaBuildProperties;
   private final JHipsterModuleJavaBuildProfiles javaBuildProfiles;
   private final JHipsterModuleMavenPlugins mavenPlugins;
   private final JHipsterModuleGradlePlugin gradlePlugins;
@@ -125,6 +128,7 @@ public final class JHipsterModule {
     startupCommands = builder.startupCommands.build();
     context = builder.context.build();
     javaDependencies = builder.javaDependencies.build();
+    javaBuildProperties = builder.javaBuildProperties.build();
     javaBuildProfiles = builder.javaBuildProfiles.build();
     mavenPlugins = builder.mavenPlugins.build();
     gradlePlugins = builder.gradlePlugins.build();
@@ -147,6 +151,7 @@ public final class JHipsterModule {
     startupCommands = source.startupCommands;
     context = source.context;
     javaDependencies = source.javaDependencies;
+    javaBuildProperties = source.javaBuildProperties;
     javaBuildProfiles = source.javaBuildProfiles;
     mavenPlugins = source.mavenPlugins;
     gradlePlugins = source.gradlePlugins;
@@ -433,6 +438,10 @@ public final class JHipsterModule {
     return javaDependencies;
   }
 
+  public JHipsterModuleBuildProperties javaBuildProperties() {
+    return javaBuildProperties;
+  }
+
   public JHipsterModuleJavaBuildProfiles javaBuildProfiles() {
     return javaBuildProfiles;
   }
@@ -488,6 +497,9 @@ public final class JHipsterModule {
     );
     private final JHipsterModuleStartupCommandsBuilder startupCommands = JHipsterModuleStartupCommands.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder<JHipsterModuleBuilder> javaDependencies = JHipsterModuleJavaDependencies.builder(
+      this
+    );
+    private final JHipsterModuleBuildPropertiesBuilder<JHipsterModuleBuilder> javaBuildProperties = JHipsterModuleBuildProperties.builder(
       this
     );
     private final JHipsterModuleJavaBuildProfilesBuilder javaBuildProfiles = JHipsterModuleJavaBuildProfiles.builder(this);
@@ -570,6 +582,10 @@ public final class JHipsterModule {
 
     public JHipsterModuleJavaDependenciesBuilder<JHipsterModuleBuilder> javaDependencies() {
       return javaDependencies;
+    }
+
+    public JHipsterModuleBuildPropertiesBuilder<JHipsterModuleBuilder> javaBuildProperties() {
+      return javaBuildProperties;
     }
 
     public JHipsterModuleJavaBuildProfilesBuilder javaBuildProfiles() {

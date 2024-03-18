@@ -9,13 +9,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.git.GitRepository;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -85,6 +88,7 @@ public class JHipsterModulesApplyer {
         buildDependenciesChanges(module)
           .merge(buildPluginsChanges(module))
           .merge(buildMavenBuildExtensionsChanges(module))
+          .merge(buildPropertiesChanges(module))
           .merge(buildProfilesChanges(module))
           .merge(buildGradlePluginsChanges(module))
       )
@@ -176,6 +180,18 @@ public class JHipsterModulesApplyer {
 
   private JavaBuildCommands buildDependenciesChanges(JHipsterModule module) {
     return module.javaDependencies().buildChanges(javaVersions.get(), projectDependencies.get(module.projectFolder()));
+  }
+
+  private JavaBuildCommands buildPropertiesChanges(JHipsterModule module) {
+    return new JavaBuildCommands(
+      module
+        .javaBuildProperties()
+        .properties()
+        .entrySet()
+        .stream()
+        .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue())))
+        .collect(Collectors.toList())
+    );
   }
 
   private JavaBuildCommands buildProfilesChanges(JHipsterModule module) {

@@ -261,18 +261,21 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
     command
       .buildProfile()
-      .ifPresent(buildProfile -> {
-        File scriptPlugin = scriptPluginForProfile(buildProfile);
-        if (!scriptPlugin.exists()) {
-          throw new MissingGradleProfileException(buildProfile);
-        }
-        addPropertyTo(command.property(), scriptPlugin);
-      });
+      .ifPresentOrElse(
+        buildProfile -> {
+          File scriptPlugin = scriptPluginForProfile(buildProfile);
+          if (!scriptPlugin.exists()) {
+            throw new MissingGradleProfileException(buildProfile);
+          }
+          addPropertyTo(command.property(), scriptPlugin.toPath());
+        },
+        () -> addPropertyTo(command.property(), projectFolder.filePath(BUILD_GRADLE_FILE))
+      );
   }
 
-  private void addPropertyTo(BuildProperty property, File buildGradleFile) {
+  private void addPropertyTo(BuildProperty property, Path buildGradleFile) {
     MandatoryReplacer replacer;
-    if (propertyExistsFrom(property.key(), buildGradleFile.toPath())) {
+    if (propertyExistsFrom(property.key(), buildGradleFile)) {
       replacer = existingPropertyReplacer(property);
     } else {
       replacer = addNewPropertyReplacer(property);
@@ -282,7 +285,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       projectFolder,
       ContentReplacers.of(
         new MandatoryFileReplacer(
-          new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile.toPath()).toString()),
+          new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile).toString()),
           replacer
         )
       )
@@ -312,7 +315,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private static String toCamelCasedKotlinVariable(PropertyKey key) {
-    return Arrays.stream(key.get().split("\\."))
+    return Arrays.stream(key.get().split("[.-]"))
       .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
       .collect(Collectors.collectingAndThen(Collectors.joining(), str -> str.substring(0, 1).toLowerCase() + str.substring(1)));
   }

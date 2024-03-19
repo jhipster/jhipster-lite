@@ -413,7 +413,6 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("com.test.myapp")
       .and()
       .hasFile("gradle/libs.versions.toml")
-      .containing("dummy-dependency = \"4.5.8\"")
       .containing("spring-boot = \"")
       .containing("json-web-token = \"")
       .and()
@@ -450,6 +449,12 @@ class FileSystemJHipsterModulesRepositoryTest {
           apply(plugin = "profile-local")
         }
         // jhipster-needle-profile-activation\
+        """
+      )
+      .containing(
+        """
+        val dummyDependencyVersion by extra("4.5.8")
+        // jhipster-needle-gradle-properties
         """
       )
       .and()

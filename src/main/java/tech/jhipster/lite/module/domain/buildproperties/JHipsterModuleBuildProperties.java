@@ -2,6 +2,12 @@ package tech.jhipster.lite.module.domain.buildproperties;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -19,6 +25,23 @@ public final class JHipsterModuleBuildProperties {
 
   public Map<PropertyKey, PropertyValue> properties() {
     return properties;
+  }
+
+  public JavaBuildCommands buildChanges() {
+    return new JavaBuildCommands(
+      properties
+        .entrySet()
+        .stream()
+        .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue())))
+        .collect(Collectors.toList())
+    );
+  }
+
+  public Stream<JavaBuildCommand> buildChanges(BuildProfileId id) {
+    return properties
+      .entrySet()
+      .stream()
+      .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue()), id));
   }
 
   public static final class JHipsterModuleBuildPropertiesBuilder<T> {

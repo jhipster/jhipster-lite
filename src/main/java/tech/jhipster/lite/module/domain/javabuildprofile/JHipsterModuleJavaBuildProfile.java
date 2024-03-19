@@ -1,11 +1,8 @@
 package tech.jhipster.lite.module.domain.javabuildprofile;
 
-import java.util.Map;
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties.JHipsterModuleBuildPropertiesBuilder;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies;
@@ -18,7 +15,7 @@ public final class JHipsterModuleJavaBuildProfile {
 
   private final BuildProfileId buildProfileId;
   private final Optional<BuildProfileActivation> activation;
-  private final Map<PropertyKey, PropertyValue> properties;
+  private final JHipsterModuleBuildProperties properties;
   private final JHipsterModuleMavenPlugins mavenPlugins;
   private final JHipsterModuleJavaDependencies javaDependencies;
 
@@ -29,7 +26,7 @@ public final class JHipsterModuleJavaBuildProfile {
     Assert.notNull("javaDependenciesBuilder", builder.javaDependenciesBuilder);
     this.buildProfileId = builder.buildProfileId;
     this.activation = Optional.ofNullable(builder.activation);
-    this.properties = builder.propertiesBuilder.build().properties();
+    this.properties = builder.propertiesBuilder.build();
     this.mavenPlugins = builder.mavenPluginsBuilder.build();
     this.javaDependencies = builder.javaDependenciesBuilder.build();
   }
@@ -49,7 +46,7 @@ public final class JHipsterModuleJavaBuildProfile {
     return activation;
   }
 
-  public Map<PropertyKey, PropertyValue> properties() {
+  public JHipsterModuleBuildProperties properties() {
     return properties;
   }
 

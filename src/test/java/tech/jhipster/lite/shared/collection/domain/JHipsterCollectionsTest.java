@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
@@ -48,8 +47,7 @@ class JHipsterCollectionsTest {
   }
 
   @Nested
-  @DisplayName("Map")
-  class JHipsterCollectionsMapTest {
+  class ImmutableMap {
 
     @Test
     void shouldGetEmptyImmutableMapFromNullMap() {
@@ -68,6 +66,14 @@ class JHipsterCollectionsTest {
 
       assertThat(map).containsExactly(entry("key", "value"));
       assertThatThrownBy(map::clear).isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    void shouldAcceptCovariantCollectionAsInput() {
+      Map<Integer, Double> inputMap = Map.of(1, 1.0);
+      Map<Number, Number> resultMap = JHipsterCollections.immutable(inputMap);
+
+      assertThat(resultMap).containsExactly(entry(1, 1.0));
     }
   }
 

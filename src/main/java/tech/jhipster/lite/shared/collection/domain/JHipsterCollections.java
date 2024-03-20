@@ -22,7 +22,7 @@ public final class JHipsterCollections {
     return Collections.unmodifiableCollection(collection);
   }
 
-  public static <K, V> Map<K, V> immutable(Map<K, V> map) {
+  public static <K, V> Map<K, V> immutable(Map<? extends K, ? extends V> map) {
     if (map == null) {
       return Map.of();
     }

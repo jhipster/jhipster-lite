@@ -1,6 +1,6 @@
 package tech.jhipster.lite.shared.collection.domain;
 
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,10 +37,12 @@ public final class JHipsterCollections {
 
   @SafeVarargs
   public static <K, V> Map<K, V> concat(Map<K, V>... maps) {
-    return Stream.of(maps)
-      .filter(Objects::nonNull)
-      .map(Map::entrySet)
-      .flatMap(Collection::stream)
-      .collect(toMap(Entry::getKey, Entry::getValue, (value1, value2) -> value2));
+    return Collections.unmodifiableMap(
+      Stream.of(maps)
+        .filter(Objects::nonNull)
+        .map(Map::entrySet)
+        .flatMap(Collection::stream)
+        .collect(toMap(Entry::getKey, Entry::getValue, (value1, value2) -> value2))
+    );
   }
 }

@@ -65,7 +65,7 @@ class JHipsterCollectionsTest {
   }
 
   @Nested
-  class Concat {
+  class ConcatCollections {
 
     @Test
     void shouldGetEmptyCollectionFromNullCollections() {
@@ -83,10 +83,50 @@ class JHipsterCollectionsTest {
     }
 
     @Test
+    void shouldConcatCollectionsWithCovariance() {
+      Collection<Number> collection = JHipsterCollections.concat(List.of(1L), List.of(2.0));
+
+      assertThat(collection).containsExactly(1L, 2.0);
+    }
+
+    @Test
     void shouldIgnoreNullInputs() {
       Collection<String> collection = JHipsterCollections.concat(List.of("first"), null);
 
       assertThat(collection).containsExactly("first");
+    }
+  }
+
+  @Nested
+  class ConcatMaps {
+
+    @Test
+    void shouldGetEmptyMapFromNullMaps() {
+      Map<Number, String> concatenedMap = JHipsterCollections.concat((Map<Number, String>) null);
+
+      assertThat(concatenedMap).isEmpty();
+    }
+
+    @Test
+    void shouldConcatMaps() {
+      Map<Number, String> map = JHipsterCollections.concat(Map.of(1, "first"), Map.of(2, "second"));
+
+      assertThat(map).containsOnly(entry(1, "first"), entry(2, "second"));
+      assertThatThrownBy(map::clear).isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    void shouldConcatCollectionsWithCovariance() {
+      Map<Number, String> map = JHipsterCollections.concat(Map.of(1, "first"), Map.of(2.0, "second"));
+
+      assertThat(map).containsOnly(entry(1, "first"), entry(2.0, "second"));
+    }
+
+    @Test
+    void shouldIgnoreNullInputs() {
+      Map<Number, String> map = JHipsterCollections.concat(Map.of(1, "first"), null);
+
+      assertThat(map).containsOnly(entry(1, "first"));
     }
   }
 }

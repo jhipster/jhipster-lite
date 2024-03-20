@@ -124,7 +124,7 @@ public final class JHipsterModulesFixture {
         .and()
       .and()
     .javaBuildProperties()
-      .set(buildPropertyKey("dummy-dependency.version"), buildPropertyValue("4.5.8"))
+      .set(buildPropertyKey("spring-profiles-active"), buildPropertyValue("local"))
       .and()
     .javaDependencies()
       .removeDependency(dependencyId("net.logstash.logback", "logstash-logback-encoder"))

@@ -104,12 +104,12 @@ class GradleCommandHandlerTest {
         JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
         new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-          new SetBuildProperty(new BuildProperty(new PropertyKey("dummy-dependency.version"), new PropertyValue("4.5.8")))
+          new SetBuildProperty(new BuildProperty(new PropertyKey("spring-profiles-active"), new PropertyValue("local")))
         );
 
         assertThat(buildGradleContent(projectFolder)).contains(
           """
-          val dummyDependencyVersion by extra("4.5.8")
+          val springProfilesActive by extra("local")
           // jhipster-needle-gradle-properties
           """
         );

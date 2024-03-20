@@ -42,7 +42,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("com.test.myapp")
       .and()
       .hasFile("pom.xml")
-      .containing("<dummy-dependency.version>4.5.8</dummy-dependency.version>")
+      .containing("<spring-profiles-active>local</spring-profiles-active>")
       .notContaining(
         """
               <dependency>
@@ -446,7 +446,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .containing(
         """
-        val dummyDependencyVersion by extra("4.5.8")
+        val springProfilesActive by extra("local")
         // jhipster-needle-gradle-properties
         """
       )

@@ -8,7 +8,8 @@ public record JHipsterStartupCommands(Collection<? extends JHipsterStartupComman
     this.commands = JHipsterCollections.immutable(commands);
   }
 
-  public Collection<? extends JHipsterStartupCommand> get() {
-    return commands;
+  @SuppressWarnings("unchecked")
+  public Collection<JHipsterStartupCommand> get() {
+    return (Collection<JHipsterStartupCommand>) commands;
   }
 }

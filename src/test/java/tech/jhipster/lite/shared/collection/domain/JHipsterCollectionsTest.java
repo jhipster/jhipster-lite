@@ -17,8 +17,7 @@ import tech.jhipster.lite.UnitTest;
 class JHipsterCollectionsTest {
 
   @Nested
-  @DisplayName("Collection")
-  class JHipsterCollectionsCollectionTest {
+  class ImmutableCollection {
 
     @Test
     void shouldGetEmptyImmutableCollectionFromNullCollection() {
@@ -37,6 +36,14 @@ class JHipsterCollectionsTest {
 
       assertThat(collection).containsExactly("test");
       assertThatThrownBy(collection::clear).isExactlyInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    void shouldAcceptCovariantCollectionAsInput() {
+      List<Long> inputCollection = List.of(1L);
+      Collection<Number> collection = JHipsterCollections.immutable(inputCollection);
+
+      assertThat(collection).containsExactly(1L);
     }
   }
 

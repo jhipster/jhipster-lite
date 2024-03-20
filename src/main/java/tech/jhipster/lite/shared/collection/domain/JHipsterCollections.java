@@ -14,7 +14,7 @@ public final class JHipsterCollections {
 
   private JHipsterCollections() {}
 
-  public static <T> Collection<T> immutable(Collection<T> collection) {
+  public static <T> Collection<T> immutable(Collection<? extends T> collection) {
     if (collection == null) {
       return List.of();
     }

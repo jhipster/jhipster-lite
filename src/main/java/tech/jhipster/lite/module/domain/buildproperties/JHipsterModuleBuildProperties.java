@@ -23,10 +23,6 @@ public final class JHipsterModuleBuildProperties {
     return new JHipsterModuleBuildPropertiesBuilder<>(parent);
   }
 
-  public Map<PropertyKey, PropertyValue> properties() {
-    return properties;
-  }
-
   public JavaBuildCommands buildChanges() {
     return new JavaBuildCommands(
       properties

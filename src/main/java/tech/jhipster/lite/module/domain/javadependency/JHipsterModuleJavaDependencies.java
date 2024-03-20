@@ -10,7 +10,10 @@ import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuild.command.*;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
+import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -63,10 +66,6 @@ public final class JHipsterModuleJavaDependencies {
       .reduce(JavaBuildCommands.EMPTY, JavaBuildCommands::merge);
   }
 
-  private Function<JavaDependencyVersion, JavaBuildCommand> toSetVersionCommand() {
-    return SetVersion::new;
-  }
-
   private Stream<JavaBuildCommands> dependenciesToRemoveCommands(Optional<BuildProfileId> buildProfile) {
     return Stream.of(new JavaBuildCommands(dependenciesToRemove.stream().map(toDependencyToRemove(buildProfile)).toList()));
   }
@@ -106,7 +105,6 @@ public final class JHipsterModuleJavaDependencies {
     private static final String DEPENDENCY = "dependency";
 
     private final T parentModuleBuilder;
-    private final Collection<JavaDependencyVersion> versions = new ArrayList<>();
     private final Collection<DependencyId> dependenciesToRemove = new ArrayList<>();
     private final Collection<DirectJavaDependency> dependencies = new ArrayList<>();
     private final Collection<JavaDependencyManagement> dependenciesManagement = new ArrayList<>();

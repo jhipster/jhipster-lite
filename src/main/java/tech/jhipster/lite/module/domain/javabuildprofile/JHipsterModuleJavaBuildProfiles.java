@@ -65,14 +65,14 @@ public final class JHipsterModuleJavaBuildProfiles {
     JavaDependenciesVersions versions,
     ProjectJavaDependencies projectJavaDependencies
   ) {
-    return profile -> profile.mavenPlugins().buildChanges(versions, projectJavaDependencies, profile.id()).commands().stream();
+    return profile -> profile.mavenPlugins().buildChanges(versions, projectJavaDependencies, profile.id()).get().stream();
   }
 
   private Function<JHipsterModuleJavaBuildProfile, Stream<JavaBuildCommand>> toJavaDependenciesCommands(
     JavaDependenciesVersions versions,
     ProjectJavaDependencies projectJavaDependencies
   ) {
-    return profile -> profile.javaDependencies().buildChanges(versions, projectJavaDependencies, profile.id()).commands().stream();
+    return profile -> profile.javaDependencies().buildChanges(versions, projectJavaDependencies, profile.id()).get().stream();
   }
 
   public static final class JHipsterModuleJavaBuildProfilesBuilder {

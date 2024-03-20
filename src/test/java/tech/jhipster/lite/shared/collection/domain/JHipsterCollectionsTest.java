@@ -84,7 +84,9 @@ class JHipsterCollectionsTest {
 
     @Test
     void shouldConcatCollectionsWithCovariance() {
-      Collection<Number> collection = JHipsterCollections.concat(List.of(1L), List.of(2.0));
+      List<Long> longs = List.of(1L);
+      List<Double> doubles = List.of(2.0);
+      Collection<Number> collection = JHipsterCollections.concat(longs, doubles);
 
       assertThat(collection).containsExactly(1L, 2.0);
     }

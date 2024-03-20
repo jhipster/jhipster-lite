@@ -31,8 +31,8 @@ public final class JHipsterCollections {
   }
 
   @SafeVarargs
-  public static <T> Collection<T> concat(Collection<T>... collections) {
-    return Stream.of(collections).filter(Objects::nonNull).flatMap(Collection::stream).toList();
+  public static <T> Collection<T> concat(Collection<? extends T>... collections) {
+    return Stream.of(collections).filter(Objects::nonNull).flatMap(Collection::stream).map(item -> (T) item).toList();
   }
 
   @SafeVarargs

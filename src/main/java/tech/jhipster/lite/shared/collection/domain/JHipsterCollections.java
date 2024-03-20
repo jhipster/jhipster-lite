@@ -36,7 +36,7 @@ public final class JHipsterCollections {
   }
 
   @SafeVarargs
-  public static <K, V> Map<K, V> concat(Map<K, V>... maps) {
+  public static <K, V> Map<K, V> concat(Map<? extends K, ? extends V>... maps) {
     return Collections.unmodifiableMap(
       Stream.of(maps)
         .filter(Objects::nonNull)

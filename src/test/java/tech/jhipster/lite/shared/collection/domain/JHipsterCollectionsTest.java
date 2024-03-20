@@ -116,10 +116,12 @@ class JHipsterCollectionsTest {
     }
 
     @Test
-    void shouldConcatCollectionsWithCovariance() {
-      Map<Number, String> map = JHipsterCollections.concat(Map.of(1, "first"), Map.of(2.0, "second"));
+    void shouldConcatMapsWithCovariance() {
+      Map<Integer, Long> first = Map.of(1, 1L);
+      Map<Double, Float> second = Map.of(2.0, 2.0f);
+      Map<Number, Number> map = JHipsterCollections.concat(first, second);
 
-      assertThat(map).containsOnly(entry(1, "first"), entry(2.0, "second"));
+      assertThat(map).containsOnly(entry(1, 1L), entry(2.0, 2.0f));
     }
 
     @Test

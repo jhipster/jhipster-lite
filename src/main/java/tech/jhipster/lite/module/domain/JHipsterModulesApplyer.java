@@ -1,8 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
-import static tech.jhipster.lite.module.domain.javabuild.JavaBuildTool.GRADLE;
-import static tech.jhipster.lite.module.domain.javabuild.JavaBuildTool.MAVEN;
-import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.PROPERTIES;
+import static tech.jhipster.lite.module.domain.javabuild.JavaBuildTool.*;
+import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.*;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -132,7 +131,7 @@ public class JHipsterModulesApplyer {
     if (detectedJavaBuildTool.isEmpty()) {
       return jHipsterStartupCommands;
     }
-    List<JHipsterStartupCommand> filteredCommands = jHipsterStartupCommands
+    var filteredCommands = jHipsterStartupCommands
       .get()
       .stream()
       .filter(isStartupCommandCompatibleWith(detectedJavaBuildTool.get()))

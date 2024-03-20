@@ -236,18 +236,18 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(SetBuildProperty command) {
     Assert.notNull(COMMAND, command);
 
-    command
+    Path buildGradleFile = command
       .buildProfile()
-      .ifPresentOrElse(
-        buildProfile -> {
-          File scriptPlugin = scriptPluginForProfile(buildProfile);
-          if (!scriptPlugin.exists()) {
-            throw new MissingGradleProfileException(buildProfile);
-          }
-          addPropertyTo(command.property(), scriptPlugin.toPath());
-        },
-        () -> addPropertyTo(command.property(), projectFolder.filePath(BUILD_GRADLE_FILE))
-      );
+      .map(buildProfile -> {
+        File scriptPlugin = scriptPluginForProfile(buildProfile);
+        if (!scriptPlugin.exists()) {
+          throw new MissingGradleProfileException(buildProfile);
+        }
+        return scriptPlugin.toPath();
+      })
+      .orElse(projectFolder.filePath(BUILD_GRADLE_FILE));
+
+    addPropertyTo(command.property(), buildGradleFile);
   }
 
   private void addPropertyTo(BuildProperty property, Path buildGradleFile) {

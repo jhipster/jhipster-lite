@@ -33,11 +33,11 @@ public final class JHipsterModuleBuildProperties {
     );
   }
 
-  public Stream<JavaBuildCommand> buildChanges(BuildProfileId id) {
+  public Stream<JavaBuildCommand> buildChanges(BuildProfileId buildProfile) {
     return properties
       .entrySet()
       .stream()
-      .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue()), id));
+      .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue()), buildProfile));
   }
 
   public static final class JHipsterModuleBuildPropertiesBuilder<T> {

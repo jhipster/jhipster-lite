@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
-import static tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope.TEST;
+import static tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,11 +10,7 @@ import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
-import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.shared.error.domain.Assert;
 

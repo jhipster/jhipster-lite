@@ -1,30 +1,10 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
-import static tech.jhipster.lite.TestFileUtils.content;
-import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
-import static tech.jhipster.lite.TestFileUtils.projectFrom;
-import static tech.jhipster.lite.module.domain.JHipsterModule.artifactId;
-import static tech.jhipster.lite.module.domain.JHipsterModule.buildProfileId;
-import static tech.jhipster.lite.module.domain.JHipsterModule.gradleCommunityPlugin;
-import static tech.jhipster.lite.module.domain.JHipsterModule.groupId;
-import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.checkstyleGradlePlugin;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.checkstyleToolVersion;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.defaultVersionDependency;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.dependencyWithVersionAndExclusion;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.jsonWebTokenDependencyId;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.localBuildProfile;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenBuildExtensionWithSlug;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.mavenEnforcerPlugin;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyId;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootDependencyManagement;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootStarterWebDependency;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootVersion;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springProfilesActiveProperty;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.params.provider.EnumSource.Mode.*;
+import static tech.jhipster.lite.TestFileUtils.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,17 +21,7 @@ import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
@@ -126,89 +96,170 @@ class GradleCommandHandlerTest {
   @Nested
   class HandleSetBuildProperty {
 
-    @Test
-    void shouldNotAddPropertiesToGradleWithoutBuildGradleProfileFile() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+    @Nested
+    class WithoutProfile {
 
-      assertThatThrownBy(
-        () ->
-          new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-            new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
-          )
-      ).isExactlyInstanceOf(MissingGradleProfileException.class);
-    }
+      @Test
+      void shouldAddPropertiesToBuildGradleFileWithoutProperties() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-    @Test
-    void shouldAddPropertiesToBuildGradleProfileFileWithoutProperties() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+          new SetBuildProperty(new BuildProperty(new PropertyKey("spring-profiles-active"), new PropertyValue("local")))
+        );
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-        new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
-      );
-
-      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-        """
-        val springProfilesActive by extra("local")
-        // jhipster-needle-gradle-properties
-        """
-      );
-    }
-
-    @Test
-    void shouldAddPropertiesToBuildGradleProfileFileWithProperties() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile-and-properties");
-
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-        new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
-      );
-
-      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-        """
-        val javaVersion by extra("21")
-        val springProfilesActive by extra("local")
-        // jhipster-needle-gradle-properties
-        """
-      );
-    }
-
-    @Test
-    void shouldUpdateExistingProfileProperty() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile-and-properties");
-      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
-      gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
-
-      gradleCommandHandler.handle(
-        new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev")), localBuildProfile())
-      );
-
-      assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
-        .contains(
+        assertThat(buildGradleContent(projectFolder)).contains(
           """
-          val springProfilesActive by extra("dev")
+          val springProfilesActive by extra("local")
           // jhipster-needle-gradle-properties
           """
-        )
-        .doesNotContain(
+        );
+      }
+
+      @Test
+      void shouldAddPropertiesToBuildGradleFileWithProperties() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-properties");
+
+        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+          new SetBuildProperty(springProfilesActiveProperty())
+        );
+
+        assertThat(buildGradleContent(projectFolder)).contains(
           """
-          val springProfilesActive by extra("local")\
+          val javaVersion by extra("21")
+          val springProfilesActive by extra("local")
+          // jhipster-needle-gradle-properties
           """
         );
+      }
+
+      @Test
+      void shouldUpdateExistingProperty() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-properties");
+        GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+        gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty()));
+
+        gradleCommandHandler.handle(
+          new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev")))
+        );
+
+        assertThat(buildGradleContent(projectFolder))
+          .contains(
+            """
+            val springProfilesActive by extra("dev")
+            // jhipster-needle-gradle-properties
+            """
+          )
+          .doesNotContain(
+            """
+            val springProfilesActive by extra("local")\
+            """
+          );
+      }
+
+      @Test
+      void shouldNotUpdateExistingPropertyWithSameValue() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-properties");
+        GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+        gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty()));
+
+        gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty()));
+
+        assertThat(buildGradleContent(projectFolder)).contains(
+          """
+          val springProfilesActive by extra("local")
+          // jhipster-needle-gradle-properties
+          """
+        );
+      }
     }
 
-    @Test
-    void shouldNotUpdateExistingProfilePropertyWithSameValue() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile-and-properties");
-      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
-      gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
+    @Nested
+    class WithProfile {
 
-      gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
+      @Test
+      void shouldNotAddPropertiesToGradleWithoutBuildGradleProfileFile() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-        """
-        val springProfilesActive by extra("local")
-        // jhipster-needle-gradle-properties
-        """
-      );
+        assertThatThrownBy(
+          () ->
+            new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+              new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
+            )
+        ).isExactlyInstanceOf(MissingGradleProfileException.class);
+      }
+
+      @Test
+      void shouldAddPropertiesToBuildGradleProfileFileWithoutProperties() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+
+        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+          new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
+        );
+
+        assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
+          """
+          val springProfilesActive by extra("local")
+          // jhipster-needle-gradle-properties
+          """
+        );
+      }
+
+      @Test
+      void shouldAddPropertiesToBuildGradleProfileFileWithProperties() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile-and-properties");
+
+        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+          new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
+        );
+
+        assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
+          """
+          val javaVersion by extra("21")
+          val springProfilesActive by extra("local")
+          // jhipster-needle-gradle-properties
+          """
+        );
+      }
+
+      @Test
+      void shouldUpdateExistingProfileProperty() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile-and-properties");
+        GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+        gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
+
+        gradleCommandHandler.handle(
+          new SetBuildProperty(new BuildProperty(new PropertyKey("spring.profiles.active"), new PropertyValue("dev")), localBuildProfile())
+        );
+
+        assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
+          .contains(
+            """
+            val springProfilesActive by extra("dev")
+            // jhipster-needle-gradle-properties
+            """
+          )
+          .doesNotContain(
+            """
+            val springProfilesActive by extra("local")\
+            """
+          );
+      }
+
+      @Test
+      void shouldNotUpdateExistingProfilePropertyWithSameValue() {
+        JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile-and-properties");
+        GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+        gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
+
+        gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
+
+        assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
+          """
+          val springProfilesActive by extra("local")
+          // jhipster-needle-gradle-properties
+          """
+        );
+      }
     }
   }
 

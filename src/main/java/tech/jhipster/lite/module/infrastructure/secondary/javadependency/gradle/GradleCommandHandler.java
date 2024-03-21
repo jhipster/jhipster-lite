@@ -1,12 +1,8 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
-import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
-import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,38 +20,19 @@ import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.file.JHipsterDestination;
-import tech.jhipster.lite.module.domain.file.JHipsterFileContent;
-import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
-import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
-import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
+import tech.jhipster.lite.module.domain.file.*;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
-import tech.jhipster.lite.module.domain.replacement.MandatoryFileReplacer;
-import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
+import tech.jhipster.lite.module.domain.replacement.*;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModuleFiles;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
@@ -259,20 +236,23 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(SetBuildProperty command) {
     Assert.notNull(COMMAND, command);
 
-    command
+    Path buildGradleFile = command
       .buildProfile()
-      .ifPresent(buildProfile -> {
+      .map(buildProfile -> {
         File scriptPlugin = scriptPluginForProfile(buildProfile);
         if (!scriptPlugin.exists()) {
           throw new MissingGradleProfileException(buildProfile);
         }
-        addPropertyTo(command.property(), scriptPlugin);
-      });
+        return scriptPlugin.toPath();
+      })
+      .orElse(projectFolder.filePath(BUILD_GRADLE_FILE));
+
+    addPropertyTo(command.property(), buildGradleFile);
   }
 
-  private void addPropertyTo(BuildProperty property, File buildGradleFile) {
+  private void addPropertyTo(BuildProperty property, Path buildGradleFile) {
     MandatoryReplacer replacer;
-    if (propertyExistsFrom(property.key(), buildGradleFile.toPath())) {
+    if (propertyExistsFrom(property.key(), buildGradleFile)) {
       replacer = existingPropertyReplacer(property);
     } else {
       replacer = addNewPropertyReplacer(property);
@@ -282,7 +262,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       projectFolder,
       ContentReplacers.of(
         new MandatoryFileReplacer(
-          new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile.toPath()).toString()),
+          new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile).toString()),
           replacer
         )
       )
@@ -312,7 +292,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private static String toCamelCasedKotlinVariable(PropertyKey key) {
-    return Arrays.stream(key.get().split("\\."))
+    return Arrays.stream(key.get().split("[.-]"))
       .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
       .collect(Collectors.collectingAndThen(Collectors.joining(), str -> str.substring(0, 1).toLowerCase() + str.substring(1)));
   }

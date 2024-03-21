@@ -1,14 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.fullModule;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.gradleSupportedModule;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.upgrade;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleUpgrade;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.file;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleBuildFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.gradleLibsVersionFile;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.packageJsonFile;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Test;
@@ -49,7 +42,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("com.test.myapp")
       .and()
       .hasFile("pom.xml")
-      .containing("<dummy-dependency.version>4.5.8</dummy-dependency.version>")
+      .containing("<spring-profiles-active>local</spring-profiles-active>")
       .notContaining(
         """
               <dependency>
@@ -413,7 +406,6 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("com.test.myapp")
       .and()
       .hasFile("gradle/libs.versions.toml")
-      .containing("dummy-dependency = \"4.5.8\"")
       .containing("spring-boot = \"")
       .containing("json-web-token = \"")
       .and()
@@ -450,6 +442,12 @@ class FileSystemJHipsterModulesRepositoryTest {
           apply(plugin = "profile-local")
         }
         // jhipster-needle-profile-activation\
+        """
+      )
+      .containing(
+        """
+        val springProfilesActive by extra("local")
+        // jhipster-needle-gradle-properties
         """
       )
       .and()

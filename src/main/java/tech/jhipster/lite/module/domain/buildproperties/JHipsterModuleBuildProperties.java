@@ -2,7 +2,6 @@ package tech.jhipster.lite.module.domain.buildproperties;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
@@ -29,7 +28,7 @@ public final class JHipsterModuleBuildProperties {
         .entrySet()
         .stream()
         .map(property -> new SetBuildProperty(new BuildProperty(property.getKey(), property.getValue())))
-        .collect(Collectors.toList())
+        .toList()
     );
   }
 

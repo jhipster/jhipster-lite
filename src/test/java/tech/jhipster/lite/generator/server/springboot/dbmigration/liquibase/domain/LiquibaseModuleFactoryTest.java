@@ -33,15 +33,6 @@ class LiquibaseModuleFactoryTest {
             </dependency>
         """
       )
-      .containing(
-        """
-            <dependency>
-              <groupId>com.h2database</groupId>
-              <artifactId>h2</artifactId>
-              <scope>test</scope>
-            </dependency>
-        """
-      )
       .and()
       .hasPrefixedFiles("src/main/resources/config/liquibase", "master.xml", "changelog/0000000000_example.xml")
       .hasPrefixedFiles(

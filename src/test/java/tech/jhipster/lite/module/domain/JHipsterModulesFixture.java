@@ -40,18 +40,7 @@ public final class JHipsterModulesFixture {
    * @implNote This is a temporary method to be used until all features are supported with Gradle
    */
   public static JHipsterModule gradleSupportedModule() {
-    // @formatter:off
-    return gradleSupportedModuleBuilder()
-      .javaBuildProfiles()
-        .addProfile(localBuildProfile())
-          .activation(buildProfileActivation().activeByDefault(false))
-          .properties()
-            .set(buildPropertyKey("spring.profiles.active"), buildPropertyValue("local"))
-            .and()
-          .and()
-        .and()
-      .build();
-    // @formatter:on
+    return gradleSupportedModuleBuilder().build();
   }
 
   /**
@@ -62,10 +51,6 @@ public final class JHipsterModulesFixture {
    return gradleSupportedModuleBuilder()
     .javaBuildProfiles()
       .addProfile(localBuildProfile())
-        .activation(buildProfileActivation().activeByDefault(false))
-        .properties()
-          .set(buildPropertyKey("spring.profiles.active"), buildPropertyValue("local"))
-          .and()
         .mavenPlugins()
           .pluginManagement(mavenEnforcerPluginManagement())
           .plugin(mavenEnforcerPlugin())
@@ -144,6 +129,14 @@ public final class JHipsterModulesFixture {
     .gradlePlugins()
       .plugin(jacocoGradlePlugin())
       .plugin(checkstyleGradlePlugin())
+      .and()
+    .javaBuildProfiles()
+      .addProfile(localBuildProfile())
+        .activation(buildProfileActivation().activeByDefault(false))
+        .properties()
+          .set(buildPropertyKey("spring.profiles.active"), buildPropertyValue("local"))
+          .and()
+        .and()
       .and()
     .packageJson()
       .addScript(scriptKey("serve"), scriptCommand("tikui-core serve"))

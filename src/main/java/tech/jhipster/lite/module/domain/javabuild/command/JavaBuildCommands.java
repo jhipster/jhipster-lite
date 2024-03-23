@@ -4,14 +4,13 @@ import static tech.jhipster.lite.shared.collection.domain.JHipsterCollections.*;
 
 import java.util.Collection;
 import java.util.List;
-import tech.jhipster.lite.shared.collection.domain.JHipsterCollections;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public record JavaBuildCommands(Collection<? extends JavaBuildCommand> commands) {
   public static final JavaBuildCommands EMPTY = new JavaBuildCommands(List.of());
 
   public JavaBuildCommands(Collection<? extends JavaBuildCommand> commands) {
-    this.commands = JHipsterCollections.immutable(commands);
+    this.commands = immutable(commands);
   }
 
   public JavaBuildCommands merge(JavaBuildCommands other) {

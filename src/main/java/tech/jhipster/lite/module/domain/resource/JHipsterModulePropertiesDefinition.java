@@ -70,8 +70,8 @@ public final class JHipsterModulePropertiesDefinition {
       return add(indentationProperty());
     }
 
-    public JHipsterModulePropertiesDefinitionBuilder addConfigurationFormat() {
-      return add(configurationFormatProperty());
+    public JHipsterModulePropertiesDefinitionBuilder addSpringConfigurationFormat() {
+      return add(springConfigurationFormatProperty());
     }
 
     public JHipsterModulePropertiesDefinitionBuilder addEndOfLine() {

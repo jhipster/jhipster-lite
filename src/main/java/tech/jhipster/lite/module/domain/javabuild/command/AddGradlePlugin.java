@@ -58,6 +58,7 @@ public final class AddGradlePlugin implements JavaBuildCommand {
       return this;
     }
 
+    @Override
     public AddGradlePlugin build() {
       return new AddGradlePlugin(this);
     }

@@ -265,6 +265,8 @@ jobs:
           - spring-config-format: yaml
           - app: customjhlite
             spring-config-format: properties
+          - app: mariadbapp
+            spring-config-format: properties
           - app: gradleapp
             java-build-tool: gradle
     steps:

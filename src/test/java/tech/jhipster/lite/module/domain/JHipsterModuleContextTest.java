@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class JHipsterModuleContextTest {
       .containsEntry("serverPort", 8080)
       .containsEntry("indentSize", 2)
       .containsEntry("javaVersion", "21")
-      .containsEntry("configurationFormat", "yaml")
+      .containsEntry("springConfigurationFormat", "yaml")
       .containsEntry("projectBuildDirectory", "target");
   }
 
@@ -49,7 +49,7 @@ class JHipsterModuleContextTest {
       .containsKey("serverPort")
       .containsKey("indentSize")
       .containsKey("javaVersion")
-      .containsKey("configurationFormat")
+      .containsKey("springConfigurationFormat")
       .containsEntry("projectBuildDirectory", "build");
 
     assertThat(context.get()).containsEntry("projectBuildDirectory", "target");

@@ -73,9 +73,9 @@ public final class JHipsterModulePropertyDefinition {
       .build();
   }
 
-  public static JHipsterModulePropertyDefinition configurationFormatProperty() {
-    return optionalStringProperty(JHipsterModuleProperties.SERVER_CONFIGURATION_FORMAT)
-      .description("Format of the configuration files (yaml or properties)")
+  public static JHipsterModulePropertyDefinition springConfigurationFormatProperty() {
+    return optionalStringProperty(JHipsterModuleProperties.SPRING_CONFIGURATION_FORMAT)
+      .description("Format of the Spring configuration files (yaml or properties)")
       .defaultValue("yaml")
       .order(500)
       .build();

@@ -28,7 +28,7 @@ class SpringLiquibaseUtilTest {
 
   @BeforeAll
   public static void setup() {
-    datasourceUrl = getTestProperties("{{configurationFormat}}").getProperty("spring.datasource.url");
+    datasourceUrl = getTestProperties("{{springConfigurationFormat}}").getProperty("spring.datasource.url");
   }
 
   @Test
@@ -219,10 +219,10 @@ class SpringLiquibaseUtilTest {
       .isExactlyInstanceOf(NullPointerException.class);
   }
 
-  private static Properties getTestProperties(String configurationFormat) {
+  private static Properties getTestProperties(String springConfigurationFormat) {
     Properties properties;
     try {
-      if (configurationFormat.equals("yaml")) {
+      if (springConfigurationFormat.equals("yaml")) {
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
         yaml.setResources(new PathResource(
         SpringLiquibaseUtilTest.class.getClassLoader().getResource("config/application-test.yml").toURI()));

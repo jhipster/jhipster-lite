@@ -40,7 +40,9 @@ public class JHipsterModuleProperties {
     projectName = new JHipsterProjectName(this.parameters.getOrDefault(PROJECT_NAME_PARAMETER, null, String.class));
     projectBaseName = new JHipsterProjectBaseName(this.parameters.getOrDefault(PROJECT_BASE_NAME_PARAMETER, null, String.class));
     serverPort = new JHipsterServerPort(this.parameters.getOrDefault(SERVER_PORT_PARAMETER, null, Integer.class));
-    configurationFormat = SpringConfigurationFormat.from(this.parameters.getOrDefault(SERVER_CONFIGURATION_FORMAT, null, String.class));
+    configurationFormat = SpringConfigurationFormat.from(
+      this.parameters.getOrDefault(SERVER_CONFIGURATION_FORMAT, SpringConfigurationFormat.YAML.get(), String.class)
+    );
   }
 
   public JHipsterProjectFolder projectFolder() {

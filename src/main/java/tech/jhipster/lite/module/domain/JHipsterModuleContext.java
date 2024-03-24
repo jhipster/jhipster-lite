@@ -51,6 +51,7 @@ public final class JHipsterModuleContext {
       init.put(JHipsterModuleProperties.INDENTATION_PARAMETER, properties.indentation().spacesCount());
       init.put(JHipsterModuleProperties.JAVA_VERSION, properties.javaVersion().get());
       init.put(JHipsterModuleProperties.PROJECT_BUILD_DIRECTORY, JavaBuildTool.MAVEN.buildDirectory().get());
+      init.put(JHipsterModuleProperties.SERVER_CONFIGURATION_FORMAT, properties.configurationFormat().get());
 
       return init;
     }

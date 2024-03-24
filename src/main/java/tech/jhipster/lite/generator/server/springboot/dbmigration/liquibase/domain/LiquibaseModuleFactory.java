@@ -5,8 +5,6 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -27,7 +25,6 @@ public class LiquibaseModuleFactory {
     return moduleBuilder(properties)
       .javaDependencies()
         .addDependency(groupId("org.liquibase"), artifactId("liquibase-core"), versionSlug(LIQUIBASE))
-        .addDependency(h2Dependency())
         .and()
       .springMainProperties()
         .set(propertyKey("spring.liquibase.change-log"), propertyValue("classpath:config/liquibase/master.xml"))
@@ -54,9 +51,5 @@ public class LiquibaseModuleFactory {
       .springTestLogger("com.zaxxer.hikari", LogLevel.WARN)
       .build();
     //@formatter:on
-  }
-
-  private JavaDependency h2Dependency() {
-    return javaDependency().groupId("com.h2database").artifactId("h2").scope(JavaDependencyScope.TEST).build();
   }
 }

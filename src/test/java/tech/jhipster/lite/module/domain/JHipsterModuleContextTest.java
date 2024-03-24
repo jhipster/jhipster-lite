@@ -24,13 +24,14 @@ class JHipsterModuleContextTest {
     Map<String, Object> context = JHipsterModuleContext.builder(emptyModuleBuilder()).build().get();
 
     assertThat(context)
-      .hasSize(7)
+      .hasSize(8)
       .containsEntry("baseName", "jhipster")
       .containsEntry("projectName", "JHipster Project")
       .containsEntry("packageName", "com.mycompany.myapp")
       .containsEntry("serverPort", 8080)
       .containsEntry("indentSize", 2)
       .containsEntry("javaVersion", "21")
+      .containsEntry("configurationFormat", "yaml")
       .containsEntry("projectBuildDirectory", "target");
   }
 
@@ -41,14 +42,16 @@ class JHipsterModuleContextTest {
     Map<String, Object> newContext = context.withJavaBuildTool(JavaBuildTool.GRADLE).get();
 
     assertThat(newContext)
-      .hasSize(7)
+      .hasSize(8)
       .containsKey("baseName")
       .containsKey("projectName")
       .containsKey("packageName")
       .containsKey("serverPort")
       .containsKey("indentSize")
       .containsKey("javaVersion")
+      .containsKey("configurationFormat")
       .containsEntry("projectBuildDirectory", "build");
+
     assertThat(context.get()).containsEntry("projectBuildDirectory", "target");
   }
 }

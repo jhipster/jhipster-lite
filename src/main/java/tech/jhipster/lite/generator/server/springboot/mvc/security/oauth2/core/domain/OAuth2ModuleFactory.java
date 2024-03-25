@@ -16,6 +16,11 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class OAuth2ModuleFactory {
 
+  public static final String REALM_NAME = "keycloakRealmName";
+  public static final String DEFAULT_REALM_NAME = "jhipster";
+  public static final String CLIENT_SCOPE_NAME = "keycloakClientScopeName";
+  public static final String DEFAULT_CLIENT_SCOPE_NAME = "jhipster";
+
   private static final TextNeedleBeforeReplacer IMPORT_NEEDLE = lineBeforeText(
     "import org.springframework.boot.test.context.SpringBootTest;"
   );
@@ -45,21 +50,28 @@ public class OAuth2ModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
+    var realmName = properties.getOrDefaultString(REALM_NAME, DEFAULT_REALM_NAME);
+    var clientScopeName = properties.getOrDefaultString(CLIENT_SCOPE_NAME, DEFAULT_CLIENT_SCOPE_NAME);
     JHipsterModuleBuilder builder = authenticationModuleBuilder(properties);
 
-    appendKeycloak(builder);
+    appendKeycloak(builder, realmName, clientScopeName);
     appendJavaFiles(builder, properties);
     appendDependencies(builder);
-    appendSpringProperties(builder);
+    appendSpringProperties(builder, realmName);
     appendIntegrationTestAnnotationUpdates(builder, properties);
 
     return builder.build();
   }
 
-  private void appendKeycloak(JHipsterModuleBuilder builder) {
+  private void appendKeycloak(JHipsterModuleBuilder builder, String realmName, String clientScopeName) {
     DockerImageVersion keycloakImage = dockerImages.get("quay.io/keycloak/keycloak");
 
-    builder.context().put("dockerKeycloakVersion", keycloakImage.version().get()).put("dockerKeycloakImage", keycloakImage.fullName());
+    builder
+      .context()
+      .put("dockerKeycloakVersion", keycloakImage.version().get())
+      .put("dockerKeycloakImage", keycloakImage.fullName())
+      .put("realmName", realmName)
+      .put("clientScopeName", clientScopeName);
 
     builder
       .files()
@@ -68,7 +80,7 @@ public class OAuth2ModuleFactory {
       .addTemplate("jhipster-realm.json");
   }
 
-  private void appendJavaFiles(JHipsterModuleBuilder builder, JHipsterModuleProperties properties) {
+  private static void appendJavaFiles(JHipsterModuleBuilder builder, JHipsterModuleProperties properties) {
     String packagePath = properties.basePackage().path();
     JHipsterDestination mainDestination = toSrcMainJava().append(packagePath).append(AUTHENTICATION_DESTINATION);
     JHipsterDestination testDestination = toSrcTestJava().append(packagePath).append(AUTHENTICATION_DESTINATION);
@@ -103,17 +115,20 @@ public class OAuth2ModuleFactory {
     //@formatter:on
   }
 
-  private void appendDependencies(JHipsterModuleBuilder builder) {
+  private static void appendDependencies(JHipsterModuleBuilder builder) {
     builder
       .javaDependencies()
       .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-client"))
       .addDependency(SPRING_GROUP, artifactId("spring-boot-starter-oauth2-resource-server"));
   }
 
-  private void appendSpringProperties(JHipsterModuleBuilder builder) {
+  private static void appendSpringProperties(JHipsterModuleBuilder builder, String realmName) {
     builder
       .springMainProperties()
-      .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue("http://localhost:9080/realms/jhipster"))
+      .set(
+        propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"),
+        propertyValue("http://localhost:9080/realms/" + realmName)
+      )
       .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-id"), CLIENT_ID)
       .set(propertyKey("spring.security.oauth2.client.registration.oidc.client-secret"), CLIENT_SECRET)
       .set(propertyKey("spring.security.oauth2.client.registration.oidc.scope"), propertyValue("openid,profile,email"))
@@ -122,10 +137,13 @@ public class OAuth2ModuleFactory {
     builder
       .springTestProperties()
       .set(propertyKey("spring.main.allow-bean-definition-overriding"), propertyValue(true))
-      .set(propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"), propertyValue("http://DO_NOT_CALL:9080/realms/jhipster"));
+      .set(
+        propertyKey("spring.security.oauth2.client.provider.oidc.issuer-uri"),
+        propertyValue("http://DO_NOT_CALL:9080/realms/" + realmName)
+      );
   }
 
-  private void appendIntegrationTestAnnotationUpdates(JHipsterModuleBuilder builder, JHipsterModuleProperties properties) {
+  private static void appendIntegrationTestAnnotationUpdates(JHipsterModuleBuilder builder, JHipsterModuleProperties properties) {
     String baseClass = properties.projectBaseName().capitalized() + "App.class";
 
     builder
@@ -135,7 +153,7 @@ public class OAuth2ModuleFactory {
       .add(text(baseClass), baseClass + ", TestSecurityConfiguration.class");
   }
 
-  private String testSecurityConfigurationImport(JHipsterModuleProperties properties) {
+  private static String testSecurityConfigurationImport(JHipsterModuleProperties properties) {
     return "import %s.shared.authentication.infrastructure.primary.TestSecurityConfiguration;".formatted(properties.basePackage().get());
   }
 }

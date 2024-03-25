@@ -6,7 +6,6 @@ import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
@@ -165,7 +164,7 @@ public class FrontendMavenModuleFactory {
         pluginExecution()
           .goals("npm")
           .id("front test")
-          .phase(MavenBuildPhase.TEST)
+          .phase(TEST)
           .configuration(
             """
             <arguments>run test</arguments>

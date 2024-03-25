@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.ci.renovate.primary;
+package tech.jhipster.lite.generator.ci.renovate.infrastructure.primary;
 
 import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.RENOVATE;
 

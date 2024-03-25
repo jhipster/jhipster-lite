@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
@@ -1333,7 +1332,7 @@ class MavenCommandHandlerTest {
   }
 
   private static Path projectWithPom(String sourcePom) {
-    Path folder = Paths.get(TestFileUtils.tmpDirForTest());
+    Path folder = Paths.get(tmpDirForTest());
 
     try {
       Files.createDirectories(folder);

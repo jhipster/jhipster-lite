@@ -113,13 +113,13 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     versionsCatalog.addLibrary(command.dependency());
-    addDependencyToBuildGradle(command.dependency());
+    addDependencyToBuildGradle(command.dependency(), command.buildProfile());
   }
 
-  private void addDependencyToBuildGradle(JavaDependency dependency) {
+  private void addDependencyToBuildGradle(JavaDependency dependency, Optional<BuildProfileId> buildProfile) {
     GradleDependencyScope gradleScope = gradleDependencyScope(dependency);
 
-    String dependencyDeclaration = dependencyDeclaration(dependency);
+    String dependencyDeclaration = dependencyDeclaration(dependency, buildProfile);
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
@@ -129,7 +129,9 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+      ContentReplacers.of(
+        new MandatoryFileReplacer(new JHipsterProjectFilePath(projectFolderRelativePathFrom(buildGradleFile(buildProfile))), replacer)
+      )
     );
   }
 
@@ -142,15 +144,15 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     };
   }
 
-  private String dependencyDeclaration(JavaDependency dependency) {
+  private String dependencyDeclaration(JavaDependency dependency, Optional<BuildProfileId> buildProfile) {
     StringBuilder dependencyDeclaration = new StringBuilder()
       .append(indentation.times(1))
       .append(gradleDependencyScope(dependency).command())
       .append("(");
     if (dependency.scope() == JavaDependencyScope.IMPORT) {
-      dependencyDeclaration.append("platform(%s)".formatted(versionCatalogReference(dependency)));
+      dependencyDeclaration.append("platform(%s)".formatted(versionCatalogReference(dependency, buildProfile)));
     } else {
-      dependencyDeclaration.append(versionCatalogReference(dependency));
+      dependencyDeclaration.append(versionCatalogReference(dependency, buildProfile));
     }
     dependencyDeclaration.append(")");
 
@@ -169,8 +171,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     return dependencyDeclaration.toString();
   }
 
-  private static String versionCatalogReference(JavaDependency dependency) {
-    return "libs.%s".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)));
+  private static String versionCatalogReference(JavaDependency dependency, Optional<BuildProfileId> buildProfile) {
+    return buildProfile.isPresent()
+      ? "libs.findLibrary(\"%s\").get()".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)))
+      : "libs.%s".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)));
   }
 
   private static String applyVersionCatalogReferenceConvention(String rawVersionCatalogReference) {
@@ -219,7 +223,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   @Override
   public void handle(AddJavaDependencyManagement command) {
     versionsCatalog.addLibrary(command.dependency());
-    addDependencyToBuildGradle(command.dependency());
+    addDependencyToBuildGradle(command.dependency(), command.buildProfile());
   }
 
   @Override
@@ -236,18 +240,19 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(SetBuildProperty command) {
     Assert.notNull(COMMAND, command);
 
-    Path buildGradleFile = command
-      .buildProfile()
-      .map(buildProfile -> {
-        File scriptPlugin = scriptPluginForProfile(buildProfile);
+    addPropertyTo(command.property(), buildGradleFile(command.buildProfile()));
+  }
+
+  private Path buildGradleFile(Optional<BuildProfileId> buildProfile) {
+    return buildProfile
+      .map(buildProfileId -> {
+        File scriptPlugin = scriptPluginForProfile(buildProfileId);
         if (!scriptPlugin.exists()) {
-          throw new MissingGradleProfileException(buildProfile);
+          throw new MissingGradleProfileException(buildProfileId);
         }
         return scriptPlugin.toPath();
       })
       .orElse(projectFolder.filePath(BUILD_GRADLE_FILE));
-
-    addPropertyTo(command.property(), buildGradleFile);
   }
 
   private void addPropertyTo(BuildProperty property, Path buildGradleFile) {
@@ -260,13 +265,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(
-        new MandatoryFileReplacer(
-          new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile).toString()),
-          replacer
-        )
-      )
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(projectFolderRelativePathFrom(buildGradleFile)), replacer))
     );
+  }
+
+  private String projectFolderRelativePathFrom(Path buildGradleFile) {
+    return Path.of(projectFolder.folder()).relativize(buildGradleFile).toString();
   }
 
   private MandatoryReplacer existingPropertyReplacer(BuildProperty property) {
@@ -318,6 +322,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     enablePrecompiledScriptPlugins();
+    injectTomlVersionCatalogLibsIntoScriptPlugins();
 
     File scriptPlugin = scriptPluginForProfile(command.buildProfileId());
     if (!scriptPlugin.exists()) {
@@ -328,6 +333,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   private void enablePrecompiledScriptPlugins() {
     addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
+  }
+
+  private void injectTomlVersionCatalogLibsIntoScriptPlugins() {
+    addFileToProject(from("buildtool/gradle/buildSrc/settings.gradle.kts.template"), to("buildSrc/settings.gradle.kts"));
   }
 
   private File scriptPluginForProfile(BuildProfileId buildProfileId) {

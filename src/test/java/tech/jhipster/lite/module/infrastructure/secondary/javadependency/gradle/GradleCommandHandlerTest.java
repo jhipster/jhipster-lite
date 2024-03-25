@@ -276,6 +276,15 @@ class GradleCommandHandlerTest {
     }
 
     @Test
+    void shouldInjectTomlVersionCatalogLibsIntoBuildGradleFileWithProfiles() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddJavaBuildProfile(buildProfileId("local")));
+
+      assertFileExists(projectFolder, "buildSrc/settings.gradle.kts", "The file settings.gradle.kts should exist at %s");
+    }
+
+    @Test
     void shouldAddProfileWithIdOnlyToBuildGradleFileWithoutProfiles() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
@@ -601,6 +610,26 @@ class GradleCommandHandlerTest {
           testImplementation(libs.junit.jupiter.engine)
           // jhipster-needle-gradle-test-dependencies
         }
+        """
+      );
+    }
+
+    @Test
+    void shouldAddDependencyToBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      JavaDependency dependency = javaDependency()
+        .groupId("org.spring.boot")
+        .artifactId("spring-boot-starter-web")
+        .scope(JavaDependencyScope.RUNTIME)
+        .build();
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        new AddDirectJavaDependency(dependency, localBuildProfile())
+      );
+
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
+        """
+        runtimeOnly(libs.findLibrary("spring.boot.starter.web").get())\
         """
       );
     }

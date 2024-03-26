@@ -10,7 +10,7 @@ import tech.jhipster.lite.UnitTest;
 class JHipsterModulePropertyDefinitionTest {
 
   @Test
-  void shouldHaveMeaningfullToString() {
+  void shouldHaveMeaningfulToString() {
     assertThat(projectNameProperty()).hasToString(
       """
       JHipsterModulePropertyDefinition[type=STRING,key=projectName,mandatory=true,description=Project full name,defaultValue=JHipster Sample Application,order=-200]\

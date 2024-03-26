@@ -23,7 +23,7 @@ class JHipsterModulePropertiesDefinitionTest {
   }
 
   @Test
-  void shouldHaveMeaningfullToString() {
+  void shouldHaveMeaningfulToString() {
     var definition = JHipsterModulePropertiesDefinition.builder().add(basePackageProperty()).build();
     assertThat(definition.toString()).startsWith("JHipsterModulePropertiesDefinition[definitions=");
     assertThat(definition.get().iterator().next().toString()).contains(

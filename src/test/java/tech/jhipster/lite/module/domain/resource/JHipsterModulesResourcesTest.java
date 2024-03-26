@@ -41,7 +41,7 @@ class JHipsterModulesResourcesTest {
   }
 
   @Test
-  void shouldHaveMeaningfullToString() {
+  void shouldHaveMeaningfulToString() {
     var resource = defaultModuleResourceBuilder().slug("dummy").build();
 
     assertThat(resource.toString()).contains("JHipsterModuleResource[", "slug=dummy");

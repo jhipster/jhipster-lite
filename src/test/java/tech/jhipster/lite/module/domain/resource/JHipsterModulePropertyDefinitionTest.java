@@ -17,4 +17,13 @@ class JHipsterModulePropertyDefinitionTest {
       """
     );
   }
+
+  @Test
+  void shouldHaveMeaningfulToStringForPropertyDefinitionWithMinimalInfos() {
+    assertThat(optionalBooleanProperty("foo").build()).hasToString(
+      """
+      JHipsterModulePropertyDefinition[type=BOOLEAN,key=foo,mandatory=false,description=(empty),defaultValue=(empty),order=0]\
+      """
+    );
+  }
 }

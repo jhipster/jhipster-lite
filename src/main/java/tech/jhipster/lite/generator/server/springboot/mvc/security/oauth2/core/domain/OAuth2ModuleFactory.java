@@ -52,6 +52,9 @@ public class OAuth2ModuleFactory {
 
     var realmName = properties.getOrDefaultString(REALM_NAME, DEFAULT_REALM_NAME);
     var clientScopeName = properties.getOrDefaultString(CLIENT_SCOPE_NAME, DEFAULT_CLIENT_SCOPE_NAME);
+    Assert.field(REALM_NAME, realmName).notBlank().noWhitespace().maxLength(30).urlSafeSingleWord();
+    Assert.field(CLIENT_SCOPE_NAME, clientScopeName).notBlank().noWhitespace().maxLength(30).urlSafeSingleWord();
+
     JHipsterModuleBuilder builder = authenticationModuleBuilder(properties);
 
     appendKeycloak(builder, realmName, clientScopeName);

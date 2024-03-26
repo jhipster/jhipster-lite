@@ -71,7 +71,7 @@ public final class ProjectJavaDependencies {
       .dependencies(dependencies.merge(other.dependencies));
   }
 
-  private static class ProjectJavaDependenciesBuilder
+  private static final class ProjectJavaDependenciesBuilder
     implements
       ProjectJavaDependenciesVersionsBuilder,
       ProjectJavaDependenciesDependenciesManagementBuilder,

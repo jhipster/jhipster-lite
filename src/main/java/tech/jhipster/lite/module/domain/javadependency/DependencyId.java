@@ -77,7 +77,7 @@ public final class DependencyId {
       .isEquals();
   }
 
-  private static class DependencyIdBuilder
+  private static final class DependencyIdBuilder
     implements DependencyIdGroupIdBuilder, DependencyIdArtifactIdBuilder, DependencyIdOptionalFieldsBuilder {
 
     private GroupId groupId;

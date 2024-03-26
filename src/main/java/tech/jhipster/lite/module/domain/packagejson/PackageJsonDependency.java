@@ -60,7 +60,7 @@ public final class PackageJsonDependency {
     return new PackageJsonDependencyBuilder();
   }
 
-  private static class PackageJsonDependencyBuilder
+  private static final class PackageJsonDependencyBuilder
     implements PackageJsonDependencyPackageNameBuilder, PackageJsonDependencyVersionSourceBuilder, PackageJsonDependencyOptionalBuilder {
 
     private PackageName packageName;

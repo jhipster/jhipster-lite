@@ -244,8 +244,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(RemoveJavaDependencyManagement command) {
     versionsCatalog
       .retrieveDependencySlugsFrom(command.dependency())
-      .forEach(dependencySlug -> removeDependencyFromBuildGradle(dependencySlug, command.buildProfile()));
-    versionsCatalog.removeLibrary(command.dependency());
+      .stream()
+      .filter(dependencySlug -> dependencyExistsFrom(dependencySlug, command.buildProfile()))
+      .forEach(dependencySlug -> {
+        removeDependencyFromBuildGradle(dependencySlug, command.buildProfile());
+        versionsCatalog.removeLibrary(command.dependency());
+      });
   }
 
   @Override

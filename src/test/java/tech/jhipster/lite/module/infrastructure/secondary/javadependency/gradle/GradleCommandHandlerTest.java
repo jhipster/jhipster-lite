@@ -822,6 +822,21 @@ class GradleCommandHandlerTest {
         """
       );
     }
+
+    @Test
+    void shouldAddImplementationDependencyInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile())
+      );
+
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
+        """
+        implementation(platform(libs.findLibrary("spring.boot.dependencies").get()))\
+        """
+      );
+    }
   }
 
   @Nested
@@ -873,6 +888,39 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
 
       assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
+    }
+
+    @Test
+    void shouldRemoveDependencyInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile()));
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id(), localBuildProfile()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain(
+        """
+        implementation(platform(libs.findLibrary("spring.boot.dependencies").get()))\
+        """
+      );
+    }
+
+    @Test
+    void shouldNotRemoveEntryInLibrariesSectionWhenDependencyManagerNotFoundInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id(), localBuildProfile()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("[libraries.spring-boot-dependencies]")
+        .contains(
+          """
+          \t\tname = "spring-boot-dependencies"
+          \t\tgroup = "org.springframework.boot"
+          """
+        );
     }
   }
 

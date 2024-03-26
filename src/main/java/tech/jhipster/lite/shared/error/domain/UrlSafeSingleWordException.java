@@ -7,7 +7,7 @@ public class UrlSafeSingleWordException extends AssertionException {
   }
 
   private static String message(String field) {
-    return "The field \"%s\" is not a single world containing only lower case characters and numbers".formatted(field);
+    return "The field \"%s\" is not a single word containing only lower case characters and numbers".formatted(field);
   }
 
   @Override

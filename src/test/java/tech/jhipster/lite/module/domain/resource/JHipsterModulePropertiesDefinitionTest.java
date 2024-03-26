@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain.properties;
+package tech.jhipster.lite.module.domain.resource;
 
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.*;
@@ -6,8 +6,6 @@ import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDe
 import java.util.Collection;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
-import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition;
 
 @UnitTest
 class JHipsterModulePropertiesDefinitionTest {

@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOperation;
@@ -82,6 +84,16 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
     JHipsterLandscapeModule other = (JHipsterLandscapeModule) obj;
 
     return new EqualsBuilder().append(module, other.module).isEquals();
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+      .append("module", module)
+      .append("operation", operation)
+      .append("propertiesDefinition", propertiesDefinition)
+      .append("dependencies", dependencies)
+      .build();
   }
 
   private static final class JHipsterLandscapeModuleBuilder

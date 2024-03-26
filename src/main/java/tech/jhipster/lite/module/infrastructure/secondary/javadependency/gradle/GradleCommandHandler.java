@@ -192,31 +192,59 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   @Override
   public void handle(RemoveDirectJavaDependency command) {
-    versionsCatalog.retrieveDependencySlugsFrom(command.dependency()).forEach(this::removeDependencyFromBuildGradle);
-    versionsCatalog.removeLibrary(command.dependency());
+    versionsCatalog
+      .retrieveDependencySlugsFrom(command.dependency())
+      .stream()
+      .filter(dependencySlug -> dependencyExistsFrom(dependencySlug, command.buildProfile()))
+      .forEach(dependencySlug -> {
+        removeDependencyFromBuildGradle(dependencySlug, command.buildProfile());
+        versionsCatalog.removeLibrary(command.dependency());
+      });
   }
 
-  private void removeDependencyFromBuildGradle(DependencySlug dependencySlug) {
+  @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
+  private boolean dependencyExistsFrom(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
+    try {
+      return dependencyLinePattern(dependencySlug, buildProfile).matcher(Files.readString(buildGradleFile(buildProfile))).find();
+    } catch (IOException e) {
+      throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
+    }
+  }
+
+  private void removeDependencyFromBuildGradle(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexReplacer(always(), dependencyLinePattern(dependencySlug, buildProfile)),
+      ""
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(
+        new MandatoryFileReplacer(new JHipsterProjectFilePath(projectFolderRelativePathFrom(buildGradleFile(buildProfile))), replacer)
+      )
+    );
+  }
+
+  private Pattern dependencyLinePattern(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
     String scopePattern = Stream.of(GradleDependencyScope.values())
       .map(GradleDependencyScope::command)
       .collect(Collectors.joining("|", "(?:", ")"));
-    Pattern dependencyLinePattern = Pattern.compile(
-      "^\\s+%s\\((?:platform\\()?libs\\.%s\\)?\\)(?:\\s+\\{(?:\\s+exclude\\([^)]*\\))+\\s+\\})?$".formatted(
+
+    String libsPattern = buildProfile.isPresent() ? "libs\\.findLibrary\\(\"%s\"\\)\\.get\\(\\)" : "libs\\.%s";
+
+    return Pattern.compile(
+      "^\\s+%s\\((?:platform\\()?%s\\)?\\)(?:\\s+\\{(?:\\s+exclude\\([^)]*\\))+\\s+\\})?$".formatted(
           scopePattern,
-          dependencySlug.slug().replace("-", "\\.")
+          libsPattern.formatted(dependencySlug.slug().replace("-", "\\."))
         ),
       Pattern.MULTILINE
-    );
-    MandatoryReplacer replacer = new MandatoryReplacer(new RegexReplacer(always(), dependencyLinePattern), "");
-    fileReplacer.handle(
-      projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
     );
   }
 
   @Override
   public void handle(RemoveJavaDependencyManagement command) {
-    versionsCatalog.retrieveDependencySlugsFrom(command.dependency()).forEach(this::removeDependencyFromBuildGradle);
+    versionsCatalog
+      .retrieveDependencySlugsFrom(command.dependency())
+      .forEach(dependencySlug -> removeDependencyFromBuildGradle(dependencySlug, command.buildProfile()));
     versionsCatalog.removeLibrary(command.dependency());
   }
 

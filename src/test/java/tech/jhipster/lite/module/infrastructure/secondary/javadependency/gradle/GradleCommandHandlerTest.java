@@ -721,6 +721,49 @@ class GradleCommandHandlerTest {
 
       assertThat(buildGradleContent(projectFolder)).doesNotContain("compileOnly(libs.junit.jupiter.engine)");
     }
+
+    @Test
+    void shouldRemoveRuntimeDependencyInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+      JavaDependency dependency = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.RUNTIME)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependency, localBuildProfile()));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id(), localBuildProfile()));
+
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).doesNotContain(
+        """
+        runtimeOnly(libs.findLibrary("junit.jupiter.engine").get())
+        """
+      );
+    }
+
+    @Test
+    void shouldNotRemoveEntryInLibrariesSectionWhenDependencyNotFoundInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+      JavaDependency dependency = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.RUNTIME)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id(), localBuildProfile()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("[libraries.junit-jupiter-engine]")
+        .contains(
+          """
+          \t\tname = "junit-jupiter-engine"
+          \t\tgroup = "org.junit.jupiter"
+          """
+        );
+    }
   }
 
   @Nested

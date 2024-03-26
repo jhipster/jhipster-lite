@@ -142,8 +142,8 @@ public final class JHipsterModulePropertyDefinition {
       .append("type", type)
       .append("key", key)
       .append("mandatory", mandatory)
-      .append("description", description)
-      .append("defaultValue", defaultValue)
+      .append("description", description.map(JHipsterPropertyDescription::get).orElse("(empty)"))
+      .append("defaultValue", defaultValue.map(JHipsterPropertyDefaultValue::get).orElse("(empty)"))
       .append("order", order)
       .build();
   }

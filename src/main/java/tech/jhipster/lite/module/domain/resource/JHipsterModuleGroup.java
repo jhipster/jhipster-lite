@@ -15,4 +15,9 @@ public record JHipsterModuleGroup(String group) {
   public List<String> list() {
     return List.of(group());
   }
+
+  @Override
+  public String toString() {
+    return group();
+  }
 }

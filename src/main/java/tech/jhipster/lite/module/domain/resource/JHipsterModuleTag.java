@@ -24,4 +24,9 @@ public record JHipsterModuleTag(String tag) {
   public String get() {
     return tag();
   }
+
+  @Override
+  public String toString() {
+    return tag();
+  }
 }

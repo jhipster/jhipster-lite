@@ -17,7 +17,7 @@ public record JHipsterProjectBaseName(String name) {
       return DEFAULT_NAME;
     }
 
-    Assert.field("baseName", name).namePattern(() -> new InvalidProjectBaseNameException());
+    Assert.field("baseName", name).namePattern(InvalidProjectBaseNameException::new);
 
     return name;
   }

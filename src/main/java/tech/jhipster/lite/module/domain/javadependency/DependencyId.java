@@ -1,10 +1,11 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.*;
+
 import java.util.Optional;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -138,7 +139,7 @@ public final class DependencyId {
   @Override
   @ExcludeFromGeneratedCodeCoverage
   public String toString() {
-    ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    ToStringBuilder builder = new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("groupId", groupId)
       .append("artifactId", artifactId)
       .append("classifier", classifier.map(JavaDependencyClassifier::toString).orElse("(empty)"))

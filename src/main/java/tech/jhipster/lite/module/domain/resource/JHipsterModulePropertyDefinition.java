@@ -1,8 +1,9 @@
 package tech.jhipster.lite.module.domain.resource;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.*;
+
 import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyDefaultValue;
 import tech.jhipster.lite.module.domain.properties.JHipsterPropertyDescription;
@@ -137,7 +138,7 @@ public final class JHipsterModulePropertyDefinition {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("type", type)
       .append("key", key)
       .append("mandatory", mandatory)

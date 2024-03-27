@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -200,7 +201,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     versionsCatalog
       .retrieveDependencySlugsFrom(command.dependency())
       .stream()
-      .filter(dependencySlug -> dependencyExistsFrom(dependencySlug, command.buildProfile()))
+      .filter(dependencyExistsFrom(command.buildProfile()))
       .forEach(dependencySlug -> {
         removeDependencyFromBuildGradle(dependencySlug, command.buildProfile());
         versionsCatalog.removeLibrary(command.dependency());
@@ -208,12 +209,14 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
-  private boolean dependencyExistsFrom(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
-    try {
-      return dependencyLinePattern(dependencySlug, buildProfile).matcher(Files.readString(buildGradleFile(buildProfile))).find();
-    } catch (IOException e) {
-      throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
-    }
+  private Predicate<DependencySlug> dependencyExistsFrom(Optional<BuildProfileId> buildProfile) {
+    return dependencySlug -> {
+      try {
+        return dependencyLinePattern(dependencySlug, buildProfile).matcher(Files.readString(buildGradleFile(buildProfile))).find();
+      } catch (IOException e) {
+        throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
+      }
+    };
   }
 
   private void removeDependencyFromBuildGradle(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
@@ -250,7 +253,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     versionsCatalog
       .retrieveDependencySlugsFrom(command.dependency())
       .stream()
-      .filter(dependencySlug -> dependencyExistsFrom(dependencySlug, command.buildProfile()))
+      .filter(dependencyExistsFrom(command.buildProfile()))
       .forEach(dependencySlug -> {
         removeDependencyFromBuildGradle(dependencySlug, command.buildProfile());
         versionsCatalog.removeLibrary(command.dependency());

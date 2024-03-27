@@ -362,7 +362,6 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     enablePrecompiledScriptPlugins();
-    injectTomlVersionCatalogLibsIntoScriptPlugins();
 
     File scriptPlugin = scriptPluginForProfile(command.buildProfileId());
     if (!scriptPlugin.exists()) {
@@ -373,9 +372,6 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   private void enablePrecompiledScriptPlugins() {
     addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
-  }
-
-  private void injectTomlVersionCatalogLibsIntoScriptPlugins() {
     addFileToProject(from("buildtool/gradle/buildSrc/settings.gradle.kts.template"), to("buildSrc/settings.gradle.kts"));
   }
 

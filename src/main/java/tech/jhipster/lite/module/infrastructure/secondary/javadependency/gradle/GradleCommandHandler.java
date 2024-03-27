@@ -119,7 +119,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private void addDependencyToBuildGradle(JavaDependency dependency, Optional<BuildProfileId> buildProfile) {
     GradleDependencyScope gradleScope = gradleDependencyScope(dependency);
 
-    String dependencyDeclaration = dependencyDeclaration(dependency, buildProfile);
+    String dependencyDeclaration = dependencyDeclaration(dependency, buildProfile.isPresent());
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
@@ -144,15 +144,18 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     };
   }
 
-  private String dependencyDeclaration(JavaDependency dependency, Optional<BuildProfileId> buildProfile) {
+  private String dependencyDeclaration(JavaDependency dependency, boolean forBuildProfile) {
     StringBuilder dependencyDeclaration = new StringBuilder()
       .append(indentation.times(1))
       .append(gradleDependencyScope(dependency).command())
       .append("(");
+    var versionCatalogReference = forBuildProfile
+      ? versionCatalogReferenceForBuildProfile(dependency)
+      : versionCatalogReference(dependency);
     if (dependency.scope() == JavaDependencyScope.IMPORT) {
-      dependencyDeclaration.append("platform(%s)".formatted(versionCatalogReference(dependency, buildProfile)));
+      dependencyDeclaration.append("platform(%s)".formatted(versionCatalogReference));
     } else {
-      dependencyDeclaration.append(versionCatalogReference(dependency, buildProfile));
+      dependencyDeclaration.append(versionCatalogReference);
     }
     dependencyDeclaration.append(")");
 
@@ -171,10 +174,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     return dependencyDeclaration.toString();
   }
 
-  private static String versionCatalogReference(JavaDependency dependency, Optional<BuildProfileId> buildProfile) {
-    return buildProfile.isPresent()
-      ? "libs.findLibrary(\"%s\").get()".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)))
-      : "libs.%s".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)));
+  private static String versionCatalogReferenceForBuildProfile(JavaDependency dependency) {
+    return "libs.findLibrary(\"%s\").get()".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)));
+  }
+
+  private static String versionCatalogReference(JavaDependency dependency) {
+    return "libs.%s".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)));
   }
 
   private static String applyVersionCatalogReferenceConvention(String rawVersionCatalogReference) {

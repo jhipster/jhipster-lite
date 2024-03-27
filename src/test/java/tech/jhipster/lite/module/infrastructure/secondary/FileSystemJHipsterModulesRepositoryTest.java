@@ -384,7 +384,7 @@ class FileSystemJHipsterModulesRepositoryTest {
 
   @Test
   void shouldApplyModuleToGradleProject() {
-    JHipsterModule module = gradleSupportedModule();
+    JHipsterModule module = fullModule();
 
     // @formatter:off
     assertThatModuleWithFiles(

@@ -206,15 +206,17 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       });
   }
 
-  @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
   private Predicate<DependencySlug> dependencyExistsFrom(Optional<BuildProfileId> buildProfile) {
-    return dependencySlug -> {
-      try {
-        return dependencyLinePattern(dependencySlug, buildProfile).matcher(Files.readString(buildGradleFile(buildProfile))).find();
-      } catch (IOException e) {
-        throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
-      }
-    };
+    return dependencySlug -> dependencyExistsFrom(dependencySlug, buildProfile);
+  }
+
+  @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
+  private boolean dependencyExistsFrom(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
+    try {
+      return dependencyLinePattern(dependencySlug, buildProfile).matcher(Files.readString(buildGradleFile(buildProfile))).find();
+    } catch (IOException e) {
+      throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
+    }
   }
 
   private void removeDependencyFromBuildGradle(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {

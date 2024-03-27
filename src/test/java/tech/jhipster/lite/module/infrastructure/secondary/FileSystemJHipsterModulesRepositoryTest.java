@@ -384,7 +384,7 @@ class FileSystemJHipsterModulesRepositoryTest {
 
   @Test
   void shouldApplyModuleToGradleProject() {
-    JHipsterModule module = gradleSupportedModule();
+    JHipsterModule module = fullModule();
 
     // @formatter:off
     assertThatModuleWithFiles(
@@ -408,6 +408,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .hasFile("gradle/libs.versions.toml")
       .containing("spring-boot = \"")
       .containing("json-web-token = \"")
+      .containing("cassandraunit = \"")
       .and()
       .hasFile("build.gradle.kts")
       .notContaining("implementation(libs.logstash.logback.encoder)")
@@ -452,6 +453,12 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .and()
       .hasFile("buildSrc/src/main/kotlin/profile-local.gradle.kts")
+      .containing(
+        """
+          testImplementation(libs.findLibrary("cassandra.unit").get())
+          // jhipster-needle-gradle-test-dependencies
+        """
+      )
       .containing(
         """
         val springProfilesActive by extra("local")

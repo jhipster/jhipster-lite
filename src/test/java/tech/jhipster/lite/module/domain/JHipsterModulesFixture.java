@@ -34,39 +34,7 @@ public final class JHipsterModulesFixture {
 
   private JHipsterModulesFixture() {}
 
-  /**
-   * Module that contains all features currently supported with Gradle
-   *
-   * @implNote This is a temporary method to be used until all features are supported with Gradle
-   */
-  public static JHipsterModule gradleSupportedModule() {
-    return gradleSupportedModuleBuilder().build();
-  }
-
-  /**
-   * Module that contains all features currently supported with Maven
-   */
   public static JHipsterModule fullModule() {
-    // @formatter:off
-   return gradleSupportedModuleBuilder()
-    .javaBuildProfiles()
-      .addProfile(localBuildProfile())
-        .mavenPlugins()
-          .pluginManagement(mavenEnforcerPluginManagement())
-          .plugin(mavenEnforcerPlugin())
-          .and()
-        .javaDependencies()
-          .addTestDependency(groupId("org.cassandraunit"), artifactId("cassandra-unit"), versionSlug("cassandraunit"))
-          .removeDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web"))
-          .removeDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-web"))
-          .and()
-        .and()
-     .and()
-    .build();
-    // @formatter:on
-  }
-
-  public static JHipsterModuleBuilder gradleSupportedModuleBuilder() {
     // @formatter:off
    return moduleBuilder(testModuleProperties())
     .context()
@@ -136,6 +104,15 @@ public final class JHipsterModulesFixture {
         .properties()
           .set(buildPropertyKey("spring.profiles.active"), buildPropertyValue("local"))
           .and()
+        .mavenPlugins()
+          .pluginManagement(mavenEnforcerPluginManagement())
+          .plugin(mavenEnforcerPlugin())
+          .and()
+        .javaDependencies()
+          .addTestDependency(groupId("org.cassandraunit"), artifactId("cassandra-unit"), versionSlug("cassandraunit"))
+          .removeDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web"))
+          .removeDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-web"))
+          .and()
         .and()
       .and()
     .packageJson()
@@ -174,7 +151,8 @@ public final class JHipsterModulesFixture {
     .springTestFactories()
      .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"))
      .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener2"))
-     .and();
+     .and()
+    .build();
     // @formatter:on
   }
 

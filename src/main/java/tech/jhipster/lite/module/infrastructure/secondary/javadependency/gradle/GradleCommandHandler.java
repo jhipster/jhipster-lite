@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -113,13 +114,13 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     versionsCatalog.addLibrary(command.dependency());
-    addDependencyToBuildGradle(command.dependency());
+    addDependencyToBuildGradle(command.dependency(), command.buildProfile());
   }
 
-  private void addDependencyToBuildGradle(JavaDependency dependency) {
+  private void addDependencyToBuildGradle(JavaDependency dependency, Optional<BuildProfileId> buildProfile) {
     GradleDependencyScope gradleScope = gradleDependencyScope(dependency);
 
-    String dependencyDeclaration = dependencyDeclaration(dependency);
+    String dependencyDeclaration = dependencyDeclaration(dependency, buildProfile.isPresent());
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
@@ -129,7 +130,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
   }
 
@@ -142,15 +143,18 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     };
   }
 
-  private String dependencyDeclaration(JavaDependency dependency) {
+  private String dependencyDeclaration(JavaDependency dependency, boolean forBuildProfile) {
     StringBuilder dependencyDeclaration = new StringBuilder()
       .append(indentation.times(1))
       .append(gradleDependencyScope(dependency).command())
       .append("(");
+    var versionCatalogReference = forBuildProfile
+      ? versionCatalogReferenceForBuildProfile(dependency)
+      : versionCatalogReference(dependency);
     if (dependency.scope() == JavaDependencyScope.IMPORT) {
-      dependencyDeclaration.append("platform(%s)".formatted(versionCatalogReference(dependency)));
+      dependencyDeclaration.append("platform(%s)".formatted(versionCatalogReference));
     } else {
-      dependencyDeclaration.append(versionCatalogReference(dependency));
+      dependencyDeclaration.append(versionCatalogReference);
     }
     dependencyDeclaration.append(")");
 
@@ -167,6 +171,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     }
 
     return dependencyDeclaration.toString();
+  }
+
+  private static String versionCatalogReferenceForBuildProfile(JavaDependency dependency) {
+    return "libs.findLibrary(\"%s\").get()".formatted(applyVersionCatalogReferenceConvention(libraryAlias(dependency)));
   }
 
   private static String versionCatalogReference(JavaDependency dependency) {
@@ -188,38 +196,72 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   @Override
   public void handle(RemoveDirectJavaDependency command) {
-    versionsCatalog.retrieveDependencySlugsFrom(command.dependency()).forEach(this::removeDependencyFromBuildGradle);
-    versionsCatalog.removeLibrary(command.dependency());
+    versionsCatalog
+      .retrieveDependencySlugsFrom(command.dependency())
+      .stream()
+      .filter(dependencyExistsFrom(command.buildProfile()))
+      .forEach(dependencySlug -> {
+        removeDependencyFromBuildGradle(dependencySlug, command.buildProfile());
+        versionsCatalog.removeLibrary(command.dependency());
+      });
   }
 
-  private void removeDependencyFromBuildGradle(DependencySlug dependencySlug) {
+  private Predicate<DependencySlug> dependencyExistsFrom(Optional<BuildProfileId> buildProfile) {
+    return dependencySlug -> dependencyExistsFrom(dependencySlug, buildProfile);
+  }
+
+  @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
+  private boolean dependencyExistsFrom(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
+    try {
+      return dependencyLinePattern(dependencySlug, buildProfile).matcher(Files.readString(buildGradleFile(buildProfile))).find();
+    } catch (IOException e) {
+      throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
+    }
+  }
+
+  private void removeDependencyFromBuildGradle(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexReplacer(always(), dependencyLinePattern(dependencySlug, buildProfile)),
+      ""
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
+    );
+  }
+
+  private Pattern dependencyLinePattern(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
     String scopePattern = Stream.of(GradleDependencyScope.values())
       .map(GradleDependencyScope::command)
       .collect(Collectors.joining("|", "(?:", ")"));
-    Pattern dependencyLinePattern = Pattern.compile(
-      "^\\s+%s\\((?:platform\\()?libs\\.%s\\)?\\)(?:\\s+\\{(?:\\s+exclude\\([^)]*\\))+\\s+\\})?$".formatted(
+
+    String libsPattern = buildProfile.isPresent() ? "libs\\.findLibrary\\(\"%s\"\\)\\.get\\(\\)" : "libs\\.%s";
+
+    return Pattern.compile(
+      "^\\s+%s\\((?:platform\\()?%s\\)?\\)(?:\\s+\\{(?:\\s+exclude\\([^)]*\\))+\\s+\\})?$".formatted(
           scopePattern,
-          dependencySlug.slug().replace("-", "\\.")
+          libsPattern.formatted(dependencySlug.slug().replace("-", "\\."))
         ),
       Pattern.MULTILINE
-    );
-    MandatoryReplacer replacer = new MandatoryReplacer(new RegexReplacer(always(), dependencyLinePattern), "");
-    fileReplacer.handle(
-      projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
     );
   }
 
   @Override
   public void handle(RemoveJavaDependencyManagement command) {
-    versionsCatalog.retrieveDependencySlugsFrom(command.dependency()).forEach(this::removeDependencyFromBuildGradle);
-    versionsCatalog.removeLibrary(command.dependency());
+    versionsCatalog
+      .retrieveDependencySlugsFrom(command.dependency())
+      .stream()
+      .filter(dependencyExistsFrom(command.buildProfile()))
+      .forEach(dependencySlug -> {
+        removeDependencyFromBuildGradle(dependencySlug, command.buildProfile());
+        versionsCatalog.removeLibrary(command.dependency());
+      });
   }
 
   @Override
   public void handle(AddJavaDependencyManagement command) {
     versionsCatalog.addLibrary(command.dependency());
-    addDependencyToBuildGradle(command.dependency());
+    addDependencyToBuildGradle(command.dependency(), command.buildProfile());
   }
 
   @Override
@@ -236,18 +278,19 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   public void handle(SetBuildProperty command) {
     Assert.notNull(COMMAND, command);
 
-    Path buildGradleFile = command
-      .buildProfile()
-      .map(buildProfile -> {
-        File scriptPlugin = scriptPluginForProfile(buildProfile);
+    addPropertyTo(command.property(), buildGradleFile(command.buildProfile()));
+  }
+
+  private Path buildGradleFile(Optional<BuildProfileId> buildProfile) {
+    return buildProfile
+      .map(buildProfileId -> {
+        File scriptPlugin = scriptPluginForProfile(buildProfileId);
         if (!scriptPlugin.exists()) {
-          throw new MissingGradleProfileException(buildProfile);
+          throw new MissingGradleProfileException(buildProfileId);
         }
         return scriptPlugin.toPath();
       })
       .orElse(projectFolder.filePath(BUILD_GRADLE_FILE));
-
-    addPropertyTo(command.property(), buildGradleFile);
   }
 
   private void addPropertyTo(BuildProperty property, Path buildGradleFile) {
@@ -260,13 +303,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(
-        new MandatoryFileReplacer(
-          new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile).toString()),
-          replacer
-        )
-      )
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile), replacer))
     );
+  }
+
+  private JHipsterProjectFilePath projectFolderRelativePathFrom(Path buildGradleFile) {
+    return new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile).toString());
   }
 
   private MandatoryReplacer existingPropertyReplacer(BuildProperty property) {
@@ -328,6 +370,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   private void enablePrecompiledScriptPlugins() {
     addFileToProject(from("buildtool/gradle/buildSrc/build.gradle.kts.template"), to("buildSrc/build.gradle.kts"));
+    addFileToProject(from("buildtool/gradle/buildSrc/settings.gradle.kts.template"), to("buildSrc/settings.gradle.kts"));
   }
 
   private File scriptPluginForProfile(BuildProfileId buildProfileId) {

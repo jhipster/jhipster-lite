@@ -276,6 +276,15 @@ class GradleCommandHandlerTest {
     }
 
     @Test
+    void shouldInjectTomlVersionCatalogLibsIntoBuildGradleFileWithProfiles() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(new AddJavaBuildProfile(buildProfileId("local")));
+
+      assertFileExists(projectFolder, "buildSrc/settings.gradle.kts", "The file settings.gradle.kts should exist at %s");
+    }
+
+    @Test
     void shouldAddProfileWithIdOnlyToBuildGradleFileWithoutProfiles() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
@@ -604,6 +613,26 @@ class GradleCommandHandlerTest {
         """
       );
     }
+
+    @Test
+    void shouldAddDependencyToBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      JavaDependency dependency = javaDependency()
+        .groupId("org.spring.boot")
+        .artifactId("spring-boot-starter-web")
+        .scope(JavaDependencyScope.RUNTIME)
+        .build();
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        new AddDirectJavaDependency(dependency, localBuildProfile())
+      );
+
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
+        """
+        runtimeOnly(libs.findLibrary("spring.boot.starter.web").get())\
+        """
+      );
+    }
   }
 
   @Nested
@@ -692,6 +721,49 @@ class GradleCommandHandlerTest {
 
       assertThat(buildGradleContent(projectFolder)).doesNotContain("compileOnly(libs.junit.jupiter.engine)");
     }
+
+    @Test
+    void shouldRemoveRuntimeDependencyInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+      JavaDependency dependency = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.RUNTIME)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependency, localBuildProfile()));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id(), localBuildProfile()));
+
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).doesNotContain(
+        """
+        runtimeOnly(libs.findLibrary("junit.jupiter.engine").get())
+        """
+      );
+    }
+
+    @Test
+    void shouldNotRemoveEntryInLibrariesSectionWhenDependencyNotFoundInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+      JavaDependency dependency = javaDependency()
+        .groupId("org.junit.jupiter")
+        .artifactId("junit-jupiter-engine")
+        .scope(JavaDependencyScope.RUNTIME)
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependency));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id(), localBuildProfile()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("[libraries.junit-jupiter-engine]")
+        .contains(
+          """
+          \t\tname = "junit-jupiter-engine"
+          \t\tgroup = "org.junit.jupiter"
+          """
+        );
+    }
   }
 
   @Nested
@@ -750,6 +822,21 @@ class GradleCommandHandlerTest {
         """
       );
     }
+
+    @Test
+    void shouldAddImplementationDependencyInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile())
+      );
+
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
+        """
+        implementation(platform(libs.findLibrary("spring.boot.dependencies").get()))\
+        """
+      );
+    }
   }
 
   @Nested
@@ -801,6 +888,39 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependency.id()));
 
       assertThat(buildGradleContent(projectFolder)).doesNotContain("implementation(platform(libs.spring.boot.dependencies))");
+    }
+
+    @Test
+    void shouldRemoveDependencyInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile()));
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id(), localBuildProfile()));
+
+      assertThat(buildGradleContent(projectFolder)).doesNotContain(
+        """
+        implementation(platform(libs.findLibrary("spring.boot.dependencies").get()))\
+        """
+      );
+    }
+
+    @Test
+    void shouldNotRemoveEntryInLibrariesSectionWhenDependencyManagerNotFoundInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id(), localBuildProfile()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("[libraries.spring-boot-dependencies]")
+        .contains(
+          """
+          \t\tname = "spring-boot-dependencies"
+          \t\tgroup = "org.springframework.boot"
+          """
+        );
     }
   }
 

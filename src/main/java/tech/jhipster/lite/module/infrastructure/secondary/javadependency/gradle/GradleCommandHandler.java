@@ -130,9 +130,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(
-        new MandatoryFileReplacer(new JHipsterProjectFilePath(projectFolderRelativePathFrom(buildGradleFile(buildProfile))), replacer)
-      )
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
   }
 
@@ -226,9 +224,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(
-        new MandatoryFileReplacer(new JHipsterProjectFilePath(projectFolderRelativePathFrom(buildGradleFile(buildProfile))), replacer)
-      )
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
   }
 
@@ -305,12 +301,12 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(projectFolderRelativePathFrom(buildGradleFile)), replacer))
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile), replacer))
     );
   }
 
-  private String projectFolderRelativePathFrom(Path buildGradleFile) {
-    return Path.of(projectFolder.folder()).relativize(buildGradleFile).toString();
+  private JHipsterProjectFilePath projectFolderRelativePathFrom(Path buildGradleFile) {
+    return new JHipsterProjectFilePath(Path.of(projectFolder.folder()).relativize(buildGradleFile).toString());
   }
 
   private MandatoryReplacer existingPropertyReplacer(BuildProperty property) {

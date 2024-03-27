@@ -207,15 +207,18 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private Predicate<DependencySlug> dependencyExistsFrom(Optional<BuildProfileId> buildProfile) {
-    return dependencySlug -> dependencyExistsFrom(dependencySlug, buildProfile);
+    return dependencySlug -> {
+      String buildGradleFileContent = readContent(buildGradleFile(buildProfile));
+      return dependencyLinePattern(dependencySlug, buildProfile).matcher(buildGradleFileContent).find();
+    };
   }
 
-  @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
-  private boolean dependencyExistsFrom(DependencySlug dependencySlug, Optional<BuildProfileId> buildProfile) {
+  @ExcludeFromGeneratedCodeCoverage(reason = "IOException is hard to test")
+  private String readContent(Path path) {
     try {
-      return dependencyLinePattern(dependencySlug, buildProfile).matcher(Files.readString(buildGradleFile(buildProfile))).find();
+      return Files.readString(path);
     } catch (IOException e) {
-      throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
+      throw GeneratorException.technicalError("Error reading file " + path + ": " + e.getMessage(), e);
     }
   }
 
@@ -339,15 +342,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       .collect(Collectors.collectingAndThen(Collectors.joining(), str -> str.substring(0, 1).toLowerCase() + str.substring(1)));
   }
 
-  @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
   private boolean propertyExistsFrom(PropertyKey key, Path buildGradleFile) {
-    try {
-      String content = Files.readString(buildGradleFile);
+    String content = readContent(buildGradleFile);
 
-      return content.contains("val %s by extra(".formatted(toCamelCasedKotlinVariable(key)));
-    } catch (IOException e) {
-      throw GeneratorException.technicalError("Error reading build gradle file: " + e.getMessage(), e);
-    }
+    return content.contains("val %s by extra(".formatted(toCamelCasedKotlinVariable(key)));
   }
 
   @Override

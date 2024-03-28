@@ -7,8 +7,10 @@ import static tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.application.OAuth2SecurityApplicationService;
+import tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.domain.OAuth2ModuleFactory;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOrganization;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
+import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleResource;
 
 @Configuration
@@ -26,6 +28,20 @@ class OAuth2ModuleConfiguration {
           .addProjectBaseName()
           .addIndentation()
           .addSpringConfigurationFormat()
+          .add(
+            JHipsterModulePropertyDefinition.optionalStringProperty(OAuth2ModuleFactory.REALM_NAME)
+              .defaultValue(OAuth2ModuleFactory.DEFAULT_REALM_NAME)
+              .description("Name of the realm used in Keycloak")
+              .order(300)
+              .build()
+          )
+          .add(
+            JHipsterModulePropertyDefinition.optionalStringProperty(OAuth2ModuleFactory.CLIENT_SCOPE_NAME)
+              .defaultValue(OAuth2ModuleFactory.DEFAULT_CLIENT_SCOPE_NAME)
+              .description("Name of the client scope created in Keycloak")
+              .order(300)
+              .build()
+          )
           .build()
       )
       .apiDoc(

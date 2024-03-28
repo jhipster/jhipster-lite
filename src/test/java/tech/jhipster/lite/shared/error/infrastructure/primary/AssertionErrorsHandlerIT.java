@@ -118,6 +118,16 @@ class AssertionErrorsHandlerIT {
   }
 
   @Test
+  void shouldHandleUrlSafeSingleWords() throws Exception {
+    rest
+      .perform(get("/api/assertion-errors/url-safe-single-word"))
+      .andExpect(status().isBadRequest())
+      .andExpect(jsonPath("title").value("String with special characters"))
+      .andExpect(jsonPath("detail").value("The string myField must only have lower case characters and numbers"))
+      .andExpect(jsonPath("key").value("URL_SAFE_SINGLE_WORD"));
+  }
+
+  @Test
   void shouldHandleNotAfterTime() throws Exception {
     rest
       .perform(get("/api/assertion-errors/not-after-time"))

@@ -31,6 +31,7 @@ class OAuth2ModuleFactoryTest {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
+      .put("keycloakRealmName", "my-test-realm")
       .build();
 
     when(dockerImages.get("quay.io/keycloak/keycloak")).thenReturn(new DockerImageVersion("quay.io/keycloak/keycloak", "1.1.1"));
@@ -110,7 +111,7 @@ class OAuth2ModuleFactoryTest {
                     scope: openid,profile,email
                 provider:
                   oidc:
-                    issuer-uri: http://localhost:9080/realms/jhipster
+                    issuer-uri: http://localhost:9080/realms/my-test-realm
         """
       )
       .and()
@@ -123,7 +124,7 @@ class OAuth2ModuleFactoryTest {
               client:
                 provider:
                   oidc:
-                    issuer-uri: http://DO_NOT_CALL:9080/realms/jhipster
+                    issuer-uri: http://DO_NOT_CALL:9080/realms/my-test-realm
           main:
             allow-bean-definition-overriding: true
         """
@@ -139,7 +140,7 @@ class OAuth2ModuleFactoryTest {
       .containing("docker compose -f src/main/docker/keycloak.yml up -d");
   }
 
-  private ModuleFile integrationTestFile() {
+  private static ModuleFile integrationTestFile() {
     return file("src/test/resources/projects/files/IntegrationTest.java", "src/test/java/com/jhipster/test/IntegrationTest.java");
   }
 }

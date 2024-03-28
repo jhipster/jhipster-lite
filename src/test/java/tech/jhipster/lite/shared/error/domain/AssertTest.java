@@ -143,6 +143,19 @@ class AssertTest {
     }
 
     @Test
+    void shouldNotValidateUrlSafeSingleWord() {
+      assertThatThrownBy(() -> Assert.field(FIELD_NAME, "mytag?").urlSafeSingleWord())
+        .isExactlyInstanceOf(UrlSafeSingleWordException.class)
+        .hasMessageContaining(FIELD_NAME)
+        .hasMessageContaining("not a single word containing only lower case characters and");
+    }
+
+    @Test
+    void shouldValidateUrlSafeSingleWord() {
+      assertThatCode(() -> Assert.field(FIELD_NAME, "my-tag").urlSafeSingleWord()).doesNotThrowAnyException();
+    }
+
+    @Test
     void shouldNotValidateNullStringWithLength() {
       assertThatThrownBy(() -> Assert.field(FIELD_NAME, (String) null).minLength(1))
         .isExactlyInstanceOf(MissingMandatoryValueException.class)

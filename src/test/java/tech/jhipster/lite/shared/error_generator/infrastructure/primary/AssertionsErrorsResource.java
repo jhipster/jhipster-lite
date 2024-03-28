@@ -58,6 +58,11 @@ class AssertionsErrorsResource {
     Assert.field("myField", "with whitespace").noWhitespace();
   }
 
+  @GetMapping("url-safe-single-word")
+  void urlSafeSingleWord() {
+    Assert.field("myField", "WithSpecialCharacters?").urlSafeSingleWord();
+  }
+
   @GetMapping("not-after-time")
   void notAfterTime() {
     Assert.field("myField", Instant.ofEpochSecond(13)).after(Instant.ofEpochSecond(1337));

@@ -10,4 +10,9 @@ public record JHipsterPropertyKey(String key) {
   public String get() {
     return key();
   }
+
+  @Override
+  public String toString() {
+    return key();
+  }
 }

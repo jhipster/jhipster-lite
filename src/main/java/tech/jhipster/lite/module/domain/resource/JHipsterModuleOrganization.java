@@ -1,8 +1,11 @@
 package tech.jhipster.lite.module.domain.resource;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterFeatureSlug;
 import tech.jhipster.lite.module.domain.landscape.JHipsterFeatureDependency;
@@ -35,15 +38,23 @@ public final class JHipsterModuleOrganization {
     return dependencies;
   }
 
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+      .append("feature", feature.map(JHipsterFeatureSlug::get).orElse("(empty)"))
+      .append("dependencies", dependencies)
+      .build();
+  }
+
   public static class JHipsterModuleOrganizationBuilder {
 
     private final Collection<JHipsterLandscapeDependency> dependencies = new ArrayList<>();
     private Optional<JHipsterFeatureSlug> feature = Optional.empty();
 
-    public JHipsterModuleOrganizationBuilder feature(JHipsterFeatureSlugFactory feature) {
-      Assert.notNull("feature", feature);
+    public JHipsterModuleOrganizationBuilder feature(JHipsterFeatureSlugFactory featureFactory) {
+      Assert.notNull("featureFactory", featureFactory);
 
-      this.feature = feature.build();
+      this.feature = featureFactory.build();
 
       return this;
     }
@@ -56,10 +67,10 @@ public final class JHipsterModuleOrganization {
       return this;
     }
 
-    public JHipsterModuleOrganizationBuilder addDependency(JHipsterFeatureSlugFactory feature) {
-      Assert.notNull("feature", feature);
+    public JHipsterModuleOrganizationBuilder addDependency(JHipsterFeatureSlugFactory featureFactory) {
+      Assert.notNull("featureFactory", featureFactory);
 
-      feature.build().map(JHipsterFeatureDependency::new).ifPresent(dependencies::add);
+      featureFactory.build().map(JHipsterFeatureDependency::new).ifPresent(dependencies::add);
 
       return this;
     }

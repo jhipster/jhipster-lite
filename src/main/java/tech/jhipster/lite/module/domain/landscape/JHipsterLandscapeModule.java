@@ -1,12 +1,13 @@
 package tech.jhipster.lite.module.domain.landscape;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.*;
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.module.domain.JHipsterSlug;
 import tech.jhipster.lite.module.domain.resource.JHipsterModuleOperation;
@@ -88,7 +89,7 @@ public final class JHipsterLandscapeModule implements JHipsterLandscapeElement {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("module", module)
       .append("operation", operation)
       .append("propertiesDefinition", propertiesDefinition)

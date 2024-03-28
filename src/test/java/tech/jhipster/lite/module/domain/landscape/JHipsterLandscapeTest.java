@@ -223,7 +223,7 @@ class JHipsterLandscapeTest {
   }
 
   @Test
-  void shouldHaveMeaningfullToString() {
+  void shouldHaveMeaningfulToString() {
     assertThat(defaultModuleResource().toString()).contains("slug=", "apiDoc=", "description=");
     assertThat(noDependencyLandscapeModule("first").toString()).contains("JHipsterLandscapeModule[module=");
   }

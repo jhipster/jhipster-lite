@@ -10,4 +10,9 @@ public record JHipsterModuleOperation(String operation) {
   public String get() {
     return operation();
   }
+
+  @Override
+  public String toString() {
+    return operation();
+  }
 }

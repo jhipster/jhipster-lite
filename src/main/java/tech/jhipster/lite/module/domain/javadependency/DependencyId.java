@@ -142,8 +142,8 @@ public final class DependencyId {
     ToStringBuilder builder = new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("groupId", groupId)
       .append("artifactId", artifactId)
-      .append("classifier", classifier.map(JavaDependencyClassifier::toString).orElse("(empty)"))
-      .append("type", type.map(JavaDependencyType::toString).orElse("(empty)"));
+      .append("classifier", classifier.map(JavaDependencyClassifier::toString).orElse(""))
+      .append("type", type.map(JavaDependencyType::toString).orElse(""));
     return builder.toString();
   }
 }

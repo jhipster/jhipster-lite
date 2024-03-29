@@ -165,8 +165,8 @@ public final class MavenPlugin {
   public String toString() {
     ToStringBuilder builder = new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("dependencyId", dependencyId)
-      .append("versionSlug", versionSlug.map(VersionSlug::toString).orElse("(empty)"))
-      .append("configuration", configuration.map(MavenPluginConfiguration::toString).orElse("(empty)"))
+      .append("versionSlug", versionSlug.map(VersionSlug::toString).orElse(""))
+      .append("configuration", configuration.map(MavenPluginConfiguration::toString).orElse(""))
       .append("executions", executions)
       .append("dependencies", dependencies);
     return builder.toString();

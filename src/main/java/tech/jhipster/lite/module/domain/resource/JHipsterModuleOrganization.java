@@ -41,7 +41,7 @@ public final class JHipsterModuleOrganization {
   @Override
   public String toString() {
     return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
-      .append("feature", feature.map(JHipsterFeatureSlug::get).orElse("(empty)"))
+      .append("feature", feature.map(JHipsterFeatureSlug::get).orElse(""))
       .append("dependencies", dependencies)
       .build();
   }

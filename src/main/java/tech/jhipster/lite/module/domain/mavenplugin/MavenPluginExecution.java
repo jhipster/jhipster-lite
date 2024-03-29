@@ -115,9 +115,9 @@ public final class MavenPluginExecution {
   public String toString() {
     ToStringBuilder builder = new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("goals", goals)
-      .append("id", id.map(MavenPluginExecutionId::toString).orElse("(empty)"))
-      .append("phase", phase.map(MavenBuildPhase::toString).orElse("(empty)"))
-      .append("configuration", configuration.map(MavenPluginConfiguration::toString).orElse("(empty)"));
+      .append("id", id.map(MavenPluginExecutionId::toString).orElse(""))
+      .append("phase", phase.map(MavenBuildPhase::toString).orElse(""))
+      .append("configuration", configuration.map(MavenPluginConfiguration::toString).orElse(""));
     return builder.toString();
   }
 }

@@ -32,7 +32,7 @@ public final class JHipsterModuleTags {
 
   @Override
   public String toString() {
-    return "[" + tags + "]";
+    return tags.toString();
   }
 
   public static class JHipsterModuleTagsBuilder {

@@ -4,6 +4,7 @@
     "config:recommended",
     "npm:unpublishSafe",
     "schedule:daily",
+    ":maintainLockFilesWeekly",
     ":disableDependencyDashboard",
     ":automergeMinor",
     ":automergePr",

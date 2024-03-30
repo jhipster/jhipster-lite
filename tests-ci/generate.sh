@@ -170,7 +170,8 @@ elif [[ $application == 'fullapp' ]]; then
   "internationalized-errors" \
   "spring-boot-cache" \
   "caffeine-cache" \
-  "license-apache"
+  "license-apache" \
+  "renovate"
 
   cucumber_with_jwt
 

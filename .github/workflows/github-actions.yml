@@ -263,10 +263,13 @@ jobs:
         include:
           - java-build-tool: maven
           - spring-config-format: yaml
+          - java-version: 21
           - app: customjhlite
             spring-config-format: properties
           - app: mariadbapp
             spring-config-format: properties
+          - app: consulapp
+            java-version: 22
           - app: gradleapp
             java-build-tool: gradle
     steps:
@@ -320,6 +323,8 @@ jobs:
       - name: 'Setup: environment'
         id: setup
         uses: ./current-branch/.github/actions/setup
+        with:
+          java-version: ${{ matrix.java-version }}
       - name: 'Artifact: download JAR'
         uses: actions/download-artifact@v4
         with:

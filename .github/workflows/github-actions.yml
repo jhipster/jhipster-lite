@@ -106,7 +106,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: 'Start local Sonar'
-        run: docker-compose -f src/main/docker/sonar.yml up -d
+        run: docker compose -f src/main/docker/sonar.yml up -d
       - name: 'Init: install Node.js packages'
         run: npm ci
       - name: 'Lint: check'
@@ -426,7 +426,7 @@ jobs:
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
           if [ -f 'src/main/docker/sonar.yml' ]; then
-            docker-compose -f src/main/docker/sonar.yml up -d
+            docker compose -f src/main/docker/sonar.yml up -d
             ${{ github.workspace }}/current-branch/tests-ci/wait_sonar.sh
             docker ps -a
           fi
@@ -459,7 +459,7 @@ jobs:
       - name: 'Test: copy shell scripts'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         run: cp ./current-branch/tests-ci/start.sh /tmp/jhlite/${{ matrix.app }}/
-      - name: 'Test: start docker compose services'
+      - name: 'Test: start docker-compose services'
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: ./current-branch/tests-ci/
         run: |

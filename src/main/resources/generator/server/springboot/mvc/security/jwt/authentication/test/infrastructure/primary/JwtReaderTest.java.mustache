@@ -69,7 +69,7 @@ class JwtReaderTest {
       .builder()
       .subject("test")
       .claim("auth", "ROLE_USER,ROLE_ADMIN,,")
-      .signWith(KEY, Jwts.SIG.HS256)
+      .signWith(KEY, Jwts.SIG.HS512)
       .expiration(Date.from(Instant.now().plusSeconds(120)))
       .compact();
   }
@@ -86,7 +86,7 @@ class JwtReaderTest {
     return Jwts
       .builder()
       .subject("test")
-      .signWith(KEY, Jwts.SIG.HS256)
+      .signWith(KEY, Jwts.SIG.HS512)
       .expiration(Date.from(Instant.now().plusSeconds(120)))
       .compact();
   }

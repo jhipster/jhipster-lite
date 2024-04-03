@@ -19,7 +19,6 @@ public final class GradleCommunityPlugin implements GradlePlugin {
     pluginSlug = Optional.ofNullable(builder.pluginSlug);
   }
 
-  @Override
   public GradlePluginId id() {
     return id;
   }

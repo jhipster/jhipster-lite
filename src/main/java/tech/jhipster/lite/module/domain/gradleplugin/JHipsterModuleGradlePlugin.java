@@ -2,12 +2,13 @@ package tech.jhipster.lite.module.domain.gradleplugin;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.function.Function;
-import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin.AddGradlePluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
+import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -15,26 +16,34 @@ public final class JHipsterModuleGradlePlugin {
 
   private final Collection<GradlePlugin> plugins;
 
-  private JHipsterModuleGradlePlugin(JHipsterModuleGradlePluginBuilder builder) {
+  private JHipsterModuleGradlePlugin(JHipsterModuleGradlePluginBuilder<?> builder) {
     Assert.notNull("plugins", builder.plugins);
     plugins = builder.plugins;
   }
 
-  public static JHipsterModuleGradlePluginBuilder builder(JHipsterModuleBuilder module) {
-    return new JHipsterModuleGradlePluginBuilder(module);
+  public static <T> JHipsterModuleGradlePluginBuilder<T> builder(T parentModuleBuilder) {
+    return new JHipsterModuleGradlePluginBuilder<>(parentModuleBuilder);
   }
 
   public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
     Assert.notNull("versions", versions);
 
-    return new JavaBuildCommands(plugins.stream().map(toCommands(versions)).toList());
+    return new JavaBuildCommands(plugins.stream().map(toCommands(versions, Optional.empty())).toList());
   }
 
-  private Function<GradlePlugin, JavaBuildCommand> toCommands(JavaDependenciesVersions versions) {
+  public JavaBuildCommands buildChanges(JavaDependenciesVersions versions, BuildProfileId buildProfile) {
+    Assert.notNull("versions", versions);
+    Assert.notNull("buildProfile", buildProfile);
+
+    return new JavaBuildCommands(plugins.stream().map(toCommands(versions, Optional.of(buildProfile))).toList());
+  }
+
+  private Function<GradlePlugin, JavaBuildCommand> toCommands(JavaDependenciesVersions versions, Optional<BuildProfileId> buildProfile) {
     return plugin ->
       switch (plugin) {
         case GradleCorePlugin corePlugin -> mapCorePlugin(corePlugin, versions);
         case GradleCommunityPlugin gradleCommunityPlugin -> mapCommunityPlugin(gradleCommunityPlugin, versions);
+        case GradleProfilePlugin gradleProfilePlugin -> mapProfilePlugin(gradleProfilePlugin, versions, buildProfile);
       };
   }
 
@@ -50,18 +59,29 @@ public final class JHipsterModuleGradlePlugin {
     return commandBuilder.build();
   }
 
-  public static final class JHipsterModuleGradlePluginBuilder {
+  private JavaBuildCommand mapProfilePlugin(
+    GradleProfilePlugin gradleProfilePlugin,
+    JavaDependenciesVersions versions,
+    Optional<BuildProfileId> buildProfile
+  ) {
+    AddGradlePluginOptionalBuilder commandBuilder = AddGradlePlugin.builder().plugin(gradleProfilePlugin);
+    buildProfile.ifPresent(commandBuilder::buildProfile);
+    gradleProfilePlugin.versionSlug().map(versions::get).ifPresent(commandBuilder::pluginVersion);
+    return commandBuilder.build();
+  }
 
-    private final JHipsterModuleBuilder module;
+  public static final class JHipsterModuleGradlePluginBuilder<T> {
+
+    private final T parentModuleBuilder;
     private final Collection<GradlePlugin> plugins = new ArrayList<>();
 
-    private JHipsterModuleGradlePluginBuilder(JHipsterModuleBuilder module) {
-      Assert.notNull("module", module);
+    private JHipsterModuleGradlePluginBuilder(T parentModuleBuilder) {
+      Assert.notNull("parentModuleBuilder", parentModuleBuilder);
 
-      this.module = module;
+      this.parentModuleBuilder = parentModuleBuilder;
     }
 
-    public JHipsterModuleGradlePluginBuilder plugin(GradlePlugin plugin) {
+    public JHipsterModuleGradlePluginBuilder<T> plugin(GradlePlugin plugin) {
       Assert.notNull("plugin", plugin);
 
       plugins.add(plugin);
@@ -69,8 +89,8 @@ public final class JHipsterModuleGradlePlugin {
       return this;
     }
 
-    public JHipsterModuleBuilder and() {
-      return module;
+    public T and() {
+      return parentModuleBuilder;
     }
 
     public JHipsterModuleGradlePlugin build() {

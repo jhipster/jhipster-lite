@@ -17,7 +17,6 @@ public final class GradleCorePlugin implements GradlePlugin {
     toolVersionSlug = Optional.ofNullable(builder.toolVersionSlug);
   }
 
-  @Override
   public GradlePluginId id() {
     return id;
   }

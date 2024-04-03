@@ -108,6 +108,9 @@ public final class JHipsterModulesFixture {
           .pluginManagement(mavenEnforcerPluginManagement())
           .plugin(mavenEnforcerPlugin())
           .and()
+        .gradlePlugins()
+          .plugin(gitPropertiesGradlePluginDependency())
+          .and()
         .javaDependencies()
           .addTestDependency(groupId("org.cassandraunit"), artifactId("cassandra-unit"), versionSlug("cassandraunit"))
           .removeDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web"))
@@ -397,6 +400,21 @@ public final class JHipsterModulesFixture {
         """
         checkstyle {
           toolVersion = libs.versions.checkstyle.get()
+        }
+        """
+      )
+      .build();
+  }
+
+  public static GradlePlugin gitPropertiesGradlePluginDependency() {
+    return gradleProfilePlugin()
+      .dependency("com.gorylenko.gradle-git-properties", "gradle-git-properties")
+      .versionSlug("git-properties")
+      .configuration(
+        """
+        gitProperties {
+          failOnNoGitDirectory = false
+          keys = listOf("git.branch", "git.commit.id.abbrev", "git.commit.id.describe", "git.build.version")
         }
         """
       )

@@ -25,6 +25,7 @@ import tech.jhipster.lite.module.domain.file.*;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
@@ -45,7 +46,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
   private static final String COMMAND = "command";
   private static final String BUILD_GRADLE_FILE = "build.gradle.kts";
-
+  private static final String PLUGIN_BUILD_GRADLE_FILE = "buildSrc/build.gradle.kts";
   private static final Pattern GRADLE_PLUGIN_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-plugins$", Pattern.MULTILINE);
   private static final Pattern GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE = Pattern.compile(
     "^// jhipster-needle-gradle-plugins-configurations$",
@@ -114,13 +115,13 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     versionsCatalog.addLibrary(command.dependency());
-    addDependencyToBuildGradle(command.dependency(), command.buildProfile());
+    addDependencyToBuildGradle(command.dependency(), buildGradleFile(command.buildProfile()), command.buildProfile().isPresent());
   }
 
-  private void addDependencyToBuildGradle(JavaDependency dependency, Optional<BuildProfileId> buildProfile) {
+  private void addDependencyToBuildGradle(JavaDependency dependency, Path buildGradleFile, boolean forBuildProfile) {
     GradleDependencyScope gradleScope = gradleDependencyScope(dependency);
 
-    String dependencyDeclaration = dependencyDeclaration(dependency, buildProfile.isPresent());
+    String dependencyDeclaration = dependencyDeclaration(dependency, forBuildProfile);
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
@@ -130,7 +131,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile), replacer))
     );
   }
 
@@ -264,7 +265,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   @Override
   public void handle(AddJavaDependencyManagement command) {
     versionsCatalog.addLibrary(command.dependency());
-    addDependencyToBuildGradle(command.dependency(), command.buildProfile());
+    addDependencyToBuildGradle(command.dependency(), buildGradleFile(command.buildProfile()), command.buildProfile().isPresent());
   }
 
   @Override
@@ -429,18 +430,31 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull(COMMAND, command);
 
     switch (command.plugin()) {
-      case GradleCorePlugin plugin -> declarePlugin(plugin.id().get());
+      case GradleCorePlugin plugin -> declarePlugin(plugin.id().get(), command.buildProfile());
       case GradleCommunityPlugin plugin -> {
-        declarePlugin("alias(libs.plugins.%s)".formatted(applyVersionCatalogReferenceConvention(pluginAlias(plugin))));
+        declarePlugin(
+          "alias(libs.plugins.%s)".formatted(applyVersionCatalogReferenceConvention(pluginAlias(plugin))),
+          command.buildProfile()
+        );
         versionsCatalog.addPlugin(plugin);
       }
+      case GradleProfilePlugin plugin -> {
+        declarePlugin(
+          """
+          id("%s")\
+          """.formatted(plugin.dependency().get().id().groupId()),
+          command.buildProfile()
+        );
+        versionsCatalog.addLibrary(plugin.dependency().get());
+        addDependencyToBuildGradle(plugin.dependency().get(), projectFolder.filePath(PLUGIN_BUILD_GRADLE_FILE), false);
+      }
     }
-    command.plugin().configuration().ifPresent(this::addPluginConfiguration);
+    command.plugin().configuration().ifPresent(pluginConfiguration -> addPluginConfiguration(pluginConfiguration, command.buildProfile()));
     command.toolVersion().ifPresent(version -> handle(new SetVersion(version)));
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
   }
 
-  private void declarePlugin(String pluginDeclaration) {
+  private void declarePlugin(String pluginDeclaration, Optional<BuildProfileId> buildProfile) {
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
@@ -450,11 +464,11 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
   }
 
-  private void addPluginConfiguration(GradlePluginConfiguration pluginConfiguration) {
+  private void addPluginConfiguration(GradlePluginConfiguration pluginConfiguration, Optional<BuildProfileId> buildProfile) {
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
@@ -464,7 +478,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
   }
 }

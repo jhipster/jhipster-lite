@@ -1027,6 +1027,45 @@ class GradleCommandHandlerTest {
           """
         );
     }
+
+    @Test
+    void shouldDeclareAndConfigurePluginInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        AddGradlePlugin.builder().plugin(gitPropertiesGradlePluginDependency()).buildProfile(localBuildProfile()).build()
+      );
+
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.gradle-git-properties]
+        \t\tname = "gradle-git-properties"
+        \t\tgroup = "com.gorylenko.gradle-git-properties"
+        """
+      );
+      assertThat(pluginBuildGradleContent(projectFolder)).contains("implementation(libs.gradle.git.properties)");
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
+        .contains(
+          """
+          plugins {
+            java
+            id("com.gorylenko.gradle-git-properties")
+            // jhipster-needle-gradle-plugins
+          }
+          """
+        )
+        .contains(
+          """
+
+          gitProperties {
+            failOnNoGitDirectory = false
+            keys = listOf("git.branch", "git.commit.id.abbrev", "git.commit.id.describe", "git.build.version")
+          }
+
+          // jhipster-needle-gradle-plugins-configurations
+          """
+        );
+    }
   }
 
   @Test
@@ -1062,6 +1101,10 @@ class GradleCommandHandlerTest {
 
   private static String versionCatalogContent(JHipsterProjectFolder projectFolder) {
     return contentNormalizingNewLines(Paths.get(projectFolder.get()).resolve("gradle/libs.versions.toml"));
+  }
+
+  private static String pluginBuildGradleContent(JHipsterProjectFolder projectFolder) {
+    return content(Paths.get(projectFolder.get()).resolve("buildSrc/build.gradle.kts"));
   }
 
   private static String scriptPluginContent(JHipsterProjectFolder projectFolder, BuildProfileId buildProfileId) {

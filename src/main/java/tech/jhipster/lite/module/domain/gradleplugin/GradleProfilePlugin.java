@@ -1,6 +1,8 @@
 package tech.jhipster.lite.module.domain.gradleplugin;
 
 import java.util.Optional;
+import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -73,7 +75,7 @@ public final class GradleProfilePlugin implements GradlePlugin {
   public interface GradleProfilePluginDependencyBuilder {
     GradleProfilePluginOptionalBuilder dependency(GradlePluginDependency dependency);
 
-    default GradleProfilePluginOptionalBuilder dependency(String groupId, String artifactId) {
+    default GradleProfilePluginOptionalBuilder dependency(GroupId groupId, ArtifactId artifactId) {
       return dependency(new GradlePluginDependency(JavaDependency.builder().groupId(groupId).artifactId(artifactId).build()));
     }
   }

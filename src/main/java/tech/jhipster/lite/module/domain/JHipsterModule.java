@@ -23,7 +23,7 @@ import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin.Gradl
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin.GradleCorePluginIdBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin.GradleProfilePluginDependencyBuilder;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin.GradleProfilePluginIdBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins;
 import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins.JHipsterModuleGradlePluginBuilder;
 import tech.jhipster.lite.module.domain.javabuild.*;
@@ -352,7 +352,7 @@ public final class JHipsterModule {
     return GradleCommunityPlugin.builder();
   }
 
-  public static GradleProfilePluginDependencyBuilder gradleProfilePlugin() {
+  public static GradleProfilePluginIdBuilder gradleProfilePlugin() {
     return GradleProfilePlugin.builder();
   }
 

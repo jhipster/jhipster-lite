@@ -9,16 +9,24 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class GradleProfilePlugin implements GradlePlugin {
 
+  private final GradlePluginId id;
   private final GradlePluginDependency dependency;
   private final Optional<GradlePluginConfiguration> configuration;
   private final Optional<VersionSlug> versionSlug;
 
   private GradleProfilePlugin(GradleProfilePluginBuilder builder) {
+    Assert.notNull("id", builder.id);
     Assert.notNull("dependencyId", builder.dependency);
 
+    id = builder.id;
     this.dependency = builder.dependency;
     this.configuration = Optional.ofNullable(builder.configuration);
     this.versionSlug = Optional.ofNullable(builder.versionSlug);
+  }
+
+  @Override
+  public GradlePluginId id() {
+    return id;
   }
 
   @Override
@@ -34,16 +42,24 @@ public final class GradleProfilePlugin implements GradlePlugin {
     return versionSlug;
   }
 
-  public static GradleProfilePluginDependencyBuilder builder() {
+  public static GradleProfilePluginIdBuilder builder() {
     return new GradleProfilePluginBuilder();
   }
 
   private static final class GradleProfilePluginBuilder
-    implements GradleProfilePluginDependencyBuilder, GradleProfilePluginOptionalBuilder {
+    implements GradleProfilePluginIdBuilder, GradleProfilePluginDependencyBuilder, GradleProfilePluginOptionalBuilder {
 
+    private GradlePluginId id;
     private GradlePluginDependency dependency;
     private GradlePluginConfiguration configuration;
     private VersionSlug versionSlug;
+
+    @Override
+    public GradleProfilePluginDependencyBuilder id(GradlePluginId id) {
+      this.id = id;
+
+      return this;
+    }
 
     @Override
     public GradleProfilePluginOptionalBuilder dependency(GradlePluginDependency dependency) {
@@ -69,6 +85,14 @@ public final class GradleProfilePlugin implements GradlePlugin {
     @Override
     public GradleProfilePlugin build() {
       return new GradleProfilePlugin(this);
+    }
+  }
+
+  public interface GradleProfilePluginIdBuilder {
+    GradleProfilePluginDependencyBuilder id(GradlePluginId id);
+
+    default GradleProfilePluginDependencyBuilder id(String id) {
+      return id(new GradlePluginId(id));
     }
   }
 

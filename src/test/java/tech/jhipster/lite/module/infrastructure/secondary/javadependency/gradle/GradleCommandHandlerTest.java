@@ -1066,6 +1066,33 @@ class GradleCommandHandlerTest {
           """
         );
     }
+
+    @Test
+    void shouldDeclarePluginWithDifferentGroupIdAndPluginIdInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        AddGradlePlugin.builder().plugin(dockerGradlePluginDependency()).buildProfile(localBuildProfile()).build()
+      );
+
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.gradle-docker-plugin]
+        \t\tname = "gradle-docker-plugin"
+        \t\tgroup = "com.bmuschko"
+        """
+      );
+      assertThat(pluginBuildGradleContent(projectFolder)).contains("implementation(libs.gradle.docker.plugin");
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
+        """
+        plugins {
+          java
+          id("com.bmuschko.docker-remote-api")
+          // jhipster-needle-gradle-plugins
+        }
+        """
+      );
+    }
   }
 
   @Test
@@ -1114,5 +1141,13 @@ class GradleCommandHandlerTest {
   private static void assertFileExists(JHipsterProjectFolder projectFolder, String other, String description) {
     Path profileGradlePath = Paths.get(projectFolder.get()).resolve(other);
     assertThat(Files.exists(profileGradlePath)).as(description, profileGradlePath.toString()).isTrue();
+  }
+
+  public static GradlePlugin dockerGradlePluginDependency() {
+    return gradleProfilePlugin()
+      .id("com.bmuschko.docker-remote-api")
+      .dependency(groupId("com.bmuschko"), artifactId("gradle-docker-plugin"))
+      .versionSlug("docker-plugin")
+      .build();
   }
 }

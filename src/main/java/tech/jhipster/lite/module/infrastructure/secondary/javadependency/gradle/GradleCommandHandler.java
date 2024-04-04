@@ -442,7 +442,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         declarePlugin(
           """
           id("%s")\
-          """.formatted(plugin.dependency().get().id().groupId()),
+          """.formatted(plugin.id().get()),
           command.buildProfile()
         );
         versionsCatalog.addLibrary(plugin.dependency().get());

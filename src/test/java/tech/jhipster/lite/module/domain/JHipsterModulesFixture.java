@@ -408,6 +408,7 @@ public final class JHipsterModulesFixture {
 
   public static GradlePlugin gitPropertiesGradlePluginDependency() {
     return gradleProfilePlugin()
+      .id("com.gorylenko.gradle-git-properties")
       .dependency(groupId("com.gorylenko.gradle-git-properties"), artifactId("gradle-git-properties"))
       .versionSlug("git-properties")
       .configuration(

@@ -445,8 +445,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
           """.formatted(plugin.id().get()),
           command.buildProfile()
         );
-        versionsCatalog.addLibrary(plugin.dependency().get());
-        addDependencyToBuildGradle(plugin.dependency().get(), projectFolder.filePath(PLUGIN_BUILD_GRADLE_FILE), false);
+        versionsCatalog.addLibrary(dependencyFrom(plugin));
+        addDependencyToBuildGradle(dependencyFrom(plugin), projectFolder.filePath(PLUGIN_BUILD_GRADLE_FILE), false);
       }
     }
     command.plugin().configuration().ifPresent(pluginConfiguration -> addPluginConfiguration(pluginConfiguration, command.buildProfile()));
@@ -480,5 +480,19 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       projectFolder,
       ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
+  }
+
+  private JavaDependency dependencyFrom(GradleProfilePlugin plugin) {
+    return plugin
+      .versionSlug()
+      .map(
+        versionSlug ->
+          JavaDependency.builder()
+            .groupId(plugin.dependency().groupId())
+            .artifactId(plugin.dependency().artifactId())
+            .versionSlug(versionSlug)
+            .build()
+      )
+      .orElse(JavaDependency.builder().groupId(plugin.dependency().groupId()).artifactId(plugin.dependency().artifactId()).build());
   }
 }

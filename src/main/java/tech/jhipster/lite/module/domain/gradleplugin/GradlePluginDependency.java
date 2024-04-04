@@ -1,14 +1,12 @@
 package tech.jhipster.lite.module.domain.gradleplugin;
 
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public record GradlePluginDependency(JavaDependency dependency) {
+public record GradlePluginDependency(GroupId groupId, ArtifactId artifactId) {
   public GradlePluginDependency {
-    Assert.notNull("dependency", dependency);
-  }
-
-  public JavaDependency get() {
-    return dependency();
+    Assert.notNull("groupId", groupId);
+    Assert.notNull("artifactId", artifactId);
   }
 }

@@ -1043,6 +1043,12 @@ class GradleCommandHandlerTest {
         \t\tgroup = "com.gorylenko.gradle-git-properties"
         """
       );
+      assertThat(versionCatalogContent(projectFolder)).contains(
+        """
+        [libraries.gradle-git-properties.version]
+        \t\t\tref = "git-properties"
+        """
+      );
       assertThat(pluginBuildGradleContent(projectFolder)).contains("implementation(libs.gradle.git.properties)");
       assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
         .contains(

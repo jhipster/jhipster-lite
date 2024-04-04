@@ -3,8 +3,8 @@ package tech.jhipster.lite.module.domain.javabuildprofile;
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties.JHipsterModuleBuildPropertiesBuilder;
-import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugin;
-import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugin.JHipsterModuleGradlePluginBuilder;
+import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins;
+import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins.JHipsterModuleGradlePluginBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies;
@@ -19,7 +19,7 @@ public final class JHipsterModuleJavaBuildProfile {
   private final Optional<BuildProfileActivation> activation;
   private final JHipsterModuleBuildProperties properties;
   private final JHipsterModuleMavenPlugins mavenPlugins;
-  private final JHipsterModuleGradlePlugin gradlePlugins;
+  private final JHipsterModuleGradlePlugins gradlePlugins;
   private final JHipsterModuleJavaDependencies javaDependencies;
 
   private JHipsterModuleJavaBuildProfile(JHipsterModuleJavaBuildProfileBuilder builder) {
@@ -59,7 +59,7 @@ public final class JHipsterModuleJavaBuildProfile {
     return mavenPlugins;
   }
 
-  public JHipsterModuleGradlePlugin gradlePlugins() {
+  public JHipsterModuleGradlePlugins gradlePlugins() {
     return gradlePlugins;
   }
 
@@ -77,7 +77,7 @@ public final class JHipsterModuleJavaBuildProfile {
     private final JHipsterModuleMavenPluginsBuilder<JHipsterModuleJavaBuildProfileBuilder> mavenPluginsBuilder =
       JHipsterModuleMavenPlugins.builder(this);
     private final JHipsterModuleGradlePluginBuilder<JHipsterModuleJavaBuildProfileBuilder> gradlePluginsBuilder =
-      JHipsterModuleGradlePlugin.builder(this);
+      JHipsterModuleGradlePlugins.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder<JHipsterModuleJavaBuildProfileBuilder> javaDependenciesBuilder =
       JHipsterModuleJavaDependencies.builder(this);
 

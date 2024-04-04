@@ -24,8 +24,8 @@ import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin.GradleCorePluginIdBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin.GradleProfilePluginDependencyBuilder;
-import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugin;
-import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugin.JHipsterModuleGradlePluginBuilder;
+import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins;
+import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins.JHipsterModuleGradlePluginBuilder;
 import tech.jhipster.lite.module.domain.javabuild.*;
 import tech.jhipster.lite.module.domain.javabuild.JHipsterModuleMavenBuildExtensions.JHipsterModuleMavenBuildExtensionsBuilder;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension.MavenBuildExtensionGroupIdBuilder;
@@ -80,7 +80,7 @@ public final class JHipsterModule {
   private final JHipsterModuleBuildProperties javaBuildProperties;
   private final JHipsterModuleJavaBuildProfiles javaBuildProfiles;
   private final JHipsterModuleMavenPlugins mavenPlugins;
-  private final JHipsterModuleGradlePlugin gradlePlugins;
+  private final JHipsterModuleGradlePlugins gradlePlugins;
   private final JHipsterModuleMavenBuildExtensions mavenBuildExtensions;
   private final JHipsterModulePackageJson packageJson;
   private final JHipsterModulePreActions preActions;
@@ -420,7 +420,7 @@ public final class JHipsterModule {
     return mavenPlugins;
   }
 
-  public JHipsterModuleGradlePlugin gradlePlugins() {
+  public JHipsterModuleGradlePlugins gradlePlugins() {
     return gradlePlugins;
   }
 
@@ -474,7 +474,7 @@ public final class JHipsterModule {
     );
     private final JHipsterModuleJavaBuildProfilesBuilder javaBuildProfiles = JHipsterModuleJavaBuildProfiles.builder(this);
     private final JHipsterModuleMavenPluginsBuilder<JHipsterModuleBuilder> mavenPlugins = JHipsterModuleMavenPlugins.builder(this);
-    private final JHipsterModuleGradlePluginBuilder<JHipsterModuleBuilder> gradlePlugins = JHipsterModuleGradlePlugin.builder(this);
+    private final JHipsterModuleGradlePluginBuilder<JHipsterModuleBuilder> gradlePlugins = JHipsterModuleGradlePlugins.builder(this);
     private final JHipsterModuleMavenBuildExtensionsBuilder mavenBuildExtensions = JHipsterModuleMavenBuildExtensions.builder(this);
     private final JHipsterModulePackageJsonBuilder packageJson = JHipsterModulePackageJson.builder(this);
     private final JHipsterModulePreActionsBuilder preActions = JHipsterModulePreActions.builder(this);

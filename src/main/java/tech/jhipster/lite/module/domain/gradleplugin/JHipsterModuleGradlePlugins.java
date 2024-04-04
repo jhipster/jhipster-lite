@@ -12,11 +12,11 @@ import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public final class JHipsterModuleGradlePlugin {
+public final class JHipsterModuleGradlePlugins {
 
   private final Collection<GradlePlugin> plugins;
 
-  private JHipsterModuleGradlePlugin(JHipsterModuleGradlePluginBuilder<?> builder) {
+  private JHipsterModuleGradlePlugins(JHipsterModuleGradlePluginBuilder<?> builder) {
     Assert.notNull("plugins", builder.plugins);
     plugins = builder.plugins;
   }
@@ -93,8 +93,8 @@ public final class JHipsterModuleGradlePlugin {
       return parentModuleBuilder;
     }
 
-    public JHipsterModuleGradlePlugin build() {
-      return new JHipsterModuleGradlePlugin(this);
+    public JHipsterModuleGradlePlugins build() {
+      return new JHipsterModuleGradlePlugins(this);
     }
   }
 }

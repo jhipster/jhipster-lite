@@ -46,7 +46,8 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
   }
 
   private static final class GradleCommunityProfilePluginBuilder
-    implements GradleCommunityProfilePluginIdBuilder, GradleCommunityPluginDependencyBuilder, GradleCommunityPluginOptionalBuilder {
+    implements
+      GradleCommunityProfilePluginIdBuilder, GradleCommunityProfilePluginDependencyBuilder, GradleCommunityProfilePluginOptionalBuilder {
 
     private GradlePluginId id;
     private GradlePluginDependency dependency;
@@ -54,28 +55,28 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
     private VersionSlug versionSlug;
 
     @Override
-    public GradleCommunityPluginDependencyBuilder id(GradlePluginId id) {
+    public GradleCommunityProfilePluginDependencyBuilder id(GradlePluginId id) {
       this.id = id;
 
       return this;
     }
 
     @Override
-    public GradleCommunityPluginOptionalBuilder dependency(GradlePluginDependency dependency) {
+    public GradleCommunityProfilePluginOptionalBuilder dependency(GradlePluginDependency dependency) {
       this.dependency = dependency;
 
       return this;
     }
 
     @Override
-    public GradleCommunityPluginOptionalBuilder configuration(GradlePluginConfiguration configuration) {
+    public GradleCommunityProfilePluginOptionalBuilder configuration(GradlePluginConfiguration configuration) {
       this.configuration = configuration;
 
       return this;
     }
 
     @Override
-    public GradleCommunityPluginOptionalBuilder versionSlug(VersionSlug versionSlug) {
+    public GradleCommunityProfilePluginOptionalBuilder versionSlug(VersionSlug versionSlug) {
       this.versionSlug = versionSlug;
 
       return this;
@@ -88,31 +89,31 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
   }
 
   public interface GradleCommunityProfilePluginIdBuilder {
-    GradleCommunityPluginDependencyBuilder id(GradlePluginId id);
+    GradleCommunityProfilePluginDependencyBuilder id(GradlePluginId id);
 
-    default GradleCommunityPluginDependencyBuilder id(String id) {
+    default GradleCommunityProfilePluginDependencyBuilder id(String id) {
       return id(new GradlePluginId(id));
     }
   }
 
-  public interface GradleCommunityPluginDependencyBuilder {
-    GradleCommunityPluginOptionalBuilder dependency(GradlePluginDependency dependency);
+  public interface GradleCommunityProfilePluginDependencyBuilder {
+    GradleCommunityProfilePluginOptionalBuilder dependency(GradlePluginDependency dependency);
 
-    default GradleCommunityPluginOptionalBuilder dependency(GroupId groupId, ArtifactId artifactId) {
+    default GradleCommunityProfilePluginOptionalBuilder dependency(GroupId groupId, ArtifactId artifactId) {
       return dependency(new GradlePluginDependency(groupId, artifactId));
     }
   }
 
-  public interface GradleCommunityPluginOptionalBuilder {
-    GradleCommunityPluginOptionalBuilder configuration(GradlePluginConfiguration configuration);
+  public interface GradleCommunityProfilePluginOptionalBuilder {
+    GradleCommunityProfilePluginOptionalBuilder configuration(GradlePluginConfiguration configuration);
 
-    default GradleCommunityPluginOptionalBuilder configuration(String configuration) {
+    default GradleCommunityProfilePluginOptionalBuilder configuration(String configuration) {
       return configuration(new GradlePluginConfiguration(configuration));
     }
 
-    GradleCommunityPluginOptionalBuilder versionSlug(VersionSlug versionSlug);
+    GradleCommunityProfilePluginOptionalBuilder versionSlug(VersionSlug versionSlug);
 
-    default GradleCommunityPluginOptionalBuilder versionSlug(String versionSlug) {
+    default GradleCommunityProfilePluginOptionalBuilder versionSlug(String versionSlug) {
       return versionSlug(new VersionSlug(versionSlug));
     }
 

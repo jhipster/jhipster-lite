@@ -466,8 +466,16 @@ class FileSystemJHipsterModulesRepositoryTest {
         """
         plugins {
           java
+          checkstyle
           id("com.gorylenko.gradle-git-properties")
           // jhipster-needle-gradle-plugins
+        }
+        """
+      )
+      .containing(
+        """
+        checkstyle {
+          toolVersion = libs.versions.checkstyle.get()
         }
         """
       )

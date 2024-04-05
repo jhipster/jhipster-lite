@@ -40,12 +40,24 @@ public final class JHipsterModuleGradleProfilePlugins {
   ) {
     return plugin ->
       switch (plugin) {
+        case GradleCorePlugin gradleCorePlugin -> mapCorePlugin(gradleCorePlugin, versions, buildProfile);
         case GradleCommunityProfilePlugin gradleCommunityProfilePlugin -> mapCommunityProfilePlugin(
           gradleCommunityProfilePlugin,
           versions,
           buildProfile
         );
       };
+  }
+
+  private JavaBuildCommand mapCorePlugin(
+    GradleCorePlugin plugin,
+    JavaDependenciesVersions versions,
+    Optional<BuildProfileId> buildProfile
+  ) {
+    AddGradlePluginOptionalBuilder commandBuilder = AddGradlePlugin.builder().plugin(plugin);
+    buildProfile.ifPresent(commandBuilder::buildProfile);
+    plugin.toolVersionSlug().map(versions::get).ifPresent(commandBuilder::toolVersion);
+    return commandBuilder.build();
   }
 
   private JavaBuildCommand mapCommunityProfilePlugin(

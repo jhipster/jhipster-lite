@@ -21,6 +21,7 @@ import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -1029,11 +1030,11 @@ class GradleCommandHandlerTest {
     }
 
     @Test
-    void shouldDeclareAndConfigurePluginInBuildGradleProfileFile() {
+    void shouldDeclareAndConfigureCommunityPluginInBuildGradleProfileFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
-        AddGradlePlugin.builder().plugin(gitPropertiesGradlePluginDependency()).buildProfile(localBuildProfile()).build()
+        AddGradlePlugin.builder().plugin(gitPropertiesGradleProfilePlugin()).buildProfile(localBuildProfile()).build()
       );
 
       assertThat(versionCatalogContent(projectFolder)).contains(
@@ -1074,7 +1075,7 @@ class GradleCommandHandlerTest {
     }
 
     @Test
-    void shouldDeclarePluginWithDifferentGroupIdAndPluginIdInBuildGradleProfileFile() {
+    void shouldDeclareCommunityPluginWithDifferentGroupIdAndPluginIdInBuildGradleProfileFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
@@ -1098,6 +1099,33 @@ class GradleCommandHandlerTest {
         }
         """
       );
+    }
+
+    @Test
+    void shouldDeclareAndConfigureCorePluginInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+        AddGradlePlugin.builder().plugin(checkstyleGradleProfilePlugin()).buildProfile(localBuildProfile()).build()
+      );
+
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
+        .contains(
+          """
+          plugins {
+            java
+            checkstyle
+            // jhipster-needle-gradle-plugins
+          }
+          """
+        )
+        .contains(
+          """
+          checkstyle {
+            toolVersion = libs.versions.checkstyle.get()
+          }
+          """
+        );
     }
   }
 
@@ -1149,7 +1177,7 @@ class GradleCommandHandlerTest {
     assertThat(Files.exists(profileGradlePath)).as(description, profileGradlePath.toString()).isTrue();
   }
 
-  public static GradlePlugin dockerGradlePluginDependency() {
+  private static GradleProfilePlugin dockerGradlePluginDependency() {
     return gradleProfilePlugin()
       .id("com.bmuschko.docker-remote-api")
       .dependency(groupId("com.bmuschko"), artifactId("gradle-docker-plugin"))

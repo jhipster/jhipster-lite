@@ -110,7 +110,8 @@ public final class JHipsterModulesFixture {
           .plugin(mavenEnforcerPlugin())
           .and()
         .gradleProfilePlugins()
-          .plugin(gitPropertiesGradlePluginDependency())
+          .plugin(checkstyleGradleProfilePlugin())
+          .plugin(gitPropertiesGradleProfilePlugin())
           .and()
         .javaDependencies()
           .addTestDependency(groupId("org.cassandraunit"), artifactId("cassandra-unit"), versionSlug("cassandraunit"))
@@ -407,7 +408,21 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
-  public static GradleProfilePlugin gitPropertiesGradlePluginDependency() {
+  public static GradleProfilePlugin checkstyleGradleProfilePlugin() {
+    return gradleCorePlugin()
+      .id("checkstyle")
+      .toolVersionSlug("checkstyle")
+      .configuration(
+        """
+        checkstyle {
+          toolVersion = libs.versions.checkstyle.get()
+        }
+        """
+      )
+      .build();
+  }
+
+  public static GradleProfilePlugin gitPropertiesGradleProfilePlugin() {
     return gradleProfilePlugin()
       .id("com.gorylenko.gradle-git-properties")
       .dependency(groupId("com.gorylenko.gradle-git-properties"), artifactId("gradle-git-properties"))

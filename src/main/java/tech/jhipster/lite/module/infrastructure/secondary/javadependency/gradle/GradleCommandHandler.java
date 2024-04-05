@@ -23,9 +23,9 @@ import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.file.*;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityProfilePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
@@ -438,7 +438,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         );
         versionsCatalog.addPlugin(plugin);
       }
-      case GradleProfilePlugin plugin -> {
+      case GradleCommunityProfilePlugin plugin -> {
         declarePlugin(
           """
           id("%s")\
@@ -482,7 +482,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
   }
 
-  private JavaDependency dependencyFrom(GradleProfilePlugin plugin) {
+  private JavaDependency dependencyFrom(GradleCommunityProfilePlugin plugin) {
     return plugin
       .versionSlug()
       .map(

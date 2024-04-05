@@ -11,7 +11,8 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
-import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
@@ -108,7 +109,7 @@ public final class JHipsterModulesFixture {
           .pluginManagement(mavenEnforcerPluginManagement())
           .plugin(mavenEnforcerPlugin())
           .and()
-        .gradlePlugins()
+        .gradleProfilePlugins()
           .plugin(gitPropertiesGradlePluginDependency())
           .and()
         .javaDependencies()
@@ -369,7 +370,7 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
-  public static GradlePlugin jacocoGradlePlugin() {
+  public static GradleMainBuildPlugin jacocoGradlePlugin() {
     return gradleCorePlugin()
       .id("jacoco")
       .toolVersionSlug("jacoco")
@@ -392,7 +393,7 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
-  public static GradlePlugin checkstyleGradlePlugin() {
+  public static GradleMainBuildPlugin checkstyleGradlePlugin() {
     return gradleCorePlugin()
       .id("checkstyle")
       .toolVersionSlug("checkstyle")
@@ -406,7 +407,7 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
-  public static GradlePlugin gitPropertiesGradlePluginDependency() {
+  public static GradleProfilePlugin gitPropertiesGradlePluginDependency() {
     return gradleProfilePlugin()
       .id("com.gorylenko.gradle-git-properties")
       .dependency(groupId("com.gorylenko.gradle-git-properties"), artifactId("gradle-git-properties"))

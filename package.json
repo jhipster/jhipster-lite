@@ -28,7 +28,7 @@
     "lint:ci:pug": "pug-lint src/main/style",
     "lint:ci:sass": "stylelint 'src/main/style/**/*.{css,scss}'",
     "lint:js": "npm run lint:js:run -- --fix",
-    "lint:js:run": "eslint --ext .js,.ts,.vue --ignore-path .gitignore  src/main/webapp src/test/javascript",
+    "lint:js:run": "eslint --ext .js,.ts,.vue --ignore-path .gitignore src/main/webapp src/test/javascript",
     "lint:pug": "npm run lint:ci:pug",
     "lint:sass": "npm run lint:ci:sass -- --fix",
     "prepare": "husky",

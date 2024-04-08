@@ -2,14 +2,12 @@ package tech.jhipster.lite.module.domain.gradleplugin;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.function.Function;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin.AddGradlePluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
-import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -29,13 +27,10 @@ public final class JHipsterModuleGradlePlugins {
   public JavaBuildCommands buildChanges(JavaDependenciesVersions versions) {
     Assert.notNull("versions", versions);
 
-    return new JavaBuildCommands(plugins.stream().map(toCommands(versions, Optional.empty())).toList());
+    return new JavaBuildCommands(plugins.stream().map(toCommands(versions)).toList());
   }
 
-  private Function<GradleMainBuildPlugin, JavaBuildCommand> toCommands(
-    JavaDependenciesVersions versions,
-    Optional<BuildProfileId> buildProfile
-  ) {
+  private Function<GradleMainBuildPlugin, JavaBuildCommand> toCommands(JavaDependenciesVersions versions) {
     return plugin ->
       switch (plugin) {
         case GradleCorePlugin corePlugin -> mapCorePlugin(corePlugin, versions);

@@ -1,14 +1,16 @@
-package tech.jhipster.lite.module.domain.gradleplugin;
+package tech.jhipster.lite.module.domain.javabuildprofile;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityProfilePlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin.AddGradlePluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
-import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfile.JHipsterModuleJavaBuildProfileBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;

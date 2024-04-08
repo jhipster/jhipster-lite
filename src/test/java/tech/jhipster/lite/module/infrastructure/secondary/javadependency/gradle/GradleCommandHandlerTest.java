@@ -21,7 +21,6 @@ import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -1175,13 +1174,5 @@ class GradleCommandHandlerTest {
   private static void assertFileExists(JHipsterProjectFolder projectFolder, String other, String description) {
     Path profileGradlePath = Paths.get(projectFolder.get()).resolve(other);
     assertThat(Files.exists(profileGradlePath)).as(description, profileGradlePath.toString()).isTrue();
-  }
-
-  private static GradleProfilePlugin dockerGradlePluginDependency() {
-    return gradleProfilePlugin()
-      .id("com.bmuschko.docker-remote-api")
-      .dependency(groupId("com.bmuschko"), artifactId("gradle-docker-plugin"))
-      .versionSlug("docker-plugin")
-      .build();
   }
 }

@@ -438,6 +438,14 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
+  public static GradleProfilePlugin dockerGradlePluginDependency() {
+    return gradleProfilePlugin()
+      .id("com.bmuschko.docker-remote-api")
+      .dependency(groupId("com.bmuschko"), artifactId("gradle-docker-plugin"))
+      .versionSlug("docker-plugin")
+      .build();
+  }
+
   public static JavaDependencyVersion checkstyleToolVersion() {
     return new JavaDependencyVersion("checkstyle", "8.42.1");
   }

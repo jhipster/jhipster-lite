@@ -483,16 +483,8 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private JavaDependency dependencyFrom(GradleCommunityProfilePlugin plugin) {
-    return plugin
-      .versionSlug()
-      .map(
-        versionSlug ->
-          JavaDependency.builder()
-            .groupId(plugin.dependency().groupId())
-            .artifactId(plugin.dependency().artifactId())
-            .versionSlug(versionSlug)
-            .build()
-      )
-      .orElse(JavaDependency.builder().groupId(plugin.dependency().groupId()).artifactId(plugin.dependency().artifactId()).build());
+    var builder = JavaDependency.builder().groupId(plugin.dependency().groupId()).artifactId(plugin.dependency().artifactId());
+    plugin.versionSlug().ifPresent(builder::versionSlug);
+    return builder.build();
   }
 }

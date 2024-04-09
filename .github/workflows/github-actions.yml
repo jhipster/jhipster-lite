@@ -510,6 +510,7 @@ jobs:
           files: lcov.info
           fail_ci_if_error: true
           verbose: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   #--------------------------------------------------
   # Configuration for Status checks that are required

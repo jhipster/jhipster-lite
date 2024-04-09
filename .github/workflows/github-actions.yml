@@ -128,18 +128,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./mvnw initialize sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=jhipster_jhipster-lite -Dsonar.organization=jhipster -Dsonar.login= -Dsonar.password=
-      - name: 'Artifact: upload JaCoCo report'
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco
-          path: '${{ github.workspace }}/target/jacoco/jacoco.xml'
-          retention-days: 1
-      - name: 'Artifact: upload lcov report'
-        uses: actions/upload-artifact@v4
-        with:
-          name: lcov
-          path: '${{ github.workspace }}/target/test-results/lcov.info'
-          retention-days: 1
       - name: 'Artifact: remove unused JARs'
         run: |
           rm target/*-javadoc.jar target/*-sources.jar
@@ -476,41 +464,11 @@ jobs:
           fi
 
   #--------------------------------------------------
-  # Send analysis to Codecov
-  #--------------------------------------------------
-  codecov:
-    needs: [setup, cypress]
-    name: codecov
-    if: >-
-      github.repository == 'jhipster/jhipster-lite' &&
-      needs.setup.outputs.skip_ci != 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: 'Setup: checkout project'
-        uses: actions/checkout@v4
-      - name: 'Artifact: download JaCoCo report'
-        uses: actions/download-artifact@v4
-        with:
-          name: jacoco
-      - name: 'Artifact: download lcov report'
-        uses: actions/download-artifact@v4
-        with:
-          name: lcov
-      - name: 'Codecov: sending JaCoCo and lcov analysis...'
-        uses: codecov/codecov-action@v4
-        with:
-          files: jacoco.xml,lcov.info
-          fail_ci_if_error: true
-          verbose: true
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-  #--------------------------------------------------
   # Configuration for Status checks that are required
   #--------------------------------------------------
   status-checks:
     name: status-checks
-    needs: [tests-linux, codecov, generation]
+    needs: [tests-linux, generation]
     permissions:
       contents: none
     if: always()
@@ -521,7 +479,7 @@ jobs:
         run: |
           echo 'Configuration for Status checks that are required'
           echo '${{ toJSON(needs) }}'
-          if [[ (('skipped' == '${{ needs.tests-linux.result }}') || ('success' == '${{ needs.tests-linux.result }}')) && (('skipped' == '${{ needs.codecov.result }}') || ('success' == '${{ needs.codecov.result }}')) && (('skipped' == '${{ needs.generation.result }}') || ('success' == '${{ needs.generation.result }}')) ]]; then
+          if [[ (('skipped' == '${{ needs.tests-linux.result }}') || ('success' == '${{ needs.tests-linux.result }}')) && (('skipped' == '${{ needs.generation.result }}') || ('success' == '${{ needs.generation.result }}')) ]]; then
             exit 0
           fi
           exit 1

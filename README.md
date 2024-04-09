@@ -7,7 +7,6 @@
 [![JHipster Lite Docker Hub][jhipster-lite-docker-hub]][jhipster-lite-docker-hub-url]
 
 [![Build Status][github-actions-jhlite-image]][github-actions-url]
-[![Coverage Status][codecov-image]][codecov-url]
 [![sonarcloud-coverage][sonarcloud-coverage]][sonarcloud-url]
 
 [![sonarcloud-quality-gate][sonarcloud-quality-gate]][sonarcloud-url]
@@ -289,8 +288,6 @@ Support this project by becoming a sponsor! [Become a sponsor](https://opencolle
 [jhipster-lite-docker-hub-url]: https://hub.docker.com/r/jhipster/jhipster-lite
 [github-actions-jhlite-image]: https://github.com/jhipster/jhipster-lite/workflows/build/badge.svg
 [github-actions-url]: https://github.com/jhipster/jhipster-lite/actions
-[codecov-image]: https://codecov.io/gh/jhipster/jhipster-lite/branch/main/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/jhipster/jhipster-lite
 [jhipster-image]: https://raw.githubusercontent.com/jhipster/jhipster-artwork/main/logos/lite/JHipster-Lite-neon-blue.png
 [jhipster-url]: https://www.jhipster.tech/
 [sonarcloud-url]: https://sonarcloud.io/project/overview?id=jhipster_jhipster-lite

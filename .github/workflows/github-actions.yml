@@ -497,17 +497,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: lcov
-      - name: 'Codecov: sending JaCoCo analysis...'
+      - name: 'Codecov: sending JaCoCo and lcov analysis...'
         uses: codecov/codecov-action@v4
         with:
-          files: jacoco.xml
-          fail_ci_if_error: true
-          verbose: true
-          token: ${{ secrets.CODECOV_TOKEN }}
-      - name: 'Codecov: sending lcov analysis...'
-        uses: codecov/codecov-action@v4
-        with:
-          files: lcov.info
+          files: jacoco.xml,lcov.info
           fail_ci_if_error: true
           verbose: true
           token: ${{ secrets.CODECOV_TOKEN }}

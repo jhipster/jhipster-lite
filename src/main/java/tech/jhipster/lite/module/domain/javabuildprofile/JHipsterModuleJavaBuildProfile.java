@@ -4,6 +4,7 @@ import java.util.Optional;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties.JHipsterModuleBuildPropertiesBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
+import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleGradleProfilePlugins.JHipsterModuleGradleProfilePluginBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.JHipsterModuleJavaBuildProfiles.JHipsterModuleJavaBuildProfilesBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies;
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies.JHipsterModuleJavaDependenciesBuilder;
@@ -17,17 +18,20 @@ public final class JHipsterModuleJavaBuildProfile {
   private final Optional<BuildProfileActivation> activation;
   private final JHipsterModuleBuildProperties properties;
   private final JHipsterModuleMavenPlugins mavenPlugins;
+  private final JHipsterModuleGradleProfilePlugins gradleProfilePlugins;
   private final JHipsterModuleJavaDependencies javaDependencies;
 
   private JHipsterModuleJavaBuildProfile(JHipsterModuleJavaBuildProfileBuilder builder) {
     Assert.notNull("buildProfileId", builder.buildProfileId);
     Assert.notNull("propertiesBuilder", builder.propertiesBuilder);
     Assert.notNull("mavenPluginsBuilder", builder.mavenPluginsBuilder);
+    Assert.notNull("gradlePluginsBuilder", builder.gradleProfilePluginsBuilder);
     Assert.notNull("javaDependenciesBuilder", builder.javaDependenciesBuilder);
     this.buildProfileId = builder.buildProfileId;
     this.activation = Optional.ofNullable(builder.activation);
     this.properties = builder.propertiesBuilder.build();
     this.mavenPlugins = builder.mavenPluginsBuilder.build();
+    this.gradleProfilePlugins = builder.gradleProfilePluginsBuilder.build();
     this.javaDependencies = builder.javaDependenciesBuilder.build();
   }
 
@@ -54,6 +58,10 @@ public final class JHipsterModuleJavaBuildProfile {
     return mavenPlugins;
   }
 
+  public JHipsterModuleGradleProfilePlugins gradlePlugins() {
+    return gradleProfilePlugins;
+  }
+
   public JHipsterModuleJavaDependencies javaDependencies() {
     return javaDependencies;
   }
@@ -67,6 +75,7 @@ public final class JHipsterModuleJavaBuildProfile {
       JHipsterModuleBuildProperties.builder(this);
     private final JHipsterModuleMavenPluginsBuilder<JHipsterModuleJavaBuildProfileBuilder> mavenPluginsBuilder =
       JHipsterModuleMavenPlugins.builder(this);
+    private final JHipsterModuleGradleProfilePluginBuilder gradleProfilePluginsBuilder = JHipsterModuleGradleProfilePlugins.builder(this);
     private final JHipsterModuleJavaDependenciesBuilder<JHipsterModuleJavaBuildProfileBuilder> javaDependenciesBuilder =
       JHipsterModuleJavaDependencies.builder(this);
 
@@ -105,6 +114,10 @@ public final class JHipsterModuleJavaBuildProfile {
 
     public JHipsterModuleMavenPluginsBuilder<JHipsterModuleJavaBuildProfileBuilder> mavenPlugins() {
       return mavenPluginsBuilder;
+    }
+
+    public JHipsterModuleGradleProfilePluginBuilder gradleProfilePlugins() {
+      return gradleProfilePluginsBuilder;
     }
 
     public JHipsterModuleJavaDependenciesBuilder<JHipsterModuleJavaBuildProfileBuilder> javaDependencies() {

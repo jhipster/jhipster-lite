@@ -409,6 +409,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("spring-boot = \"")
       .containing("json-web-token = \"")
       .containing("cassandraunit = \"")
+      .containing("git-properties = \"")
       .and()
       .hasFile("build.gradle.kts")
       .notContaining("implementation(libs.logstash.logback.encoder)")
@@ -452,7 +453,43 @@ class FileSystemJHipsterModulesRepositoryTest {
         """
       )
       .and()
+      .hasFile("buildSrc/build.gradle.kts")
+      .containing(
+        """
+          implementation(libs.gradle.git.properties)
+          // jhipster-needle-gradle-implementation-dependencies\
+        """
+      )
+      .and()
       .hasFile("buildSrc/src/main/kotlin/profile-local.gradle.kts")
+      .containing(
+        """
+        plugins {
+          java
+          checkstyle
+          id("com.gorylenko.gradle-git-properties")
+          // jhipster-needle-gradle-plugins
+        }
+        """
+      )
+      .containing(
+        """
+        checkstyle {
+          toolVersion = libs.versions.checkstyle.get()
+        }
+        """
+      )
+      .containing(
+        """
+
+        gitProperties {
+          failOnNoGitDirectory = false
+          keys = listOf("git.branch", "git.commit.id.abbrev", "git.commit.id.describe", "git.build.version")
+        }
+
+        // jhipster-needle-gradle-plugins-configurations
+        """
+      )
       .containing(
         """
           testImplementation(libs.findLibrary("cassandra.unit").get())

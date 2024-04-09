@@ -5,7 +5,7 @@ import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
@@ -98,7 +98,7 @@ public class SpringBootCoreModuleFactory {
     //@formatter:on
   }
 
-  private GradlePlugin springBootGradlePlugin(String fullyQualifiedMainClass) {
+  private GradleMainBuildPlugin springBootGradlePlugin(String fullyQualifiedMainClass) {
     return gradleCommunityPlugin()
       .id("org.springframework.boot")
       .pluginSlug("spring-boot")

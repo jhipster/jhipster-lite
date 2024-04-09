@@ -3,9 +3,11 @@ plugins {
 }
 
 repositories {
+  gradlePluginPortal()
   mavenCentral()
 }
 
 dependencies {
   // jhipster-needle-gradle-implementation-dependencies
 }
+

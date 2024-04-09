@@ -30,6 +30,7 @@ public final class JHipsterModuleJavaBuildProfiles {
     Stream<JavaBuildCommand> addProfileCommands = profiles.stream().map(toAddProfileCommands());
     Stream<JavaBuildCommand> addPropertyCommands = profiles.stream().flatMap(toAddPropertyCommands());
     Stream<JavaBuildCommand> mavenPluginCommands = profiles.stream().flatMap(toMavenPluginCommands(versions, projectJavaDependencies));
+    Stream<JavaBuildCommand> gradlePluginCommands = profiles.stream().flatMap(toGradlePluginCommands(versions));
     Stream<JavaBuildCommand> javaDependenciesCommands = profiles
       .stream()
       .flatMap(toJavaDependenciesCommands(versions, projectJavaDependencies));
@@ -38,6 +39,7 @@ public final class JHipsterModuleJavaBuildProfiles {
       addProfileCommands,
       addPropertyCommands,
       mavenPluginCommands,
+      gradlePluginCommands,
       javaDependenciesCommands
     )
       .flatMap(Function.identity())
@@ -59,6 +61,10 @@ public final class JHipsterModuleJavaBuildProfiles {
     ProjectJavaDependencies projectJavaDependencies
   ) {
     return profile -> profile.mavenPlugins().buildChanges(versions, projectJavaDependencies, profile.id()).get().stream();
+  }
+
+  private Function<JHipsterModuleJavaBuildProfile, Stream<JavaBuildCommand>> toGradlePluginCommands(JavaDependenciesVersions versions) {
+    return profile -> profile.gradlePlugins().buildChanges(versions, profile.id()).get().stream();
   }
 
   private Function<JHipsterModuleJavaBuildProfile, Stream<JavaBuildCommand>> toJavaDependenciesCommands(

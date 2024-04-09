@@ -11,11 +11,11 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public final class JHipsterModuleGradlePlugin {
+public final class JHipsterModuleGradlePlugins {
 
-  private final Collection<GradlePlugin> plugins;
+  private final Collection<GradleMainBuildPlugin> plugins;
 
-  private JHipsterModuleGradlePlugin(JHipsterModuleGradlePluginBuilder builder) {
+  private JHipsterModuleGradlePlugins(JHipsterModuleGradlePluginBuilder builder) {
     Assert.notNull("plugins", builder.plugins);
     plugins = builder.plugins;
   }
@@ -30,7 +30,7 @@ public final class JHipsterModuleGradlePlugin {
     return new JavaBuildCommands(plugins.stream().map(toCommands(versions)).toList());
   }
 
-  private Function<GradlePlugin, JavaBuildCommand> toCommands(JavaDependenciesVersions versions) {
+  private Function<GradleMainBuildPlugin, JavaBuildCommand> toCommands(JavaDependenciesVersions versions) {
     return plugin ->
       switch (plugin) {
         case GradleCorePlugin corePlugin -> mapCorePlugin(corePlugin, versions);
@@ -53,7 +53,7 @@ public final class JHipsterModuleGradlePlugin {
   public static final class JHipsterModuleGradlePluginBuilder {
 
     private final JHipsterModuleBuilder module;
-    private final Collection<GradlePlugin> plugins = new ArrayList<>();
+    private final Collection<GradleMainBuildPlugin> plugins = new ArrayList<>();
 
     private JHipsterModuleGradlePluginBuilder(JHipsterModuleBuilder module) {
       Assert.notNull("module", module);
@@ -61,7 +61,7 @@ public final class JHipsterModuleGradlePlugin {
       this.module = module;
     }
 
-    public JHipsterModuleGradlePluginBuilder plugin(GradlePlugin plugin) {
+    public JHipsterModuleGradlePluginBuilder plugin(GradleMainBuildPlugin plugin) {
       Assert.notNull("plugin", plugin);
 
       plugins.add(plugin);
@@ -73,8 +73,8 @@ public final class JHipsterModuleGradlePlugin {
       return module;
     }
 
-    public JHipsterModuleGradlePlugin build() {
-      return new JHipsterModuleGradlePlugin(this);
+    public JHipsterModuleGradlePlugins build() {
+      return new JHipsterModuleGradlePlugins(this);
     }
   }
 }

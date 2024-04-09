@@ -4,7 +4,7 @@ import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public final class GradleCommunityPlugin implements GradlePlugin {
+public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
 
   private final GradlePluginId id;
   private final Optional<GradlePluginConfiguration> configuration;

@@ -11,7 +11,8 @@ import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
-import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
@@ -107,6 +108,10 @@ public final class JHipsterModulesFixture {
         .mavenPlugins()
           .pluginManagement(mavenEnforcerPluginManagement())
           .plugin(mavenEnforcerPlugin())
+          .and()
+        .gradleProfilePlugins()
+          .plugin(checkstyleGradleProfilePlugin())
+          .plugin(gitPropertiesGradleProfilePlugin())
           .and()
         .javaDependencies()
           .addTestDependency(groupId("org.cassandraunit"), artifactId("cassandra-unit"), versionSlug("cassandraunit"))
@@ -366,7 +371,7 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
-  public static GradlePlugin jacocoGradlePlugin() {
+  public static GradleMainBuildPlugin jacocoGradlePlugin() {
     return gradleCorePlugin()
       .id("jacoco")
       .toolVersionSlug("jacoco")
@@ -389,7 +394,7 @@ public final class JHipsterModulesFixture {
       .build();
   }
 
-  public static GradlePlugin checkstyleGradlePlugin() {
+  public static GradleMainBuildPlugin checkstyleGradlePlugin() {
     return gradleCorePlugin()
       .id("checkstyle")
       .toolVersionSlug("checkstyle")
@@ -400,6 +405,44 @@ public final class JHipsterModulesFixture {
         }
         """
       )
+      .build();
+  }
+
+  public static GradleProfilePlugin checkstyleGradleProfilePlugin() {
+    return gradleCorePlugin()
+      .id("checkstyle")
+      .toolVersionSlug("checkstyle")
+      .configuration(
+        """
+        checkstyle {
+          toolVersion = libs.versions.checkstyle.get()
+        }
+        """
+      )
+      .build();
+  }
+
+  public static GradleProfilePlugin gitPropertiesGradleProfilePlugin() {
+    return gradleProfilePlugin()
+      .id("com.gorylenko.gradle-git-properties")
+      .dependency(groupId("com.gorylenko.gradle-git-properties"), artifactId("gradle-git-properties"))
+      .versionSlug("git-properties")
+      .configuration(
+        """
+        gitProperties {
+          failOnNoGitDirectory = false
+          keys = listOf("git.branch", "git.commit.id.abbrev", "git.commit.id.describe", "git.build.version")
+        }
+        """
+      )
+      .build();
+  }
+
+  public static GradleProfilePlugin dockerGradlePluginDependency() {
+    return gradleProfilePlugin()
+      .id("com.bmuschko.docker-remote-api")
+      .dependency(groupId("com.bmuschko"), artifactId("gradle-docker-plugin"))
+      .versionSlug("docker-plugin")
       .build();
   }
 

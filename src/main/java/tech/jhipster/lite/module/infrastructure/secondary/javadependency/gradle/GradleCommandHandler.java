@@ -73,6 +73,10 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     Pattern.MULTILINE
   );
   private static final Pattern GRADLE_PROPERTY_NEEDLE = Pattern.compile("^// jhipster-needle-gradle-properties$", Pattern.MULTILINE);
+  private static final Pattern GRADLE_FREE_CONFIGURATION_BLOCKS_NEEDLE = Pattern.compile(
+    "^// jhipster-needle-gradle-free-configuration-blocks$",
+    Pattern.MULTILINE
+  );
   private static final String PROFILE_CONDITIONAL_TEMPLATE =
     """
     if (profiles.contains("%s")) {
@@ -486,5 +490,20 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     var builder = JavaDependency.builder().groupId(plugin.dependency().groupId()).artifactId(plugin.dependency().artifactId());
     plugin.versionSlug().ifPresent(builder::versionSlug);
     return builder.build();
+  }
+
+  @Override
+  public void handle(AddGradleConfiguration command) {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(
+        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
+        GRADLE_FREE_CONFIGURATION_BLOCKS_NEEDLE
+      ),
+      LINE_BREAK + command.get()
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+    );
   }
 }

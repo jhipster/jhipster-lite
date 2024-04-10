@@ -28,14 +28,6 @@ version = "0.0.1-SNAPSHOT"
 
 // jhipster-needle-profile-activation
 
-tasks.build {
-  dependsOn("processResources")
-}
-
-tasks.processResources {
-  // jhipster-needle-gradle-process-resources
-}
-
 dependencies {
   implementation(libs.checkstyle)
   // jhipster-needle-gradle-implementation-dependencies

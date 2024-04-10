@@ -1155,6 +1155,83 @@ class GradleCommandHandlerTest {
     assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
   }
 
+  @Test
+  void shouldAddGradleFreeConfigurationBlock() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+    new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader).handle(
+      new AddGradleConfiguration(
+        """
+        tasks.build {
+          dependsOn("processResources")
+        }
+
+        tasks.processResources {
+          filesMatching("**/*.yml", "**/*.properties") {
+            filter {
+              it.replace("@spring.profiles.active@", springProfilesActive)
+            }
+          }
+        }
+        """
+      )
+    );
+
+    assertThat(buildGradleContent(projectFolder)).contains(
+      """
+      tasks.build {
+        dependsOn("processResources")
+      }
+
+      tasks.processResources {
+        filesMatching("**/*.yml", "**/*.properties") {
+          filter {
+            it.replace("@spring.profiles.active@", springProfilesActive)
+          }
+        }
+      }
+
+      // jhipster-needle-gradle-free-configuration-blocks
+      """
+    );
+  }
+
+  @Test
+  void shouldNotDuplicateExistingGradleFreeConfigurationBlock() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+    GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(Indentation.DEFAULT, projectFolder, filesReader);
+    gradleCommandHandler.handle(
+      new AddGradleConfiguration(
+        """
+        tasks.build {
+          dependsOn("processResources")
+        }
+        """
+      )
+    );
+
+    gradleCommandHandler.handle(
+      new AddGradleConfiguration(
+        """
+        tasks.build {
+          dependsOn("processResources")
+        }
+        """
+      )
+    );
+
+    assertThat(buildGradleContent(projectFolder)).contains(
+      """
+
+      tasks.build {
+        dependsOn("processResources")
+      }
+
+      // jhipster-needle-gradle-free-configuration-blocks\
+      """
+    );
+  }
+
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {
     return content(Paths.get(projectFolder.get()).resolve("build.gradle.kts"));
   }

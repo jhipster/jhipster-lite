@@ -28,14 +28,6 @@ val profiles = (project.findProperty("profiles") as String? ?: "")
   .filter { it.isNotEmpty() }
 // jhipster-needle-profile-activation
 
-tasks.build {
-  dependsOn("processResources")
-}
-
-tasks.processResources {
-  // jhipster-needle-gradle-process-resources
-}
-
 dependencies {
   // jhipster-needle-gradle-implementation-dependencies
   // jhipster-needle-gradle-compile-dependencies

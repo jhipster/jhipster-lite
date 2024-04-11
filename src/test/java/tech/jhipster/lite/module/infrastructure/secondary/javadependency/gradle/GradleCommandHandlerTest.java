@@ -1191,7 +1191,7 @@ class GradleCommandHandlerTest {
         }
       }
 
-      // jhipster-needle-gradle-free-configuration-blocks
+      // jhipster-needle-gradle-free-configuration-blocks\
       """
     );
   }

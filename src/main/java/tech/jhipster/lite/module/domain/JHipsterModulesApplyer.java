@@ -21,11 +21,7 @@ import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRe
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacer;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
-import tech.jhipster.lite.module.domain.startupcommand.DockerComposeStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.GradleStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
-import tech.jhipster.lite.module.domain.startupcommand.MavenStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.*;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @SuppressWarnings("java:S6539")
@@ -88,6 +84,7 @@ public class JHipsterModulesApplyer {
           .merge(buildPropertiesChanges(module))
           .merge(buildProfilesChanges(module))
           .merge(buildGradlePluginsChanges(module))
+          .merge(buildGradleConfigurationsChanges(module))
       )
       .packageJson(module.packageJson())
       .preActions(module.preActions())
@@ -189,6 +186,10 @@ public class JHipsterModulesApplyer {
 
   private JavaBuildCommands buildPluginsChanges(JHipsterModule module) {
     return module.mavenPlugins().buildChanges(javaVersions.get(), projectDependencies.get(module.projectFolder()));
+  }
+
+  private JavaBuildCommands buildGradleConfigurationsChanges(JHipsterModule module) {
+    return module.gradleConfigurations().buildChanges();
   }
 
   private JavaBuildCommands buildMavenBuildExtensionsChanges(JHipsterModule module) {

@@ -452,6 +452,23 @@ class FileSystemJHipsterModulesRepositoryTest {
         // jhipster-needle-gradle-properties
         """
       )
+      .containing(
+        """
+        tasks.build {
+          dependsOn("processResources")
+        }
+
+        tasks.processResources {
+          filesMatching("**/*.yml", "**/*.properties") {
+            filter {
+              it.replace("@spring.profiles.active@", springProfilesActive)
+            }
+          }
+        }
+
+        // jhipster-needle-gradle-free-configuration-blocks
+        """
+      )
       .and()
       .hasFile("buildSrc/build.gradle.kts")
       .containing(

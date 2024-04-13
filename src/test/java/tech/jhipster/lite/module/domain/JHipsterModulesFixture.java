@@ -95,6 +95,23 @@ public final class JHipsterModulesFixture {
       .plugin(mavenEnforcerPlugin())
       .plugin(asciidoctorPlugin())
       .and()
+    .gradleConfigurations()
+      .configuration(
+        """
+        tasks.build {
+          dependsOn("processResources")
+        }
+
+        tasks.processResources {
+          filesMatching("**/*.yml", "**/*.properties") {
+            filter {
+              it.replace("@spring.profiles.active@", springProfilesActive)
+            }
+          }
+        }
+        """
+      )
+      .and()
     .gradlePlugins()
       .plugin(jacocoGradlePlugin())
       .plugin(checkstyleGradlePlugin())

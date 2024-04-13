@@ -5,19 +5,7 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
-import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.GradleCommandHandler;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.MavenCommandHandler;
@@ -73,6 +61,7 @@ public class FileSystemJavaBuildCommandsHandler {
       case AddMavenBuildExtension addMavenBuildExtension -> handler.handle(addMavenBuildExtension);
       case AddJavaBuildProfile addJavaBuildProfile -> handler.handle(addJavaBuildProfile);
       case AddGradlePlugin addGradlePlugin -> handler.handle(addGradlePlugin);
+      case AddGradleConfiguration addGradleConfiguration -> handler.handle(addGradleConfiguration);
     }
   }
 }

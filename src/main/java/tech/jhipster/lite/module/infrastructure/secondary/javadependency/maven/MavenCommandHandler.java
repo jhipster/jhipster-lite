@@ -1,11 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
 import io.fabric8.maven.Maven;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,19 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import org.apache.maven.model.Activation;
-import org.apache.maven.model.Build;
-import org.apache.maven.model.BuildBase;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.DependencyManagement;
-import org.apache.maven.model.Exclusion;
-import org.apache.maven.model.Extension;
-import org.apache.maven.model.Model;
-import org.apache.maven.model.ModelBase;
-import org.apache.maven.model.Plugin;
-import org.apache.maven.model.PluginExecution;
-import org.apache.maven.model.PluginManagement;
-import org.apache.maven.model.Profile;
+import org.apache.maven.model.*;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
@@ -35,29 +19,14 @@ import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginConfiguration;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecution;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutionGoal;
-import tech.jhipster.lite.module.domain.mavenplugin.MavenPluginExecutionId;
+import tech.jhipster.lite.module.domain.mavenplugin.*;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -357,6 +326,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   @Override
   public void handle(AddGradlePlugin command) {
+    // Gradle commands are ignored
+  }
+
+  @Override
+  public void handle(AddGradleConfiguration command) {
     // Gradle commands are ignored
   }
 

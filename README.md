@@ -155,7 +155,6 @@ We use multiple linters check and lint your code:
   - [prettier-java](https://github.com/jhipster/prettier-java) for Java
 - [Stylelint](https://stylelint.io/) for style
   - [stylelint-scss](https://github.com/stylelint-scss) for SCSS
-- [pug-lint](https://www.npmjs.com/package/pug-lint) for Pug
 
 To check:
 

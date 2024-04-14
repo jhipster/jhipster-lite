@@ -254,7 +254,7 @@ class HexagonalArchTest {
         .resideInAPackage("..wire..")
         .should()
         .dependOnClassesThat()
-        .resideInAnyPackage(businessContextsOrSharedKernelsPackages())
+        .resideInAnyPackage(businessContextsPackages.toArray(String[]::new))
         .because("Wire should not depend on business contexts or shared kernel should not depend")
         .check(classes);
     }

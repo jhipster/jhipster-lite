@@ -30,6 +30,7 @@ class HexagonalArchTest {
     .importPackages(ROOT_PACKAGE);
 
   private static final Collection<String> businessContexts = packagesWithAnnotation(BusinessContext.class);
+  private static final Collection<String> businessContextsPackages = buildPackagesPatterns(businessContexts);
 
   private static final Collection<String> sharedKernels = packagesWithAnnotation(SharedKernel.class);
   private static final Collection<String> sharedKernelsPackages = buildPackagesPatterns(sharedKernels);
@@ -245,6 +246,43 @@ class HexagonalArchTest {
             .because("Secondary should not loop to its own context's primary")
             .check(classes);
         });
+    }
+  }
+
+  @Nested
+  class Wire {
+
+    @Test
+    void shouldNotDependOnBoundedContextsOrSharedKernels() {
+      noClasses()
+        .that()
+        .resideInAPackage("..wire..")
+        .should()
+        .dependOnClassesThat()
+        .resideInAnyPackage(businessContextsOrSharedKernelsPackages())
+        .because("Wire should not depend on business contexts or shared kernel should not depend")
+        .check(classes);
+    }
+
+    @Test
+    void boundedContextsOrSharedKernelsShouldNotDependOnWire() {
+      noClasses()
+        .that()
+        .resideInAnyPackage(businessContextsOrSharedKernelsPackages())
+        .should()
+        .dependOnClassesThat()
+        .resideInAPackage("..wire..")
+        .because("Business contexts and shared kernel should not depend on wire")
+        .check(classes);
+    }
+
+    private static String[] businessContextsOrSharedKernelsPackages() {
+      return Stream.of(businessContextsPackages, sharedKernelsPackages).flatMap(Collection::stream).toArray(String[]::new);
+    }
+
+    @Test
+    void shouldNotHavePublicClasses() {
+      noClasses().that().resideInAnyPackage("..wire..").should().bePublic().check(classes);
     }
   }
 }

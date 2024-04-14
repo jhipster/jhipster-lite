@@ -24,7 +24,7 @@ class SampleCassandraPersistenceModuleFactoryTest {
 
     JHipsterModule module = factory.buildModule(properties);
 
-    assertThatModuleWithFiles(module, sampleInMemoryRepository(), inMemoryBeersResetter(), customPropertiesFile())
+    assertThatModuleWithFiles(module, sampleInMemoryRepository(), inMemoryBeersResetter())
       .hasPrefixedFiles(
         "src/main/java/com/jhipster/test/sample/infrastructure/secondary",
         "BeerCatalogTable.java",
@@ -56,10 +56,6 @@ class SampleCassandraPersistenceModuleFactoryTest {
         "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java",
         "src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java"
       );
-  }
-
-  private ModuleFile customPropertiesFile() {
-    return file("src/test/resources/projects/cassandra/application.properties", "src/main/resources/config/application.properties");
   }
 
   private ModuleFile sampleInMemoryRepository() {

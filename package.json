@@ -25,7 +25,7 @@
     "lint": "npm run lint:js && npm run lint:pug && npm run lint:sass && npm run prettier:format",
     "lint:ci": "npm run lint:ci:js && npm run lint:ci:pug && npm run lint:ci:sass && npm run prettier:check",
     "lint:ci:js": "npm run lint:js:run -- --no-fix",
-    "lint:ci:pug": "eslint src/main/style/**/*.pug src/main/style/**/*.*.pug",
+    "lint:ci:pug": "eslint src/main/style --ext .pug",
     "lint:ci:sass": "stylelint 'src/main/style/**/*.{css,scss}'",
     "lint:js": "npm run lint:js:run -- --fix",
     "lint:js:run": "eslint --ext .js,.ts,.vue --ignore-path .gitignore src/main/webapp src/test/javascript",

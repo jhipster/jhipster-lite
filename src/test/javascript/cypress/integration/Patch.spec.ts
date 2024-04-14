@@ -61,7 +61,8 @@ describe('Patch', () => {
       }).as('spring-test-creation');
 
       cy.visit('/patches');
-      cy.get(dataSelector('folder-path-field')).clear().type('test');
+      cy.get(dataSelector('folder-path-field')).clear();
+      cy.get(dataSelector('folder-path-field')).type('test');
       cy.get(dataSelector('module-spring-test-application-button')).click();
 
       cy.wait('@spring-test-creation').should(xhr => {
@@ -86,7 +87,8 @@ describe('Patch', () => {
       cy.visit('/patches');
 
       cy.get(dataSelector('spring-cucumber-module-content')).click();
-      cy.get(dataSelector('folder-path-field')).clear().type('test');
+      cy.get(dataSelector('folder-path-field')).clear();
+      cy.get(dataSelector('folder-path-field')).type('test');
       cy.get(dataSelector('parameter-baseName-field')).type('jhipster');
       cy.get(dataSelector('parameter-optionalBoolean-field')).select('true');
       cy.get(dataSelector('parameter-optionalInteger-field')).type('42');

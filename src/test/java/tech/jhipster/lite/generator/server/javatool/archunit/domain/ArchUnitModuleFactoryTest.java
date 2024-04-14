@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.javatool.arch.domain;
+package tech.jhipster.lite.generator.server.javatool.archunit.domain;
 
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 

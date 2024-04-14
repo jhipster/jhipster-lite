@@ -1,7 +1,7 @@
-package tech.jhipster.lite.generator.server.javatool.arch.application;
+package tech.jhipster.lite.generator.server.javatool.archunit.application;
 
 import org.springframework.stereotype.Service;
-import tech.jhipster.lite.generator.server.javatool.arch.domain.ArchUnitModuleFactory;
+import tech.jhipster.lite.generator.server.javatool.archunit.domain.ArchUnitModuleFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.javatool.arch.domain;
+package tech.jhipster.lite.generator.server.javatool.archunit.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
@@ -16,7 +16,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class ArchUnitModuleFactory {
 
   private static final String QUOTE = "\"";
-  private static final JHipsterSource SOURCE = from("server/javatool/arch");
+  private static final JHipsterSource SOURCE = from("server/javatool/archunit/test");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

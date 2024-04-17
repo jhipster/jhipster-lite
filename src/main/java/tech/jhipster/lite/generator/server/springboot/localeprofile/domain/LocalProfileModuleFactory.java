@@ -14,7 +14,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class LocalProfileModuleFactory {
 
   private static final String DELIMITER = "@";
-  public static final String SPRING_PROFILES_ACTIVE = "spring.profiles.active";
+  private static final String SPRING_PROFILES_ACTIVE = "spring.profiles.active";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

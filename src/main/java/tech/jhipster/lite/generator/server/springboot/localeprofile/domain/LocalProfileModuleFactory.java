@@ -22,7 +22,7 @@ public class LocalProfileModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaBuildProperties()
-        .set(new PropertyKey(SPRING_PROFILES_ACTIVE), new PropertyValue("-"))
+        .set(new PropertyKey(SPRING_PROFILES_ACTIVE), new PropertyValue(""))
         .and()
       .gradleConfigurations()
         .configuration(

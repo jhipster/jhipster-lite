@@ -112,7 +112,7 @@ class LocalProfileModuleFactoryTest {
         .hasFile("build.gradle.kts")
         .containing(
           """
-          val springProfilesActive by extra("-")
+          val springProfilesActive by extra("")
           // jhipster-needle-gradle-properties
           """
         )

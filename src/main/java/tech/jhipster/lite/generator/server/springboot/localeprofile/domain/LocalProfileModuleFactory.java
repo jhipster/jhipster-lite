@@ -32,10 +32,11 @@ public class LocalProfileModuleFactory {
           }
 
           tasks.processResources {
-            filesMatching("**/*.yml", "**/*.properties") {
-              filter {
-                it.replace("@spring.profiles.active@", springProfilesActive)
-              }
+            filesMatching("**/*.yml") {
+              filter { it.replace("@spring.profiles.active@", springProfilesActive) }
+            }
+            filesMatching("**/*.properties") {
+              filter { it.replace("@spring.profiles.active@", springProfilesActive) }
             }
           }
           """

@@ -14,6 +14,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class LocalProfileModuleFactory {
 
   private static final String DELIMITER = "@";
+  public static final String SPRING_PROFILES_ACTIVE = "spring.profiles.active";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -21,7 +22,7 @@ public class LocalProfileModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .javaBuildProperties()
-        .set(new PropertyKey("spring.profiles.active"), new PropertyValue("-"))
+        .set(new PropertyKey(SPRING_PROFILES_ACTIVE), new PropertyValue("-"))
         .and()
       .gradleConfigurations()
         .configuration(
@@ -52,7 +53,7 @@ public class LocalProfileModuleFactory {
         .pluginManagement(resourcesPlugin())
         .and()
       .springMainProperties()
-        .set(propertyKey("spring.profiles.active"), propertyValue(DELIMITER + springActiveProfileProperty().get() + DELIMITER))
+        .set(propertyKey(SPRING_PROFILES_ACTIVE), propertyValue(DELIMITER + springActiveProfileProperty().get() + DELIMITER))
         .and()
       .optionalReplacements()
         .in(path(".github/workflows/github-actions.yml"))
@@ -69,7 +70,7 @@ public class LocalProfileModuleFactory {
   }
 
   private static PropertyKey springActiveProfileProperty() {
-    return buildPropertyKey("spring.profiles.active");
+    return buildPropertyKey(SPRING_PROFILES_ACTIVE);
   }
 
   private MavenPlugin resourcesPlugin() {

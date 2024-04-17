@@ -136,6 +136,7 @@ elif [[ $application == 'gradleapp' ]]; then
   applyModules \
     "java-memoizers" \
     "java-enums" \
+    "spring-boot-local-profile" \
     "jib" \
     "dockerfile-${java_build_tool}" \
     "pagination-domain" \

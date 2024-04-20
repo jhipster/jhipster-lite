@@ -1,7 +1,7 @@
-node_modules
-target
-build
+node_modules/
+target/
+build/
 package-lock.json
-.git
-.mvn
+.git/
+.mvn/
 template-infinitest.filters

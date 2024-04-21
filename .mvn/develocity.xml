@@ -1,12 +1,12 @@
-<gradleEnterprise>
+<develocity>
   <server>
     <url>https://ge.jhipster.tech</url>
   </server>
   <buildScan>
     <capture>
-      <goalInputFiles>true</goalInputFiles>
+      <fileFingerprints>true</fileFingerprints>
     </capture>
-    <publish>ALWAYS</publish>
+    <publishing>ALWAYS</publishing>
     <backgroundBuildScanUpload>#{env['CI'] == null}</backgroundBuildScanUpload>
     <publishIfAuthenticated>true</publishIfAuthenticated>
     <obfuscation>
@@ -22,4 +22,4 @@
       <storeEnabled>#{isTrue(env['GITHUB_ACTIONS']) and isTrue(env['GRADLE_ENTERPRISE_ACCESS_KEY'])}</storeEnabled>
     </remote>
   </buildCache>
-</gradleEnterprise>
+</develocity>

@@ -1,6 +1,7 @@
 package tech.jhipster.lite;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
+import static java.util.function.Predicate.*;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Controller;
 class HexagonalArchTest {
 
   private static final String ROOT_PACKAGE = "tech.jhipster.lite";
+  private static final String GENERATION_SHARED_KERNEL_PACKAGES = ROOT_PACKAGE.concat(".shared.generation..");
 
   private static final JavaClasses classes = new ClassFileImporter()
     .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
@@ -254,7 +256,7 @@ class HexagonalArchTest {
         .resideInAPackage("..wire..")
         .should()
         .dependOnClassesThat()
-        .resideInAnyPackage(businessContextsPackages.toArray(String[]::new))
+        .resideInAnyPackage(businessContextsOrSharedKernelsPackages())
         .because("Wire should not depend on business contexts or shared kernel should not depend")
         .check(classes);
     }
@@ -272,7 +274,10 @@ class HexagonalArchTest {
     }
 
     private static String[] businessContextsOrSharedKernelsPackages() {
-      return Stream.of(businessContextsPackages, sharedKernelsPackages).flatMap(Collection::stream).toArray(String[]::new);
+      return Stream.of(businessContextsPackages, sharedKernelsPackages)
+        .flatMap(Collection::stream)
+        .filter(not(GENERATION_SHARED_KERNEL_PACKAGES::equals))
+        .toArray(String[]::new);
     }
 
     @Test

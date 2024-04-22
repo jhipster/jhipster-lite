@@ -58,6 +58,7 @@ spring_boot() {
   "github-actions-${java_build_tool}" \
   "java-base" \
   "checkstyle" \
+  "approval-tests" \
   "jqwik" \
   "protobuf" \
   "protobuf-backwards-compatibility-check" \

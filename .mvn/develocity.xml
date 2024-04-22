@@ -19,7 +19,7 @@
     </local>
     <remote>
       <enabled>true</enabled>
-      <storeEnabled>#{isTrue(env['GITHUB_ACTIONS']) and isTrue(env['GRADLE_ENTERPRISE_ACCESS_KEY'])}</storeEnabled>
+      <storeEnabled>#{isTrue(env['GITHUB_ACTIONS']) and isTrue(env['DEVELOCITY_ACCESS_KEY'])}</storeEnabled>
     </remote>
   </buildCache>
 </develocity>

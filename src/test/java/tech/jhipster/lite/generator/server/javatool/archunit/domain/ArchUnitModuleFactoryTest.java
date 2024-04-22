@@ -24,9 +24,6 @@ class ArchUnitModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile(), testLogbackFile())
       .hasFiles("src/test/resources/archunit.properties", "src/test/java/com/jhipster/test/AnnotationArchTest.java")
-      .hasFile("src/test/java/com/jhipster/test/HexagonalArchTest.java")
-      .containing("\"src\", \"main\", \"java\", \"com\", \"jhipster\", \"test\"")
-      .and()
       .hasFile("pom.xml")
       .containing("<artifactId>archunit-junit5-api</artifactId>")
       .and()

@@ -2,8 +2,6 @@ package tech.jhipster.lite.generator.server.javatool.archunit.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
@@ -26,9 +24,6 @@ public class ArchUnitModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .context()
-        .put("packageWalkPath", packageWalkPath(packagePath))
-        .and()
       .files()
         .add(SOURCE.template("archunit.properties"), to("src/test/resources/archunit.properties"))
         .add(SOURCE.template("AnnotationArchTest.java"), testDestination.append("AnnotationArchTest.java"))
@@ -40,10 +35,6 @@ public class ArchUnitModuleFactory {
       .springTestLogger("com.tngtech.archunit", LogLevel.WARN)
       .build();
     //@formatter:on
-  }
-
-  private String packageWalkPath(String packagePath) {
-    return Stream.of(packagePath.split("/")).map(folder -> QUOTE + folder + QUOTE).collect(Collectors.joining(", "));
   }
 
   private JavaDependency archUnitDependency() {

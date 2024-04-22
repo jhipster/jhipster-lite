@@ -262,7 +262,7 @@ class HexagonalArchTest {
     }
 
     @Test
-    void boundedContextsOrSharedKernelsShouldNotDependOnWire() {
+    void boundedContextsAndSharedKernelsShouldNotDependOnWire() {
       noClasses()
         .that()
         .resideInAnyPackage(businessContextsOrSharedKernelsPackages())

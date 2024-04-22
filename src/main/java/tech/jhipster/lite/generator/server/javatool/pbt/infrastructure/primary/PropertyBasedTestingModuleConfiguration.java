@@ -1,4 +1,4 @@
-package tech.jhipster.lite.generator.server.javatool.pbt.primary;
+package tech.jhipster.lite.generator.server.javatool.pbt.infrastructure.primary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

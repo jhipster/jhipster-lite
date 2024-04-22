@@ -13,7 +13,6 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class ArchUnitModuleFactory {
 
-  private static final String QUOTE = "\"";
   private static final JHipsterSource SOURCE = from("server/javatool/archunit/test");
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {

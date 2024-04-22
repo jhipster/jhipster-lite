@@ -8,9 +8,8 @@
     <capture>
       <fileFingerprints>true</fileFingerprints>
     </capture>
-    <publishing>ALWAYS</publishing>
+    <publishing><onlyIf>true</onlyIf></publishing>
     <backgroundBuildScanUpload>#{env['CI'] == null}</backgroundBuildScanUpload>
-    <publishIfAuthenticated>true</publishIfAuthenticated>
     <obfuscation>
       <ipAddresses>#{{'0.0.0.0'}}</ipAddresses>
     </obfuscation>

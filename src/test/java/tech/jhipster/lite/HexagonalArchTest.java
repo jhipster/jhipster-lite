@@ -26,6 +26,7 @@ class HexagonalArchTest {
 
   private static final String ROOT_PACKAGE = "tech.jhipster.lite";
   private static final String GENERATION_SHARED_KERNEL_PACKAGES = ROOT_PACKAGE.concat(".shared.generation..");
+  private static final String WIRE_PACKAGES = ROOT_PACKAGE.concat(".wire..");
 
   private static final JavaClasses classes = new ClassFileImporter()
     .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
@@ -253,7 +254,7 @@ class HexagonalArchTest {
     void shouldNotDependOnBoundedContextsOrSharedKernels() {
       noClasses()
         .that()
-        .resideInAPackage("..wire..")
+        .resideInAPackage(WIRE_PACKAGES)
         .should()
         .dependOnClassesThat()
         .resideInAnyPackage(businessContextsOrSharedKernelsPackages())
@@ -268,7 +269,7 @@ class HexagonalArchTest {
         .resideInAnyPackage(businessContextsOrSharedKernelsPackages())
         .should()
         .dependOnClassesThat()
-        .resideInAPackage("..wire..")
+        .resideInAPackage(WIRE_PACKAGES)
         .because("Business contexts and shared kernel should not depend on wire")
         .check(classes);
     }
@@ -282,7 +283,7 @@ class HexagonalArchTest {
 
     @Test
     void shouldNotHavePublicClasses() {
-      noClasses().that().resideInAnyPackage("..wire..").should().bePublic().check(classes);
+      noClasses().that().resideInAnyPackage(WIRE_PACKAGES).should().bePublic().check(classes);
     }
   }
 }

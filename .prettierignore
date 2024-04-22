@@ -1,6 +1,6 @@
-node_modules
-target
-build
+node_modules/
+target/
 package-lock.json
-.git
-.mvn
+.git/
+.mvn/
+template-infinitest.filters

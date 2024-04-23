@@ -77,7 +77,7 @@ jobs:
         run: npm ci
       - name: 'Test: run backend tests'
         env:
-          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          DEVELOCITY_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
         run: |
           ./mvnw clean verify
   #--------------------------------------------------
@@ -115,7 +115,7 @@ jobs:
         run: sed -i '/- gradle-java/d' src/main/resources/config/application.yml
       - name: 'Test: run backend tests'
         env:
-          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+          DEVELOCITY_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
         run: |
           chmod +x mvnw
           ./mvnw clean verify -Dsonar.qualitygate.wait=true sonar:sonar

@@ -76,6 +76,7 @@ public final class MustacheTemplateRenderer implements TemplateRenderer {
     }
 
     @Override
+    @ExcludeFromGeneratedCodeCoverage(reason = "Exception is hard to test")
     public Writer execute(Writer writer, List<Object> scopes) {
       try {
         final Object object = get(scopes);

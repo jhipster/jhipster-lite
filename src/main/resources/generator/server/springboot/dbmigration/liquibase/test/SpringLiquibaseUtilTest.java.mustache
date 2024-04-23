@@ -4,7 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.InstanceOfAssertFactories.type;
 
+{{#yamlSpringConfigurationFormat}}
+import java.net.URISyntaxException;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.core.io.PathResource;
+{{/yamlSpringConfigurationFormat}}
+{{#propertiesSpringConfigurationFormat}}
 import java.io.IOException;
+{{/propertiesSpringConfigurationFormat}}
 import java.util.Properties;
 
 import com.zaxxer.hikari.HikariDataSource;
@@ -12,11 +19,6 @@ import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-{{#yamlSpringConfigurationFormat}}
-import java.net.URISyntaxException;
-import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
-import org.springframework.core.io.PathResource;
-{{/yamlSpringConfigurationFormat}}
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -230,7 +232,7 @@ class SpringLiquibaseUtilTest {
           SpringLiquibaseUtilTest.class.getClassLoader().getResource("config/application-test.yml").toURI())
         );
         return yaml.getObject();
-    } catch (IOException | URISyntaxException exception) {
+    } catch (URISyntaxException exception) {
 {{/yamlSpringConfigurationFormat}}
 {{#propertiesSpringConfigurationFormat}}
         Properties properties = new Properties();

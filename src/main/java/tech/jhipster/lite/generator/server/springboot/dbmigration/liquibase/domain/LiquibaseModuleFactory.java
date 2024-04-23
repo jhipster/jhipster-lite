@@ -1,6 +1,8 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.liquibase.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.from;
+import static tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.LogLevel;
@@ -23,6 +25,10 @@ public class LiquibaseModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
+      .context()
+        .put("yamlSpringConfigurationFormat", properties.springConfigurationFormat() == YAML)
+        .put("propertiesSpringConfigurationFormat", properties.springConfigurationFormat() == PROPERTIES)
+      .and()
       .javaDependencies()
         .addDependency(groupId("org.liquibase"), artifactId("liquibase-core"), versionSlug(LIQUIBASE))
         .and()

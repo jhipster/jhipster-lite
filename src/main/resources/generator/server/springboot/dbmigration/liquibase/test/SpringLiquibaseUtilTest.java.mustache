@@ -28,7 +28,7 @@ class SpringLiquibaseUtilTest {
 
   @BeforeAll
   public static void setup() {
-    datasourceUrl = getTestProperties("{{springConfigurationFormat}}").getProperty("spring.datasource.url");
+    datasourceUrl = testProperties().getProperty("spring.datasource.url");
   }
 
   @Test
@@ -219,22 +219,24 @@ class SpringLiquibaseUtilTest {
       .isExactlyInstanceOf(NullPointerException.class);
   }
 
-  private static Properties getTestProperties(String springConfigurationFormat) {
-    Properties properties;
+  private static Properties testProperties() {
     try {
-      if (springConfigurationFormat.equals("yaml")) {
+{{#yamlSpringConfigurationFormat}}
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
         yaml.setResources(new PathResource(
-        SpringLiquibaseUtilTest.class.getClassLoader().getResource("config/application-test.yml").toURI()));
-        properties = yaml.getObject();
-      } else {
-        properties = new Properties();
+          SpringLiquibaseUtilTest.class.getClassLoader().getResource("config/application-test.yml").toURI())
+        );
+        return yaml.getObject();
+{{/yamlSpringConfigurationFormat}}
+{{#propertiesSpringConfigurationFormat}}
+        Properties properties = new Properties();
         properties.load(
-        SpringLiquibaseUtilTest.class.getClassLoader().getResourceAsStream("config/application-test.properties"));
-      }
+          SpringLiquibaseUtilTest.class.getClassLoader().getResourceAsStream("config/application-test.properties")
+        );
+        return properties;
+{{/propertiesSpringConfigurationFormat}}
     } catch (IOException | URISyntaxException exception) {
       throw new Error(exception);
     }
-    return properties;
   }
 }

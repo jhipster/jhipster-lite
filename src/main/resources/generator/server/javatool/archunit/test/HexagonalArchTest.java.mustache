@@ -48,8 +48,7 @@ class HexagonalArchTest {
 
   private static Collection<String> packagesWithAnnotation(Class<? extends Annotation> annotationClass) throws AssertionError {
     try {
-      return Files
-        .walk(Paths.get("src", "main", "java", {{packageWalkPath}}))
+      return Files.walk(rootPackagePath())
         .filter(path -> path.toString().endsWith("package-info.java"))
         .map(toPackageName())
         .map(path -> path.replaceAll("[\\/]", "."))
@@ -62,6 +61,10 @@ class HexagonalArchTest {
     } catch (IOException e) {
       throw new AssertionError(e);
     }
+  }
+
+  private static Path rootPackagePath() {
+    return Stream.of(ROOT_PACKAGE.split("\\.")).map(Paths::get).reduce(Paths.get("src", "main", "java"), Path::resolve);
   }
 
   private static Function<Path, String> toPackageName() {

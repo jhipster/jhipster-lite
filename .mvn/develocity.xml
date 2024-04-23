@@ -1,4 +1,8 @@
-<develocity>
+<develocity
+  xmlns="https://www.gradle.com/develocity-maven"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://www.gradle.com/develocity-maven https://www.gradle.com/schema/develocity-maven.xsd"
+>
   <server>
     <url>https://ge.jhipster.tech</url>
   </server>
@@ -6,14 +10,15 @@
     <capture>
       <fileFingerprints>true</fileFingerprints>
     </capture>
-    <publishing>ALWAYS</publishing>
+    <publishing>
+      <onlyIf>true</onlyIf>
+    </publishing>
     <backgroundBuildScanUpload>#{env['CI'] == null}</backgroundBuildScanUpload>
-    <publishIfAuthenticated>true</publishIfAuthenticated>
     <obfuscation>
       <ipAddresses>#{{'0.0.0.0'}}</ipAddresses>
     </obfuscation>
   </buildScan>
-    <buildCache>
+  <buildCache>
     <local>
       <enabled>true</enabled>
     </local>

@@ -18,14 +18,14 @@ class MustacheTemplateRendererTest {
   }
 
   @Test
-  void shouldNotReplaceWithNullContext() {
+  void shouldNotReplaceUnknownArguments() {
     assertThat(renderer.render("Hey {{ user }}", (Map<String, ?>) null)).isEqualTo("Hey {{ user }}");
   }
 
   @Test
-  void shouldReplaceKnownAndUnknownArguments() {
+  void shouldReplaceKnownArguments() {
     assertThat(renderer.render("Hey {{ user }}, how's {{ friend }} doing? Say {{user}}", Map.of("user", "Joe"))).isEqualTo(
-      "Hey Joe, how's  doing? Say Joe"
+      "Hey Joe, how's {{ friend }} doing? Say Joe"
     );
   }
 
@@ -35,6 +35,6 @@ class MustacheTemplateRendererTest {
     arguments.put("number", 42);
     arguments.put("null", null);
 
-    assertThat(renderer.render("Hey {{ number }}, how's {{ null }} doing?", arguments)).isEqualTo("Hey 42, how's  doing?");
+    assertThat(renderer.render("Hey {{ number }}, how's {{ null }} doing?", arguments)).isEqualTo("Hey 42, how's {{ null }} doing?");
   }
 }

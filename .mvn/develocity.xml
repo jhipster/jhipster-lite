@@ -11,7 +11,7 @@
       <fileFingerprints>true</fileFingerprints>
     </capture>
     <publishing>
-      <onlyIf>#{isTrue(env['GITHUB_ACTIONS']) and isTrue(env['DEVELOCITY_ACCESS_KEY'])}</onlyIf>
+      <onlyIf><![CDATA[!buildResult.failures.empty && authenticated]]></onlyIf>
     </publishing>
     <backgroundBuildScanUpload>#{env['CI'] == null}</backgroundBuildScanUpload>
     <obfuscation>

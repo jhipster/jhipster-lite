@@ -2,7 +2,7 @@
 <project
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd https://www.gradle.com/develocity-maven-project https://www.gradle.com/schema/develocity-maven-project.xsd"
 >
   <modelVersion>4.0.0</modelVersion>
 
@@ -715,7 +715,7 @@
           <groupId>com.gradle</groupId>
           <artifactId>develocity-maven-extension</artifactId>
           <configuration>
-            <develocity>
+            <develocity xmlns="https://www.gradle.com/develocity-maven-project">
               <normalization>
                 <systemProperties>
                   <ignoredKeys>
@@ -791,7 +791,7 @@
                         <directories>
                           <directory>
                             <name>node_modules</name>
-                            <path>node_modules</path>
+                            <path>${project.basedir}/node_modules</path>
                           </directory>
                         </directories>
                         <cacheableBecause>just need to build in case source or deps have changed</cacheableBecause>
@@ -834,9 +834,23 @@
                             <name>sources</name>
                             <paths>
                               <path>${project.basedir}/src/main/webapp</path>
+                              <path>${project.basedir}/src/main/style</path>
+                              <path>${project.basedir}/src/main/glyph</path>
                             </paths>
                             <includes>
                               <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>build-config</name>
+                            <paths>
+                              <path>${project.basedir}/</path>
+                            </paths>
+                            <includes>
+                              <include>tikuiconfig.json</include>
+                              <include>tsconfig*.json</include>
+                              <include>vite.config.*</include>
                             </includes>
                             <normalization>RELATIVE_PATH</normalization>
                           </fileSet>
@@ -893,6 +907,8 @@
                             <name>sources</name>
                             <paths>
                               <path>${project.basedir}/src/main/webapp</path>
+                              <path>${project.basedir}/src/main/style</path>
+                              <path>${project.basedir}/src/main/glyph</path>
                             </paths>
                             <includes>
                               <include>**/*.*</include>
@@ -902,10 +918,23 @@
                           <fileSet>
                             <name>test-sources</name>
                             <paths>
-                              <path>${project.basedir}/src/main/test/javascript</path>
+                              <path>${project.basedir}/src/test/javascript</path>
                             </paths>
                             <includes>
                               <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>build-config</name>
+                            <paths>
+                              <path>${project.basedir}/</path>
+                            </paths>
+                            <includes>
+                              <include>tikuiconfig.json</include>
+                              <include>tsconfig*.json</include>
+                              <include>vite.config.*</include>
+                              <include>vitest.config.*</include>
                             </includes>
                             <normalization>RELATIVE_PATH</normalization>
                           </fileSet>

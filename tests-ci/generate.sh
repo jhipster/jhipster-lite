@@ -58,6 +58,7 @@ spring_boot() {
   "github-actions-${java_build_tool}" \
   "java-base" \
   "checkstyle" \
+  "jqwik" \
   "protobuf" \
   "protobuf-backwards-compatibility-check" \
   "jacoco-with-min-coverage-check" \

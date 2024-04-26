@@ -13,6 +13,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   ANGULAR_JWT("angular-jwt"),
   ANGULAR_OAUTH_2("angular-oauth2"),
   APPLICATION_SERVICE_HEXAGONAL_ARCHITECTURE_DOCUMENTATION("application-service-hexagonal-architecture-documentation"),
+  APPROVAL_TESTS("approval-tests"),
   BANNER_JHIPSTER_V2("banner-jhipster-v2"),
   BANNER_JHIPSTER_V3("banner-jhipster-v3"),
   BANNER_JHIPSTER_V7("banner-jhipster-v7"),

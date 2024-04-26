@@ -21,13 +21,20 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
-import tech.jhipster.lite.module.domain.javadependency.*;
+import tech.jhipster.lite.module.domain.javadependency.DependencyId;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
+import tech.jhipster.lite.module.domain.properties.SpringConfigurationFormat;
+import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModulesFixture {
 
@@ -539,6 +546,13 @@ public final class JHipsterModulesFixture {
 
     public JHipsterModulePropertiesBuilder projectName(String projectName) {
       properties.put("projectName", projectName);
+
+      return this;
+    }
+
+    public JHipsterModulePropertiesBuilder springConfigurationFormat(SpringConfigurationFormat format) {
+      Assert.notNull("format", format);
+      properties.put("springConfigurationFormat", format.get());
 
       return this;
     }

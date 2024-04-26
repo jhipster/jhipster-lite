@@ -1,15 +1,14 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
 import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.TestFileUtils.content;
-import static tech.jhipster.lite.TestFileUtils.projectFrom;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.javaDependenciesCommands;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.springBootVersion;
+import static tech.jhipster.lite.TestFileUtils.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -21,7 +20,8 @@ class FileSystemJavaBuildCommandsHandlerTest {
 
   private static final FileSystemJavaBuildCommandsHandler handler = new FileSystemJavaBuildCommandsHandler(
     new FileSystemProjectJavaBuildToolRepository(),
-    new FileSystemProjectFiles()
+    new FileSystemProjectFiles(),
+    TemplateRenderer.NOOP
   );
 
   @Test

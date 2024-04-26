@@ -842,6 +842,20 @@
                         </ignoredProperties>
                         <fileSets>
                           <fileSet>
+                            <name>package-json</name>
+                            <paths>
+                              <path>${project.basedir}/package.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>package-lock</name>
+                            <paths>
+                              <path>${project.basedir}/package-lock.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
                             <name>sources</name>
                             <paths>
                               <path>${project.basedir}/src/main/webapp</path>
@@ -914,22 +928,26 @@
                           <ignore>installDirectory</ignore>
                         </ignoredProperties>
                         <fileSets>
-                          <fileset>
+                          <fileSet>
+                            <name>package-json</name>
+                            <paths>
+                              <path>${project.basedir}/package.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>package-lock</name>
+                            <paths>
+                              <path>${project.basedir}/package-lock.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
                             <name>sources</name>
                             <paths>
                               <path>${project.basedir}/src/main/webapp</path>
                               <path>${project.basedir}/src/main/style</path>
                               <path>${project.basedir}/src/main/glyph</path>
-                            </paths>
-                            <includes>
-                              <include>**/*.*</include>
-                            </includes>
-                            <normalization>RELATIVE_PATH</normalization>
-                          </fileset>
-                          <fileSet>
-                            <name>test-sources</name>
-                            <paths>
-                              <path>${project.basedir}/src/test/javascript</path>
                             </paths>
                             <includes>
                               <include>**/*.*</include>
@@ -945,6 +963,25 @@
                               <include>tikuiconfig.json</include>
                               <include>tsconfig*.json</include>
                               <include>vite.config.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>test-sources</name>
+                            <paths>
+                              <path>${project.basedir}/src/test/javascript</path>
+                            </paths>
+                            <includes>
+                              <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>test-config</name>
+                            <paths>
+                              <path>${project.basedir}/</path>
+                            </paths>
+                            <includes>
                               <include>vitest.config.*</include>
                             </includes>
                             <normalization>RELATIVE_PATH</normalization>

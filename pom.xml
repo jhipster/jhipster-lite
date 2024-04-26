@@ -395,7 +395,11 @@
                 <include>target/classes/static/**/*.*</include>
                 <include>package-lock.json</include>
                 <include>package.json</include>
+                <include>tikuiconfig.json</include>
                 <include>tsconfig.json</include>
+                <include>tsconfig.build.json</include>
+                <include>vite.config.mts</include>
+                <include>vitest.config.mts</include>
               </includes>
             </fileSet>
           </fileSets>

@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.domain.javabuild.command;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
+import static org.apache.commons.lang3.builder.ToStringStyle.*;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -54,8 +54,8 @@ public final class AddMavenPluginManagement implements JavaBuildCommand, AddMave
   public String toString() {
     ToStringBuilder builder = new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("plugin", plugin)
-      .append("pluginVersion", pluginVersion.map(JavaDependencyVersion::toString).orElse("(empty)"))
-      .append("dependenciesVersions", pluginVersion.map(JavaDependencyVersion::toString).orElse("(empty)"));
+      .append("pluginVersion", pluginVersion.map(JavaDependencyVersion::toString).orElse(""))
+      .append("dependenciesVersions", pluginVersion.map(JavaDependencyVersion::toString).orElse(""));
     return builder.toString();
   }
 }

@@ -30,6 +30,11 @@ public final class JHipsterModuleTags {
     return tags.contains(other);
   }
 
+  @Override
+  public String toString() {
+    return tags.toString();
+  }
+
   public static class JHipsterModuleTagsBuilder {
 
     private final Collection<JHipsterModuleTag> tags = new ArrayList<>();

@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain.properties;
+package tech.jhipster.lite.module.domain.resource;
 
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition.*;
@@ -6,8 +6,6 @@ import static tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDe
 import java.util.Collection;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertiesDefinition;
-import tech.jhipster.lite.module.domain.resource.JHipsterModulePropertyDefinition;
 
 @UnitTest
 class JHipsterModulePropertiesDefinitionTest {
@@ -25,13 +23,12 @@ class JHipsterModulePropertiesDefinitionTest {
   }
 
   @Test
-  void shouldHaveMeaningfullToString() {
+  void shouldHaveMeaningfulToString() {
     var definition = JHipsterModulePropertiesDefinition.builder().add(basePackageProperty()).build();
-    assertThat(definition.toString()).startsWith("JHipsterModulePropertiesDefinition[definitions=");
-    assertThat(definition.get().iterator().next().toString()).contains(
-      "JHipsterModulePropertyDefinition[type=STRING",
-      "key=",
-      "mandatory="
+    assertThat(definition).hasToString(
+      """
+      JHipsterModulePropertiesDefinition[definitions=[JHipsterModulePropertyDefinition[type=STRING,key=packageName,mandatory=true,description=Base java package,defaultValue=com.mycompany.myapp,order=-300]]]\
+      """
     );
   }
 }

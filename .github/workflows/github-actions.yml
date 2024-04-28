@@ -105,14 +105,14 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: 'Start local Sonar'
-        run: docker compose -f src/main/docker/sonar.yml up -d
       - name: 'Init: install Node.js packages'
         run: npm ci
       - name: 'Lint: check'
         run: npm run lint:ci
       - name: 'TEMP: enable gradle build tool slug'
         run: sed -i '/- gradle-java/d' src/main/resources/config/application.yml
+      - name: 'Start local Sonar'
+        run: docker compose -f src/main/docker/sonar.yml up -d
       - name: 'Test: run backend tests'
         env:
           DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}

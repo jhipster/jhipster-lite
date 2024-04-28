@@ -20,7 +20,7 @@
   </buildScan>
   <buildCache>
     <local>
-      <enabled>true</enabled>
+      <enabled>#{env['CI'] == null}</enabled>
     </local>
     <remote>
       <enabled>true</enabled>

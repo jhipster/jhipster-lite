@@ -72,7 +72,7 @@
     <apache-commons-io.version>2.16.1</apache-commons-io.version>
     <cucumber.version>7.17.0</cucumber.version>
     <maven-model-helper.version>36</maven-model-helper.version>
-    <mustache.java.version>0.9.11</mustache.java.version>
+    <mustache.java.version>0.9.12</mustache.java.version>
     <night-config.version>3.6.7</night-config.version>
     <testcontainers.version>1.19.7</testcontainers.version>
     <mongock.version>5.4.2</mongock.version>

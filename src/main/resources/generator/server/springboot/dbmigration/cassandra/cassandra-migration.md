@@ -7,7 +7,7 @@ Similar to Liquibase, JHipster Lite provides a tool to apply your CQL migration 
 - The tool is not run by the application itself when it is started but inside a Docker container or manually
 - All CQL scripts must follow the pattern `{timestamp}_{description}.cql` and be placed in the changelog directory: `src/main/resources/config/cql/changelog/`
 - All non already applied scripts located in the changelog directory are applied in alphabetical order (ie: following the timestamp)
-- Because Cassandra is not a transactional database, if an error happen before inserting the metadata in the table used by the tool there is a risk to have your CQL migration script run multiple times
+- Because Cassandra is not a transactional database, if an error happens before inserting the metadata in the table used by the tool there is a risk to have your CQL migration script run multiple times
 
 Some information on the tool:
 

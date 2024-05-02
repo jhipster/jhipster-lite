@@ -85,6 +85,10 @@ public class GradleModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
+      .git()
+        .ignoreComment("Gradle Wrapper")
+        .ignorePattern("!gradle/wrapper/gradle-wrapper.jar")
+        .and()
       .files()
         .batch(SOURCE.append("gradle/wrapper"), to("gradle/wrapper"))
           .addFile("gradle-wrapper.properties")

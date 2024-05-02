@@ -1,7 +1,6 @@
 package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -52,6 +51,14 @@ class GradleModuleFactoryTest {
     JHipsterModule module = factory.buildGradleWrapperModule(properties);
 
     assertThatModuleWithFiles(module)
+      .hasFile(".gitignore")
+      .containing(
+        """
+        # Gradle Wrapper
+        !gradle/wrapper/gradle-wrapper.jar\
+        """
+      )
+      .and()
       .hasExecutableFiles("gradlew", "gradlew.bat")
       .hasPrefixedFiles("gradle/wrapper", "gradle-wrapper.jar", "gradle-wrapper.properties");
   }

@@ -3,7 +3,7 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
-import tech.jhipster.lite.module.domain.git.GitIgnorePattern;
+import tech.jhipster.lite.module.domain.git.GitIgnoreEntry;
 import tech.jhipster.lite.module.domain.git.GitIgnorePatterns;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
@@ -25,7 +25,7 @@ class FileSystemGitIgnoreHandler {
     gitIgnorePatterns.forEach(handleIgnorePattern(projectFolder));
   }
 
-  private static Consumer<GitIgnorePattern> handleIgnorePattern(JHipsterProjectFolder projectFolder) {
+  private static Consumer<GitIgnoreEntry> handleIgnorePattern(JHipsterProjectFolder projectFolder) {
     return gitIgnoreEntry -> {
       MandatoryReplacer replacer = new MandatoryReplacer(
         new RegexNeedleAfterReplacer((contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText), END_OF_FILE),

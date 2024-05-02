@@ -4,12 +4,12 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public record GitIgnorePatterns(Collection<GitIgnorePattern> patterns) {
+public record GitIgnorePatterns(Collection<GitIgnoreEntry> patterns) {
   public GitIgnorePatterns {
     Assert.field("patterns", patterns).notNull().noNullElement();
   }
 
-  public void forEach(Consumer<GitIgnorePattern> consumer) {
+  public void forEach(Consumer<GitIgnoreEntry> consumer) {
     Assert.notNull("consumer", consumer);
 
     patterns.forEach(consumer);

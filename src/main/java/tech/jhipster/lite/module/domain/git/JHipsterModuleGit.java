@@ -3,6 +3,8 @@ package tech.jhipster.lite.module.domain.git;
 import java.util.ArrayList;
 import java.util.Collection;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import tech.jhipster.lite.module.domain.git.GitIgnoreEntry.GitIgnoreComment;
+import tech.jhipster.lite.module.domain.git.GitIgnoreEntry.GitIgnorePattern;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModuleGit {
@@ -24,7 +26,7 @@ public final class JHipsterModuleGit {
   public static final class JHipsterModuleGitBuilder {
 
     private final JHipsterModuleBuilder parentModuleBuilder;
-    private final Collection<GitIgnorePattern> ignorePatterns = new ArrayList<>();
+    private final Collection<GitIgnoreEntry> ignorePatterns = new ArrayList<>();
 
     private JHipsterModuleGitBuilder(JHipsterModuleBuilder parentModuleBuilder) {
       Assert.notNull("module", parentModuleBuilder);
@@ -32,15 +34,26 @@ public final class JHipsterModuleGit {
       this.parentModuleBuilder = parentModuleBuilder;
     }
 
-    public JHipsterModuleGitBuilder ignore(GitIgnorePattern ignorePattern) {
+    public JHipsterModuleGitBuilder ignorePattern(GitIgnorePattern ignorePattern) {
       Assert.notNull("ignorePattern", ignorePattern);
       ignorePatterns.add(ignorePattern);
 
       return this;
     }
 
-    public JHipsterModuleGitBuilder ignore(String ignorePattern) {
-      return ignore(new GitIgnorePattern(ignorePattern));
+    public JHipsterModuleGitBuilder ignorePattern(String ignorePattern) {
+      return ignorePattern(new GitIgnorePattern(ignorePattern));
+    }
+
+    public JHipsterModuleGitBuilder ignoreComment(GitIgnoreComment ignoreComment) {
+      Assert.notNull("ignoreComment", ignoreComment);
+      ignorePatterns.add(ignoreComment);
+
+      return this;
+    }
+
+    public JHipsterModuleGitBuilder ignoreComment(String ignoreComment) {
+      return ignoreComment(new GitIgnoreComment(ignoreComment));
     }
 
     public JHipsterModuleBuilder and() {

@@ -185,8 +185,8 @@ public final class JHipsterModulesFixture {
      .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener2"))
      .and()
      .git()
-        .ignore("# Comment")
-        .ignore(".my-hidden-folder/*")
+        .ignoreComment("Comment")
+        .ignorePattern(".my-hidden-folder/*")
        .and()
     .build();
     // @formatter:on

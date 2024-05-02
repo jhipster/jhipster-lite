@@ -21,7 +21,7 @@ class FileSystemJHipsterModulesRepositoryTest {
 
   @Test
   void shouldApplyModuleToMavenProject() {
-    JHipsterModule module = fullModule();
+    JHipsterModule module = module();
 
     // @formatter:off
     assertThatModuleWithFiles(
@@ -392,7 +392,7 @@ class FileSystemJHipsterModulesRepositoryTest {
 
   @Test
   void shouldApplyModuleToGradleProject() {
-    JHipsterModule module = fullModule();
+    JHipsterModule module = module();
 
     // @formatter:off
     assertThatModuleWithFiles(
@@ -406,9 +406,14 @@ class FileSystemJHipsterModulesRepositoryTest {
         "src/main/java/com/company/myapp/MyApp.java",
         "src/main/java/com/company/myapp/errors/Assert.java",
         "src/main/java/com/company/myapp/errors/AssertionException.java",
-        "documentation/cucumber-integration.md",
-        ".gitignore"
+        "documentation/cucumber-integration.md"
       )
+      .hasFile(".gitignore")
+        .containing("""
+          # Comment
+          .my-hidden-folder/*\
+          """)
+        .and()
       .hasExecutableFiles(".husky/pre-commit")
       .hasFile("src/main/java/com/company/myapp/MyApp.java")
         .containing("com.test.myapp")
@@ -642,13 +647,13 @@ class FileSystemJHipsterModulesRepositoryTest {
   @Test
   void shouldApplyUpgrade() {
     assertThatModuleUpgrade(
-      fullModule(),
+      module(),
       upgrade(),
       file("src/test/resources/projects/maven/pom.xml", "pom.xml"),
       packageJsonFile(),
       file("src/test/resources/projects/files/dummy.txt", "dummy.txt")
     )
-      .doNotUpdate(".gitignore")
+      .doNotUpdate(".husky/pre-commit")
       .update("src/main/java/com/company/myapp/MyApp.java")
       .doNotHaveFiles("documentation/cucumber-integration.md")
       .hasFile("src/main/java/com/company/myapp/errors/Assert.java")

@@ -36,6 +36,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   private final FileSystemSpringCommentsCommandsHandler springComments;
   private final FileSystemSpringFactoriesCommandsHandler springFactories;
   private final FileSystemPackageJsonHandler packageJson;
+  private final FileSystemGitIgnoreHandler gitIgnore;
   private final FileSystemReplacer replacer;
   private final FileSystemStartupCommandsReadmeCommandsHandler startupCommands;
   private final JHipsterLandscape landscape;
@@ -59,6 +60,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     yamlSpringProperties = new FileSystemYamlSpringPropertiesCommandsHandler();
     yamlSpringComments = new FileSystemYamlSpringCommentsCommandsHandler();
     springFactories = new FileSystemSpringFactoriesCommandsHandler();
+    gitIgnore = new FileSystemGitIgnoreHandler();
     packageJson = new FileSystemPackageJsonHandler(npmVersions, templateRenderer);
     replacer = new FileSystemReplacer(templateRenderer);
     startupCommands = new FileSystemStartupCommandsReadmeCommandsHandler(templateRenderer);
@@ -92,6 +94,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     yamlSpringProperties.handle(changes.indentation(), changes.projectFolder(), changes.springYamlProperties());
     yamlSpringComments.handle(changes.indentation(), changes.projectFolder(), changes.springYamlComments());
     springFactories.handle(changes.projectFolder(), changes.springFactories());
+    gitIgnore.handle(changes.projectFolder(), changes.gitIgnorePatterns());
     packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson(), changes.context());
     replacer.handle(changes.projectFolder(), changes.replacers(), changes.context());
     startupCommands.handle(changes.projectFolder(), changes.startupCommands(), changes.context());

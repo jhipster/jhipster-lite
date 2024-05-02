@@ -16,8 +16,16 @@ import tech.jhipster.lite.module.domain.JHipsterModuleContext.JHipsterModuleCont
 import tech.jhipster.lite.module.domain.JHipsterModulePreActions.JHipsterModulePreActionsBuilder;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties.JHipsterModuleBuildPropertiesBuilder;
-import tech.jhipster.lite.module.domain.file.*;
+import tech.jhipster.lite.module.domain.file.JHipsterDestination;
+import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
+import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
+import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
+import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
+import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.git.GitIgnorePatterns;
+import tech.jhipster.lite.module.domain.git.JHipsterModuleGit;
+import tech.jhipster.lite.module.domain.git.JHipsterModuleGit.JHipsterModuleGitBuilder;
 import tech.jhipster.lite.module.domain.gradleconfiguration.JHipsterModuleGradleConfigurations;
 import tech.jhipster.lite.module.domain.gradleconfiguration.JHipsterModuleGradleConfigurations.JHipsterModuleGradleConfigurationBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
@@ -28,9 +36,13 @@ import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin.GradleCorePluginIdBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins;
 import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins.JHipsterModuleGradlePluginBuilder;
-import tech.jhipster.lite.module.domain.javabuild.*;
+import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
+import tech.jhipster.lite.module.domain.javabuild.GroupId;
+import tech.jhipster.lite.module.domain.javabuild.JHipsterModuleMavenBuildExtensions;
 import tech.jhipster.lite.module.domain.javabuild.JHipsterModuleMavenBuildExtensions.JHipsterModuleMavenBuildExtensionsBuilder;
+import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension.MavenBuildExtensionGroupIdBuilder;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -41,9 +53,22 @@ import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDepende
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies.JHipsterModuleJavaDependenciesBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyGroupIdBuilder;
-import tech.jhipster.lite.module.domain.javaproperties.*;
+import tech.jhipster.lite.module.domain.javaproperties.Comment;
+import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringFactories;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringFactories.JHipsterModuleSpringFactoriesBuilder;
+import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties.JHipsterModuleSpringPropertiesBuilder;
+import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
+import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.javaproperties.SpringComment;
+import tech.jhipster.lite.module.domain.javaproperties.SpringComments;
+import tech.jhipster.lite.module.domain.javaproperties.SpringFactories;
+import tech.jhipster.lite.module.domain.javaproperties.SpringFactory;
+import tech.jhipster.lite.module.domain.javaproperties.SpringFactoryType;
+import tech.jhipster.lite.module.domain.javaproperties.SpringProfile;
+import tech.jhipster.lite.module.domain.javaproperties.SpringProperties;
+import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
+import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins;
 import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins.JHipsterModuleMavenPluginsBuilder;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
@@ -59,9 +84,17 @@ import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.*;
+import tech.jhipster.lite.module.domain.replacement.FileStartReplacer;
+import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacementsFactory;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacementsFactory.JHipsterModuleMandatoryReplacementsFactoryBuilder;
+import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacementsFactory;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacementsFactory.JHipsterModuleOptionalReplacementsFactoryBuilder;
+import tech.jhipster.lite.module.domain.replacement.RegexNeedleAfterReplacer;
+import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
+import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
+import tech.jhipster.lite.module.domain.replacement.TextNeedleAfterReplacer;
+import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
+import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands.JHipsterModuleStartupCommandsBuilder;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
@@ -91,6 +124,7 @@ public final class JHipsterModule {
   private final SpringProperties springProperties;
   private final SpringComments springComments;
   private final SpringFactories springFactories;
+  private final GitIgnorePatterns gitIgnorePatterns;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
     properties = builder.properties;
@@ -113,6 +147,7 @@ public final class JHipsterModule {
     springProperties = buildSpringProperties(builder);
     springComments = buildSpringComments(builder);
     springFactories = buildSpringFactories(builder);
+    gitIgnorePatterns = builder.git.build().ignorePatterns();
   }
 
   private JHipsterModule(JHipsterModule source, JHipsterModuleUpgrade upgrade) {
@@ -137,6 +172,7 @@ public final class JHipsterModule {
     springProperties = source.springProperties;
     springComments = source.springComments;
     springFactories = source.springFactories;
+    gitIgnorePatterns = source.gitIgnorePatterns;
   }
 
   private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
@@ -461,6 +497,10 @@ public final class JHipsterModule {
     return springFactories;
   }
 
+  public GitIgnorePatterns gitIgnorePatterns() {
+    return gitIgnorePatterns;
+  }
+
   public static final class JHipsterModuleBuilder {
 
     private static final String PROFILE = "profile";
@@ -491,6 +531,7 @@ public final class JHipsterModule {
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
     private final Map<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> springProperties = new HashMap<>();
     private final Map<SpringFactoryType, JHipsterModuleSpringFactoriesBuilder> springFactories = new EnumMap<>(SpringFactoryType.class);
+    private final JHipsterModuleGitBuilder git = JHipsterModuleGit.builder(this);
 
     private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
       Assert.notNull("properties", properties);
@@ -652,6 +693,10 @@ public final class JHipsterModule {
 
     public JHipsterModuleSpringFactoriesBuilder springTestFactories() {
       return springFactories.computeIfAbsent(SpringFactoryType.TEST_FACTORIES, key -> JHipsterModuleSpringFactories.builder(this));
+    }
+
+    public JHipsterModuleGitBuilder git() {
+      return git;
     }
 
     String packagePath() {

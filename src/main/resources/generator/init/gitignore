@@ -141,11 +141,6 @@ infinitest.filters
 .jqwik-database
 
 ######################
-# Maven Wrapper
-######################
-!.mvn/wrapper/maven-wrapper.jar
-
-######################
 # ESLint
 ######################
 .eslintcache

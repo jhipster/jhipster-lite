@@ -97,6 +97,10 @@ public class MavenModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
+      .git()
+        .ignoreComment("Maven Wrapper")
+        .ignorePattern("!.mvn/wrapper/maven-wrapper.jar")
+        .and()
       .startupCommands()
         .maven("")
         .and()

@@ -14,4 +14,8 @@ public record GitIgnorePatterns(Collection<GitIgnoreEntry> patterns) {
 
     patterns.forEach(consumer);
   }
+
+  public boolean isNotEmpty() {
+    return !patterns.isEmpty();
+  }
 }

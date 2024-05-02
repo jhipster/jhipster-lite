@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.client.svelte.core.domain;
 
-import static tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory.clientModuleBuilder;
+import static tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.SVELTE;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
 
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -29,6 +29,10 @@ public class SvelteModuleFactory {
 
     //@formatter:off
     return clientModuleBuilder(properties)
+      .git()
+        .ignoreComment("Svelte")
+        .ignorePattern(".svelte-kit/")
+        .and()
       .packageJson()
         .addDependency(packageName("svelte-navigator"), SVELTE)
         .addDevDependency(packageName("@babel/preset-env"), SVELTE)

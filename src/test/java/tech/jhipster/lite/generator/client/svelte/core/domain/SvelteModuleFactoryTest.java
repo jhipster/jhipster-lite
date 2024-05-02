@@ -22,6 +22,12 @@ class SvelteModuleFactoryTest {
 
     // @formatter:off
     assertThatModuleWithFiles(module, packageJsonFile(), lintstagedFile())
+      .hasFile(".gitignore")
+        .containing("""
+          # Svelte
+          .svelte-kit/\
+          """)
+        .and()
       .hasFile("package.json")
         .containing(nodeDependency("svelte-navigator"))
         .containing(nodeDependency("@babel/preset-env"))

@@ -411,214 +411,214 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .hasExecutableFiles(".husky/pre-commit")
       .hasFile("src/main/java/com/company/myapp/MyApp.java")
-      .containing("com.test.myapp")
-      .and()
+        .containing("com.test.myapp")
+        .and()
       .hasFile("gradle/libs.versions.toml")
-      .containing("spring-boot = \"")
-      .containing("json-web-token = \"")
-      .containing("cassandraunit = \"")
-      .containing("git-properties = \"")
-      .and()
+        .containing("spring-boot = \"")
+        .containing("json-web-token = \"")
+        .containing("cassandraunit = \"")
+        .containing("git-properties = \"")
+        .and()
       .hasFile("build.gradle.kts")
-      .notContaining("implementation(libs.logstash.logback.encoder)")
-      .notContaining("implementation(libs.springdoc.openapi.ui)")
-      .containing("implementation(platform(libs.spring.boot.dependencies))")
-      .containing("implementation(libs.spring.boot.starter.web)")
-      .containing("testImplementation(libs.junit.jupiter.engine)")
-      .containing("implementation(libs.spring.boot.starter)")
-      .notContaining("testImplementation(libs.assertj.core)")
-      .containing(
-        """
-        import java.util.Properties
-        // jhipster-needle-gradle-imports
-        """
-      )
-      .containing("""
-        plugins {
-          java
-          jacoco
-          checkstyle
-          // jhipster-needle-gradle-plugins
-        }
-        """
-      )
-      .containing("""
-        checkstyle {
-          toolVersion = libs.versions.checkstyle.get()
-        }
-        """
-      )
-      .containing(
-        """
-        val profiles = (project.findProperty("profiles") as String? ?: "")
-          .split(",")
-          .map { it.trim() }
-          .filter { it.isNotEmpty() }
-        if (profiles.contains("local")) {
-          apply(plugin = "profile-local")
-        }
-        // jhipster-needle-profile-activation\
-        """
-      )
-      .containing(
-        """
-        val springProfilesActive by extra("local")
-        // jhipster-needle-gradle-properties
-        """
-      )
-      .containing(
-        """
-        tasks.build {
-          dependsOn("processResources")
-        }
+        .notContaining("implementation(libs.logstash.logback.encoder)")
+        .notContaining("implementation(libs.springdoc.openapi.ui)")
+        .containing("implementation(platform(libs.spring.boot.dependencies))")
+        .containing("implementation(libs.spring.boot.starter.web)")
+        .containing("testImplementation(libs.junit.jupiter.engine)")
+        .containing("implementation(libs.spring.boot.starter)")
+        .notContaining("testImplementation(libs.assertj.core)")
+        .containing(
+          """
+          import java.util.Properties
+          // jhipster-needle-gradle-imports
+          """
+        )
+        .containing("""
+          plugins {
+            java
+            jacoco
+            checkstyle
+            // jhipster-needle-gradle-plugins
+          }
+          """
+        )
+        .containing("""
+          checkstyle {
+            toolVersion = libs.versions.checkstyle.get()
+          }
+          """
+        )
+        .containing(
+          """
+          val profiles = (project.findProperty("profiles") as String? ?: "")
+            .split(",")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+          if (profiles.contains("local")) {
+            apply(plugin = "profile-local")
+          }
+          // jhipster-needle-profile-activation\
+          """
+        )
+        .containing(
+          """
+          val springProfilesActive by extra("local")
+          // jhipster-needle-gradle-properties
+          """
+        )
+        .containing(
+          """
+          tasks.build {
+            dependsOn("processResources")
+          }
 
-        tasks.processResources {
-          filesMatching("**/*.yml", "**/*.properties") {
-            filter {
-              it.replace("@spring.profiles.active@", springProfilesActive)
+          tasks.processResources {
+            filesMatching("**/*.yml", "**/*.properties") {
+              filter {
+                it.replace("@spring.profiles.active@", springProfilesActive)
+              }
             }
           }
-        }
 
-        // jhipster-needle-gradle-free-configuration-blocks
-        """
-      )
-      .and()
+          // jhipster-needle-gradle-free-configuration-blocks
+          """
+        )
+        .and()
       .hasFile("buildSrc/build.gradle.kts")
-      .containing(
-        """
-          implementation(libs.gradle.git.properties)
-          // jhipster-needle-gradle-implementation-dependencies\
-        """
-      )
-      .and()
+        .containing(
+          """
+            implementation(libs.gradle.git.properties)
+            // jhipster-needle-gradle-implementation-dependencies\
+          """
+        )
+        .and()
       .hasFile("buildSrc/src/main/kotlin/profile-local.gradle.kts")
-      .containing(
-        """
-        import java.util.Properties
-        // jhipster-needle-gradle-imports
-        """
-      )
-      .containing(
-        """
-        plugins {
-          java
-          checkstyle
-          id("com.gorylenko.gradle-git-properties")
-          // jhipster-needle-gradle-plugins
-        }
-        """
-      )
-      .containing(
-        """
-        checkstyle {
-          toolVersion = libs.versions.checkstyle.get()
-        }
-        """
-      )
-      .containing(
-        """
+        .containing(
+          """
+          import java.util.Properties
+          // jhipster-needle-gradle-imports
+          """
+        )
+        .containing(
+          """
+          plugins {
+            java
+            checkstyle
+            id("com.gorylenko.gradle-git-properties")
+            // jhipster-needle-gradle-plugins
+          }
+          """
+        )
+        .containing(
+          """
+          checkstyle {
+            toolVersion = libs.versions.checkstyle.get()
+          }
+          """
+        )
+        .containing(
+          """
 
-        gitProperties {
-          failOnNoGitDirectory = false
-          keys = listOf("git.branch", "git.commit.id.abbrev", "git.commit.id.describe", "git.build.version")
-        }
+          gitProperties {
+            failOnNoGitDirectory = false
+            keys = listOf("git.branch", "git.commit.id.abbrev", "git.commit.id.describe", "git.build.version")
+          }
 
-        // jhipster-needle-gradle-plugins-configurations
-        """
-      )
-      .containing(
-        """
-          testImplementation(libs.findLibrary("cassandra.unit").get())
-          // jhipster-needle-gradle-test-dependencies
-        """
-      )
-      .containing(
-        """
-        val springProfilesActive by extra("local")
-        // jhipster-needle-gradle-properties
-        """
-      )
-      .and()
+          // jhipster-needle-gradle-plugins-configurations
+          """
+        )
+        .containing(
+          """
+            testImplementation(libs.findLibrary("cassandra.unit").get())
+            // jhipster-needle-gradle-test-dependencies
+          """
+        )
+        .containing(
+          """
+          val springProfilesActive by extra("local")
+          // jhipster-needle-gradle-properties
+          """
+        )
+        .and()
       .hasFile("package.json")
-      .containing("  \"jestSonar\": {\n    \"reportPath\": \"build/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
-      .containing(
-        """
-          "scripts": {
-            "build": "ng build --output-path=build/classes/static",
-            "serve": "tikui-core serve"
-          },
-        """
-      )
-      .containing("\"dependencies\": {\n    \"@angular/animations\": \"")
-      .containing("\"devDependencies\": {\n    \"@playwright/test\": \"")
-      .and()
+        .containing("  \"jestSonar\": {\n    \"reportPath\": \"build/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
+        .containing(
+          """
+            "scripts": {
+              "build": "ng build --output-path=build/classes/static",
+              "serve": "tikui-core serve"
+            },
+          """
+        )
+        .containing("\"dependencies\": {\n    \"@angular/animations\": \"")
+        .containing("\"devDependencies\": {\n    \"@playwright/test\": \"")
+        .and()
       .hasFile("src/main/java/com/company/myapp/errors/Assert.java")
-      .containing("Dummy replacement")
-      .containing("Another dummy replacement")
-      .containing("Dummy collection replacement")
-      .containing("Another dummy collection replacement")
-      .containing("// Dummy comment\n  public static final class IntegerAsserter {")
-      .notContaining("""
-            import java.math.BigDecimal;
-            import java.math.BigDecimal;
-            """)
-      .notContaining("""
-            import java.util.Collection;
-            import java.util.Collection;
-            """)
-      .and()
+        .containing("Dummy replacement")
+        .containing("Another dummy replacement")
+        .containing("Dummy collection replacement")
+        .containing("Another dummy collection replacement")
+        .containing("// Dummy comment\n  public static final class IntegerAsserter {")
+        .notContaining("""
+              import java.math.BigDecimal;
+              import java.math.BigDecimal;
+              """)
+        .notContaining("""
+              import java.util.Collection;
+              import java.util.Collection;
+              """)
+        .and()
       .hasFile("src/main/resources/config/application.yml")
-      .containing("""
-        springdoc:
-          swagger-ui:
-            # This is a comment
-            operationsSorter: alpha
-        """)
-      .and()
+        .containing("""
+          springdoc:
+            swagger-ui:
+              # This is a comment
+              operationsSorter: alpha
+          """)
+        .and()
       .hasFile("src/main/resources/config/application-local.yml")
-      .containing("""
-        springdoc:
-          swagger-ui:
-            # This is a comment
-            tryItOutEnabled: 'false'
-        """)
-      .and()
+        .containing("""
+          springdoc:
+            swagger-ui:
+              # This is a comment
+              tryItOutEnabled: 'false'
+          """)
+        .and()
       .hasFile("src/test/resources/config/application-test.yml")
-      .containing("""
-        springdoc:
-          swagger-ui:
-            # This is a comment
-            operationsSorter: test
-        """)
-      .and()
+        .containing("""
+          springdoc:
+            swagger-ui:
+              # This is a comment
+              operationsSorter: test
+          """)
+        .and()
       .hasFile("src/test/resources/config/application-local.yml")
-      .containing("""
-        springdoc:
-          # Swagger properties
-          swagger-ui:
-            operationsSorter: test
-            tagsSorter: test
-            # This is a comment
-            tryItOutEnabled: test
-        """)
-      .and()
+        .containing("""
+          springdoc:
+            # Swagger properties
+            swagger-ui:
+              operationsSorter: test
+              tagsSorter: test
+              # This is a comment
+              tryItOutEnabled: test
+          """)
+        .and()
       .hasFile("src/test/resources/META-INF/spring.factories")
-      .containing("o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2")
-      .and()
+        .containing("o.s.c.ApplicationListener=c.m.m.MyListener1,c.m.m.MyListener2")
+        .and()
       .hasFile("README.md")
-      .containing(
-        """
-           - [Cucumber integration](documentation/cucumber-integration.md)
-           - [Another cucumber integration](documentation/another-cucumber-integration.md)
+        .containing(
+          """
+             - [Cucumber integration](documentation/cucumber-integration.md)
+             - [Another cucumber integration](documentation/another-cucumber-integration.md)
 
-           <!-- jhipster-needle-documentation -->
-           """
-      )
-      .containing("docker compose -f src/main/docker/sonar.yml up -d")
-      .containing("./gradlew clean build sonarqube --info")
-      .notContaining("./mvnw clean verify sonar:sonar")
-      .and()
+             <!-- jhipster-needle-documentation -->
+             """
+        )
+        .containing("docker compose -f src/main/docker/sonar.yml up -d")
+        .containing("./gradlew clean build sonarqube --info")
+        .notContaining("./mvnw clean verify sonar:sonar")
+        .and()
       .hasPrefixedFiles(".git", "config", "HEAD")
       .doNotHaveFiles("dummy.txt")
       .hasFiles("dummy.json");

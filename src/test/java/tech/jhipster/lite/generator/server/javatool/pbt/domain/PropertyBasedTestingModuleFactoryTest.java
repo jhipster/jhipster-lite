@@ -22,6 +22,14 @@ class PropertyBasedTestingModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFiles("documentation/property-based-testing.md")
+      .hasFile(".gitignore")
+      .containing(
+        """
+        # JQwik
+        .jqwik-database\
+        """
+      )
+      .and()
       .hasFile("pom.xml")
       .containing(
         """

@@ -138,7 +138,6 @@ infinitest.filters
 *~
 .merge_file*
 .attach_pid*
-.jqwik-database
 
 ######################
 # ESLint

@@ -99,6 +99,9 @@ public class ProtobufModuleFactory {
   public JHipsterModule buildProtobufBackwardsCompatibilityCheckModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
+      .files()
+        .add(MAIN_SOURCE.append("proto.lock"), to("src/main/proto/proto.lock"))
+        .and()
       .mavenPlugins()
         .pluginManagement(protoBackwardsCompatibilityMavenPluginManagement())
         .plugin(protoBackwardsCompatibilityMavenPluginBuilder().build())

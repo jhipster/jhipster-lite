@@ -174,7 +174,10 @@ class ProtobufModuleFactoryTest {
                   <artifactId>proto-backwards-compatibility</artifactId>
                 </plugin>
           """
-        );
+        )
+        .and()
+        .hasFile("src/main/proto/proto.lock")
+        .containing("{}");
     }
   }
 }

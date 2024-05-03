@@ -18,4 +18,9 @@ public record GitIgnorePatterns(Collection<GitIgnoreEntry> patterns) {
   public boolean isNotEmpty() {
     return !patterns.isEmpty();
   }
+
+  @Override
+  public String toString() {
+    return patterns.toString();
+  }
 }

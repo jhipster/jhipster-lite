@@ -21,14 +21,11 @@ public sealed interface GitIgnoreEntry permits GitIgnoreEntry.GitIgnorePattern, 
   }
 
   record GitIgnoreComment(String value) implements GitIgnoreEntry {
+    private static final String COMMENT_PREFIX = "#";
+
     public GitIgnoreComment(String value) {
       Assert.notBlank("value", value);
-
-      if (!value.startsWith("#")) {
-        this.value = "# " + value;
-        return;
-      }
-      this.value = value;
+      this.value = value.startsWith(COMMENT_PREFIX) ? value : COMMENT_PREFIX + " " + value;
     }
 
     public String get() {

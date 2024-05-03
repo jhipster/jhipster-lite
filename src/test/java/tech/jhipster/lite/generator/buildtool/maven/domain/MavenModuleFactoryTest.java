@@ -25,6 +25,14 @@ class MavenModuleFactoryTest {
     JHipsterModule module = factory.buildMavenModule(properties);
 
     assertThatModuleWithFiles(module, readmeFile())
+      .hasFile(".gitignore")
+      .containing(
+        """
+        # Maven
+        /target/\
+        """
+      )
+      .and()
       .hasFile("pom.xml")
       .containing("<groupId>com.jhipster.test</groupId>")
       .containing("<artifactId>my-app</artifactId>")

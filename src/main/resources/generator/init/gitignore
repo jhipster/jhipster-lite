@@ -126,12 +126,6 @@ infinitest.filters
 .eslintcache
 
 ######################
-# Angular
-######################
-.angular/
-dist/
-
-######################
 # OAuth 2.0
 ######################
 okta.sh

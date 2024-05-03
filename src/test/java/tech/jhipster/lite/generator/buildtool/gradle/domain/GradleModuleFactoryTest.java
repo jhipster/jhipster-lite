@@ -24,6 +24,14 @@ class GradleModuleFactoryTest {
     JHipsterModule module = factory.buildGradleModule(properties);
 
     assertThatModule(module)
+      .hasFile(".gitignore")
+      .containing(
+        """
+        # Gradle
+        /build/\
+        """
+      )
+      .and()
       .hasFile("build.gradle.kts")
       .containing("group = \"com.jhipster.test\"")
       .containing("testImplementation(libs.junit.engine)")

@@ -20,6 +20,6 @@ class InfinitestModuleFactoryTest {
 
     JHipsterModule module = factory.build(properties);
 
-    assertThatModule(module).hasFile("infinitest.filters");
+    assertThatModule(module).hasFile("infinitest.filters").and().hasFile(".gitignore").containing("infinitest.filters");
   }
 }

@@ -8,6 +8,15 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 public class InfinitestModuleFactory {
 
   public JHipsterModule build(JHipsterModuleProperties properties) {
-    return moduleBuilder(properties).files().add(from("infinitest/template-infinitest.filters"), to("infinitest.filters")).and().build();
+    //@formatter:off
+    return moduleBuilder(properties)
+      .git()
+        .ignorePattern("infinitest.filters")
+        .and()
+      .files()
+        .add(from("infinitest/template-infinitest.filters"), to("infinitest.filters"))
+        .and()
+      .build();
+    //@formatter:on
   }
 }

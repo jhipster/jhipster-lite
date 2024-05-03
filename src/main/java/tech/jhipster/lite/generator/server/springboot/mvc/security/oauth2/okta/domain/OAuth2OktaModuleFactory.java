@@ -1,11 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.okta.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
-import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -22,6 +17,7 @@ public class OAuth2OktaModuleFactory {
 
   private static final String OKTA_CLIENT_ID_PROPERTY = "oktaClientId";
   private static final String OKTA_DOMAIN_PROPERTY = "oktaDomain";
+  public static final String OKTA_SHELL_SCRIPT = "okta.sh";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -29,8 +25,12 @@ public class OAuth2OktaModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Okta"), SOURCE.template("documentation/okta.md"))
+      .git()
+        .ignoreComment("OAuth 2.0")
+        .ignorePattern(OKTA_SHELL_SCRIPT)
+        .and()
       .files()
-        .add(SOURCE.file("okta.sh"), to("okta.sh"))
+        .add(SOURCE.file(OKTA_SHELL_SCRIPT), to(OKTA_SHELL_SCRIPT))
         .add(SOURCE.file("documentation/images/security-add-claim.png"), to("documentation/images/security-add-claim.png"))
         .and()
       .springMainProperties(OKTA_SPRING_PROFILE)

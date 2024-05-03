@@ -1,11 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.auth0.domain;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.documentationTitle;
-import static tech.jhipster.lite.module.domain.JHipsterModule.from;
-import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
-import static tech.jhipster.lite.module.domain.JHipsterModule.propertyKey;
-import static tech.jhipster.lite.module.domain.JHipsterModule.propertyValue;
-import static tech.jhipster.lite.module.domain.JHipsterModule.to;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
@@ -22,6 +17,7 @@ public class OAuth2Auth0ModuleFactory {
 
   private static final String CLIENT_ID_PROPERTY = "auth0ClientId";
   private static final String AUTH0_DOMAIN_PROPERTY = "auth0Domain";
+  public static final String AUTH0_SHELL_SCRIPT = "auth0.sh";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -29,8 +25,12 @@ public class OAuth2Auth0ModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Auth0"), SOURCE.template("documentation/auth0.md.mustache"))
+      .git()
+        .ignoreComment("OAuth 2.0")
+        .ignorePattern(AUTH0_SHELL_SCRIPT)
+        .and()
       .files()
-        .add(SOURCE.file("auth0.sh"), to("auth0.sh"))
+        .add(SOURCE.file(AUTH0_SHELL_SCRIPT), to(AUTH0_SHELL_SCRIPT))
         .and()
       .springMainProperties(AUTH0_SPRING_PROFILE)
         .set(propertyKey("application.security.oauth2.audience"), audience(properties))

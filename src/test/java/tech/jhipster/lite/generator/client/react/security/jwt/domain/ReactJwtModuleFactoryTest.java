@@ -33,6 +33,17 @@ class ReactJwtModuleFactoryTest {
           justify-content:center;
           align-items: center;
         """
+      )
+      .and()
+      .hasFile("src/main/webapp/app/index.tsx")
+      .containing(
+        """
+          <React.StrictMode>
+            <NextUIProvider>
+              <App />
+            </NextUIProvider>
+          </React.StrictMode>,
+        """
       );
   }
 

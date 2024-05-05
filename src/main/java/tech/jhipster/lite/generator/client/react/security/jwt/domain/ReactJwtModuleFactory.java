@@ -12,6 +12,8 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class ReactJwtModuleFactory {
 
+  private static final String APP = "<App />";
+
   private static final JHipsterSource ROOT = from("client/react");
 
   private static final JHipsterSource SOURCE = from("client/react/src");
@@ -85,8 +87,9 @@ public class ReactJwtModuleFactory {
           .and()
         .in(path("src/main/webapp/app/index.tsx"))
           .add(lineBeforeText("import { createRoot } from 'react-dom/client';"), "import { NextUIProvider } from '@nextui-org/react';")
-          .add(lineBeforeText("<App />"), "<NextUIProvider>")
-          .add(lineBeforeText("</React.StrictMode>"), "</NextUIProvider>")
+          .add(lineBeforeText(APP), properties.indentation().times(2) + "<NextUIProvider>")
+          .add(lineBeforeText("</React.StrictMode>"), properties.indentation().times(2) + "</NextUIProvider>")
+          .add(text(APP), properties.indentation().times(1) + APP)
           .and()
         .in(path("src/main/webapp/app/index.css"))
           .add(lineBeforeText("body {"), "@tailwind base;" + LINE_BREAK + "@tailwind components;" + LINE_BREAK + "@tailwind utilities;" + LINE_BREAK)

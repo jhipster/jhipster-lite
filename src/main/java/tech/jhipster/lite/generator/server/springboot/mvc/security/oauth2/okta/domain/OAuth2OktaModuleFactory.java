@@ -25,9 +25,9 @@ public class OAuth2OktaModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Okta"), SOURCE.template("documentation/okta.md"))
-      .git()
-        .ignoreComment("OAuth 2.0")
-        .ignorePattern(OKTA_SHELL_SCRIPT)
+      .gitIgnore()
+        .comment("OAuth 2.0")
+        .pattern(OKTA_SHELL_SCRIPT)
         .and()
       .files()
         .add(SOURCE.file(OKTA_SHELL_SCRIPT), to(OKTA_SHELL_SCRIPT))

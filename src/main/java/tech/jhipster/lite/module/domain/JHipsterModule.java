@@ -23,9 +23,9 @@ import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.git.GitIgnorePatterns;
-import tech.jhipster.lite.module.domain.git.JHipsterModuleGit;
-import tech.jhipster.lite.module.domain.git.JHipsterModuleGit.JHipsterModuleGitBuilder;
+import tech.jhipster.lite.module.domain.gitignore.GitIgnore;
+import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
+import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore.JHipsterModuleGitIgnoreBuilder;
 import tech.jhipster.lite.module.domain.gradleconfiguration.JHipsterModuleGradleConfigurations;
 import tech.jhipster.lite.module.domain.gradleconfiguration.JHipsterModuleGradleConfigurations.JHipsterModuleGradleConfigurationBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
@@ -124,7 +124,7 @@ public final class JHipsterModule {
   private final SpringProperties springProperties;
   private final SpringComments springComments;
   private final SpringFactories springFactories;
-  private final GitIgnorePatterns gitIgnorePatterns;
+  private final GitIgnore gitIgnore;
 
   private JHipsterModule(JHipsterModuleBuilder builder) {
     properties = builder.properties;
@@ -147,7 +147,7 @@ public final class JHipsterModule {
     springProperties = buildSpringProperties(builder);
     springComments = buildSpringComments(builder);
     springFactories = buildSpringFactories(builder);
-    gitIgnorePatterns = builder.git.build().ignorePatterns();
+    gitIgnore = builder.gitIgnore.build().ignorePatterns();
   }
 
   private JHipsterModule(JHipsterModule source, JHipsterModuleUpgrade upgrade) {
@@ -172,7 +172,7 @@ public final class JHipsterModule {
     springProperties = source.springProperties;
     springComments = source.springComments;
     springFactories = source.springFactories;
-    gitIgnorePatterns = source.gitIgnorePatterns;
+    gitIgnore = source.gitIgnore;
   }
 
   private SpringProperties buildSpringProperties(JHipsterModuleBuilder builder) {
@@ -497,8 +497,8 @@ public final class JHipsterModule {
     return springFactories;
   }
 
-  public GitIgnorePatterns gitIgnorePatterns() {
-    return gitIgnorePatterns;
+  public GitIgnore gitIgnorePatterns() {
+    return gitIgnore;
   }
 
   public static final class JHipsterModuleBuilder {
@@ -531,7 +531,7 @@ public final class JHipsterModule {
     private final JHipsterModulePostActionsBuilder postActions = JHipsterModulePostActions.builder(this);
     private final Map<PropertiesKey, JHipsterModuleSpringPropertiesBuilder> springProperties = new HashMap<>();
     private final Map<SpringFactoryType, JHipsterModuleSpringFactoriesBuilder> springFactories = new EnumMap<>(SpringFactoryType.class);
-    private final JHipsterModuleGitBuilder git = JHipsterModuleGit.builder(this);
+    private final JHipsterModuleGitIgnoreBuilder gitIgnore = JHipsterModuleGitIgnore.builder(this);
 
     private JHipsterModuleBuilder(JHipsterModuleProperties properties) {
       Assert.notNull("properties", properties);
@@ -695,8 +695,11 @@ public final class JHipsterModule {
       return springFactories.computeIfAbsent(SpringFactoryType.TEST_FACTORIES, key -> JHipsterModuleSpringFactories.builder(this));
     }
 
-    public JHipsterModuleGitBuilder git() {
-      return git;
+    /**
+     * Add new entries to the {@code .gitignore} file.
+     */
+    public JHipsterModuleGitIgnoreBuilder gitIgnore() {
+      return gitIgnore;
     }
 
     String packagePath() {

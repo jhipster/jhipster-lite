@@ -13,9 +13,9 @@ public class PropertyBasedTestingModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .git()
-        .ignoreComment("JQwik")
-        .ignorePattern(".jqwik-database")
+      .gitIgnore()
+        .comment("JQwik")
+        .pattern(".jqwik-database")
         .and()
       .documentation(documentationTitle("Property Based Testing"), from("server/javatool/pbt/property-based-testing.md"))
       .javaDependencies()

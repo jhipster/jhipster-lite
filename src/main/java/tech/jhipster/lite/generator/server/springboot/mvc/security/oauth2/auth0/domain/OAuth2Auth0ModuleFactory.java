@@ -25,9 +25,9 @@ public class OAuth2Auth0ModuleFactory {
     //@formatter:off
     return moduleBuilder(properties)
       .documentation(documentationTitle("Auth0"), SOURCE.template("documentation/auth0.md.mustache"))
-      .git()
-        .ignoreComment("OAuth 2.0")
-        .ignorePattern(AUTH0_SHELL_SCRIPT)
+      .gitIgnore()
+        .comment("OAuth 2.0")
+        .pattern(AUTH0_SHELL_SCRIPT)
         .and()
       .files()
         .add(SOURCE.file(AUTH0_SHELL_SCRIPT), to(AUTH0_SHELL_SCRIPT))

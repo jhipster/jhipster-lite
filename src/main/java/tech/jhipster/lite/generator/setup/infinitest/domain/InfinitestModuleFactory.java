@@ -10,8 +10,8 @@ public class InfinitestModuleFactory {
   public JHipsterModule build(JHipsterModuleProperties properties) {
     //@formatter:off
     return moduleBuilder(properties)
-      .git()
-        .ignorePattern("infinitest.filters")
+      .gitIgnore()
+        .pattern("infinitest.filters")
         .and()
       .files()
         .add(from("infinitest/template-infinitest.filters"), to("infinitest.filters"))

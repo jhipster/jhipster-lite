@@ -22,10 +22,10 @@ public class AngularModuleFactory {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     //@formatter:off
     return ClientsModulesFactory.clientModuleBuilder(properties)
-      .git()
-        .ignoreComment("Angular")
-        .ignorePattern(".angular/")
-        .ignorePattern(".nx/")
+      .gitIgnore()
+        .comment("Angular")
+        .pattern(".angular/")
+        .pattern(".nx/")
         .and()
       .packageJson()
         .addDependency(packageName("@angular/animations"), ANGULAR, ANGULAR_CORE_PACKAGE)

@@ -1,8 +1,8 @@
-package tech.jhipster.lite.module.domain.git;
+package tech.jhipster.lite.module.domain.gitignore;
 
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public sealed interface GitIgnoreEntry permits GitIgnoreEntry.GitIgnorePattern, GitIgnoreEntry.GitIgnoreComment {
+public sealed interface GitIgnoreEntry {
   String get();
 
   record GitIgnorePattern(String value) implements GitIgnoreEntry {

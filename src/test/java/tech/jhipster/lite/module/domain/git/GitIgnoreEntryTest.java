@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.git.GitIgnoreEntry.GitIgnoreComment;
+import tech.jhipster.lite.module.domain.gitignore.GitIgnoreEntry.GitIgnoreComment;
 
 @UnitTest
 class GitIgnoreEntryTest {

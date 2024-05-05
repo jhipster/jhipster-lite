@@ -3,7 +3,7 @@ package tech.jhipster.lite.module.domain;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
-import tech.jhipster.lite.module.domain.git.GitIgnorePatterns;
+import tech.jhipster.lite.module.domain.gitignore.GitIgnore;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javaproperties.SpringComments;
 import tech.jhipster.lite.module.domain.javaproperties.SpringFactories;
@@ -36,7 +36,7 @@ public final class JHipsterModuleChanges {
   private final SpringProperties springYamlProperties;
   private final SpringComments springYamlComments;
   private final SpringFactories springFactories;
-  private final GitIgnorePatterns gitIgnorePatterns;
+  private final GitIgnore gitIgnore;
 
   private JHipsterModuleChanges(JHipsterModuleChangesBuilder builder) {
     assertMandatoryFields(builder);
@@ -58,7 +58,7 @@ public final class JHipsterModuleChanges {
     springYamlProperties = builder.springYamlProperties;
     springYamlComments = builder.springYamlComments;
     springFactories = builder.springFactories;
-    gitIgnorePatterns = builder.gitIgnorePatterns;
+    gitIgnore = builder.gitIgnore;
   }
 
   private void assertMandatoryFields(JHipsterModuleChangesBuilder builder) {
@@ -119,8 +119,8 @@ public final class JHipsterModuleChanges {
     return packageJson;
   }
 
-  public GitIgnorePatterns gitIgnorePatterns() {
-    return gitIgnorePatterns;
+  public GitIgnore gitIgnore() {
+    return gitIgnore;
   }
 
   public JHipsterModulePreActions preActions() {
@@ -189,7 +189,7 @@ public final class JHipsterModuleChanges {
     private SpringProperties springYamlProperties = SpringProperties.EMPTY;
     private SpringComments springYamlComments = SpringComments.EMPTY;
     private SpringFactories springFactories;
-    private GitIgnorePatterns gitIgnorePatterns;
+    private GitIgnore gitIgnore;
 
     @Override
     public JHipsterModuleChangesProjectFolderBuilder context(JHipsterModuleContext context) {
@@ -262,8 +262,8 @@ public final class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesPreActionsBuilder gitIgnorePatterns(GitIgnorePatterns gitIgnorePatterns) {
-      this.gitIgnorePatterns = gitIgnorePatterns;
+    public JHipsterModuleChangesPreActionsBuilder gitIgnorePatterns(GitIgnore gitIgnore) {
+      this.gitIgnore = gitIgnore;
 
       return this;
     }
@@ -359,7 +359,7 @@ public final class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesGitIgnorePatternsBuilder {
-    JHipsterModuleChangesPreActionsBuilder gitIgnorePatterns(GitIgnorePatterns gitIgnorePatterns);
+    JHipsterModuleChangesPreActionsBuilder gitIgnorePatterns(GitIgnore gitIgnore);
   }
 
   public interface JHipsterModuleChangesPreActionsBuilder {

@@ -29,9 +29,9 @@ public class SvelteModuleFactory {
 
     //@formatter:off
     return clientModuleBuilder(properties)
-      .git()
-        .ignoreComment("Svelte")
-        .ignorePattern(".svelte-kit/")
+      .gitIgnore()
+        .comment("Svelte")
+        .pattern(".svelte-kit/")
         .and()
       .packageJson()
         .addDependency(packageName("svelte-navigator"), SVELTE)

@@ -181,13 +181,13 @@ public final class JHipsterModulesFixture {
       .set(propertyKey("springdoc.swagger-ui.tryItOutEnabled"), propertyValue("test"))
       .and()
     .springTestFactories()
-     .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"))
-     .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener2"))
-     .and()
-     .git()
-        .ignoreComment("Comment")
-        .ignorePattern(".my-hidden-folder/*")
-       .and()
+      .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"))
+      .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener2"))
+      .and()
+    .gitIgnore()
+      .comment("Comment")
+      .pattern(".my-hidden-folder/*")
+      .and()
     .build();
     // @formatter:on
   }

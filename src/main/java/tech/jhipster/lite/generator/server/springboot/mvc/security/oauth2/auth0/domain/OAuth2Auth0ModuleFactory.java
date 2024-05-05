@@ -17,7 +17,7 @@ public class OAuth2Auth0ModuleFactory {
 
   private static final String CLIENT_ID_PROPERTY = "auth0ClientId";
   private static final String AUTH0_DOMAIN_PROPERTY = "auth0Domain";
-  public static final String AUTH0_SHELL_SCRIPT = "auth0.sh";
+  private static final String AUTH0_SHELL_SCRIPT = "auth0.sh";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

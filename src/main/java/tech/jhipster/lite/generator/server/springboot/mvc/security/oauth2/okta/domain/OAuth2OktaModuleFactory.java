@@ -17,7 +17,7 @@ public class OAuth2OktaModuleFactory {
 
   private static final String OKTA_CLIENT_ID_PROPERTY = "oktaClientId";
   private static final String OKTA_DOMAIN_PROPERTY = "oktaDomain";
-  public static final String OKTA_SHELL_SCRIPT = "okta.sh";
+  private static final String OKTA_SHELL_SCRIPT = "okta.sh";
 
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);

@@ -2,12 +2,12 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 
 import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestFileUtils.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
-import tech.jhipster.lite.module.domain.gitignore.GitIgnore;
-import tech.jhipster.lite.module.domain.gitignore.GitIgnoreEntry.GitIgnorePattern;
+import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
@@ -19,7 +19,7 @@ class FileSystemGitIgnoreHandlerTest {
   void shouldNotCreateGitIgnoreFileIfPatternsAreEmpty() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
 
-    handler.handle(projectFolder, new GitIgnore(List.of()));
+    handler.handle(projectFolder, JHipsterModuleGitIgnore.builder(moduleBuilder(allProperties())).build());
 
     assertThat(projectFolder.filePath(".gitignore")).doesNotExist();
   }
@@ -28,7 +28,7 @@ class FileSystemGitIgnoreHandlerTest {
   void shouldAutomaticallyCreateMissingGitIgnoreFileIfPatternsIsNotEmpty() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
 
-    handler.handle(projectFolder, new GitIgnore(List.of(new GitIgnorePattern("target/"))));
+    handler.handle(projectFolder, JHipsterModuleGitIgnore.builder(moduleBuilder(allProperties())).pattern("target/").build());
 
     assertThat(projectFolder.filePath(".gitignore")).exists().content().contains("target/");
   }
@@ -36,9 +36,9 @@ class FileSystemGitIgnoreHandlerTest {
   @Test
   void shouldNotAddAgainAnExistingEntry() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
-    handler.handle(projectFolder, new GitIgnore(List.of(new GitIgnorePattern("target/"))));
+    handler.handle(projectFolder, JHipsterModuleGitIgnore.builder(moduleBuilder(allProperties())).pattern("target/").build());
 
-    handler.handle(projectFolder, new GitIgnore(List.of(new GitIgnorePattern("target/"))));
+    handler.handle(projectFolder, JHipsterModuleGitIgnore.builder(moduleBuilder(allProperties())).pattern("target/").build());
 
     assertThat(projectFolder.filePath(".gitignore")).content().containsOnlyOnce("target/");
   }

@@ -6,8 +6,8 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
-import tech.jhipster.lite.module.domain.gitignore.GitIgnore;
 import tech.jhipster.lite.module.domain.gitignore.GitIgnoreEntry;
+import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
 import tech.jhipster.lite.module.domain.replacement.MandatoryFileReplacer;
@@ -23,7 +23,7 @@ class FileSystemGitIgnoreHandler {
   private static final String GIT_IGNORE_FILE_PATH = ".gitignore";
   private static final FileSystemReplacer fileReplacer = new FileSystemReplacer();
 
-  public void handle(JHipsterProjectFolder projectFolder, GitIgnore gitIgnore) {
+  public void handle(JHipsterProjectFolder projectFolder, JHipsterModuleGitIgnore gitIgnore) {
     Assert.notNull("projectFolder", projectFolder);
     Assert.notNull("gitIgnore", gitIgnore);
 

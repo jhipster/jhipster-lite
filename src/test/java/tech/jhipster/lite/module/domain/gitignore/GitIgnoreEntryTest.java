@@ -1,4 +1,4 @@
-package tech.jhipster.lite.module.domain.git;
+package tech.jhipster.lite.module.domain.gitignore;
 
 import static org.assertj.core.api.Assertions.*;
 

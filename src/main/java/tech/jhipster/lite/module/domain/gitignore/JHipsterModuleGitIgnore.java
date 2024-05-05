@@ -2,6 +2,7 @@ package tech.jhipster.lite.module.domain.gitignore;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Consumer;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.gitignore.GitIgnoreEntry.GitIgnoreComment;
 import tech.jhipster.lite.module.domain.gitignore.GitIgnoreEntry.GitIgnorePattern;
@@ -9,14 +10,26 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModuleGitIgnore {
 
-  private final GitIgnore ignorePatterns;
+  private final Collection<GitIgnoreEntry> entries;
 
-  private JHipsterModuleGitIgnore(JHipsterModuleGitIgnoreBuilder builder) {
-    this.ignorePatterns = new GitIgnore(builder.ignorePatterns);
+  private JHipsterModuleGitIgnore(Collection<GitIgnoreEntry> entries) {
+    Assert.field("entries", entries).notNull().noNullElement();
+    this.entries = entries;
   }
 
-  public GitIgnore ignorePatterns() {
-    return ignorePatterns;
+  public void forEach(Consumer<GitIgnoreEntry> consumer) {
+    Assert.notNull("consumer", consumer);
+
+    entries.forEach(consumer);
+  }
+
+  public boolean isNotEmpty() {
+    return !entries.isEmpty();
+  }
+
+  @Override
+  public String toString() {
+    return entries.toString();
   }
 
   public static JHipsterModuleGitIgnoreBuilder builder(JHipsterModuleBuilder parentModuleBuilder) {
@@ -26,7 +39,7 @@ public final class JHipsterModuleGitIgnore {
   public static final class JHipsterModuleGitIgnoreBuilder {
 
     private final JHipsterModuleBuilder parentModuleBuilder;
-    private final Collection<GitIgnoreEntry> ignorePatterns = new ArrayList<>();
+    private final Collection<GitIgnoreEntry> entries = new ArrayList<>();
 
     private JHipsterModuleGitIgnoreBuilder(JHipsterModuleBuilder parentModuleBuilder) {
       Assert.notNull("module", parentModuleBuilder);
@@ -39,7 +52,7 @@ public final class JHipsterModuleGitIgnore {
      */
     public JHipsterModuleGitIgnoreBuilder pattern(GitIgnorePattern pattern) {
       Assert.notNull("pattern", pattern);
-      ignorePatterns.add(pattern);
+      entries.add(pattern);
 
       return this;
     }
@@ -56,7 +69,7 @@ public final class JHipsterModuleGitIgnore {
      */
     public JHipsterModuleGitIgnoreBuilder comment(GitIgnoreComment comment) {
       Assert.notNull("comment", comment);
-      ignorePatterns.add(comment);
+      entries.add(comment);
 
       return this;
     }
@@ -73,7 +86,7 @@ public final class JHipsterModuleGitIgnore {
     }
 
     public JHipsterModuleGitIgnore build() {
-      return new JHipsterModuleGitIgnore(this);
+      return new JHipsterModuleGitIgnore(entries);
     }
   }
 }

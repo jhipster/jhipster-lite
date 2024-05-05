@@ -89,7 +89,7 @@ public class JHipsterModulesApplyer {
           .merge(buildGradleConfigurationsChanges(module))
       )
       .packageJson(module.packageJson())
-      .gitIgnorePatterns(module.gitIgnorePatterns())
+      .gitIgnore(module.gitIgnore())
       .preActions(module.preActions())
       .postActions(module.postActions())
       .springFactories(module.springFactories());

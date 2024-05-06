@@ -73,7 +73,6 @@ class ReactJwtModuleFactoryTest {
       .containing(nodeDependency("autoprefixer"))
       .containing(nodeDependency("postcss"))
       .containing(nodeDependency("tailwindcss"))
-      .containing(nodeDependency("framer-motion"))
       .containing(nodeDependency("react-hook-form"))
       .containing(nodeDependency("axios"))
       .containing(nodeDependency("@nextui-org/react"))

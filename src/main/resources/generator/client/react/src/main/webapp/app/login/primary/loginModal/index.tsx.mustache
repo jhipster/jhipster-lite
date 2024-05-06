@@ -37,7 +37,9 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
     <Modal backdrop='blur' isOpen={open} onClose={handleClose} aria-labelledby="modal-login">
       <ModalContent>
         <ModalHeader>
-          <span>Connect</span><span> JHipster Lite</span>
+          <span>Connect</span>
+          <Spacer x={1} />
+          <span>JHipster Lite</span>
         </ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit(onSubmit)}>

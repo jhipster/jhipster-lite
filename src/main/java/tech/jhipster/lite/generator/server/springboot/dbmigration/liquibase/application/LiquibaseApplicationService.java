@@ -17,4 +17,8 @@ public class LiquibaseApplicationService {
   public JHipsterModule buildModule(JHipsterModuleProperties properties) {
     return factory.buildModule(properties);
   }
+
+  public JHipsterModule buildAsyncModule(JHipsterModuleProperties properties) {
+    return factory.buildAsyncModule(properties);
+  }
 }

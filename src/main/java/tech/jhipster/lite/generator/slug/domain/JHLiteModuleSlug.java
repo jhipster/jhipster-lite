@@ -63,6 +63,7 @@ public enum JHLiteModuleSlug implements JHipsterModuleSlugFactory {
   LICENSE_APACHE("license-apache"),
   LICENSE_MIT("license-mit"),
   LIQUIBASE("liquibase"),
+  LIQUIBASE_ASYNC("liquibase-async"),
   LOGSTASH("logstash"),
   LOGS_SPY("logs-spy"),
   MARIADB("mariadb"),

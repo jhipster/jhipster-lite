@@ -21,13 +21,8 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
-import tech.jhipster.lite.module.domain.javadependency.DependencyId;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersions;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.*;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
@@ -145,6 +140,7 @@ public final class JHipsterModulesFixture {
         .and()
       .and()
     .packageJson()
+      .addScript(scriptKey("build"), scriptCommand("ng build --output-path={{projectBuildDirectory}}/classes/static"))
       .addScript(scriptKey("serve"), scriptCommand("tikui-core serve"))
       .addDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))
       .addDevDependency(packageName("@playwright/test"), VersionSource.COMMON)

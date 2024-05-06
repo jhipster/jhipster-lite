@@ -2,7 +2,9 @@ package tech.jhipster.lite.module.domain.packagejson;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModulePackageJson {
@@ -13,6 +15,7 @@ public final class JHipsterModulePackageJson {
   private final PackageJsonDependencies devDependencies;
   private final PackageJsonDependencies devDependenciesToRemove;
   private final PackageJsonType type;
+  private Optional<JHipsterModuleContext> context;
 
   private JHipsterModulePackageJson(JHipsterModulePackageJsonBuilder builder) {
     scripts = new Scripts(builder.scripts);
@@ -21,6 +24,7 @@ public final class JHipsterModulePackageJson {
     devDependencies = new PackageJsonDependencies(builder.devDependencies);
     devDependenciesToRemove = new PackageJsonDependencies(builder.devDependenciesToRemove);
     type = new PackageJsonType(builder.type);
+    context = Optional.empty();
   }
 
   public static JHipsterModulePackageJsonBuilder builder(JHipsterModuleBuilder module) {
@@ -59,6 +63,16 @@ public final class JHipsterModulePackageJson {
 
   public PackageJsonType type() {
     return type;
+  }
+
+  public Optional<JHipsterModuleContext> context() {
+    return context;
+  }
+
+  public JHipsterModulePackageJson withContext(JHipsterModuleContext context) {
+    this.context = Optional.ofNullable(context);
+
+    return this;
   }
 
   public static final class JHipsterModulePackageJsonBuilder {

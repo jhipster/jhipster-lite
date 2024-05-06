@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,19 +8,16 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
-import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependencies;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependency;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonType;
-import tech.jhipster.lite.module.domain.packagejson.PackageName;
-import tech.jhipster.lite.module.domain.packagejson.Scripts;
+import tech.jhipster.lite.module.domain.packagejson.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -60,7 +57,9 @@ class FileSystemPackageJsonHandler {
     content = removeDependencies(indentation, packageJson.dependenciesToRemove(), content);
     content = removeDevDependencies(indentation, packageJson.devDependenciesToRemove(), content);
 
+    content = replacePlaceholders(packageJson.context(), content);
     content = cleanupLineBreaks(indentation, content);
+
     write(file, content);
   }
 
@@ -72,6 +71,28 @@ class FileSystemPackageJsonHandler {
     }
 
     return file;
+  }
+
+  private String replacePlaceholders(Optional<JHipsterModuleContext> optionalContext, String content) {
+    final StringBuilder result = new StringBuilder(content);
+    optionalContext.ifPresent(context ->
+      context
+        .get()
+        .forEach((key, value) -> {
+          String placeholderPattern = "\\{\\{" + key + "}}";
+          Pattern pattern = Pattern.compile(placeholderPattern);
+          Matcher matcher = pattern.matcher(result);
+
+          StringBuilder sb = new StringBuilder();
+          while (matcher.find()) {
+            matcher.appendReplacement(sb, Matcher.quoteReplacement(value.toString()));
+          }
+          matcher.appendTail(sb);
+
+          result.setLength(0);
+          result.append(sb);
+        }));
+    return result.toString();
   }
 
   private String cleanupLineBreaks(Indentation indentation, String content) {

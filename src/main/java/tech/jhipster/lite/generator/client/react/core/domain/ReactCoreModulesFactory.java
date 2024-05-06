@@ -37,7 +37,6 @@ public class ReactCoreModulesFactory {
         .addDevDependency(packageName("@types/node"), REACT)
         .addDevDependency(packageName("@types/react"), REACT)
         .addDevDependency(packageName("@types/react-dom"), REACT)
-        .addDevDependency(packageName("@types/ws"), REACT)
         .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), REACT)
         .addDevDependency(packageName("@vitejs/plugin-react"), REACT)
         .addDevDependency(packageName("@vitest/coverage-istanbul"), REACT)

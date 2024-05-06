@@ -47,7 +47,6 @@ public class ReactJwtModuleFactory {
         .addType("module")
         .addDependency(packageName("react-hook-form"), REACT)
         .addDependency(packageName("axios"), REACT)
-        .addDependency(packageName("framer-motion"), REACT)
         .addDependency(packageName("@nextui-org/react"), REACT)
         .addDevDependency(packageName("autoprefixer"), REACT)
         .addDevDependency(packageName("sass"), REACT)

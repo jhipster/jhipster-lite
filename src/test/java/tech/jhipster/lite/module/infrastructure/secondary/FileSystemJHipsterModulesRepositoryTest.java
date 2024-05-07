@@ -304,7 +304,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       .and()
       .hasFile("package.json")
       .containing(
-"""
+        """
           "scripts": {
             "build": "ng build --output-path=target/classes/static",
             "serve": "tikui-core serve"
@@ -530,11 +530,11 @@ class FileSystemJHipsterModulesRepositoryTest {
       .hasFile("package.json")
       .containing(
         """
-                  "scripts": {
-                    "build": "ng build --output-path=build/classes/static",
-                    "serve": "tikui-core serve"
-                  },
-                """
+          "scripts": {
+            "build": "ng build --output-path=build/classes/static",
+            "serve": "tikui-core serve"
+          },
+        """
       )
       .containing("\"dependencies\": {\n    \"@angular/animations\": \"")
       .containing("\"devDependencies\": {\n    \"@playwright/test\": \"")

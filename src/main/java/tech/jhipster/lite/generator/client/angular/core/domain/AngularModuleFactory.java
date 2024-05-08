@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.ANGULAR;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -60,7 +60,8 @@ public class AngularModuleFactory {
         .addScript(scriptKey("start"), scriptCommand("ng serve"))
         .addScript(scriptKey("build"), scriptCommand("ng build --output-path=target/classes/static"))
         .addScript(scriptKey("watch"), scriptCommand("ng build --watch --configuration development"))
-        .addScript(scriptKey("test"), scriptCommand("ng test --coverage"))
+        .addScript(scriptKey("test"), scriptCommand("ng test --watch"))
+        .addScript(scriptKey("test:coverage"), scriptCommand("ng test --coverage"))
         .addScript(scriptKey("lint"), scriptCommand("ng lint"))
         .and()
       .files()

@@ -166,7 +166,7 @@ class FrontendMavenModuleFactoryTest {
                       <goal>npm</goal>
                     </goals>
                     <configuration>
-                      <arguments>run test</arguments>
+                      <arguments>run test:coverage</arguments>
                       <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
                     </configuration>
                   </execution>

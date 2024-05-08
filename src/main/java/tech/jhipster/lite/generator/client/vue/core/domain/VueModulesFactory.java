@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.VUE;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -68,8 +68,8 @@ public class VueModulesFactory {
         .addScript(scriptKey("lint"), scriptCommand("eslint --ext .js,.ts,.vue src"))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
-        .addScript(scriptKey("test"), scriptCommand("vitest run --coverage"))
-        .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))
+        .addScript(scriptKey("test"), scriptCommand("vitest --"))
+        .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
         .and()
       .files()
         .add(SOURCE.file(".eslintrc.js"), to(".eslintrc.js"))

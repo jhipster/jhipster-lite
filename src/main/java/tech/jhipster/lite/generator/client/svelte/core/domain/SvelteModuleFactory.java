@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.client.svelte.core.domain;
 
-import static tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory.clientModuleBuilder;
+import static tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.SVELTE;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
 
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -65,7 +65,8 @@ public class SvelteModuleFactory {
           scriptCommand("prettier --ignore-path .gitignore --check && eslint --ignore-path .gitignore .")
         )
         .addScript(scriptKey("format"), scriptCommand("prettier --ignore-path .gitignore --write"))
-        .addScript(scriptKey("test"), scriptCommand("vitest run --coverage"))
+        .addScript(scriptKey("test"), scriptCommand("vitest --"))
+        .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
         .and()
       .optionalReplacements()
         .in(path("package.json"))

@@ -244,7 +244,7 @@ class FileSystemPackageJsonHandler {
         .append(QUOTE)
         .toString();
 
-      return result.replaceFirst("(\\s{1,10})\\}(\\s{1,10})$", jsonBloc + "$1}$2");
+      return result.replaceFirst("(\\s{1,10})}(\\s{1,10})$", jsonBloc + "$1}$2");
     }
 
     private String appendNewBlock(String result) {
@@ -262,7 +262,7 @@ class FileSystemPackageJsonHandler {
         .append("}")
         .toString();
 
-      return result.replaceFirst("(\\s{1,10})\\}(\\s{1,10})$", jsonBloc + "$1}$2");
+      return result.replaceFirst("(\\s{1,10})}(\\s{1,10})$", jsonBloc + "$1}$2");
     }
 
     private Matcher buildBlocMatcher(String result) {

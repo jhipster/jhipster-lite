@@ -59,7 +59,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     yamlSpringProperties = new FileSystemYamlSpringPropertiesCommandsHandler();
     yamlSpringComments = new FileSystemYamlSpringCommentsCommandsHandler();
     springFactories = new FileSystemSpringFactoriesCommandsHandler();
-    packageJson = new FileSystemPackageJsonHandler(npmVersions);
+    packageJson = new FileSystemPackageJsonHandler(npmVersions, templateRenderer);
     replacer = new FileSystemReplacer();
     startupCommands = new FileSystemStartupCommandsReadmeCommandsHandler();
   }

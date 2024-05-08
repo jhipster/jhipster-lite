@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
+import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.packagejson.*;
@@ -31,11 +32,13 @@ class FileSystemPackageJsonHandler {
   private static final String LINE_SEPARATOR = LINE_END + LINE_BREAK;
 
   private final NpmVersions npmVersions;
+  private final TemplateRenderer templateRenderer;
 
-  public FileSystemPackageJsonHandler(NpmVersions npmVersions) {
+  public FileSystemPackageJsonHandler(NpmVersions npmVersions, TemplateRenderer templateRenderer) {
     Assert.notNull("npmVersions", npmVersions);
 
     this.npmVersions = npmVersions;
+    this.templateRenderer = templateRenderer;
   }
 
   public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, JHipsterModulePackageJson packageJson) {
@@ -74,25 +77,7 @@ class FileSystemPackageJsonHandler {
   }
 
   private String replacePlaceholders(Optional<JHipsterModuleContext> optionalContext, String content) {
-    final StringBuilder result = new StringBuilder(content);
-    optionalContext.ifPresent(context ->
-      context
-        .get()
-        .forEach((key, value) -> {
-          String placeholderPattern = "\\{\\{" + key + "}}";
-          Pattern pattern = Pattern.compile(placeholderPattern);
-          Matcher matcher = pattern.matcher(result);
-
-          StringBuilder sb = new StringBuilder();
-          while (matcher.find()) {
-            matcher.appendReplacement(sb, Matcher.quoteReplacement(value.toString()));
-          }
-          matcher.appendTail(sb);
-
-          result.setLength(0);
-          result.append(sb);
-        }));
-    return result.toString();
+    return optionalContext.map(context -> templateRenderer.render(content, context)).orElse(content);
   }
 
   private String cleanupLineBreaks(Indentation indentation, String content) {

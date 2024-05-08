@@ -22,11 +22,7 @@ import tech.jhipster.lite.module.domain.packagejson.PackageJsonChanges;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacer;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
-import tech.jhipster.lite.module.domain.startupcommand.DockerComposeStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.GradleStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
-import tech.jhipster.lite.module.domain.startupcommand.MavenStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.*;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 @SuppressWarnings("java:S6539")
@@ -137,15 +133,11 @@ public class JHipsterModulesApplyer {
   }
 
   private JHipsterStartupCommands buildStartupCommands(JHipsterModule module) {
-    if (detectedJavaBuildTool(module).isEmpty()) {
+    Optional<JavaBuildTool> javaBuildTool = detectedJavaBuildTool(module);
+    if (javaBuildTool.isEmpty()) {
       return module.startupCommands();
     }
-    var filteredCommands = module
-      .startupCommands()
-      .get()
-      .stream()
-      .filter(isStartupCommandCompatibleWith(detectedJavaBuildTool(module).get()))
-      .toList();
+    var filteredCommands = module.startupCommands().get().stream().filter(isStartupCommandCompatibleWith(javaBuildTool.get())).toList();
     return new JHipsterStartupCommands(filteredCommands);
   }
 

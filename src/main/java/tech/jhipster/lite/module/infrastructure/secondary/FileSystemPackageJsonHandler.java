@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +17,12 @@ import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
-import tech.jhipster.lite.module.domain.packagejson.*;
+import tech.jhipster.lite.module.domain.packagejson.PackageJsonChanges;
+import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependencies;
+import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependency;
+import tech.jhipster.lite.module.domain.packagejson.PackageJsonType;
+import tech.jhipster.lite.module.domain.packagejson.PackageName;
+import tech.jhipster.lite.module.domain.packagejson.Scripts;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -36,12 +40,13 @@ class FileSystemPackageJsonHandler {
 
   public FileSystemPackageJsonHandler(NpmVersions npmVersions, TemplateRenderer templateRenderer) {
     Assert.notNull("npmVersions", npmVersions);
+    Assert.notNull("templateRenderer", templateRenderer);
 
     this.npmVersions = npmVersions;
     this.templateRenderer = templateRenderer;
   }
 
-  public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, JHipsterModulePackageJson packageJson) {
+  public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, PackageJsonChanges packageJson) {
     Assert.notNull("indentation", indentation);
     Assert.notNull("projectFolder", projectFolder);
     Assert.notNull("packageJson", packageJson);
@@ -76,8 +81,8 @@ class FileSystemPackageJsonHandler {
     return file;
   }
 
-  private String replacePlaceholders(Optional<JHipsterModuleContext> optionalContext, String content) {
-    return optionalContext.map(context -> templateRenderer.render(content, context)).orElse(content);
+  private String replacePlaceholders(JHipsterModuleContext context, String content) {
+    return templateRenderer.render(content, context);
   }
 
   private String cleanupLineBreaks(Indentation indentation, String content) {

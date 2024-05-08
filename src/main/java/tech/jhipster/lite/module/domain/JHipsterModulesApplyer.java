@@ -65,19 +65,16 @@ public class JHipsterModulesApplyer {
     Assert.notNull("moduleToApply", moduleToApply);
 
     JHipsterModule module = modules.resources().build(moduleToApply.slug(), moduleToApply.properties());
-    Optional<JavaBuildTool> detectedJavaBuildTool = javaBuildTools
-      .detect(module.projectFolder())
-      .or(() -> javaBuildTools.detect(module.files()));
     //@formatter:off
     var builder = JHipsterModuleChanges
       .builder()
       .projectFolder(module.projectFolder())
       .indentation(module.indentation())
-      .filesToAdd(buildTemplatedFiles(module, detectedJavaBuildTool))
+      .filesToAdd(buildTemplatedFiles(module))
       .filesToMove(module.filesToMove())
       .filesToDelete(module.filesToDelete())
       .replacers(buildReplacers(module))
-      .startupCommands(buildStartupCommands(module.startupCommands(), detectedJavaBuildTool))
+      .startupCommands(buildStartupCommands(module))
       .javaBuildCommands(
         buildDependenciesChanges(module)
           .merge(buildPluginsChanges(module))
@@ -87,7 +84,7 @@ public class JHipsterModulesApplyer {
           .merge(buildGradlePluginsChanges(module))
           .merge(buildGradleConfigurationsChanges(module))
       )
-      .packageJson(buildPackageJson(module, detectedJavaBuildTool))
+      .packageJson(buildPackageJson(module))
       .preActions(module.preActions())
       .postActions(module.postActions())
       .springFactories(module.springFactories());
@@ -110,16 +107,20 @@ public class JHipsterModulesApplyer {
     return moduleApplied;
   }
 
-  private JHipsterModulePackageJson buildPackageJson(JHipsterModule module, Optional<JavaBuildTool> detectedJavaBuildTool) {
-    JHipsterModuleContext context = detectedJavaBuildTool
+  private Optional<JavaBuildTool> detectedJavaBuildTool(JHipsterModule module) {
+    return javaBuildTools.detect(module.projectFolder()).or(() -> javaBuildTools.detect(module.files()));
+  }
+
+  private JHipsterModulePackageJson buildPackageJson(JHipsterModule module) {
+    JHipsterModuleContext context = detectedJavaBuildTool(module)
       .map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool))
       .orElse(module.context());
 
     return module.packageJson().withContext(context);
   }
 
-  private static JHipsterTemplatedFiles buildTemplatedFiles(JHipsterModule module, Optional<JavaBuildTool> detectedJavaBuildTool) {
-    JHipsterModuleContext context = detectedJavaBuildTool
+  private JHipsterTemplatedFiles buildTemplatedFiles(JHipsterModule module) {
+    JHipsterModuleContext context = detectedJavaBuildTool(module)
       .map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool))
       .orElse(module.context());
     List<JHipsterTemplatedFile> templatedFiles = module
@@ -131,17 +132,15 @@ public class JHipsterModulesApplyer {
     return new JHipsterTemplatedFiles(templatedFiles);
   }
 
-  private static JHipsterStartupCommands buildStartupCommands(
-    JHipsterStartupCommands jHipsterStartupCommands,
-    Optional<JavaBuildTool> detectedJavaBuildTool
-  ) {
-    if (detectedJavaBuildTool.isEmpty()) {
-      return jHipsterStartupCommands;
+  private JHipsterStartupCommands buildStartupCommands(JHipsterModule module) {
+    if (detectedJavaBuildTool(module).isEmpty()) {
+      return module.startupCommands();
     }
-    var filteredCommands = jHipsterStartupCommands
+    var filteredCommands = module
+      .startupCommands()
       .get()
       .stream()
-      .filter(isStartupCommandCompatibleWith(detectedJavaBuildTool.get()))
+      .filter(isStartupCommandCompatibleWith(detectedJavaBuildTool(module).get()))
       .toList();
     return new JHipsterStartupCommands(filteredCommands);
   }

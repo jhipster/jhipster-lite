@@ -44,26 +44,28 @@ public class SonarQubeModulesFactory {
   private JHipsterModuleBuilder commonModuleFiles(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
+    //@formatter:off
     return moduleBuilder(properties)
       .context()
-      .put("sonarqubeDockerImage", dockerImages.get(SONARQUBE).fullName())
-      .and()
+        .put("sonarqubeDockerImage", dockerImages.get(SONARQUBE).fullName())
+        .and()
       .documentation(documentationTitle("sonar"), SOURCE.template("sonar.md"))
       .startupCommands()
-      .dockerCompose("src/main/docker/sonar.yml")
-      .maven("clean verify sonar:sonar")
-      .gradle("clean build sonar --info")
-      .and()
+        .dockerCompose("src/main/docker/sonar.yml")
+        .maven("clean verify sonar:sonar")
+        .gradle("clean build sonar --info")
+        .and()
       .mavenPlugins()
-      .plugin(propertiesPlugin())
-      .pluginManagement(sonarPlugin())
-      .and()
+        .plugin(propertiesPlugin())
+        .pluginManagement(sonarPlugin())
+        .and()
       .gradlePlugins()
-      .plugin(gradleSonarPlugin())
-      .and()
+        .plugin(gradleSonarPlugin())
+        .and()
       .files()
-      .add(SOURCE.template("sonar.yml"), toSrcMainDocker().append("sonar.yml"))
-      .and();
+        .add(SOURCE.template("sonar.yml"), toSrcMainDocker().append("sonar.yml"))
+        .and();
+    //@formatter:on
   }
 
   private MavenPlugin propertiesPlugin() {

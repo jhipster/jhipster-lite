@@ -7,22 +7,19 @@ import java.util.Collection;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public final class JHipsterModulePackageJson implements PackageJsonData {
+public final class JHipsterModulePackageJson {
 
-  private final Scripts scripts;
-  private final PackageJsonDependencies dependencies;
-  private final PackageJsonDependencies dependenciesToRemove;
-  private final PackageJsonDependencies devDependencies;
-  private final PackageJsonDependencies devDependenciesToRemove;
-  private final PackageJsonType type;
+  private final PackageJsonData data;
 
   private JHipsterModulePackageJson(JHipsterModulePackageJsonBuilder builder) {
-    scripts = new Scripts(builder.scripts);
-    dependencies = new PackageJsonDependencies(builder.dependencies);
-    dependenciesToRemove = new PackageJsonDependencies(builder.dependenciesToRemove);
-    devDependencies = new PackageJsonDependencies(builder.devDependencies);
-    devDependenciesToRemove = new PackageJsonDependencies(builder.devDependenciesToRemove);
-    type = new PackageJsonType(builder.type);
+    this.data = new PackageJsonData(
+      new Scripts(builder.scripts),
+      new PackageJsonDependencies(builder.dependencies),
+      new PackageJsonDependencies(builder.dependenciesToRemove),
+      new PackageJsonDependencies(builder.devDependencies),
+      new PackageJsonDependencies(builder.devDependenciesToRemove),
+      new PackageJsonType(builder.type)
+    );
   }
 
   public static JHipsterModulePackageJsonBuilder builder(JHipsterModuleBuilder module) {
@@ -33,34 +30,8 @@ public final class JHipsterModulePackageJson implements PackageJsonData {
     return new PackageJsonChanges(this, context);
   }
 
-  @Override
-  public Scripts scripts() {
-    return scripts;
-  }
-
-  @Override
-  public PackageJsonDependencies dependencies() {
-    return dependencies;
-  }
-
-  @Override
-  public PackageJsonDependencies devDependencies() {
-    return devDependencies;
-  }
-
-  @Override
-  public PackageJsonDependencies dependenciesToRemove() {
-    return dependenciesToRemove;
-  }
-
-  @Override
-  public PackageJsonDependencies devDependenciesToRemove() {
-    return devDependenciesToRemove;
-  }
-
-  @Override
-  public PackageJsonType type() {
-    return type;
+  public PackageJsonData getData() {
+    return data;
   }
 
   public static final class JHipsterModulePackageJsonBuilder {

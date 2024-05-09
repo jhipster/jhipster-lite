@@ -68,6 +68,7 @@ public class JHipsterModulesApplyer {
     //@formatter:off
     var builder = JHipsterModuleChanges
       .builder()
+      .context(contextWithJavaBuildTool(module))
       .projectFolder(module.projectFolder())
       .indentation(module.indentation())
       .filesToAdd(buildTemplatedFiles(module))
@@ -107,22 +108,22 @@ public class JHipsterModulesApplyer {
     return moduleApplied;
   }
 
+  private JHipsterModuleContext contextWithJavaBuildTool(JHipsterModule module) {
+    return detectedJavaBuildTool(module).map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool)).orElse(module.context());
+  }
+
   private Optional<JavaBuildTool> detectedJavaBuildTool(JHipsterModule module) {
     return javaBuildTools.detect(module.projectFolder()).or(() -> javaBuildTools.detect(module.files()));
   }
 
   private PackageJsonChanges buildPackageJsonChanges(JHipsterModule module) {
-    JHipsterModuleContext context = detectedJavaBuildTool(module)
-      .map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool))
-      .orElse(module.context());
+    JHipsterModuleContext context = contextWithJavaBuildTool(module);
 
     return module.packageJson().buildChanges(context);
   }
 
   private JHipsterTemplatedFiles buildTemplatedFiles(JHipsterModule module) {
-    JHipsterModuleContext context = detectedJavaBuildTool(module)
-      .map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool))
-      .orElse(module.context());
+    JHipsterModuleContext context = contextWithJavaBuildTool(module);
     List<JHipsterTemplatedFile> templatedFiles = module
       .filesToAdd()
       .stream()
@@ -151,9 +152,7 @@ public class JHipsterModulesApplyer {
   }
 
   private ContentReplacers buildReplacers(JHipsterModule module) {
-    JHipsterModuleContext context = detectedJavaBuildTool(module)
-      .map(javaBuildTool -> module.context().withJavaBuildTool(javaBuildTool))
-      .orElse(module.context());
+    JHipsterModuleContext context = contextWithJavaBuildTool(module);
 
     List<ContentReplacer> replacers = Stream.concat(
       module.mandatoryReplacements().replacers(),

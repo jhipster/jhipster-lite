@@ -14,9 +14,7 @@ public class KafkaTestContainerExtension implements BeforeAllCallback {
   @Override
   public void beforeAll(final ExtensionContext context) {
     if (!kafkaContainerStarted.get()) {
-      // {{kafkaDockerImage}} docker image could be used when supported by Testcontainers
-      // See https://github.com/testcontainers/testcontainers-java/issues/8398
-      kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.1.1")).withKraft();
+      kafkaContainer = new KafkaContainer(DockerImageName.parse("{{kafkaDockerImage}}")).withNetwork(null);
       kafkaContainer.start();
       kafkaContainerStarted.set(true);
       System.setProperty("kafka.bootstrap.servers", kafkaContainer.getBootstrapServers());

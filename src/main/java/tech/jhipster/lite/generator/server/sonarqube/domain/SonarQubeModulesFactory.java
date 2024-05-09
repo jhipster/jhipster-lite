@@ -56,7 +56,8 @@ public class SonarQubeModulesFactory {
         .gradle("clean build sonar --info")
         .and()
       .mavenPlugins()
-        .plugin(propertiesPlugin())
+        .pluginManagement(propertiesPlugin())
+        .plugin(propertiesPluginBuilder().build())
         .pluginManagement(sonarPlugin())
         .and()
       .gradlePlugins()
@@ -69,13 +70,12 @@ public class SonarQubeModulesFactory {
   }
 
   private MavenPlugin propertiesPlugin() {
-    return MavenPlugin.builder()
-      .groupId("org.codehaus.mojo")
-      .artifactId("properties-maven-plugin")
+    return propertiesPluginBuilder()
       .versionSlug("properties-maven-plugin")
       .addExecution(
         pluginExecution()
           .goals("read-project-properties")
+          .id("default-cli")
           .phase(INITIALIZE)
           .configuration(
             """
@@ -86,6 +86,10 @@ public class SonarQubeModulesFactory {
           )
       )
       .build();
+  }
+
+  private static MavenPlugin.MavenPluginOptionalBuilder propertiesPluginBuilder() {
+    return MavenPlugin.builder().groupId("org.codehaus.mojo").artifactId("properties-maven-plugin");
   }
 
   private MavenPlugin sonarPlugin() {

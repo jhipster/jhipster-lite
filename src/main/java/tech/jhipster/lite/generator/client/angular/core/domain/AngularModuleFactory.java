@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.ANGULAR;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -58,7 +58,7 @@ public class AngularModuleFactory {
         .addDevDependency(packageName("typescript"), ANGULAR)
         .addScript(scriptKey("ng"), scriptCommand("ng"))
         .addScript(scriptKey("start"), scriptCommand("ng serve"))
-        .addScript(scriptKey("build"), scriptCommand("ng build --output-path=target/classes/static"))
+        .addScript(scriptKey("build"), scriptCommand("ng build --output-path={{projectBuildDirectory}}/classes/static"))
         .addScript(scriptKey("watch"), scriptCommand("ng build --watch --configuration development"))
         .addScript(scriptKey("test"), scriptCommand("ng test --coverage"))
         .addScript(scriptKey("lint"), scriptCommand("ng lint"))
@@ -113,7 +113,7 @@ public class AngularModuleFactory {
       .append("\"jestSonar\": {")
       .append(LINE_BREAK)
       .append(indentation.times(2))
-      .append("\"reportPath\": \"target/test-results\",")
+      .append("\"reportPath\": \"{{projectBuildDirectory}}/test-results\",")
       .append(LINE_BREAK)
       .append(indentation.times(2))
       .append("\"reportFile\": \"TESTS-results-sonar.xml\"")

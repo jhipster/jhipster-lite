@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.thymeleaf.template.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
 
 import java.util.regex.Pattern;
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
@@ -98,21 +98,21 @@ public class ThymeleafTemplateModuleFactory {
         .addDevDependency(packageName("postcss-cli"), COMMON)
         .addDevDependency(packageName("recursive-copy-cli"), COMMON)
         .addScript(scriptKey("build"), scriptCommand("npm-run-all --parallel build:*"))
-        .addScript(scriptKey("build:html"), scriptCommand("recursive-copy 'src/main/resources/templates' target/classes/templates -w"))
-        .addScript(scriptKey("build:css"), scriptCommand("mkdirp target/classes/static/css && postcss src/main/resources/static/css/*.css -d target/classes/static/css"))
-        .addScript(scriptKey("build:js"), scriptCommand("path-exists src/main/resources/static/js && (mkdirp target/classes/static/js && babel src/main/resources/static/js/ --out-dir target/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"))
-        .addScript(scriptKey("build:svg"), scriptCommand("path-exists src/main/resources/static/svg && recursive-copy 'src/main/resources/static/svg' target/classes/static/svg -w -f '**/*.svg' || echo 'No src/main/resources/static/svg directory found.'"))
+        .addScript(scriptKey("build:html"), scriptCommand("recursive-copy 'src/main/resources/templates' {{projectBuildDirectory}}/classes/templates -w"))
+        .addScript(scriptKey("build:css"), scriptCommand("mkdirp {{projectBuildDirectory}}/classes/static/css && postcss src/main/resources/static/css/*.css -d {{projectBuildDirectory}}/classes/static/css"))
+        .addScript(scriptKey("build:js"), scriptCommand("path-exists src/main/resources/static/js && (mkdirp {{projectBuildDirectory}}/classes/static/js && babel src/main/resources/static/js/ --out-dir {{projectBuildDirectory}}/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"))
+        .addScript(scriptKey("build:svg"), scriptCommand("path-exists src/main/resources/static/svg && recursive-copy 'src/main/resources/static/svg' {{projectBuildDirectory}}/classes/static/svg -w -f '**/*.svg' || echo 'No src/main/resources/static/svg directory found.'"))
         .addScript(scriptKey("build-prod"), scriptCommand("NODE_ENV='production' npm-run-all --parallel build-prod:*"))
         .addScript(scriptKey("build-prod:html"), scriptCommand("npm run build:html"))
         .addScript(scriptKey("build-prod:css"), scriptCommand("npm run build:css"))
-        .addScript(scriptKey("build-prod:js"), scriptCommand("path-exists src/main/resources/static/js && (mkdirp target/classes/static/js && babel src/main/resources/static/js/ --minified --out-dir target/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"))
+        .addScript(scriptKey("build-prod:js"), scriptCommand("path-exists src/main/resources/static/js && (mkdirp {{projectBuildDirectory}}/classes/static/js && babel src/main/resources/static/js/ --minified --out-dir {{projectBuildDirectory}}/classes/static/js/) || echo 'No src/main/resources/static/js directory found.'"))
         .addScript(scriptKey("build-prod:svg"), scriptCommand("npm run build:svg"))
         .addScript(scriptKey("watch"), scriptCommand("npm-run-all --parallel watch:*"))
         .addScript(scriptKey("watch:html"), scriptCommand("onchange 'src/main/resources/templates/**/*.html' -- npm run build:html"))
         .addScript(scriptKey("watch:css"), scriptCommand("onchange 'src/main/resources/static/css/**/*.css' -- npm run build:css"))
         .addScript(scriptKey("watch:js"), scriptCommand("onchange 'src/main/resources/static/js/**/*.js' -- npm run build:js"))
         .addScript(scriptKey("watch:svg"), scriptCommand("onchange 'src/main/resources/static/svg/**/*.svg' -- npm run build:svg"))
-        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(properties.serverPort().get())))
+        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --proxy localhost:%s --files '{{projectBuildDirectory}}/classes/templates' '{{projectBuildDirectory}}/classes/static'".formatted(properties.serverPort().get())))
         .and()
       .files()
         .add(RESOURCES_SOURCE.append(TEMPLATES).template("index.html"), toSrcMainResources().append(TEMPLATES).append("index.html"))
@@ -132,7 +132,7 @@ public class ThymeleafTemplateModuleFactory {
       .packageJson()
         .addDevDependency(packageName("tailwindcss"), COMMON)
         .addScript(scriptKey("watch:html"), scriptCommand("onchange 'src/main/resources/templates/**/*.html' -- npm-run-all --serial build:css build:html"))
-        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --no-inject-changes --proxy localhost:%s --files 'target/classes/templates' 'target/classes/static'".formatted(properties.serverPort().get())))
+        .addScript(scriptKey("watch:serve"), scriptCommand("browser-sync start --no-inject-changes --proxy localhost:%s --files '{{projectBuildDirectory}}/classes/templates' '{{projectBuildDirectory}}/classes/static'".formatted(properties.serverPort().get())))
         .and()
       .mandatoryReplacements()
         .in(path(POSTCSS_CONFIG_JS))

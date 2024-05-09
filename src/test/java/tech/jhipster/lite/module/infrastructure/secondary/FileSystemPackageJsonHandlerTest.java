@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.npm.NpmPackageVersion;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
@@ -467,10 +466,6 @@ class FileSystemPackageJsonHandlerTest {
 
   private JHipsterModulePackageJsonBuilder emptyBuilder() {
     return JHipsterModulePackageJson.builder(emptyModuleBuilder());
-  }
-
-  private JHipsterModuleContext emptyModuleContext() {
-    return JHipsterModuleContext.builder(emptyModuleBuilder()).build();
   }
 
   private static JHipsterProjectFolder projectWithPackageJson(String packageJson) {

@@ -17,7 +17,6 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
@@ -1458,9 +1457,5 @@ class GradleCommandHandlerTest {
   private static void assertFileExists(JHipsterProjectFolder projectFolder, String other, String description) {
     Path profileGradlePath = Paths.get(projectFolder.get()).resolve(other);
     assertThat(Files.exists(profileGradlePath)).as(description, profileGradlePath.toString()).isTrue();
-  }
-
-  private JHipsterModuleContext emptyModuleContext() {
-    return JHipsterModuleContext.builder(emptyModuleBuilder()).build();
   }
 }

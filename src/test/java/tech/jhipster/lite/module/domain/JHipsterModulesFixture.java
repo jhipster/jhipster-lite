@@ -293,6 +293,10 @@ public final class JHipsterModulesFixture {
     return moduleBuilder(testModuleProperties());
   }
 
+  public static JHipsterModuleContext emptyModuleContext() {
+    return JHipsterModuleContext.builder(emptyModuleBuilder()).build();
+  }
+
   public static JHipsterModuleProperties testModuleProperties() {
     return new JHipsterModuleProperties(TestFileUtils.tmpDirForTest(), true, null);
   }

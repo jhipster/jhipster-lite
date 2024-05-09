@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
@@ -73,9 +72,5 @@ class FileSystemJavaBuildCommandsHandlerTest {
       new JavaBuildCommands(List.of(new SetVersion(springBootVersion())))
     );
     assertThat(content(projectFolder.filePath("gradle/libs.versions.toml"))).contains("spring-boot = \"1.2.3\"");
-  }
-
-  private JHipsterModuleContext emptyModuleContext() {
-    return JHipsterModuleContext.builder(emptyModuleBuilder()).build();
   }
 }

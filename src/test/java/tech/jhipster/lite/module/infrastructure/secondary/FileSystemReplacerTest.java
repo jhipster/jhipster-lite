@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import tech.jhipster.lite.*;
 import tech.jhipster.lite.module.domain.GeneratedProjectRepository;
-import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -69,9 +68,5 @@ class FileSystemReplacerTest {
     ).doesNotThrowAnyException();
 
     logs.shouldHave(Level.DEBUG, "Can't apply optional replacement");
-  }
-
-  private JHipsterModuleContext emptyModuleContext() {
-    return JHipsterModuleContext.builder(emptyModuleBuilder()).build();
   }
 }

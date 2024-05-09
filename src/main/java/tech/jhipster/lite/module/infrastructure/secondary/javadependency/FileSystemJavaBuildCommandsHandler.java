@@ -2,24 +2,12 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradleConfiguration;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
-import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.GradleCommandHandler;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.MavenCommandHandler;
@@ -43,27 +31,37 @@ public class FileSystemJavaBuildCommandsHandler {
     this.templateRenderer = templateRenderer;
   }
 
-  public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, JavaBuildCommands commands) {
+  public void handle(
+    Indentation indentation,
+    JHipsterProjectFolder projectFolder,
+    JHipsterModuleContext context,
+    JavaBuildCommands commands
+  ) {
     Assert.notNull("indentation", indentation);
     Assert.notNull("projectFolder", projectFolder);
+    Assert.notNull("context", context);
     Assert.notNull("commands", commands);
 
     if (commands.isEmpty()) {
       return;
     }
 
-    JavaDependenciesCommandHandler handler = buildCommandHandler(indentation, projectFolder);
+    JavaDependenciesCommandHandler handler = buildCommandHandler(indentation, projectFolder, context);
 
     commands.get().forEach(command -> handle(handler, command));
   }
 
-  private JavaDependenciesCommandHandler buildCommandHandler(Indentation indentation, JHipsterProjectFolder projectFolder) {
+  private JavaDependenciesCommandHandler buildCommandHandler(
+    Indentation indentation,
+    JHipsterProjectFolder projectFolder,
+    JHipsterModuleContext context
+  ) {
     JavaBuildTool javaBuildTool = javaBuildTools
       .detect(projectFolder)
       .orElseThrow(() -> new MissingJavaBuildConfigurationException(projectFolder));
     return switch (javaBuildTool) {
       case MAVEN -> new MavenCommandHandler(indentation, projectFolder.filePath("pom.xml"));
-      case GRADLE -> new GradleCommandHandler(indentation, projectFolder, filesReader, templateRenderer);
+      case GRADLE -> new GradleCommandHandler(indentation, projectFolder, context, filesReader, templateRenderer);
     };
   }
 

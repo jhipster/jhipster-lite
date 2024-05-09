@@ -86,7 +86,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     files.create(changes.projectFolder(), changes.filesToAdd());
     files.move(changes.projectFolder(), changes.filesToMove());
     files.delete(changes.projectFolder(), changes.filesToDelete());
-    javaBuild.handle(changes.indentation(), changes.projectFolder(), changes.javaBuildCommands());
+    javaBuild.handle(changes.indentation(), changes.projectFolder(), changes.context(), changes.javaBuildCommands());
     springProperties.handle(changes.projectFolder(), changes.springProperties());
     springComments.handle(changes.projectFolder(), changes.springComments());
     yamlSpringProperties.handle(changes.indentation(), changes.projectFolder(), changes.springYamlProperties());

@@ -152,14 +152,12 @@ public class JHipsterModulesApplyer {
   }
 
   private ContentReplacers buildReplacers(JHipsterModule module) {
-    JHipsterModuleContext context = contextWithJavaBuildTool(module);
-
     List<ContentReplacer> replacers = Stream.concat(
       module.mandatoryReplacements().replacers(),
       module.optionalReplacements().buildReplacers(module.projectFolder(), generatedProject)
     ).toList();
 
-    return new ContentReplacers(context, replacers);
+    return new ContentReplacers(replacers);
   }
 
   private void commitIfNeeded(JHipsterModuleToApply moduleToApply) {

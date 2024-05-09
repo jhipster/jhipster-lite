@@ -54,6 +54,6 @@ class FileSystemStartupCommandsReadmeCommandsHandler {
   private void addCommandToReadme(JHipsterProjectFolder projectFolder, JHipsterStartupCommand command, JHipsterModuleContext context) {
     String replacedTemplate = BASH_TEMPLATE.replace("{{command}}", command.commandLine().get());
     OptionalReplacer replacer = new OptionalReplacer(JHIPSTER_STARTUP_COMMAND_SECTION_NEEDLE, replacedTemplate);
-    fileReplacer.handle(projectFolder, ContentReplacers.of(context, new OptionalFileReplacer(README, replacer)));
+    fileReplacer.handle(projectFolder, ContentReplacers.of(new OptionalFileReplacer(README, replacer)), context);
   }
 }

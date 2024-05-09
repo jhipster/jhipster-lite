@@ -34,7 +34,6 @@ class FileSystemReplacerTest {
         replacer.handle(
           new JHipsterProjectFolder(path),
           new ContentReplacers(
-            emptyModuleContext(),
             JHipsterModuleMandatoryReplacementsFactory.builder(emptyModuleBuilder())
               .in(new JHipsterProjectFilePath("unknown"))
               .add(new TextReplacer(always(), "old"), "new")
@@ -42,7 +41,8 @@ class FileSystemReplacerTest {
               .build()
               .replacers()
               .toList()
-          )
+          ),
+          emptyModuleContext()
         )
     ).isExactlyInstanceOf(MandatoryReplacementException.class);
   }
@@ -56,7 +56,6 @@ class FileSystemReplacerTest {
         replacer.handle(
           new JHipsterProjectFolder(path),
           new ContentReplacers(
-            emptyModuleContext(),
             JHipsterModuleOptionalReplacementsFactory.builder(emptyModuleBuilder())
               .in(new JHipsterProjectFilePath("unknown"))
               .add(new TextReplacer(always(), "old"), "new")
@@ -64,7 +63,8 @@ class FileSystemReplacerTest {
               .build()
               .buildReplacers(new JHipsterProjectFolder("dummy"), mock(GeneratedProjectRepository.class))
               .toList()
-          )
+          ),
+          emptyModuleContext()
         )
     ).doesNotThrowAnyException();
 

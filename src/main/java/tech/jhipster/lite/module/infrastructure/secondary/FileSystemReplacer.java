@@ -22,11 +22,11 @@ public class FileSystemReplacer {
     this.templateRenderer = templateRenderer;
   }
 
-  public void handle(JHipsterProjectFolder projectFolder, ContentReplacers replacers) {
+  public void handle(JHipsterProjectFolder projectFolder, ContentReplacers replacers, JHipsterModuleContext context) {
     Assert.notNull("projectFolder", projectFolder);
     Assert.notNull("replacers", replacers);
 
-    replacers.forEach(applyReplacer(projectFolder, replacers.context()));
+    replacers.forEach(applyReplacer(projectFolder, context));
   }
 
   private Consumer<ContentReplacer> applyReplacer(JHipsterProjectFolder projectFolder, JHipsterModuleContext context) {

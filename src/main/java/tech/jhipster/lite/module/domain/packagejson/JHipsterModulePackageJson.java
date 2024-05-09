@@ -7,7 +7,7 @@ import java.util.Collection;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public final class JHipsterModulePackageJson {
+public final class JHipsterModulePackageJson implements PackageJsonData {
 
   private final Scripts scripts;
   private final PackageJsonDependencies dependencies;
@@ -33,26 +33,32 @@ public final class JHipsterModulePackageJson {
     return new PackageJsonChanges(this, context);
   }
 
+  @Override
   public Scripts scripts() {
     return scripts;
   }
 
-  public PackageJsonDependencies devDependencies() {
-    return devDependencies;
-  }
-
+  @Override
   public PackageJsonDependencies dependencies() {
     return dependencies;
   }
 
-  public PackageJsonDependencies devDependenciesToRemove() {
-    return devDependenciesToRemove;
+  @Override
+  public PackageJsonDependencies devDependencies() {
+    return devDependencies;
   }
 
+  @Override
   public PackageJsonDependencies dependenciesToRemove() {
     return dependenciesToRemove;
   }
 
+  @Override
+  public PackageJsonDependencies devDependenciesToRemove() {
+    return devDependenciesToRemove;
+  }
+
+  @Override
   public PackageJsonType type() {
     return type;
   }

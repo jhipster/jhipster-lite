@@ -21,41 +21,20 @@ import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.file.JHipsterDestination;
-import tech.jhipster.lite.module.domain.file.JHipsterFileContent;
-import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
-import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
-import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
-import tech.jhipster.lite.module.domain.file.TemplateRenderer;
+import tech.jhipster.lite.module.domain.file.*;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityProfilePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradleConfiguration;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
-import tech.jhipster.lite.module.domain.replacement.MandatoryFileReplacer;
-import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
+import tech.jhipster.lite.module.domain.replacement.*;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModuleFiles;
 import tech.jhipster.lite.module.infrastructure.secondary.FileSystemReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
@@ -115,7 +94,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private final Indentation indentation;
   private final JHipsterProjectFolder projectFolder;
   private final VersionsCatalog versionsCatalog;
-  private final FileSystemReplacer fileReplacer = new FileSystemReplacer();
+  private final FileSystemReplacer fileReplacer;
   private final FileSystemJHipsterModuleFiles files;
 
   public GradleCommandHandler(
@@ -130,6 +109,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     this.indentation = indentation;
     this.projectFolder = projectFolder;
     this.versionsCatalog = new VersionsCatalog(projectFolder);
+    this.fileReplacer = new FileSystemReplacer(templateRenderer);
     this.files = new FileSystemJHipsterModuleFiles(filesReader, templateRenderer);
   }
 
@@ -161,7 +141,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile), replacer))
+      ContentReplacers.of(context(), new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile), replacer))
     );
   }
 
@@ -260,7 +240,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
+      ContentReplacers.of(context(), new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
   }
 
@@ -337,7 +317,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
 
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile), replacer))
+      ContentReplacers.of(context(), new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile), replacer))
     );
   }
 
@@ -413,7 +393,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+      ContentReplacers.of(context(), new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
     );
   }
 
@@ -494,7 +474,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
+      ContentReplacers.of(context(), new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
   }
 
@@ -508,7 +488,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
+      ContentReplacers.of(context(), new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer))
     );
   }
 
@@ -529,7 +509,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
+      ContentReplacers.of(context(), new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer))
     );
   }
 }

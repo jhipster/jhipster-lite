@@ -60,8 +60,8 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     yamlSpringComments = new FileSystemYamlSpringCommentsCommandsHandler();
     springFactories = new FileSystemSpringFactoriesCommandsHandler();
     packageJson = new FileSystemPackageJsonHandler(npmVersions, templateRenderer);
-    replacer = new FileSystemReplacer();
-    startupCommands = new FileSystemStartupCommandsReadmeCommandsHandler();
+    replacer = new FileSystemReplacer(templateRenderer);
+    startupCommands = new FileSystemStartupCommandsReadmeCommandsHandler(templateRenderer);
   }
 
   public static Map<SpringPropertyType, List<String>> buildPaths() {
@@ -94,7 +94,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     springFactories.handle(changes.projectFolder(), changes.springFactories());
     packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson());
     replacer.handle(changes.projectFolder(), changes.replacers());
-    startupCommands.handle(changes.projectFolder(), changes.startupCommands());
+    startupCommands.handle(changes.projectFolder(), changes.startupCommands(), changes.replacers().context());
 
     changes.postActions().run(new JHipsterModuleExecutionContext(changes.projectFolder()));
   }

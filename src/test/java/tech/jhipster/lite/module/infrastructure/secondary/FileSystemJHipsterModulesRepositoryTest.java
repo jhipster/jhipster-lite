@@ -303,6 +303,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .and()
       .hasFile("package.json")
+      .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
       .containing(
         """
           "scripts": {
@@ -528,6 +529,7 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .and()
       .hasFile("package.json")
+      .containing("  \"jestSonar\": {\n    \"reportPath\": \"build/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
       .containing(
         """
           "scripts": {

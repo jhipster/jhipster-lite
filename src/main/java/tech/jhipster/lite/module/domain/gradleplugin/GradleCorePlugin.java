@@ -7,18 +7,25 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProfilePlugin {
 
   private final GradlePluginId id;
+  private final Optional<GradlePluginImports> imports;
   private final Optional<GradlePluginConfiguration> configuration;
   private final Optional<VersionSlug> toolVersionSlug;
 
   private GradleCorePlugin(GradleCorePluginBuilder builder) {
     Assert.notNull("id", builder.id);
     id = builder.id;
+    imports = Optional.ofNullable(builder.imports);
     configuration = Optional.ofNullable(builder.configuration);
     toolVersionSlug = Optional.ofNullable(builder.toolVersionSlug);
   }
 
   public GradlePluginId id() {
     return id;
+  }
+
+  @Override
+  public Optional<GradlePluginImports> imports() {
+    return imports;
   }
 
   @Override
@@ -37,12 +44,20 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   private static final class GradleCorePluginBuilder implements GradleCorePluginIdBuilder, GradleCorePluginOptionalBuilder {
 
     private GradlePluginId id;
+    private GradlePluginImports imports;
     private GradlePluginConfiguration configuration;
     private VersionSlug toolVersionSlug;
 
     @Override
     public GradleCorePluginOptionalBuilder id(GradlePluginId id) {
       this.id = id;
+
+      return this;
+    }
+
+    @Override
+    public GradleCorePluginOptionalBuilder imports(GradlePluginImports imports) {
+      this.imports = imports;
 
       return this;
     }
@@ -76,6 +91,12 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   }
 
   public interface GradleCorePluginOptionalBuilder {
+    GradleCorePluginOptionalBuilder imports(GradlePluginImports imports);
+
+    default GradleCorePluginOptionalBuilder imports(GradlePluginImport... imports) {
+      return imports(GradlePluginImports.of(imports));
+    }
+
     GradleCorePluginOptionalBuilder configuration(GradlePluginConfiguration configuration);
 
     default GradleCorePluginOptionalBuilder configuration(String configuration) {

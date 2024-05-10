@@ -22,6 +22,7 @@ import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginImport;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -1132,6 +1133,66 @@ class GradleCommandHandlerTest {
     }
 
     @Test
+    void shouldImportAndDeclareAndConfigurePluginInBuildGradleFile() {
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+        AddGradlePlugin.builder().plugin(nodeGradlePlugin()).build()
+      );
+
+      assertThat(buildGradleContent(projectFolder))
+        .contains(
+          """
+          import com.github.gradle.node.npm.task.NpmTask
+          // jhipster-needle-gradle-imports
+          """
+        )
+        .contains(
+          """
+          plugins {
+            java
+            alias(libs.plugins.node.gradle)
+            // jhipster-needle-gradle-plugins
+          }
+          """
+        )
+        .contains(
+          """
+          node {
+            version.set("v20.12.2")
+            npmVersion.set("10.5.2")
+            npmWorkDir.set(file("build"))
+          }
+
+          val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
+            description = "Build the frontend project using NPM"
+            group = "Build"
+            dependsOn("npmInstall")
+            npmCommand.set(listOf("run", "build"))
+            environment.set(mapOf("APP_VERSION" to project.version.toString()))
+          }
+
+          val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
+            description = "Test the frontend project using NPM"
+            group = "verification"
+            dependsOn("npmInstall", "buildNpm")
+            npmCommand.set(listOf("run", "test"))
+            ignoreExitValue.set(false)
+            workingDir.set(projectDir)
+            execOverrides {
+              standardOutput = System.out
+            }
+          }
+
+          tasks.bootJar {
+            dependsOn("buildNpm")
+            from("build/classes/static") {
+                into("BOOT-INF/classes/static") // This will place the content under 'static' directory in the JAR
+            }
+          }
+          """
+        );
+    }
+
+    @Test
     void shouldApplyVersionCatalogReferenceConvention() {
       GradlePlugin plugin = gradleCommunityPlugin().id("org.springframework.boot").pluginSlug("spring-boot").build();
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(plugin).build();
@@ -1457,5 +1518,50 @@ class GradleCommandHandlerTest {
   private static void assertFileExists(JHipsterProjectFolder projectFolder, String other, String description) {
     Path profileGradlePath = Paths.get(projectFolder.get()).resolve(other);
     assertThat(Files.exists(profileGradlePath)).as(description, profileGradlePath.toString()).isTrue();
+  }
+
+  private static GradlePlugin nodeGradlePlugin() {
+    return gradleCommunityPlugin()
+      .id("com.github.node-gradle.node")
+      .pluginSlug("node-gradle")
+      .versionSlug("node-gradle")
+      .imports(new GradlePluginImport("com.github.gradle.node.npm.task.NpmTask"))
+      .configuration(
+        """
+        node {
+          version.set("v20.12.2")
+          npmVersion.set("10.5.2")
+          npmWorkDir.set(file("build"))
+        }
+
+        val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
+          description = "Build the frontend project using NPM"
+          group = "Build"
+          dependsOn("npmInstall")
+          npmCommand.set(listOf("run", "build"))
+          environment.set(mapOf("APP_VERSION" to project.version.toString()))
+        }
+
+        val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
+          description = "Test the frontend project using NPM"
+          group = "verification"
+          dependsOn("npmInstall", "buildNpm")
+          npmCommand.set(listOf("run", "test"))
+          ignoreExitValue.set(false)
+          workingDir.set(projectDir)
+          execOverrides {
+            standardOutput = System.out
+          }
+        }
+
+        tasks.bootJar {
+          dependsOn("buildNpm")
+          from("build/classes/static") {
+              into("BOOT-INF/classes/static") // This will place the content under 'static' directory in the JAR
+          }
+        }
+        """
+      )
+      .build();
   }
 }

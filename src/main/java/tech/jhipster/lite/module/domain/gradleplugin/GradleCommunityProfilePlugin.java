@@ -10,6 +10,7 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
 
   private final GradlePluginId id;
   private final GradlePluginDependency dependency;
+  private final Optional<GradlePluginImports> imports;
   private final Optional<GradlePluginConfiguration> configuration;
   private final Optional<VersionSlug> versionSlug;
 
@@ -19,6 +20,7 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
 
     id = builder.id;
     this.dependency = builder.dependency;
+    imports = Optional.ofNullable(builder.imports);
     this.configuration = Optional.ofNullable(builder.configuration);
     this.versionSlug = Optional.ofNullable(builder.versionSlug);
   }
@@ -26,6 +28,11 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
   @Override
   public GradlePluginId id() {
     return id;
+  }
+
+  @Override
+  public Optional<GradlePluginImports> imports() {
+    return imports;
   }
 
   @Override
@@ -51,6 +58,7 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
 
     private GradlePluginId id;
     private GradlePluginDependency dependency;
+    private GradlePluginImports imports;
     private GradlePluginConfiguration configuration;
     private VersionSlug versionSlug;
 
@@ -64,6 +72,13 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
     @Override
     public GradleCommunityProfilePluginOptionalBuilder dependency(GradlePluginDependency dependency) {
       this.dependency = dependency;
+
+      return this;
+    }
+
+    @Override
+    public GradleCommunityProfilePluginOptionalBuilder imports(GradlePluginImports imports) {
+      this.imports = imports;
 
       return this;
     }
@@ -105,6 +120,12 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
   }
 
   public interface GradleCommunityProfilePluginOptionalBuilder {
+    GradleCommunityProfilePluginOptionalBuilder imports(GradlePluginImports imports);
+
+    default GradleCommunityProfilePluginOptionalBuilder imports(GradlePluginImport... imports) {
+      return imports(GradlePluginImports.of(imports));
+    }
+
     GradleCommunityProfilePluginOptionalBuilder configuration(GradlePluginConfiguration configuration);
 
     default GradleCommunityProfilePluginOptionalBuilder configuration(String configuration) {

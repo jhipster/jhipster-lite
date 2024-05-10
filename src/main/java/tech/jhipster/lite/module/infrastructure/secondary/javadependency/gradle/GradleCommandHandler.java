@@ -22,10 +22,7 @@ import tech.jhipster.lite.module.domain.ProjectFiles;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.file.*;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityProfilePlugin;
-import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
-import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginConfiguration;
+import tech.jhipster.lite.module.domain.gradleplugin.*;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
@@ -46,6 +43,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private static final String COMMAND = "command";
   private static final String BUILD_GRADLE_FILE = "build.gradle.kts";
   private static final String PLUGIN_BUILD_GRADLE_FILE = "buildSrc/build.gradle.kts";
+  private static final Pattern GRADLE_IMPORT_NEEDLE = Pattern.compile("^// jhipster-needle-gradle-imports$", Pattern.MULTILINE);
   private static final Pattern GRADLE_PLUGIN_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-plugins$", Pattern.MULTILINE);
   private static final Pattern GRADLE_PLUGIN_PROJECT_EXTENSION_CONFIGURATION_NEEDLE = Pattern.compile(
     "^// jhipster-needle-gradle-plugins-configurations$",
@@ -461,6 +459,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         addDependencyToBuildGradle(dependencyFrom(plugin), projectFolder.filePath(PLUGIN_BUILD_GRADLE_FILE), false);
       }
     }
+    command.plugin().imports().ifPresent(this::addPluginImports);
     command.plugin().configuration().ifPresent(pluginConfiguration -> addPluginConfiguration(pluginConfiguration, command.buildProfile()));
     command.toolVersion().ifPresent(version -> handle(new SetVersion(version)));
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
@@ -477,6 +476,25 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     fileReplacer.handle(
       projectFolder,
       ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer)),
+      context
+    );
+  }
+
+  private void addPluginImports(GradlePluginImports pluginImports) {
+    pluginImports.stream().forEach(this::addPluginImport);
+  }
+
+  private void addPluginImport(GradlePluginImport gradlePluginImport) {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(
+        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
+        GRADLE_IMPORT_NEEDLE
+      ),
+      "import %s".formatted(gradlePluginImport.get())
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)),
       context
     );
   }

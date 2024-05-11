@@ -17,12 +17,7 @@ import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonChanges;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependencies;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependency;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonType;
-import tech.jhipster.lite.module.domain.packagejson.PackageName;
-import tech.jhipster.lite.module.domain.packagejson.Scripts;
+import tech.jhipster.lite.module.domain.packagejson.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -65,7 +60,7 @@ class FileSystemPackageJsonHandler {
     content = removeDependencies(indentation, packageJson.dependenciesToRemove(), content);
     content = removeDevDependencies(indentation, packageJson.devDependenciesToRemove(), content);
 
-    content = replacePlaceholders(packageJson.context(), content);
+    content = replacePlaceholders(content, packageJson.context());
     content = cleanupLineBreaks(indentation, content);
 
     write(file, content);
@@ -81,7 +76,7 @@ class FileSystemPackageJsonHandler {
     return file;
   }
 
-  private String replacePlaceholders(JHipsterModuleContext context, String content) {
+  private String replacePlaceholders(String content, JHipsterModuleContext context) {
     return templateRenderer.render(content, context);
   }
 

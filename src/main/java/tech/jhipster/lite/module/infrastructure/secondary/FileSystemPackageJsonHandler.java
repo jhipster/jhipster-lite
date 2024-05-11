@@ -1,6 +1,6 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.LINE_BREAK;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,14 +13,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
+import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
-import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependencies;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonDependency;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonType;
-import tech.jhipster.lite.module.domain.packagejson.PackageName;
-import tech.jhipster.lite.module.domain.packagejson.Scripts;
+import tech.jhipster.lite.module.domain.packagejson.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -34,17 +31,26 @@ class FileSystemPackageJsonHandler {
   private static final String LINE_SEPARATOR = LINE_END + LINE_BREAK;
 
   private final NpmVersions npmVersions;
+  private final TemplateRenderer templateRenderer;
 
-  public FileSystemPackageJsonHandler(NpmVersions npmVersions) {
+  public FileSystemPackageJsonHandler(NpmVersions npmVersions, TemplateRenderer templateRenderer) {
     Assert.notNull("npmVersions", npmVersions);
+    Assert.notNull("templateRenderer", templateRenderer);
 
     this.npmVersions = npmVersions;
+    this.templateRenderer = templateRenderer;
   }
 
-  public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, JHipsterModulePackageJson packageJson) {
+  public void handle(
+    Indentation indentation,
+    JHipsterProjectFolder projectFolder,
+    JHipsterModulePackageJson packageJson,
+    JHipsterModuleContext context
+  ) {
     Assert.notNull("indentation", indentation);
     Assert.notNull("projectFolder", projectFolder);
     Assert.notNull("packageJson", packageJson);
+    Assert.notNull("context", context);
 
     if (packageJson.isEmpty()) {
       return;
@@ -60,7 +66,9 @@ class FileSystemPackageJsonHandler {
     content = removeDependencies(indentation, packageJson.dependenciesToRemove(), content);
     content = removeDevDependencies(indentation, packageJson.devDependenciesToRemove(), content);
 
+    content = replacePlaceholders(content, context);
     content = cleanupLineBreaks(indentation, content);
+
     write(file, content);
   }
 
@@ -72,6 +80,10 @@ class FileSystemPackageJsonHandler {
     }
 
     return file;
+  }
+
+  private String replacePlaceholders(String content, JHipsterModuleContext context) {
+    return templateRenderer.render(content, context);
   }
 
   private String cleanupLineBreaks(Indentation indentation, String content) {
@@ -238,7 +250,7 @@ class FileSystemPackageJsonHandler {
         .append(QUOTE)
         .toString();
 
-      return result.replaceFirst("(\\s{1,10})\\}(\\s{1,10})$", jsonBloc + "$1}$2");
+      return result.replaceFirst("(\\s{1,10})}(\\s{1,10})$", jsonBloc + "$1}$2");
     }
 
     private String appendNewBlock(String result) {
@@ -256,7 +268,7 @@ class FileSystemPackageJsonHandler {
         .append("}")
         .toString();
 
-      return result.replaceFirst("(\\s{1,10})\\}(\\s{1,10})$", jsonBloc + "$1}$2");
+      return result.replaceFirst("(\\s{1,10})}(\\s{1,10})$", jsonBloc + "$1}$2");
     }
 
     private Matcher buildBlocMatcher(String result) {

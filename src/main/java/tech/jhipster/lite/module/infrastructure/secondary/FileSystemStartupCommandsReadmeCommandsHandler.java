@@ -1,10 +1,11 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
-import static tech.jhipster.lite.module.domain.JHipsterModule.path;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import org.springframework.stereotype.Service;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
+import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
 import tech.jhipster.lite.module.domain.replacement.OptionalFileReplacer;
@@ -27,24 +28,32 @@ class FileSystemStartupCommandsReadmeCommandsHandler {
     {{command}}
     ```
     """;
-  private final FileSystemReplacer fileReplacer = new FileSystemReplacer();
+  private final FileSystemReplacer fileReplacer;
 
-  public void handle(JHipsterProjectFolder projectFolder, JHipsterStartupCommands commands) {
+  public FileSystemStartupCommandsReadmeCommandsHandler(TemplateRenderer templateRenderer) {
+    this.fileReplacer = new FileSystemReplacer(templateRenderer);
+  }
+
+  public void handle(JHipsterProjectFolder projectFolder, JHipsterStartupCommands commands, JHipsterModuleContext context) {
     Assert.notNull("projectFolder", projectFolder);
     Assert.notNull("commands", commands);
 
     if (!commands.get().isEmpty()) {
-      handleCommandsForProjectType(projectFolder, commands);
+      handleCommandsForProjectType(projectFolder, commands, context);
     }
   }
 
-  private void handleCommandsForProjectType(JHipsterProjectFolder projectFolder, JHipsterStartupCommands commands) {
-    commands.get().forEach(command -> addCommandToReadme(projectFolder, command));
+  private void handleCommandsForProjectType(
+    JHipsterProjectFolder projectFolder,
+    JHipsterStartupCommands commands,
+    JHipsterModuleContext context
+  ) {
+    commands.get().forEach(command -> addCommandToReadme(projectFolder, command, context));
   }
 
-  private void addCommandToReadme(JHipsterProjectFolder projectFolder, JHipsterStartupCommand command) {
+  private void addCommandToReadme(JHipsterProjectFolder projectFolder, JHipsterStartupCommand command, JHipsterModuleContext context) {
     String replacedTemplate = BASH_TEMPLATE.replace("{{command}}", command.commandLine().get());
     OptionalReplacer replacer = new OptionalReplacer(JHIPSTER_STARTUP_COMMAND_SECTION_NEEDLE, replacedTemplate);
-    fileReplacer.handle(projectFolder, ContentReplacers.of(new OptionalFileReplacer(README, replacer)));
+    fileReplacer.handle(projectFolder, ContentReplacers.of(new OptionalFileReplacer(README, replacer)), context);
   }
 }

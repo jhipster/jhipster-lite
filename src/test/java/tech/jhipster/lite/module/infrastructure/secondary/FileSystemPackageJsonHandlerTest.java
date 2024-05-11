@@ -3,17 +3,16 @@ package tech.jhipster.lite.module.infrastructure.secondary;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import tech.jhipster.lite.TestFileUtils;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -24,30 +23,35 @@ import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.infrastructure.secondary.file.MustacheTemplateRenderer;
 
 @UnitTest
 @SuppressWarnings("java:S5976")
-@ExtendWith(MockitoExtension.class)
 class FileSystemPackageJsonHandlerTest {
 
   private static final String PACKAGE_JSON = "package.json";
 
-  @Mock
-  private NpmVersions npmVersions;
+  private final NpmVersions npmVersions = mock(NpmVersions.class);
 
-  @InjectMocks
-  private FileSystemPackageJsonHandler packageJson;
+  private final FileSystemPackageJsonHandler packageJson = new FileSystemPackageJsonHandler(npmVersions, new MustacheTemplateRenderer());
 
   @Test
   void shouldHandleEmptyPackageJsonCommandsOnProjectWithoutPackageJson() {
-    assertThatCode(() -> packageJson.handle(Indentation.DEFAULT, emptyFolder(), emptyBuilder().build())).doesNotThrowAnyException();
+    assertThatCode(
+      () -> packageJson.handle(Indentation.DEFAULT, emptyFolder(), packageJson(), emptyModuleContext())
+    ).doesNotThrowAnyException();
   }
 
   @Test
   void shouldNotHandleCommandsOnProjectWithoutPackageJson() {
     assertThatThrownBy(
       () ->
-        packageJson.handle(Indentation.DEFAULT, emptyFolder(), emptyBuilder().addScript(scriptKey("key"), scriptCommand("value")).build())
+        packageJson.handle(
+          Indentation.DEFAULT,
+          emptyFolder(),
+          packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+          emptyModuleContext()
+        )
     ).isExactlyInstanceOf(MissingPackageJsonException.class);
   }
 
@@ -64,7 +68,8 @@ class FileSystemPackageJsonHandlerTest {
     packageJson.handle(
       Indentation.DEFAULT,
       folder,
-      emptyBuilder().addDevDependency(packageName("@playwright/test"), VersionSource.COMMON).build()
+      packageJson(packageJson -> packageJson.addDevDependency(packageName("@playwright/test"), VersionSource.COMMON)),
+      emptyModuleContext()
     );
 
     assertThat(packageJsonContent(folder)).doesNotContain("scripts");
@@ -77,7 +82,8 @@ class FileSystemPackageJsonHandlerTest {
     packageJson.handle(
       Indentation.DEFAULT,
       folder,
-      emptyBuilder().addScript(scriptKey("@prettier/plugin-xml"), scriptCommand("test")).build()
+      packageJson(packageJson -> packageJson.addScript(scriptKey("@prettier/plugin-xml"), scriptCommand("test"))),
+      emptyModuleContext()
     );
 
     assertPackageJsonContent(
@@ -107,7 +113,12 @@ class FileSystemPackageJsonHandlerTest {
     void shouldAddScriptToPackageJsonWithoutScriptSection() {
       JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/empty-node/package.json");
 
-      packageJson.handle(Indentation.DEFAULT, folder, emptyBuilder().addScript(scriptKey("key"), scriptCommand("value")).build());
+      packageJson.handle(
+        Indentation.DEFAULT,
+        folder,
+        packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+        emptyModuleContext()
+      );
 
       assertPackageJsonContent(
         folder,
@@ -127,7 +138,11 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addScript(scriptKey("key"), scriptCommand("value")).addScript(scriptKey("key2"), scriptCommand("value2")).build()
+        packageJson(
+          packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value")),
+          packageJson -> packageJson.addScript(scriptKey("key2"), scriptCommand("value2"))
+        ),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -145,7 +160,12 @@ class FileSystemPackageJsonHandlerTest {
     void shouldAddScriptsToPackageJsonWithScriptsTemplate() {
       JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node-template/package.json");
 
-      packageJson.handle(Indentation.DEFAULT, folder, emptyBuilder().addScript(scriptKey("key"), scriptCommand("value")).build());
+      packageJson.handle(
+        Indentation.DEFAULT,
+        folder,
+        packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+        emptyModuleContext()
+      );
 
       assertPackageJsonContent(
         folder,
@@ -161,7 +181,12 @@ class FileSystemPackageJsonHandlerTest {
     void shouldReplaceOnlyExistingScript() {
       JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node/package.json");
 
-      packageJson.handle(Indentation.DEFAULT, folder, emptyBuilder().addScript(scriptKey("build"), scriptCommand("test")).build());
+      packageJson.handle(
+        Indentation.DEFAULT,
+        folder,
+        packageJson(packageJson -> packageJson.addScript(scriptKey("build"), scriptCommand("test"))),
+        emptyModuleContext()
+      );
 
       String result = packageJsonContent(folder);
       assertThat(result)
@@ -179,7 +204,12 @@ class FileSystemPackageJsonHandlerTest {
     void shouldReplaceExistingScript() {
       JHipsterProjectFolder folder = projectWithPackageJson("src/test/resources/projects/node-multiple-scripts/package.json");
 
-      packageJson.handle(Indentation.DEFAULT, folder, emptyBuilder().addScript(scriptKey("build"), scriptCommand("test")).build());
+      packageJson.handle(
+        Indentation.DEFAULT,
+        folder,
+        packageJson(packageJson -> packageJson.addScript(scriptKey("build"), scriptCommand("test"))),
+        emptyModuleContext()
+      );
 
       assertPackageJsonContent(
         folder,
@@ -204,7 +234,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON).build()
+        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -227,7 +258,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON).build()
+        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -249,7 +281,11 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addDevDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core")).build()
+        packageJson(
+          packageJson ->
+            packageJson.addDevDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))
+        ),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -270,7 +306,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON).build()
+        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -292,7 +329,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().removeDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON).build()
+        packageJson(packageJson -> packageJson.removeDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -321,7 +359,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON).build()
+        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -344,7 +383,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addDependency(packageName("@fortawesome/fontawesome-svg-coree"), VersionSource.COMMON).build()
+        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-coree"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -366,7 +406,10 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core")).build()
+        packageJson(
+          packageJson -> packageJson.addDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))
+        ),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -387,7 +430,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON).build()
+        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -409,7 +453,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        emptyBuilder().removeDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON).build()
+        packageJson(packageJson -> packageJson.removeDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -424,6 +469,14 @@ class FileSystemPackageJsonHandlerTest {
     private void mockVersion() {
       when(npmVersions.get(anyString(), eq(NpmVersionSource.COMMON))).thenReturn(new NpmPackageVersion("1.1.1"));
     }
+  }
+
+  @SafeVarargs
+  private @NotNull JHipsterModulePackageJson packageJson(Consumer<JHipsterModulePackageJsonBuilder>... builderConfigurations) {
+    JHipsterModulePackageJsonBuilder builder = emptyBuilder();
+    Stream.of(builderConfigurations).forEach(configuration -> configuration.accept(builder));
+
+    return builder.build();
   }
 
   private JHipsterModulePackageJsonBuilder emptyBuilder() {

@@ -303,7 +303,15 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .and()
       .hasFile("package.json")
-      .containing("\"scripts\": {\n    \"serve\": \"tikui-core serve\"")
+      .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
+      .containing(
+        """
+          "scripts": {
+            "build": "ng build --output-path=target/classes/static",
+            "serve": "tikui-core serve"
+          },
+        """
+      )
       .containing("\"dependencies\": {\n    \"@angular/animations\": \"")
       .containing("\"devDependencies\": {\n    \"@playwright/test\": \"")
       .and()
@@ -521,7 +529,15 @@ class FileSystemJHipsterModulesRepositoryTest {
       )
       .and()
       .hasFile("package.json")
-      .containing("\"scripts\": {\n    \"serve\": \"tikui-core serve\"")
+      .containing("  \"jestSonar\": {\n    \"reportPath\": \"build/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
+      .containing(
+        """
+          "scripts": {
+            "build": "ng build --output-path=build/classes/static",
+            "serve": "tikui-core serve"
+          },
+        """
+      )
       .containing("\"dependencies\": {\n    \"@angular/animations\": \"")
       .containing("\"devDependencies\": {\n    \"@playwright/test\": \"")
       .and()

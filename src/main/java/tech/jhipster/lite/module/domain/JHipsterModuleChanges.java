@@ -18,6 +18,7 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 @SuppressWarnings("java:S6539")
 public final class JHipsterModuleChanges {
 
+  private final JHipsterModuleContext context;
   private final JHipsterProjectFolder projectFolder;
   private final Indentation indentation;
   private final JHipsterTemplatedFiles filesToAdd;
@@ -38,6 +39,7 @@ public final class JHipsterModuleChanges {
   private JHipsterModuleChanges(JHipsterModuleChangesBuilder builder) {
     assertMandatoryFields(builder);
 
+    context = builder.context;
     projectFolder = builder.projectFolder;
     indentation = builder.indentation;
     filesToAdd = builder.filesToAdd;
@@ -57,6 +59,7 @@ public final class JHipsterModuleChanges {
   }
 
   private void assertMandatoryFields(JHipsterModuleChangesBuilder builder) {
+    Assert.notNull("context", builder.context);
     Assert.notNull("projectFolder", builder.projectFolder);
     Assert.notNull("indentation", builder.indentation);
     Assert.notNull("filesToAdd", builder.filesToAdd);
@@ -69,8 +72,12 @@ public final class JHipsterModuleChanges {
     Assert.notNull("springFactories", builder.springFactories);
   }
 
-  public static JHipsterModuleChangesProjectFolderBuilder builder() {
+  public static JHipsterModuleChangesContextBuilder builder() {
     return new JHipsterModuleChangesBuilder();
+  }
+
+  public JHipsterModuleContext context() {
+    return context;
   }
 
   public JHipsterProjectFolder projectFolder() {
@@ -140,6 +147,7 @@ public final class JHipsterModuleChanges {
 
   private static final class JHipsterModuleChangesBuilder
     implements
+      JHipsterModuleChangesContextBuilder,
       JHipsterModuleChangesProjectFolderBuilder,
       JHipsterModuleChangesIndentationBuilder,
       JHipsterModuleChangesFilesToAddBuilder,
@@ -156,6 +164,7 @@ public final class JHipsterModuleChanges {
       JHipsterModuleChangesSpringFactoriesBuilder,
       JHipsterModuleChangesSpringYamlCommentsBuilder {
 
+    private JHipsterModuleContext context;
     private JHipsterProjectFolder projectFolder;
     private JHipsterTemplatedFiles filesToAdd;
     private JHipsterFilesToMove filesToMove;
@@ -172,6 +181,13 @@ public final class JHipsterModuleChanges {
     private SpringProperties springYamlProperties = SpringProperties.EMPTY;
     private SpringComments springYamlComments = SpringComments.EMPTY;
     private SpringFactories springFactories;
+
+    @Override
+    public JHipsterModuleChangesProjectFolderBuilder context(JHipsterModuleContext context) {
+      this.context = context;
+
+      return this;
+    }
 
     @Override
     public JHipsterModuleChangesIndentationBuilder projectFolder(JHipsterProjectFolder projectFolder) {
@@ -284,6 +300,10 @@ public final class JHipsterModuleChanges {
 
       return this;
     }
+  }
+
+  public interface JHipsterModuleChangesContextBuilder {
+    JHipsterModuleChangesProjectFolderBuilder context(JHipsterModuleContext context);
   }
 
   public interface JHipsterModuleChangesProjectFolderBuilder {

@@ -27,28 +27,50 @@ class FileSystemJavaBuildCommandsHandlerTest {
   @Test
   void shouldNotTryToHandleEmptyCommands() {
     assertThatCode(
-      () -> handler.handle(Indentation.DEFAULT, projectFrom("src/test/resources/projects/empty"), new JavaBuildCommands(null))
+      () ->
+        handler.handle(
+          Indentation.DEFAULT,
+          projectFrom("src/test/resources/projects/empty"),
+          emptyModuleContext(),
+          new JavaBuildCommands(null)
+        )
     ).doesNotThrowAnyException();
   }
 
   @Test
   void shouldNotHandleCommandsOnProjectWithoutMavenOrGradle() {
     assertThatThrownBy(
-      () -> handler.handle(Indentation.DEFAULT, projectFrom("src/test/resources/projects/empty"), javaDependenciesCommands())
+      () ->
+        handler.handle(
+          Indentation.DEFAULT,
+          projectFrom("src/test/resources/projects/empty"),
+          emptyModuleContext(),
+          javaDependenciesCommands()
+        )
     ).isExactlyInstanceOf(MissingJavaBuildConfigurationException.class);
   }
 
   @Test
   void shouldHandleCommandsWithMavenOnProjectWithPom() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-maven");
-    handler.handle(Indentation.DEFAULT, projectFolder, new JavaBuildCommands(List.of(new SetVersion(springBootVersion()))));
+    handler.handle(
+      Indentation.DEFAULT,
+      projectFolder,
+      emptyModuleContext(),
+      new JavaBuildCommands(List.of(new SetVersion(springBootVersion())))
+    );
     assertThat(content(projectFolder.filePath("pom.xml"))).contains("<spring-boot.version>1.2.3</spring-boot.version>");
   }
 
   @Test
   void shouldHandleCommandsWithGradleOnProjectWithBuildGradle() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
-    handler.handle(Indentation.DEFAULT, projectFolder, new JavaBuildCommands(List.of(new SetVersion(springBootVersion()))));
+    handler.handle(
+      Indentation.DEFAULT,
+      projectFolder,
+      emptyModuleContext(),
+      new JavaBuildCommands(List.of(new SetVersion(springBootVersion())))
+    );
     assertThat(content(projectFolder.filePath("gradle/libs.versions.toml"))).contains("spring-boot = \"1.2.3\"");
   }
 }

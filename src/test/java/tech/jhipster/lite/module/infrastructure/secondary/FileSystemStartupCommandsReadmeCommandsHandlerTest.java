@@ -1,7 +1,8 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static tech.jhipster.lite.TestFileUtils.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import ch.qos.logback.classic.Level;
 import java.nio.file.Paths;
@@ -16,21 +17,17 @@ import tech.jhipster.lite.Logs;
 import tech.jhipster.lite.LogsSpy;
 import tech.jhipster.lite.LogsSpyExtension;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.startupcommand.DockerComposeFile;
-import tech.jhipster.lite.module.domain.startupcommand.DockerComposeStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.GradleStartupCommandLine;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
-import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
-import tech.jhipster.lite.module.domain.startupcommand.MavenStartupCommandLine;
+import tech.jhipster.lite.module.domain.startupcommand.*;
 
 @UnitTest
 @ExtendWith(LogsSpyExtension.class)
 class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
-  private static final String EMPTY_MAVEN = "empty-maven";
-  private static final String EMPTY_GRADLE = "empty-gradle";
-  private static final FileSystemStartupCommandsReadmeCommandsHandler handler = new FileSystemStartupCommandsReadmeCommandsHandler();
+  private static final FileSystemStartupCommandsReadmeCommandsHandler handler = new FileSystemStartupCommandsReadmeCommandsHandler(
+    TemplateRenderer.NOOP
+  );
 
   @Logs
   private LogsSpy logs;
@@ -40,7 +37,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
     JHipsterProjectFolder projectFolder = projectFolderWithReadme();
     JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
-    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
+    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)), emptyModuleContext());
 
     assertThat(content(projectFolder.filePath("README.md"))).contains("./mvnw clean verify sonar:sonar");
   }
@@ -50,7 +47,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
     JHipsterStartupCommand command = new MavenStartupCommandLine("clean verify sonar:sonar");
 
-    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
+    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)), emptyModuleContext());
 
     logs.shouldHave(Level.DEBUG, "Can't apply optional replacement: ");
   }
@@ -60,7 +57,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
     JHipsterProjectFolder projectFolder = projectFolderWithReadme();
     JHipsterStartupCommand command = new GradleStartupCommandLine("clean build sonar --info");
 
-    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
+    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)), emptyModuleContext());
 
     assertThat(content(projectFolder.filePath("README.md"))).contains("./gradlew clean build sonar --info");
   }
@@ -70,7 +67,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
     JHipsterProjectFolder projectFolder = projectFolderWithReadme();
     JHipsterStartupCommand command = new DockerComposeStartupCommandLine(new DockerComposeFile("src/main/docker/sonar.yml"));
 
-    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)));
+    handler.handle(projectFolder, new JHipsterStartupCommands(List.of(command)), emptyModuleContext());
 
     assertThat(content(projectFolder.filePath("README.md"))).contains("docker compose -f src/main/docker/sonar.yml up -d");
   }
@@ -80,7 +77,7 @@ class FileSystemStartupCommandsReadmeCommandsHandlerTest {
   void shouldAddCommandsToProjectReadmeRespectingInsertOrder(List<JHipsterStartupCommand> commands, String expectedReadmeContent) {
     JHipsterProjectFolder projectFolder = projectFolderWithReadme();
 
-    handler.handle(projectFolder, new JHipsterStartupCommands(commands));
+    handler.handle(projectFolder, new JHipsterStartupCommands(commands), emptyModuleContext());
 
     assertThat(content(projectFolder.filePath("README.md"))).contains(expectedReadmeContent);
   }

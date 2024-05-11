@@ -8,25 +8,18 @@ import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.
 import ch.qos.logback.classic.Level;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import tech.jhipster.lite.Logs;
-import tech.jhipster.lite.LogsSpy;
-import tech.jhipster.lite.LogsSpyExtension;
-import tech.jhipster.lite.TestFileUtils;
-import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.*;
 import tech.jhipster.lite.module.domain.GeneratedProjectRepository;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
+import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
-import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacementsFactory;
-import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacementsFactory;
-import tech.jhipster.lite.module.domain.replacement.MandatoryReplacementException;
-import tech.jhipster.lite.module.domain.replacement.TextReplacer;
+import tech.jhipster.lite.module.domain.replacement.*;
 
 @UnitTest
 @ExtendWith(LogsSpyExtension.class)
 class FileSystemReplacerTest {
 
-  private static final FileSystemReplacer replacer = new FileSystemReplacer();
+  private static final FileSystemReplacer replacer = new FileSystemReplacer(TemplateRenderer.NOOP);
 
   @Logs
   private LogsSpy logs;
@@ -47,7 +40,8 @@ class FileSystemReplacerTest {
               .build()
               .replacers()
               .toList()
-          )
+          ),
+          emptyModuleContext()
         )
     ).isExactlyInstanceOf(MandatoryReplacementException.class);
   }
@@ -68,7 +62,8 @@ class FileSystemReplacerTest {
               .build()
               .buildReplacers(new JHipsterProjectFolder("dummy"), mock(GeneratedProjectRepository.class))
               .toList()
-          )
+          ),
+          emptyModuleContext()
         )
     ).doesNotThrowAnyException();
 

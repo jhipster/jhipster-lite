@@ -59,9 +59,9 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     yamlSpringProperties = new FileSystemYamlSpringPropertiesCommandsHandler();
     yamlSpringComments = new FileSystemYamlSpringCommentsCommandsHandler();
     springFactories = new FileSystemSpringFactoriesCommandsHandler();
-    packageJson = new FileSystemPackageJsonHandler(npmVersions);
-    replacer = new FileSystemReplacer();
-    startupCommands = new FileSystemStartupCommandsReadmeCommandsHandler();
+    packageJson = new FileSystemPackageJsonHandler(npmVersions, templateRenderer);
+    replacer = new FileSystemReplacer(templateRenderer);
+    startupCommands = new FileSystemStartupCommandsReadmeCommandsHandler(templateRenderer);
   }
 
   public static Map<SpringPropertyType, List<String>> buildPaths() {
@@ -86,15 +86,15 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     files.create(changes.projectFolder(), changes.filesToAdd());
     files.move(changes.projectFolder(), changes.filesToMove());
     files.delete(changes.projectFolder(), changes.filesToDelete());
-    javaBuild.handle(changes.indentation(), changes.projectFolder(), changes.javaBuildCommands());
+    javaBuild.handle(changes.indentation(), changes.projectFolder(), changes.context(), changes.javaBuildCommands());
     springProperties.handle(changes.projectFolder(), changes.springProperties());
     springComments.handle(changes.projectFolder(), changes.springComments());
     yamlSpringProperties.handle(changes.indentation(), changes.projectFolder(), changes.springYamlProperties());
     yamlSpringComments.handle(changes.indentation(), changes.projectFolder(), changes.springYamlComments());
     springFactories.handle(changes.projectFolder(), changes.springFactories());
-    packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson());
-    replacer.handle(changes.projectFolder(), changes.replacers());
-    startupCommands.handle(changes.projectFolder(), changes.startupCommands());
+    packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson(), changes.context());
+    replacer.handle(changes.projectFolder(), changes.replacers(), changes.context());
+    startupCommands.handle(changes.projectFolder(), changes.startupCommands(), changes.context());
 
     changes.postActions().run(new JHipsterModuleExecutionContext(changes.projectFolder()));
   }

@@ -25,8 +25,6 @@ import tech.jhipster.lite.module.domain.startupcommand.*;
 @ExtendWith(LogsSpyExtension.class)
 class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
-  private static final String EMPTY_MAVEN = "empty-maven";
-  private static final String EMPTY_GRADLE = "empty-gradle";
   private static final FileSystemStartupCommandsReadmeCommandsHandler handler = new FileSystemStartupCommandsReadmeCommandsHandler(
     TemplateRenderer.NOOP
   );

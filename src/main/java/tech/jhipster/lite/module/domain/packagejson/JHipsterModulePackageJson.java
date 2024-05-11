@@ -1,10 +1,8 @@
 package tech.jhipster.lite.module.domain.packagejson;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import tech.jhipster.lite.module.domain.JHipsterModuleContext;
+import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModulePackageJson {
@@ -29,8 +27,14 @@ public final class JHipsterModulePackageJson {
     return new JHipsterModulePackageJsonBuilder(module);
   }
 
-  public PackageJsonChanges buildChanges(JHipsterModuleContext context) {
-    return new PackageJsonChanges(this, context);
+  public boolean isEmpty() {
+    return (
+      scripts.isEmpty() &&
+      dependencies.isEmpty() &&
+      devDependencies.isEmpty() &&
+      dependenciesToRemove.isEmpty() &&
+      devDependenciesToRemove.isEmpty()
+    );
   }
 
   public Scripts scripts() {
@@ -59,7 +63,7 @@ public final class JHipsterModulePackageJson {
 
   public static final class JHipsterModulePackageJsonBuilder {
 
-    private final JHipsterModuleBuilder parentBuilder;
+    private final JHipsterModuleBuilder module;
     private final Collection<Script> scripts = new ArrayList<>();
     private final Collection<PackageJsonDependency> dependencies = new ArrayList<>();
     private final Collection<PackageJsonDependency> devDependencies = new ArrayList<>();
@@ -67,10 +71,10 @@ public final class JHipsterModulePackageJson {
     private final Collection<PackageJsonDependency> devDependenciesToRemove = new ArrayList<>();
     private String type;
 
-    private JHipsterModulePackageJsonBuilder(JHipsterModuleBuilder parentBuilder) {
-      Assert.notNull("module", parentBuilder);
+    private JHipsterModulePackageJsonBuilder(JHipsterModuleBuilder module) {
+      Assert.notNull("module", module);
 
-      this.parentBuilder = parentBuilder;
+      this.module = module;
     }
 
     public JHipsterModulePackageJsonBuilder addScript(ScriptKey key, ScriptCommand command) {
@@ -132,7 +136,7 @@ public final class JHipsterModulePackageJson {
     }
 
     public JHipsterModuleBuilder and() {
-      return parentBuilder;
+      return module;
     }
 
     public JHipsterModulePackageJson build() {

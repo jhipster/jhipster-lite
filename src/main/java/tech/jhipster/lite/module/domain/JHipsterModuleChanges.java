@@ -7,7 +7,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javaproperties.SpringComments;
 import tech.jhipster.lite.module.domain.javaproperties.SpringFactories;
 import tech.jhipster.lite.module.domain.javaproperties.SpringProperties;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonChanges;
+import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
@@ -27,7 +27,7 @@ public final class JHipsterModuleChanges {
   private final ContentReplacers replacers;
   private final JHipsterStartupCommands startupCommands;
   private final JavaBuildCommands javaBuildCommands;
-  private final PackageJsonChanges packageJson;
+  private final JHipsterModulePackageJson packageJson;
   private final JHipsterModulePreActions preActions;
   private final JHipsterModulePostActions postActions;
   private final SpringProperties springProperties;
@@ -112,7 +112,7 @@ public final class JHipsterModuleChanges {
     return javaBuildCommands;
   }
 
-  public PackageJsonChanges packageJson() {
+  public JHipsterModulePackageJson packageJson() {
     return packageJson;
   }
 
@@ -172,7 +172,7 @@ public final class JHipsterModuleChanges {
     private ContentReplacers replacers;
     private JHipsterStartupCommands startupCommands;
     private JavaBuildCommands javaBuildCommands;
-    private PackageJsonChanges packageJson;
+    private JHipsterModulePackageJson packageJson;
     private Indentation indentation;
     private JHipsterModulePreActions preActions;
     private JHipsterModulePostActions postActions;
@@ -246,7 +246,7 @@ public final class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesPreActionsBuilder packageJson(PackageJsonChanges packageJson) {
+    public JHipsterModuleChangesPreActionsBuilder packageJson(JHipsterModulePackageJson packageJson) {
       this.packageJson = packageJson;
 
       return this;
@@ -339,7 +339,7 @@ public final class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesPackageJsonBuilder {
-    JHipsterModuleChangesPreActionsBuilder packageJson(PackageJsonChanges packageJson);
+    JHipsterModuleChangesPreActionsBuilder packageJson(JHipsterModulePackageJson packageJson);
   }
 
   public interface JHipsterModuleChangesPreActionsBuilder {

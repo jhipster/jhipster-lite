@@ -21,7 +21,6 @@ import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson;
 import tech.jhipster.lite.module.domain.packagejson.JHipsterModulePackageJson.JHipsterModulePackageJsonBuilder;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonChanges;
 import tech.jhipster.lite.module.domain.packagejson.VersionSource;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.infrastructure.secondary.file.MustacheTemplateRenderer;
@@ -38,7 +37,9 @@ class FileSystemPackageJsonHandlerTest {
 
   @Test
   void shouldHandleEmptyPackageJsonCommandsOnProjectWithoutPackageJson() {
-    assertThatCode(() -> packageJson.handle(Indentation.DEFAULT, emptyFolder(), packageJsonChanges())).doesNotThrowAnyException();
+    assertThatCode(
+      () -> packageJson.handle(Indentation.DEFAULT, emptyFolder(), packageJson(), emptyModuleContext())
+    ).doesNotThrowAnyException();
   }
 
   @Test
@@ -48,7 +49,8 @@ class FileSystemPackageJsonHandlerTest {
         packageJson.handle(
           Indentation.DEFAULT,
           emptyFolder(),
-          packageJsonChanges(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value")))
+          packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+          emptyModuleContext()
         )
     ).isExactlyInstanceOf(MissingPackageJsonException.class);
   }
@@ -66,7 +68,8 @@ class FileSystemPackageJsonHandlerTest {
     packageJson.handle(
       Indentation.DEFAULT,
       folder,
-      packageJsonChanges(packageJson -> packageJson.addDevDependency(packageName("@playwright/test"), VersionSource.COMMON))
+      packageJson(packageJson -> packageJson.addDevDependency(packageName("@playwright/test"), VersionSource.COMMON)),
+      emptyModuleContext()
     );
 
     assertThat(packageJsonContent(folder)).doesNotContain("scripts");
@@ -79,7 +82,8 @@ class FileSystemPackageJsonHandlerTest {
     packageJson.handle(
       Indentation.DEFAULT,
       folder,
-      packageJsonChanges(packageJson -> packageJson.addScript(scriptKey("@prettier/plugin-xml"), scriptCommand("test")))
+      packageJson(packageJson -> packageJson.addScript(scriptKey("@prettier/plugin-xml"), scriptCommand("test"))),
+      emptyModuleContext()
     );
 
     assertPackageJsonContent(
@@ -112,7 +116,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value")))
+        packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -133,10 +138,11 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(
+        packageJson(
           packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value")),
           packageJson -> packageJson.addScript(scriptKey("key2"), scriptCommand("value2"))
-        )
+        ),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -157,7 +163,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value")))
+        packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -177,7 +184,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addScript(scriptKey("build"), scriptCommand("test")))
+        packageJson(packageJson -> packageJson.addScript(scriptKey("build"), scriptCommand("test"))),
+        emptyModuleContext()
       );
 
       String result = packageJsonContent(folder);
@@ -199,7 +207,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addScript(scriptKey("build"), scriptCommand("test")))
+        packageJson(packageJson -> packageJson.addScript(scriptKey("build"), scriptCommand("test"))),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -225,7 +234,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON))
+        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -248,7 +258,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON))
+        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -270,10 +281,11 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(
+        packageJson(
           packageJson ->
             packageJson.addDevDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))
-        )
+        ),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -294,7 +306,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON))
+        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -316,7 +329,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.removeDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON))
+        packageJson(packageJson -> packageJson.removeDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -345,7 +359,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON))
+        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -368,9 +383,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(
-          packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-coree"), VersionSource.COMMON)
-        )
+        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-coree"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -392,9 +406,10 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(
+        packageJson(
           packageJson -> packageJson.addDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))
-        )
+        ),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -415,7 +430,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON))
+        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -437,9 +453,8 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJsonChanges(
-          packageJson -> packageJson.removeDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)
-        )
+        packageJson(packageJson -> packageJson.removeDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        emptyModuleContext()
       );
 
       assertPackageJsonContent(
@@ -457,11 +472,11 @@ class FileSystemPackageJsonHandlerTest {
   }
 
   @SafeVarargs
-  private @NotNull PackageJsonChanges packageJsonChanges(Consumer<JHipsterModulePackageJsonBuilder>... builderConfigurations) {
+  private @NotNull JHipsterModulePackageJson packageJson(Consumer<JHipsterModulePackageJsonBuilder>... builderConfigurations) {
     JHipsterModulePackageJsonBuilder builder = emptyBuilder();
     Stream.of(builderConfigurations).forEach(configuration -> configuration.accept(builder));
 
-    return builder.build().buildChanges(emptyModuleContext());
+    return builder.build();
   }
 
   private JHipsterModulePackageJsonBuilder emptyBuilder() {

@@ -41,10 +41,16 @@ class FileSystemPackageJsonHandler {
     this.templateRenderer = templateRenderer;
   }
 
-  public void handle(Indentation indentation, JHipsterProjectFolder projectFolder, PackageJsonChanges packageJson) {
+  public void handle(
+    Indentation indentation,
+    JHipsterProjectFolder projectFolder,
+    JHipsterModulePackageJson packageJson,
+    JHipsterModuleContext context
+  ) {
     Assert.notNull("indentation", indentation);
     Assert.notNull("projectFolder", projectFolder);
     Assert.notNull("packageJson", packageJson);
+    Assert.notNull("context", context);
 
     if (packageJson.isEmpty()) {
       return;
@@ -60,7 +66,7 @@ class FileSystemPackageJsonHandler {
     content = removeDependencies(indentation, packageJson.dependenciesToRemove(), content);
     content = removeDevDependencies(indentation, packageJson.devDependenciesToRemove(), content);
 
-    content = replacePlaceholders(content, packageJson.context());
+    content = replacePlaceholders(content, context);
     content = cleanupLineBreaks(indentation, content);
 
     write(file, content);

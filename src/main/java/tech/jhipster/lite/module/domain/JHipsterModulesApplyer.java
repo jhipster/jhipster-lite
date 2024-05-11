@@ -18,7 +18,6 @@ import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependenciesVersionsRepository;
 import tech.jhipster.lite.module.domain.javadependency.ProjectJavaDependenciesRepository;
-import tech.jhipster.lite.module.domain.packagejson.PackageJsonChanges;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacer;
 import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
@@ -85,7 +84,7 @@ public class JHipsterModulesApplyer {
           .merge(buildGradlePluginsChanges(module))
           .merge(buildGradleConfigurationsChanges(module))
       )
-      .packageJson(buildPackageJsonChanges(module))
+      .packageJson(module.packageJson())
       .preActions(module.preActions())
       .postActions(module.postActions())
       .springFactories(module.springFactories());
@@ -114,12 +113,6 @@ public class JHipsterModulesApplyer {
 
   private Optional<JavaBuildTool> detectedJavaBuildTool(JHipsterModule module) {
     return javaBuildTools.detect(module.projectFolder()).or(() -> javaBuildTools.detect(module.files()));
-  }
-
-  private PackageJsonChanges buildPackageJsonChanges(JHipsterModule module) {
-    JHipsterModuleContext context = contextWithJavaBuildTool(module);
-
-    return module.packageJson().buildChanges(context);
   }
 
   private JHipsterTemplatedFiles buildTemplatedFiles(JHipsterModule module) {

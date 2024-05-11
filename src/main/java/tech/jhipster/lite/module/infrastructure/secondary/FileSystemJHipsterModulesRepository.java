@@ -92,7 +92,7 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
     yamlSpringProperties.handle(changes.indentation(), changes.projectFolder(), changes.springYamlProperties());
     yamlSpringComments.handle(changes.indentation(), changes.projectFolder(), changes.springYamlComments());
     springFactories.handle(changes.projectFolder(), changes.springFactories());
-    packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson());
+    packageJson.handle(changes.indentation(), changes.projectFolder(), changes.packageJson(), changes.context());
     replacer.handle(changes.projectFolder(), changes.replacers(), changes.context());
     startupCommands.handle(changes.projectFolder(), changes.startupCommands(), changes.context());
 

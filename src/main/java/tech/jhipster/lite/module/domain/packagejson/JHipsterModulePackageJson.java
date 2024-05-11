@@ -9,17 +9,20 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class JHipsterModulePackageJson {
 
-  private final PackageJsonData data;
+  private final Scripts scripts;
+  private final PackageJsonDependencies dependencies;
+  private final PackageJsonDependencies dependenciesToRemove;
+  private final PackageJsonDependencies devDependencies;
+  private final PackageJsonDependencies devDependenciesToRemove;
+  private final PackageJsonType type;
 
   private JHipsterModulePackageJson(JHipsterModulePackageJsonBuilder builder) {
-    this.data = new PackageJsonData(
-      new Scripts(builder.scripts),
-      new PackageJsonDependencies(builder.dependencies),
-      new PackageJsonDependencies(builder.dependenciesToRemove),
-      new PackageJsonDependencies(builder.devDependencies),
-      new PackageJsonDependencies(builder.devDependenciesToRemove),
-      new PackageJsonType(builder.type)
-    );
+    scripts = new Scripts(builder.scripts);
+    dependencies = new PackageJsonDependencies(builder.dependencies);
+    dependenciesToRemove = new PackageJsonDependencies(builder.dependenciesToRemove);
+    devDependencies = new PackageJsonDependencies(builder.devDependencies);
+    devDependenciesToRemove = new PackageJsonDependencies(builder.devDependenciesToRemove);
+    type = new PackageJsonType(builder.type);
   }
 
   public static JHipsterModulePackageJsonBuilder builder(JHipsterModuleBuilder module) {
@@ -30,8 +33,28 @@ public final class JHipsterModulePackageJson {
     return new PackageJsonChanges(this, context);
   }
 
-  public PackageJsonData getData() {
-    return data;
+  public Scripts scripts() {
+    return scripts;
+  }
+
+  public PackageJsonDependencies devDependencies() {
+    return devDependencies;
+  }
+
+  public PackageJsonDependencies dependencies() {
+    return dependencies;
+  }
+
+  public PackageJsonDependencies devDependenciesToRemove() {
+    return devDependenciesToRemove;
+  }
+
+  public PackageJsonDependencies dependenciesToRemove() {
+    return dependenciesToRemove;
+  }
+
+  public PackageJsonType type() {
+    return type;
   }
 
   public static final class JHipsterModulePackageJsonBuilder {

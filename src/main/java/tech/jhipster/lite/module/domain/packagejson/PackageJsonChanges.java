@@ -5,49 +5,59 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public final class PackageJsonChanges {
 
-  private final PackageJsonData data;
+  private final Scripts scripts;
+  private final PackageJsonDependencies dependencies;
+  private final PackageJsonDependencies dependenciesToRemove;
+  private final PackageJsonDependencies devDependencies;
+  private final PackageJsonDependencies devDependenciesToRemove;
+  private final PackageJsonType type;
   private final JHipsterModuleContext context;
 
   public PackageJsonChanges(JHipsterModulePackageJson packageJson, JHipsterModuleContext context) {
     Assert.notNull("packageJson", packageJson);
     Assert.notNull("context", context);
 
-    this.data = packageJson.getData();
+    this.scripts = packageJson.scripts();
+    this.dependencies = packageJson.dependencies();
+    this.dependenciesToRemove = packageJson.dependenciesToRemove();
+    this.devDependencies = packageJson.devDependencies();
+    this.devDependenciesToRemove = packageJson.devDependenciesToRemove();
+    this.type = packageJson.type();
     this.context = context;
   }
 
   public boolean isEmpty() {
     return (
-      data.scripts().isEmpty() &&
-      data.dependencies().isEmpty() &&
-      data.devDependencies().isEmpty() &&
-      data.dependenciesToRemove().isEmpty() &&
-      data.devDependenciesToRemove().isEmpty()
+      scripts.isEmpty() &&
+      dependencies.isEmpty() &&
+      devDependencies.isEmpty() &&
+      dependenciesToRemove.isEmpty() &&
+      devDependenciesToRemove.isEmpty()
     );
   }
 
   public Scripts scripts() {
-    return data.scripts();
-  }
-
-  public PackageJsonDependencies dependencies() {
-    return data.dependencies();
+    return scripts;
   }
 
   public PackageJsonDependencies devDependencies() {
-    return data.devDependencies();
+    return devDependencies;
   }
 
-  public PackageJsonDependencies dependenciesToRemove() {
-    return data.dependenciesToRemove();
+  public PackageJsonDependencies dependencies() {
+    return dependencies;
   }
 
   public PackageJsonDependencies devDependenciesToRemove() {
-    return data.devDependenciesToRemove();
+    return devDependenciesToRemove;
+  }
+
+  public PackageJsonDependencies dependenciesToRemove() {
+    return dependenciesToRemove;
   }
 
   public PackageJsonType type() {
-    return data.type();
+    return type;
   }
 
   public JHipsterModuleContext context() {

@@ -480,13 +480,24 @@
             </configuration>
           </execution>
           <execution>
-            <id>front test</id>
+            <id>front unit test</id>
             <goals>
               <goal>npm</goal>
             </goals>
             <phase>test</phase>
             <configuration>
               <arguments>run test:coverage</arguments>
+              <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+            </configuration>
+          </execution>
+          <execution>
+            <id>front component test</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <arguments>run test:component:headless</arguments>
               <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
             </configuration>
           </execution>
@@ -896,7 +907,7 @@
                       </outputs>
                     </execution>
                     <execution>
-                      <id>front test</id>
+                      <id>front unit test</id>
                       <inputs>
                         <properties>
                           <property>
@@ -969,7 +980,7 @@
                           <fileSet>
                             <name>test-sources</name>
                             <paths>
-                              <path>${project.basedir}/src/test/webapp</path>
+                              <path>${project.basedir}/src/test/webapp/unit</path>
                             </paths>
                             <includes>
                               <include>**/*.*</include>
@@ -995,6 +1006,93 @@
                             <path>${project.basedir}/target/test-results</path>
                           </directory>
                         </directories>
+                        <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
+                      </outputs>
+                    </execution>
+                    <execution>
+                      <id>front component test</id>
+                      <inputs>
+                        <properties>
+                          <property>
+                            <name>arguments</name>
+                          </property>
+                          <property>
+                            <name>environmentVariables</name>
+                          </property>
+                          <property>
+                            <name>npmInheritsProxyConfigFromMaven</name>
+                          </property>
+                          <property>
+                            <name>npmRegistryURL</name>
+                          </property>
+                          <property>
+                            <name>skip</name>
+                          </property>
+                          <property>
+                            <name>testFailureIgnore</name>
+                          </property>
+                        </properties>
+                        <ignoredProperties>
+                          <ignore>execution</ignore>
+                          <ignore>project</ignore>
+                          <ignore>repositorySystemSession</ignore>
+                          <ignore>workingDirectory</ignore>
+                          <ignore>skipTests</ignore>
+                          <ignore>session</ignore>
+                          <ignore>installDirectory</ignore>
+                        </ignoredProperties>
+                        <fileSets>
+                          <fileSet>
+                            <name>package-json</name>
+                            <paths>
+                              <path>${project.basedir}/package.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>package-lock</name>
+                            <paths>
+                              <path>${project.basedir}/package-lock.json</path>
+                            </paths>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>sources</name>
+                            <paths>
+                              <path>${project.basedir}/src/main/webapp</path>
+                              <path>${project.basedir}/src/main/style</path>
+                              <path>${project.basedir}/src/main/glyph</path>
+                            </paths>
+                            <includes>
+                              <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>build-config</name>
+                            <paths>
+                              <path>${project.basedir}/</path>
+                            </paths>
+                            <includes>
+                              <include>tikuiconfig.json</include>
+                              <include>tsconfig*.json</include>
+                              <include>vite.config.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                          <fileSet>
+                            <name>component-test-sources</name>
+                            <paths>
+                              <path>${project.basedir}/src/test/webapp/component</path>
+                            </paths>
+                            <includes>
+                              <include>**/*.*</include>
+                            </includes>
+                            <normalization>RELATIVE_PATH</normalization>
+                          </fileSet>
+                        </fileSets>
+                      </inputs>
+                      <outputs>
                         <cacheableBecause>just need to test in case source or deps have changed</cacheableBecause>
                       </outputs>
                     </execution>

@@ -18,7 +18,7 @@ export default defineConfig({
     }),
   ],
   test: {
-    include: ['src/test/javascript/spec/**/*.spec.ts'],
+    include: ['src/test/webapp/spec/**/*.spec.ts'],
     logHeapUsage: true,
     poolOptions: {
       threads: {

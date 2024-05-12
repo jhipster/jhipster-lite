@@ -969,7 +969,7 @@
                           <fileSet>
                             <name>test-sources</name>
                             <paths>
-                              <path>${project.basedir}/src/test/javascript</path>
+                              <path>${project.basedir}/src/test/webapp</path>
                             </paths>
                             <includes>
                               <include>**/*.*</include>

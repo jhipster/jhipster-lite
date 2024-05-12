@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain.gradleplugin;
 
 import java.util.Optional;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginImports.GradlePluginImportsBuilder;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
@@ -20,7 +21,7 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
 
     id = builder.id;
     this.dependency = builder.dependency;
-    imports = Optional.ofNullable(builder.imports);
+    imports = builder.imports.buildOptional();
     this.configuration = Optional.ofNullable(builder.configuration);
     this.versionSlug = Optional.ofNullable(builder.versionSlug);
   }
@@ -58,7 +59,7 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
 
     private GradlePluginId id;
     private GradlePluginDependency dependency;
-    private GradlePluginImports imports;
+    private final GradlePluginImportsBuilder<GradleCommunityProfilePluginOptionalBuilder> imports = GradlePluginImports.builder(this);
     private GradlePluginConfiguration configuration;
     private VersionSlug versionSlug;
 
@@ -77,10 +78,8 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
     }
 
     @Override
-    public GradleCommunityProfilePluginOptionalBuilder imports(GradlePluginImports imports) {
-      this.imports = imports;
-
-      return this;
+    public GradlePluginImportsBuilder<GradleCommunityProfilePluginOptionalBuilder> gradleImports() {
+      return imports;
     }
 
     @Override
@@ -120,11 +119,7 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
   }
 
   public interface GradleCommunityProfilePluginOptionalBuilder {
-    GradleCommunityProfilePluginOptionalBuilder imports(GradlePluginImports imports);
-
-    default GradleCommunityProfilePluginOptionalBuilder imports(GradlePluginImport... imports) {
-      return imports(GradlePluginImports.of(imports));
-    }
+    GradlePluginImportsBuilder<GradleCommunityProfilePluginOptionalBuilder> gradleImports();
 
     GradleCommunityProfilePluginOptionalBuilder configuration(GradlePluginConfiguration configuration);
 

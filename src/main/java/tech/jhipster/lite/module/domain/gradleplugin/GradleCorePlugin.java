@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.domain.gradleplugin;
 
 import java.util.Optional;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginImports.GradlePluginImportsBuilder;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -14,7 +15,7 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   private GradleCorePlugin(GradleCorePluginBuilder builder) {
     Assert.notNull("id", builder.id);
     id = builder.id;
-    imports = Optional.ofNullable(builder.imports);
+    imports = builder.imports.buildOptional();
     configuration = Optional.ofNullable(builder.configuration);
     toolVersionSlug = Optional.ofNullable(builder.toolVersionSlug);
   }
@@ -44,7 +45,7 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   private static final class GradleCorePluginBuilder implements GradleCorePluginIdBuilder, GradleCorePluginOptionalBuilder {
 
     private GradlePluginId id;
-    private GradlePluginImports imports;
+    private final GradlePluginImportsBuilder<GradleCorePluginOptionalBuilder> imports = GradlePluginImports.builder(this);
     private GradlePluginConfiguration configuration;
     private VersionSlug toolVersionSlug;
 
@@ -56,10 +57,8 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
     }
 
     @Override
-    public GradleCorePluginOptionalBuilder imports(GradlePluginImports imports) {
-      this.imports = imports;
-
-      return this;
+    public GradlePluginImportsBuilder<GradleCorePluginOptionalBuilder> gradleImports() {
+      return imports;
     }
 
     @Override
@@ -91,11 +90,7 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   }
 
   public interface GradleCorePluginOptionalBuilder {
-    GradleCorePluginOptionalBuilder imports(GradlePluginImports imports);
-
-    default GradleCorePluginOptionalBuilder imports(GradlePluginImport... imports) {
-      return imports(GradlePluginImports.of(imports));
-    }
+    GradlePluginImportsBuilder<GradleCorePluginOptionalBuilder> gradleImports();
 
     GradleCorePluginOptionalBuilder configuration(GradlePluginConfiguration configuration);
 

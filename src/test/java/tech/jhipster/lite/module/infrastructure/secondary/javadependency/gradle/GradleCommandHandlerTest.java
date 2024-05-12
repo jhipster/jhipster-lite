@@ -22,7 +22,6 @@ import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
-import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginImport;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -1525,7 +1524,9 @@ class GradleCommandHandlerTest {
       .id("com.github.node-gradle.node")
       .pluginSlug("node-gradle")
       .versionSlug("node-gradle")
-      .imports(new GradlePluginImport("com.github.gradle.node.npm.task.NpmTask"))
+      .gradleImports()
+      .gradleImport("com.github.gradle.node.npm.task.NpmTask")
+      .and()
       .configuration(
         """
         node {

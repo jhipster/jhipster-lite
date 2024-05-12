@@ -21,7 +21,7 @@
     "src/main/webapp/**/*.d.ts",
     "src/main/webapp/**/*.tsx",
     "src/main/webapp/**/*.vue",
-    "src/test/webapp/spec/**/*.ts"
+    "src/test/webapp/unit/**/*.ts"
   ],
   "exclude": ["./node_modules", "src/test/webapp/cypress/**/*.ts"]
 }

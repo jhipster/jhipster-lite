@@ -828,6 +828,88 @@ class MavenCommandHandlerTest {
         assertThat(contentNormalizingNewLines(pom)).contains(pluginManagement());
       }
 
+      @Test
+      void shouldReplaceExistingMavenPlugin() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+        MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+        mavenCommandHandler.handle(AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).build());
+
+        mavenCommandHandler.handle(
+          AddMavenPluginManagement.builder()
+            .plugin(
+              mavenPlugin()
+                .groupId("org.apache.maven.plugins")
+                .artifactId("maven-enforcer-plugin")
+                .versionSlug("maven-enforcer-plugin")
+                .build()
+            )
+            .build()
+        );
+
+        assertThat(contentNormalizingNewLines(pom))
+          .doesNotContain(
+            // language=xml
+            """
+                    <plugin>
+                      <artifactId>maven-enforcer-plugin</artifactId>
+                    </plugin>\
+            """
+          )
+          .containsOnlyOnce(
+            // language=xml
+            """
+                    <plugin>
+                      <artifactId>maven-enforcer-plugin</artifactId>
+                      <version>${maven-enforcer-plugin.version}</version>
+                    </plugin>\
+            """
+          );
+      }
+
+      @Test
+      void shouldReplaceExistingThirdPartyPlugin() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+        MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+        mavenCommandHandler.handle(AddMavenPluginManagement.builder().plugin(asciidoctorPlugin()).build());
+        mavenCommandHandler.handle(AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).build());
+
+        mavenCommandHandler.handle(
+          AddMavenPluginManagement.builder()
+            .plugin(mavenPlugin().groupId("org.asciidoctor").artifactId("asciidoctor-maven-plugin").build())
+            .build()
+        );
+
+        assertThat(contentNormalizingNewLines(pom))
+          .doesNotContain(
+            // language=xml
+            """
+                    <plugin>
+                      <groupId>org.asciidoctor</groupId>
+                      <artifactId>asciidoctor-maven-plugin</artifactId>
+                      <dependencies>
+                        <dependency>
+                          <groupId>org.asciidoctor</groupId>
+                          <artifactId>asciidoctorj-screenshot</artifactId>
+                        </dependency>
+                        <dependency>
+                          <groupId>org.asciidoctor</groupId>
+                          <artifactId>asciidoctorj-diagram</artifactId>
+                        </dependency>
+                      </dependencies>
+                    </plugin>\
+            """
+          )
+          .containsOnlyOnce(
+            // language=xml
+            """
+                    <plugin>
+                      <groupId>org.asciidoctor</groupId>
+                      <artifactId>asciidoctor-maven-plugin</artifactId>
+                    </plugin>\
+            """
+          );
+      }
+
       private void addMavenEnforcerPlugin(Path pom) {
         AddMavenPluginManagement command = AddMavenPluginManagement.builder().plugin(mavenEnforcerPluginManagement()).build();
         new MavenCommandHandler(Indentation.DEFAULT, pom).handle(command);
@@ -1082,6 +1164,88 @@ class MavenCommandHandlerTest {
                     <artifactId>spring-boot-maven-plugin</artifactId>
                   </plugin>
                 </plugins>
+            """
+          );
+      }
+
+      @Test
+      void shouldReplaceExistingMavenPlugin() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+        MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+        mavenCommandHandler.handle(AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build());
+        mavenCommandHandler.handle(AddDirectMavenPlugin.builder().plugin(asciidoctorPlugin()).build());
+
+        mavenCommandHandler.handle(
+          AddDirectMavenPlugin.builder()
+            .plugin(
+              mavenPlugin()
+                .groupId("org.apache.maven.plugins")
+                .artifactId("maven-enforcer-plugin")
+                .versionSlug("maven-enforcer-plugin")
+                .build()
+            )
+            .build()
+        );
+
+        assertThat(contentNormalizingNewLines(pom))
+          .doesNotContain(
+            // language=xml
+            """
+                  <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                  </plugin>\
+            """
+          )
+          .containsOnlyOnce(
+            // language=xml
+            """
+                  <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                  </plugin>\
+            """
+          );
+      }
+
+      @Test
+      void shouldReplaceExistingThirdPartyPlugin() {
+        Path pom = projectWithPom("src/test/resources/projects/empty-maven/pom.xml");
+        MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+        mavenCommandHandler.handle(AddDirectMavenPlugin.builder().plugin(asciidoctorPlugin()).build());
+
+        mavenCommandHandler.handle(
+          AddDirectMavenPlugin.builder()
+            .plugin(mavenPlugin().groupId("org.asciidoctor").artifactId("asciidoctor-maven-plugin").build())
+            .build()
+        );
+
+        assertThat(contentNormalizingNewLines(pom))
+          .doesNotContain(
+            // language=xml
+            """
+                  <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <dependencies>
+                      <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-screenshot</artifactId>
+                      </dependency>
+                      <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-diagram</artifactId>
+                      </dependency>
+                    </dependencies>
+                  </plugin>\
+            """
+          )
+          .containsOnlyOnce(
+            // language=xml
+            """
+                  <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                  </plugin>\
             """
           );
       }

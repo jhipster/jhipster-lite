@@ -14,18 +14,13 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.buildproperties.*;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
-import tech.jhipster.lite.module.domain.javadependency.DependencyId;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.*;
 import tech.jhipster.lite.module.domain.mavenplugin.*;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
@@ -285,7 +280,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(this::findProfile)
       .map(this::pluginManagement)
       .orElse(pluginManagement());
-    pluginManagement.addPlugin(toMavenPlugin(command));
+    replaceOrAddPlugin(pluginManagement.getPlugins(), toMavenPlugin(command));
 
     writePom();
   }
@@ -311,10 +306,21 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
     command.dependenciesVersions().forEach(version -> handle(new SetVersion(version)));
 
-    BuildBase projectBuild = command.buildProfile().map(this::findProfile).map(this::profileBuild).orElse(projectBuild());
-    projectBuild.addPlugin(toMavenPlugin(command));
+    BuildBase build = command.buildProfile().map(this::findProfile).map(this::profileBuild).orElse(projectBuild());
+    replaceOrAddPlugin(build.getPlugins(), toMavenPlugin(command));
 
     writePom();
+  }
+
+  private static void replaceOrAddPlugin(List<Plugin> plugins, Plugin newPlugin) {
+    for (int i = 0; i < plugins.size(); i++) {
+      Plugin existingPlugin = plugins.get(i);
+      if (existingPlugin.getGroupId().equals(newPlugin.getGroupId()) && existingPlugin.getArtifactId().equals(newPlugin.getArtifactId())) {
+        plugins.set(i, newPlugin);
+        return;
+      }
+    }
+    plugins.add(newPlugin);
   }
 
   private BuildBase profileBuild(Profile mavenProfile) {

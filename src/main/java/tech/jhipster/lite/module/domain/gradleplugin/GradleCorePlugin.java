@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.domain.gradleplugin;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -7,18 +9,25 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProfilePlugin {
 
   private final GradlePluginId id;
+  private final GradlePluginImports imports;
   private final Optional<GradlePluginConfiguration> configuration;
   private final Optional<VersionSlug> toolVersionSlug;
 
   private GradleCorePlugin(GradleCorePluginBuilder builder) {
     Assert.notNull("id", builder.id);
     id = builder.id;
+    imports = new GradlePluginImports(builder.imports);
     configuration = Optional.ofNullable(builder.configuration);
     toolVersionSlug = Optional.ofNullable(builder.toolVersionSlug);
   }
 
   public GradlePluginId id() {
     return id;
+  }
+
+  @Override
+  public GradlePluginImports imports() {
+    return imports;
   }
 
   @Override
@@ -37,12 +46,20 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   private static final class GradleCorePluginBuilder implements GradleCorePluginIdBuilder, GradleCorePluginOptionalBuilder {
 
     private GradlePluginId id;
+    private final Collection<BuildGradleImport> imports = new ArrayList<>();
     private GradlePluginConfiguration configuration;
     private VersionSlug toolVersionSlug;
 
     @Override
     public GradleCorePluginOptionalBuilder id(GradlePluginId id) {
       this.id = id;
+
+      return this;
+    }
+
+    @Override
+    public GradleCorePluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport) {
+      imports.add(gradleImport);
 
       return this;
     }
@@ -76,6 +93,12 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   }
 
   public interface GradleCorePluginOptionalBuilder {
+    GradleCorePluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport);
+
+    default GradleCorePluginOptionalBuilder withBuildGradleImport(String gradleImport) {
+      return withBuildGradleImport(new BuildGradleImport(gradleImport));
+    }
+
     GradleCorePluginOptionalBuilder configuration(GradlePluginConfiguration configuration);
 
     default GradleCorePluginOptionalBuilder configuration(String configuration) {

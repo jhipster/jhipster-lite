@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.domain.gradleplugin;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -7,6 +9,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
 
   private final GradlePluginId id;
+  private final GradlePluginImports imports;
   private final Optional<GradlePluginConfiguration> configuration;
   private final Optional<VersionSlug> versionSlug;
   private final Optional<GradlePluginSlug> pluginSlug;
@@ -14,6 +17,7 @@ public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
   private GradleCommunityPlugin(GradleCommunityPluginBuilder builder) {
     Assert.notNull("id", builder.id);
     id = builder.id;
+    imports = new GradlePluginImports(builder.imports);
     configuration = Optional.ofNullable(builder.configuration);
     versionSlug = Optional.ofNullable(builder.versionSlug);
     pluginSlug = Optional.ofNullable(builder.pluginSlug);
@@ -22,6 +26,11 @@ public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
   @Override
   public GradlePluginId id() {
     return id;
+  }
+
+  @Override
+  public GradlePluginImports imports() {
+    return imports;
   }
 
   @Override
@@ -44,6 +53,7 @@ public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
   private static final class GradleCommunityPluginBuilder implements GradleCommunityPluginIdBuilder, GradleCommunityPluginOptionalBuilder {
 
     private GradlePluginId id;
+    private final Collection<BuildGradleImport> imports = new ArrayList<>();
     private GradlePluginConfiguration configuration;
     private VersionSlug versionSlug;
     private GradlePluginSlug pluginSlug;
@@ -51,6 +61,13 @@ public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
     @Override
     public GradleCommunityPluginOptionalBuilder id(GradlePluginId id) {
       this.id = id;
+
+      return this;
+    }
+
+    @Override
+    public GradleCommunityPluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport) {
+      imports.add(gradleImport);
 
       return this;
     }
@@ -91,6 +108,12 @@ public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
   }
 
   public interface GradleCommunityPluginOptionalBuilder {
+    GradleCommunityPluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport);
+
+    default GradleCommunityPluginOptionalBuilder withBuildGradleImport(String gradleImport) {
+      return withBuildGradleImport(new BuildGradleImport(gradleImport));
+    }
+
     GradleCommunityPluginOptionalBuilder configuration(GradlePluginConfiguration configuration);
 
     default GradleCommunityPluginOptionalBuilder configuration(String configuration) {

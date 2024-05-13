@@ -1104,12 +1104,18 @@ class GradleCommandHandlerTest {
     private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     @Test
-    void shouldDeclareAndConfigurePluginInBuildGradleFile() {
+    void shouldDeclareAndConfigureCorePluginAndAddImportInBuildGradleFile() {
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
         AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build()
       );
 
       assertThat(buildGradleContent(projectFolder))
+        .contains(
+          """
+          import java.util.Properties
+          // jhipster-needle-gradle-imports
+          """
+        )
         .contains(
           """
           plugins {
@@ -1127,6 +1133,66 @@ class GradleCommandHandlerTest {
           }
 
           // jhipster-needle-gradle-plugins-configurations
+          """
+        );
+    }
+
+    @Test
+    void shouldDeclareAndConfigureCommunityPluginAndAddImportInBuildGradleFile() {
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+        AddGradlePlugin.builder().plugin(nodeGradlePlugin()).build()
+      );
+
+      assertThat(buildGradleContent(projectFolder))
+        .contains(
+          """
+          import com.github.gradle.node.npm.task.NpmTask
+          // jhipster-needle-gradle-imports
+          """
+        )
+        .contains(
+          """
+          plugins {
+            java
+            alias(libs.plugins.node.gradle)
+            // jhipster-needle-gradle-plugins
+          }
+          """
+        )
+        .contains(
+          """
+          node {
+            version.set("v20.12.2")
+            npmVersion.set("10.5.2")
+            npmWorkDir.set(file("build"))
+          }
+
+          val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
+            description = "Build the frontend project using NPM"
+            group = "Build"
+            dependsOn("npmInstall")
+            npmCommand.set(listOf("run", "build"))
+            environment.set(mapOf("APP_VERSION" to project.version.toString()))
+          }
+
+          val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
+            description = "Test the frontend project using NPM"
+            group = "verification"
+            dependsOn("npmInstall", "buildNpm")
+            npmCommand.set(listOf("run", "test"))
+            ignoreExitValue.set(false)
+            workingDir.set(projectDir)
+            execOverrides {
+              standardOutput = System.out
+            }
+          }
+
+          tasks.bootJar {
+            dependsOn("buildNpm")
+            from("build/classes/static") {
+                into("BOOT-INF/classes/static")
+            }
+          }
           """
         );
     }
@@ -1181,6 +1247,11 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(command);
 
       assertThat(buildGradleContent(projectFolder))
+        .containsOnlyOnce(
+          """
+          import java.util.Properties
+          """
+        )
         .contains(
           """
           plugins {
@@ -1269,19 +1340,26 @@ class GradleCommandHandlerTest {
         """
       );
       assertThat(pluginBuildGradleContent(projectFolder)).contains("implementation(libs.gradle.docker.plugin");
-      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-        """
-        plugins {
-          java
-          id("com.bmuschko.docker-remote-api")
-          // jhipster-needle-gradle-plugins
-        }
-        """
-      );
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
+        .contains(
+          """
+          import java.util.Properties
+          // jhipster-needle-gradle-imports
+          """
+        )
+        .contains(
+          """
+          plugins {
+            java
+            id("com.bmuschko.docker-remote-api")
+            // jhipster-needle-gradle-plugins
+          }
+          """
+        );
     }
 
     @Test
-    void shouldDeclareAndConfigureCorePluginInBuildGradleProfileFile() {
+    void shouldDeclareAndConfigureCorePluginAndAddImportInBuildGradleProfileFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
@@ -1289,6 +1367,12 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
+        .contains(
+          """
+          import java.util.Properties
+          // jhipster-needle-gradle-imports
+          """
+        )
         .contains(
           """
           plugins {

@@ -1,3 +1,5 @@
+// jhipster-needle-gradle-imports
+
 plugins {
   java
   // jhipster-needle-gradle-plugins

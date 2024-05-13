@@ -14,10 +14,6 @@ public final class GradlePluginImports {
     this.imports = builder.imports;
   }
 
-  public Collection<GradlePluginImport> imports() {
-    return imports;
-  }
-
   public Stream<GradlePluginImport> stream() {
     return imports.stream();
   }

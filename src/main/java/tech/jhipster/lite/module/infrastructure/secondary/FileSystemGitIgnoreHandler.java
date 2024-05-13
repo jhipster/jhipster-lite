@@ -5,14 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
+import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.gitignore.GitIgnoreEntry;
 import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
-import tech.jhipster.lite.module.domain.replacement.MandatoryFileReplacer;
-import tech.jhipster.lite.module.domain.replacement.MandatoryReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexNeedleAfterReplacer;
+import tech.jhipster.lite.module.domain.replacement.*;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
@@ -21,7 +20,11 @@ class FileSystemGitIgnoreHandler {
 
   private static final Pattern END_OF_FILE = Pattern.compile("\\z", Pattern.MULTILINE);
   private static final String GIT_IGNORE_FILE_PATH = ".gitignore";
-  private static final FileSystemReplacer fileReplacer = new FileSystemReplacer();
+  private final FileSystemReplacer fileReplacer;
+
+  public FileSystemGitIgnoreHandler(TemplateRenderer templateRenderer) {
+    this.fileReplacer = new FileSystemReplacer(templateRenderer);
+  }
 
   public void handle(JHipsterProjectFolder projectFolder, JHipsterModuleGitIgnore gitIgnore) {
     Assert.notNull("projectFolder", projectFolder);
@@ -49,7 +52,7 @@ class FileSystemGitIgnoreHandler {
     }
   }
 
-  private static Consumer<GitIgnoreEntry> handleIgnorePattern(JHipsterProjectFolder projectFolder) {
+  private Consumer<GitIgnoreEntry> handleIgnorePattern(JHipsterProjectFolder projectFolder) {
     return gitIgnoreEntry -> {
       MandatoryReplacer replacer = new MandatoryReplacer(
         new RegexNeedleAfterReplacer((contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText), END_OF_FILE),
@@ -57,7 +60,8 @@ class FileSystemGitIgnoreHandler {
       );
       fileReplacer.handle(
         projectFolder,
-        ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(GIT_IGNORE_FILE_PATH), replacer))
+        ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(GIT_IGNORE_FILE_PATH), replacer)),
+        JHipsterModuleContext.empty()
       );
     };
   }

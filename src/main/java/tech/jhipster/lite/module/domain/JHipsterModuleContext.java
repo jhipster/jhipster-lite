@@ -16,6 +16,10 @@ public final class JHipsterModuleContext {
     this.context = JHipsterCollections.immutable(context);
   }
 
+  public static JHipsterModuleContext empty() {
+    return new JHipsterModuleContext(new HashMap<>());
+  }
+
   public JHipsterModuleContext withJavaBuildTool(JavaBuildTool javaBuildTool) {
     Map<String, Object> additionalValues = Map.of(JHipsterModuleProperties.PROJECT_BUILD_DIRECTORY, javaBuildTool.buildDirectory().get());
     return new JHipsterModuleContext(JHipsterCollections.concat(context, additionalValues));

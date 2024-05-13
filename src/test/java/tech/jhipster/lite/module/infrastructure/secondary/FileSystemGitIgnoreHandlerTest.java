@@ -1,19 +1,20 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
-import static tech.jhipster.lite.TestFileUtils.*;
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static tech.jhipster.lite.TestFileUtils.projectFrom;
+import static tech.jhipster.lite.module.domain.JHipsterModule.moduleBuilder;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.allProperties;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 
 @UnitTest
 class FileSystemGitIgnoreHandlerTest {
 
-  private final FileSystemGitIgnoreHandler handler = new FileSystemGitIgnoreHandler();
+  private final FileSystemGitIgnoreHandler handler = new FileSystemGitIgnoreHandler(TemplateRenderer.NOOP);
 
   @Test
   void shouldNotCreateGitIgnoreFileIfPatternsAreEmpty() {

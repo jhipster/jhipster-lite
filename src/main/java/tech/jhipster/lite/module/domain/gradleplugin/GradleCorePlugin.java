@@ -46,7 +46,7 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   private static final class GradleCorePluginBuilder implements GradleCorePluginIdBuilder, GradleCorePluginOptionalBuilder {
 
     private GradlePluginId id;
-    private final Collection<GradlePluginImport> imports = new ArrayList<>();
+    private final Collection<BuildGradleImport> imports = new ArrayList<>();
     private GradlePluginConfiguration configuration;
     private VersionSlug toolVersionSlug;
 
@@ -58,7 +58,7 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
     }
 
     @Override
-    public GradleCorePluginOptionalBuilder withBuildGradleImport(GradlePluginImport gradleImport) {
+    public GradleCorePluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport) {
       imports.add(gradleImport);
 
       return this;
@@ -93,10 +93,10 @@ public final class GradleCorePlugin implements GradleMainBuildPlugin, GradleProf
   }
 
   public interface GradleCorePluginOptionalBuilder {
-    GradleCorePluginOptionalBuilder withBuildGradleImport(GradlePluginImport gradleImport);
+    GradleCorePluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport);
 
     default GradleCorePluginOptionalBuilder withBuildGradleImport(String gradleImport) {
-      return withBuildGradleImport(new GradlePluginImport(gradleImport));
+      return withBuildGradleImport(new BuildGradleImport(gradleImport));
     }
 
     GradleCorePluginOptionalBuilder configuration(GradlePluginConfiguration configuration);

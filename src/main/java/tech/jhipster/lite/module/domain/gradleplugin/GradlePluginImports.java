@@ -4,12 +4,12 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public record GradlePluginImports(Collection<GradlePluginImport> pluginImports) {
+public record GradlePluginImports(Collection<BuildGradleImport> pluginImports) {
   public GradlePluginImports {
     Assert.field("pluginImports", pluginImports).notNull().noNullElement();
   }
 
-  public void forEach(Consumer<GradlePluginImport> consumer) {
+  public void forEach(Consumer<BuildGradleImport> consumer) {
     Assert.notNull("consumer", consumer);
 
     pluginImports.forEach(consumer);

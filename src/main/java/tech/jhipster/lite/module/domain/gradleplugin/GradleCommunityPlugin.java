@@ -53,7 +53,7 @@ public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
   private static final class GradleCommunityPluginBuilder implements GradleCommunityPluginIdBuilder, GradleCommunityPluginOptionalBuilder {
 
     private GradlePluginId id;
-    private final Collection<GradlePluginImport> imports = new ArrayList<>();
+    private final Collection<BuildGradleImport> imports = new ArrayList<>();
     private GradlePluginConfiguration configuration;
     private VersionSlug versionSlug;
     private GradlePluginSlug pluginSlug;
@@ -66,7 +66,7 @@ public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
     }
 
     @Override
-    public GradleCommunityPluginOptionalBuilder withBuildGradleImport(GradlePluginImport gradleImport) {
+    public GradleCommunityPluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport) {
       imports.add(gradleImport);
 
       return this;
@@ -108,10 +108,10 @@ public final class GradleCommunityPlugin implements GradleMainBuildPlugin {
   }
 
   public interface GradleCommunityPluginOptionalBuilder {
-    GradleCommunityPluginOptionalBuilder withBuildGradleImport(GradlePluginImport gradleImport);
+    GradleCommunityPluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport);
 
     default GradleCommunityPluginOptionalBuilder withBuildGradleImport(String gradleImport) {
-      return withBuildGradleImport(new GradlePluginImport(gradleImport));
+      return withBuildGradleImport(new BuildGradleImport(gradleImport));
     }
 
     GradleCommunityPluginOptionalBuilder configuration(GradlePluginConfiguration configuration);

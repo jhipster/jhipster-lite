@@ -60,7 +60,7 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
 
     private GradlePluginId id;
     private GradlePluginDependency dependency;
-    private final Collection<GradlePluginImport> imports = new ArrayList<>();
+    private final Collection<BuildGradleImport> imports = new ArrayList<>();
     private GradlePluginConfiguration configuration;
     private VersionSlug versionSlug;
 
@@ -79,7 +79,7 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
     }
 
     @Override
-    public GradleCommunityProfilePluginOptionalBuilder withBuildGradleImport(GradlePluginImport gradleImport) {
+    public GradleCommunityProfilePluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport) {
       imports.add(gradleImport);
 
       return this;
@@ -122,10 +122,10 @@ public final class GradleCommunityProfilePlugin implements GradleProfilePlugin {
   }
 
   public interface GradleCommunityProfilePluginOptionalBuilder {
-    GradleCommunityProfilePluginOptionalBuilder withBuildGradleImport(GradlePluginImport gradleImport);
+    GradleCommunityProfilePluginOptionalBuilder withBuildGradleImport(BuildGradleImport gradleImport);
 
     default GradleCommunityProfilePluginOptionalBuilder withBuildGradleImport(String gradleImport) {
-      return withBuildGradleImport(new GradlePluginImport(gradleImport));
+      return withBuildGradleImport(new BuildGradleImport(gradleImport));
     }
 
     GradleCommunityProfilePluginOptionalBuilder configuration(GradlePluginConfiguration configuration);

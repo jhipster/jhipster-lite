@@ -480,13 +480,13 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
   }
 
-  private void addPluginImport(GradlePluginImport pluginImport, Optional<BuildProfileId> buildProfile) {
+  private void addPluginImport(BuildGradleImport gradleImport, Optional<BuildProfileId> buildProfile) {
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
         GRADLE_IMPORT_NEEDLE
       ),
-      "import %s".formatted(pluginImport.get())
+      "import %s".formatted(gradleImport.get())
     );
     fileReplacer.handle(
       projectFolder,

@@ -459,7 +459,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         addDependencyToBuildGradle(dependencyFrom(plugin), projectFolder.filePath(PLUGIN_BUILD_GRADLE_FILE), false);
       }
     }
-    command.plugin().imports().ifPresent(pluginImports -> addPluginImports(pluginImports, command.buildProfile()));
+    command.plugin().imports().forEach(pluginImport -> addPluginImport(pluginImport, command.buildProfile()));
     command.plugin().configuration().ifPresent(pluginConfiguration -> addPluginConfiguration(pluginConfiguration, command.buildProfile()));
     command.toolVersion().ifPresent(version -> handle(new SetVersion(version)));
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
@@ -478,10 +478,6 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
       ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer)),
       context
     );
-  }
-
-  private void addPluginImports(GradlePluginImports pluginImports, Optional<BuildProfileId> buildProfile) {
-    pluginImports.stream().forEach(pluginImport -> addPluginImport(pluginImport, buildProfile));
   }
 
   private void addPluginImport(GradlePluginImport pluginImport, Optional<BuildProfileId> buildProfile) {

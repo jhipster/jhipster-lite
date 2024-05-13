@@ -438,9 +438,7 @@ public final class JHipsterModulesFixture {
     return gradleCorePlugin()
       .id("checkstyle")
       .toolVersionSlug("checkstyle")
-      .gradleImports()
-      .gradleImport("java.util.Properties")
-      .and()
+      .withBuildGradleImport("java.util.Properties")
       .configuration(
         """
         checkstyle {
@@ -455,9 +453,7 @@ public final class JHipsterModulesFixture {
     return gradleCorePlugin()
       .id("checkstyle")
       .toolVersionSlug("checkstyle")
-      .gradleImports()
-      .gradleImport("java.util.Properties")
-      .and()
+      .withBuildGradleImport("java.util.Properties")
       .configuration(
         """
         checkstyle {
@@ -473,9 +469,7 @@ public final class JHipsterModulesFixture {
       .id("com.github.node-gradle.node")
       .pluginSlug("node-gradle")
       .versionSlug("node-gradle")
-      .gradleImports()
-      .gradleImport("com.github.gradle.node.npm.task.NpmTask")
-      .and()
+      .withBuildGradleImport("com.github.gradle.node.npm.task.NpmTask")
       .configuration(
         """
         node {
@@ -536,9 +530,7 @@ public final class JHipsterModulesFixture {
       .id("com.bmuschko.docker-remote-api")
       .dependency(groupId("com.bmuschko"), artifactId("gradle-docker-plugin"))
       .versionSlug("docker-plugin")
-      .gradleImports()
-      .gradleImport("java.util.Properties")
-      .and()
+      .withBuildGradleImport("java.util.Properties")
       .build();
   }
 

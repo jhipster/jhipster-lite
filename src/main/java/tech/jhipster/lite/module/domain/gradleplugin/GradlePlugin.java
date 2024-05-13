@@ -4,6 +4,6 @@ import java.util.Optional;
 
 public sealed interface GradlePlugin permits GradleMainBuildPlugin, GradleProfilePlugin {
   GradlePluginId id();
-  Optional<GradlePluginImports> imports();
+  GradlePluginImports imports();
   Optional<GradlePluginConfiguration> configuration();
 }

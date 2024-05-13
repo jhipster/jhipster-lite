@@ -459,7 +459,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         addDependencyToBuildGradle(dependencyFrom(plugin), projectFolder.filePath(PLUGIN_BUILD_GRADLE_FILE), false);
       }
     }
-    command.plugin().imports().ifPresent(this::addPluginImports);
+    command.plugin().imports().ifPresent(pluginImports -> addPluginImports(pluginImports, command.buildProfile()));
     command.plugin().configuration().ifPresent(pluginConfiguration -> addPluginConfiguration(pluginConfiguration, command.buildProfile()));
     command.toolVersion().ifPresent(version -> handle(new SetVersion(version)));
     command.pluginVersion().ifPresent(version -> handle(new SetVersion(version)));
@@ -480,21 +480,21 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     );
   }
 
-  private void addPluginImports(GradlePluginImports pluginImports) {
-    pluginImports.stream().forEach(this::addPluginImport);
+  private void addPluginImports(GradlePluginImports pluginImports, Optional<BuildProfileId> buildProfile) {
+    pluginImports.stream().forEach(pluginImport -> addPluginImport(pluginImport, buildProfile));
   }
 
-  private void addPluginImport(GradlePluginImport gradlePluginImport) {
+  private void addPluginImport(GradlePluginImport pluginImport, Optional<BuildProfileId> buildProfile) {
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
         GRADLE_IMPORT_NEEDLE
       ),
-      "import %s".formatted(gradlePluginImport.get())
+      "import %s".formatted(pluginImport.get())
     );
     fileReplacer.handle(
       projectFolder,
-      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)),
+      ContentReplacers.of(new MandatoryFileReplacer(projectFolderRelativePathFrom(buildGradleFile(buildProfile)), replacer)),
       context
     );
   }

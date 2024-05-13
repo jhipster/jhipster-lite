@@ -1340,19 +1340,26 @@ class GradleCommandHandlerTest {
         """
       );
       assertThat(pluginBuildGradleContent(projectFolder)).contains("implementation(libs.gradle.docker.plugin");
-      assertThat(scriptPluginContent(projectFolder, localBuildProfile())).contains(
-        """
-        plugins {
-          java
-          id("com.bmuschko.docker-remote-api")
-          // jhipster-needle-gradle-plugins
-        }
-        """
-      );
+      assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
+        .contains(
+          """
+          import java.util.Properties
+          // jhipster-needle-gradle-imports
+          """
+        )
+        .contains(
+          """
+          plugins {
+            java
+            id("com.bmuschko.docker-remote-api")
+            // jhipster-needle-gradle-plugins
+          }
+          """
+        );
     }
 
     @Test
-    void shouldDeclareAndConfigureCorePluginInBuildGradleProfileFile() {
+    void shouldDeclareAndConfigureCorePluginAndAddImportInBuildGradleProfileFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
@@ -1360,6 +1367,12 @@ class GradleCommandHandlerTest {
       );
 
       assertThat(scriptPluginContent(projectFolder, localBuildProfile()))
+        .contains(
+          """
+          import java.util.Properties
+          // jhipster-needle-gradle-imports
+          """
+        )
         .contains(
           """
           plugins {

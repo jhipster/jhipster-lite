@@ -495,6 +495,12 @@ class FileSystemJHipsterModulesRepositoryTest {
       .hasFile("buildSrc/src/main/kotlin/profile-local.gradle.kts")
       .containing(
         """
+        import java.util.Properties
+        // jhipster-needle-gradle-imports
+        """
+      )
+      .containing(
+        """
         plugins {
           java
           checkstyle

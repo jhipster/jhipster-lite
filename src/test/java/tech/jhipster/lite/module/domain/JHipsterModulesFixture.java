@@ -454,6 +454,9 @@ public final class JHipsterModulesFixture {
     return gradleCorePlugin()
       .id("checkstyle")
       .toolVersionSlug("checkstyle")
+      .gradleImports()
+      .gradleImport("java.util.Properties")
+      .and()
       .configuration(
         """
         checkstyle {
@@ -485,6 +488,9 @@ public final class JHipsterModulesFixture {
       .id("com.bmuschko.docker-remote-api")
       .dependency(groupId("com.bmuschko"), artifactId("gradle-docker-plugin"))
       .versionSlug("docker-plugin")
+      .gradleImports()
+      .gradleImport("java.util.Properties")
+      .and()
       .build();
   }
 

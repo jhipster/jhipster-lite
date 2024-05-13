@@ -1104,12 +1104,18 @@ class GradleCommandHandlerTest {
     private final JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     @Test
-    void shouldDeclareAndConfigurePluginInBuildGradleFile() {
+    void shouldDeclareAndConfigureCorePluginAndAddImportInBuildGradleFile() {
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
         AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build()
       );
 
       assertThat(buildGradleContent(projectFolder))
+        .contains(
+          """
+          import java.util.Properties
+          // jhipster-needle-gradle-imports
+          """
+        )
         .contains(
           """
           plugins {
@@ -1132,7 +1138,7 @@ class GradleCommandHandlerTest {
     }
 
     @Test
-    void shouldImportAndDeclareAndConfigurePluginInBuildGradleFile() {
+    void shouldDeclareAndConfigureCommunityPluginAndAddImportInBuildGradleFile() {
       new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
         AddGradlePlugin.builder().plugin(nodeGradlePlugin()).build()
       );
@@ -1184,7 +1190,7 @@ class GradleCommandHandlerTest {
           tasks.bootJar {
             dependsOn("buildNpm")
             from("build/classes/static") {
-                into("BOOT-INF/classes/static") // This will place the content under 'static' directory in the JAR
+                into("BOOT-INF/classes/static")
             }
           }
           """
@@ -1558,7 +1564,7 @@ class GradleCommandHandlerTest {
         tasks.bootJar {
           dependsOn("buildNpm")
           from("build/classes/static") {
-              into("BOOT-INF/classes/static") // This will place the content under 'static' directory in the JAR
+              into("BOOT-INF/classes/static")
           }
         }
         """

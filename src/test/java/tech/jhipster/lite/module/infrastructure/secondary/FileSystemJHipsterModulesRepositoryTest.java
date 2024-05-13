@@ -427,6 +427,12 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("testImplementation(libs.junit.jupiter.engine)")
       .containing("implementation(libs.spring.boot.starter)")
       .notContaining("testImplementation(libs.assertj.core)")
+      .containing(
+        """
+        import java.util.Properties
+        // jhipster-needle-gradle-imports
+        """
+      )
       .containing("""
         plugins {
           java

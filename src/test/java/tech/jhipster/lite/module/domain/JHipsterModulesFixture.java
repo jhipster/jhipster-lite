@@ -437,6 +437,9 @@ public final class JHipsterModulesFixture {
     return gradleCorePlugin()
       .id("checkstyle")
       .toolVersionSlug("checkstyle")
+      .gradleImports()
+      .gradleImport("java.util.Properties")
+      .and()
       .configuration(
         """
         checkstyle {

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.REACT;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -56,8 +56,9 @@ public class ReactCoreModulesFactory {
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
         .addScript(scriptKey("lint"), scriptCommand("eslint --ext .js,.ts,.tsx src/main/webapp/app/**/*"))
-        .addScript(scriptKey("test"), scriptCommand("vitest --"))
+        .addScript(scriptKey("test"), scriptCommand("npm run test:watch"))
         .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
+        .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))
       .and()
       .files()
         .batch(SOURCE, to("."))

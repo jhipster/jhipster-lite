@@ -51,8 +51,9 @@ class VueModulesFactoryTest {
         .containing("\"lint\": \"eslint --ext .js,.ts,.vue src\"")
         .containing("\"preview\": \"vite preview\"")
         .containing("\"start\": \"vite\"")
+        .containing("\"test\": \"npm run test:watch\"")
         .containing("\"test:coverage\": \"vitest run --coverage\"")
-        .containing("\"test\": \"vitest --\"")
+        .containing("\"test:watch\": \"vitest --\"")
         .and()
       .hasFile(".lintstagedrc.cjs")
         .containing(

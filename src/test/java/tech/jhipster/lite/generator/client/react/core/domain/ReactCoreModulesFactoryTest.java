@@ -45,8 +45,9 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeScript("preview", "vite preview"))
       .containing(nodeScript("start", "vite"))
       .containing(nodeScript("lint", "eslint --ext .js,.ts,.tsx src/main/webapp/app/**/*"))
+      .containing(nodeScript("test", "npm run test:watch"))
       .containing(nodeScript("test:coverage", "vitest run --coverage"))
-      .containing(nodeScript("test", "vitest --"))
+      .containing(nodeScript("test:watch", "vitest --"))
       .and()
       .hasFile(".lintstagedrc.cjs")
       .containing(

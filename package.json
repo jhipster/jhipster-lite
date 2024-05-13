@@ -17,8 +17,8 @@
   "scripts": {
     "build": "vue-tsc -p tsconfig.build.json --noEmit && vite build --emptyOutDir && tikui-core build",
     "dev": "npm run tikui:serve & npm run webapp:serve",
-    "e2e": "cypress open --config-file src/test/webapp/cypress/cypress-config.ts",
-    "e2e:headless": "cypress run --headless --config-file src/test/webapp/cypress/cypress-config.ts",
+    "e2e": "cypress open --config-file src/test/webapp/e2e/cypress-config.ts",
+    "e2e:headless": "cypress run --headless --config-file src/test/webapp/e2e/cypress-config.ts",
     "format": "prettier . --write",
     "glyph:build": "rimraf .fontello-session && fontello-cli install --config src/main/glyph/config.json --font src/main/glyph/font --css src/main/glyph/css",
     "glyph:open": "rimraf .fontello-session && fontello-cli open --config src/main/glyph/config.json",

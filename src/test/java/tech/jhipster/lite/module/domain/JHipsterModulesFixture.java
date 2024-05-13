@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
+import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleProfilePlugin;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
@@ -461,6 +462,53 @@ public final class JHipsterModulesFixture {
         """
         checkstyle {
           toolVersion = libs.versions.checkstyle.get()
+        }
+        """
+      )
+      .build();
+  }
+
+  public static GradlePlugin nodeGradlePlugin() {
+    return gradleCommunityPlugin()
+      .id("com.github.node-gradle.node")
+      .pluginSlug("node-gradle")
+      .versionSlug("node-gradle")
+      .gradleImports()
+      .gradleImport("com.github.gradle.node.npm.task.NpmTask")
+      .and()
+      .configuration(
+        """
+        node {
+          version.set("v20.12.2")
+          npmVersion.set("10.5.2")
+          npmWorkDir.set(file("build"))
+        }
+
+        val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
+          description = "Build the frontend project using NPM"
+          group = "Build"
+          dependsOn("npmInstall")
+          npmCommand.set(listOf("run", "build"))
+          environment.set(mapOf("APP_VERSION" to project.version.toString()))
+        }
+
+        val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
+          description = "Test the frontend project using NPM"
+          group = "verification"
+          dependsOn("npmInstall", "buildNpm")
+          npmCommand.set(listOf("run", "test"))
+          ignoreExitValue.set(false)
+          workingDir.set(projectDir)
+          execOverrides {
+            standardOutput = System.out
+          }
+        }
+
+        tasks.bootJar {
+          dependsOn("buildNpm")
+          from("build/classes/static") {
+              into("BOOT-INF/classes/static")
+          }
         }
         """
       )

@@ -1247,6 +1247,11 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(command);
 
       assertThat(buildGradleContent(projectFolder))
+        .containsOnlyOnce(
+          """
+          import java.util.Properties
+          """
+        )
         .contains(
           """
           plugins {

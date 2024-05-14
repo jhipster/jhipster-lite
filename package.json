@@ -36,10 +36,10 @@
     "prettier:format": "prettier . --write",
     "preview": "vite preview",
     "start": "npm run dev",
-    "test": "npm run vitest -- run --coverage --",
-    "test:watch": "npm run vitest --",
+    "test": "npm run test:watch",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest --",
     "tikui:serve": "tikui-core serve",
-    "vitest": "vitest",
     "webapp:serve": "vite"
   },
   "dependencies": {

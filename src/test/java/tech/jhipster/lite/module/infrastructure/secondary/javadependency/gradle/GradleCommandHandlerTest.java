@@ -1,14 +1,12 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.params.provider.EnumSource.Mode.*;
+import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
 import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,33 +15,31 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.buildproperties.*;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
+import tech.jhipster.lite.module.domain.javadependency.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
+import tech.jhipster.lite.module.infrastructure.secondary.*;
 
 @UnitTest
 class GradleCommandHandlerTest {
 
-  private static final FileSystemProjectFiles filesReader = new FileSystemProjectFiles();
-  private final TemplateRenderer templateRenderer = TemplateRenderer.NOOP;
+  private static final FileSystemJHipsterModuleFiles files = new FileSystemJHipsterModuleFiles(
+    new FileSystemProjectFiles(),
+    TemplateRenderer.NOOP
+  );
+  private static final FileSystemReplacer fileReplacer = new FileSystemReplacer(TemplateRenderer.NOOP);
 
   @Test
   void shouldHandleInvalidTomlVersionCatalog() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-unreadable");
 
     assertThatThrownBy(
-      () -> new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer)
+      () -> new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer)
     ).isExactlyInstanceOf(InvalidTomlVersionCatalogException.class);
   }
 
@@ -54,7 +50,7 @@ class GradleCommandHandlerTest {
     void shouldAddVersionToMissingTomlVersionCatalogAnd() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new SetVersion(springBootVersion())
       );
 
@@ -70,7 +66,7 @@ class GradleCommandHandlerTest {
     void shouldAddVersionToExistingTomlVersionCatalog() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new SetVersion(springBootVersion())
       );
 
@@ -89,8 +85,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new SetVersion(new JavaDependencyVersion("jjwt", "0.12.0")));
 
@@ -115,7 +111,7 @@ class GradleCommandHandlerTest {
       void shouldAddPropertiesToBuildGradleFileWithoutProperties() {
         JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
           new SetBuildProperty(new BuildProperty(new PropertyKey("spring-profiles-active"), new PropertyValue("local")))
         );
 
@@ -131,7 +127,7 @@ class GradleCommandHandlerTest {
       void shouldAddPropertiesToBuildGradleFileWithProperties() {
         JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-properties");
 
-        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
           new SetBuildProperty(springProfilesActiveProperty())
         );
 
@@ -151,8 +147,8 @@ class GradleCommandHandlerTest {
           Indentation.DEFAULT,
           projectFolder,
           emptyModuleContext(),
-          filesReader,
-          templateRenderer
+          files,
+          fileReplacer
         );
         gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty()));
 
@@ -181,8 +177,8 @@ class GradleCommandHandlerTest {
           Indentation.DEFAULT,
           projectFolder,
           emptyModuleContext(),
-          filesReader,
-          templateRenderer
+          files,
+          fileReplacer
         );
         gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty()));
 
@@ -206,7 +202,7 @@ class GradleCommandHandlerTest {
 
         assertThatThrownBy(
           () ->
-            new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+            new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
               new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
             )
         ).isExactlyInstanceOf(MissingGradleProfileException.class);
@@ -216,7 +212,7 @@ class GradleCommandHandlerTest {
       void shouldAddPropertiesToBuildGradleProfileFileWithoutProperties() {
         JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
-        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
           new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
         );
 
@@ -232,7 +228,7 @@ class GradleCommandHandlerTest {
       void shouldAddPropertiesToBuildGradleProfileFileWithProperties() {
         JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile-and-properties");
 
-        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+        new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
           new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile())
         );
 
@@ -252,8 +248,8 @@ class GradleCommandHandlerTest {
           Indentation.DEFAULT,
           projectFolder,
           emptyModuleContext(),
-          filesReader,
-          templateRenderer
+          files,
+          fileReplacer
         );
         gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
 
@@ -282,8 +278,8 @@ class GradleCommandHandlerTest {
           Indentation.DEFAULT,
           projectFolder,
           emptyModuleContext(),
-          filesReader,
-          templateRenderer
+          files,
+          fileReplacer
         );
         gradleCommandHandler.handle(new SetBuildProperty(springProfilesActiveProperty(), localBuildProfile()));
 
@@ -306,7 +302,7 @@ class GradleCommandHandlerTest {
     void shouldEnablePrecompiledScriptPluginsToBuildGradleFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaBuildProfile(buildProfileId("local"))
       );
 
@@ -317,7 +313,7 @@ class GradleCommandHandlerTest {
     void shouldInjectTomlVersionCatalogLibsIntoBuildGradleFileWithProfiles() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaBuildProfile(buildProfileId("local"))
       );
 
@@ -328,7 +324,7 @@ class GradleCommandHandlerTest {
     void shouldAddProfileWithIdOnlyToBuildGradleFileWithoutProfiles() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaBuildProfile(buildProfileId("local"))
       );
 
@@ -354,8 +350,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
 
       gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
@@ -386,8 +382,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
 
       gradleCommandHandler.handle(new AddJavaBuildProfile(buildProfileId("local")));
@@ -417,7 +413,7 @@ class GradleCommandHandlerTest {
     void shouldNotAddDefaultActivationToBuildGradleFile(BuildProfileActivation profileActivation) {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaBuildProfile(buildProfileId("local"), profileActivation)
       );
 
@@ -439,7 +435,7 @@ class GradleCommandHandlerTest {
     void shouldAddDefaultActivationWithActivationByDefaultTrueToBuildGradleFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaBuildProfile(buildProfileId("local"), BuildProfileActivation.builder().activeByDefault().build())
       );
 
@@ -460,8 +456,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
 
       gradleCommandHandler.handle(
@@ -498,7 +494,7 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldAddEntryInLibrariesSectionToExistingTomlVersionCatalog() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(springBootStarterWebDependency())
       );
 
@@ -517,8 +513,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       JavaDependency initialDependency = javaDependency().groupId("org.springframework.boot").artifactId("spring-boot-starter-web").build();
       gradleCommandHandler.handle(new AddDirectJavaDependency(initialDependency));
@@ -541,8 +537,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
 
       JavaDependency dependency = javaDependency()
@@ -566,8 +562,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
 
       JavaDependency dependency = javaDependency().groupId("com.zaxxer").artifactId("HikariCP").build();
@@ -587,7 +583,7 @@ class GradleCommandHandlerTest {
     @ParameterizedTest
     void shouldAddImplementationDependencyInBuildGradleFileForScope(JavaDependencyScope scope) {
       JavaDependency dependency = javaDependency().groupId("org.spring.boot").artifactId("spring-boot-starter-web").scope(scope).build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
@@ -601,7 +597,7 @@ class GradleCommandHandlerTest {
         .artifactId("spring-boot-starter-web")
         .scope(JavaDependencyScope.RUNTIME)
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
@@ -615,7 +611,7 @@ class GradleCommandHandlerTest {
         .artifactId("spring-boot-starter-web")
         .scope(JavaDependencyScope.PROVIDED)
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
@@ -629,7 +625,7 @@ class GradleCommandHandlerTest {
         .artifactId("junit-jupiter-engine")
         .scope(JavaDependencyScope.TEST)
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
@@ -644,7 +640,7 @@ class GradleCommandHandlerTest {
         .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
         .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-json"))
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency)
       );
 
@@ -664,8 +660,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
 
       JavaDependency dependencyCompile = javaDependency()
@@ -717,7 +713,7 @@ class GradleCommandHandlerTest {
         .scope(JavaDependencyScope.RUNTIME)
         .build();
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddDirectJavaDependency(dependency, localBuildProfile())
       );
 
@@ -740,8 +736,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
@@ -763,8 +759,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new AddDirectJavaDependency(defaultVersionDependency()));
 
@@ -779,8 +775,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyWithVersionAndExclusion()));
 
@@ -795,8 +791,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       JavaDependency dependency = javaDependency()
         .groupId("org.junit.jupiter")
@@ -816,8 +812,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       JavaDependency dependency = javaDependency()
         .groupId("org.junit.jupiter")
@@ -837,8 +833,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       JavaDependency dependency = javaDependency()
         .groupId("org.junit.jupiter")
@@ -859,8 +855,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       JavaDependency dependency = javaDependency()
         .groupId("org.junit.jupiter")
@@ -885,8 +881,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       JavaDependency dependency = javaDependency()
         .groupId("org.junit.jupiter")
@@ -915,7 +911,7 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldAddEntryInLibrariesSectionToExistingTomlVersionCatalog() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaDependencyManagement(springBootDependencyManagement())
       );
 
@@ -937,7 +933,7 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldAddImplementationDependencyInBuildGradleFileForScope() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaDependencyManagement(springBootDependencyManagement())
       );
 
@@ -953,7 +949,7 @@ class GradleCommandHandlerTest {
         .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-tomcat"))
         .addExclusion(groupId("org.springframework.boot"), artifactId("spring-boot-starter-json"))
         .build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaDependencyManagement(dependency)
       );
 
@@ -971,7 +967,7 @@ class GradleCommandHandlerTest {
     void shouldAddImplementationDependencyInBuildGradleProfileFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile())
       );
 
@@ -994,8 +990,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
@@ -1017,8 +1013,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
@@ -1041,8 +1037,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new AddJavaDependencyManagement(dependency));
       assertThat(buildGradleContent(projectFolder)).contains("implementation(platform(libs.spring.boot.dependencies))");
@@ -1059,8 +1055,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile()));
 
@@ -1080,8 +1076,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
 
@@ -1105,7 +1101,7 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldDeclareAndConfigureCorePluginAndAddImportInBuildGradleFile() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build()
       );
 
@@ -1139,7 +1135,7 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldDeclareAndConfigureCommunityPluginAndAddImportInBuildGradleFile() {
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         AddGradlePlugin.builder().plugin(nodeGradlePlugin()).build()
       );
 
@@ -1201,7 +1197,7 @@ class GradleCommandHandlerTest {
     void shouldApplyVersionCatalogReferenceConvention() {
       GradlePlugin plugin = gradleCommunityPlugin().id("org.springframework.boot").pluginSlug("spring-boot").build();
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(plugin).build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(build);
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
 
       assertThat(versionCatalogContent(projectFolder)).contains("[plugins.spring-boot]");
       // "-" is transformed to "." in the plugin slug
@@ -1211,7 +1207,7 @@ class GradleCommandHandlerTest {
     @Test
     void shouldAddToolVersion() {
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).toolVersion(checkstyleToolVersion()).build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(build);
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
 
       assertThat(versionCatalogContent(projectFolder)).contains(
         """
@@ -1223,7 +1219,7 @@ class GradleCommandHandlerTest {
     @Test
     void shouldAddPluginVersion() {
       AddGradlePlugin build = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).pluginVersion(checkstyleToolVersion()).build();
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(build);
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(build);
 
       assertThat(versionCatalogContent(projectFolder)).contains(
         """
@@ -1238,8 +1234,8 @@ class GradleCommandHandlerTest {
         Indentation.DEFAULT,
         projectFolder,
         emptyModuleContext(),
-        filesReader,
-        templateRenderer
+        files,
+        fileReplacer
       );
       AddGradlePlugin command = AddGradlePlugin.builder().plugin(checkstyleGradlePlugin()).build();
       gradleCommandHandler.handle(command);
@@ -1283,7 +1279,7 @@ class GradleCommandHandlerTest {
     void shouldDeclareAndConfigureCommunityPluginInBuildGradleProfileFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         AddGradlePlugin.builder().plugin(gitPropertiesGradleProfilePlugin()).buildProfile(localBuildProfile()).build()
       );
 
@@ -1328,7 +1324,7 @@ class GradleCommandHandlerTest {
     void shouldDeclareCommunityPluginWithDifferentGroupIdAndPluginIdInBuildGradleProfileFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         AddGradlePlugin.builder().plugin(dockerGradlePluginDependency()).buildProfile(localBuildProfile()).build()
       );
 
@@ -1362,7 +1358,7 @@ class GradleCommandHandlerTest {
     void shouldDeclareAndConfigureCorePluginAndAddImportInBuildGradleProfileFile() {
       JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
 
-      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
         AddGradlePlugin.builder().plugin(checkstyleGradleProfilePlugin()).buildProfile(localBuildProfile()).build()
       );
 
@@ -1400,8 +1396,8 @@ class GradleCommandHandlerTest {
       Indentation.DEFAULT,
       projectFolder,
       emptyModuleContext(),
-      filesReader,
-      templateRenderer
+      files,
+      fileReplacer
     );
     AddMavenBuildExtension command = new AddMavenBuildExtension(mavenBuildExtensionWithSlug());
     assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
@@ -1415,8 +1411,8 @@ class GradleCommandHandlerTest {
       Indentation.DEFAULT,
       projectFolder,
       emptyModuleContext(),
-      filesReader,
-      templateRenderer
+      files,
+      fileReplacer
     );
     AddDirectMavenPlugin command = AddDirectMavenPlugin.builder().plugin(mavenEnforcerPlugin()).build();
     assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
@@ -1430,8 +1426,8 @@ class GradleCommandHandlerTest {
       Indentation.DEFAULT,
       projectFolder,
       emptyModuleContext(),
-      filesReader,
-      templateRenderer
+      files,
+      fileReplacer
     );
     AddMavenPluginManagement command = AddMavenPluginManagement.builder().plugin(mavenEnforcerPlugin()).build();
     assertThatCode(() -> gradleCommandHandler.handle(command)).doesNotThrowAnyException();
@@ -1441,7 +1437,7 @@ class GradleCommandHandlerTest {
   void shouldAddGradleFreeConfigurationBlock() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-    new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+    new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
       new AddGradleConfiguration(
         """
         tasks.build {
@@ -1487,8 +1483,8 @@ class GradleCommandHandlerTest {
       Indentation.DEFAULT,
       projectFolder,
       emptyModuleContext(),
-      filesReader,
-      templateRenderer
+      files,
+      fileReplacer
     );
     gradleCommandHandler.handle(
       new AddGradleConfiguration(

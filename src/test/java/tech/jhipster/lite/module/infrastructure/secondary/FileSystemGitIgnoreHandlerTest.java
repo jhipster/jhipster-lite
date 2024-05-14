@@ -14,7 +14,7 @@ import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 @UnitTest
 class FileSystemGitIgnoreHandlerTest {
 
-  private final FileSystemGitIgnoreHandler handler = new FileSystemGitIgnoreHandler(TemplateRenderer.NOOP);
+  private final FileSystemGitIgnoreHandler handler = new FileSystemGitIgnoreHandler(new FileSystemReplacer(TemplateRenderer.NOOP));
 
   @Test
   void shouldNotCreateGitIgnoreFileIfPatternsAreEmpty() {

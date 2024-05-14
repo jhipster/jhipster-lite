@@ -3,12 +3,12 @@ package tech.jhipster.lite.module.infrastructure.secondary.javadependency;
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
-import tech.jhipster.lite.module.domain.ProjectFiles;
-import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.javabuild.JavaBuildTool;
 import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModuleFiles;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemReplacer;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.GradleCommandHandler;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven.MavenCommandHandler;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -18,17 +18,17 @@ import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCover
 public class FileSystemJavaBuildCommandsHandler {
 
   private final ProjectJavaBuildToolRepository javaBuildTools;
-  private final ProjectFiles filesReader;
-  private final TemplateRenderer templateRenderer;
+  private final FileSystemJHipsterModuleFiles files;
+  private final FileSystemReplacer fileReplacer;
 
   public FileSystemJavaBuildCommandsHandler(
     ProjectJavaBuildToolRepository javaBuildTools,
-    ProjectFiles filesReader,
-    TemplateRenderer templateRenderer
+    FileSystemJHipsterModuleFiles files,
+    FileSystemReplacer fileReplacer
   ) {
     this.javaBuildTools = javaBuildTools;
-    this.filesReader = filesReader;
-    this.templateRenderer = templateRenderer;
+    this.files = files;
+    this.fileReplacer = fileReplacer;
   }
 
   public void handle(
@@ -61,7 +61,7 @@ public class FileSystemJavaBuildCommandsHandler {
       .orElseThrow(() -> new MissingJavaBuildConfigurationException(projectFolder));
     return switch (javaBuildTool) {
       case MAVEN -> new MavenCommandHandler(indentation, projectFolder.filePath("pom.xml"));
-      case GRADLE -> new GradleCommandHandler(indentation, projectFolder, context, filesReader, templateRenderer);
+      case GRADLE -> new GradleCommandHandler(indentation, projectFolder, context, files, fileReplacer);
     };
   }
 

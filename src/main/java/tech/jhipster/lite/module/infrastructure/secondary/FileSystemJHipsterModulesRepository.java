@@ -4,11 +4,8 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.module.domain.*;
-import tech.jhipster.lite.module.domain.file.TemplateRenderer;
-import tech.jhipster.lite.module.domain.javabuild.ProjectJavaBuildToolRepository;
 import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.landscape.JHipsterLandscape;
-import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModuleExecutionContext;
 import tech.jhipster.lite.module.domain.resource.JHipsterModulesResources;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.FileSystemJavaBuildCommandsHandler;
@@ -39,28 +36,30 @@ class FileSystemJHipsterModulesRepository implements JHipsterModulesRepository {
   private final JHipsterLandscape landscape;
 
   public FileSystemJHipsterModulesRepository(
-    ProjectFiles filesReader,
-    NpmVersions npmVersions,
     JavaProjects projects,
-    ProjectJavaBuildToolRepository javaBuildTools,
-    TemplateRenderer templateRenderer,
-    JHipsterModulesResources resources
+    JHipsterModulesResources resources,
+    FileSystemJHipsterModuleFiles files,
+    FileSystemReplacer fileReplacer,
+    FileSystemGitIgnoreHandler gitIgnore,
+    FileSystemJavaBuildCommandsHandler javaBuild,
+    FileSystemPackageJsonHandler packageJson,
+    FileSystemStartupCommandsReadmeCommandsHandler startupCommands
   ) {
     this.projects = projects;
     this.resources = resources;
-    landscape = JHipsterLandscape.from(resources);
+    this.landscape = JHipsterLandscape.from(resources);
 
-    files = new FileSystemJHipsterModuleFiles(filesReader, templateRenderer);
-    javaBuild = new FileSystemJavaBuildCommandsHandler(javaBuildTools, filesReader, templateRenderer);
-    springProperties = new FileSystemSpringPropertiesCommandsHandler();
-    springComments = new FileSystemSpringCommentsCommandsHandler();
-    yamlSpringProperties = new FileSystemYamlSpringPropertiesCommandsHandler();
-    yamlSpringComments = new FileSystemYamlSpringCommentsCommandsHandler();
-    springFactories = new FileSystemSpringFactoriesCommandsHandler();
-    gitIgnore = new FileSystemGitIgnoreHandler(templateRenderer);
-    packageJson = new FileSystemPackageJsonHandler(npmVersions, templateRenderer);
-    replacer = new FileSystemReplacer(templateRenderer);
-    startupCommands = new FileSystemStartupCommandsReadmeCommandsHandler(templateRenderer);
+    this.files = files;
+    this.javaBuild = javaBuild;
+    this.springProperties = new FileSystemSpringPropertiesCommandsHandler();
+    this.springComments = new FileSystemSpringCommentsCommandsHandler();
+    this.yamlSpringProperties = new FileSystemYamlSpringPropertiesCommandsHandler();
+    this.yamlSpringComments = new FileSystemYamlSpringCommentsCommandsHandler();
+    this.springFactories = new FileSystemSpringFactoriesCommandsHandler();
+    this.gitIgnore = gitIgnore;
+    this.packageJson = packageJson;
+    this.replacer = fileReplacer;
+    this.startupCommands = startupCommands;
   }
 
   public static Map<SpringPropertyType, List<String>> buildPaths() {

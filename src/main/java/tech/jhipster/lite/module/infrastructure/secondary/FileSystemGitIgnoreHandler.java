@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
+import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
-import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.gitignore.GitIgnoreEntry;
 import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
@@ -16,14 +16,15 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
 import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
+@Service
 class FileSystemGitIgnoreHandler {
 
   private static final Pattern END_OF_FILE = Pattern.compile("\\z", Pattern.MULTILINE);
   private static final String GIT_IGNORE_FILE_PATH = ".gitignore";
   private final FileSystemReplacer fileReplacer;
 
-  public FileSystemGitIgnoreHandler(TemplateRenderer templateRenderer) {
-    this.fileReplacer = new FileSystemReplacer(templateRenderer);
+  public FileSystemGitIgnoreHandler(FileSystemReplacer fileReplacer) {
+    this.fileReplacer = fileReplacer;
   }
 
   public void handle(JHipsterProjectFolder projectFolder, JHipsterModuleGitIgnore gitIgnore) {

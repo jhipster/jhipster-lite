@@ -36,6 +36,10 @@ public class MavenModuleFactory {
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
         .and()
       .prerequisites(JAVA_PREREQUISITES)
+      .gitIgnore()
+        .comment("Maven")
+        .pattern("/target/")
+        .and()
       .files()
         .add(SOURCE.template("pom.xml"), to("pom.xml"))
         .and()
@@ -97,6 +101,10 @@ public class MavenModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
+      .gitIgnore()
+        .comment("Maven Wrapper")
+        .pattern("!.mvn/wrapper/maven-wrapper.jar")
+        .and()
       .startupCommands()
         .maven("")
         .and()

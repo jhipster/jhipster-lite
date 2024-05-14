@@ -25,6 +25,14 @@ class MavenModuleFactoryTest {
     JHipsterModule module = factory.buildMavenModule(properties);
 
     assertThatModuleWithFiles(module, readmeFile())
+      .hasFile(".gitignore")
+      .containing(
+        """
+        # Maven
+        /target/\
+        """
+      )
+      .and()
       .hasFile("pom.xml")
       .containing("<groupId>com.jhipster.test</groupId>")
       .containing("<artifactId>my-app</artifactId>")
@@ -174,6 +182,14 @@ class MavenModuleFactoryTest {
     JHipsterModule module = factory.buildMavenWrapperModule(properties);
 
     assertThatModuleWithFiles(module, pomFile(), readmeFile())
+      .hasFile(".gitignore")
+      .containing(
+        """
+        # Maven Wrapper
+        !.mvn/wrapper/maven-wrapper.jar\
+        """
+      )
+      .and()
       .hasExecutableFiles("mvnw", "mvnw.cmd")
       .hasPrefixedFiles(".mvn/wrapper", "maven-wrapper.jar", "maven-wrapper.properties")
       .hasFile("README.md")

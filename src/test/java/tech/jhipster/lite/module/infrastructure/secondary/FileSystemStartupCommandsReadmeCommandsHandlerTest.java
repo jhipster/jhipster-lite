@@ -1,8 +1,8 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static tech.jhipster.lite.TestFileUtils.*;
-import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
+import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.emptyModuleContext;
 
 import ch.qos.logback.classic.Level;
 import java.nio.file.Paths;
@@ -13,10 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import tech.jhipster.lite.Logs;
-import tech.jhipster.lite.LogsSpy;
-import tech.jhipster.lite.LogsSpyExtension;
-import tech.jhipster.lite.UnitTest;
+import tech.jhipster.lite.*;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.module.domain.startupcommand.*;
@@ -26,7 +23,7 @@ import tech.jhipster.lite.module.domain.startupcommand.*;
 class FileSystemStartupCommandsReadmeCommandsHandlerTest {
 
   private static final FileSystemStartupCommandsReadmeCommandsHandler handler = new FileSystemStartupCommandsReadmeCommandsHandler(
-    TemplateRenderer.NOOP
+    new FileSystemReplacer(TemplateRenderer.NOOP)
   );
 
   @Logs

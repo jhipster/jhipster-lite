@@ -1,16 +1,14 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModulesRepository.TEST_META_INF_FOLDER;
+import static tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModulesRepository.*;
 
 import java.nio.file.Path;
 import java.util.function.Consumer;
-import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.javaproperties.SpringFactories;
 import tech.jhipster.lite.module.domain.javaproperties.SpringFactory;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-@Service
 class FileSystemSpringFactoriesCommandsHandler {
 
   public void handle(JHipsterProjectFolder projectFolder, SpringFactories factories) {

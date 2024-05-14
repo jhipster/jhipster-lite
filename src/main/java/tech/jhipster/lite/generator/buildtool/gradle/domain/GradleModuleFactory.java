@@ -21,6 +21,10 @@ public class GradleModuleFactory {
       .context()
         .put("dasherizedBaseName", properties.projectBaseName().kebabCase())
         .and()
+      .gitIgnore()
+        .comment("Gradle")
+        .pattern("/build/")
+        .and()
       .files()
         .batch(SOURCE, to("."))
           .addTemplate("build.gradle.kts")
@@ -85,6 +89,10 @@ public class GradleModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
+      .gitIgnore()
+        .comment("Gradle Wrapper")
+        .pattern("!gradle/wrapper/gradle-wrapper.jar")
+        .and()
       .files()
         .batch(SOURCE.append("gradle/wrapper"), to("gradle/wrapper"))
           .addFile("gradle-wrapper.properties")

@@ -38,7 +38,7 @@ public final class JHipsterModulesFixture {
 
   private JHipsterModulesFixture() {}
 
-  public static JHipsterModule fullModule() {
+  public static JHipsterModule module() {
     // @formatter:off
    JHipsterModuleProperties properties = testModuleProperties();
    return moduleBuilder(properties)
@@ -181,9 +181,13 @@ public final class JHipsterModulesFixture {
       .set(propertyKey("springdoc.swagger-ui.tryItOutEnabled"), propertyValue("test"))
       .and()
     .springTestFactories()
-     .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"))
-     .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener2"))
-     .and()
+      .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener1"))
+      .append(propertyKey("o.s.c.ApplicationListener"), propertyValue("c.m.m.MyListener2"))
+      .and()
+    .gitIgnore()
+      .comment("Comment")
+      .pattern(".my-hidden-folder/*")
+      .and()
     .build();
     // @formatter:on
   }
@@ -574,7 +578,7 @@ public final class JHipsterModulesFixture {
 
   public static JHipsterModuleUpgrade upgrade() {
     return JHipsterModuleUpgrade.builder()
-      .doNotAdd(to(".gitignore"))
+      .doNotAdd(to(".husky/pre-commit"))
       .delete(path("documentation/cucumber-integration.md"))
       .replace(filesWithExtension("java"), fileStart(), "// This is an updated file\n\n")
       .build();

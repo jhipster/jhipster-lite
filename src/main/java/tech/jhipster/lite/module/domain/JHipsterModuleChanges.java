@@ -3,6 +3,7 @@ package tech.jhipster.lite.module.domain;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
 import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
+import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javaproperties.SpringComments;
 import tech.jhipster.lite.module.domain.javaproperties.SpringFactories;
@@ -35,6 +36,7 @@ public final class JHipsterModuleChanges {
   private final SpringProperties springYamlProperties;
   private final SpringComments springYamlComments;
   private final SpringFactories springFactories;
+  private final JHipsterModuleGitIgnore gitIgnore;
 
   private JHipsterModuleChanges(JHipsterModuleChangesBuilder builder) {
     assertMandatoryFields(builder);
@@ -56,6 +58,7 @@ public final class JHipsterModuleChanges {
     springYamlProperties = builder.springYamlProperties;
     springYamlComments = builder.springYamlComments;
     springFactories = builder.springFactories;
+    gitIgnore = builder.gitIgnore;
   }
 
   private void assertMandatoryFields(JHipsterModuleChangesBuilder builder) {
@@ -116,6 +119,10 @@ public final class JHipsterModuleChanges {
     return packageJson;
   }
 
+  public JHipsterModuleGitIgnore gitIgnore() {
+    return gitIgnore;
+  }
+
   public JHipsterModulePreActions preActions() {
     return preActions;
   }
@@ -162,7 +169,8 @@ public final class JHipsterModuleChanges {
       JHipsterModuleChangesSpringPropertiesBuilder,
       JHipsterModuleChangesSpringCommentsBuilder,
       JHipsterModuleChangesSpringFactoriesBuilder,
-      JHipsterModuleChangesSpringYamlCommentsBuilder {
+      JHipsterModuleChangesSpringYamlCommentsBuilder,
+      JHipsterModuleChangesGitIgnorePatternsBuilder {
 
     private JHipsterModuleContext context;
     private JHipsterProjectFolder projectFolder;
@@ -181,6 +189,7 @@ public final class JHipsterModuleChanges {
     private SpringProperties springYamlProperties = SpringProperties.EMPTY;
     private SpringComments springYamlComments = SpringComments.EMPTY;
     private SpringFactories springFactories;
+    private JHipsterModuleGitIgnore gitIgnore;
 
     @Override
     public JHipsterModuleChangesProjectFolderBuilder context(JHipsterModuleContext context) {
@@ -246,8 +255,15 @@ public final class JHipsterModuleChanges {
     }
 
     @Override
-    public JHipsterModuleChangesPreActionsBuilder packageJson(JHipsterModulePackageJson packageJson) {
+    public JHipsterModuleChangesGitIgnorePatternsBuilder packageJson(JHipsterModulePackageJson packageJson) {
       this.packageJson = packageJson;
+
+      return this;
+    }
+
+    @Override
+    public JHipsterModuleChangesPreActionsBuilder gitIgnore(JHipsterModuleGitIgnore gitIgnore) {
+      this.gitIgnore = gitIgnore;
 
       return this;
     }
@@ -339,7 +355,11 @@ public final class JHipsterModuleChanges {
   }
 
   public interface JHipsterModuleChangesPackageJsonBuilder {
-    JHipsterModuleChangesPreActionsBuilder packageJson(JHipsterModulePackageJson packageJson);
+    JHipsterModuleChangesGitIgnorePatternsBuilder packageJson(JHipsterModulePackageJson packageJson);
+  }
+
+  public interface JHipsterModuleChangesGitIgnorePatternsBuilder {
+    JHipsterModuleChangesPreActionsBuilder gitIgnore(JHipsterModuleGitIgnore gitIgnore);
   }
 
   public interface JHipsterModuleChangesPreActionsBuilder {

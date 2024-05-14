@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.okta.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -45,6 +45,14 @@ class Oauth2OktaModuleFactoryTest {
       .hasFile("documentation/okta.md")
       .and()
       .hasFile("documentation/images/security-add-claim.png")
+      .and()
+      .hasFile(".gitignore")
+      .containing(
+        """
+        # OAuth 2.0
+        okta.sh\
+        """
+      )
       .and()
       .hasFile("okta.sh")
       .containing("export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=my-client-secret-which-should-be-changed");

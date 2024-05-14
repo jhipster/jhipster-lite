@@ -1,16 +1,13 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.lineBeforeText;
+import static tech.jhipster.lite.module.domain.JHipsterModule.path;
 
 import org.springframework.stereotype.Service;
 import tech.jhipster.lite.module.domain.JHipsterModuleContext;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
-import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.ContentReplacers;
-import tech.jhipster.lite.module.domain.replacement.OptionalFileReplacer;
-import tech.jhipster.lite.module.domain.replacement.OptionalReplacer;
-import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
+import tech.jhipster.lite.module.domain.replacement.*;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommand;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -30,8 +27,8 @@ class FileSystemStartupCommandsReadmeCommandsHandler {
     """;
   private final FileSystemReplacer fileReplacer;
 
-  public FileSystemStartupCommandsReadmeCommandsHandler(TemplateRenderer templateRenderer) {
-    this.fileReplacer = new FileSystemReplacer(templateRenderer);
+  public FileSystemStartupCommandsReadmeCommandsHandler(FileSystemReplacer fileReplacer) {
+    this.fileReplacer = fileReplacer;
   }
 
   public void handle(JHipsterProjectFolder projectFolder, JHipsterStartupCommands commands, JHipsterModuleContext context) {

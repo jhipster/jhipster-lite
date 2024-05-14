@@ -56,6 +56,10 @@ class AngularModuleFactoryTest {
       .containing(nodeScript("lint", "ng lint"))
       .containing("  \"jestSonar\": {\n    \"reportPath\": \"target/test-results\",\n    \"reportFile\": \"TESTS-results-sonar.xml\"\n  }")
       .and()
+      .hasFile(".gitignore")
+      .containing(".angular/")
+      .containing(".nx/")
+      .and()
       .hasFile(".lintstagedrc.cjs")
       .containing(
         """

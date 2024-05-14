@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.auth0.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -50,6 +50,14 @@ class Oauth2Auth0ModuleFactoryTest {
       )
       .and()
       .hasFile("documentation/auth0.md")
+      .and()
+      .hasFile(".gitignore")
+      .containing(
+        """
+        # OAuth 2.0
+        auth0.sh\
+        """
+      )
       .and()
       .hasFile("auth0.sh")
       .containing("export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=my-client-secret-which-should-be-changed");

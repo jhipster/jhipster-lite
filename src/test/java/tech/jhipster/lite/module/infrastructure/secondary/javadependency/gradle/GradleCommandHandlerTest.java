@@ -1518,6 +1518,76 @@ class GradleCommandHandlerTest {
     );
   }
 
+  @Test
+  void shouldAddTasksTestInstruction() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+
+    new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+      new AddTasksTestInstruction(
+        """
+        dependsOn("testNpm")\
+        """
+      )
+    );
+
+    assertThat(buildGradleContent(projectFolder)).contains(
+      """
+      tasks.test {
+        filter {
+          includeTestsMatching("**Test*")
+          excludeTestsMatching("**IT*")
+          excludeTestsMatching("**CucumberTest*")
+        }
+        useJUnitPlatform()
+        dependsOn("testNpm")
+        // jhipster-needle-gradle-tasks-test
+      }
+      """
+    );
+  }
+
+  @Test
+  void shouldNotDuplicateExistingTasksTestInstruction() {
+    JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
+    GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+      Indentation.DEFAULT,
+      projectFolder,
+      emptyModuleContext(),
+      filesReader,
+      templateRenderer
+    );
+    gradleCommandHandler.handle(
+      new AddTasksTestInstruction(
+        """
+        dependsOn("testNpm")\
+        """
+      )
+    );
+
+    gradleCommandHandler.handle(
+      new AddTasksTestInstruction(
+        """
+        dependsOn("testNpm")\
+        """
+      )
+    );
+
+    assertThat(buildGradleContent(projectFolder)).contains(
+      """
+      tasks.test {
+        filter {
+          includeTestsMatching("**Test*")
+          excludeTestsMatching("**IT*")
+          excludeTestsMatching("**CucumberTest*")
+        }
+        useJUnitPlatform()
+        dependsOn("testNpm")
+        // jhipster-needle-gradle-tasks-test
+      }
+      """
+    );
+  }
+
   private static String buildGradleContent(JHipsterProjectFolder projectFolder) {
     return content(Paths.get(projectFolder.get()).resolve("build.gradle.kts"));
   }

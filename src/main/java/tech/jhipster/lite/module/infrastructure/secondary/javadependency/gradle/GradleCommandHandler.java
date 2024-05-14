@@ -70,6 +70,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
     "^// jhipster-needle-gradle-free-configuration-blocks$",
     Pattern.MULTILINE
   );
+  private static final Pattern GRADLE_TASKS_TEST_NEEDLE = Pattern.compile("^\\s+// jhipster-needle-gradle-tasks-test$", Pattern.MULTILINE);
   private static final String PROFILE_CONDITIONAL_TEMPLATE =
     """
     if (profiles.contains("%s")) {
@@ -520,6 +521,22 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
         GRADLE_FREE_CONFIGURATION_BLOCKS_NEEDLE
       ),
       LINE_BREAK + command.get()
+    );
+    fileReplacer.handle(
+      projectFolder,
+      ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(BUILD_GRADLE_FILE), replacer)),
+      context
+    );
+  }
+
+  @Override
+  public void handle(AddTasksTestInstruction command) {
+    MandatoryReplacer replacer = new MandatoryReplacer(
+      new RegexNeedleBeforeReplacer(
+        (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),
+        GRADLE_TASKS_TEST_NEEDLE
+      ),
+      indentation.times(1) + command.get()
     );
     fileReplacer.handle(
       projectFolder,

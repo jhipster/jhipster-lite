@@ -13,4 +13,5 @@ public sealed interface JavaBuildCommand
     RemoveJavaDependencyManagement,
     SetBuildProperty,
     SetVersion,
-    AddGradleConfiguration {}
+    AddGradleConfiguration,
+    AddTasksTestInstruction {}

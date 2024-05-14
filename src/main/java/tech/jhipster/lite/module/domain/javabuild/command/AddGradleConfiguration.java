@@ -4,7 +4,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public record AddGradleConfiguration(String configuration) implements JavaBuildCommand {
   public AddGradleConfiguration {
-    Assert.notNull("configuration", configuration);
+    Assert.notNull("instruction", configuration);
   }
 
   public String get() {

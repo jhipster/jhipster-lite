@@ -139,9 +139,9 @@ class FileSystemProjectsRepositoryTest {
       ObjectMapper json = mock(ObjectMapper.class);
       when(json.writerWithDefaultPrettyPrinter()).thenReturn(writer);
 
-      FileSystemProjectsRepository projects = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
 
-      assertThatThrownBy(() -> projects.save(projectHistory())).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(() -> fileSystemProjectsRepository.save(projectHistory())).isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test
@@ -178,9 +178,9 @@ class FileSystemProjectsRepositoryTest {
       ObjectMapper json = mock(ObjectMapper.class);
       when(json.readValue(any(byte[].class), eq(PersistedProjectHistory.class))).thenThrow(IOException.class);
 
-      FileSystemProjectsRepository projects = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
+      FileSystemProjectsRepository fileSystemProjectsRepository = new FileSystemProjectsRepository(json, mock(ProjectFormatter.class));
 
-      assertThatThrownBy(() -> projects.getHistory(path)).isExactlyInstanceOf(GeneratorException.class);
+      assertThatThrownBy(() -> fileSystemProjectsRepository.getHistory(path)).isExactlyInstanceOf(GeneratorException.class);
     }
 
     @Test

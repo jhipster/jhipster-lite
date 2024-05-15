@@ -1491,7 +1491,7 @@ class GradleCommandHandlerTest {
         """
         tasks.build {
           dependsOn("processResources")
-        }
+        }\
         """
       )
     );
@@ -1501,19 +1501,16 @@ class GradleCommandHandlerTest {
         """
         tasks.build {
           dependsOn("processResources")
-        }
+        }\
         """
       )
     );
 
-    assertThat(buildGradleContent(projectFolder)).contains(
+    assertThat(buildGradleContent(projectFolder)).containsOnlyOnce(
       """
-
       tasks.build {
         dependsOn("processResources")
-      }
-
-      // jhipster-needle-gradle-free-configuration-blocks\
+      }\
       """
     );
   }

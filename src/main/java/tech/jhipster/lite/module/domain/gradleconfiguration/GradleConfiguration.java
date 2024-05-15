@@ -4,7 +4,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 public record GradleConfiguration(String configuration) {
   public GradleConfiguration {
-    Assert.notBlank("instruction", configuration);
+    Assert.notBlank("configuration", configuration);
   }
 
   public String get() {

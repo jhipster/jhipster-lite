@@ -25,7 +25,7 @@ public class LocalProfileModuleFactory {
         .set(new PropertyKey(SPRING_PROFILES_ACTIVE), new PropertyValue(""))
         .and()
       .gradleConfigurations()
-        .configuration(
+        .addConfiguration(
           """
           tasks.build {
             dependsOn("processResources")

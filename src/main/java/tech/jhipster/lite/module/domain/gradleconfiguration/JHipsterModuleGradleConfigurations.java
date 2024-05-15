@@ -59,7 +59,7 @@ public final class JHipsterModuleGradleConfigurations {
       this.module = module;
     }
 
-    public JHipsterModuleGradleConfigurationBuilder configuration(String configuration) {
+    public JHipsterModuleGradleConfigurationBuilder addConfiguration(String configuration) {
       configurations.add(new GradleConfiguration(configuration));
 
       return this;

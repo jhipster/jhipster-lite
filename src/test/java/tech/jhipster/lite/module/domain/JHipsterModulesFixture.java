@@ -100,7 +100,7 @@ public final class JHipsterModulesFixture {
       .plugin(asciidoctorPlugin())
       .and()
     .gradleConfigurations()
-      .configuration(
+      .addConfiguration(
         """
         tasks.build {
           dependsOn("processResources")

@@ -180,15 +180,8 @@ class JacocoModuleFactoryTest {
         )
         .containing(
           """
-          tasks.test {
-            filter {
-              includeTestsMatching("**Test*")
-              excludeTestsMatching("**IT*")
-              excludeTestsMatching("**CucumberTest*")
-            }
-            useJUnitPlatform()
             finalizedBy("jacocoTestReport")
-          }
+            // jhipster-needle-gradle-tasks-test
           """
         )
         .and()
@@ -252,15 +245,8 @@ class JacocoModuleFactoryTest {
       )
       .containing(
         """
-        tasks.test {
-          filter {
-            includeTestsMatching("**Test*")
-            excludeTestsMatching("**IT*")
-            excludeTestsMatching("**CucumberTest*")
-          }
-          useJUnitPlatform()
           finalizedBy("jacocoTestCoverageVerification")
-        }
+          // jhipster-needle-gradle-tasks-test
         """
       )
       .and()

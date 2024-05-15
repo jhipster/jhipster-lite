@@ -45,6 +45,7 @@ tasks.test {
     excludeTestsMatching("**CucumberTest*")
   }
   useJUnitPlatform()
+  // jhipster-needle-gradle-tasks-test
 }
 
 val integrationTest = task<Test>("integrationTest") {

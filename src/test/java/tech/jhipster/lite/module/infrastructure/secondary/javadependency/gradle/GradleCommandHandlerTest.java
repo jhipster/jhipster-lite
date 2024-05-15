@@ -1,12 +1,14 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
+import static org.junit.jupiter.params.provider.EnumSource.Mode.*;
 import static tech.jhipster.lite.TestFileUtils.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,15 +17,22 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import tech.jhipster.lite.UnitTest;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.buildproperties.*;
+import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
+import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
 import tech.jhipster.lite.module.domain.file.TemplateRenderer;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePlugin;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
-import tech.jhipster.lite.module.domain.javadependency.*;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.infrastructure.secondary.*;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemJHipsterModuleFiles;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemProjectFiles;
+import tech.jhipster.lite.module.infrastructure.secondary.FileSystemReplacer;
 
 @UnitTest
 class GradleCommandHandlerTest {
@@ -1519,7 +1528,7 @@ class GradleCommandHandlerTest {
   void shouldAddTasksTestInstruction() {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
-    new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), filesReader, templateRenderer).handle(
+    new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
       new AddTasksTestInstruction(
         """
         dependsOn("testNpm")\
@@ -1550,8 +1559,8 @@ class GradleCommandHandlerTest {
       Indentation.DEFAULT,
       projectFolder,
       emptyModuleContext(),
-      filesReader,
-      templateRenderer
+      files,
+      fileReplacer
     );
     gradleCommandHandler.handle(
       new AddTasksTestInstruction(

@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.javatool.frontendmaven.domain;
 import static org.mockito.Mockito.*;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,25 +20,19 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class FrontendMavenModuleFactoryTest {
+class FrontendServerModuleFactoryTest {
 
   @Mock
   private NpmVersions npmVersions;
 
   @InjectMocks
-  private FrontendMavenModuleFactory factory;
+  private FrontendServerModuleFactory factory;
 
   @Test
-  void shouldBuildModule() {
-    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
-      .projectBaseName("myapp")
-      .build();
+  void shouldBuildFrontendMavenModule() {
+    mockNpmVersion();
 
-    when(npmVersions.get("npm", NpmVersionSource.COMMON)).thenReturn(new NpmPackageVersion("4.0.0"));
-    when(npmVersions.nodeVersion()).thenReturn(new NpmPackageVersion("16.0.0"));
-
-    JHipsterModule module = factory.buildModule(properties);
+    JHipsterModule module = factory.buildFrontendMavenModule(getProperties());
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFile("pom.xml")
@@ -183,5 +178,96 @@ class FrontendMavenModuleFactoryTest {
         "infrastructure/primary/RedirectionResource.java",
         "package-info.java"
       );
+  }
+
+  @Test
+  void shouldBuildFrontendGradleModule() {
+    mockNpmVersion();
+
+    JHipsterModule module = factory.buildFrontendGradleModule(getProperties());
+
+    assertThatModuleWithFiles(module, gradleBuildFile(), gradleLibsVersionFile())
+      .hasFile("gradle/libs.versions.toml")
+      .containing("node-gradle = \"")
+      .containing(
+        """
+        \t[plugins.node-gradle]
+        \t\tid = "com.github.node-gradle.node"
+
+        \t\t[plugins.node-gradle.version]
+        \t\t\tref = "node-gradle"
+        """
+      )
+      .and()
+      .hasFile("build.gradle.kts")
+      .containing(
+        """
+        import com.github.gradle.node.npm.task.NpmTask
+        // jhipster-needle-gradle-imports
+        """
+      )
+      .containing(
+        """
+          alias(libs.plugins.node.gradle)
+          // jhipster-needle-gradle-plugins
+        """
+      )
+      .containing(
+        """
+        val nodeVersion by extra("16.0.0")
+        val npmVersionValue by extra("4.0.0")
+        // jhipster-needle-gradle-properties
+        """
+      )
+      .containing(
+        """
+        node {
+          download.set(true)
+          version.set(nodeVersionValue)
+          npmVersion.set(npmVersionValue)
+          workDir.set(file(layout.buildDirectory))
+          npmWorkDir.set(file(layout.buildDirectory))
+        }
+
+        val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
+          description = "Build the frontend project using NPM"
+          group = "Build"
+          dependsOn("npmInstall")
+          npmCommand.set(listOf("run", "build"))
+          environment.set(mapOf("APP_VERSION" to project.version.toString()))
+        }
+
+        val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
+          description = "Test the frontend project using NPM"
+          group = "verification"
+          dependsOn("npmInstall", "buildNpm")
+          npmCommand.set(listOf("run", "test"))
+          ignoreExitValue.set(false)
+          workingDir.set(projectDir)
+          execOverrides {
+            standardOutput = System.out
+          }
+        }
+
+        tasks.bootJar {
+          dependsOn("buildNpm")
+          from("build/classes/static") {
+              into("BOOT-INF/classes/static")
+          }
+        }
+        """
+      );
+  }
+
+  private void mockNpmVersion() {
+    when(npmVersions.get("npm", NpmVersionSource.COMMON)).thenReturn(new NpmPackageVersion("4.0.0"));
+    when(npmVersions.nodeVersion()).thenReturn(new NpmPackageVersion("16.0.0"));
+  }
+
+  private static @NotNull JHipsterModuleProperties getProperties() {
+    return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
+      .basePackage("com.jhipster.test")
+      .projectBaseName("myapp")
+      .build();
   }
 }

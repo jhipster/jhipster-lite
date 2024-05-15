@@ -6,13 +6,14 @@ import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.*;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
+import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.npm.NpmVersionSource;
 import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class FrontendMavenModuleFactory {
+public class FrontendServerModuleFactory {
 
   private static final String PACKAGE_INFO = "package-info.java";
 
@@ -23,11 +24,11 @@ public class FrontendMavenModuleFactory {
 
   private final NpmVersions npmVersions;
 
-  public FrontendMavenModuleFactory(NpmVersions npmVersions) {
+  public FrontendServerModuleFactory(NpmVersions npmVersions) {
     this.npmVersions = npmVersions;
   }
 
-  public JHipsterModule buildModule(JHipsterModuleProperties properties) {
+  public JHipsterModule buildFrontendMavenModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.packagePath();
@@ -171,6 +172,79 @@ public class FrontendMavenModuleFactory {
             <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
             """
           )
+      )
+      .build();
+  }
+
+  public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    String packagePath = properties.packagePath();
+
+    JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
+    //@formatter:off
+    return moduleBuilder(properties)
+      .javaBuildProperties()
+        .set(buildPropertyKey("node.version"), buildPropertyValue(npmVersions.nodeVersion().get()))
+        .set(buildPropertyKey("npm.version.value"), buildPropertyValue(npmVersions.get("npm", NpmVersionSource.COMMON).get()))
+        .and()
+      .gradlePlugins()
+        .plugin(frontendGradlePlugin())
+        .and()
+      .files()
+        .add(
+          SOURCE.template("RedirectionResource.java"),
+          mainDestination.append(REDIRECTION_PRIMARY).append("RedirectionResource.java")
+        )
+        .add(SOURCE.template(PACKAGE_INFO), mainDestination.append(REDIRECTION).append(PACKAGE_INFO))
+        .and()
+      .build();
+    //@formatter:on
+  }
+
+  private GradleMainBuildPlugin frontendGradlePlugin() {
+    return gradleCommunityPlugin()
+      .id("com.github.node-gradle.node")
+      .pluginSlug("node-gradle")
+      .versionSlug("node-gradle")
+      .withBuildGradleImport("com.github.gradle.node.npm.task.NpmTask")
+      .configuration(
+        """
+        node {
+          download.set(true)
+          version.set(nodeVersionValue)
+          npmVersion.set(npmVersionValue)
+          workDir.set(file(layout.buildDirectory))
+          npmWorkDir.set(file(layout.buildDirectory))
+        }
+
+        val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
+          description = "Build the frontend project using NPM"
+          group = "Build"
+          dependsOn("npmInstall")
+          npmCommand.set(listOf("run", "build"))
+          environment.set(mapOf("APP_VERSION" to project.version.toString()))
+        }
+
+        val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
+          description = "Test the frontend project using NPM"
+          group = "verification"
+          dependsOn("npmInstall", "buildNpm")
+          npmCommand.set(listOf("run", "test"))
+          ignoreExitValue.set(false)
+          workingDir.set(projectDir)
+          execOverrides {
+            standardOutput = System.out
+          }
+        }
+
+        tasks.bootJar {
+          dependsOn("buildNpm")
+          from("build/classes/static") {
+              into("BOOT-INF/classes/static")
+          }
+        }
+        """
       )
       .build();
   }

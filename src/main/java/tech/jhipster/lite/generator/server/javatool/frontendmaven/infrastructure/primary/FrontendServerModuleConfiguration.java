@@ -20,7 +20,12 @@ class FrontendServerModuleConfiguration {
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc("Frontend Server Maven Plugin", "Add Frontend Server Maven Plugin")
       .organization(
-        JHipsterModuleOrganization.builder().feature(FRONTEND_SERVER_PLUGIN).addDependency(SPRING_SERVER).addDependency(CLIENT_CORE).build()
+        JHipsterModuleOrganization.builder()
+          .feature(FRONTEND_SERVER_PLUGIN)
+          .addDependency(SPRING_SERVER)
+          .addDependency(CLIENT_CORE)
+          .addDependency(MAVEN_JAVA)
+          .build()
       )
       .tags("server", "tools")
       .factory(frontendServer::buildFrontendMavenModule);
@@ -33,7 +38,12 @@ class FrontendServerModuleConfiguration {
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc("Frontend Server Gradle Plugin", "Add Frontend Server Gradle Plugin")
       .organization(
-        JHipsterModuleOrganization.builder().feature(FRONTEND_SERVER_PLUGIN).addDependency(SPRING_SERVER).addDependency(CLIENT_CORE).build()
+        JHipsterModuleOrganization.builder()
+          .feature(FRONTEND_SERVER_PLUGIN)
+          .addDependency(SPRING_SERVER)
+          .addDependency(CLIENT_CORE)
+          .addDependency(GRADLE_JAVA)
+          .build()
       )
       .tags("server", "tools")
       .factory(frontendServer::buildFrontendGradleModule);

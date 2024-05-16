@@ -168,7 +168,7 @@ public class FrontendServerModuleFactory {
     //@formatter:off
     return commonModuleFiles(properties)
       .javaBuildProperties()
-        .set(buildPropertyKey("node.version"), buildPropertyValue(npmVersions.nodeVersion().get()))
+        .set(buildPropertyKey("node.version.value"), buildPropertyValue(npmVersions.nodeVersion().get()))
         .set(buildPropertyKey("npm.version.value"), buildPropertyValue(npmVersions.get("npm", NpmVersionSource.COMMON).get()))
         .and()
       .gradlePlugins()

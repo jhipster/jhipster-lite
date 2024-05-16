@@ -214,7 +214,7 @@ class FrontendServerModuleFactoryTest {
       )
       .containing(
         """
-        val nodeVersion by extra("16.0.0")
+        val nodeVersionValue by extra("16.0.0")
         val npmVersionValue by extra("4.0.0")
         // jhipster-needle-gradle-properties
         """

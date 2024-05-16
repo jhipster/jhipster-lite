@@ -49,7 +49,7 @@ class FileSystemPackageJsonHandlerTest {
         packageJson.handle(
           Indentation.DEFAULT,
           emptyFolder(),
-          packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+          packageJson(p -> p.addScript(scriptKey("key"), scriptCommand("value"))),
           emptyModuleContext()
         )
     ).isExactlyInstanceOf(MissingPackageJsonException.class);
@@ -68,7 +68,7 @@ class FileSystemPackageJsonHandlerTest {
     packageJson.handle(
       Indentation.DEFAULT,
       folder,
-      packageJson(packageJson -> packageJson.addDevDependency(packageName("@playwright/test"), VersionSource.COMMON)),
+      packageJson(p -> p.addDevDependency(packageName("@playwright/test"), VersionSource.COMMON)),
       emptyModuleContext()
     );
 
@@ -82,7 +82,7 @@ class FileSystemPackageJsonHandlerTest {
     packageJson.handle(
       Indentation.DEFAULT,
       folder,
-      packageJson(packageJson -> packageJson.addScript(scriptKey("@prettier/plugin-xml"), scriptCommand("test"))),
+      packageJson(p -> p.addScript(scriptKey("@prettier/plugin-xml"), scriptCommand("test"))),
       emptyModuleContext()
     );
 
@@ -116,7 +116,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+        packageJson(p -> p.addScript(scriptKey("key"), scriptCommand("value"))),
         emptyModuleContext()
       );
 
@@ -139,8 +139,8 @@ class FileSystemPackageJsonHandlerTest {
         Indentation.DEFAULT,
         folder,
         packageJson(
-          packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value")),
-          packageJson -> packageJson.addScript(scriptKey("key2"), scriptCommand("value2"))
+          p -> p.addScript(scriptKey("key"), scriptCommand("value")),
+          p -> p.addScript(scriptKey("key2"), scriptCommand("value2"))
         ),
         emptyModuleContext()
       );
@@ -163,7 +163,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addScript(scriptKey("key"), scriptCommand("value"))),
+        packageJson(p -> p.addScript(scriptKey("key"), scriptCommand("value"))),
         emptyModuleContext()
       );
 
@@ -184,7 +184,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addScript(scriptKey("build"), scriptCommand("test"))),
+        packageJson(p -> p.addScript(scriptKey("build"), scriptCommand("test"))),
         emptyModuleContext()
       );
 
@@ -207,7 +207,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addScript(scriptKey("build"), scriptCommand("test"))),
+        packageJson(p -> p.addScript(scriptKey("build"), scriptCommand("test"))),
         emptyModuleContext()
       );
 
@@ -234,7 +234,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON)),
+        packageJson(p -> p.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON)),
         emptyModuleContext()
       );
 
@@ -258,7 +258,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON)),
+        packageJson(p -> p.addDevDependency(packageName("@prettier/plugin-xmll"), VersionSource.COMMON)),
         emptyModuleContext()
       );
 
@@ -281,10 +281,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(
-          packageJson ->
-            packageJson.addDevDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))
-        ),
+        packageJson(p -> p.addDevDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))),
         emptyModuleContext()
       );
 
@@ -306,7 +303,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
+        packageJson(p -> p.addDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
         emptyModuleContext()
       );
 
@@ -329,7 +326,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.removeDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
+        packageJson(p -> p.removeDevDependency(packageName("@prettier/plugin-xml"), VersionSource.COMMON)),
         emptyModuleContext()
       );
 
@@ -359,7 +356,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        packageJson(p -> p.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
         emptyModuleContext()
       );
 
@@ -383,7 +380,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-coree"), VersionSource.COMMON)),
+        packageJson(p -> p.addDependency(packageName("@fortawesome/fontawesome-svg-coree"), VersionSource.COMMON)),
         emptyModuleContext()
       );
 
@@ -406,9 +403,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(
-          packageJson -> packageJson.addDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))
-        ),
+        packageJson(p -> p.addDependency(packageName("@angular/animations"), VersionSource.ANGULAR, packageName("@angular/core"))),
         emptyModuleContext()
       );
 
@@ -430,7 +425,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        packageJson(p -> p.addDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
         emptyModuleContext()
       );
 
@@ -453,7 +448,7 @@ class FileSystemPackageJsonHandlerTest {
       packageJson.handle(
         Indentation.DEFAULT,
         folder,
-        packageJson(packageJson -> packageJson.removeDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
+        packageJson(p -> p.removeDependency(packageName("@fortawesome/fontawesome-svg-core"), VersionSource.COMMON)),
         emptyModuleContext()
       );
 

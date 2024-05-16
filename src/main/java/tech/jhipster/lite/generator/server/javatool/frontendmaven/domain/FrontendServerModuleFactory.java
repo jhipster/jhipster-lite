@@ -29,13 +29,8 @@ public class FrontendServerModuleFactory {
   }
 
   public JHipsterModule buildFrontendMavenModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
-    String packagePath = properties.packagePath();
-
-    JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
     //@formatter:off
-    return moduleBuilder(properties)
+    return commonModuleFiles(properties)
       .javaBuildProperties()
         .set(buildPropertyKey("node.version"), buildPropertyValue("v" + npmVersions.nodeVersion().get()))
         .set(buildPropertyKey("npm.version"), buildPropertyValue(npmVersions.get("npm", NpmVersionSource.COMMON).get()))
@@ -44,13 +39,6 @@ public class FrontendServerModuleFactory {
         .plugin(checksumPlugin())
         .plugin(antrunPlugin())
         .plugin(frontendMavenPlugin())
-        .and()
-      .files()
-        .add(
-          SOURCE.template("RedirectionResource.java"),
-          mainDestination.append(REDIRECTION_PRIMARY).append("RedirectionResource.java")
-        )
-        .add(SOURCE.template(PACKAGE_INFO), mainDestination.append(REDIRECTION).append(PACKAGE_INFO))
         .and()
       .build();
     //@formatter:on
@@ -177,13 +165,8 @@ public class FrontendServerModuleFactory {
   }
 
   public JHipsterModule buildFrontendGradleModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
-
-    String packagePath = properties.packagePath();
-
-    JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
     //@formatter:off
-    return moduleBuilder(properties)
+    return commonModuleFiles(properties)
       .javaBuildProperties()
         .set(buildPropertyKey("node.version"), buildPropertyValue(npmVersions.nodeVersion().get()))
         .set(buildPropertyKey("npm.version.value"), buildPropertyValue(npmVersions.get("npm", NpmVersionSource.COMMON).get()))
@@ -191,14 +174,25 @@ public class FrontendServerModuleFactory {
       .gradlePlugins()
         .plugin(frontendGradlePlugin())
         .and()
+      .build();
+    //@formatter:on
+  }
+
+  private static JHipsterModuleBuilder commonModuleFiles(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    String packagePath = properties.packagePath();
+
+    JHipsterDestination mainDestination = toSrcMainJava().append(packagePath);
+    //@formatter:off
+    return moduleBuilder(properties)
       .files()
         .add(
           SOURCE.template("RedirectionResource.java"),
           mainDestination.append(REDIRECTION_PRIMARY).append("RedirectionResource.java")
         )
         .add(SOURCE.template(PACKAGE_INFO), mainDestination.append(REDIRECTION).append(PACKAGE_INFO))
-        .and()
-      .build();
+        .and();
     //@formatter:on
   }
 

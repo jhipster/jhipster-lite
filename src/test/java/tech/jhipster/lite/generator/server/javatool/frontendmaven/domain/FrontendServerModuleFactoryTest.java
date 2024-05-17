@@ -247,7 +247,7 @@ class FrontendServerModuleFactoryTest {
           description = "Test the frontend project using NPM"
           group = "verification"
           dependsOn("npmInstall", "buildNpm")
-          npmCommand.set(listOf("run", "test"))
+          npmCommand.set(listOf("run", "test:coverage"))
           ignoreExitValue.set(false)
           workingDir.set(projectDir)
           execOverrides {

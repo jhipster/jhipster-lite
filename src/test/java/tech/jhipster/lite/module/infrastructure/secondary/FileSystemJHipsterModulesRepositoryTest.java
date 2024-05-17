@@ -488,6 +488,12 @@ class FileSystemJHipsterModulesRepositoryTest {
           // jhipster-needle-gradle-free-configuration-blocks
           """
         )
+        .containing(
+          """
+            finalizedBy("jacocoTestReport")
+            // jhipster-needle-gradle-tasks-test
+          """
+        )
         .and()
       .hasFile("buildSrc/build.gradle.kts")
         .containing(

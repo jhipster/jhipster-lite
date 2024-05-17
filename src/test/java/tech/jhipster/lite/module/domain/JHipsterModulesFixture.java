@@ -100,7 +100,7 @@ public final class JHipsterModulesFixture {
       .plugin(asciidoctorPlugin())
       .and()
     .gradleConfigurations()
-      .configuration(
+      .addConfiguration(
         """
         tasks.build {
           dependsOn("processResources")
@@ -120,6 +120,13 @@ public final class JHipsterModulesFixture {
       .plugin(jacocoGradlePlugin())
       .plugin(checkstyleGradlePlugin())
       .and()
+    .gradleConfigurations()
+      .addTasksTestInstruction(
+        """
+        finalizedBy("jacocoTestReport")\
+        """
+      )
+    .and()
     .javaBuildProfiles()
       .addProfile(localBuildProfile())
         .activation(buildProfileActivation().activeByDefault(false))

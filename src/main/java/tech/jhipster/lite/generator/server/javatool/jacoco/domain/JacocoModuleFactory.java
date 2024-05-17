@@ -3,7 +3,6 @@ package tech.jhipster.lite.generator.server.javatool.jacoco.domain;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.mavenplugin.MavenBuildPhase.*;
 
-import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleMainBuildPlugin;
 import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
@@ -12,8 +11,6 @@ import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin.MavenPluginOptionalBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
-import tech.jhipster.lite.module.domain.replacement.ElementReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public class JacocoModuleFactory {
@@ -22,47 +19,6 @@ public class JacocoModuleFactory {
   private static final GroupId JACOCO_GROUP = groupId("org.jacoco");
   private static final ArtifactId JACOCO_ARTIFACT_ID = artifactId("jacoco-maven-plugin");
   private static final VersionSlug JACOCO_VERSION = versionSlug(JACOCO);
-  private static final Pattern BUILD_GRADLE_TASK_TEST_NEEDLE = Pattern.compile(
-    """
-    tasks.test {
-      filter {
-        includeTestsMatching("**Test*")
-        excludeTestsMatching("**IT*")
-        excludeTestsMatching("**CucumberTest*")
-      }
-      useJUnitPlatform()
-    }
-    """,
-    Pattern.LITERAL
-  );
-  private static final ElementReplacer EXISTING_BUILD_GRADLE_TASK_TEST_NEEDLE = new RegexReplacer(
-    (contentBeforeReplacement, replacement) -> BUILD_GRADLE_TASK_TEST_NEEDLE.matcher(contentBeforeReplacement).find(),
-    BUILD_GRADLE_TASK_TEST_NEEDLE
-  );
-  private static final String ADD_JACOCO_BUILD_GRADLE_TASK_TEST =
-    """
-    tasks.test {
-      filter {
-        includeTestsMatching("**Test*")
-        excludeTestsMatching("**IT*")
-        excludeTestsMatching("**CucumberTest*")
-      }
-      useJUnitPlatform()
-      finalizedBy("jacocoTestReport")
-    }
-    """;
-  private static final String ADD_JACOCO_WITH_MIN_COVERAGE_CHECK_BUILD_GRADLE_TASK_TEST =
-    """
-    tasks.test {
-      filter {
-        includeTestsMatching("**Test*")
-        excludeTestsMatching("**IT*")
-        excludeTestsMatching("**CucumberTest*")
-      }
-      useJUnitPlatform()
-      finalizedBy("jacocoTestCoverageVerification")
-    }
-    """;
 
   public JHipsterModule buildJacocoModule(JHipsterModuleProperties properties) {
     Assert.notNull("properties", properties);
@@ -76,11 +32,13 @@ public class JacocoModuleFactory {
       .gradlePlugins()
         .plugin(gradleJacocoPlugin())
         .and()
-      .optionalReplacements()
-        .in(path("build.gradle.kts"))
-        .add(EXISTING_BUILD_GRADLE_TASK_TEST_NEEDLE, ADD_JACOCO_BUILD_GRADLE_TASK_TEST)
+      .gradleConfigurations()
+        .addTasksTestInstruction(
+          """
+          finalizedBy("jacocoTestReport")\
+          """
+        )
         .and()
-      .and()
       .build();
     //@formatter:on
   }
@@ -97,11 +55,13 @@ public class JacocoModuleFactory {
       .gradlePlugins()
         .plugin(gradleJacocoWithMinCoverageCheckPlugin())
         .and()
-      .optionalReplacements()
-        .in(path("build.gradle.kts"))
-        .add(EXISTING_BUILD_GRADLE_TASK_TEST_NEEDLE, ADD_JACOCO_WITH_MIN_COVERAGE_CHECK_BUILD_GRADLE_TASK_TEST)
+      .gradleConfigurations()
+        .addTasksTestInstruction(
+          """
+          finalizedBy("jacocoTestCoverageVerification")\
+          """
+        )
         .and()
-      .and()
       .build();
     //@formatter:on
   }

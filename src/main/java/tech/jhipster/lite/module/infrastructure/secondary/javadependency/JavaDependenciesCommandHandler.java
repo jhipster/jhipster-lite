@@ -27,5 +27,5 @@ public interface JavaDependenciesCommandHandler {
 
   void handle(AddGradleConfiguration command);
 
-  void handle(AddTasksTestInstruction command);
+  void handle(AddGradleTasksTestInstruction command);
 }

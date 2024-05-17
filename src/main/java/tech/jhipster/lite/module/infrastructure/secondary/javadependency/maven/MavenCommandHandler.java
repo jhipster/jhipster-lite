@@ -346,7 +346,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @Override
-  public void handle(AddTasksTestInstruction command) {
+  public void handle(AddGradleTasksTestInstruction command) {
     // Gradle commands are ignored
   }
 

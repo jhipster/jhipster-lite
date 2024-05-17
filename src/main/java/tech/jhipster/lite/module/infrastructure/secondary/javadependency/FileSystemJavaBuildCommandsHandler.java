@@ -80,7 +80,7 @@ public class FileSystemJavaBuildCommandsHandler {
       case AddJavaBuildProfile addJavaBuildProfile -> handler.handle(addJavaBuildProfile);
       case AddGradlePlugin addGradlePlugin -> handler.handle(addGradlePlugin);
       case AddGradleConfiguration addGradleConfiguration -> handler.handle(addGradleConfiguration);
-      case AddTasksTestInstruction addTasksTestInstruction -> handler.handle(addTasksTestInstruction);
+      case AddGradleTasksTestInstruction addGradleTasksTestInstruction -> handler.handle(addGradleTasksTestInstruction);
     }
   }
 }

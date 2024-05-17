@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.javabuild.command.AddGradleConfiguration;
-import tech.jhipster.lite.module.domain.javabuild.command.AddTasksTestInstruction;
+import tech.jhipster.lite.module.domain.javabuild.command.AddGradleTasksTestInstruction;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
@@ -42,7 +42,7 @@ public final class JHipsterModuleGradleConfigurations {
   private Stream<JavaBuildCommands> tasksTestInstructionsToAddTasksTestInstruction() {
     return Stream.of(
       new JavaBuildCommands(
-        tasksTestInstructions.stream().map(tasksTestInstruction -> new AddTasksTestInstruction(tasksTestInstruction.get())).toList()
+        tasksTestInstructions.stream().map(tasksTestInstruction -> new AddGradleTasksTestInstruction(tasksTestInstruction.get())).toList()
       )
     );
   }

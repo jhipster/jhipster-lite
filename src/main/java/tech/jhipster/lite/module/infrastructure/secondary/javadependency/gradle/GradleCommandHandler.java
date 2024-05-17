@@ -1,20 +1,23 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.always;
-import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.libraryAlias;
-import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.pluginAlias;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.javadependency.gradle.VersionsCatalog.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import tech.jhipster.lite.module.domain.*;
+import tech.jhipster.lite.module.domain.Indentation;
+import tech.jhipster.lite.module.domain.JHipsterModuleContext;
+import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.file.*;
@@ -530,7 +533,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   @Override
-  public void handle(AddTasksTestInstruction command) {
+  public void handle(AddGradleTasksTestInstruction command) {
     MandatoryReplacer replacer = new MandatoryReplacer(
       new RegexNeedleBeforeReplacer(
         (contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText),

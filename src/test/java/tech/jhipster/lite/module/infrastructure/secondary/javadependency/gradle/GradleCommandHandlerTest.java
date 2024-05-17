@@ -1529,7 +1529,7 @@ class GradleCommandHandlerTest {
     JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
 
     new GradleCommandHandler(Indentation.DEFAULT, projectFolder, emptyModuleContext(), files, fileReplacer).handle(
-      new AddTasksTestInstruction(
+      new AddGradleTasksTestInstruction(
         """
         dependsOn("testNpm")\
         """
@@ -1563,7 +1563,7 @@ class GradleCommandHandlerTest {
       fileReplacer
     );
     gradleCommandHandler.handle(
-      new AddTasksTestInstruction(
+      new AddGradleTasksTestInstruction(
         """
         dependsOn("testNpm")\
         """
@@ -1571,7 +1571,7 @@ class GradleCommandHandlerTest {
     );
 
     gradleCommandHandler.handle(
-      new AddTasksTestInstruction(
+      new AddGradleTasksTestInstruction(
         """
         dependsOn("testNpm")\
         """

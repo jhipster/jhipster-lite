@@ -228,7 +228,10 @@ class FrontendServerModuleFactoryTest {
           workDir.set(file(layout.buildDirectory))
           npmWorkDir.set(file(layout.buildDirectory))
         }
-
+        """
+      )
+      .containing(
+        """
         val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
           description = "Build the frontend project using NPM"
           group = "Build"
@@ -236,7 +239,10 @@ class FrontendServerModuleFactoryTest {
           npmCommand.set(listOf("run", "build"))
           environment.set(mapOf("APP_VERSION" to project.version.toString()))
         }
-
+        """
+      )
+      .containing(
+        """
         val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
           description = "Test the frontend project using NPM"
           group = "verification"
@@ -248,7 +254,10 @@ class FrontendServerModuleFactoryTest {
             standardOutput = System.out
           }
         }
-
+        """
+      )
+      .containing(
+        """
         tasks.bootJar {
           dependsOn("buildNpm")
           from("build/classes/static") {

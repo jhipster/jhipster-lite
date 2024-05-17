@@ -135,6 +135,7 @@ elif [[ $application == 'gradleapp' ]]; then
   spring_boot_mvc
 
   applyModules \
+    "prettier" \
     "java-memoizers" \
     "java-enums" \
     "spring-boot-local-profile" \
@@ -147,6 +148,7 @@ elif [[ $application == 'gradleapp' ]]; then
 
   cucumber_with_jwt
   frontend_server_plugin
+  applyModules "vue-core"
 
 elif [[ $application == 'fullapp' ]]; then
   init_server

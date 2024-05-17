@@ -174,6 +174,13 @@ public class FrontendServerModuleFactory {
       .gradlePlugins()
         .plugin(frontendGradlePlugin())
         .and()
+      .gradleConfigurations()
+        .addTasksTestInstruction(
+          """
+          dependsOn("testNpm")\
+          """
+        )
+        .and()
       .build();
     //@formatter:on
   }

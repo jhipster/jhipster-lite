@@ -256,6 +256,12 @@ class FrontendServerModuleFactoryTest {
           }
         }
         """
+      )
+      .containing(
+        """
+          dependsOn("testNpm")
+          // jhipster-needle-gradle-tasks-test
+        """
       );
   }
 

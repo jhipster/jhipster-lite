@@ -103,8 +103,7 @@ frontend_server_plugin() {
   if [[ $java_build_tool == 'maven' ]]; then
     applyModules "frontend-maven-plugin"
   else
-    echo -e "No frontend server plugin for $java_build_tool!"
-    exit 1
+    applyModules "frontend-gradle-plugin"
   fi
 }
 
@@ -147,6 +146,7 @@ elif [[ $application == 'gradleapp' ]]; then
     "liquibase"
 
   cucumber_with_jwt
+  frontend_server_plugin
 
 elif [[ $application == 'fullapp' ]]; then
   init_server

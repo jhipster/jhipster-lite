@@ -49,7 +49,7 @@ class AngularModuleFactoryTest {
       .containing(nodeScript("ng", "ng"))
       .containing(nodeScript("watch", "ng build --watch --configuration development"))
       .containing(nodeScript("start", "ng serve"))
-      .containing(nodeScript("build", "ng build --output-path=target/classes/static"))
+      .containing(nodeScript("build", "ng build"))
       .containing(nodeScript("test", "npm run test:watch"))
       .containing(nodeScript("test:watch", "ng test --watch"))
       .containing(nodeScript("test:coverage", "ng test --coverage"))

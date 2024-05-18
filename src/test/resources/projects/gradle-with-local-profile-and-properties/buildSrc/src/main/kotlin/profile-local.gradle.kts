@@ -3,6 +3,9 @@ plugins {
   // jhipster-needle-gradle-plugins
 }
 
+val javaVersion by extra("21")
+// jhipster-needle-gradle-properties
+
 dependencies {
   // Access to the `libs` object doesn't work in precompiled script plugin
   // https://github.com/gradle/gradle/issues/15383
@@ -13,6 +16,3 @@ dependencies {
   // jhipster-needle-gradle-runtime-dependencies
   // jhipster-needle-gradle-test-dependencies
 }
-
-val javaVersion by extra("21")
-// jhipster-needle-gradle-properties

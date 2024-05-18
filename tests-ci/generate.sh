@@ -103,8 +103,7 @@ frontend_server_plugin() {
   if [[ $java_build_tool == 'maven' ]]; then
     applyModules "frontend-maven-plugin"
   else
-    echo -e "No frontend server plugin for $java_build_tool!"
-    exit 1
+    applyModules "node-gradle-plugin"
   fi
 }
 
@@ -132,10 +131,11 @@ elif [[ $application == 'fullstack' ]]; then
 # It should be removed once gradle is fully supported
 elif [[ $application == 'gradleapp' ]]; then
   init_server
-  sonar_back
+  sonar_back_front
   spring_boot_mvc
 
   applyModules \
+    "prettier" \
     "java-memoizers" \
     "java-enums" \
     "spring-boot-local-profile" \
@@ -147,6 +147,8 @@ elif [[ $application == 'gradleapp' ]]; then
     "liquibase"
 
   cucumber_with_jwt
+  frontend_server_plugin
+  applyModules "vue-core"
 
 elif [[ $application == 'fullapp' ]]; then
   init_server

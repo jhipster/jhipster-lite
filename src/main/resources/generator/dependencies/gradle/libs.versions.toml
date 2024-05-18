@@ -5,6 +5,7 @@ git-properties = "2.4.2"
 protobuf-plugin = "0.9.4"
 jacoco = "0.8.11"
 sonarqube = "4.4.1.3373"
+node-gradle = "7.0.2"
 
 [libraries]
 [libraries.checkstyle]

@@ -3,6 +3,9 @@ plugins {
   // jhipster-needle-gradle-plugins
 }
 
+val javaVersion by extra("21")
+// jhipster-needle-gradle-properties
+
 java {
   toolchain {
     languageVersion = JavaLanguageVersion.of(21)
@@ -18,9 +21,6 @@ repositories {
 
 group = "tech.jhipster.chips"
 version = "0.0.1-SNAPSHOT"
-
-val javaVersion by extra("21")
-// jhipster-needle-gradle-properties
 
 val profiles = (project.findProperty("profiles") as String? ?: "")
   .split(",")

@@ -5,6 +5,8 @@ plugins {
   // jhipster-needle-gradle-plugins
 }
 
+// jhipster-needle-gradle-properties
+
 java {
   toolchain {
     languageVersion = JavaLanguageVersion.of(21)
@@ -20,8 +22,6 @@ repositories {
 
 group = "com.jhipster.test"
 version = "0.0.1-SNAPSHOT"
-
-// jhipster-needle-gradle-properties
 
 val profiles = (project.findProperty("profiles") as String? ?: "")
   .split(",")

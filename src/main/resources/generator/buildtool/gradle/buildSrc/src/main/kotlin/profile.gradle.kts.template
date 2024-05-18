@@ -5,6 +5,8 @@ plugins {
   // jhipster-needle-gradle-plugins
 }
 
+// jhipster-needle-gradle-properties
+
 // jhipster-needle-gradle-plugins-configurations
 
 // Workaround to access the `libs` object in precompiled script plugin
@@ -17,5 +19,3 @@ dependencies {
   // jhipster-needle-gradle-runtime-dependencies
   // jhipster-needle-gradle-test-dependencies
 }
-
-// jhipster-needle-gradle-properties

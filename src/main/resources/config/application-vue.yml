@@ -1,5 +1,4 @@
 jhlite-hidden-resources.slugs:
-  - gradle-java
   - spring-boot-kafka-sample-producer-consumer
   - angular-core
   - react-core

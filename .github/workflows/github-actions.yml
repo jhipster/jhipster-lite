@@ -109,8 +109,6 @@ jobs:
         run: npm ci
       - name: 'Lint: check'
         run: npm run lint:ci
-      - name: 'TEMP: enable gradle build tool slug'
-        run: sed -i '/- gradle-java/d' src/main/resources/config/application.yml
       - name: 'Start local Sonar'
         run: docker compose -f src/main/docker/sonar.yml up -d
       - name: 'Test: run backend tests'
@@ -458,8 +456,7 @@ jobs:
         if: steps.tests-requirement-check.outputs.execute_tests == 'true'
         working-directory: /tmp/jhlite/${{ matrix.app }}/
         run: |
-          # TODO: add also 'gradlew' once gradle support is more advanced
-          if [ -f 'mvnw' ]; then
+          if [ -f 'mvnw' ] || [ -f 'gradlew' ]; then
             ./start.sh
           fi
 

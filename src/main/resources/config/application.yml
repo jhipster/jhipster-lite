@@ -68,7 +68,6 @@ application:
 jhlite-hidden-resources:
   tags: banner
   slugs:
-    - gradle-java # gradle is hidden until it is fully supported
     - svelte-core
 
 server:

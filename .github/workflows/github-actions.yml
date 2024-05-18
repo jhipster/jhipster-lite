@@ -166,8 +166,6 @@ jobs:
         run: npm ci
       - name: 'Lint: check'
         run: npm run lint:ci
-      - name: 'TEMP: enable gradle build tool slug'
-        run: sed -i '/- gradle-java/d' src/main/resources/config/application.yml
       - name: 'Build application JAR'
         run: |
           chmod +x mvnw

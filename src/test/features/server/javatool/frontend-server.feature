@@ -8,7 +8,7 @@ Feature: Frontend server module
       | RedirectionResource.java |
 
   Scenario: Should apply frontend server gradle module
-    When I apply "frontend-gradle-plugin" module to default project with gradle build
+    When I apply "node-gradle-plugin" module to default project with gradle build
       | packageName | tech.jhipster.chips |
       | baseName    | jhipster            |
     Then I should have files in "src/main/java/tech/jhipster/chips/wire/frontend/infrastructure/primary"

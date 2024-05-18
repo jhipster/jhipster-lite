@@ -34,7 +34,7 @@ class FrontendServerModuleConfiguration {
   @Bean
   JHipsterModuleResource frontendGradleModule(FrontendServerApplicationService frontendServer) {
     return JHipsterModuleResource.builder()
-      .slug(FRONTEND_GRADLE_PLUGIN)
+      .slug(NODE_GRADLE_PLUGIN)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
       .apiDoc("Frontend Gradle Plugin", "Add node-gradle plugin for building frontend with Gradle")
       .organization(

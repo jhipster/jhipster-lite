@@ -103,7 +103,7 @@ frontend_server_plugin() {
   if [[ $java_build_tool == 'maven' ]]; then
     applyModules "frontend-maven-plugin"
   else
-    applyModules "frontend-gradle-plugin"
+    applyModules "node-gradle-plugin"
   fi
 }
 

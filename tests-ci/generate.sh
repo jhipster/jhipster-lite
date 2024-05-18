@@ -131,7 +131,7 @@ elif [[ $application == 'fullstack' ]]; then
 # It should be removed once gradle is fully supported
 elif [[ $application == 'gradleapp' ]]; then
   init_server
-  sonar_back
+  sonar_back_front
   spring_boot_mvc
 
   applyModules \

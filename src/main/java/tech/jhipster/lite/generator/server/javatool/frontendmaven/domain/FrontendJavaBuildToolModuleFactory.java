@@ -13,7 +13,7 @@ import tech.jhipster.lite.module.domain.npm.NpmVersions;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-public class FrontendServerModuleFactory {
+public class FrontendJavaBuildToolModuleFactory {
 
   private static final String PACKAGE_INFO = "package-info.java";
 
@@ -24,7 +24,7 @@ public class FrontendServerModuleFactory {
 
   private final NpmVersions npmVersions;
 
-  public FrontendServerModuleFactory(NpmVersions npmVersions) {
+  public FrontendJavaBuildToolModuleFactory(NpmVersions npmVersions) {
     this.npmVersions = npmVersions;
   }
 

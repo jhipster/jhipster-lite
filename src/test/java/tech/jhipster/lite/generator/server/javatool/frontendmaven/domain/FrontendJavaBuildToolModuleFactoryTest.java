@@ -20,13 +20,13 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 
 @UnitTest
 @ExtendWith(MockitoExtension.class)
-class FrontendServerModuleFactoryTest {
+class FrontendJavaBuildToolModuleFactoryTest {
 
   @Mock
   private NpmVersions npmVersions;
 
   @InjectMocks
-  private FrontendServerModuleFactory factory;
+  private FrontendJavaBuildToolModuleFactory factory;
 
   @Test
   void shouldBuildFrontendMavenModule() {

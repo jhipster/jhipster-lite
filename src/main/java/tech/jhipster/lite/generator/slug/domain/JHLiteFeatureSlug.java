@@ -13,7 +13,7 @@ public enum JHLiteFeatureSlug implements JHipsterFeatureSlugFactory {
   DATABASE_MIGRATION("database-migration"),
   DOCKERFILE("dockerfile"),
   FRONT_BROWSER_TEST("front-browser-test"),
-  FRONTEND_SERVER_PLUGIN("frontend-server-plugin"),
+  FRONTEND_JAVA_BUILD_TOOL_PLUGIN("frontend-java-build-tool-plugin"),
   GITHUB_ACTIONS("github-actions"),
   GITLAB_CI("gitlab-ci"),
   DEPENDENCIES_UPDATES("dependencies-updates"),

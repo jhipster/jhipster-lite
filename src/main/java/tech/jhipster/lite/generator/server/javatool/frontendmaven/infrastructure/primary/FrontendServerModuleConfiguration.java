@@ -18,7 +18,7 @@ class FrontendServerModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(FRONTEND_MAVEN_PLUGIN)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
-      .apiDoc("Frontend Server Maven Plugin", "Add Frontend Server Maven Plugin")
+      .apiDoc("Frontend Maven Plugin", "Add Frontend Maven Plugin")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(FRONTEND_SERVER_PLUGIN)
@@ -36,7 +36,7 @@ class FrontendServerModuleConfiguration {
     return JHipsterModuleResource.builder()
       .slug(FRONTEND_GRADLE_PLUGIN)
       .propertiesDefinition(JHipsterModulePropertiesDefinition.builder().addBasePackage().addProjectBaseName().addIndentation().build())
-      .apiDoc("Frontend Server Gradle Plugin", "Add Frontend Server Gradle Plugin")
+      .apiDoc("Frontend Gradle Plugin", "Add node-gradle plugin for building frontend with Gradle")
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(FRONTEND_SERVER_PLUGIN)

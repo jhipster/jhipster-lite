@@ -21,7 +21,7 @@ fi
 echo "*** Identifying application executable..."
 export EXEC_JAR=$(\
   find . -maxdepth 1 -name "*-exec.jar" | grep . \
-  || find . -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" \
+  || find . -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" | grep -v "\-plain" \
 )
 
 echo "*** Starting application using ${EXEC_JAR}..."

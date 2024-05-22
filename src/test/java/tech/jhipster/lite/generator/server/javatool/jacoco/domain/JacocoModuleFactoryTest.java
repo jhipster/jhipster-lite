@@ -174,7 +174,7 @@ class JacocoModuleFactoryTest {
               xml.required.set(true)
               html.required.set(true)
             }
-            executionData.setFrom(fileTree(buildDir).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
+            executionData.setFrom(fileTree(layout.buildDirectory).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
           }
           """
         )
@@ -216,7 +216,7 @@ class JacocoModuleFactoryTest {
             xml.required.set(true)
             html.required.set(true)
           }
-          executionData.setFrom(fileTree(buildDir).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
+          executionData.setFrom(fileTree(layout.buildDirectory).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
         }
 
         tasks.jacocoTestCoverageVerification {
@@ -239,7 +239,7 @@ class JacocoModuleFactoryTest {
                   }
               }
           }
-          executionData.setFrom(fileTree(buildDir).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
+          executionData.setFrom(fileTree(layout.buildDirectory).include("**/jacoco/test.exec", "**/jacoco/integrationTest.exec"))
         }
         """
       )

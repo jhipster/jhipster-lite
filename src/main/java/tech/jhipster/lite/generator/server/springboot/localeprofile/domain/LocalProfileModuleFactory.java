@@ -21,6 +21,11 @@ public class LocalProfileModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
+      .gitIgnore()
+        .comment("Gradle")
+        .pattern("./buildSrc/.gradle/")
+        .pattern("./buildSrc/build/")
+        .and()
       .javaBuildProperties()
         .set(new PropertyKey(SPRING_PROFILES_ACTIVE), new PropertyValue(""))
         .and()

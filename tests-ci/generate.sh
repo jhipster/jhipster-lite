@@ -172,6 +172,7 @@ elif [[ $application == 'fullapp' ]]; then
   "gitpod" \
   "java-memoizers" \
   "java-enums" \
+  "spring-boot-local-profile" \
   "internationalized-errors" \
   "spring-boot-cache" \
   "caffeine-cache" \

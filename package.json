@@ -16,7 +16,7 @@
   "type": "module",
   "scripts": {
     "build": "vue-tsc -p tsconfig.build.json --noEmit && vite build --emptyOutDir && tikui-core build",
-    "dev": "npm run tikui:serve & npm run webapp:serve",
+    "dev": "run-p tikui:serve webapp:serve",
     "e2e": "cypress open --config-file src/test/webapp/e2e/cypress-config.ts",
     "e2e:headless": "cypress run --headless --config-file src/test/webapp/e2e/cypress-config.ts",
     "format": "prettier . --write",
@@ -73,6 +73,7 @@
     "husky": "9.0.11",
     "jsdom": "24.0.0",
     "lint-staged": "15.2.4",
+    "npm-run-all": "4.1.5",
     "postcss-scss": "4.0.9",
     "prettier": "3.2.5",
     "prettier-plugin-gherkin": "2.2.1",

@@ -127,6 +127,29 @@ elif [[ $application == 'fullstack' ]]; then
   spring_boot_mvc
   sonar_back_front
 
+# This is a temporary test app for testing features supporting gradle
+# It should be removed once gradle is fully supported
+elif [[ $application == 'gradleapp' ]]; then
+  init_server
+  sonar_back_front
+  spring_boot_mvc
+
+  applyModules \
+    "prettier" \
+    "java-memoizers" \
+    "java-enums" \
+    "spring-boot-local-profile" \
+    "jib" \
+    "dockerfile-${java_build_tool}" \
+    "pagination-domain" \
+    "git-information" \
+    "postgresql" \
+    "liquibase"
+
+  cucumber_with_jwt
+  frontend_server_plugin
+  applyModules "vue-core"
+
 elif [[ $application == 'fullapp' ]]; then
   init_server
   spring_boot_mvc

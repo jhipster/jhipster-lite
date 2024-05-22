@@ -255,7 +255,7 @@ jobs:
             java-version: 22
           - app: vueapp
             node-version: 'latest'
-          - app: gradleapp
+          - app: fullapp
             java-build-tool: gradle
     steps:
       - name: 'Setup: checkout project from main branch'

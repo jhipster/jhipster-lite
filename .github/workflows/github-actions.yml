@@ -242,7 +242,6 @@ jobs:
           - angularoauth2app
           - customjhlite
           - typescriptapp
-          - gradleapp
           - thymeleafapp
         include:
           - java-build-tool: maven

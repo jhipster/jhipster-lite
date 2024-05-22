@@ -28,6 +28,7 @@ class GradleModuleFactoryTest {
       .containing(
         """
         # Gradle
+        /.gradle/
         /build/\
         """
       )

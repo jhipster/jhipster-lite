@@ -103,22 +103,16 @@ public class SonarQubeModulesFactory {
   private GradleMainBuildPlugin gradleSonarPlugin() {
     String configuration =
       """
-      fun loadSonarProperties(): Map<String, List<String>> {
-          val properties = mutableMapOf<String, List<String>>()
-          File("sonar-project.properties").forEachLine { line ->
-              if (!line.startsWith("#") && line.contains("=")) {
-                  val (key, value) = line.split("=", limit = 2)
-                  properties[key.trim()] = value.split(",").map { it.trim() }
-              }
-          }
-          return properties
+      val sonarProperties = Properties()
+      File("sonar-project.properties").inputStream().use { inputStream ->
+          sonarProperties.load(inputStream)
       }
 
       sonarqube {
           properties {
-            loadSonarProperties().forEach { (key, value) ->
-              property(key, value)
-            }
+            sonarProperties
+              .map { it -> it.key as String to (it.value as String).split(",").map { it.trim() } }
+              .forEach { (key, values) -> property(key, values) }
             property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
             property("sonar.junit.reportPaths", "build/test-results/test,build/test-results/integrationTest")
           }
@@ -129,6 +123,7 @@ public class SonarQubeModulesFactory {
       .id("org.sonarqube")
       .pluginSlug(SONARQUBE)
       .versionSlug(SONARQUBE)
+      .withBuildGradleImport("java.util.Properties")
       .configuration(configuration)
       .build();
   }

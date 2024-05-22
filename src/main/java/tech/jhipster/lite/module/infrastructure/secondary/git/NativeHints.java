@@ -1,6 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.git;
 
 import org.eclipse.jgit.api.*;
+import org.eclipse.jgit.diff.DiffAlgorithm;
 import org.eclipse.jgit.internal.*;
 import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.util.sha1.SHA1;
@@ -22,9 +23,12 @@ class NativeHints implements RuntimeHintsRegistrar {
      */
     hints
       .reflection()
+      .registerType(MergeCommand.ConflictStyle.class, MemberCategory.values())
       .registerType(MergeCommand.FastForwardMode.class, MemberCategory.values())
       .registerType(MergeCommand.FastForwardMode.Merge.class, MemberCategory.values())
+      .registerType(DiffAlgorithm.SupportedAlgorithm.class, MemberCategory.values())
       .registerType(JGitText.class, MemberCategory.values())
+      .registerType(CommitConfig.CleanupMode.class, MemberCategory.values())
       .registerType(SHA1.Sha1Implementation.class, MemberCategory.values())
       .registerType(CoreConfig.AutoCRLF.class, MemberCategory.values())
       .registerType(CoreConfig.CheckStat.class, MemberCategory.values())
@@ -33,6 +37,7 @@ class NativeHints implements RuntimeHintsRegistrar {
       .registerType(CoreConfig.HideDotFiles.class, MemberCategory.values())
       .registerType(CoreConfig.SymLinks.class, MemberCategory.values())
       .registerType(CoreConfig.LogRefUpdates.class, MemberCategory.values())
+      .registerType(CoreConfig.TrustLooseRefStat.class, MemberCategory.values())
       .registerType(CoreConfig.TrustPackedRefsStat.class, MemberCategory.values());
 
     // patterns for JGit and our own template files

@@ -23,6 +23,7 @@ public class GradleModuleFactory {
         .and()
       .gitIgnore()
         .comment("Gradle")
+        .pattern("/.gradle/")
         .pattern("/build/")
         .and()
       .files()

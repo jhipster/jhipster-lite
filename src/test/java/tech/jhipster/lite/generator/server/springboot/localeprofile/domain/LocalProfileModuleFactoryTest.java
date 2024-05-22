@@ -109,6 +109,15 @@ class LocalProfileModuleFactoryTest {
       JHipsterModule module = factory.buildModule(properties);
 
       assertThatModuleWithFiles(module, gradleBuildFile(), gradleLibsVersionFile())
+        .hasFile(".gitignore")
+        .containing(
+          """
+          # Gradle
+          ./buildSrc/.gradle/
+          ./buildSrc/build/\
+          """
+        )
+        .and()
         .hasFile("build.gradle.kts")
         .containing(
           """

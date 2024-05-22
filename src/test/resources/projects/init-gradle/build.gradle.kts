@@ -55,7 +55,6 @@ val integrationTest = task<Test>("integrationTest") {
   filter {
     includeTestsMatching("**IT*")
     includeTestsMatching("**CucumberTest*")
-    excludeTestsMatching("**Test*")
   }
   useJUnitPlatform()
 }

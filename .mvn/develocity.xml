@@ -11,7 +11,7 @@
       <fileFingerprints>true</fileFingerprints>
     </capture>
     <publishing>
-      <onlyIf>authenticated</onlyIf>
+      <onlyIf>true</onlyIf>
     </publishing>
     <backgroundBuildScanUpload>#{env['CI'] == null}</backgroundBuildScanUpload>
     <obfuscation>

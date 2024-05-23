@@ -19,17 +19,22 @@ export default defineConfig({
     },
     globals: true,
     logHeapUsage: true,
-    minThreads: 1,
-    maxThreads: 2,
+    poolOptions: {
+      threads: {
+        minThreads: 1,
+        maxThreads: 2,
+      },
+    },
     environment: 'jsdom',
     cache: false,
     include: ['src/test/javascript/spec/**/*.(spec|test).(ts|tsx)'],
     exclude: ['node_modules'],
     coverage: {
-      statements: 100,
-      branches: 100,
-      functions: 100,
-      lines: 100,
+      thresholds: {
+        perFile: true,
+        autoUpdate: true,
+        100: true,
+      },
       clean: true,
       provider: 'istanbul',
       reportsDirectory: '{{projectBuildDirectory}}/test-results/',

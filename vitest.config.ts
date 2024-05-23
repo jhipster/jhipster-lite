@@ -20,8 +20,12 @@ export default defineConfig({
   test: {
     include: ['src/test/javascript/spec/**/*.spec.ts'],
     logHeapUsage: true,
-    minThreads: 1,
-    maxThreads: 2,
+    poolOptions: {
+      threads: {
+        minThreads: 1,
+        maxThreads: 2,
+      },
+    },
     environment: 'jsdom',
     cache: false,
     reporters: ['default', 'vitest-sonar-reporter'],
@@ -35,10 +39,6 @@ export default defineConfig({
         perFile: true,
         autoUpdate: true,
         100: true,
-        lines: 100,
-        functions: 100,
-        branches: 100,
-        statements: 100,
       },
       exclude: [
         'src/main/webapp/**/*.component.ts',

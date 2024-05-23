@@ -398,8 +398,8 @@
                 <include>tikuiconfig.json</include>
                 <include>tsconfig.json</include>
                 <include>tsconfig.build.json</include>
-                <include>vite.config.mts</include>
-                <include>vitest.config.mts</include>
+                <include>vite.config.ts</include>
+                <include>vitest.config.ts</include>
               </includes>
             </fileSet>
           </fileSets>

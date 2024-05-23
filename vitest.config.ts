@@ -39,10 +39,6 @@ export default defineConfig({
         perFile: true,
         autoUpdate: true,
         100: true,
-        lines: 100,
-        functions: 100,
-        branches: 100,
-        statements: 100,
       },
       exclude: [
         'src/main/webapp/**/*.component.ts',

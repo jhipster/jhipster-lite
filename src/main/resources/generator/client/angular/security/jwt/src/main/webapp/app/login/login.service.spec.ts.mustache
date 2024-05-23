@@ -1,6 +1,7 @@
 import { provideRouter } from '@angular/router';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 import { LoginService } from './login.service';
 import { AuthServerProvider } from '../auth/auth-jwt.service';
@@ -15,8 +16,7 @@ describe('Login Service', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [AccountService, provideRouter([])],
+      providers: [AccountService, provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
     });
 
     service = TestBed.inject(LoginService);

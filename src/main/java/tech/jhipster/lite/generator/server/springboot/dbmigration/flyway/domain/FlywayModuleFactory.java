@@ -19,8 +19,10 @@ public class FlywayModuleFactory {
 
   private static final GroupId FLYWAY_GROUP_ID = groupId("org.flywaydb");
 
+  private static final String PROPERTIES = "properties";
+
   public JHipsterModule buildInitializationModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     Instant date = properties.getInstantOrDefault("date", Instant.now());
 
@@ -45,8 +47,24 @@ public class FlywayModuleFactory {
   }
 
   public JHipsterModule buildMysqlDependencyModule(JHipsterModuleProperties properties) {
-    Assert.notNull("properties", properties);
+    Assert.notNull(PROPERTIES, properties);
 
     return moduleBuilder(properties).javaDependencies().addDependency(FLYWAY_GROUP_ID, artifactId("flyway-mysql")).and().build();
+  }
+
+  public JHipsterModule buildPostgresqlDependencyModule(JHipsterModuleProperties properties) {
+    Assert.notNull(PROPERTIES, properties);
+
+    return moduleBuilder(properties)
+      .javaDependencies()
+      .addDependency(FLYWAY_GROUP_ID, artifactId("flyway-database-postgresql"))
+      .and()
+      .build();
+  }
+
+  public JHipsterModule buildMsSqlServerDependencyModule(JHipsterModuleProperties properties) {
+    Assert.notNull(PROPERTIES, properties);
+
+    return moduleBuilder(properties).javaDependencies().addDependency(FLYWAY_GROUP_ID, artifactId("flyway-sqlserver")).and().build();
   }
 }

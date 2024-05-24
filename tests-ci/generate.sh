@@ -242,7 +242,7 @@ elif [[ $application == 'flywayapp' ]]; then
   spring_boot_mvc
   sonar_back
 
-  applyModules "postgresql" "flyway"
+  applyModules "postgresql" "flyway" "flyway-postgresql"
 
   cucumber_with_jwt
 

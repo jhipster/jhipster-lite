@@ -81,6 +81,7 @@ class AngularModuleFactoryTest {
         "tsconfig.app.json",
         "tsconfig.spec.json",
         "proxy.conf.json",
+        ".npmrc",
         ".eslintignore",
         ".eslintrc.json"
       )

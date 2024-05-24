@@ -18,7 +18,7 @@ public class VueModulesFactory {
   private static final JHipsterSource IMAGE_SOURCE = SOURCE.append("webapp/content/images");
   private static final JHipsterSource COMMON_PRIMARY_SOURCE = SOURCE.append("webapp/app/common/primary");
   private static final JHipsterSource COMMON_PRIMARY_TEST_SOURCE = SOURCE.append("test/spec/common/primary");
-  private static final JHipsterSource COMMON_ESLINT = from("client/common/eslint");
+  private static final JHipsterSource COMMON = from("client/common");
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");
   private static final JHipsterDestination TEST_DESTINATION = to("src/test/javascript/spec");
@@ -81,7 +81,10 @@ public class VueModulesFactory {
           .addTemplate("vite.config.mts")
           .addTemplate("vitest.config.mts")
           .and()
-        .add(COMMON_ESLINT.file(".eslintignore"), to(".eslintignore"))
+        .batch(COMMON, to("."))
+          .addFile(".eslintignore")
+          .addFile(".npmrc")
+          .and()
         .batch(SOURCE.file("test/spec/http"), to("src/test/javascript/spec/http"))
           .addTemplate("AxiosHttp.spec.ts")
           .addTemplate("AxiosHttpStub.ts")

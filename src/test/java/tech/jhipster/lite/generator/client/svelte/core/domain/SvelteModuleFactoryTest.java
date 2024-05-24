@@ -66,7 +66,7 @@ class SvelteModuleFactoryTest {
         .containing(nodeScript("test:watch", "vitest --"))
         .containing("\"type\": \"module\"")
         .and()
-      .hasFiles(".eslintignore", ".eslintrc.cjs", "tsconfig.json", "svelte.config.js", "vite.config.js", "vitest.config.ts")
+      .hasFiles(".eslintignore", ".eslintrc.cjs", ".npmrc", "tsconfig.json", "svelte.config.js", "vite.config.js", "vitest.config.ts")
       .hasPrefixedFiles("src/main/webapp", "app.html", "app.d.ts")
       .hasPrefixedFiles("src/main/webapp/routes", "+page.svelte")
       .hasPrefixedFiles("src/test/javascript/spec/common/primary/app", "App.spec.ts")

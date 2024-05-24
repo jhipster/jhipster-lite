@@ -65,7 +65,7 @@ class VueModulesFactoryTest {
             """
         )
       .and()
-      .hasPrefixedFiles("", ".eslintignore", ".eslintrc.js", "tsconfig.json", "tsconfig.build.json", "vite.config.mts", "vitest.config.mts")
+      .hasPrefixedFiles("", ".eslintignore", ".npmrc", ".eslintrc.js", "tsconfig.json", "tsconfig.build.json", "vite.config.mts", "vitest.config.mts")
       .hasFiles("src/main/webapp/app/http/AxiosHttp.ts")
       .hasPrefixedFiles("src/test/javascript/spec/http", "AxiosHttp.spec.ts", "AxiosHttpStub.ts", "AxiosStub.ts")
       .hasFiles("src/main/webapp/index.html")

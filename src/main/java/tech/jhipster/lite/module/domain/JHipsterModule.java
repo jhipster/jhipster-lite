@@ -16,13 +16,8 @@ import tech.jhipster.lite.module.domain.JHipsterModuleContext.JHipsterModuleCont
 import tech.jhipster.lite.module.domain.JHipsterModulePreActions.JHipsterModulePreActionsBuilder;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties;
 import tech.jhipster.lite.module.domain.buildproperties.JHipsterModuleBuildProperties.JHipsterModuleBuildPropertiesBuilder;
-import tech.jhipster.lite.module.domain.file.JHipsterDestination;
-import tech.jhipster.lite.module.domain.file.JHipsterFilesToDelete;
-import tech.jhipster.lite.module.domain.file.JHipsterFilesToMove;
-import tech.jhipster.lite.module.domain.file.JHipsterModuleFile;
-import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles;
+import tech.jhipster.lite.module.domain.file.*;
 import tech.jhipster.lite.module.domain.file.JHipsterModuleFiles.JHipsterModuleFilesBuilder;
-import tech.jhipster.lite.module.domain.file.JHipsterSource;
 import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore;
 import tech.jhipster.lite.module.domain.gitignore.JHipsterModuleGitIgnore.JHipsterModuleGitIgnoreBuilder;
 import tech.jhipster.lite.module.domain.gradleconfiguration.JHipsterModuleGradleConfigurations;
@@ -35,13 +30,9 @@ import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCorePlugin.GradleCorePluginIdBuilder;
 import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins;
 import tech.jhipster.lite.module.domain.gradleplugin.JHipsterModuleGradlePlugins.JHipsterModuleGradlePluginBuilder;
-import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
-import tech.jhipster.lite.module.domain.javabuild.GroupId;
-import tech.jhipster.lite.module.domain.javabuild.JHipsterModuleMavenBuildExtensions;
+import tech.jhipster.lite.module.domain.javabuild.*;
 import tech.jhipster.lite.module.domain.javabuild.JHipsterModuleMavenBuildExtensions.JHipsterModuleMavenBuildExtensionsBuilder;
-import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension.MavenBuildExtensionGroupIdBuilder;
-import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation.BuildProfileActivationBuilder;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -52,22 +43,9 @@ import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDepende
 import tech.jhipster.lite.module.domain.javadependency.JHipsterModuleJavaDependencies.JHipsterModuleJavaDependenciesBuilder;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyGroupIdBuilder;
-import tech.jhipster.lite.module.domain.javaproperties.Comment;
-import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringFactories;
+import tech.jhipster.lite.module.domain.javaproperties.*;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringFactories.JHipsterModuleSpringFactoriesBuilder;
-import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties;
 import tech.jhipster.lite.module.domain.javaproperties.JHipsterModuleSpringProperties.JHipsterModuleSpringPropertiesBuilder;
-import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.javaproperties.PropertyValue;
-import tech.jhipster.lite.module.domain.javaproperties.SpringComment;
-import tech.jhipster.lite.module.domain.javaproperties.SpringComments;
-import tech.jhipster.lite.module.domain.javaproperties.SpringFactories;
-import tech.jhipster.lite.module.domain.javaproperties.SpringFactory;
-import tech.jhipster.lite.module.domain.javaproperties.SpringFactoryType;
-import tech.jhipster.lite.module.domain.javaproperties.SpringProfile;
-import tech.jhipster.lite.module.domain.javaproperties.SpringProperties;
-import tech.jhipster.lite.module.domain.javaproperties.SpringProperty;
-import tech.jhipster.lite.module.domain.javaproperties.SpringPropertyType;
 import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins;
 import tech.jhipster.lite.module.domain.mavenplugin.JHipsterModuleMavenPlugins.JHipsterModuleMavenPluginsBuilder;
 import tech.jhipster.lite.module.domain.mavenplugin.MavenPlugin;
@@ -83,17 +61,9 @@ import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions;
 import tech.jhipster.lite.module.domain.postaction.JHipsterModulePostActions.JHipsterModulePostActionsBuilder;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.module.domain.properties.JHipsterProjectFolder;
-import tech.jhipster.lite.module.domain.replacement.FileStartReplacer;
-import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacementsFactory;
+import tech.jhipster.lite.module.domain.replacement.*;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleMandatoryReplacementsFactory.JHipsterModuleMandatoryReplacementsFactoryBuilder;
-import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacementsFactory;
 import tech.jhipster.lite.module.domain.replacement.JHipsterModuleOptionalReplacementsFactory.JHipsterModuleOptionalReplacementsFactoryBuilder;
-import tech.jhipster.lite.module.domain.replacement.RegexNeedleAfterReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexNeedleBeforeReplacer;
-import tech.jhipster.lite.module.domain.replacement.RegexReplacer;
-import tech.jhipster.lite.module.domain.replacement.TextNeedleAfterReplacer;
-import tech.jhipster.lite.module.domain.replacement.TextNeedleBeforeReplacer;
-import tech.jhipster.lite.module.domain.replacement.TextReplacer;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterModuleStartupCommands.JHipsterModuleStartupCommandsBuilder;
 import tech.jhipster.lite.module.domain.startupcommand.JHipsterStartupCommands;
@@ -628,6 +598,15 @@ public final class JHipsterModule {
       return mavenBuildExtensions;
     }
 
+    /**
+     * Configure the {@code package.json} file for the JHipster module.
+     * <p>
+     * This method allows you to add scripts, dependencies, and development dependencies
+     * to the package.json file. It uses a builder pattern to provide a fluent interface for
+     * configuring the {@code package.json} file.
+     *
+     * @return a {@link JHipsterModulePackageJsonBuilder} to continue configuring the package.json
+     */
     public JHipsterModulePackageJsonBuilder packageJson() {
       return packageJson;
     }

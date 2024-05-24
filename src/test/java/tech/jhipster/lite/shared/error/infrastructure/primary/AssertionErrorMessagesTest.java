@@ -58,7 +58,7 @@ class AssertionErrorMessagesTest {
       .forEach(assertHasMessage());
   }
 
-  private Consumer<String> assertHasMessage() {
+  private static Consumer<String> assertHasMessage() {
     return messageKey ->
       ALL_ASSERTION_MESSAGES.forEach(
         (file, localeMessages) ->

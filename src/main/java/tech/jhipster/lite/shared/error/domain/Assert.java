@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -314,6 +315,9 @@ public final class Assert {
   public static final class StringAsserter {
 
     public static final Pattern PATTERN_SPACE = Pattern.compile("\\s");
+    private static final Pattern TAG_FORMAT = Pattern.compile("^[a-z0-9-]+$");
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
+
     private final String field;
     private final String value;
 
@@ -367,6 +371,51 @@ public final class Assert {
         throw new StringWithWhitespacesException(field);
       }
 
+      return this;
+    }
+
+    /**
+     * Ensure that the value only contains lower case letters or numbers, no whitespace or any separator.
+     *
+     * @return The current asserter
+     * @throws UrlSafeSingleWordException
+     *           if the value contain any special character
+     */
+    public StringAsserter urlSafeSingleWord() {
+      return urlSafeSingleWord(() -> new UrlSafeSingleWordException(field));
+    }
+
+    /**
+     * Ensure that the value only contains lower case letters or numbers, no
+     * whitespace or any separator.
+     *
+     * @param exceptionCreator
+     *            the exception to be thrown, if the constraint is not valid.
+     * @return The current asserter
+     * @throws the exception returned by the supplier if the value contain any
+     *             special character
+     */
+    public StringAsserter urlSafeSingleWord(Supplier<RuntimeException> exceptionCreator) {
+      if (!TAG_FORMAT.matcher(value).matches()) {
+        throw exceptionCreator.get();
+      }
+      return this;
+    }
+
+    /**
+     * Ensure that the value only contains ASCII letters or numbers, no
+     * whitespace or any separator.
+     *
+     * @param exceptionCreator
+     *            the exception to be thrown, if the constraint is not valid.
+     * @return The current asserter
+     * @throws the exception returned by the supplier if the value contain any
+     *             special character
+     */
+    public StringAsserter namePattern(Supplier<RuntimeException> exceptionCreator) {
+      if (!NAME_PATTERN.matcher(value).matches()) {
+        throw exceptionCreator.get();
+      }
       return this;
     }
 

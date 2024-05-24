@@ -116,7 +116,7 @@ jobs:
           DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
         run: |
           chmod +x mvnw
-          ./mvnw clean verify -Dsonar.qualitygate.wait=true sonar:sonar
+          ./mvnw clean verify -Dsonar.qualitygate.wait=true sonar:sonar -Dorg.slf4j.simpleLogger.log.develocity.goal.cache=debug
       - name: 'Analysis: local Sonar'
         run: |
           ./tests-ci/sonar.sh

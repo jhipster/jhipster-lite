@@ -11,7 +11,7 @@
       <fileFingerprints>true</fileFingerprints>
     </capture>
     <publishing>
-      <onlyIf><![CDATA[!buildResult.failures.empty && authenticated]]></onlyIf>
+      <onlyIf>true</onlyIf>
     </publishing>
     <backgroundBuildScanUpload>#{env['CI'] == null}</backgroundBuildScanUpload>
     <obfuscation>
@@ -20,11 +20,13 @@
   </buildScan>
   <buildCache>
     <local>
-      <enabled>true</enabled>
+      <enabled>#{env['CI'] == null}</enabled>
     </local>
     <remote>
       <enabled>true</enabled>
-      <storeEnabled>#{isTrue(env['GITHUB_ACTIONS']) and isTrue(env['DEVELOCITY_ACCESS_KEY'])}</storeEnabled>
+      <storeEnabled>
+        #{isTrue(env['GITHUB_ACTIONS']) and env['DEVELOCITY_ACCESS_KEY'] != null and env['DEVELOCITY_ACCESS_KEY'] != ''}
+      </storeEnabled>
     </remote>
   </buildCache>
 </develocity>

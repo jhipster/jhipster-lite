@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+
 import io.fabric8.maven.Maven;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -9,6 +11,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 import org.apache.maven.model.*;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
@@ -140,21 +145,63 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(this::findProfile)
       .map(Profile::getDependencies)
       .orElse(pomModel.getDependencies());
+
+    removeVersionFrom(command.dependency());
     removeDependencyFrom(command.dependency(), dependencies);
   }
 
-  private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
-    dependencies.removeIf(dependencyMatch(dependency));
+  private void removeVersionFrom(DependencyId dependency) {
+    versionPropertyKey(dependency)
+      .filter(key -> !isVersionPropertyUsedIgnoringDependency(key, dependency))
+      .ifPresent(pomModel.getProperties()::remove);
     writePom();
   }
 
-  private Predicate<Dependency> dependencyMatch(DependencyId dependencyId) {
-    return mavenDependency -> {
-      boolean sameGroupId = mavenDependency.getGroupId().equals(dependencyId.groupId().get());
-      boolean sameArtifactId = mavenDependency.getArtifactId().equals(dependencyId.artifactId().get());
+  private Optional<String> versionPropertyKey(DependencyId dependency) {
+    return allDependencies()
+      .filter(matchesDependency(dependency))
+      .map(Dependency::getVersion)
+      .flatMap(version -> extractVersionPropertyKey(version).stream())
+      .findFirst();
+  }
 
+  private Stream<Dependency> allDependencies() {
+    return Stream.concat(
+      pomModel.getDependencies().stream(),
+      pomModel.getProfiles().stream().flatMap(profile -> profile.getDependencies().stream())
+    );
+  }
+
+  private Predicate<Dependency> matchesDependency(DependencyId dependency) {
+    return mavenDependency -> {
+      boolean sameGroupId = mavenDependency.getGroupId().equals(dependency.groupId().get());
+      boolean sameArtifactId = mavenDependency.getArtifactId().equals(dependency.artifactId().get());
       return sameGroupId && sameArtifactId;
     };
+  }
+
+  private Optional<String> extractVersionPropertyKey(String version) {
+    if (version != null) {
+      Pattern pattern = Pattern.compile("\\$\\{(.+)}");
+      Matcher matcher = pattern.matcher(version);
+      if (matcher.matches()) {
+        return Optional.of(matcher.group(1));
+      }
+    }
+    return Optional.empty();
+  }
+
+  private boolean isVersionPropertyUsedIgnoringDependency(String versionPropertyKey, DependencyId dependencyToRemove) {
+    return allDependencies()
+      .filter(dependency -> !matchesDependency(dependencyToRemove).test(dependency))
+      .map(dependency -> versionPropertyKey(dependencyId(dependency.getGroupId(), dependency.getArtifactId())))
+      .flatMap(Optional::stream)
+      .anyMatch(versionPropertyKey::equals);
+  }
+
+  private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
+    dependencies.removeIf(matchesDependency(dependency));
+    writePom();
   }
 
   @Override

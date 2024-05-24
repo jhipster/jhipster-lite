@@ -21,4 +21,12 @@ public class FlywayApplicationService {
   public JHipsterModule buildMysqlDependencyModule(JHipsterModuleProperties properties) {
     return factory.buildMysqlDependencyModule(properties);
   }
+
+  public JHipsterModule buildPostgresqlDependencyModule(JHipsterModuleProperties properties) {
+    return factory.buildPostgresqlDependencyModule(properties);
+  }
+
+  public JHipsterModule buildMsSqlServerDependencyModule(JHipsterModuleProperties properties) {
+    return factory.buildMsSqlServerDependencyModule(properties);
+  }
 }

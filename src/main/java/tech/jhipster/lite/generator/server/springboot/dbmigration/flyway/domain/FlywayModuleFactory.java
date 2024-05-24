@@ -49,4 +49,20 @@ public class FlywayModuleFactory {
 
     return moduleBuilder(properties).javaDependencies().addDependency(FLYWAY_GROUP_ID, artifactId("flyway-mysql")).and().build();
   }
+
+  public JHipsterModule buildPostgresqlDependencyModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    return moduleBuilder(properties)
+      .javaDependencies()
+      .addDependency(FLYWAY_GROUP_ID, artifactId("flyway-database-postgresql"))
+      .and()
+      .build();
+  }
+
+  public JHipsterModule buildMsSqlServerDependencyModule(JHipsterModuleProperties properties) {
+    Assert.notNull("properties", properties);
+
+    return moduleBuilder(properties).javaDependencies().addDependency(FLYWAY_GROUP_ID, artifactId("flyway-sqlserver")).and().build();
+  }
 }

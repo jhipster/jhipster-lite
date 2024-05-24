@@ -21,7 +21,7 @@ class SampleFlywayModuleConfiguration {
       .organization(
         JHipsterModuleOrganization.builder()
           .feature(SAMPLE_SCHEMA)
-          .addDependency(FLYWAY)
+          .addDependency(FLYWAY_POSTGRESQL)
           .addDependency(SAMPLE_FEATURE)
           .addDependency(POSTGRESQL)
           .build()

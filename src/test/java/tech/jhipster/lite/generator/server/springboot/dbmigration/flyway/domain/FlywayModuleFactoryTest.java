@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.dbmigration.flyway.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -61,6 +62,42 @@ class FlywayModuleFactoryTest {
             <dependency>
               <groupId>org.flywaydb</groupId>
               <artifactId>flyway-mysql</artifactId>
+            </dependency>
+        """
+      );
+  }
+
+  @Test
+  void shouldBuildPostgresqlDependencyModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
+
+    JHipsterModule module = factory.buildPostgresqlDependencyModule(properties);
+
+    assertThatModuleWithFiles(module, pomFile())
+      .hasFile("pom.xml")
+      .containing(
+        """
+            <dependency>
+              <groupId>org.flywaydb</groupId>
+              <artifactId>flyway-database-postgresql</artifactId>
+            </dependency>
+        """
+      );
+  }
+
+  @Test
+  void shouldBuildMsSqlServerDependencyModule() {
+    JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).build();
+
+    JHipsterModule module = factory.buildMsSqlServerDependencyModule(properties);
+
+    assertThatModuleWithFiles(module, pomFile())
+      .hasFile("pom.xml")
+      .containing(
+        """
+            <dependency>
+              <groupId>org.flywaydb</groupId>
+              <artifactId>flyway-sqlserver</artifactId>
             </dependency>
         """
       );

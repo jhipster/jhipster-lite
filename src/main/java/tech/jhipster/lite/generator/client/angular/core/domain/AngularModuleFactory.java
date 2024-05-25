@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.ANGULAR;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -14,7 +14,7 @@ public class AngularModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/angular/core");
 
-  private static final JHipsterSource COMMON_ESLINT = from("client/common/eslint");
+  private static final JHipsterSource COMMON = from("client/common");
 
   private static final String ENGINES_NEEDLE = "  \"engines\":";
   private static final PackageName ANGULAR_CORE_PACKAGE = packageName("@angular/core");
@@ -75,7 +75,10 @@ public class AngularModuleFactory {
         .add(SOURCE.file("tsconfig.json"), to("tsconfig.json"))
         .add(SOURCE.file("tsconfig.app.json"), to("tsconfig.app.json"))
         .add(SOURCE.file(".eslintrc.json"), to(".eslintrc.json"))
-        .add(COMMON_ESLINT.file(".eslintignore"), to(".eslintignore"))
+        .batch(COMMON, to("."))
+          .addFile(".eslintignore")
+          .addFile(".npmrc")
+          .and()
         .batch(SOURCE, to("."))
           .addTemplate("proxy.conf.json")
           .addTemplate("jest.conf.js")

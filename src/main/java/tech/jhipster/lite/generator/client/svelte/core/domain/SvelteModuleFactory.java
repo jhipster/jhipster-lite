@@ -1,8 +1,8 @@
 package tech.jhipster.lite.generator.client.svelte.core.domain;
 
-import static tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory.*;
+import static tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory.clientModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.packagejson.VersionSource.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.SVELTE;
 
 import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.JHipsterModule;
@@ -19,7 +19,7 @@ public class SvelteModuleFactory {
 
   private static final JHipsterSource PRIMARY_MAIN_SOURCE = SOURCE.append("src/main/webapp/app/common/primary/app");
   private static final JHipsterDestination PRIMARY_MAIN_DESTINATION = to("src/main/webapp/app/common/primary/app");
-  private static final JHipsterSource COMMON_ESLINT = from("client/common/eslint");
+  private static final JHipsterSource COMMON = from("client/common");
 
   private static final JHipsterSource PRIMARY_TEST_SOURCE = SOURCE.append("src/test/spec/common/primary/app");
   private static final JHipsterDestination PRIMARY_TEST_DESTINATION = to("src/test/javascript/spec/common/primary/app");
@@ -85,7 +85,10 @@ public class SvelteModuleFactory {
         .add(SOURCE.append("src/main/webapp/routes").template("+page.svelte"), to("src/main/webapp/routes/+page.svelte"))
         .add(PRIMARY_MAIN_SOURCE.template("App.svelte"), PRIMARY_MAIN_DESTINATION.append("App.svelte"))
         .add(PRIMARY_TEST_SOURCE.template("App.spec.ts"), PRIMARY_TEST_DESTINATION.append("App.spec.ts"))
-        .add(COMMON_ESLINT.file(".eslintignore"), to(".eslintignore"))
+        .batch(COMMON, to("."))
+          .addFile(".eslintignore")
+          .addFile(".npmrc")
+          .and()
         .move(path(".lintstagedrc.js"), to(".lintstagedrc.cjs"))
         .batch(SOURCE, to("."))
           .addTemplate("svelte.config.js")

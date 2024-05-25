@@ -654,6 +654,62 @@ class MavenCommandHandlerTest {
     }
   }
 
+  @Test
+  void shouldRemoveDependencyAndVersionFromProfile() {
+    Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+    MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+    mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+    mavenCommandHandler.handle(new AddDirectJavaDependency(optionalTestDependency(), localBuildProfile()));
+
+    mavenCommandHandler.handle(
+      new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine"), localBuildProfile())
+    );
+
+    assertThat(contentNormalizingNewLines(pom))
+      .doesNotContain("<spring-boot.version>1.2.3</spring-boot.version>")
+      .doesNotContain(
+        """
+          <dependencies>
+            <dependency>
+              <groupId>org.junit.jupiter</groupId>
+              <artifactId>junit-jupiter-engine</artifactId>
+              <version>${spring-boot.version}</version>
+              <classifier>test</classifier>
+              <scope>test</scope>
+              <optional>true</optional>
+            </dependency>
+          </dependencies>
+        """
+      );
+  }
+
+  @Test
+  void shouldNotRemoveDependencyAndVersionFromProfile() {
+    Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+    MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+    mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+    mavenCommandHandler.handle(new AddDirectJavaDependency(optionalTestDependency(), localBuildProfile()));
+
+    mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine")));
+
+    assertThat(contentNormalizingNewLines(pom))
+      .contains("<spring-boot.version>1.2.3</spring-boot.version>")
+      .contains(
+        """
+              <dependencies>
+                <dependency>
+                  <groupId>org.junit.jupiter</groupId>
+                  <artifactId>junit-jupiter-engine</artifactId>
+                  <version>${spring-boot.version}</version>
+                  <classifier>test</classifier>
+                  <scope>test</scope>
+                  <optional>true</optional>
+                </dependency>
+              </dependencies>
+        """
+      );
+  }
+
   @Nested
   class HandleAddDirectJavaDependency {
 

@@ -146,14 +146,13 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(Profile::getDependencies)
       .orElse(pomModel.getDependencies());
 
-    removeVersionFrom(command.dependency());
+    Optional<String> version = versionPropertyKey(command.dependency());
     removeDependencyFrom(command.dependency(), dependencies);
+    removeVersion(version);
   }
 
-  private void removeVersionFrom(DependencyId dependency) {
-    versionPropertyKey(dependency)
-      .filter(key -> !isVersionPropertyUsedIgnoringDependency(key, dependency))
-      .ifPresent(pomModel.getProperties()::remove);
+  private void removeVersion(Optional<String> version) {
+    version.filter(key -> !isVersionPropertyUsed(key)).ifPresent(pomModel.getProperties()::remove);
     writePom();
   }
 
@@ -191,9 +190,8 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     return Optional.empty();
   }
 
-  private boolean isVersionPropertyUsedIgnoringDependency(String versionPropertyKey, DependencyId dependencyToRemove) {
+  private boolean isVersionPropertyUsed(String versionPropertyKey) {
     return allDependencies()
-      .filter(dependency -> !matchesDependency(dependencyToRemove).test(dependency))
       .map(dependency -> versionPropertyKey(dependencyId(dependency.getGroupId(), dependency.getArtifactId())))
       .flatMap(Optional::stream)
       .anyMatch(versionPropertyKey::equals);

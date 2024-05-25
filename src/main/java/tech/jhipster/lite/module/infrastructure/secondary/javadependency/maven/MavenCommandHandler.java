@@ -1,7 +1,5 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
-import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-
 import io.fabric8.maven.Maven;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -193,8 +191,8 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   private boolean versionPropertyUnused(String versionPropertyKey) {
     return allDependencies()
-      .map(dependency -> versionPropertyKey(dependencyId(dependency.getGroupId(), dependency.getArtifactId())))
-      .flatMap(Optional::stream)
+      .map(Dependency::getVersion)
+      .flatMap(version -> extractVersionPropertyKey(version).stream())
       .noneMatch(versionPropertyKey::equals);
   }
 

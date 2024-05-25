@@ -25,6 +25,8 @@ public class GradleModuleFactory {
         .comment("Gradle")
         .pattern("/.gradle/")
         .pattern("/build/")
+        .pattern("./buildSrc/.gradle/")
+        .pattern("./buildSrc/build/")
         .and()
       .files()
         .batch(SOURCE, to("."))

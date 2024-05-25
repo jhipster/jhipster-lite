@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.buildtool.gradle.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModule;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -29,7 +30,9 @@ class GradleModuleFactoryTest {
         """
         # Gradle
         /.gradle/
-        /build/\
+        /build/
+        ./buildSrc/.gradle/
+        ./buildSrc/build/\
         """
       )
       .and()

@@ -1,7 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.localeprofile.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
-import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.*;
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
@@ -21,11 +21,6 @@ public class LocalProfileModuleFactory {
 
     //@formatter:off
     return moduleBuilder(properties)
-      .gitIgnore()
-        .comment("Gradle")
-        .pattern("./buildSrc/.gradle/")
-        .pattern("./buildSrc/build/")
-        .and()
       .javaBuildProperties()
         .set(new PropertyKey(SPRING_PROFILES_ACTIVE), new PropertyValue(""))
         .and()

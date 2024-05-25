@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+
 import io.fabric8.maven.Maven;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -7,12 +9,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.maven.model.*;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -146,27 +146,22 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(Profile::getDependencies)
       .orElse(pomModel.getDependencies());
 
+    Optional<String> version = versionPropertyKey(command.dependency());
     removeDependencyFrom(command.dependency(), dependencies);
-    removeUnusedVersion();
+    removeVersion(version);
   }
 
-  private void removeUnusedVersion() {
-    Set<String> usedVersionProperties = allDependencies()
+  private void removeVersion(Optional<String> version) {
+    version.filter(key -> !isVersionPropertyUsed(key)).ifPresent(pomModel.getProperties()::remove);
+    writePom();
+  }
+
+  private Optional<String> versionPropertyKey(DependencyId dependency) {
+    return allDependencies()
+      .filter(matchesDependency(dependency))
       .map(Dependency::getVersion)
       .flatMap(version -> extractVersionPropertyKey(version).stream())
-      .collect(Collectors.toSet());
-
-    Set<String> propertiesToRemove = pomModel
-      .getProperties()
-      .keySet()
-      .stream()
-      .map(Object::toString) // Assegura que estamos lidando com Strings
-      .filter(property -> !usedVersionProperties.contains(property))
-      .collect(Collectors.toSet());
-
-    propertiesToRemove.forEach(pomModel.getProperties()::remove);
-
-    writePom();
+      .findFirst();
   }
 
   private Stream<Dependency> allDependencies() {
@@ -193,6 +188,13 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       }
     }
     return Optional.empty();
+  }
+
+  private boolean isVersionPropertyUsed(String versionPropertyKey) {
+    return allDependencies()
+      .map(dependency -> versionPropertyKey(dependencyId(dependency.getGroupId(), dependency.getArtifactId())))
+      .flatMap(Optional::stream)
+      .anyMatch(versionPropertyKey::equals);
   }
 
   private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {

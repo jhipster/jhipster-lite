@@ -49,10 +49,8 @@ class PrettierModuleFactoryTest {
       .containing(nodeDependency("prettier-plugin-java"))
       .containing(nodeDependency("prettier-plugin-packagejson"))
       .containing(nodeScript("prepare", "husky"))
-      .containing(nodeScript("prettier:check", "prettier --check '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'"))
-      .containing(
-        nodeScript("prettier:format", "prettier --write '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'")
-      );
+      .containing(nodeScript("prettier:check", "prettier --check ."))
+      .containing(nodeScript("prettier:format", "prettier --write ."));
   }
 
   private JHipsterModuleProperties properties(String folder) {

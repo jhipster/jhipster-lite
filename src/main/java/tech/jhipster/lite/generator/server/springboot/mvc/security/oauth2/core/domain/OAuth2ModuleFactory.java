@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.
 import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModulesFactory.authenticationModuleBuilder;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
+import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.docker.DockerImageVersion;
 import tech.jhipster.lite.module.domain.docker.DockerImages;
@@ -21,6 +22,7 @@ public class OAuth2ModuleFactory {
   public static final String CLIENT_SCOPE_NAME = "keycloakClientScopeName";
   public static final String DEFAULT_CLIENT_SCOPE_NAME = "jhipster";
 
+  private static final Pattern NAME_FORMAT = Pattern.compile("^[a-z0-9-]+$");
   private static final TextNeedleBeforeReplacer IMPORT_NEEDLE = lineBeforeText(
     "import org.springframework.boot.test.context.SpringBootTest;"
   );
@@ -52,8 +54,8 @@ public class OAuth2ModuleFactory {
 
     var realmName = properties.getOrDefaultString(REALM_NAME, DEFAULT_REALM_NAME);
     var clientScopeName = properties.getOrDefaultString(CLIENT_SCOPE_NAME, DEFAULT_CLIENT_SCOPE_NAME);
-    Assert.field(REALM_NAME, realmName).notBlank().noWhitespace().maxLength(30).urlSafeSingleWord();
-    Assert.field(CLIENT_SCOPE_NAME, clientScopeName).notBlank().noWhitespace().maxLength(30).urlSafeSingleWord();
+    Assert.field(REALM_NAME, realmName).notNull().matchesPattern(NAME_FORMAT).maxLength(30);
+    Assert.field(CLIENT_SCOPE_NAME, clientScopeName).notNull().matchesPattern(NAME_FORMAT).maxLength(30);
 
     JHipsterModuleBuilder builder = authenticationModuleBuilder(properties);
 

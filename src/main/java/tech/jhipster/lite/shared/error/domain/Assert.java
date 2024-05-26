@@ -315,9 +315,6 @@ public final class Assert {
   public static final class StringAsserter {
 
     public static final Pattern PATTERN_SPACE = Pattern.compile("\\s");
-    private static final Pattern TAG_FORMAT = Pattern.compile("^[a-z0-9-]+$");
-    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
-
     private final String field;
     private final String value;
 
@@ -375,51 +372,6 @@ public final class Assert {
     }
 
     /**
-     * Ensure that the value only contains lower case letters or numbers, no whitespace or any separator.
-     *
-     * @return The current asserter
-     * @throws UrlSafeSingleWordException
-     *           if the value contain any special character
-     */
-    public StringAsserter urlSafeSingleWord() {
-      return urlSafeSingleWord(() -> new UrlSafeSingleWordException(field));
-    }
-
-    /**
-     * Ensure that the value only contains lower case letters or numbers, no
-     * whitespace or any separator.
-     *
-     * @param exceptionCreator
-     *            the exception to be thrown, if the constraint is not valid.
-     * @return The current asserter
-     * @throws the exception returned by the supplier if the value contain any
-     *             special character
-     */
-    public StringAsserter urlSafeSingleWord(Supplier<RuntimeException> exceptionCreator) {
-      if (!TAG_FORMAT.matcher(value).matches()) {
-        throw exceptionCreator.get();
-      }
-      return this;
-    }
-
-    /**
-     * Ensure that the value only contains ASCII letters or numbers, no
-     * whitespace or any separator.
-     *
-     * @param exceptionCreator
-     *            the exception to be thrown, if the constraint is not valid.
-     * @return The current asserter
-     * @throws the exception returned by the supplier if the value contain any
-     *             special character
-     */
-    public StringAsserter namePattern(Supplier<RuntimeException> exceptionCreator) {
-      if (!NAME_PATTERN.matcher(value).matches()) {
-        throw exceptionCreator.get();
-      }
-      return this;
-    }
-
-    /**
      * Ensure that the input value is at least of the given length
      *
      * @param length
@@ -461,6 +413,41 @@ public final class Assert {
 
       if (value.length() > length) {
         throw StringTooLongException.builder().field(field).value(value).maxLength(length).build();
+      }
+
+      return this;
+    }
+
+    /**
+     * Ensure that the given input value matches the given pattern
+     *
+     * @param pattern pattern of the {@link String}
+     * @return The current asserter
+     * @throws NotMatchingExpectedPatternException
+     *           if the value does not match the provided pattern
+     */
+    public StringAsserter matchesPattern(Pattern pattern) {
+      return matchesPatternOrThrow(
+        pattern,
+        () -> NotMatchingExpectedPatternException.builder().field(field).value(value).pattern(pattern).build()
+      );
+    }
+
+    /**
+     * Ensure that the given input value matches the given pattern
+     *
+     * @param pattern pattern of the {@link String}
+     * @param exceptionSupplier supplier of the exception to throw if the value does not match the pattern
+     * @return The current asserter
+     * @throws X provided exception if the value does not match the provided pattern
+     */
+    public <X extends RuntimeException> StringAsserter matchesPatternOrThrow(Pattern pattern, Supplier<X> exceptionSupplier) {
+      if (value == null) {
+        return this;
+      }
+
+      if (!pattern.matcher(value).matches()) {
+        throw exceptionSupplier.get();
       }
 
       return this;

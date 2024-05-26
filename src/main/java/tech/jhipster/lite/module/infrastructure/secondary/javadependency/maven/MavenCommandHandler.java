@@ -148,14 +148,14 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private List<Dependency> removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
-    List<Dependency> dependencyToRemove = dependencies.stream().filter(matchesDependency(dependency)).toList();
+    List<Dependency> dependenciesToRemove = dependencies.stream().filter(matchesDependency(dependency)).toList();
 
-    dependencyToRemove.forEach(d -> {
-      dependencies.remove(d);
+    if (!dependenciesToRemove.isEmpty()) {
+      dependencies.removeAll(dependenciesToRemove);
       writePom();
-    });
+    }
 
-    return dependencyToRemove;
+    return dependenciesToRemove;
   }
 
   private Predicate<Dependency> matchesDependency(DependencyId dependency) {

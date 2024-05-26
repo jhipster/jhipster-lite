@@ -582,16 +582,34 @@ class MavenCommandHandlerTest {
       MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
 
       mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
-
-      assertThat(contentNormalizingNewLines(pom)).doesNotContain(
-        """
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-web</artifactId>
-          <version>${spring-boot.version}</version>
-        </dependency>
-        """
+      mavenCommandHandler.handle(
+        new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine"), localBuildProfile())
       );
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain(
+          """
+          <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+          </dependency>
+          """
+        )
+        .doesNotContain(
+          """
+            <dependencies>
+              <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${spring-boot.version}</version>
+                <classifier>test</classifier>
+                <scope>test</scope>
+                <optional>true</optional>
+              </dependency>
+            </dependencies>
+          """
+        );
 
       assertThat(contentNormalizingNewLines(pom))
         .contains("    <spring-boot.version>2.4.5</spring-boot.version>")

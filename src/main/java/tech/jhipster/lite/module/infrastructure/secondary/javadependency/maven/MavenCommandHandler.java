@@ -167,9 +167,12 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private void removeUnusedVersionProperty(Dependency removedDependency) {
-    Optional<String> version = extractVersionPropertyKey(removedDependency.getVersion());
-    version.filter(this::versionPropertyUnused).ifPresent(pomModel.getProperties()::remove);
-    writePom();
+    extractVersionPropertyKey(removedDependency.getVersion())
+      .filter(this::versionPropertyUnused)
+      .ifPresent(version -> {
+        pomModel.getProperties().remove(version);
+        writePom();
+      });
   }
 
   private Stream<Dependency> allDependencies() {

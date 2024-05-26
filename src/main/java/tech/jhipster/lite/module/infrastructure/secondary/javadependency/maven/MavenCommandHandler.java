@@ -180,14 +180,10 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private Optional<String> extractVersionPropertyKey(String version) {
-    if (version != null) {
-      Pattern pattern = Pattern.compile("\\$\\{(.+)}");
-      Matcher matcher = pattern.matcher(version);
-      if (matcher.matches()) {
-        return Optional.of(matcher.group(1));
-      }
-    }
-    return Optional.empty();
+    return Optional.ofNullable(version)
+      .map(Pattern.compile("\\$\\{(.+)}")::matcher)
+      .filter(Matcher::matches)
+      .map(matcher -> matcher.group(1));
   }
 
   private boolean versionPropertyUnused(String versionPropertyKey) {

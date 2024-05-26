@@ -144,30 +144,18 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(Profile::getDependencies)
       .orElse(pomModel.getDependencies());
 
-    Optional<String> version = versionPropertyKey(command.dependency());
-
-    removeDependencyFrom(command.dependency(), dependencies);
-    removeUnusedVersion(version);
+    removeDependencyFrom(command.dependency(), dependencies).forEach(this::removeUnusedVersionProperty);
   }
 
-  private void removeUnusedVersion(Optional<String> version) {
-    version.filter(this::versionPropertyUnused).ifPresent(pomModel.getProperties()::remove);
-    writePom();
-  }
+  private List<Dependency> removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
+    List<Dependency> dependencyToRemove = dependencies.stream().filter(matchesDependency(dependency)).toList();
 
-  private Optional<String> versionPropertyKey(DependencyId dependency) {
-    return allDependencies()
-      .filter(matchesDependency(dependency))
-      .map(Dependency::getVersion)
-      .flatMap(version -> extractVersionPropertyKey(version).stream())
-      .findFirst();
-  }
+    dependencyToRemove.forEach(d -> {
+      dependencies.remove(d);
+      writePom();
+    });
 
-  private Stream<Dependency> allDependencies() {
-    return Stream.concat(
-      pomModel.getDependencies().stream(),
-      pomModel.getProfiles().stream().flatMap(profile -> profile.getDependencies().stream())
-    );
+    return dependencyToRemove;
   }
 
   private Predicate<Dependency> matchesDependency(DependencyId dependency) {
@@ -176,6 +164,19 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       boolean sameArtifactId = mavenDependency.getArtifactId().equals(dependency.artifactId().get());
       return sameGroupId && sameArtifactId;
     };
+  }
+
+  private void removeUnusedVersionProperty(Dependency removedDependency) {
+    Optional<String> version = extractVersionPropertyKey(removedDependency.getVersion());
+    version.filter(this::versionPropertyUnused).ifPresent(pomModel.getProperties()::remove);
+    writePom();
+  }
+
+  private Stream<Dependency> allDependencies() {
+    return Stream.concat(
+      pomModel.getDependencies().stream(),
+      pomModel.getProfiles().stream().flatMap(profile -> profile.getDependencies().stream())
+    );
   }
 
   private Optional<String> extractVersionPropertyKey(String version) {
@@ -194,11 +195,6 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(Dependency::getVersion)
       .flatMap(version -> extractVersionPropertyKey(version).stream())
       .noneMatch(versionPropertyKey::equals);
-  }
-
-  private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
-    dependencies.removeIf(matchesDependency(dependency));
-    writePom();
   }
 
   @Override

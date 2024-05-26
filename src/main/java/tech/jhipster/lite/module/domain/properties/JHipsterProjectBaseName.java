@@ -1,9 +1,11 @@
 package tech.jhipster.lite.module.domain.properties;
 
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
 public record JHipsterProjectBaseName(String name) {
+  private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
   private static final String DEFAULT_NAME = "jhipster";
 
   public static final JHipsterProjectBaseName DEFAULT = new JHipsterProjectBaseName(DEFAULT_NAME);
@@ -17,7 +19,7 @@ public record JHipsterProjectBaseName(String name) {
       return DEFAULT_NAME;
     }
 
-    Assert.field("baseName", name).namePattern(InvalidProjectBaseNameException::new);
+    Assert.field("baseName", name).matchesPatternOrThrow(NAME_PATTERN, InvalidProjectBaseNameException::new);
 
     return name;
   }

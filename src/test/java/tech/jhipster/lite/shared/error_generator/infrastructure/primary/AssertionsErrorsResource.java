@@ -3,9 +3,8 @@ package tech.jhipster.lite.shared.error_generator.infrastructure.primary;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.regex.Pattern;
+import org.springframework.web.bind.annotation.*;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error_generator.domain.MissingMandatoryValueFactory;
 
@@ -58,9 +57,9 @@ class AssertionsErrorsResource {
     Assert.field("myField", "with whitespace").noWhitespace();
   }
 
-  @GetMapping("url-safe-single-word")
-  void urlSafeSingleWord() {
-    Assert.field("myField", "WithSpecialCharacters?").urlSafeSingleWord();
+  @GetMapping("string-not-matching-pattern")
+  void stringNotMatchingPattern() {
+    Assert.field("myField", "WithSpecialCharacters?").matchesPattern(Pattern.compile("^[a-z0-9-]+$"));
   }
 
   @GetMapping("not-after-time")

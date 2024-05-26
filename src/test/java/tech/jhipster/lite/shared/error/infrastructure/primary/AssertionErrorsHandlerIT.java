@@ -1,7 +1,8 @@
 package tech.jhipster.lite.shared.error.infrastructure.primary;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Locale;
 import org.junit.jupiter.api.Test;
@@ -118,13 +119,13 @@ class AssertionErrorsHandlerIT {
   }
 
   @Test
-  void shouldHandleUrlSafeSingleWords() throws Exception {
+  void shouldHandleStringNotMatchingExpectedPattern() throws Exception {
     rest
-      .perform(get("/api/assertion-errors/url-safe-single-word"))
+      .perform(get("/api/assertion-errors/string-not-matching-pattern"))
       .andExpect(status().isBadRequest())
-      .andExpect(jsonPath("title").value("String with special characters"))
-      .andExpect(jsonPath("detail").value("The string myField must only have lower case characters and numbers"))
-      .andExpect(jsonPath("key").value("URL_SAFE_SINGLE_WORD"));
+      .andExpect(jsonPath("title").value("String not matching the expected pattern"))
+      .andExpect(jsonPath("detail").value("The string myField must match the pattern ^[a-z0-9-]+$"))
+      .andExpect(jsonPath("key").value("STRING_NOT_MATCHING_PATTERN"));
   }
 
   @Test

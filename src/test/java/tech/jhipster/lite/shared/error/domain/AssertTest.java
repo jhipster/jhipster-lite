@@ -5,12 +5,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import java.util.*;
+import java.util.regex.Pattern;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import tech.jhipster.lite.UnitTest;
@@ -143,16 +140,23 @@ class AssertTest {
     }
 
     @Test
-    void shouldNotValidateUrlSafeSingleWord() {
-      assertThatThrownBy(() -> Assert.field(FIELD_NAME, "mytag?").urlSafeSingleWord())
-        .isExactlyInstanceOf(UrlSafeSingleWordException.class)
+    void shouldNotValidateStringNotMatchingPattern() {
+      assertThatThrownBy(() -> Assert.field(FIELD_NAME, "mytag?").matchesPattern(Pattern.compile("^[a-z0-9-]+$")))
+        .isExactlyInstanceOf(NotMatchingExpectedPatternException.class)
         .hasMessageContaining(FIELD_NAME)
-        .hasMessageContaining("not a single word containing only lower case characters and");
+        .hasMessageContaining("The value \"mytag?\" in field \"fieldName\" must match the pattern ^[a-z0-9-]+$");
     }
 
     @Test
-    void shouldValidateUrlSafeSingleWord() {
-      assertThatCode(() -> Assert.field(FIELD_NAME, "my-tag").urlSafeSingleWord()).doesNotThrowAnyException();
+    void shouldValidateStringNotMatchingPattern() {
+      assertThatCode(() -> Assert.field(FIELD_NAME, "my-tag").matchesPattern(Pattern.compile("^[a-z0-9-]+$"))).doesNotThrowAnyException();
+    }
+
+    @Test
+    void shouldValidateNullStringWhenVerifyingMatchingPattern() {
+      assertThatCode(
+        () -> Assert.field(FIELD_NAME, (String) null).matchesPattern(Pattern.compile("^[a-z0-9-]+$"))
+      ).doesNotThrowAnyException();
     }
 
     @Test

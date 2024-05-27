@@ -702,7 +702,7 @@ class MavenCommandHandlerTest {
   }
 
   @Test
-  void shouldNotRemoveDependencyAndVersionFromProfile() {
+  void shouldNotRemoveVersionFromProfileWhenRemovingDependencyWithoutProfile() {
     Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
     MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
     mavenCommandHandler.handle(new SetVersion(springBootVersion()));

@@ -144,7 +144,10 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(Profile::getDependencies)
       .orElse(pomModel.getDependencies());
 
-    removeDependencyFrom(command.dependency(), dependencies).forEach(this::removeUnusedVersionProperty);
+    removeDependencyFrom(command.dependency(), dependencies)
+      .stream()
+      .map(Dependency::getVersion)
+      .forEach(this::removeUnusedVersionProperty);
   }
 
   private List<Dependency> removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
@@ -166,11 +169,11 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     };
   }
 
-  private void removeUnusedVersionProperty(Dependency removedDependency) {
-    extractVersionPropertyKey(removedDependency.getVersion())
+  private void removeUnusedVersionProperty(String version) {
+    extractVersionPropertyKey(version)
       .filter(this::versionPropertyUnused)
-      .ifPresent(version -> {
-        pomModel.getProperties().remove(version);
+      .ifPresent(propertyKey -> {
+        pomModel.getProperties().remove(propertyKey);
         writePom();
       });
   }

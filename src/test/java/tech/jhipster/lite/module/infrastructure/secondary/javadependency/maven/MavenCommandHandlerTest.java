@@ -617,36 +617,6 @@ class MavenCommandHandlerTest {
     }
 
     @Test
-    void shouldRemoveDependencyButKeepVersionIfStillUsedByProfile() {
-      Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-dependencies/pom.xml");
-      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
-
-      mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
-      mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-data-jpa")));
-
-      assertThat(contentNormalizingNewLines(pom)).doesNotContain(
-        """
-          <dependencies>
-            <dependency>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-starter-web</artifactId>
-              <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-starter-data-jpa</artifactId>
-              <version>${spring-boot.version}</version>
-            </dependency>
-          </dependencies>
-        """
-      );
-
-      assertThat(contentNormalizingNewLines(pom))
-        .contains("    <spring-boot.version>2.4.5</spring-boot.version>")
-        .contains("      <artifactId>junit-jupiter-engine</artifactId>");
-    }
-
-    @Test
     void shouldRemoveDependencyFromProfile() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
       MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
@@ -726,6 +696,36 @@ class MavenCommandHandlerTest {
               </dependencies>
         """
       );
+  }
+
+  @Test
+  void shouldRemoveDependencyButKeepVersionIfStillUsedByProfile() {
+    Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-dependencies/pom.xml");
+    MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+
+    mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
+    mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-data-jpa")));
+
+    assertThat(contentNormalizingNewLines(pom)).doesNotContain(
+      """
+        <dependencies>
+          <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring-boot.version}</version>
+          </dependency>
+        </dependencies>
+      """
+    );
+
+    assertThat(contentNormalizingNewLines(pom))
+      .contains("    <spring-boot.version>2.4.5</spring-boot.version>")
+      .contains("      <artifactId>junit-jupiter-engine</artifactId>");
   }
 
   @Nested

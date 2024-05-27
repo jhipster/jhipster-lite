@@ -37,11 +37,12 @@
     "preview": "vite preview",
     "start": "npm run dev",
     "test": "npm run test:watch",
-    "test:component": "start-server-and-test tikui:serve http://localhost:9005 webapp:serve http://localhost:9000 'cypress open --e2e --config-file src/test/webapp/component/cypress-config.ts'",
-    "test:component:headless": "start-server-and-test tikui:serve http://localhost:9005 webapp:serve http://localhost:9000 'cypress run --headless --config-file src/test/webapp/component/cypress-config.ts'",
+    "test:component": "start-server-and-test tikui:serve-build http://localhost:9005 webapp:serve http://localhost:9000 'cypress open --e2e --config-file src/test/webapp/component/cypress-config.ts'",
+    "test:component:headless": "start-server-and-test tikui:serve-build http://localhost:9005 webapp:serve http://localhost:9000 'cypress run --headless --config-file src/test/webapp/component/cypress-config.ts'",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest --",
     "tikui:serve": "tikui-core serve",
+    "tikui:serve-build": "tikui-core build && serve -p 9005 target/classes/public/style ",
     "webapp:serve": "vite"
   },
   "dependencies": {
@@ -81,6 +82,7 @@
     "prettier-plugin-packagejson": "2.5.0",
     "rimraf": "5.0.7",
     "sass": "1.77.2",
+    "serve": "14.2.3",
     "sinon": "18.0.0",
     "start-server-and-test": "2.0.3",
     "stylelint": "16.6.0",

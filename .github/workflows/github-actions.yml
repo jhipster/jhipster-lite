@@ -58,8 +58,11 @@ jobs:
   #--------------------------------------------------
   tests-windows:
     name: tests-windows
+    needs: [setup]
     runs-on: windows-latest
     timeout-minutes: 20
+    if: >-
+      needs.setup.outputs.skip_ci != 'true'
     steps:
       - name: 'Setup: checkout project'
         uses: actions/checkout@v4

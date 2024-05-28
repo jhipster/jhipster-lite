@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.react.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.REACT;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
@@ -12,9 +13,9 @@ import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 public class ReactCoreModulesFactory {
 
   private static final JHipsterSource SOURCE = from("client/react");
+  private static final JHipsterSource SOURCE_COMMON = from("client/common");
 
   private static final JHipsterSource WEBAPP_SOURCE = SOURCE.append("src/main/webapp");
-  private static final JHipsterSource COMMON = from("client/common");
   private static final JHipsterDestination WEBAPP_DESTINATION = to("src/main/webapp");
 
   private static final JHipsterSource APP_SOURCE = WEBAPP_SOURCE.append("app");
@@ -34,21 +35,21 @@ public class ReactCoreModulesFactory {
       .packageJson()
         .addDevDependency(packageName("@testing-library/react"), REACT)
         .addDevDependency(packageName("@testing-library/user-event"), REACT)
-        .addDevDependency(packageName("@types/node"), REACT)
+        .addDevDependency(packageName("@types/node"), COMMON)
         .addDevDependency(packageName("@types/react"), REACT)
         .addDevDependency(packageName("@types/react-dom"), REACT)
-        .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), REACT)
+        .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), COMMON)
         .addDevDependency(packageName("@vitejs/plugin-react"), REACT)
-        .addDevDependency(packageName("@vitest/coverage-istanbul"), REACT)
-        .addDevDependency(packageName("eslint"), REACT)
+        .addDevDependency(packageName("@vitest/coverage-istanbul"), COMMON)
+        .addDevDependency(packageName("eslint"), COMMON)
         .addDevDependency(packageName("eslint-plugin-react"), REACT)
-        .addDevDependency(packageName("jsdom"), REACT)
-        .addDevDependency(packageName("typescript"), REACT)
+        .addDevDependency(packageName("jsdom"), COMMON)
+        .addDevDependency(packageName("typescript"), COMMON)
         .addDevDependency(packageName("ts-node"), REACT)
-        .addDevDependency(packageName("vite"), REACT)
+        .addDevDependency(packageName("vite"), COMMON)
         .addDevDependency(packageName("vite-tsconfig-paths"), REACT)
-        .addDevDependency(packageName("vitest"), REACT)
-        .addDevDependency(packageName("vitest-sonar-reporter"), REACT)
+        .addDevDependency(packageName("vitest"), COMMON)
+        .addDevDependency(packageName("vitest-sonar-reporter"), COMMON)
         .addDependency(packageName("react"), REACT)
         .addDependency(packageName("react-dom"), REACT)
         .addScript(scriptKey("dev"), scriptCommand("vite"))
@@ -67,7 +68,7 @@ public class ReactCoreModulesFactory {
           .addTemplate("vitest.config.ts")
           .addFile(".eslintrc.cjs")
           .and()
-        .batch(COMMON, to("."))
+        .batch(SOURCE_COMMON, to("."))
           .addFile(".eslintignore")
           .addFile(".npmrc")
           .and()

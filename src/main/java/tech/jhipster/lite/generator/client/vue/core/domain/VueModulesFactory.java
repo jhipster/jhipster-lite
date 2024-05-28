@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.client.vue.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.VUE;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
@@ -18,7 +19,7 @@ public class VueModulesFactory {
   private static final JHipsterSource IMAGE_SOURCE = SOURCE.append("webapp/content/images");
   private static final JHipsterSource COMMON_PRIMARY_SOURCE = SOURCE.append("webapp/app/common/primary");
   private static final JHipsterSource COMMON_PRIMARY_TEST_SOURCE = SOURCE.append("test/spec/common/primary");
-  private static final JHipsterSource COMMON = from("client/common");
+  private static final JHipsterSource SOURCE_COMMON = from("client/common");
 
   private static final JHipsterDestination MAIN_DESTINATION = to("src/main/webapp/app");
   private static final JHipsterDestination TEST_DESTINATION = to("src/test/javascript/spec");
@@ -47,19 +48,19 @@ public class VueModulesFactory {
         .addDependency(packageName("vue"), VUE)
         .addDependency(packageName("axios"), VUE)
         .addDependency(packageName("vue-router"), VUE)
-        .addDevDependency(packageName("@typescript-eslint/parser"), VUE)
+        .addDevDependency(packageName("@typescript-eslint/parser"), COMMON)
         .addDevDependency(packageName("@vitejs/plugin-vue"), VUE)
         .addDevDependency(packageName("@vue/eslint-config-typescript"), VUE)
         .addDevDependency(packageName("@vue/eslint-config-prettier"), VUE)
         .addDevDependency(packageName("@vue/test-utils"), VUE)
-        .addDevDependency(packageName("@vitest/coverage-istanbul"), VUE)
-        .addDevDependency(packageName("eslint"), VUE)
+        .addDevDependency(packageName("@vitest/coverage-istanbul"), COMMON)
+        .addDevDependency(packageName("eslint"), COMMON)
         .addDevDependency(packageName("eslint-plugin-vue"), VUE)
-        .addDevDependency(packageName("jsdom"), VUE)
-        .addDevDependency(packageName("typescript"), VUE)
-        .addDevDependency(packageName("vite"), VUE)
-        .addDevDependency(packageName("vitest"), VUE)
-        .addDevDependency(packageName("vitest-sonar-reporter"), VUE)
+        .addDevDependency(packageName("jsdom"), COMMON)
+        .addDevDependency(packageName("typescript"), COMMON)
+        .addDevDependency(packageName("vite"), COMMON)
+        .addDevDependency(packageName("vitest"), COMMON)
+        .addDevDependency(packageName("vitest-sonar-reporter"), COMMON)
         .addDevDependency(packageName("vue-tsc"), VUE)
         .addDevDependency(packageName("@types/sinon"), VUE)
         .addDevDependency(packageName("sinon"), VUE)
@@ -81,7 +82,7 @@ public class VueModulesFactory {
           .addTemplate("vite.config.mts")
           .addTemplate("vitest.config.mts")
           .and()
-        .batch(COMMON, to("."))
+        .batch(SOURCE_COMMON, to("."))
           .addFile(".eslintignore")
           .addFile(".npmrc")
           .and()

@@ -2,6 +2,7 @@ package tech.jhipster.lite.generator.client.angular.core.domain;
 
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.packagejson.VersionSource.ANGULAR;
+import static tech.jhipster.lite.module.domain.packagejson.VersionSource.COMMON;
 
 import tech.jhipster.lite.generator.client.common.domain.ClientsModulesFactory;
 import tech.jhipster.lite.module.domain.Indentation;
@@ -14,7 +15,7 @@ public class AngularModuleFactory {
 
   private static final JHipsterSource SOURCE = from("client/angular/core");
 
-  private static final JHipsterSource COMMON = from("client/common");
+  private static final JHipsterSource SOURCE_COMMON = from("client/common");
 
   private static final String ENGINES_NEEDLE = "  \"engines\":";
   private static final PackageName ANGULAR_CORE_PACKAGE = packageName("@angular/core");
@@ -46,21 +47,21 @@ public class AngularModuleFactory {
         .addDevDependency(packageName("@angular-eslint/eslint-plugin-template"), ANGULAR)
         .addDevDependency(packageName("@angular-eslint/schematics"), ANGULAR)
         .addDevDependency(packageName("@angular-eslint/template-parser"), ANGULAR)
-        .addDevDependency(packageName("@typescript-eslint/eslint-plugin"),ANGULAR)
-        .addDevDependency(packageName("@typescript-eslint/parser"),ANGULAR)
-        .addDevDependency(packageName("eslint"),ANGULAR)
+        .addDevDependency(packageName("@typescript-eslint/eslint-plugin"), COMMON)
+        .addDevDependency(packageName("@typescript-eslint/parser"), COMMON)
+        .addDevDependency(packageName("eslint"), COMMON)
         .addDevDependency(packageName("@angular-builders/jest"), ANGULAR)
         .addDevDependency(packageName("@angular-devkit/build-angular"), ANGULAR)
         .addDevDependency(packageName("@angular/cli"), ANGULAR)
         .addDevDependency(packageName("@angular/compiler-cli"), ANGULAR, ANGULAR_CORE_PACKAGE)
-        .addDevDependency(packageName("@types/node"), ANGULAR)
-        .addDevDependency(packageName("@types/jest"), ANGULAR)
-        .addDevDependency(packageName("jest"), ANGULAR)
+        .addDevDependency(packageName("@types/node"), COMMON)
+        .addDevDependency(packageName("@types/jest"), COMMON)
+        .addDevDependency(packageName("jest"), COMMON)
         .addDevDependency(packageName("jest-environment-jsdom"), ANGULAR)
-        .addDevDependency(packageName("ts-jest"), ANGULAR)
+        .addDevDependency(packageName("ts-jest"), COMMON)
         .addDevDependency(packageName("jest-preset-angular"), ANGULAR)
         .addDevDependency(packageName("jest-sonar-reporter"), ANGULAR)
-        .addDevDependency(packageName("typescript"), ANGULAR)
+        .addDevDependency(packageName("typescript"), COMMON)
         .addScript(scriptKey("ng"), scriptCommand("ng"))
         .addScript(scriptKey("start"), scriptCommand("ng serve"))
         .addScript(scriptKey("build"), scriptCommand("ng build"))
@@ -75,7 +76,7 @@ public class AngularModuleFactory {
         .add(SOURCE.file("tsconfig.json"), to("tsconfig.json"))
         .add(SOURCE.file("tsconfig.app.json"), to("tsconfig.app.json"))
         .add(SOURCE.file(".eslintrc.json"), to(".eslintrc.json"))
-        .batch(COMMON, to("."))
+        .batch(SOURCE_COMMON, to("."))
           .addFile(".eslintignore")
           .addFile(".npmrc")
           .and()

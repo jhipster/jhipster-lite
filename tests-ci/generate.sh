@@ -161,7 +161,7 @@ elif [[ $application == 'fullapp' ]]; then
   applyModules "spring-boot-cucumber-jpa-reset"
   applyModules "application-service-hexagonal-architecture-documentation"
 
-  applyModules "postgresql" "liquibase"
+  applyModules "postgresql" "liquibase" "liquibase-async"
 
   applyModules \
   "kipe-expression" \

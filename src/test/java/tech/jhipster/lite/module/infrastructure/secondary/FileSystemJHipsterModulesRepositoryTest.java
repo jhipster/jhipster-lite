@@ -20,6 +20,33 @@ class FileSystemJHipsterModulesRepositoryTest {
   private LogsSpy logs;
 
   @Test
+  void shouldApplyTwoModulesToMavenProject() {
+    JHipsterModule module = module();
+
+    // @formatter:off
+    assertThatTwoModulesWithFiles(
+      module,
+      moduleSecond(module.properties()),
+      file("src/test/resources/projects/maven/pom.xml", "pom.xml"),
+      packageJsonFile(),
+      file("src/test/resources/projects/files/dummy.txt", "dummy.txt")
+    )
+      .hasFile("pom.xml")
+      .containing("<reflections.version>")
+      .containing("</reflections.version>")
+      .containing(
+        """
+                <dependency>
+                  <groupId>org.reflections</groupId>
+                  <artifactId>reflections</artifactId>
+                  <version>${reflections.version}</version>
+                </dependency>
+          """
+      );
+    // @formatter:on
+  }
+
+  @Test
   void shouldApplyModuleToMavenProject() {
     JHipsterModule module = module();
 
@@ -58,6 +85,18 @@ class FileSystemJHipsterModulesRepositoryTest {
                   <artifactId>springdoc-openapi-ui</artifactId>
                   <version>${springdoc-openapi.version}</version>
                 </dependency>
+          """
+      )
+      .containing("<reflections.version>")
+      .containing("</reflections.version>")
+      .containing(
+        """
+              <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+                <scope>test</scope>
+              </dependency>
           """
       )
       .containing(

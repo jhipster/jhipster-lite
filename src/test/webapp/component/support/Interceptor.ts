@@ -1,4 +1,4 @@
-import { HttpResponseInterceptor, RouteMatcher, StaticResponse } from '../../../../../node_modules/cypress/types/net-stubbing';
+import { HttpResponseInterceptor, RouteMatcher, StaticResponse } from 'cypress/types/net-stubbing';
 
 type ResponseSender = {
   send: () => void;

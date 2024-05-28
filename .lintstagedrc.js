@@ -1,5 +1,5 @@
 export default {
-  'src/{test/javascript,main/webapp}/**/*.{ts,vue}': ['eslint --fix'],
+  'src/{main,test}/webapp/**/*.{ts,vue}': ['eslint --fix'],
   '{,src/*/resources/**/}*.{js,cjs,ts,tsx,vue}': ['prettier --write'],
   'src/main/style/**/*.{css,scss}': ['stylelint --fix', 'prettier --write'],
   'src/main/glyph/**/*.{css,scss}': ['prettier --write'],

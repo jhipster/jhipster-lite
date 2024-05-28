@@ -1167,8 +1167,8 @@ class GradleCommandHandlerTest {
         .contains(
           """
           node {
-            version.set("v20.12.2")
-            npmVersion.set("10.5.2")
+            version.set("v20.14.0")
+            npmVersion.set("10.8.0")
             npmWorkDir.set(file("build"))
           }
 

@@ -29,7 +29,7 @@ abstract class JavaDependencyCommandsCreator {
     Collection<JavaBuildCommand> dependencyCommands = dependencyCommands(projectDependencies, buildProfile);
     Collection<JavaBuildCommand> versionCommands = dependency.versionCommands(currentVersions, projectDependencies, dependencyCommands);
 
-    return new JavaBuildCommands(Stream.of(versionCommands, dependencyCommands).flatMap(Collection::stream).toList());
+    return new JavaBuildCommands(Stream.of(dependencyCommands, versionCommands).flatMap(Collection::stream).toList());
   }
 
   protected JavaDependency dependency() {

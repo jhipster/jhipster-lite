@@ -36,11 +36,11 @@ class FileSystemJHipsterModulesRepositoryTest {
       .containing("</reflections.version>")
       .containing(
         """
-                <dependency>
-                  <groupId>org.reflections</groupId>
-                  <artifactId>reflections</artifactId>
-                  <version>${reflections.version}</version>
-                </dependency>
+              <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+              </dependency>
           """
       );
     // @formatter:on

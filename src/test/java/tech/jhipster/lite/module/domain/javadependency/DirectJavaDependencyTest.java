@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.util.List;
@@ -100,7 +100,11 @@ class DirectJavaDependencyTest {
 
     JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectJavaDependencies()).build();
 
-    assertThat(commands.get()).containsExactly(new RemoveDirectJavaDependency(upgraded.id()), new AddDirectJavaDependency(upgraded));
+    assertThat(commands.get()).containsExactly(
+      new SetVersion(springBootVersion()),
+      new RemoveDirectJavaDependency(upgraded.id()),
+      new AddDirectJavaDependency(upgraded)
+    );
   }
 
   @Test
@@ -109,7 +113,11 @@ class DirectJavaDependencyTest {
 
     JavaBuildCommands commands = changes().dependency(upgraded).projectDependencies(projectDependenciesWithoutJunitVersion()).build();
 
-    assertThat(commands.get()).containsExactly(new RemoveDirectJavaDependency(upgraded.id()), new AddDirectJavaDependency(upgraded));
+    assertThat(commands.get()).containsExactly(
+      new SetVersion(springBootVersion()),
+      new RemoveDirectJavaDependency(upgraded.id()),
+      new AddDirectJavaDependency(upgraded)
+    );
   }
 
   @Test

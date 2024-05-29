@@ -26,8 +26,8 @@ abstract class JavaDependencyCommandsCreator {
     Assert.notNull("currentVersion", currentVersions);
     Assert.notNull("projectDependencies", projectDependencies);
 
-    Collection<JavaBuildCommand> versionCommands = dependency.versionCommands(currentVersions, projectDependencies);
     Collection<JavaBuildCommand> dependencyCommands = dependencyCommands(projectDependencies, buildProfile);
+    Collection<JavaBuildCommand> versionCommands = dependency.versionCommands(currentVersions, projectDependencies, dependencyCommands);
 
     return new JavaBuildCommands(Stream.of(versionCommands, dependencyCommands).flatMap(Collection::stream).toList());
   }

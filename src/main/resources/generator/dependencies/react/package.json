@@ -18,7 +18,7 @@
     "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react": "4.3.0",
     "autoprefixer": "10.4.19",
-    "eslint-plugin-react": "7.34.1",
+    "eslint-plugin-react": "7.34.2",
     "postcss": "8.4.38",
     "react-scripts": "5.0.1",
     "sass": "1.77.2",

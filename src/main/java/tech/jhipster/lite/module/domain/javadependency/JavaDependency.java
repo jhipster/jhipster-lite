@@ -69,7 +69,7 @@ public final class JavaDependency {
     return toVersion(currentVersions, projectDependencies, List.of());
   }
 
-  public static Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
+  private static Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
     JavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies,
     Collection<JavaBuildCommand> dependencyCommands
@@ -89,12 +89,16 @@ public final class JavaDependency {
     Collection<JavaBuildCommand> dependencyCommands
   ) {
     return version -> {
-      if (version.equals(currentVersion) && dependencyCommands.stream().noneMatch(AddDirectJavaDependency.class::isInstance)) {
+      if (version.equals(currentVersion) && hasNoAddDirectJavaDependency(dependencyCommands)) {
         return Optional.empty();
       }
 
       return Optional.of(currentVersion);
     };
+  }
+
+  private static boolean hasNoAddDirectJavaDependency(Collection<JavaBuildCommand> dependencyCommands) {
+    return dependencyCommands.stream().noneMatch(AddDirectJavaDependency.class::isInstance);
   }
 
   private Function<JavaDependencyVersion, JavaBuildCommand> toSetVersionCommand() {

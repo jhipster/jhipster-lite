@@ -18,6 +18,7 @@ class SpringDocOauth2ModuleFactoryTest {
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
+      .put("keycloakRealmName", "beer")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
@@ -32,9 +33,9 @@ class SpringDocOauth2ModuleFactoryTest {
           swagger-ui:
             oauth:
               client-id: web_app
-              realm: jhipster
+              realm: beer
           oauth2:
-            authorization-url: http://localhost:9080/realms/jhipster/protocol/openid-connect/auth
+            authorization-url: http://localhost:9080/realms/beer/protocol/openid-connect/auth
         """
       )
       .and()
@@ -45,9 +46,9 @@ class SpringDocOauth2ModuleFactoryTest {
           swagger-ui:
             oauth:
               client-id: web_app
-              realm: jhipster
+              realm: beer
           oauth2:
-            authorization-url: http://localhost:9080/realms/jhipster/protocol/openid-connect/auth
+            authorization-url: http://localhost:9080/realms/beer/protocol/openid-connect/auth
         """
       );
     //@formatter:on

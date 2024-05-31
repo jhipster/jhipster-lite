@@ -89,7 +89,7 @@ public final class JavaDependency {
     Collection<JavaBuildCommand> dependencyCommands
   ) {
     return version -> {
-      if (version.equals(currentVersion) && hasNoAddDirectJavaDependency(dependencyCommands)) {
+      if (version.equals(currentVersion) && hasNoDependencyToAdd(dependencyCommands)) {
         return Optional.empty();
       }
 
@@ -97,7 +97,7 @@ public final class JavaDependency {
     };
   }
 
-  private static boolean hasNoAddDirectJavaDependency(Collection<JavaBuildCommand> dependencyCommands) {
+  private static boolean hasNoDependencyToAdd(Collection<JavaBuildCommand> dependencyCommands) {
     return dependencyCommands.stream().noneMatch(AddDirectJavaDependency.class::isInstance);
   }
 

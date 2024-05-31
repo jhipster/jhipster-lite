@@ -374,6 +374,33 @@ class MavenCommandHandlerTest {
     }
 
     @Test
+    void shouldRemoveDependencyAndVersion() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-empty-dependencies/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyId()));
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain("<spring-boot.version>")
+        .doesNotContain("</spring-boot.version>")
+        .doesNotContain(
+          """
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+              </dependency>
+            </dependencies>
+          </dependencyManagement>
+          """
+        );
+    }
+
+    @Test
     void shouldRemoveDependencyFromProfile() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
       MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
@@ -398,6 +425,36 @@ class MavenCommandHandlerTest {
         )
         .doesNotContain("<groupId>org.springframework.boot</groupId>")
         .doesNotContain("<artifactId>spring-boot-starter-web</artifactId>");
+    }
+
+    @Test
+    void shouldRemoveDependencyAndVersionFromProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile()));
+
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyId(), localBuildProfile()));
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain("<spring-boot.version>")
+        .doesNotContain("</spring-boot.version>")
+        .doesNotContain(
+          """
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.springframework.boot</groupId>
+                      <artifactId>spring-boot-dependencies</artifactId>
+                      <version>${spring-boot.version}</version>
+                      <type>pom</type>
+                      <scope>import</scope>
+                    </dependency>
+                  </dependencies>
+                </dependencyManagement>
+              </profile>
+            </profiles>
+          """
+        );
     }
   }
 

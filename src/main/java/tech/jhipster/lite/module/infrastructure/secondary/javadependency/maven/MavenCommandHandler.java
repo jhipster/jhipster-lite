@@ -130,7 +130,10 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(Profile::getDependencyManagement)
       .orElse(pomModel.getDependencyManagement());
     if (dependencyManagement != null) {
-      removeDependencyFrom(command.dependency(), dependencyManagement.getDependencies());
+      removeDependencyFrom(command.dependency(), dependencyManagement.getDependencies())
+        .stream()
+        .map(Dependency::getVersion)
+        .forEach(this::removeUnusedVersionProperty);
     }
   }
 

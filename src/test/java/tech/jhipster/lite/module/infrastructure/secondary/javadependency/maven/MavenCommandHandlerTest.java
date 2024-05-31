@@ -401,6 +401,61 @@ class MavenCommandHandlerTest {
     }
 
     @Test
+    void shouldRemoveDependencyButKeepVersionIfStillUsed() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-dependencies-management/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
+      mavenCommandHandler.handle(
+        new RemoveJavaDependencyManagement(dependencyId("org.junit.jupiter", "junit-jupiter-engine"), localBuildProfile())
+      );
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain(
+          """
+            <dependencyManagement>
+              <dependencies>
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-starter-web</artifactId>
+                  <version>${spring-boot.version}</version>
+                </dependency>
+          """
+        )
+        .doesNotContain(
+          """
+                <dependencyManagement>
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.junit.jupiter</groupId>
+                      <artifactId>junit-jupiter-engine</artifactId>
+                      <version>${spring-boot.version}</version>
+                      <classifier>test</classifier>
+                      <scope>test</scope>
+                      <optional>true</optional>
+                    </dependency>
+                  </dependencies>
+                </dependencyManagement>
+          """
+        );
+
+      assertThat(contentNormalizingNewLines(pom))
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-starter-data-jpa</artifactId>
+                  <version>${spring-boot.version}</version>
+                </dependency>
+              </dependencies>
+            </dependencyManagement>
+          """
+        );
+    }
+
+    @Test
     void shouldRemoveDependencyFromProfile() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
       MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
@@ -453,6 +508,55 @@ class MavenCommandHandlerTest {
                 </dependencyManagement>
               </profile>
             </profiles>
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveDependencyButKeepVersionIfStillUsedByProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-dependencies-management/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
+      mavenCommandHandler.handle(
+        new RemoveJavaDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-data-jpa"))
+      );
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain(
+          """
+            <dependencyManagement>
+              <dependencies>
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-starter-web</artifactId>
+                  <version>${spring-boot.version}</version>
+                </dependency>
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-starter-data-jpa</artifactId>
+                  <version>${spring-boot.version}</version>
+                </dependency>
+              </dependencies>
+            </dependencyManagement>
+          """
+        )
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+                <dependencyManagement>
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.junit.jupiter</groupId>
+                      <artifactId>junit-jupiter-engine</artifactId>
+                      <version>${spring-boot.version}</version>
+                      <classifier>test</classifier>
+                      <scope>test</scope>
+                      <optional>true</optional>
+                    </dependency>
+                  </dependencies>
+                </dependencyManagement>
           """
         );
     }

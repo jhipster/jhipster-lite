@@ -424,6 +424,8 @@ class MavenCommandHandlerTest {
         )
         .doesNotContain(
           """
+            <profile>
+              <id>local</id>
                 <dependencyManagement>
                   <dependencies>
                     <dependency>
@@ -437,9 +439,7 @@ class MavenCommandHandlerTest {
                   </dependencies>
                 </dependencyManagement>
           """
-        );
-
-      assertThat(contentNormalizingNewLines(pom))
+        )
         .contains("<spring-boot.version>")
         .contains("</spring-boot.version>")
         .contains(
@@ -494,6 +494,15 @@ class MavenCommandHandlerTest {
       assertThat(contentNormalizingNewLines(pom))
         .doesNotContain("<spring-boot.version>")
         .doesNotContain("</spring-boot.version>")
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+                <dependencyManagement>
+                </dependencyManagement>
+              </profile>
+          """
+        )
         .doesNotContain(
           """
                   <dependencies>
@@ -523,21 +532,9 @@ class MavenCommandHandlerTest {
       );
 
       assertThat(contentNormalizingNewLines(pom))
-        .doesNotContain(
+        .contains(
           """
             <dependencyManagement>
-              <dependencies>
-                <dependency>
-                  <groupId>org.springframework.boot</groupId>
-                  <artifactId>spring-boot-starter-web</artifactId>
-                  <version>${spring-boot.version}</version>
-                </dependency>
-                <dependency>
-                  <groupId>org.springframework.boot</groupId>
-                  <artifactId>spring-boot-starter-data-jpa</artifactId>
-                  <version>${spring-boot.version}</version>
-                </dependency>
-              </dependencies>
             </dependencyManagement>
           """
         )
@@ -545,6 +542,8 @@ class MavenCommandHandlerTest {
         .contains("</spring-boot.version>")
         .contains(
           """
+              <profile>
+                <id>local</id>
                 <dependencyManagement>
                   <dependencies>
                     <dependency>
@@ -720,7 +719,8 @@ class MavenCommandHandlerTest {
       mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine")));
 
       assertThat(contentNormalizingNewLines(pom))
-        .doesNotContain("<spring-boot.version>1.2.3</spring-boot.version>")
+        .doesNotContain("<spring-boot.version>")
+        .doesNotContain("</spring-boot.version>")
         .doesNotContain(
           """
             <dependencies>
@@ -750,31 +750,36 @@ class MavenCommandHandlerTest {
       assertThat(contentNormalizingNewLines(pom))
         .doesNotContain(
           """
-          <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
-          </dependency>
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+              </dependency>
+          """
+        )
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+              </profile>
           """
         )
         .doesNotContain(
           """
-            <dependencies>
-              <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                    <version>${spring-boot.version}</version>
+          """
+        )
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
                 <version>${spring-boot.version}</version>
-                <classifier>test</classifier>
-                <scope>test</scope>
-                <optional>true</optional>
-              </dependency>
-            </dependencies>
           """
         );
-
-      assertThat(contentNormalizingNewLines(pom))
-        .contains("    <spring-boot.version>2.4.5</spring-boot.version>")
-        .contains("      <artifactId>spring-boot-starter-data-jpa</artifactId>");
     }
 
     @Test
@@ -814,19 +819,20 @@ class MavenCommandHandlerTest {
       );
 
       assertThat(contentNormalizingNewLines(pom))
-        .doesNotContain("<spring-boot.version>1.2.3</spring-boot.version>")
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+              </profile>
+          """
+        )
+        .doesNotContain("<spring-boot.version>")
+        .doesNotContain("</spring-boot.version>")
         .doesNotContain(
           """
-            <dependencies>
-              <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${spring-boot.version}</version>
-                <classifier>test</classifier>
-                <scope>test</scope>
-                <optional>true</optional>
-              </dependency>
-            </dependencies>
+                  <groupId>org.junit.jupiter</groupId>
+                  <artifactId>junit-jupiter-engine</artifactId>
+                  <version>${spring-boot.version}</version>
           """
         );
     }
@@ -841,7 +847,8 @@ class MavenCommandHandlerTest {
       mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine")));
 
       assertThat(contentNormalizingNewLines(pom))
-        .contains("<spring-boot.version>1.2.3</spring-boot.version>")
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
         .contains(
           """
                 <dependencies>
@@ -866,26 +873,32 @@ class MavenCommandHandlerTest {
       mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
       mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-data-jpa")));
 
-      assertThat(contentNormalizingNewLines(pom)).doesNotContain(
-        """
-          <dependencies>
-            <dependency>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-starter-web</artifactId>
-              <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-starter-data-jpa</artifactId>
-              <version>${spring-boot.version}</version>
-            </dependency>
-          </dependencies>
-        """
-      );
-
       assertThat(contentNormalizingNewLines(pom))
-        .contains("    <spring-boot.version>2.4.5</spring-boot.version>")
-        .contains("      <artifactId>junit-jupiter-engine</artifactId>");
+        .doesNotContain(
+          """
+            <dependencies>
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+              </dependency>
+            </dependencies>
+          """
+        )
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                    <version>${spring-boot.version}</version>
+          """
+        );
     }
   }
 

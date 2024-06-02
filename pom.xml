@@ -508,7 +508,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven-javadoc-plugin.version}</version>
         <configuration>
-          <source>${maven.compiler.source}</source>
+          <release>${java.version}</release>
           <quiet>true</quiet>
           <failOnWarnings>false</failOnWarnings>
           <failOnError>false</failOnError>

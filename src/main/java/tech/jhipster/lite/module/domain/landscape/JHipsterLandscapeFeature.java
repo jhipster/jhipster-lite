@@ -27,8 +27,7 @@ public final class JHipsterLandscapeFeature implements JHipsterLandscapeElement 
       modules()
         .stream()
         .map(JHipsterLandscapeModule::dependencies)
-        .filter(Optional::isPresent)
-        .map(Optional::get)
+        .flatMap(Optional::stream)
         .flatMap(JHipsterLandscapeDependencies::stream)
         .toList()
     );

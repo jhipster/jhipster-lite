@@ -44,8 +44,7 @@ class MavenModuleFactoryTest {
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
                 <configuration>
-                  <source>${java.version}</source>
-                  <target>${java.version}</target>
+                  <release>${java.version}</release>
                   <parameters>true</parameters>
                 </configuration>
               </plugin>

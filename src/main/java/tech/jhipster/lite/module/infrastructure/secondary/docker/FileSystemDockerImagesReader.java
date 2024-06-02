@@ -28,8 +28,7 @@ class FileSystemDockerImagesReader implements DockerImagesReader {
       .map(String::trim)
       .map(String::toLowerCase)
       .map(toDockerImage())
-      .filter(Optional::isPresent)
-      .map(Optional::get)
+      .flatMap(Optional::stream)
       .toList();
 
     return new DockerImageVersions(versionsRead);

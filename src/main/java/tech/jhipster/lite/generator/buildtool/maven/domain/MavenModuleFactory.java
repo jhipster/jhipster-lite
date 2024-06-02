@@ -127,8 +127,7 @@ public class MavenModuleFactory {
       .versionSlug("compiler-plugin")
       .configuration(
         """
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+          <release>${java.version}</release>
           <parameters>true</parameters>
         """
       )

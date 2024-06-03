@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
 import { of, Subject } from 'rxjs';
 import { LoginService } from './login.service';
 import { AccountService } from '../auth/account.service';
@@ -25,8 +26,9 @@ describe('Login Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         FormBuilder,
         AccountService,
         {

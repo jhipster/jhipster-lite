@@ -57,7 +57,7 @@ public class CassandraModuleFactory {
         .and()
       .springMainProperties()
         .set(propertyKey("spring.cassandra.contact-points"), propertyValue("127.0.0.1"))
-        .set(propertyKey("#spring.cassandra.keyspace-name"), propertyValue("yourKeyspace"))
+        .comment(propertyKey("spring.cassandra.local-datacenter"), comment("keyspace-name: yourKeyspace"))
         .set(propertyKey("spring.cassandra.port"), propertyValue(9042))
         .set(propertyKey("spring.cassandra.local-datacenter"), propertyValue(DC))
         .set(propertyKey("spring.cassandra.schema-action"), propertyValue("none"))

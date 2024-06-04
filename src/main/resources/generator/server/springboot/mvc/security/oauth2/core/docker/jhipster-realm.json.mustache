@@ -1,5 +1,5 @@
 {
-  "id": "jhipster",
+  "id": "{{realmName}}",
   "realm": "{{realmName}}",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
@@ -51,7 +51,7 @@
         "description": "{{projectName}} administrator role",
         "composite": false,
         "clientRole": false,
-        "containerId": "jhipster",
+        "containerId": "{{realmName}}",
         "attributes": {}
       },
       {
@@ -60,7 +60,7 @@
         "description": "${role_offline-access}",
         "composite": false,
         "clientRole": false,
-        "containerId": "jhipster",
+        "containerId": "{{realmName}}",
         "attributes": {}
       },
       {
@@ -69,12 +69,12 @@
         "description": "{{projectName}} user role",
         "composite": false,
         "clientRole": false,
-        "containerId": "jhipster",
+        "containerId": "{{realmName}}",
         "attributes": {}
       },
       {
         "id": "d2b73e7b-a2d7-40e9-8ebc-2af00454e8aa",
-        "name": "default-roles-jhipster",
+        "name": "default-roles-{{realmName}}",
         "description": "${role_default-roles}",
         "composite": true,
         "composites": {
@@ -84,7 +84,7 @@
           }
         },
         "clientRole": false,
-        "containerId": "jhipster",
+        "containerId": "{{realmName}}",
         "attributes": {}
       },
       {
@@ -93,7 +93,7 @@
         "description": "${role_uma_authorization}",
         "composite": false,
         "clientRole": false,
-        "containerId": "jhipster",
+        "containerId": "{{realmName}}",
         "attributes": {}
       }
     ],
@@ -306,7 +306,6 @@
           "attributes": {}
         }
       ],
-      "jhipster-control-center": [],
       "security-admin-console": [],
       "web_app": [],
       "admin-cli": [],
@@ -421,11 +420,11 @@
   ],
   "defaultRole": {
     "id": "d2b73e7b-a2d7-40e9-8ebc-2af00454e8aa",
-    "name": "default-roles-jhipster",
+    "name": "default-roles-{{realmName}}",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
-    "containerId": "jhipster"
+    "containerId": "{{realmName}}"
   },
   "requiredCredentials": ["password"],
   "otpPolicyType": "totp",
@@ -759,49 +758,6 @@
         }
       ],
       "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
-      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
-    },
-    {
-      "id": "1acf7ad0-68cb-46a6-a3e4-8b2f2abecb85",
-      "clientId": "jhipster-control-center",
-      "rootUrl": "http://localhost:7419",
-      "adminUrl": "http://localhost:7419",
-      "surrogateAuthRequired": false,
-      "enabled": true,
-      "alwaysDisplayInConsole": false,
-      "clientAuthenticatorType": "client-secret",
-      "secret": "jhipster-control-center",
-      "redirectUris": ["dev.localhost.ionic:*", "http://127.0.0.1:*", "http://localhost:*", "https://127.0.0.1:*", "https://localhost:*"],
-      "webOrigins": ["*"],
-      "notBefore": 0,
-      "bearerOnly": false,
-      "consentRequired": false,
-      "standardFlowEnabled": true,
-      "implicitFlowEnabled": true,
-      "directAccessGrantsEnabled": false,
-      "serviceAccountsEnabled": false,
-      "publicClient": true,
-      "frontchannelLogout": false,
-      "protocol": "openid-connect",
-      "attributes": {
-        "saml.assertion.signature": "false",
-        "saml.force.post.binding": "false",
-        "saml.multivalued.roles": "false",
-        "saml.encrypt": "false",
-        "saml.server.signature": "false",
-        "saml.server.signature.keyinfo.ext": "false",
-        "exclude.session.state.from.auth.response": "false",
-        "saml_force_name_id_format": "false",
-        "saml.client.signature": "false",
-        "tls.client.certificate.bound.access.tokens": "false",
-        "saml.authnstatement": "false",
-        "display.on.consent.screen": "false",
-        "saml.onetimeuse.condition": "false"
-      },
-      "authenticationFlowBindingOverrides": {},
-      "fullScopeAllowed": true,
-      "nodeReRegistrationTimeout": -1,
-      "defaultClientScopes": ["web-origins", "{{clientScopeName}}", "roles", "profile", "email"],
       "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
     },
     {

@@ -3,6 +3,7 @@ package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.
 import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,11 +28,12 @@ class OAuth2ModuleFactoryTest {
   private OAuth2ModuleFactory factory;
 
   @Test
+  @DisplayName("should create OAuth2 module")
   void shouldCreateOAuth2Module() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
       .basePackage("com.jhipster.test")
       .projectBaseName("myapp")
-      .put("keycloakRealmName", "my-test-realm")
+      .put("keycloakRealmName", "beer")
       .build();
 
     when(dockerImages.get("quay.io/keycloak/keycloak")).thenReturn(new DockerImageVersion("quay.io/keycloak/keycloak", "1.1.1"));
@@ -82,7 +84,7 @@ class OAuth2ModuleFactoryTest {
       .hasFile("src/main/docker/keycloak.yml")
       .containing("quay.io/keycloak/keycloak:1.1.1")
       .and()
-      .hasFile("src/main/docker/keycloak-realm-config/jhipster-realm.json")
+      .hasFile("src/main/docker/keycloak-realm-config/beer-realm.json")
       .containing("1.1.1")
       .and()
       .hasFile("src/main/java/com/jhipster/test/shared/authentication/package-info.java")
@@ -107,7 +109,7 @@ class OAuth2ModuleFactoryTest {
               client:
                 provider:
                   oidc:
-                    issuer-uri: http://localhost:9080/realms/my-test-realm
+                    issuer-uri: http://localhost:9080/realms/beer
                 registration:
                   oidc:
                     client-id: web_app
@@ -128,7 +130,7 @@ class OAuth2ModuleFactoryTest {
               client:
                 provider:
                   oidc:
-                    issuer-uri: http://DO_NOT_CALL:9080/realms/my-test-realm
+                    issuer-uri: http://DO_NOT_CALL:9080/realms/beer
         """
       )
       .and()

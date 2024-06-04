@@ -30,16 +30,16 @@ class SpringDocAuth0ModuleFactoryTest {
       .containing(
         """
         springdoc:
+          oauth2:
+            authorization-url: https://dev-123456.us.auth0.com/authorize?audience=https://dev-123456.us.auth0.com/api/v2/
           swagger-ui:
             oauth:
+              client-id: my-client-id
+              realm: jhipster
               scopes:
               - openid
               - profile
               - email
-              client-id: my-client-id
-              realm: jhipster
-          oauth2:
-            authorization-url: https://dev-123456.us.auth0.com/authorize?audience=https://dev-123456.us.auth0.com/api/v2/
         """
       );
     //@formatter:on

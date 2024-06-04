@@ -30,16 +30,16 @@ class SpringDocOktaModuleFactoryTest {
       .containing(
         """
         springdoc:
+          oauth2:
+            authorization-url: https://dev-123456.okta.com/oauth2/default/v1/authorize?nonce="jhipster"
           swagger-ui:
             oauth:
+              client-id: my-client-id
+              realm: jhipster
               scopes:
               - openid
               - profile
               - email
-              client-id: my-client-id
-              realm: jhipster
-          oauth2:
-            authorization-url: https://dev-123456.okta.com/oauth2/default/v1/authorize?nonce="jhipster"
         """
       );
     //@formatter:on

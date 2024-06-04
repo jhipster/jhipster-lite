@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.devtools.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,9 +48,9 @@ class DevToolsModuleFactoryTest {
         """
         spring:
           devtools:
-            restart:
-              enabled: false
             livereload:
+              enabled: false
+            restart:
               enabled: false
         """
       )
@@ -59,9 +60,9 @@ class DevToolsModuleFactoryTest {
         """
         spring:
           devtools:
-            restart:
-              enabled: true
             livereload:
+              enabled: true
+            restart:
               enabled: true
         """
       );

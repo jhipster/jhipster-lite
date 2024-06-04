@@ -65,60 +65,63 @@ class MsSQLModuleFactoryTest {
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(
+        // language=yaml
         """
         spring:
+          data:
+            jpa:
+              repositories:
+                bootstrap-mode: deferred
+          datasource:
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            hikari:
+              auto-commit: false
+              poolName: Hikari
+            password: yourStrong(!)Password
+            type: com.zaxxer.hikari.HikariDataSource
+            url: jdbc:sqlserver://localhost:1433;database=myapp;trustServerCertificate=true
+            username: SA
           jpa:
-            properties:
-              hibernate:
-                criteria:
-                  literal_handling_mode: BIND
-                dialect: org.hibernate.dialect.SQLServer2012Dialect
-                jdbc:
-                  fetch_size: 150
-                  time_zone: UTC
-                  batch_size: 25
-                query:
-                  fail_on_pagination_over_collection_fetch: true
-                  in_clause_parameter_padding: true
-                generate_statistics: false
-                order_updates: true
-                connection:
-                  provider_disables_autocommit: true
-                order_inserts: true
-                format_sql: true
             hibernate:
               ddl-auto: update
               naming:
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
                 physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
             open-in-view: false
-          datasource:
-            hikari:
-              poolName: Hikari
-              auto-commit: false
-            password: yourStrong(!)Password
-            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-            username: SA
-            url: jdbc:sqlserver://localhost:1433;database=myapp;trustServerCertificate=true
-            type: com.zaxxer.hikari.HikariDataSource
-          data:
-            jpa:
-              repositories:
-                bootstrap-mode: deferred
+            properties:
+              hibernate:
+                connection:
+                  provider_disables_autocommit: true
+                criteria:
+                  literal_handling_mode: BIND
+                dialect: org.hibernate.dialect.SQLServer2012Dialect
+                format_sql: true
+                generate_statistics: false
+                jdbc:
+                  batch_size: 25
+                  fetch_size: 150
+                  time_zone: UTC
+                order_inserts: true
+                order_updates: true
+                query:
+                  fail_on_pagination_over_collection_fetch: true
+                  in_clause_parameter_padding: true
         """
       )
       .and()
       .hasFile("src/test/resources/config/application-test.yml")
       .containing(
+        // language=yaml
         """
         spring:
           datasource:
             driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-            username: SA
             hikari:
               maximum-pool-size: 2
+            password: yourStrong(!)Password
             url: jdbc:tc:sqlserver:///;database=myapp;trustServerCertificate=true?TC_TMPFS=/testtmpfs:rw
-            password:"""
+            username: SA
+        """
       );
   }
 

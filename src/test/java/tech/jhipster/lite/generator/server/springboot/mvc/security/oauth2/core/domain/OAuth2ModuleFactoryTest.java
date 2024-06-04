@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.domain;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -95,6 +95,7 @@ class OAuth2ModuleFactoryTest {
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(
+        // language=yaml
         """
         application:
           security:
@@ -104,29 +105,30 @@ class OAuth2ModuleFactoryTest {
           security:
             oauth2:
               client:
-                registration:
-                  oidc:
-                    client-secret: web_app
-                    client-id: web_app
-                    scope: openid,profile,email
                 provider:
                   oidc:
                     issuer-uri: http://localhost:9080/realms/my-test-realm
+                registration:
+                  oidc:
+                    client-id: web_app
+                    client-secret: web_app
+                    scope: openid,profile,email
         """
       )
       .and()
       .hasFile("src/test/resources/config/application-test.yml")
       .containing(
+        // language=yaml
         """
         spring:
+          main:
+            allow-bean-definition-overriding: true
           security:
             oauth2:
               client:
                 provider:
                   oidc:
                     issuer-uri: http://DO_NOT_CALL:9080/realms/my-test-realm
-          main:
-            allow-bean-definition-overriding: true
         """
       )
       .and()

@@ -74,23 +74,23 @@ class EurekaModuleFactoryTest {
       .containing(
         """
         eureka:
-          instance:
-            health-check-url-path: ${management.endpoints.web.base-path}/health
-            instance-id: myapp:${spring.application.instance-id:${random.value}}
-            status-page-url-path: ${management.endpoints.web.base-path}/info
-            lease-renewal-interval-in-seconds: 5
-            appname: myapp
-            lease-expiration-duration-in-seconds: 10
           client:
-            register-with-eureka: true
-            registry-fetch-interval-seconds: 10
+            enabled: true
+            fetch-registry: true
             healthcheck:
               enabled: true
             instance-info-replication-interval-seconds: 10
+            register-with-eureka: true
+            registry-fetch-interval-seconds: 10
             service-url:
               defaultZone: http://admin:admin@localhost:8761/eureka
-            fetch-registry: true
-            enabled: true
+          instance:
+            appname: myapp
+            health-check-url-path: ${management.endpoints.web.base-path}/health
+            instance-id: myapp:${spring.application.instance-id:${random.value}}
+            lease-expiration-duration-in-seconds: 10
+            lease-renewal-interval-in-seconds: 5
+            status-page-url-path: ${management.endpoints.web.base-path}/info
         spring:
           application:
             name: myApp
@@ -103,15 +103,15 @@ class EurekaModuleFactoryTest {
       .hasFile("src/test/resources/config/bootstrap.yml")
       .containing(
         """
+        eureka:
+          client:
+            enabled: false
         spring:
           application:
             name: myApp
           cloud:
             compatibility-verifier:
               enabled: false
-        eureka:
-          client:
-            enabled: false
         """
       )
       .and()

@@ -44,12 +44,12 @@ class GitInfoModuleFactoryTest {
           """
           management:
             info:
-              # Git Information
-              git:
-                mode: full
-                enabled: true
               env:
                 enabled: true
+              # Git Information
+              git:
+                enabled: true
+                mode: full
           """
         )
         .and()

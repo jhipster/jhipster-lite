@@ -95,8 +95,8 @@ class RedisModuleFactoryTest {
         spring:
           data:
             redis:
-              url: redis://localhost:6379
               database: 0
+              url: redis://localhost:6379
         """
       )
       .and()

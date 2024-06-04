@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.apidocumentation.springdocoauth.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -30,12 +31,12 @@ class SpringDocOauth2ModuleFactoryTest {
       .containing(
         """
         springdoc:
+          oauth2:
+            authorization-url: http://localhost:9080/realms/beer/protocol/openid-connect/auth
           swagger-ui:
             oauth:
               client-id: web_app
               realm: beer
-          oauth2:
-            authorization-url: http://localhost:9080/realms/beer/protocol/openid-connect/auth
         """
       )
       .and()
@@ -43,12 +44,12 @@ class SpringDocOauth2ModuleFactoryTest {
       .containing(
         """
         springdoc:
+          oauth2:
+            authorization-url: http://localhost:9080/realms/beer/protocol/openid-connect/auth
           swagger-ui:
             oauth:
               client-id: web_app
               realm: beer
-          oauth2:
-            authorization-url: http://localhost:9080/realms/beer/protocol/openid-connect/auth
         """
       );
     //@formatter:on

@@ -30,16 +30,16 @@ class SpringBootAsyncModuleFactoryTest {
         """
         spring:
           task:
-            scheduling:
-              thread-name-prefix: myapp-scheduling-
-              pool:
-                size: 2
             execution:
               pool:
                 keep-alive: 10s
-                queue-capacity: 100
                 max-size: 16
+                queue-capacity: 100
               thread-name-prefix: myapp-task-
+            scheduling:
+              pool:
+                size: 2
+              thread-name-prefix: myapp-scheduling-
         """
       );
   }

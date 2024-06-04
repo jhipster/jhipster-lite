@@ -76,16 +76,15 @@ class CassandraModuleFactoryTest {
       .and()
       .hasFile("src/main/resources/config/application.yml")
       .containing(
+        // language=yaml
         """
         spring:
           cassandra:
-            schema-action: none
-            local-datacenter: datacenter1
             contact-points: 127.0.0.1
+            # keyspace-name: yourKeyspace
+            local-datacenter: datacenter1
             port: 9042
-        '#spring':
-          cassandra:
-            keyspace-name: yourKeyspace
+            schema-action: none
         """
       )
       .and()
@@ -101,13 +100,14 @@ class CassandraModuleFactoryTest {
       .hasFiles("src/test/java/com/jhipster/test/wire/cassandra/infrastructure/secondary/CassandraJSR310DateConvertersTest.java")
       .hasFile("src/test/resources/config/application-test.yml")
       .containing(
+        // language=yaml
         """
         spring:
           cassandra:
-            local-datacenter: ${TEST_CASSANDRA_DC}
-            port: ${TEST_CASSANDRA_PORT}
             contact-points: ${TEST_CASSANDRA_CONTACT_POINT}
             keyspace-name: ${TEST_CASSANDRA_KEYSPACE}
+            local-datacenter: ${TEST_CASSANDRA_DC}
+            port: ${TEST_CASSANDRA_PORT}
         """
       )
       .and()

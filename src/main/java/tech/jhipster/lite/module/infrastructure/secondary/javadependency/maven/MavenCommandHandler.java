@@ -183,12 +183,12 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     return Stream.of(
       pomModel.getDependencies().stream(),
       pomModel.getProfiles().stream().flatMap(profile -> profile.getDependencies().stream()),
-      safeDependencies(pomModel.getDependencyManagement()),
-      pomModel.getProfiles().stream().flatMap(profile -> safeDependencies(profile.getDependencyManagement()))
+      dependenciesFrom(pomModel.getDependencyManagement()),
+      pomModel.getProfiles().stream().flatMap(profile -> dependenciesFrom(profile.getDependencyManagement()))
     ).flatMap(Function.identity());
   }
 
-  private Stream<Dependency> safeDependencies(DependencyManagement dependencyManagement) {
+  private Stream<Dependency> dependenciesFrom(DependencyManagement dependencyManagement) {
     return dependencyManagement != null ? dependencyManagement.getDependencies().stream() : Stream.empty();
   }
 

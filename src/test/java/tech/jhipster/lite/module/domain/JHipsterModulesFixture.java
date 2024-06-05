@@ -43,6 +43,7 @@ public final class JHipsterModulesFixture {
    return moduleBuilder(properties)
     .javaDependencies()
       .addDependency(reflectionsDependency(JavaDependencyScope.COMPILE))
+      .addDependencyManagement(commonsLang3DependencyManagement(JavaDependencyScope.IMPORT))
       .and()
      .build();
     // @formatter:on
@@ -101,6 +102,7 @@ public final class JHipsterModulesFixture {
       .addDependency(groupId("io.jsonwebtoken"), artifactId("jjwt-api"), versionSlug("json-web-token.version"))
       .addDependency(optionalTestDependency())
       .addDependency(springBootStarterWebDependency())
+      .addDependencyManagement(commonsLang3DependencyManagement(JavaDependencyScope.TEST))
       .addDependencyManagement(springBootDependencyManagement())
       .addDependencyManagement(springBootDefaultTypeDependencyManagement())
       .removeDependencyManagement(dependencyId("org.springdoc", "springdoc-openapi-ui"))
@@ -212,6 +214,15 @@ public final class JHipsterModulesFixture {
 
   private static JavaDependency reflectionsDependency(JavaDependencyScope scope) {
     return javaDependency().groupId("org.reflections").artifactId("reflections").versionSlug("reflections").scope(scope).build();
+  }
+
+  private static JavaDependency commonsLang3DependencyManagement(JavaDependencyScope scope) {
+    return javaDependency()
+      .groupId("org.apache.commons")
+      .artifactId("commons-lang3")
+      .versionSlug("commons-lang3.version")
+      .scope(scope)
+      .build();
   }
 
   private static String jestSonar(Indentation indentation) {

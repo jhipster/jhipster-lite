@@ -42,6 +42,18 @@ class FileSystemJHipsterModulesRepositoryTest {
                 <version>${reflections.version}</version>
               </dependency>
           """
+      )
+      .containing("<commons-lang3.version>")
+      .containing("</commons-lang3.version>")
+      .containing(
+        """
+                <dependency>
+                  <groupId>org.apache.commons</groupId>
+                  <artifactId>commons-lang3</artifactId>
+                  <version>${commons-lang3.version}</version>
+                  <scope>import</scope>
+                </dependency>
+          """
       );
     // @formatter:on
   }

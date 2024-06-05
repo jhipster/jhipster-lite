@@ -17,17 +17,7 @@ import tech.jhipster.lite.module.domain.Indentation;
 import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.AddDirectMavenPlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddGradlePlugin;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaBuildProfile;
-import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenBuildExtension;
-import tech.jhipster.lite.module.domain.javabuild.command.AddMavenPluginManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveDirectJavaDependency;
-import tech.jhipster.lite.module.domain.javabuild.command.RemoveJavaDependencyManagement;
-import tech.jhipster.lite.module.domain.javabuild.command.SetBuildProperty;
-import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
+import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
@@ -384,6 +374,88 @@ class MavenCommandHandlerTest {
     }
 
     @Test
+    void shouldRemoveDependencyAndVersion() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-empty-dependencies/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyId()));
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain("<spring-boot.version>")
+        .doesNotContain("</spring-boot.version>")
+        .doesNotContain(
+          """
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+              </dependency>
+            </dependencies>
+          </dependencyManagement>
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveDependencyButKeepVersionIfStillUsed() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-dependencies-management/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
+      mavenCommandHandler.handle(
+        new RemoveJavaDependencyManagement(dependencyId("org.junit.jupiter", "junit-jupiter-engine"), localBuildProfile())
+      );
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain(
+          """
+            <dependencyManagement>
+              <dependencies>
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-starter-web</artifactId>
+                  <version>${spring-boot.version}</version>
+                </dependency>
+          """
+        )
+        .doesNotContain(
+          """
+            <profile>
+              <id>local</id>
+                <dependencyManagement>
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.junit.jupiter</groupId>
+                      <artifactId>junit-jupiter-engine</artifactId>
+                      <version>${spring-boot.version}</version>
+                      <classifier>test</classifier>
+                      <scope>test</scope>
+                      <optional>true</optional>
+                    </dependency>
+                  </dependencies>
+                </dependencyManagement>
+          """
+        )
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+                <dependency>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-starter-data-jpa</artifactId>
+                  <version>${spring-boot.version}</version>
+                </dependency>
+              </dependencies>
+            </dependencyManagement>
+          """
+        );
+    }
+
+    @Test
     void shouldRemoveDependencyFromProfile() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
       MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
@@ -408,6 +480,84 @@ class MavenCommandHandlerTest {
         )
         .doesNotContain("<groupId>org.springframework.boot</groupId>")
         .doesNotContain("<artifactId>spring-boot-starter-web</artifactId>");
+    }
+
+    @Test
+    void shouldRemoveDependencyAndVersionFromProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+      mavenCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile()));
+
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyId(), localBuildProfile()));
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain("<spring-boot.version>")
+        .doesNotContain("</spring-boot.version>")
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+                <dependencyManagement>
+                </dependencyManagement>
+              </profile>
+          """
+        )
+        .doesNotContain(
+          """
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.springframework.boot</groupId>
+                      <artifactId>spring-boot-dependencies</artifactId>
+                      <version>${spring-boot.version}</version>
+                      <type>pom</type>
+                      <scope>import</scope>
+                    </dependency>
+                  </dependencies>
+                </dependencyManagement>
+              </profile>
+            </profiles>
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveDependencyButKeepVersionIfStillUsedByProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-dependencies-management/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+
+      mavenCommandHandler.handle(new RemoveJavaDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
+      mavenCommandHandler.handle(
+        new RemoveJavaDependencyManagement(dependencyId("org.springframework.boot", "spring-boot-starter-data-jpa"))
+      );
+
+      assertThat(contentNormalizingNewLines(pom))
+        .contains(
+          """
+            <dependencyManagement>
+            </dependencyManagement>
+          """
+        )
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+                <dependencyManagement>
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.junit.jupiter</groupId>
+                      <artifactId>junit-jupiter-engine</artifactId>
+                      <version>${spring-boot.version}</version>
+                      <classifier>test</classifier>
+                      <scope>test</scope>
+                      <optional>true</optional>
+                    </dependency>
+                  </dependencies>
+                </dependencyManagement>
+          """
+        );
     }
   }
 
@@ -560,6 +710,79 @@ class MavenCommandHandlerTest {
     }
 
     @Test
+    void shouldRemoveDependencyAndVersion() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-empty-dependencies/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+      mavenCommandHandler.handle(new AddDirectJavaDependency(optionalTestDependency()));
+
+      mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine")));
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain("<spring-boot.version>")
+        .doesNotContain("</spring-boot.version>")
+        .doesNotContain(
+          """
+            <dependencies>
+              <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${spring-boot.version}</version>
+                <classifier>test</classifier>
+                <scope>test</scope>
+                <optional>true</optional>
+              </dependency>
+            </dependencies>
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveDependencyButKeepVersionIfStillUsed() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-dependencies/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+
+      mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
+      mavenCommandHandler.handle(
+        new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine"), localBuildProfile())
+      );
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain(
+          """
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+              </dependency>
+          """
+        )
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+              </profile>
+          """
+        )
+        .doesNotContain(
+          """
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                    <version>${spring-boot.version}</version>
+          """
+        )
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+          """
+        );
+    }
+
+    @Test
     void shouldRemoveDependencyFromProfile() {
       Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
       MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
@@ -582,6 +805,100 @@ class MavenCommandHandlerTest {
         )
         .doesNotContain("      <groupId>org.springframework.boot</groupId>")
         .doesNotContain("      <artifactId>spring-boot-starter-web</artifactId>");
+    }
+
+    @Test
+    void shouldRemoveDependencyAndVersionFromProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+      mavenCommandHandler.handle(new AddDirectJavaDependency(optionalTestDependency(), localBuildProfile()));
+
+      mavenCommandHandler.handle(
+        new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine"), localBuildProfile())
+      );
+
+      assertThat(contentNormalizingNewLines(pom))
+        .contains(
+          """
+              <profile>
+                <id>local</id>
+              </profile>
+          """
+        )
+        .doesNotContain("<spring-boot.version>")
+        .doesNotContain("</spring-boot.version>")
+        .doesNotContain(
+          """
+                  <groupId>org.junit.jupiter</groupId>
+                  <artifactId>junit-jupiter-engine</artifactId>
+                  <version>${spring-boot.version}</version>
+          """
+        );
+    }
+
+    @Test
+    void shouldNotRemoveVersionFromProfileWhenRemovingDependencyWithoutProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-local-profile/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+      mavenCommandHandler.handle(new SetVersion(springBootVersion()));
+      mavenCommandHandler.handle(new AddDirectJavaDependency(optionalTestDependency(), localBuildProfile()));
+
+      mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.junit.jupiter", "junit-jupiter-engine")));
+
+      assertThat(contentNormalizingNewLines(pom))
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+                <dependencies>
+                  <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <classifier>test</classifier>
+                    <scope>test</scope>
+                    <optional>true</optional>
+                  </dependency>
+                </dependencies>
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveDependencyButKeepVersionIfStillUsedByProfile() {
+      Path pom = projectWithPom("src/test/resources/projects/maven-with-multiple-dependencies/pom.xml");
+      MavenCommandHandler mavenCommandHandler = new MavenCommandHandler(Indentation.DEFAULT, pom);
+
+      mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-web")));
+      mavenCommandHandler.handle(new RemoveDirectJavaDependency(dependencyId("org.springframework.boot", "spring-boot-starter-data-jpa")));
+
+      assertThat(contentNormalizingNewLines(pom))
+        .doesNotContain(
+          """
+            <dependencies>
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+              </dependency>
+            </dependencies>
+          """
+        )
+        .contains("<spring-boot.version>")
+        .contains("</spring-boot.version>")
+        .contains(
+          """
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                    <version>${spring-boot.version}</version>
+          """
+        );
     }
   }
 

@@ -5,7 +5,7 @@ import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 
-public class JavaDependencyManagement extends JavaDependencyCommandsCreator {
+public final class JavaDependencyManagement extends JavaDependencyCommandsCreator {
 
   JavaDependencyManagement(JavaDependency dependency) {
     super(dependency);
@@ -22,5 +22,14 @@ public class JavaDependencyManagement extends JavaDependencyCommandsCreator {
         projectDependencies.dependencyManagement(dependency().id()),
         buildProfile
       );
+  }
+
+  @Override
+  protected Collection<JavaBuildCommand> versionCommands(
+    JavaDependenciesVersions currentVersions,
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
+  ) {
+    return dependency().versionCommands(currentVersions, projectDependencies, dependencyCommands(projectDependencies, buildProfile));
   }
 }

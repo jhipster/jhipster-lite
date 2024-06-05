@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 import org.apache.maven.model.*;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
@@ -127,7 +128,10 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(Profile::getDependencyManagement)
       .orElse(pomModel.getDependencyManagement());
     if (dependencyManagement != null) {
-      removeDependencyFrom(command.dependency(), dependencyManagement.getDependencies());
+      removeDependencyFrom(command.dependency(), dependencyManagement.getDependencies())
+        .stream()
+        .map(Dependency::getVersion)
+        .forEach(this::removeUnusedVersionProperty);
     }
   }
 
@@ -140,21 +144,63 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
       .map(this::findProfile)
       .map(Profile::getDependencies)
       .orElse(pomModel.getDependencies());
-    removeDependencyFrom(command.dependency(), dependencies);
+
+    removeDependencyFrom(command.dependency(), dependencies)
+      .stream()
+      .map(Dependency::getVersion)
+      .forEach(this::removeUnusedVersionProperty);
   }
 
-  private void removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
-    dependencies.removeIf(dependencyMatch(dependency));
-    writePom();
+  private List<Dependency> removeDependencyFrom(DependencyId dependency, List<Dependency> dependencies) {
+    List<Dependency> dependenciesToRemove = dependencies.stream().filter(matchesDependency(dependency)).toList();
+
+    if (!dependenciesToRemove.isEmpty()) {
+      dependencies.removeAll(dependenciesToRemove);
+      writePom();
+    }
+
+    return dependenciesToRemove;
   }
 
-  private Predicate<Dependency> dependencyMatch(DependencyId dependencyId) {
+  private Predicate<Dependency> matchesDependency(DependencyId dependency) {
     return mavenDependency -> {
-      boolean sameGroupId = mavenDependency.getGroupId().equals(dependencyId.groupId().get());
-      boolean sameArtifactId = mavenDependency.getArtifactId().equals(dependencyId.artifactId().get());
-
+      boolean sameGroupId = mavenDependency.getGroupId().equals(dependency.groupId().get());
+      boolean sameArtifactId = mavenDependency.getArtifactId().equals(dependency.artifactId().get());
       return sameGroupId && sameArtifactId;
     };
+  }
+
+  private void removeUnusedVersionProperty(String version) {
+    extractVersionPropertyKey(version)
+      .filter(this::versionPropertyUnused)
+      .ifPresent(propertyKey -> {
+        pomModel.getProperties().remove(propertyKey);
+        writePom();
+      });
+  }
+
+  private Stream<Dependency> allDependencies() {
+    return Stream.of(
+      pomModel.getDependencies().stream(),
+      pomModel.getProfiles().stream().flatMap(profile -> profile.getDependencies().stream()),
+      dependenciesFrom(pomModel.getDependencyManagement()),
+      pomModel.getProfiles().stream().flatMap(profile -> dependenciesFrom(profile.getDependencyManagement()))
+    ).flatMap(Function.identity());
+  }
+
+  private Stream<Dependency> dependenciesFrom(DependencyManagement dependencyManagement) {
+    return dependencyManagement != null ? dependencyManagement.getDependencies().stream() : Stream.empty();
+  }
+
+  private Optional<String> extractVersionPropertyKey(String version) {
+    return VersionSlug.of(version).map(VersionSlug::propertyName);
+  }
+
+  private boolean versionPropertyUnused(String versionPropertyKey) {
+    return allDependencies()
+      .map(Dependency::getVersion)
+      .flatMap(version -> extractVersionPropertyKey(version).stream())
+      .noneMatch(versionPropertyKey::equals);
   }
 
   @Override

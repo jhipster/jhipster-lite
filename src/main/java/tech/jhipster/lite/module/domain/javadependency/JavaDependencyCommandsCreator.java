@@ -8,7 +8,7 @@ import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommands;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 import tech.jhipster.lite.shared.error.domain.Assert;
 
-abstract class JavaDependencyCommandsCreator {
+abstract sealed class JavaDependencyCommandsCreator permits DirectJavaDependency, JavaDependencyManagement {
 
   private final JavaDependency dependency;
 
@@ -26,10 +26,10 @@ abstract class JavaDependencyCommandsCreator {
     Assert.notNull("currentVersion", currentVersions);
     Assert.notNull("projectDependencies", projectDependencies);
 
-    Collection<JavaBuildCommand> versionCommands = dependency.versionCommands(currentVersions, projectDependencies);
     Collection<JavaBuildCommand> dependencyCommands = dependencyCommands(projectDependencies, buildProfile);
+    Collection<JavaBuildCommand> versionCommands = versionCommands(currentVersions, projectDependencies, buildProfile);
 
-    return new JavaBuildCommands(Stream.of(versionCommands, dependencyCommands).flatMap(Collection::stream).toList());
+    return new JavaBuildCommands(Stream.of(dependencyCommands, versionCommands).flatMap(Collection::stream).toList());
   }
 
   protected JavaDependency dependency() {
@@ -37,6 +37,12 @@ abstract class JavaDependencyCommandsCreator {
   }
 
   protected abstract Collection<JavaBuildCommand> dependencyCommands(
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
+  );
+
+  protected abstract Collection<JavaBuildCommand> versionCommands(
+    JavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies,
     Optional<BuildProfileId> buildProfile
   );

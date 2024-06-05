@@ -11,6 +11,8 @@ import tech.jhipster.lite.module.domain.javabuild.ArtifactId;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
+import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -49,29 +51,60 @@ public final class JavaDependency {
     return new JavaDependencyBuilder();
   }
 
-  Collection<JavaBuildCommand> versionCommands(JavaDependenciesVersions currentVersions, ProjectJavaDependencies projectDependencies) {
-    return version().flatMap(toVersion(currentVersions, projectDependencies)).map(toSetVersionCommand()).map(List::of).orElse(List.of());
+  Collection<JavaBuildCommand> versionCommands(
+    JavaDependenciesVersions currentVersions,
+    ProjectJavaDependencies projectDependencies,
+    Collection<JavaBuildCommand> dependencyCommands
+  ) {
+    return version()
+      .flatMap(toVersion(currentVersions, projectDependencies, dependencyCommands))
+      .map(toSetVersionCommand())
+      .map(List::of)
+      .orElse(List.of());
   }
 
   public static Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
     JavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies
   ) {
+    return toVersion(currentVersions, projectDependencies, List.of());
+  }
+
+  private static Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(
+    JavaDependenciesVersions currentVersions,
+    ProjectJavaDependencies projectDependencies,
+    Collection<JavaBuildCommand> dependencyCommands
+  ) {
     return slug -> {
       JavaDependencyVersion currentVersion = currentVersions.get(slug);
 
-      return projectDependencies.version(slug).map(toVersionToUse(currentVersion)).orElseGet(() -> Optional.of(currentVersion));
+      return projectDependencies
+        .version(slug)
+        .map(toVersionToUse(currentVersion, dependencyCommands))
+        .orElseGet(() -> Optional.of(currentVersion));
     };
   }
 
-  private static Function<JavaDependencyVersion, Optional<JavaDependencyVersion>> toVersionToUse(JavaDependencyVersion currentVersion) {
+  private static Function<JavaDependencyVersion, Optional<JavaDependencyVersion>> toVersionToUse(
+    JavaDependencyVersion currentVersion,
+    Collection<JavaBuildCommand> dependencyCommands
+  ) {
     return version -> {
-      if (version.equals(currentVersion)) {
+      if (version.equals(currentVersion) && hasNoDependencyToAdd(dependencyCommands)) {
         return Optional.empty();
       }
 
       return Optional.of(currentVersion);
     };
+  }
+
+  private static boolean hasNoDependencyToAdd(Collection<JavaBuildCommand> dependencyCommands) {
+    return dependencyCommands
+      .stream()
+      .noneMatch(
+        dependencyCommand ->
+          dependencyCommand instanceof AddDirectJavaDependency || dependencyCommand instanceof AddJavaDependencyManagement
+      );
   }
 
   private Function<JavaDependencyVersion, JavaBuildCommand> toSetVersionCommand() {

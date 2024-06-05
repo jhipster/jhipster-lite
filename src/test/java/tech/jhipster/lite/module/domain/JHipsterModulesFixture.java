@@ -38,6 +38,17 @@ public final class JHipsterModulesFixture {
 
   private JHipsterModulesFixture() {}
 
+  public static JHipsterModule moduleSecond(JHipsterModuleProperties properties) {
+    // @formatter:off
+   return moduleBuilder(properties)
+    .javaDependencies()
+      .addDependency(reflectionsDependency(JavaDependencyScope.COMPILE))
+      .addDependencyManagement(commonsLang3DependencyManagement(JavaDependencyScope.IMPORT))
+      .and()
+     .build();
+    // @formatter:on
+  }
+
   public static JHipsterModule module() {
     // @formatter:off
    JHipsterModuleProperties properties = testModuleProperties();
@@ -86,10 +97,12 @@ public final class JHipsterModulesFixture {
       .and()
     .javaDependencies()
       .removeDependency(dependencyId("net.logstash.logback", "logstash-logback-encoder"))
+      .addDependency(reflectionsDependency(JavaDependencyScope.TEST))
       .addDependency(groupId("org.springframework.boot"), artifactId("spring-boot-starter"))
       .addDependency(groupId("io.jsonwebtoken"), artifactId("jjwt-api"), versionSlug("json-web-token.version"))
       .addDependency(optionalTestDependency())
       .addDependency(springBootStarterWebDependency())
+      .addDependencyManagement(commonsLang3DependencyManagement(JavaDependencyScope.TEST))
       .addDependencyManagement(springBootDependencyManagement())
       .addDependencyManagement(springBootDefaultTypeDependencyManagement())
       .removeDependencyManagement(dependencyId("org.springdoc", "springdoc-openapi-ui"))
@@ -197,6 +210,19 @@ public final class JHipsterModulesFixture {
       .and()
     .build();
     // @formatter:on
+  }
+
+  private static JavaDependency reflectionsDependency(JavaDependencyScope scope) {
+    return javaDependency().groupId("org.reflections").artifactId("reflections").versionSlug("reflections").scope(scope).build();
+  }
+
+  private static JavaDependency commonsLang3DependencyManagement(JavaDependencyScope scope) {
+    return javaDependency()
+      .groupId("org.apache.commons")
+      .artifactId("commons-lang3")
+      .versionSlug("commons-lang3.version")
+      .scope(scope)
+      .build();
   }
 
   private static String jestSonar(Indentation indentation) {

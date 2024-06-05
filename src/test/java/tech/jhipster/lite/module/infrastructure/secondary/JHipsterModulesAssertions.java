@@ -1,14 +1,10 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.TestFileUtils.contentNormalizingNewLines;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.TestFileUtils.*;
 
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.util.Arrays;
@@ -86,6 +82,18 @@ public final class JHipsterModulesAssertions {
     addFilesToProject(module.projectFolder(), files);
 
     return new JHipsterModuleUpgradeAsserter(module, upgrade);
+  }
+
+  public static JHipsterModuleAsserter assertThatTwoModulesWithFiles(
+    JHipsterModule module,
+    JHipsterModule moduleSecond,
+    ModuleFile... files
+  ) {
+    addFilesToProject(module.projectFolder(), files);
+
+    TestJHipsterModules.apply(module);
+
+    return new JHipsterModuleAsserter(moduleSecond);
   }
 
   public static String nodeDependency(String dependency) {

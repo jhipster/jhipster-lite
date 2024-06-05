@@ -1,7 +1,7 @@
 package tech.jhipster.lite.module.domain.javadependency;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static tech.jhipster.lite.module.domain.JHipsterModule.javaDependency;
+import static org.assertj.core.api.Assertions.*;
+import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 import static tech.jhipster.lite.module.domain.JHipsterModulesFixture.*;
 
 import java.util.List;
@@ -28,8 +28,8 @@ class JavaDependencyManagementTest {
     JavaBuildCommands commands = changes().dependency(optionalTestDependency()).build();
 
     assertThat(commands.get()).containsExactly(
-      new SetVersion(springBootVersion()),
-      new AddJavaDependencyManagement(optionalTestDependency())
+      new AddJavaDependencyManagement(optionalTestDependency()),
+      new SetVersion(springBootVersion())
     );
   }
 
@@ -105,7 +105,8 @@ class JavaDependencyManagementTest {
 
     assertThat(commands.get()).containsExactly(
       new RemoveJavaDependencyManagement(upgraded.id()),
-      new AddJavaDependencyManagement(upgraded)
+      new AddJavaDependencyManagement(upgraded),
+      new SetVersion(springBootVersion())
     );
   }
 
@@ -117,7 +118,8 @@ class JavaDependencyManagementTest {
 
     assertThat(commands.get()).containsExactly(
       new RemoveJavaDependencyManagement(upgraded.id()),
-      new AddJavaDependencyManagement(upgraded)
+      new AddJavaDependencyManagement(upgraded),
+      new SetVersion(springBootVersion())
     );
   }
 
@@ -134,9 +136,9 @@ class JavaDependencyManagementTest {
       .build();
 
     assertThat(commands.get()).containsExactly(
-      new SetVersion(updatedJunitVersion),
       new RemoveJavaDependencyManagement(upgraded.id()),
-      new AddJavaDependencyManagement(upgraded)
+      new AddJavaDependencyManagement(upgraded),
+      new SetVersion(updatedJunitVersion)
     );
   }
 
@@ -183,7 +185,10 @@ class JavaDependencyManagementTest {
 
     JavaBuildCommands changes = changes().dependency(springBootDependencyManagement()).projectDependencies(projectDependencies).build();
 
-    assertThat(changes.get()).containsExactly(new AddJavaDependencyManagement(springBootDependencyManagement()));
+    assertThat(changes.get()).containsExactly(
+      new AddJavaDependencyManagement(springBootDependencyManagement()),
+      new SetVersion(springBootVersion())
+    );
   }
 
   @Test
@@ -197,7 +202,10 @@ class JavaDependencyManagementTest {
 
     JavaBuildCommands changes = changes().dependency(optionalTestDependency()).projectDependencies(projectDependencies).build();
 
-    assertThat(changes.get()).containsExactly(new AddJavaDependencyManagement(optionalTestDependency()));
+    assertThat(changes.get()).containsExactly(
+      new AddJavaDependencyManagement(optionalTestDependency()),
+      new SetVersion(springBootVersion())
+    );
   }
 
   private JavaDependency junitWithoutVersion() {

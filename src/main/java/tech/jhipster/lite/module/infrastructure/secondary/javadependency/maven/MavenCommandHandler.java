@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.apache.maven.model.*;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -195,10 +193,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
   }
 
   private Optional<String> extractVersionPropertyKey(String version) {
-    return Optional.ofNullable(version)
-      .map(Pattern.compile("\\$\\{(.+)}")::matcher)
-      .filter(Matcher::matches)
-      .map(matcher -> matcher.group(1));
+    return VersionSlug.of(version).map(VersionSlug::propertyName);
   }
 
   private boolean versionPropertyUnused(String versionPropertyKey) {

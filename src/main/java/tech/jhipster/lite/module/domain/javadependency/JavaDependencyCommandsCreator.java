@@ -27,7 +27,7 @@ abstract sealed class JavaDependencyCommandsCreator permits DirectJavaDependency
     Assert.notNull("projectDependencies", projectDependencies);
 
     Collection<JavaBuildCommand> dependencyCommands = dependencyCommands(projectDependencies, buildProfile);
-    Collection<JavaBuildCommand> versionCommands = dependency.versionCommands(currentVersions, projectDependencies, buildProfile, this);
+    Collection<JavaBuildCommand> versionCommands = versionCommands(currentVersions, projectDependencies, buildProfile);
 
     return new JavaBuildCommands(Stream.of(dependencyCommands, versionCommands).flatMap(Collection::stream).toList());
   }
@@ -37,6 +37,12 @@ abstract sealed class JavaDependencyCommandsCreator permits DirectJavaDependency
   }
 
   protected abstract Collection<JavaBuildCommand> dependencyCommands(
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
+  );
+
+  protected abstract Collection<JavaBuildCommand> versionCommands(
+    JavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies,
     Optional<BuildProfileId> buildProfile
   );

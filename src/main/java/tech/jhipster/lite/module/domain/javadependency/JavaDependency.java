@@ -54,39 +54,13 @@ public final class JavaDependency {
   Collection<JavaBuildCommand> versionCommands(
     JavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies,
-    Optional<BuildProfileId> buildProfile,
-    JavaDependencyCommandsCreator javaDependencyCommandsCreator
+    Collection<JavaBuildCommand> dependencyCommands
   ) {
     return version()
-      .flatMap(
-        toVersion(
-          currentVersions,
-          projectDependencies,
-          toDependencyCommands(projectDependencies, buildProfile, javaDependencyCommandsCreator)
-        )
-      )
+      .flatMap(toVersion(currentVersions, projectDependencies, dependencyCommands))
       .map(toSetVersionCommand())
       .map(List::of)
       .orElse(List.of());
-  }
-
-  private Collection<JavaBuildCommand> toDependencyCommands(
-    ProjectJavaDependencies projectDependencies,
-    Optional<BuildProfileId> buildProfile,
-    JavaDependencyCommandsCreator javaDependencyCommandsCreator
-  ) {
-    return switch (javaDependencyCommandsCreator) {
-      case DirectJavaDependency __ -> dependencyCommands(
-        DependenciesCommandsFactory.DIRECT,
-        projectDependencies.dependency(id),
-        buildProfile
-      );
-      case JavaDependencyManagement __ -> dependencyCommands(
-        DependenciesCommandsFactory.MANAGEMENT,
-        projectDependencies.dependencyManagement(id),
-        buildProfile
-      );
-    };
   }
 
   public static Function<VersionSlug, Optional<JavaDependencyVersion>> toVersion(

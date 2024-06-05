@@ -23,4 +23,13 @@ public final class JavaDependencyManagement extends JavaDependencyCommandsCreato
         buildProfile
       );
   }
+
+  @Override
+  protected Collection<JavaBuildCommand> versionCommands(
+    JavaDependenciesVersions currentVersions,
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
+  ) {
+    return dependency().versionCommands(currentVersions, projectDependencies, dependencyCommands(projectDependencies, buildProfile));
+  }
 }

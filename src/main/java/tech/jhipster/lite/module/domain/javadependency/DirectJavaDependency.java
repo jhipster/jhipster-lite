@@ -19,4 +19,13 @@ public final class DirectJavaDependency extends JavaDependencyCommandsCreator {
     return dependency()
       .dependencyCommands(DependenciesCommandsFactory.DIRECT, projectDependencies.dependency(dependency().id()), buildProfile);
   }
+
+  @Override
+  protected Collection<JavaBuildCommand> versionCommands(
+    JavaDependenciesVersions currentVersions,
+    ProjectJavaDependencies projectDependencies,
+    Optional<BuildProfileId> buildProfile
+  ) {
+    return dependency().versionCommands(currentVersions, projectDependencies, dependencyCommands(projectDependencies, buildProfile));
+  }
 }

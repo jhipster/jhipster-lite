@@ -105,7 +105,8 @@ class JavaDependencyManagementTest {
 
     assertThat(commands.get()).containsExactly(
       new RemoveJavaDependencyManagement(upgraded.id()),
-      new AddJavaDependencyManagement(upgraded)
+      new AddJavaDependencyManagement(upgraded),
+      new SetVersion(springBootVersion())
     );
   }
 
@@ -117,7 +118,8 @@ class JavaDependencyManagementTest {
 
     assertThat(commands.get()).containsExactly(
       new RemoveJavaDependencyManagement(upgraded.id()),
-      new AddJavaDependencyManagement(upgraded)
+      new AddJavaDependencyManagement(upgraded),
+      new SetVersion(springBootVersion())
     );
   }
 
@@ -183,7 +185,10 @@ class JavaDependencyManagementTest {
 
     JavaBuildCommands changes = changes().dependency(springBootDependencyManagement()).projectDependencies(projectDependencies).build();
 
-    assertThat(changes.get()).containsExactly(new AddJavaDependencyManagement(springBootDependencyManagement()));
+    assertThat(changes.get()).containsExactly(
+      new AddJavaDependencyManagement(springBootDependencyManagement()),
+      new SetVersion(springBootVersion())
+    );
   }
 
   @Test
@@ -197,7 +202,10 @@ class JavaDependencyManagementTest {
 
     JavaBuildCommands changes = changes().dependency(optionalTestDependency()).projectDependencies(projectDependencies).build();
 
-    assertThat(changes.get()).containsExactly(new AddJavaDependencyManagement(optionalTestDependency()));
+    assertThat(changes.get()).containsExactly(
+      new AddJavaDependencyManagement(optionalTestDependency()),
+      new SetVersion(springBootVersion())
+    );
   }
 
   private JavaDependency junitWithoutVersion() {

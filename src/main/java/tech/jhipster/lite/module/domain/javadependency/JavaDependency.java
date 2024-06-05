@@ -12,6 +12,7 @@ import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
 import tech.jhipster.lite.module.domain.javabuild.GroupId;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.AddDirectJavaDependency;
+import tech.jhipster.lite.module.domain.javabuild.command.AddJavaDependencyManagement;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuild.command.SetVersion;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
@@ -98,7 +99,12 @@ public final class JavaDependency {
   }
 
   private static boolean hasNoDependencyToAdd(Collection<JavaBuildCommand> dependencyCommands) {
-    return dependencyCommands.stream().noneMatch(AddDirectJavaDependency.class::isInstance);
+    return dependencyCommands
+      .stream()
+      .noneMatch(
+        dependencyCommand ->
+          dependencyCommand instanceof AddDirectJavaDependency || dependencyCommand instanceof AddJavaDependencyManagement
+      );
   }
 
   private Function<JavaDependencyVersion, JavaBuildCommand> toSetVersionCommand() {

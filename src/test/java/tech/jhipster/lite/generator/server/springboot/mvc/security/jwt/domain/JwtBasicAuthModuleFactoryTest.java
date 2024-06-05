@@ -1,6 +1,7 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.jwt.domain;
 
-import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.*;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.assertThatModuleWithFiles;
+import static tech.jhipster.lite.module.infrastructure.secondary.JHipsterModulesAssertions.pomFile;
 
 import org.junit.jupiter.api.Test;
 import tech.jhipster.lite.TestFileUtils;
@@ -30,38 +31,18 @@ class JwtBasicAuthModuleFactoryTest {
         """
         application:
           security:
-            remember-me-token-validity: P365D
-            token-validity: P1D
             content-security-policy: 'default-src ''self''; frame-src ''self'' data:; script-src
               ''self'' ''unsafe-inline'' ''unsafe-eval'' https://storage.googleapis.com; style-src
               ''self'' ''unsafe-inline'' https://fonts.googleapis.com; img-src ''self'' data:;
               font-src ''self'' data: https://fonts.gstatic.com;'
-        spring:
-          security:
-            user:
-              roles: ADMIN
-              name: admin
-              password: $2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O
-        """
-      )
-      .and()
-      .hasFile("src/test/resources/config/application-test.yml")
-      .containing(
-        """
-        application:
-          security:
             remember-me-token-validity: P365D
             token-validity: P1D
-            content-security-policy: 'default-src ''self''; frame-src ''self'' data:; script-src
-              ''self'' ''unsafe-inline'' ''unsafe-eval'' https://storage.googleapis.com; style-src
-              ''self'' ''unsafe-inline'' https://fonts.googleapis.com; img-src ''self'' data:;
-              font-src ''self'' data: https://fonts.gstatic.com;'
         spring:
           security:
             user:
-              roles: ADMIN
               name: admin
               password: $2a$12$cRKS9ZURbdJIaRsKDTDUmOrH4.B.2rokv8rrkrQXr2IR2Hkna484O
+              roles: ADMIN
         """
       )
       .and()

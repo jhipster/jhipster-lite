@@ -57,9 +57,9 @@ class CustomJHLiteModuleFactoryTest {
         .containing(
           """
           jhlite-hidden-resources:
-            tags: banner
             # Disable the modules and its dependencies by slugs
             slugs: custom-jhlite
+            tags: banner
           server:
             port: 9000
           spring:

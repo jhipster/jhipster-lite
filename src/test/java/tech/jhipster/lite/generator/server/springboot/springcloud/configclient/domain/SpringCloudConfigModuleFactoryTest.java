@@ -71,48 +71,48 @@ class SpringCloudConfigModuleFactoryTest {
       .hasFile("src/main/resources/config/bootstrap.yml")
       .containing(
         """
+        jhipster:
+          registry:
+            password: admin
         spring:
+          application:
+            name: myApp
           cloud:
+            compatibility-verifier:
+              enabled: false
             config:
+              fail-fast: true
+              label: main
+              name: myApp
               retry:
                 initial-interval: 1000
                 max-attempts: 100
                 max-interval: 2000
-              name: myApp
-              label: main
               uri: http://admin:${jhipster.registry.password}@localhost:8761/config
-              fail-fast: true
-            compatibility-verifier:
-              enabled: false
-          application:
-            name: myApp
-        jhipster:
-          registry:
-            password: admin
         """
       )
       .and()
       .hasFile("src/main/resources/config/bootstrap-local.yml")
       .containing(
         """
+        jhipster:
+          registry:
+            password: admin
         spring:
+          application:
+            name: myApp
           cloud:
+            compatibility-verifier:
+              enabled: false
             config:
+              fail-fast: false
+              label: main
+              name: myApp
               retry:
                 initial-interval: 1000
                 max-attempts: 100
                 max-interval: 2000
-              name: myApp
-              label: main
               uri: http://admin:${jhipster.registry.password}@localhost:8761/config
-              fail-fast: false
-            compatibility-verifier:
-              enabled: false
-          application:
-            name: myApp
-        jhipster:
-          registry:
-            password: admin
         """
       )
       .and()

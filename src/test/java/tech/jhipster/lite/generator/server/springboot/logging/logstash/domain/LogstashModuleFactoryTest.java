@@ -54,11 +54,11 @@ class LogstashModuleFactoryTest {
           logging:
             logstash:
               tcp:
-                shutdown_grace_period: PT1M
                 enabled: false
-                ring-buffer-size: 8192
                 host: localhost
                 port: 5000
+                ring-buffer-size: 8192
+                shutdown_grace_period: PT1M
         """
       )
       .and()

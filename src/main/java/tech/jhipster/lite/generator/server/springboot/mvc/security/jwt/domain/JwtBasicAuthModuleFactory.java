@@ -67,7 +67,6 @@ public class JwtBasicAuthModuleFactory {
     //@formatter:on
 
     appendProperties(builder.springMainProperties());
-    appendProperties(builder.springTestProperties());
 
     return builder.build();
   }

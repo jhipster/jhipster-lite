@@ -148,17 +148,17 @@ class SpringBootCoreModuleFactoryTest {
         .hasFile("src/main/resources/config/application.yml")
         .containing(
           """
+          logging:
+            level:
+              com:
+                jhipster:
+                  test: INFO
           spring:
             application:
               name: Myapp
             threads:
               virtual:
                 enabled: true
-          logging:
-            level:
-              com:
-                jhipster:
-                  test: INFO
           """
         )
         .and()
@@ -177,11 +177,11 @@ class SpringBootCoreModuleFactoryTest {
         .containing(
           """
           logging:
+            config: classpath:logback.xml
             level:
               com:
                 jhipster:
                   test: 'OFF'
-            config: classpath:logback.xml
           spring:
             main:
               banner-mode: 'off'

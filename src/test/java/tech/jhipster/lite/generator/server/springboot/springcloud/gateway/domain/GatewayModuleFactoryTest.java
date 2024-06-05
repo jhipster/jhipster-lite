@@ -57,37 +57,39 @@ class GatewayModuleFactoryTest {
       .and()
       .hasFile("src/main/resources/config/bootstrap.yml")
       .containing(
+        // language=yaml
         """
         spring:
+          application:
+            name: myApp
           cloud:
             gateway:
               discovery:
                 locator:
                   enabled: true
-                  predicates[0]:
-                    name: Path
-                    args[pattern]: '''/services/''+serviceId.toLowerCase()+''/**'''
                   filters[0]:
+                    args[regexp]: '''/services/'' + serviceId.toLowerCase() + ''/(?<remaining>.*)'''
                     args[replacement]: '''/${remaining}'''
                     name: RewritePath
-                    args[regexp]: '''/services/'' + serviceId.toLowerCase() + ''/(?<remaining>.*)'''
                   lower-case-service-id: true
-          application:
-            name: myApp
+                  predicates[0]:
+                    args[pattern]: '''/services/''+serviceId.toLowerCase()+''/**'''
+                    name: Path
         """
       )
       .and()
       .hasFile("src/test/resources/config/bootstrap.yml")
       .containing(
+        // language=yaml
         """
         spring:
+          application:
+            name: myApp
           cloud:
             gateway:
               discovery:
                 locator:
                   enabled: false
-          application:
-            name: myApp
         """
       )
       .and()

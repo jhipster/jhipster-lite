@@ -58,17 +58,17 @@ class KafkaModuleFactoryTest {
       .containing(
         """
         kafka:
+          bootstrap-servers: localhost:9092
+          consumer:
+            '[auto.offset.reset]': earliest
+            '[group.id]': myapp
+            '[key.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
+            '[value.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
+          polling:
+            timeout: 10000
           producer:
             '[key.serializer]': org.apache.kafka.common.serialization.StringSerializer
             '[value.serializer]': org.apache.kafka.common.serialization.StringSerializer
-          bootstrap-servers: localhost:9092
-          consumer:
-            '[value.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
-            '[auto.offset.reset]': earliest
-            '[key.deserializer]': org.apache.kafka.common.serialization.StringDeserializer
-            '[group.id]': myapp
-          polling:
-            timeout: 10000
         """
       )
       .and()

@@ -54,11 +54,11 @@ class SpringdocModuleFactoryTest {
       .containing(
         """
         springdoc:
+          enable-native-support: true
           swagger-ui:
             operationsSorter: alpha
             tagsSorter: alpha
             tryItOutEnabled: true
-          enable-native-support: true
         """
       )
       .and()

@@ -85,30 +85,30 @@ class ConsulModuleFactoryTest {
       .containing(
         """
         spring:
+          application:
+            name: burger
           cloud:
+            compatibility-verifier:
+              enabled: false
             consul:
-              port: 8500
-              discovery:
-                health-check-path: ${server.servlet.context-path:}/management/health
-                tags[3]: git-version=${git.build.version:}
-                prefer-ip-address: true
-                tags[2]: profile=${spring.profiles.active:}
-                tags[5]: git-branch=${git.branch:}
-                tags[4]: git-commit=${git.commit.id.abbrev:}
-                tags[1]: context-path=${server.servlet.context-path:}
-                tags[0]: version=@project.version@
-                service-name: burger
-                instance-id: burger:${spring.application.instance-id:${random.value}}
               config:
+                format: yaml
                 profile-separator: '-'
                 watch:
                   enabled: false
-                format: yaml
+              discovery:
+                health-check-path: ${server.servlet.context-path:}/management/health
+                instance-id: burger:${spring.application.instance-id:${random.value}}
+                prefer-ip-address: true
+                service-name: burger
+                tags[0]: version=@project.version@
+                tags[1]: context-path=${server.servlet.context-path:}
+                tags[2]: profile=${spring.profiles.active:}
+                tags[3]: git-version=${git.build.version:}
+                tags[4]: git-commit=${git.commit.id.abbrev:}
+                tags[5]: git-branch=${git.branch:}
               host: localhost
-            compatibility-verifier:
-              enabled: false
-          application:
-            name: burger
+              port: 8500
         """
       )
       .and()

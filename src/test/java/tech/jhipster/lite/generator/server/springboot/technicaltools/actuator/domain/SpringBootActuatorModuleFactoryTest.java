@@ -32,6 +32,11 @@ class SpringBootActuatorModuleFactoryTest {
       .containing(
         """
         management:
+          endpoint:
+            health:
+              probes:
+                enabled: true
+              show-details: always
           endpoints:
             web:
               base-path: /management
@@ -44,11 +49,6 @@ class SpringBootActuatorModuleFactoryTest {
                 - logfile
                 - loggers
                 - threaddump
-          endpoint:
-            health:
-              probes:
-                enabled: true
-              show-details: always
         """
       );
   }

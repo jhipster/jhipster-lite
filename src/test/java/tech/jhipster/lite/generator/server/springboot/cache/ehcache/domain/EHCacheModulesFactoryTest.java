@@ -34,8 +34,8 @@ class EHCacheModulesFactoryTest {
         application:
           cache:
             ehcache:
-              time-to-live-seconds: 3600
               max-entries: 100
+              time-to-live-seconds: 3600
         """
       );
   }

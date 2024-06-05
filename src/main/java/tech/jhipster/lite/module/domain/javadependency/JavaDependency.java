@@ -54,8 +54,22 @@ public final class JavaDependency {
   Collection<JavaBuildCommand> versionCommands(
     JavaDependenciesVersions currentVersions,
     ProjectJavaDependencies projectDependencies,
-    Collection<JavaBuildCommand> dependencyCommands
+    Optional<BuildProfileId> buildProfile,
+    JavaDependencyCommandsCreator javaDependencyCommandsCreator
   ) {
+    Collection<JavaBuildCommand> dependencyCommands =
+      switch (javaDependencyCommandsCreator) {
+        case DirectJavaDependency __ -> dependencyCommands(
+          DependenciesCommandsFactory.DIRECT,
+          projectDependencies.dependency(id),
+          buildProfile
+        );
+        case JavaDependencyManagement __ -> dependencyCommands(
+          DependenciesCommandsFactory.MANAGEMENT,
+          projectDependencies.dependencyManagement(id),
+          buildProfile
+        );
+      };
     return version()
       .flatMap(toVersion(currentVersions, projectDependencies, dependencyCommands))
       .map(toSetVersionCommand())

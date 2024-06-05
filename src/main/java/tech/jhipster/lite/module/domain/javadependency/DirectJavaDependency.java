@@ -5,7 +5,7 @@ import java.util.Optional;
 import tech.jhipster.lite.module.domain.javabuild.command.JavaBuildCommand;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
 
-public class DirectJavaDependency extends JavaDependencyCommandsCreator {
+public final class DirectJavaDependency extends JavaDependencyCommandsCreator {
 
   DirectJavaDependency(JavaDependency dependency) {
     super(dependency);

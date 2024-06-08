@@ -8,9 +8,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import tech.jhipster.lite.shared.error.domain.Assert;
-import tech.jhipster.lite.statistic.domain.AppliedModule;
-import tech.jhipster.lite.statistic.domain.Statistics;
-import tech.jhipster.lite.statistic.domain.StatisticsRepository;
+import tech.jhipster.lite.statistic.domain.*;
 import tech.jhipster.lite.statistic.domain.criteria.StatisticsCriteria;
 
 @WithMongoDB
@@ -45,9 +43,9 @@ class MongoDBStatisticsRepository implements StatisticsRepository {
 
   private Query generateQuery(@NotNull StatisticsCriteria criteria) {
     List<Criteria> criteriaList = new ArrayList<>();
-    criteria.getStartTime().ifPresent(startTime -> criteriaList.add(Criteria.where("date").gte(startTime)));
-    criteria.getEndTime().ifPresent(endTime -> criteriaList.add(Criteria.where("date").lte(endTime)));
-    criteria.getModuleSlug().ifPresent(moduleSlug -> criteriaList.add(Criteria.where("moduleSlug").is(moduleSlug.get())));
+    criteria.startTime().ifPresent(startTime -> criteriaList.add(Criteria.where("date").gte(startTime)));
+    criteria.endTime().ifPresent(endTime -> criteriaList.add(Criteria.where("date").lte(endTime)));
+    criteria.moduleSlug().ifPresent(moduleSlug -> criteriaList.add(Criteria.where("moduleSlug").is(moduleSlug.get())));
 
     return new Query(new Criteria().andOperator(criteriaList.toArray(new Criteria[0])));
   }

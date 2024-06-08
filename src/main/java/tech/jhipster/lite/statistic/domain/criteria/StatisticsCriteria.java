@@ -30,15 +30,15 @@ public final class StatisticsCriteria {
     return new StatisticsCriteriaBuilder();
   }
 
-  public Optional<Instant> getStartTime() {
+  public Optional<Instant> startTime() {
     return startTime;
   }
 
-  public Optional<Instant> getEndTime() {
+  public Optional<Instant> endTime() {
     return endTime;
   }
 
-  public Optional<JHLiteModuleSlug> getModuleSlug() {
+  public Optional<JHLiteModuleSlug> moduleSlug() {
     return moduleSlug;
   }
 

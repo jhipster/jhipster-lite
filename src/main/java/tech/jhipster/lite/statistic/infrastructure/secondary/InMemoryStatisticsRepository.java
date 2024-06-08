@@ -31,9 +31,9 @@ class InMemoryStatisticsRepository implements StatisticsRepository {
     if (criteria.isAnyCriteriaApplied()) {
       appliedModulesCount = appliedModules
         .stream()
-        .filter(isAfter(criteria.getStartTime()))
-        .filter(isBefore(criteria.getEndTime()))
-        .filter(hasModuleSlug(criteria.getModuleSlug()))
+        .filter(isAfter(criteria.startTime()))
+        .filter(isBefore(criteria.endTime()))
+        .filter(hasModuleSlug(criteria.moduleSlug()))
         .count();
     }
     return new Statistics(appliedModulesCount);

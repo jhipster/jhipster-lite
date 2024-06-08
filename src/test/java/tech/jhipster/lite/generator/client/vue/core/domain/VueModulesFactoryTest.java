@@ -48,7 +48,7 @@ class VueModulesFactoryTest {
         .containing(nodeDependency("vue-router"))
         .containing(nodeScript("build", "vue-tsc -p tsconfig.build.json --noEmit && vite build --emptyOutDir"))
         .containing(nodeScript("dev", "vite"))
-        .containing(nodeScript("lint", "eslint --ext .js,.ts,.vue src"))
+        .containing(nodeScript("lint", "eslint --ext .js,.ts,.vue src/main/webapp/app/**/*"))
         .containing(nodeScript("preview", "vite preview"))
         .containing(nodeScript("start", "vite"))
         .containing(nodeScript("test", "npm run test:watch"))
@@ -65,7 +65,7 @@ class VueModulesFactoryTest {
             """
         )
       .and()
-      .hasPrefixedFiles("", ".eslintignore", ".npmrc", ".eslintrc.js", "tsconfig.json", "tsconfig.build.json", "vite.config.mts", "vitest.config.mts")
+      .hasPrefixedFiles("", ".eslintignore", ".npmrc", ".eslintrc.cjs", "tsconfig.json", "tsconfig.build.json", "vite.config.ts", "vitest.config.ts")
       .hasFiles("src/main/webapp/app/http/AxiosHttp.ts")
       .hasPrefixedFiles("src/test/javascript/spec/http", "AxiosHttp.spec.ts", "AxiosHttpStub.ts", "AxiosStub.ts")
       .hasFiles("src/main/webapp/index.html")

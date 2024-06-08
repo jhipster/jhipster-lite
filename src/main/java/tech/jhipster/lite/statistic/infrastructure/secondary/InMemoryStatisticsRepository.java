@@ -1,13 +1,13 @@
 package tech.jhipster.lite.statistic.infrastructure.secondary;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.time.Instant;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 import org.springframework.stereotype.Repository;
+import tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
-import tech.jhipster.lite.statistic.domain.AppliedModule;
-import tech.jhipster.lite.statistic.domain.Statistics;
-import tech.jhipster.lite.statistic.domain.StatisticsRepository;
+import tech.jhipster.lite.statistic.domain.*;
 import tech.jhipster.lite.statistic.domain.criteria.StatisticsCriteria;
 
 @Repository
@@ -31,15 +31,24 @@ class InMemoryStatisticsRepository implements StatisticsRepository {
     if (criteria.isAnyCriteriaApplied()) {
       appliedModulesCount = appliedModules
         .stream()
-        .filter(
-          am ->
-            (criteria.getStartTime().isEmpty() || am.date().isAfter(criteria.getStartTime().get())) &&
-            (criteria.getEndTime().isEmpty() || am.date().isBefore(criteria.getEndTime().get())) &&
-            (criteria.getModuleSlug().isEmpty() || criteria.getModuleSlug().map(ms -> am.module().slug().equals(ms.get())).orElse(false))
-        )
+        .filter(isAfter(criteria.getStartTime()))
+        .filter(isBefore(criteria.getEndTime()))
+        .filter(hasModuleSlug(criteria.getModuleSlug()))
         .count();
     }
     return new Statistics(appliedModulesCount);
+  }
+
+  private static Predicate<AppliedModule> isAfter(Optional<Instant> startTime) {
+    return appliedModule -> (startTime.isEmpty() || appliedModule.date().isAfter(startTime.get()));
+  }
+
+  private static Predicate<AppliedModule> isBefore(Optional<Instant> endTime) {
+    return appliedModule -> (endTime.isEmpty() || appliedModule.date().isBefore(endTime.get()));
+  }
+
+  private static Predicate<AppliedModule> hasModuleSlug(Optional<JHLiteModuleSlug> moduleSlug) {
+    return appliedModule -> moduleSlug.map(JHLiteModuleSlug::get).map(slug -> appliedModule.module().slug().equals(slug)).orElse(true);
   }
 
   void clear() {

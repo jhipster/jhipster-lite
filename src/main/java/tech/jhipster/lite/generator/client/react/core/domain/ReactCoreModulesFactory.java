@@ -34,7 +34,6 @@ public class ReactCoreModulesFactory {
     return ClientsModulesFactory.clientModuleBuilder(properties)
       .packageJson()
         .addDevDependency(packageName("@testing-library/react"), REACT)
-        .addDevDependency(packageName("@testing-library/user-event"), REACT)
         .addDevDependency(packageName("@types/node"), COMMON)
         .addDevDependency(packageName("@types/react"), REACT)
         .addDevDependency(packageName("@types/react-dom"), REACT)

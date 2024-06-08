@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import org.springframework.stereotype.Repository;
-import tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug;
+import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.statistic.domain.*;
 import tech.jhipster.lite.statistic.domain.criteria.StatisticsCriteria;
@@ -47,8 +47,8 @@ class InMemoryStatisticsRepository implements StatisticsRepository {
     return appliedModule -> (endTime.isEmpty() || appliedModule.date().isBefore(endTime.get()));
   }
 
-  private static Predicate<AppliedModule> hasModuleSlug(Optional<JHLiteModuleSlug> moduleSlug) {
-    return appliedModule -> moduleSlug.map(JHLiteModuleSlug::get).map(slug -> appliedModule.module().slug().equals(slug)).orElse(true);
+  private static Predicate<AppliedModule> hasModuleSlug(Optional<JHipsterModuleSlug> moduleSlug) {
+    return appliedModule -> moduleSlug.map(JHipsterModuleSlug::get).map(slug -> appliedModule.module().slug().equals(slug)).orElse(true);
   }
 
   void clear() {

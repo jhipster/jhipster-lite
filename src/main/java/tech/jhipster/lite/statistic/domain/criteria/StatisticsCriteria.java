@@ -5,7 +5,7 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import java.time.Instant;
 import java.util.Optional;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import tech.jhipster.lite.generator.slug.domain.JHLiteModuleSlug;
+import tech.jhipster.lite.module.domain.JHipsterModuleSlug;
 
 /**
  * Criteria class for {@link tech.jhipster.lite.statistic.domain.Statistics}.
@@ -14,12 +14,12 @@ public final class StatisticsCriteria {
 
   private final Optional<Instant> startTime;
   private final Optional<Instant> endTime;
-  private final Optional<JHLiteModuleSlug> moduleSlug;
+  private final Optional<JHipsterModuleSlug> moduleSlug;
 
   private StatisticsCriteria(StatisticsCriteriaBuilder builder) {
     this.startTime = Optional.ofNullable(builder.startTime);
     this.endTime = Optional.ofNullable(builder.endTime);
-    this.moduleSlug = JHLiteModuleSlug.fromString(builder.moduleSlug);
+    this.moduleSlug = Optional.ofNullable(builder.moduleSlug).map(JHipsterModuleSlug::new);
   }
 
   public boolean isAnyCriteriaApplied() {
@@ -38,7 +38,7 @@ public final class StatisticsCriteria {
     return endTime;
   }
 
-  public Optional<JHLiteModuleSlug> moduleSlug() {
+  public Optional<JHipsterModuleSlug> moduleSlug() {
     return moduleSlug;
   }
 
@@ -73,7 +73,7 @@ public final class StatisticsCriteria {
     return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
       .append("startTime", startTime.map(Instant::toString).orElse(""))
       .append("endTime", endTime.map(Instant::toString).orElse(""))
-      .append("moduleSlug", moduleSlug.map(JHLiteModuleSlug::get).orElse(""))
+      .append("moduleSlug", moduleSlug.map(JHipsterModuleSlug::get).orElse(""))
       .toString();
   }
 }

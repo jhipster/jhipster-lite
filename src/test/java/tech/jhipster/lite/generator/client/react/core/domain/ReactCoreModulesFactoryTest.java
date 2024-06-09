@@ -21,6 +21,7 @@ class ReactCoreModulesFactoryTest {
 
     assertThatModuleWithFiles(module, packageJsonFile(), lintStagedConfigFile())
       .hasFile("package.json")
+      .containing(nodeDependency("@testing-library/dom"))
       .containing(nodeDependency("@testing-library/react"))
       .containing(nodeDependency("@types/node"))
       .containing(nodeDependency("@types/react"))

@@ -33,6 +33,7 @@ public class ReactCoreModulesFactory {
     //@formatter:off
     return ClientsModulesFactory.clientModuleBuilder(properties)
       .packageJson()
+        .addDevDependency(packageName("@testing-library/dom"), REACT)
         .addDevDependency(packageName("@testing-library/react"), REACT)
         .addDevDependency(packageName("@types/node"), COMMON)
         .addDevDependency(packageName("@types/react"), REACT)

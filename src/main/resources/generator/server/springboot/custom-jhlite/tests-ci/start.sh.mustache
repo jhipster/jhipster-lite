@@ -13,15 +13,15 @@ echo "*** List folder"
 ls -al
 
 if test -f "mvnw"; then
-  cd target/
+  JAR_DIRECTORY="target"
 elif test -f "gradlew"; then
-  cd build/libs/
+  JAR_DIRECTORY="build/libs/"
 fi
 
 echo "*** Identifying application executable..."
 export EXEC_JAR=$(\
-  find . -maxdepth 1 -name "*-exec.jar" | grep . \
-  || find . -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" | grep -v "\-plain" \
+  find ${JAR_DIRECTORY} -maxdepth 1 -name "*-exec.jar" | grep . \
+  || find ${JAR_DIRECTORY} -maxdepth 1 -name "*.jar" | grep -v "\-javadoc" | grep -v "\-sources" | grep -v "\-tests" | grep -v "\-plain" \
 )
 
 echo "*** Starting application using ${EXEC_JAR}..."

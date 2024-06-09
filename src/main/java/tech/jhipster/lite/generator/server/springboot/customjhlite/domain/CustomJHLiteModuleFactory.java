@@ -7,10 +7,8 @@ import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
+import tech.jhipster.lite.module.domain.javadependency.*;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -68,6 +66,12 @@ public class CustomJHLiteModuleFactory {
         .add(SOURCE.template("CucumberConfiguration.java"), cucumberDestination.append("CucumberConfiguration.java"))
         .add(CUCUMBER_SOURCE.append("rest").template("CucumberRestTemplate.java"), cucumberDestination.append("rest").append("CucumberRestTemplate.java"))
         .add(CUCUMBER_SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
+        .batch(SOURCE.append("tests-ci"),to("tests-ci"))
+          .addFile("generate.sh")
+          .addTemplate("modulePayload.json")
+          .addFile("start.sh")
+          .addFile("stop.sh")
+          .and()
         .and()
       .build();
     //@formatter:on

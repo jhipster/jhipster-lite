@@ -26,6 +26,12 @@ class CustomJHLiteModuleFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module, pomFile(), mainAppFile())
+      .hasPrefixedFiles("tests-ci", "generate.sh", "start.sh", "stop.sh")
+      .hasFile("tests-ci/modulePayload.json")
+        .containing("""
+          "packageName": "com.jhipster.test.APP_NAME",
+        """)
+        .and()
       .hasFile("pom.xml")
         .containing("<artifactId>cucumber-junit-platform-engine</artifactId>")
         .containing("<artifactId>cucumber-java</artifactId>")

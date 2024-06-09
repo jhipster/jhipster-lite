@@ -32,7 +32,7 @@ export default defineConfig({
         autoUpdate: true,
         100: true,
       },
-      exclude: ['src/main/webapp/**/*.component.ts', 'src/main/webapp/app/main.ts', '.eslintrc.js', '.lintstagedrc.cjs', 'src/test/**/*', '{{projectBuildDirectory}}/**'],
+      exclude: ['src/main/webapp/**/*.component.ts', 'src/main/webapp/app/main.ts', '.eslintrc.cjs', '.lintstagedrc.cjs', 'src/test/**/*', '{{projectBuildDirectory}}/**'],
       provider: 'istanbul',
       reportsDirectory: '{{projectBuildDirectory}}/test-results/',
       reporter: ['html', 'json-summary', 'text', 'text-summary', 'lcov', 'clover'],

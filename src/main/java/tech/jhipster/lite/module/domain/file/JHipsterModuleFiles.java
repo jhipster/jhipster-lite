@@ -129,6 +129,12 @@ public final class JHipsterModuleFiles {
       return this;
     }
 
+    public JHipsterModuleFileBatchBuilder addExecutableTemplate(String file) {
+      files.addExecutable(source.template(file), destination.append(file));
+
+      return this;
+    }
+
     private JHipsterModuleFileBatchBuilder add(JHipsterSource source, JHipsterDestination destination) {
       files.add(source, destination);
 

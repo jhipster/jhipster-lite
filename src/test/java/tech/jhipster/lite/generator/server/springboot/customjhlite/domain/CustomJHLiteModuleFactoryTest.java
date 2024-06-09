@@ -26,7 +26,7 @@ class CustomJHLiteModuleFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module, pomFile(), mainAppFile())
-      .hasPrefixedFiles("tests-ci", "generate.sh", "start.sh", "stop.sh")
+      .hasExecutableFiles("tests-ci/generate.sh", "tests-ci/start.sh", "tests-ci/stop.sh")
       .hasFile("tests-ci/modulePayload.json")
         .containing("""
           "packageName": "com.jhipster.test.APP_NAME",

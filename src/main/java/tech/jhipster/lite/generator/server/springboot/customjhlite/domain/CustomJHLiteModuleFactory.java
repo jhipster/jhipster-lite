@@ -67,10 +67,10 @@ public class CustomJHLiteModuleFactory {
         .add(CUCUMBER_SOURCE.append("rest").template("CucumberRestTemplate.java"), cucumberDestination.append("rest").append("CucumberRestTemplate.java"))
         .add(CUCUMBER_SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
         .batch(SOURCE.append("tests-ci"),to("tests-ci"))
-          .addFile("generate.sh")
+          .addExecutable("generate.sh")
           .addTemplate("modulePayload.json")
-          .addFile("start.sh")
-          .addFile("stop.sh")
+          .addExecutable("start.sh")
+          .addExecutable("stop.sh")
           .and()
         .and()
       .build();

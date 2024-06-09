@@ -67,11 +67,9 @@ class BeanValidationTest {
       Arrays
         .stream(method.getParameters())
         .filter(checkedTypes())
-        .forEach(parameter -> {
-          assertThat(Arrays.stream(parameter.getAnnotations()))
-            .as(errorMessage(method, parameter))
-            .anyMatch(annotation -> annotation.annotationType().equals(Validated.class));
-        });
+        .forEach(parameter -> assertThat(Arrays.stream(parameter.getAnnotations()))
+          .as(errorMessage(method, parameter))
+          .anyMatch(annotation -> annotation.annotationType().equals(Validated.class)));
   }
 
   private String errorMessage(Method method, Parameter parameter) {

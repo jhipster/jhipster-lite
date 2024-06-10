@@ -39,7 +39,7 @@ describe('test login modal', () => {
   it('should contain password input', async () => {
     const { getByPlaceholderText, getByTestId } = LoginModalRender(true);
     const username = getByPlaceholderText('Mot de passe');
-    await act(() => {
+    await act(async () => {
       const displayPasswordButton = getByTestId('display-password');
       fireEvent.click(displayPasswordButton);
     });
@@ -56,7 +56,7 @@ describe('test login modal', () => {
     const { getByPlaceholderText, getByTestId } = LoginModalRender(true);
     const spy = vi.spyOn(axios, 'post');
     spy.mockImplementationOnce(() => Promise.resolve({ data: {} }));
-    await act(() => {
+    await act(async () => {
       fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
         target: { value: 'admin' },
       });
@@ -73,7 +73,7 @@ describe('test login modal', () => {
     const { getByPlaceholderText, getByRole } = LoginModalRender(true);
     const spy = vi.spyOn(axios, 'post');
     spy.mockImplementationOnce(() => Promise.resolve({ data: {} }));
-    await act(() => {
+    await act(async () => {
       fireEvent.change(getByPlaceholderText("Nom d'utilisateur"), {
         target: { value: 'admin' },
       });

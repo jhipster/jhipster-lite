@@ -1,8 +1,6 @@
 package tech.jhipster.lite.module.domain.file;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import tech.jhipster.lite.module.domain.JHipsterModule.JHipsterModuleBuilder;
 import tech.jhipster.lite.module.domain.JHipsterModuleUpgrade;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
@@ -123,6 +121,18 @@ public final class JHipsterModuleFiles {
 
     public JHipsterModuleFileBatchBuilder addFile(String file) {
       return add(source.file(file), destination.append(file));
+    }
+
+    public JHipsterModuleFileBatchBuilder addExecutable(String file) {
+      files.addExecutable(source.file(file), destination.append(file));
+
+      return this;
+    }
+
+    public JHipsterModuleFileBatchBuilder addExecutableTemplate(String file) {
+      files.addExecutable(source.template(file), destination.append(file));
+
+      return this;
     }
 
     private JHipsterModuleFileBatchBuilder add(JHipsterSource source, JHipsterDestination destination) {

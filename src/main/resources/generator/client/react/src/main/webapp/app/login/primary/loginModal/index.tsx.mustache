@@ -25,7 +25,9 @@ const LoginModal = ({ open, onClose }: LoginModalType) => {
       login({ ...loginData, setUsername, setToken });
       setError(false);
       onClose();
-    } else setError(true);
+    } else {
+      setError(true);
+    }
   };
 
   const handleClose = useCallback(() => {

@@ -30,11 +30,21 @@ jobs:
           head_commit_message=$(git log -1 --no-merges --pretty=%B | tr '\n' ' ' | sed "s/'/'\\\\''/g")
           echo head commit message: $head_commit_message
           echo "message=$head_commit_message" >> $GITHUB_OUTPUT
+      - name: Prepare commit message and PR title
+        id: prepare-messages
+        env:
+          COMMIT_MESSAGE: ${{ steps.commit-message.outputs.message }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          commit_message=$(echo "$COMMIT_MESSAGE" | tr -cd '[:alnum:][:space:]\[\]')
+          pr_title=$(echo "$PR_TITLE" | tr -cd '[:alnum:][:space:]\[\]')
+          echo "commit_message=$commit_message" >> $GITHUB_OUTPUT
+          echo "pr_title=$pr_title" >> $GITHUB_OUTPUT
       - name: Check for ci skip tags
         id: check-ci-skip
         run: |
-          commit_message='${{ steps.commit-message.outputs.message }}'
-          pr_title='${{ github.event.pull_request.title }}'
+          commit_message='${{ steps.prepare-messages.outputs.commit_message }}'
+          pr_title='${{ steps.prepare-messages.outputs.pr_title }}'
           skip_tags=('[ci ignore]' '[ignore ci]')
 
           echo "Checking commit message and pr title for ci skip tags..."

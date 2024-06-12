@@ -16,6 +16,8 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 public class CustomJHLiteModuleFactory {
 
   private static final JHipsterSource SOURCE = from("server/springboot/custom-jhlite");
+  private static final JHipsterSource MAIN_SOURCE = SOURCE.append("main");
+  private static final JHipsterSource TEST_SOURCE = SOURCE.append("test");
   private static final JHipsterSource CUCUMBER_SOURCE = from("server/springboot/cucumber");
 
   private static final String SRC_MAIN_JAVA = "src/main/java";
@@ -31,6 +33,8 @@ public class CustomJHLiteModuleFactory {
     Assert.notNull("properties", properties);
 
     String packagePath = properties.packagePath();
+    String baseName = properties.projectBaseName().capitalized();
+    JHipsterDestination slugDestination = toSrcMainJava().append(packagePath).append("shared").append("slug");
     JHipsterDestination cucumberDestination = toSrcTestJava().append(packagePath).append("cucumber");
 
     //@formatter:off
@@ -62,8 +66,11 @@ public class CustomJHLiteModuleFactory {
         .set(BEAN_DEFINITION_OVERRIDING_PROPERTY_KEY, propertyValue(true))
         .and()
       .files()
-        .add(SOURCE.template("CucumberTest.java"), cucumberDestination.append("CucumberTest.java"))
-        .add(SOURCE.template("CucumberConfiguration.java"), cucumberDestination.append("CucumberConfiguration.java"))
+        .add(MAIN_SOURCE.template("package-info.java"), slugDestination.append("package-info.java"))
+        .add(MAIN_SOURCE.template("FeatureSlug.java"), slugDestination.append("domain").append(baseName + "FeatureSlug.java"))
+        .add(MAIN_SOURCE.template("ModuleSlug.java"), slugDestination.append("domain").append(baseName + "ModuleSlug.java"))
+        .add(TEST_SOURCE.template("CucumberTest.java"), cucumberDestination.append("CucumberTest.java"))
+        .add(TEST_SOURCE.template("CucumberConfiguration.java"), cucumberDestination.append("CucumberConfiguration.java"))
         .add(CUCUMBER_SOURCE.append("rest").template("CucumberRestTemplate.java"), cucumberDestination.append("rest").append("CucumberRestTemplate.java"))
         .add(CUCUMBER_SOURCE.file("gitkeep"), to("src/test/features/.gitkeep"))
         .batch(SOURCE.append("tests-ci"),to("tests-ci"))

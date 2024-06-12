@@ -19,6 +19,7 @@ public enum {{ baseName }}ModuleSlug implements JHipsterModuleSlugFactory {
   );
   private final String slug;
 
+  @SuppressWarnings("java:S1144")
   {{ baseName }}ModuleSlug(String slug) {
     this.slug = slug;
   }

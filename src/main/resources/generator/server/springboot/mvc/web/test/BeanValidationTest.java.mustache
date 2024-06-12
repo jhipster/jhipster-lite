@@ -2,6 +2,7 @@ package {{packageName}};
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
@@ -67,9 +68,10 @@ class BeanValidationTest {
       Arrays
         .stream(method.getParameters())
         .filter(checkedTypes())
-        .forEach(parameter -> assertThat(Arrays.stream(parameter.getAnnotations()))
+        .forEach(parameter -> assertThat(parameter.getAnnotations())
           .as(errorMessage(method, parameter))
-          .anyMatch(annotation -> annotation.annotationType().equals(Validated.class)));
+          .extracting(Annotation::annotationType)
+          .anyMatch(Validated.class::equals));
   }
 
   private String errorMessage(Method method, Parameter parameter) {

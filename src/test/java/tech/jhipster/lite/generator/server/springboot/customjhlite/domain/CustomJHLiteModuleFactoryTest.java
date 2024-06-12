@@ -106,6 +106,7 @@ class CustomJHLiteModuleFactoryTest {
       .hasFile("src/test/java/com/jhipster/test/cucumber/CucumberConfiguration.java")
         .containing("import com.jhipster.test.MyappApp;")
         .and()
+      .hasPrefixedFiles("src/main/java/com/jhipster/test/shared/slug", "package-info.java", "domain/MyappFeatureSlug.java", "domain/MyappModuleSlug.java")
       .hasFiles("src/test/java/com/jhipster/test/cucumber/rest/CucumberRestTemplate.java")
       .hasFiles("src/test/features/.gitkeep");
     //@formatter:on

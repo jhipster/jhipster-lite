@@ -1,14 +1,16 @@
 package tech.jhipster.lite.generator.server.springboot.customjhlite.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.cucumbercommon.domain.CucumbersModules.cucumberModuleBuilder;
+import static tech.jhipster.lite.generator.server.springboot.cucumbercommon.domain.CucumbersModules.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.module.domain.JHipsterProjectFilePath;
 import tech.jhipster.lite.module.domain.file.JHipsterDestination;
 import tech.jhipster.lite.module.domain.file.JHipsterSource;
-import tech.jhipster.lite.module.domain.javadependency.*;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency.JavaDependencyOptionalValueBuilder;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.JavaDependencyType;
 import tech.jhipster.lite.module.domain.javaproperties.PropertyKey;
 import tech.jhipster.lite.module.domain.properties.JHipsterModuleProperties;
 import tech.jhipster.lite.shared.error.domain.Assert;
@@ -25,7 +27,6 @@ public class CustomJHLiteModuleFactory {
   private static final PropertyKey SERVER_PORT_KEY = propertyKey("server.port");
   private static final PropertyKey JACKSON_INCLUSION_KEY = propertyKey("spring.jackson.default-property-inclusion");
 
-  private static final PropertyKey HIDDEN_TAGS_PROPERTY_KEY = propertyKey("jhlite-hidden-resources.tags");
   private static final PropertyKey HIDDEN_SLUGS_PROPERTY_KEY = propertyKey("jhlite-hidden-resources.slugs");
   private static final PropertyKey BEAN_DEFINITION_OVERRIDING_PROPERTY_KEY = propertyKey("spring.main.allow-bean-definition-overriding");
 
@@ -57,7 +58,6 @@ public class CustomJHLiteModuleFactory {
       .springMainProperties()
         .set(SERVER_PORT_KEY, propertyValue(properties.serverPort().get()))
         .set(JACKSON_INCLUSION_KEY, propertyValue("non_null"))
-        .set(HIDDEN_TAGS_PROPERTY_KEY, propertyValue("banner"))
         .comment(HIDDEN_SLUGS_PROPERTY_KEY, comment("Disable the modules and its dependencies by slugs"))
         .set(HIDDEN_SLUGS_PROPERTY_KEY, propertyValue("custom-jhlite"))
         .and()

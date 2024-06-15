@@ -14,7 +14,7 @@ export default defineComponent({
     const minimapHTML = ref('');
     const realScale = ref(1);
 
-    const isMiniMapOpen = ref(true);
+    const isMiniMapOpen = ref(false);
 
     const minimapContainer = ref<HTMLElement>(document.createElement('div'));
     const minimapSize = ref<HTMLElement>(document.createElement('div'));
@@ -37,6 +37,8 @@ export default defineComponent({
 
       landscapeContainer.addEventListener('scroll', trackScroll);
       window.addEventListener('resize', setupDimensions);
+
+      closeMiniMap();
     });
 
     const removeDataSelectorAttrs = (data: string): string => {

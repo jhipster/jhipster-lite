@@ -1,6 +1,6 @@
 package tech.jhipster.lite.generator.server.springboot.mvc.security.oauth2.core.domain;
 
-import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModulesFactory.authenticationModuleBuilder;
+import static tech.jhipster.lite.generator.server.springboot.mvc.security.common.domain.AuthenticationModulesFactory.*;
 import static tech.jhipster.lite.module.domain.JHipsterModule.*;
 
 import java.util.regex.Pattern;
@@ -81,8 +81,10 @@ public class OAuth2ModuleFactory {
     builder
       .files()
       .add(DOCKER_SOURCE.template("keycloak.yml"), DOCKER_DESTINATION.append("keycloak.yml"))
-      .batch(DOCKER_SOURCE, DOCKER_DESTINATION.append("keycloak-realm-config"))
-      .addTemplate("jhipster-realm.json");
+      .add(
+        DOCKER_SOURCE.template("jhipster-realm.json"),
+        DOCKER_DESTINATION.append("keycloak-realm-config").append(realmName + "-realm.json")
+      );
   }
 
   private static void appendJavaFiles(JHipsterModuleBuilder builder, JHipsterModuleProperties properties) {

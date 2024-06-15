@@ -42,7 +42,6 @@
     <jqassistant-context-mapper-plugin.version>2.1.0-M1</jqassistant-context-mapper-plugin.version>
     <jqassistant-jmolecules-plugin.version>2.1.0-M3</jqassistant-jmolecules-plugin.version>
     <jqassistant-spring-plugin.version>2.1.0-M1</jqassistant-spring-plugin.version>
-    <protobuf.version>3.25.3</protobuf.version>
     <!-- Test dependencies -->
     <junit-jupiter.version>5.10.2</junit-jupiter.version>
     <assertj.version>3.26.0</assertj.version>

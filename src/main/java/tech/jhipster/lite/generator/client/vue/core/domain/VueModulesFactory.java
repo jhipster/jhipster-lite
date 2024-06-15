@@ -67,7 +67,7 @@ public class VueModulesFactory {
         .addDevDependency(packageName("sinon"), VUE)
         .addScript(scriptKey("build"), scriptCommand("vue-tsc -p tsconfig.build.json --noEmit && vite build --emptyOutDir"))
         .addScript(scriptKey("dev"), scriptCommand("vite"))
-        .addScript(scriptKey("lint"), scriptCommand("eslint --ext .js,.ts,.vue src/main/webapp/app/**/*"))
+        .addScript(scriptKey("lint"), scriptCommand("eslint --ext .js,.ts,.vue src/"))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
         .addScript(scriptKey("test"), scriptCommand("npm run test:watch"))

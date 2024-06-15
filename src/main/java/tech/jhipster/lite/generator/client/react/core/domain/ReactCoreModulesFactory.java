@@ -56,7 +56,7 @@ public class ReactCoreModulesFactory {
         .addScript(scriptKey("build"), scriptCommand("tsc && vite build --emptyOutDir"))
         .addScript(scriptKey("preview"), scriptCommand("vite preview"))
         .addScript(scriptKey("start"), scriptCommand("vite"))
-        .addScript(scriptKey("lint"), scriptCommand("eslint --ext .js,.ts,.tsx src/main/webapp/app/**/*"))
+        .addScript(scriptKey("lint"), scriptCommand("eslint --ext .js,.ts,.tsx src/"))
         .addScript(scriptKey("test"), scriptCommand("npm run test:watch"))
         .addScript(scriptKey("test:coverage"), scriptCommand("vitest run --coverage"))
         .addScript(scriptKey("test:watch"), scriptCommand("vitest --"))

@@ -44,7 +44,7 @@ class ReactCoreModulesFactoryTest {
       .containing(nodeScript("build", "tsc && vite build --emptyOutDir"))
       .containing(nodeScript("preview", "vite preview"))
       .containing(nodeScript("start", "vite"))
-      .containing(nodeScript("lint", "eslint --ext .js,.ts,.tsx src/main/webapp/app/**/*"))
+      .containing(nodeScript("lint", "eslint --ext .js,.ts,.tsx src/"))
       .containing(nodeScript("test", "npm run test:watch"))
       .containing(nodeScript("test:coverage", "vitest run --coverage"))
       .containing(nodeScript("test:watch", "vitest --"))

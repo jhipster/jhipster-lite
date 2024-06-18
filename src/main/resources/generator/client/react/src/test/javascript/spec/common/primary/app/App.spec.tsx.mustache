@@ -5,6 +5,8 @@ import App from '@/common/primary/app/App';
 
 describe('App tests', () => {
   it('renders without crashing', () => {
-    render(<App />);
+    const { getByText } = render(<App />);
+    const title = getByText('React + TypeScript + Vite');
+    expect(title).toBeTruthy();
   });
 });

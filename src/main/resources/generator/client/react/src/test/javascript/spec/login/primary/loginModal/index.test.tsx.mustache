@@ -14,10 +14,6 @@ const LoginModalRender = (open: boolean) => render(
 </UserInfoContext.Provider>);
 
 describe('test login modal', () => {
-  it('describe should render without crashing', () => {
-    LoginModalRender(true);
-  });
-
   it('should contain login title', () => {
     const { getByText } = LoginModalRender(true);
     const title = getByText('Connect');

@@ -1,5 +1,7 @@
 package tech.jhipster.lite.module.infrastructure.secondary;
 
+import static tech.jhipster.lite.module.domain.replacement.ReplacementCondition.notContainingReplacement;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,10 +57,7 @@ class FileSystemGitIgnoreHandler {
 
   private Consumer<GitIgnoreEntry> handleIgnorePattern(JHipsterProjectFolder projectFolder) {
     return gitIgnoreEntry -> {
-      MandatoryReplacer replacer = new MandatoryReplacer(
-        new RegexNeedleAfterReplacer((contentBeforeReplacement, newText) -> !contentBeforeReplacement.contains(newText), END_OF_FILE),
-        gitIgnoreEntry.get()
-      );
+      MandatoryReplacer replacer = new MandatoryReplacer(new EndOfFileReplacer(notContainingReplacement()), gitIgnoreEntry.get());
       fileReplacer.handle(
         projectFolder,
         ContentReplacers.of(new MandatoryFileReplacer(new JHipsterProjectFilePath(GIT_IGNORE_FILE_PATH), replacer)),

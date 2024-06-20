@@ -56,7 +56,7 @@ public class FileSystemJHipsterModuleFiles {
 
         setExecutable(file, filePath);
 
-        log.debug("{} added", filePath);
+        log.debug("Added: {}", filePath);
       } catch (IOException e) {
         throw GeneratorException.technicalError("Can't write file to " + filePath.toString() + ": " + e.getMessage(), e);
       }

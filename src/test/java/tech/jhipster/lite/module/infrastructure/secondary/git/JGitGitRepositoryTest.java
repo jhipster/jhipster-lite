@@ -66,7 +66,7 @@ class JGitGitRepositoryTest {
 
       git.init(new JHipsterProjectFolder(path.toString()));
 
-      logs.shouldHave(Level.DEBUG, "already");
+      logs.shouldHave(Level.TRACE, "already");
     }
   }
 

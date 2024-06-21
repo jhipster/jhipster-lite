@@ -48,7 +48,8 @@ class JGitGitRepository implements GitRepository {
     File folderFile = folderFile(folder);
 
     try (Git gitFolder = Git.open(folderFile)) {
-      gitFolder.add().addFilepattern(".").call();
+      gitFolder.add().setUpdate(true).addFilepattern(".").call(); // stage modified and deleted
+      gitFolder.add().addFilepattern(".").call(); // stage modified and new
 
       gitFolder.commit().setSign(false).setMessage(message.get()).call();
     } catch (IOException | GitAPIException | JGitInternalException e) {

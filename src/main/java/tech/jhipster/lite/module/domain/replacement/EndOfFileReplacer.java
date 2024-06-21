@@ -4,6 +4,7 @@ import java.util.function.BiFunction;
 import java.util.regex.Pattern;
 import tech.jhipster.lite.module.domain.JHipsterModule;
 import tech.jhipster.lite.shared.error.domain.Assert;
+import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 /**
  * {@link ElementReplacer} that inserts content at end of the file if the provided condition is met
@@ -18,6 +19,7 @@ public record EndOfFileReplacer(ReplacementCondition condition) implements Eleme
   }
 
   @Override
+  @ExcludeFromGeneratedCodeCoverage(reason = "Pattern always matches")
   public boolean notMatchIn(String content) {
     return !EOF_PATTERN.matcher(content).find();
   }

@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFile;
 import tech.jhipster.lite.module.domain.file.JHipsterTemplatedFiles;
 import tech.jhipster.lite.module.domain.git.GitRepository;
@@ -30,6 +32,8 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 
 @SuppressWarnings("java:S6539")
 public class JHipsterModulesApplyer {
+
+  private final Logger log = LoggerFactory.getLogger(JHipsterModulesApplyer.class);
 
   private final JHipsterModulesRepository modules;
   private final JavaDependenciesVersionsRepository javaVersions;
@@ -66,6 +70,8 @@ public class JHipsterModulesApplyer {
 
   public JHipsterModuleApplied apply(JHipsterModuleToApply moduleToApply) {
     Assert.notNull("moduleToApply", moduleToApply);
+
+    log.info("Apply module: {}", moduleToApply.slug());
 
     JHipsterModule module = modules.resources().build(moduleToApply.slug(), moduleToApply.properties());
     //@formatter:off
@@ -168,7 +174,7 @@ public class JHipsterModulesApplyer {
   }
 
   private String commitMessage(JHipsterModuleToApply moduleToApply) {
-    return "Apply %s module".formatted(moduleToApply.slug().get());
+    return "Apply module: %s".formatted(moduleToApply.slug().get());
   }
 
   private JavaBuildCommands buildGradlePluginsChanges(JHipsterModule module) {

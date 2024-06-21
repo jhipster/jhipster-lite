@@ -3,7 +3,7 @@ Feature: Modules
   Scenario: Should apply and commit module
     When I apply and commit "init" module to default project
       | projectName | Test project |
-    Then I should have commit "Apply init module"
+    Then I should have commit "Apply module: init"
 
   Scenario: Should apply module without commit
     When I apply "init" module to default project

@@ -24,7 +24,7 @@ class JGitGitRepository implements GitRepository {
     Assert.notNull("folder", folder);
 
     if (isGit(folder)) {
-      log.debug("Folder {} is already a git project, not running init", folder.get());
+      log.trace("Folder {} is already a git project, not running init", folder.get());
 
       return;
     }

@@ -1,9 +1,8 @@
 package tech.jhipster.lite.module.infrastructure.secondary.javadependency.maven;
 
 import io.fabric8.maven.Maven;
+import io.fabric8.maven.XMLFormat;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -15,31 +14,24 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import tech.jhipster.lite.module.domain.Indentation;
-import tech.jhipster.lite.module.domain.buildproperties.BuildProperty;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyKey;
-import tech.jhipster.lite.module.domain.buildproperties.PropertyValue;
+import tech.jhipster.lite.module.domain.buildproperties.*;
 import tech.jhipster.lite.module.domain.javabuild.MavenBuildExtension;
 import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javabuild.command.*;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileActivation;
 import tech.jhipster.lite.module.domain.javabuildprofile.BuildProfileId;
-import tech.jhipster.lite.module.domain.javadependency.DependencyId;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyClassifier;
-import tech.jhipster.lite.module.domain.javadependency.JavaDependencyScope;
+import tech.jhipster.lite.module.domain.javadependency.*;
 import tech.jhipster.lite.module.domain.mavenplugin.*;
 import tech.jhipster.lite.module.infrastructure.secondary.javadependency.JavaDependenciesCommandHandler;
 import tech.jhipster.lite.shared.enumeration.domain.Enums;
 import tech.jhipster.lite.shared.error.domain.Assert;
 import tech.jhipster.lite.shared.error.domain.GeneratorException;
-import tech.jhipster.lite.shared.generation.domain.ExcludeFromGeneratedCodeCoverage;
 
 public class MavenCommandHandler implements JavaDependenciesCommandHandler {
 
   private static final String COMMAND = "command";
-  private static final int DEFAULT_MAVEN_INDENTATION = 2;
 
-  private final Indentation indentation;
+  private final XMLFormat xmlFormat;
   private final Path pomPath;
   private final Model pomModel;
 
@@ -47,7 +39,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     Assert.notNull("indentation", indentation);
     Assert.notNull("pomPath", pomPath);
 
-    this.indentation = indentation;
+    this.xmlFormat = XMLFormat.builder(XMLFormat.DEFAULT).indent(indentation.spaces()).build();
     this.pomPath = pomPath;
     pomModel = readModel(pomPath);
   }
@@ -428,22 +420,7 @@ public class MavenCommandHandler implements JavaDependenciesCommandHandler {
     };
   }
 
-  @ExcludeFromGeneratedCodeCoverage(reason = "The exception handling is hard to test and an implementation detail")
   private void writePom() {
-    StringWriter stringWriter = new StringWriter();
-    Maven.writeModel(pomModel, pomPath, stringWriter);
-
-    try {
-      Files.writeString(pomPath, applyIndentation(stringWriter.toString()), StandardCharsets.UTF_8);
-    } catch (IOException e) {
-      throw GeneratorException.technicalError("Error writing pom: " + e.getMessage(), e);
-    }
-  }
-
-  private String applyIndentation(String pomContent) {
-    if (indentation.spacesCount() == DEFAULT_MAVEN_INDENTATION) {
-      return pomContent;
-    }
-    return pomContent.replace(" ".repeat(DEFAULT_MAVEN_INDENTATION), indentation.spaces());
+    Maven.writeModel(pomModel, pomPath, xmlFormat);
   }
 }

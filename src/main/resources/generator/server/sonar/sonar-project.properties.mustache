@@ -16,7 +16,7 @@ sonar.junit.reportPaths={{projectBuildDirectory}}/surefire-reports,{{projectBuil
 sonar.sourceEncoding=UTF-8
 sonar.exclusions=src/main/webapp/main.ts, src/main/webapp/app/main.ts, src/main/webapp/content/**/*.*, src/main/webapp/i18n/*.js, {{projectBuildDirectory}}/classes/static/**/*.*, src/main/webapp/app/index.tsx
 
-sonar.issue.ignore.multicriteria=S117,S119,S125,S3437,S4502,S4684,S4032,S5778,S1133,S6206,S6548,S6471,UndocumentedApi
+sonar.issue.ignore.multicriteria=S117,S119,S125,S3437,S4502,S4684,S4032,S5778,S1133,S6206,S6548,S6437,S6471,UndocumentedApi
 
 # Rule: Local variable and method parameter names should comply with a naming convention
 # Handled with checkstyle. Should be revisited with java 25 once Unnamed Patterns and Variables are available (JEP 443)
@@ -66,6 +66,10 @@ sonar.issue.ignore.multicriteria.S125.ruleKey=xml:S125
 # Rule: Use Singleton pattern with care
 sonar.issue.ignore.multicriteria.S6548.resourceKey=src/main/java/**
 sonar.issue.ignore.multicriteria.S6548.ruleKey=java:S6548
+
+# Rule: Credentials should not be hard-coded
+sonar.issue.ignore.multicriteria.S6437.resourceKey=src/main/resources/config/application.yml
+sonar.issue.ignore.multicriteria.S6437.ruleKey=java:S6437
 
 # Rule: Run container as default user
 sonar.issue.ignore.multicriteria.S6471.resourceKey=src/main/docker/cassandra/**

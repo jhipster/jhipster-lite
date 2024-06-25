@@ -15,7 +15,7 @@ import jakarta.annotation.PostConstruct;
 @ConfigurationProperties(prefix = "kafka")
 public class KafkaProperties {
 
-  @Value("${kafka.bootstrap.servers:localhost:9092}")
+  @Value("${kafka.bootstrap.servers:#{'localhost:9092'}}")
   private String bootstrapServers;
 
   @Value("${kafka.polling.timeout:10000}")

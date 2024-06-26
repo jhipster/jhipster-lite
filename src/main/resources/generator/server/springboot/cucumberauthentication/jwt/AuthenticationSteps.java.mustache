@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.crypto.SecretKey;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -25,11 +24,10 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 public class AuthenticationSteps {
 
   private final Map<String, User> users;
+  private final TestRestTemplate rest;
 
-  @Autowired
-  private TestRestTemplate rest;
-
-  public AuthenticationSteps(JwtAuthenticationProperties properties) {
+  AuthenticationSteps(JwtAuthenticationProperties properties, TestRestTemplate rest) {
+    this.rest = rest;
     users = new UsersBuilder(buildKey(properties)).add("admin", Role.ADMIN).add("user", Role.USER).build();
   }
 

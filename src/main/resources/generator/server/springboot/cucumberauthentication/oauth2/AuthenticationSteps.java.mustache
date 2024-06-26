@@ -23,7 +23,7 @@ public class AuthenticationSteps {
   private static final Map<String, User> users = new UsersBuilder().add("admin", Role.ADMIN).add("user", Role.USER).build();
   private final TestRestTemplate rest;
 
-  AuthenticationSteps(JwtAuthenticationProperties properties, TestRestTemplate rest) {
+  AuthenticationSteps(TestRestTemplate rest) {
     this.rest = rest;
   }
 

@@ -61,7 +61,7 @@ public class AngularModuleFactory {
         .addDevDependency(packageName("ts-jest"), COMMON)
         .addDevDependency(packageName("jest-preset-angular"), ANGULAR)
         .addDevDependency(packageName("jest-sonar-reporter"), ANGULAR)
-        .addDevDependency(packageName("typescript"), COMMON)
+        .addDevDependency(packageName("typescript"), ANGULAR)
         .addScript(scriptKey("ng"), scriptCommand("ng"))
         .addScript(scriptKey("start"), scriptCommand("ng serve"))
         .addScript(scriptKey("build"), scriptCommand("ng build"))

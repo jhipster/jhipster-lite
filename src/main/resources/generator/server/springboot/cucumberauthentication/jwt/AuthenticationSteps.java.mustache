@@ -109,6 +109,7 @@ public class AuthenticationSteps {
       authorities = Stream.of(roles).map(Role::key).collect(Collectors.joining(","));
     }
 
+    @SuppressWarnings("java:S1144")
     private String token() {
       return Jwts
         .builder()

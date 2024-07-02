@@ -83,14 +83,17 @@ public class VersionsCatalog {
   public void removeLibrary(DependencyId dependency) {
     libraryEntriesMatchingDependency(dependency).forEach(libraryConfig -> {
       tomlConfigFile.remove(List.of(LIBRARIES_TOML_KEY, libraryConfig.getKey()));
-      if (versionUnused(tomlConfigFile, libraryConfig)) {
-        VersionSlug.of(versionReference(libraryConfig)).ifPresent(this::removeVersion);
-      }
+
+      VersionSlug.of(versionReference(libraryConfig)).ifPresent(versionSlug -> {
+        if (versionUnused(tomlConfigFile, versionSlug)) {
+          this.removeVersion(versionSlug);
+        }
+      });
     });
     save();
   }
 
-  private static boolean versionUnused(FileConfig tomlConfigFile, Entry libraryConfig) {
+  private static boolean versionUnused(FileConfig tomlConfigFile, VersionSlug versionSlug) {
     return tomlConfigFile
       .entrySet()
       .stream()
@@ -100,13 +103,13 @@ public class VersionsCatalog {
       .map(Config.class::cast)
       .map(Config::entrySet)
       .flatMap(Collection::stream)
-      .noneMatch(versionShouldMatch(versionReference(libraryConfig)));
+      .noneMatch(versionShouldMatch(versionSlug));
   }
 
-  private static Predicate<Entry> versionShouldMatch(String versionReference) {
+  private static Predicate<Entry> versionShouldMatch(VersionSlug versionSlug) {
     return libraryConfig -> {
       Object versionProperty = versionReference(libraryConfig);
-      return versionProperty.equals(versionReference);
+      return versionProperty.equals(versionSlug.slug());
     };
   }
 

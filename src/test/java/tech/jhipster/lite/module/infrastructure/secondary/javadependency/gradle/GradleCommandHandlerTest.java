@@ -1005,6 +1005,41 @@ class GradleCommandHandlerTest {
           """
         );
     }
+
+    @Test
+    void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByDependencyInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      JavaDependency starterWebDependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-starter-web")
+        .versionSlug("spring-boot")
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(starterWebDependency));
+      gradleCommandHandler.handle(
+        new AddDirectJavaDependency(
+          javaDependency()
+            .groupId("org.springframework.boot")
+            .artifactId("spring-boot-starter-data-jpa")
+            .versionSlug("spring-boot")
+            .build(),
+          localBuildProfile()
+        )
+      );
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(starterWebDependency.id()));
+
+      assertThat(versionCatalogContent(projectFolder)).contains("spring-boot = ");
+      assertThat(versionCatalogContent(projectFolder)).doesNotContain("[libraries.spring-boot-starter-web]");
+      assertThat(versionCatalogContent(projectFolder)).contains("[libraries.spring-boot-starter-data-jpa]");
+    }
   }
 
   @Nested

@@ -26,6 +26,7 @@ public class VersionsCatalog {
   private static final String VERSIONS_TOML_KEY = "versions";
   private static final String LIBRARIES_TOML_KEY = "libraries";
   private static final String PLUGINS_TOML_KEY = "plugins";
+  private static final String VERSION_REF = "version.ref";
 
   private final FileConfig tomlConfigFile;
 
@@ -74,7 +75,7 @@ public class VersionsCatalog {
     Config libraryConfig = Config.inMemory();
     libraryConfig.set("group", dependency.id().groupId().get());
     libraryConfig.set("name", dependency.id().artifactId().get());
-    dependency.version().ifPresent(versionSlug -> libraryConfig.set("version.ref", versionSlug.slug()));
+    dependency.version().ifPresent(versionSlug -> libraryConfig.set(VERSION_REF, versionSlug.slug()));
     String libraryEntryKey = libraryAlias(dependency);
     tomlConfigFile.set(List.of(LIBRARIES_TOML_KEY, libraryEntryKey), libraryConfig);
     save();
@@ -114,7 +115,7 @@ public class VersionsCatalog {
   }
 
   private static String versionReference(Entry libraryConfig) {
-    return ((Config) libraryConfig.getValue()).get("version.ref");
+    return ((Config) libraryConfig.getValue()).get(VERSION_REF);
   }
 
   private void removeVersion(VersionSlug versionSlug) {
@@ -176,7 +177,7 @@ public class VersionsCatalog {
   public void addPlugin(GradleCommunityPlugin plugin) {
     Config pluginConfig = Config.inMemory();
     pluginConfig.set("id", plugin.id().get());
-    plugin.versionSlug().ifPresent(versionSlug -> pluginConfig.set("version.ref", versionSlug.slug()));
+    plugin.versionSlug().ifPresent(versionSlug -> pluginConfig.set(VERSION_REF, versionSlug.slug()));
     String pluginEntryKey = pluginAlias(plugin);
     tomlConfigFile.set(List.of(PLUGINS_TOML_KEY, pluginEntryKey), pluginConfig);
     save();

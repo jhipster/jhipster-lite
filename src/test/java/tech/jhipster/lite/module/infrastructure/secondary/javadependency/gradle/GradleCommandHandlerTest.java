@@ -763,6 +763,67 @@ class GradleCommandHandlerTest {
     }
 
     @Test
+    void shouldRemoveEntryInLibrariesSectionAndEntryInVersionsSection() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(jsonWebTokenVersion()));
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyWithVersion()));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependencyWithVersion().id()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .doesNotContain("json-web-token = ")
+        .doesNotContain("[libraries.jjwt-jackson]")
+        .doesNotContain(
+          """
+          \t\tname = "jjwt-jackson"
+          \t\tgroup = "io.jsonwebtoken"\
+          """
+        )
+        .doesNotContain("[libraries.jjwt-jackson.version]")
+        .doesNotContain(
+          """
+          \t\t\tref = "json-web-token"
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByAnotherDependency() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      JavaDependency starterWebDependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-starter-web")
+        .versionSlug("spring-boot")
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(starterWebDependency));
+      gradleCommandHandler.handle(
+        new AddDirectJavaDependency(
+          javaDependency().groupId("org.springframework.boot").artifactId("spring-boot-starter-data-jpa").versionSlug("spring-boot").build()
+        )
+      );
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(starterWebDependency.id()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-starter-web]")
+        .contains("[libraries.spring-boot-starter-data-jpa]");
+    }
+
+    @Test
     void shouldRemoveDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
@@ -911,6 +972,74 @@ class GradleCommandHandlerTest {
           """
         );
     }
+
+    @Test
+    void shouldRemoveEntryInLibrariesSectionAndEntryInVersionsSectionWhenRemovedDependencyIsInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(jsonWebTokenVersion()));
+      gradleCommandHandler.handle(new AddDirectJavaDependency(dependencyWithVersion(), localBuildProfile()));
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependencyWithVersion().id(), localBuildProfile()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .doesNotContain("json-web-token = ")
+        .doesNotContain("[libraries.jjwt-jackson]")
+        .doesNotContain(
+          """
+          \t\tname = "jjwt-jackson"
+          \t\tgroup = "io.jsonwebtoken"\
+          """
+        )
+        .doesNotContain("[libraries.jjwt-jackson.version]")
+        .doesNotContain(
+          """
+          \t\t\tref = "json-web-token"
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByDependencyInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      JavaDependency starterWebDependency = javaDependency()
+        .groupId("org.springframework.boot")
+        .artifactId("spring-boot-starter-web")
+        .versionSlug("spring-boot")
+        .build();
+      gradleCommandHandler.handle(new AddDirectJavaDependency(starterWebDependency));
+      gradleCommandHandler.handle(
+        new AddDirectJavaDependency(
+          javaDependency()
+            .groupId("org.springframework.boot")
+            .artifactId("spring-boot-starter-data-jpa")
+            .versionSlug("spring-boot")
+            .build(),
+          localBuildProfile()
+        )
+      );
+
+      gradleCommandHandler.handle(new RemoveDirectJavaDependency(starterWebDependency.id()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-starter-web]")
+        .contains("[libraries.spring-boot-starter-data-jpa]");
+    }
   }
 
   @Nested
@@ -1017,6 +1146,61 @@ class GradleCommandHandlerTest {
     }
 
     @Test
+    void shouldRemoveEntryInLibrariesSectionAndEntryInVersionsSection() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .doesNotContain("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-dependencies]")
+        .doesNotContain(
+          """
+          \t\tname = "spring-boot-dependencies"
+          \t\tgroup = "org.springframework.boot"
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByAnotherDependencyManagement() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+      gradleCommandHandler.handle(
+        new AddJavaDependencyManagement(
+          javaDependency()
+            .groupId("org.springframework.boot")
+            .artifactId("spring-boot-starter-data-jpa")
+            .versionSlug("spring-boot")
+            .scope(JavaDependencyScope.IMPORT)
+            .build()
+        )
+      );
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-dependencies]")
+        .contains("[libraries.spring-boot-starter-data-jpa]");
+    }
+
+    @Test
     void shouldRemoveDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
@@ -1100,6 +1284,64 @@ class GradleCommandHandlerTest {
           \t\tgroup = "org.springframework.boot"
           """
         );
+    }
+
+    @Test
+    void shouldRemoveEntryInLibrariesSectionAndEntryInVersionsSectionWhenRemovedDependencyManagementIsInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile()));
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id(), localBuildProfile()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .doesNotContain("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-dependencies]")
+        .doesNotContain(
+          """
+          \t\tname = "spring-boot-dependencies"
+          \t\tgroup = "org.springframework.boot"
+          """
+        );
+    }
+
+    @Test
+    void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByDependencyManagementInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+      gradleCommandHandler.handle(
+        new AddJavaDependencyManagement(
+          javaDependency()
+            .groupId("org.springframework.boot")
+            .artifactId("spring-boot-starter-data-jpa")
+            .versionSlug("spring-boot")
+            .scope(JavaDependencyScope.IMPORT)
+            .build(),
+          localBuildProfile()
+        )
+      );
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-dependencies]")
+        .contains("[libraries.spring-boot-starter-data-jpa]");
     }
   }
 

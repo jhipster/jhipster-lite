@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import tech.jhipster.lite.module.domain.gradleplugin.GradleCommunityPlugin;
 import tech.jhipster.lite.module.domain.gradleplugin.GradlePluginSlug;
 import tech.jhipster.lite.module.domain.javabuild.DependencySlug;
+import tech.jhipster.lite.module.domain.javabuild.VersionSlug;
 import tech.jhipster.lite.module.domain.javadependency.DependencyId;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependency;
 import tech.jhipster.lite.module.domain.javadependency.JavaDependencyVersion;
@@ -25,6 +26,7 @@ public class VersionsCatalog {
   private static final String VERSIONS_TOML_KEY = "versions";
   private static final String LIBRARIES_TOML_KEY = "libraries";
   private static final String PLUGINS_TOML_KEY = "plugins";
+  private static final String VERSION_REF = "version.ref";
 
   private final FileConfig tomlConfigFile;
 
@@ -73,16 +75,55 @@ public class VersionsCatalog {
     Config libraryConfig = Config.inMemory();
     libraryConfig.set("group", dependency.id().groupId().get());
     libraryConfig.set("name", dependency.id().artifactId().get());
-    dependency.version().ifPresent(versionSlug -> libraryConfig.set("version.ref", versionSlug.slug()));
+    dependency.version().ifPresent(versionSlug -> libraryConfig.set(VERSION_REF, versionSlug.slug()));
     String libraryEntryKey = libraryAlias(dependency);
     tomlConfigFile.set(List.of(LIBRARIES_TOML_KEY, libraryEntryKey), libraryConfig);
     save();
   }
 
   public void removeLibrary(DependencyId dependency) {
-    libraryEntriesMatchingDependency(dependency).forEach(
-      libraryConfig -> tomlConfigFile.remove(List.of(LIBRARIES_TOML_KEY, libraryConfig.getKey()))
-    );
+    libraryEntriesMatchingDependency(dependency).forEach(libraryConfig -> {
+      tomlConfigFile.remove(List.of(LIBRARIES_TOML_KEY, libraryConfig.getKey()));
+
+      removeUnusedVersion(libraryConfig);
+    });
+    save();
+  }
+
+  private void removeUnusedVersion(Entry libraryConfig) {
+    VersionSlug.of(versionReference(libraryConfig)).ifPresent(versionSlug -> {
+      if (versionUnused(tomlConfigFile, versionSlug)) {
+        this.removeVersion(versionSlug);
+      }
+    });
+  }
+
+  private static String versionReference(Entry libraryConfig) {
+    return ((Config) libraryConfig.getValue()).get(VERSION_REF);
+  }
+
+  private static boolean versionUnused(FileConfig tomlConfigFile, VersionSlug versionSlug) {
+    return tomlConfigFile
+      .entrySet()
+      .stream()
+      .filter(entry -> entry.getKey().equals(LIBRARIES_TOML_KEY))
+      .map(Entry::getValue)
+      .filter(Config.class::isInstance)
+      .map(Config.class::cast)
+      .map(Config::entrySet)
+      .flatMap(Collection::stream)
+      .noneMatch(versionShouldMatch(versionSlug));
+  }
+
+  private static Predicate<Entry> versionShouldMatch(VersionSlug versionSlug) {
+    return libraryConfig -> {
+      Object versionProperty = versionReference(libraryConfig);
+      return versionProperty.equals(versionSlug.slug());
+    };
+  }
+
+  private void removeVersion(VersionSlug versionSlug) {
+    tomlConfigFile.remove(List.of(VERSIONS_TOML_KEY, versionSlug.slug()));
     save();
   }
 
@@ -140,7 +181,7 @@ public class VersionsCatalog {
   public void addPlugin(GradleCommunityPlugin plugin) {
     Config pluginConfig = Config.inMemory();
     pluginConfig.set("id", plugin.id().get());
-    plugin.versionSlug().ifPresent(versionSlug -> pluginConfig.set("version.ref", versionSlug.slug()));
+    plugin.versionSlug().ifPresent(versionSlug -> pluginConfig.set(VERSION_REF, versionSlug.slug()));
     String pluginEntryKey = pluginAlias(plugin);
     tomlConfigFile.set(List.of(PLUGINS_TOML_KEY, pluginEntryKey), pluginConfig);
     save();

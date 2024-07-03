@@ -85,13 +85,17 @@ public class VersionsCatalog {
     libraryEntriesMatchingDependency(dependency).forEach(libraryConfig -> {
       tomlConfigFile.remove(List.of(LIBRARIES_TOML_KEY, libraryConfig.getKey()));
 
-      VersionSlug.of(versionReference(libraryConfig)).ifPresent(versionSlug -> {
-        if (versionUnused(tomlConfigFile, versionSlug)) {
-          this.removeVersion(versionSlug);
-        }
-      });
+      removeUnusedVersion(libraryConfig);
     });
     save();
+  }
+
+  private void removeUnusedVersion(Entry libraryConfig) {
+    VersionSlug.of(versionReference(libraryConfig)).ifPresent(versionSlug -> {
+      if (versionUnused(tomlConfigFile, versionSlug)) {
+        this.removeVersion(versionSlug);
+      }
+    });
   }
 
   private static boolean versionUnused(FileConfig tomlConfigFile, VersionSlug versionSlug) {

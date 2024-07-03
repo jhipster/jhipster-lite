@@ -777,7 +777,7 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependencyWithVersion().id()));
 
       assertThat(versionCatalogContent(projectFolder))
-        .doesNotContain("json-web-token = \"1.2.3\"")
+        .doesNotContain("json-web-token = ")
         .doesNotContain("[libraries.jjwt-jackson]")
         .doesNotContain(
           """
@@ -990,7 +990,7 @@ class GradleCommandHandlerTest {
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(dependencyWithVersion().id(), localBuildProfile()));
 
       assertThat(versionCatalogContent(projectFolder))
-        .doesNotContain("json-web-token = \"1.2.3\"")
+        .doesNotContain("json-web-token = ")
         .doesNotContain("[libraries.jjwt-jackson]")
         .doesNotContain(
           """
@@ -1036,9 +1036,10 @@ class GradleCommandHandlerTest {
 
       gradleCommandHandler.handle(new RemoveDirectJavaDependency(starterWebDependency.id()));
 
-      assertThat(versionCatalogContent(projectFolder)).contains("spring-boot = ");
-      assertThat(versionCatalogContent(projectFolder)).doesNotContain("[libraries.spring-boot-starter-web]");
-      assertThat(versionCatalogContent(projectFolder)).contains("[libraries.spring-boot-starter-data-jpa]");
+      assertThat(versionCatalogContent(projectFolder))
+        .contains("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-starter-web]")
+        .contains("[libraries.spring-boot-starter-data-jpa]");
     }
   }
 

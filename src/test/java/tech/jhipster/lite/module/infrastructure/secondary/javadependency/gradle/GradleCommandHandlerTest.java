@@ -1255,6 +1255,32 @@ class GradleCommandHandlerTest {
           """
         );
     }
+
+    @Test
+    void shouldRemoveEntryInLibrariesSectionAndEntryInVersionsSectionWhenRemovedDependencyManagementIsInBuildGradleProfileFile() {
+      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/gradle-with-local-profile");
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement(), localBuildProfile()));
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id(), localBuildProfile()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .doesNotContain("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-dependencies]")
+        .doesNotContain(
+          """
+          \t\tname = "spring-boot-dependencies"
+          \t\tgroup = "org.springframework.boot"
+          """
+        );
+    }
   }
 
   @Nested

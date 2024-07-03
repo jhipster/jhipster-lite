@@ -98,6 +98,10 @@ public class VersionsCatalog {
     });
   }
 
+  private static String versionReference(Entry libraryConfig) {
+    return ((Config) libraryConfig.getValue()).get(VERSION_REF);
+  }
+
   private static boolean versionUnused(FileConfig tomlConfigFile, VersionSlug versionSlug) {
     return tomlConfigFile
       .entrySet()
@@ -116,10 +120,6 @@ public class VersionsCatalog {
       Object versionProperty = versionReference(libraryConfig);
       return versionProperty.equals(versionSlug.slug());
     };
-  }
-
-  private static String versionReference(Entry libraryConfig) {
-    return ((Config) libraryConfig.getValue()).get(VERSION_REF);
   }
 
   private void removeVersion(VersionSlug versionSlug) {

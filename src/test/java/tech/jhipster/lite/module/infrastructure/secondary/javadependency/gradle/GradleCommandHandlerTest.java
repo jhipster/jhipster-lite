@@ -795,7 +795,6 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByAnotherDependency() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
         projectFolder,
@@ -1173,7 +1172,6 @@ class GradleCommandHandlerTest {
 
     @Test
     void shouldRemoveEntryInLibrariesSectionButKeepEntryInVersionsSectionIfStillUsedByAnotherDependencyManagement() {
-      JHipsterProjectFolder projectFolder = projectFrom("src/test/resources/projects/empty-gradle");
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,
         projectFolder,

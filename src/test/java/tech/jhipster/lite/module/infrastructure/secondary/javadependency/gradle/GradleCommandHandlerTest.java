@@ -1146,6 +1146,31 @@ class GradleCommandHandlerTest {
     }
 
     @Test
+    void shouldRemoveEntryInLibrariesSectionAndEntryInVersionsSection() {
+      GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
+        Indentation.DEFAULT,
+        projectFolder,
+        emptyModuleContext(),
+        files,
+        fileReplacer
+      );
+      gradleCommandHandler.handle(new SetVersion(springBootVersion()));
+      gradleCommandHandler.handle(new AddJavaDependencyManagement(springBootDependencyManagement()));
+
+      gradleCommandHandler.handle(new RemoveJavaDependencyManagement(springBootDependencyManagement().id()));
+
+      assertThat(versionCatalogContent(projectFolder))
+        .doesNotContain("spring-boot = ")
+        .doesNotContain("[libraries.spring-boot-dependencies]")
+        .doesNotContain(
+          """
+          \t\tname = "spring-boot-dependencies"
+          \t\tgroup = "org.springframework.boot"
+          """
+        );
+    }
+
+    @Test
     void shouldRemoveDependencyInBuildGradleFile() {
       GradleCommandHandler gradleCommandHandler = new GradleCommandHandler(
         Indentation.DEFAULT,

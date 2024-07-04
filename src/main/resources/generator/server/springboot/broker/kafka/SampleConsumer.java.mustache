@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SampleConsumer extends AbstractConsumer<String> {
 
-  private final Logger log = LoggerFactory.getLogger(SampleConsumer.class);
+  private static final Logger log = LoggerFactory.getLogger(SampleConsumer.class);
 
   public SampleConsumer(
     @Value("${kafka.topic.sample}") final String topicName,

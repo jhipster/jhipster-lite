@@ -33,7 +33,7 @@ import tech.jhipster.lite.shared.error.domain.Assert;
 @SuppressWarnings("java:S6539")
 public class JHipsterModulesApplyer {
 
-  private final Logger log = LoggerFactory.getLogger(JHipsterModulesApplyer.class);
+  private static final Logger log = LoggerFactory.getLogger(JHipsterModulesApplyer.class);
 
   private final JHipsterModulesRepository modules;
   private final JavaDependenciesVersionsRepository javaVersions;

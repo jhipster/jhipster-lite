@@ -414,7 +414,7 @@ public class GradleCommandHandler implements JavaDependenciesCommandHandler {
   private void addScriptPluginForProfile(BuildProfileId buildProfileId) {
     addFileToProject(
       from("buildtool/gradle/buildSrc/src/main/kotlin/profile.gradle.kts.template"),
-      to("buildSrc/src/main/kotlin/profile-%s.gradle.kts".formatted(buildProfileId))
+      to(BUILD_GRADLE_PROFILE_PATH_TEMPLATE.formatted(buildProfileId))
     );
   }
 

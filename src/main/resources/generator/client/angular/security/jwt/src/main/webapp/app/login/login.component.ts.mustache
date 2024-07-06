@@ -24,9 +24,9 @@ export default class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  private accountService = inject(AccountService);
-  private loginService = inject(LoginService);
-  private fb = inject(FormBuilder);
+  private readonly accountService = inject(AccountService);
+  private readonly loginService = inject(LoginService);
+  private readonly fb = inject(FormBuilder);
 
   constructor() {
     this.loginForm = this.fb.nonNullable.group({

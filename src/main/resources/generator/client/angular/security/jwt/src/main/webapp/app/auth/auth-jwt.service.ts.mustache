@@ -11,7 +11,7 @@ type JwtToken = {
 
 @Injectable({ providedIn: 'root' })
 export class AuthServerProvider {
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   login(credentials: Login): Observable<void> {
     return this.http.post<JwtToken>('api/authenticate', credentials).pipe(map(response => this.authenticateSuccess(response)));

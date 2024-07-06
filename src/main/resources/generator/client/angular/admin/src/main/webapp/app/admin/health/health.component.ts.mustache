@@ -39,7 +39,7 @@ export default class HealthComponent implements OnInit {
       next: health => {
         this.datasource = Object.keys(health.components).map(key => {
           return {
-            key: key,
+            key,
             status: health.components[key].status,
             details: health.components[key].details,
           };

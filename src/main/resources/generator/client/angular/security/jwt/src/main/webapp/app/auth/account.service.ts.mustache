@@ -8,10 +8,10 @@ import { Account } from './account.model';
 @Injectable({ providedIn: 'root' })
 export class AccountService {
   private userIdentity: Account | null = null;
-  private authenticationState = new ReplaySubject<Account | null>(1);
+  private readonly authenticationState = new ReplaySubject<Account | null>(1);
   private accountCache$?: Observable<Account> | null;
 
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   authenticate(identity: Account | null): void {
     this.userIdentity = identity;

@@ -47,7 +47,7 @@ describe('HealthComponent', () => {
       }));
     });
 
-    it('should call checkHealth on refresh', (done) => {
+    it('should call checkHealth on refresh', done => {
       // GIVEN
       const health: Health = { status: 'UP', components: { mail: { status: 'UP', details: { mailDetail: 'mail' } } } };
       jest.spyOn(service, 'checkHealth').mockImplementation(() => of(health));

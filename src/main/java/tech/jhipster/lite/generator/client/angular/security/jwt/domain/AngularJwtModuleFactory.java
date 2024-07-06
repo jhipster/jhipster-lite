@@ -33,7 +33,7 @@ public class AngularJwtModuleFactory {
 
   private static final String AUTH_INTERCEPTOR_IMPORT =
     """
-    import { AuthInterceptor } from './app/auth/auth.interceptor';
+    import { authInterceptor } from './app/auth/auth.interceptor';
     """;
 
   private static final JHipsterSource SOURCE = from("client/angular/security/jwt/src/main/webapp/app");
@@ -68,7 +68,7 @@ public class AngularJwtModuleFactory {
         .and()
       .mandatoryReplacements()
         .in(path("src/main/webapp/main.ts"))
-          .add(EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE, "provideHttpClient(withInterceptors([AuthInterceptor])),")
+          .add(EXISTING_PROVIDE_HTTP_CLIENT_NEEDLE, "provideHttpClient(withInterceptors([authInterceptor])),")
           .add(fileStart(), AUTH_INTERCEPTOR_IMPORT)
           .and()
         .in(path("src/main/webapp/app/app.route.ts"))

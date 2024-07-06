@@ -3,7 +3,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { AuthServerProvider } from './auth-jwt.service';
-import { AuthInterceptor } from './auth.interceptor';
+import { authInterceptor } from './auth.interceptor';
 
 describe('Auth Interceptor', () => {
   let service: AuthServerProvider;
@@ -13,7 +13,7 @@ describe('Auth Interceptor', () => {
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(
-          withInterceptors([AuthInterceptor])
+          withInterceptors([authInterceptor])
         ),
         provideHttpClientTesting(),
       ],

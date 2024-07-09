@@ -10,13 +10,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: tag => /^x-/.test(tag),
-        },
-      },
-    }),
+    vue(),
   ],
   build: {
     outDir: '../../../{{projectBuildDirectory}}/classes/static',

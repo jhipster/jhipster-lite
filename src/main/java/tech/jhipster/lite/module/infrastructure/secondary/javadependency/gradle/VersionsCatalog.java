@@ -90,6 +90,21 @@ public class VersionsCatalog {
     save();
   }
 
+  private List<? extends Entry> libraryEntriesMatchingDependency(DependencyId dependency) {
+    return tomlConfigFile
+      .entrySet()
+      .stream()
+      .filter(entry -> entry.getKey().equals(LIBRARIES_TOML_KEY))
+      .map(Entry::getValue)
+      .filter(Config.class::isInstance)
+      .map(Config.class::cast)
+      .map(Config::entrySet)
+      .flatMap(Collection::stream)
+      .filter(groupShouldMatch(dependency))
+      .filter(nameShouldMatch(dependency))
+      .toList();
+  }
+
   private void removeUnusedVersion(Entry libraryConfig) {
     VersionSlug.of(versionReference(libraryConfig)).ifPresent(versionSlug -> {
       if (versionUnused(tomlConfigFile, versionSlug)) {
@@ -125,21 +140,6 @@ public class VersionsCatalog {
   private void removeVersion(VersionSlug versionSlug) {
     tomlConfigFile.remove(List.of(VERSIONS_TOML_KEY, versionSlug.slug()));
     save();
-  }
-
-  private List<? extends Entry> libraryEntriesMatchingDependency(DependencyId dependency) {
-    return tomlConfigFile
-      .entrySet()
-      .stream()
-      .filter(entry -> entry.getKey().equals(LIBRARIES_TOML_KEY))
-      .map(Entry::getValue)
-      .filter(Config.class::isInstance)
-      .map(Config.class::cast)
-      .map(Config::entrySet)
-      .flatMap(Collection::stream)
-      .filter(groupShouldMatch(dependency))
-      .filter(nameShouldMatch(dependency))
-      .toList();
   }
 
   private static Predicate<Entry> groupShouldMatch(DependencyId dependency) {

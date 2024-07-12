@@ -77,6 +77,7 @@ class ProtobufModuleFactoryTest {
                       <sourceDirectories>
                         <sourceDirectory>src/main/proto</sourceDirectory>
                       </sourceDirectories>
+                      <failOnMissingSources>false</failOnMissingSources>
                     </configuration>
                   </plugin>
           """

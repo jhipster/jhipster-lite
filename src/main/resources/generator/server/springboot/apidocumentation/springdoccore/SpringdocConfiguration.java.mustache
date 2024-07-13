@@ -27,11 +27,11 @@ class SpringdocConfiguration {
       .title("{{apiTitle}}")
       .description("{{apiDescription}}")
       .version(version)
-      .license(new License().name("{{apiLicenseName}}").url("{{apiLicenseUrl}}"));
+      .license(new License().name("{{apiLicenseName}}"));
   }
 
   private ExternalDocumentation swaggerExternalDoc() {
-    return new ExternalDocumentation().description("{{apiExternalDocDescription}}").url("{{apiExternalDocUrl}}");
+    return new ExternalDocumentation().description("{{apiExternalDocDescription}}");
   }
 
   @Bean

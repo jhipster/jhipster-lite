@@ -17,7 +17,7 @@ class SpringDocAuth0ModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .put("auth0Domain", "dev-123456.us.auth0.com")
       .put("auth0ClientId", "my-client-id")
       .build();

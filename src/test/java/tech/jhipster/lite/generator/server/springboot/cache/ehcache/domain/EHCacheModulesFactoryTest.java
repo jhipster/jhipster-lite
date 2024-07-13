@@ -19,12 +19,12 @@ class EHCacheModulesFactoryTest {
     JHipsterModule module = factory.buildJavaConfigurationModule(properties());
 
     commonEHCacheModuleAsserter(module)
-      .hasFile("src/main/java/com/jhipster/test/wire/cache/infrastructure/secondary/CacheConfiguration.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/cache/infrastructure/secondary/CacheConfiguration.java")
       .containing("JCacheManagerCustomizer")
       .and()
-      .hasFiles("src/main/java/com/jhipster/test/wire/cache/infrastructure/secondary/EhcacheProperties.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/wire/cache/infrastructure/secondary/EhcacheProperties.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/wire/cache/infrastructure/secondary",
+        "src/test/java/tech/jhipster/jhlitest/wire/cache/infrastructure/secondary",
         "CacheConfigurationIT.java",
         "CacheConfigurationTest.java"
       )
@@ -87,6 +87,6 @@ class EHCacheModulesFactoryTest {
   }
 
   private JHipsterModuleProperties properties() {
-    return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).basePackage("com.jhipster.test").build();
+    return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest()).basePackage("tech.jhipster.jhlitest").build();
   }
 }

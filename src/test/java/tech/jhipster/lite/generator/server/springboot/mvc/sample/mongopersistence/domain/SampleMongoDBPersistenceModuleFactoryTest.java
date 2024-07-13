@@ -17,42 +17,42 @@ class SampleMongoDBPersistenceModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, sampleInMemoryRepository(), inMemoryBeersResetter())
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/sample/infrastructure/secondary",
+        "src/main/java/tech/jhipster/jhlitest/sample/infrastructure/secondary",
         "BeerDocument.java",
         "MongoDBBeersRepository.java",
         "SpringDataBeersRepository.java",
         "BeersCollectionChangeUnit.java"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/sample/infrastructure/secondary",
+        "src/test/java/tech/jhipster/jhlitest/sample/infrastructure/secondary",
         "BeerDocumentTest.java",
         "MongoDBBeersRepositoryIT.java",
         "MongoDBBeersResetter.java"
       )
       .doNotHaveFiles(
-        "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java",
-        "src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java"
+        "src/main/java/tech/jhipster/jhlitest/sample/infrastructure/secondary/InMemoryBeersRepository.java",
+        "src/test/java/tech/jhipster/jhlitest/sample/infrastructure/secondary/InMemoryBeersResetter.java"
       );
   }
 
   private ModuleFile sampleInMemoryRepository() {
     return file(
       "src/test/resources/projects/sample-feature/InMemoryBeersRepository.java",
-      "src/main/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersRepository.java"
+      "src/main/java/tech/jhipster/jhlitest/sample/infrastructure/secondary/InMemoryBeersRepository.java"
     );
   }
 
   private ModuleFile inMemoryBeersResetter() {
     return file(
       "src/test/resources/projects/sample-feature/InMemoryBeersResetter.java",
-      "src/test/java/com/jhipster/test/sample/infrastructure/secondary/InMemoryBeersResetter.java"
+      "src/test/java/tech/jhipster/jhlitest/sample/infrastructure/secondary/InMemoryBeersResetter.java"
     );
   }
 }

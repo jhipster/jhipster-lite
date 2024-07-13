@@ -22,7 +22,7 @@ class LiquibaseModuleFactoryTest {
     @Test
     void shouldBuildModule() {
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
-        .basePackage("com.jhipster.test")
+        .basePackage("tech.jhipster.jhlitest")
         .build();
 
       JHipsterModule module = factory.buildModule(properties);
@@ -67,20 +67,20 @@ class LiquibaseModuleFactoryTest {
     @Test
     void shouldBuildAsyncModule() {
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
-        .basePackage("com.jhipster.test")
+        .basePackage("tech.jhipster.jhlitest")
         .build();
 
       JHipsterModule module = factory.buildAsyncModule(properties);
 
       assertThatModuleWithFiles(module, pomFile(), logbackFile(), testLogbackFile())
         .hasPrefixedFiles(
-          "src/main/java/com/jhipster/test/wire/liquibase/infrastructure/secondary",
+          "src/main/java/tech/jhipster/jhlitest/wire/liquibase/infrastructure/secondary",
           "AsyncSpringLiquibase.java",
           "LiquibaseConfiguration.java",
           "SpringLiquibaseUtil.java"
         )
         .hasPrefixedFiles(
-          "src/test/java/com/jhipster/test/wire/liquibase/infrastructure/secondary",
+          "src/test/java/tech/jhipster/jhlitest/wire/liquibase/infrastructure/secondary",
           "AsyncSpringLiquibaseTest.java",
           "LiquibaseConfigurationIT.java",
           "SpringLiquibaseUtilTest.java"
@@ -90,14 +90,14 @@ class LiquibaseModuleFactoryTest {
     @Test
     void shouldBuildModuleWithYamlSpringConfigurationFormat() {
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
-        .basePackage("com.jhipster.test")
+        .basePackage("tech.jhipster.jhlitest")
         .springConfigurationFormat(YAML)
         .build();
 
       JHipsterModule module = factory.buildAsyncModule(properties);
 
       assertThatModuleWithFiles(module, pomFile(), logbackFile(), testLogbackFile())
-        .hasFile("src/test/java/com/jhipster/test/wire/liquibase/infrastructure/secondary/SpringLiquibaseUtilTest.java")
+        .hasFile("src/test/java/tech/jhipster/jhlitest/wire/liquibase/infrastructure/secondary/SpringLiquibaseUtilTest.java")
         .containing("YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();")
         .notContaining("Properties properties = new Properties();");
     }
@@ -105,14 +105,14 @@ class LiquibaseModuleFactoryTest {
     @Test
     void shouldBuildModuleWithPropertiesSpringConfigurationFormat() {
       JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(tmpDirForTest())
-        .basePackage("com.jhipster.test")
+        .basePackage("tech.jhipster.jhlitest")
         .springConfigurationFormat(PROPERTIES)
         .build();
 
       JHipsterModule module = factory.buildAsyncModule(properties);
 
       assertThatModuleWithFiles(module, pomFile(), logbackFile(), testLogbackFile())
-        .hasFile("src/test/java/com/jhipster/test/wire/liquibase/infrastructure/secondary/SpringLiquibaseUtilTest.java")
+        .hasFile("src/test/java/tech/jhipster/jhlitest/wire/liquibase/infrastructure/secondary/SpringLiquibaseUtilTest.java")
         .containing("Properties properties = new Properties();")
         .notContaining("YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();");
     }

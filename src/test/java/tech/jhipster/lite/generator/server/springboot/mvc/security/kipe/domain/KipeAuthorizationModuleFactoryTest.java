@@ -17,7 +17,7 @@ class KipeAuthorizationModuleFactoryTest {
   @Test
   void shouldBuildKipeExpressionModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
@@ -25,22 +25,22 @@ class KipeAuthorizationModuleFactoryTest {
 
     assertThatModule(module)
       .hasFiles("documentation/kipe-authorization.md")
-      .hasFiles("src/main/java/com/jhipster/test/shared/kipe/package-info.java")
-      .hasFiles("src/main/java/com/jhipster/test/shared/kipe/application/MyappAuthorizations.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/shared/kipe/package-info.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/shared/kipe/application/MyappAuthorizations.java")
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/shared/kipe/domain",
+        "src/main/java/tech/jhipster/jhlitest/shared/kipe/domain",
         "Accesses.java",
         "Action.java",
         "Resource.java",
         "RolesAccesses.java"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/kipe/application",
+        "src/test/java/tech/jhipster/jhlitest/shared/kipe/application",
         "MyappAuthorizationsTest.java",
         "TestAuthentications.java"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/kipe/domain",
+        "src/test/java/tech/jhipster/jhlitest/shared/kipe/domain",
         "RolesAccessesFixture.java",
         "RolesAccessesTest.java",
         "ActionTest.java"

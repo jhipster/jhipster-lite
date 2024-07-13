@@ -17,7 +17,7 @@ class CustomJHLiteModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .put("serverPort", 9000)
       .build();
@@ -35,7 +35,7 @@ class CustomJHLiteModuleFactoryTest {
         .and()
       .hasFile("tests-ci/modulePayload.json")
         .containing("""
-          "packageName": "com.jhipster.test.APP_NAME",
+          "packageName": "tech.jhipster.jhlitest.APP_NAME",
         """)
         .and()
       .hasFile("pom.xml")
@@ -89,7 +89,7 @@ class CustomJHLiteModuleFactoryTest {
               allow-bean-definition-overriding: true
           """)
         .and()
-      .hasFile("src/main/java/com/jhipster/test/MyappApp.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/MyappApp.java")
         .containing("import tech.jhipster.lite.JHLiteApp;")
         .containing("@SpringBootApplication(scanBasePackageClasses = { JHLiteApp.class, MyappApp.class })")
         .and()
@@ -99,19 +99,19 @@ class CustomJHLiteModuleFactoryTest {
         "src/main/java/tech/jhipster/test/security/infrastructure/primary/CorsProperties.java",
         "src/test/java/tech/jhipster/test/security/infrastructure/primary/CorsFilterConfigurationIT.java"
       )
-      .hasFile("src/test/java/com/jhipster/test/cucumber/CucumberTest.java")
-        .containing("key = GLUE_PROPERTY_NAME, value = \"com.jhipster.test, tech.jhipster.lite.module.infrastructure.primary\"")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberTest.java")
+        .containing("key = GLUE_PROPERTY_NAME, value = \"tech.jhipster.jhlitest, tech.jhipster.lite.module.infrastructure.primary\"")
         .and()
-      .hasFile("src/test/java/com/jhipster/test/cucumber/CucumberConfiguration.java")
-        .containing("import com.jhipster.test.MyappApp;")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/cucumber/CucumberConfiguration.java")
+        .containing("import tech.jhipster.jhlitest.MyappApp;")
         .and()
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/shared/slug", "package-info.java", "domain/MyappFeatureSlug.java", "domain/MyappModuleSlug.java")
-      .hasFiles("src/test/java/com/jhipster/test/cucumber/rest/CucumberRestTemplate.java")
+      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/slug", "package-info.java", "domain/MyappFeatureSlug.java", "domain/MyappModuleSlug.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/cucumber/rest/CucumberRestTemplate.java")
       .hasFiles("src/test/features/.gitkeep");
     //@formatter:on
   }
 
   private ModuleFile mainAppFile() {
-    return file("src/test/resources/projects/files/MainApp.java", "src/main/java/com/jhipster/test/MyappApp.java");
+    return file("src/test/resources/projects/files/MainApp.java", "src/main/java/tech/jhipster/jhlitest/MyappApp.java");
   }
 }

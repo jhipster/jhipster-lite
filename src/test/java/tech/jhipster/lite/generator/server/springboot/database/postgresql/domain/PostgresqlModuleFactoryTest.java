@@ -30,7 +30,7 @@ class PostgresqlModuleFactoryTest {
   @Test
   void shouldCreateModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
@@ -39,7 +39,7 @@ class PostgresqlModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile())
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/wire/postgresql/infrastructure/secondary", "DatabaseConfiguration.java")
+      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/wire/postgresql/infrastructure/secondary", "DatabaseConfiguration.java")
       .hasFile("documentation/postgresql.md")
       .and()
       .hasFile("pom.xml")

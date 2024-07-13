@@ -174,7 +174,7 @@ class FrontendJavaBuildToolModuleFactoryTest {
       )
       .and()
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/wire/frontend",
+        "src/main/java/tech/jhipster/jhlitest/wire/frontend",
         "infrastructure/primary/RedirectionResource.java",
         "package-info.java"
       );
@@ -281,7 +281,7 @@ class FrontendJavaBuildToolModuleFactoryTest {
 
   private static @NotNull JHipsterModuleProperties getProperties() {
     return JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
   }

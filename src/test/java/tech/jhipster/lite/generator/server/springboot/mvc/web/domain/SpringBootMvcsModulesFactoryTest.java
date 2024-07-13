@@ -17,7 +17,7 @@ class SpringBootMvcsModulesFactoryTest {
   @Test
   void shouldBuildTomcatMvcModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .put("serverPort", 9000)
       .build();
 
@@ -54,7 +54,7 @@ class SpringBootMvcsModulesFactoryTest {
   @Test
   void shouldBuildUndertowModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .put("serverPort", 9000)
       .build();
 
@@ -117,22 +117,22 @@ class SpringBootMvcsModulesFactoryTest {
       )
       .and()
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/wire/security/infrastructure/primary",
+        "src/main/java/tech/jhipster/jhlitest/wire/security/infrastructure/primary",
         "CorsFilterConfiguration.java",
         "CorsProperties.java"
       )
-      .hasFiles("src/main/java/com/jhipster/test/wire/security/package-info.java")
-      .hasPrefixedFiles("src/test/java/com/jhipster/test", "BeanValidationAssertions.java", "BeanValidationTest.java")
-      .hasFiles("src/test/java/com/jhipster/test/wire/security/infrastructure/primary/CorsFilterConfigurationIT.java")
-      .hasFiles("src/test/java/com/jhipster/test/JsonHelper.java")
-      .hasFiles("src/main/java/com/jhipster/test/shared/error/infrastructure/primary/BeanValidationErrorsHandler.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/wire/security/package-info.java")
+      .hasPrefixedFiles("src/test/java/tech/jhipster/jhlitest", "BeanValidationAssertions.java", "BeanValidationTest.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/wire/security/infrastructure/primary/CorsFilterConfigurationIT.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/JsonHelper.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary/BeanValidationErrorsHandler.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/error/infrastructure/primary",
+        "src/test/java/tech/jhipster/jhlitest/shared/error/infrastructure/primary",
         "BeanValidationErrorsHandlerTest.java",
         "BeanValidationErrorsHandlerIT.java"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/error_generator/infrastructure/primary",
+        "src/test/java/tech/jhipster/jhlitest/shared/error_generator/infrastructure/primary",
         "BeanValidationErrorsResource.java",
         "RestMandatoryParameter.java"
       )

@@ -17,7 +17,7 @@ class LogsSpyModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
@@ -25,6 +25,10 @@ class LogsSpyModuleFactoryTest {
 
     assertThatModuleWithFiles(module, pomFile())
       .hasFiles("documentation/logs-spy.md")
-      .hasJavaTests("com/jhipster/test/Logs.java", "com/jhipster/test/LogsSpy.java", "com/jhipster/test/LogsSpyExtension.java");
+      .hasJavaTests(
+        "tech/jhipster/jhlitest/Logs.java",
+        "tech/jhipster/jhlitest/LogsSpy.java",
+        "tech/jhipster/jhlitest/LogsSpyExtension.java"
+      );
   }
 }

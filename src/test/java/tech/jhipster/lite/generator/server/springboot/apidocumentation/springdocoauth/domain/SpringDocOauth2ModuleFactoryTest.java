@@ -18,7 +18,7 @@ class SpringDocOauth2ModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .put("keycloakRealmName", "beer")
       .build();
 
@@ -26,7 +26,7 @@ class SpringDocOauth2ModuleFactoryTest {
 
     //@formatter:off
     assertThatModuleWithFiles(module, pomFile())
-      .hasFiles("src/main/java/com/jhipster/test/wire/springdoc/infrastructure/primary/SpringdocOAuth2Configuration.java")
+      .hasFiles("src/main/java/tech/jhipster/jhlitest/wire/springdoc/infrastructure/primary/SpringdocOAuth2Configuration.java")
       .hasFile("src/main/resources/config/application.yml")
       .containing(
         """

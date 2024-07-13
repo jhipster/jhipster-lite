@@ -17,13 +17,13 @@ class ArchUnitModuleFactoryTest {
   @Test
   void shouldBuildModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile(), testLogbackFile())
-      .hasFiles("src/test/resources/archunit.properties", "src/test/java/com/jhipster/test/AnnotationArchTest.java")
+      .hasFiles("src/test/resources/archunit.properties", "src/test/java/tech/jhipster/jhlitest/AnnotationArchTest.java")
       .hasFile("pom.xml")
       .containing("<artifactId>archunit-junit5-api</artifactId>")
       .and()

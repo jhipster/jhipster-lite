@@ -33,7 +33,7 @@ class CassandraModuleFactoryTest {
     when(dockerImages.get("cassandra")).thenReturn(new DockerImageVersion("cassandra", "4.0.7"));
 
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .build();
 
     JHipsterModule module = factory.buildModule(properties);
@@ -88,16 +88,16 @@ class CassandraModuleFactoryTest {
         """
       )
       .and()
-      .hasFiles("src/test/java/com/jhipster/test/CassandraKeyspaceIT.java")
-      .hasFile("src/test/java/com/jhipster/test/TestCassandraManager.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/CassandraKeyspaceIT.java")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/TestCassandraManager.java")
       .containing("cassandra:4.0.7")
       .and()
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/wire/cassandra/infrastructure/secondary",
+        "src/main/java/tech/jhipster/jhlitest/wire/cassandra/infrastructure/secondary",
         "CassandraDatabaseConfiguration.java",
         "CassandraJSR310DateConverters.java"
       )
-      .hasFiles("src/test/java/com/jhipster/test/wire/cassandra/infrastructure/secondary/CassandraJSR310DateConvertersTest.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/wire/cassandra/infrastructure/secondary/CassandraJSR310DateConvertersTest.java")
       .hasFile("src/test/resources/config/application-test.yml")
       .containing(
         // language=yaml
@@ -112,7 +112,7 @@ class CassandraModuleFactoryTest {
       )
       .and()
       .hasFile("src/test/resources/META-INF/spring.factories")
-      .containing("org.springframework.context.ApplicationListener=com.jhipster.test.TestCassandraManager")
+      .containing("org.springframework.context.ApplicationListener=tech.jhipster.jhlitest.TestCassandraManager")
       .and()
       .hasFile("src/main/resources/logback-spring.xml")
       .containing("<logger name=\"com.datastax\" level=\"WARN\" />")

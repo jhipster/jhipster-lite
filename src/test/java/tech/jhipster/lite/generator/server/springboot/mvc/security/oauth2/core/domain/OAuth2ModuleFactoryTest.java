@@ -31,7 +31,7 @@ class OAuth2ModuleFactoryTest {
   @DisplayName("should create OAuth2 module")
   void shouldCreateOAuth2Module() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .put("keycloakRealmName", "beer")
       .build();
@@ -41,16 +41,16 @@ class OAuth2ModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile(), integrationTestFile(), readmeFile())
-      .hasPrefixedFiles("src/main/java/com/jhipster/test/shared/authentication/domain", "Role.java", "Roles.java", "Username.java")
+      .hasPrefixedFiles("src/main/java/tech/jhipster/jhlitest/shared/authentication/domain", "Role.java", "Roles.java", "Username.java")
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/shared/authentication/application",
+        "src/main/java/tech/jhipster/jhlitest/shared/authentication/application",
         "AuthenticatedUser.java",
         "NotAuthenticatedUserException.java",
         "AuthenticationException.java",
         "UnknownAuthenticationException.java"
       )
       .hasPrefixedFiles(
-        "src/main/java/com/jhipster/test/shared/authentication/infrastructure/primary",
+        "src/main/java/tech/jhipster/jhlitest/shared/authentication/infrastructure/primary",
         "ApplicationSecurityProperties.java",
         "AudienceValidator.java",
         "AuthenticationExceptionAdvice.java",
@@ -61,14 +61,14 @@ class OAuth2ModuleFactoryTest {
         "SecurityConfiguration.java"
       )
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/authentication/domain",
+        "src/test/java/tech/jhipster/jhlitest/shared/authentication/domain",
         "RolesTest.java",
         "RoleTest.java",
         "UsernameTest.java"
       )
-      .hasFiles("src/test/java/com/jhipster/test/shared/authentication/application/AuthenticatedUserTest.java")
+      .hasFiles("src/test/java/tech/jhipster/jhlitest/shared/authentication/application/AuthenticatedUserTest.java")
       .hasPrefixedFiles(
-        "src/test/java/com/jhipster/test/shared/authentication/infrastructure/primary",
+        "src/test/java/tech/jhipster/jhlitest/shared/authentication/infrastructure/primary",
         "AccountExceptionResource.java",
         "ApplicationSecurityPropertiesTest.java",
         "AudienceValidatorTest.java",
@@ -87,7 +87,7 @@ class OAuth2ModuleFactoryTest {
       .hasFile("src/main/docker/keycloak-realm-config/beer-realm.json")
       .containing("1.1.1")
       .and()
-      .hasFile("src/main/java/com/jhipster/test/shared/authentication/package-info.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/shared/authentication/package-info.java")
       .and()
       .hasFile("pom.xml")
       .containing("spring-boot-starter-security")
@@ -134,9 +134,9 @@ class OAuth2ModuleFactoryTest {
         """
       )
       .and()
-      .hasFile("src/test/java/com/jhipster/test/IntegrationTest.java")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/IntegrationTest.java")
       .containing("@SpringBootTest(classes = { MyappApp.class, TestSecurityConfiguration.class })")
-      .containing("import com.jhipster.test.shared.authentication.infrastructure.primary.TestSecurityConfiguration;")
+      .containing("import tech.jhipster.jhlitest.shared.authentication.infrastructure.primary.TestSecurityConfiguration;")
       .containing("@WithMockUser")
       .containing("import org.springframework.security.test.context.support.WithMockUser;")
       .and()
@@ -145,6 +145,6 @@ class OAuth2ModuleFactoryTest {
   }
 
   private static ModuleFile integrationTestFile() {
-    return file("src/test/resources/projects/files/IntegrationTest.java", "src/test/java/com/jhipster/test/IntegrationTest.java");
+    return file("src/test/resources/projects/files/IntegrationTest.java", "src/test/java/tech/jhipster/jhlitest/IntegrationTest.java");
   }
 }

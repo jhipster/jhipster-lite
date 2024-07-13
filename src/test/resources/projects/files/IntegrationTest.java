@@ -1,4 +1,4 @@
-package com.jhipster.test;
+package tech.jhipster.jhlitest;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

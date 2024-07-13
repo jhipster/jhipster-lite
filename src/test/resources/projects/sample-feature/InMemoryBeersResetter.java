@@ -1,4 +1,4 @@
-package com.jhipster.test.dummy.infrastructure.secondary;
+package tech.jhipster.jhlitest.dummy.infrastructure.secondary;
 
 import io.cucumber.java.Before;
 import org.springframework.beans.factory.annotation.Autowired;

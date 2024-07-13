@@ -29,7 +29,7 @@ class MsSQLModuleFactoryTest {
   @Test
   void shouldCreateModule() {
     JHipsterModuleProperties properties = JHipsterModulesFixture.propertiesBuilder(TestFileUtils.tmpDirForTest())
-      .basePackage("com.jhipster.test")
+      .basePackage("tech.jhipster.jhlitest")
       .projectBaseName("myapp")
       .build();
 
@@ -38,11 +38,11 @@ class MsSQLModuleFactoryTest {
     JHipsterModule module = factory.buildModule(properties);
 
     assertThatModuleWithFiles(module, pomFile(), integrationTestAnnotation())
-      .hasFile("src/main/java/com/jhipster/test/wire/mssql/infrastructure/secondary/DatabaseConfiguration.java")
+      .hasFile("src/main/java/tech/jhipster/jhlitest/wire/mssql/infrastructure/secondary/DatabaseConfiguration.java")
       .and()
       .hasFile("documentation/mssql.md")
       .and()
-      .hasFile("src/test/java/com/jhipster/test/MsSQLTestContainerExtension.java")
+      .hasFile("src/test/java/tech/jhipster/jhlitest/MsSQLTestContainerExtension.java")
       .and()
       .hasFile("src/test/resources/container-license-acceptance.txt")
       .and()
@@ -126,6 +126,6 @@ class MsSQLModuleFactoryTest {
   }
 
   private ModuleFile integrationTestAnnotation() {
-    return file("src/test/resources/projects/files/IntegrationTest.java", "src/test/java/com/jhipster/test/IntegrationTest.java");
+    return file("src/test/resources/projects/files/IntegrationTest.java", "src/test/java/tech/jhipster/jhlitest/IntegrationTest.java");
   }
 }
